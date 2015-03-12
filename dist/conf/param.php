@@ -21,7 +21,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
 /* Cookies information |                    */
 /*------------------------------------------*/
 
-$cookie_domain = "comfort.orange.com";
+$cookie_domain = "HEBERGEMENTDOMAIN";
 
 $cookie_name	= "UCI3";
 $cookie_blackListe = "uci-bl";

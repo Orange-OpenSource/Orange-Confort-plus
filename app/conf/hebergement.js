@@ -16,5 +16,5 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
 
 */
 /*Environnement de qualification*/
- var hebergementDomaine = 'http://10.146.50.153';
- var hebergementFullPath = hebergementDomaine + '/';  
+ var hebergementDomaine = 'http://HEBERGEMENTDOMAIN';
+ var hebergementFullPath = hebergementDomaine + '/YOURPATHTOSOURCEFILES';  
