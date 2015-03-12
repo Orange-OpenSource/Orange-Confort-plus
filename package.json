@@ -1,0 +1,46 @@
+{
+  "name": "orange-confort-plus",
+  "version": "3.1.0",
+  "author": "Orange",
+  "dependencies": {},
+  "repository": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git",
+  "description": "enhance user experience on web sites",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-autoprefixer": "^1.0.1",
+    "grunt-banner": "^0.2.3",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-connect": "^0.9.0",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-csslint": "^0.3.1",
+    "grunt-contrib-cssmin": "~0.10.0",
+    "grunt-contrib-htmlmin": "~0.3.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-conventional-changelog": "^1.1.0",
+    "grunt-filerev": "^2.1.1",
+    "grunt-html-build": "^0.4.1",
+    "grunt-karma": "^0.9.0",
+    "grunt-newer": "^0.8.0",
+    "grunt-replace": "^0.8.0",
+    "grunt-rev": "~0.1.0",
+    "grunt-serve": "^0.1.6",
+    "grunt-usemin": "^2.6.0",
+    "grunt-wiredep": "^1.9.0",
+    "jshint-stylish": "~1.0.0",
+    "karma": "^0.12.24",
+    "karma-jasmine": "^0.2.3",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "load-grunt-tasks": "~1.0.0",
+    "time-grunt": "~1.0.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
