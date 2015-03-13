@@ -1,6 +1,6 @@
 {
   "hebergementProtocol": "https:",
-  "cookieDomain": "comfort.orange.com",
-  "hebergementDomaine": "comfort.orange.com",
-  "hebergementFullPath": "/serveur/crossdom/"
+  "cookieDomain": "HEBERGEMENTDOMAIN",
+  "hebergementDomaine": "HEBERGEMENTDOMAIN",
+  "hebergementFullPath": "YOURPATHTOSOURCEFILES"
 }

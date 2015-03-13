@@ -1,8 +1,8 @@
-/* orange-confort-plus - version 3.1.0 - 12-03-2015
+/* orange-confort-plus - version 3.1.0 - 13-03-2015
 enhance user experience on web sites
  Copyright (C) 2014 - 2015 Orange */
-var hebergementDomaine = 'https://comfort.orange.com';
-var hebergementFullPath = hebergementDomaine + '/serveur/crossdom/';
+var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
+var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
 // Source: app/js/UciCookie.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -5229,7 +5229,7 @@ accessibilitytoolbar = {
         var l = document.createElement('LINK');
         l.rel = "stylesheet";
         l.type = "text/css";
-        l.href = hebergementFullPath + 'css/classic-toolbar.669de3f5.css';
+        l.href = hebergementFullPath + 'css/classic-toolbar.504aa93a.css';
         l.id = "a11yCSS";
         this.head.appendChild(l);
     },
