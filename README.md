@@ -22,6 +22,26 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 - Configure your protocol, domain and deployment path into config.json file.
 - Build your dist, deploy and look at the testpage.html
 
+### 1. Configuring the service
+
+```
+{
+"hebergementProtocol": "https:",
+"cookieDomain": "HEBERGEMENTDOMAIN",
+"hebergementDomaine": "HEBERGEMENTDOMAIN",
+"hebergementFullPath": "YOURPATHTOSOURCEFILES"
+}
+```
+
+- `cookieDomain` is the domain on which the cookie will be fixed. It must be the same or a portion of the `hebergementDomaine` domain.
+- `hebergementDomaine` is the domain where you host the _Orange Confort+_ service.
+- `hebergementFullPath` is the full path to the service on your server, complete with beginning and end slash.
+
+### 2. Building the dist
+
+1. `$ npm install`
+2. `$ bower install`
+
 ## Bugs and feature requests
 
 Have a bug or a feature request? Please first check the [issues](https://github.com/Orange-OpenSource/Orange-Confort-plus/issues) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/new).
