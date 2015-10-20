@@ -142,8 +142,10 @@ traduction['en']={
   uci_stopLoop:"Pause navigation",
   uci_closeButton:"close",
   uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue ?",
+  uci_remove_all_settings:"All your settings will be deleted, do you want to continue ?",
   uci_radio_default:"default",
   uci_radio_medium:"medium",
   uci_radio_large:"large",
-  uci_service_disabled:"disabled"
+  uci_new_window:"New window",
+  uci_iframe_cookie:"Technical Content Orange Comfort+"
 };

@@ -141,9 +141,11 @@ traduction['fr']={
   uci_loopBackward:"Naviguer en arri\351re",
   uci_stopLoop:"Arr\352ter la  navigation",
   uci_closeButton:"fermer",
-  uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous pousuivre cette action?",
+  uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action?",
+  uci_remove_all_settings:"Tous vos r\351glages seront supprim\351s, souhaitez-vous poursuivre cette action?",
   uci_radio_default:"normal",
   uci_radio_medium:"moyen",
   uci_radio_large:"grand",
-  uci_service_disabled:"d\351sactiv\351"
+  uci_new_window:"Nouvelle fen\352tre",
+  uci_iframe_cookie:"Contenu technique Orange Confort+"
 };

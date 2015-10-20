@@ -20,25 +20,19 @@
 /*global window */
 /*global document: false */
 /* global alert */
-function UciIhm() {
-    "use strict";
-    /*
-     *@private
-     *@proporty
-     * variable permettant de regrouper l’ensemble du code html de l’ihm générale.
-     */
-    var attr_ihm;
-    var anc_onglet = "typographie";
-
+/**
+ * @class Entry point for the accessibility tool-bar
+ */
+UciIhm = {
     /*
      * @public
      * @constructor
      * 	constructor uci_ihm() : Constructeur de la class uciIhm
      *
      */
-    UciIhm.prototype.InitUciIHM = function () {
-        attr_ihm = "<div class='cdu_c'>";
-        attr_ihm += "<div id='uci_toolbar-quick' class='cdu_left'>";
+    InitUciIHM: function () {
+        var attr_ihm = "<div class='cdu_c'>";
+        attr_ihm += "<div id='uci_toolbar-quick' class='cdu_c'>";
         /****************************Integration dans la toolbar du menu de gauche********************************************
          * Mise en place du lien "masquer la barre", qui permettra de masquer la barre du confort d'utilisateur
          * Mise en place du logo " + de confort" pour donner identité graphique à la barre de confort
@@ -47,21 +41,33 @@ function UciIhm() {
         attr_ihm += "<div class='uci_logo_plus_de_confort cdu_c'>";
         attr_ihm += "<h1 class='uci_alt_logo'>";
         attr_ihm += accessibilitytoolbar.get('uci_serv_name')+'<span class="uci-plus-orange">+</span>';
-        attr_ihm += "</h1>";
-        if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') === "on") {
-            attr_ihm += "<span id='uci_span_disabled' style='display:none'>";
-        } else {
-            attr_ihm += "<span id='uci_span_disabled' style='display:block'>";
-        }
-        attr_ihm += accessibilitytoolbar.get('uci_service_disabled');
-        attr_ihm += "</span>";
+        attr_ihm += "</h1>"+        
+            "<div class='cdu_c uci-onoffswitch'>"+
+                "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch'>"+
+                    "<span class='uci-onoffswitch-inner-before'>ON</span>"+
+                    "<span class='uci-onoffswitch-switch'></span>"+
+                    "<span class='uci-onoffswitch-inner-after'>OFF</span>"+
+                "</a>"+
+            "</div>";
+    
         attr_ihm += "</div>";
         attr_ihm += "<div class='uci_right'>";
-        if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') === "on") {
-            attr_ihm += "<div id='uci_left_toolbar' class='cdu_c' style='display:block'>";
-        } else {
-            attr_ihm += "<div id='uci_left_toolbar' class='cdu_c' style='display:none'>";
-        }
+        
+        attr_ihm += "<!--[if IE 7 ]>";
+            attr_ihm += "<div id='uci_left_toolbar' class='cdu_c uci_notmask ie7'";
+            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {            
+                attr_ihm += " style='display:none'";
+            }
+            attr_ihm += ">";
+        attr_ihm += "<![endif]-->";
+        attr_ihm += "<!--[if (gte IE 8) | (!IE)]><!-->";
+            attr_ihm += "<div id='uci_left_toolbar' class='cdu_c uci_notmask'";
+            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {            
+                attr_ihm += " style='display:none'";
+            }
+            attr_ihm += ">";    
+        attr_ihm += "<!--<![endif]-->";
+        
         /***************************************Fin menu de gauche*************************************************************/
 
         /**********************************************Menu central de la toolbar**********************************************
@@ -72,10 +78,10 @@ function UciIhm() {
         /*
          * gestion de la police
          */
-        attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_bigger_quick_set' role='radiogroup' aria-labelledby='uci_typo_size'>";
+        attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_bigger_quick_set' role='radiogroup'>";
         attr_ihm += "<li id='uci_quick_a11yBigger_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
         attr_ihm += "<span>";
-        attr_ihm += "a";
+        attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
         attr_ihm +=  accessibilitytoolbar.get('uci_title_fontsize_radio_normal');
         attr_ihm += "</span>";
@@ -83,7 +89,7 @@ function UciIhm() {
         attr_ihm += "</li>";
         attr_ihm += "<li id='uci_quick_a11yBigger_150' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
         attr_ihm += "<span>";
-        attr_ihm += "a";
+        attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
         attr_ihm +=  accessibilitytoolbar.get('uci_title_fontsize_radio_medium');
         attr_ihm += "</span>";
@@ -91,7 +97,7 @@ function UciIhm() {
         attr_ihm += "</li>";
         attr_ihm += "<li id='uci_quick_a11yBigger_200' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
         attr_ihm += "<span>";
-        attr_ihm += "a";
+        attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
         attr_ihm +=  accessibilitytoolbar.get('uci_title_fontsize_radio_large');
         attr_ihm += "</span>";
@@ -101,88 +107,106 @@ function UciIhm() {
         /**
          * Gestion des couleurs
          */
-        attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup' aria-labelledby='question'>";
+        attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
+        if(accessibilitytoolbar.isModern) {
+	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
+        } else {
+        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
+        }
         attr_ihm += "</li>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
+        if(accessibilitytoolbar.isModern) {
+	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
+        } else {
+        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
+        }
         attr_ihm += "</li>";
         attr_ihm += "</ul>";
         attr_ihm += "</div>";
         /***************************************** Fin bloc uci_left_toolbar de la toolbar *****************************************/
-        if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') === "on") {
-            attr_ihm += "<div id='uci_middle_toolbar' class='cdu_c' style='display:block'>";
-        } else {
-            attr_ihm += "<div id='uci_middle_toolbar' class='cdu_c' style='display:none'>";
-        }
+        
+        
+        attr_ihm += "<!--[if IE 7 ]>";
+            attr_ihm += "<div id='uci_middle_toolbar' class='cdu_c uci_notmask ie7'";
+            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {        
+                attr_ihm += " style='display:none'";
+            }
+            attr_ihm += ">";
+        attr_ihm += "<![endif]-->";
+        attr_ihm += "<!--[if (gte IE 8) | (!IE)]><!-->";
+            attr_ihm += "<div id='uci_middle_toolbar' class='cdu_c uci_notmask'";
+            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {        
+                attr_ihm += " style='display:none'";
+            }
+            attr_ihm += ">";    
+        attr_ihm += "<!--<![endif]-->";
 
         //  gestion du lien "+ de confort"          
-        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c' href=\"#\" id='uci_moreconfort' onclick=\"UciIhm.more_confort('uci_activateOnglet','uci_moreconfort_content');return false;\">";
+        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c' href=\"#\" id='uci_moreconfort'>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-plus2\" id=\"uci_icon_moreconfort\">"+""+"</span>";
         attr_ihm += "<span id='uci_moreconfort_content'>"+accessibilitytoolbar.get('uci_txt_more_settings')+"</span>";
         attr_ihm += "</a>";
         attr_ihm += "</div>";
 
-
-        attr_ihm += "<div id='uci_right_toolbar' class='cdu_c'>";
-        /************************************************Menu de droite de la toolbar*******************************************
-         * Mise en place du bouton poussoir sous forme d'image pour activer ou desactiver cdu sur le site
+        attr_ihm += "<!--[if IE 7 ]>";
+            attr_ihm += "<div id='uci_right_toolbar' class='cdu_c uci_notmask ie7'>";
+        attr_ihm += "<![endif]-->";
+        attr_ihm += "<!--[if (gte IE 8) | (!IE)]><!-->";
+            attr_ihm += "<div id='uci_right_toolbar' class='cdu_c uci_notmask'>";  
+        attr_ihm += "<!--<![endif]-->";
+        
+        /************************************************Menu de droite de la toolbar*******************************************         
          * Mise en place du menu facebook tout a droite, permettant d'un menu comprenant :
          * le choix de langues
          * la consultation de l'aide générale
          * la reinitialisation de tout mes réglages
          * le masquage de la barre "+ de confort"
          **********************************************************************************************************************/
-        attr_ihm += "<a class='cdu_c' href='javascript:UciIhm.desactiveCDUForWebSite();' id='uci_active_cdu_img' style='display:"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?'block':'none')+"' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"><img alt=\""+ accessibilitytoolbar.get('uci_title_disable_cdu') + "\" src='" + hebergementFullPath + "/images/btn_on_bar.png'></a>";
-        attr_ihm += "<a class='cdu_c' href='javascript:UciIhm.desactiveCDUForWebSite();' id='uci_inactive_cdu_img' style='display:"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?'none':'block')+"' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"><img alt=\""+ accessibilitytoolbar.get('uci_title_enable_cdu') + "\" src='" + hebergementFullPath + "/images/btn_off_bar.png'></a>";
-
-
-
-        // hide the toolbar
-        /*
-        attr_ihm += "<a class='cdu_c' href=\"#\" id=\"uci_moreconfortleft\" onclick=\"UciIhm.ToolbarHide();return false;\">";
-        attr_ihm += accessibilitytoolbar.get('uci_link_hide_toolbar');
-        attr_ihm += "</a>";
-        */
-
-
-        attr_ihm += "<div id='uci_activate_menu' class='cdu_c'>";
-        attr_ihm += "<a href='javascript:UciIhm.uci_activate_menu();' id='uci_activer_menu' title=\""+accessibilitytoolbar.get('uci_txt_link_menu_open')+"\"><img alt=\""+accessibilitytoolbar.get('uci_txt_link_menu_open')+"\" src='"+ hebergementFullPath + "/images/btn_menu.png'></a>";
-        attr_ihm += "<a href='javascript:UciIhm.uci_activate_menu();' id='uci_fermer_menu' style='display:none;' title=\""+accessibilitytoolbar.get('uci_txt_link_menu_close')+"\"><img alt=\""+accessibilitytoolbar.get('uci_txt_link_menu_close')+"\" src='"+ hebergementFullPath +"/images/btn_menu_active.png'></a>";
-
-
-
+        
+        attr_ihm += "<ul>"+
+                        "<li class='uci_inline'>"+
+                            "<button id='uci_menu_remove_all' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_menu_remove_all')+"'>"+
+                                "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-reload2\"></span>"+
+                                "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_menu_remove_all')+"</span>"+
+                            "</button>"+
+                        "</li>"+ 
+                        "<li class='uci_inline'>"+
+                                "<button class='uci_bton_menu cdu_c' id='uci_activer_menu' title=\""+accessibilitytoolbar.get('uci_txt_link_menu_open')+"\">"+
+                                    "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon cdu-icon-help\"></span>"+
+                                    "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_open')+"</span>"+
+                                "</button>";
         //gestion du menu deroulant du menu
         attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";
+        attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
+        attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"</span>"
+        attr_ihm += "</button>";
         attr_ihm += "<ul>";
         attr_ihm += "<li>";
         attr_ihm += "<div id='uci_language'>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "fr"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_fr' value='fr' id='uci_fr' onClick=\"UciIhm.changement_langue('fr');\" title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "en"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_en' value='en' id='uci_en' onClick=\"UciIhm.changement_langue('en');\" title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "es"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_sp' value='sp' id='uci_sp' onClick=\"UciIhm.changement_langue('es');\" title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "fr"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_fr' value='fr' id='uci_fr' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "en"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_en' value='en' id='uci_en' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "es"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_sp' value='sp' id='uci_sp' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
         attr_ihm += "</div>";
+        
         attr_ihm += "</li>";
-        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+hebergementFullPath+"help/help_"+accessibilitytoolbar.strings.getLocale()+".html"+"\" target='_blank'>";
-        attr_ihm += accessibilitytoolbar.get('uci_menu_help');
+        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\">";
+        attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-help"></span><span>' + accessibilitytoolbar.get('uci_menu_help') + '</span>';
         attr_ihm += "</a></li>";
-        attr_ihm += "<li><a id='uci_menu_toolbar' value='on' name='a11yToolbarEnabled' href='#' onclick='UciIhm.ToolbarHide();return false;'>";
-        attr_ihm += accessibilitytoolbar.get('uci_link_hide_toolbar');
-        attr_ihm += "</a>";
-        attr_ihm +=  "</li>";
-        attr_ihm += " <li><a id='uci_menu_remoce_all' href='#' onclick='UciIhm.remove_all();return false;'>";
-        attr_ihm += accessibilitytoolbar.get('uci_menu_remove_all');
-        attr_ihm += "</a></li>";
-        attr_ihm += "<li><a href='#' id='uci_menu_activate_cdu_for_site' onclick=\"UciIhm.desactiveCDUForWebSite();return false;\">";
-        attr_ihm += (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?accessibilitytoolbar.get('uci_txt_disable_cdu'):accessibilitytoolbar.get('uci_txt_enable_cdu'));
-        attr_ihm += "</a></li>";
-        attr_ihm += "<li><a href='#' id='uci_menu_activer_menu'  onclick='UciIhm.uci_activate_menu();return false;'>";
-        attr_ihm += accessibilitytoolbar.get('uci_txt_link_menu_close');
-        attr_ihm += "</a></li>";
+        
         attr_ihm += "</ul>";
-        attr_ihm += "</div>"; // fin menu     
-        attr_ihm += "</div>"; // fin menu        
-        attr_ihm += "</div>"; // fin div activate
-        attr_ihm += "</div>"; // fin div right
+        attr_ihm += "</div></li>"; // fin menu     
+        
+        attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"'>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
+        attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"</span>"
+        attr_ihm += "</button></li></ul>";
+        
+        attr_ihm += "</div>"; // fin div uci_right_toolbar
+        attr_ihm += "</div>"; // fin div uci_right
         attr_ihm += "</div>"; // fin div toolbar quick
         /*********************************************Gestion du menu d'onglet*****************************************************
          Mise en place d'un système d'onglet, pour la gestion des différents onglets composant le CDU :
@@ -207,9 +231,13 @@ function UciIhm() {
          ***************************************************************************************************************************/
 
         attr_ihm += "<div class='uci_systeme_onglets cdu_c' id=\"uci_zone_form\" style='display:none;'>";
-        attr_ihm += "<a id='uci_fermeture_more_comfort' href=\"#\" onclick=\"UciIhm.hide_more_confort('uci_activateOnglet', 'uci_moreconfort_content');return false;\" style='display:none;' title='"+ accessibilitytoolbar.get('uci_txt_low_settings')+"'>";
-        attr_ihm += "<img src=\"" + hebergementFullPath + "images/btn_close_cross.png\" alt='"+ accessibilitytoolbar.get('uci_txt_low_settings')+"'>";
-        attr_ihm += "</a>";
+        
+        attr_ihm += "<button id='uci_fermeture_more_comfort' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_txt_low_settings')+"' style='display:none;'>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
+        attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_low_settings')+"</span>"
+        attr_ihm += "</button>";
+        
+        
         attr_ihm += "<div id=\"uci_activateOnglet\" style='display:none;'>"; // uci_activateOnglet        
         attr_ihm += "<!--[if IE 7]><div class='uci_onglets uci_ongletsie7'><![endif]-->";
         attr_ihm += "<!--[if (IE) & (!IE 7)]><div class='uci_onglets'><![endif]-->";        
@@ -219,15 +247,23 @@ function UciIhm() {
 
         attr_ihm += "<ul id='uci_onglet_confort' role='tablist' class='cdu_c'>";
         attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline'> <span class=\"onglet_1 onglet\" id=\"onglet_typographie\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie icon\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_typo');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_apparence\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement icon\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_apparence');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline'> <span  class=\"onglet_0 onglet\" id=\"onglet_couleur\">";
+        if(accessibilitytoolbar.isModern) {
+	        attr_ihm += UciIhm.displayIconPalette('0 0 33 33');
+        } else {
+        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs icon\"></span>";
+        }
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_color');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_aidemotrice\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement icon\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_motor_help');
         attr_ihm += "</span></li>";
         attr_ihm += "</ul>";
@@ -240,57 +276,71 @@ function UciIhm() {
         attr_ihm += "<!--[if IE 7]><div class='uci_contenu_onglets uci_contenu_ongletsie7'><![endif]-->";
         attr_ihm += "<!--[if (IE) & (!IE 7)]><div class='uci_contenu_onglets'><![endif]-->";        
         attr_ihm += "<!--[if (!IE)]>--><div class='uci_contenu_onglets'><!--<![endif]-->"; // uci_contenu_onglets
-        var typo = new UciTypographie();
-        attr_ihm += typo.InitUciTypographie();
-        var apparence = new UciApparence();
-        attr_ihm += apparence.InitUciApparence();
+        attr_ihm += UciTypographie.InitUciTypographie();
+        attr_ihm += UciApparence.InitUciApparence();
         var couleur = new UciCouleur();
         attr_ihm += couleur.InitUciCouleur();
-        var aide_motrice = new UciAideMotrice();
-        attr_ihm += aide_motrice.InitUciAideMotrice();
+        attr_ihm += UciAideMotrice.InitUciAideMotrice();
         attr_ihm += "</div>"; // fin contenu onglets
         attr_ihm += "</div>"; // fin clear
         attr_ihm += "</div>"; // fin uci_activateOnglet
 
 
-        var validation =  new UciValidation();
-        var strValidation = validation.InitUciValidation();
+        //var validation =  new UciValidation();
+        var strValidation = UciValidation.InitUciValidation();
         attr_ihm += "<div id='uci_validation' class='cdu_n'>"+strValidation+"</div></form>";
 
         attr_ihm += "</div>"; // fin uci_zone_form
         attr_ihm += "</div>"; // fin container
         return attr_ihm;
-    };
-    /*Permet d’activer le menu facebook du confort d’utilisation*/
-    UciIhm.uci_activate_menu = function () {
-        if (document.getElementById('uci_cdu_menu').style.display === "none") {
-            document.getElementById('uci_cdu_menu').style.display = "block";
-            document.getElementById("uci_activer_menu").style.display = "none";
-            document.getElementById("uci_fermer_menu").style.display = "block";
-            document.getElementById("uci_fermer_menu").focus();
-        } else {
-            UciIhm.close_menu();
-        }
-    };
+    },
+    
 
     /* Permet de désactiver l’affichage du menu facebook.
        @param nofocus boolean true if focus don't need to be pushed
     */
 
 
-    UciIhm.close_menu = function (nofocus) {
+    close_menu: function (nofocus) {
         document.getElementById('uci_cdu_menu').style.display = "none";
-        document.getElementById("uci_activer_menu").style.display = "block";
-        document.getElementById("uci_fermer_menu").style.display = "none";
+        var button = document.getElementById("uci_activer_menu");
+        if(button.nodeName === 'BUTTON') {
+            button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
+            var img = (button.firstElementChild || button.children[0]);
+            if(img.nodeName === 'IMG') {
+                img.alt = accessibilitytoolbar.get('uci_txt_link_menu_open');
+            }
+        }
         if(nofocus) return false;
         document.getElementById("uci_activer_menu").focus();
-    };
-    /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/
-    UciIhm.more_confort = function (id_confort, id_more) {
-        if (document.getElementById(id_confort).style.display === "none") {
+    },
+    /*Permet d’activer le menu facebook du confort d’utilisation*/
+    uci_activate_menu: function (e) {
+        // when more settings is open, disable quick settings buttons
+        if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
+        if (document.getElementById('uci_cdu_menu').style.display === "none") {
+            document.getElementById('uci_cdu_menu').style.display = "block";
+            var button = document.getElementById("uci_activer_menu");
+            if(button.nodeName === 'BUTTON') {
+                button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
+                var img = (button.firstElementChild || button.children[0]);
+                if(img.nodeName === 'IMG') {
+                    img.alt = accessibilitytoolbar.get('uci_txt_link_menu_close');
+                }
+            }
+            document.getElementById("uci_activer_menu").focus();
+        } else {
             UciIhm.close_menu();
-            document.getElementById("uci_middle_toolbar").style.backgroundImage= "url("+ hebergementFullPath + "/images/btn_minus.png)";
-            document.getElementById(id_confort).style.display = "block";
+        }
+        accessibilitytoolbar.stopEvt(e);
+		return false;
+    },
+    /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/
+    more_confort: function () {
+    	if (document.getElementById('uci_activateOnglet').style.display === "none") {
+            UciIhm.close_menu();
+            document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-moins2";
+            document.getElementById('uci_activateOnglet').style.display = "block";
             if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '0')
                 document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex','-2');
             if(document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex')=== '0')
@@ -300,27 +350,23 @@ function UciIhm() {
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex')=== '0')
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','-2');
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '0')
-                document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');
-            document.getElementById('uci_active_cdu_img').setAttribute('tabindex','-2');
+                document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');   
+            document.getElementById('uci_menu_remove_all').setAttribute('tabindex','-2');   
+            document.getElementById('uci_menu_activer_menu').setAttribute('tabindex','-2');                        
             document.getElementById('uci_activer_menu').setAttribute('tabindex','-2');
             if(document.getElementById('uci_zone_form'))
             {
                 document.getElementById('uci_zone_form').style.display = "block";
             }
-            document.getElementById('uci_fermeture_more_comfort').style.display = "block";
-            document.getElementById('uci_left_toolbar').className = "cdu_c uci_mask";
+            document.getElementById('uci_fermeture_more_comfort').style.display = "block";            
+            document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
+            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
+            document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");
             document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','true');
-            document.getElementById('uci_middle_toolbar').className = "cdu_c uci_mask";
-            document.getElementById('uci_right_toolbar').className = "cdu_c uci_mask";
-            document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','true');
-            document.getElementById('uci_toolbar-quick').className = "cdu_c uci_mask";            
+            document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','true');         
             document.getElementById('uci_moreconfort').title=accessibilitytoolbar.get('uci_txt_low_settings');
             document.getElementById('uci_moreconfort_content').innerHTML=accessibilitytoolbar.get('uci_txt_low_settings_display');
             // disable hide the toolbar
-            //document.getElementById('uci_moreconfortleft').setAttribute('onclick','return false;');
-            //document.getElementById('uci_moreconfortleft').setAttribute('tabindex','-1');
-            document.getElementById('uci_activer_menu').setAttribute('href','#');
-            document.getElementById('uci_active_cdu_img').setAttribute('href','#');
             // disable hide fontsize buttons
             // disable color button
             var elmt = document.getElementById('uci_onglet_confort');
@@ -332,33 +378,25 @@ function UciIhm() {
             }
 
         } else {
-            UciIhm.hide_more_confort(id_confort, id_more);
+            UciIhm.hide_more_confort();
         }
-    };
-    UciIhm.hide_more_confort = function (id_confort, id_more) {
-
-        //document.getElementById('uci_moreconfortleft').focus();
-        if(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on") {
-            document.getElementById("uci_active_cdu_img").focus();
-        }
-        else {
-            document.getElementById("uci_inactive_cdu_img").focus();
-        }
-        document.getElementById("uci_middle_toolbar").style.backgroundImage= "url("+ hebergementFullPath + "/images/btn_plus.png)";
-        document.getElementById(id_confort).style.display = "none";
+        return false;
+    },
+    hide_more_confort: function () {
+    	document.getElementById("uci-onoffswitch").focus();
+        document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-plus2";
+        document.getElementById('uci_activateOnglet').style.display = "none";
         if(document.getElementById('uci_zone_form'))
         {
             document.getElementById('uci_zone_form').style.display = "none";
         }
         document.getElementById('uci_fermeture_more_comfort').style.display = "none";
-        document.getElementById('uci_left_toolbar').className = "cdu_c";
-        document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');
-        document.getElementById('uci_middle_toolbar').className = "cdu_c";
-        document.getElementById('uci_right_toolbar').className = "cdu_c";
+        document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
+        document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');              
+            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");      
+            document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
         document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','false');
-        document.getElementById('uci_toolbar-quick').className = "cdu_c";
-        document.getElementById('uci_activer_menu').setAttribute('href',"javascript:UciIhm.uci_activate_menu();");
-        document.getElementById('uci_active_cdu_img').setAttribute('href',"javascript:UciIhm.desactiveCDUForWebSite();");
+        
         if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '-2')
             document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex','0');
         if(document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex')=== '-2')
@@ -368,19 +406,16 @@ function UciIhm() {
         if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex')=== '-2')
             document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','0');
         if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');
-        document.getElementById('uci_active_cdu_img').removeAttribute('tabindex');
-        //document.getElementById('uci_moreconfortleft').removeAttribute('tabindex');
+            document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
+        document.getElementById('uci_menu_remove_all').removeAttribute('tabindex');
         document.getElementById('uci_activer_menu').removeAttribute('tabindex');
+        document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
         document.getElementById('uci_moreconfort').removeAttribute('title');  
         document.getElementById('uci_moreconfort_content').innerHTML=accessibilitytoolbar.get('uci_txt_more_settings');
-        // enable hide the toolbar    
-        //document.getElementById('uci_moreconfortleft').setAttribute('onclick','UciIhm.ToolbarHide();return false;');
+        return false;
+    },
 
-        //document.getElementById('uci_moreconfortleft').setAttribute('tabindex','0');
-    };
-
-    UciIhm.activate_liens = function (id_liens) {
+    activate_liens: function (id_liens) {
         if (document.getElementById(id_liens).style.display === "none") {
             document.getElementById(id_liens).style.display = "block";
             document.getElementById(checked_apparence).checked = "true";
@@ -388,56 +423,66 @@ function UciIhm() {
             document.getElementById(id_liens).style.display = "none";
             document.getElementById(checked_apparence).checked = "false";
         }
-    };
+        return false;
+    },
 
-    UciIhm.changement_langue = function (/* String*/langue) {
-        // if stack value not equal to cookievalue then display a confirm message to inform the user
+    changement_langue: function (/* String*/langue) {
+        // if stack value not equal to storedValue then display a confirm message to inform the user
         var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-        if ((accessibilitytoolbar.userPref.encode()+tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.cookieValue) 
+        if ((accessibilitytoolbar.userPref.encode()+tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.storedValue) 
                 || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))){
-            accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.cookieValue);
+            accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
             accessibilitytoolbar.userPref.set("a11yLanguage", langue);
+            accessibilitytoolbar.needToReload = true;
             accessibilitytoolbar.userPref.updateUserPref();
             // when the user change the lang of the interface, wee need to reload after save is done
-            accessibilitytoolbar.needToReload = true;
+            accessibilitytoolbar.reloadToolbar();
         }
-    };
+        return false;
+    },
+    remove_all: function () {
+        // when more settings is open, disable quick settings buttons
+        if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
+        if(confirm(accessibilitytoolbar.get('uci_remove_all_settings'))) {
+            var defaultstoredValue = "0000651000650650650000000000000000006500000010"+(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled')==='on'?'0':'1');
+            accessibilitytoolbar.userPref.setStoredValue(defaultstoredValue);
+            accessibilitytoolbar.userPref.updateUserPref();
+            accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
+            accessibilitytoolbar.reloadToolbar();
+        }
+        return false;
+    },
 
-    UciIhm.remove_all = function () {
-        var defaultcookieValue = "0000651000650650650000000000000000006500000010"+(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled')==='on'?'0':'1');
-        accessibilitytoolbar.userPref.InitUciCookie(defaultcookieValue);
-        accessibilitytoolbar.userPref.updateUserPref();
-        accessibilitytoolbar.reloadToolbar();
-    };
 
-
-    UciIhm.desactiveCDUForWebSite = function () {
+    desactiveCDUForWebSite: function () {
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") !== "on") {
-            document.getElementById('uci_active_cdu_img').style.display='block';
-            document.getElementById('uci_inactive_cdu_img').style.display='none';
-            document.getElementById('uci_left_toolbar').style.display='block';
-            document.getElementById('uci_middle_toolbar').style.display='block';
-            document.getElementById('uci_span_disabled').style.display='none';
-            document.getElementById('uci_menu_activate_cdu_for_site').innerHTML = accessibilitytoolbar.get('uci_txt_disable_cdu');
+            document.getElementById('uci_left_toolbar').style.display='';
+            document.getElementById('uci_middle_toolbar').style.display='';
+            document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_disable_cdu');
             accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "on");
-            document.getElementById("uci_active_cdu_img").focus();
+            document.getElementById("uci-onoffswitch").className="uci-onoffswitch-label-on";
+            document.getElementById("uci-onoffswitch").focus();
         } else {
-            document.getElementById('uci_active_cdu_img').style.display='none';
-            document.getElementById('uci_inactive_cdu_img').style.display='block';
-            document.getElementById('uci_span_disabled').style.display='block';
+            UciIhm.hide_more_confort();
             document.getElementById('uci_left_toolbar').style.display='none';
             document.getElementById('uci_middle_toolbar').style.display='none';
-            document.getElementById('uci_menu_activate_cdu_for_site').innerHTML = accessibilitytoolbar.get('uci_txt_enable_cdu');
+            document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_enable_cdu');
             accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "off");
-            document.getElementById("uci_inactive_cdu_img").focus();
+            document.getElementById("uci-onoffswitch").className="uci-onoffswitch-label";
+            document.getElementById("uci-onoffswitch").focus();
         }    
         accessibilitytoolbar.userPref.updateBlackList();
+        
+        accessibilitytoolbar.cleanImgDisabled();
         accessibilitytoolbar.setCSS();
         UciIhm.close_menu(true);
-    };
+        return false;
+    },
 
-    UciIhm.ToolbarHide = function () {
-        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.cookieValue);
+    ToolbarHide: function () {
+        // when more settings is open, disable quick settings buttons
+        if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
+        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
         accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
         accessibilitytoolbar.userPref.updateUserPref();
 
@@ -448,5 +493,20 @@ function UciIhm() {
             document.getElementById('cdu_close').getElementsByTagName("button")[0].focus();
         }
         return false;
-    };
-}
+    }, 
+    
+    displayIconPalette: function(viewport) {
+    	return  '<svg version="1.1" viewBox="' + viewport + '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="cdu-icon-palette" role="image" alt="" aria-hidden="true" >\n\
+<path class="path1" d="M0.476 17.181c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 23.147c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z"></path>\n\
+<path class="path2" d="M0.476 16.218c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 22.185c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z"></path>\n\
+<path class="path3" d="M25.304 14.486c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z"></path>\n\
+<path class="path4" d="M19.915 10.444c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z"></path>\n\
+<path class="path5" d="M12.409 9.001c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z"></path>\n\
+<path class="path6" d="M5.672 12.369c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z"></path>\n\
+<path class="path7" d="M25.304 13.524c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z"></path>\n\
+<path class="path8" d="M19.915 9.482c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z"></path>\n\
+<path class="path9" d="M12.409 8.039c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z"></path>\n\
+<path class="path10" d="M5.672 11.407c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z"></path>\n\
+</svg>';
+    }
+};

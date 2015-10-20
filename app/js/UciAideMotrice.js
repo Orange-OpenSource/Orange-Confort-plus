@@ -21,31 +21,33 @@
 /*global window */
 /*global document: false */
 /* global alert */
-function UciAideMotrice() {
-    "use strict";
+UciAideMotrice = {
     /**
      * @property
      * @private
      */
-    var attr_aide_motrice, attr_onglet;
-    attr_aide_motrice = "";
+    attr_aide_motrice: "",
+    attr_onglet: "",
+    attr_aide_motrice: "",
     /*
      * @constructor
      */
-    UciAideMotrice.prototype.InitUciAideMotrice = function () {
+    InitUciAideMotrice: function () {
         attr_aide_motrice = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_aidemotrice'>"; //uci_contenu_onglet_aidemotrice
         attr_aide_motrice += "<div id='setting-bloc-content'>";
         attr_aide_motrice += "<input type='checkbox' value='true' name='a11yJumpToContent' id='a11yJumpToContent'"+(accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? " checked='checked'" : "") + ">";
         attr_aide_motrice += "<label for='a11yJumpToContent'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_jumptocontent');
         attr_aide_motrice += "</label>";
-        attr_aide_motrice += "<a href='#' onblur=\"accessibilitytoolbar.toolbarHideHelp('uci_help_jumptocontent');\" onclick=\"accessibilitytoolbar.toolbarDisplayHelp('uci_help_jumptocontent');return false;\" class='uci_link_help_bulle' role='presentation'><span class='uci_span_help_bulle cdu_n' id='uci_help_jumptocontent'><p>";
+        attr_aide_motrice += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_jumptocontent'>";
+        attr_aide_motrice += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
+        attr_aide_motrice += "<span class='uci_span_help_bulle cdu_n' id='uci_help_jumptocontent'><p>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_help_jumptocontent');
-        attr_aide_motrice += "</p></span></a>";
+        attr_aide_motrice += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
         attr_aide_motrice += "</div>"; //setting-bloc-content
 /**********************************************Gestion réglage motor*********************************************************/
         attr_aide_motrice += "<div id='uci_div_motor'>";
-        attr_aide_motrice += "<input onclick=\"UciAideMotrice.activate_aide_motrice();\" type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + ">";
+        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + ">";
         attr_aide_motrice += "<label for='a11yMotorModeEnabled'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_enableMotorMode');
         attr_aide_motrice += "</label>";
@@ -163,14 +165,14 @@ function UciAideMotrice() {
         attr_aide_motrice += "</div>"; //uci_motor_general
         attr_aide_motrice += "</div>"; //uci_contenu_onglet_aidemotrice
         return attr_aide_motrice;
-    };
+    },
 
-    UciAideMotrice.activate_aide_motrice = function () {
+    activate_aide_motrice: function () {
         if (document.getElementById('a11yMotorModeEnabled').checked) {
             document.getElementById('uci_motor_general').style.display = "block";
         } else {
             document.getElementById('uci_motor_general').style.display = "none";
         }
-    };
+    }
 
 }

@@ -18,7 +18,7 @@
 /* global alert */
 function LoopingMenu() {
     "use strict";
-// attribut
+    // attribut
     // private
     /**
      * {LoopingMenu} Internal reference to this object instance
@@ -695,18 +695,21 @@ function LoopingMode() {
      * @param {HTMLNode} elt : Element to be checked
      * @private
      */
-    var filterGeneric = function(elt) {
+    var filterGeneric = function(elt) {        
+        if (elt.tabIndex && elt.tabIndex<0) {
+            return false;
+        }
         if(LoopingUtility.isVisible(elt)) {
-            // Case of link
-            if(filterLink(elt)){
-                return true;
-            }
             // Case of clickable elements
-            else if(filterOnclick(elt)){
+            if(filterOnclick(elt)){
                 return true;
             }
             // Case of form element
             else if(filterForm(elt)){
+                return true;
+            }
+            // Case of link
+            else if(filterLink(elt)){
                 return true;
             }
             // Case of flash element
@@ -1025,6 +1028,10 @@ function LoopingMode() {
             else if(filterFlash(elt)){
                 callbackBlurFlash(elt);
             }
+        }
+        if(menu.isShown()) {
+            menu.hide();
+            menu.clean();
         }
     };
 
@@ -1842,12 +1849,18 @@ var RemoteControlMode = function () {
      */
     this.isActivable = function(elt) {
         // Skip specific element (like pad area)
-        if(elt.className && elt.className.match(/dontclick/)) {
+    	nav = accessibilitytoolbar.getNavigateur();
+        if((nav.indexOf('MSIE') > 0) && (nav < 'MSIE 8')) {        	
+        	className = elt.className;
+        } else {
+        	className = elt.getAttribute("class");
+        }
+    	if((className && className.match(/dontclick/)) ) {
             return false;
         } else {
             // Check elligible form element
             if (elt.nodeName.match(new RegExp("^INPUT|BUTTON|TEXTAREA|SELECT|OPTION"))) {
-                if(elt.disabled == true || elt.type == "hidden") {
+                if(elt.disabled == true || elt.type == "hidden" || (elt.tabIndex && elt.tabIndex<0)) {
                     return false;
                 }
                 else  {
@@ -1966,7 +1979,6 @@ var RemoteControlMode = function () {
             {
                 that.selectedElt = that.selectedElt.parentNode;
             }
-            //alert(that.selectedElt.nodeName);
             // Case of a link ... we do a simple redirection
             if (that.selectedElt.nodeName.match(/^A|AREA$/i) && that.selectedElt.href && that.selectedElt.href !== "" && !that.selectedElt.href.match(new RegExp("#$"))) {
                 window.location = that.selectedElt.href;
@@ -2061,7 +2073,7 @@ function RemoteControlPad() {
      * Remote control pad image
      * @private
      */
-    var imgSrc = hebergementFullPath+"images/arrows_60.png?v=1";
+    var imgSrc = imagesPath['arrows'] + "?v=1";
     /**
      * Remote control pad image width
      * @private
@@ -2164,7 +2176,13 @@ function hasConfortdelecture() {
  * @class Entry point for the accessibility tool-bar
  */
 accessibilitytoolbar = {
-    /**
+    
+	/**
+     * {bool}
+     */
+    isModern: true,
+
+	/**
      * {object}
      */
     uncompatibility: {
@@ -2174,11 +2192,12 @@ accessibilitytoolbar = {
         ***************************************************************************************************/
         a11yDyslexyFontEnabled: ['MSIE 7.0','MSIE 8.0']
     },
-
+        
     /**
      * {ToolbarStrings} String localization Manager
      */
     strings: new ToolbarStrings(),
+    
     /**
      * {Array} of all possible values for the content to skip to
      */
@@ -2236,9 +2255,9 @@ accessibilitytoolbar = {
 
     loopingmode: null,
     /**
-     * {cookieValue} cookie value received or not
+     * {storedValue} cookie value received or not
      */
-    cookieValue: false,
+    storedValue: false,
 
     /**
      * {RemoteControlMode} Remote control Manager
@@ -2248,7 +2267,7 @@ accessibilitytoolbar = {
     /**
      * Reference the ruler
      */
-    toolbarRuler : null,
+    toolbarRuler : false,
 
     /**
      * array of css stylesheets removed
@@ -2268,7 +2287,7 @@ accessibilitytoolbar = {
 
     // when the user change the lang of the interface, wee need to reload after save is done
     needToReload : false,
-
+    
     // addevent input params : 
     // 1- for addeventlistenername
     // 2- for attacheventlistener
@@ -2294,6 +2313,15 @@ accessibilitytoolbar = {
         var target = e.target || e.srcElement;
         //On récupere le parent de l'élément
         var target_enfant = target;
+        var className = target.className;
+        if((typeof className === "string" && className.indexOf('cdu-icon') > -1) ) {     
+         
+        	target=target.parentNode;
+        }
+        // case of path svg
+        if(typeof className === 'object' && 'baseVal' in className) {              
+        	target=target.parentNode.parentNode;                
+        }        
         target=target.parentNode;
         var tagId = target.id;
         var etat = target.getAttribute('aria-selected');
@@ -2395,7 +2423,7 @@ accessibilitytoolbar = {
     uciCocherRadioButton: function(elmt) {
         // on active le bouton en question
         elmt.setAttribute('aria-checked','true');
-        elmt.tabindex='0';
+        elmt.tabIndex='0';
         //var bIsColorPalette = false;
         var clearColor = "";
         // remove selected class if present
@@ -2430,7 +2458,7 @@ accessibilitytoolbar = {
             if(reponses.children[iterator]!=elmt)
             {
                 reponses.children[iterator].setAttribute('aria-checked','false');
-                reponses.children[iterator].tabindex='-1';
+                reponses.children[iterator].tabIndex='-1';
                 
                 // remove selected class if present
                 reponses.children[iterator].className = reponses.children[iterator].className.replace(/ uci_couleur_li_selected{0,1}/,"");
@@ -2449,16 +2477,20 @@ accessibilitytoolbar = {
                 value= resArray[resArray.length-1];
                 if (prefName === 'a11yRegleColor'){
                     document.getElementById('uci_regle_couleur_lien').style.backgroundColor = value;
-                    document.getElementById('uci_regle_couleur_lien').style.setProperty ("background-color", value, "important");
+                    if(document.getElementById('uci_regle_couleur_lien').style.setProperty)
+                        document.getElementById('uci_regle_couleur_lien').style.setProperty ("background-color", value, "important");
                 } else if (prefName === 'a11yNavLienSelColor'){
-                    document.getElementById('uci_NavLienSel').style.backgroundColor = value;       
-                    document.getElementById('uci_NavLienSel').style.setProperty ("background-color", value, "important");
+                    document.getElementById('uci_NavLienSel').style.backgroundColor = value;
+                    if(document.getElementById('uci_NavLienSel').style.setProperty)
+                        document.getElementById('uci_NavLienSel').style.setProperty ("background-color", value, "important");
                 } else if (prefName === 'a11yNavLienNonVisColor'){
-                    document.getElementById('uci_NavLienNonVis').style.backgroundColor = value;   
-                    document.getElementById('uci_NavLienNonVis').style.setProperty ("background-color", value, "important");
+                    document.getElementById('uci_NavLienNonVis').style.backgroundColor = value;
+                    if(document.getElementById('uci_NavLienSel').style.setProperty)
+                        document.getElementById('uci_NavLienNonVis').style.setProperty ("background-color", value, "important");
                 } else if (prefName === 'a11yNavLienVisColor'){
                     document.getElementById('uci_NavLienVis').style.backgroundColor = value;
-                    document.getElementById('uci_NavLienVis').style.setProperty ("background-color", value, "important");
+                    if(document.getElementById('uci_NavLienSel').style.setProperty)
+                        document.getElementById('uci_NavLienVis').style.setProperty ("background-color", value, "important");
                 }
                 accessibilitytoolbar.userPref.set(prefName,value);
                 // if the user change the font or background color without activating the option, then activate it
@@ -2488,8 +2520,8 @@ accessibilitytoolbar = {
 
     uci_OuvrirMenuOnglet: function(elmt){
         elmt.setAttribute('aria-selected','true');
-        elmt.setAttribute('tabindex', '0');
-        elmt.parentNode.setAttribute('tabindex', '0');
+        elmt.tabIndex='0';
+        elmt.parentNode.tabIndex='0';
         var spanId = /^uci_contenu_(\S+)$/.exec(elmt.getAttribute('aria-controls'));
         document.getElementById(spanId[1]).className='onglet_1 onglet';
         document.getElementById(elmt.getAttribute('aria-controls')).style.display="block";
@@ -2502,8 +2534,8 @@ accessibilitytoolbar = {
             if(reponses.children[iterator]!=elmt)
             {
                 reponses.children[iterator].setAttribute('aria-selected','false');
-                reponses.children[iterator].setAttribute('tabindex', '-1');
-                reponses.children[iterator].parentNode.setAttribute('tabindex', '-1');
+                reponses.children[iterator].tabIndex='-1';
+                reponses.children[iterator].parentNode.tabIndex='-1';
                 var spanIdOther = /^uci_contenu_(\S+)$/.exec(reponses.children[iterator].getAttribute('aria-controls'));
                 document.getElementById(spanIdOther[1]).className='onglet_0 onglet';
                 document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display="none";
@@ -2590,7 +2622,7 @@ accessibilitytoolbar = {
         var l = document.createElement('LINK');
         l.rel = "stylesheet";
         l.type = "text/css";
-        l.href = hebergementFullPath + 'css/classic-toolbar.css';
+        l.href = uci_classic_toolbar_css;
         l.id = "a11yCSS";
         this.head.appendChild(l);
     },
@@ -2694,18 +2726,19 @@ accessibilitytoolbar = {
      * Generates the accessibility tool-bar per se
      */
     createToolbar: function () {
-        var str = "<form onsubmit='UciValidation.Validation();return false;' onreset='UciValidation.Annulation();' name='uci_form' action='#'>";
+        var str = '';
+        
+        str += "<form onsubmit='return false;' onreset='return false;' name='uci_form' action='#' id='uci_form'>";
         if (accessibilitytoolbar.secCookie !== null) {
             str += "<p id='cdu_secu'>";
             str += "<span class='cdu_hide'>";
             str += this.get('uci_securityCookieChangeAlert');
             str += "</span>";
             str += this.get("uci_securityCookieChange");
-            str += "&nbsp;<a href=\"" + hebergementFullPath+"help/help_"+this.strings.getLocale()+".html#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
+            str += "&nbsp;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
             str += "</p>";
         }else {
-            var uci_ihm = new UciIhm();
-            str += uci_ihm.InitUciIHM();
+            str += UciIhm.InitUciIHM();
         }
         str += "</form>";
 
@@ -2760,7 +2793,55 @@ accessibilitytoolbar = {
 
         //gestion des evenement sur les onglets :
         accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_moreconfort'),UciIhm.more_confort);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),UciIhm.ToolbarHide);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_more_comfort'),UciIhm.hide_more_confort);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fr'), function() {return UciIhm.changement_langue('fr');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_en'), function() {return UciIhm.changement_langue('en');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_sp'), function() {return UciIhm.changement_langue('es');});
+        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), UciValidation.Validation);
+        accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_fontfamily');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_typo_help_fontfamily');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_changecase'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_changecase');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_changecase'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_typo_help_changecase');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_jumptocontent'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_help_jumptocontent');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_jumptocontent'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_help_jumptocontent');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_listmode'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_help_listmode');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_listmode'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_help_listmode');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_links'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_help_links');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_links'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_help_links');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_regle'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_help_regle');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_regle'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_help_regle');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_disabletransp'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_help_disabletransp');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_disabletransp'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_help_disabletransp');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_disablepppictures'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_help_disablepppictures');});
+        accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_disablepppictures'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_help_disablepppictures');}); 
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMotorModeEnabled'), UciAideMotrice.activate_aide_motrice);
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('apparence_lien'), function() {UciApparence.displayLien('apparence_lien','uci_gestion_lien');});
+        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_check_regle'), function() {UciApparence.displayLien('uci_check_regle','uci_div_regle');});    
 
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_sel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_selectionne");});    
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_notsel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_notselectionne");});  
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_visite'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_visite");});  
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_regle'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_regle");}); 
 
     },
     /**
@@ -2769,13 +2850,40 @@ accessibilitytoolbar = {
      */
 
     eventToolbar: function(myObject){
-        var i=0;
+        var i=0,theFrames,theFrame;
         while( i < myObject.length){
             if(myObject[i]){
                 accessibilitytoolbar.uciAttachEvent('click','onclick',myObject[i],accessibilitytoolbar.toggle);
             }
             i++;
         }
+        i = 0;        
+        theFrames=document.getElementsByTagName('iframe');
+        if(theFrames.length>0)
+        {
+            while(theFrame = theFrames[i]){
+                try{                        
+                    theFrameDocument = theFrame.document || theFrame.contentDocument;               
+                    // attach event to frame onload to reload the css...
+                     accessibilitytoolbar.uciAttachEvent('load','onload',theFrame,accessibilitytoolbar.setCSS);
+                } catch(e){}
+                i++;
+            }
+        }
+        i = 0;        
+        theFrames=document.getElementsByTagName('frame');
+        if(theFrames.length>0)
+        {
+            while(theFrame = theFrames[i]){
+                try{                        
+                    theFrameDocument = theFrame.document || theFrame.contentDocument;               
+                    // attach event to frame onload to reload the css...
+                     accessibilitytoolbar.uciAttachEvent('load','onload',theFrame,accessibilitytoolbar.setCSS);
+                } catch(e){}
+                i++;
+            }
+        }
+        
 
         if (accessibilitytoolbar.secCookie === null) {
             var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
@@ -2927,11 +3035,7 @@ accessibilitytoolbar = {
      */
     show: function (e) {
         // check if need to update the cookie
-        if(accessibilitytoolbar.userPref.get('a11yToolbarEnable')=='off')
-        {
-           accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
-           accessibilitytoolbar.userPref.updateUserPref();
-        }
+        accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
         document.getElementById("cdu_content").className = "";
         if(!accessibilitytoolbar.idLinkModeContainer){
             var closeLink = document.getElementById("cdu_zone").getElementsByTagName("button")[0];
@@ -2939,13 +3043,7 @@ accessibilitytoolbar = {
             closeLink.innerHTML = accessibilitytoolbar.get("uci_closeButton") + "<span>&times;</span>";
         }
         try{
-        //document.getElementById("uci_moreconfortleft").focus();
-            if(this.userPref.get("a11ySiteWebEnabled") === "on") {
-                document.getElementById("uci_active_cdu_img").focus();
-            }
-            else {
-                document.getElementById("uci_inactive_cdu_img").focus();
-            }
+            document.getElementById("uci-onoffswitch").focus();
         }
         catch(e){}
     },
@@ -3000,6 +3098,22 @@ accessibilitytoolbar = {
             }
         }
 
+    },
+    
+    close: function () {
+    	var toolbar = document.getElementById('accessibilitytoolbarGraphic');
+        if(toolbar) {
+        	document.body.removeChild(toolbar);
+        }
+        var script = document.getElementById('a11yCSS');
+        if(script) {
+        	document.head.removeChild(script);
+        }
+        var content = document.getElementById('accessibilitytoolbarWrapper');
+        if(script) {
+        	content.outerHTML = content.innerHTML;
+        }
+        
     },
 
     /**
@@ -3180,22 +3294,15 @@ accessibilitytoolbar = {
 
     complete : function(){
         // if toolbarRuler isn't already launched
-        if(!this.toolbarRuler)
+        if(!UciRuler.settings.launched)
         {
-            this.toolbarRuler = new UciRuler();
-        }
-        else
-        {
-            if(!this.toolbarRuler.settings.launched)
-            {
-                this.toolbarRuler.rulerEventCreate();
-            }
+        	UciRuler.rulerEventCreate();
         }                                              
         // throw move event to update the ruler
-        this.toolbarRuler.settings.color=this.userPref.get("a11yRegleColor");
-        this.toolbarRuler.settings.thickness=this.userPref.get("a11yRegleEpaisseur");
-        this.toolbarRuler.settings.showVertical= this.userPref.get("a11yRegleVertical") == "true";
-        this.toolbarRuler.settings.showHorizontal= this.userPref.get("a11yRegleHorizontal")== "true";   
+        UciRuler.settings.color=this.userPref.get("a11yRegleColor");
+        UciRuler.settings.thickness=this.userPref.get("a11yRegleEpaisseur");
+        UciRuler.settings.showVertical= this.userPref.get("a11yRegleVertical") == "true";
+        UciRuler.settings.showHorizontal= this.userPref.get("a11yRegleHorizontal")== "true";   
         $(document).mousemove();
     },
 
@@ -3203,7 +3310,8 @@ accessibilitytoolbar = {
         // get the current stack values
         var currentStackv3value = this.userPref.encode()+'0';
         // put the cookie value into the stackv3
-        this.userPref.decode(accessibilitytoolbar.userPref.cookieValue);
+        this.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+        this.cleanImgDisabled();
         // then apply the cookie css value
         this.setCSS();  
         // then come back to the current settings
@@ -3217,36 +3325,36 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function () {   
-        var links, i, allElts, scriptJquery, done, ruler, doneRuler, imageAlt, spanImage, element, image_uci, s = "";
-        if (this.userPref.get("a11yToolbarEnable") !== "off" && document.getElementById("cdu_content").className.match(/cdu_displayN/)) {
+        var links, i, allElts, scriptJquery, done, ruler, doneRuler, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames;
+        if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off" && document.getElementById("cdu_content").className.match(/cdu_displayN/)) {
             if(document.getElementById('cdu_close'))
             {
                 document.getElementById('cdu_close').style.display == 'none';
             }
-            this.show();
+            accessibilitytoolbar.show();
         }           
-        this.removeOrStartRemote();
-        this.removeOrStartLoopingMode();   
-        if (this.userPref.get("a11ySiteWebEnabled")!="off"){
+        accessibilitytoolbar.removeOrStartRemote();
+        accessibilitytoolbar.removeOrStartLoopingMode();   
+        if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")!="off"){
             // 1. linearize ? -- which is the same as: get rid of all CSS info first
-            if (this.userPref.get("a11yLinearize") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11yLinearize") !== "false") {
                 // delete all the CSS references
                 links = document.getElementsByTagName("link");
                 for (i = links.length - 1; i >= 0; i--) {
                     if (links[i].rel.match(/stylesheet/i) && (!links[i].id || !links[i].id.match(/a11yCSS/))) {
-                        this.savesStylesheets.push(links[i]);
+                        accessibilitytoolbar.savesStylesheets.push(links[i]);
                         links[i].parentNode.removeChild(links[i]);
                     }
                 }
 
                 // remove the style attribute
-                allElts = this.body.getElementsByTagName("*");
+                allElts = accessibilitytoolbar.body.getElementsByTagName("*");
                 for (i = 0; i < allElts.length; i++) {
-                    if (!allElts[i].className.match(/uci_/) && !allElts[i].id.match(/uci_/) && !allElts[i].className.match(/cdu_/) && !allElts[i].id.match(/cdu_/)) {
+                    if ((allElts[i].className  instanceof String && !allElts[i].className.match(/uci_/) && !allElts[i].className.match(/cdu_/)) ||  (allElts[i].id && !allElts[i].id.match(/uci_/) && !allElts[i].id.match(/cdu_/))) {
                         if(allElts[i].getAttribute("style"))
                         {
-                            this.savStyleElmtAtt[i]=allElts[i];
-                            this.savStyleAttElmt[i]=allElts[i].getAttribute("style");
+                            accessibilitytoolbar.savStyleElmtAtt[i]=allElts[i];
+                            accessibilitytoolbar.savStyleAttElmt[i]=allElts[i].getAttribute("style");
                             allElts[i].removeAttribute("style");
                         }
                     }
@@ -3254,126 +3362,126 @@ accessibilitytoolbar = {
             }
             // if the user remove the option, we need to put back the stylesheets and styles attributes
             else{
-                if(this.savesStylesheets.length>0)
+                if(accessibilitytoolbar.savesStylesheets.length>0)
                 {
-                    for (i = this.savesStylesheets.length - 1; i >= 0; i--) {
-                        document.getElementsByTagName('head')[0].insertBefore(this.savesStylesheets[i],document.getElementById('a11yCSS'));
+                    for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
+                        document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i],document.getElementById('a11yCSS'));
                     }
                     // then clean the array
-                    this.savesStylesheets = [];
+                    accessibilitytoolbar.savesStylesheets = [];
                 }
-                if(this.savStyleElmtAtt.length>0)
+                if(accessibilitytoolbar.savStyleElmtAtt.length>0)
                 {
                     i = "";
-                    for (i in this.savStyleElmtAtt) {
-                        this.savStyleElmtAtt[i].setAttribute("style",this.savStyleAttElmt[i]);
+                    for (i in accessibilitytoolbar.savStyleElmtAtt) {
+                        accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style",accessibilitytoolbar.savStyleAttElmt[i]);
                     }
                     // then clean the array
-                    this.savStyleElmtAtt = [];
-                    this.savStyleAttElmt = [];
+                    accessibilitytoolbar.savStyleElmtAtt = [];
+                    accessibilitytoolbar.savStyleAttElmt = [];
                 }   
             }
 
             
             // generate the CSS instructions
             // 1. do we want bigger fonts?
-            if (this.userPref.get("a11yBigger") !== "keepit") {
-                s += "body { font-size:" + this.userPref.get("a11yBigger") + "% !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") + "% !important; }\n";
             }
 
             //gestion de l'affichage du mode espacement des mots
-            if (this.userPref.get("a11ySpacement") !== "keepit") {
-                s += "*{ word-spacing:" + this.userPref.get("a11ySpacement") + "em !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11ySpacement") !== "keepit") {
+                s += "*{ word-spacing:" + accessibilitytoolbar.userPref.get("a11ySpacement") + "em !important; }\n";
             }
 
             //gestion de l'affichage du mode espacement des lignes
-            if (this.userPref.get("a11yLineSpacement") !== "keepit") {
-                s += "*{ line-height:" + this.userPref.get("a11yLineSpacement") + " !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11yLineSpacement") !== "keepit") {
+                s += "*{ line-height:" + accessibilitytoolbar.userPref.get("a11yLineSpacement") + " !important; }\n";
             }
 
             //gestion de l'espacement des caractères
-            if (this.userPref.get("a11yCharSpacement") !== "keepit") {
-                s += "*{ letter-spacing:" + this.userPref.get("a11yCharSpacement") + "em !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
+                s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
             }
 
             //gestion de la casse : a11yModifCase
-            if (this.userPref.get("a11yModifCasseEnabled") !== "false") {
-                s += "*{ text-transform:" + this.userPref.get("a11yModifCasse") + " !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") !== "false") {
+                s += "*{ text-transform:" + accessibilitytoolbar.userPref.get("a11yModifCasse") + " !important; }\n";
             }
 
             //gestion de la police d'écriture
-            if (this.getCompatible('a11yDyslexyFontEnabled') && this.userPref.get("a11yDyslexyFontEnabled") !== "false") {
+            if (accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled') && accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") !== "false") {
                 //load the font face
-                if(this.userPref.get("a11yDyslexyFont")==='opendyslexic')
+                if(accessibilitytoolbar.userPref.get("a11yDyslexyFont")==='opendyslexic')
                 {
-                    s += "@font-face{font-family: \"opendyslexic\";src: url('"+hebergementFullPath+"fonts/woff/OpenDyslexic-Regular.woff');font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: url('"+hebergementFullPath+"fonts/woff/OpenDyslexic-Italic.woff');font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: url('"+hebergementFullPath+"/fonts/woff/OpenDyslexic-Bold.woff');font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: url('"+hebergementFullPath+"fonts/woff/OpenDyslexic-BoldItalic.woff');font-weight: bold;font-style: italic;} ";
+                    s += "@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicregular'] +";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicitalic'] +";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicbold'] +";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
                 }
-                s += "* {font-family:" + this.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
             }
 
             //gestion alignement des texte à gauche
-            if (this.userPref.get("a11yLeftText") !== "false") {
-                s += "* { text-align:" + this.userPref.get("a11yLeftText") + "!important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
+                s += "* { text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
             }
 
             //numerotation en mode liste
-            if (this.userPref.get("a11yNumerotationList") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11yNumerotationList") !== "false") {
 
-                s += "ul, ol  {list-style-position:initial !important; list-style-image: none !important; list-style-type: " + this.userPref.get("a11yNumerotationList") + "!important; }\n";
+                s += "ul, ol  {list-style-position:initial !important; list-style-image: none !important; list-style-type: " + accessibilitytoolbar.userPref.get("a11yNumerotationList") + "!important; }\n";
             }
 
             //gestion des liens de navigations
-            if (this.userPref.get("a11yNavLienEnabled") !== "false"){
+            if (accessibilitytoolbar.userPref.get("a11yNavLienEnabled") !== "false"){
                 //gestion des liens non visités
-                if (this.userPref.get("a11yNavLienNonVisStyle") === "border") {
-                    s += "a:link  {border: 1px solid !important; color : " + this.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                }  else if (this.userPref.get("a11yNavLienNonVisStyle") === "bold") {
-                    s += "a:link  {font-weight: bold !important; color: " + this.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                } else if (this.userPref.get("a11yNavLienNonVisStyle") === "underline") {
-                    s += "a:link  {text-decoration:underline !important; color: " + this.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border") {
+                    s += "a:link  {border: 1px solid !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                }  else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold") {
+                    s += "a:link  {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                } else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline") {
+                    s += "a:link  {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
                 } else {
-                    s += "a:link  {color: " + this.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                    s += "a:link  {color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
                 }
 
                 //gestion des liens visités
-                if (this.userPref.get("a11yNavLienVisStyle") === "border") {
-                    s += "a:visited {border: 1px solid !important; color: " + this.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                } else if (this.userPref.get("a11yNavLienVisStyle") === "bold") {
-                    s += "a:visited {font-weight: bold !important; color : " + this.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                }else if (this.userPref.get("a11yNavLienVisStyle") === "underline") {
-                    s += "a:visited {text-decoration:underline !important; color: " + this.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border") {
+                    s += "a:visited {border: 1px solid !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                } else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold") {
+                    s += "a:visited {font-weight: bold !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                }else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline") {
+                    s += "a:visited {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
                 }else {
-                    s += "a:visited {color: " + this.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                    s += "a:visited {color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
                 }
 
                 //gestion du lien actif
-                if (this.userPref.get("a11yNavLienSelStyle") === "border") {
-                    s += "a:active {border: 1px solid #FF7900!important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {border: 1px solid #FF7900 !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {border: 1px solid #FF7900 !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                } else if (this.userPref.get("a11yNavLienSelStyle") === "underline") {
-                    s += "a:active {text-decoration:underline !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {text-decoration:underline !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {text-decoration:underline !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border") {
+                    s += "a:active {border: 1px solid #FF7900!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:focus {border: 1px solid #FF7900 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:hover {border: 1px solid #FF7900 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                } else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline") {
+                    s += "a:active {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:focus {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:hover {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
                 }
-                else if (this.userPref.get("a11yNavLienSelStyle") === "bold") {
-                    s += "a:active {font-weight: bold !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {font-weight: bold !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {font-weight: bold !important; color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold") {
+                    s += "a:active {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:focus {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:hover {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
                 }else {
-                    s += "a:active {color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {color: " + this.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:active {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:focus {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:hover {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
 
                 }
             }
 
             //gestion de la regle
-            if (this.userPref.get("a11yRegleEnabled") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11yRegleEnabled") !== "false") {
                 //load jquery if not loaded
                 if (typeof jQuery == 'undefined') {
                     scriptJquery = document.createElement('script');
-                    scriptJquery.src = hebergementFullPath + "js/jquery.min.js";
+                    scriptJquery.src = jquery_min_js;
                     done = false;
                     // wait for jquery complete load
                     scriptJquery.onload = scriptJquery.onreadystatechange = function () {
@@ -3382,9 +3490,9 @@ accessibilitytoolbar = {
                             || this.readyState == "complete")) {
                             done = true;
                             // load the ruler
-                            if (!this.toolbarRuler) {
+                            if (!accessibilitytoolbar.toolbarRuler) {
                                 ruler = document.createElement('script');
-                                ruler.src = hebergementFullPath + "js/ruler.js";
+                                ruler.src = ruler_js;
                                 doneRuler = false;
                                 // wait until ruler complete loaded
                                 ruler.onload = ruler.onreadystatechange = function () {
@@ -3397,6 +3505,7 @@ accessibilitytoolbar = {
                                     }
                                 };
                                 document.getElementsByTagName('body')[0].appendChild(ruler);
+                                accessibilitytoolbar.toolbarRuler = true;
                             }
                         }
                     };
@@ -3404,51 +3513,48 @@ accessibilitytoolbar = {
                 }
 
                 // if jquery loaded, check if ruler loaded
-                if (typeof jQuery !== 'undefined' && !this.toolbarRuler) {
+                if (typeof jQuery !== 'undefined' && !accessibilitytoolbar.toolbarRuler) {
                     ruler = document.createElement('script');
-                    ruler.src = hebergementFullPath + "js/ruler.js";
+                    ruler.src = ruler_js;
                     doneRuler = false;
                     // wait until ruler complete loaded
                     ruler.onload = ruler.onreadystatechange = function () {
                         if (!doneRuler && ( !this.readyState
                             || this.readyState == "loaded"
                             || this.readyState == "complete")) {
-                            doneRuler = true;
+                        doneRuler = true;
                             //run the ruler
                             accessibilitytoolbar.complete();
                         }
                     };
                     document.getElementsByTagName('body')[0].appendChild(ruler);
                 }
-                if (typeof jQuery !== 'undefined' && this.toolbarRuler) {
+                if (typeof jQuery !== 'undefined' && accessibilitytoolbar.toolbarRuler) {
                     accessibilitytoolbar.complete();
                 }
             }
             // if ruler was launch before deactivation kill!
-            else if(this.toolbarRuler && this.toolbarRuler.settings.launched)
+            else if(accessibilitytoolbar.toolbarRuler && UciRuler.settings.launched)
             {
-                this.toolbarRuler.rulerEventRemove();
+                UciRuler.rulerEventRemove();
             }
 
             //suppression des effets de transparences
-            if (this.userPref.get("a11ySupEffetTransp") !== "false") {
-                /* Case of old IE Browser */
-                s += "*  { filter:alpha(opacity=100) !important; }\n";
-                /* Case of IE Browser */
-                s += "*  { opacity: 1 !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11ySupEffetTransp") !== "false") {                            
+                s += "*  { opacity: 1 !important; -ms-filter: 'none'; filter: none !important }";                
             }
 
             //supression des images de fond
-            if (this.userPref.get("a11ySupImageFont") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11ySupImageFont") !== "false") {
                 s += "*  { background-image: none !important; }\n";
             }
 
             
             var listeimg,i,backGroundColor,fontColor,uminositeFond,LuminositePolice,newStyle;
             //suppression des images de premier plan
-            listeimg = document.images;
             
-            if (this.userPref.get("a11ySupImageFirstPlan") !== "false" && !document.getElementById("spanImage1")){
+            if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") !== "false" && !document.getElementById("spanImage1")){
+                listeimg = document.images;
                 for (i = 0; i < listeimg.length; i++) {
                     if(!document.getElementById("spanImage"+i)){
                         if(!(/^uci_(\S+)$/.exec(listeimg[i].parentNode.id))){
@@ -3469,36 +3575,23 @@ accessibilitytoolbar = {
                         }
                     }
                 }
-            }else if (this.userPref.get("a11ySupImageFirstPlan") == "false"){
-                for(i = 0; i < listeimg.length; i++) {
-                    image_uci = /^uci_(\S+)$/.exec(listeimg[i].parentNode.id) ;
-                    if(!image_uci){
-                        if(document.getElementById("spanImage"+i)){
-                            element = document.getElementById("spanImage"+i);
-                            element.parentNode.removeChild(element);
-                            listeimg[i].className = listeimg[i].className.replace(/ uci_disable_image{0,1}/,"");
-                        }
-                        else // if there is no span, stop the loop
-                        {
-                            i=listeimg.length;
-                        }
-                    }
-                }
+            }else if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") == "false"){                
+                accessibilitytoolbar.cleanImgDisabled();
             } 
 
             //gestion des couleurs
             // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
             document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/,"");
             document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/,"");            
-            if((this.userPref.get("a11yVisualSettings") === "predefined" && this.userPref.get("a11yVisualPredefinedSettings") !=="keepit") || (this.userPref.get("a11yVisualSettings") === "personnal" && this.userPref.get("a11yFontColor") !== this.userPref.get("a11yBackgroundColor")))
+            if((accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" && accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") !=="keepit") || (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" && accessibilitytoolbar.userPref.get("a11yFontColor") !== accessibilitytoolbar.userPref.get("a11yBackgroundColor")))
             {
-                if (this.userPref.get("a11yVisualSettings") === "predefined") {
+                if (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined") {
                     document.getElementById('uci_message_constraste').style.display= 'none';
                     element = document.getElementById('uci_reponses_bigger_quick_set');
                     backGroundColor = "#FFF";
-                    fontColor = "#000";                    
+                    fontColor = "#000";           
                     /*defect 67 */ 
-                    if(this.userPref.get("a11yVisualPredefinedSettings") == "whiteonblack")
+                    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") == "whiteonblack")
                     {                                       
                         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
                         document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
@@ -3524,13 +3617,13 @@ accessibilitytoolbar = {
                     http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                    
                     
                     */                    
-                    LuminositeFond = this.conversionColor(parseInt(this.userPref.get("a11yBackgroundColor").substring(1,3),16)) * 0.2126 
-                        + this.conversionColor(parseInt(this.userPref.get("a11yBackgroundColor").substring(3,5),16)) * 0.7152 
-                        + this.conversionColor(parseInt(this.userPref.get("a11yBackgroundColor").substring(5,7),16)) * 0.0722;
+                    LuminositeFond = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(1,3),16)) * 0.2126 
+                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(3,5),16)) * 0.7152 
+                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(5,7),16)) * 0.0722;
                     
-                    LuminositePolice = this.conversionColor(parseInt(this.userPref.get("a11yFontColor").substring(1,3),16)) * 0.2126 
-                        + this.conversionColor(parseInt(this.userPref.get("a11yFontColor").substring(3,5),16)) * 0.7152 
-                        + this.conversionColor(parseInt(this.userPref.get("a11yFontColor").substring(5,7),16)) * 0.0722;
+                    LuminositePolice = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(1,3),16)) * 0.2126 
+                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(3,5),16)) * 0.7152 
+                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(5,7),16)) * 0.0722;
 
                     //calcul du contraste entre 2 couleurs
                     /*
@@ -3546,24 +3639,49 @@ accessibilitytoolbar = {
                     } else if (document.getElementById('uci_message_constraste').style.display === 'block'){
                         document.getElementById('uci_message_constraste').style.display= 'none';
                     }
-                    fontColor = this.userPref.get("a11yFontColor");
-                    backGroundColor = this.userPref.get("a11yBackgroundColor");                        
+                    fontColor = accessibilitytoolbar.userPref.get("a11yFontColor");
+                    backGroundColor = accessibilitytoolbar.userPref.get("a11yBackgroundColor");                        
                 }
                 
                 s += "* { color:" + fontColor + " !important; }\n";
-                s += "a:link { color:" + fontColor + "; text-decoration:underline !important; }\n";
-                s += "a:visited { color:" + fontColor + "; text-decoration:underline !important;}\n";
-                s += "fieldset { border-color:" + fontColor + " !important; }\n";
-                s += "button, input[type='submit'], input[type='text'] { border-style:outset !important; border-color:" + fontColor + " !important; }\n";
+                s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
+                //s += "button, input[type='submit'], input[type='text'] { border-style:outset !important; border-color:" + fontColor + " !important; }\n";
                 s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
                 s += "table {border-collapse: collapse !important;}";
                 s += "* { background-color:" + backGroundColor + " !important; background:" + backGroundColor + " !important; }\n";
-            }            
+                s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";     
+                
+                document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
+            }
+            else {
+                document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
+            }
         }
         
         // Remove previous user style
         if (document.getElementById("a11yUserPrefStyle")) {
             document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
+            /*
+             * remove css to frames if possible
+             * Works only if frame src is onto the same domain
+             *
+             */
+            indexFrame = 0;
+            theFrames=window.frames;
+            //theFrames=document.getElementsByTagName("iframe");
+            if(theFrames.length>0)
+            {
+                while(theFrame = theFrames[indexFrame]){
+                    try{
+                        //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
+                        theFrameDocument = theFrame.document || theFrame.contentDocument;
+                        if(theFrameDocument.getElementsByTagName('head')[0]){
+                            theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
+                        }
+                    } catch(e){}
+                    indexFrame++;
+                }
+            }
         }    
         // create a new style sheet
         if (s !== "") {
@@ -3577,13 +3695,55 @@ accessibilitytoolbar = {
                 newStyle.appendChild(document.createTextNode(s));
             }
             document.getElementsByTagName('head')[0].appendChild(newStyle);
+            /*
+             * Apply css to frames if possible
+             * Works only if frame src is onto the same domain
+             *
+             */
+            indexFrame = 0;
+            theFrames=window.frames;
+            //frames=document.getElementsByTagName("iframe");
+            if(theFrames.length>0)
+            {
+                while(theFrame = theFrames[indexFrame]){
+                    try{                        
+                        theFrameDocument = theFrame.document || theFrame.contentDocument;
+                        if(theFrameDocument.getElementsByTagName('head')[0]){
+                            theFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+                        }                        
+                    } catch(e){}
+                    indexFrame++;
+                }
+            }
+        }
+
+    },
+             
+    /*
+     * remove the link from pictures disabled
+     */
+    cleanImgDisabled : function(){
+        var i,image_uci, listeimg = document.images;
+        for(i = 0; i < listeimg.length; i++) {
+            image_uci = /^uci_(\S+)$/.exec(listeimg[i].parentNode.id) ;
+            if(!image_uci){
+                if(document.getElementById("spanImage"+i)){
+                    element = document.getElementById("spanImage"+i);
+                    element.parentNode.removeChild(element);
+                    listeimg[i].className = listeimg[i].className.replace(/ uci_disable_image{0,1}/,"");
+                }
+                else // if there is no span, stop the loop
+                {
+                    i=listeimg.length;
+                }
+            }
         }
     },
+                
     /*
      * reload the toolbar
      */
     reloadToolbar : function(){
-
         document.getElementById('accessibilitytoolbarGraphic').lang = this.strings.getLocale();
         if(accessibilitytoolbar.userPref.get('a11yLanguage') !== "keepit"){
             accessibilitytoolbar.strings.setMyLocale(accessibilitytoolbar.userPref.get('a11yLanguage'));
@@ -3700,9 +3860,6 @@ accessibilitytoolbar = {
         accessibilitytoolbar.body = document.getElementsByTagName('body')[0];
         accessibilitytoolbar.html = document.getElementsByTagName('html')[0];
 
-        // find the locale for correct language  
-        accessibilitytoolbar.strings.setLocale();
-
         if(accessibilitytoolbar.userPref.get('a11yLanguage') !== "keepit"){
 
             accessibilitytoolbar.strings.setMyLocale(accessibilitytoolbar.userPref.get('a11yLanguage'));
@@ -3714,6 +3871,21 @@ accessibilitytoolbar = {
     },
 
     firstInitToolbar: function(){
+        /*
+        var addedToDocument = false;
+        var wrapper = document.createElement("div");
+        wrapper.id = "accessibilitytoolbarWrapper";
+        var nodesToWrap = document.body.childNodes;  
+        for (var index = 0; index < nodesToWrap.length; index++) {
+            var node = nodesToWrap[index];
+            if (! addedToDocument) {
+                node.parentNode.insertBefore(wrapper, node);
+                addedToDocument = true;
+            }
+            node.parentNode.removeChild(node);
+            wrapper.appendChild(node);
+        }
+        */
         // let's create the toolbar
         var style = "#accessibilitytoolbarGraphic {display:none}";
         var newStyle = document.createElement("style");
@@ -3731,6 +3903,21 @@ accessibilitytoolbar = {
         var d = document.createElement('div');
         d.id = "accessibilitytoolbarGraphic";
         d.lang = this.strings.getLocale();
+        d.className = 'cdu_modern_browser';
+        accessibilitytoolbar.isModern = true;
+        var nav = this.getNavigateur();
+        var list = ['MSIE 8.', 'MSIE 7.', 'MSIE 6.'];
+        try {
+            for(var i = 0, len = list.length; i < len; ++i) {
+                var pos = nav.indexOf(list[i]);
+                if(pos !== -1) {
+                    throw "OldBrowser";
+                }
+            }
+        } catch(e) {
+        	accessibilitytoolbar.isModern = false;
+            d.className = 'cdu_old_browser';
+        }
         d.innerHTML = accessibilitytoolbar.toolbarCDUContent();
         this.body.insertBefore(d, this.body.firstChild);
         accessibilitytoolbar.loadTheToolbar();
@@ -3740,6 +3927,7 @@ accessibilitytoolbar = {
     loadTheToolbar: function () {
         accessibilitytoolbar.createObjectBehaviour();
         if (accessibilitytoolbar.secCookie === null) {
+            accessibilitytoolbar.cleanImgDisabled();
             // set CSS to the user's settings
             accessibilitytoolbar.setCSS();
             // jump to content if needed
@@ -3747,48 +3935,31 @@ accessibilitytoolbar = {
         }
 
     },
-
+    
     /**
-     * Receive message from the iframe
-     */
-    receiveMessage: function (event) {
-        // Do we trust the sender of this message?
-        if ( event.origin.replace('HEBERGEMENTPROTOCOL', '') !== hebergementDomaine.replace('HEBERGEMENTPROTOCOL', '') || typeof event.data === 'object')
-            return;
-        
-        // back from cookie Save
-        if (event.data == "saveDone") {
-            if(accessibilitytoolbar.needToReload)
-            {
-                accessibilitytoolbar.reloadToolbar();
-            }
-        }
-        //cookieData
-        else
-        {            
-            if (event.data == "NOCOOKIE") {
-                // Put the information message into cdu_intro area
-                accessibilitytoolbar.secCookie = true;
-                // default value
-                accessibilitytoolbar.cookieValue = false;
-                accessibilitytoolbar.userPref.InitUciCookie(false);
-            }
-            else {
-                accessibilitytoolbar.cookieValue = event.data;
-                accessibilitytoolbar.userPref.InitUciCookie( event.data);
-            }
-        }
-    },
-    /**
-     * @function is_touch_device
+     * @function isTouchDevice
      * @returns {boolean}
      */
-    is_touch_device: function (a) {
+    isTouchDevice: function (a) {
         if (/(android|bb\d+|meego).+mobile|avantgo|android|ipad|playbook|silk|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4)))
         {
             return true;
         }
             return false;
+    },
+    
+    /**
+     * @function isInFrame
+     * check if Orange Confort+ is displayed into a frame or iframe, then don't display the toolbar
+     * @returns {boolean} return true if in frame
+     */
+     inIframe: function () {
+    	try {
+            return (window.frameElement);// || window.opener);
+            //return (window.parent != window);// || window.opener);
+        } catch (e) {
+            return true;
+        }
     },
 
     /**
@@ -3813,7 +3984,7 @@ accessibilitytoolbar = {
      */
     start: function () {
         // detect the browser 
-        if(!this.is_touch_device(navigator.userAgent || navigator.vendor || window.opera)){
+        if(!this.isTouchDevice(navigator.userAgent || navigator.vendor || window.opera) && !this.inIframe()){            
             if (!document.getElementById || !document.getElementsByTagName || !document.createElement) {
                 return;
             }
@@ -3821,33 +3992,22 @@ accessibilitytoolbar = {
             if (document.getElementById("a11yToolbar")) {
                 document.getElementById("a11yToolbar").setAttribute("uci_language", "unknown");
             } else {
-                // doesn't work on ie>7 so we test before
+                // doesn't work on ie<7 so we test before
                 if (window.postMessage) {
                     // when the data response was received, launch the init of the toolbar
-                    this.userPref = new UciCookie();
-                    this.addOnLoad(this.init);
-
-                    /**
-                     * Add the catch event for message from the iframe
-                     */
-                    if (window.addEventListener) {
-                        window.addEventListener("message", this.receiveMessage, false);
+                    // find the locale for correct language  
+                    this.strings.setLocale();
+                    this.userPref = new UciStorage();
+                    if (document.readyState !== 'loading') {
+                        this.init();
                     }
-                    else if (window.attachEvent) {
-                        window.attachEvent("onmessage", this.receiveMessage);
+                    else {
+                        this.addOnLoad(this.init);
                     }
-                    var oNewNode = document.createElement("iframe");
-                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.php?hostname='+document.location.hostname+'&origin=' + document.location.href);
-                    oNewNode.setAttribute("id", 'id_frame_cookie');
-                    oNewNode.setAttribute("name", 'frame_cookie');
-                    oNewNode.setAttribute("width", '0');
-                    oNewNode.setAttribute("height", '0');
-                    oNewNode.setAttribute("style", 'width:0;height:0;border:0');
-                    document.getElementsByTagName('body')[0].appendChild(oNewNode);
                 }
             }
         }
 
     }
+    
 };
-accessibilitytoolbar.start();
