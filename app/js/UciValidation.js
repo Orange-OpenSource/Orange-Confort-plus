@@ -21,33 +21,24 @@
 /*global window */
 /*global document: false */
 /* global alert */
-function UciValidation() {
-    "use strict";
+UciValidation = {
     /**
      * @property
      * @private
      */
-    var attr_validation;
-    attr_validation = "";
+    attr_validation: "",
     /*
      * @constructor init
      */
-    UciValidation.prototype.InitUciValidation = function () {
-        attr_validation += "<div class='uci_squaredOne'>";
-        attr_validation += "<input type='checkbox' value='off' name='a11yApercuAuto' id='a11yApercuAuto' "+(accessibilitytoolbar.userPref.get("a11yApercuAuto") === "off" ? " checked=\"checked\"" : "")+"/>";
-        attr_validation += "<label for='a11yApercuAuto'>";
-        attr_validation += "<span class='uci_ui'></span>";
-        attr_validation += accessibilitytoolbar.get('uci_checkbox_disable_apercuauto');
-        attr_validation += "</label>";
-        attr_validation += "</div>";
-        attr_validation += "<div id='uci_validation_button'>";
-        attr_validation += "<input type='submit' class='uci_button_valider' id='uci_valider' value=\""+accessibilitytoolbar.get('uci_button_valid')+"\" />";
-        attr_validation += "<input type='reset' class='uci_button_reset' id='uci_annuler' value=\""+accessibilitytoolbar.get('uci_button_cancel')+"\" />";
-        attr_validation += "</div>";
-        return attr_validation;
-    };
+    InitUciValidation: function () {
+        this.attr_validation = "<div id='uci_validation_button'>";
+        this.attr_validation += "<input type='submit' class='uci_button_valider' id='uci_valider' value=\""+accessibilitytoolbar.get('uci_button_valid')+"\" />";
+        this.attr_validation += "<input type='reset' class='uci_button_reset' id='uci_annuler' value=\""+accessibilitytoolbar.get('uci_button_cancel')+"\" />";
+        this.attr_validation += "</div>";
+        return this.attr_validation;
+    },
 
-    UciValidation.Validation = function (/*event*/e) {
+    Validation: function (/*event*/e) {
         var event = e || window.event;
         if (event && event.stopPropagation) {
             event.stopPropagation();
@@ -56,29 +47,22 @@ function UciValidation() {
             window.event.cancelBubble = true;
             window.eventReturnValue = false;
         }
-        //document.getElementById('uci_moreconfortleft').focus();
-        if(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on") {
-            document.getElementById("uci_active_cdu_img").focus();
-        }
-        else {
-            document.getElementById("uci_inactive_cdu_img").focus();
-        }
+        document.getElementById("uci-onoffswitch").focus();
+        
         accessibilitytoolbar.setCSS();
         accessibilitytoolbar.hasDoneSettings = true;
         accessibilitytoolbar.saveUserPref();
         document.getElementById('uci_validation').className = "cdu_n";
-        UciIhm.hide_more_confort('uci_activateOnglet','uci_moreconfort_content');
-    };
+        UciIhm.hide_more_confort();
+        return false;
+    },
 
-    UciValidation.Annulation = function () {
-        //document.getElementById('uci_moreconfortleft').focus();
-        if(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on") {
-            document.getElementById("uci_active_cdu_img").focus();
-        }
-        else {
-            document.getElementById("uci_inactive_cdu_img").focus();
-        }
-        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.cookieValue);
+    Annulation: function () {
+        document.getElementById("uci-onoffswitch").focus();
+        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+        // Keep the toolbar open
+        accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
         accessibilitytoolbar.reloadToolbar();
-    };
+        return false;
+    }
 }

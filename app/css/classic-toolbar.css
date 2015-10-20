@@ -13,18 +13,263 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
+
+/*******************************************************Reset general*********************************************/
+#accessibilitytoolbarGraphic ul {
+    margin:0;
+    padding:0;
+}
+
+#accessibilitytoolbarGraphic button, 
+#accessibilitytoolbarGraphic input[type="reset"],#accessibilitytoolbarGraphic input[type="button"],#accessibilitytoolbarGraphic input[type="submit"]{
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+/*******************************************************icons font*********************************************/
+@font-face {
+    font-family: 'orangeconfortplus';
+    src: url('../fonts/orangeconfortplus-webfont.eot');
+}
+
+@font-face {
+    font-family: 'orangeconfortplus';
+    src: url(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAA0sAAsAAAAADOAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgDzIM/GNtYXAAAAFoAAABKAAAASgirAS+Z2FzcAAAApAAAAAIAAAACAAAABBnbHlmAAACmAAAB6gAAAeoi9KmImhlYWQAAApAAAAANgAAADYHLlkLaGhlYQAACngAAAAkAAAAJAfuA/NobXR4AAAKnAAAADQAAAA0KjkBoGxvY2EAAArQAAAAHAAAABwHoAnobWF4cAAACuwAAAAgAAAAIAAUALJuYW1lAAALDAAAAf4AAAH+6jbqG3Bvc3QAAA0MAAAAIAAAACAAAwAAAAMD0wGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAACAAAAAAAAAAAAAAAAAAQAAA//8DwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAABgAAAAMAAAA0AAAABAAAAJQAAQADAAAANAABAAQAAACUAAMAAQAAADQAAwAKAAAAlAAEAGAAAAAUABAAAwAEAAEAIAArAC0APwBUAFghu//9//8AAAAAACAAKwAtAD8AVABYIbv//f//AAH/4//Z/9j/x/+z/7DeTgADAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAACUAAAAAAAAAAsAAAAAAAAAAQAAAAEAAAAgAAAAIAAAAAMAAAArAAAAKwAAAAQAAAAtAAAALQAAAAUAAAA/AAAAPwAAAAYAAABUAAAAVAAAAAcAAABYAAAAWAAAAAgAACG7AAAhuwAAAAkAAfOoAAHzqAAAAAoAAfRGAAH0RgAAAAsAAfT6AAH0+gAAAAwAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAADAFYAMwOxA4gAFAApADYAAAEiDgIVFB4CMzI+AjU0LgIjESIuAjU0PgIzMh4CFRQOAiMnNSM1MzUzFTMVIxUjAgRZnXRERHSdWViddUNDdZ1YU5FtPz9tkVNSkW1AP2ySUx6srEqsrEoDiEN0nFdYm3VDQ3WbWFecdEP8yT5skFNSkGw/P2yQUlOQbD60r0qsrEqvAAAAAAMAVgAzA7EDiAAUACkALgAAASIOAhUUHgIzMj4CNTQuAiMRIi4CNTQ+AjMyHgIVFA4CIwM1IRUhAgRZnXRERHSdWViddUNDdZ1YU5FtPz9tkVNSkW1AP2ySU8oBsf5PA4hDdJxXWJt1Q0N1m1hXnHRD/Mk+bJBTUpBsPz9skFJTkGw+AWxQUAADAAD/wAQAA8AAFAAjAFsAAAEOAxceAzc+AycuAwcRMSImNzQ2OwEyFhUOASMTDgEPAQ4BBw4BHQEjNTQ2Nz4BMz4BNz4BNTQmJy4BIyIGBw4BHQEjNT4BNz4BMzIWFx4BFRQGBwH3abmJTgICU428a2m5iU4CA1WNu2klMAMwIgQmLActIscHJRgkDhMDBAGDCQ4XSQMHDAQKCAgKCh4YFyEHCgiIAyopGz8lMFQfIiIPEQPAAlONvGtpuYlOAgJTjbxrabmJTgL8tTAiIi8wJh4vAY8OHBEXChQKBw0RBAkiLBEbMgcJBw0aCxEbCg4JDxERIQ4EBD5bGBEPGRQYSSwYLxgAAAABAEn/4QPVA8AAJAAAExUzPgEzMhYxETAUFRQGMSMVITUjMCY1PAExETA2MzIWFzM1IUkpCkQuH4YpUgHvUymGHyxHCSn8dAPA+D5sBf0iPB8NHSkpHQ0fPALeBWw++AABAAD/wAQAA8AACwAACQE3CQEnCQEHCQEXAgABnGT+ZAGcZP5k/mRkAZz+ZGQBXP5kZAGcAZxk/msBlWT+ZP5kZAAAAAIAAP/ABAADwAAUAD4AAAEOAxceAzc+AycuAwcXHgEXHgEUBgcOASImJy4BNDY3JzMVJw4BFBYXHgEyNjc+ATQmJy4BJzUB92m5iU4CAlONvGtpuYlOAgNVjbtpdiVEHzMzMzMzgYaBMzMzMzM7ujsmJSUmJV1hXSYlJSUlESIRA8ACU428a2m5iU4CAlONvGtpuYlOAsMKKR4zgYaBMzMzMzMzgYaBMzu6OyZdYV0lJiUlJiVdYV0mDRYKaAAAAAYAAAAQBAYDQAAyAEsAZAB9AJYArwAAJSIuAicuATU0Njc+ATc+ATc+ATMyFhceARceARceARUUBgcOASMiBgcOARUUBgcOASMRIgYHDgEVFBYXHgEzMjY3PgE1NCYnLgEjASIGBw4BFRQWFx4BMzI2Nz4BNTQmJy4BIyUiBgcOARUUFhceATMyNjc+ATU0JicuASMlIgYHDgEVFBYXHgEzMjY3PgE1NCYnLgEjIyIGBw4BFRQWFx4BMzI2Nz4BNTQmJy4BIwIIPm9hUiJEQhcYGEEpKV80M3dBMFwoLEUZGyoOEA0WFhU8JitAExYSGxsWQCkQHwsNDAwNCx8QEB8LDgsLDg4cEAFUEBgLCwoKCwsaDhAXCwsLCwsIGhD9ixAYCgsLCwsKGw0OGgsLCgoLCxgQAbkQGAsKCwsKCxoODRsKCwsLCwobDeAQGAsKCwsKCxoOEBgLCgsLCgkaEBAOHSkcOIdMPGYsK0MbGCULCwsRExMrGRs2GxsxFitGGBsYCw4NLSApRBkYGgEWDA4KHxARHgsLDgsOCx4REB8KDgwBEgsKCxoODhoLCgsLCgsaDhAYCwoLNgoLCxoOEBgKCwsLCwobDRAYCwsKcAoLCxoOEBgKCwsLCwobDRAYCwsKCgsLGg4QGAoLCwsLChsNEBgLCwoAAAUAq//DA0cDwAA6AE8AZABxAH4AAAE0JisBIgYVES4BJyYGFx4DFR4BMzI+AjERNCYrASIGHQEjNTQmKwEiBh0BIzU0JisBIgYdASM1ByIuAjU0PgIzMh4CFRQOAiMRIg4CFRQeAjMyPgI1NC4CIxEiJjU0NjMyFhUUBiM1IgYVFBYzMjY1NCYjAcUXFgMWGjAvGCIpGAw7PTAOam9aYi0IHhYGFhQgGxUHFRggFxYGFhcgKjBVQCUlQFUwMFY/JSU/VjArTDkhITlMKytMOSEhOUwrOlNTOjpTUzomNzcmJzY2JwLCFBwaFv5sJkwFBywpFGFjTgEiSz1KPQGBEyoqEyMjEyoqEyMjEyoqEyPd1yVAVTEwVUAlJUBVMDFVQCUBuyA5TCssTDghIThMLCtMOSD+n1Q5OlRUOjlU6zcnJjc3Jic3AAAEAAD/wAQrA8AAGAAgACgAMwAAJRQOAiMhIi4CNRE0PgIzITIeAhURBxEhESEWNjUFMxEjERQWMwEhIgYdASE1NCYjBCsgNUgo/V4oRzYfHzZHKAKiKEg1IFb9gAJJGR78q4CrERoDHvziGhEDgB4ZhChHNh8fNkcoAngoRzYfHzZHKP2INwIe/aoDHh08AlX94xoeA1UdGnNzHRoAAAAAAQAAAAEAAGxNxZFfDzz1AAsEAAAAAADR8gpHAAAAANHyCkcAAP/ABCsDwAAAAAgAAgAAAAAAAAABAAADwP/AAAAEKwAA//oEKwABAAAAAAAAAAAAAAAAAAAADQQAAAAAAAAAAAAAAAIAAAAEBwBWBAcAVgQAAAAEAABJBAAAAAQAAAAEAAAABAAAqwQrAAAAAAAAAAoAFAAeAGoArgEyAWIBhAHkAuADhAPUAAEAAAANALAABgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQARAAAAAQAAAAAAAgAHALoAAQAAAAAAAwARAFQAAQAAAAAABAARAM8AAQAAAAAABQALADMAAQAAAAAABgARAIcAAQAAAAAACgAaAQIAAwABBAkAAQAiABEAAwABBAkAAgAOAMEAAwABBAkAAwAiAGUAAwABBAkABAAiAOAAAwABBAkABQAWAD4AAwABBAkABgAiAJgAAwABBAkACgA0ARxvcmFuZ2Vjb25mb3J0cGx1cwBvAHIAYQBuAGcAZQBjAG8AbgBmAG8AcgB0AHAAbAB1AHNWZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBvcmFuZ2Vjb25mb3J0cGx1cwBvAHIAYQBuAGcAZQBjAG8AbgBmAG8AcgB0AHAAbAB1AHNvcmFuZ2Vjb25mb3J0cGx1cwBvAHIAYQBuAGcAZQBjAG8AbgBmAG8AcgB0AHAAbAB1AHNSZWd1bGFyAFIAZQBnAHUAbABhAHJvcmFuZ2Vjb25mb3J0cGx1cwBvAHIAYQBuAGcAZQBjAG8AbgBmAG8AcgB0AHAAbAB1AHNGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA) format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-typographie  {
+        font-family: helvetica, arial, sans-serif;
+        display:none;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie  {
+	font-family: 'orangeconfortplus';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	letter-spacing:0;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-agencement:before {
+	content: "\1f4fa";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement:before {
+	content: "\1f446";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs:before {
+	content: "\e602";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix:before {
+	content: "\58";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help:before {
+	content: "\3f";
+    color: #F16E00;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2:before {
+	content: "\2d";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2:before {
+	content: "\2b";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2:before {
+	content: "\21bb";
+        color: #F16E00;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path1 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path2 {
+	fill: rgb(204, 204, 204);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_choix_selected .cdu-icon-palette .path2 {
+	fill: #FFF;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path3 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path4 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path5 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path6 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path7 {
+	fill: rgb(82, 126, 219);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path8 {
+	fill: rgb(255, 204, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path9 {
+	fill: rgb(50, 200, 50);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path10 {
+	fill: rgb(214, 1, 2);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path1 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path6 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path2 {
+	fill: rgb(204, 204, 204);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path2 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path3 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path4 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path5 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path6 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path7 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path8 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path9 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path10 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path6 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path10 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path6 {
+	fill: rgb(255, 255, 255);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path10 {
+	fill: rgb(0, 0, 0);
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path6 {
+	fill: rgb(255, 255, 255);
+	dispaly:none;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path10 {
+	fill: rgb(0, 0, 0);
+	dispaly:none;	
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie:before {
+	content: "\54";
+}
+
+/* icons for IE8 and older */
+
+#accessibilitytoolbarGraphic.cdu_old_browser #uci_left_toolbar .cdu-icon-test {
+    background-image: url("../images/ico_palette_color.png") !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    display:block;
+    height: 1em;
+    width: 1em;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .uci_choix.uci_choix_selected .cdu-icon-test {
+    background-image: url("../images/ico_palette_color_active.png") !important;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .uci_choix .cdu-icon-test {
+    background-image: url("../images/ico_palette_color.png") !important;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix .cdu-icon-test {
+    background-image: url("../images/ico_palette_bn.png") !important;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2 {
+    background-image: url("../images/btn_plus.png") !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    display:inline-block;
+    vertical-align:middle;
+    height: 35px;
+    width: 34px;
+    
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2 {
+    background-image: url("../images/btn_plus.png") !important;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2 {
+    background-image: url("../images/btn_minus.png") !important;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser #uci_moreconfort_content {
+    vertical-align:middle;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-croix {
+    background-image: url("../images/btn_close_cross.png") !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    display:block;
+    height: 15px;
+    width: 14px;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-reload2 {
+    background-image: url("../images/ico_init.png") !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    display:block;
+    height: 24px;
+    width: 23px;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-help {
+    background-image: url("../images/ico_help.png") !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    display:inline-block;
+    height: 24px;
+    width: 23px;
+}
+
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_reponses_couleurpredefinie_quick_set .cdu-icon-palette {
+	width: 2.15em;
+	height:2em;
+}
+
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette {
+	width: 1em;
+	height:0.95em;
+	padding-right:5px;
+}
 /*******************************************************Toolbar general*********************************************/
 /******************************************Chargement de la font orange**************************************************/
+#accessibilitytoolbarWrapper {
+   position:relative;
+   transform: scale(1);
+}
+
 #accessibilitytoolbarGraphic {
     color: #000000;
     position: relative;
     font-family: helvetica, arial, sans-serif;
+    font-weight: bold;
+    line-height: initial;
 }
-#accessibilitytoolbarGraphic input{
-    font-size: inherit;
+#accessibilitytoolbarGraphic input, 
+#accessibilitytoolbarGraphic button{
+    color: #000;
+	font-size: inherit;
 }
 #accessibilitytoolbarGraphic a {
-    color:  #000000;
+    color:  #000;
     text-decoration: underline;
 }
 
@@ -56,13 +301,12 @@
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
     background: none repeat scroll 0 0 #FFFFFF;
-    border-color: -moz-use-text-color #CDCDCD #CDCDCD;
-    border-image: none;
-    border-radius: 0 0 0.3em 0.3em;
-    border-right: 1px solid #CDCDCD;
+    border-color: -moz-use-text-color #000 #000;
+    border-image: none;    
+    border-right: 1px solid #000;
     border-style: none solid solid;
     border-width: 0 1px 1px;
-    box-shadow: 1px 1px 2px #666666;
+    /*box-shadow: 1px 1px 2px #000;*/
     font-size: 125%;
     font-weight: bold;
     margin: 0;
@@ -85,111 +329,18 @@
 
 #cdu_close span, .uci-plus-orange {
     color: #F16E00;
-    font-size: 150%;
+    font-size: 130%;
     line-height: 0;    
     font-weight: bold;
     padding-bottom: 0.125em;
-    vertical-align: middle;
+    vertical-align: middle;    
 }
 
 #uci_link{
     color: #000;
 }
 
-.remotecontrol-selected {
-    background-color: #F8ECDF !important;
-    color: #000000 !important;
-    outline: 3px double #FF6600 !important;
-    text-decoration: none !important;
-}
 
-div#remotecontrol {
-    border: 0 none;
-    bottom: 20px;
-    margin: 0;
-    position: absolute;
-    right: 20px;
-    z-index: 9000;
-}
-
-html > body div#remotecontrol {
-    position: fixed;
-}
-
-div#remotecontrol img {
-    border: 0 none;
-}
-
-.loopingmode-focused {
-    background-color: #F8ECDF !important;
-    color: #000000 !important;
-    outline: 3px double #FF6600 !important;
-    text-decoration: none !important;
-}
-
-.a11y-focused {
-    background-color: #F8ECDF !important;
-    color: #000000 !important;
-    text-decoration: none !important;
-}
-
-div#loopingBar {
-    background: url("../images/bg_menu.gif") repeat-y scroll left top #FFFFFF;
-    border: 1px solid #999999;
-    color: #333333;
-    font-family: arial,helvetica,sans-serif;
-    font-size: 100%;
-    position: absolute;
-    z-index: 9000;
-}
-
-* html div#loopingBar {
-    width: 250px;
-}
-
-div#loopingBar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-div#loopingBar li {
-    display: inline;
-}
-
-div#loopingBar strong {
-    display: block;
-    padding: 3px 3px 3px 28px;
-}
-
-div#loopingBar a:link, div#loopingBar a:visited {
-    background-position: 1px 2px;
-    background-repeat: no-repeat;
-    border: 0 none;
-    color: #333333;
-    display: block;
-    height: 20px;
-    margin: 1px;
-    padding: 3px 3px 3px 28px;
-    text-decoration: none;
-    vertical-align: middle;
-}
-
-html > body div#loopingBar a:link, html > body div#loopingBar a:visited {
-    height: auto;
-    min-height: 20px;
-}
-
-div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
-    background-color: #EFEFEF;
-    background-position: 0 1px;
-    border: 1px solid #999999;
-    color: #333333;
-    display: block;
-    margin: 1px;
-    padding: 2px 2px 2px 27px;
-    text-decoration: none;
-}
 
 /********************* Fin ancienne version ***************************/
 #accessibilitytoolbarGraphic {
@@ -240,16 +391,16 @@ div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
     padding: 0;
 }
 #uci_toolbar-quick {
-    background-color: #F7F7F7;
-    border-bottom: 2px solid #E3E3E3;
-    box-shadow: 2px 0 2px #E3E3E3;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #000;
+    /*box-shadow: 2px 0 2px #000;*/
     width: 100%;
     float: left;
+	padding:0;
+    min-height: 2.625em;
 }
-#uci_toolbar-quick.uci_mask{
-    border-bottom: 2px solid #8B8B8B;
-    background-repeat:no-repeat;
-    background-position:5px left;
+.uci_right{
+    min-height: 2.625em;   
 }
 
 #cdu_jump_link a {
@@ -264,13 +415,12 @@ div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
     background: none repeat scroll 0 0 #FFFFFF;
-    border-color: -moz-use-text-color #CDCDCD #CDCDCD;
+    border-color: -moz-use-text-color #000 #000;
     border-image: none;
-    border-radius: 0 0 0.3em 0.3em;
-    border-right: 1px solid #CDCDCD;
+    border-right: 1px solid #000;
     border-style: none solid solid;
     border-width: 0 1px 1px;
-    box-shadow: 1px 1px 2px #666666;
+    /*box-shadow: 1px 1px 2px #000;*/
     font-size: 125%;
     font-weight: bold;
     margin: 0;
@@ -292,7 +442,7 @@ div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
 #cdu_secu {
     background: url("../images/homescreen_tips_72x72_fe.gif") no-repeat scroll 5px 7px #FFFFFF;
     border: 0.084em solid #A3A3A3 !important;
-    box-shadow: 0 0.08em 0.25em rgba(0, 0, 0, 0.64);
+    /*box-shadow: 0 0.08em 0.25em rgba(0, 0, 0, 0.64);*/
     font-size: 165%;
     margin: 1em 0 !important;
     min-height: 60px;
@@ -304,9 +454,9 @@ div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
 }
 
 .remotecontrol-selected {
-    background-color: #F8ECDF !important;
+    background-color: #fff !important;
     color: #000000 !important;
-    outline: 3px double #FF6600 !important;
+    outline: 3px double #F16E00 !important;
     text-decoration: none !important;
 }
 div#remotecontrol {
@@ -324,20 +474,20 @@ div#remotecontrol img {
     border: 0 none;
 }
 .loopingmode-focused {
-    background-color: #F8ECDF !important;
+    background-color: #fff !important;
     color: #000000 !important;
-    outline: 3px double #FF6600 !important;
+    outline: 3px double #F16E00 !important;
     text-decoration: none !important;
 }
 .a11y-focused {
-    background-color: #F8ECDF !important;
+    background-color: #fff !important;
     color: #000000 !important;
     text-decoration: none !important;
 }
 div#loopingBar {
     background: url("../images/bg_menu.gif") repeat-y scroll left top #FFFFFF;
-    border: 1px solid #999999;
-    color: #333333;
+    border: 1px solid #000;
+    color: #000;
     font-family: arial,helvetica,sans-serif;
     font-size: 100%;
     position: absolute;
@@ -362,7 +512,7 @@ div#loopingBar a:link, div#loopingBar a:visited {
     background-position: 1px 2px;
     background-repeat: no-repeat;
     border: 0 none;
-    color: #333333;
+    color: #000;
     display: block;
     height: 20px;
     margin: 1px;
@@ -377,8 +527,8 @@ html > body div#loopingBar a:link, html > body div#loopingBar a:visited {
 div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
     background-color: #EFEFEF;
     background-position: 0 1px;
-    border: 1px solid #999999;
-    color: #333333;
+    border: 1px solid #000;
+    color: #000;
     display: block;
     margin: 1px;
     padding: 2px 2px 2px 27px;
@@ -450,7 +600,7 @@ a.cdu_hide:focus {
 }
 
 #toolbar p {
-    color: #ff6500;
+    color: #F16E00;
     font-size: 1em;
     padding-top: 2px;
     padding-left: 30px;
@@ -462,25 +612,57 @@ a.cdu_hide:focus {
     padding: 0;
 }
 #uci_left_toolbar,#uci_middle_toolbar,#uci_right_toolbar{
-    padding: 5px 20px;
-    margin-top: 0.3em;
-    float: left;
+    padding: 5px 15px;    
+    display:inline-block;
+    vertical-align:middle;
+}
+#uci_left_toolbar{
+    padding: 0px 15px;    
 }
 
-#uci_middle_toolbar {
-    background-image: url("../images/btn_plus.png");
-    background-repeat:no-repeat;
-    background-position:left;
+#uci_left_toolbar.ie7,#uci_middle_toolbar.ie7,#uci_right_toolbar.ie7{
+    float: left;
+    display: block;
+}
+
+#accessibilitytoolbarGraphic a#uci_moreconfort {
+    text-decoration: none !important;
+    vertical-align: middle;
+}
+#accessibilitytoolbarGraphic a#uci_moreconfort span {
+    vertical-align: middle;
+}
+#uci_moreconfort_content {
+    text-decoration: underline;
+}
+#accessibilitytoolbarGraphic a#uci_moreconfort span.cdu-icon-plus2, #accessibilitytoolbarGraphic a#uci_moreconfort span.cdu-icon-moins2 {
+    text-decoration: none;    
+}
+
+#uci_right_toolbar button {
+    vertical-align: middle;
+}
+#uci_right_toolbar li {
+    margin: 0 0.3em;
 }
 
 .uci_clear{
     clear: both;
 }
+
 /******************************************Element a gauche de la toolbar*******************************/
-#uci_left_toolbar.uci_mask{
-    opacity: 0.2;
+#uci_left_toolbar.uci_mask, #uci_right_toolbar.uci_mask{
+  opacity: 0.2;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=20);
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.2;  
 }
-#uci_left_toolbar.uci_mask a, #uci_left_toolbar.uci_mask li{
+#uci_left_toolbar.uci_mask a, #uci_left_toolbar.uci_mask li,#uci_right_toolbar.uci_mask button{
     cursor: not-allowed !important;
 }
 .cdu_c img{
@@ -488,32 +670,92 @@ a.cdu_hide:focus {
 }
 
 .uci_logo_plus_de_confort {
-    padding: 5px 20px;
+    padding: 5px 0 5px 20px;
     float: left;
-
-}
-.uci_logo_plus_de_confort img {
-    margin-left: 0.1em;
 }
 
-.uci_alt_logo{
+#accessibilitytoolbarGraphic h1, .uci_alt_logo{
     color: #000000;
-    font-size: 35px;
+    font-size: 2em;
     font-family: Helvetica;
-    text-shadow: 0px 1px 0px #FFFFFF;
-    /*padding: 0 0 0 10px;*/
     display: inline;
     float: left;
     margin:0px;
     padding:0px;
+    overflow: hidden;
 }
-#uci_span_disabled{
+
+.uci-onoffswitch {
+    position: relative; 
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;    
+    padding: 0.6em 0 0 0;
     float: left;
-    padding-top: 9px;
-    color: red;
-    font-size: 1.5em;
-    padding-left: 1em;
+    margin-left: 1em;
 }
+.uci-onoffswitch-label:focus, .uci-onoffswitch-label-on:focus{
+    outline: #000 dotted 2px;
+}
+.uci-onoffswitch-label, .uci-onoffswitch-label-on {
+display: block; overflow: hidden; cursor: pointer;
+border: 2px solid #000;
+}
+.uci-onoffswitch-inner {
+display: block; width: 200%; margin-left: -100%;
+/*-moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+-o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;*/
+}
+.uci-onoffswitch-inner-before, .uci-onoffswitch-inner-after {
+display: block; 
+    float: left; 
+    min-width: 2em; 
+    min-height: 1em; 
+    padding: 0; 
+    line-height: 1em;
+    font-size: 1em; 
+    color: white;     
+    font-weight: bold;
+-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.uci-onoffswitch-inner-before {
+padding-right: 1.5em;
+padding-left: 0.2em;
+background-color: #000; color: #FFFFFF;
+}
+.uci-onoffswitch-inner-after  {
+padding-left: 1.5em;
+padding-right: 0.2em;
+background-color: #FFFFFF; color: #000;
+text-align: right;
+line-height: 1.1em;
+}
+.uci-onoffswitch-label .uci-onoffswitch-inner-before {
+    display:none;
+}
+.uci-onoffswitch-label-on .uci-onoffswitch-inner-after {
+    display:none;
+}
+.uci-onoffswitch-switch {
+    display: block; 
+    width: 1em; 
+    margin: -2px;
+    background: #FFFFFF;
+    border: 2px solid #000; 
+    position: absolute; 
+    top: 0.6em; 
+    bottom: 0; 
+}
+.uci-onoffswitch-label-on .uci-onoffswitch-switch {
+right: 0px;
+}
+
+
+.uci_active_cdu_img{
+    padding: 0.35em 0;
+    min-height: 30px;
+    min-width: 62px;
+    float: left;
+}
+
 
 /****************************************Fin Element a gauche de la toolbar*******************************/
 
@@ -524,7 +766,7 @@ a.cdu_hide:focus {
 */
 
 #uci_middle_toolbar.uci_mask{
-    border: 1px solid #FF6500;
+    border: 1px solid #F16E00;
 }
 
 #small_font{
@@ -540,7 +782,7 @@ a.cdu_hide:focus {
 }
 
 #orange_color{
-    color: #ff6500;
+    color: #F16E00;
     background-color:white;
     font-size:1.5em;
 }
@@ -553,72 +795,16 @@ a.cdu_hide:focus {
 
 #uci_moreconfort{
     display : inline-block;
-    padding: 0.3em 0;
-    margin-left:15px;
+    padding: 0;
 }
 
 
 /******************************************Fin élément au centre de la toolbar*******************************/
 
 /*******************************************Element à droite de la toolbar :*********************************/
-/*- Le bouton poissoir d'activation du cdu
-- le menu facebook
-
-*/
-/*
-#uci_moreconfortleft{
-    padding: 0.5em 20px 0.5em 25px;
-    background: url("../images/ico_hide_bar.png") center left no-repeat transparent;
-    min-width: 50px;
-    float: left;
-}
-*/
-#uci_right_toolbar.uci_mask{
-    opacity: 0.2;
-}
-#uci_activate_menu {
-    float: left;
-}
-
-#uci_active_cdu_img{
-    padding: 0.3em 0 0.3em 0;
-    min-height: 30px;
-    min-width: 62px;
-    float: left;
-    margin-right: 20px;
-
-}
-#uci_inactive_cdu_img {
-    padding: 0.3em 0 0.3em 0;
-    min-height: 30px;
-    min-width: 62px;
-    float: left;
-    margin-right: 20px;
-}
-
-#uci_activer_menu {
-    min-height: 30px;
-    min-width: 25px;
-    background-repeat: no-repeat;
-    display: block;
-}
-
-#uci_fermer_menu {
-    min-height: 30px;
-    min-width: 25px;
-    background-repeat: no-repeat;
-    display: block;
-}
-
-#uci_activate_menu {
-
-    padding: 0.5em 0;
-}
-
 .uci_right{
     float:right;
 }
-
 
 /****************************************Fin Element à droite de la toolbar*******************************/
 
@@ -628,8 +814,13 @@ a.cdu_hide:focus {
     border: 1px solid;
     position: absolute;
     right: 10px;
-    background-color: #F7F7F7;
+    padding:10px;
+    background-color: #FFFFFF;
     z-index: 10000;
+}
+#uci_fermeture_cdu_menu {
+    clear:both;
+    float: right;
 }
 #uci_cdu_menu li{
     padding: 0 0 1em;
@@ -656,34 +847,46 @@ a.cdu_hide:focus {
 /******************************************Fin Mise en place du menu Facebook**********************************/
 /** mise en forme des �l�ments de liste de l'ihm rendu bouton **/
 
-#uci_menu_ouverture_aide, #uci_menu_toolbar, #uci_menu_remoce_all, #uci_menu_activate_cdu_for_site,
-#uci_menu_activer_menu {
-    height: 48px;
-    width: 48px;
+#uci_menu_ouverture_aide, #uci_menu_toolbar, #uci_menu_activate_cdu_for_site {
     min-width: 100px;
-    padding: 5px 5px 5px 50px;
+    padding: 5px;
     background-position:left;
-}
-
-#uci_menu_ouverture_aide {
-    background: url("../images/ico_help.png") no-repeat scroll 5px center #FFFFFF;
 }
 
 #uci_menu_toolbar{
     background: url("../images/ico_hide_bar.png") no-repeat scroll 5px center #FFFFFF;
 }
 
-#uci_menu_remoce_all {
-    background: url("../images/ico_init.png") no-repeat scroll 5px center #FFFFFF;
+#accessibilitytoolbarGraphic a#uci_menu_ouverture_aide {
+    text-decoration: none;
+}
+#accessibilitytoolbarGraphic a#uci_menu_ouverture_aide span {
+    text-decoration: underline;
+    vertical-align: middle;
+}
+#accessibilitytoolbarGraphic a#uci_menu_ouverture_aide span.cdu-icon-help {
+    text-decoration: none;
+    padding-right:0.5em;
+}
+
+.uci_bton_menu,.uci_bton_menu:active,.uci_bton_menu:hover{
+    background-color: transparent;
+    border: none;
+    padding:0;
+}
+.cdu-icon-reload2,.cdu-icon-help,.cdu-icon-plus2,.cdu-icon-moins2,.cdu-icon-croix {    
+    font-size: 1.5em;
+}
+
+.uci_link_help_bulle .cdu-icon-help{
+    font-size: 1em;   
+    float: left;
 }
 
 #uci_menu_activate_cdu_for_site{
     background: url("../images/ico_appearence_active.png") no-repeat scroll 5px center #FFFFFF;
 }
 
-#uci_menu_activer_menu {
-    background: url("../images/btn_close_cross.png") no-repeat scroll 5px center #FFFFFF;
-}
 
 .uci_inline {
     display: block;
@@ -711,125 +914,85 @@ a.cdu_hide:focus {
     color: #000000;
     cursor: pointer;
     border: medium none;
-    border-radius: 4px;
-    box-shadow: 0 1px 1px #D5D5D5;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border: 2px solid #A8A8A8;
+    border: 2px solid #000;
 }
 .uci_choix{
-    background-color: #FFFFFF;
+    background-color: #fff;    
     font-weight: 700;
-    margin: 0 0.2em;
+    margin: 0 0.4em;
     padding: 0.3em;
 }
 
-.ie8 {
-
+.uci_choix_selected, .uci_couleur_li_selected{    
+    border: 2px solid #F16E00;        
 }
 
-.uci_choix , #uci_onglet_confort li, #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:hover, #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:focus  {
-    background: #FFFFFF;
-    background: -webkit-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: -moz-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: -ms-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: -o-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: linear-gradient( top, #FFFFFF,#E3E3E3);
-}
-.uci_choix_selected, .uci_couleur_li_selected{
-    box-shadow: 0 1px 1px #D5D5D5;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    border: 2px solid #FF7900;
+.uci_choix_selected,
+#accessibilitytoolbarGraphic input.uci_choix_selected{
+    background-color: #F16E00;
+    color: #FFF;
 }
 
-.uci_choix_selected{
-    background: #FFFFFF;
-    background: -webkit-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -moz-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -ms-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -o-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: linear-gradient( top, #E3E3E3,#FFFFFF);
+.uci_notmask .uci_choix:hover, .uci_notmask .uci_choix:focus,
+#accessibilitytoolbarGraphic .uci_notmask input.uci_choix:hover,#accessibilitytoolbarGraphic .uci_notmask input.uci_choix:focus,
+#uci_activateOnglet .uci_choix:hover, #uci_activateOnglet .uci_choix:focus,
+#uci_onglet_confort li:hover span.onglet,#uci_onglet_confort li:focus span.onglet  {
+    background-color: #000;
+    color: #FFF;
 }
-
-.uci_choix:hover, .uci_choix:focus, #uci_onglet_confort li:hover,#uci_onglet_confort li:focus  {
-    color: #14396A !important;
-    background: #FFFFFF;
-    background: -webkit-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -moz-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -ms-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -o-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: linear-gradient( top, #E3E3E3,#FFFFFF);
-}
-/*defeat 67 */
-.uci_black > .uci_choix:hover, .uci_black > .uci_choix:focus  {
-    color: #ff7900 !important;
-    background: #FFFFFF;
-    background: -webkit-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -moz-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -ms-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: -o-linear-gradient( top, #E3E3E3,#FFFFFF);
-    background: linear-gradient( top, #E3E3E3,#FFFFFF);
-}
-/*fin defeat 67 */
 
 #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:hover, #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:focus {
     color: #000000 !important;
 }
 #uci_a11yBigger_keepit.uci_choix,#uci_quick_a11yBigger_keepit.uci_choix, #uci_a11yRegleEpaisseur_thin.uci_choix,
 #uci_a11yBigger_150.uci_choix,#uci_quick_a11yBigger_150.uci_choix, #uci_a11yRegleEpaisseur_medium.uci_choix,
-#uci_a11yBigger_200.uci_choix,#uci_quick_a11yBigger_200.uci_choix, #uci_a11yRegleEpaisseur_thick.uci_choix
-{
+#uci_a11yBigger_200.uci_choix,#uci_quick_a11yBigger_200.uci_choix, #uci_a11yRegleEpaisseur_thick.uci_choix {
     padding: 0 0.3em;
 }
 
-
-#uci_quick_a11yVisualPredefinedSettings_keepit.uci_choix{
-    background: url("../images/ico_palette_color.png") center center no-repeat transparent !important;
-    min-height: 38px;
-    height: 2.3em;
-    min-width: 40px;
-    width: 2em;
+#uci_quick_a11yVisualPredefinedSettings_keepit.uci_choix, #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix {
+    min-height: 2.15em;
+	min-width: 2.15em;
 }
 
-#uci_quick_a11yVisualPredefinedSettings_keepit.uci_choix_selected{
-    background: url("../images/ico_palette_color_active.png") center center no-repeat transparent !important;
-}
-#uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix{
-    background: url("../images/ico_palette_bn.png") center center no-repeat transparent !important;
-    min-height: 38px;
-    height: 2.3em;
-    min-width: 40px;
-    width: 2em;
-
-}
-#uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected{
-    background: url("../images/ico_palette_bn_active.png") center center no-repeat transparent !important;
+#uci_reponses_couleurpredefinie_quick_set.uci_liste_bton {
+    margin-left: 0.4em;
 }
 
-#uci_reponses_bigger_quick_set{
+#uci_reponses_couleurpredefinie_quick_set .cdu-icon-test {
+    font-size:2em;
+    display:block;
+    padding: 0.1em;
+}
+
+ul#uci_reponses_bigger_quick_set {
     padding-right: 20px;
+    padding-top : 5px;
+    padding-bottom : 5px;
+}
+ul#uci_reponses_couleurpredefinie_quick_set{
+    padding-top : 5px;
+    padding-bottom : 5px;
 }
 
 /******************************************Mise en place des onglets CDU***************************************/
 
-#uci_onglet_confort {
-    background-color: #F7F7F7;
+#accessibilitytoolbarGraphic #uci_onglet_confort {
+    background-color: #FFFFFF;
     padding: 0;
     /* margin: 0 0 -4px 0; */
     margin: 0 0 -9px 0;
     float: left;
 }
-.uci_container_onglets{
+.uci_container_onglets {
     float: left;
-    padding: 7px 0;
+    padding: 8px 0;
     background: #FFFFFF;
-    background: -webkit-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: -moz-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: -ms-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: -o-linear-gradient( top, #FFFFFF,#E3E3E3);
-    background: linear-gradient( top, #FFFFFF,#E3E3E3);
+    /*background: -webkit-linear-gradient( top, #FFFFFF,#000);
+    background: -moz-linear-gradient( top, #FFFFFF,#000);
+    background: -ms-linear-gradient( top, #FFFFFF,#000);
+    background: -o-linear-gradient( top, #FFFFFF,#000);
+    background: linear-gradient( top, #FFFFFF,#000);*/
 }
 #uci_onglet_confort li{
     margin: 0;
@@ -852,10 +1015,10 @@ a.cdu_hide:focus {
 .uci_systeme_onglets{
     width: 100%;
     clear: both;
-    background-color: #F7F7F7;
+    background-color: #FFFFFF;
     padding: 10px 0;
-    border-bottom: 2px solid #E3E3E3;
-    box-shadow: 2px 0 2px #E3E3E3;
+    /*border-bottom: 2px solid #000;
+    box-shadow: 2px 0 2px #000;*/
     float: left;
 }
 
@@ -873,30 +1036,37 @@ a.cdu_hide:focus {
 }
 .onglet_0
 {
-    border-color: #B3B3B3 #B3B3B3 #F16E00;
-    border-width: 1px 1px 2px;
+    border-color: #000 #000 #F16E00;
+    border-width: 2px 1px 2px;
 }
 .onglet_1{
     border-color: #F16E00 #F16E00 #FFFFFF;
     border-width: 2px;
-    background-color:white;
+    background-color: #fff;
+    color: #000;
 }
-#onglet_typographie.onglet_1  {
+#accessibilitytoolbarGraphic.cdu_modern_browser  .onglet {
+    padding:5px;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser  .onglet span.icon {
+    padding-right:5px;
+}
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_typographie.onglet_1  {
     background-image: url("../images/ico_type_active.png");
     padding: 5px 5px 5px 32px;
 }
 
-#onglet_apparence.onglet_1  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_apparence.onglet_1  {
     background-image: url("../images/ico_appearence_active.png");
     padding: 5px 5px 5px 35px;
 }
 
-#onglet_couleur.onglet_1  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_couleur.onglet_1  {
     background-image: url("../images/ico_palette_active.png");
     padding: 5px 5px 5px 39px;
 }
 
-#onglet_aidemotrice.onglet_1  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_aidemotrice.onglet_1  {
     background-image: url("../images/ico_motive_help_active.png");
     padding: 5px 5px 5px 31px;
 }
@@ -920,37 +1090,29 @@ a.cdu_hide:focus {
     border: 2px solid #F16E00;
     display:none;
     width: 100%;
-}
+} 
 
-#onglet_typographie.onglet_0  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_typographie.onglet_0  {
     background-image: url("../images/ico_type.png") ;
     padding: 5px 5px 5px 32px;
 }                                
 
-#onglet_apparence.onglet_0  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_apparence.onglet_0  {
     background-image: url("../images/ico_appearence.png");
     padding: 5px 5px 5px 35px;
 }
 
-#onglet_couleur.onglet_0  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_couleur.onglet_0  {
     background-image: url("../images/ico_palette.png");
     padding: 5px 5px 5px 39px;
 }
 
-#onglet_aidemotrice.onglet_0  {
+#accessibilitytoolbarGraphic.cdu_old_browser #onglet_aidemotrice.onglet_0  {
     background-image: url("../images/ico_motive_help.png");
     padding: 5px 5px 5px 31px;
 }
 
 /*****************************************Fin de la mise en place des ongletsk*********************************/
-
-/*****************************************Espace validation****************************************************/
-#uci_validation{
-    text-align: center;
-    width: 100%;
-    float: left;
-    clear: both;
-}
 
 /**********************************************Onglet typographie*********************************************/
 #uci_typo_div_left, #uci_typo_div_centre, #uci_typo_div_right, #uci_apparence_div_left, #uci_apparence_div_right {
@@ -971,6 +1133,7 @@ a.cdu_hide:focus {
 {
     font-size:200%;
     text-align: center;
+    margin: 0 0.2em;
 }
 #uci_a11yBigger_keepit span,#uci_quick_a11yBigger_keepit span, #uci_a11yRegleEpaisseur_thin span {
     font-size:50%;
@@ -981,9 +1144,8 @@ a.cdu_hide:focus {
 }
 
 #accessibilitytoolbarGraphic .uci_link_help_bulle {
-    background-image: url("../images/help-small-transp.png") !important;
-    width: 16px;
-    height: 16px;
+    width: 1em;
+    height: 1em;
     display:inline-block;
     margin: 0 0 0 0.5em;     
     text-decoration: none;
@@ -993,7 +1155,7 @@ a.cdu_hide:focus {
     max-width: 26em;
     background: none repeat scroll 0 0 #FAFAFA;
     border: 1px solid #F16e00;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 -5px 3px rgba(0, 0, 0, 0.05) inset;
+    /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 -5px 3px rgba(0, 0, 0, 0.05) inset;*/
     display: block;
     font-style: normal;
     padding: 3px 5px;
@@ -1103,7 +1265,7 @@ a.cdu_hide:focus {
     margin-top: 3px;
 }
 .uci_disable_image{
-    display: none;
+    display: none !important;
 }
 
 /***********************************************Onglet Couleurs************************************************/
@@ -1164,6 +1326,7 @@ a.cdu_hide:focus {
 #uci_fermeture_more_comfort{
     float: right;
     clear: both;
+    padding-right:20px;
 }
 
 .message_couleur {
@@ -1209,95 +1372,34 @@ a.cdu_hide:focus {
 
 /***************************************************Fin espace Menu***********************************************/
 
-/***************************************************Espace Validation*************************************************/
-.uci_squaredOne{
-    padding-top: 1em;
-    min-height: 48px;
-}
-.uci_squaredOne [type="checkbox"]:not(:checked), .uci_squaredOne [type="checkbox"]:checked {
-    left: -9999px;
-    position: absolute;
-}
-.uci_squaredOne [type="checkbox"]:not(:checked) + label, .uci_squaredOne [type="checkbox"]:checked + label {
-    cursor: pointer;
-    padding-left: 75px;
-    position: relative;
-}
-.uci_squaredOne [type="checkbox"]:not(:checked) + label:before, .uci_squaredOne [type="checkbox"]:checked + label:before, .uci_squaredOne [type="checkbox"]:not(:checked) + label:after, .uci_squaredOne [type="checkbox"]:checked + label:after {
-    content: "";
-    position: absolute;
-}
-.uci_squaredOne [type="checkbox"]:not(:checked) + label:before, .uci_squaredOne [type="checkbox"]:checked + label:before {
-    background: none repeat scroll 0 0 transparent;
-    height: 48px;
-    left: 0;
-    top: 0px;
-    transition: background-color 0.2s ease 0s;
-    width: 48px;
-}
-.uci_squaredOne [type="checkbox"]:not(:checked) + label:after, .uci_squaredOne [type="checkbox"]:checked + label:after {
-    background: url("../images/checkbox_unchecked_48x48_fe.png") left center transparent;
-    height: 48px;
-    left: 0px;
-    top: 0px;
-    transition: all 0.2s ease 0s;
-    width: 48px;
-}
-.uci_squaredOne [type="checkbox"]:checked + label:after {
-    background-image: url("../images/checkbox_48x48_fe.png");
-}
-.uci_squaredOne [type="checkbox"]:checked + label .ui, .uci_squaredOne [type="checkbox"]:not(:checked) + label .ui:before, .uci_squaredOne [type="checkbox"]:checked + label .ui:after {
-    font-size: 14px;
-    font-weight: bold;
-    left: 6px;
-    line-height: 22px;
-    position: absolute;
-    transition: all 0.2s ease 0s;
-    width: 65px;
-}
-.uci_squaredOne [type="checkbox"]:not(:checked) + label .ui:before {
-    content: "no";
-    left: 32px;
-}
-.uci_squaredOne [type="checkbox"]:checked + label .ui:after {
-    color: #39D2B4;
-    content: "yes";
-}
-.uci_squaredOne [type="checkbox"]:focus + label:before {
-    border: 1px dashed #777777;
-    box-sizing: border-box;
-    margin-top: -1px;
+/*****************************************Espace validation****************************************************/
+#accessibilitytoolbarGraphic #uci_validation{
+    padding: 0.5em 0;
+    text-align: center;
+    width: 100%;
+    float: left;
+    clear: both;
 }
 
-.uci_button_valider {
-    background-color: #FF6500;
+#accessibilitytoolbarGraphic .uci_button_valider {
+    background-color: #F16E00;
     color:#FFF;
     min-height: 40px;
     min-width: 125px;
-    font-size: inherit;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    font-family: arial, helvetica, sans-serif;
+    border: 2px solid #F16E00;
 }
 
-.uci_button_reset {
-    left-margin:10px;
-    background-color: #565656;
+#accessibilitytoolbarGraphic .uci_button_reset {
+    margin-left:1em;
+    background-color: #000;
     color:#FFF;
     min-height: 40px;
     min-width: 125px;
-    font-size: inherit;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    font-family: arial, helvetica, sans-serif;
+    border: 2px solid #000;
 }
 
 *+html .uci_button_valider, *+html .uci_button_reset {
     width: 40%;
-}
-
-.uci_squaredOne label{
-    padding: 14px 0;
 }
 
 #uci_help_listmode p{
@@ -1306,4 +1408,10 @@ a.cdu_hide:focus {
 
 #uci_message_constraste > p{
     margin-top: 60px;
+}
+
+/* put grey label when checkbox is disabled */
+#accessibilitytoolbarGraphic .uci_disable_label{
+  cursor: not-allowed;
+  color:#666;
 }

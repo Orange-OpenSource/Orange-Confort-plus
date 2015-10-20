@@ -1,6 +1,6 @@
 {
   "name": "orange-confort-plus",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "author": "Orange",
   "dependencies": {},
   "repository": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git",
@@ -19,10 +19,8 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.6.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-conventional-changelog": "^1.1.0",
     "grunt-filerev": "^2.1.1",
     "grunt-html-build": "^0.4.1",
-    "grunt-karma": "^0.9.0",
     "grunt-newer": "^0.8.0",
     "grunt-replace": "^0.8.0",
     "grunt-rev": "~0.1.0",
@@ -30,17 +28,11 @@
     "grunt-usemin": "^2.6.0",
     "grunt-wiredep": "^1.9.0",
     "jshint-stylish": "~1.0.0",
-    "karma": "^0.12.24",
-    "karma-jasmine": "^0.2.3",
-    "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "~1.0.0",
     "time-grunt": "~1.0.0"
   },
   "private": true,
   "engines": {
     "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "grunt test"
   }
 }

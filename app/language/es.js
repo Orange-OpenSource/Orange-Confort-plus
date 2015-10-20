@@ -141,9 +141,11 @@ traduction['es']={
   uci_loopBackward:"Navegar hacia atr\341s",
   uci_stopLoop:"Parar la navegaci\363n",
   uci_closeButton:"cerrar",
-  uci_modif_not_saved:"Los ajustes no memorizados se perder\341n \277 deseas proseguir esta acci\363n ?",
+  uci_modif_not_saved:"Los ajustes no memorizados se perder\341n \277 Deseas proseguir esta acci\363n ?",
+  uci_remove_all_settings:"Se borrar\341n todos los ajustes \277 Estas seguro de querer proseguir ?",
   uci_radio_default:"normal",
   uci_radio_medium:"medio",
   uci_radio_large:"grande",
-  uci_service_disabled:"desactivado"
+  uci_new_window:"Nueva ventana",
+  uci_iframe_cookie:"Contenido t\351cnico Orange Comfort+"
 };

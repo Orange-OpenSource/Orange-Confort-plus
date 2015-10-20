@@ -1,11 +1,5 @@
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to match all subfolders:
-// 'test/spec/**/*.js'
-
 module.exports = function(grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
@@ -16,8 +10,16 @@ module.exports = function(grunt) {
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist',
+    distserveur: 'dist/serveur',
+    diststandalone: 'dist/standalone',
     pkg: grunt.file.readJSON('bower.json') || {},
-    config: grunt.file.readJSON('config.json') || {},
+// hebergementProtocol If possible, use HTTPS
+// hebergementDomaine Put your servername below example : "hebergementDomaine": "github.com"
+// cookieDomain Define the domain for cookie storage example: "cookieDomain": "*.github.com"  
+// hebergementFullPath Define the relative path where source file will be available with slashes before and after 
+// example : if I deploy the content of dist into http://mydomain.com/confortplusserveur/ 
+// "hebergementFullPath": "/confortplusserveur/"  
+    config: require('./config.json') || {},
   };
 
   grunt.initConfig({
@@ -82,15 +84,7 @@ module.exports = function(grunt) {
         }
       }
     },
-             
-    php: {
-        dist: {
-            options: {
-                port: 5000
-            }
-        }
-    },
-
+       
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -100,7 +94,8 @@ module.exports = function(grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/js/{,*/}*.js'
+          '<%= yeoman.app %>/js/{,*/}*.js', 
+          '!<%= yeoman.app %>/js/jquery.min.js'
         ]
       },
       test: {
@@ -118,8 +113,7 @@ module.exports = function(grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
+            '<%= yeoman.dist %>/*'
           ]
         }]
       },
@@ -145,10 +139,9 @@ module.exports = function(grunt) {
     filerev: {
       dist: {
         src: [
-          //'<%= yeoman.dist %>/js/{,*/}*.js',
-          '<%= yeoman.dist %>/css/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/fonts/*']
+          '<%= yeoman.dist %>/{,*/}css/{,*/}*.css',
+          '<%= yeoman.dist %>/{,*/}images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/{,*/}fonts/*']
       }
     },
     
@@ -164,25 +157,12 @@ module.exports = function(grunt) {
             banner: '<%= banner %>'
           },
           files: {
-            src: [ 'dist/js/*','dist/css/*']
+            src: [ '<%= yeoman.dist %>/{,*/}/js/ruler.js','<%= yeoman.dist %>/{,*/}/js/toolbar.js','<%= yeoman.dist %>/{,*/}/js/toolbar-min.js','<%= yeoman.dist %>/{,*/}/css/*']
           }
         }
     },  
-      
-    // Generate changelog based on git commit
-      /**
-    changelog: {
-      options: {
-        from:'v2.0.0',
-        commitLink: function(commitHash) {
-          //TODO externalize orangeforge git url + project name etc..
-          return '['+ commitHash.substring(0,8) +'](https://github.com/Orange-OpenSource/Orange-Confort-plus?p=boos.git?a=commit&h=' + commitHash +')';
-        }
-      }
-    },
-    */ 
- 
-	// Reads HTML for usemin blocks to enable smart builds that automatically
+       
+	  // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
@@ -195,18 +175,22 @@ module.exports = function(grunt) {
              ASCIIOnly  : true,  
              beautify    : false  
          },
-         dist:{
-            src: '<%= yeoman.dist %>/js/toolbar.js',
-            dest: '<%= yeoman.dist %>/js/toolbar-min.js'
+         distserveur:{
+            src: '<%= yeoman.distserveur %>/js/toolbar.js',
+            dest: '<%= yeoman.distserveur %>/js/toolbar-min.js'
+         },
+         diststandalone:{
+            src: '<%= yeoman.diststandalone %>/js/toolbar.js',
+            dest: '<%= yeoman.diststandalone %>/js/toolbar-min.js'
          }
     },
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-        html: ['<%= yeoman.dist %>/**/*.html','<%= yeoman.dist %>/js/{,*/}.js'],
-        css: ['<%= yeoman.dist %>/css/{,*/}*.css'],
-        js: '<%= yeoman.dist %>/js/*.js',
+        html: ['<%= yeoman.dist %>/**/*.html','<%= yeoman.dist %>/{,*/}js/{,*/}.js'],
+        css: ['<%= yeoman.dist %>/{,*/}css/{,*/}*.css'],
+        js: '<%= yeoman.dist %>/{,*/}js/*.js',
         options: {
-            assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/css', '<%= yeoman.dist %>/images'],
+            assetsDirs: ['<%= yeoman.distserveur %>','<%= yeoman.distserveur %>/css', '<%= yeoman.distserveur %>/images','<%= yeoman.diststandalone %>','<%= yeoman.diststandalone %>/css', '<%= yeoman.diststandalone %>/images'],
             patterns: {
                 js: [
                     [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp))/gm, 'Update the JS to reference our revved images'],
@@ -218,7 +202,10 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/css/classic-toolbar.min.css': [
+          '<%= yeoman.distserveur %>/css/classic-toolbar.min.css': [
+            '<%= yeoman.app %>/css/classic-toolbar.css'
+          ],
+          '<%= yeoman.diststandalone %>/css/classic-toolbar.min.css': [
             '<%= yeoman.app %>/css/classic-toolbar.css'
           ]
         }
@@ -237,8 +224,11 @@ module.exports = function(grunt) {
               return '// Source: ' + filepath + '\n' +
                 src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
             },
-        },
-        src: [
+        },        
+        src: [  
+            "<%= yeoman.app %>/conf/hebergement.js",
+            "<%= yeoman.app %>/js/ToolbarStrings.js",
+            "<%= yeoman.app %>/js/UciUserPref.js",
             "<%= yeoman.app %>/js/UciCookie.js",
             "<%= yeoman.app %>/language/en.js",
             "<%= yeoman.app %>/language/es.js",
@@ -249,9 +239,38 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciTypographie.js",
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
-            "<%= yeoman.app %>/js/toolbar.js"
+            "<%= yeoman.app %>/js/toolbar.js",
+            "<%= yeoman.app %>/js/start.server.js",
         ],
-        dest: '<%= yeoman.dist %>/js/toolbar.js'
+        dest: '<%= yeoman.distserveur %>/js/toolbar.js'
+      },      
+      standalone: {
+        options: {
+            // Replace all 'use strict' statements in the code with a single one at the top
+            banner: "var hebergementDomaine = '<%= yeoman.config.hebergementProtocol %>//<%= yeoman.config.hebergementDomaine %>';\nvar hebergementFullPath = hebergementDomaine + '<%= yeoman.config.hebergementFullPath %>';\n",            
+            process: function(src, filepath) {
+              return '// Source: ' + filepath + '\n' +
+                src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+            },
+        },        
+        src: [  
+            "<%= yeoman.app %>/conf/hebergement.js",
+            "<%= yeoman.app %>/js/ToolbarStrings.js",
+            "<%= yeoman.app %>/js/UciUserPref.js",
+            "<%= yeoman.app %>/js/UciCookieStandalone.js",
+            "<%= yeoman.app %>/language/en.js",
+            "<%= yeoman.app %>/language/es.js",
+            "<%= yeoman.app %>/language/fr.js",
+            "<%= yeoman.app %>/js/UciAideMotrice.js",
+            "<%= yeoman.app %>/js/UciCouleur.js",
+            "<%= yeoman.app %>/js/UciApparence.js",
+            "<%= yeoman.app %>/js/UciTypographie.js",
+            "<%= yeoman.app %>/js/UciValidation.js",
+            "<%= yeoman.app %>/js/UciIhm.js",
+            "<%= yeoman.app %>/js/toolbar.js",
+            "<%= yeoman.app %>/js/start.server.js",
+        ],
+        dest: '<%= yeoman.diststandalone %>/js/toolbar.js'
       }
     },
       
@@ -266,21 +285,26 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>',
+          cwd: '<%= yeoman.distserveur %>',
           src: ['**/*.html'],
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.distserveur %>'
+        },{
+          expand: true,
+          cwd: '<%= yeoman.diststandalone %>',
+          src: ['**/*.html'],
+          dest: '<%= yeoman.diststandalone %>'
         }]
       }
     },
     
-    // Copies remaining files to places other tasks can use
+    // Copy remaining files to places other tasks can use
     copy: {
       dist: {
         files: [{
           expand: true,
           dot: true,
           cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
+          dest: '<%= yeoman.distserveur %>',
           src: [           
             'images/**',   
             'css/**',  
@@ -289,6 +313,21 @@ module.exports = function(grunt) {
             'js/ruler.js', 
             'conf/param.php',
             '*.php',
+            '*.txt',
+            '*.htm',
+            '**/*.html'
+          ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.diststandalone %>',
+          src: [           
+            'images/**',   
+            'css/**',  
+            'fonts/**', 
+            'js/jquery.min.js', 
+            'js/ruler.js', 
             '*.txt',
             '*.htm',
             '**/*.html'
@@ -303,32 +342,20 @@ module.exports = function(grunt) {
             options: {
               patterns: [
                 {
-                    match: 'HEBERGEMENTPROTOCOL',
-                    replacement: '<%= yeoman.config.hebergementProtocol %>'
-                },
-                {
-                    match: 'HEBERGEMENTDOMAIN',
+                    match: 'COOKIEDOMAIN',
                     replacement: '<%= yeoman.config.cookieDomain %>'
                 },
                 {
-                    match: 'js/toolbar-min.js',
+                    match: '../js/toolbar-min.js',
                     replacement: '<%= yeoman.config.hebergementProtocol %>//<%= yeoman.config.hebergementDomaine %><%= yeoman.config.hebergementFullPath %>js/toolbar-min.js'
                 }                  
               ],
               usePrefix:false
             },
             files: [
-              {expand: true, src: ['dist/**/*.js','dist/**/*.html','dist/**/*.php'], dest: ''}
+              {expand: true, src: ['<%= yeoman.dist %>/**/*.html','<%= yeoman.dist %>/**/*.php'], dest: ''}
             ]
         }
-    },
-            
-    // Test settings
-    karma: {
-      unit: {
-        configFile: 'test/karma.conf.js',
-        singleRun: true
-      }
     }
   });
 
@@ -338,26 +365,19 @@ module.exports = function(grunt) {
     }
 
   grunt.task.run([
-      //'autoprefixer',
       'connect:livereload',
       'watch'
     ]);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-	// TODO 'autoprefixer',
-    'php',
-    'connect:test',
-    'karma'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'copy:dist',
     'useminPrepare',  
-    'concat',
-    'uglify:dist',  
+    'concat:dist',
+    'concat:standalone',
+    'uglify:distserveur',  
+    'uglify:diststandalone',  
     'cssmin',
     'filerev',
     'usemin',  
@@ -367,8 +387,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('default', [
-    //'newer:jshint',
-    //'test',
     'build'
   ]);
 };

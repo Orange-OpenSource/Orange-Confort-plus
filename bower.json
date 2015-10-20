@@ -1,6 +1,6 @@
 {
   "name": "orange-confort-plus",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "author": "Orange",
   "description": "enhance user experience on web sites",  
   "keywords": [
@@ -8,7 +8,7 @@
     "Orange"
   ],
   "main": [
-    "dist/js/toolbar.js"
+    "dist/serveur/js/toolbar.js"
   ],
   "homepage": "http://webidea.si.francetelecom.fr/spip/spip.php?article739",
   "devDependencies": {

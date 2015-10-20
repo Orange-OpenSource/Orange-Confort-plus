@@ -17,6 +17,7 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Copyright and license](#copyright-and-license)
 
+
 ## Quick start
 - Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
 - Configure your protocol, domain and deployment path into config.json file.
@@ -41,6 +42,11 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 
 1. `$ npm install`
 2. `$ bower install`
+2. `$ grunt`
+
+### 3. Deploy _Orange Confort+_ onto your domain
+- `dist/serveur` -> Serveur mode content using PHP, allow to share cookie on multiple domain
+- `dist/standalone` -> Standalone mode content, don't need PHP, need to be deployed onto each different domain
 
 ## Bugs and feature requests
 

@@ -20,17 +20,16 @@
 /*global window */
 /*global document: false */
 /* global alert */
-function UciTypographie() {
-    "use strict";
+UciTypographie = {
     /*
     * @property
     * @private
      */
-    var attr_typography;
+    attr_typography: "",
     /*
      * @constructor
      */
-    UciTypographie.prototype.InitUciTypographie = function () {
+    InitUciTypographie: function () {
         attr_typography = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_typographie' style='display: block'>";
 
 /************************************gestion de la partie gauche********************************************************/
@@ -43,7 +42,7 @@ function UciTypographie() {
         attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_bigger' role='radiogroup'>";
         attr_typography += "<li id='uci_a11yBigger_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
         attr_typography += "<span>";
-        attr_typography += "a";
+        attr_typography += "A";
         attr_typography += "<span class='cdu_n'>";
         attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_normal');
         attr_typography += "</span>";
@@ -51,7 +50,7 @@ function UciTypographie() {
         attr_typography += "</li>";
         attr_typography += "<li id='uci_a11yBigger_150' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
         attr_typography += "<span>";
-        attr_typography += "a";
+        attr_typography += "A";
         attr_typography += "<span class='cdu_n'>";
         attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_medium');
         attr_typography += "</span>";
@@ -59,7 +58,7 @@ function UciTypographie() {
         attr_typography += "</li>";
         attr_typography += "<li id='uci_a11yBigger_200' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
         attr_typography += "<span>";
-        attr_typography += "a";
+        attr_typography += "A";
         attr_typography += "<span class='cdu_n'>";
         attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_large');
         attr_typography += "</span>";
@@ -132,17 +131,19 @@ function UciTypographie() {
         // Gestion de la police à utiliser pour les dysléxique
         attr_typography += "<div id='uci_typo_dyslexy_font' class='uci_aria_button_group cdu_c'>";
         attr_typography += "<div id='box-a11yDyslexyFontEnabled_off'>" ;
+        
         if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' onclick=\"UciTypographie.displayFieldset(\'uci_fieldset_fontfamily\');\" id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+">";
+            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+">";
+            attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie'>";
         } else {
             attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled>";
-        }        
-        attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie'>";
-        attr_typography += "<span>";
+            attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie' class='uci_disable_label'>";
+        }                
         attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-        attr_typography += "</span>";
         attr_typography += "</label>";
-        attr_typography += "<a href='#' onblur=\"accessibilitytoolbar.toolbarHideHelp('uci_typo_help_fontfamily');\" onclick=\"accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_fontfamily');return false;\" class='uci_link_help_bulle' role='presentation'><span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
+        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_fontfamily'>";
+        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
+        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
         attr_typography += accessibilitytoolbar.get('uci_typo_help_fontfamily');
         attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
         attr_typography += "</div>";
@@ -173,13 +174,15 @@ function UciTypographie() {
         // Gestion de la casse du texte
         attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c uci_clear'>";
         attr_typography += "<div id='box-a11yModifCasseEnabled_off'>";
-        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' onclick=\"UciTypographie.displayFieldset(\'uci_fieldset_changecasse\');\" id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+">";
+        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+">";
         attr_typography += "<label for='uci_chekbox_casse'>";
         attr_typography += "<span>";
         attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_changecase');
         attr_typography += "</span>";
         attr_typography += "</label>";
-        attr_typography += "<a href='#' onblur=\"accessibilitytoolbar.toolbarHideHelp('uci_typo_help_changecase');\" onclick=\"accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_changecase');return false;\" class='uci_link_help_bulle' role='presentation'><span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
+        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_changecase'>";
+        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
+        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
         attr_typography += accessibilitytoolbar.get('uci_typo_help_changecase');
         attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
         attr_typography += "</div>";
@@ -209,15 +212,17 @@ function UciTypographie() {
 /***************************************Fin de la partie Typographie********************************************************/
         attr_typography += "</div>";
         return attr_typography;
-    };
+    },
 
-    UciTypographie.displayFieldset = function (id) {
+    displayFieldset: function (id) {
         if (document.getElementById(id).style.display === "none") {
             document.getElementById(id).style.display = "block";
         } else {
             document.getElementById(id).style.display = "none";
         }
-    };
+    }
+    
+    
 
 
 }
