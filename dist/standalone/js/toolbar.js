@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.0 - 20-10-2015
+/* orange-confort-plus - version 3.2.0 - 16-11-2015
 enhance user experience on web sites
  Copyright (C) 2014 - 2015 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -36,7 +36,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.c90e4627.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.6f538726.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var ruler_js = hebergementFullPath + 'js/ruler.js';
 // Source: app/js/ToolbarStrings.js
@@ -2353,7 +2353,7 @@ UciIhm = {
         attr_ihm += accessibilitytoolbar.get('uci_serv_name')+'<span class="uci-plus-orange">+</span>';
         attr_ihm += "</h1>"+        
             "<div class='cdu_c uci-onoffswitch'>"+
-                "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch'>"+
+                "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch' href='#'>"+
                     "<span class='uci-onoffswitch-inner-before'>ON</span>"+
                     "<span class='uci-onoffswitch-switch'></span>"+
                     "<span class='uci-onoffswitch-inner-after'>OFF</span>"+
@@ -2489,6 +2489,7 @@ UciIhm = {
                                     "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_open')+"</span>"+
                                 "</button>";
         //gestion du menu deroulant du menu
+        attr_ihm += "<div class='uci_cdu_menu_relative'>";
         attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";
         attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
@@ -2508,7 +2509,7 @@ UciIhm = {
         attr_ihm += "</a></li>";
         
         attr_ihm += "</ul>";
-        attr_ihm += "</div></li>"; // fin menu     
+        attr_ihm += "</div></div></li>"; // fin menu     
         
         attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
@@ -3749,7 +3750,7 @@ function LoopingMode() {
         var elt = LoopingUtility.getFocusedElement();
         if(elt !== -1) {
             // Case of a link ... we do a simple redirection
-            if(elt.nodeName.match(/^A|AREA$/i) && elt.href  && elt.href !== "" && !elt.href.match(/#(motor-bloc|visual-bloc|help-bloc)/) && elt.href.match(/.*(#.+)?/)) {
+            if(elt.nodeName.match(/^A|AREA$/i) && elt.href  && elt.href !== "" && !elt.href.match(/#(motor-bloc|visual-bloc|help-bloc)/) && elt.href.match(/.*(#.+).+?/)) {
                 window.location = elt.href;
             }
             // Case of a form item ... we do a simple click
@@ -5922,7 +5923,7 @@ accessibilitytoolbar = {
         	document.head.removeChild(script);
         }
         var content = document.getElementById('accessibilitytoolbarWrapper');
-        if(script) {
+        if(content) {
         	content.outerHTML = content.innerHTML;
         }
         
@@ -6213,7 +6214,11 @@ accessibilitytoolbar = {
 
             //gestion de l'espacement des caractères
             if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
+              if(accessibilitytoolbar.isModern) {
                 s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
+              } else{
+                s += "*{letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
+              }
             }
 
             //gestion de la casse : a11yModifCase
@@ -6228,12 +6233,16 @@ accessibilitytoolbar = {
                 {
                     s += "@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicregular'] +";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicitalic'] +";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicbold'] +";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
                 }
-                s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                if(accessibilitytoolbar.isModern) {
+                  s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                } else{
+                  s += "*{font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n"; 
+                }
             }
 
             //gestion alignement des texte à gauche
             if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                s += "* { text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
+                s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
             }
 
             //numerotation en mode liste
@@ -6683,21 +6692,6 @@ accessibilitytoolbar = {
     },
 
     firstInitToolbar: function(){
-        /*
-        var addedToDocument = false;
-        var wrapper = document.createElement("div");
-        wrapper.id = "accessibilitytoolbarWrapper";
-        var nodesToWrap = document.body.childNodes;  
-        for (var index = 0; index < nodesToWrap.length; index++) {
-            var node = nodesToWrap[index];
-            if (! addedToDocument) {
-                node.parentNode.insertBefore(wrapper, node);
-                addedToDocument = true;
-            }
-            node.parentNode.removeChild(node);
-            wrapper.appendChild(node);
-        }
-        */
         // let's create the toolbar
         var style = "#accessibilitytoolbarGraphic {display:none}";
         var newStyle = document.createElement("style");

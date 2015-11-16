@@ -43,7 +43,7 @@ UciIhm = {
         attr_ihm += accessibilitytoolbar.get('uci_serv_name')+'<span class="uci-plus-orange">+</span>';
         attr_ihm += "</h1>"+        
             "<div class='cdu_c uci-onoffswitch'>"+
-                "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch'>"+
+                "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch' href='#'>"+
                     "<span class='uci-onoffswitch-inner-before'>ON</span>"+
                     "<span class='uci-onoffswitch-switch'></span>"+
                     "<span class='uci-onoffswitch-inner-after'>OFF</span>"+
@@ -179,6 +179,7 @@ UciIhm = {
                                     "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_open')+"</span>"+
                                 "</button>";
         //gestion du menu deroulant du menu
+        attr_ihm += "<div class='uci_cdu_menu_relative'>";
         attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";
         attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
@@ -198,7 +199,7 @@ UciIhm = {
         attr_ihm += "</a></li>";
         
         attr_ihm += "</ul>";
-        attr_ihm += "</div></li>"; // fin menu     
+        attr_ihm += "</div></div></li>"; // fin menu     
         
         attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"

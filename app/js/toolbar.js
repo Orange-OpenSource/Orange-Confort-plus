@@ -928,7 +928,7 @@ function LoopingMode() {
         var elt = LoopingUtility.getFocusedElement();
         if(elt !== -1) {
             // Case of a link ... we do a simple redirection
-            if(elt.nodeName.match(/^A|AREA$/i) && elt.href  && elt.href !== "" && !elt.href.match(/#(motor-bloc|visual-bloc|help-bloc)/) && elt.href.match(/.*(#.+)?/)) {
+            if(elt.nodeName.match(/^A|AREA$/i) && elt.href  && elt.href !== "" && !elt.href.match(/#(motor-bloc|visual-bloc|help-bloc)/) && elt.href.match(/.*(#.+).+?/)) {
                 window.location = elt.href;
             }
             // Case of a form item ... we do a simple click
@@ -3110,7 +3110,7 @@ accessibilitytoolbar = {
         	document.head.removeChild(script);
         }
         var content = document.getElementById('accessibilitytoolbarWrapper');
-        if(script) {
+        if(content) {
         	content.outerHTML = content.innerHTML;
         }
         
@@ -3401,7 +3401,11 @@ accessibilitytoolbar = {
 
             //gestion de l'espacement des caractères
             if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
+              if(accessibilitytoolbar.isModern) {
                 s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
+              } else{
+                s += "*{letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
+              }
             }
 
             //gestion de la casse : a11yModifCase
@@ -3416,12 +3420,16 @@ accessibilitytoolbar = {
                 {
                     s += "@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicregular'] +";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicitalic'] +";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicbold'] +";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
                 }
-                s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                if(accessibilitytoolbar.isModern) {
+                  s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                } else{
+                  s += "*{font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n"; 
+                }
             }
 
             //gestion alignement des texte à gauche
             if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                s += "* { text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
+                s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
             }
 
             //numerotation en mode liste
@@ -3871,21 +3879,6 @@ accessibilitytoolbar = {
     },
 
     firstInitToolbar: function(){
-        /*
-        var addedToDocument = false;
-        var wrapper = document.createElement("div");
-        wrapper.id = "accessibilitytoolbarWrapper";
-        var nodesToWrap = document.body.childNodes;  
-        for (var index = 0; index < nodesToWrap.length; index++) {
-            var node = nodesToWrap[index];
-            if (! addedToDocument) {
-                node.parentNode.insertBefore(wrapper, node);
-                addedToDocument = true;
-            }
-            node.parentNode.removeChild(node);
-            wrapper.appendChild(node);
-        }
-        */
         // let's create the toolbar
         var style = "#accessibilitytoolbarGraphic {display:none}";
         var newStyle = document.createElement("style");
