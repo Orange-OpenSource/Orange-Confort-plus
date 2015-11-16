@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.0 - 20-10-2015
+/* orange-confort-plus - version 3.2.0 - 16-11-2015
 enhance user experience on web sites
  Copyright (C) 2014 - 2015 Orange */
 /**
@@ -264,6 +264,7 @@ enhance user experience on web sites
     position: relative;
     font-family: helvetica, arial, sans-serif;
     font-weight: bold;
+    line-height: normal;
     line-height: initial;
 }
 #accessibilitytoolbarGraphic input, 
@@ -813,17 +814,25 @@ right: 0px;
 
 /********************************************Mise en place du menu Facebook***********************************/
 
+#accessibilitytoolbarGraphic, #accessibilitytoolbarGraphic *{
+    z-index: 1000;
+}
+.uci_cdu_menu_relative{
+    position: relative; 
+    display: block;
+}
 #uci_cdu_menu {
     border: 1px solid;
-    position: absolute;
+    position: fixed;
     right: 10px;
     padding:10px;
     background-color: #FFFFFF;
-    z-index: 10000;
+    z-index: 1000;
+    zoom: 1;    
 }
 #uci_fermeture_cdu_menu {
-    clear:both;
-    float: right;
+    position: absolute;
+    right: 10px;
 }
 #uci_cdu_menu li{
     padding: 0 0 1em;
@@ -839,6 +848,7 @@ right: 0px;
 #uci_cdu_menu ul{
     margin-right:2em;
     padding: 0 0 0 2em;
+    zoom: 1;
 }
 
 #uci_cdu_menu h1{
@@ -1078,7 +1088,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
     width: 90%;
 }
 .uci_ongletsie7 {
-    padding-left: 17px;
+    padding-left: 45px;
 }
 .uci_contenu_onglets{
     margin: 0 auto;
