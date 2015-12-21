@@ -12,6 +12,8 @@ module.exports = function(grunt) {
     dist: 'dist',
     distserveur: 'dist/serveur',
     diststandalone: 'dist/standalone',
+    distfirefoxext: 'dist/Addin Firefox',    
+    distchromeext: 'dist/Addin Chrome',    
     pkg: grunt.file.readJSON('bower.json') || {},
 // hebergementProtocol If possible, use HTTPS
 // hebergementDomaine Put your servername below example : "hebergementDomaine": "github.com"
@@ -114,6 +116,22 @@ module.exports = function(grunt) {
           src: [
             '.tmp',
             '<%= yeoman.dist %>/*'
+          ]
+        }]
+      },
+      firefoxext: {
+        files: [{
+          dot: true,
+          src: [
+            '<%= yeoman.distfirefoxext %>/*'
+          ]
+        }]
+      },
+      chromeext: {
+        files: [{
+          dot: true,
+          src: [
+            '<%= yeoman.distchromeext %>/*'
           ]
         }]
       },
@@ -240,7 +258,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
             "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/start.server.js",
+            "<%= yeoman.app %>/js/start.server.js"
         ],
         dest: '<%= yeoman.distserveur %>/js/toolbar.js'
       },      
@@ -268,9 +286,67 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
             "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/start.server.js",
+            "<%= yeoman.app %>/js/start.server.js"
         ],
         dest: '<%= yeoman.diststandalone %>/js/toolbar.js'
+      },      
+      firefoxext: {
+        options: {
+            // Replace all 'use strict' statements in the code with a single one at the top                      
+            process: function(src, filepath) {
+              return '// Source: ' + filepath + '\n' +
+                src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+            },
+        },        
+        src: [  
+            "<%= yeoman.app %>/js/jquery.min.js",
+            "<%= yeoman.app %>/conf/extensionFirefox/hebergement.js",
+            "<%= yeoman.app %>/js/ToolbarStrings.js",
+            "<%= yeoman.app %>/js/UciUserPref.js",
+            "<%= yeoman.app %>/js/UciSimpleStorage.js",
+            "<%= yeoman.app %>/language/en.js",
+            "<%= yeoman.app %>/language/es.js",
+            "<%= yeoman.app %>/language/fr.js",
+            "<%= yeoman.app %>/js/UciAideMotrice.js",
+            "<%= yeoman.app %>/js/UciCouleur.js",
+            "<%= yeoman.app %>/js/UciApparence.js",
+            "<%= yeoman.app %>/js/UciTypographie.js",
+            "<%= yeoman.app %>/js/UciValidation.js",
+            "<%= yeoman.app %>/js/UciIhm.js",
+            "<%= yeoman.app %>/js/toolbar.js",
+            "<%= yeoman.app %>/js/ruler.js",
+            "<%= yeoman.app %>/js/start.extensionFirefox.js"
+        ],
+        dest: '<%= yeoman.distfirefoxext %>/data/comfort+/js/concat.js'
+      },      
+      chromeext: {
+        options: {
+            // Replace all 'use strict' statements in the code with a single one at the top                      
+            process: function(src, filepath) {
+              return '// Source: ' + filepath + '\n' +
+                src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+            },
+        },        
+        src: [  
+            "<%= yeoman.app %>/js/jquery.min.js",
+            "<%= yeoman.app %>/conf/extensionChrome/hebergement.js",
+            "<%= yeoman.app %>/js/ToolbarStrings.js",
+            "<%= yeoman.app %>/js/UciUserPref.js",
+            "<%= yeoman.app %>/js/UciSimpleStorage.js",
+            "<%= yeoman.app %>/language/en.js",
+            "<%= yeoman.app %>/language/es.js",
+            "<%= yeoman.app %>/language/fr.js",
+            "<%= yeoman.app %>/js/UciAideMotrice.js",
+            "<%= yeoman.app %>/js/UciCouleur.js",
+            "<%= yeoman.app %>/js/UciApparence.js",
+            "<%= yeoman.app %>/js/UciTypographie.js",
+            "<%= yeoman.app %>/js/UciValidation.js",
+            "<%= yeoman.app %>/js/UciIhm.js",
+            "<%= yeoman.app %>/js/toolbar.js",
+            "<%= yeoman.app %>/js/ruler.js",
+            "<%= yeoman.app %>/js/start.extensionChrome.js"
+        ],
+        dest: '<%= yeoman.distchromeext %>/js/concat.js'
       }
     },
       
@@ -334,6 +410,48 @@ module.exports = function(grunt) {
           ]
         }
         ]
+      },
+      firefoxext: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>/Addin Firefox',
+          dest: '<%= yeoman.distfirefoxext %>',
+          src: [           
+            '**' 
+          ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.distfirefoxext %>/data/comfort+',
+          src: [           
+            'images/**',   
+            'css/**',  
+            'help/**' 
+          ]
+        }]
+      },
+      chromeext: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>/Addin Chrome',
+          dest: '<%= yeoman.distchromeext %>',
+          src: [           
+            '**' 
+          ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.distchromeext %>',
+          src: [           
+            'images/**',   
+            'css/**',   
+            'help/**' 
+          ]
+        }]
       }
     },  
       
@@ -356,6 +474,16 @@ module.exports = function(grunt) {
               {expand: true, src: ['<%= yeoman.dist %>/**/*.html','<%= yeoman.dist %>/**/*.php'], dest: ''}
             ]
         }
+    },
+    
+    /**    
+    Firefox XPI builder
+    **/
+    jpm: {
+      options: {
+        src: "<%= yeoman.distfirefoxext %>",
+        xpi: "<%= yeoman.distfirefoxext %>"
+      }
     }
   });
 
@@ -369,7 +497,20 @@ module.exports = function(grunt) {
       'watch'
     ]);
   });
-
+  
+  grunt.registerTask('buildfirefoxext', [    
+    'clean:firefoxext',
+    'copy:firefoxext',
+    'concat:firefoxext',
+    'jpm:xpi'
+  ]);
+  
+  grunt.registerTask('buildchromeext', [    
+    'clean:chromeext',
+    'copy:chromeext',
+    'concat:chromeext'
+  ]);
+  
   grunt.registerTask('build', [
     'clean:dist',
     'copy:dist',

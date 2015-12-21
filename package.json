@@ -1,6 +1,6 @@
 {
   "name": "orange-confort-plus",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "author": "Orange",
   "dependencies": {},
   "repository": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git",
@@ -21,6 +21,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-filerev": "^2.1.1",
     "grunt-html-build": "^0.4.1",
+    "grunt-jpm": "^0.1.2",
     "grunt-newer": "^0.8.0",
     "grunt-replace": "^0.8.0",
     "grunt-rev": "~0.1.0",
