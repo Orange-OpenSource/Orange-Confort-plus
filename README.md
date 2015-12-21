@@ -13,10 +13,15 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 
 ## Table of contents
 
+- [Browser extension](#browser-extension)
 - [Quick start](#quick-start)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Copyright and license](#copyright-and-license)
 
+
+## Browser extension
+- [Firefox] (https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/dist/Addin%20Firefox/%40orange_confort_plus-1.0.0.xpi)
+- [chrome] (https://github.com/Orange-OpenSource/Orange-Confort-plus/tree/master/dist), need to add it as an unpacked extension at time
 
 ## Quick start
 - Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
@@ -42,9 +47,9 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 
 1. `$ npm install`
 2. `$ bower install`
-2. `$ grunt`
+3. `$ grunt`
 
-### 3. Deploy _Orange Confort+_ onto your domain
+### 3. Deploy _Orange Confort+_ onto your domain - Prepackaged version available, just need to put your values
 - `dist/serveur` -> Serveur mode content using PHP, allow to share cookie on multiple domain
 - `dist/standalone` -> Standalone mode content, don't need PHP, need to be deployed onto each different domain
 
