@@ -1,3 +1,20 @@
+<a name="3.2.1"></a>
+### 3.2.1 (2015-12-21)
+
+
+#### Bug Fixes
+
+* **css:**
+  * Update toolbar z-index for better compatibility with top fixed navbars
+* **javascript:** 
+  * Detect language onto xml:lang attribute 
+
+#### Features
+
+* **build:**
+  * Add Firefox extension build by grunt : grunt buildfirefoxext
+  * Add Chrome extension build : grunt buildchromeext
+
 <a name="3.2.0"></a>
 ### 3.2.0 (2015-10-20)
 

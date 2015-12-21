@@ -42,7 +42,7 @@ function ToolbarStrings() {
         /* HTML tag <html> of the page */
         var bodyTag = document.getElementsByTagName("body")[0];
         /* HTML tag <body> of the page */        
-        this.locale = ((htmlTag.lang) ? htmlTag.lang : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0,2);
+        this.locale = ((htmlTag.lang) ? htmlTag.lang : (htmlTag.getAttribute("xml:lang")) ? htmlTag.getAttribute("xml:lang") : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0,2);
         if (!this.locale || !traduction[this.locale]) {
             this.locale = defaultLocale;
         }
