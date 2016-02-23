@@ -1,6 +1,6 @@
-/* orange-confort-plus - version 3.2.0 - 16-11-2015
+/* orange-confort-plus - version 3.2.1 - 04-01-2016
 enhance user experience on web sites
- Copyright (C) 2014 - 2015 Orange */
+ Copyright (C) 2014 - 2016 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
@@ -318,7 +318,7 @@ enhance user experience on web sites
     right: 0;
     text-transform: lowercase;
     top: 0;
-    z-index: 1000;
+    z-index: 8999;
 }
 
 #cdu_close button {
@@ -432,7 +432,7 @@ enhance user experience on web sites
     right: 0;
     text-transform: lowercase;
     top: 0;
-    z-index: 1000;
+    z-index: 8999;
 }
 #cdu_close button {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -815,7 +815,7 @@ right: 0px;
 /********************************************Mise en place du menu Facebook***********************************/
 
 #accessibilitytoolbarGraphic, #accessibilitytoolbarGraphic *{
-    z-index: 1000;
+    z-index: 8999;
 }
 .uci_cdu_menu_relative{
     position: relative; 
@@ -827,7 +827,7 @@ right: 0px;
     right: 10px;
     padding:10px;
     background-color: #FFFFFF;
-    z-index: 1000;
+    z-index: 8999;
     zoom: 1;    
 }
 #uci_fermeture_cdu_menu {
@@ -1173,7 +1173,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
     font-style: normal;
     padding: 3px 5px;
     position: absolute;
-    z-index: 1000;
+    z-index: 8999;
 }
 .uci_span_help_bulle p{
     position: relative;
@@ -1188,7 +1188,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
     background-position: 0 0;
     background-repeat: no-repeat;
     position: absolute;
-    z-index: 1000;
+    z-index: 8999;
 }
 .uci_aria_button_group{
     min-height: 4em;
@@ -1227,7 +1227,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
     height: 0px;
     left: 0;
     background: rgba(0,0,0,0);
-    z-index: 11;
+    z-index: 9001;
 }
 .vMouse {
     display: block;
@@ -1236,7 +1236,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
     width: 0px;
     top: 0;
     background: rgba(0,0,0,0);
-    z-index: 11;
+    z-index: 9001;
 }
 
 #uci_reponses_changecasse li {
@@ -1332,7 +1332,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
     top:10;
     width: 30%;
     height: 30%;
-    z-index: 10;
+    z-index: 8999;
     background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
 

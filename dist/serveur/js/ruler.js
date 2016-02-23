@@ -1,6 +1,6 @@
-/* orange-confort-plus - version 3.2.0 - 16-11-2015
+/* orange-confort-plus - version 3.2.1 - 04-01-2016
 enhance user experience on web sites
- Copyright (C) 2014 - 2015 Orange */
+ Copyright (C) 2014 - 2016 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     

@@ -16,7 +16,24 @@ if (typeof(ss.storage.blacklist)=='undefined') {
 function startCDU(tab) {
 	if (ss.storage.isCduEnabled) {
 		worker = tab.attach({
-			contentScriptFile: "comfort+/js/concat.js",
+      contentScriptFile: [data.url("comfort+/js/jquery-1.11.3.js"),      
+                          data.url("comfort+/conf/extensionFirefox/hebergement.js"),
+                          data.url("comfort+/js/ToolbarStrings.js"),
+                          data.url("comfort+/js/UciUserPref.js"),
+                          data.url("comfort+/js/UciSimpleStorage.js"),
+                          data.url("comfort+/language/en.js"),
+                          data.url("comfort+/language/es.js"),
+                          data.url("comfort+/language/fr.js"),
+                          data.url("comfort+/js/UciAideMotrice.js"),
+                          data.url("comfort+/js/UciCouleur.js"),
+                          data.url("comfort+/js/UciApparence.js"),
+                          data.url("comfort+/js/UciTypographie.js"),
+                          data.url("comfort+/js/UciValidation.js"),
+                          data.url("comfort+/js/UciIhm.js"),
+                          data.url("comfort+/js/toolbar.js"),
+                          data.url("comfort+/js/ruler.js"),
+                          data.url("comfort+/js/start.extensionFirefox.js")],      
+			//contentScriptFile: "comfort+/js/concat.js",
 			contentScriptOptions: {
 			   css :  data.url("comfort+/css/classic-toolbar.css"),
 			   btnclosecross :  data.url("comfort+/images/btn_close_cross.png"),

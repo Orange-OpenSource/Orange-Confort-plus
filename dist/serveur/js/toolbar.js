@@ -1,6 +1,6 @@
-/* orange-confort-plus - version 3.2.0 - 16-11-2015
+/* orange-confort-plus - version 3.2.1 - 04-01-2016
 enhance user experience on web sites
- Copyright (C) 2014 - 2015 Orange */
+ Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
 var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
 // Source: app/conf/hebergement.js
@@ -36,7 +36,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.6f538726.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.9c36061f.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var ruler_js = hebergementFullPath + 'js/ruler.js';
 // Source: app/js/ToolbarStrings.js
@@ -84,7 +84,7 @@ function ToolbarStrings() {
         /* HTML tag <html> of the page */
         var bodyTag = document.getElementsByTagName("body")[0];
         /* HTML tag <body> of the page */        
-        this.locale = ((htmlTag.lang) ? htmlTag.lang : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0,2);
+        this.locale = ((htmlTag.lang) ? htmlTag.lang : (htmlTag.getAttribute("xml:lang")) ? htmlTag.getAttribute("xml:lang") : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0,2);
         if (!this.locale || !traduction[this.locale]) {
             this.locale = defaultLocale;
         }
@@ -701,7 +701,7 @@ var oNewNode = document.createElement("iframe");
      */
     this.receiveMessage = function (event) {
         // Do we trust the sender of this message?
-        if ( event.origin.replace('https:', '') !== hebergementDomaine.replace('https:', '') || typeof event.data === 'object')
+        if ( event.origin.replace('https:', '') !== hebergementDomaine.replace('https:', '') && event.origin.replace('http:', '') !== hebergementDomaine.replace('http:', '') || typeof event.data === 'object')
             return;
         
         // back from cookie Save

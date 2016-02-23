@@ -428,7 +428,16 @@ module.exports = function(grunt) {
           src: [           
             'images/**',   
             'css/**',  
-            'help/**' 
+            'help/**',
+            'language/**',  
+            'js/**' ,  
+            '!js/jquery.min.js',  
+            '!js/jquery-1.11.3.min.js',  
+            '!js/start.extensionChrome.js',  
+            '!js/start.server.js',  
+            '!js/UciCookie.js',  
+            '!js/UciCookieStandalone.js',  
+            'conf/extensionFirefox/**' 
           ]
         }]
       },
@@ -448,8 +457,29 @@ module.exports = function(grunt) {
           dest: '<%= yeoman.distchromeext %>',
           src: [           
             'images/**',   
-            'css/**',   
-            'help/**' 
+            'css/**',  
+            'help/**',
+            'language/**',  
+            'js/**' ,  
+            '!js/jquery.min.js',  
+            '!js/jquery-1.11.3.min.js',  
+            '!js/start.extensionFirefox.js',  
+            '!js/start.server.js',  
+            '!js/UciCookie.js',  
+            '!js/UciCookieStandalone.js',  
+            'conf/extensionChrome/**' 
+          ]
+        }]
+      },
+      docs: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/boosted/dist/',
+          dest: 'docs',
+          src: [           
+            'css/**',
+            'fonts/**'
           ]
         }]
       }
@@ -497,18 +527,22 @@ module.exports = function(grunt) {
       'watch'
     ]);
   });
+  //build the docs, copy boosted files
+  grunt.registerTask('docs', [   
+    'copy:docs'
+  ]);
   
   grunt.registerTask('buildfirefoxext', [    
     'clean:firefoxext',
     'copy:firefoxext',
-    'concat:firefoxext',
+    //'concat:firefoxext',
     'jpm:xpi'
   ]);
   
   grunt.registerTask('buildchromeext', [    
     'clean:chromeext',
-    'copy:chromeext',
-    'concat:chromeext'
+    'copy:chromeext'
+    //'concat:chromeext'
   ]);
   
   grunt.registerTask('build', [
@@ -528,7 +562,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'build'
+    'build','buildfirefoxext','buildchromeext','docs'
   ]);
 };
 

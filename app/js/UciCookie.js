@@ -62,7 +62,7 @@ function UciStorage() {
      */
     this.receiveMessage = function (event) {
         // Do we trust the sender of this message?
-        if ( event.origin.replace('https:', '') !== hebergementDomaine.replace('https:', '') || typeof event.data === 'object')
+        if ( event.origin.replace('https:', '') !== hebergementDomaine.replace('https:', '') && event.origin.replace('http:', '') !== hebergementDomaine.replace('http:', '') || typeof event.data === 'object')
             return;
         
         // back from cookie Save
