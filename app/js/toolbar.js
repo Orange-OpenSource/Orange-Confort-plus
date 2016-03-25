@@ -3325,7 +3325,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function () {   
-        var links, i, allElts, scriptJquery, done, ruler, doneRuler, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames;
+        var links, i, allElts, scriptJquery, done, ruler, doneRuler, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off" && document.getElementById("cdu_content").className.match(/cdu_displayN/)) {
             if(document.getElementById('cdu_close'))
             {
@@ -3357,7 +3357,8 @@ accessibilitytoolbar = {
                     indexFrame++;
                 }
             }
-        }         
+        }
+        
         accessibilitytoolbar.removeOrStartRemote();
         accessibilitytoolbar.removeOrStartLoopingMode();   
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")!="off"){
@@ -3411,10 +3412,11 @@ accessibilitytoolbar = {
             // generate the CSS instructions
             // 1. do we want bigger fonts?
             // make it proportional to the initial font          
-            var fontSizeDef = '16px';
+            fontSizeDef = '16px';
             if(window.getComputedStyle) {
               fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
-            }            
+            }
+            
             if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
                 s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef)/16) + "% !important; }\n";
             }
