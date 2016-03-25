@@ -3332,7 +3332,32 @@ accessibilitytoolbar = {
                 document.getElementById('cdu_close').style.display == 'none';
             }
             accessibilitytoolbar.show();
-        }           
+        }  
+        // Remove previous user style
+        if (document.getElementById("a11yUserPrefStyle")) {
+            document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
+            /*
+             * remove css to frames if possible
+             * Works only if frame src is onto the same domain
+             *
+             */
+            indexFrame = 0;
+            theFrames=window.frames;
+            //theFrames=document.getElementsByTagName("iframe");
+            if(theFrames.length>0)
+            {
+                while(theFrame = theFrames[indexFrame]){
+                    try{
+                        //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
+                        theFrameDocument = theFrame.document || theFrame.contentDocument;
+                        if(theFrameDocument.getElementsByTagName('head')[0]){
+                            theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
+                        }
+                    } catch(e){}
+                    indexFrame++;
+                }
+            }
+        }         
         accessibilitytoolbar.removeOrStartRemote();
         accessibilitytoolbar.removeOrStartLoopingMode();   
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")!="off"){
@@ -3385,8 +3410,10 @@ accessibilitytoolbar = {
             
             // generate the CSS instructions
             // 1. do we want bigger fonts?
+            // make it proportional to the initial font
+            var fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';            
             if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") + "% !important; }\n";
+                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseInt(fontSizeDef)/16) + "% !important; }\n";
             }
 
             //gestion de l'affichage du mode espacement des mots
@@ -3665,32 +3692,7 @@ accessibilitytoolbar = {
                 document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
             }
         }
-        
-        // Remove previous user style
-        if (document.getElementById("a11yUserPrefStyle")) {
-            document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
-            /*
-             * remove css to frames if possible
-             * Works only if frame src is onto the same domain
-             *
-             */
-            indexFrame = 0;
-            theFrames=window.frames;
-            //theFrames=document.getElementsByTagName("iframe");
-            if(theFrames.length>0)
-            {
-                while(theFrame = theFrames[indexFrame]){
-                    try{
-                        //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
-                        theFrameDocument = theFrame.document || theFrame.contentDocument;
-                        if(theFrameDocument.getElementsByTagName('head')[0]){
-                            theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
-                        }
-                    } catch(e){}
-                    indexFrame++;
-                }
-            }
-        }    
+            
         // create a new style sheet
         if (s !== "") {
             newStyle = document.createElement("style");
