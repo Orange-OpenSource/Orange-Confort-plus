@@ -3410,10 +3410,13 @@ accessibilitytoolbar = {
             
             // generate the CSS instructions
             // 1. do we want bigger fonts?
-            // make it proportional to the initial font
-            var fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';            
+            // make it proportional to the initial font          
+            var fontSizeDef = '16px';
+            if(window.getComputedStyle) {
+              fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
+            }            
             if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseInt(fontSizeDef)/16) + "% !important; }\n";
+                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef)/16) + "% !important; }\n";
             }
 
             //gestion de l'affichage du mode espacement des mots
