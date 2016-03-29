@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 25-03-2016
+/* orange-confort-plus - version 3.2.1 - 29-03-2016
 enhance user experience on web sites
  Copyright (C) 2014 - 2016 Orange */
 /**
@@ -697,11 +697,11 @@ a.cdu_hide:focus {
     margin-left: 1em;
 }
 .uci-onoffswitch-label:focus, .uci-onoffswitch-label-on:focus{
-    outline: #000 dotted 2px;
+    outline: dotted 2px;
 }
 .uci-onoffswitch-label, .uci-onoffswitch-label-on {
 display: block; overflow: hidden; cursor: pointer;
-border: 2px solid #000;
+border: 2px solid;
 }
 .uci-onoffswitch-inner {
 display: block; width: 200%; margin-left: -100%;
@@ -886,6 +886,9 @@ right: 0px;
     background-color: transparent;
     border: none;
     padding:0;
+}
+.uci_bton_menu:focus{
+    outline: 2px dotted; 
 }
 .cdu-icon-reload2,.cdu-icon-help,.cdu-icon-plus2,.cdu-icon-moins2,.cdu-icon-croix {    
     font-size: 1.5em;

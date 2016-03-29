@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 25-03-2016
+/* orange-confort-plus - version 3.2.1 - 29-03-2016
 enhance user experience on web sites
  Copyright (C) 2014 - 2016 Orange */
 /**

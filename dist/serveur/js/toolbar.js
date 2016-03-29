@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 25-03-2016
+/* orange-confort-plus - version 3.2.1 - 29-03-2016
 enhance user experience on web sites
  Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -36,7 +36,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.9c36061f.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.875268f4.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var ruler_js = hebergementFullPath + 'js/ruler.js';
 // Source: app/js/ToolbarStrings.js
