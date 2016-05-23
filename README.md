@@ -59,4 +59,4 @@ Have a bug or a feature request? Please first check the [issues](https://github.
 
 ## Copyright and license
 
-Code copyright 2014 - 2015 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
+Code copyright 2014 - 2016 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
