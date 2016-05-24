@@ -3,7 +3,7 @@
 
 This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License

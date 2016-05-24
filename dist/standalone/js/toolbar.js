@@ -1,5 +1,5 @@
-/* orange-confort-plus - version 3.2.1 - 29-03-2016
-enhance user experience on web sites
+/* orange-confort-plus - version 3.2.1 - 24-05-2016
+enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
 var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
@@ -8,7 +8,7 @@ var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
 
 This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -36,14 +36,14 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.875268f4.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.f643e673.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var ruler_js = hebergementFullPath + 'js/ruler.js';
 // Source: app/js/ToolbarStrings.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -121,7 +121,7 @@ function ToolbarStrings() {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -641,7 +641,7 @@ this.storedValue = false;
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -751,7 +751,7 @@ UciStorage.prototype = new UciUserPref();
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -903,7 +903,7 @@ traduction['en']={
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -1055,7 +1055,7 @@ traduction['es']={
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -1207,7 +1207,7 @@ traduction['fr']={
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -1386,7 +1386,7 @@ UciAideMotrice = {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -1548,7 +1548,7 @@ function UciCouleur() {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -2012,7 +2012,7 @@ UciApparence = {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -2242,7 +2242,7 @@ UciTypographie = {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -2311,7 +2311,7 @@ UciValidation = {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -2807,7 +2807,7 @@ UciIhm = {
     }, 
     
     displayIconPalette: function(viewport) {
-    	return  '<svg version="1.1" viewBox="' + viewport + '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="cdu-icon-palette" role="image" alt="" aria-hidden="true" >\n\
+    	return  '<svg focusable="false" version="1.1" viewBox="' + viewport + '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="cdu-icon-palette" role="image" alt="" aria-hidden="true" >\n\
 <path class="path1" d="M0.476 17.181c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 23.147c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z"></path>\n\
 <path class="path2" d="M0.476 16.218c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 22.185c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z"></path>\n\
 <path class="path3" d="M25.304 14.486c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z"></path>\n\
@@ -2825,7 +2825,7 @@ UciIhm = {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -6828,7 +6828,7 @@ if (e && e.stopPropagation) {
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License

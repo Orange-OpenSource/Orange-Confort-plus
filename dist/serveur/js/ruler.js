@@ -1,10 +1,10 @@
-/* orange-confort-plus - version 3.2.1 - 29-03-2016
-enhance user experience on web sites
+/* orange-confort-plus - version 3.2.1 - 24-05-2016
+enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014  Orange
+    Copyright (C) 2014 - 2016  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
