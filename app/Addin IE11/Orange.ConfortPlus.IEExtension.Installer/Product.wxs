@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  
+ <?define BHOGuid={FCD2E6D1-AEE3-4468-97E8-D2F0908B6A87}?>
+ <?define ProtocolGuid={29012BAD-2C58-4DB9-80F1-B51E52DC4A06}?>
+
+  <?if $(var.Platform) = x64 ?>
+  <?define PlatformProgramFilesFolder = "%ProgramFiles(x86)%\Orange\ConfortPlus\" ?>
+  <?else ?>
+  <?define PlatformProgramFilesFolder = "%ProgramFiles%\Orange\ConfortPlus\" ?>
+  <?endif ?>
+  
+    
+	<Product 
+    Id="*" 
+    Name="!(loc.ProductName)" 
+    Language="!(loc.LANG)" 
+    Version="!(bind.assemblyVersion.AssemblyFile)"
+    Manufacturer="Orange SA" 
+    UpgradeCode="95343725-68F8-44FF-92E1-FFAB8F52A1D4"
+    >
+    
+		<Package 
+      Id="*" 
+      Description="!(loc.PackageDescription)"
+      Comments="!(loc.PackageComments)"
+      InstallerVersion="200" 
+      Compressed="yes" 
+      InstallScope="perMachine" 
+    />
+
+    <Property Id="IEVERSION">
+      <RegistrySearch
+        Id="IEVer"
+        Root="HKLM"
+        Key="SOFTWARE\Microsoft\Internet Explorer"
+        Name="svcVersion"
+        Type="raw"
+        Win64="no"
+    />
+    </Property>
+
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_451_OR_LATER_INSTALLED"/>
+
+   
+    <?if $(var.Platform) = x64 ?>
+    <Condition Message="!(loc.Installer32bitsNeeded)">
+      <![CDATA[VersionNT64]]>
+    </Condition>
+    <?else ?>
+    <Condition Message="!(loc.Installer64bitsNeeded)">
+      <![CDATA[NOT(VersionNT64)]]>
+    </Condition>
+    <?endif ?>
+    
+    
+    
+
+
+    <Condition Message="!(loc.Win7OrHigherNeeded)">
+      <![CDATA[Installed OR (VersionNT >= 601)]]>
+    </Condition>
+
+    <Condition Message="!(loc.Net451Needed)">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_451_OR_LATER_INSTALLED]]>
+    </Condition>
+    
+
+    <Condition Message="!(loc.IE11Needed)">
+      <![CDATA[Installed OR IEVERSION<<"11"]]>
+    </Condition>
+
+		<MajorUpgrade 
+      Schedule="afterInstallValidate" 
+      DowngradeErrorMessage="!(loc.MajorUpgradeErrorMessage)" 
+    />
+    
+		<Media Id="1" Cabinet="ConfortPlusIEExtension.cab" EmbedCab="yes" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="Orange" Name="Orange">
+          <Directory Id="INSTALLFOLDER" Name="ConfortPlus">
+
+                <Component
+                  Id="IconComponent"
+                  Guid="9E70E5D6-3511-48B3-9008-817AF11448C3"
+                  Win64="no"
+               >
+                  <File
+                     Id="IconFile"
+                     Source="$(var.Orange.ConfortPlus.IEExtension.TargetDir)cdu.ico"
+                     KeyPath="yes"
+                  />
+                </Component>
+
+            <Component
+                  Id="IconDisabledComponent"
+                  Guid="9D936CEE-8F16-4671-83D6-896A7CF43BD0"
+                  Win64="no"
+               >
+              <File
+                 Id="IconDisabledFile"
+                 Source="$(var.Orange.ConfortPlus.IEExtension.TargetDir)cdu-disabled.ico"
+                 KeyPath="yes"
+                  />
+            </Component>
+            
+              
+               <Component 
+                  Id="AssemblyComponent" 
+                  Guid="E7E4D6DE-5D72-4B1C-91E3-CC9054503F9A"
+                  Win64="no"
+               >
+                  <File 
+                    Id="AssemblyFile" 
+                    Name="$(var.Orange.ConfortPlus.IEExtension.TargetFileName)" 
+                    DiskId="1" 
+                    Source="$(var.Orange.ConfortPlus.IEExtension.TargetPath)" 
+                    KeyPath="yes"  
+                    Assembly=".net"
+                  />
+              </Component>
+              <Component 
+                  Id="MshtmlComponent" 
+                  Guid="5F84D896-A365-466C-89C1-99348D19D442"
+                  Win64="no"
+               >
+                    
+                <File 
+                    Id="MshtmlFile" 
+                    Source="$(var.Orange.ConfortPlus.IEExtension.TargetDir)Microsoft.mshtml.dll" 
+                    KeyPath="yes"  
+                    Assembly=".net"
+                  />
+               </Component>  
+            
+              <Component 
+                  Id="SHDocVwComponent" 
+                  Guid="D90A1EB8-36FE-4082-AD37-D015EEDBC895"
+                  Win64="no"
+               >
+                <File 
+                    Id="SHDocVwFile" 
+                    Source="$(var.Orange.ConfortPlus.IEExtension.TargetDir)Interop.SHDocVw.dll" 
+                    KeyPath="yes"    
+                    Assembly=".net"
+                  />   
+            
+               </Component>
+                   
+               <Component 
+                  Id="RegistryKeys32bits" 
+                  Guid="1CA6507A-3D9D-45CB-BC58-CF0855A8E885"
+                  Win64="no"
+               >
+                 <?include Registration.wxi?>
+               </Component>
+            
+              
+          </Directory>
+        </Directory>
+			</Directory>
+      
+      <?if $(var.Platform) = x64 ?>
+      <Directory Id="ProgramFiles64Folder">
+        <Component
+            Id="RegistryKeys64bits"
+            Guid="094D44DF-8C75-4F8F-B01D-3C202D0539C3"
+            Win64="yes" >
+          <?include Registration.wxi?>
+        </Component> 
+      </Directory>
+      <?endif ?>
+      
+		</Directory>
+
+    
+    
+    <Feature Id="Complete" Level="1">
+
+        <ComponentRef Id="IconComponent" />
+        <ComponentRef Id="IconDisabledComponent" />  
+        <ComponentRef Id="AssemblyComponent" />
+        <ComponentRef Id="MshtmlComponent" />
+        <ComponentRef Id="SHDocVwComponent" />
+        <ComponentRef Id="RegistryKeys32bits" />
+        <?if $(var.Platform) = x64 ?>
+        <ComponentRef Id="RegistryKeys64bits" />
+        <?endif ?>
+    </Feature>
+
+    <WixVariable Id="WixUILicenseRtf" Value="!(loc.LicenseRtf)" />
+    <WixVariable Id="WixUIBannerBmp" Value="banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <UIRef Id="WixUI_MinimalOverwritten" />
+
+
+    <Icon Id="cdu.ico" SourceFile="cdu.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="cdu.ico" />
+
+    <?include Localization1033.wxi ?>
+    <?include Localization1036.wxi ?>
+    <?include Localization3082.wxi ?>  
+
+    <CustomAction Id="SetiexplorePath" Property="iexplorePath" Value="[ProgramFilesFolder]Internet Explorer\iexplore.exe" />
+
+    <CustomAction Id="SetExtensionTextKey" Property="ExtensionTextKey" Value="ExtensionText[IELCID]" />
+    <CustomAction Id="SetToolbarButtonTitleKey" Property="ToolbarButtonTitleKey" Value="ToolbarButtonTitle[IELCID]" />
+    <CustomAction Id="SetExtensionTooltipKey" Property="ExtensionTooltipKey" Value="ExtensionTooltip[IELCID]" />
+
+    <Binary Id="OrangeConfortPlusIEExtensionWiXBinary" SourceFile="$(var.Orange.ConfortPlus.IEExtension.WiX.TargetDir)$(var.Orange.ConfortPlus.IEExtension.WiX.TargetName).CA.dll" />
+
+    <CustomAction Id="SetInternetExplorerLCID"
+       Return="check"
+       Execute="immediate"
+       BinaryKey="OrangeConfortPlusIEExtensionWiXBinary"
+       DllEntry="SetInternetExplorerLCID" />
+
+   
+    
+    <InstallExecuteSequence>
+      
+      <Custom Action="SetiexplorePath" Before="SetInternetExplorerLCID" />
+      <Custom Action="SetInternetExplorerLCID" Before="SetExtensionTextKey" />
+      
+      <Custom Action="SetExtensionTextKey" Before="SetToolbarButtonTitleKey" />
+      <Custom Action="SetToolbarButtonTitleKey" Before="SetExtensionTooltipKey" />
+      <Custom Action="SetExtensionTooltipKey" Before="InstallFiles" />
+    </InstallExecuteSequence>
+
+    <!--<InstallUISequence>
+      <Custom Action="SetiexplorePath" Before="SetInternetExplorerLCID" />
+      <Custom Action="SetInternetExplorerLCID" Before="PrepareDlg" />
+    </InstallUISequence>-->
+  
+	</Product>
+  
+</Wix>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Property Id="ExtensionText1033">Orange Confort+</Property>
+  <Property Id="ToolbarButtonTitle1033">Orange Confort+ - command button</Property>
+  <Property Id="ExtensionTooltip1033">activate/deactivate "Orange Confort+" on all open tabs</Property>
+</Include>

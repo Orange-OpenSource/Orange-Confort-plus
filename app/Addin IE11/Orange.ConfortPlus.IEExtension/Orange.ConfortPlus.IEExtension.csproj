@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B24BC13A-A039-4A68-A0C7-03C8E3ED6CC7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orange.ConfortPlus.IEExtension</RootNamespace>
+    <AssemblyName>Orange.ConfortPlus.IEExtension</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cdu.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>orangeconfortplusieextension.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CustomMarshalers" />
+    <Reference Include="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral, PublicKeyToken=ce821086f9052220, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\ExternalReferences\Interop.SHDocVw.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\ExternalReferences\Microsoft.mshtml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrowserHelperObject.cs" />
+    <Compile Include="EventHandler.cs" />
+    <Compile Include="Interfaces\BINDINFO.cs" />
+    <Compile Include="Interfaces\BINDSTATUS.cs" />
+    <Compile Include="Interfaces\BINDVERB.cs" />
+    <Compile Include="Interfaces\BSCF.cs" />
+    <Compile Include="Interfaces\CLIPFORMAT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DVASPECT.cs" />
+    <Compile Include="Interfaces\FORMATETC.cs" />
+    <Compile Include="Interfaces\GCS.cs" />
+    <Compile Include="Interfaces\HRESULT.cs" />
+    <Compile Include="Interfaces\IInternetBindInfo.cs" />
+    <Compile Include="Interfaces\IInternetProtocol.cs" />
+    <Compile Include="Interfaces\IInternetProtocolInfo.cs" />
+    <Compile Include="Interfaces\IInternetProtocolRoot.cs" />
+    <Compile Include="Interfaces\IInternetProtocolSink.cs" />
+    <Compile Include="Interfaces\MF.cs" />
+    <Compile Include="Interfaces\MFS.cs" />
+    <Compile Include="Interfaces\PARSEACTION.cs" />
+    <Compile Include="Interfaces\QUERYOPTION.cs" />
+    <Compile Include="Interfaces\SECURITY_ATTRIBUTES.cs" />
+    <Compile Include="Interfaces\STGMEDIUM.cs" />
+    <Compile Include="Interfaces\TYMED.cs" />
+    <Compile Include="Interfaces\LARGE_INTEGER.cs" />
+    <Compile Include="Interfaces\PROTOCOLDATA.cs" />
+    <Compile Include="Interfaces\ULARGE_INTEGER.cs" />
+    <Compile Include="ObjectEventHandler.cs" />
+    <Compile Include="Interfaces\IDOMEvent.cs" />
+    <Compile Include="Interfaces\IEventTarget.cs" />
+    <Compile Include="Interfaces\IObjectWithSite.cs" />
+    <Compile Include="Interfaces\IOleCommandTarget.cs" />
+    <Compile Include="Interfaces\IServiceProvider.cs" />
+    <Compile Include="Interfaces\OLECMD.cs" />
+    <Compile Include="MessageInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceProtocol.cs" />
+    <Compile Include="StorageInfo.cs" />
+    <Compile Include="Tools.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\css\classic-toolbar.css" />
+    <EmbeddedResource Include="Resources\css\help.css" />
+    <EmbeddedResource Include="Resources\help\help_en.html" />
+    <EmbeddedResource Include="Resources\help\help_es.html" />
+    <EmbeddedResource Include="Resources\help\help_fr.html" />
+    <EmbeddedResource Include="Resources\images\arrows_60.png" />
+    <EmbeddedResource Include="Resources\images\assistance_32x32_fe.png" />
+    <EmbeddedResource Include="Resources\images\btn_close_cross.png" />
+    <EmbeddedResource Include="Resources\images\btn_minus.png" />
+    <EmbeddedResource Include="Resources\images\btn_plus.png" />
+    <EmbeddedResource Include="Resources\images\checkbox_48x48_fe.png" />
+    <EmbeddedResource Include="Resources\images\checkbox_unchecked_48x48_fe.png" />
+    <EmbeddedResource Include="Resources\images\click_element.gif" />
+    <EmbeddedResource Include="Resources\images\help-pointer-w.png" />
+    <EmbeddedResource Include="Resources\images\help-small-transp.png" />
+    <EmbeddedResource Include="Resources\images\homescreen_tips_72x72_fe.gif" />
+    <EmbeddedResource Include="Resources\images\ico_appearence.png" />
+    <EmbeddedResource Include="Resources\images\ico_appearence_active.png" />
+    <EmbeddedResource Include="Resources\images\ico_help.png" />
+    <EmbeddedResource Include="Resources\images\ico_hide_bar.png" />
+    <EmbeddedResource Include="Resources\images\ico_init.png" />
+    <EmbeddedResource Include="Resources\images\ico_motive_help.png" />
+    <EmbeddedResource Include="Resources\images\ico_motive_help_active.png" />
+    <EmbeddedResource Include="Resources\images\ico_off_grey.png" />
+    <EmbeddedResource Include="Resources\images\ico_palette.png" />
+    <EmbeddedResource Include="Resources\images\ico_palette_active.png" />
+    <EmbeddedResource Include="Resources\images\ico_palette_bn.png" />
+    <EmbeddedResource Include="Resources\images\ico_palette_bn_active.png" />
+    <EmbeddedResource Include="Resources\images\ico_palette_color.png" />
+    <EmbeddedResource Include="Resources\images\ico_palette_color_active.png" />
+    <EmbeddedResource Include="Resources\images\ico_type.png" />
+    <EmbeddedResource Include="Resources\images\ico_type_active.png" />
+    <EmbeddedResource Include="Resources\images\link_to_link.gif" />
+    <EmbeddedResource Include="Resources\images\link_to_link_fast.gif" />
+    <EmbeddedResource Include="Resources\images\link_to_link_rewind.gif" />
+    <EmbeddedResource Include="Resources\images\modifier-b-info.png" />
+    <EmbeddedResource Include="Resources\images\stop_loop.gif" />
+    <EmbeddedResource Include="Resources\js\jquery-1.11.3.js" />
+    <EmbeddedResource Include="Resources\js\ruler.js" />
+    <EmbeddedResource Include="Resources\js\toolbar.js" />
+    <EmbeddedResource Include="Resources\js\ToolbarStrings.js" />
+    <EmbeddedResource Include="Resources\js\UciAideMotrice.js" />
+    <EmbeddedResource Include="Resources\js\UciApparence.js" />
+    <EmbeddedResource Include="Resources\js\UciCouleur.js" />
+    <EmbeddedResource Include="Resources\js\UciIhm.js" />
+    <EmbeddedResource Include="Resources\js\UciSimpleStorage.js" />
+    <EmbeddedResource Include="Resources\js\UciTypographie.js" />
+    <EmbeddedResource Include="Resources\js\UciUserPref.js" />
+    <EmbeddedResource Include="Resources\js\UciValidation.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\language\en.js" />
+    <EmbeddedResource Include="Resources\language\es.js" />
+    <EmbeddedResource Include="Resources\language\fr.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cdu-disabled.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cdu.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="License.txt" />
+    <Content Include="Resources\js\start.js" />
+    <EmbeddedResource Include="Resources\js\hebergement.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="orangeconfortplusieextension.snk" />
+    <EmbeddedResource Include="Resources\fonts\orangeconfortplus.eot" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

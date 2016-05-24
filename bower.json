@@ -2,7 +2,7 @@
   "name": "orange-confort-plus",
   "version": "3.2.1",
   "author": "Orange",
-  "description": "enhance user experience on web sites",
+  "description": "enhance user experience on websites",
   "keywords": [
     "Orange Confort+",
     "Orange"
@@ -10,7 +10,7 @@
   "main": [
     "dist/serveur/js/toolbar.js"
   ],
-  "homepage": "http://webidea.si.francetelecom.fr/spip/spip.php?article739",
+  "homepage": "http://confort-plus.orange.com/",
   "devDependencies": {
     "boosted": "~3.2.1"
   },

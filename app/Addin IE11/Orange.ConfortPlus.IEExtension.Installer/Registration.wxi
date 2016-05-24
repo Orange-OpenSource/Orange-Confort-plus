@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- BHO -->
+  <RegistryKey Root="HKCR" Key="Confort+">
+    <RegistryValue Type="string" Value="Orange.ConfortPlus.IEExtension.BrowserHelperObject"/>
+    <RegistryValue Type="string" Name="CLSID" Value="$(var.BHOGuid)"/>
+  </RegistryKey>
+
+  <RegistryKey Root="HKCR" Key="CLSID\$(var.BHOGuid)">
+    <RegistryValue Type="string" Value="[[ExtensionTextKey]]"/>
+    <RegistryKey Key="InprocServer32">
+      <RegistryValue Type="string" Value="mscoree.dll"/>
+      <RegistryValue Type="string" Name="ThreadingModel" Value="Both" />
+      <RegistryValue Type="string" Name="Class" Value="Orange.ConfortPlus.IEExtension.BrowserHelperObject" />
+      <RegistryValue Type="string" Name="Assembly" Value="!(bind.assemblyFullName.AssemblyFile)" />
+      <RegistryValue Type="string" Name="RuntimeVersion" Value="v4.0.30319" />
+      <RegistryKey Key="!(bind.assemblyVersion.AssemblyFile)">
+        <RegistryValue Type="string" Name="Class" Value="Orange.ConfortPlus.IEExtension.BrowserHelperObject" />
+        <RegistryValue Type="string" Name="Assembly" Value="!(bind.assemblyFullName.AssemblyFile)" />
+        <RegistryValue Type="string" Name="RuntimeVersion" Value="v4.0.30319" />
+      </RegistryKey>
+    </RegistryKey>
+    <RegistryKey Key="ProgId">
+      <RegistryValue Type="string" Value="Confort+"/>
+    </RegistryKey>
+    <RegistryKey Key="Implemented Categories">
+      <RegistryKey Key="{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}" ForceCreateOnInstall="yes" />
+      <RegistryKey Key="{59fb2056-d625-48d0-a944-1a85b5ab2640}" ForceCreateOnInstall="yes" />
+    </RegistryKey>
+  </RegistryKey>
+
+  <RegistryKey Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\$(var.BHOGuid)">
+    <RegistryValue Type="string" Value="Confort+"/>
+    <RegistryValue Type="integer" Name="NoExplorer" Value="1"/>
+  </RegistryKey>
+
+  <!-- Toolbar command button -->
+  <RegistryKey Root="HKLM" Key="Software\Microsoft\Internet Explorer\Extensions\$(var.BHOGuid)">
+    <RegistryValue Type="string" Name="ButtonText" Value="[[ExtensionTextKey]]"/>
+    <RegistryValue Type="string" Name="CLSID" Value="{1FBA04EE-3024-11d2-8F1F-0000F87ABD16}"/>
+    <RegistryValue Type="string" Name="ClsidExtension" Value="$(var.BHOGuid)"/>
+    <RegistryValue Type="string" Name="Icon" Value="$(var.PlatformProgramFilesFolder)cdu.ico"/>
+    <RegistryValue Type="string" Name="HotIcon" Value="$(var.PlatformProgramFilesFolder)cdu-disabled.ico"/>
+    <RegistryValue Type="string" Name="Default Visible" Value="Yes"/>
+    <RegistryValue Type="string" Name="MenuText" Value="[[ToolbarButtonTitleKey]]"/>
+    <RegistryValue Type="string" Name="ToolTip" Value="[[ExtensionTooltipKey]]"/>
+  </RegistryKey>
+
+
+  <!-- Protocol -->
+  <RegistryKey Root="HKCR" Key="Orange.ConfortPlus.IEExtension.ResourceProtocol">
+    <RegistryValue Type="string" Value="Orange.ConfortPlus.IEExtension.ResourceProtocol"/>
+    <RegistryValue Type="string" Name="CLSID" Value="$(var.ProtocolGuid)"/>
+  </RegistryKey>
+
+  <RegistryKey Root="HKCR" Key="CLSID\$(var.ProtocolGuid)">
+    <RegistryValue Type="string" Value="Orange.ConfortPlus.IEExtension.ResourceProtocol"/>
+    <RegistryKey Key="InprocServer32">
+      <RegistryValue Type="string" Value="mscoree.dll"/>
+      <RegistryValue Type="string" Name="ThreadingModel" Value="Both" />
+      <RegistryValue Type="string" Name="Class" Value="Orange.ConfortPlus.IEExtension.ResourceProtocol" />
+      <RegistryValue Type="string" Name="Assembly" Value="!(bind.assemblyFullName.AssemblyFile)" />
+      <RegistryValue Type="string" Name="RuntimeVersion" Value="v4.0.30319" />
+      <RegistryKey Key="1.0.1.0">
+        <RegistryValue Type="string" Name="Class" Value="Orange.ConfortPlus.IEExtension.ResourceProtocol" />
+        <RegistryValue Type="string" Name="Assembly" Value="!(bind.assemblyFullName.AssemblyFile)" />
+        <RegistryValue Type="string" Name="RuntimeVersion" Value="v4.0.30319" />
+      </RegistryKey>
+    </RegistryKey>
+    <RegistryKey Key="ProgId">
+      <RegistryValue Type="string" Value="Orange.ConfortPlus.IEExtension.ResourceProtocol"/>
+    </RegistryKey>
+    <RegistryKey Key="Implemented Categories\{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}" ForceCreateOnInstall="yes" />
+  </RegistryKey>
+
+  <RegistryKey Root="HKCR" Key="PROTOCOLS\Handler\cdu">
+    <RegistryValue Type="string" Value="cdu Pluggable Protocol"/>
+    <RegistryValue Type="string" Name="CLSID" Value="$(var.ProtocolGuid)" />
+  </RegistryKey>
+</Include>
