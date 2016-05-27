@@ -122,24 +122,19 @@ function UciUserPref() {
         "a11yNavLienVisStyle-1":    "a11yNavLienVisStyle-border",
         "a11yNavLienVisStyle-2":    "a11yNavLienVisStyle-underline",
         "a11yNavLienVisStyle-3":    "a11yNavLienVisStyle-bold",
-        //gestion règle
-        "a11yRegleEnabled-0":      "a11yRegleEnabled-false",
-        "a11yRegleEnabled-1":       "a11yRegleEnabled-true",
-        "a11yRegleVertical-0" :     "a11yRegleVertical-false",
-        "a11yRegleVertical-1" :     "a11yRegleVertical-true",
-        "a11yRegleHorizontal-0" :   "a11yRegleHorizontal-false",
-        "a11yRegleHorizontal-1" :   "a11yRegleHorizontal-true",
-
-        "a11yRegleEpaisseur-0" :    "a11yRegleEpaisseur-thin",
-        "a11yRegleEpaisseur-1" :    "a11yRegleEpaisseur-medium",
-        "a11yRegleEpaisseur-2" :    "a11yRegleEpaisseur-thick",
+        //gestion masque
+        "a11yMaskEpaisseur-0" :    "a11yMaskEpaisseur-thin",
+        "a11yMaskEpaisseur-1" :    "a11yMaskEpaisseur-medium",
+        "a11yMaskEpaisseur-2" :    "a11yMaskEpaisseur-thick",
 
         "a11ySupEffetTransp-0":     "a11ySupEffetTransp-false",
         "a11ySupEffetTransp-1":     "a11ySupEffetTransp-1",
         "a11ySupImageFont-0" :      "a11ySupImageFont-false",
         "a11ySupImageFont-1" :      "a11ySupImageFont-true",
         "a11ySupImageFirstPlan-0" : "a11ySupImageFirstPlan-false",
-        "a11ySupImageFirstPlan-1" :  "a11ySupImageFirstPlan-true",
+        "a11ySupImageFirstPlan-1" : "a11ySupImageFirstPlan-true",
+        "a11yMaskEnabled-0" :       "a11yMaskEnabled-false",
+        "a11yMaskEnabled-1" :       "a11yMaskEnabled-true",
         /**
          * Reverse the matrix. Keys becomes values and values becomes keys.*/
         reverse: function () {
@@ -167,48 +162,44 @@ function UciUserPref() {
     this.create_color('a11yNavLienSelColor-');
     this.create_color('a11yNavLienNonVisColor-');
     this.create_color('a11yNavLienVisColor-');
-    this.create_color('a11yRegleColor-');
     
     this.maskMatrixv3 = {
         // Mask Name                | Dec Value
-        "a11ySiteWebEnabled":     [46,1],
-        "a11yApercuAuto":         [45,1],
-        "a11yToolbarEnable":      [44,1],
-        "a11yLanguage":           [43,1],
-        "a11yJumpToContent":      [42,1],
-        "a11yLinearize":          [41,1],
-        "a11yBigger":             [40,1],
-        "a11yVisualSettings":     [39,1],
-        "a11yVisualPredefinedSettings": [38,1],
-        "a11yFontColor":          [36,2],
-        "a11yBackgroundColor":    [34,2],
-        "a11yMotorModeEnabled":   [33,1],
-        "a11yMotorMode":          [32,1],
-        "a11yDelayBeforeClick":   [31,1],
-        "a11yMenuPositionning":   [30,1],
-        "a11yDelayBeforeLoop":    [29,1],
-        "a11yQuickMode":          [28,1],
-        "a11yCharSpacement":      [27,1],
-        "a11yDyslexyFontEnabled": [26,1],
-        "a11yDyslexyFont":        [25,1],
-        "a11yLineSpacement":      [24,1],
-        "a11ySpacement":          [23,1],
-        "a11yModifCasseEnabled":  [22,1],
-        "a11yModifCasse":         [21,1],
-        "a11yLeftText":           [20,1],
-        "a11yNumerotationList":   [19,1],
-        "a11yNavLienEnabled":     [18,1],
-        "a11yNavLienSelColor":    [16,2],
-        "a11yNavLienSelStyle":    [15,1],
-        "a11yNavLienNonVisColor": [13,2],
-        "a11yNavLienNonVisStyle": [12,1],
-        "a11yNavLienVisColor":    [10,2],
-        "a11yNavLienVisStyle":    [9,1],
-        "a11yRegleEnabled":       [8,1],
-        "a11yRegleVertical" :     [7,1],
-        "a11yRegleHorizontal" :   [6,1],
-        "a11yRegleColor":         [4,2],
-        "a11yRegleEpaisseur" :    [3,1],
+    	"a11ySiteWebEnabled":     [42,1],
+    	"a11yMaskEpaisseur" :     [41,1],
+        "a11yMaskEnabled":        [40,1],
+        "a11yApercuAuto":         [39,1],
+        "a11yToolbarEnable":      [38,1],
+        "a11yLanguage":           [37,1],
+        "a11yJumpToContent":      [36,1],
+        "a11yLinearize":          [35,1],
+        "a11yBigger":             [34,1],
+        "a11yVisualSettings":     [33,1],
+        "a11yVisualPredefinedSettings": [32,1],
+        "a11yFontColor":          [30,2],
+        "a11yBackgroundColor":    [28,2],
+        "a11yMotorModeEnabled":   [27,1],
+        "a11yMotorMode":          [26,1],
+        "a11yDelayBeforeClick":   [25,1],
+        "a11yMenuPositionning":   [24,1],
+        "a11yDelayBeforeLoop":    [23,1],
+        "a11yQuickMode":          [22,1],
+        "a11yCharSpacement":      [21,1],
+        "a11yDyslexyFontEnabled": [20,1],
+        "a11yDyslexyFont":        [19,1],
+        "a11yLineSpacement":      [18,1],
+        "a11ySpacement":          [17,1],
+        "a11yModifCasseEnabled":  [16,1],
+        "a11yModifCasse":         [15,1],
+        "a11yLeftText":           [14,1],
+        "a11yNumerotationList":   [13,1],
+        "a11yNavLienEnabled":     [12,1],
+        "a11yNavLienSelColor":    [10,2],
+        "a11yNavLienSelStyle":    [9,1],
+        "a11yNavLienNonVisColor": [7,2],
+        "a11yNavLienNonVisStyle": [6,1],
+        "a11yNavLienVisColor":    [4,2],
+        "a11yNavLienVisStyle":    [3,1],
         "a11ySupEffetTransp":     [2,1],
         "a11ySupImageFont" :      [1,1],
         "a11ySupImageFirstPlan" : [0,1]
@@ -251,16 +242,14 @@ function UciUserPref() {
         "a11yNavLienNonVisStyle": "keepit",
         "a11yNavLienVisColor":    "#000000",
         "a11yNavLienVisStyle":    "keepit",
-        "a11yRegleEnabled":       "false",
-        "a11yRegleVertical" :     "false",
-        "a11yRegleHorizontal" :   "true",
-        "a11yRegleColor" :        "#000000",
-        "a11yRegleEpaisseur" :    "thin",
+        "a11yMaskEpaisseur" :    "thin",
         "a11ySupEffetTransp":     "false",
         "a11ySupImageFont" :     "false",
         "a11ySupImageFirstPlan" : "false",
+        "a11ySupImageFirstPlan" : "false",
         "a11ySiteWebEnabled" : "on",
-        "a11yApercuAuto" : "false"
+        "a11yApercuAuto" : "false",
+        "a11yMaskEnabled" : "false"
     };
     
     /***************************************************Ancienne version du cookie************************************/
@@ -416,7 +405,7 @@ function UciUserPref() {
     this.decode = function (/* String*/ pref) {
         var prefName;
         // uniquement si le nombre de caractères du cookie est correct!
-        if(pref.length===47)
+        if(pref.length===43)
         {
            
           for (prefName in this.maskMatrixv3) {

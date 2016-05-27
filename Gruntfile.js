@@ -175,7 +175,7 @@ module.exports = function(grunt) {
             banner: '<%= banner %>'
           },
           files: {
-            src: [ '<%= yeoman.dist %>/{,*/}/js/ruler.js','<%= yeoman.dist %>/{,*/}/js/toolbar.js','<%= yeoman.dist %>/{,*/}/js/toolbar-min.js','<%= yeoman.dist %>/{,*/}/css/*']
+            src: [ '<%= yeoman.dist %>/{,*/}/js/ruler.js','<%= yeoman.dist %>/{,*/}/js/mask.js','<%= yeoman.dist %>/{,*/}/js/toolbar.js','<%= yeoman.dist %>/{,*/}/js/toolbar-min.js','<%= yeoman.dist %>/{,*/}/css/*']
           }
         }
     },  
@@ -314,7 +314,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
             "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/ruler.js",
+            "<%= yeoman.app %>/js/mask.js",
             "<%= yeoman.app %>/js/start.extensionFirefox.js"
         ],
         dest: '<%= yeoman.distfirefoxext %>/data/comfort+/js/concat.js'
@@ -343,7 +343,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
             "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/ruler.js",
+            "<%= yeoman.app %>/js/mask.js",
             "<%= yeoman.app %>/js/start.extensionChrome.js"
         ],
         dest: '<%= yeoman.distchromeext %>/js/concat.js'
@@ -386,7 +386,7 @@ module.exports = function(grunt) {
             'css/**',  
             'fonts/**', 
             'js/jquery.min.js', 
-            'js/ruler.js', 
+            'js/mask.js', 
             'conf/param.php',
             '*.php',
             '*.txt',
@@ -403,7 +403,7 @@ module.exports = function(grunt) {
             'css/**',  
             'fonts/**', 
             'js/jquery.min.js', 
-            'js/ruler.js', 
+            'js/mask.js', 
             '*.txt',
             '*.htm',
             '**/*.html'

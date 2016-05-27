@@ -32,4 +32,4 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
  }
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
- var ruler_js = hebergementFullPath + 'js/ruler.js';
+ var mask_js = hebergementFullPath + 'js/mask.js';
