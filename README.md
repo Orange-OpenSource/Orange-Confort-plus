@@ -4,7 +4,7 @@ The target of _Orange Confort+_ functionalities is to enhance user experience on
 _Orange Confort+_ provides these services:
 
 * Typography - user may change: font size, space between words, characters and lines, font-face to Open Dyslexic
-* Layout: cancel layout, text align left, numbering list items, modify navigation links appearance, display a reading ruler
+* Layout: cancel layout, text align left, numbering list items, modify navigation links appearance, display a reading mask
 * Colors : Modify foreground/background colors
 * Behavior: direct access to main content on page load, automatic selection of page clickable elements with a user defined delay, page scrolling on simple user on hover.
 
