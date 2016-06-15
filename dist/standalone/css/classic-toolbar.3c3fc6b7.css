@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 24-05-2016
+/* orange-confort-plus - version 3.2.1 - 15-06-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 /**
@@ -1202,7 +1202,7 @@ ul#uci_reponses_couleurpredefinie_quick_set{
 
 
 /******************************************Onglet Apparence****************************************************/
-#uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_affichage_regle,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture  {
+#uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_affichage_regle,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture,#uci_mask_enabled  {
     padding-top : 1.05em;
 }
 

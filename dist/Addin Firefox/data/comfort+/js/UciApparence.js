@@ -261,117 +261,7 @@ UciApparence = {
         attr_apparence += '</div>';
         attr_apparence += '</div>';
 
-        //gestion de l'affichage de la règle
-        attr_apparence += "<div id='uci_div_affichage_regle'>";
-
-        attr_apparence += "<div id='uci_regle_enabled'>";
-        if(accessibilitytoolbar.getCompatible('a11yRegleEnabled')) {
-            attr_apparence += "<input value='true' name='a11yRegleEnabled' type='checkbox' id='uci_check_regle'";
-            attr_apparence += (accessibilitytoolbar.userPref.get("a11yRegleEnabled") === "true" ? " checked='checked'>" : ">");
-        } else {
-            attr_apparence += "<input value='true' name='a11yRegleEnabled' type='checkbox' id='uci_check_regle' disabled>";        
-        }
-        attr_apparence += "<label for='uci_check_regle'>";
-        attr_apparence += accessibilitytoolbar.get('uci_title_regle');
-        attr_apparence += "</label>";
-        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_regle'>";
-        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_regle'><p>";
-        attr_apparence += accessibilitytoolbar.get('uci_help_regle');
-        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_apparence += "</div>"; //uci_regle_enabled
         
-        if(accessibilitytoolbar.getCompatible('a11yRegleEnabled')) {                  
-            if(accessibilitytoolbar.userPref.get("a11yRegleEnabled") === 'true'){
-                attr_apparence += "<div id='uci_div_regle' style='display:block'>";
-            }else {
-                attr_apparence += "<div id='uci_div_regle' style='display:none'>";
-            }
-            attr_apparence += "<div id='uci_div_regle_horizontal'>";
-            attr_apparence += " <input type='checkbox' value='true' name='a11yRegleHorizontal' id='uci_check_regle_horizontal'";
-            attr_apparence += (accessibilitytoolbar.userPref.get("a11yRegleHorizontal") === "true" ? " checked='checked'>" : ">");
-            attr_apparence += "<label for='uci_check_regle_horizontal'>";
-            attr_apparence += accessibilitytoolbar.get('uci_label_regle_horizontale');
-            attr_apparence += "</label>";
-            attr_apparence += "</div>";
-    
-            attr_apparence += "<div id='uci_div_regle_verticale' >";
-            attr_apparence += " <input type='checkbox' value='true' name='a11yRegleVertical' id='uci_check_regle_verticale'";
-            attr_apparence += (accessibilitytoolbar.userPref.get("a11yRegleVertical") === "true" ? " checked='checked'>" : ">");
-            attr_apparence += "<label for='uci_check_regle_verticale'>";
-            attr_apparence += accessibilitytoolbar.get('uci_label_regle_vertical');
-            attr_apparence += "</label>";
-            attr_apparence += "</div>";
-    
-            //gestion réglage de la règle
-            attr_apparence += "<div id='uci_div_more_reglage_regle'>";
-            //gestion couleur de la règle
-            attr_apparence += "<div id='uci_regle_couleur'>";
-            attr_apparence += "<span class='cdu_c uci_regle_couleur_span cdu_left'>"+accessibilitytoolbar.get('uci_txt_regle_color')+"</span>";
-            attr_apparence += "<div class='cdu_left'><a href='#' id='uci_regle_couleur_lien' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_txt_regle_color')+"\" style='background-color:"+accessibilitytoolbar.userPref.get("a11yRegleColor")+ "!important'>";
-            attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_txt_regle_color')+"</span> ";
-            attr_apparence +="</a>";
-            attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_regle' style='display:none'>";
-            
-            tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_regle' role='radiogroup' aria-labelledby='uci_a11yRegleColorSpan'>";
-            index = 0;
-            indexCouleur = 0;
-            currentLine = "";
-            moreclass = "";
-            for (index = 0; index < UciApparence.mesCouleurs.length; ++index) {
-                if(UciApparence.mesCouleurs[index] instanceof Array)
-                {
-                    indexCouleur = 0;
-                    currentLine = UciApparence.mesCouleurs[index];
-                    for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                        tableauCouleurPolice += "<li id='uci_a11yRegleColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yRegleColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
-                        tableauCouleurPolice += "</li>";
-                        moreclass = "";
-                    }
-                    moreclass = "uci_couleur_clear";
-                }
-            }
-            tableauCouleurPolice += '</ul>';
-            attr_apparence += tableauCouleurPolice;
-            attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";
-            attr_apparence += "</div>";
-            attr_apparence += "</div>";
-            //epaisseur de la régle
-            attr_apparence += "<div id='uci_regle_epaisseur'>";
-    
-            attr_apparence += "<span id='uci_title_epaisseur_regle' class='cdu_left'>";
-            attr_apparence += accessibilitytoolbar.get('uci_txt_regle_size');
-            attr_apparence += "</span>";
-            attr_apparence += "<ul class='uci_liste_bton' id='uci_reponses_epaisseurregle' role='radiogroup' aria-labelledby='uci_title_epaisseur_regle'>";
-            attr_apparence += "<li id='uci_a11yRegleEpaisseur_thin' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yRegleEpaisseur") === "thin" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-            attr_apparence += "<span>";
-            attr_apparence += "<samp>-</samp>";
-            attr_apparence += "<span class='cdu_n'>";
-            attr_apparence +=  accessibilitytoolbar.get('uci_title_regle_thin');
-            attr_apparence += "</span>";
-            attr_apparence += "</span>";
-            attr_apparence += "</li>";
-            attr_apparence += "<li id='uci_a11yRegleEpaisseur_medium' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yRegleEpaisseur") === "medium" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-            attr_apparence += "<span>";
-            attr_apparence += "<samp>-</samp>";
-            attr_apparence += "<span class='cdu_n'>";
-            attr_apparence += accessibilitytoolbar.get('uci_title_regle_medium');
-            attr_apparence += "</span>";
-            attr_apparence += "</span>";
-            attr_apparence += "</li>";
-            attr_apparence += "<li id='uci_a11yRegleEpaisseur_thick' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yRegleEpaisseur") === "thick" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-            attr_apparence += "<span>";
-            attr_apparence += "<samp>-</samp>";
-            attr_apparence += "<span class='cdu_n'>";
-            attr_apparence +=  accessibilitytoolbar.get('uci_title_regle_big');
-            attr_apparence += "</span>";
-            attr_apparence += "</span>";
-            attr_apparence += "</li>";
-            attr_apparence += "</lu>";
-            attr_apparence += "</div>";
-            attr_apparence += "</div>"; //uci_div_regle
-        }
-        attr_apparence += "</div>"; //uci_div_affichage_regle
 /*********************************************Fin de la partie gauche******************************************************/
         attr_apparence += "</div>"; //uci_apparence_div_left
 
@@ -417,6 +307,67 @@ UciApparence = {
         attr_apparence += accessibilitytoolbar.get('uci_help_disablepppictures');
         attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
         attr_apparence += "</div>";
+
+        //debut gestion du masque
+        attr_apparence += "<div id='uci_mask_enabled'>";
+        attr_apparence += "<input type='checkbox' value='true' name='a11yMaskEnabled' id='uci_check_mask' ";
+        attr_apparence += accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked='checked'" : "";
+        attr_apparence += ">";
+        attr_apparence += "<label for='uci_check_mask'>";
+        attr_apparence += accessibilitytoolbar.get('uci_label_mask');
+        attr_apparence += "</label >";
+        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_mask'>";
+        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
+        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_mask'><p>";
+        attr_apparence += accessibilitytoolbar.get('uci_help_mask');
+        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
+        attr_apparence += "</div>";
+        if(accessibilitytoolbar.getCompatible('a11yMaskEnabled')) { 
+        	if(accessibilitytoolbar.userPref.get("a11yMaskEnabled") === 'true'){
+                attr_apparence += "<div id='uci_div_mask' style='display:block'>";
+            }else {
+                attr_apparence += "<div id='uci_div_mask' style='display:none'>";
+            }
+        	
+        	attr_apparence += "<div id='uci_regle_epaisseur'>";
+            
+            attr_apparence += "<span id='uci_title_epaisseur_mask' class='cdu_left'>";
+            attr_apparence += accessibilitytoolbar.get('uci_txt_mask_size');
+            attr_apparence += "</span>";
+            
+            attr_apparence += "<ul class='uci_liste_bton' id='uci_reponses_epaisseurmask' role='radiogroup' aria-labelledby='uci_title_epaisseur_mask'>";
+            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thin' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+            attr_apparence += "<span>";
+            attr_apparence += "<samp>-</samp>";
+            attr_apparence += "<span class='cdu_n'>";
+            attr_apparence +=  accessibilitytoolbar.get('uci_title_mask_thin');
+            attr_apparence += "</span>";
+            attr_apparence += "</span>";
+            attr_apparence += "</li>";
+            attr_apparence += "<li id='uci_a11yMaskEpaisseur_medium' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+            attr_apparence += "<span>";
+            attr_apparence += "<samp>-</samp>";
+            attr_apparence += "<span class='cdu_n'>";
+            attr_apparence += accessibilitytoolbar.get('uci_title_mask_medium');
+            attr_apparence += "</span>";
+            attr_apparence += "</span>";
+            attr_apparence += "</li>";
+            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thick' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+            attr_apparence += "<span>";
+            attr_apparence += "<samp>-</samp>";
+            attr_apparence += "<span class='cdu_n'>";
+            attr_apparence +=  accessibilitytoolbar.get('uci_title_mask_big');
+            attr_apparence += "</span>";
+            attr_apparence += "</span>";
+            attr_apparence += "</li>";
+            attr_apparence += "</ul>";
+            
+            attr_apparence += "</div>";
+        	
+        	
+        	
+        	attr_apparence += "</div>";
+        }
 /**********************************************Fin de la partie de droite*************************************************/
         attr_apparence += "</div>";
 /*************************************************Fin de la partie apparence**********************************************/

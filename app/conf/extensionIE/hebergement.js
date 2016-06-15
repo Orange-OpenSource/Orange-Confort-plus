@@ -30,7 +30,7 @@ var fontsPath = {
 };
 
 var jquery_min_js = 'cdu://Resources/js/jquery.min.js';
-var ruler_js = 'cdu://Resources/js/ruler.js';
+var ruler_js = 'cdu://Resources/js/mask.js';
 
 var helpPath = {
     fr:  "javascript:window.postMessage('orangecomfort+help_fr',document.location);",

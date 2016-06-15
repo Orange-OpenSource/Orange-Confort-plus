@@ -175,7 +175,7 @@ module.exports = function(grunt) {
             banner: '<%= banner %>'
           },
           files: {
-            src: [ '<%= yeoman.dist %>/{,*/}/js/ruler.js','<%= yeoman.dist %>/{,*/}/js/mask.js','<%= yeoman.dist %>/{,*/}/js/toolbar.js','<%= yeoman.dist %>/{,*/}/js/toolbar-min.js','<%= yeoman.dist %>/{,*/}/css/*']
+            src: [ '<%= yeoman.dist %>/{,*/}/js/mask.js','<%= yeoman.dist %>/{,*/}/js/toolbar.js','<%= yeoman.dist %>/{,*/}/js/toolbar-min.js','<%= yeoman.dist %>/{,*/}/css/*']
           }
         }
     },  

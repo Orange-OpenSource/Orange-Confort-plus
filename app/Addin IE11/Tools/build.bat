@@ -11,7 +11,7 @@ robocopy "%~dp0\..\..\language" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resourc
 
 mkdir "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js"
 
-copy /Y "%~dp0\..\..\js\ruler.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\ruler.js"
+copy /Y "%~dp0\..\..\js\mask.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\mask.js"
 copy /Y "%~dp0\..\..\js\toolbar.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\toolbar.js"
 copy /Y "%~dp0\..\..\js\jquery-1.11.3.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\jquery-1.11.3.js"
 copy /Y "%~dp0\..\..\js\ToolbarStrings.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\ToolbarStrings.js"

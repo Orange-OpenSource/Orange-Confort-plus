@@ -164,7 +164,7 @@
     <EmbeddedResource Include="Resources\images\modifier-b-info.png" />
     <EmbeddedResource Include="Resources\images\stop_loop.gif" />
     <EmbeddedResource Include="Resources\js\jquery-1.11.3.js" />
-    <EmbeddedResource Include="Resources\js\ruler.js" />
+    <EmbeddedResource Include="Resources\js\mask.js" />
     <EmbeddedResource Include="Resources\js\toolbar.js" />
     <EmbeddedResource Include="Resources\js\ToolbarStrings.js" />
     <EmbeddedResource Include="Resources\js\UciAideMotrice.js" />
