@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 15-06-2016
+/* orange-confort-plus - version 3.2.1 - 07-07-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -287,6 +287,7 @@ this.storedValue = false;
     this.create_color('a11yNavLienSelColor-');
     this.create_color('a11yNavLienNonVisColor-');
     this.create_color('a11yNavLienVisColor-');
+    this.create_color('a11yMaskColor-');
     
     this.maskMatrixv3 = {
         // Mask Name                | Dec Value
@@ -4867,12 +4868,7 @@ accessibilitytoolbar = {
      * {RemoteControlMode} Remote control Manager
      */
     remotecontrol: null,
-
-    /**
-     * Reference the ruler
-     */
-    toolbarRuler : false,
-
+    
     /**
      * array of css stylesheets removed
      */
@@ -5894,7 +5890,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function () {   
-        var links, i, allElts, scriptJquery, done, ruler, doneRuler, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        var links, i, allElts, scriptJquery, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off" && document.getElementById("cdu_content").className.match(/cdu_displayN/)) {
             if(document.getElementById('cdu_close'))
             {
@@ -6165,7 +6161,7 @@ accessibilitytoolbar = {
                     mask = document.createElement('script');
                     mask.src = mask_js;
                     doneMask = false;
-                    // wait until ruler complete loaded
+                    // wait until mask complete loaded
                     mask.onload = mask.onreadystatechange = function () {
                         if (!doneMask && ( !this.readyState
                             || this.readyState == "loaded"
@@ -6187,7 +6183,7 @@ accessibilitytoolbar = {
             	s += ".bottomMask  { position: fixed; z-index:9000; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
             }
-            // if ruler was launch before deactivation kill!
+            // if mask was launch before deactivation kill!
             else if(accessibilitytoolbar.toolbarMask && UciMask.settings.launched)
             {
             	UciMask.maskEventRemove();

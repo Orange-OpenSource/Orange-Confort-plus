@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 15-06-2016
+/* orange-confort-plus - version 3.2.1 - 07-07-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 /**
@@ -67,10 +67,10 @@ UciMask = {
         			var size = 20;
         			break;
         		case 'medium':
-        			var size = 30;
+        			var size = 40;
         			break;
         		case 'thick':
-        			var size = 50;
+        			var size = 60;
         			break;
         		case 'none':
         		default:
