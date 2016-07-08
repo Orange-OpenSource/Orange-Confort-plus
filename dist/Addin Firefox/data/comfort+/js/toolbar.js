@@ -2263,12 +2263,7 @@ accessibilitytoolbar = {
      * {RemoteControlMode} Remote control Manager
      */
     remotecontrol: null,
-
-    /**
-     * Reference the ruler
-     */
-    toolbarRuler : false,
-
+    
     /**
      * array of css stylesheets removed
      */
@@ -3290,7 +3285,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function () {   
-        var links, i, allElts, scriptJquery, done, ruler, doneRuler, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        var links, i, allElts, scriptJquery, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off" && document.getElementById("cdu_content").className.match(/cdu_displayN/)) {
             if(document.getElementById('cdu_close'))
             {
@@ -3326,6 +3321,30 @@ accessibilitytoolbar = {
         
         accessibilitytoolbar.removeOrStartRemote();
         accessibilitytoolbar.removeOrStartLoopingMode();   
+        // Remove linearization if it had been done : 
+        // 1. linearize ? -- which is the same as: get rid of all CSS info first
+        // if the user remove the option, we need to put back the stylesheets and styles attributes
+        if (accessibilitytoolbar.userPref.get("a11yLinearize") === "false" 
+          || accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")=="off") {
+            if(accessibilitytoolbar.savesStylesheets.length>0)
+            {
+                for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
+                    document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i],document.getElementById('a11yCSS'));
+                }
+                // then clean the array
+                accessibilitytoolbar.savesStylesheets = [];
+            }
+            if(accessibilitytoolbar.savStyleElmtAtt.length>0)
+            {
+                i = "";
+                for (i in accessibilitytoolbar.savStyleElmtAtt) {
+                    accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style",accessibilitytoolbar.savStyleAttElmt[i]);
+                }
+                // then clean the array
+                accessibilitytoolbar.savStyleElmtAtt = [];
+                accessibilitytoolbar.savStyleAttElmt = [];
+            }   
+        }
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")!="off"){
             // 1. linearize ? -- which is the same as: get rid of all CSS info first
             if (accessibilitytoolbar.userPref.get("a11yLinearize") !== "false") {
@@ -3351,28 +3370,6 @@ accessibilitytoolbar = {
                     }
                 }
             }
-            // if the user remove the option, we need to put back the stylesheets and styles attributes
-            else{
-                if(accessibilitytoolbar.savesStylesheets.length>0)
-                {
-                    for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
-                        document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i],document.getElementById('a11yCSS'));
-                    }
-                    // then clean the array
-                    accessibilitytoolbar.savesStylesheets = [];
-                }
-                if(accessibilitytoolbar.savStyleElmtAtt.length>0)
-                {
-                    i = "";
-                    for (i in accessibilitytoolbar.savStyleElmtAtt) {
-                        accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style",accessibilitytoolbar.savStyleAttElmt[i]);
-                    }
-                    // then clean the array
-                    accessibilitytoolbar.savStyleElmtAtt = [];
-                    accessibilitytoolbar.savStyleAttElmt = [];
-                }   
-            }
-
             
             // generate the CSS instructions
             // 1. do we want bigger fonts?
@@ -3561,7 +3558,7 @@ accessibilitytoolbar = {
                     mask = document.createElement('script');
                     mask.src = mask_js;
                     doneMask = false;
-                    // wait until ruler complete loaded
+                    // wait until mask complete loaded
                     mask.onload = mask.onreadystatechange = function () {
                         if (!doneMask && ( !this.readyState
                             || this.readyState == "loaded"
@@ -3583,7 +3580,7 @@ accessibilitytoolbar = {
             	s += ".bottomMask  { position: fixed; z-index:9000; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
             }
-            // if ruler was launch before deactivation kill!
+            // if mask was launch before deactivation kill!
             else if(accessibilitytoolbar.toolbarMask && UciMask.settings.launched)
             {
             	UciMask.maskEventRemove();

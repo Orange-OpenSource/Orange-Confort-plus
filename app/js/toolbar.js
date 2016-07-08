@@ -3321,6 +3321,30 @@ accessibilitytoolbar = {
         
         accessibilitytoolbar.removeOrStartRemote();
         accessibilitytoolbar.removeOrStartLoopingMode();   
+        // Remove linearization if it had been done : 
+        // 1. linearize ? -- which is the same as: get rid of all CSS info first
+        // if the user remove the option, we need to put back the stylesheets and styles attributes
+        if (accessibilitytoolbar.userPref.get("a11yLinearize") === "false" 
+          || accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")=="off") {
+            if(accessibilitytoolbar.savesStylesheets.length>0)
+            {
+                for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
+                    document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i],document.getElementById('a11yCSS'));
+                }
+                // then clean the array
+                accessibilitytoolbar.savesStylesheets = [];
+            }
+            if(accessibilitytoolbar.savStyleElmtAtt.length>0)
+            {
+                i = "";
+                for (i in accessibilitytoolbar.savStyleElmtAtt) {
+                    accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style",accessibilitytoolbar.savStyleAttElmt[i]);
+                }
+                // then clean the array
+                accessibilitytoolbar.savStyleElmtAtt = [];
+                accessibilitytoolbar.savStyleAttElmt = [];
+            }   
+        }
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")!="off"){
             // 1. linearize ? -- which is the same as: get rid of all CSS info first
             if (accessibilitytoolbar.userPref.get("a11yLinearize") !== "false") {
@@ -3346,28 +3370,6 @@ accessibilitytoolbar = {
                     }
                 }
             }
-            // if the user remove the option, we need to put back the stylesheets and styles attributes
-            else{
-                if(accessibilitytoolbar.savesStylesheets.length>0)
-                {
-                    for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
-                        document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i],document.getElementById('a11yCSS'));
-                    }
-                    // then clean the array
-                    accessibilitytoolbar.savesStylesheets = [];
-                }
-                if(accessibilitytoolbar.savStyleElmtAtt.length>0)
-                {
-                    i = "";
-                    for (i in accessibilitytoolbar.savStyleElmtAtt) {
-                        accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style",accessibilitytoolbar.savStyleAttElmt[i]);
-                    }
-                    // then clean the array
-                    accessibilitytoolbar.savStyleElmtAtt = [];
-                    accessibilitytoolbar.savStyleAttElmt = [];
-                }   
-            }
-
             
             // generate the CSS instructions
             // 1. do we want bigger fonts?

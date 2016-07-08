@@ -14,7 +14,7 @@ var fontsPath = {
     opendyslexicbolditalic: self.options.opendyslexicbolditalic,
 };
 var jquery_min_js = self.options.jquery;
-var ruler_js = self.options.ruler;
+var mask_js = self.options.mask;
 var helpPath = {
     fr: self.options.helpfr,
     en: self.options.helpen,

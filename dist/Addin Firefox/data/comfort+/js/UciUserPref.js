@@ -169,6 +169,7 @@ function UciUserPref() {
     this.create_color('a11yNavLienSelColor-');
     this.create_color('a11yNavLienNonVisColor-');
     this.create_color('a11yNavLienVisColor-');
+    this.create_color('a11yMaskColor-');
     
     this.maskMatrixv3 = {
         // Mask Name                | Dec Value

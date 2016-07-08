@@ -64,10 +64,10 @@ UciMask = {
         			var size = 20;
         			break;
         		case 'medium':
-        			var size = 30;
+        			var size = 40;
         			break;
         		case 'thick':
-        			var size = 50;
+        			var size = 60;
         			break;
         		case 'none':
         		default:
