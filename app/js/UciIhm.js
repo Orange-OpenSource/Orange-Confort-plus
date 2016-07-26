@@ -194,7 +194,7 @@ UciIhm = {
         attr_ihm += "</div>";
         
         attr_ihm += "</li>";
-        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\">";
+        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
         attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-help"></span><span>' + accessibilitytoolbar.get('uci_menu_help') + '</span>';
         attr_ihm += "</a></li>";
         

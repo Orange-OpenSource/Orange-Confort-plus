@@ -16,8 +16,8 @@ var fontsPath = {
 var jquery_min_js = chrome.extension.getURL('js/jquery.min.js');//self.options.jquery;
 var mask_js =  chrome.extension.getURL('js/mask.js');//self.options.mask;
 var helpPath = {
-    fr:  "javascript:chrome.runtime.sendMessage({message: \"orangecomfort+help\", value:\"fr\"};",//self.options.helpfr,
-    en:  "javascript:chrome.runtime.sendMessage({message: \"orangecomfort+help\", value:\"en\"};",//self.options.helpen,
-    es:  "javascript:chrome.runtime.sendMessage({message: \"orangecomfort+help\", value:\"es\"};"//self.options.helpes
+	fr:  chrome.extension.getURL('help/help_fr.html'),//self.options.helpfr,
+    en:  chrome.extension.getURL('help/help_en.html'),//self.options.helpen,
+    es:  chrome.extension.getURL('help/help_es.html')//self.options.helpes
 };
 var hebergementFullPath='';

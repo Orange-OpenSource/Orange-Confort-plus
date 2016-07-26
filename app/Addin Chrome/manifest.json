@@ -27,7 +27,8 @@
   ,"web_accessible_resources": [
   	"css/*.css",
   	"js/*.js",
-  	"images/*.png"
+  	"images/*.png",
+  	"help/*.html"
   ]
   ,"content_scripts": [{
    "matches": ["<all_urls>"],    

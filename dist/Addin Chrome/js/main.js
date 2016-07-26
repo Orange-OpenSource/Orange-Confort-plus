@@ -22,35 +22,32 @@ function startCDU(tab) {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	switch(request.message) {
-	case 'openhelp' :
-		
-		break;
-	case 'orangecomfort+userprefget' :
-		if(localStorage.getItem('userPref') === null) {   
-            localStorage.setItem('userPref', '00006510006506506500000000000000000065000000100');
-        }
-        var index = localStorage.getItem('blacklist').indexOf(request.value);
-        var flag = 0;
-        if(index > -1) {
-            flag = 1;
-        }
-		chrome.tabs.sendMessage(sender.tab.id, {message:'orangecomfort+userprefgetresponse', value:localStorage.getItem('userPref') + flag});
-		break;
-	case 'orangecomfort+userprefsave' :
-		localStorage.setItem('userPref', request.value);
-		break;
-	case 'orangecomfort+blacklistsave' :
-		var blacklist = localStorage.getItem('blacklist');
-		var index = blacklist.indexOf(request.value);
-        if(index > -1) {
-        	localStorage.setItem('blacklist', blacklist.splice(index, 1));
-        } else {
-        	localStorage.setItem('blacklist', blacklist.push(value));
-        }
-		break;
-	case 'orangecomfort+getIsCduEnabled' :
-		sendResponse({value:localStorage.getItem('isCduEnabled')});
-		break;
+		case 'orangecomfort+userprefget' :
+			if(localStorage.getItem('userPref') === null) {   
+		        localStorage.setItem('userPref', '00006510006506506500000000000000000065000000100');
+		    }
+		    var index = localStorage.getItem('blacklist').indexOf(request.value);
+		    var flag = 0;
+		    if(index > -1) {
+		        flag = 1;
+		    }
+			chrome.tabs.sendMessage(sender.tab.id, {message:'orangecomfort+userprefgetresponse', value:localStorage.getItem('userPref') + flag});
+			break;
+		case 'orangecomfort+userprefsave' :
+			localStorage.setItem('userPref', request.value);
+			break;
+		case 'orangecomfort+blacklistsave' :
+			var blacklist = localStorage.getItem('blacklist');
+			var index = blacklist.indexOf(request.value);
+		    if(index > -1) {
+		    	localStorage.setItem('blacklist', blacklist.splice(index, 1));
+		    } else {
+		    	localStorage.setItem('blacklist', blacklist.push(value));
+		    }
+			break;
+		case 'orangecomfort+getIsCduEnabled' :
+			sendResponse({value:localStorage.getItem('isCduEnabled')});
+			break;
 	}
 });
 // Update CDU button icon

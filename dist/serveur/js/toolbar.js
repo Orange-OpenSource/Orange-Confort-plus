@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 08-07-2016
+/* orange-confort-plus - version 3.2.1 - 26-07-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -36,7 +36,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.3c3fc6b7.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.a11d5944.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var mask_js = hebergementFullPath + 'js/mask.js';
 // Source: app/js/ToolbarStrings.js
@@ -2289,7 +2289,7 @@ UciIhm = {
         attr_ihm += "</div>";
         
         attr_ihm += "</li>";
-        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\">";
+        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
         attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-help"></span><span>' + accessibilitytoolbar.get('uci_menu_help') + '</span>';
         attr_ihm += "</a></li>";
         
