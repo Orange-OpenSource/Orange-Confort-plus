@@ -33,10 +33,11 @@ traduction['fr']={
   uci_txt_enable_cdu:"activer Confort<span class='uci-plus-orange'>+</span> pour ce site",
   uci_title_disable_cdu:"d\351sactiver Confort+ pour ce site",
   uci_title_enable_cdu:"activer Confort+ pour ce site",
+  uci_txt_link_menu:"aide",
   uci_txt_link_menu_open:"afficher le menu",
   uci_txt_link_menu_close:"masquer le menu",
   uci_menu_help:"consulter l\47aide g\351n\351rale",
-  uci_menu_remove_all:"annuler tous les r\351glages",
+  uci_menu_remove_all:"r\351initialiser",
   uci_txt_menu_change_lang_fr:"afficher le service en fran\347ais",
   uci_txt_menu_change_lang_en:"afficher le service en anglais",
   uci_txt_menu_change_lang_es:"afficher le service en espagnol",
@@ -141,5 +142,6 @@ traduction['fr']={
   uci_radio_medium:"moyen",
   uci_radio_large:"grand",
   uci_new_window:"Nouvelle fen\352tre",
-  uci_iframe_cookie:"Contenu technique Orange Confort+"
+  uci_iframe_cookie:"Contenu technique Orange Confort+",
+  uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
 };

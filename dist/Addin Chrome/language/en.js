@@ -33,10 +33,11 @@ traduction['en']={
   uci_txt_enable_cdu:"activate Comfort<span class='uci-plus-orange'>+</span> on this site",
   uci_title_disable_cdu:"deactivate Comfort+ on this site",
   uci_title_enable_cdu:"activate Comfort+ on this site",
+  uci_txt_link_menu:"help",
   uci_txt_link_menu_open:"show menu",
   uci_txt_link_menu_close:"hide menu",
   uci_menu_help:"visit general help",
-  uci_menu_remove_all:"cancel all settings",
+  uci_menu_remove_all:"reset",
   uci_txt_menu_change_lang_fr:"show this service in french",
   uci_txt_menu_change_lang_en:"show this service in english",
   uci_txt_menu_change_lang_es:"show this service in spanish",
@@ -141,5 +142,6 @@ traduction['en']={
   uci_radio_medium:"medium",
   uci_radio_large:"large",
   uci_new_window:"New window",
-  uci_iframe_cookie:"Technical Content Orange Comfort+"
+  uci_iframe_cookie:"Technical Content Orange Comfort+",
+  uci_confirm_validation:"Registered preferences [TODO]",
 };

@@ -23,8 +23,7 @@
 /* global alert */
 function UciCouleur() {
 
-    "use strict";
-    /*
+/*
      * @property
      * @private
      */

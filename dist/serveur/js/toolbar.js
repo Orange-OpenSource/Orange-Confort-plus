@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 26-07-2016
+/* orange-confort-plus - version 3.2.1 - 19-09-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -36,7 +36,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.a11d5944.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.d82b57b8.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var mask_js = hebergementFullPath + 'js/mask.js';
 // Source: app/js/ToolbarStrings.js
@@ -635,10 +635,11 @@ traduction['en']={
   uci_txt_enable_cdu:"activate Comfort<span class='uci-plus-orange'>+</span> on this site",
   uci_title_disable_cdu:"deactivate Comfort+ on this site",
   uci_title_enable_cdu:"activate Comfort+ on this site",
+  uci_txt_link_menu:"help",
   uci_txt_link_menu_open:"show menu",
   uci_txt_link_menu_close:"hide menu",
   uci_menu_help:"visit general help",
-  uci_menu_remove_all:"cancel all settings",
+  uci_menu_remove_all:"reset",
   uci_txt_menu_change_lang_fr:"show this service in french",
   uci_txt_menu_change_lang_en:"show this service in english",
   uci_txt_menu_change_lang_es:"show this service in spanish",
@@ -743,7 +744,8 @@ traduction['en']={
   uci_radio_medium:"medium",
   uci_radio_large:"large",
   uci_new_window:"New window",
-  uci_iframe_cookie:"Technical Content Orange Comfort+"
+  uci_iframe_cookie:"Technical Content Orange Comfort+",
+  uci_confirm_validation:"Registered preferences [TODO]",
 };
 // Source: app/language/es.js
 /**
@@ -781,10 +783,11 @@ traduction['es']={
   uci_txt_enable_cdu:"activar Confort<span class='uci-plus-orange'>+</span> para este sitio",
   uci_title_disable_cdu:"desactivar Confort+ para este sitio",
   uci_title_enable_cdu:"activar Confort+ para este sitio",
+  uci_txt_link_menu:"ayuda",
   uci_txt_link_menu_open:"mostrar men\372",
   uci_txt_link_menu_close:"ocultar men\372",
   uci_menu_help:"consultar  ayuda general",
-  uci_menu_remove_all:"anular todos los ajustes",
+  uci_menu_remove_all:"reajustar",
   uci_txt_menu_change_lang_fr:"mostrar el servicio en franc\351s",
   uci_txt_menu_change_lang_en:"mostrar el servicio en ingles",
   uci_txt_menu_change_lang_es:"mostrar el servicio en espa\361ol",
@@ -889,7 +892,8 @@ traduction['es']={
   uci_radio_medium:"medio",
   uci_radio_large:"grande",
   uci_new_window:"Nueva ventana",
-  uci_iframe_cookie:"Contenido t\351cnico Orange Comfort+"
+  uci_iframe_cookie:"Contenido t\351cnico Orange Comfort+",
+  uci_confirm_validation:"preferencias registrados [TODO]",
 };
 // Source: app/language/fr.js
 /**
@@ -927,10 +931,11 @@ traduction['fr']={
   uci_txt_enable_cdu:"activer Confort<span class='uci-plus-orange'>+</span> pour ce site",
   uci_title_disable_cdu:"d\351sactiver Confort+ pour ce site",
   uci_title_enable_cdu:"activer Confort+ pour ce site",
+  uci_txt_link_menu:"aide",
   uci_txt_link_menu_open:"afficher le menu",
   uci_txt_link_menu_close:"masquer le menu",
   uci_menu_help:"consulter l\47aide g\351n\351rale",
-  uci_menu_remove_all:"annuler tous les r\351glages",
+  uci_menu_remove_all:"r\351initialiser",
   uci_txt_menu_change_lang_fr:"afficher le service en fran\347ais",
   uci_txt_menu_change_lang_en:"afficher le service en anglais",
   uci_txt_menu_change_lang_es:"afficher le service en espagnol",
@@ -1035,7 +1040,8 @@ traduction['fr']={
   uci_radio_medium:"moyen",
   uci_radio_large:"grand",
   uci_new_window:"Nouvelle fen\352tre",
-  uci_iframe_cookie:"Contenu technique Orange Confort+"
+  uci_iframe_cookie:"Contenu technique Orange Confort+",
+  uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
 };
 // Source: app/js/UciAideMotrice.js
 /**
@@ -2022,7 +2028,6 @@ UciTypographie = {
 
 
 }
-
 // Source: app/js/UciValidation.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -2139,9 +2144,8 @@ UciIhm = {
         attr_ihm += "</h1>"+        
             "<div class='cdu_c uci-onoffswitch'>"+
                 "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch' href='#'>"+
-                    "<span class='uci-onoffswitch-inner-before'>ON</span>"+
-                    "<span class='uci-onoffswitch-switch'></span>"+
-                    "<span class='uci-onoffswitch-inner-after'>OFF</span>"+
+                    "<span class='uci-onoffswitch-inner-before'>On</span>"+
+                    "<span class='uci-onoffswitch-inner-after'>Off</span>"+
                 "</a>"+
             "</div>";
     
@@ -2205,19 +2209,26 @@ UciIhm = {
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
-        if(accessibilitytoolbar.isModern) {
+        /*if(accessibilitytoolbar.isModern) {
 	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
         } else {
         	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
-        }
+        }*/
+        attr_ihm += "<span class='cdu-icon-test'>"+
+                "<span class='path1'></span>"+
+                "<span class='path2'></span>"+
+                "<span class='path3'></span>"+
+                "<span class='path4'></span>"+
+                "</span>";
         attr_ihm += "</li>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
-        if(accessibilitytoolbar.isModern) {
+        /*if(accessibilitytoolbar.isModern) {
 	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
         } else {
         	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
-        }
+        }*/
+        attr_ihm += "<span class='cdu-icon-couleurs2'></span>";
         attr_ihm += "</li>";
         attr_ihm += "</ul>";
         attr_ihm += "</div>";
@@ -2262,24 +2273,17 @@ UciIhm = {
          **********************************************************************************************************************/
         
         attr_ihm += "<ul>"+
-                        "<li class='uci_inline'>"+
-                            "<button id='uci_menu_remove_all' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_menu_remove_all')+"'>"+
-                                "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-reload2\"></span>"+
-                                "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_menu_remove_all')+"</span>"+
-                            "</button>"+
-                        "</li>"+ 
-                        "<li class='uci_inline'>"+
-                                "<button class='uci_bton_menu cdu_c' id='uci_activer_menu' title=\""+accessibilitytoolbar.get('uci_txt_link_menu_open')+"\">"+
-                                    "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon cdu-icon-help\"></span>"+
-                                    "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_open')+"</span>"+
+                        "<li class='uci_inline uci_menu_help'>"+
+                                "<button class='uci_bton_menu cdu_c' id='uci_activer_menu'>"+
+        							accessibilitytoolbar.get('uci_txt_link_menu') +
                                 "</button>";
         //gestion du menu deroulant du menu
-        attr_ihm += "<div class='uci_cdu_menu_relative'>";
+        attr_ihm += "<div>";
         attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";
-        attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
-        attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"</span>"
-        attr_ihm += "</button>";
+        //attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
+        //attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
+        //attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"</span>"
+        //attr_ihm += "</button>";
         attr_ihm += "<ul>";
         attr_ihm += "<li>";
         attr_ihm += "<div id='uci_language'>";
@@ -2328,13 +2332,11 @@ UciIhm = {
 
         attr_ihm += "<div class='uci_systeme_onglets cdu_c' id=\"uci_zone_form\" style='display:none;'>";
         
-        attr_ihm += "<button id='uci_fermeture_more_comfort' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_txt_low_settings')+"' style='display:none;'>";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
-        attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_low_settings')+"</span>"
-        attr_ihm += "</button>";
-        
-        
         attr_ihm += "<div id=\"uci_activateOnglet\" style='display:none;'>"; // uci_activateOnglet        
+        attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix'>"+
+        "<span class='cdu-icon-reload2' aria-hidden='true'></span>"+
+        accessibilitytoolbar.get('uci_menu_remove_all')+
+        "</div>";
         attr_ihm += "<!--[if IE 7]><div class='uci_onglets uci_ongletsie7'><![endif]-->";
         attr_ihm += "<!--[if (IE) & (!IE 7)]><div class='uci_onglets'><![endif]-->";        
         attr_ihm += "<!--[if (!IE)]>--><div class='uci_onglets'><!--<![endif]-->"; // uci_onglets
@@ -2351,11 +2353,7 @@ UciIhm = {
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_apparence');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline'> <span  class=\"onglet_0 onglet\" id=\"onglet_couleur\">";
-        if(accessibilitytoolbar.isModern) {
-	        attr_ihm += UciIhm.displayIconPalette('0 0 33 33');
-        } else {
-        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs icon\"></span>";
-        }
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2 icon\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_color');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_aidemotrice\">";
@@ -2388,6 +2386,8 @@ UciIhm = {
 
         attr_ihm += "</div>"; // fin uci_zone_form
         attr_ihm += "</div>"; // fin container
+		
+		attr_ihm += "<div id='uci_confirm_validation'><span>" + accessibilitytoolbar.get('uci_confirm_validation') + "</span></div>";
         return attr_ihm;
     },
     
@@ -2398,14 +2398,12 @@ UciIhm = {
 
 
     close_menu: function (nofocus) {
-        document.getElementById('uci_cdu_menu').style.display = "none";
+		document.getElementById('uci_cdu_menu').style.display = "none";
         var button = document.getElementById("uci_activer_menu");
         if(button.nodeName === 'BUTTON') {
             button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
-            var img = (button.firstElementChild || button.children[0]);
-            if(img.nodeName === 'IMG') {
-                img.alt = accessibilitytoolbar.get('uci_txt_link_menu_open');
-            }
+			var li = button.parentNode;
+			li.className = 'uci_inline uci_menu_help';
         }
         if(nofocus) return false;
         document.getElementById("uci_activer_menu").focus();
@@ -2414,15 +2412,14 @@ UciIhm = {
     uci_activate_menu: function (e) {
         // when more settings is open, disable quick settings buttons
         if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-        if (document.getElementById('uci_cdu_menu').style.display === "none") {
+        var menu = document.getElementById('uci_cdu_menu');
+		if (document.getElementById('uci_cdu_menu').style.display === "none") {
             document.getElementById('uci_cdu_menu').style.display = "block";
             var button = document.getElementById("uci_activer_menu");
             if(button.nodeName === 'BUTTON') {
                 button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
-                var img = (button.firstElementChild || button.children[0]);
-                if(img.nodeName === 'IMG') {
-                    img.alt = accessibilitytoolbar.get('uci_txt_link_menu_close');
-                }
+                var li = button.parentNode;
+			    li.className = 'uci_inline uci_menu_help active';
             }
             document.getElementById("uci_activer_menu").focus();
         } else {
@@ -2447,14 +2444,14 @@ UciIhm = {
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','-2');
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '0')
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');   
-            document.getElementById('uci_menu_remove_all').setAttribute('tabindex','-2');   
             document.getElementById('uci_menu_activer_menu').setAttribute('tabindex','-2');                        
             document.getElementById('uci_activer_menu').setAttribute('tabindex','-2');
             if(document.getElementById('uci_zone_form'))
             {
                 document.getElementById('uci_zone_form').style.display = "block";
+				UciIhm.hide_confirm_validation();
             }
-            document.getElementById('uci_fermeture_more_comfort').style.display = "block";            
+            //document.getElementById('uci_fermeture_more_comfort').style.display = "block";            
             document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
             document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
             document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");
@@ -2479,6 +2476,7 @@ UciIhm = {
         return false;
     },
     hide_more_confort: function () {
+		UciIhm.hide_confirm_validation();
     	document.getElementById("uci-onoffswitch").focus();
         document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-plus2";
         document.getElementById('uci_activateOnglet').style.display = "none";
@@ -2486,7 +2484,6 @@ UciIhm = {
         {
             document.getElementById('uci_zone_form').style.display = "none";
         }
-        document.getElementById('uci_fermeture_more_comfort').style.display = "none";
         document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
         document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');              
             document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");      
@@ -2503,13 +2500,19 @@ UciIhm = {
             document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','0');
         if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
             document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
-        document.getElementById('uci_menu_remove_all').removeAttribute('tabindex');
         document.getElementById('uci_activer_menu').removeAttribute('tabindex');
         document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
         document.getElementById('uci_moreconfort').removeAttribute('title');  
         document.getElementById('uci_moreconfort_content').innerHTML=accessibilitytoolbar.get('uci_txt_more_settings');
         return false;
     },
+	confirm_validation: function() {
+		document.getElementById('uci_confirm_validation').style.display = "block";
+	},
+	
+	hide_confirm_validation: function() {
+		document.getElementById('uci_confirm_validation').style.display = "none";
+	},
 
     activate_liens: function (id_liens) {
         if (document.getElementById(id_liens).style.display === "none") {
@@ -2626,7 +2629,7 @@ UciIhm = {
 /*global document: false */
 /* global alert */
 function LoopingMenu() {
-// attribut
+	// attribut
     // private
     /**
      * {LoopingMenu} Internal reference to this object instance
@@ -3052,7 +3055,7 @@ var LoopingMenuPosition = {
  * @class Manager of the remote control
  */
 function LoopingMode() {
-// attribut
+	// attribut
     // private
     /**
      * Local reference to this object
@@ -3766,7 +3769,7 @@ LoopingUtility = {
      */
     registerFocusedHandler:function() {
         // Focus callback
-var getFocus = function(evt) {
+    	var getFocus = function(evt) {
             evt = evt || window.event;
             var target = evt.target || evt.srcElement;
             // Save the element reference if it has been focused by the toolbar
@@ -3791,7 +3794,7 @@ var getFocus = function(evt) {
      * @return {HtmlNode} elt return the current focused element, -1 either
      */
     getFocusedElement: function () {
-if (LoopingUtility.focusedElement !== null) {
+    	if (LoopingUtility.focusedElement !== null) {
             return LoopingUtility.focusedElement;
         }
         else {
@@ -3805,7 +3808,7 @@ if (LoopingUtility.focusedElement !== null) {
      * @param {boolean} flag set to true to double the first or last element
      */
     hasToDouble: function (flag) {
-LoopingUtility.hasToStay = flag;
+    	LoopingUtility.hasToStay = flag;
         LoopingUtility.hasStayed = flag;
     },
 
@@ -3814,7 +3817,7 @@ LoopingUtility.hasToStay = flag;
      * @param {LoopingFilter} filter the filter to use on current set
      */
     setCurrentFilter: function (filter) {
-LoopingUtility.previousFilter = LoopingUtility.currentFilter;
+    	LoopingUtility.previousFilter = LoopingUtility.currentFilter;
         LoopingUtility.currentFilter = filter;
     },
 
@@ -3823,7 +3826,7 @@ LoopingUtility.previousFilter = LoopingUtility.currentFilter;
      * @param {Array} set the items collection to iterate
      */
     setCurrentSet: function (set) {
-LoopingUtility.previousSet = LoopingUtility.currentSet;
+    	LoopingUtility.previousSet = LoopingUtility.currentSet;
         LoopingUtility.currentSet = set;
     },
 
@@ -3831,7 +3834,7 @@ LoopingUtility.previousSet = LoopingUtility.currentSet;
      * Seek the index of the next elligible element with the current filter in the items collection
      */
     computeNextIndex: function () {
-// initialisation
+    	// initialisation
         var raf = Math.abs(LoopingUtility.step);
         var currentElt = null;
 
@@ -3920,7 +3923,7 @@ LoopingUtility.previousSet = LoopingUtility.currentSet;
      * If so, focus it and apply style on it.
      */
     loopOver: function () {
-var currentElt;
+    	var currentElt;
         // Check if required data are specified
         if (LoopingUtility.currentFilter !== null && LoopingUtility.currentSet !== null) {
             LoopingUtility.computeNextIndex();
@@ -3965,7 +3968,7 @@ var currentElt;
      * @return true if the specified element is a looping menu item, false either
      */
     isMenuItem:function(elt) {
-if(elt &&
+    	if(elt &&
             elt.parentNode &&
             elt.parentNode.parentNode &&
             elt.parentNode.parentNode.parentNode &&
@@ -3985,7 +3988,7 @@ if(elt &&
      */
     isVisible:function(obj)
     {
-if (obj === document){
+    	if (obj === document){
             return true;
         }
         if (!obj){
@@ -5097,6 +5100,7 @@ accessibilitytoolbar = {
         }
         if(document.getElementById('uci_validation').className==='cdu_n'){
             document.getElementById('uci_validation').className="";
+			UciIhm.hide_confirm_validation();
         }
         document.getElementById('uci_zone_form').style.display="block";
         if(accessibilitytoolbar.userPref.get("a11yApercuAuto")!=="off"){
@@ -5382,15 +5386,14 @@ accessibilitytoolbar = {
         //gestion des evenement sur les onglets :
         accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_moreconfort'),UciIhm.more_confort);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),UciIhm.ToolbarHide);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_more_comfort'),UciIhm.hide_more_confort);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
+        //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fr'), function() {return UciIhm.changement_langue('fr');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_en'), function() {return UciIhm.changement_langue('en');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_sp'), function() {return UciIhm.changement_langue('es');});
-        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), UciValidation.Validation);
+        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function() {UciValidation.Validation(); UciIhm.confirm_validation(); });
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
@@ -5670,7 +5673,6 @@ accessibilitytoolbar = {
                 document.location.reload();
             }
         }
-
     },
     
     close: function () {
@@ -6535,7 +6537,7 @@ accessibilitytoolbar = {
      */
     stopEvt: function (/*Event*/ e) {
         // For W3C Browser
-if (e && e.stopPropagation) {
+    	if (e && e.stopPropagation) {
             e.stopPropagation();
             e.preventDefault();
         } else if (window.event) {

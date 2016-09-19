@@ -17,8 +17,7 @@
 /*global document: false */
 /* global alert */
 function LoopingMenu() {
-    "use strict";
-    // attribut
+	// attribut
     // private
     /**
      * {LoopingMenu} Internal reference to this object instance
@@ -444,8 +443,7 @@ var LoopingMenuPosition = {
  * @class Manager of the remote control
  */
 function LoopingMode() {
-    "use strict";
-// attribut
+	// attribut
     // private
     /**
      * Local reference to this object
@@ -1159,8 +1157,7 @@ LoopingUtility = {
      */
     registerFocusedHandler:function() {
         // Focus callback
-        "use strict";
-        var getFocus = function(evt) {
+    	var getFocus = function(evt) {
             evt = evt || window.event;
             var target = evt.target || evt.srcElement;
             // Save the element reference if it has been focused by the toolbar
@@ -1185,8 +1182,7 @@ LoopingUtility = {
      * @return {HtmlNode} elt return the current focused element, -1 either
      */
     getFocusedElement: function () {
-        "use strict";
-        if (LoopingUtility.focusedElement !== null) {
+    	if (LoopingUtility.focusedElement !== null) {
             return LoopingUtility.focusedElement;
         }
         else {
@@ -1200,8 +1196,7 @@ LoopingUtility = {
      * @param {boolean} flag set to true to double the first or last element
      */
     hasToDouble: function (flag) {
-        "use strict";
-        LoopingUtility.hasToStay = flag;
+    	LoopingUtility.hasToStay = flag;
         LoopingUtility.hasStayed = flag;
     },
 
@@ -1210,8 +1205,7 @@ LoopingUtility = {
      * @param {LoopingFilter} filter the filter to use on current set
      */
     setCurrentFilter: function (filter) {
-        "use strict";
-        LoopingUtility.previousFilter = LoopingUtility.currentFilter;
+    	LoopingUtility.previousFilter = LoopingUtility.currentFilter;
         LoopingUtility.currentFilter = filter;
     },
 
@@ -1220,8 +1214,7 @@ LoopingUtility = {
      * @param {Array} set the items collection to iterate
      */
     setCurrentSet: function (set) {
-        "use strict";
-        LoopingUtility.previousSet = LoopingUtility.currentSet;
+    	LoopingUtility.previousSet = LoopingUtility.currentSet;
         LoopingUtility.currentSet = set;
     },
 
@@ -1229,8 +1222,7 @@ LoopingUtility = {
      * Seek the index of the next elligible element with the current filter in the items collection
      */
     computeNextIndex: function () {
-        "use strict";
-        // initialisation
+    	// initialisation
         var raf = Math.abs(LoopingUtility.step);
         var currentElt = null;
 
@@ -1319,8 +1311,7 @@ LoopingUtility = {
      * If so, focus it and apply style on it.
      */
     loopOver: function () {
-        "use strict";
-        var currentElt;
+    	var currentElt;
         // Check if required data are specified
         if (LoopingUtility.currentFilter !== null && LoopingUtility.currentSet !== null) {
             LoopingUtility.computeNextIndex();
@@ -1365,8 +1356,7 @@ LoopingUtility = {
      * @return true if the specified element is a looping menu item, false either
      */
     isMenuItem:function(elt) {
-        "use strict";
-        if(elt &&
+    	if(elt &&
             elt.parentNode &&
             elt.parentNode.parentNode &&
             elt.parentNode.parentNode.parentNode &&
@@ -1386,8 +1376,7 @@ LoopingUtility = {
      */
     isVisible:function(obj)
     {
-        "use strict";
-        if (obj === document){
+    	if (obj === document){
             return true;
         }
         if (!obj){
@@ -2499,6 +2488,7 @@ accessibilitytoolbar = {
         }
         if(document.getElementById('uci_validation').className==='cdu_n'){
             document.getElementById('uci_validation').className="";
+			UciIhm.hide_confirm_validation();
         }
         document.getElementById('uci_zone_form').style.display="block";
         if(accessibilitytoolbar.userPref.get("a11yApercuAuto")!=="off"){
@@ -2784,15 +2774,14 @@ accessibilitytoolbar = {
         //gestion des evenement sur les onglets :
         accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_moreconfort'),UciIhm.more_confort);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),UciIhm.ToolbarHide);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_more_comfort'),UciIhm.hide_more_confort);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
+        //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fr'), function() {return UciIhm.changement_langue('fr');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_en'), function() {return UciIhm.changement_langue('en');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_sp'), function() {return UciIhm.changement_langue('es');});
-        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), UciValidation.Validation);
+        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function() {UciValidation.Validation(); UciIhm.confirm_validation(); });
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
@@ -3072,7 +3061,6 @@ accessibilitytoolbar = {
                 document.location.reload();
             }
         }
-
     },
     
     close: function () {
@@ -3937,8 +3925,7 @@ accessibilitytoolbar = {
      */
     stopEvt: function (/*Event*/ e) {
         // For W3C Browser
-        "use strict";
-        if (e && e.stopPropagation) {
+    	if (e && e.stopPropagation) {
             e.stopPropagation();
             e.preventDefault();
         } else if (window.event) {
