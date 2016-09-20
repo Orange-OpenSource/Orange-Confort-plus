@@ -2640,6 +2640,8 @@ accessibilitytoolbar = {
             str += "<span>+</span></button></p>";
             str += "<div id='cdu_content' class='cdu_displayN' >";
             str += accessibilitytoolbar.createToolbar();
+            str += "</div>"; // close cdu_content
+            str += "</div>"; // close cdu_zone
         return str;
     },
 
@@ -2698,7 +2700,8 @@ accessibilitytoolbar = {
         //create content of CDU
         str += "<div id='cdu_content' class='cdu_displayN' >";
         str += accessibilitytoolbar.createToolbar();
-        str += "</div>";
+        str += "</div>"; // close cdu_content
+        str += "</div>"; // close cdu_zone
         return str;
 
     },
@@ -2716,7 +2719,7 @@ accessibilitytoolbar = {
             str += this.get('uci_securityCookieChangeAlert');
             str += "</span>";
             str += this.get("uci_securityCookieChange");
-            str += "&nbsp;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
+            str += "&#160;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
             str += "</p>";
         }else {
             str += UciIhm.InitUciIHM();

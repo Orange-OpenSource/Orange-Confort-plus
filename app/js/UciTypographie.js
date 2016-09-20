@@ -133,10 +133,10 @@ UciTypographie = {
         attr_typography += "<div id='box-a11yDyslexyFontEnabled_off'>" ;
         
         if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+">";
+            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+" />";
             attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie'>";
         } else {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled>";
+            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled />";
             attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie' class='uci_disable_label'>";
         }                
         attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_fontfamily');
@@ -174,7 +174,7 @@ UciTypographie = {
         // Gestion de la casse du texte
         attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c uci_clear'>";
         attr_typography += "<div id='box-a11yModifCasseEnabled_off'>";
-        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+">";
+        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+" />";
         attr_typography += "<label for='uci_chekbox_casse'>";
         attr_typography += "<span>";
         attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_changecase');

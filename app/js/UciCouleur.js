@@ -47,7 +47,7 @@ function UciCouleur() {
 *****************************************************************************************************************************/
         //couleur predefinie
         attr_couleur += "<div id='uci_div_couleur_predefinie'>";
-        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+"><label for='uci_couleur_predefenie_input'>";
+        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+" /><label for='uci_couleur_predefenie_input'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre');
         attr_couleur += "</label>";
        
@@ -102,7 +102,7 @@ function UciCouleur() {
  * Gestion de la partie des couleurs personnalisées
  *****************************************************************************************************************************/
         attr_couleur += "<div id='uci_div_right_couleur'>";
-        attr_couleur += "<div><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+"><label for='uci_couleur_personnalisees_input'>";
+        attr_couleur += "<div><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+" /><label for='uci_couleur_personnalisees_input'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre_use_personal');
         attr_couleur += "</label></div>";
         attr_couleur += "<div id='uci_couleur_police' class='cdu_c'>";
@@ -119,7 +119,7 @@ function UciCouleur() {
                 indexCouleur = 0;
                 currentLine = mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yFontColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yFontColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yFontColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yFontColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
                 }
@@ -143,7 +143,7 @@ function UciCouleur() {
                 indexCouleur = 0;
                 currentLine = mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurFond += "<li id='uci_a11yBackgroundColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yBackgroundColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";                    
+                    tableauCouleurFond += "<li id='uci_a11yBackgroundColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yBackgroundColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";                    
                     tableauCouleurFond += "</li>";
                     moreclass = "";
                 }

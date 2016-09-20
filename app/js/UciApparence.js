@@ -51,7 +51,7 @@ UciApparence = {
 
         attr_apparence += "<input type='checkbox' value='true' name='a11yLinearize'  id='a11yLinearize'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yLinearize") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='a11yLinearize'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_listmode');
         attr_apparence += "</label>";
@@ -66,7 +66,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_alignement_gauche'>";
         attr_apparence += "<input type='checkbox' value='left' name='a11yLeftText' id='alignement_gauche'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='alignement_gauche'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_alignleft');
         attr_apparence += "</label>";
@@ -77,7 +77,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_numero_ligne'>";
         attr_apparence += "<input type='checkbox' value='decimal'  name='a11yNumerotationList' id='putNumOnList'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='putNumOnList'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_putnumonlist');
         attr_apparence += "</label>";
@@ -87,7 +87,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_apparence_liens'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11yNavLienEnabled' id='apparence_lien'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='apparence_lien'>";
         attr_apparence += accessibilitytoolbar.get('uci_titre_links');
         attr_apparence += "</label>";
@@ -112,7 +112,7 @@ UciApparence = {
         attr_apparence +="</a>";
         attr_apparence += "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_selectionne' style='display:none'>";
         //couleur de police
-        var tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_sel' role='radiogroup' aria-labelledby='uci_a11yNavLienSelColor'>";
+        var tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_sel' role='radiogroup' aria-labelledby='uci_NavLienSel'>";
         var index = 0;
         var indexCouleur = 0;
         var currentLine = "";
@@ -124,7 +124,7 @@ UciApparence = {
                 indexCouleur = 0;
                 currentLine = UciApparence.mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienSelColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienSelColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yNavLienSelColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienSelColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
                 }
@@ -165,7 +165,7 @@ UciApparence = {
         attr_apparence +="</a>";
         attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_notselectionne' style='display:none'>";        
         //couleur de police
-        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_notsel' role='radiogroup' aria-labelledby='uci_a11yNavLienNonVisColorSpan'>";
+        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_notsel' role='radiogroup' aria-labelledby='uci_NavLienNonVis'>";
         index = 0;
         indexCouleur = 0;
         currentLine = "";
@@ -176,7 +176,7 @@ UciApparence = {
                 indexCouleur = 0;
                 currentLine = UciApparence.mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienNonVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'"  : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yNavLienNonVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'"  : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
 
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
@@ -219,7 +219,7 @@ UciApparence = {
 
         attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_visite' style='display:none'>";
         //couleur de police
-        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_visite' role='radiogroup' aria-labelledby='uci_a11yNavLienVisColorSpan'>";
+        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_visite' role='radiogroup' aria-labelledby='uci_NavLienVis'>";
         index = 0;
         indexCouleur = 0;
         currentLine = "";
@@ -230,7 +230,7 @@ UciApparence = {
                 indexCouleur = 0;
                 currentLine = UciApparence.mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yNavLienVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
                 }
@@ -272,7 +272,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_desactiver_transparence'>";
         attr_apparence += "<input type='checkbox' value='1' name='a11ySupEffetTransp' id='uci_desactiver_transparence'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11ySupEffetTransp") === "1" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_desactiver_transparence'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_disabletransp');
         attr_apparence += "</label>";
@@ -287,7 +287,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_disabled_fond_picture'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11ySupImageFont' id='uci_label_disablebgpictures'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_label_disablebgpictures'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_disablebgpictures');
         attr_apparence += "</label>";
@@ -297,7 +297,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_disabled_first_plan_picture'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11ySupImageFirstPlan' id='uci_label_disablepppictures' ";
         attr_apparence += accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_label_disablepppictures'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_disablepppictures');
         attr_apparence += "</label >";
@@ -312,7 +312,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_mask_enabled'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11yMaskEnabled' id='uci_check_mask' ";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_check_mask'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_mask');
         attr_apparence += "</label >";

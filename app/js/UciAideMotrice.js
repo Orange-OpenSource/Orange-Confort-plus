@@ -35,7 +35,7 @@ UciAideMotrice = {
     InitUciAideMotrice: function () {
         attr_aide_motrice = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_aidemotrice'>"; //uci_contenu_onglet_aidemotrice
         attr_aide_motrice += "<div id='setting-bloc-content'>";
-        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yJumpToContent' id='a11yJumpToContent'"+(accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? " checked='checked'" : "") + ">";
+        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yJumpToContent' id='a11yJumpToContent'"+(accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? " checked='checked'" : "") + " />";
         attr_aide_motrice += "<label for='a11yJumpToContent'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_jumptocontent');
         attr_aide_motrice += "</label>";
@@ -47,7 +47,7 @@ UciAideMotrice = {
         attr_aide_motrice += "</div>"; //setting-bloc-content
 /**********************************************Gestion réglage motor*********************************************************/
         attr_aide_motrice += "<div id='uci_div_motor'>";
-        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + ">";
+        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + " />";
         attr_aide_motrice += "<label for='a11yMotorModeEnabled'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_enableMotorMode');
         attr_aide_motrice += "</label>";
@@ -70,7 +70,7 @@ UciAideMotrice = {
         attr_aide_motrice += '</p>';
         
         attr_aide_motrice += "<div id='uci_motor_mode' class='setting-sub-container'>";
-        attr_aide_motrice += "<p >";
+        attr_aide_motrice += "<p id='a11yDelayBeforeLoop0'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_delai_clic');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_DelayBeforeLoop' role='radiogroup' aria-labelledby='a11yDelayBeforeLoop0'>";
@@ -98,7 +98,7 @@ UciAideMotrice = {
         attr_aide_motrice += "<div class='btn-check btn-check-large'>";
         attr_aide_motrice += "<input type='radio' value='looping' id='a11yMotorMode-looping' name='a11yMotorMode'";
         attr_aide_motrice += accessibilitytoolbar.userPref.get("a11yMotorMode") === "looping" ? "checked='checked'" : "";
-        attr_aide_motrice += ">";
+        attr_aide_motrice += "/>";
         attr_aide_motrice += "<label for='a11yMotorMode-looping'>";
         attr_aide_motrice +=  accessibilitytoolbar.get('uci_label_automove');
         attr_aide_motrice += "</label>";
@@ -109,7 +109,7 @@ UciAideMotrice = {
 
         //gestion de la position du menu
         attr_aide_motrice += "<div>";
-        attr_aide_motrice += "<p class='uci_clear'></br>";
+        attr_aide_motrice += "<p class='uci_clear' id='a11yMenuPositionning'><br />";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_menupos');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_a11yMenuPositionning' role='radiogroup' aria-labelledby='a11yMenuPositionning'>";
@@ -122,7 +122,7 @@ UciAideMotrice = {
         attr_aide_motrice += "</ul>";
 
         //gestion du clic automatique
-        attr_aide_motrice += "<p class='uci_clear'></br>";
+        attr_aide_motrice += "<p class='uci_clear' id='a11yDelayBeforeClick'><br />";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_time_before_sel');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_DelayBeforeLoop_auto' role='radiogroup' aria-labelledby='a11yDelayBeforeClick'>";
@@ -141,7 +141,7 @@ UciAideMotrice = {
         attr_aide_motrice += "</ul>";
 
         //gestion pas du mode rapide
-        attr_aide_motrice += "<p class='uci_clear'></br>";
+        attr_aide_motrice += "<p class='uci_clear' id='a11yQuickMode'><br />";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_pasquickmode');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<p>";
