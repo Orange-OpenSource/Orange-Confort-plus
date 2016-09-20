@@ -298,15 +298,20 @@ UciIhm = {
 
 
     close_menu: function (nofocus) {
-		document.getElementById('uci_cdu_menu').style.display = "none";
+      // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
+      // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
+      if(document.getElementById('uci_cdu_menu'))
+      {
+		    document.getElementById('uci_cdu_menu').style.display = "none";
         var button = document.getElementById("uci_activer_menu");
         if(button.nodeName === 'BUTTON') {
-            button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
-			var li = button.parentNode;
-			li.className = 'uci_inline uci_menu_help';
+          button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
+			    var li = button.parentNode;
+			    li.className = 'uci_inline uci_menu_help';
         }
         if(nofocus) return false;
         document.getElementById("uci_activer_menu").focus();
+      }
     },
     /*Permet d’activer le menu facebook du confort d’utilisation*/
     uci_activate_menu: function (e) {
