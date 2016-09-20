@@ -36,7 +36,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
  }
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.d82b57b8.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.c8996d25.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var mask_js = hebergementFullPath + 'js/mask.js';
 // Source: app/js/ToolbarStrings.js
@@ -574,7 +574,7 @@ var namePref = 'UCI3SA';
     this.updateUserPref = function() {
         // Update the cdu cookies with the stackv3 value
         var pref = this.encode();
-        //document.getElementById('id_frame_cookie').src=hebergementFullPath+"saveCookie.php?UsageComfort="+pref+"&origin="+document.location.href;
+        //document.getElementById('id_frame_cookie').src=hebergementFullPath+"saveCookie.php?UsageConfort="+pref+"&origin="+document.location.href;
         this.saveCookie(namePref, pref);
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
@@ -624,8 +624,8 @@ UciStorage.prototype = new UciUserPref();
 **/ 
 traduction['en']={
   uci_link_hide_toolbar:"hide toolbar",
-  uci_alt_logo:"Comfort+",
-  uci_serv_name:"Comfort",
+  uci_alt_logo:"Confort+",
+  uci_serv_name:"Confort",
   uci_title_fontsize_radio_normal:"default font size",
   uci_title_fontsize_radio_medium:"average font size",
   uci_title_fontsize_radio_large:"large font size",
@@ -638,10 +638,10 @@ traduction['en']={
   uci_txt_more_settings:"more settings",
   uci_txt_low_settings_display:"less settings",
   uci_txt_low_settings:"close more settings panel",
-  uci_txt_disable_cdu:"deactivate Comfort<span class='uci-plus-orange'>+</span> on this site",
-  uci_txt_enable_cdu:"activate Comfort<span class='uci-plus-orange'>+</span> on this site",
-  uci_title_disable_cdu:"deactivate Comfort+ on this site",
-  uci_title_enable_cdu:"activate Comfort+ on this site",
+  uci_txt_disable_cdu:"deactivate Confort<span class='uci-plus-orange'>+</span> on this site",
+  uci_txt_enable_cdu:"activate Confort<span class='uci-plus-orange'>+</span> on this site",
+  uci_title_disable_cdu:"deactivate Confort+ on this site",
+  uci_title_enable_cdu:"activate Confort+ on this site",
   uci_txt_link_menu:"help",
   uci_txt_link_menu_open:"show menu",
   uci_txt_link_menu_close:"hide menu",
@@ -660,7 +660,7 @@ traduction['en']={
   uci_typo_titre_linespacing:"line spacing",
   uci_typo_titre_fontfamily:"font face",
   uci_typo_titre_changecase:"text case",
-  uci_typo_help_fontfamily:"This feature allows to modify the site defined font to improve reading comfort",
+  uci_typo_help_fontfamily:"This feature allows to modify the site defined font to improve reading confort",
   uci_typo_help_changecase:"This feature allows to modify texts display to meet your needs",
   uci_title_wordspacing_radio_normal:"default word spacing ",
   uci_title_wordspacing_radio_medium:"medium word spacing",
@@ -737,8 +737,8 @@ traduction['en']={
   uci_label_5par5:"4",
   uci_label_10par10:"9",
   uci_securityCookieChangeAlert:"Warning",
-  uci_securityCookieChange:"Comfort<span class='uci-plus-orange'>+</span> service has to store your comfort settings.",
-  uci_securityCookieChangeLinkPage:"Configure my browser now to authorize Comfort<span class='uci-plus-orange'>+</span> service to store my comfort settings.",
+  uci_securityCookieChange:"Confort<span class='uci-plus-orange'>+</span> service has to store your confort settings.",
+  uci_securityCookieChangeLinkPage:"Configure my browser now to authorize Confort<span class='uci-plus-orange'>+</span> service to store my confort settings.",
   uci_doClick:"Click",
   uci_loopActivable:"Navigate through items",
   uci_loopActivableQuick:"Navigate quickly through items",
@@ -751,7 +751,7 @@ traduction['en']={
   uci_radio_medium:"medium",
   uci_radio_large:"large",
   uci_new_window:"New window",
-  uci_iframe_cookie:"Technical Content Orange Comfort+",
+  uci_iframe_cookie:"Technical Content Orange Confort+",
   uci_confirm_validation:"Registered preferences [TODO]",
 };
 // Source: app/language/es.js
@@ -899,7 +899,7 @@ traduction['es']={
   uci_radio_medium:"medio",
   uci_radio_large:"grande",
   uci_new_window:"Nueva ventana",
-  uci_iframe_cookie:"Contenido t\351cnico Orange Comfort+",
+  uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
   uci_confirm_validation:"preferencias registrados [TODO]",
 };
 // Source: app/language/fr.js
@@ -1088,7 +1088,7 @@ UciAideMotrice = {
     InitUciAideMotrice: function () {
         attr_aide_motrice = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_aidemotrice'>"; //uci_contenu_onglet_aidemotrice
         attr_aide_motrice += "<div id='setting-bloc-content'>";
-        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yJumpToContent' id='a11yJumpToContent'"+(accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? " checked='checked'" : "") + ">";
+        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yJumpToContent' id='a11yJumpToContent'"+(accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? " checked='checked'" : "") + " />";
         attr_aide_motrice += "<label for='a11yJumpToContent'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_jumptocontent');
         attr_aide_motrice += "</label>";
@@ -1100,7 +1100,7 @@ UciAideMotrice = {
         attr_aide_motrice += "</div>"; //setting-bloc-content
 /**********************************************Gestion réglage motor*********************************************************/
         attr_aide_motrice += "<div id='uci_div_motor'>";
-        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + ">";
+        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + " />";
         attr_aide_motrice += "<label for='a11yMotorModeEnabled'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_enableMotorMode');
         attr_aide_motrice += "</label>";
@@ -1123,7 +1123,7 @@ UciAideMotrice = {
         attr_aide_motrice += '</p>';
         
         attr_aide_motrice += "<div id='uci_motor_mode' class='setting-sub-container'>";
-        attr_aide_motrice += "<p >";
+        attr_aide_motrice += "<p id='a11yDelayBeforeLoop0'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_delai_clic');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_DelayBeforeLoop' role='radiogroup' aria-labelledby='a11yDelayBeforeLoop0'>";
@@ -1151,7 +1151,7 @@ UciAideMotrice = {
         attr_aide_motrice += "<div class='btn-check btn-check-large'>";
         attr_aide_motrice += "<input type='radio' value='looping' id='a11yMotorMode-looping' name='a11yMotorMode'";
         attr_aide_motrice += accessibilitytoolbar.userPref.get("a11yMotorMode") === "looping" ? "checked='checked'" : "";
-        attr_aide_motrice += ">";
+        attr_aide_motrice += "/>";
         attr_aide_motrice += "<label for='a11yMotorMode-looping'>";
         attr_aide_motrice +=  accessibilitytoolbar.get('uci_label_automove');
         attr_aide_motrice += "</label>";
@@ -1162,7 +1162,7 @@ UciAideMotrice = {
 
         //gestion de la position du menu
         attr_aide_motrice += "<div>";
-        attr_aide_motrice += "<p class='uci_clear'></br>";
+        attr_aide_motrice += "<p class='uci_clear' id='a11yMenuPositionning'><br />";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_menupos');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_a11yMenuPositionning' role='radiogroup' aria-labelledby='a11yMenuPositionning'>";
@@ -1175,7 +1175,7 @@ UciAideMotrice = {
         attr_aide_motrice += "</ul>";
 
         //gestion du clic automatique
-        attr_aide_motrice += "<p class='uci_clear'></br>";
+        attr_aide_motrice += "<p class='uci_clear' id='a11yDelayBeforeClick'><br />";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_time_before_sel');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_DelayBeforeLoop_auto' role='radiogroup' aria-labelledby='a11yDelayBeforeClick'>";
@@ -1194,7 +1194,7 @@ UciAideMotrice = {
         attr_aide_motrice += "</ul>";
 
         //gestion pas du mode rapide
-        attr_aide_motrice += "<p class='uci_clear'></br>";
+        attr_aide_motrice += "<p class='uci_clear' id='a11yQuickMode'><br />";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_pasquickmode');
         attr_aide_motrice += "</p>";
         attr_aide_motrice += "<p>";
@@ -1279,7 +1279,7 @@ function UciCouleur() {
 *****************************************************************************************************************************/
         //couleur predefinie
         attr_couleur += "<div id='uci_div_couleur_predefinie'>";
-        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+"><label for='uci_couleur_predefenie_input'>";
+        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+" /><label for='uci_couleur_predefenie_input'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre');
         attr_couleur += "</label>";
        
@@ -1334,7 +1334,7 @@ function UciCouleur() {
  * Gestion de la partie des couleurs personnalisées
  *****************************************************************************************************************************/
         attr_couleur += "<div id='uci_div_right_couleur'>";
-        attr_couleur += "<div><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+"><label for='uci_couleur_personnalisees_input'>";
+        attr_couleur += "<div><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+" /><label for='uci_couleur_personnalisees_input'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre_use_personal');
         attr_couleur += "</label></div>";
         attr_couleur += "<div id='uci_couleur_police' class='cdu_c'>";
@@ -1351,7 +1351,7 @@ function UciCouleur() {
                 indexCouleur = 0;
                 currentLine = mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yFontColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yFontColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yFontColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yFontColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
                 }
@@ -1375,7 +1375,7 @@ function UciCouleur() {
                 indexCouleur = 0;
                 currentLine = mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurFond += "<li id='uci_a11yBackgroundColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yBackgroundColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";                    
+                    tableauCouleurFond += "<li id='uci_a11yBackgroundColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yBackgroundColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";                    
                     tableauCouleurFond += "</li>";
                     moreclass = "";
                 }
@@ -1445,7 +1445,7 @@ UciApparence = {
 
         attr_apparence += "<input type='checkbox' value='true' name='a11yLinearize'  id='a11yLinearize'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yLinearize") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='a11yLinearize'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_listmode');
         attr_apparence += "</label>";
@@ -1460,7 +1460,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_alignement_gauche'>";
         attr_apparence += "<input type='checkbox' value='left' name='a11yLeftText' id='alignement_gauche'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='alignement_gauche'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_alignleft');
         attr_apparence += "</label>";
@@ -1471,7 +1471,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_numero_ligne'>";
         attr_apparence += "<input type='checkbox' value='decimal'  name='a11yNumerotationList' id='putNumOnList'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='putNumOnList'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_putnumonlist');
         attr_apparence += "</label>";
@@ -1481,7 +1481,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_apparence_liens'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11yNavLienEnabled' id='apparence_lien'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='apparence_lien'>";
         attr_apparence += accessibilitytoolbar.get('uci_titre_links');
         attr_apparence += "</label>";
@@ -1506,7 +1506,7 @@ UciApparence = {
         attr_apparence +="</a>";
         attr_apparence += "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_selectionne' style='display:none'>";
         //couleur de police
-        var tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_sel' role='radiogroup' aria-labelledby='uci_a11yNavLienSelColor'>";
+        var tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_sel' role='radiogroup' aria-labelledby='uci_NavLienSel'>";
         var index = 0;
         var indexCouleur = 0;
         var currentLine = "";
@@ -1518,7 +1518,7 @@ UciApparence = {
                 indexCouleur = 0;
                 currentLine = UciApparence.mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienSelColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienSelColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yNavLienSelColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienSelColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
                 }
@@ -1534,16 +1534,16 @@ UciApparence = {
         //gestion du lien actif : mise en forme
         attr_apparence += "<div class='cdu_left'>";
         attr_apparence += "<select class='uci_select_lien' name='a11yNavLienSelStyle' title=\""+accessibilitytoolbar.get("uci_title_link_active_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? " selected" : "")+">";
+        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? " selected" : "")+">";
+        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? " selected" : "")+">";
+        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold" ? " selected" : "")+">";
+        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
         attr_apparence += "</option>";
         attr_apparence += "</select>";
@@ -1559,7 +1559,7 @@ UciApparence = {
         attr_apparence +="</a>";
         attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_notselectionne' style='display:none'>";        
         //couleur de police
-        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_notsel' role='radiogroup' aria-labelledby='uci_a11yNavLienNonVisColorSpan'>";
+        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_notsel' role='radiogroup' aria-labelledby='uci_NavLienNonVis'>";
         index = 0;
         indexCouleur = 0;
         currentLine = "";
@@ -1570,7 +1570,7 @@ UciApparence = {
                 indexCouleur = 0;
                 currentLine = UciApparence.mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienNonVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'"  : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yNavLienNonVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'"  : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
 
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
@@ -1584,16 +1584,16 @@ UciApparence = {
         //gestion des liens non visite : mise en forme
         attr_apparence += "<div class='cdu_left'>";
         attr_apparence += "<select class='uci_select_lien' name='a11yNavLienNonVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_notvisited_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? " selected" : "")+">";
+        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? " selected" : "")+">";
+        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? " selected" : "")+">";
+        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold" ? " selected" : "")+">";
+        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
         attr_apparence += "</option>";
         attr_apparence += "</select>";
@@ -1613,7 +1613,7 @@ UciApparence = {
 
         attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_visite' style='display:none'>";
         //couleur de police
-        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_visite' role='radiogroup' aria-labelledby='uci_a11yNavLienVisColorSpan'>";
+        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_visite' role='radiogroup' aria-labelledby='uci_NavLienVis'>";
         index = 0;
         indexCouleur = 0;
         currentLine = "";
@@ -1624,7 +1624,7 @@ UciApparence = {
                 indexCouleur = 0;
                 currentLine = UciApparence.mesCouleurs[index];
                 for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "'aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&nbsp;";
+                    tableauCouleurPolice += "<li id='uci_a11yNavLienVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
                     tableauCouleurPolice += "</li>";
                     moreclass = "";
                 }
@@ -1638,16 +1638,16 @@ UciApparence = {
         //gestion des liens visité : mise en forme
         attr_apparence += "<div class='cdu_left'>";
         attr_apparence += "<select class='uci_select_lien' name='a11yNavLienVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_visited_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? " selected" : "")+">";
+        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? " selected" : "")+">";
+        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? " selected" : "")+">";
+        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
         attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold" ? " selected" : "")+">";
+        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold" ? " selected='selected'" : "")+">";
         attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
         attr_apparence += "</option>";
         attr_apparence += "</select>";
@@ -1666,7 +1666,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_desactiver_transparence'>";
         attr_apparence += "<input type='checkbox' value='1' name='a11ySupEffetTransp' id='uci_desactiver_transparence'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11ySupEffetTransp") === "1" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_desactiver_transparence'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_disabletransp');
         attr_apparence += "</label>";
@@ -1681,7 +1681,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_disabled_fond_picture'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11ySupImageFont' id='uci_label_disablebgpictures'";
         attr_apparence += accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_label_disablebgpictures'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_disablebgpictures');
         attr_apparence += "</label>";
@@ -1691,7 +1691,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_div_disabled_first_plan_picture'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11ySupImageFirstPlan' id='uci_label_disablepppictures' ";
         attr_apparence += accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_label_disablepppictures'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_disablepppictures');
         attr_apparence += "</label >";
@@ -1706,7 +1706,7 @@ UciApparence = {
         attr_apparence += "<div id='uci_mask_enabled'>";
         attr_apparence += "<input type='checkbox' value='true' name='a11yMaskEnabled' id='uci_check_mask' ";
         attr_apparence += accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked='checked'" : "";
-        attr_apparence += ">";
+        attr_apparence += "/>";
         attr_apparence += "<label for='uci_check_mask'>";
         attr_apparence += accessibilitytoolbar.get('uci_label_mask');
         attr_apparence += "</label >";
@@ -1942,10 +1942,10 @@ UciTypographie = {
         attr_typography += "<div id='box-a11yDyslexyFontEnabled_off'>" ;
         
         if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+">";
+            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+" />";
             attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie'>";
         } else {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled>";
+            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled />";
             attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie' class='uci_disable_label'>";
         }                
         attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_fontfamily');
@@ -1983,7 +1983,7 @@ UciTypographie = {
         // Gestion de la casse du texte
         attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c uci_clear'>";
         attr_typography += "<div id='box-a11yModifCasseEnabled_off'>";
-        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+">";
+        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+" />";
         attr_typography += "<label for='uci_chekbox_casse'>";
         attr_typography += "<span>";
         attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_changecase');
@@ -2389,7 +2389,7 @@ UciIhm = {
 
         //var validation =  new UciValidation();
         var strValidation = UciValidation.InitUciValidation();
-        attr_ihm += "<div id='uci_validation' class='cdu_n'>"+strValidation+"</div></form>";
+        attr_ihm += "<div id='uci_validation' class='cdu_n'>"+strValidation+"</div>";
 
         attr_ihm += "</div>"; // fin uci_zone_form
         attr_ihm += "</div>"; // fin container
@@ -2405,15 +2405,20 @@ UciIhm = {
 
 
     close_menu: function (nofocus) {
-		document.getElementById('uci_cdu_menu').style.display = "none";
+      // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
+      // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
+      if(document.getElementById('uci_cdu_menu'))
+      {
+		    document.getElementById('uci_cdu_menu').style.display = "none";
         var button = document.getElementById("uci_activer_menu");
         if(button.nodeName === 'BUTTON') {
-            button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
-			var li = button.parentNode;
-			li.className = 'uci_inline uci_menu_help';
+          button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
+			    var li = button.parentNode;
+			    li.className = 'uci_inline uci_menu_help';
         }
         if(nofocus) return false;
         document.getElementById("uci_activer_menu").focus();
+      }
     },
     /*Permet d’activer le menu facebook du confort d’utilisation*/
     uci_activate_menu: function (e) {
@@ -2458,7 +2463,7 @@ UciIhm = {
                 document.getElementById('uci_zone_form').style.display = "block";
 				UciIhm.hide_confirm_validation();
             }
-            //document.getElementById('uci_fermeture_more_comfort').style.display = "block";            
+            //document.getElementById('uci_fermeture_more_confort').style.display = "block";            
             document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
             document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
             document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");
@@ -2602,18 +2607,18 @@ UciIhm = {
     }, 
     
     displayIconPalette: function(viewport) {
-    	return  '<svg focusable="false" version="1.1" viewBox="' + viewport + '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="cdu-icon-palette" role="image" alt="" aria-hidden="true" >\n\
-<path class="path1" d="M0.476 17.181c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 23.147c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z"></path>\n\
-<path class="path2" d="M0.476 16.218c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 22.185c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z"></path>\n\
-<path class="path3" d="M25.304 14.486c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z"></path>\n\
-<path class="path4" d="M19.915 10.444c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z"></path>\n\
-<path class="path5" d="M12.409 9.001c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z"></path>\n\
-<path class="path6" d="M5.672 12.369c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z"></path>\n\
-<path class="path7" d="M25.304 13.524c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z"></path>\n\
-<path class="path8" d="M19.915 9.482c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z"></path>\n\
-<path class="path9" d="M12.409 8.039c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z"></path>\n\
-<path class="path10" d="M5.672 11.407c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z"></path>\n\
-</svg>';
+    	return  "<svg focusable='false' version='1.1' viewBox='" + viewport + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='cdu-icon-palette' role='image' alt='' aria-hidden='true' >\n\
+<path class='path1' d='M0.476 17.181c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 23.147c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z'></path>\n\
+<path class='path2' d='M0.476 16.218c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 22.185c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z'></path>\n\
+<path class='path3' d='M25.304 14.486c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z'></path>\n\
+<path class='path4' d='M19.915 10.444c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z'></path>\n\
+<path class='path5' d='M12.409 9.001c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z'></path>\n\
+<path class='path6' d='M5.672 12.369c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z'></path>\n\
+<path class='path7' d='M25.304 13.524c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z'></path>\n\
+<path class='path8' d='M19.915 9.482c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z'></path>\n\
+<path class='path9' d='M12.409 8.039c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z'></path>\n\
+<path class='path10' d='M5.672 11.407c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z'></path>\n\
+</svg>";
     }
 };
 // Source: app/js/toolbar.js
@@ -5219,10 +5224,11 @@ accessibilitytoolbar = {
      * Add the right CSS link to the head for our tool-bar
      */
     createToolbarCSSLink: function () {
-        var l = document.createElement('LINK');
+        var l = document.createElement('link');
         l.rel = "stylesheet";
         l.type = "text/css";
         l.href = uci_classic_toolbar_css;
+        l.media = 'all';
         l.id = "a11yCSS";
         this.head.appendChild(l);
     },
@@ -5259,6 +5265,8 @@ accessibilitytoolbar = {
             str += "<span>+</span></button></p>";
             str += "<div id='cdu_content' class='cdu_displayN' >";
             str += accessibilitytoolbar.createToolbar();
+            str += "</div>"; // close cdu_content
+            str += "</div>"; // close cdu_zone
         return str;
     },
 
@@ -5317,7 +5325,8 @@ accessibilitytoolbar = {
         //create content of CDU
         str += "<div id='cdu_content' class='cdu_displayN' >";
         str += accessibilitytoolbar.createToolbar();
-        str += "</div>";
+        str += "</div>"; // close cdu_content
+        str += "</div>"; // close cdu_zone
         return str;
 
     },
@@ -5335,7 +5344,7 @@ accessibilitytoolbar = {
             str += this.get('uci_securityCookieChangeAlert');
             str += "</span>";
             str += this.get("uci_securityCookieChange");
-            str += "&nbsp;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
+            str += "&#160;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
             str += "</p>";
         }else {
             str += UciIhm.InitUciIHM();
@@ -5623,7 +5632,7 @@ accessibilitytoolbar = {
         if(!accessibilitytoolbar.idLinkModeContainer){
             var closeLink = document.getElementById("cdu_zone").getElementsByTagName("button")[0];
             closeLink.setAttribute("title", accessibilitytoolbar.get("uci_closeButton"));
-            closeLink.innerHTML = accessibilitytoolbar.get("uci_closeButton") + "<span>&times;</span>";
+            closeLink.innerHTML = accessibilitytoolbar.get("uci_closeButton") + "<span>&#215;</span>";
         }
         try{
             document.getElementById("uci-onoffswitch").focus();

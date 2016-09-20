@@ -1,0 +1,8 @@
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\obj\x64\Release\Orange.ConfortPlus.IEExtension.WiX.csprojResolveAssemblyReference.cache
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\obj\x64\Release\Orange.ConfortPlus.IEExtension.WiX.dll
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\obj\x64\Release\Orange.ConfortPlus.IEExtension.WiX.pdb
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\bin\x64\Release\Orange.ConfortPlus.IEExtension.WiX.dll
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\bin\x64\Release\Orange.ConfortPlus.IEExtension.WiX.CA.dll
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\bin\x64\Release\Orange.ConfortPlus.IEExtension.WiX.pdb
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\bin\x64\Release\Microsoft.Deployment.WindowsInstaller.dll
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.WiX\bin\x64\Release\Microsoft.Deployment.WindowsInstaller.xml

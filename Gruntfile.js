@@ -317,7 +317,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/mask.js",
             "<%= yeoman.app %>/js/start.extensionFirefox.js"
         ],
-        dest: '<%= yeoman.distfirefoxext %>/data/comfort+/js/concat.js'
+        dest: '<%= yeoman.distfirefoxext %>/data/confort+/js/concat.js'
       },      
       chromeext: {
         options: {
@@ -424,7 +424,7 @@ module.exports = function(grunt) {
           expand: true,
           dot: true,
           cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.distfirefoxext %>/data/comfort+',
+          dest: '<%= yeoman.distfirefoxext %>/data/confort+',
           src: [           
             'images/**',   
             'css/**',  

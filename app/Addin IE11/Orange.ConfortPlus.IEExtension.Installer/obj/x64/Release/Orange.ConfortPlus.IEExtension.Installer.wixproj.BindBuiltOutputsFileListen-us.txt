@@ -1,0 +1,2 @@
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x64\Release\en-us\Orange.ConfortPlus.IEExtension.Installer.msi
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x64\Release\en-us\Orange.ConfortPlus.IEExtension.Installer.wixpdb

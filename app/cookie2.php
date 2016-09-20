@@ -20,20 +20,20 @@ if(!isset($_SESSION)) session_start();
  * Global settings go here
  */
 include("conf/param.php");
-	$usageComfort="NOCOOKIE";
+	$usageConfort="NOCOOKIE";
 	if(isset($_COOKIE[$cookie_name]))
 	{
-		$usageComfort=$_COOKIE[$cookie_name];
+		$usageConfort=$_COOKIE[$cookie_name];
     // vérification pour savoir si le site est blaclisté ou non
         if(isset($_COOKIE[$cookie_blackListe]) && isset($_GET['hostname'])){
             $hostnames = explode('|',$_COOKIE[$cookie_blackListe]);
             if (in_array($_GET['hostname'], $hostnames)){
-                $usageComfort .= '1';
+                $usageConfort .= '1';
             }else{
-                $usageComfort .= '0';
+                $usageConfort .= '0';
             }
         }else{
-            $usageComfort .= '0';
+            $usageConfort .= '0';
         }
 	}  
 header('Content-Type: text/html; charset=utf-8');
@@ -50,7 +50,7 @@ header('Content-Type: text/html; charset=utf-8');
 		{  
 			if(window && window.parent && window.parent.postMessage)
 			{                                                                      
-				window.parent.postMessage('<?php echo $usageComfort; ?>', '<?php echo $_GET['origin']; ?>');
+				window.parent.postMessage('<?php echo $usageConfort; ?>', '<?php echo $_GET['origin']; ?>');
 			}
 		}
   </script>

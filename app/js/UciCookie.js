@@ -42,7 +42,7 @@ function UciStorage() {
     this.updateUserPref = function() {
         // Update the cdu cookies with the stackv3 value
         var pref = this.encode();
-        document.getElementById('id_frame_cookie').src=hebergementFullPath+"saveCookie.php?UsageComfort="+pref+"&origin="+document.location.href;
+        document.getElementById('id_frame_cookie').src=hebergementFullPath+"saveCookie.php?UsageConfort="+pref+"&origin="+document.location.href;
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
     };

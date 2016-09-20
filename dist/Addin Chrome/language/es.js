@@ -142,6 +142,6 @@ traduction['es']={
   uci_radio_medium:"medio",
   uci_radio_large:"grande",
   uci_new_window:"Nueva ventana",
-  uci_iframe_cookie:"Contenido t\351cnico Orange Comfort+",
+  uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
   uci_confirm_validation:"preferencias registrados [TODO]",
 };

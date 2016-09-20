@@ -1,0 +1,18 @@
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x86\Release\es-es\Orange.ConfortPlus.IEExtension.Installer.msi
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x86\Release\es-es\Orange.ConfortPlus.IEExtension.Installer.wixpdb
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x86\Release\fr-fr\Orange.ConfortPlus.IEExtension.Installer.msi
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x86\Release\fr-fr\Orange.ConfortPlus.IEExtension.Installer.wixpdb
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x86\Release\en-us\Orange.ConfortPlus.IEExtension.Installer.msi
+C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension.Installer\bin\x86\Release\en-us\Orange.ConfortPlus.IEExtension.Installer.wixpdb
+obj\x86\Release\WelcomeEulaDlgOverwritten.wixobj
+obj\x86\Release\Product.wixobj
+obj\x86\Release\WixUI_MinimalOverwritten.wixobj
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindContentsFileListes-es.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindOutputsFileListes-es.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindBuiltOutputsFileListes-es.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindContentsFileListfr-fr.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindOutputsFileListfr-fr.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindBuiltOutputsFileListfr-fr.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindContentsFileListen-us.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindOutputsFileListen-us.txt
+obj\x86\Release\Orange.ConfortPlus.IEExtension.Installer.wixproj.BindBuiltOutputsFileListen-us.txt

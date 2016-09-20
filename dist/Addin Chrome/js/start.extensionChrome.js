@@ -33,30 +33,30 @@ function startCDU() {
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 	switch(request.message) {
-		case 'orangecomfort+closecdu' :
+		case 'orangeconfort+closecdu' :
 			if(block == false) {
 				accessibilitytoolbar.userPref.setStoredValue('00006510006506506500000000000000000065000000100');
 				accessibilitytoolbar.reloadToolbar();
 				accessibilitytoolbar.close();
 			}
 			break;
-		case 'orangecomfort+loadcdu' :
+		case 'orangeconfort+loadcdu' :
 			if(block == false) {
 				startCDU();
 			}
 			break;
-		case 'orangecomfort+userprefgetresponse' :
+		case 'orangeconfort+userprefgetresponse' :
 			if(block == false) {
 				accessibilitytoolbar.userPref.setStoredValue(request.value);
 			}
 			break;
-		case 'orangecomfort+doyouexist' :
+		case 'orangeconfort+doyouexist' :
 			sendResponse({message: "yes"});
 			break;
 		
 	  }
 });
-chrome.runtime.sendMessage({message: "orangecomfort+getIsCduEnabled"}, function(response) {
+chrome.runtime.sendMessage({message: "orangeconfort+getIsCduEnabled"}, function(response) {
 	if((response.value == 'true') && (block == false)) {
 		startCDU();
 	}

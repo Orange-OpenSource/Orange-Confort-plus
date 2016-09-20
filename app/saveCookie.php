@@ -25,7 +25,7 @@ include("conf/param.php");
 global $userPref, $cookie_domain, $cookie_name;
 
 $duration = time()+60*60*24*1000;
-setcookie( $cookie_name , $_GET["UsageComfort"] , $duration , "/" , $cookie_domain);
+setcookie( $cookie_name , $_GET["UsageConfort"] , $duration , "/" , $cookie_domain);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" <?php if(isset($locale) && ($locale!="")) { 	echo "lang=\"{$locale}\""; } ?>>

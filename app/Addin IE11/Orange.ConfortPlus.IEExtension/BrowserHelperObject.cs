@@ -452,8 +452,8 @@ namespace Orange.ConfortPlus.IEExtension
 
                 switch (message.Message)
                 {
-                    case "orangecomfort+userprefget":
-						this.LogInfo("orangecomfort+userprefget: Origin={0} Value={1} UserPref={2} blacklist={3}", message.Origin, message.Value,  this.info.UserPref, this.info.Blacklist);
+                    case "orangeconfort+userprefget":
+						this.LogInfo("orangeconfort+userprefget: Origin={0} Value={1} UserPref={2} blacklist={3}", message.Origin, message.Value,  this.info.UserPref, this.info.Blacklist);
 					
                         UriBuilder uriBuilder = new UriBuilder(message.Origin);
 
@@ -471,18 +471,18 @@ namespace Orange.ConfortPlus.IEExtension
 						
                         break;
 
-                    case "orangecomfort+userprefsave":
-                        this.LogInfo("orangecomfort+userprefsave: Value=" + message.Value);
+                    case "orangeconfort+userprefsave":
+                        this.LogInfo("orangeconfort+userprefsave: Value=" + message.Value);
                         this.info.UserPref = message.Value;
                         break;
 
-                    case "orangecomfort+blacklistsave":
-                        this.LogInfo("orangecomfort+blacklistsave: Value=" + message.Value);
+                    case "orangeconfort+blacklistsave":
+                        this.LogInfo("orangeconfort+blacklistsave: Value=" + message.Value);
                         this.info.ToggleInBlacklist(message.Value);
                         break;
 
-                    case "orangecomfort+help":
-						this.LogInfo("orangecomfort+help: Value=" + message.Value);
+                    case "orangeconfort+help":
+						this.LogInfo("orangeconfort+help: Value=" + message.Value);
                         this.webBrowser.Navigate2("cdu://Resources/help/help_" + message.Value + ".html", 2048);
                         break;
                 }

@@ -4,7 +4,7 @@
   <String Id="ProductName" Overridable="yes">Orange Confort+ - Extensión Internet Explorer</String>
   <String Id="PackageDescription" Overridable="yes">Esta extensión permite activar el servicio "Confort +" en todas las pestañas abiertas</String>
   <String Id="PackageComments" Overridable="yes">Confort+ te permite configurar el aspecto visual y personalizar la forma de navegar por las páginas que consultas.</String>
-  <String Id="MajorUpgradeErrorMessage" Overridable="yes">Una nueva versión más reciente de "Orange Comfort + - Extensión Internet Explorer" ya está instalada</String>
+  <String Id="MajorUpgradeErrorMessage" Overridable="yes">Una nueva versión más reciente de "Orange Confort + - Extensión Internet Explorer" ya está instalada</String>
   <String Id="IE11Needed" Overridable="yes">Internet Explorer 11 es necesario. Por favor, instale Internet Explorer 11 y ejecutar este instalador de nuevo</String>
   <String Id="Win7OrHigherNeeded" Overridable="yes">Esta aplicación sólo es compatible con Windows 7 o superior</String>
   <String Id="Net452Needed" Overridable="yes">Se requiere el Framework .NET 4.5.2. Por favor, instale el Framework .NET 4.5.2 y ejecutar de nuevo este instalador.</String>

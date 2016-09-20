@@ -12,9 +12,9 @@ if(localStorage.getItem('blacklist') === null) {
 
 function startCDU(tab) {
 	if(localStorage.getItem('isCduEnabled') == "true") {
-		chrome.tabs.sendMessage(tab.id, {message: "orangecomfort+doyouexist"}, function(response) {
+		chrome.tabs.sendMessage(tab.id, {message: "orangeconfort+doyouexist"}, function(response) {
 	        if (response) {
-	        	chrome.tabs.sendMessage(tab.id, {message: 'orangecomfort+loadcdu'});
+	        	chrome.tabs.sendMessage(tab.id, {message: 'orangeconfort+loadcdu'});
 	        }
 	    });
 	}
@@ -22,7 +22,7 @@ function startCDU(tab) {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	switch(request.message) {
-		case 'orangecomfort+userprefget' :
+		case 'orangeconfort+userprefget' :
 			if(localStorage.getItem('userPref') === null) {   
 		        localStorage.setItem('userPref', '00006510006506506500000000000000000065000000100');
 		    }
@@ -31,12 +31,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		    if(index > -1) {
 		        flag = 1;
 		    }
-			chrome.tabs.sendMessage(sender.tab.id, {message:'orangecomfort+userprefgetresponse', value:localStorage.getItem('userPref') + flag});
+			chrome.tabs.sendMessage(sender.tab.id, {message:'orangeconfort+userprefgetresponse', value:localStorage.getItem('userPref') + flag});
 			break;
-		case 'orangecomfort+userprefsave' :
+		case 'orangeconfort+userprefsave' :
 			localStorage.setItem('userPref', request.value);
 			break;
-		case 'orangecomfort+blacklistsave' :
+		case 'orangeconfort+blacklistsave' :
 			var blacklist = localStorage.getItem('blacklist');
 			var index = blacklist.indexOf(request.value);
 		    if(index > -1) {
@@ -45,7 +45,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		    	localStorage.setItem('blacklist', blacklist.push(value));
 		    }
 			break;
-		case 'orangecomfort+getIsCduEnabled' :
+		case 'orangeconfort+getIsCduEnabled' :
 			sendResponse({value:localStorage.getItem('isCduEnabled')});
 			break;
 	}
@@ -80,7 +80,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 	  },
 	  function(tabs) {
 		  for (var i = 0; i < tabs.length; i++) {
-			  chrome.tabs.sendMessage(tabs[i].id, {message: 'orangecomfort+closecdu'});
+			  chrome.tabs.sendMessage(tabs[i].id, {message: 'orangeconfort+closecdu'});
 		  }
 	  });
   }
