@@ -2600,10 +2600,11 @@ accessibilitytoolbar = {
      * Add the right CSS link to the head for our tool-bar
      */
     createToolbarCSSLink: function () {
-        var l = document.createElement('LINK');
+        var l = document.createElement('link');
         l.rel = "stylesheet";
         l.type = "text/css";
         l.href = uci_classic_toolbar_css;
+        l.media = 'all';
         l.id = "a11yCSS";
         this.head.appendChild(l);
     },
@@ -3007,7 +3008,7 @@ accessibilitytoolbar = {
         if(!accessibilitytoolbar.idLinkModeContainer){
             var closeLink = document.getElementById("cdu_zone").getElementsByTagName("button")[0];
             closeLink.setAttribute("title", accessibilitytoolbar.get("uci_closeButton"));
-            closeLink.innerHTML = accessibilitytoolbar.get("uci_closeButton") + "<span>&times;</span>";
+            closeLink.innerHTML = accessibilitytoolbar.get("uci_closeButton") + "<span>&#215;</span>";
         }
         try{
             document.getElementById("uci-onoffswitch").focus();
