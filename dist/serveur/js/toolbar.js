@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 19-09-2016
+/* orange-confort-plus - version 3.2.1 - 20-09-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -2300,7 +2300,7 @@ UciIhm = {
         attr_ihm += "</ul>";
         attr_ihm += "</div></div></li>"; // fin menu     
         
-        attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"'>";
+        attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"' type='button'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
         attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"</span>"
         attr_ihm += "</button></li></ul>";
