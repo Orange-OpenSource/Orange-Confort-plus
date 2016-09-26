@@ -3568,8 +3568,8 @@ accessibilitytoolbar = {
                 	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
                     UciMask.start();
                 }
-            	s += ".topMask  { position: fixed; z-index:9000; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
-            	s += ".bottomMask  { position: fixed; z-index:9000; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+            	s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+            	s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
             }
             // if mask was launch before deactivation kill!
