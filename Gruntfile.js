@@ -391,7 +391,8 @@ module.exports = function(grunt) {
             '*.php',
             '*.txt',
             '*.htm',
-            '**/*.html'
+            '**/*.html',
+            '!Addin*/**'
           ]
         },{
           expand: true,
@@ -406,7 +407,8 @@ module.exports = function(grunt) {
             'js/mask.js', 
             '*.txt',
             '*.htm',
-            '**/*.html'
+            '**/*.html',
+            '!Addin*/**'
           ]
         }
         ]
