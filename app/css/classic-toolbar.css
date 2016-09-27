@@ -41,11 +41,11 @@
 
 }
 
-#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-typographie  {
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-typographie  {
         font-family: helvetica, arial, sans-serif;
         display:none;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie  {
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie  {
 	font-family: 'orangeconfortplus';
 	speak: none;
 	font-style: normal;
@@ -63,9 +63,6 @@
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement:before {
 	content: "\1f446";
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs:before {
-	content: "\e602";
-}
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix:before {
 	content: "\58";
 }
@@ -82,95 +79,7 @@
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2:before {
 	content: "\21bb";
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path1 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path2 {
-	fill: rgb(204, 204, 204);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_choix_selected .cdu-icon-palette .path2 {
-	fill: #FFF;
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path3 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path4 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path5 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path7 {
-	fill: rgb(82, 126, 219);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path8 {
-	fill: rgb(255, 204, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path9 {
-	fill: rgb(50, 200, 50);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path10 {
-	fill: rgb(214, 1, 2);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path1 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path6 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path2 {
-	fill: rgb(204, 204, 204);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path2 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path3 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path4 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path5 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path7 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path8 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path9 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path10 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path6 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path10 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path10 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-	dispaly:none;
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path10 {
-	fill: rgb(0, 0, 0);
-	dispaly:none;	
-}
+
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs2:before {
   content: "\1f3a9";
 }
@@ -256,22 +165,9 @@
     width: 23px;
 }
 
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_reponses_couleurpredefinie_quick_set .cdu-icon-palette {
-	width: 2.15em;
-	height:2em;
-}
-
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette {
-	width: 1em;
-	height:0.95em;
-	padding-right:5px;
-}
 /*******************************************************Toolbar general*********************************************/
 /******************************************Chargement de la font orange**************************************************/
-#accessibilitytoolbarWrapper {
-   position:relative;
-   transform: scale(1);
-}
+
 
 #accessibilitytoolbarGraphic {
     color: #000000;
@@ -304,7 +200,7 @@
     padding-left: 1.875em;
     position: relative;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="radio"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="radio"]:checked + label:before {
     background-color: #fff;
     border: 3px solid #ccc;
     border-radius: 50%;
@@ -314,7 +210,7 @@
     position: absolute;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label::after, #accessibilitytoolbarGraphic *[type="radio"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label:after, #accessibilitytoolbarGraphic *[type="radio"]:checked + label:after {
     color: #fff;
     content: "";
     font-size: 1em;
@@ -325,22 +221,22 @@
     top: 0;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label:after {
     opacity: 0;
     transform: scale(0);
 }
-#accessibilitytoolbarGraphic *[type="radio"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:checked + label:after {
     opacity: 1;
     transform: scale(1);
 }
-#accessibilitytoolbarGraphic *[type="radio"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="radio"]:checked + label:before {
     border-color: #f16e00;
     border-width: 6px;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:disabled:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label::before {
+#accessibilitytoolbarGraphic *[type="radio"]:disabled:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label:before {
     border-color: #ddd;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label:after {
     border-color: #ddd;
     color: #fff;
 }
@@ -368,7 +264,7 @@
     padding-left: 1.875em;
     position: relative;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:before {
     background-color: #fff;
     border: 2px solid #ccc;
     content: "";
@@ -377,7 +273,7 @@
     position: absolute;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label::after, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label:after, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:after {
     color: #fff;
     content: "\e904";
     font-family: "orangeconfortplus";
@@ -388,23 +284,23 @@
     text-align: center;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label:after {
     opacity: 0;
     transform: scale(0);
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:after {
     background-color: #f16e00;
     opacity: 1;
     transform: scale(1);
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:before {
     background-color: #f16e00;
     border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label::before {
+#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label:before {
     border-color: #ddd;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label:after {
     background-color: #ddd;
     border-color: #ddd;
     color: #fff;
@@ -432,9 +328,6 @@
     left: 0;
     top: 0;
     width: 100%;
-}
-#accessibilitytoolbarGraphic img{
-    border: none;
 }
 
 #cdu_zone {
@@ -519,19 +412,8 @@
     min-height: 2.625em;   
 }
 
-#cdu_jump_link a {
-    color: #F16E00;
-    font-size: 1.5em;
-    text-decoration: underline;
-}
-
 #cdu_close {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
     background: none repeat scroll 0 0 #FFFFFF;
-    border-color: -moz-use-text-color #000 #000;
     border-image: none;
     border-right: 1px solid #000;
     border-style: none solid solid;
@@ -542,7 +424,6 @@
     margin: 0;
     position: absolute;
     right: 0;
-    text-transform: lowercase;
     top: 0;
     z-index: 2147483645;
 }
@@ -660,7 +541,7 @@ a#activable_to_activable:link, a#activable_to_activable:visited {
     background-image: url('data:image/gif;base64,R0lGODlhFAAUALMIAAEB/wQE/wYG/wIC/wcH/wUF//9mAAAA/////wAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAUABQAAARNEMlJq73z4C01p4cXih4WIlpqGWyHviplVCN62tP8Xfo0BIECQRAA1CS9nWxTWjE3s97teEPopKqYjDXLwjC6GrVpVXJCgDSgeDS7PxEAOw==');
 }
 a#activable_to_activable_fast:link, a#activable_to_activable_fast:visited {
-    background-image: url('data:image/gif;base64,R0lGODlhFAAUALMMAAQE/wYG/wcH/wUF/wIC/wEB/42NjfdsAEBAQe/v7/9mAAAA/////wAAAAAAAAAAACH5BAEAAAwALAAAAAAUABQAAARnkMlJq71z4S01p4sXih4WMlpqKWyHviqlVCN62tP8XfpEAICBIAAo1CS9nWxTWmEM0GgUyeiFDImsVouoUjvYg1ac7VZZM02YfCCbv9dsWy5+JxlrevkSJyf8bxZYW1uBFgiIiYkMEQA7'));
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUALMMAAQE/wYG/wcH/wUF/wIC/wEB/42NjfdsAEBAQe/v7/9mAAAA/////wAAAAAAAAAAACH5BAEAAAwALAAAAAAUABQAAARnkMlJq71z4S01p4sXih4WMlpqKWyHviqlVCN62tP8XfpEAICBIAAo1CS9nWxTWmEM0GgUyeiFDImsVouoUjvYg1ac7VZZM02YfCCbv9dsWy5+JxlrevkSJyf8bxZYW1uBFgiIiYkMEQA7');
 }
 a#activable_to_activable_backward:link, a#activable_to_activable_backward:visited {
     background-image: url('data:image/gif;base64,R0lGODlhFAAUALMAAAEB/wQE/wYG/wIC/wcH/wUF//9mAAAA/////wAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAUABQAAARMEMlJq73z4C01N5l3jJ1HgSWirZbhgmxcoei4kqoJotxcDYFAgSAIAGwTXs+HMbU2TmaoJNJZSLKZq6PqsjhIZG5JpowAaIBRXG73IgA7');
@@ -693,30 +574,6 @@ a.cdu_hide:focus {
     position: relative !important;
     top: 5px;
     width: auto;
-}
-
-
-/***************************************Gestion des div generale*******************************************************/
-
-#accessibilitytoolbarGraphic img {
-    vertical-align: middle;
-}
-#accessibilitytoolbarGraphic fieldset{
-    border: none;
-}
-
-/********************************** Template du template gÃ©nÃ©ral de la toolbar******************************/
-#toolbar{
-    width:100%;
-    height:5%;
-    background-color:  #cecece;
-}
-
-#toolbar p {
-    color: #F16E00;
-    font-size: 1em;
-    padding-top: 2px;
-    padding-left: 30px;
 }
 
 /*********************************************Fin template principal************************************/
@@ -800,7 +657,7 @@ a.cdu_hide:focus {
 	float:left;
 }
 
-#accessibilitytoolbarGraphic h1, .uci_alt_logo{
+.uci_alt_logo{
     color: #000000;
     font-size: 2em;
     font-family: Helvetica;
@@ -929,14 +786,6 @@ right: 0px;
     transition: all 0.4s ease 0s;
 }
 
-.uci_active_cdu_img{
-    padding: 0.35em 0;
-    min-height: 30px;
-    min-width: 62px;
-    float: left;
-}
-
-
 /****************************************Fin Element a gauche de la toolbar*******************************/
 
 /****************************************Element au centre de la toolbar :********************************/
@@ -949,30 +798,6 @@ right: 0px;
     color:#FFF;
 	background-color:#F16E00;
 	border:2px solid #F16E00;
-}
-
-#small_font{
-    font-size: 1em;
-}
-
-#medium_font{
-    font-size: 1.5em;
-}
-
-#big_font{
-    font-size:2em;
-}
-
-#orange_color{
-    color: #F16E00;
-    background-color:white;
-    font-size:1.5em;
-}
-
-#black_color{
-    color: black;
-    background-color:white;
-    font-size:1.5em;
 }
 
 #uci_moreconfort{
@@ -1018,15 +843,9 @@ right: 0px;
 .uci_menu_help.active #uci_activer_menu {
 	color:#f16e00;
 }
-#uci_fermeture_cdu_menu {
-    position: absolute;
-    right: 10px;
-}
+
 #uci_cdu_menu li{
     padding: 0 0 1em;
-}
-#uci_cdu_menu img {
-    margin-right:2px;
 }
 
 #uci_language {
@@ -1039,23 +858,13 @@ right: 0px;
     zoom: 1;
 }
 
-#uci_cdu_menu h1{
-    margin:0px;
-    padding:0px;
-}
-
-
 /******************************************Fin Mise en place du menu Facebook**********************************/
 /** mise en forme des ï¿½lï¿½ments de liste de l'ihm rendu bouton **/
 
-#uci_menu_ouverture_aide, #uci_menu_toolbar, #uci_menu_activate_cdu_for_site {
+#uci_menu_ouverture_aide {
     min-width: 100px;
     padding: 5px;
     background-position:left;
-}
-
-#uci_menu_toolbar{
-    background: url("../images/ico_hide_bar.ba928209.png") no-repeat scroll 5px center #FFFFFF;
 }
 
 #accessibilitytoolbarGraphic a#uci_menu_ouverture_aide {
@@ -1090,11 +899,6 @@ right: 0px;
     float: left;
 }
 
-#uci_menu_activate_cdu_for_site{
-    background: url("../images/ico_appearence_active.97875cbe.png") no-repeat scroll 5px center #FFFFFF;
-}
-
-
 .uci_inline {
     display: block;
     float: left;
@@ -1112,15 +916,10 @@ right: 0px;
     padding: 0;
     float: left;
 }
-.uci_systeme_onglets.uci_liste_bton{
-    margin: 0.2em;
-}
-
 
 .uci_choix, .uci_couleur_li{
     color: #000000;
     cursor: pointer;
-    border: medium none;
     border: 2px solid #000;
 }
 .uci_choix{
@@ -1151,9 +950,9 @@ right: 0px;
 #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:hover, #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:focus {
     color: #000000 !important;
 }
-#uci_a11yBigger_keepit.uci_choix,#uci_quick_a11yBigger_keepit.uci_choix, #uci_a11yRegleEpaisseur_thin.uci_choix,
-#uci_a11yBigger_150.uci_choix,#uci_quick_a11yBigger_150.uci_choix, #uci_a11yRegleEpaisseur_medium.uci_choix,
-#uci_a11yBigger_200.uci_choix,#uci_quick_a11yBigger_200.uci_choix, #uci_a11yRegleEpaisseur_thick.uci_choix {
+#uci_a11yBigger_keepit.uci_choix,#uci_quick_a11yBigger_keepit.uci_choix, #uci_a11yMaskEpaisseur_thin.uci_choix,
+#uci_a11yBigger_150.uci_choix,#uci_quick_a11yBigger_150.uci_choix, #uci_a11yMaskEpaisseur_medium.uci_choix,
+#uci_a11yBigger_200.uci_choix,#uci_quick_a11yBigger_200.uci_choix, #uci_a11yMaskEpaisseur_thick.uci_choix {
     padding: 0 0.3em;
 	width:1.6em;
 	height:1.6em;	
@@ -1179,7 +978,7 @@ ul#uci_reponses_bigger_quick_set {
     padding-right: 20px;
     padding-top : 0;
     padding-bottom : 0;
-	margin: 0.825em 0 0;
+	  margin: 0.825em 0 0;
 }
 
 /******************************************Mise en place des onglets CDU***************************************/
@@ -1195,25 +994,11 @@ ul#uci_reponses_bigger_quick_set {
     float: left;
     padding: 8px 0;
     background: #FFFFFF;
-    /*background: -webkit-linear-gradient( top, #FFFFFF,#000);
-    background: -moz-linear-gradient( top, #FFFFFF,#000);
-    background: -ms-linear-gradient( top, #FFFFFF,#000);
-    background: -o-linear-gradient( top, #FFFFFF,#000);
-    background: linear-gradient( top, #FFFFFF,#000);*/
 }
 #uci_onglet_confort li{
     margin: 0;
     padding: 6px 0;
 }
-
-#size div{
-    display: inline-block;
-}
-
-#uci_div_espacement_mot{
-    display: inline-block;
-}
-
 
 #uci_activateOnglet{
     display:none;
@@ -1337,17 +1122,17 @@ ul#uci_reponses_bigger_quick_set {
     min-width: 40%;
 }
 
-#uci_a11yBigger_keepit,#uci_quick_a11yBigger_keepit, #uci_a11yRegleEpaisseur_thin,
-#uci_a11yBigger_150,#uci_quick_a11yBigger_150, #uci_a11yRegleEpaisseur_medium,
-#uci_a11yBigger_200,#uci_quick_a11yBigger_200, #uci_a11yRegleEpaisseur_thick
+#uci_a11yBigger_keepit,#uci_quick_a11yBigger_keepit, #uci_a11yMaskEpaisseur_thin,
+#uci_a11yBigger_150,#uci_quick_a11yBigger_150, #uci_a11yMaskEpaisseur_medium,
+#uci_a11yBigger_200,#uci_quick_a11yBigger_200, #uci_a11yMaskEpaisseur_thick
 {
     text-align: center;
 }
-#uci_a11yBigger_keepit span,#uci_quick_a11yBigger_keepit span, #uci_a11yRegleEpaisseur_thin span {
+#uci_a11yBigger_keepit span,#uci_quick_a11yBigger_keepit span, #uci_a11yMaskEpaisseur_thin span {
     font-size:50%;
 }
 
-#uci_a11yBigger_150 span,#uci_quick_a11yBigger_150 span, #uci_a11yRegleEpaisseur_medium span {
+#uci_a11yBigger_150 span,#uci_quick_a11yBigger_150 span, #uci_a11yMaskEpaisseur_medium span {
     font-size : 75%;
 }
 
@@ -1410,11 +1195,11 @@ ul#uci_reponses_bigger_quick_set {
 
 
 /******************************************Onglet Apparence****************************************************/
-#uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_affichage_regle,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture,#uci_mask_enabled  {
+#uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture,#uci_mask_enabled  {
     padding-top : 1.05em;
 }
 
-#uci_div_regle{
+#uci_div_mask{
     margin-left:1.3em;
 }
 
@@ -1430,7 +1215,7 @@ ul#uci_reponses_bigger_quick_set {
 #uci_gestion_lien .cdu_left {
 	margin:0 5px;
 }
-#uci_palette_couleur_lien_selectionne,#uci_palette_couleur_lien_notselectionne,#uci_palette_couleur_lien_visite,#uci_palette_couleur_regle{
+#uci_palette_couleur_lien_selectionne,#uci_palette_couleur_lien_notselectionne,#uci_palette_couleur_lien_visite{
     margin-left: 40px;
 }
 
@@ -1475,21 +1260,15 @@ ul#uci_reponses_bigger_quick_set {
     font-family: arial, helvetica, sans-serif;
 }
 
-#uci_regle_epaisseur, #uci_regle_couleur {
+#uci_mask_epaisseur{
     display : block;
 }
 
 .uci_div_conteneur_contenu_onglets .uci_liste_bton{
     clear: both;
 }
-#uci_regle_epaisseur,#uci_title_epaisseur_regle, #uci_div_lien_notselectionne, #uci_div_lien_visite, #uci_div_affichage_regle, .uci_div_conteneur_contenu_onglets {
+#uci_mask_epaisseur, #uci_div_lien_notselectionne, #uci_div_lien_visite, .uci_div_conteneur_contenu_onglets {
     clear:both;
-}
-.uci_regle_couleur_span,#uci_title_epaisseur_regle{
-    min-width: 10em;
-}
-.uci_regle_couleur_span{
-    margin-top: 3px;
 }
 .uci_disable_image{
     display: none !important;
@@ -1538,18 +1317,6 @@ ul#uci_reponses_bigger_quick_set {
     padding-top: 15px;
 }
 
-.uci_overlay{
-    position: absolute;
-    padding-left:10px;
-    margin-top:55px;
-    left: 20;
-    top:10;
-    width: 30%;
-    height: 30%;
-    z-index: 2147483645;
-    background-color: rgba(0,0,0,0.5); /*dim the background*/
-}
-
 #uci_menu_remove_all{
     float: right;
     clear: both;
@@ -1571,21 +1338,11 @@ ul#uci_reponses_bigger_quick_set {
     padding : 5px;
     margin : 15px;
 }
-.message_couleur h4 {
-    margin-top: 60px;
-}
-
 
 /*********************************************Onglet Comportement****************************************************/
 #setting-bloc-content, #uci_div_motor{
     margin-top:15px;
     margin-left:10px;
-}
-
-.uci_h4 {
-    padding-top:15px;
-    display:block;
-    clear: both;
 }
 
 /*********************************************Onglet aperÃ§u****************************************************/

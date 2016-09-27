@@ -2736,7 +2736,6 @@ accessibilitytoolbar = {
     createObjectBehaviour: function (){
         //declarate my object list in array
         var myObject=[];
-        myObject.push(document.getElementById("cdu_jump_link"));
         if(accessibilitytoolbar.idLinkModeContainer){
             myObject.push(document.getElementById("uci_link"));
             myObject.push(document.getElementById("closeLink"));
@@ -2781,7 +2780,6 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
-        //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fr'), function() {return UciIhm.changement_langue('fr');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_en'), function() {return UciIhm.changement_langue('en');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_sp'), function() {return UciIhm.changement_langue('es');});
@@ -3075,12 +3073,7 @@ accessibilitytoolbar = {
         var script = document.getElementById('a11yCSS');
         if(script) {
         	document.head.removeChild(script);
-        }
-        var content = document.getElementById('accessibilitytoolbarWrapper');
-        if(content) {
-        	content.outerHTML = content.innerHTML;
-        }
-        
+        }        
     },
 
     /**

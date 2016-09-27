@@ -83,17 +83,7 @@ function UciCouleur() {
         attr_couleur += "<span style='color: black !important; background-color: #FFFFFF !important;' id='uci_message_contraste_lbl'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_warning_content');
         attr_couleur += "</span>";
-        attr_couleur += "</div>";
-
-        /*gestion message luminosite
-        attr_couleur += "<div id='uci_message_luminosite' class='message_couleur' style='display:none'>";
-        attr_couleur += "<h4>";
-        attr_couleur += accessibilitytoolbar.get("uci_color_warning_title");
-        attr_couleur += "</h4>";
-        attr_couleur += "<label id='uci_message_luminosite_lbl'>";
-        attr_couleur += accessibilitytoolbar.get('uci_color_warning_title');
-        attr_couleur += "</label>";
-        attr_couleur += "</div>";*/
+        attr_couleur += "</div>";        
         attr_couleur += "</div>";
 
 

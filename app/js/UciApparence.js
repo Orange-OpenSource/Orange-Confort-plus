@@ -329,7 +329,7 @@ UciApparence = {
                 attr_apparence += "<div id='uci_div_mask' style='display:none'>";
             }
         	
-        	attr_apparence += "<div id='uci_regle_epaisseur'>";
+        	attr_apparence += "<div id='uci_mask_epaisseur'>";
             
             attr_apparence += "<span id='uci_title_epaisseur_mask' class='cdu_left'>";
             attr_apparence += accessibilitytoolbar.get('uci_txt_mask_size');

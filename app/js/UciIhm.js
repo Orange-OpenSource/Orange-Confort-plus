@@ -109,11 +109,6 @@ UciIhm = {
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
-        /*if(accessibilitytoolbar.isModern) {
-	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
-        } else {
-        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
-        }*/
         attr_ihm += "<span class='cdu-icon-test'>"+
                 "<span class='path1'></span>"+
                 "<span class='path2'></span>"+
@@ -123,11 +118,6 @@ UciIhm = {
         attr_ihm += "</li>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
-        /*if(accessibilitytoolbar.isModern) {
-	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
-        } else {
-        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
-        }*/
         attr_ihm += "<span class='cdu-icon-couleurs2'></span>";
         attr_ihm += "</li>";
         attr_ihm += "</ul>";
@@ -179,11 +169,7 @@ UciIhm = {
                                 "</button>";
         //gestion du menu deroulant du menu
         attr_ihm += "<div>";
-        attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";
-        //attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
-        //attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
-        //attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"</span>"
-        //attr_ihm += "</button>";
+        attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";        
         attr_ihm += "<ul>";
         attr_ihm += "<li>";
         attr_ihm += "<div id='uci_language'>";
@@ -497,20 +483,5 @@ UciIhm = {
             document.getElementById('cdu_close').getElementsByTagName("button")[0].focus();
         }
         return false;
-    }, 
-    
-    displayIconPalette: function(viewport) {
-    	return  "<svg focusable='false' version='1.1' viewBox='" + viewport + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='cdu-icon-palette' role='image' alt='' aria-hidden='true' >\n\
-<path class='path1' d='M0.476 17.181c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 23.147c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z'></path>\n\
-<path class='path2' d='M0.476 16.218c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 22.185c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z'></path>\n\
-<path class='path3' d='M25.304 14.486c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path4' d='M19.915 10.444c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z'></path>\n\
-<path class='path5' d='M12.409 9.001c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path6' d='M5.672 12.369c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z'></path>\n\
-<path class='path7' d='M25.304 13.524c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path8' d='M19.915 9.482c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z'></path>\n\
-<path class='path9' d='M12.409 8.039c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path10' d='M5.672 11.407c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z'></path>\n\
-</svg>";
     }
 };
