@@ -2412,10 +2412,10 @@ accessibilitytoolbar = {
         var clearColor = "";
         // remove selected class if present
         elmt.className = elmt.className.replace(/ uci_couleur_li_selected{0,1}/,"");
-        elmt.className = elmt.className.replace(/ uci_choix_selected{0,1}/,"");
+        elmt.className = elmt.className.replace(/ active{0,1}/,"");
         // add the selected class
         elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/,"uci_couleur_li uci_couleur_li_selected");
-        elmt.className = elmt.className.replace(/uci_choix{0,1}/,"uci_choix uci_choix_selected");
+        elmt.className = elmt.className.replace(/uci_choix{0,1}/,"uci_choix active");
         if(elmt.id.match(/a11yBigger/g) || elmt.id.match(/a11yVisualPredefined/g)){
             if(document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null){
                 var element = /^uci_(\S+)$/.exec(elmt.id);
@@ -2446,7 +2446,7 @@ accessibilitytoolbar = {
                 
                 // remove selected class if present
                 reponses.children[iterator].className = reponses.children[iterator].className.replace(/ uci_couleur_li_selected{0,1}/,"");
-                reponses.children[iterator].className = reponses.children[iterator].className.replace(/ uci_choix_selected{0,1}/,"");
+                reponses.children[iterator].className = reponses.children[iterator].className.replace(/ active{0,1}/,"");
             }
             // use the value of iterator to change the cookie value
             else
@@ -3393,7 +3393,7 @@ accessibilitytoolbar = {
             }
 
             //gestion de la police d'écriture
-            if (accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled') && accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11yDyslexyFont")!=='keepit') {
                 //load the font face
                 if(accessibilitytoolbar.userPref.get("a11yDyslexyFont")==='opendyslexic')
                 {

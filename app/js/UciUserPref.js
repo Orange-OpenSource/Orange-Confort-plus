@@ -85,6 +85,7 @@ function UciUserPref() {
         "a11yDyslexyFontEnabled-1": "a11yDyslexyFontEnabled-on",
         "a11yDyslexyFont-0": "a11yDyslexyFont-arial",
         "a11yDyslexyFont-1": "a11yDyslexyFont-opendyslexic",
+        "a11yDyslexyFont-3": "a11yDyslexyFont-keepit",
         "a11yLineSpacement-0": "a11yLineSpacement-keepit",
         "a11yLineSpacement-1": "a11yLineSpacement-2",
         "a11yLineSpacement-2": "a11yLineSpacement-3",
@@ -96,7 +97,7 @@ function UciUserPref() {
         "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false",
         "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on",
         "a11yModifCasse-0": "a11yModifCasse-capitalize",
-        "a11yModifCasse-1": "a11yModifCasse-uppercase",
+        "a11yModifCasse-1": "a11yModifCasse-keepit",
         "a11yModifCasse-2": "a11yModifCasse-lowercase",
         //gestion de l'apparence ; Alignement a gauche
         "a11yLeftText-0":           "a11yLeftText-false",
@@ -241,11 +242,11 @@ function UciUserPref() {
         "a11yQuickMode": "2",
         "a11yCharSpacement": "keepit",
         "a11yDyslexyFontEnabled": "false",
-        "a11yDyslexyFont": "arial",
+        "a11yDyslexyFont": "keepit",
         "a11yLineSpacement" : "keepit",
         "a11ySpacement": "keepit",
         "a11yModifCasseEnabled": "false",
-        "a11yModifCasse" : "capitalize",
+        "a11yModifCasse" : "keepit",
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
         "a11yNavLienEnabled":     "false",
@@ -287,6 +288,18 @@ function UciUserPref() {
            
           for (prefName in this.maskMatrixv3) {
              this.stackv3[prefName]= this.convertMatrixv3[prefName + "-" +pref.substr(this.maskMatrixv3[prefName][0],this.maskMatrixv3[prefName][1])].replace(/.*-/, "");
+          }
+          // v4 update font-familly management
+          // if font previously disabled, consider that default font need to be updated
+          if(this.stackv3['a11yDyslexyFontEnabled']==='false') {
+            this.stackv3['a11yDyslexyFont'] = 'keepit';
+            this.stackv3['a11yDyslexyFontEnabled'] = 'on';
+          }
+          // v4 update casse du texte
+          // if font previously disabled, consider that default text case need to be updated
+          if(this.stackv3['a11yModifCasseEnabled']==='false') {
+            this.stackv3['a11yModifCasse'] = 'keepit';
+            this.stackv3['a11yModifCasseEnabled'] = 'on';
           }
         }
     };

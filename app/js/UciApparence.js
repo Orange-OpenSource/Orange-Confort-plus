@@ -336,7 +336,7 @@ UciApparence = {
             attr_apparence += "</span>";
             
             attr_apparence += "<ul class='uci_liste_bton' id='uci_reponses_epaisseurmask' role='radiogroup' aria-labelledby='uci_title_epaisseur_mask'>";
-            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thin' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thin' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
             attr_apparence += "<span>";
             attr_apparence += "<samp>-</samp>";
             attr_apparence += "<span class='cdu_n'>";
@@ -344,7 +344,7 @@ UciApparence = {
             attr_apparence += "</span>";
             attr_apparence += "</span>";
             attr_apparence += "</li>";
-            attr_apparence += "<li id='uci_a11yMaskEpaisseur_medium' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+            attr_apparence += "<li id='uci_a11yMaskEpaisseur_medium' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
             attr_apparence += "<span>";
             attr_apparence += "<samp>-</samp>";
             attr_apparence += "<span class='cdu_n'>";
@@ -352,7 +352,7 @@ UciApparence = {
             attr_apparence += "</span>";
             attr_apparence += "</span>";
             attr_apparence += "</li>";
-            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thick' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thick' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
             attr_apparence += "<span>";
             attr_apparence += "<samp>-</samp>";
             attr_apparence += "<span class='cdu_n'>";

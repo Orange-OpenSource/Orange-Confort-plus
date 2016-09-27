@@ -384,6 +384,10 @@
     float: left;
 }
 
+.uci_label {
+  margin-bottom: .5rem;  
+}
+
 .cdu_n {
     height: 1px;
     left: -9999px;
@@ -578,21 +582,18 @@ a.cdu_hide:focus {
 
 /*********************************************Fin template principal************************************/
 
-#uci_toolbar-quick li{
-    padding: 0;
-}
+
 #uci_left_toolbar,#uci_middle_toolbar,#uci_right_toolbar{
     display:inline-block;
     vertical-align:middle;
-	height:3.25em;	
+    padding: 10px 0;
+	/*height:3.25em;*/	
 }
 #uci_left_toolbar {
-    padding-right:0.7em;
-	margin-right:1.1em;    
-	border-right:1px solid #CCC;
+    padding-right: 1.25rem;
 }
 #uci_middle_toolbar {
-    padding-right:1.1em;
+  padding-right: 1.25rem;
 	border-right:1px solid #CCC;
 }
 
@@ -617,9 +618,8 @@ a.cdu_hide:focus {
 }
 #uci_right_toolbar > ul > li {
     margin: 0;
-	padding:0.825em 1.1em 0 1.1em;
-	border-right:1px solid #CCC;
-	height:2.425em;
+	  padding: 0 1rem;
+	  border-right:1px solid #CCC;
 }
 #uci_right_toolbar li:last-child {
 	border:none;
@@ -652,9 +652,9 @@ a.cdu_hide:focus {
 
 .uci_logo_plus_de_confort {
     padding: 0 0 0 1.25em;
-	height:3.25em;
-	line-height:3.25em;
-	float:left;
+	height: 3.125em;
+	line-height: 3.125em;
+	float: left;
 }
 
 .uci_alt_logo{
@@ -663,19 +663,18 @@ a.cdu_hide:focus {
     font-family: Helvetica;
     display: inline;
     float: left;
-    margin:0px;
-    padding:0px;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-	border-right:1px solid #CCCCCC;
-	padding-right:0.31em;
+	border-right: 1px solid #CCCCCC;
+	padding-right: 1.25rem;
 }
 
 .uci-onoffswitch {
     position: static; 
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;    
-    padding: 0.825em 0 0 0;
+    padding: .625em 1.25em;
     float: left;
-    margin-left: 1em;
 }
 
 .uci-onoffswitch-label:focus, .uci-onoffswitch-label-on:focus{
@@ -793,7 +792,7 @@ right: 0px;
 - Le choix de la couleur du fond et de la police
 - lien vers plus de rÃ©glage
 */
-
+/*
 #uci_middle_toolbar.uci_mask a#uci_moreconfort:link{
     color:#FFF;
 	background-color:#F16E00;
@@ -810,7 +809,7 @@ right: 0px;
 #uci_moreconfort span{
 	line-height:1.35em;
 }
-
+*/
 
 /******************************************Fin Ã©lÃ©ment au centre de la toolbar*******************************/
 
@@ -890,7 +889,13 @@ right: 0px;
 .cdu-icon-reload2 {
 	font-size:1em;
 }
-.cdu-icon-help,.cdu-icon-plus2,.cdu-icon-moins2,.cdu-icon-croix {    
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2,
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2 {    
+    font-size: 1rem;
+    padding-right: 10px;
+    font-weight: bold;
+}
+.cdu-icon-help,.cdu-icon-croix {    
     font-size: 1.5em;
 }
 
@@ -917,17 +922,19 @@ right: 0px;
     float: left;
 }
 
-.uci_choix, .uci_couleur_li{
+.uci_choix, .uci_couleur_li {
     color: #000000;
     cursor: pointer;
     border: 2px solid #000;
 }
-.uci_choix{
+.uci_choix {
     background-color: #fff;    
     font-weight: 700;
-    margin: 0 0.4em;
-    padding: 0.3em;
 }
+.uci_choix + .uci_choix {  
+  margin-left: 0.625em;
+}
+
 
 .uci_choix_selected, .uci_couleur_li_selected{    
     border: 2px solid #F16E00;        
@@ -950,23 +957,6 @@ right: 0px;
 #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:hover, #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:focus {
     color: #000000 !important;
 }
-#uci_a11yBigger_keepit.uci_choix,#uci_quick_a11yBigger_keepit.uci_choix, #uci_a11yMaskEpaisseur_thin.uci_choix,
-#uci_a11yBigger_150.uci_choix,#uci_quick_a11yBigger_150.uci_choix, #uci_a11yMaskEpaisseur_medium.uci_choix,
-#uci_a11yBigger_200.uci_choix,#uci_quick_a11yBigger_200.uci_choix, #uci_a11yMaskEpaisseur_thick.uci_choix {
-    padding: 0 0.3em;
-	width:1.6em;
-	height:1.6em;	
-}
-
-#uci_quick_a11yVisualPredefinedSettings_keepit.uci_choix, #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix {
-    width:1.6em;
-	height:1.6em;
-	margin-top:0.825em;
-}
-
-#uci_reponses_couleurpredefinie_quick_set.uci_liste_bton {
-    margin-left: 0.4em;
-}
 
 #uci_reponses_couleurpredefinie_quick_set .cdu-icon-test, #uci_reponses_couleurpredefinie_quick_set .cdu-icon-couleurs2 {
     font-size:1.375em;
@@ -978,7 +968,7 @@ ul#uci_reponses_bigger_quick_set {
     padding-right: 20px;
     padding-top : 0;
     padding-bottom : 0;
-	  margin: 0.825em 0 0;
+	  /* margin: 0.825em 0 0; */
 }
 
 /******************************************Mise en place des onglets CDU***************************************/
@@ -1114,8 +1104,8 @@ ul#uci_reponses_bigger_quick_set {
     float: left;
     vertical-align : top;
     margin-left : 10px;
-    margin-top : 15px;
-    margin-bottom:15px;
+    margin-top : 0;
+    margin-bottom: 0;
     min-width: 25%;
 }
 #uci_apparence_div_left, #uci_apparence_div_right{
@@ -1188,7 +1178,7 @@ ul#uci_reponses_bigger_quick_set {
 
 .uci_aria_button_group{
     min-height: 4em;
-    margin: 0.8em;
+    margin: 1.25rem 0;
 }
 /***********************************************Fin onglet typography******************************************/
 
@@ -1196,7 +1186,7 @@ ul#uci_reponses_bigger_quick_set {
 
 /******************************************Onglet Apparence****************************************************/
 #uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture,#uci_mask_enabled  {
-    padding-top : 1.05em;
+    padding-top : 1.25em;
 }
 
 #uci_div_mask{
@@ -1419,4 +1409,153 @@ ul#uci_reponses_bigger_quick_set {
 #accessibilitytoolbarGraphic .uci_disable_label{
   cursor: not-allowed;
   color:#666;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border: 2px solid transparent;
+  padding: 0.5rem 1.125rem;
+  font-size: 1rem;
+}
+
+.btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn:focus, .btn:hover {
+  text-decoration: none;
+}
+
+.btn.focus {
+  text-decoration: none;
+}
+
+.btn:active, .btn.active {
+  background-image: none;
+  outline: 0;
+}
+
+.btn.disabled, .btn:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+a.btn.disabled {
+  pointer-events: none;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.875rem;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary {
+  color: #000;
+  background-color: transparent;
+  border-color: transparent;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary:focus, #accessibilitytoolbarGraphic .btn-secondary:hover {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary:active, #accessibilitytoolbarGraphic .btn-secondary.active {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary:active:hover, #accessibilitytoolbarGraphic .btn-secondary:active:focus, #accessibilitytoolbarGraphic .btn-secondary:active.focus, #accessibilitytoolbarGraphic .btn-secondary.active:hover, #accessibilitytoolbarGraphic .btn-secondary.active:focus, #accessibilitytoolbarGraphic .btn-secondary.active.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.disabled, #accessibilitytoolbarGraphic .btn-secondary:disabled {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.disabled:focus, #accessibilitytoolbarGraphic .btn-secondary.disabled.focus, #accessibilitytoolbarGraphic .btn-secondary:disabled:focus, #accessibilitytoolbarGraphic .btn-secondary:disabled.focus {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.disabled:hover, #accessibilitytoolbarGraphic .btn-secondary:disabled:hover {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.disabled, #accessibilitytoolbarGraphic .btn-secondary:disabled {
+  color: #ccc;
+  background-color: transparent;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.disabled:hover, #accessibilitytoolbarGraphic .btn-secondary:disabled:hover {
+  color: #ccc;
+  background-color: transparent;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse {
+  color: #000;
+  background-color: transparent;
+  border-color: transparent;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse:focus, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse:active, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse.active {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse:active:hover, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse:active:focus, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse:active.focus, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse.active:hover, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse.active:focus, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse.active.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse.disabled, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse:disabled {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse.disabled:hover, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse:disabled:hover {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .btn-secondary.btn-inverse:focus, #accessibilitytoolbarGraphic .btn-secondary.btn-inverse:hover {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
 }
