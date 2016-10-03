@@ -100,13 +100,34 @@ UciApparence = {
 
         //gestion du lien actif : couleur
         if(accessibilitytoolbar.userPref.get("a11yNavLienEnabled")=== "true"){
-            attr_apparence += "<div id='uci_gestion_lien' style='display:block' >";
+            attr_apparence += "<div id='uci_gestion_lien' style='display:block'>";
         }else {
-            attr_apparence += "<div id='uci_gestion_lien' style='display:none' >";
+            attr_apparence += "<div id='uci_gestion_lien' style='display:none'>";
         }
 
         attr_apparence += "<div id='uci_div_lien_selectionne'>";
-        attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_active')+"</span>";        
+        attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_active')+"</span>";
+        
+        //gestion du lien actif : mise en forme
+        attr_apparence += "<div class='cdu_left'>";
+        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienSelStyle' title=\""+accessibilitytoolbar.get("uci_title_link_active_render")+"\">";
+        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
+        attr_apparence += "</option>";
+        attr_apparence += "</select>";
+        attr_apparence += "</div>";
+        // end apparence mise en forme
+        
+        // start link color        
         attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienSel' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_active_color')+"\" style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important'>";
         attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_active_color')+"</span>";
         attr_apparence +="</a>";
@@ -134,32 +155,36 @@ UciApparence = {
         tableauCouleurPolice += '</ul>';
         attr_apparence += tableauCouleurPolice;
         attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";
-          
-
-
-        //gestion du lien actif : mise en forme
-        attr_apparence += "<div class='cdu_left'>";
-        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienSelStyle' title=\""+accessibilitytoolbar.get("uci_title_link_active_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
-        attr_apparence += "</option>";
-        attr_apparence += "</select>";
+        // end color
+        
         attr_apparence += "</div>";
-        attr_apparence += "</div>";
+        // end link
 
         //gestion des liens non visite
         //gestion des liens non visite : couleur 
         attr_apparence += "<div id='uci_div_lien_notselectionne'>";
         attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_notvisited')+"</span>";
+        
+        
+        //gestion des liens non visite : mise en forme
+        attr_apparence += "<div class='cdu_left'>";
+        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienNonVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_notvisited_render")+"\">";
+        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
+        attr_apparence += "</option>";
+        attr_apparence += "</select>";
+        attr_apparence += "</div>";
+        // end mise en forme
+        // start couleur
         attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienNonVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"\" style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important'>";
         attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"</span>";
         attr_apparence +="</a>";
@@ -187,23 +212,8 @@ UciApparence = {
         tableauCouleurPolice += '</ul>';
         attr_apparence += tableauCouleurPolice;
         attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";
-        //gestion des liens non visite : mise en forme
-        attr_apparence += "<div class='cdu_left'>";
-        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienNonVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_notvisited_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
-        attr_apparence += "</option>";
-        attr_apparence += "</select>";
-        attr_apparence += "</div>";
+        
+        // end link    
         attr_apparence += "</div>";
 
         //gestion des liens visités
@@ -212,6 +222,26 @@ UciApparence = {
         
         attr_apparence += "<div id='uci_div_lien_visite'>";
         attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_visited')+"</span>";
+        
+        //gestion des liens visité : mise en forme
+        attr_apparence += "<div class='cdu_left'>";
+        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_visited_render")+"\">";
+        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
+        attr_apparence += "</option>";
+        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold" ? " selected='selected'" : "")+">";
+        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
+        attr_apparence += "</option>";
+        attr_apparence += "</select>";
+        attr_apparence += "</div>";
+        // fin mise en forme
+        // start couleur
         attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_visited_color')+"\" style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important'>";
         attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_visited_color')+"</span>";
         attr_apparence +="</a>";
@@ -240,24 +270,9 @@ UciApparence = {
         tableauCouleurPolice += '</ul>';
         attr_apparence += tableauCouleurPolice;
         attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";           
-
-        //gestion des liens visité : mise en forme
-        attr_apparence += "<div class='cdu_left'>";
-        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_visited_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
-        attr_apparence += "</option>";
-        attr_apparence += "</select>";
-        attr_apparence += "</div>";
+        // fin couleur
+        
+        
         attr_apparence += '</div>';
         attr_apparence += '</div>';
 

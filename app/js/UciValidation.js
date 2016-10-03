@@ -31,9 +31,9 @@ UciValidation = {
      * @constructor init
      */
     InitUciValidation: function () {
-        this.attr_validation = "<div id='uci_validation_button'>";
-        this.attr_validation += "<input type='submit' class='uci_button_valider' id='uci_valider' value=\""+accessibilitytoolbar.get('uci_button_valid')+"\" />";
-        this.attr_validation += "<input type='reset' class='uci_button_reset' id='uci_annuler' value=\""+accessibilitytoolbar.get('uci_button_cancel')+"\" />";
+        this.attr_validation = "<div id='uci_validation_button'>";        
+        this.attr_validation += "<input type='reset' class='btn btn-info' id='uci_annuler' value=\""+accessibilitytoolbar.get('uci_button_cancel')+"\" />";
+        this.attr_validation += "<input type='submit' class='btn btn-primary' id='uci_valider' value=\""+accessibilitytoolbar.get('uci_button_valid')+"\" />";
         this.attr_validation += "</div>";
         return this.attr_validation;
     },

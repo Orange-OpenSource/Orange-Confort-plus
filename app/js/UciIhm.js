@@ -109,7 +109,7 @@ UciIhm = {
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
-        attr_ihm += "<span class='cdu-icon-test'>"+
+        attr_ihm += "<span class='cdu-icon cdu-icon-test'>"+
                 "<span class='path1'></span>"+
                 "<span class='path2'></span>"+
                 "<span class='path3'></span>"+
@@ -118,7 +118,7 @@ UciIhm = {
         attr_ihm += "</li>";
         attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
-        attr_ihm += "<span class='cdu-icon-couleurs2'></span>";
+        attr_ihm += "<span class='cdu-icon cdu-icon-couleurs2'></span>";
         attr_ihm += "</li>";
         attr_ihm += "</ul>";
         attr_ihm += "</div>";
@@ -173,9 +173,9 @@ UciIhm = {
         attr_ihm += "<ul>";
         attr_ihm += "<li>";
         attr_ihm += "<div id='uci_language'>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "fr"?'uci_choix active':'uci_choix')+"' type='button' name='uci_language_fr' value='fr' id='uci_fr' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "en"?'uci_choix active':'uci_choix')+"' type='button' name='uci_language_en' value='en' id='uci_en' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "es"?'uci_choix active':'uci_choix')+"' type='button' name='uci_language_sp' value='sp' id='uci_sp' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "fr"?'uci_choix active':'uci_choix')+" btn btn-sm btn-secondary' type='button' name='uci_language_fr' value='fr' id='uci_fr' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "en"?'uci_choix active':'uci_choix')+" btn btn-sm btn-secondary' type='button' name='uci_language_en' value='en' id='uci_en' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "es"?'uci_choix active':'uci_choix')+" btn btn-sm btn-secondary' type='button' name='uci_language_sp' value='sp' id='uci_sp' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
         attr_ihm += "</div>";
         
         attr_ihm += "</li>";
@@ -186,7 +186,7 @@ UciIhm = {
         attr_ihm += "</ul>";
         attr_ihm += "</div></div></li>"; // fin menu     
         
-        attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"' type='button'>";
+        attr_ihm += "<li class='uci_inline uci_menu_close'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"' type='button'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
         attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"</span>"
         attr_ihm += "</button></li></ul>";
@@ -220,7 +220,7 @@ UciIhm = {
         
         attr_ihm += "<div id=\"uci_activateOnglet\" style='display:none;'>"; // uci_activateOnglet        
         attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix btn btn-sm btn-secondary'>"+
-        "<span class='cdu-icon-reload2' aria-hidden='true'></span>"+
+        "<span class='cdu-icon cdu-icon-reload2' aria-hidden='true'></span>"+
         accessibilitytoolbar.get('uci_menu_remove_all')+
         "</div>";
         attr_ihm += "<!--[if IE 7]><div class='uci_onglets uci_ongletsie7'><![endif]-->";
@@ -320,7 +320,7 @@ UciIhm = {
 		return false;
     },
     /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/
-    more_confort: function () {
+    more_confort: function (e) {
     	if (document.getElementById('uci_activateOnglet').style.display === "none") {
             UciIhm.close_menu();
             document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-moins2";
@@ -340,7 +340,7 @@ UciIhm = {
             if(document.getElementById('uci_zone_form'))
             {
                 document.getElementById('uci_zone_form').style.display = "block";
-				UciIhm.hide_confirm_validation();
+				        UciIhm.hide_confirm_validation();
             }
             //document.getElementById('uci_fermeture_more_confort').style.display = "block";            
             document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
@@ -364,6 +364,7 @@ UciIhm = {
         } else {
             UciIhm.hide_more_confort();
         }
+        accessibilitytoolbar.stopEvt(e);
         return false;
     },
     hide_more_confort: function () {
@@ -444,7 +445,7 @@ UciIhm = {
     },
 
 
-    desactiveCDUForWebSite: function () {
+    desactiveCDUForWebSite: function (e) {
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") !== "on") {
             document.getElementById('uci_left_toolbar').style.display='';
             document.getElementById('uci_middle_toolbar').style.display='';
@@ -466,6 +467,7 @@ UciIhm = {
         accessibilitytoolbar.cleanImgDisabled();
         accessibilitytoolbar.setCSS();
         UciIhm.close_menu(true);
+        accessibilitytoolbar.stopEvt(e);
         return false;
     },
 

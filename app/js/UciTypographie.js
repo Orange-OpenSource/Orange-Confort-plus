@@ -92,12 +92,12 @@ UciTypographie = {
         attr_typography += "<div id='uci_typo_dyslexy_font' class='uci_aria_button_group cdu_c'>";
         attr_typography += "<span id='uci_title_typographie' class='cdu_left uci_label'>";
         attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-        attr_typography += "</span>";
         attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_fontfamily'>";
         attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
         attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
         attr_typography += accessibilitytoolbar.get('uci_typo_help_fontfamily');
         attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
+        attr_typography += "</span>";
         
         
         attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_fontfamily' role='radiogroup' aria-labelledby='uci_title_typographie'>";
@@ -188,23 +188,23 @@ UciTypographie = {
         attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c'>";
         attr_typography += "<span id='uci_fieldset_changecasse' class='cdu_left uci_label'>";
         attr_typography += accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "</span>";
         attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_changecase'>";
         attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
         attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
         attr_typography += accessibilitytoolbar.get('uci_typo_help_changecase');
         attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
+        attr_typography += "</span>";
         
         
         attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_changecasse' role='radiogroup' aria-labelledby='uci_fieldset_changecasse'>";
-        attr_typography += "<li id='uci_a11yModifCasse_keepit' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_changecase_normal')+"\">";
+        attr_typography += "<li id='uci_a11yModifCasse_keepit' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_changecase_normal_title')+"\">";
         attr_typography += accessibilitytoolbar.get('uci_radio_default');  
         attr_typography += "</li>";        
         
-        attr_typography += "<li id='uci_a11yModifCasse_capitalize' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_typography += "<li id='uci_a11yModifCasse_capitalize' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\"" + accessibilitytoolbar.get('uci_changecase_firstlettre_title') +"\">";
         attr_typography +=  accessibilitytoolbar.get('uci_changecase_firstlettre');
         attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_lowercase' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_typography += "<li id='uci_a11yModifCasse_lowercase' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\"" + accessibilitytoolbar.get('uci_changecase_tolower_title') +"\">";
         attr_typography += accessibilitytoolbar.get('uci_changecase_tolower');
         attr_typography += "</li>";
         attr_typography += "</ul>";
