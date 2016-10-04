@@ -128,7 +128,8 @@ UciApparence = {
         // end apparence mise en forme
         
         // start link color        
-        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienSel' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_active_color')+"\" style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important'>";
+        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienSel' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_active_color')+"\">";
+        attr_apparence += "<span class='cdu_color' aria-hidden='true' style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important'>&nbsp;</span>";
         attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_active_color')+"</span>";
         attr_apparence +="</a>";
         attr_apparence += "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_selectionne' style='display:none'>";
@@ -185,7 +186,8 @@ UciApparence = {
         attr_apparence += "</div>";
         // end mise en forme
         // start couleur
-        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienNonVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"\" style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important'>";
+        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienNonVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"\">";
+        attr_apparence += "<span class='cdu_color' aria-hidden='true' style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important'>&nbsp;</span>";
         attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"</span>";
         attr_apparence +="</a>";
         attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_notselectionne' style='display:none'>";        
@@ -242,7 +244,8 @@ UciApparence = {
         attr_apparence += "</div>";
         // fin mise en forme
         // start couleur
-        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_visited_color')+"\" style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important'>";
+        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_visited_color')+"\">";
+        attr_apparence += "<span class='cdu_color' aria-hidden='true' style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important'>&nbsp;</span>";
         attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_visited_color')+"</span>";
         attr_apparence +="</a>";
 

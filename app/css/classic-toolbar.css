@@ -824,6 +824,7 @@ right: 0px;
 
 /******************************************Fin Ã©lÃ©ment au centre de la toolbar*******************************/
 
+
 /*******************************************Element Ã  droite de la toolbar :*********************************/
 .uci_right{
     float:right;
@@ -938,13 +939,13 @@ right: 0px;
     border: 2px solid #000;
 }
 .uci_choix {
-    background-color: #fff;    
-    font-weight: 700;
+  background-color: #fff;    
+  font-weight: 700;  
+  margin-right: 0.7142em;
 }
-.uci_choix + .uci_choix {  
-  margin-left: 0.7142em;
+.uci_choix:last-child {
+  margin-right: 0;
 }
-
 
 .uci_choix_selected, .uci_couleur_li_selected{    
     border: 2px solid #F16E00;        
@@ -1211,11 +1212,13 @@ ul#uci_reponses_bigger_quick_set {
 }
 
 .uci_select_lien {
-    margin : 3px 0 0 10px;
+  border: 2px solid #000;
+  padding: 1px;
+  font-size: 1.1em;
 }
 
 .uci_span_lien{
-    min-width:13em;
+    min-width:10em;
     float: left;
     margin: 3px 0 3px 1.875em;
     font-weight: normal;
@@ -1305,14 +1308,23 @@ ul#uci_reponses_bigger_quick_set {
 .uci_span_help_bulle .uci_table_couleur{
     min-width: 416px;
 }
-.uci_couleur_li{
-    width: 20px;
-    height: 20px;
-    font-weight: 700;
-    padding: 0 3px;
-    margin: 1px;
+#accessibilitytoolbarGraphic .uci_couleur_li{
+    width: 1.625em;
+    height: 1.625em;
+    font-weight: 700;    
     cursor: pointer;
     vertical-align: middle;
+    text-decoration: none;
+}
+#uci_div_lien_selectionne, #uci_div_lien_notselectionne, #uci_div_lien_visite{
+  float: left;
+  margin-bottom: .625em; 
+}
+.cdu_color {
+  margin: 1px;
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
 }
 .uci_couleur_clear{
     clear: both;
@@ -1358,7 +1370,7 @@ ul#uci_reponses_bigger_quick_set {
     color:white;
 }
 
-#accessibilitytoolbarGraphic #uci_reponses_couleurpredefinie,
+#accessibilitytoolbarGraphic #uci_reponses_couleurpredefinie .uci_choix,
 #uci_couleur_police,
 #aria_label_texte{
     margin-top: .5em;
@@ -1830,4 +1842,43 @@ a#accessibilitytoolbarGraphic .btn.disabled {
   background-color: #f16e00;
   background-image: none;
   border-color: #f16e00;
+}
+
+
+
+#accessibilitytoolbarGraphic .btn-blackonwhite {
+  color : #000;
+  background-color : #FFF;
+}
+#accessibilitytoolbarGraphic .btn-whiteonblack {
+  color : #FFF;
+  background-color : #000;
+}
+#accessibilitytoolbarGraphic .btn-blueonyellow {
+  color : #00F;
+  background-color : #FF0;
+}
+#accessibilitytoolbarGraphic .btn-yellowonblue {
+  color : #FF0;
+  background-color : #00F;
+}
+#accessibilitytoolbarGraphic .btn-greenonblack {
+  color : #090;
+  background-color : #000;
+}
+#accessibilitytoolbarGraphic .btn-blackongreen {
+  color : #000;
+  background-color : #090;
+}
+#accessibilitytoolbarGraphic .btn-blueonwhite {
+  color : #00F;
+  background-color : #FFF;
+}
+#accessibilitytoolbarGraphic .btn-whiteonblue {
+  color : #FFF;
+  background-color : #00F;
+}
+
+#accessibilitytoolbarGraphic .uci_lien_plus_reglage {
+  padding: 0.3571em 0.5714em;
 }

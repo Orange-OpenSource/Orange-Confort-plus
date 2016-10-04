@@ -37,6 +37,7 @@ function UciCouleur() {
         ["#FF6666","#FFB266","#FFFF66","#B2FF66","#66FF66","#66FFB2","#66FFFF","#66B2FF","#6666FF","#B266FF","#FF66FF","#FF66B2","#C0C0C0"],
         ["#FFCCCC","#FFE5CC","#FFFFCC","#E5FFCC","#CCFFCC","#CCFFE5","#CCFFFF","#CCE5FF","#CCCCFF","#E5CCFF","#FFCCFF","#FFCCE5","#FFFFFF"]
     ];
+    var predifinedCombinaisons = ['keepit','blackonwhite','whiteonblack','blueonyellow','yellowonblue','greenonblack','blackongreen','blueonwhite','whiteonblue'];
     /*
      * @constructor
      */
@@ -53,26 +54,18 @@ function UciCouleur() {
        
         attr_couleur += "<ul class='uci_liste_bton' id='uci_reponses_couleurpredefinie' role='radiogroup' aria-labelledby='uci_couleur_predefenie_input'>";
         attr_couleur += "<!--[if IE 8 ]>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_keepit' role='radio' class=' uci_choix ie8_uci_inline btn btn-sm btn-secondary  "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_default');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_blackonwhite' role='radio' class=' uci_choix ie8_uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_blackandwhite');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_whiteonblack' role='radio' class=' uci_choix ie8_uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "whiteonblack" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_whiteandblack');
-        attr_couleur += "</li>";
+        for(var key in predifinedCombinaisons){
+          attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key]+"' role='radio' class='uci_choix ie8_uci_inline btn btn-sm btn-secondary btn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
+          attr_couleur += accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key]);
+          attr_couleur += "</li>";
+        }
         attr_couleur += "<![endif]-->";
-        attr_couleur += "<!--[if (!IE 8) | (!IE)]><!-->";        
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary  "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_default');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_blackandwhite');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_whiteonblack' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "whiteonblack" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_whiteandblack');
-        attr_couleur += "</li>";
+        attr_couleur += "<!--[if (!IE 8) | (!IE)]><!-->";  
+        for(var key in predifinedCombinaisons){
+          attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key]+"' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary btn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
+          attr_couleur += accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key]);
+          attr_couleur += "</li>";
+        }
         attr_couleur += "<!--<![endif]-->";
         attr_couleur += "</ul>";
         //gestion des message d'erreur de contraste et de luminosite
@@ -85,9 +78,6 @@ function UciCouleur() {
         attr_couleur += "</span>";
         attr_couleur += "</div>";        
         attr_couleur += "</div>";
-
-
-
         /*****************************************Creation de la partie gauche des couleurs*****************************************
  * Gestion de la partie des couleurs personnalisées
  *****************************************************************************************************************************/
