@@ -69,9 +69,15 @@
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix:before {
 	content: "\58";
 }
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_menu_activer_menu:focus .cdu-icon-croix:before {
+	outline: .1rem #000 dotted;
+}
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help:before {
 	content: "\3f";
     color: #F16E00;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_activer_menu:focus .cdu-icon-help:before {	
+    color: #000;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2:before {
 	content: "\2d";
@@ -81,7 +87,10 @@
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2:before {
 	content: "\21bb";
-        color: #F16E00;
+    color: #F16E00;
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser #uci_menu_remove_all:focus .cdu-icon-reload2:before {	
+    color: #000;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path1 {
 	fill: rgb(255, 255, 255);
