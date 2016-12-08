@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 3.2.1 - 20-09-2016
+/* orange-confort-plus - version 4.0.0 - 08-12-2016
 enhance user experience on websites
  Copyright (C) 2014 - 2016 Orange */
 /**
@@ -16,7 +16,13 @@ enhance user experience on websites
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
-
+button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner {
+     padding: 0 !important;
+     border: 0 none !important;
+ }
 /*******************************************************Reset general*********************************************/
 #accessibilitytoolbarGraphic ul {
     margin:0;
@@ -33,22 +39,22 @@ enhance user experience on websites
 /*******************************************************icons font*********************************************/
 @font-face {
 	font-family: 'orangeconfortplus';
-    src: url('../fonts/orangeconfortplus.2c81e14f.eot');
+    src: url('../fonts/orangeconfortplus.2b383f1c.eot');
 }
 
 @font-face {
     font-family: 'orangeconfortplus';
-    src: url(data:application/font-woff;charset=utf-8;base64,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) format('woff');
+    src: url(data:application/font-woff;charset=utf-8;base64,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) format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
 
-#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-typographie  {
+#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-typographie, #accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-info  {
         font-family: helvetica, arial, sans-serif;
         display:none;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie  {
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-agencement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs2, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span, #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie,#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-info  {
 	font-family: 'orangeconfortplus';
 	speak: none;
 	font-style: normal;
@@ -66,134 +72,49 @@ enhance user experience on websites
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-comportement:before {
 	content: "\1f446";
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs:before {
-	content: "\e602";
-}
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix:before {
 	content: "\58";
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-typographie:before {
+	content: "\54";
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-help:before {
 	content: "\3f";
     color: #5F7ABD;
 }
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-info:before {
+  content: "\e900";
+}
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2:before {
-	content: "\2d";
+	content: "\2212";
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2:before {
-	content: "\2b";
+	content: "\271a";
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-reload2:before {
 	content: "\21bb";
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path1 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path2 {
-	fill: rgb(204, 204, 204);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_choix_selected .cdu-icon-palette .path2 {
-	fill: #FFF;
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path3 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path4 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path5 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path7 {
-	fill: rgb(82, 126, 219);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path8 {
-	fill: rgb(255, 204, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path9 {
-	fill: rgb(50, 200, 50);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-palette .path10 {
-	fill: rgb(214, 1, 2);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path1 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path6 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path2 {
-	fill: rgb(204, 204, 204);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix_selected .cdu-icon-palette .path2 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path3 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path4 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path5 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path7 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path8 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path9 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite .cdu-icon-palette .path10 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path6 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette .path10 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:hover .cdu-icon-palette .path10 {
-	fill: rgb(0, 0, 0);
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path1, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path2, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path3, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path4, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path5, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path6 {
-	fill: rgb(255, 255, 255);
-	dispaly:none;
-}
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path7, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path8, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path9, #accessibilitytoolbarGraphic.cdu_modern_browser .uci_a11yVisualPredefinedSettings_disabled #uci_onglet_confort li:focus .cdu-icon-palette .path10 {
-	fill: rgb(0, 0, 0);
-	dispaly:none;	
-}
+
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-couleurs2:before {
-  content: "\1f3a9";
+  content: "\1f532";
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path1:before {
-  content: "\1f3aa";
+  content: "\1f533";
   color: rgb(246, 208, 0);
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path2:before {
-  content: "\1f3ad";
-  margin-left: -1.046875em;
+  content: "\1f534";
+  margin-left: -1em;
   color: rgb(95, 123, 190);
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path3:before {
-  content: "\1f3ae";
-  margin-left: -1.046875em;
+  content: "\1f535";
+  margin-left: -1em;
   color: rgb(78, 201, 36);
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path4:before {
-  content: "\1f3af";
-  margin-left: -1.046875em;
+  content: "\1f536";
+  margin-left: -1em;
   color: rgb(193, 67, 26);
 }
 
@@ -259,22 +180,9 @@ enhance user experience on websites
     width: 23px;
 }
 
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_reponses_couleurpredefinie_quick_set .cdu-icon-palette {
-	width: 2.15em;
-	height:2em;
-}
-
-#accessibilitytoolbarGraphic.cdu_modern_browser #uci_onglet_confort .cdu-icon-palette {
-	width: 1em;
-	height:0.95em;
-	padding-right:5px;
-}
 /*******************************************************Toolbar general*********************************************/
 /******************************************Chargement de la font orange**************************************************/
-#accessibilitytoolbarWrapper {
-   position:relative;
-   transform: scale(1);
-}
+
 
 #accessibilitytoolbarGraphic {
     color: #000000;
@@ -283,6 +191,10 @@ enhance user experience on websites
     font-weight: bold;
     line-height: normal;
     line-height: initial;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: block;
 }
 #accessibilitytoolbarGraphic input, 
 #accessibilitytoolbarGraphic button{
@@ -295,6 +207,8 @@ enhance user experience on websites
 }
 #accessibilitytoolbarGraphic *[type="radio"] + label, #accessibilitytoolbarGraphic *[type="radio"] + label:before, #accessibilitytoolbarGraphic *[type="radio"] + label:after {
     box-sizing: border-box;
+    background-image: none;
+    height: auto;
 }
 	
 #accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label, #accessibilitytoolbarGraphic *[type="radio"]:checked + label {
@@ -303,11 +217,11 @@ enhance user experience on websites
     display: inline-block;
     font-style: normal;
     font-weight: bold;
-    line-height: 1.25em;
+    line-height: 1.25em !important;
     padding-left: 1.875em;
     position: relative;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="radio"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="radio"]:checked + label:before {
     background-color: #fff;
     border: 3px solid #ccc;
     border-radius: 50%;
@@ -317,7 +231,7 @@ enhance user experience on websites
     position: absolute;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label::after, #accessibilitytoolbarGraphic *[type="radio"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label:after, #accessibilitytoolbarGraphic *[type="radio"]:checked + label:after {
     color: #fff;
     content: "";
     font-size: 1em;
@@ -328,22 +242,22 @@ enhance user experience on websites
     top: 0;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:not(:checked) + label:after {
     opacity: 0;
     transform: scale(0);
 }
-#accessibilitytoolbarGraphic *[type="radio"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:checked + label:after {
     opacity: 1;
     transform: scale(1);
 }
-#accessibilitytoolbarGraphic *[type="radio"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="radio"]:checked + label:before {
     border-color: #f16e00;
     border-width: 6px;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:disabled:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label::before {
+#accessibilitytoolbarGraphic *[type="radio"]:disabled:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label:before {
     border-color: #ddd;
 }
-#accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label::after {
+#accessibilitytoolbarGraphic *[type="radio"]:disabled:checked + label:after {
     border-color: #ddd;
     color: #fff;
 }
@@ -356,6 +270,8 @@ enhance user experience on websites
 
 #accessibilitytoolbarGraphic *[type="checkbox"] + label, #accessibilitytoolbarGraphic *[type="checkbox"] + label:before, #accessibilitytoolbarGraphic *[type="checkbox"] + label:after {
     box-sizing: border-box;
+    background-image: none;
+    height: auto;
 }
 #accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked), #accessibilitytoolbarGraphic *[type="checkbox"]:checked {
     left: -9999px;
@@ -367,11 +283,11 @@ enhance user experience on websites
     display: inline-block;
     font-style: normal;
     font-weight: bold;
-    line-height: 1.25em;
+    line-height: 1.25em !important;
     padding-left: 1.875em;
     position: relative;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:before {
     background-color: #fff;
     border: 2px solid #ccc;
     content: "";
@@ -380,9 +296,9 @@ enhance user experience on websites
     position: absolute;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label::after, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label:after, #accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:after {
     color: #fff;
-    content: "\e904";
+    content: "\2714";
     font-family: "orangeconfortplus";
     font-size: 1em;
     height: 1.25em;
@@ -391,23 +307,23 @@ enhance user experience on websites
     text-align: center;
     width: 1.25em;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:not(:checked) + label:after {
     opacity: 0;
     transform: scale(0);
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:after {
     background-color: #f16e00;
     opacity: 1;
     transform: scale(1);
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label::before {
+#accessibilitytoolbarGraphic *[type="checkbox"]:checked + label:before {
     background-color: #f16e00;
     border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:not(:checked) + label::before, #accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label::before {
+#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:not(:checked) + label:before, #accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label:before {
     border-color: #ddd;
 }
-#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label::after {
+#accessibilitytoolbarGraphic *[type="checkbox"]:disabled:checked + label:after {
     background-color: #ddd;
     border-color: #ddd;
     color: #fff;
@@ -431,13 +347,8 @@ enhance user experience on websites
     margin: 0;
 }
 
-#accessibilitytoolbarGraphic {
-    left: 0;
-    top: 0;
-    width: 100%;
-}
-#accessibilitytoolbarGraphic img{
-    border: none;
+#accessibilitytoolbarGraphic * {
+  box-sizing: border-box;
 }
 
 #cdu_zone {
@@ -445,38 +356,7 @@ enhance user experience on websites
     position: relative;
     width: 100%;
 }
-#cdu_close {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-color: -moz-use-text-color #000 #000;
-    border-image: none;    
-    border-right: 1px solid #000;
-    border-style: none solid solid;
-    border-width: 0 1px 1px;
-    /*box-shadow: 1px 1px 2px #000;*/
-    font-size: 125%;
-    font-weight: bold;
-    margin: 0;
-    position: absolute;
-    right: 0;
-    text-transform: lowercase;
-    top: 0;
-    z-index: 8999;
-}
-
-#cdu_close button {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 0 none;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    line-height: 1.3;
-    padding: 5px 16px;
-}
-
+/*
 #cdu_close span, .uci-plus-orange {
     color: #F16E00;
     font-size: 130%;
@@ -484,6 +364,19 @@ enhance user experience on websites
     font-weight: bold;
     padding-bottom: 0.125em;
     vertical-align: middle;    
+}
+*/
+#cdu_close span, .uci-plus-orange {
+    color: #F16E00;
+    font-size: 130%;
+    line-height: 1 !important;
+    font-weight: bold;
+    float: right;
+    padding-top: .1em;
+    padding-left: .240em;
+}
+#cdu_close span{
+  padding-top: 1px;  
 }
 
 #uci_link{
@@ -493,23 +386,6 @@ enhance user experience on websites
 
 
 /********************* Fin ancienne version ***************************/
-#accessibilitytoolbarGraphic {
-    display: block;
-}
-
-#accessibilitytoolbarGraphic a {
-    color: #000;
-    text-decoration: underline;
-}
-
-#accessibilitytoolbarGraphic ul, #accessibilitytoolbarGraphic li {
-    list-style-type: none;
-}
-
-#accessibilitytoolbarGraphic p {
-    margin: 0;
-}
-
 .cdu_c:before, .cdu_c:after {
     content: ".";
     display: block;
@@ -525,6 +401,10 @@ enhance user experience on websites
     float: left;
 }
 
+.uci_label {
+  margin-bottom: .25em;  
+}
+
 .cdu_n {
     height: 1px;
     left: -9999px;
@@ -533,9 +413,6 @@ enhance user experience on websites
     width: 1px;
 }
 
-#accessibilitytoolbarGraphic {
-    width: 100%;
-}
 #accessibilitytoolbarGraphic form{
     margin: 0;
     padding: 0;
@@ -553,19 +430,8 @@ enhance user experience on websites
     min-height: 2.625em;   
 }
 
-#cdu_jump_link a {
-    color: #F16E00;
-    font-size: 1.5em;
-    text-decoration: underline;
-}
-
 #cdu_close {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
     background: none repeat scroll 0 0 #FFFFFF;
-    border-color: -moz-use-text-color #000 #000;
     border-image: none;
     border-right: 1px solid #000;
     border-style: none solid solid;
@@ -576,9 +442,8 @@ enhance user experience on websites
     margin: 0;
     position: absolute;
     right: 0;
-    text-transform: lowercase;
     top: 0;
-    z-index: 8999;
+    z-index: 2147483645;
 }
 #cdu_close button {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -586,7 +451,7 @@ enhance user experience on websites
     cursor: pointer;
     font-size: 1em;
     font-weight: bold;
-    line-height: 1.3;
+    line-height: 1.3 !important;
     padding: 5px 16px;
 }
 #cdu_secu {
@@ -615,7 +480,7 @@ div#remotecontrol {
     margin: 0;
     position: absolute;
     right: 20px;
-    z-index: 9000;
+    z-index: 2147483646;
 }
 html > body div#remotecontrol {
     position: fixed;
@@ -641,7 +506,7 @@ div#loopingBar {
     font-family: arial,helvetica,sans-serif;
     font-size: 100%;
     position: absolute;
-    z-index: 9000;
+    z-index: 2147483646;
 }
 * html div#loopingBar {
     width: 250px;
@@ -694,7 +559,7 @@ a#activable_to_activable:link, a#activable_to_activable:visited {
     background-image: url('data:image/gif;base64,R0lGODlhFAAUALMIAAEB/wQE/wYG/wIC/wcH/wUF//9mAAAA/////wAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAUABQAAARNEMlJq73z4C01p4cXih4WIlpqGWyHviplVCN62tP8Xfo0BIECQRAA1CS9nWxTWjE3s97teEPopKqYjDXLwjC6GrVpVXJCgDSgeDS7PxEAOw==');
 }
 a#activable_to_activable_fast:link, a#activable_to_activable_fast:visited {
-    background-image: url('data:image/gif;base64,R0lGODlhFAAUALMMAAQE/wYG/wcH/wUF/wIC/wEB/42NjfdsAEBAQe/v7/9mAAAA/////wAAAAAAAAAAACH5BAEAAAwALAAAAAAUABQAAARnkMlJq71z4S01p4sXih4WMlpqKWyHviqlVCN62tP8XfpEAICBIAAo1CS9nWxTWmEM0GgUyeiFDImsVouoUjvYg1ac7VZZM02YfCCbv9dsWy5+JxlrevkSJyf8bxZYW1uBFgiIiYkMEQA7'));
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUALMMAAQE/wYG/wcH/wUF/wIC/wEB/42NjfdsAEBAQe/v7/9mAAAA/////wAAAAAAAAAAACH5BAEAAAwALAAAAAAUABQAAARnkMlJq71z4S01p4sXih4WMlpqKWyHviqlVCN62tP8XfpEAICBIAAo1CS9nWxTWmEM0GgUyeiFDImsVouoUjvYg1ac7VZZM02YfCCbv9dsWy5+JxlrevkSJyf8bxZYW1uBFgiIiYkMEQA7');
 }
 a#activable_to_activable_backward:link, a#activable_to_activable_backward:visited {
     background-image: url('data:image/gif;base64,R0lGODlhFAAUALMAAAEB/wQE/wYG/wIC/wcH/wUF//9mAAAA/////wAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAUABQAAARMEMlJq73z4C01N5l3jJ1HgSWirZbhgmxcoei4kqoJotxcDYFAgSAIAGwTXs+HMbU2TmaoJNJZSLKZq6PqsjhIZG5JpowAaIBRXG73IgA7');
@@ -729,48 +594,24 @@ a.cdu_hide:focus {
     width: auto;
 }
 
-
-/***************************************Gestion des div generale*******************************************************/
-
-#accessibilitytoolbarGraphic img {
-    vertical-align: middle;
-}
-#accessibilitytoolbarGraphic fieldset{
-    border: none;
-}
-
-/********************************** Template du template gÃ©nÃ©ral de la toolbar******************************/
-#toolbar{
-    width:100%;
-    height:5%;
-    background-color:  #cecece;
-}
-
-#toolbar p {
-    color: #F16E00;
-    font-size: 1em;
-    padding-top: 2px;
-    padding-left: 30px;
-}
-
 /*********************************************Fin template principal************************************/
 
-#uci_toolbar-quick li{
-    padding: 0;
-}
+
 #uci_left_toolbar,#uci_middle_toolbar,#uci_right_toolbar{
     display:inline-block;
     vertical-align:middle;
-	height:3.25em;	
+    padding: 10px 0;
+	/*height:3.25em;*/	
 }
 #uci_left_toolbar {
-    padding-right:0.7em;
-	margin-right:1.1em;    
-	border-right:1px solid #CCC;
+    padding-right: 1.25em;
 }
 #uci_middle_toolbar {
-    padding-right:1.1em;
+  padding-right: 1.25em;
 	border-right:1px solid #CCC;
+}
+#uci_right_toolbar {
+  padding: 0;  
 }
 
 #uci_left_toolbar.ie7,#uci_middle_toolbar.ie7,#uci_right_toolbar.ie7{
@@ -781,6 +622,7 @@ a.cdu_hide:focus {
 #accessibilitytoolbarGraphic a#uci_moreconfort {
     text-decoration: none !important;
     vertical-align: middle;
+    line-height: .5;
 }
 #accessibilitytoolbarGraphic a#uci_moreconfort span {
     vertical-align: middle;
@@ -791,19 +633,23 @@ a.cdu_hide:focus {
 
 #uci_right_toolbar button {
     vertical-align: middle;
+    line-height: 1 !important;
 }
-#uci_right_toolbar > ul > li {
-    margin: 0;
-	padding:0.825em 1.1em 0 1.1em;
-	border-right:1px solid #CCC;
-	height:2.425em;
+
+.uci_menu_close, .uci_menu_help {
+  margin: 0;
+  padding: 1em 1.25em;
+  border-right:1px solid #CCC;
+  line-height: 1.125;
 }
+.uci_menu_close {
+  padding: 0.75em 1.25em;  
+}
+
 #uci_right_toolbar li:last-child {
 	border:none;
 }
-#uci_activer_menu {
-	margin-top:2px;
-}
+
 .uci_clear{
     clear: both;
 }
@@ -828,41 +674,41 @@ a.cdu_hide:focus {
 }
 
 .uci_logo_plus_de_confort {
-    padding: 0 0 0 1.25em;
-	height:3.25em;
-	line-height:3.25em;
-	float:left;
+    padding: 0 0 0 .625em;
+	height: 3.125em;
+	line-height: 3.125em;
+	float: left;
 }
 
-#accessibilitytoolbarGraphic h1, .uci_alt_logo{
+.uci_alt_logo{
     color: #000000;
     font-size: 2em;
     font-family: Helvetica;
     display: inline;
     float: left;
-    margin:0px;
-    padding:0px;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-	border-right:1px solid #CCCCCC;
-	padding-right:0.31em;
+	border-right: 1px solid #CCCCCC;
+	padding-right: .625em;
 }
 
 .uci-onoffswitch {
     position: static; 
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;    
-    padding: 0.825em 0 0 0;
+    padding: .625em 1.25em;
     float: left;
-    margin-left: 1em;
 }
 
 .uci-onoffswitch-label:focus, .uci-onoffswitch-label-on:focus{
     outline: dotted 2px;
 }
-.uci-onoffswitch-label, .uci-onoffswitch-label-on {
+#accessibilitytoolbarGraphic .uci-onoffswitch-label,#accessibilitytoolbarGraphic .uci-onoffswitch-label-on {
 	display: block; 
 	overflow: hidden; 
 	cursor: pointer;
 	float:left;
+  box-sizing: content-box;
 }
 /*.uci-onoffswitch-inner {
 display: block; width: 200%; margin-left: -100%;
@@ -911,12 +757,13 @@ line-height: 1.1em;
 right: 0px;
 }*/
 
+
 .uci-onoffswitch-label, .uci-onoffswitch-label-on {
     border: 2px solid #666;
     display: block;
-    height: 1.6em;
+    height: 1.625em;
     margin: 0;
-	padding:0 10px;
+	  padding:0 10px;
     position: relative;
     width: 2.25em;
 }
@@ -925,17 +772,17 @@ right: 0px;
 }
 .uci-onoffswitch-label-on {
 	background: #32c832 none repeat scroll 0 0;
-    border-color: #32c832;
+  border-color: #32c832;
 }
 .uci-onoffswitch-label:before, .uci-onoffswitch-label-on:before {
-    background: #fff none repeat scroll 0 0;
+    background: #fff none repeat scroll 0 0 !important;
     content: "";
     display: block;
-    height: 1.6em;
+    height: 1.625em;
     position: absolute;
     top: 0;
     width: 1.75em;
-    z-index: 1;
+    z-index: 2147483645;
 }
 .uci-onoffswitch-label:before {
     left: 0;
@@ -950,7 +797,7 @@ right: 0px;
     line-height: 1.625em;
     opacity: 1;
     position: absolute;
-    z-index: 0;	
+    z-index: 2147483644;	
 }
 .uci-onoffswitch-inner-before {
     left: 0.1875em;
@@ -962,14 +809,9 @@ right: 0px;
 .uci-onoffswitch-label, .uci-onoffswitch-label-on, .uci-onoffswitch-label:before, .uci-onoffswitch-label-on:before, .uci-onoffswitch-inner-before, .uci-onoffswitch-inner-after {
     transition: all 0.4s ease 0s;
 }
-
-.uci_active_cdu_img{
-    padding: 0.35em 0;
-    min-height: 30px;
-    min-width: 62px;
-    float: left;
+.uci-onoffswitch-label-on .uci-onoffswitch-inner-after {
+    display:none;
 }
-
 
 /****************************************Fin Element a gauche de la toolbar*******************************/
 
@@ -978,35 +820,11 @@ right: 0px;
 - Le choix de la couleur du fond et de la police
 - lien vers plus de rÃ©glage
 */
-
+/*
 #uci_middle_toolbar.uci_mask a#uci_moreconfort:link{
     color:#FFF;
 	background-color:#F16E00;
 	border:2px solid #F16E00;
-}
-
-#small_font{
-    font-size: 1em;
-}
-
-#medium_font{
-    font-size: 1.5em;
-}
-
-#big_font{
-    font-size:2em;
-}
-
-#orange_color{
-    color: #F16E00;
-    background-color:white;
-    font-size:1.5em;
-}
-
-#black_color{
-    color: black;
-    background-color:white;
-    font-size:1.5em;
 }
 
 #uci_moreconfort{
@@ -1019,9 +837,10 @@ right: 0px;
 #uci_moreconfort span{
 	line-height:1.35em;
 }
-
+*/
 
 /******************************************Fin Ã©lÃ©ment au centre de la toolbar*******************************/
+
 
 /*******************************************Element Ã  droite de la toolbar :*********************************/
 .uci_right{
@@ -1033,18 +852,18 @@ right: 0px;
 /********************************************Mise en place du menu Facebook***********************************/
 
 #accessibilitytoolbarGraphic, #accessibilitytoolbarGraphic *{
-    z-index: 8999;
+    z-index: 2147483645;
 }
 #uci_cdu_menu {
     border: 2px solid #000;
     position: absolute;
     right: -2px;
-	top:52px;
+	  top: 3.125em;
     padding:10px;
     background-color: #FFFFFF;
-    z-index: 8999;
+    z-index: 2147483645;
     zoom: 1;    
-	min-width:14em;
+	  min-width:14em;
 }
 .uci_menu_help {
 	position:relative;
@@ -1052,15 +871,9 @@ right: 0px;
 .uci_menu_help.active #uci_activer_menu {
 	color:#f16e00;
 }
-#uci_fermeture_cdu_menu {
-    position: absolute;
-    right: 10px;
-}
+
 #uci_cdu_menu li{
     padding: 0 0 1em;
-}
-#uci_cdu_menu img {
-    margin-right:2px;
 }
 
 #uci_language {
@@ -1068,40 +881,41 @@ right: 0px;
 }
 
 #uci_cdu_menu ul{
-    margin-right:2em;
-    padding: 0 0 0 2em;
     zoom: 1;
 }
-
-#uci_cdu_menu h1{
-    margin:0px;
-    padding:0px;
-}
-
 
 /******************************************Fin Mise en place du menu Facebook**********************************/
 /** mise en forme des ï¿½lï¿½ments de liste de l'ihm rendu bouton **/
 
-#uci_menu_ouverture_aide, #uci_menu_toolbar, #uci_menu_activate_cdu_for_site {
+.uci_menu_ouverture_aide {
     min-width: 100px;
     padding: 5px;
     background-position:left;
+    font-size: 0.875em;
+    white-space: nowrap;
 }
 
-#uci_menu_toolbar{
-    background: url("../images/ico_hide_bar.ba928209.png") no-repeat scroll 5px center #FFFFFF;
-}
-
-#accessibilitytoolbarGraphic a#uci_menu_ouverture_aide {
+#accessibilitytoolbarGraphic a.uci_menu_ouverture_aide {
     text-decoration: none;
 }
-#accessibilitytoolbarGraphic a#uci_menu_ouverture_aide span {
-    text-decoration: underline;
+#accessibilitytoolbarGraphic a.uci_menu_ouverture_aide span {
+    text-decoration: none;
     vertical-align: middle;
 }
-#accessibilitytoolbarGraphic a#uci_menu_ouverture_aide span.cdu-icon-help {
+#accessibilitytoolbarGraphic a.uci_menu_ouverture_aide span.cdu-icon {
     text-decoration: none;
-    padding-right:0.5em;
+    padding-right:0.625em;
+}
+
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_menu_ouverture_aide .cdu-icon:before{
+  color: #000;
+  font-size: 1.5em;
+  vertical-align: sub;   
+}
+#accessibilitytoolbarGraphic.cdu_modern_browser .uci_menu_ouverture_aide .cdu-icon:before{
+  color: #000;
+  font-size: 1.5em;
+  vertical-align: sub;   
 }
 
 .uci_bton_menu,.uci_bton_menu:active,.uci_bton_menu:hover{
@@ -1115,19 +929,19 @@ right: 0px;
 .cdu-icon-reload2 {
 	font-size:1em;
 }
-.cdu-icon-help,.cdu-icon-plus2,.cdu-icon-moins2,.cdu-icon-croix {    
-    font-size: 1.5em;
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-plus2,
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-moins2 {    
+    font-size: 1em;
+    padding-right: 10px;
 }
-
+#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-croix {    
+    font-size: 1.5em;
+    font-weight: bold;
+}
 .uci_link_help_bulle .cdu-icon-help{
     font-size: 1em;   
     float: left;
 }
-
-#uci_menu_activate_cdu_for_site{
-    background: url("../images/ico_appearence_active.97875cbe.png") no-repeat scroll 5px center #FFFFFF;
-}
-
 
 .uci_inline {
     display: block;
@@ -1146,22 +960,20 @@ right: 0px;
     padding: 0;
     float: left;
 }
-.uci_systeme_onglets.uci_liste_bton{
-    margin: 0.2em;
-}
 
-
-.uci_choix, .uci_couleur_li{
+.uci_choix, .uci_couleur_li {
     color: #000000;
     cursor: pointer;
-    border: medium none;
     border: 2px solid #000;
 }
-.uci_choix{
-    background-color: #fff;    
-    font-weight: 700;
-    margin: 0 0.4em;
-    padding: 0.3em;
+#accessibilitytoolbarGraphic .uci_choix {
+  background-color: #fff;    
+  font-weight: 700;  
+  margin-right: 0.7142em;
+  box-sizing: content-box;
+}
+.uci_choix:last-child {
+  margin-right: 0;
 }
 
 .uci_choix_selected, .uci_couleur_li_selected{    
@@ -1177,7 +989,7 @@ right: 0px;
 .uci_notmask .uci_choix:hover, .uci_notmask .uci_choix:focus,
 #accessibilitytoolbarGraphic .uci_notmask input.uci_choix:hover,#accessibilitytoolbarGraphic .uci_notmask input.uci_choix:focus,
 #uci_activateOnglet .uci_choix:hover, #uci_activateOnglet .uci_choix:focus,
-#uci_onglet_confort li:hover span.onglet,#uci_onglet_confort li:focus span.onglet  {
+#uci_onglet_confort li:hover .onglet,#uci_onglet_confort li:focus .onglet  {
     background-color: #000;
     color: #FFF;
 }
@@ -1185,35 +997,18 @@ right: 0px;
 #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:hover, #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:focus {
     color: #000000 !important;
 }
-#uci_a11yBigger_keepit.uci_choix,#uci_quick_a11yBigger_keepit.uci_choix, #uci_a11yRegleEpaisseur_thin.uci_choix,
-#uci_a11yBigger_150.uci_choix,#uci_quick_a11yBigger_150.uci_choix, #uci_a11yRegleEpaisseur_medium.uci_choix,
-#uci_a11yBigger_200.uci_choix,#uci_quick_a11yBigger_200.uci_choix, #uci_a11yRegleEpaisseur_thick.uci_choix {
-    padding: 0 0.3em;
-	width:1.6em;
-	height:1.6em;	
-}
-
-#uci_quick_a11yVisualPredefinedSettings_keepit.uci_choix, #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix {
-    width:1.6em;
-	height:1.6em;
-	margin-top:0.825em;
-}
-
-#uci_reponses_couleurpredefinie_quick_set.uci_liste_bton {
-    margin-left: 0.4em;
-}
 
 #uci_reponses_couleurpredefinie_quick_set .cdu-icon-test, #uci_reponses_couleurpredefinie_quick_set .cdu-icon-couleurs2 {
-    font-size:1.375em;
+    font-size:1.44345em;
     display:block;
-    padding: 0.1em;
+    padding: 0.0625em;
 }
 
 ul#uci_reponses_bigger_quick_set {
     padding-right: 20px;
     padding-top : 0;
     padding-bottom : 0;
-	margin: 0.825em 0 0;
+	  /* margin: 0.825em 0 0; */
 }
 
 /******************************************Mise en place des onglets CDU***************************************/
@@ -1222,32 +1017,18 @@ ul#uci_reponses_bigger_quick_set {
     background-color: #FFFFFF;
     padding: 0;
     /* margin: 0 0 -4px 0; */
-    margin: 0 0 -9px 0;
+    margin: 0 0 0 0;
     float: left;
 }
 .uci_container_onglets {
-    float: left;
+    /*float: left;*/
     padding: 8px 0;
     background: #FFFFFF;
-    /*background: -webkit-linear-gradient( top, #FFFFFF,#000);
-    background: -moz-linear-gradient( top, #FFFFFF,#000);
-    background: -ms-linear-gradient( top, #FFFFFF,#000);
-    background: -o-linear-gradient( top, #FFFFFF,#000);
-    background: linear-gradient( top, #FFFFFF,#000);*/
 }
 #uci_onglet_confort li{
-    margin: 0;
-    padding: 6px 0;
+    margin: 0 0 -2px 0;
+    padding: 0;
 }
-
-#size div{
-    display: inline-block;
-}
-
-#uci_div_espacement_mot{
-    display: inline-block;
-}
-
 
 #uci_activateOnglet{
     display:none;
@@ -1255,7 +1036,6 @@ ul#uci_reponses_bigger_quick_set {
 
 .uci_systeme_onglets{
     width: 100%;
-    clear: both;
     background-color: #FFFFFF;
     padding: 10px 0;
     /*border-bottom: 2px solid #000;
@@ -1274,25 +1054,32 @@ ul#uci_reponses_bigger_quick_set {
     /*border-image: none;
     border-style: solid;*/
     min-width: 100px;
+    
 }
 .onglet_0
 {
     /*border-color: #000 #000 #F16E00;
     border-width: 2px 1px 2px;*/
-	border-bottom:2px solid #000;
+	border-bottom:2px solid transparent;
+  border-top:2px solid transparent;	
+	border-right:2px solid transparent;	
+	border-left:2px solid transparent;  
+  margin-bottom: -2px;
 }
 .onglet_1{
    /* border-color: #F16E00 #F16E00 #FFFFFF;
     border-width: 2px;*/
-	border-bottom:2px solid #FFF;
+	border-bottom:2px solid transparent;
 	border-top:2px solid #000;	
 	border-right:2px solid #000;	
 	border-left:2px solid #000;	
     background-color: #fff;
     color: #000;
+    margin-bottom: -2px;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser  .onglet {
     padding:5px;
+    display: block;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser  .onglet span.icon {
     padding-right:5px;
@@ -1316,14 +1103,11 @@ ul#uci_reponses_bigger_quick_set {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAgCAYAAAD9oDOIAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkExRDE5OTcyQ0IwNjExRTM5MDU3QURCODE4NzQ3MjYwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkExRDE5OTczQ0IwNjExRTM5MDU3QURCODE4NzQ3MjYwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTFEMTk5NzBDQjA2MTFFMzkwNTdBREI4MTg3NDcyNjAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTFEMTk5NzFDQjA2MTFFMzkwNTdBREI4MTg3NDcyNjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6ARgDqAAAB4klEQVR42qxW7VHCQBC9ZPgvJWgFxgoMFYAVSBoQrQBSgWIDCRVAB0AFxApICVoBvnXezuycXIwkO7Nzd3ubl/1OIufR15O7xjIF3xvxHlxevbvataDIgA2xvIIFdAneAeST8hQ8Awvoi8j/BOWDW/AKD7yFlKH3jOURPGoCVtACy4cC4ryg+2LhTtzH3cIA3+KcBUEZwwJKIz50wJKAK3KiZ+jcUUe8ykIxjpmUpbFQAHIBEGsIlIuc947605ClA7qpcRzTogUAUrqv57GpiB0TFwR1JuhiZcn91ot9pdaxKoIUm+yrBUlAN+G91Q+C7ummFrmNnfNivacoNfuzoKXGh2Ujbs49vbnGlueZCdNvUJZFzfpzJtuWclNOolc3tWywoyA7qRJkERtEEiVJvQGvGQaZCZmp77Kp99fm5Q/2zJecQueBuRALMjOl/My3pqhheJzchaR1mtLCXihmAiRJR+ynvYAyMUoFgJM+QP3O2HYF1jo9ehZLJQw7JUpKyZMPu7ovNSrTZ9Nb9s0+o9v9gbKj8j5AozOddPhvWza57wJJ6w6KMFTmQ3gJVXHgIucvziW0bJpSE2+mtrJSvhAhSyUMGw7ntmUmtT5qnKfeF2HCH43U67aaYCs20A99CzAAzD62bGR6hg8AAAAASUVORK5CYII=');
     padding: 5px 5px 5px 31px;
 }
-.uci_onglets {
-    margin: 0 1.25em;
+.uci_contenu_onglets, .uci_onglets {
+    margin: 0 .625em;
 }
 .uci_ongletsie7 {
     padding-left: 45px;
-}
-.uci_contenu_onglets{
-    margin: 0 1.25em;
 }
 .uci_contenu_ongletsie7 {
     margin: 0 auto;
@@ -1334,6 +1118,7 @@ ul#uci_reponses_bigger_quick_set {
     border: 2px solid #000;
     display:none;
     width: 100%;
+    padding: 0 .625em 1.25em .625em;
 } 
 
 #accessibilitytoolbarGraphic.cdu_old_browser #onglet_typographie.onglet_0  {
@@ -1363,27 +1148,31 @@ ul#uci_reponses_bigger_quick_set {
     float: left;
     vertical-align : top;
     margin-left : 10px;
-    margin-top : 15px;
-    margin-bottom:15px;
-    min-width: 25%;
+    margin-right : 20px;
+    margin-top : 0;
+    margin-bottom: 0;
+    /*min-width: 25%;*/
 }
-#uci_apparence_div_left, #uci_apparence_div_right{
-    min-width: 40%;
+#uci_apparence_div_left{
+    margin-right: 30px;
 }
 
-#uci_a11yBigger_keepit,#uci_quick_a11yBigger_keepit, #uci_a11yRegleEpaisseur_thin,
-#uci_a11yBigger_150,#uci_quick_a11yBigger_150, #uci_a11yRegleEpaisseur_medium,
-#uci_a11yBigger_200,#uci_quick_a11yBigger_200, #uci_a11yRegleEpaisseur_thick
+#uci_a11yBigger_keepit,#uci_quick_a11yBigger_keepit, #uci_a11yMaskEpaisseur_thin,
+#uci_a11yBigger_150,#uci_quick_a11yBigger_150, #uci_a11yMaskEpaisseur_medium,
+#uci_a11yBigger_200,#uci_quick_a11yBigger_200, #uci_a11yMaskEpaisseur_thick
 {
     text-align: center;
+    vertical-align: bottom;
 }
-#uci_a11yBigger_keepit span,#uci_quick_a11yBigger_keepit span, #uci_a11yRegleEpaisseur_thin span {
-    font-size:50%;
+#uci_a11yBigger_keepit span,#uci_quick_a11yBigger_keepit span, #uci_a11yMaskEpaisseur_thin span {
+    font-size:75%;
 }
 
-#uci_a11yBigger_150 span,#uci_quick_a11yBigger_150 span, #uci_a11yRegleEpaisseur_medium span {
-    font-size : 75%;
+#uci_a11yBigger_200 span,#uci_quick_a11yBigger_200 span, #uci_a11yMaskEpaisseur_thick span {
+    font-size : 125%;
+    line-height: .6 !important;
 }
+
 
 #accessibilitytoolbarGraphic .uci_link_help_bulle {
     width: 1em;
@@ -1394,9 +1183,10 @@ ul#uci_reponses_bigger_quick_set {
 }
 
 .uci_span_help_bulle p{
-    position: relative;
+  position: relative;
 	top:-10px;
 	margin-left:1em;
+  font-size: 0.875em;
 }
 
 .uci_fleche_help_bulle {
@@ -1413,6 +1203,7 @@ ul#uci_reponses_bigger_quick_set {
     font-weight: bold;
 	margin-left: 20px;
     padding: 0 10px;
+    z-index: 2147483646 !important
 }
 .uci_span_help_bulle p {
     background-color: #ddd;
@@ -1436,35 +1227,38 @@ ul#uci_reponses_bigger_quick_set {
 
 
 .uci_aria_button_group{
-    min-height: 4em;
-    margin: 0.8em;
+    /*min-height: 4em;*/
+    margin: 1.25em 0 0 0;
 }
 /***********************************************Fin onglet typography******************************************/
 
 
 
 /******************************************Onglet Apparence****************************************************/
-#uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_affichage_regle,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture,#uci_mask_enabled  {
-    padding-top : 1.05em;
+#uci_div_supprimer_miseenpage,#uci_div_alignement_gauche,#uci_div_numero_ligne,#uci_div_apparence_liens,#uci_div_desactiver_transparence,#uci_div_disabled_fond_picture,#uci_div_disabled_first_plan_picture,#uci_mask_enabled  {
+    padding-top : 1.25em;
 }
 
-#uci_div_regle{
+#uci_div_mask{
     margin-left:1.3em;
 }
 
 .uci_select_lien {
-    margin : 3px 0 0 10px;
+  border: 2px solid #000;
+  padding: 1px;
+  font-size: .875em;
 }
 
 .uci_span_lien{
-    min-width:13em;
+    min-width:10em;
     float: left;
-    margin: 3px 0 3px 1.3em;
+    margin: 3px 0 3px 1.875em;
+    font-weight: normal;
 }
 #uci_gestion_lien .cdu_left {
 	margin:0 5px;
 }
-#uci_palette_couleur_lien_selectionne,#uci_palette_couleur_lien_notselectionne,#uci_palette_couleur_lien_visite,#uci_palette_couleur_regle{
+#uci_palette_couleur_lien_selectionne,#uci_palette_couleur_lien_notselectionne,#uci_palette_couleur_lien_visite{
     margin-left: 40px;
 }
 
@@ -1475,7 +1269,7 @@ ul#uci_reponses_bigger_quick_set {
     height: 0px;
     left: 0;
     background: rgba(0,0,0,0);
-    z-index: 9001;
+    z-index: 2147483647;
 }
 .vMouse {
     display: block;
@@ -1484,11 +1278,7 @@ ul#uci_reponses_bigger_quick_set {
     width: 0px;
     top: 0;
     background: rgba(0,0,0,0);
-    z-index: 9001;
-}
-
-#uci_reponses_changecasse li {
-    max-width: 10em;
+    z-index: 2147483647;
 }
 
 #uci_a11yModifCasse_capitalize{
@@ -1509,35 +1299,70 @@ ul#uci_reponses_bigger_quick_set {
     font-family: arial, helvetica, sans-serif;
 }
 
-#uci_regle_epaisseur, #uci_regle_couleur {
+#uci_mask_epaisseur{
     display : block;
 }
 
 .uci_div_conteneur_contenu_onglets .uci_liste_bton{
     clear: both;
 }
-#uci_regle_epaisseur,#uci_title_epaisseur_regle, #uci_div_lien_notselectionne, #uci_div_lien_visite, #uci_div_affichage_regle, .uci_div_conteneur_contenu_onglets {
+#uci_mask_epaisseur, #uci_div_lien_notselectionne, #uci_div_lien_visite, .uci_div_conteneur_contenu_onglets {
     clear:both;
-}
-.uci_regle_couleur_span,#uci_title_epaisseur_regle{
-    min-width: 10em;
-}
-.uci_regle_couleur_span{
-    margin-top: 3px;
 }
 .uci_disable_image{
     display: none !important;
 }
 
+/**
+Helper classes for quick putting left/right/top/bottom margin normal or double
+**/
+#accessibilitytoolbarGraphic .margin-top-sm {
+  margin-top: .3125em;
+}
+#accessibilitytoolbarGraphic .margin-top {
+  margin-top: .625em;
+}
+#accessibilitytoolbarGraphic .margin-bottom {
+  margin-bottom: .625em;
+}
+#accessibilitytoolbarGraphic .margin-left {
+  margin-left: .625em;
+}
+#accessibilitytoolbarGraphic .margin-right {
+  margin-right: .625em;
+}
+#accessibilitytoolbarGraphic .margin-top-lg {
+  margin-top: 1.25em;
+}
+#accessibilitytoolbarGraphic .margin-bottom-lg {
+  margin-bottom: 1.25em;
+}
+#accessibilitytoolbarGraphic .margin-left-lg {
+  margin-left: 1.25em;
+}
+#accessibilitytoolbarGraphic .margin-right-lg {
+  margin-right: 1.25em;
+}
+
+#accessibilitytoolbarGraphic .font-normal{
+  font-weight: normal;  
+}
+
+#accessibilitytoolbarGraphic .padding-left-align{
+  padding-left: 1.875em
+}
+
 /***********************************************Onglet Couleurs************************************************/
 
-#uci_div_right_couleur,#uci_motor_div_right,#uci_div_motor, #uci_motor_div_left, #uci_div_couleur_predefinie {
-    max-width: 48%;
-    margin-top:15px;
-    margin-bottom: 15px;
-    margin-left: 10px;
-    float: left;
+#uci_div_right_couleur,#uci_motor_div_right,#uci_div_motor, #uci_motor_div_left, #uci_div_couleur_predefinie, #setting-bloc-content {    
     vertical-align: top;
+}
+#setting-bloc-content {    
+    padding: 1.25em 0;
+}
+#uci_div_right_couleur,#uci_motor_div_right, #uci_motor_div_left, #uci_div_couleur_predefinie {
+    max-width: 50%;
+    float: left;
 }
 #uci_motor_general{
     clear: both;
@@ -1556,32 +1381,30 @@ ul#uci_reponses_bigger_quick_set {
 .uci_span_help_bulle .uci_table_couleur{
     min-width: 416px;
 }
-.uci_couleur_li{
-    width: 20px;
-    height: 20px;
-    font-weight: 700;
-    padding: 0 3px;
-    margin: 1px;
+#accessibilitytoolbarGraphic .uci_couleur_li{
+    width: 1.625em;
+    height: 1.625em;
+    font-weight: 700;    
     cursor: pointer;
     vertical-align: middle;
+    text-decoration: none;
+    margin: 1px;
+}
+#uci_div_lien_selectionne, #uci_div_lien_notselectionne, #uci_div_lien_visite{
+  float: left;
+  margin-top: .625em; 
+}
+.cdu_color {
+  margin: 1px;
+  display: block;
+  /*width: 1.5em;
+  height: 1.5em;*/
 }
 .uci_couleur_clear{
     clear: both;
 }
 #uci_couleur_fond{
     padding-top: 15px;
-}
-
-.uci_overlay{
-    position: absolute;
-    padding-left:10px;
-    margin-top:55px;
-    left: 20;
-    top:10;
-    width: 30%;
-    height: 30%;
-    z-index: 8999;
-    background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
 
 #uci_menu_remove_all{
@@ -1601,45 +1424,32 @@ ul#uci_reponses_bigger_quick_set {
     clear:both;
     float:left;
     color: black !important;
-    border:1px solid #F16e00;
+    border: 2px solid #F16e00;
     padding : 5px;
     margin : 15px;
 }
-.message_couleur h4 {
-    margin-top: 60px;
-}
 
-
-/*********************************************Onglet Comportement****************************************************/
-#setting-bloc-content, #uci_div_motor{
-    margin-top:15px;
-    margin-left:10px;
-}
-
-.uci_h4 {
-    padding-top:15px;
-    display:block;
-    clear: both;
-}
 
 /*********************************************Onglet aperÃ§u****************************************************/
 #uci_reponses_couleurpredefinie li{
-    max-width : 28%;
+    max-width : 12em;
 }
 
 #uci_reponses_couleurpredefinie li a:hover{
     color:white;
 }
 
-#uci_reponses_couleurpredefinie{
-    margin-top:15px;
+#accessibilitytoolbarGraphic #uci_reponses_couleurpredefinie .uci_choix,
+#uci_couleur_police,
+#aria_label_texte{
+    margin-top: .625em;
 }
 
 /***************************************************Fin espace Menu***********************************************/
 
 /*****************************************Espace validation****************************************************/
 #accessibilitytoolbarGraphic #uci_validation{
-    padding: 0.5em 0;
+    padding: 1.25em 0;
     text-align: center;
     width: 100%;
     float: left;
@@ -1696,4 +1506,443 @@ ul#uci_reponses_bigger_quick_set {
 #accessibilitytoolbarGraphic .uci_disable_label{
   cursor: not-allowed;
   color:#666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn {
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border: 2px solid transparent;
+  padding: 0.5em 1.125em;
+  font-size: 1em;
+  border-radius: inherit;
+}
+
+#accessibilitytoolbarGraphic .ucibtn:focus, #accessibilitytoolbarGraphic .ucibtn.focus, #accessibilitytoolbarGraphic .ucibtn:active:focus, #accessibilitytoolbarGraphic .ucibtn:active.focus, #accessibilitytoolbarGraphic .ucibtn.active:focus, #accessibilitytoolbarGraphic .ucibtn.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+#accessibilitytoolbarGraphic .ucibtn:focus, #accessibilitytoolbarGraphic .ucibtn:hover {
+  text-decoration: none;
+}
+
+#accessibilitytoolbarGraphic .ucibtn.focus {
+  text-decoration: none;
+}
+
+#accessibilitytoolbarGraphic .ucibtn:active, #accessibilitytoolbarGraphic .ucibtn.active {
+  background-image: none;
+  outline: 0;
+}
+
+#accessibilitytoolbarGraphic .ucibtn.disabled, #accessibilitytoolbarGraphic .ucibtn:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+a#accessibilitytoolbarGraphic .ucibtn.disabled {
+  pointer-events: none;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-sm {
+  padding: 0.4286em 0.5714em;
+  font-size: 0.875em;
+  min-width: 0.7142em;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary {
+  color: #000;
+  background-color: transparent;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary:focus, #accessibilitytoolbarGraphic .ucibtn-secondary:hover {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary:active, #accessibilitytoolbarGraphic .ucibtn-secondary.active {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary:active:hover, #accessibilitytoolbarGraphic .ucibtn-secondary:active:focus, #accessibilitytoolbarGraphic .ucibtn-secondary:active.focus, #accessibilitytoolbarGraphic .ucibtn-secondary.active:hover, #accessibilitytoolbarGraphic .ucibtn-secondary.active:focus, #accessibilitytoolbarGraphic .ucibtn-secondary.active.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary.disabled, #accessibilitytoolbarGraphic .ucibtn-secondary:disabled {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary.disabled:focus, #accessibilitytoolbarGraphic .ucibtn-secondary.disabled.focus, #accessibilitytoolbarGraphic .ucibtn-secondary:disabled:focus, #accessibilitytoolbarGraphic .ucibtn-secondary:disabled.focus {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-secondary:disabled:hover {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary.disabled, #accessibilitytoolbarGraphic .ucibtn-secondary:disabled {
+  color: #ccc;
+  background-color: transparent;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-secondary:disabled:hover {
+  color: #ccc;
+  background-color: transparent;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:focus, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:focus, #accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info:focus, #accessibilitytoolbarGraphic .ucibtn-info:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info:active, #accessibilitytoolbarGraphic .ucibtn-info.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info:active:hover, #accessibilitytoolbarGraphic .ucibtn-info:active:focus, #accessibilitytoolbarGraphic .ucibtn-info:active.focus, #accessibilitytoolbarGraphic .ucibtn-info.active:hover, #accessibilitytoolbarGraphic .ucibtn-info.active:focus, #accessibilitytoolbarGraphic .ucibtn-info.active.focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle:hover,
+.open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle:focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info.disabled, #accessibilitytoolbarGraphic .ucibtn-info:disabled {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info.disabled:focus, #accessibilitytoolbarGraphic .ucibtn-info.disabled.focus, #accessibilitytoolbarGraphic .ucibtn-info:disabled:focus, #accessibilitytoolbarGraphic .ucibtn-info:disabled.focus {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-info:disabled:hover {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info:focus, #accessibilitytoolbarGraphic .ucibtn-info:hover {
+  background-color: transparent;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:focus, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:hover,
+.open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
+  color: #666;
+  background-color: transparent;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
+  color: #666;
+  background-color: transparent;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+  margin-left: 1.25em;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary:focus, #accessibilitytoolbarGraphic .ucibtn-primary:hover {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary:active, #accessibilitytoolbarGraphic .ucibtn-primary.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary:active:hover, #accessibilitytoolbarGraphic .ucibtn-primary:active:focus, #accessibilitytoolbarGraphic .ucibtn-primary:active.focus, #accessibilitytoolbarGraphic .ucibtn-primary.active:hover, #accessibilitytoolbarGraphic .ucibtn-primary.active:focus, #accessibilitytoolbarGraphic .ucibtn-primary.active.focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:hover,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary.disabled, #accessibilitytoolbarGraphic .ucibtn-primary:disabled {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary.disabled:focus, #accessibilitytoolbarGraphic .ucibtn-primary.disabled.focus, #accessibilitytoolbarGraphic .ucibtn-primary:disabled:focus, #accessibilitytoolbarGraphic .ucibtn-primary:disabled.focus {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-primary:disabled:hover {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary:active, #accessibilitytoolbarGraphic .ucibtn-primary.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle {
+  color: #000;
+  background-color: transparent;
+  background-image: none;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary:active:hover, #accessibilitytoolbarGraphic .ucibtn-primary:active:focus, #accessibilitytoolbarGraphic .ucibtn-primary:active.focus, #accessibilitytoolbarGraphic .ucibtn-primary.active:hover, #accessibilitytoolbarGraphic .ucibtn-primary.active:focus, #accessibilitytoolbarGraphic .ucibtn-primary.active.focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:hover,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle.focus {
+  color: #000;
+  background-color: transparent;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus {
+  color: #fff;
+  background-color: #f16e00;
+  border-color: #f16e00;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
+  color: #000;
+  background-color: #666;
+  border-color: #666;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus, #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:hover,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:focus,
+.open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle.focus {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary {
+  color: #000;
+  background-color: transparent;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary:focus, #accessibilitytoolbarGraphic .ucibtn-secondary:hover {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+#accessibilitytoolbarGraphic .ucibtn-secondary:active, #accessibilitytoolbarGraphic .ucibtn-secondary.active,
+.open > #accessibilitytoolbarGraphic .ucibtn-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: #f16e00;
+  background-image: none;
+  border-color: #f16e00;
+}
+
+
+
+#accessibilitytoolbarGraphic .ucibtn-blackonwhite {
+  color : #000;
+  background-color : #FFF;
+}
+#accessibilitytoolbarGraphic .ucibtn-whiteonblack {
+  color : #FFF;
+  background-color : #000;
+}
+#accessibilitytoolbarGraphic .ucibtn-blueonyellow {
+  color : #00F;
+  background-color : #FF0;
+}
+#accessibilitytoolbarGraphic .ucibtn-yellowonblue {
+  color : #FF0;
+  background-color : #00F;
+}
+#accessibilitytoolbarGraphic .ucibtn-greenonblack {
+  color : #090;
+  background-color : #000;
+}
+#accessibilitytoolbarGraphic .ucibtn-blackongreen {
+  color : #000;
+  background-color : #090;
+}
+#accessibilitytoolbarGraphic .ucibtn-blueonwhite {
+  color : #00F;
+  background-color : #FFF;
+}
+#accessibilitytoolbarGraphic .ucibtn-whiteonblue {
+  color : #FFF;
+  background-color : #00F;
 }

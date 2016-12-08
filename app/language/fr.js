@@ -13,7 +13,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
-traduction['fr']={
+traduction['FR']={
   uci_link_hide_toolbar:"Masquer la barre",
   uci_alt_logo:"Confort+",
   uci_serv_name:"Confort",
@@ -42,6 +42,7 @@ traduction['fr']={
   uci_txt_link_menu_open:"Afficher le menu",
   uci_txt_link_menu_close:"Masquer le menu",
   uci_menu_help:"Consulter l\47aide g\351n\351rale",
+  uci_menu_info:"A propos",
   uci_menu_remove_all:"R\351initialiser",
   uci_txt_menu_change_lang_fr:"Afficher le service en fran\347ais",
   uci_txt_menu_change_lang_en:"Afficher le service en anglais",
@@ -101,7 +102,7 @@ traduction['fr']={
   uci_link_render_options_underline:"soulign\351",
   uci_link_render_options_border:"encadr\351",
   uci_link_render_options_bold:"mis en gras",
-  uci_txt_mask_size:"\351paisseur du masque",
+  uci_txt_mask_size:"Epaisseur du masque",
   uci_help_listmode:"Cette commande remplace les polices du site par vos polices par d\351faut (celles que vous avez d\351finies dans votre ordinateur ou votre navigateur). De plus le contenu devient compl\350tement lin\351aire et sans colonnes.",
   uci_help_disabletransp:"Cette commande permet de d\351sactiver les effets de transparence \351ventuels de la page. Cela limite les perturbations lors de la lecture du contenu.",
   uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",

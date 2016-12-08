@@ -2412,10 +2412,10 @@ accessibilitytoolbar = {
         var clearColor = "";
         // remove selected class if present
         elmt.className = elmt.className.replace(/ uci_couleur_li_selected{0,1}/,"");
-        elmt.className = elmt.className.replace(/ uci_choix_selected{0,1}/,"");
+        elmt.className = elmt.className.replace(/ active{0,1}/,"");
         // add the selected class
         elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/,"uci_couleur_li uci_couleur_li_selected");
-        elmt.className = elmt.className.replace(/uci_choix{0,1}/,"uci_choix uci_choix_selected");
+        elmt.className = elmt.className.replace(/uci_choix{0,1}/,"uci_choix active");
         if(elmt.id.match(/a11yBigger/g) || elmt.id.match(/a11yVisualPredefined/g)){
             if(document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null){
                 var element = /^uci_(\S+)$/.exec(elmt.id);
@@ -2446,7 +2446,7 @@ accessibilitytoolbar = {
                 
                 // remove selected class if present
                 reponses.children[iterator].className = reponses.children[iterator].className.replace(/ uci_couleur_li_selected{0,1}/,"");
-                reponses.children[iterator].className = reponses.children[iterator].className.replace(/ uci_choix_selected{0,1}/,"");
+                reponses.children[iterator].className = reponses.children[iterator].className.replace(/ active{0,1}/,"");
             }
             // use the value of iterator to change the cookie value
             else
@@ -2460,17 +2460,17 @@ accessibilitytoolbar = {
                 prefName=resArray[resArray.length-2];
                 value= resArray[resArray.length-1];
                 if (prefName === 'a11yNavLienSelColor'){
-                    document.getElementById('uci_NavLienSel').style.backgroundColor = value;
-                    if(document.getElementById('uci_NavLienSel').style.setProperty)
-                        document.getElementById('uci_NavLienSel').style.setProperty ("background-color", value, "important");
+                    document.getElementById('uci_NavLienSel').firstChild.style.backgroundColor = value;
+                    if(document.getElementById('uci_NavLienSel').firstChild.style.setProperty)
+                        document.getElementById('uci_NavLienSel').firstChild.style.setProperty ("background-color", value, "important");
                 } else if (prefName === 'a11yNavLienNonVisColor'){
-                    document.getElementById('uci_NavLienNonVis').style.backgroundColor = value;
-                    if(document.getElementById('uci_NavLienSel').style.setProperty)
-                        document.getElementById('uci_NavLienNonVis').style.setProperty ("background-color", value, "important");
+                    document.getElementById('uci_NavLienNonVis').firstChild.style.backgroundColor = value;
+                    if(document.getElementById('uci_NavLienSel').firstChild.style.setProperty)
+                        document.getElementById('uci_NavLienNonVis').firstChild.style.setProperty ("background-color", value, "important");
                 } else if (prefName === 'a11yNavLienVisColor'){
-                    document.getElementById('uci_NavLienVis').style.backgroundColor = value;
-                    if(document.getElementById('uci_NavLienSel').style.setProperty)
-                        document.getElementById('uci_NavLienVis').style.setProperty ("background-color", value, "important");
+                    document.getElementById('uci_NavLienVis').firstChild.style.backgroundColor = value;
+                    if(document.getElementById('uci_NavLienSel').firstChild.style.setProperty)
+                        document.getElementById('uci_NavLienVis').firstChild.style.setProperty ("background-color", value, "important");
                 }
                 accessibilitytoolbar.userPref.set(prefName,value);
                 // if the user change the font or background color without activating the option, then activate it
@@ -2504,7 +2504,7 @@ accessibilitytoolbar = {
         elmt.tabIndex='0';
         elmt.parentNode.tabIndex='0';
         var spanId = /^uci_contenu_(\S+)$/.exec(elmt.getAttribute('aria-controls'));
-        document.getElementById(spanId[1]).className='onglet_1 onglet';
+        document.getElementById(spanId[1]).parentElement.className='uci_inline onglet_1';
         document.getElementById(elmt.getAttribute('aria-controls')).style.display="block";
         elmt.focus();
         // on d�sactive ses fr�res
@@ -2518,7 +2518,7 @@ accessibilitytoolbar = {
                 reponses.children[iterator].tabIndex='-1';
                 reponses.children[iterator].parentNode.tabIndex='-1';
                 var spanIdOther = /^uci_contenu_(\S+)$/.exec(reponses.children[iterator].getAttribute('aria-controls'));
-                document.getElementById(spanIdOther[1]).className='onglet_0 onglet';
+                document.getElementById(spanIdOther[1]).parentElement.className='uci_inline onglet_0';
                 document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display="none";
             }
         }
@@ -2736,7 +2736,6 @@ accessibilitytoolbar = {
     createObjectBehaviour: function (){
         //declarate my object list in array
         var myObject=[];
-        myObject.push(document.getElementById("cdu_jump_link"));
         if(accessibilitytoolbar.idLinkModeContainer){
             myObject.push(document.getElementById("uci_link"));
             myObject.push(document.getElementById("closeLink"));
@@ -2781,10 +2780,9 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
-        //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fermeture_cdu_menu'), UciIhm.uci_activate_menu);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fr'), function() {return UciIhm.changement_langue('fr');});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_en'), function() {return UciIhm.changement_langue('en');});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_sp'), function() {return UciIhm.changement_langue('es');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_SP'), function() {return UciIhm.changement_langue('ES');});
         accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function() {UciValidation.Validation(); UciIhm.confirm_validation(); });
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
@@ -2884,6 +2882,10 @@ accessibilitytoolbar = {
             accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienSel'),accessibilitytoolbar.displayOrNot);
             accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienNonVis'),accessibilitytoolbar.displayOrNot);
             accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienVis'),accessibilitytoolbar.displayOrNot);
+            document.getElementById('uci_NavLienSel').firstChild.onclick = function (e) { document.getElementById('uci_NavLienSel').click();accessibilitytoolbar.stopEvt(e);};
+            document.getElementById('uci_NavLienNonVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienNonVis').click();accessibilitytoolbar.stopEvt(e);};
+            document.getElementById('uci_NavLienVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienVis').click();accessibilitytoolbar.stopEvt(e);};
+                        
             var liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_sel").getElementsByTagName("li");
             for (i=0; i < liButtonsPalette.length; i++){
                accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
@@ -3075,12 +3077,7 @@ accessibilitytoolbar = {
         var script = document.getElementById('a11yCSS');
         if(script) {
         	document.head.removeChild(script);
-        }
-        var content = document.getElementById('accessibilitytoolbarWrapper');
-        if(content) {
-        	content.outerHTML = content.innerHTML;
-        }
-        
+        }        
     },
 
     /**
@@ -3400,7 +3397,7 @@ accessibilitytoolbar = {
             }
 
             //gestion de la police d'écriture
-            if (accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled') && accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11yDyslexyFont")!=='keepit') {
                 //load the font face
                 if(accessibilitytoolbar.userPref.get("a11yDyslexyFont")==='opendyslexic')
                 {
@@ -3450,9 +3447,9 @@ accessibilitytoolbar = {
 
                 //gestion du lien actif
                 if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border") {
-                    s += "a:active {border: 1px solid #FF7900!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {border: 1px solid #FF7900 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {border: 1px solid #FF7900 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:active {border: 2px solid #F16E00!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:focus {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:hover {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
                 } else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline") {
                     s += "a:active {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
                     s += "a:focus {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
@@ -3568,8 +3565,8 @@ accessibilitytoolbar = {
                 	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
                     UciMask.start();
                 }
-            	s += ".topMask  { position: fixed; z-index:9000; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
-            	s += ".bottomMask  { position: fixed; z-index:9000; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+            	s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+            	s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
             }
             // if mask was launch before deactivation kill!
@@ -3589,7 +3586,23 @@ accessibilitytoolbar = {
                     document.getElementById('uci_message_constraste').style.display= 'none';
                     element = document.getElementById('uci_reponses_bigger_quick_set');
                     backGroundColor = "#FFF";
-                    fontColor = "#000";           
+                    fontColor = "#000";  
+                    
+                    var predifinedCombinaisons = {
+                    'blackonwhite':{fontColor : '#000',backGroundColor : '#FFF'},
+                    'whiteonblack':{fontColor : '#fff',backGroundColor : '#000'},
+                    'blueonyellow':{fontColor : '#00F',backGroundColor : '#FF0'},
+                    'yellowonblue':{fontColor : '#FF0',backGroundColor : '#00F'},
+                    'greenonblack':{fontColor : '#090',backGroundColor : '#000'},
+                    'blackongreen':{fontColor : '#000',backGroundColor : '#090'},
+                    'blueonwhite':{fontColor : '#00F',backGroundColor : '#FFF'},
+                    'whiteonblue':{fontColor : '#FFF',backGroundColor : '#00F'}};
+                    if(predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")])
+                    {
+                      fontColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor;
+                      backGroundColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor ;
+                      
+                    }         
                     /*defect 67 */ 
                     if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") == "whiteonblack")
                     {                                       

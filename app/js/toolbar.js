@@ -2504,7 +2504,7 @@ accessibilitytoolbar = {
         elmt.tabIndex='0';
         elmt.parentNode.tabIndex='0';
         var spanId = /^uci_contenu_(\S+)$/.exec(elmt.getAttribute('aria-controls'));
-        document.getElementById(spanId[1]).className='onglet_1 onglet';
+        document.getElementById(spanId[1]).parentElement.className='uci_inline onglet_1';
         document.getElementById(elmt.getAttribute('aria-controls')).style.display="block";
         elmt.focus();
         // on d�sactive ses fr�res
@@ -2518,7 +2518,7 @@ accessibilitytoolbar = {
                 reponses.children[iterator].tabIndex='-1';
                 reponses.children[iterator].parentNode.tabIndex='-1';
                 var spanIdOther = /^uci_contenu_(\S+)$/.exec(reponses.children[iterator].getAttribute('aria-controls'));
-                document.getElementById(spanIdOther[1]).className='onglet_0 onglet';
+                document.getElementById(spanIdOther[1]).parentElement.className='uci_inline onglet_0';
                 document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display="none";
             }
         }
@@ -2780,9 +2780,9 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_fr'), function() {return UciIhm.changement_langue('fr');});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_en'), function() {return UciIhm.changement_langue('en');});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_sp'), function() {return UciIhm.changement_langue('es');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_SP'), function() {return UciIhm.changement_langue('ES');});
         accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function() {UciValidation.Validation(); UciIhm.confirm_validation(); });
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
@@ -3447,9 +3447,9 @@ accessibilitytoolbar = {
 
                 //gestion du lien actif
                 if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border") {
-                    s += "a:active {border: 1px solid #FF7900!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {border: 1px solid #FF7900 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {border: 1px solid #FF7900 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:active {border: 2px solid #F16E00!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:focus {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    s += "a:hover {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
                 } else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline") {
                     s += "a:active {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
                     s += "a:focus {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";

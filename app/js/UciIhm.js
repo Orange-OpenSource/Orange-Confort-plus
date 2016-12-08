@@ -78,7 +78,7 @@ UciIhm = {
          * gestion de la police
          */
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_bigger_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_keepit' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yBigger_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
         attr_ihm += "<span>";
         attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
@@ -86,7 +86,7 @@ UciIhm = {
         attr_ihm += "</span>";
         attr_ihm += "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_150' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yBigger_150' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
         attr_ihm += "<span>";
         attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
@@ -94,7 +94,7 @@ UciIhm = {
         attr_ihm += "</span>";
         attr_ihm += "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_200' role='radio' class='uci_choix uci_inline btn btn-sm btn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yBigger_200' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
         attr_ihm += "<span>";
         attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
@@ -107,16 +107,16 @@ UciIhm = {
          * Gestion des couleurs
          */
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
         attr_ihm += "<span class='cdu-icon cdu-icon-test'>"+
-                "<span class='path1'></span>"+
-                "<span class='path2'></span>"+
-                "<span class='path3'></span>"+
-                "<span class='path4'></span>"+
+                "<span class='cdu-icon path1'></span>"+
+                "<span class='cdu-icon path2'></span>"+
+                "<span class='cdu-icon path3'></span>"+
+                "<span class='cdu-icon path4'></span>"+
                 "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline btn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
         attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
         attr_ihm += "<span class='cdu-icon cdu-icon-couleurs2'></span>";
         attr_ihm += "</li>";
@@ -141,7 +141,7 @@ UciIhm = {
         attr_ihm += "<!--<![endif]-->";
 
         //  gestion du lien "+ de confort"          
-        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c btn btn-sm btn-secondary' href=\"#\" id='uci_moreconfort'>";
+        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary' href=\"#\" id='uci_moreconfort'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-plus2\" id=\"uci_icon_moreconfort\">"+""+"</span>";
         attr_ihm += "<span id='uci_moreconfort_content'>"+accessibilitytoolbar.get('uci_txt_more_settings')+"</span>";
         attr_ihm += "</a>";
@@ -173,13 +173,16 @@ UciIhm = {
         attr_ihm += "<ul>";
         attr_ihm += "<li>";
         attr_ihm += "<div id='uci_language'>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "fr"?'uci_choix active':'uci_choix')+" btn btn-sm btn-secondary' type='button' name='uci_language_fr' value='fr' id='uci_fr' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "en"?'uci_choix active':'uci_choix')+" btn btn-sm btn-secondary' type='button' name='uci_language_en' value='en' id='uci_en' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "es"?'uci_choix active':'uci_choix')+" btn btn-sm btn-secondary' type='button' name='uci_language_sp' value='sp' id='uci_sp' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "FR"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_FR' value='FR' id='uci_FR' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "EN"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_EN' value='EN' id='uci_EN' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "ES"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_SP' value='SP' id='uci_SP' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
         attr_ihm += "</div>";
         
         attr_ihm += "</li>";
-        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
+        attr_ihm += "<li><a class='uci_menu_ouverture_aide' href=\"http://confort-plus.orange.com\" title=\""+(accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
+        attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-info"></span><span>' + accessibilitytoolbar.get('uci_menu_info') + '</span>';
+        attr_ihm += "</a></li>";
+        attr_ihm += "<li><a class='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
         attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-help"></span><span>' + accessibilitytoolbar.get('uci_menu_help') + '</span>';
         attr_ihm += "</a></li>";
         
@@ -216,10 +219,10 @@ UciIhm = {
          * Gestion de la sélection automatique des éléments
          ***************************************************************************************************************************/
 
-        attr_ihm += "<div class='uci_systeme_onglets cdu_c' id=\"uci_zone_form\" style='display:none;'>";
+        attr_ihm += "<div class='uci_systeme_onglets uci_clear cdu_c' id=\"uci_zone_form\" style='display:none;'>";
         
         attr_ihm += "<div id=\"uci_activateOnglet\" style='display:none;'>"; // uci_activateOnglet        
-        attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix btn btn-sm btn-secondary'>"+
+        attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix ucibtn ucibtn-sm ucibtn-secondary'>"+
         "<span class='cdu-icon cdu-icon-reload2' aria-hidden='true'></span>"+
         accessibilitytoolbar.get('uci_menu_remove_all')+
         "</div>";
@@ -230,19 +233,19 @@ UciIhm = {
         attr_ihm += "<div class='uci_container_onglets'>";  // 1
 
         attr_ihm += "<ul id='uci_onglet_confort' role='tablist' class='cdu_c'>";
-        attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline'> <span class=\"onglet_1 onglet\" id=\"onglet_typographie\">";
+        attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline onglet_1'> <span class='onglet' id=\"onglet_typographie\">";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie icon\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_typo');
         attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_apparence\">";
+        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_apparence\">";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement icon\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_apparence');
         attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline'> <span  class=\"onglet_0 onglet\" id=\"onglet_couleur\">";
+        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline onglet_0'> <span  class=\"onglet\" id=\"onglet_couleur\">";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2 icon\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_color');
         attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_aidemotrice\">";
+        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_aidemotrice\">";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement icon\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_motor_help');
         attr_ihm += "</span></li>";
@@ -400,6 +403,7 @@ UciIhm = {
     },
 	confirm_validation: function() {
 		document.getElementById('uci_confirm_validation').style.display = "block";
+    setTimeout(function(){document.getElementById('uci_confirm_validation').style.display = "none";}, 5000);
 	},
 	
 	hide_confirm_validation: function() {

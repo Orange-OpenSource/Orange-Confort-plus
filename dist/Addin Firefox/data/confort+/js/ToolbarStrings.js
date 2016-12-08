@@ -22,12 +22,12 @@ function ToolbarStrings() {
      * A {String} reprensenting Locale code
      * @private
      */
-    var locale = "en";
+    var locale = "EN";
     /**
      * A {String} reprensenting default Locale code
      * @private
      */
-    var defaultLocale = "en";
+    var defaultLocale = "EN";
     /* local to default to - see setLocale() */
 
     /**
@@ -42,7 +42,7 @@ function ToolbarStrings() {
         /* HTML tag <html> of the page */
         var bodyTag = document.getElementsByTagName("body")[0];
         /* HTML tag <body> of the page */        
-        this.locale = ((htmlTag.lang) ? htmlTag.lang : (htmlTag.getAttribute("xml:lang")) ? htmlTag.getAttribute("xml:lang") : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0,2);
+        this.locale = ((htmlTag.lang) ? htmlTag.lang : (htmlTag.getAttribute("xml:lang")) ? htmlTag.getAttribute("xml:lang") : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0,2).toUpperCase();
         if (!this.locale || !traduction[this.locale]) {
             this.locale = defaultLocale;
         }

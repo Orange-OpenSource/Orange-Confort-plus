@@ -13,7 +13,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
-traduction['en']={
+traduction['EN']={
   uci_link_hide_toolbar:"Hide toolbar",
   uci_alt_logo:"Confort+",
   uci_serv_name:"Confort",
@@ -42,6 +42,7 @@ traduction['en']={
   uci_txt_link_menu_open:"Show menu",
   uci_txt_link_menu_close:"Hide menu",
   uci_menu_help:"Visit general help",
+  uci_menu_info:"About",
   uci_menu_remove_all:"Reset",
   uci_txt_menu_change_lang_fr:"Show this service in french",
   uci_txt_menu_change_lang_en:"Show this service in english",
@@ -101,7 +102,7 @@ traduction['en']={
   uci_link_render_options_underline:"underline",
   uci_link_render_options_border:"box",
   uci_link_render_options_bold:"bold",
-  uci_txt_mask_size:"Mask width",
+  uci_txt_mask_size:"Mask height",
   uci_help_listmode:"This feature replaces site font faces with your default font faces (those defined in your browser or computeur). Moreover, the content is linearised and displayed without columns.",
   uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
   uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image  on demand.",
@@ -124,7 +125,7 @@ traduction['en']={
   uci_label_3sec:"3 seconds",
   uci_label_6sec:"6 seconds",
   uci_label_automove:"Automatic selection of elements",
-  uci_help_automove:"Select clickable elements one after the other. Press the ",
+  uci_help_automove:"Select clickable elements one after the other. Press the enter or space key  to open a contextual menu allowing to activate the selected element or to modify ",
   uci_legend_menupos:"Menu position",
   uci_label_centeredmenu:"Center on the page",
   uci_label_nearelemtmenu:"Next to the selected item",
@@ -150,5 +151,5 @@ traduction['en']={
   uci_radio_large:"Large",
   uci_new_window:"New window",
   uci_iframe_cookie:"Technical Content Orange Confort+",
-  uci_confirm_validation:"Registered preferences [TODO]",
+  uci_confirm_validation:"Settings saved",
 };

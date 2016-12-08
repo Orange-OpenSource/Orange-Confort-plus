@@ -1,6 +1,6 @@
 {
   "name": "orange-confort-plus",
-  "version": "3.2.1",
+  "version": "4.0.0",
   "author": "Orange",
   "description": "enhance user experience on websites",
   "keywords": [
@@ -10,9 +10,6 @@
   "main": [
     "dist/serveur/js/toolbar.js"
   ],
-  "homepage": "http://confort-plus.orange.com/",
-  "devDependencies": {
-    "boosted": "~3.2.1"
-  },
+  "homepage": "http://confort-plus.orange.com/",  
   "dependencies": {}
 }

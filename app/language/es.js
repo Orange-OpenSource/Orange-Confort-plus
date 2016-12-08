@@ -13,7 +13,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
-traduction['es']={
+traduction['ES']={
   uci_link_hide_toolbar:"Esconder el panel",
   uci_alt_logo:"Confort+",
   uci_serv_name:"Confort",
@@ -42,6 +42,7 @@ traduction['es']={
   uci_txt_link_menu_open:"Mostrar men\372",
   uci_txt_link_menu_close:"Ocultar men\372",
   uci_menu_help:"Consultar ayuda general",
+  uci_menu_info:"A prop\363sito",
   uci_menu_remove_all:"Reajustar",
   uci_txt_menu_change_lang_fr:"Mostrar el servicio en franc\351s",
   uci_txt_menu_change_lang_en:"Mostrar el servicio en ingles",
@@ -150,5 +151,5 @@ traduction['es']={
   uci_radio_large:"Grande",
   uci_new_window:"Nueva ventana",
   uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
-  uci_confirm_validation:"preferencias registrados [TODO]",
+  uci_confirm_validation:"Preferencias registrados",
 };

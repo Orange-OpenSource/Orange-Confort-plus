@@ -55,35 +55,35 @@ UciAideMotrice = {
         if (accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true") {
             attr_aide_motrice += "<div id='uci_motor_general' style='display:block'>";
         } else {
-            attr_aide_motrice += "<div id='uci_motor_general' style='display:none'>";
+            attr_aide_motrice += "<div id='uci_motor_general' class='padding-left-align' style='display:none'>";
         }
 /******************************************************Navigation par pointage ******************************************************************/
         attr_aide_motrice += "<div id='uci_motor_div_left'>";
         attr_aide_motrice += "<input type='radio' name='a11yMotorMode' id='a11yMotorMode-remote' value='remote' ";
         attr_aide_motrice += accessibilitytoolbar.userPref.get("a11yMotorMode") === "remote" ? "checked='checked'" : "";
         attr_aide_motrice += "/>";
-        attr_aide_motrice += "<label for='a11yMotorMode-remote'>";
+        attr_aide_motrice += "<label for='a11yMotorMode-remote' class='margin-top'>";
         attr_aide_motrice +=  accessibilitytoolbar.get('uci_label_telecomande');
         attr_aide_motrice += "</label>";
-        attr_aide_motrice += "<p>";
+        attr_aide_motrice += "<p class='font-normal margin-right-lg margin-top padding-left-align'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_help_telecomande');
         attr_aide_motrice += '</p>';
         
-        attr_aide_motrice += "<div id='uci_motor_mode' class='setting-sub-container'>";
-        attr_aide_motrice += "<p id='a11yDelayBeforeLoop0'>";
+        attr_aide_motrice += "<div id='uci_motor_mode' class='padding-left-align setting-sub-container'>";
+        attr_aide_motrice += "<p id='a11yDelayBeforeLoop0' class='margin-top'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_delai_clic');
         attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_DelayBeforeLoop' role='radiogroup' aria-labelledby='a11yDelayBeforeLoop0'>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_1' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<ul class='uci_liste_bton margin-top-sm' id='uci_reponses_DelayBeforeLoop' role='radiogroup' aria-labelledby='a11yDelayBeforeLoop0'>";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_1' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_1sec');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_2' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_2sec');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_3' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_3' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_3sec');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_6' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_6' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_6sec');
         attr_aide_motrice += "</li>";
         attr_aide_motrice += "</ul>";
@@ -95,66 +95,66 @@ UciAideMotrice = {
 /******************************************************Parcours automatique des elements cliquable ******************************************************************/
         attr_aide_motrice += "<div id='uci_motor_div_right'>";
         
-        attr_aide_motrice += "<div class='btn-check btn-check-large'>";
+        attr_aide_motrice += "<div class='btn-check ucibtn-check-large'>";
         attr_aide_motrice += "<input type='radio' value='looping' id='a11yMotorMode-looping' name='a11yMotorMode'";
         attr_aide_motrice += accessibilitytoolbar.userPref.get("a11yMotorMode") === "looping" ? "checked='checked'" : "";
         attr_aide_motrice += "/>";
         attr_aide_motrice += "<label for='a11yMotorMode-looping'>";
         attr_aide_motrice +=  accessibilitytoolbar.get('uci_label_automove');
         attr_aide_motrice += "</label>";
-        attr_aide_motrice += "<p>";
+        attr_aide_motrice += "<p class='padding-left-align font-normal margin-top'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_help_automove');
         attr_aide_motrice += '</p>';
-        attr_aide_motrice += "</div>"; //btn-check btn-check-large
+        attr_aide_motrice += "</div>"; //btn-check ucibtn-check-large
 
         //gestion de la position du menu
-        attr_aide_motrice += "<div>";
-        attr_aide_motrice += "<p class='uci_clear' id='a11yMenuPositionning'><br />";
+        attr_aide_motrice += "<div class='padding-left-align'>";
+        attr_aide_motrice += "<p class='uci_clear margin-top' id='a11yMenuPositionning'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_menupos');
         attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_a11yMenuPositionning' role='radiogroup' aria-labelledby='a11yMenuPositionning'>";
-        attr_aide_motrice += "<li id='uci_a11yMenuPositionning_center' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<ul class='uci_liste_bton margin-top-sm margin-bottom' id='uci_reponses_a11yMenuPositionning' role='radiogroup' aria-labelledby='a11yMenuPositionning'>";
+        attr_aide_motrice += "<li id='uci_a11yMenuPositionning_center' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_centeredmenu');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yMenuPositionning_nextto' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yMenuPositionning_nextto' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_nearelemtmenu');
         attr_aide_motrice += "</li>";
         attr_aide_motrice += "</ul>";
 
         //gestion du clic automatique
-        attr_aide_motrice += "<p class='uci_clear' id='a11yDelayBeforeClick'><br />";
+        attr_aide_motrice += "<p class='uci_clear margin-top' id='a11yDelayBeforeClick'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_time_before_sel');
         attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_DelayBeforeLoop_auto' role='radiogroup' aria-labelledby='a11yDelayBeforeClick'>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_1' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<ul class='uci_liste_bton margin-top-sm margin-bottom' id='uci_reponses_DelayBeforeLoop_auto' role='radiogroup' aria-labelledby='a11yDelayBeforeClick'>";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_1' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_1sec');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick-2' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick-2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_2sec');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_3' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_3' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_3sec');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_6' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_6' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_6sec');
         attr_aide_motrice += "</li>";
         attr_aide_motrice += "</ul>";
 
         //gestion pas du mode rapide
-        attr_aide_motrice += "<p class='uci_clear' id='a11yQuickMode'><br />";
+        attr_aide_motrice += "<p class='uci_clear margin-top' id='a11yQuickMode'>";
         attr_aide_motrice += accessibilitytoolbar.get('uci_legend_pasquickmode');
         attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<p>";
+        attr_aide_motrice += "<p class='font-normal margin-top-sm'>";
         attr_aide_motrice +=  accessibilitytoolbar.get('uci_help_quickmode');
         attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton' id='uci_reponses_a11yQuickMode' role='radiogroup' aria-labelledby='a11yQuickMode'>";
-        attr_aide_motrice += "<li id='uci_a11yQuickMode_2' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<ul class='uci_liste_bton margin-top' id='uci_reponses_a11yQuickMode' role='radiogroup' aria-labelledby='a11yQuickMode'>";
+        attr_aide_motrice += "<li id='uci_a11yQuickMode_2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_2par2');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yQuickMode_5' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yQuickMode_5' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_5par5');
         attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yQuickMode_10' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
+        attr_aide_motrice += "<li id='uci_a11yQuickMode_10' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
         attr_aide_motrice += accessibilitytoolbar.get('uci_label_10par10');
         attr_aide_motrice += "</li>";
         attr_aide_motrice += "</ul>";
