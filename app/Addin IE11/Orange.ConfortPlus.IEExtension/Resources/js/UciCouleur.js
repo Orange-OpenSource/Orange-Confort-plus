@@ -1,7 +1,7 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014 - 2016  Orange SA
+    Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -37,6 +37,7 @@ function UciCouleur() {
         ["#FF6666","#FFB266","#FFFF66","#B2FF66","#66FF66","#66FFB2","#66FFFF","#66B2FF","#6666FF","#B266FF","#FF66FF","#FF66B2","#C0C0C0"],
         ["#FFCCCC","#FFE5CC","#FFFFCC","#E5FFCC","#CCFFCC","#CCFFE5","#CCFFFF","#CCE5FF","#CCCCFF","#E5CCFF","#FFCCFF","#FFCCE5","#FFFFFF"]
     ];
+    var predifinedCombinaisons = ['keepit','blackonwhite','whiteonblack','blueonyellow','yellowonblue','greenonblack','blackongreen','blueonwhite','whiteonblue'];
     /*
      * @constructor
      */
@@ -46,33 +47,26 @@ function UciCouleur() {
  * Gestion de la partie des couleurs prédéfinies
 *****************************************************************************************************************************/
         //couleur predefinie
-        attr_couleur += "<div id='uci_div_couleur_predefinie'>";
-        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+" /><label for='uci_couleur_predefenie_input'>";
+        attr_couleur += "<div id='uci_div_couleur_predefinie' class='margin-left margin-right-lg'>";
+        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+" />";
+        attr_couleur += "<label for='uci_couleur_predefenie_input' class='cdu_left margin-top-lg'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre');
         attr_couleur += "</label>";
        
-        attr_couleur += "<ul class='uci_liste_bton' id='uci_reponses_couleurpredefinie' role='radiogroup' aria-labelledby='uci_couleur_predefenie_input'>";
+        attr_couleur += "<ul class='padding-left-align uci_clear uci_liste_bton' id='uci_reponses_couleurpredefinie' role='radiogroup' aria-labelledby='uci_couleur_predefenie_input'>";
         attr_couleur += "<!--[if IE 8 ]>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_keepit' role='radio' class=' uci_choix ie8_uci_inline  "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_default');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_blackonwhite' role='radio' class=' uci_choix ie8_uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_blackandwhite');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_whiteonblack' role='radio' class=' uci_choix ie8_uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "whiteonblack" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_whiteandblack');
-        attr_couleur += "</li>";
+        for(var key in predifinedCombinaisons){          
+          attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key]+"' role='radio' class='uci_choix ie8_uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
+          attr_couleur += accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key]);
+          attr_couleur += "</li>";
+        }
         attr_couleur += "<![endif]-->";
-        attr_couleur += "<!--[if (!IE 8) | (!IE)]><!-->";        
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline  "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_default');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_blackandwhite');
-        attr_couleur += "</li>";
-        attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_whiteonblack' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "whiteonblack" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-        attr_couleur += accessibilitytoolbar.get('uci_title_color_whiteandblack');
-        attr_couleur += "</li>";
+        attr_couleur += "<!--[if (!IE 8) | (!IE)]><!-->";  
+        for(var key in predifinedCombinaisons){
+          attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key]+"' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
+          attr_couleur += accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key]);
+          attr_couleur += "</li>";
+        }
         attr_couleur += "<!--<![endif]-->";
         attr_couleur += "</ul>";
         //gestion des message d'erreur de contraste et de luminosite
@@ -83,32 +77,20 @@ function UciCouleur() {
         attr_couleur += "<span style='color: black !important; background-color: #FFFFFF !important;' id='uci_message_contraste_lbl'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_warning_content');
         attr_couleur += "</span>";
+        attr_couleur += "</div>";        
         attr_couleur += "</div>";
-
-        /*gestion message luminosite
-        attr_couleur += "<div id='uci_message_luminosite' class='message_couleur' style='display:none'>";
-        attr_couleur += "<h4>";
-        attr_couleur += accessibilitytoolbar.get("uci_color_warning_title");
-        attr_couleur += "</h4>";
-        attr_couleur += "<label id='uci_message_luminosite_lbl'>";
-        attr_couleur += accessibilitytoolbar.get('uci_color_warning_title');
-        attr_couleur += "</label>";
-        attr_couleur += "</div>";*/
-        attr_couleur += "</div>";
-
-
-
         /*****************************************Creation de la partie gauche des couleurs*****************************************
  * Gestion de la partie des couleurs personnalisées
  *****************************************************************************************************************************/
-        attr_couleur += "<div id='uci_div_right_couleur'>";
-        attr_couleur += "<div><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+" /><label for='uci_couleur_personnalisees_input'>";
+        attr_couleur += "<div id='uci_div_right_couleur' class='margin-left'>";
+        attr_couleur += "<div class='cdu_c'><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+" />";
+        attr_couleur += "<label for='uci_couleur_personnalisees_input' class='cdu_left margin-top-lg'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre_use_personal');
         attr_couleur += "</label></div>";
-        attr_couleur += "<div id='uci_couleur_police' class='cdu_c'>";
+        attr_couleur += "<div id='uci_couleur_police' class='padding-left-align cdu_c'>";
         attr_couleur += "<span id='aria_label_texte' >"+accessibilitytoolbar.get('uci_color_txt_texte')+"</span>";
         //couleur de police                
-        var tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleurpolice' role='radiogroup' aria-labelledby='aria_label_texte'>";
+        var tableauCouleurPolice = "<ul class='uci_table_couleur margin-top cdu_c' id='uci_reponses_couleurpolice' role='radiogroup' aria-labelledby='aria_label_texte'>";
         var index = 0;
         var indexCouleur = 0;
         var currentLine = "";
@@ -131,9 +113,9 @@ function UciCouleur() {
         attr_couleur += "</div>";
         
         //Couleur de fond
-        attr_couleur += "<div id='uci_couleur_fond' class='cdu_c'>";
+        attr_couleur += "<div id='uci_couleur_fond' class='padding-left-align cdu_c'>";
         attr_couleur += "<span id='uci_aria_label_fond' class='uci_couleur_clear'>"+accessibilitytoolbar.get('uci_color_txt_background')+"</span>";
-        var tableauCouleurFond = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleurbackground' role='radiogroup' aria-labelledby='uci_aria_label_fond'>";
+        var tableauCouleurFond = "<ul class='uci_table_couleur margin-top cdu_c' id='uci_reponses_couleurbackground' role='radiogroup' aria-labelledby='uci_aria_label_fond'>";
         var index = 0;
         var indexCouleur = 0;
         var currentLine = "";

@@ -1,7 +1,7 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014 - 2016  Orange SA
+    Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -78,7 +78,7 @@ UciIhm = {
          * gestion de la police
          */
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_bigger_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yBigger_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
         attr_ihm += "<span>";
         attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
@@ -86,7 +86,7 @@ UciIhm = {
         attr_ihm += "</span>";
         attr_ihm += "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_150' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yBigger_150' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
         attr_ihm += "<span>";
         attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
@@ -94,7 +94,7 @@ UciIhm = {
         attr_ihm += "</span>";
         attr_ihm += "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_200' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
+        attr_ihm += "<li id='uci_quick_a11yBigger_200' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
         attr_ihm += "<span>";
         attr_ihm += "A";
         attr_ihm += "<span class=\"cdu_n\">";
@@ -107,28 +107,18 @@ UciIhm = {
          * Gestion des couleurs
          */
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
-        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
-        /*if(accessibilitytoolbar.isModern) {
-	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
-        } else {
-        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
-        }*/
-        attr_ihm += "<span class='cdu-icon-test'>"+
-                "<span class='path1'></span>"+
-                "<span class='path2'></span>"+
-                "<span class='path3'></span>"+
-                "<span class='path4'></span>"+
+        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_keepit')+"\">";
+        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_keepit')+"</span>";
+        attr_ihm += "<span class='cdu-icon cdu-icon-test'>"+
+                "<span class='cdu-icon path1'></span>"+
+                "<span class='cdu-icon path2'></span>"+
+                "<span class='cdu-icon path3'></span>"+
+                "<span class='cdu-icon path4'></span>"+
                 "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "uci_choix_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
-        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
-        /*if(accessibilitytoolbar.isModern) {
-	        attr_ihm += UciIhm.displayIconPalette('0 -5 36 36');
-        } else {
-        	attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-test\"><span class=\"cdu-icon path1\"></span><span class=\"cdu-icon path2\"></span><span class=\"cdu-icon path3\"></span><span class=\"cdu-icon path4\"></span><span class=\"cdu-icon path5\"></span><span class=\"cdu-icon path6\"></span><span class=\"cdu-icon path7\"></span><span class=\"cdu-icon path8\"></span><span class=\"cdu-icon path9\"></span><span class=\"cdu-icon path10\"></span></span>";
-        }*/
-        attr_ihm += "<span class='cdu-icon-couleurs2'></span>";
+        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackonwhite')+"\">";
+        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackonwhite')+"</span>";
+        attr_ihm += "<span class='cdu-icon cdu-icon-couleurs2'></span>";
         attr_ihm += "</li>";
         attr_ihm += "</ul>";
         attr_ihm += "</div>";
@@ -151,7 +141,7 @@ UciIhm = {
         attr_ihm += "<!--<![endif]-->";
 
         //  gestion du lien "+ de confort"          
-        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c' href=\"#\" id='uci_moreconfort'>";
+        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary' href=\"#\" id='uci_moreconfort'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-plus2\" id=\"uci_icon_moreconfort\">"+""+"</span>";
         attr_ihm += "<span id='uci_moreconfort_content'>"+accessibilitytoolbar.get('uci_txt_more_settings')+"</span>";
         attr_ihm += "</a>";
@@ -179,28 +169,27 @@ UciIhm = {
                                 "</button>";
         //gestion du menu deroulant du menu
         attr_ihm += "<div>";
-        attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";
-        //attr_ihm += "<button class='uci_bton_menu cdu_c' id=\"uci_fermeture_cdu_menu\" title='"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"'>";
-        //attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
-        //attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_txt_link_menu_close')+"</span>"
-        //attr_ihm += "</button>";
+        attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";        
         attr_ihm += "<ul>";
         attr_ihm += "<li>";
         attr_ihm += "<div id='uci_language'>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "fr"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_fr' value='fr' id='uci_fr' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "en"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_en' value='en' id='uci_en' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "es"?'uci_choix uci_choix_selected':'uci_choix')+"' type='button' name='uci_language_sp' value='sp' id='uci_sp' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "FR"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_FR' value='FR' id='uci_FR' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "EN"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_EN' value='EN' id='uci_EN' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
+        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "ES"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_SP' value='SP' id='uci_SP' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
         attr_ihm += "</div>";
         
         attr_ihm += "</li>";
-        attr_ihm += "<li><a id='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
+        attr_ihm += "<li><a class='uci_menu_ouverture_aide' href=\"http://confort-plus.orange.com\" title=\""+(accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
+        attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-info"></span><span>' + accessibilitytoolbar.get('uci_menu_info') + '</span>';
+        attr_ihm += "</a></li>";
+        attr_ihm += "<li><a class='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
         attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-help"></span><span>' + accessibilitytoolbar.get('uci_menu_help') + '</span>';
         attr_ihm += "</a></li>";
         
         attr_ihm += "</ul>";
         attr_ihm += "</div></div></li>"; // fin menu     
         
-        attr_ihm += "<li class='uci_inline'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"' type='button'>";
+        attr_ihm += "<li class='uci_inline uci_menu_close'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"' type='button'>";
         attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
         attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"</span>"
         attr_ihm += "</button></li></ul>";
@@ -230,11 +219,11 @@ UciIhm = {
          * Gestion de la sélection automatique des éléments
          ***************************************************************************************************************************/
 
-        attr_ihm += "<div class='uci_systeme_onglets cdu_c' id=\"uci_zone_form\" style='display:none;'>";
+        attr_ihm += "<div class='uci_systeme_onglets uci_clear cdu_c' id=\"uci_zone_form\" style='display:none;'>";
         
         attr_ihm += "<div id=\"uci_activateOnglet\" style='display:none;'>"; // uci_activateOnglet        
-        attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix'>"+
-        "<span class='cdu-icon-reload2' aria-hidden='true'></span>"+
+        attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix ucibtn ucibtn-sm ucibtn-secondary'>"+
+        "<span class='cdu-icon cdu-icon-reload2' aria-hidden='true'></span>"+
         accessibilitytoolbar.get('uci_menu_remove_all')+
         "</div>";
         attr_ihm += "<!--[if IE 7]><div class='uci_onglets uci_ongletsie7'><![endif]-->";
@@ -244,20 +233,20 @@ UciIhm = {
         attr_ihm += "<div class='uci_container_onglets'>";  // 1
 
         attr_ihm += "<ul id='uci_onglet_confort' role='tablist' class='cdu_c'>";
-        attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline'> <span class=\"onglet_1 onglet\" id=\"onglet_typographie\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie icon\"></span>";
+        attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline onglet_1'> <span class='onglet' id=\"onglet_typographie\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_typo');
         attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_apparence\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement icon\"></span>";
+        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_apparence\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_apparence');
         attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline'> <span  class=\"onglet_0 onglet\" id=\"onglet_couleur\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2 icon\"></span>";
+        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline onglet_0'> <span  class=\"onglet\" id=\"onglet_couleur\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_color');
         attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline'> <span class=\"onglet_0 onglet\" id=\"onglet_aidemotrice\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement icon\"></span>";
+        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_aidemotrice\">";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_motor_help');
         attr_ihm += "</span></li>";
         attr_ihm += "</ul>";
@@ -334,7 +323,7 @@ UciIhm = {
 		return false;
     },
     /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/
-    more_confort: function () {
+    more_confort: function (e) {
     	if (document.getElementById('uci_activateOnglet').style.display === "none") {
             UciIhm.close_menu();
             document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-moins2";
@@ -354,7 +343,7 @@ UciIhm = {
             if(document.getElementById('uci_zone_form'))
             {
                 document.getElementById('uci_zone_form').style.display = "block";
-				UciIhm.hide_confirm_validation();
+				        UciIhm.hide_confirm_validation();
             }
             //document.getElementById('uci_fermeture_more_confort').style.display = "block";            
             document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
@@ -378,6 +367,7 @@ UciIhm = {
         } else {
             UciIhm.hide_more_confort();
         }
+        accessibilitytoolbar.stopEvt(e);
         return false;
     },
     hide_more_confort: function () {
@@ -413,6 +403,7 @@ UciIhm = {
     },
 	confirm_validation: function() {
 		document.getElementById('uci_confirm_validation').style.display = "block";
+    setTimeout(function(){document.getElementById('uci_confirm_validation').style.display = "none";}, 5000);
 	},
 	
 	hide_confirm_validation: function() {
@@ -458,7 +449,7 @@ UciIhm = {
     },
 
 
-    desactiveCDUForWebSite: function () {
+    desactiveCDUForWebSite: function (e) {
         if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") !== "on") {
             document.getElementById('uci_left_toolbar').style.display='';
             document.getElementById('uci_middle_toolbar').style.display='';
@@ -480,6 +471,7 @@ UciIhm = {
         accessibilitytoolbar.cleanImgDisabled();
         accessibilitytoolbar.setCSS();
         UciIhm.close_menu(true);
+        accessibilitytoolbar.stopEvt(e);
         return false;
     },
 
@@ -497,20 +489,5 @@ UciIhm = {
             document.getElementById('cdu_close').getElementsByTagName("button")[0].focus();
         }
         return false;
-    }, 
-    
-    displayIconPalette: function(viewport) {
-    	return  "<svg focusable='false' version='1.1' viewBox='" + viewport + "' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='cdu-icon-palette' role='image' alt='' aria-hidden='true' >\n\
-<path class='path1' d='M0.476 17.181c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 23.147c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z'></path>\n\
-<path class='path2' d='M0.476 16.218c0 3.272 1.443 6.063 4.234 8.468s6.832 3.561 12.029 3.561c1.732 0 3.176-0.577 4.33-1.732s1.732-2.598 1.732-4.33c0-1.251 0.385-2.213 1.251-2.694 0.77-0.481 2.117-0.77 3.849-0.77 1.636 0 2.983-0.577 3.849-1.636s1.347-2.598 1.347-4.33c0-0.866-0.289-1.925-0.962-3.079s-1.54-2.31-2.598-3.368c-1.155-1.059-2.598-2.021-4.33-2.791-1.828-0.77-3.657-1.155-5.678-1.155-2.694 0-5.1 0.289-7.314 0.77s-4.138 1.251-5.966 2.31c-1.732 1.059-3.176 2.502-4.138 4.234-1.155 1.828-1.636 3.945-1.636 6.544zM14.141 22.185c0-0.674 0.289-1.347 0.77-1.828s1.155-0.77 1.828-0.77c0.674 0 1.347 0.289 1.828 0.77s0.77 1.155 0.77 1.828c0 0.674-0.289 1.347-0.77 1.828s-1.155 0.77-1.828 0.77c-0.674 0-1.347-0.289-1.828-0.77s-0.77-1.155-0.77-1.828z'></path>\n\
-<path class='path3' d='M25.304 14.486c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path4' d='M19.915 10.444c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z'></path>\n\
-<path class='path5' d='M12.409 9.001c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path6' d='M5.672 12.369c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z'></path>\n\
-<path class='path7' d='M25.304 13.524c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path8' d='M19.915 9.482c-0.385-0.385-0.674-0.962-0.674-1.54s0.192-1.059 0.674-1.54c0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.443 0.674c0.385 0.385 0.577 0.962 0.577 1.54s-0.192 1.059-0.577 1.54c-0.385 0.385-0.866 0.674-1.443 0.674s-1.059-0.192-1.54-0.674z'></path>\n\
-<path class='path9' d='M12.409 8.039c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.385-0.481-0.674-0.962-0.674-1.54z'></path>\n\
-<path class='path10' d='M5.672 11.407c0-0.577 0.192-1.059 0.674-1.54 0.385-0.385 0.962-0.674 1.54-0.674s1.059 0.192 1.54 0.674c0.385 0.385 0.674 0.962 0.674 1.54s-0.192 1.059-0.674 1.54c-0.385 0.385-0.962 0.674-1.54 0.674s-1.059-0.192-1.54-0.674c-0.481-0.385-0.674-0.866-0.674-1.54z'></path>\n\
-</svg>";
     }
 };

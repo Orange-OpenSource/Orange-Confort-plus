@@ -1,7 +1,7 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014 - 2016  Orange SA
+    Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -14,7 +14,45 @@
     GNU General Public License for more details (LICENSE.txt file).
 **/
 /**
- * User pref stackv3 generic class.<br />
+ * User pref stackv3 generic class.
+ * Old color combinaisons : 
+ * ,"00F-FF0" // "blueonyellow"
+									,"FF0-00F" // "yellowonblue"
+								//	,"090-000" // "greenonblack"
+								//	,"000-090" // "blackongreen"
+                blueonyellow 00F-FF0
+                00F = 35 / FF0 = 29
+                yellowonblue FF0-00F
+                FF0 = 29 / 00F = 35 
+                greenonblack 090-000
+                090 = 18 / 000 = 65
+                blackongreen 000-090
+                000 = 65 / 090 = 18
+                black on yellow 000 - FF0
+                000 = 65 / FF0 = 29
+                yellowonblack FF0 - 000
+                FF0 = 29 / 000 = 65
+                blueonwhite : 0000FF - FFF
+                00F = 35 / FFF = 00
+                whiteonblue : FFF - 0000FF
+                FFF = 00 / 00F = 35
+                
+                3-blueonyellow 00F-FF0
+                00F = 35 / FF0 = 29
+                4-yellowonblue FF0-00F
+                FF0 = 29 / 00F = 35                 
+                5-greenonblack 090-000
+                090 = 18 / 000 = 65
+                6-blackongreen 000-090
+                000 = 65 / 090 = 18
+                7-blueonwhite : 0000FF - FFF
+                00F = 35 / FFF = 00
+                8-whiteonblue : FFF - 0000FF
+                FFF = 00 / 00F = 35
+
+
+                
+                
  @class Collection of user preference
  */
 function UciUserPref() {
@@ -45,9 +83,9 @@ function UciUserPref() {
         "a11yToolbarEnable-0": "a11yToolbarEnable-off",
         "a11yToolbarEnable-1": "a11yToolbarEnable-on",
         "a11yLanguage-0": "a11yLanguage-keepit",
-        "a11yLanguage-1": "a11yLanguage-fr",
-        "a11yLanguage-2": "a11yLanguage-en",
-        "a11yLanguage-3": "a11yLanguage-es",
+        "a11yLanguage-1": "a11yLanguage-FR",
+        "a11yLanguage-2": "a11yLanguage-EN",
+        "a11yLanguage-3": "a11yLanguage-ES",
         "a11yJumpToContent-0": "a11yJumpToContent-false",
         "a11yJumpToContent-1": "a11yJumpToContent-true",
         "a11yLinearize-0": "a11yLinearize-false",
@@ -61,6 +99,12 @@ function UciUserPref() {
         "a11yVisualPredefinedSettings-0": "a11yVisualPredefinedSettings-keepit",
         "a11yVisualPredefinedSettings-1": "a11yVisualPredefinedSettings-whiteonblack",
         "a11yVisualPredefinedSettings-2": "a11yVisualPredefinedSettings-blackonwhite",
+        "a11yVisualPredefinedSettings-3": "a11yVisualPredefinedSettings-blueonyellow",
+        "a11yVisualPredefinedSettings-4": "a11yVisualPredefinedSettings-yellowonblue",
+        "a11yVisualPredefinedSettings-5": "a11yVisualPredefinedSettings-greenonblack",
+        "a11yVisualPredefinedSettings-6": "a11yVisualPredefinedSettings-blackongreen",
+        "a11yVisualPredefinedSettings-7": "a11yVisualPredefinedSettings-blueonwhite",
+        "a11yVisualPredefinedSettings-8": "a11yVisualPredefinedSettings-whiteonblue",
         "a11yMotorModeEnabled-0": "a11yMotorModeEnabled-false",
         "a11yMotorModeEnabled-1": "a11yMotorModeEnabled-true",
         "a11yMotorMode-0": "a11yMotorMode-remote",
@@ -85,6 +129,7 @@ function UciUserPref() {
         "a11yDyslexyFontEnabled-1": "a11yDyslexyFontEnabled-on",
         "a11yDyslexyFont-0": "a11yDyslexyFont-arial",
         "a11yDyslexyFont-1": "a11yDyslexyFont-opendyslexic",
+        "a11yDyslexyFont-3": "a11yDyslexyFont-keepit",
         "a11yLineSpacement-0": "a11yLineSpacement-keepit",
         "a11yLineSpacement-1": "a11yLineSpacement-2",
         "a11yLineSpacement-2": "a11yLineSpacement-3",
@@ -96,7 +141,7 @@ function UciUserPref() {
         "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false",
         "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on",
         "a11yModifCasse-0": "a11yModifCasse-capitalize",
-        "a11yModifCasse-1": "a11yModifCasse-uppercase",
+        "a11yModifCasse-1": "a11yModifCasse-keepit",
         "a11yModifCasse-2": "a11yModifCasse-lowercase",
         //gestion de l'apparence ; Alignement a gauche
         "a11yLeftText-0":           "a11yLeftText-false",
@@ -241,11 +286,11 @@ function UciUserPref() {
         "a11yQuickMode": "2",
         "a11yCharSpacement": "keepit",
         "a11yDyslexyFontEnabled": "false",
-        "a11yDyslexyFont": "arial",
+        "a11yDyslexyFont": "keepit",
         "a11yLineSpacement" : "keepit",
         "a11ySpacement": "keepit",
         "a11yModifCasseEnabled": "false",
-        "a11yModifCasse" : "capitalize",
+        "a11yModifCasse" : "keepit",
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
         "a11yNavLienEnabled":     "false",
@@ -287,6 +332,18 @@ function UciUserPref() {
            
           for (prefName in this.maskMatrixv3) {
              this.stackv3[prefName]= this.convertMatrixv3[prefName + "-" +pref.substr(this.maskMatrixv3[prefName][0],this.maskMatrixv3[prefName][1])].replace(/.*-/, "");
+          }
+          // v4 update font-familly management
+          // if font previously disabled, consider that default font need to be updated
+          if(this.stackv3['a11yDyslexyFontEnabled']==='false') {
+            this.stackv3['a11yDyslexyFont'] = 'keepit';
+            this.stackv3['a11yDyslexyFontEnabled'] = 'on';
+          }
+          // v4 update casse du texte
+          // if font previously disabled, consider that default text case need to be updated
+          if(this.stackv3['a11yModifCasseEnabled']==='false') {
+            this.stackv3['a11yModifCasse'] = 'keepit';
+            this.stackv3['a11yModifCasseEnabled'] = 'on';
           }
         }
     };
