@@ -107,8 +107,8 @@ UciIhm = {
          * Gestion des couleurs
          */
         attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_default')+"\">";
-        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_default')+"</span>";
+        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_keepit')+"\">";
+        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_keepit')+"</span>";
         attr_ihm += "<span class='cdu-icon cdu-icon-test'>"+
                 "<span class='cdu-icon path1'></span>"+
                 "<span class='cdu-icon path2'></span>"+
@@ -116,8 +116,8 @@ UciIhm = {
                 "<span class='cdu-icon path4'></span>"+
                 "</span>";
         attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"\">";
-        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackandwhite')+"</span>";
+        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackonwhite')+"\">";
+        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackonwhite')+"</span>";
         attr_ihm += "<span class='cdu-icon cdu-icon-couleurs2'></span>";
         attr_ihm += "</li>";
         attr_ihm += "</ul>";
@@ -234,19 +234,19 @@ UciIhm = {
 
         attr_ihm += "<ul id='uci_onglet_confort' role='tablist' class='cdu_c'>";
         attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline onglet_1'> <span class='onglet' id=\"onglet_typographie\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie icon\"></span>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_typo');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_apparence\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement icon\"></span>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_apparence');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline onglet_0'> <span  class=\"onglet\" id=\"onglet_couleur\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2 icon\"></span>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2\"></span>";
         attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_color');
         attr_ihm += "</span></li>";
         attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_aidemotrice\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement icon\"></span>";
+        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement\"></span>";
         attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_motor_help');
         attr_ihm += "</span></li>";
         attr_ihm += "</ul>";

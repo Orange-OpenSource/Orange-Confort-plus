@@ -12,12 +12,13 @@ var fontsPath = {
     opendyslexicitalic: self.options.opendyslexicitalic,
     opendyslexicbold: self.options.opendyslexicbold,
     opendyslexicbolditalic: self.options.opendyslexicbolditalic,
+    fonticone : self.options.fonticone,
 };
 var jquery_min_js = self.options.jquery;
 var mask_js = self.options.mask;
 var helpPath = {
-    fr: self.options.helpfr,
-    en: self.options.helpen,
-    es: self.options.helpes
+    FR: self.options.helpfr,
+    EN: self.options.helpen,
+    ES: self.options.helpes
 };
 var hebergementFullPath='';

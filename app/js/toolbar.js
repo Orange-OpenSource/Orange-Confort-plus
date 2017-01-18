@@ -278,7 +278,7 @@ function LoopingMenu() {
      * Display the menu
      */
     this.show = function() {
-        menuContainer.className="show";
+        menuContainer.className="uciShow";
         if(that.isCenter()) {
             setCenter();
         } else if (that.isNextTo()) {
@@ -2606,7 +2606,19 @@ accessibilitytoolbar = {
         l.href = uci_classic_toolbar_css;
         l.media = 'all';
         l.id = "a11yCSS";
-        this.head.appendChild(l);
+        this.head.appendChild(l);    
+        
+        var newStyle = document.createElement("style");
+        newStyle.setAttribute("type", "text/css");
+        newStyle.id = "a11yCSSFontStyle";
+        if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+            newStyle.styleSheet.cssText = "@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}";
+        }
+        else { // standards-oriented browsers
+            newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}"));
+        }
+        document.getElementsByTagName('head')[0].appendChild(newStyle);
+        
     },
 
     /**
@@ -3182,12 +3194,16 @@ accessibilitytoolbar = {
     },
 
     removeOrStartRemote: function () {
-        if (this.userPref.get("a11ySiteWebEnabled") !== "off" && this.userPref.get("a11yMotorModeEnabled") == "true" && this.userPref.get("a11yMotorMode") == "remote"){
+        if (this.userPref.get("a11ySiteWebEnabled") !== "off" && this.userPref.get("a11yMotorModeEnabled") == "true" && this.userPref.get("a11yMotorMode") == "remote") {
             if(this.remotecontrol == null){
                 this.startRemote();
+            } 
+            // FIX 17/01/2017 if remote already launch, but delay update
+            else if(this.userPref.get("a11yDelayBeforeClick") && this.userPref.get("a11yDelayBeforeClick") >0 && this.userPref.get("a11yDelayBeforeClick") != this.remotecontrol.hoverTimer) {
+              this.remotecontrol.hoverTimer = this.userPref.get("a11yDelayBeforeClick");              
             }
         }else {
-            if(this.remotecontrol !== null){
+            if(this.remotecontrol !== null) {
                 this.remotecontrol.stopHelpMotor();
                 clearTimeout(this.remotecontrol.timerId);
                 this.remotecontrol = null;
@@ -3199,10 +3215,10 @@ accessibilitytoolbar = {
      * If visitor asked for the remotecontrol, then start it (obvious, isn't it)
      */
     startRemote: function () {
-            this.remotecontrol = new RemoteControlMode();
-            if (this.userPref.get("a11yDelayBeforeClick") && this.userPref.get("a11yDelayBeforeClick") > 0) {
-                this.remotecontrol.hoverTimer = this.userPref.get("a11yDelayBeforeClick");
-            }
+        this.remotecontrol = new RemoteControlMode();
+        if (this.userPref.get("a11yDelayBeforeClick") && this.userPref.get("a11yDelayBeforeClick") > 0) {
+            this.remotecontrol.hoverTimer = this.userPref.get("a11yDelayBeforeClick");
+        }
     },
 
     removeOrStartLoopingMode: function (){
@@ -3657,11 +3673,14 @@ accessibilitytoolbar = {
                 }
                 
                 s += "* { color:" + fontColor + " !important; }\n";
-                s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
-                //s += "button, input[type='submit'], input[type='text'] { border-style:outset !important; border-color:" + fontColor + " !important; }\n";
+                s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";                
+                // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
+                s += "input { border-width: 1px !important; border-style: solid !important}\n";
                 s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
                 s += "table {border-collapse: collapse !important;}";
-                s += "* { background-color:" + backGroundColor + " !important; background:" + backGroundColor + " !important; }\n";
+                s += "* { background-color:" + backGroundColor + " !important;}"; 
+                // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
+                // background:" + backGroundColor + " !important; }\n";
                 s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";     
                 
                 document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
@@ -3704,7 +3723,6 @@ accessibilitytoolbar = {
                 }
             }
         }
-
     },
              
     /*
@@ -3843,6 +3861,26 @@ accessibilitytoolbar = {
                 break;
             }
         }
+        // Check if no main content to look for, search for a tag "main" or a tag with this role attribute
+        // if this tag has an id, take it into acount otherwise, set uci_jump_to as the main id
+        if(!accessibilitytoolbar.contentToJumpTo) {
+          var mainElement  = '';
+          if(document.getElementsByTagName('main') && document.getElementsByTagName('main').length > 0) {
+            mainElement = document.getElementsByTagName('main')[0]
+          }
+          else if(document.querySelector('[role="main"]')) {
+            mainElement = document.querySelector('[role="main"]');
+          }
+          if(mainElement) {
+            if(mainElement.id) {
+              accessibilitytoolbar.contentToJumpTo = mainElement.id;
+            }
+            else {
+              accessibilitytoolbar.contentToJumpTo = 'uci_jump_to';
+              mainElement.id = 'uci_jump_to';
+            }
+          }
+        }
         // this creates a few hooks to hold to
         accessibilitytoolbar.head = document.getElementsByTagName('head')[0];
         accessibilitytoolbar.body = document.getElementsByTagName('body')[0];
@@ -3956,31 +3994,27 @@ accessibilitytoolbar = {
      * Start the thing
      */
     start: function () {
-        // detect the browser 
-        if(!this.isTouchDevice(navigator.userAgent || navigator.vendor || window.opera) && !this.inIframe()){            
-            if (!document.getElementById || !document.getElementsByTagName || !document.createElement) {
-                return;
-            }
-            /*  clean escape just in case you're using a very rusty browser */
-            if (document.getElementById("a11yToolbar")) {
-                document.getElementById("a11yToolbar").setAttribute("uci_language", "unknown");
-            } else {
-                // doesn't work on ie<7 so we test before
-                if (window.postMessage) {
-                    // when the data response was received, launch the init of the toolbar
-                    // find the locale for correct language  
-                    this.strings.setLocale();
-                    this.userPref = new UciStorage();
-                    if (document.readyState !== 'loading') {
-                        this.init();
-                    }
-                    else {
-                        this.addOnLoad(this.init);
-                    }
-                }
-            }
-        }
-
-    }
-    
+      // if we are in a frame doesn't display the button
+      if (!document.getElementById || !document.getElementsByTagName || !document.createElement) {
+          return;
+      }
+      /*  clean escape just in case you're using a very rusty browser */
+      if (document.getElementById("a11yToolbar")) {
+          document.getElementById("a11yToolbar").setAttribute("uci_language", "unknown");
+      } else {
+          // doesn't work on ie<7 so we test before
+          if (window.postMessage) {
+              // when the data response was received, launch the init of the toolbar
+              // find the locale for correct language  
+              this.strings.setLocale();
+              this.userPref = new UciStorage();
+              if (document.readyState !== 'loading') {
+                  this.init();
+              }
+              else {
+                  this.addOnLoad(this.init);
+              }
+          }
+      }
+    }    
 };

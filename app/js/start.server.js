@@ -13,4 +13,6 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
-accessibilitytoolbar.start();
+if(!this.isTouchDevice(navigator.userAgent || navigator.vendor || window.opera) && !this.inIframe()){
+  accessibilitytoolbar.start();
+}
