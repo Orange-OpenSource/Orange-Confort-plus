@@ -51,15 +51,16 @@ function startCDU(tab) {
 			   mask: data.url("confort+/js/mask.js"),
 			   helpfr: data.url("javascript:window.postMessage('orangeconfort+helpfr', document.location.href);"),
 			   helpen: data.url("javascript:window.postMessage('orangeconfort+helpen', document.location.href);"),
-			   helpes: data.url("javascript:window.postMessage('orangeconfort+helpes', document.location.href);")
+			   helpes: data.url("javascript:window.postMessage('orangeconfort+helpes', document.location.href);"),
+         helpPathTarget: ''
 			}
 		});
 			
-		worker.port.on('openhelp', function(lang) {
-	        tabs.open({
-	            url: data.url('confort+/help/help_' + lang + '.html')
-	        })
-	    });
+		worker.port.on('orangeconfort+openhelp', function(langue) {      
+      tabs.open({
+	            url: data.url('confort+/help/help_' + langue + '.html')
+	        });
+    });
 	    worker.port.on('orangeconfort+userprefget', function(hostname) {
 	        if(typeof(ss.storage.userPref)=='undefined') {   
 	            ss.storage.userPref = '00006510006506506500000000000000000065000000100';

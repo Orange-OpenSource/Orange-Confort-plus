@@ -21,4 +21,5 @@ var helpPath = {
     EN:  chrome.extension.getURL('help/help_en.html'),//self.options.helpen,
     ES:  chrome.extension.getURL('help/help_es.html')//self.options.helpes
 };
+var helpPathTarget = '_blank';
 var hebergementFullPath='';

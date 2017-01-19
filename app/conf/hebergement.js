@@ -30,7 +30,8 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      fr: hebergementFullPath + "help/help_fr.html",
      en: hebergementFullPath + "help/help_en.html",
      es: hebergementFullPath + "help/help_es.html"
- }
+ };
+ var helpPathTarget = '_blank';
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.css';
  var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
  var mask_js = hebergementFullPath + 'js/mask.js';

@@ -244,6 +244,7 @@ input[type="reset"]::-moz-focus-inner {
     position: absolute;
     width: 1.25em;
     font-size: 1em;
+    top: 0;
 }
 #accessibilitytoolbarGraphic input[type="radio"] + label:after {
     color: #fff;
@@ -256,6 +257,7 @@ input[type="reset"]::-moz-focus-inner {
     top: 0;
     width: 1.25em;
     background: transparent;
+    top: 0;
 }
 #accessibilitytoolbarGraphic input[type="radio"]:not(:checked) + label:after {
     opacity: 0;
@@ -314,6 +316,7 @@ input[type="reset"]::-moz-focus-inner {
     position: absolute;
     width: 1.25em;
     font-size: 1em;
+    top: 0;
 }
 #accessibilitytoolbarGraphic input[type="checkbox"] + label:after {
     color: #fff;
@@ -326,6 +329,7 @@ input[type="reset"]::-moz-focus-inner {
     text-align: center;
     width: 1.25em;
     background: transparent;
+    top: 0;
 }
 #accessibilitytoolbarGraphic input[type="checkbox"]:not(:checked) + label:after {
     opacity: 0;
@@ -991,6 +995,7 @@ right: 0px;
   background-color: #fff;    
   font-weight: 700;  
   margin-right: 0.7142em;
+  margin-left: 0;
   box-sizing: content-box;
 }
 .uci_choix:last-child {

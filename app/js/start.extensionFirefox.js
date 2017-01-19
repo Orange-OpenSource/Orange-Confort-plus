@@ -23,13 +23,13 @@ window.addEventListener('message', function(event) {
 	      var message = split[0];
 	      var value = split[1];
 		  if(message === 'orangeconfort+helpfr') {
-	          self.port.emit('openhelp', 'fr');
+	          self.port.emit('orangeconfort+openhelp', 'fr');
 	      }
 	      if(message === 'orangeconfort+helpen') {
-	          self.port.emit('openhelp', 'en');
+	          self.port.emit('orangeconfort+openhelp', 'en');
 	      }
 	      if(message === 'orangeconfort+helpes') {
-	          self.port.emit('openhelp', 'es');
+	          self.port.emit('orangeconfort+openhelp', 'es');
 	      }
 	      if(message === 'orangeconfort+userprefget') {
 			  self.port.emit('orangeconfort+userprefget', document.location.hostname);

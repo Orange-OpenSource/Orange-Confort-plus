@@ -3408,7 +3408,7 @@ accessibilitytoolbar = {
             }
 
             //gestion de la casse : a11yModifCase
-            if (accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") !== "false") {
+            if (accessibilitytoolbar.userPref.get("a11yModifCasse") !== "keepit") {
                 s += "*{ text-transform:" + accessibilitytoolbar.userPref.get("a11yModifCasse") + " !important; }\n";
             }
 

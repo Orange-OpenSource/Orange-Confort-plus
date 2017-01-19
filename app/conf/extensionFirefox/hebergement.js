@@ -21,4 +21,5 @@ var helpPath = {
     EN: self.options.helpen,
     ES: self.options.helpes
 };
+var helpPathTarget = self.options.helpPathTarget;
 var hebergementFullPath='';

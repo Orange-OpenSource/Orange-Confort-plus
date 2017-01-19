@@ -38,4 +38,5 @@ var helpPath = {
     EN:  "javascript:window.postMessage('orangeconfort+help_en',document.location);",
     ES:  "javascript:window.postMessage('orangeconfort+help_es',document.location);"
 };
+var helpPathTarget = '';
 var hebergementFullPath = '';
