@@ -1,5 +1,5 @@
 // <copyright file="STGMEDIUM.cs" company="Orange SA">
-//     Copyright (c) 2016 Orange. 
+//     Copyright (c) 2016 - 2017 Orange. 
 // </copyright>
 //
 // This file is part of Orange Confort+ Internet Explorer Extension | An Internet Explorer Extension that embed Orange Confort+ (http://confort-plus.orange.com/)

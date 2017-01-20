@@ -47,9 +47,9 @@ function UciCouleur() {
  * Gestion de la partie des couleurs prédéfinies
 *****************************************************************************************************************************/
         //couleur predefinie
-        attr_couleur += "<div id='uci_div_couleur_predefinie' class='margin-left margin-right-lg'>";
+        attr_couleur += "<div id='uci_div_couleur_predefinie' class='margin-left margin-right-lg margin-top-lg'>";
         attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+" />";
-        attr_couleur += "<label for='uci_couleur_predefenie_input' class='cdu_left margin-top-lg'>";
+        attr_couleur += "<label for='uci_couleur_predefenie_input' class='uci_couleur_left'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre');
         attr_couleur += "</label>";
        
@@ -82,9 +82,9 @@ function UciCouleur() {
         /*****************************************Creation de la partie gauche des couleurs*****************************************
  * Gestion de la partie des couleurs personnalisées
  *****************************************************************************************************************************/
-        attr_couleur += "<div id='uci_div_right_couleur' class='margin-left'>";
+        attr_couleur += "<div id='uci_div_right_couleur' class='margin-left margin-top-lg'>";
         attr_couleur += "<div class='cdu_c'><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+" />";
-        attr_couleur += "<label for='uci_couleur_personnalisees_input' class='cdu_left margin-top-lg'>";
+        attr_couleur += "<label for='uci_couleur_personnalisees_input' class='uci_couleur_left'>";
         attr_couleur += accessibilitytoolbar.get('uci_color_titre_use_personal');
         attr_couleur += "</label></div>";
         attr_couleur += "<div id='uci_couleur_police' class='padding-left-align cdu_c'>";

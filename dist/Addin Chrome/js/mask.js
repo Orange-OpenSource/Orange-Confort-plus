@@ -34,9 +34,13 @@ UciMask = {
         start: function() {
         	if(!UciMask.settings.launched)
             {
-        		UciMask.maskEventCreate();
+        		  UciMask.maskEventCreate();
             } 
-        	$(document).mousemove();
+          // var evt = document.createEvent("CustomEvent");
+          // evt.initCustomEvent('mousemove.mask', false, false, {
+//               'cmd': "blerg!"
+//           });
+        	$(document).trigger("mousemove.mask");
         	//UciMask.draw(Math.round(window.innerHeight / 2));
         },
         
@@ -50,11 +54,11 @@ UciMask = {
             // if the mask was launched before, removed it from the dom
         	jQuery('.topMask').hide();      
         	jQuery('.bottomMask').hide(); 
-            UciMask.settings.launched = false;
+          UciMask.settings.launched = false;
         },
         
         maskEvent: function(e) {
-            UciMask.draw(e.clientY);
+          UciMask.draw(e.clientY);
         },
         
         draw: function(positionY) {
@@ -83,7 +87,7 @@ UciMask = {
         	jQuery('.topMask').css("height",topMaskHeight + "px");
         	jQuery('.topMask').show();  
         	var bottomMaskHeight = 0;
-            if((window.innerHeight - topMaskHeight - size) > 0)   {
+            if((jQuery(window).height() - topMaskHeight - size) > 0)   {
             	bottomMaskHeight = jQuery(window).height() - topMaskHeight - size;
             }
         	jQuery('.bottomMask').css("height",bottomMaskHeight + "px");                  

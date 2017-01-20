@@ -55,7 +55,14 @@ body, input, textarea, button, option {
     padding:1.5em 0 0.5em 0;
 }
 
-
+.uci-plus-orange-help {
+    color: #F16E00;
+    font-size: 130%;
+    line-height: 0;    
+    font-weight: bold;
+    padding-bottom: 0.125em;
+    vertical-align: middle;    
+}
 
 /*----------------------------------------------*/
 /* Page How it works 							*/

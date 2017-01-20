@@ -471,8 +471,14 @@ module.exports = function(grunt) {
             '!js/start.server.js',  
             '!js/UciCookie.js',  
             '!js/UciCookieStandalone.js',  
-            'conf/extensionChrome/**' 
+            '!conf/extensionChrome/**' 
           ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>/conf/extensionChrome',
+          dest: '<%= yeoman.distchromeext %>/conf',
+          src: ['*']
         }]
       },
       docs: {
@@ -507,6 +513,43 @@ module.exports = function(grunt) {
             files: [
               {expand: true, src: ['<%= yeoman.dist %>/**/*.html','<%= yeoman.dist %>/**/*.php'], dest: ''}
             ]
+        },
+      firefoxext:{
+            options: {
+              patterns: [
+                {
+                    match: 'start.server',
+                    replacement: 'start.extensionFirefox'
+                },{
+                    match: 'UciCookie.js',
+                    replacement: 'UciSimpleStorage.js'
+                },{
+                    match: '/js/toolbar-min.js -->',
+                    replacement: '/js/toolbar-min.js '
+                }
+              ],
+              usePrefix:false
+            },
+            files: [
+              {expand: true, src: ['<%= yeoman.dist %>/Addin Firefox/data/confort+/help/*.html'], dest: ''}
+            ]
+        },
+      chromeext:{
+            options: {
+              patterns: [
+                {
+                    match: 'start.server',
+                    replacement: 'start.extensionChrome'
+                },{
+                    match: 'UciCookie.js',
+                    replacement: 'UciSimpleStorage.js'
+                }
+              ],
+              usePrefix:false
+            },
+            files: [
+              {expand: true, src: ['<%= yeoman.dist %>/Addin Chrome/help/*.html'], dest: ''}
+            ]
         }
     },
     
@@ -538,14 +581,16 @@ module.exports = function(grunt) {
   
   grunt.registerTask('buildfirefoxext', [    
     'clean:firefoxext',
-    'copy:firefoxext',
+    'copy:firefoxext',    
+    'replace:firefoxext',
     //'concat:firefoxext',
     'jpm:xpi'
   ]);
   
   grunt.registerTask('buildchromeext', [    
     'clean:chromeext',
-    'copy:chromeext'
+    'copy:chromeext',
+    'replace:chromeext'
     //'concat:chromeext'
   ]);
   
@@ -561,7 +606,7 @@ module.exports = function(grunt) {
     'filerev',
     'usemin',  
     'htmlmin',
-    'replace',
+    'replace:replacements',
     'usebanner'
   ]);
 

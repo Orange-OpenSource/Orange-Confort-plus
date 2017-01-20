@@ -2370,7 +2370,7 @@ accessibilitytoolbar = {
             tagId = target.id;
         }
         var etat = target.getAttribute('aria-checked');
-        if(document.getElementById('uci_activateOnglet').style.display !== 'block' || tagId.match(/uci_quick/g) == null){
+        if(document.getElementById('uci_activateOnglet').style.display !== 'block' || tagId.match(/uci_quick/g) == null) {
         // check if clicked
             if(e.type == 'click')
             {
@@ -2416,18 +2416,17 @@ accessibilitytoolbar = {
         // add the selected class
         elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/,"uci_couleur_li uci_couleur_li_selected");
         elmt.className = elmt.className.replace(/uci_choix{0,1}/,"uci_choix active");
-        if(elmt.id.match(/a11yBigger/g) || elmt.id.match(/a11yVisualPredefined/g)){
-            if(document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null){
+        if(elmt.id.match(/a11yBigger/g) || elmt.id.match(/a11yVisualPredefined/g)) {
+            if(document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null) {
                 var element = /^uci_(\S+)$/.exec(elmt.id);
                 // on vérifie que son copain existe dans les réglages rapides
-                if(document.getElementById('uci_quick_'+ element[1]))
-                {
-                    accessibilitytoolbar.uciCocherRadioButton (document.getElementById('uci_quick_'+ element[1]));
-                    elmt.focus();
+                if(document.getElementById('uci_quick_'+ element[1])) {
+                    accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_quick_'+ element[1]));                    
                 }
-            }else if(document.getElementById('uci_activateOnglet').style.display == 'none' && elmt.id.match(/uci_quick/gi) !=null){
+                elmt.focus();
+            } else if(document.getElementById('uci_activateOnglet').style.display == 'none' && elmt.id.match(/uci_quick/gi) !=null) {
                 var element = /^uci_quick_(\S+)$/.exec(elmt.id);
-                accessibilitytoolbar.uciCocherRadioButton (document.getElementById('uci_'+ element[1]));
+                accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_'+ element[1]));
                 elmt.focus();
             }
         } else {
@@ -2478,24 +2477,25 @@ accessibilitytoolbar = {
                     accessibilitytoolbar.userPref.set('a11yVisualSettings','personnal');
                     document.getElementById('uci_couleur_personnalisees_input').checked='checked';
                     document.getElementById('uci_couleur_predefenie_input').removeAttribute('checked');
-                } else{ if(accessibilitytoolbar.userPref.get('a11yVisualSettings') ==='personnal' && resArray[resArray.length-2] === 'a11yVisualPredefinedSettings'){
-                            accessibilitytoolbar.userPref.set('a11yVisualSettings','predefined');
-                            document.getElementById('uci_couleur_predefenie_input').checked='checked';
-                            document.getElementById('uci_couleur_personnalisees_input').removeAttribute('checked');
-                        }
-                    }
+                } else { 
+                  if(accessibilitytoolbar.userPref.get('a11yVisualSettings') ==='personnal' && resArray[resArray.length-2] === 'a11yVisualPredefinedSettings') {
+                      accessibilitytoolbar.userPref.set('a11yVisualSettings','predefined');
+                      document.getElementById('uci_couleur_predefenie_input').checked='checked';
+                      document.getElementById('uci_couleur_personnalisees_input').removeAttribute('checked');
+                  }
+                }
             }
         }
         if(document.getElementById('uci_validation').className==='cdu_n'){
-            document.getElementById('uci_validation').className="";
-			UciIhm.hide_confirm_validation();
+          document.getElementById('uci_validation').className="";
+          UciIhm.hide_confirm_validation();
         }
         document.getElementById('uci_zone_form').style.display="block";
         if(accessibilitytoolbar.userPref.get("a11yApercuAuto")!=="off"){
-            accessibilitytoolbar.setCSS();
+          accessibilitytoolbar.setCSS();
 
-            // jump to content if needed
-            accessibilitytoolbar.jumpToContent();
+          // jump to content if needed
+          accessibilitytoolbar.jumpToContent();
         }
     },
 
@@ -3885,9 +3885,10 @@ accessibilitytoolbar = {
         accessibilitytoolbar.head = document.getElementsByTagName('head')[0];
         accessibilitytoolbar.body = document.getElementsByTagName('body')[0];
         accessibilitytoolbar.html = document.getElementsByTagName('html')[0];
-
-        if(accessibilitytoolbar.userPref.get('a11yLanguage') !== "keepit"){
-
+        if(document.getElementById('accessibilitytoolbarGraphic')) {
+          return false; 
+        }
+        if(accessibilitytoolbar.userPref.get('a11yLanguage') !== "keepit") {
             accessibilitytoolbar.strings.setMyLocale(accessibilitytoolbar.userPref.get('a11yLanguage'));
         }
         accessibilitytoolbar.firstInitToolbar();

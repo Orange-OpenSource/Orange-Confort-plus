@@ -1,6 +1,6 @@
-/* orange-confort-plus - version 4.0.0 - 08-12-2016
+/* orange-confort-plus - version 4.0.0 - 20-01-2017
 enhance user experience on websites
- Copyright (C) 2014 - 2016 Orange */
+ Copyright (C) 2014 - 2017 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
@@ -37,9 +37,13 @@ UciMask = {
         start: function() {
         	if(!UciMask.settings.launched)
             {
-        		UciMask.maskEventCreate();
+        		  UciMask.maskEventCreate();
             } 
-        	$(document).mousemove();
+          // var evt = document.createEvent("CustomEvent");
+          // evt.initCustomEvent('mousemove.mask', false, false, {
+//               'cmd': "blerg!"
+//           });
+        	$(document).trigger("mousemove.mask");
         	//UciMask.draw(Math.round(window.innerHeight / 2));
         },
         
@@ -53,11 +57,11 @@ UciMask = {
             // if the mask was launched before, removed it from the dom
         	jQuery('.topMask').hide();      
         	jQuery('.bottomMask').hide(); 
-            UciMask.settings.launched = false;
+          UciMask.settings.launched = false;
         },
         
         maskEvent: function(e) {
-            UciMask.draw(e.clientY);
+          UciMask.draw(e.clientY);
         },
         
         draw: function(positionY) {
@@ -86,7 +90,7 @@ UciMask = {
         	jQuery('.topMask').css("height",topMaskHeight + "px");
         	jQuery('.topMask').show();  
         	var bottomMaskHeight = 0;
-            if((window.innerHeight - topMaskHeight - size) > 0)   {
+            if((jQuery(window).height() - topMaskHeight - size) > 0)   {
             	bottomMaskHeight = jQuery(window).height() - topMaskHeight - size;
             }
         	jQuery('.bottomMask').css("height",bottomMaskHeight + "px");                  

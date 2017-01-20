@@ -1,7 +1,7 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
-    Copyright (C) 2014 - 2016  Orange SA
+    Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -18,28 +18,28 @@ var block = false;
 window.addEventListener('message', function(event) {
 	if(block == false) {
 	    if (  typeof event.data === 'object')
-	            return false;
-	      var split = event.data.split('_');
-	      var message = split[0];
-	      var value = split[1];
+        return false;
+      var split = event.data.split('_');
+      var message = split[0];
+      var value = split[1];
 		  if(message === 'orangeconfort+helpfr') {
-	          self.port.emit('openhelp', 'fr');
-	      }
-	      if(message === 'orangeconfort+helpen') {
-	          self.port.emit('openhelp', 'en');
-	      }
-	      if(message === 'orangeconfort+helpes') {
-	          self.port.emit('openhelp', 'es');
-	      }
-	      if(message === 'orangeconfort+userprefget') {
-			  self.port.emit('orangeconfort+userprefget', document.location.hostname);
-	      }
-	      if(message === 'orangeconfort+userprefsave') {
-			  self.port.emit('orangeconfort+userprefsave', value);
-	      }
-	      if(message === 'orangeconfort+blacklistsave') {
-	          self.port.emit('orangeconfort+blacklistsave', value);
-	      }
+          self.port.emit('orangeconfort+openhelp', 'fr');
+      }
+      if(message === 'orangeconfort+helpen') {
+          self.port.emit('orangeconfort+openhelp', 'en');
+      }
+      if(message === 'orangeconfort+helpes') {
+          self.port.emit('orangeconfort+openhelp', 'es');
+      }
+      if(message === 'orangeconfort+userprefget') {
+      self.port.emit('orangeconfort+userprefget', document.location.hostname);
+      }
+      if(message === 'orangeconfort+userprefsave') {
+      self.port.emit('orangeconfort+userprefsave', value);
+      }
+      if(message === 'orangeconfort+blacklistsave') {
+          self.port.emit('orangeconfort+blacklistsave', value);
+      }
 	}
   
 }, true);
