@@ -935,6 +935,7 @@ ul#uci_reponses_bigger_quick_set {
 #uci_onglet_confort li{
     margin: 0 0 -2px 0;
     padding: 0;
+    background-clip: content-box;
 }
 
 #uci_activateOnglet{

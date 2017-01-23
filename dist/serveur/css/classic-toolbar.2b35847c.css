@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.0.0 - 20-01-2017
+/* orange-confort-plus - version 4.0.0 - 23-01-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 /**
@@ -938,6 +938,7 @@ ul#uci_reponses_bigger_quick_set {
 #uci_onglet_confort li{
     margin: 0 0 -2px 0;
     padding: 0;
+    background-clip: content-box;
 }
 
 #uci_activateOnglet{
