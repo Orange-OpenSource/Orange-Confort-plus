@@ -1,0 +1,28 @@
+
+
+.img-center {
+	width: 100%;
+	margin-top:1.5em;
+	margin-bottom: 1.5em;
+}
+
+body {
+	font-size: 1.5em;
+}
+
+.download {
+	font-weight: bold;
+	font-size: 1.6em;
+	
+}
+
+.center {
+	text-align: center;
+}
+
+h2 {
+	  border-bottom: 1px solid #eeeeee;
+	    padding-bottom: 1.1rem;
+	      margin-top: 2.2rem;
+	      margin-bottom: 2.2rem;
+}
