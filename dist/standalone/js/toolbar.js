@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.0.0 - 23-01-2017
+/* orange-confort-plus - version 4.0.0 - 24-01-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -6765,6 +6765,6 @@ accessibilitytoolbar = {
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
-if(!this.isTouchDevice(navigator.userAgent || navigator.vendor || window.opera) && !this.inIframe()){
+if(!accessibilitytoolbar.isTouchDevice(navigator.userAgent || navigator.vendor || window.opera) && !accessibilitytoolbar.inIframe()){
   accessibilitytoolbar.start();
 }
