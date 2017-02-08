@@ -1,8 +1,8 @@
 /* orange-confort-plus - version 4.0.0 - 08-02-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
-var hebergementDomaine = '';
-var hebergementFullPath = hebergementDomaine + '/serveur/crossdom/';
+var hebergementDomaine = 'https://orange-opensource.github.io';
+var hebergementFullPath = hebergementDomaine + '/Orange-Confort-plus/serveur/crossdom/';
 // Source: app/conf/hebergement.js
 /*
 
