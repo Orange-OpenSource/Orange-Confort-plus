@@ -52,8 +52,7 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 3. `$ grunt`
 
 ### 3. Deploy _Orange Confort+_ onto your domain - Prepackaged version available, just need to put your values
-- `dist/serveur` -> Serveur mode content using PHP, allow to share cookie on multiple domain
-- `dist/standalone` -> Standalone mode content, don't need PHP, need to be deployed onto each different domain
+- `dist/serveur` -> Serveur mode content, allow to share cookie on multiple domain
 
 ## Bugs and feature requests
 

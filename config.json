@@ -1,6 +1,5 @@
 {
   "hebergementProtocol": "https:",  
   "hebergementDomaine": "HEBERGEMENTDOMAIN",
-  "cookieDomain": "COOKIEDOMAIN",
   "hebergementFullPath": "YOURPATHTOSOURCEFILES"
 }

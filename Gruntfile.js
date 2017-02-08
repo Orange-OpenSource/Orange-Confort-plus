@@ -11,13 +11,11 @@ module.exports = function(grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist',
     distserveur: 'dist/serveur',
-    diststandalone: 'dist/standalone',
     distfirefoxext: 'dist/Addin Firefox',    
     distchromeext: 'dist/Addin Chrome',    
     pkg: grunt.file.readJSON('bower.json') || {},
 // hebergementProtocol If possible, use HTTPS
 // hebergementDomaine Put your servername below example : "hebergementDomaine": "github.com"
-// cookieDomain Define the domain for cookie storage example: "cookieDomain": "*.github.com"  
 // hebergementFullPath Define the relative path where source file will be available with slashes before and after 
 // example : if I deploy the content of dist into http://mydomain.com/confortplusserveur/ 
 // "hebergementFullPath": "/confortplusserveur/"  
@@ -196,10 +194,6 @@ module.exports = function(grunt) {
          distserveur:{
             src: '<%= yeoman.distserveur %>/js/toolbar.js',
             dest: '<%= yeoman.distserveur %>/js/toolbar-min.js'
-         },
-         diststandalone:{
-            src: '<%= yeoman.diststandalone %>/js/toolbar.js',
-            dest: '<%= yeoman.diststandalone %>/js/toolbar-min.js'
          }
     },
     // Performs rewrites based on filerev and the useminPrepare configuration
@@ -208,7 +202,7 @@ module.exports = function(grunt) {
         css: ['<%= yeoman.dist %>/{,*/}css/{,*/}*.css'],
         js: '<%= yeoman.dist %>/{,*/}js/*.js',
         options: {
-            assetsDirs: ['<%= yeoman.distserveur %>','<%= yeoman.distserveur %>/css', '<%= yeoman.distserveur %>/images','<%= yeoman.diststandalone %>','<%= yeoman.diststandalone %>/css', '<%= yeoman.diststandalone %>/images'],
+            assetsDirs: ['<%= yeoman.distserveur %>','<%= yeoman.distserveur %>/css', '<%= yeoman.distserveur %>/images'],
             patterns: {
                 js: [
                     [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp))/gm, 'Update the JS to reference our revved images'],
@@ -221,9 +215,6 @@ module.exports = function(grunt) {
       dist: {
         files: {
           '<%= yeoman.distserveur %>/css/classic-toolbar.min.css': [
-            '<%= yeoman.app %>/css/classic-toolbar.css'
-          ],
-          '<%= yeoman.diststandalone %>/css/classic-toolbar.min.css': [
             '<%= yeoman.app %>/css/classic-toolbar.css'
           ]
         }
@@ -261,34 +252,6 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/start.server.js"
         ],
         dest: '<%= yeoman.distserveur %>/js/toolbar.js'
-      },      
-      standalone: {
-        options: {
-            // Replace all 'use strict' statements in the code with a single one at the top
-            banner: "var hebergementDomaine = '<%= yeoman.config.hebergementProtocol %>//<%= yeoman.config.hebergementDomaine %>';\nvar hebergementFullPath = hebergementDomaine + '<%= yeoman.config.hebergementFullPath %>';\n",            
-            process: function(src, filepath) {
-              return '// Source: ' + filepath + '\n' +
-                src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-            },
-        },        
-        src: [  
-            "<%= yeoman.app %>/conf/hebergement.js",
-            "<%= yeoman.app %>/js/ToolbarStrings.js",
-            "<%= yeoman.app %>/js/UciUserPref.js",
-            "<%= yeoman.app %>/js/UciCookieStandalone.js",
-            "<%= yeoman.app %>/language/en.js",
-            "<%= yeoman.app %>/language/es.js",
-            "<%= yeoman.app %>/language/fr.js",
-            "<%= yeoman.app %>/js/UciAideMotrice.js",
-            "<%= yeoman.app %>/js/UciCouleur.js",
-            "<%= yeoman.app %>/js/UciApparence.js",
-            "<%= yeoman.app %>/js/UciTypographie.js",
-            "<%= yeoman.app %>/js/UciValidation.js",
-            "<%= yeoman.app %>/js/UciIhm.js",
-            "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/start.server.js"
-        ],
-        dest: '<%= yeoman.diststandalone %>/js/toolbar.js'
       },      
       firefoxext: {
         options: {
@@ -364,11 +327,6 @@ module.exports = function(grunt) {
           cwd: '<%= yeoman.distserveur %>',
           src: ['**/*.html'],
           dest: '<%= yeoman.distserveur %>'
-        },{
-          expand: true,
-          cwd: '<%= yeoman.diststandalone %>',
-          src: ['**/*.html'],
-          dest: '<%= yeoman.diststandalone %>'
         }]
       }
     },
@@ -387,31 +345,12 @@ module.exports = function(grunt) {
             'fonts/**', 
             'js/jquery-2.2.4.js', 
             'js/mask.js', 
-            'conf/param.php',
-            '*.php',
             '*.txt',
             '*.htm',
             '**/*.html',
             '!Addin*/**'
           ]
-        },{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.diststandalone %>',
-          src: [           
-            'images/**',   
-            'css/**',  
-            'fonts/**', 
-            'js/jquery-2.2.4.js', 
-            'js/mask.js', 
-            '*.txt',
-            '*.htm',
-            '**/*.html',
-            '!Addin*/**'
-          ]
-        }
-        ]
+        }]
       },
       firefoxext: {
         files: [{
@@ -438,8 +377,7 @@ module.exports = function(grunt) {
             '!js/start.extensionChrome.js',     
             '!js/start.extensionIE.js',
             '!js/start.server.js',  
-            '!js/UciCookie.js',  
-            '!js/UciCookieStandalone.js',  
+            '!js/UciCookie.js',
             'conf/extensionFirefox/**' 
           ]
         }]
@@ -469,8 +407,7 @@ module.exports = function(grunt) {
             '!js/start.extensionFirefox.js',  
             '!js/start.extensionIE.js',  
             '!js/start.server.js',  
-            '!js/UciCookie.js',  
-            '!js/UciCookieStandalone.js',  
+            '!js/UciCookie.js',
             '!conf/extensionChrome/**' 
           ]
         },{
@@ -500,10 +437,6 @@ module.exports = function(grunt) {
             options: {
               patterns: [
                 {
-                    match: 'COOKIEDOMAIN',
-                    replacement: '<%= yeoman.config.cookieDomain %>'
-                },
-                {
                     match: '../js/toolbar-min.js',
                     replacement: '<%= yeoman.config.hebergementProtocol %>//<%= yeoman.config.hebergementDomaine %><%= yeoman.config.hebergementFullPath %>js/toolbar-min.js'
                 }                  
@@ -511,7 +444,7 @@ module.exports = function(grunt) {
               usePrefix:false
             },
             files: [
-              {expand: true, src: ['<%= yeoman.dist %>/**/*.html','<%= yeoman.dist %>/**/*.php'], dest: ''}
+              {expand: true, src: ['<%= yeoman.dist %>/**/*.html'], dest: ''}
             ]
         },
       firefoxext:{
@@ -599,9 +532,7 @@ module.exports = function(grunt) {
     'copy:dist',
     'useminPrepare',  
     'concat:dist',
-    'concat:standalone',
     'uglify:distserveur',  
-    'uglify:diststandalone',  
     'cssmin',
     'filerev',
     'usemin',  

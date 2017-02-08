@@ -24,7 +24,7 @@
 function UciStorage() {
     "use strict";
     var oNewNode = document.createElement("iframe");
-                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.php?hostname='+document.location.hostname+'&origin=' + document.location.href);
+                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.href);
                     oNewNode.setAttribute("id", 'id_frame_cookie');
                     oNewNode.setAttribute("name", 'frame_cookie');
                     oNewNode.setAttribute("width", '0');
@@ -42,7 +42,7 @@ function UciStorage() {
     this.updateUserPref = function() {
         // Update the cdu cookies with the stackv3 value
         var pref = this.encode();
-        document.getElementById('id_frame_cookie').src=hebergementFullPath+"saveCookie.php?UsageConfort="+pref+"&origin="+document.location.href;
+        document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.href;
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
     };
@@ -52,7 +52,7 @@ function UciStorage() {
      */
     this.updateBlackList = function() {
         // Update the cdu cookies with the stackv3 value
-        document.getElementById('id_frame_cookie').src=hebergementFullPath+"saveCookieBlWebSite.php?hostname="+document.location.hostname;
+        document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?hostname="+document.location.hostname;
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = this.storedValue.substr(0,this.storedValue.length-1)+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
     };
