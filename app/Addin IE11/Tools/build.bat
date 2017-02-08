@@ -13,7 +13,7 @@ mkdir "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js"
 
 copy /Y "%~dp0\..\..\js\mask.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\mask.js"
 copy /Y "%~dp0\..\..\js\toolbar.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\toolbar.js"
-copy /Y "%~dp0\..\..\js\jquery-1.11.3.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\jquery-1.11.3.js"
+copy /Y "%~dp0\..\..\js\jquery-2.2.4.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\jquery-2.2.4.js"
 copy /Y "%~dp0\..\..\js\ToolbarStrings.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\ToolbarStrings.js"
 copy /Y "%~dp0\..\..\js\UciAideMotrice.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciAideMotrice.js"
 copy /Y "%~dp0\..\..\js\UciApparence.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciApparence.js"

@@ -97,7 +97,7 @@ module.exports = function(grunt) {
         src: [
           'Gruntfile.js',
           '<%= yeoman.app %>/js/{,*/}*.js', 
-          '!<%= yeoman.app %>/js/jquery.min.js'
+          '!<%= yeoman.app %>/js/jquery-2.2.4.min.js'
         ]
       },
       test: {
@@ -299,7 +299,7 @@ module.exports = function(grunt) {
             },
         },        
         src: [  
-            "<%= yeoman.app %>/js/jquery.min.js",
+            "<%= yeoman.app %>/js/jquery-2.2.4.min.js",
             "<%= yeoman.app %>/conf/extensionFirefox/hebergement.js",
             "<%= yeoman.app %>/js/ToolbarStrings.js",
             "<%= yeoman.app %>/js/UciUserPref.js",
@@ -328,7 +328,7 @@ module.exports = function(grunt) {
             },
         },        
         src: [  
-            "<%= yeoman.app %>/js/jquery.min.js",
+            "<%= yeoman.app %>/js/jquery-2.2.4.min.js",
             "<%= yeoman.app %>/conf/extensionChrome/hebergement.js",
             "<%= yeoman.app %>/js/ToolbarStrings.js",
             "<%= yeoman.app %>/js/UciUserPref.js",
@@ -385,7 +385,7 @@ module.exports = function(grunt) {
             'images/**',   
             'css/**',  
             'fonts/**', 
-            'js/jquery.min.js', 
+            'js/jquery-2.2.4.js', 
             'js/mask.js', 
             'conf/param.php',
             '*.php',
@@ -403,7 +403,7 @@ module.exports = function(grunt) {
             'images/**',   
             'css/**',  
             'fonts/**', 
-            'js/jquery.min.js', 
+            'js/jquery-2.2.4.js', 
             'js/mask.js', 
             '*.txt',
             '*.htm',
@@ -433,8 +433,8 @@ module.exports = function(grunt) {
             'help/**',
             'language/**',  
             'js/**' ,  
-            '!js/jquery.min.js',  
-            '!js/jquery-1.11.3.min.js',  
+            '!js/jquery-2.2.4.min.js',  
+            '!js/jquery-2.2.4.js',  
             '!js/start.extensionChrome.js',     
             '!js/start.extensionIE.js',
             '!js/start.server.js',  
@@ -463,9 +463,9 @@ module.exports = function(grunt) {
             'css/**',  
             'help/**',
             'language/**',  
-            'js/**' ,  
-            '!js/jquery.min.js',  
-            '!js/jquery-1.11.3.min.js',  
+            'js/**' ,
+            '!js/jquery-2.2.4.min.js',  
+            '!js/jquery-2.2.4.js',  
             '!js/start.extensionFirefox.js',  
             '!js/start.extensionIE.js',  
             '!js/start.server.js',  

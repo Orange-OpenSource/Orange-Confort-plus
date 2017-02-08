@@ -33,5 +33,5 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
  };
  var helpPathTarget = '_blank';
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.css';
- var jquery_min_js = hebergementFullPath + 'js/jquery.min.js';
+ var jquery_min_js = hebergementFullPath + 'js/jquery-2.2.4.js';
  var mask_js = hebergementFullPath + 'js/mask.js';

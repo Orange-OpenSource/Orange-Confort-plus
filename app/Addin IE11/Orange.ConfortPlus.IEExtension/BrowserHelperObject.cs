@@ -298,7 +298,7 @@ namespace Orange.ConfortPlus.IEExtension
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Tools.GetStringFromRessource("js/jquery-1.11.3.js"));
+            sb.Append(Tools.GetStringFromRessource("js/jquery-2.2.4.js"));
             sb.Append(Tools.GetStringFromRessource("js/hebergement.js"));
             sb.Append(Tools.GetStringFromRessource("js/ToolbarStrings.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciUserPref.js"));
