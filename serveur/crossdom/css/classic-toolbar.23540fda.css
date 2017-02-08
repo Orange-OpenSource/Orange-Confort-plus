@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.0.0 - 24-01-2017
+/* orange-confort-plus - version 4.0.0 - 08-02-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 /**
@@ -671,8 +671,9 @@ a.cdu_hide:focus {
     margin: 0;
     padding: 0;
     overflow: hidden;
-	border-right: 1px solid #CCCCCC;
-	padding-right: .625em;
+    border-right: 1px solid #CCCCCC;
+    padding-right: .625em;
+    line-height: inherit;
 }
 
 .uci-onoffswitch {
