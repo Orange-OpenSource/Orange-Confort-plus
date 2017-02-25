@@ -24,7 +24,7 @@ traduction['FR']={
   uci_title_color_blackonwhite:"Texte noir sur fond blanc",
   uci_title_color_whiteonblack:"Texte blanc sur fond noir",
   uci_title_color_blueonyellow:"Texte bleu sur fond jaune",
-  uci_title_color_yellowonblue:"Texte jaune sur fond blanc",
+  uci_title_color_yellowonblue:"Texte jaune sur fond bleu",
   uci_title_color_greenonblack:"Texte vert sur fond noir",
   uci_title_color_blackongreen:"Texte noir sur fond vert",
   uci_title_color_blueonwhite:"Texte bleu sur fond blanc",
