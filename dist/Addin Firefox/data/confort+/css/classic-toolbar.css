@@ -668,8 +668,9 @@ a.cdu_hide:focus {
     margin: 0;
     padding: 0;
     overflow: hidden;
-	border-right: 1px solid #CCCCCC;
-	padding-right: .625em;
+    border-right: 1px solid #CCCCCC;
+    padding-right: .625em;
+    line-height: inherit;
 }
 
 .uci-onoffswitch {

@@ -24,7 +24,7 @@
 function UciStorage() {
     "use strict";
     var oNewNode = document.createElement("iframe");
-                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.href);
+                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + document.location.pathname);
                     oNewNode.setAttribute("id", 'id_frame_cookie');
                     oNewNode.setAttribute("name", 'frame_cookie');
                     oNewNode.setAttribute("width", '0');
@@ -42,7 +42,7 @@ function UciStorage() {
     this.updateUserPref = function() {
         // Update the cdu cookies with the stackv3 value
         var pref = this.encode();
-        document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.href;
+        document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
     };

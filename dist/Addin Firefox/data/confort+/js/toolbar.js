@@ -3507,9 +3507,9 @@ accessibilitytoolbar = {
                             spanImage.setAttribute("id", "spanImage" + i);
                             var newlink = document.createElement('a');
                             if (imageAlt === ""){
-                                newlink.innerHTML = accessibilitytoolbar.get('uci_link_display_picture') + " " + accessibilitytoolbar.get('uci_link_display_picture_no_alt');
+                                newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + accessibilitytoolbar.get('uci_link_display_picture_no_alt');
                             }else {
-                                newlink.innerHTML = accessibilitytoolbar.get('uci_link_display_picture') + " " + imageAlt;
+                                newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + imageAlt;
                             }
                             newlink.href = "#uci_img_" + i;
                             accessibilitytoolbar.uciAttachEvent('click','onclick',newlink,accessibilitytoolbar.activationPicture);

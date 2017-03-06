@@ -352,7 +352,7 @@ UciIhm = {
             document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','true');
             document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','true');         
             document.getElementById('uci_moreconfort').title=accessibilitytoolbar.get('uci_txt_low_settings');
-            document.getElementById('uci_moreconfort_content').innerHTML=accessibilitytoolbar.get('uci_txt_low_settings_display');
+            document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_low_settings_display');
             // disable hide the toolbar
             // disable hide fontsize buttons
             // disable color button
@@ -398,7 +398,7 @@ UciIhm = {
         document.getElementById('uci_activer_menu').removeAttribute('tabindex');
         document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
         document.getElementById('uci_moreconfort').removeAttribute('title');  
-        document.getElementById('uci_moreconfort_content').innerHTML=accessibilitytoolbar.get('uci_txt_more_settings');
+        document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_more_settings');
         return false;
     },
 	confirm_validation: function() {
