@@ -2,7 +2,7 @@
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'https://orange-opensource.github.io';
-var hebergementFullPath = hebergementDomaine + '/Orange-Confort-plus/serveur/crossdom/';
+var hebergementFullPath = hebergementDomaine + '/Orange-Confort-plus/crossdom/';
 // Source: app/conf/hebergement.js
 /*
 
