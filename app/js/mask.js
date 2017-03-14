@@ -23,11 +23,12 @@ UciMask = {
 	        if ((!window.Modernizer) || !Modernizr.touch) { 
 	        	topMask = document.createElement("div");
 	        	topMask.className="topMask";
+	        	topMask.id="topMask";
 	        	bottomMask = document.createElement("div");
 	        	bottomMask.className="bottomMask";
-	            document.getElementsByTagName("body")[0].appendChild(topMask);
-	            document.getElementsByTagName("body")[0].appendChild(bottomMask);     
-	        	
+	        	bottomMask.id="bottomMask";
+            document.getElementsByTagName("body")[0].appendChild(topMask);
+            document.getElementsByTagName("body")[0].appendChild(bottomMask); 
 	        }
         },
         
@@ -35,25 +36,33 @@ UciMask = {
         	if(!UciMask.settings.launched)
             {
         		  UciMask.maskEventCreate();
-            } 
-          // var evt = document.createEvent("CustomEvent");
-          // evt.initCustomEvent('mousemove.mask', false, false, {
-//               'cmd': "blerg!"
-//           });
-        	$(document).trigger("mousemove.mask");
-        	//UciMask.draw(Math.round(window.innerHeight / 2));
+            }           
         },
         
-        maskEventCreate: function() {              
-        	jQuery(document).on("mousemove.mask",this.maskEvent);
-            UciMask.settings.launched = true;
+        maskEventCreate: function() {   
+          // For W3C Browser
+          if (document.addEventListener) {
+            document.addEventListener('mousemove', UciMask.maskEvent, false);
+          }
+          //For IE browser
+          else if (document.attachEvent) {
+            document.attachEvent('onmousemove', UciMask.maskEvent);
+          } 
+          UciMask.settings.launched = true;
         },        
      
-        maskEventRemove: function() {    
-        	jQuery(document).unbind("mousemove.mask",this.maskEvent);  
-            // if the mask was launched before, removed it from the dom
-        	jQuery('.topMask').hide();      
-        	jQuery('.bottomMask').hide(); 
+        maskEventRemove: function() { 
+          if (document.removeEventListener) {
+            document.removeEventListener('mousemove', UciMask.maskEvent, false);
+          }
+          //For IE browser
+          else if (document.attachEvent) {
+            document.detachEvent('onmousemove', UciMask.maskEvent);
+          }
+        	
+          // if the mask was launched before, removed it from the dom
+        	document.getElementById('topMask').style.display = "none";
+          document.getElementById('bottomMask').style.display = "none";
           UciMask.settings.launched = false;
         },
         
@@ -62,7 +71,6 @@ UciMask = {
         },
         
         draw: function(positionY) {
-        	
         	switch(UciMask.settings.thickness) {
         		case 'thin':
         			var size = 20;
@@ -81,18 +89,23 @@ UciMask = {
         		size = 0;
         	}
         	var topMaskHeight = 0;
-            if((positionY - (size / 2)) > 0)   {
-            	topMaskHeight = positionY - (size / 2);
-            }
-        	jQuery('.topMask').css("height",topMaskHeight + "px");
-        	jQuery('.topMask').show();  
+          if((positionY - (size / 2)) > 0)   {
+            topMaskHeight = positionY - (size / 2);
+          }
+        	document.getElementById('topMask').style.height = topMaskHeight + "px";
+        	document.getElementById('topMask').style.display = "block";
         	var bottomMaskHeight = 0;
-            if((jQuery(window).height() - topMaskHeight - size) > 0)   {
-            	bottomMaskHeight = jQuery(window).height() - topMaskHeight - size;
-            }
-        	jQuery('.bottomMask').css("height",bottomMaskHeight + "px");                  
-        	jQuery('.bottomMask').show();
+          var winHeight = 0;
+          if (window.getComputedStyle) {
+            winHeight = parseInt(document.documentElement.clientHeight,10);
+          } else {
+            winHeight = parseInt(document.documentElement.offsetHeight, 10);
+          }
+           
+          if((winHeight - topMaskHeight - size) > 0)   {
+            bottomMaskHeight = winHeight - topMaskHeight - size;
+          }
+          document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
+        	document.getElementById('bottomMask').style.display = "block";
         }
 }
-UciMask.init();
-accessibilitytoolbar.toolbarMask = true;

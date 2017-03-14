@@ -298,7 +298,6 @@ namespace Orange.ConfortPlus.IEExtension
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Tools.GetStringFromRessource("js/jquery-2.2.4.js"));
             sb.Append(Tools.GetStringFromRessource("js/hebergement.js"));
             sb.Append(Tools.GetStringFromRessource("js/ToolbarStrings.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciUserPref.js"));
@@ -311,9 +310,9 @@ namespace Orange.ConfortPlus.IEExtension
             sb.Append(Tools.GetStringFromRessource("js/UciApparence.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciTypographie.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciValidation.js"));
-            sb.Append(Tools.GetStringFromRessource("js/UciIhm.js"));
-            sb.Append(Tools.GetStringFromRessource("js/toolbar.js"));
+            sb.Append(Tools.GetStringFromRessource("js/UciIhm.js")); 
             sb.Append(Tools.GetStringFromRessource("js/mask.js"));
+            sb.Append(Tools.GetStringFromRessource("js/toolbar.js"));
 
             window.execScript(sb.ToString());
 

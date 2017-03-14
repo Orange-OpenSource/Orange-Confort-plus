@@ -74,18 +74,9 @@ function UciStorage() {
         }
         //cookieData
         else
-        {            
-            if (event.data == "NOCOOKIE") {
-                // Put the information message into cdu_intro area
-                accessibilitytoolbar.secCookie = true;
-                // default value
-                accessibilitytoolbar.storedValue = false;
-                accessibilitytoolbar.userPref.setStoredValue(false);
-            }
-            else {
-                accessibilitytoolbar.storedValue = event.data;
-                accessibilitytoolbar.userPref.setStoredValue( event.data);
-            }
+        {                                                                         
+            accessibilitytoolbar.storedValue = event.data;
+            accessibilitytoolbar.userPref.setStoredValue( event.data);
         }
     };
     

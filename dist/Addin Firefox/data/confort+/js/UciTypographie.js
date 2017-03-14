@@ -29,247 +29,245 @@ UciTypographie = {
     /*
      * @constructor
      */
-    InitUciTypographie: function () {
-        attr_typography = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_typographie' style='display: block'>";
+    InitUciTypographie: function () {      
+      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_typographie", "class":"uci_contenu_onglet cdu_c", role:"tabpanel", style:"display:block"},
+          ["div", {id:"uci_typo_div_left","class":"cdu_c"},
+          // font size
+            ["div", {"class":"uci_aria_button_group cdu_c"},
+              ["span", {"class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontsize')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_bigger",role:"radiogroup"},
+                ["li", {id:"uci_a11yBigger_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_normal')
+                  }, ["span",
+                    "A",
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_normal')]
+                  ]
+                ],
+                ["li", 
+                  {id:"uci_a11yBigger_150",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_medium')
+                  },
+                  ["span",
+                    "A",
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_medium')]
+                  ]
+                ],
+                ["li", 
+                  {id:"uci_a11yBigger_200",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_large')
+                  },
+                  ["span",
+                    "A",
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_large')]
+                  ]
+                ]
+              ]
+            ],
 
-/************************************gestion de la partie gauche********************************************************/
-        attr_typography += "<div id='uci_typo_div_left' class='cdu_c'>";
-        /*gestion de la taille de police*/
-        attr_typography += "<div class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<span class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontsize');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_bigger' role='radiogroup'>";
-        attr_typography += "<li id='uci_a11yBigger_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
-        attr_typography += "<span>";
-        attr_typography += "A";
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_normal');
-        attr_typography += "</span>";
-        attr_typography += "</span>";
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yBigger_150' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
-        attr_typography += "<span>";
-        attr_typography += "A";
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_medium');
-        attr_typography += "</span>";
-        attr_typography += "</span>";
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yBigger_200' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
-        attr_typography += "<span>";
-        attr_typography += "A";
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_large');
-        attr_typography += "</span>";
-        attr_typography += "</span>";
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        //gestion de l'espacement entre les mots            
-        attr_typography += "<div id='uci_typo_espacement_mot' class='uci_aria_button_group cdu_c uci_clear'>";
-        attr_typography += "<span id='uci_espacement_word_aria_label' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_wordspacing');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_wordspacing' role='radiogroup' aria-labelledby='uci_espacement_word_aria_label'>";
-        attr_typography += "<li id='uci_a11ySpacement_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_wordspacing_radio_normal')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11ySpacement_0.5' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_wordspacing_radio_medium')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_medium');     
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11ySpacement_1' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_wordspacing_radio_large')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_large');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-/******************************************************Fin partie de gauche**************************************************/
-        attr_typography += "</div>";
-/************************************gestion de la partie centrale********************************************************/
-        attr_typography += "<div id='uci_typo_div_centre' class='cdu_c'>";
+            // Wording espacement
+            ["div", {id:"uci_typo_espacement_mot", "class":"uci_aria_button_group cdu_c uci_clear"},
+              ["span", {"class":"cdu_left uci_label", id:"uci_espacement_word_aria_label"},accessibilitytoolbar.get('uci_typo_titre_wordspacing')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_wordspacing",role:"radiogroup", "aria-labelledby":"uci_espacement_word_aria_label"},
+                ["li", 
+                  {id:"uci_a11ySpacement_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_wordspacing_radio_normal')
+                  },
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11ySpacement_0.5",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_wordspacing_radio_medium')
+                  },
+                  accessibilitytoolbar.get('uci_radio_medium')
+                ],
+                ["li", 
+                  {id:"uci_a11ySpacement_1",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_wordspacing_radio_large')
+                  },
+                  accessibilitytoolbar.get('uci_radio_large')
+                ]
+              ]
+            ]
+          ],
 
-        // Gestion de la police à utiliser pour les dysléxique
-        attr_typography += "<div id='uci_typo_dyslexy_font' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<span id='uci_title_typographie' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_fontfamily'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_fontfamily');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</span>";
-        
-        
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_fontfamily' role='radiogroup' aria-labelledby='uci_title_typographie'>";
-        attr_typography += "<li id='uci_a11yDyslexyFont_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_normal')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";        
-        attr_typography += "<li id='uci_a11yDyslexyFont_arial' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')+"\">";
-        attr_typography += "Arial";
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yDyslexyFont_opendyslexic' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')+"\">";
-        attr_typography += "Open Dyslexic";
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        
-        
-        
-        /*
-        attr_typography += "<div id='uci_typo_dyslexy_font' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<div id='box-a11yDyslexyFontEnabled_off'>" ;
-        
-        if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+" />";
-            attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie'>";
-        } else {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled />";
-            attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie' class='uci_disable_label'>";
-        }                
-        attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-        attr_typography += "</label>";
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_fontfamily'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_fontfamily');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</div>";
-        
-        // only if compatible
-        if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            if (accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on"){
-                attr_typography += "<div id='uci_fieldset_fontfamily' style='display:block'>";
-            }else {
-                attr_typography += "<div id='uci_fieldset_fontfamily' style='display:none'>";
-            }
-    
-            attr_typography += "<span class='cdu_n'>";
-            attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-            attr_typography += "</span>";
-            
-            attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_fontfamily' role='radiogroup' aria-labelledby='uci_title_typographie'>";
-            attr_typography += "<li id='uci_a11yDyslexyFont_arial' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')+"\">";
-            attr_typography += "Arial";
-            attr_typography += "</li>";
-            attr_typography += "<li id='uci_a11yDyslexyFont_opendyslexic' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')+"\">";
-            attr_typography += "Open Dyslexic";
-            attr_typography += "</li>";
-            attr_typography += "</ul>";
-            attr_typography += "</div>"; //uci_fieldset_fontfamily
-        }
-        attr_typography += "</div>";
-        */
-        // gestion espacement entre les lignes
-        attr_typography += "<div id='uci_typo_spacement_line' class='uci_aria_button_group cdu_c uci_clear'>";        
-        attr_typography += "<span id='uci_typo_spacement_line_aria_label' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_linespacing');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_linespacement' role='radiogroup' aria-labelledby='uci_typo_spacement_line_aria_label'>";
-        attr_typography += "<li id='uci_a11yLineSpacement_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_linespacing_radio_normal')+"\">";       
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yLineSpacement_2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_linespacing_radio_medium')+"\">";         
-        attr_typography += accessibilitytoolbar.get('uci_radio_medium');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yLineSpacement_3' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_linespacing_radio_large')+"\">";    
-        attr_typography += accessibilitytoolbar.get('uci_radio_large');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-/************************************Fin de la partie centrale*************************************************************/
-        attr_typography += "</div>";
-/***************************************Debut de la partie droite*************************************************************/
-        attr_typography += "<div id='uci_typo_div_right' class='cdu_c'>";
+          ["div", {id:"uci_typo_div_centre","class":"cdu_c"},
+          // font family
+            ["div", {"class":"uci_aria_button_group cdu_c"},
+              ["span", {id:"uci_title_typographie", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontfamily'),
+                accessibilitytoolbar.makeHelpTpl("uci_link_help_fontfamily","uci_typo_help_fontfamily",accessibilitytoolbar.get('uci_typo_help_fontfamily'))
+              ],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_fontfamily",role:"radiogroup","aria-labelledby":"uci_title_typographie"},
+                ["li", {id:"uci_a11yDyslexyFont_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_normal')
+                  }, 
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yDyslexyFont_arial",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')
+                  },
+                  "Arial"
+                ],
+                ["li", 
+                  {id:"uci_a11yDyslexyFont_opendyslexic",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')
+                  },
+                  "Open Dyslexic"
+                ]
+              ]
+            ],
 
+            // Line spacing
+            ["div", {id:"uci_typo_spacement_line", "class":"uci_aria_button_group cdu_c uci_clear"},
+              ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_linespacement",role:"radiogroup", "aria-labelledby":"uci_typo_spacement_line_aria_label"},
+                ["li", 
+                  {id:"uci_a11yLineSpacement_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_linespacing_radio_normal')
+                  },
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yLineSpacement_2",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_linespacing_radio_medium')
+                  },
+                  accessibilitytoolbar.get('uci_radio_medium')
+                ],
+                ["li", 
+                  {id:"uci_a11yLineSpacement_3",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_linespacing_radio_large')
+                  },
+                  accessibilitytoolbar.get('uci_radio_large')
+                ]
+              ]
+            ]
+          ],
 
-        
-        // Gestion de la casse du texte
-        attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<span id='uci_fieldset_changecasse' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_changecase'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_changecase');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</span>";
-        
-        
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_changecasse' role='radiogroup' aria-labelledby='uci_fieldset_changecasse'>";
-        attr_typography += "<li id='uci_a11yModifCasse_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_changecase_normal_title')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";        
-        
-        attr_typography += "<li id='uci_a11yModifCasse_capitalize' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\"" + accessibilitytoolbar.get('uci_changecase_firstlettre_title') +"\">";
-        attr_typography +=  accessibilitytoolbar.get('uci_changecase_firstlettre');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_lowercase' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\"" + accessibilitytoolbar.get('uci_changecase_tolower_title') +"\">";
-        attr_typography += accessibilitytoolbar.get('uci_changecase_tolower');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        
-        /*
-        attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<div id='box-a11yModifCasseEnabled_off'>";
-        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+" />";
-        attr_typography += "<label for='uci_chekbox_casse'>";
-        attr_typography += "<span>";
-        attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "</span>";
-        attr_typography += "</label>";
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_changecase'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_changecase');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</div>";
-        if (accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on"){
-            attr_typography += "<div id='uci_fieldset_changecasse' style='display:block'>";
-        }else {
-            attr_typography += "<div id='uci_fieldset_changecasse' style='display:none'>";
-        }
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_changecasse' role='radiogroup' aria-labelledby='uci_fieldset_changecasse'>";
-        attr_typography += "<li id='uci_a11yModifCasse_capitalize' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_typography +=  accessibilitytoolbar.get('uci_changecase_firstlettre');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_uppercase' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_typography += accessibilitytoolbar.get('uci_changecase_toupper');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_lowercase' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_typography += accessibilitytoolbar.get('uci_changecase_tolower');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";        
-        attr_typography += "</div>";
-        */
-        // gestion de l'espacement entre les caractère
-        attr_typography += "<div class='uci_aria_button_group cdu_c uci_clear'>";
-        attr_typography += "<span id='uci_typo_font_caractere' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_charspacing');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_charspacing' role='radiogroup' aria-labelledby='uci_typo_font_caractere'>";
-        attr_typography += "<li id='uci_a11yCharSpacement_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yCharSpacement") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_charspacing_radio_normal')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yCharSpacement_0.2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yCharSpacement") === "0.2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_charspacing_radio_medium')+"\">";  
-        attr_typography += accessibilitytoolbar.get('uci_radio_medium');     
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yCharSpacement_0.5' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yCharSpacement") === "0.5" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_charspacing_radio_large')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_large');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        
-/***************************************Fin de la partie droite*************************************************************/
-        attr_typography += "</div>";
-/***************************************Fin de la partie Typographie********************************************************/
-        attr_typography += "</div>";
-        return attr_typography;
+          ["div", {id:"uci_typo_div_right","class":"cdu_c"},
+          // font family
+            ["div", {"class":"uci_aria_button_group cdu_c"},
+              ["span", {id:"uci_fieldset_changecasse", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_changecase'),
+                accessibilitytoolbar.makeHelpTpl("uci_link_help_changecase","uci_typo_help_changecase",accessibilitytoolbar.get('uci_typo_help_changecase'))
+              ],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_changecasse",role:"radiogroup","aria-labelledby":"uci_fieldset_changecasse"},
+                ["li", {id:"uci_a11yModifCasse_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_normal_title')
+                  }, 
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yModifCasse_capitalize",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_firstlettre_title')
+                  },
+                  accessibilitytoolbar.get('uci_changecase_firstlettre')
+                ],
+                ["li", 
+                  {id:"uci_a11yModifCasse_lowercase",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_tolower_title')
+                  },
+                  accessibilitytoolbar.get('uci_changecase_tolower')
+                ]
+              ]
+            ],
+ 
+            // char spacing
+            ["div", {id:"uci_typo_spacement_line", "class":"uci_aria_button_group cdu_c uci_clear"},
+              ["span", {"class":"cdu_left uci_label", id:"uci_typo_font_caractere"},accessibilitytoolbar.get('uci_typo_titre_charspacing')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_charspacing",role:"radiogroup", "aria-labelledby":"uci_typo_font_caractere"},
+                ["li", 
+                  {id:"uci_a11yCharSpacement_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_normal')
+                  },
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yCharSpacement_0.2",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "true" : "false",
+                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_medium')
+                  },
+                  accessibilitytoolbar.get('uci_radio_medium')
+                ],
+                ["li", 
+                  {id:"uci_a11yCharSpacement_0.5",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_large')
+                  },
+                  accessibilitytoolbar.get('uci_radio_large')
+                ]
+              ]
+            ]
+          ]
+        ]);       
     },
 
     displayFieldset: function (id) {

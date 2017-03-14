@@ -22,21 +22,7 @@
 /*global document: false */
 /* global alert */
 UciValidation = {
-    /**
-     * @property
-     * @private
-     */
-    attr_validation: "",
-    /*
-     * @constructor init
-     */
-    InitUciValidation: function () {
-        this.attr_validation = "<div id='uci_validation_button'>";        
-        this.attr_validation += "<input type='reset' class='ucibtn ucibtn-info' id='uci_annuler' value=\""+accessibilitytoolbar.get('uci_button_cancel')+"\" />";
-        this.attr_validation += "<input type='submit' class='ucibtn ucibtn-primary' id='uci_valider' value=\""+accessibilitytoolbar.get('uci_button_valid')+"\" />";
-        this.attr_validation += "</div>";
-        return this.attr_validation;
-    },
+    
 
     Validation: function (/*event*/e) {
         var event = e || window.event;

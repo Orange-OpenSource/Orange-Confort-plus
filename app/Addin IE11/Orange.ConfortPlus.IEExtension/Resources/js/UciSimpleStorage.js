@@ -34,7 +34,7 @@ function UciStorage() {
         var pref = this.encode();
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
-        this.postMessage("orangeconfort+userprefsave", pref, document.location.href);
+        this.postMessage("orangeconfort+userprefsave", pref, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
         if(accessibilitytoolbar.needToReload)
         {
             accessibilitytoolbar.reloadToolbar();
@@ -67,10 +67,10 @@ function UciStorage() {
         // Update the cdu cookies with the stackv3 value
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = this.storedValue.substr(0,this.storedValue.length-1)+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
-        this.postMessage("orangeconfort+blacklistsave", document.location.hostname, document.location.href);
+        this.postMessage("orangeconfort+blacklistsave", document.location.hostname, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
     };
 
-    this.postMessage("orangeconfort+userprefget", null, document.location.href);
+    this.postMessage("orangeconfort+userprefget", null, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
 }
 
 UciStorage.prototype = new UciUserPref();

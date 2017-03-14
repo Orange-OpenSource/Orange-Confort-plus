@@ -5,7 +5,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   // show elapsed time at the end
   require('time-grunt')(grunt);
-    
   // configurable paths
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -94,8 +93,7 @@ module.exports = function(grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/js/{,*/}*.js', 
-          '!<%= yeoman.app %>/js/jquery-2.2.4.min.js'
+          '<%= yeoman.app %>/js/{,*/}*.js'
         ]
       },
       test: {
@@ -221,10 +219,6 @@ module.exports = function(grunt) {
       }
     },
     concat: {
-      /*options: {
-        banner: '<%= banner %>\n<%= jqueryCheck %>\n<%= jqueryVersionCheck %>',
-        stripBanners: false
-      },*/
       dist: {
         options: {
             // Replace all 'use strict' statements in the code with a single one at the top
@@ -248,68 +242,11 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciTypographie.js",
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
+            "<%= yeoman.app %>/js/mask.js",
             "<%= yeoman.app %>/js/toolbar.js",
             "<%= yeoman.app %>/js/start.server.js"
         ],
         dest: '<%= yeoman.distserveur %>/js/toolbar.js'
-      },      
-      firefoxext: {
-        options: {
-            // Replace all 'use strict' statements in the code with a single one at the top                      
-            process: function(src, filepath) {
-              return '// Source: ' + filepath + '\n' +
-                src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-            },
-        },        
-        src: [  
-            "<%= yeoman.app %>/js/jquery-2.2.4.min.js",
-            "<%= yeoman.app %>/conf/extensionFirefox/hebergement.js",
-            "<%= yeoman.app %>/js/ToolbarStrings.js",
-            "<%= yeoman.app %>/js/UciUserPref.js",
-            "<%= yeoman.app %>/js/UciSimpleStorage.js",
-            "<%= yeoman.app %>/language/en.js",
-            "<%= yeoman.app %>/language/es.js",
-            "<%= yeoman.app %>/language/fr.js",
-            "<%= yeoman.app %>/js/UciAideMotrice.js",
-            "<%= yeoman.app %>/js/UciCouleur.js",
-            "<%= yeoman.app %>/js/UciApparence.js",
-            "<%= yeoman.app %>/js/UciTypographie.js",
-            "<%= yeoman.app %>/js/UciValidation.js",
-            "<%= yeoman.app %>/js/UciIhm.js",
-            "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/mask.js",
-            "<%= yeoman.app %>/js/start.extensionFirefox.js"
-        ],
-        dest: '<%= yeoman.distfirefoxext %>/data/confort+/js/concat.js'
-      },      
-      chromeext: {
-        options: {
-            // Replace all 'use strict' statements in the code with a single one at the top                      
-            process: function(src, filepath) {
-              return '// Source: ' + filepath + '\n' +
-                src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
-            },
-        },        
-        src: [  
-            "<%= yeoman.app %>/js/jquery-2.2.4.min.js",
-            "<%= yeoman.app %>/conf/extensionChrome/hebergement.js",
-            "<%= yeoman.app %>/js/ToolbarStrings.js",
-            "<%= yeoman.app %>/js/UciUserPref.js",
-            "<%= yeoman.app %>/js/UciSimpleStorage.js",
-            "<%= yeoman.app %>/language/en.js",
-            "<%= yeoman.app %>/language/es.js",
-            "<%= yeoman.app %>/language/fr.js",
-            "<%= yeoman.app %>/js/UciAideMotrice.js",
-            "<%= yeoman.app %>/js/UciCouleur.js",
-            "<%= yeoman.app %>/js/UciApparence.js",
-            "<%= yeoman.app %>/js/UciTypographie.js",
-            "<%= yeoman.app %>/js/UciValidation.js",
-            "<%= yeoman.app %>/js/UciIhm.js",
-            "<%= yeoman.app %>/js/toolbar.js",
-            "<%= yeoman.app %>/js/mask.js",
-            "<%= yeoman.app %>/js/start.extensionChrome.js"
-        ],
-        dest: '<%= yeoman.distchromeext %>/js/concat.js'
       }
     },
       
@@ -342,9 +279,7 @@ module.exports = function(grunt) {
           src: [           
             'images/**',   
             'css/**',  
-            'fonts/**', 
-            'js/jquery-2.2.4.js', 
-            'js/mask.js', 
+            'fonts/**',
             '*.txt',
             '*.htm',
             '**/*.html',
@@ -368,12 +303,11 @@ module.exports = function(grunt) {
           dest: '<%= yeoman.distfirefoxext %>/data/confort+',
           src: [           
             'images/**',   
-            'css/**',  
+            'css/**',
+            'fonts/{,*/}**',  
             'help/**',
             'language/**',  
-            'js/**' ,  
-            '!js/jquery-2.2.4.min.js',  
-            '!js/jquery-2.2.4.js',  
+            'js/**' ,
             '!js/start.extensionChrome.js',     
             '!js/start.extensionIE.js',
             '!js/start.server.js',  
@@ -402,8 +336,6 @@ module.exports = function(grunt) {
             'help/**',
             'language/**',  
             'js/**' ,
-            '!js/jquery-2.2.4.min.js',  
-            '!js/jquery-2.2.4.js',  
             '!js/start.extensionFirefox.js',  
             '!js/start.extensionIE.js',  
             '!js/start.server.js',  
@@ -484,19 +416,9 @@ module.exports = function(grunt) {
               {expand: true, src: ['<%= yeoman.dist %>/Addin Chrome/help/*.html'], dest: ''}
             ]
         }
-    },
-    
-    /**    
-    Firefox XPI builder
-    **/
-    jpm: {
-      options: {
-        src: "<%= yeoman.distfirefoxext %>",
-        xpi: "<%= yeoman.distfirefoxext %>"
-      }
-    }
+    }    
   });
-
+  
   grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -515,16 +437,13 @@ module.exports = function(grunt) {
   grunt.registerTask('buildfirefoxext', [    
     'clean:firefoxext',
     'copy:firefoxext',    
-    'replace:firefoxext',
-    //'concat:firefoxext',
-    'jpm:xpi'
+    'replace:firefoxext'
   ]);
   
   grunt.registerTask('buildchromeext', [    
     'clean:chromeext',
     'copy:chromeext',
     'replace:chromeext'
-    //'concat:chromeext'
   ]);
   
   grunt.registerTask('build', [

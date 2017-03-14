@@ -2107,10 +2107,10 @@ function RemoteControlPad() {
         pad = document.createElement("div");
         pad.id = "remotecontrol";
         /* rect: left-x, top-y, right-x, bottom-y. */
-        pad.innerHTML = "<map name='remotemap'>"
-            + "<area href='#' class='dontclick scrollup' shape='rect' coords='0,0," + imgWidth + "," + (imgHeight / 2) + "' alt='" + accessibilitytoolbar.get("remotepad_scrollup") + "' />"
-            + "<area href='#' class='dontclick scrolldown' shape='rect' coords='0," + (imgHeight / 2) + "," + (imgHeight / 2) + "," + imgHeight + "' alt='" + accessibilitytoolbar.get("remotepad_scrolldown") + "' />"
-            + "</map>";
+        pad.appendChild(accessibilitytoolbar.make(["map", {name:"remotemap"},
+          ["area", {href:"#", "class":"dontclick scrollup", shape:"rect", coords:"0,0," + imgWidth + "," + (imgHeight / 2), alt:accessibilitytoolbar.get("remotepad_scrollup")}],
+          ["area", {href:"#", "class":"dontclick scrolldown", shape:"rect", coords:"0," + (imgHeight / 2) + "," + (imgHeight / 2) + "," + imgHeight, alt:accessibilitytoolbar.get("remotepad_scrolldown")}]
+        ]));
         var i = document.createElement("img");
         i.src = imgSrc;
         i.width = imgWidth;
@@ -2226,10 +2226,6 @@ accessibilitytoolbar = {
      */
     contentToJumpTo: null,
     /**
-     * Cookie error message
-     */
-    secCookie: null,
-    /**
      * User preference manager
      */
     userPref: null,
@@ -2271,6 +2267,9 @@ accessibilitytoolbar = {
 
     // when the user change the lang of the interface, wee need to reload after save is done
     needToReload : false,
+    
+    // mask already loaded?
+    toolbarMaskInit : false,
     
     // addevent input params : 
     // 1- for addeventlistenername
@@ -2608,30 +2607,18 @@ accessibilitytoolbar = {
         l.id = "a11yCSS";
         this.head.appendChild(l);    
         
-        var newStyle = document.createElement("style");
-        newStyle.setAttribute("type", "text/css");
-        newStyle.id = "a11yCSSFontStyle";
-        if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-            newStyle.styleSheet.cssText = "@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}";
+        if(fontsPath['fonticone']) {
+          var newStyle = document.createElement("style");
+          newStyle.setAttribute("type", "text/css");
+          newStyle.id = "a11yCSSFontStyle";
+          if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+              newStyle.styleSheet.cssText = "@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}";
+          }
+          else { // standards-oriented browsers
+              newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}"));
+          }
+          document.getElementsByTagName('head')[0].appendChild(newStyle);
         }
-        else { // standards-oriented browsers
-            newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}"));
-        }
-        document.getElementsByTagName('head')[0].appendChild(newStyle);
-        
-    },
-
-    /**
-     *
-     */
-    toolbarCDUContent: function (){   
-        var str = "";
-        if(accessibilitytoolbar.idLinkModeContainer){
-            str = accessibilitytoolbar.toolbarCreateLink();
-        }else{
-            str = accessibilitytoolbar.toolbarCreateButton();
-        }
-        return str;
     },
 
     /**
@@ -2639,18 +2626,11 @@ accessibilitytoolbar = {
      *
      */
     toolbarCreateButton: function () {
-        var str="";
-            if(accessibilitytoolbar.userPref.get('a11yToolbarEnable')=='on'){
-                str += "<p id='cdu_close' style='display:none'><button title=\"";
-            }else{
-                str += "<p id='cdu_close' style='display:block'><button title=\"";
-            }
-
-            str +=this.get('uci_alt_logo');
-            str += "\">";
-            str += this.get('uci_serv_name');
-            str += "<span>+</span></button></p>";            
-        return str;
+        return accessibilitytoolbar.make(["p",{id:"cdu_close", style:accessibilitytoolbar.userPref.get('a11yToolbarEnable')=='on'?"display:none":"display:block"},
+          ["button", {title:this.get('uci_alt_logo')},this.get('uci_serv_name'),
+            ["span","+"]
+          ]
+        ]);
     },
 
     /**
@@ -2658,7 +2638,6 @@ accessibilitytoolbar = {
      *
      */
     toolbarCreateLink: function () {
-        var str="";
         var style = ".cdu_hide {display:none} #cdu_close {display:none}";
         var newStyle = document.createElement("style");
         newStyle.setAttribute("type", "text/css");
@@ -2670,9 +2649,7 @@ accessibilitytoolbar = {
         var _head = document.getElementsByTagName('head')[0];
         // newStyle
         _head.insertBefore(newStyle, _head.firstChild);
-
-
-        //initialisation str for using into createToolbar function
+        
         //search link container
         this.node = document.getElementById(accessibilitytoolbar.idLinkModeContainer);
         //create link with attribute
@@ -2712,31 +2689,15 @@ accessibilitytoolbar = {
                 this.body.insertBefore(skipLinkCreate, this.body.firstChild);
             }
         }
-        return str;
-
     },
 
     /**
      * Generates the accessibility tool-bar per se
      */
     createToolbar: function () {
-        var str = "";
-        
-        str += "<form onsubmit='return false;' onreset='return false;' name='uci_form' action='#' id='uci_form'>";
-        if (accessibilitytoolbar.secCookie !== null) {
-            str += "<p id='cdu_secu'>";
-            str += "<span class='cdu_hide'>";
-            str += this.get('uci_securityCookieChangeAlert');
-            str += "</span>";
-            str += this.get("uci_securityCookieChange");
-            str += "&#160;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
-            str += "</p>";
-        }else {
-            str += UciIhm.InitUciIHM();
-        }
-        str += "</form>";
-
-        return str;
+        return accessibilitytoolbar.make(["form", {name:"uci_form", action:"#", id:"uci_form"},
+          UciIhm.InitUciIHM()
+        ]);
     },
 
     /**
@@ -2761,45 +2722,44 @@ accessibilitytoolbar = {
      * Add object to objectList for toolbar events
      */
     createObjectBehaviour: function (){
-        if (accessibilitytoolbar.secCookie === null) {
-            var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
-            var selectButtons = document.getElementById("cdu_content").getElementsByTagName("select");
-        
-            // User settings behaviour
-            var toolbar = document.getElementById("cdu_content");
-            for (var i = 0; i < actionButtons.length; i++) {
-                if(actionButtons[i].type && actionButtons[i].type!=='submit' && actionButtons[i].type!=='reset'
-                && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' )) && !actionButtons[i].disabled)
-                    accessibilitytoolbar.uciAttachEvent('click','onclick',actionButtons[i],accessibilitytoolbar.setPref);
-            }
-            for (i = 0; i < selectButtons.length; i++) {
-                accessibilitytoolbar.uciAttachEvent('change','onchange',selectButtons[i],accessibilitytoolbar.setPref);
-            }
-
-            accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienSel'),accessibilitytoolbar.displayOrNot);
-            accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienNonVis'),accessibilitytoolbar.displayOrNot);
-            accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienVis'),accessibilitytoolbar.displayOrNot);
-            document.getElementById('uci_NavLienSel').firstChild.onclick = function (e) { document.getElementById('uci_NavLienSel').click();accessibilitytoolbar.stopEvt(e);};
-            document.getElementById('uci_NavLienNonVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienNonVis').click();accessibilitytoolbar.stopEvt(e);};
-            document.getElementById('uci_NavLienVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienVis').click();accessibilitytoolbar.stopEvt(e);};
-                        
-            var liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_sel").getElementsByTagName("li");
-            for (i=0; i < liButtonsPalette.length; i++){
-               accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-               accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-            }
-
-            liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_notsel").getElementsByTagName("li");
-            for (i=0; i < liButtonsPalette.length; i++){
-               accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-               accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-            }
-            liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_visite").getElementsByTagName("li");
-            for (i=0; i < liButtonsPalette.length; i++){
-               accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-               accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-            }
+        var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
+        var selectButtons = document.getElementById("cdu_content").getElementsByTagName("select");
+    
+        // User settings behaviour
+        var toolbar = document.getElementById("cdu_content");
+        for (var i = 0; i < actionButtons.length; i++) {
+            if(actionButtons[i].type && actionButtons[i].type!=='submit' && actionButtons[i].type!=='reset'
+            && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' )) && !actionButtons[i].disabled)
+                accessibilitytoolbar.uciAttachEvent('click','onclick',actionButtons[i],accessibilitytoolbar.setPref);
         }
+        for (i = 0; i < selectButtons.length; i++) {
+            accessibilitytoolbar.uciAttachEvent('change','onchange',selectButtons[i],accessibilitytoolbar.setPref);
+        }
+
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienSel'),accessibilitytoolbar.displayOrNot);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienNonVis'),accessibilitytoolbar.displayOrNot);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienVis'),accessibilitytoolbar.displayOrNot);
+        document.getElementById('uci_NavLienSel').firstChild.onclick = function (e) { document.getElementById('uci_NavLienSel').click();accessibilitytoolbar.stopEvt(e);};
+        document.getElementById('uci_NavLienNonVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienNonVis').click();accessibilitytoolbar.stopEvt(e);};
+        document.getElementById('uci_NavLienVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienVis').click();accessibilitytoolbar.stopEvt(e);};
+                    
+        var liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_sel").getElementsByTagName("li");
+        for (i=0; i < liButtonsPalette.length; i++){
+           accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+           accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+        }
+
+        liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_notsel").getElementsByTagName("li");
+        for (i=0; i < liButtonsPalette.length; i++){
+           accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+           accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+        }
+        liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_visite").getElementsByTagName("li");
+        for (i=0; i < liButtonsPalette.length; i++){
+           accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+           accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+        }
+        
         accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger');
         accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger_quick_set');
         accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie_quick_set');
@@ -2835,9 +2795,9 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_SP'), function() {return UciIhm.changement_langue('ES');});
-        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function() {UciValidation.Validation(); UciIhm.confirm_validation(); });
-        accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
+        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});
+        accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Annulation();});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
@@ -3024,7 +2984,7 @@ accessibilitytoolbar = {
             var contentToolbar = document.createElement("div");
             contentToolbar.setAttribute("id" ,'cdu_content');
             contentToolbar.className = 'cdu_displayN';
-            contentToolbar.innerHTML = accessibilitytoolbar.createToolbar();
+            contentToolbar.appendChild(accessibilitytoolbar.createToolbar());
             document.getElementById('cdu_zone').appendChild(contentToolbar);
             // add JS behaviour
             accessibilitytoolbar.createObjectBehaviour();
@@ -3292,7 +3252,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function (init) {   
-        var links, i, allElts, scriptJquery, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
             if(document.getElementById('cdu_close'))
             {
@@ -3419,7 +3379,9 @@ accessibilitytoolbar = {
                 //load the font face
                 if(accessibilitytoolbar.userPref.get("a11yDyslexyFont")==='opendyslexic')
                 {
+                  if(fontsPath['opendyslexicregular']) {
                     s += "@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicregular'] +";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicitalic'] +";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicbold'] +";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+                  }
                 }
                 if(accessibilitytoolbar.isModern) {
                   s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
@@ -3527,68 +3489,19 @@ accessibilitytoolbar = {
             
             // reading mask
             if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") !== "false") {
-            	//load jquery adn mask js if jquery not loaded
-                if (typeof jQuery == 'undefined') {
-                    scriptJquery = document.createElement('script');
-                    scriptJquery.src = jquery_min_js;
-                    done = false;
-                    // wait for jquery complete load
-                    scriptJquery.onload = scriptJquery.onreadystatechange = function () {
-                        if (!done && ( !this.readyState
-                            || this.readyState == "loaded"
-                            || this.readyState == "complete")) {
-                            done = true;
-                            //load the mask
-                            if (!accessibilitytoolbar.toolbarMask) {
-                                mask = document.createElement('script');
-                                mask.src = mask_js;
-                                doneMask = false;
-                                // wait until mask complete loaded
-                                mask.onload = mask.onreadystatechange = function () {
-                                    if (!doneMask && ( !this.readyState
-                                        || this.readyState == "loaded"
-                                        || this.readyState == "complete")) {
-                                    	doneMask = true;
-                                    	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                                    	UciMask.start();
-                                    }
-                                };
-                                document.getElementsByTagName('body')[0].appendChild(mask);
-                                accessibilitytoolbar.toolbarMask = true;
-                            }
-                        }
-                    };
-                    document.getElementsByTagName('body')[0].appendChild(scriptJquery);
+                UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
+                if(!accessibilitytoolbar.toolbarMaskInit){
+                    UciMask.init();
+                    accessibilitytoolbar.toolbarMaskInit = true;
                 }
-                // if jquery loaded, check if mask loaded
-                else if (typeof jQuery !== 'undefined' && !accessibilitytoolbar.toolbarMask) {
-                    mask = document.createElement('script');
-                    mask.src = mask_js;
-                    doneMask = false;
-                    // wait until mask complete loaded
-                    mask.onload = mask.onreadystatechange = function () {
-                        if (!doneMask && ( !this.readyState
-                            || this.readyState == "loaded"
-                            || this.readyState == "complete")) {
-                        	doneMask = true;
-                            //run the mask
-                        	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                            UciMask.start();
-                        }
-                    };
-                    document.getElementsByTagName('body')[0].appendChild(mask);
-                    accessibilitytoolbar.toolbarMask = true;
-                }
-                else if (typeof jQuery !== 'undefined' && accessibilitytoolbar.toolbarMask) {
-                	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                    UciMask.start();
-                }
+                UciMask.start();
+                
             	s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
             	s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
             }
             // if mask was launch before deactivation kill!
-            else if(accessibilitytoolbar.toolbarMask && UciMask.settings.launched)
+            else if(UciMask.settings.launched)
             {
             	UciMask.maskEventRemove();
             }
@@ -3786,8 +3699,13 @@ accessibilitytoolbar = {
         }
         
         var htmlContent = document.createElement("div");
-        htmlContent.setAttribute("id","cdu_zone"); 
-        htmlContent.innerHTML = accessibilitytoolbar.toolbarCDUContent();
+        htmlContent.setAttribute("id","cdu_zone");         
+        if(accessibilitytoolbar.idLinkModeContainer) {
+          accessibilitytoolbar.toolbarCreateLink();
+        }
+        else {
+          htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
+        }
         document.getElementById('accessibilitytoolbarGraphic').removeChild(document.getElementById('accessibilitytoolbarGraphic').firstChild);
         document.getElementById('accessibilitytoolbarGraphic').appendChild(htmlContent);
         
@@ -3941,11 +3859,16 @@ accessibilitytoolbar = {
             }
         } catch(e) {
         	accessibilitytoolbar.isModern = false;
-            d.className = 'cdu_old_browser';
+          d.className = 'cdu_old_browser';
         }
         var htmlContent = document.createElement("div");
         htmlContent.setAttribute("id","cdu_zone"); 
-        htmlContent.innerHTML = accessibilitytoolbar.toolbarCDUContent();
+        if(accessibilitytoolbar.idLinkModeContainer) {
+          accessibilitytoolbar.toolbarCreateLink();
+        }
+        else {
+          htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
+        }
         d.appendChild(htmlContent);
         this.body.insertBefore(d, this.body.firstChild);
         accessibilitytoolbar.loadTheToolbar();
@@ -3954,14 +3877,11 @@ accessibilitytoolbar = {
 
     loadTheToolbar: function () {
         accessibilitytoolbar.createButtonLinkBehaviour();
-        if (accessibilitytoolbar.secCookie === null) {
-            accessibilitytoolbar.cleanImgDisabled();
-            // set CSS to the user's settings
-            accessibilitytoolbar.setCSS(true);
-            // jump to content if needed
-            accessibilitytoolbar.jumpToContent();
-        }
-
+        accessibilitytoolbar.cleanImgDisabled();
+        // set CSS to the user's settings
+        accessibilitytoolbar.setCSS(true);
+        // jump to content if needed
+        accessibilitytoolbar.jumpToContent();
     },
     
     /**
@@ -4005,6 +3925,137 @@ accessibilitytoolbar = {
             window.eventReturnValue = false;
         }
         return false;
+    },
+
+    /**
+     * Check if parameter is an array
+     * @return true if it is, false otherwise
+     */
+    isArray: function(a) {
+        return Object.prototype.toString.call(a) === "[object Array]";
+    },
+
+    /**
+     * Check if parameter is a string
+     * @return true if it is, false otherwise
+     */
+    isString: function(x) {
+        return Object.prototype.toString.call(x) === "[object String]";
+    },
+
+    /**
+     * src code : http://stackoverflow.com/questions/2946656/advantages-of-createelement-over-innerhtml#answer-2947012
+     * make create an html tree
+     * desc is an array, 
+     * first elmt is the name of the htmltag
+     * second one is a object containing attributes/value for this tag
+     * all NEXT one if exists are the TextNodeContent OR an array of children OR a nodeElement
+     * sample call : 
+     *  accessibilitytoolbar.make(["p", {"class":"myPClassname"}, "Here is a ", ["a", { href:"http://www.google.com/" }, "link"], "."]);
+     * 
+     */
+    make: function(desc) {
+        if (!this.isArray(desc)) {
+            return make.call(this, Array.prototype.slice.call(arguments));
+        }
+
+        var name = desc[0];
+        var attributes = desc[1];
+
+        var el = document.createElement(name);
+
+        var start = 1;
+        if (typeof attributes === "object" && attributes !== null && !this.isArray(attributes)) {
+            for (var attr in attributes) {
+                // specific boolean attributes checked or selected, if state is false, don't add it
+                if((attr != "checked" && attr != "selected") || attributes[attr]) {                    
+                    el.setAttribute(attr,attributes[attr]);
+                }
+            }
+            start = 2;
+        }
+
+        for (var i = start; i < desc.length; i++) {
+            // An array? so build the node
+            if (this.isArray(desc[i])) {
+                el.appendChild(this.make(desc[i]));
+            }
+            // A string? add has a textnode
+            else if(this.isString(desc[i])) {
+                el.appendChild(document.createTextNode(desc[i]));
+            }
+            // not a string nor an array, so it's a node
+            else if(desc[i]) {
+                el.appendChild(desc[i]);
+            }
+        }
+
+        return el;
+    },
+
+    makeHelpTpl: function(linkId,spanId,content) {
+      return ["a", {href:"#", "class":"uci_link_help_bulle", role:"presentation", id:linkId},
+              ["span", {"aria-hidden":"true","class":"cdu-icon cdu-icon-help"}],
+              ["span", {"class":"uci_span_help_bulle cdu_n", id:spanId},
+                ["p",content],
+                ["span", {"aria-hidden":"true","class":"uci_fleche_help_bulle"}]
+              ]              
+            ];
+    },
+
+    makeCouleurTpl: function(ulClass,idOption,currentUserValue,ulId,idLabel) {
+      var mesCouleurs = [
+        ["#330000","#331900","#333300","#193300","#003300","#003319","#003333","#001933","#000033","#190033","#330033","#330019","#000000"],
+        ["#990000","#994C00","#999900","#4C9900","#009900","#00994C","#009999","#004C99","#000099","#4C0099","#990099","#99004C","#404040"],
+        ["#FF0000","#FF8000","#FFFF00","#80FF00","#00FF00","#00FF80","#00FFFF","#0080FF","#0000FF","#7F00FF","#FF00FF","#FF007F","#808080"],
+        ["#FF6666","#FFB266","#FFFF66","#B2FF66","#66FF66","#66FFB2","#66FFFF","#66B2FF","#6666FF","#B266FF","#FF66FF","#FF66B2","#C0C0C0"],
+        ["#FFCCCC","#FFE5CC","#FFFFCC","#E5FFCC","#CCFFCC","#CCFFE5","#CCFFFF","#CCE5FF","#CCCCFF","#E5CCFF","#FFCCFF","#FFCCE5","#FFFFFF"]
+      ];
+      var tableauCouleurPolice = ["ul", {"class":ulClass, id:ulId, role:"radiogroup", "aria-labelledby":idLabel}]
+      var index = 0;
+      var indexCouleur = 0;
+      var currentLine = "";
+      var moreclass = "";
+      var current_li;
+      for (index = 0; index < mesCouleurs.length; ++index) {
+        if(mesCouleurs[index] instanceof Array)
+        {
+          indexCouleur = 0;
+          currentLine = mesCouleurs[index];
+          for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {              
+              current_li = ["li", {id:idOption+currentLine[indexCouleur], 
+                role:"radio", 
+                "class":"uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(currentUserValue === currentLine[indexCouleur] ? "uci_couleur_li_selected" : ""), 
+                tabindex:currentUserValue === currentLine[indexCouleur] ? "0" : "-1",
+                "aria-checked":currentUserValue === currentLine[indexCouleur] ? "true" : "false",
+                style:"background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;"},
+                "\u00a0"
+                ];
+              tableauCouleurPolice.push(current_li)
+              moreclass = "";
+          }
+          moreclass = "uci_couleur_clear";
+        }
+      }
+      current_li = ["span", {"class":"uci_fleche_help_bulle"}];
+      tableauCouleurPolice.push(current_li)
+      return tableauCouleurPolice;
+    },
+
+    makePredefinedCouleurTpl: function() {
+      var predifinedCombinaisons = ['keepit','blackonwhite','whiteonblack','blueonyellow','yellowonblue','greenonblack','blackongreen','blueonwhite','whiteonblue'];
+      var curCouleur;
+      var aCouleur = ["ul", {"class":"padding-left-align uci_clear uci_liste_bton", id:"uci_reponses_couleurpredefinie", role:"radiogroup", "aria-labelledby":"uci_couleur_predefenie_input"}];
+      for(var key in predifinedCombinaisons){
+        curCouleur = ["li", {id:"uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key], role:"radio", "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active" :""),
+          tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "0" : "-1",
+          "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "true" : "false"
+          },
+          accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key])
+        ];
+        aCouleur.push(curCouleur);
+      }
+      return aCouleur;
     },
 
     /**

@@ -163,7 +163,6 @@
     <EmbeddedResource Include="Resources\images\link_to_link_rewind.gif" />
     <EmbeddedResource Include="Resources\images\modifier-b-info.png" />
     <EmbeddedResource Include="Resources\images\stop_loop.gif" />
-    <EmbeddedResource Include="Resources\js\jquery-2.2.4.js" />
     <EmbeddedResource Include="Resources\js\mask.js" />
     <EmbeddedResource Include="Resources\js\toolbar.js" />
     <EmbeddedResource Include="Resources\js\ToolbarStrings.js" />
