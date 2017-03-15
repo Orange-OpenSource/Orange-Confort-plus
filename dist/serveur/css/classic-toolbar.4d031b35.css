@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.0.0 - 14-03-2017
+/* orange-confort-plus - version 4.0.0 - 15-03-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -320,9 +320,11 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	font-size: 130%;
 	line-height: 1 !important;
 	font-weight: bold;
-	float: right;
 	padding-top: .1em;
 	padding-left: .240em;
+}
+.uci_alt_logo .uci-plus-orange {
+	float: right;
 }
 #cdu_close span {
 	padding-top: 1px;

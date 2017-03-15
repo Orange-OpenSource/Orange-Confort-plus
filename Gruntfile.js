@@ -106,12 +106,12 @@ module.exports = function(grunt) {
 
     // Empties folders to start fresh
     clean: {
-      dist: {
+      distserveur: {
         files: [{
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/*'
+            '<%= yeoman.distserveur %>/*'
           ]
         }]
       },
@@ -365,20 +365,20 @@ module.exports = function(grunt) {
     },  
       
     replace: {
-        replacements:{
-            options: {
-              patterns: [
-                {
-                    match: '../js/toolbar-min.js',
-                    replacement: '<%= yeoman.config.hebergementProtocol %>//<%= yeoman.config.hebergementDomaine %><%= yeoman.config.hebergementFullPath %>js/toolbar-min.js'
-                }                  
-              ],
-              usePrefix:false
-            },
-            files: [
-              {expand: true, src: ['<%= yeoman.dist %>/**/*.html'], dest: ''}
-            ]
-        },
+      replacements:{
+          options: {
+            patterns: [
+              {
+                  match: '../js/toolbar-min.js',
+                  replacement: '<%= yeoman.config.hebergementProtocol %>//<%= yeoman.config.hebergementDomaine %><%= yeoman.config.hebergementFullPath %>js/toolbar-min.js'
+              }                  
+            ],
+            usePrefix:false
+          },
+          files: [
+            {expand: true, src: ['<%= yeoman.distserveur %>/*.html'], dest: ''}
+          ]
+      },
       firefoxext:{
             options: {
               patterns: [
@@ -447,7 +447,7 @@ module.exports = function(grunt) {
   ]);
   
   grunt.registerTask('build', [
-    'clean:dist',
+    'clean:distserveur',
     'copy:dist',
     'useminPrepare',  
     'concat:dist',

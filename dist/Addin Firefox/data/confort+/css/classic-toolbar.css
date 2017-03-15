@@ -317,9 +317,11 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	font-size: 130%;
 	line-height: 1 !important;
 	font-weight: bold;
-	float: right;
 	padding-top: .1em;
 	padding-left: .240em;
+}
+.uci_alt_logo .uci-plus-orange {
+	float: right;
 }
 #cdu_close span {
 	padding-top: 1px;
