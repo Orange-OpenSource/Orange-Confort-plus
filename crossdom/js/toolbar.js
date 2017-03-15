@@ -1,8 +1,8 @@
-/* orange-confort-plus - version 4.0.0 - 07-03-2017
+/* orange-confort-plus - version 4.0.0 - 15-03-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
-var hebergementDomaine = 'https://orange-opensource.github.io';
-var hebergementFullPath = hebergementDomaine + '/Orange-Confort-plus/crossdom/';
+var hebergementDomaine = 'https://comfort.orange.com';
+var hebergementFullPath = hebergementDomaine + '/serveur/crossdom/';
 // Source: app/conf/hebergement.js
 /*
 
@@ -38,9 +38,8 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      ES: hebergementFullPath + "help/help_es.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.23540fda.css';
- var jquery_min_js = hebergementFullPath + 'js/jquery-2.2.4.js';
- var mask_js = hebergementFullPath + 'js/mask.js';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.4d031b35.css';
+
 // Source: app/js/ToolbarStrings.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -631,18 +630,9 @@ var oNewNode = document.createElement("iframe");
         }
         //cookieData
         else
-        {            
-            if (event.data == "NOCOOKIE") {
-                // Put the information message into cdu_intro area
-                accessibilitytoolbar.secCookie = true;
-                // default value
-                accessibilitytoolbar.storedValue = false;
-                accessibilitytoolbar.userPref.setStoredValue(false);
-            }
-            else {
-                accessibilitytoolbar.storedValue = event.data;
-                accessibilitytoolbar.userPref.setStoredValue( event.data);
-            }
+        {                                                                         
+            accessibilitytoolbar.storedValue = event.data;
+            accessibilitytoolbar.userPref.setStoredValue( event.data);
         }
     };
     
@@ -689,14 +679,12 @@ traduction['EN']={
   uci_title_color_greenonblack:"Green text on black background",
   uci_title_color_blackongreen:"Black text on green background",
   uci_title_color_blueonwhite:"Blue text on white background",
-  uci_title_color_whiteonblue:"White text on blue background",  
+  uci_title_color_whiteonblue:"White text on blue background",
   uci_button_valid:"Save my settings",
   uci_button_cancel:"Cancel",
   uci_txt_more_settings:"More settings",
   uci_txt_low_settings_display:"Less settings",
   uci_txt_low_settings:"Close more settings panel",
-  uci_txt_disable_cdu:"Deactivate Confort<span class='uci-plus-orange'>+</span> on this site",
-  uci_txt_enable_cdu:"Activate Confort<span class='uci-plus-orange'>+</span> on this site",
   uci_title_disable_cdu:"Deactivate Confort+ on this site",
   uci_title_enable_cdu:"Activate Confort+ on this site",
   uci_txt_link_menu:"Help",
@@ -766,9 +754,8 @@ traduction['EN']={
   uci_txt_mask_size:"Mask height",
   uci_help_listmode:"This feature replaces site font faces with your default font faces (those defined in your browser or computeur). Moreover, the content is linearised and displayed without columns.",
   uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
-  uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image  on demand.",
+  uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
   uci_help_links:"This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
-  uci_help_mask:"This feature [TODO].",
   uci_color_titre:"Combination of preset colors",
   uci_color_titre_use_personal:"Select personalized colors",
   uci_color_txt_texte:"Font color",
@@ -776,7 +763,7 @@ traduction['EN']={
   uci_color_warning_title:"Insufficient contrast",
   uci_color_warning_content:"Text and background colors has an insufficient contrast. This may make it difficult to read and cause eyestrain.",
   uci_label_jumptocontent:"Always skip to content",
-  uci_help_jumptocontent:"Allow an automatic positioning on main page content, in particular,  by jumping navigation links",
+  uci_help_jumptocontent:"Allow an automatic positioning on main page content, in particular, by jumping navigation links",
   uci_enableMotorMode:"Motor help",
   uci_label_telecomande:"Navigation on hover",
   uci_help_telecomande:"Add vertical scrolling arrows on rollover. Allow also, clickable links activation on rollover after a defined delay",
@@ -786,7 +773,7 @@ traduction['EN']={
   uci_label_3sec:"3 seconds",
   uci_label_6sec:"6 seconds",
   uci_label_automove:"Automatic selection of elements",
-  uci_help_automove:"Select clickable elements one after the other. Press the enter or space key  to open a contextual menu allowing to activate the selected element or to modify ",
+  uci_help_automove:"Select clickable elements one after the other. Press the enter or space key to open a contextual menu allowing to activate the selected element or to modify ",
   uci_legend_menupos:"Menu position",
   uci_label_centeredmenu:"Center on the page",
   uci_label_nearelemtmenu:"Next to the selected item",
@@ -796,9 +783,6 @@ traduction['EN']={
   uci_label_2par2:"1",
   uci_label_5par5:"4",
   uci_label_10par10:"9",
-  uci_securityCookieChangeAlert:"Warning",
-  uci_securityCookieChange:"Confort<span class='uci-plus-orange'>+</span> service has to store your confort settings.",
-  uci_securityCookieChangeLinkPage:"Configure my browser now to authorize Confort<span class='uci-plus-orange'>+</span> service to store my confort settings.",
   uci_doClick:"Click",
   uci_loopActivable:"Navigate through items",
   uci_loopActivableQuick:"Navigate quickly through items",
@@ -839,20 +823,18 @@ traduction['ES']={
   uci_title_fontsize_radio_large:"Tama\361o de letra grande",
   uci_title_color_keepit:"Colores por defecto",
   uci_title_color_blackonwhite:"Texto negro y fondo blanco",
-  uci_title_color_whiteonblack:"Texto blanco y fondo negro",  
+  uci_title_color_whiteonblack:"Texto blanco y fondo negro",
   uci_title_color_blueonyellow:"Texto azul y fondo amarillo",
   uci_title_color_yellowonblue:"Texto amarillo y fondo azul",
   uci_title_color_greenonblack:"Texto verde y fondo negro",
   uci_title_color_blackongreen:"Texto negro y fondo verde",
   uci_title_color_blueonwhite:"Texto azul y fondo blanco",
-  uci_title_color_whiteonblue:"Texto blanco y fondo azul",  
+  uci_title_color_whiteonblue:"Texto blanco y fondo azul",
   uci_button_valid:"Memorizar mis ajustes",
   uci_button_cancel:"No memorizar mis ajustes",
   uci_txt_more_settings:"M\341s ajustes",
   uci_txt_low_settings_display:"Menos ajustes",
   uci_txt_low_settings:"Cerrar el panel m\341s ajustes",
-  uci_txt_disable_cdu:"Desactivar Confort<span class='uci-plus-orange'>+</span> para este sitio",
-  uci_txt_enable_cdu:"Activar Confort<span class='uci-plus-orange'>+</span> para este sitio",
   uci_title_disable_cdu:"Desactivar Confort+ para este sitio",
   uci_title_enable_cdu:"Activar Confort+ para este sitio",
   uci_txt_link_menu:"Ayuda",
@@ -887,7 +869,7 @@ traduction['ES']={
   uci_title_linespacing_radio_large:"Espacio grande entre lineas",
   uci_title_minfont_radio_normal:"Tama\361o m\355nimo de letra 12 ptos",
   uci_title_minfont_radio_medium:"Tama\361o m\355nimo de letra 16 ptos",
-  uci_title_minfont_radio_large:"Tama\361o m\355nimo de letra 18 ptos",  
+  uci_title_minfont_radio_large:"Tama\361o m\355nimo de letra 18 ptos",
   uci_title_fontfamily_radio_normal:"Tipo de letra por defecto", 
   uci_title_fontfamily_radio_arial:"Tipo de letra Arial",
   uci_title_fontfamily_radio_opendys:"Tipo de letra Open Dyslexic",
@@ -897,7 +879,7 @@ traduction['ES']={
   uci_changecase_tolower_title:"texto en min\372sculas",
   uci_changecase_tolower:"min\372sculas",
   uci_label_listmode:"Desactiva el dise\361o de la p\341gina ",
-  uci_label_alignleft:"Alinea  textos a la izquierda",
+  uci_label_alignleft:"Alinea textos a la izquierda",
   uci_label_putnumonlist:"Numeriza los esquemas",
   uci_label_disabletransp:"Anula efectos de transparencia",
   uci_label_disablebgpictures:"Anula im\341genes de fondo",
@@ -924,7 +906,6 @@ traduction['ES']={
   uci_help_disabletransp:"Este comando desactiva los efectos de transparencia eventuales de la p\341gina, limitando as\355 las perturbaciones de lectura del contenido",
   uci_help_disablepppictures:"Este comando suprime la visualizaci\363n de im\341genes en la p\341gina y son reemplazadas por sus alternativas textuales. Un enlace permite visualizar las im\341genes a petici\363n ",
   uci_help_links:"Este comando define la apariencia de los enlaces en la p\341gina. Puedes elegir el color y el formato de los enlaces",
-  uci_help_mask:"Este comando [TODO].",
   uci_color_titre:"Combinaci\363n de colores predefinidos",
   uci_color_titre_use_personal:"Telecionar colores personalizados",
   uci_color_txt_texte:"Color de texto",
@@ -952,9 +933,6 @@ traduction['ES']={
   uci_label_2par2:"1",
   uci_label_5par5:"4",
   uci_label_10par10:"9",
-  uci_securityCookieChangeAlert:"Atenci\363n ",
-  uci_securityCookieChange:"El servicio Confort<span class='uci-plus-orange'>+</span> necesita memorizar tus ajustes",
-  uci_securityCookieChangeLinkPage:"Configurar mi navegador ahora, para autorizar Confort<span class='uci-plus-orange'>+</span> a salvaguardar mis preferencias",
   uci_doClick:"Pulsar",
   uci_loopActivable:"Recorrer la p\341gina",
   uci_loopActivableQuick:"Navegar r\341pidamente",
@@ -1007,8 +985,6 @@ traduction['FR']={
   uci_txt_more_settings:"Plus de r\351glages",
   uci_txt_low_settings_display:"Moins de r\351glages",
   uci_txt_low_settings:"Fermer la zone plus de r\351glages",
-  uci_txt_disable_cdu:"D\351sactiver Confort<span class='uci-plus-orange'>+</span> pour ce site",
-  uci_txt_enable_cdu:"Activer Confort<span class='uci-plus-orange'>+</span> pour ce site",
   uci_title_disable_cdu:"D\351sactiver Confort+ pour ce site",
   uci_title_enable_cdu:"Activer Confort+ pour ce site",
   uci_txt_link_menu:"Aide",
@@ -1080,7 +1056,6 @@ traduction['FR']={
   uci_help_disabletransp:"Cette commande permet de d\351sactiver les effets de transparence \351ventuels de la page. Cela limite les perturbations lors de la lecture du contenu.",
   uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",
   uci_help_links:"Cette commande permet de d\351finir l\47apparence des liens dans la page. Vous pouvez choisir la couleur et la mise en forme de ceux-ci.",
-  uci_help_mask:"Cette commande [TODO].",
   uci_color_titre:"Combinaison de couleurs pr\351d\351finies",
   uci_color_titre_use_personal:"Combinaison de couleurs personnalis\351es",
   uci_color_txt_texte:"Couleur du texte",
@@ -1108,14 +1083,11 @@ traduction['FR']={
   uci_label_2par2:"1",
   uci_label_5par5:"4",
   uci_label_10par10:"9",
-  uci_securityCookieChangeAlert:"Avertissement",
-  uci_securityCookieChange:"Le service Confort<span class='uci-plus-orange'>+</span> a besoin de m\351moriser vos r\351glages.",
-  uci_securityCookieChangeLinkPage:"Configurer mon navigateur maintenant, pour autoriser Confort<span class='uci-plus-orange'>+</span> a m\351moriser mes r\351glages",
   uci_doClick:"Cliquer",
   uci_loopActivable:"Parcourir la page",
   uci_loopActivableQuick:"Naviguer rapidement",
   uci_loopBackward:"Naviguer en arri\351re",
-  uci_stopLoop:"Arr\352ter la  navigation",
+  uci_stopLoop:"Arr\352ter la navigation",
   uci_closeButton:"Fermer",
   uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action?",
   uci_remove_all_settings:"Tous vos r\351glages seront supprim\351s, souhaitez-vous poursuivre cette action?",
@@ -1163,138 +1135,172 @@ UciAideMotrice = {
      * @constructor
      */
     InitUciAideMotrice: function () {
-        attr_aide_motrice = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_aidemotrice'>"; //uci_contenu_onglet_aidemotrice
-        attr_aide_motrice += "<div id='setting-bloc-content'>";
-        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yJumpToContent' id='a11yJumpToContent'"+(accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? " checked='checked'" : "") + " />";
-        attr_aide_motrice += "<label for='a11yJumpToContent'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_jumptocontent');
-        attr_aide_motrice += "</label>";
-        attr_aide_motrice += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_jumptocontent'>";
-        attr_aide_motrice += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_aide_motrice += "<span class='uci_span_help_bulle cdu_n' id='uci_help_jumptocontent'><p>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_help_jumptocontent');
-        attr_aide_motrice += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_aide_motrice += "</div>"; //setting-bloc-content
-/**********************************************Gestion réglage motor*********************************************************/
-        attr_aide_motrice += "<div id='uci_div_motor'>";
-        attr_aide_motrice += "<input type='checkbox' value='true' name='a11yMotorModeEnabled'  id='a11yMotorModeEnabled' "+(accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? " checked='checked'" : "") + " />";
-        attr_aide_motrice += "<label for='a11yMotorModeEnabled'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_enableMotorMode');
-        attr_aide_motrice += "</label>";
-        attr_aide_motrice += "</div>"; //uci_div_motor
-        if (accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true") {
-            attr_aide_motrice += "<div id='uci_motor_general' style='display:block'>";
-        } else {
-            attr_aide_motrice += "<div id='uci_motor_general' class='padding-left-align' style='display:none'>";
-        }
-/******************************************************Navigation par pointage ******************************************************************/
-        attr_aide_motrice += "<div id='uci_motor_div_left'>";
-        attr_aide_motrice += "<input type='radio' name='a11yMotorMode' id='a11yMotorMode-remote' value='remote' ";
-        attr_aide_motrice += accessibilitytoolbar.userPref.get("a11yMotorMode") === "remote" ? "checked='checked'" : "";
-        attr_aide_motrice += "/>";
-        attr_aide_motrice += "<label for='a11yMotorMode-remote' class='margin-top'>";
-        attr_aide_motrice +=  accessibilitytoolbar.get('uci_label_telecomande');
-        attr_aide_motrice += "</label>";
-        attr_aide_motrice += "<p class='font-normal margin-right-lg margin-top padding-left-align'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_help_telecomande');
-        attr_aide_motrice += '</p>';
+        return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_aidemotrice", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
+          ["div", {id:"setting_bloc_content"},
+            ["input", {type:"checkbox", name:"a11yJumpToContent", id:"a11yJumpToContent", value:"true", checked:accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? "checked" : false}],
+            ["label", {"for":"a11yJumpToContent"},accessibilitytoolbar.get('uci_label_jumptocontent')],
+            accessibilitytoolbar.makeHelpTpl("uci_link_help_jumptocontent","uci_help_jumptocontent",accessibilitytoolbar.get('uci_help_jumptocontent'))
+          ],
+          ["div", {id:"uci_div_motor"},
+            ["input", {type:"checkbox", name:"a11yMotorModeEnabled", id:"a11yMotorModeEnabled", value:"true", checked:accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? "checked" : false}],
+            ["label", {"for":"a11yMotorModeEnabled"},accessibilitytoolbar.get('uci_enableMotorMode')]
+          ],
+          ["div", {id:"uci_motor_general", "class":"padding-left-align", style:accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true"? "display:block" : "display:none" },
+          // Pointed nav
+            ["div",{id:"uci_motor_div_left"},
+              ["input", {type:"radio", name:"a11yMotorMode", id:"a11yMotorMode-remote", value:"remote", checked: accessibilitytoolbar.userPref.get("a11yMotorMode") === "remote" ? "checked" : false}],
+              ["label", {"for":"a11yMotorMode-remote","class":"margin-top"},accessibilitytoolbar.get('uci_label_telecomande')],
+              ["p",{"class":"font-normal margin-right-lg margin-top padding-left-align"},accessibilitytoolbar.get('uci_help_telecomande')],
+              ["div", {id:"uci_motor_mode", "class":"padding-left-align setting-sub-container"},
+              // delay before clic option
+                ["p",{id:"a11yDelayBeforeClick0", "class":"margin-top"}, accessibilitytoolbar.get('uci_legend_delai_clic')],
+                ["ul",{"class":"uci_liste_bton margin-top-sm", id:"uci_reponses_DelayBeforeLoop", role:"radiogroup", "aria-labelledby":"a11yDelayBeforeClick0"},
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeClick_1", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_1sec')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeClick_2", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "0" : "-1",
+                    "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_2sec')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeClick_3", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "0" : "-1",
+                    "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_3sec')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeClick_6", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "0" : "-1",
+                    "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_6sec')
+                  ],
+                ]
+              ]
+            ],
+            // automatic mode 
+            ["div",{id:"uci_motor_div_right"},
+              ["div", {"class":"btn-check ucibtn-check-large"},            
+                ["input", {type:"radio", name:"a11yMotorMode", id:"a11yMotorMode-looping", value:"looping", checked: accessibilitytoolbar.userPref.get("a11yMotorMode") === "looping" ? "checked" : false}],
+                ["label", {"for":"a11yMotorMode-looping","class":"margin-top"},accessibilitytoolbar.get('uci_label_automove')],
+                ["p",{"class":"padding-left-align font-normal margin-top"},accessibilitytoolbar.get('uci_help_automove')]
+              ],
+              ["div", {"class":"padding-left-align"},
+              // menu position
+                ["p",{id:"a11yMenuPositionning", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_menupos')],
+                ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_a11yMenuPositionning", role:"radiogroup", "aria-labelledby":"a11yMenuPositionning"},
+                  ["li", 
+                    {id:"uci_a11yMenuPositionning_center", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_centeredmenu')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yMenuPositionning_nextto", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_nearelemtmenu')
+                  ]
+                ],
+                // loop speed
+                ["p",{id:"a11yDelayBeforeLoop", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_time_before_sel')],
+                ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_DelayBeforeLoop_auto", role:"radiogroup", "aria-labelledby":"a11yDelayBeforeLoop"},
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeLoop_1", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_1sec')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeLoop_2", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_2sec')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeLoop_3", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_3sec')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yDelayBeforeLoop_6", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_6sec')
+                  ]
+                ],
+                // quick step value
+                ["p",{id:"a11yQuickMode", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_pasquickmode')],
+                ["p",{"class": "font-normal margin-top-sm"},accessibilitytoolbar.get('uci_help_quickmode')],
+                ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_a11yQuickMode", role:"radiogroup", "aria-labelledby":"a11yQuickMode"},
+                  ["li", 
+                    {id:"uci_a11yQuickMode_2", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_2par2')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yQuickMode_5", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_5par5')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yQuickMode_10", 
+                    role:"radio", 
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "active" : ""), 
+                    tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "true" : "false"
+                    },
+                    accessibilitytoolbar.get('uci_label_10par10')
+                  ],
+                ]
+              ]
+            ]
+          ]
+        ]);
         
-        attr_aide_motrice += "<div id='uci_motor_mode' class='padding-left-align setting-sub-container'>";
-        attr_aide_motrice += "<p id='a11yDelayBeforeClick0' class='margin-top'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_legend_delai_clic');
-        attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton margin-top-sm' id='uci_reponses_DelayBeforeLoop' role='radiogroup' aria-labelledby='a11yDelayBeforeClick0'>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_1' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_1sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_2sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_3' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_3sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeClick_6' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_6sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "</ul>";
-        attr_aide_motrice += "</div>"; //uci_motor_mode
-        
-        attr_aide_motrice += "</div>"; //uci_motor_div_left
-/******************************************************Fin Navigation par pointage ******************************************************************/
-
-/******************************************************Parcours automatique des elements cliquable ******************************************************************/
-        attr_aide_motrice += "<div id='uci_motor_div_right'>";
-        
-        attr_aide_motrice += "<div class='btn-check ucibtn-check-large'>";
-        attr_aide_motrice += "<input type='radio' value='looping' id='a11yMotorMode-looping' name='a11yMotorMode'";
-        attr_aide_motrice += accessibilitytoolbar.userPref.get("a11yMotorMode") === "looping" ? "checked='checked'" : "";
-        attr_aide_motrice += "/>";
-        attr_aide_motrice += "<label for='a11yMotorMode-looping'>";
-        attr_aide_motrice +=  accessibilitytoolbar.get('uci_label_automove');
-        attr_aide_motrice += "</label>";
-        attr_aide_motrice += "<p class='padding-left-align font-normal margin-top'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_help_automove');
-        attr_aide_motrice += '</p>';
-        attr_aide_motrice += "</div>"; //btn-check ucibtn-check-large
-
-        //gestion de la position du menu
-        attr_aide_motrice += "<div class='padding-left-align'>";
-        attr_aide_motrice += "<p class='uci_clear margin-top' id='a11yMenuPositionning'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_legend_menupos');
-        attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton margin-top-sm margin-bottom' id='uci_reponses_a11yMenuPositionning' role='radiogroup' aria-labelledby='a11yMenuPositionning'>";
-        attr_aide_motrice += "<li id='uci_a11yMenuPositionning_center' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_centeredmenu');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yMenuPositionning_nextto' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_nearelemtmenu');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "</ul>";
-
-        //gestion du clic automatique
-        attr_aide_motrice += "<p class='uci_clear margin-top' id='a11yDelayBeforeLoop'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_legend_time_before_sel');
-        attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton margin-top-sm margin-bottom' id='uci_reponses_DelayBeforeLoop_auto' role='radiogroup' aria-labelledby='a11yDelayBeforeLoop'>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_1' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_1sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop-2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_2sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_3' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_3sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yDelayBeforeLoop_6' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_6sec');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "</ul>";
-
-        //gestion pas du mode rapide
-        attr_aide_motrice += "<p class='uci_clear margin-top' id='a11yQuickMode'>";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_legend_pasquickmode');
-        attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<p class='font-normal margin-top-sm'>";
-        attr_aide_motrice +=  accessibilitytoolbar.get('uci_help_quickmode');
-        attr_aide_motrice += "</p>";
-        attr_aide_motrice += "<ul class='uci_liste_bton margin-top' id='uci_reponses_a11yQuickMode' role='radiogroup' aria-labelledby='a11yQuickMode'>";
-        attr_aide_motrice += "<li id='uci_a11yQuickMode_2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_2par2');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yQuickMode_5' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_5par5');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "<li id='uci_a11yQuickMode_10' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_aide_motrice += accessibilitytoolbar.get('uci_label_10par10');
-        attr_aide_motrice += "</li>";
-        attr_aide_motrice += "</ul>";
-        
-        attr_aide_motrice += "</div>";
-        attr_aide_motrice += "</div>"; //uci_motor_div_right
-/******************************************************Fin parcours automatique des éléments cliquables******************************************************************/
-        attr_aide_motrice += "</div>"; //uci_motor_general
-        attr_aide_motrice += "</div>"; //uci_contenu_onglet_aidemotrice
-        return attr_aide_motrice;
     },
 
     activate_aide_motrice: function () {
@@ -1325,130 +1331,42 @@ UciAideMotrice = {
 /**
  * @class uci_couleur
  * @classdesc Cette classe permettra d'implémenter l'onglet couleur
- * @property {string}  attr_couleur : the string containt hinner html for couleur.
  */
 /*global window */
 /*global document: false */
 /* global alert */
-function UciCouleur() {
+UciCouleur = {
 
-/*
-     * @property
-     * @private
-     */
-    var attr_onglet, attr_couleur;
-    attr_couleur = "";
-
-    var mesCouleurs=[
-        ["#330000","#331900","#333300","#193300","#003300","#003319","#003333","#001933","#000033","#190033","#330033","#330019","#000000"],
-        ["#990000","#994C00","#999900","#4C9900","#009900","#00994C","#009999","#004C99","#000099","#4C0099","#990099","#99004C","#404040"],
-        ["#FF0000","#FF8000","#FFFF00","#80FF00","#00FF00","#00FF80","#00FFFF","#0080FF","#0000FF","#7F00FF","#FF00FF","#FF007F","#808080"],
-        ["#FF6666","#FFB266","#FFFF66","#B2FF66","#66FF66","#66FFB2","#66FFFF","#66B2FF","#6666FF","#B266FF","#FF66FF","#FF66B2","#C0C0C0"],
-        ["#FFCCCC","#FFE5CC","#FFFFCC","#E5FFCC","#CCFFCC","#CCFFE5","#CCFFFF","#CCE5FF","#CCCCFF","#E5CCFF","#FFCCFF","#FFCCE5","#FFFFFF"]
-    ];
-    var predifinedCombinaisons = ['keepit','blackonwhite','whiteonblack','blueonyellow','yellowonblue','greenonblack','blackongreen','blueonwhite','whiteonblue'];
     /*
      * @constructor
      */
-    UciCouleur.prototype.InitUciCouleur = function () {
-        attr_couleur = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_couleur'>";
-/*****************************************Creation de la partie gauche des couleurs*****************************************
- * Gestion de la partie des couleurs prédéfinies
-*****************************************************************************************************************************/
-        //couleur predefinie
-        attr_couleur += "<div id='uci_div_couleur_predefinie' class='margin-left margin-right-lg margin-top-lg'>";
-        attr_couleur += "<input type='radio' name='a11yVisualSettings' value='predefined' id='uci_couleur_predefenie_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? " checked='checked'" : '')+" />";
-        attr_couleur += "<label for='uci_couleur_predefenie_input' class='uci_couleur_left'>";
-        attr_couleur += accessibilitytoolbar.get('uci_color_titre');
-        attr_couleur += "</label>";
-       
-        attr_couleur += "<ul class='padding-left-align uci_clear uci_liste_bton' id='uci_reponses_couleurpredefinie' role='radiogroup' aria-labelledby='uci_couleur_predefenie_input'>";
-        attr_couleur += "<!--[if IE 8 ]>";
-        for(var key in predifinedCombinaisons){          
-          attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key]+"' role='radio' class='uci_choix ie8_uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-          attr_couleur += accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key]);
-          attr_couleur += "</li>";
-        }
-        attr_couleur += "<![endif]-->";
-        attr_couleur += "<!--[if (!IE 8) | (!IE)]><!-->";  
-        for(var key in predifinedCombinaisons){
-          attr_couleur += "<li id='uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key]+"' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+">";
-          attr_couleur += accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key]);
-          attr_couleur += "</li>";
-        }
-        attr_couleur += "<!--<![endif]-->";
-        attr_couleur += "</ul>";
-        //gestion des message d'erreur de contraste et de luminosite
-        attr_couleur += "<div id='uci_message_constraste' style='display:none;' class='message_couleur'>";
-        attr_couleur += "<p style='color: black !important; background-color: #FFFFFF !important;'>";
-        attr_couleur += accessibilitytoolbar.get("uci_color_warning_title");
-        attr_couleur += "</p>";
-        attr_couleur += "<span style='color: black !important; background-color: #FFFFFF !important;' id='uci_message_contraste_lbl'>";
-        attr_couleur += accessibilitytoolbar.get('uci_color_warning_content');
-        attr_couleur += "</span>";
-        attr_couleur += "</div>";        
-        attr_couleur += "</div>";
-        /*****************************************Creation de la partie gauche des couleurs*****************************************
- * Gestion de la partie des couleurs personnalisées
- *****************************************************************************************************************************/
-        attr_couleur += "<div id='uci_div_right_couleur' class='margin-left margin-top-lg'>";
-        attr_couleur += "<div class='cdu_c'><input type='radio' name='a11yVisualSettings' value='personnal' id='uci_couleur_personnalisees_input' "+(accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? " checked='checked'" : "")+" />";
-        attr_couleur += "<label for='uci_couleur_personnalisees_input' class='uci_couleur_left'>";
-        attr_couleur += accessibilitytoolbar.get('uci_color_titre_use_personal');
-        attr_couleur += "</label></div>";
-        attr_couleur += "<div id='uci_couleur_police' class='padding-left-align cdu_c'>";
-        attr_couleur += "<span id='aria_label_texte' >"+accessibilitytoolbar.get('uci_color_txt_texte')+"</span>";
-        //couleur de police                
-        var tableauCouleurPolice = "<ul class='uci_table_couleur margin-top cdu_c' id='uci_reponses_couleurpolice' role='radiogroup' aria-labelledby='aria_label_texte'>";
-        var index = 0;
-        var indexCouleur = 0;
-        var currentLine = "";
-        var moreclass = "";
-        for (index = 0; index < mesCouleurs.length; ++index) {
-            if(mesCouleurs[index] instanceof Array)
-            {
-                indexCouleur = 0;
-                currentLine = mesCouleurs[index];
-                for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yFontColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yFontColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
-                    tableauCouleurPolice += "</li>";
-                    moreclass = "";
-                }
-                moreclass = "uci_couleur_clear";
-            }
-        }
-        tableauCouleurPolice += '</ul>';        
-        attr_couleur += tableauCouleurPolice;
-        attr_couleur += "</div>";
-        
-        //Couleur de fond
-        attr_couleur += "<div id='uci_couleur_fond' class='padding-left-align cdu_c'>";
-        attr_couleur += "<span id='uci_aria_label_fond' class='uci_couleur_clear'>"+accessibilitytoolbar.get('uci_color_txt_background')+"</span>";
-        var tableauCouleurFond = "<ul class='uci_table_couleur margin-top cdu_c' id='uci_reponses_couleurbackground' role='radiogroup' aria-labelledby='uci_aria_label_fond'>";
-        var index = 0;
-        var indexCouleur = 0;
-        var currentLine = "";
-        for (index = 0; index < mesCouleurs.length; ++index) {
-            if(mesCouleurs[index] instanceof Array)
-            {
-                indexCouleur = 0;
-                currentLine = mesCouleurs[index];
-                for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurFond += "<li id='uci_a11yBackgroundColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yBackgroundColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";                    
-                    tableauCouleurFond += "</li>";
-                    moreclass = "";
-                }
-                moreclass = "uci_couleur_clear";
-            }
-        }
-        tableauCouleurFond += '</ul>';
-        
-        attr_couleur += tableauCouleurFond;
-        attr_couleur += "</div>";
-        attr_couleur += "</div>";
-        attr_couleur += "</div>";
-        return attr_couleur;
-    };
+    InitUciCouleur: function () {
+      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
+        ["div", {id:"uci_div_couleur_predefinie", "class":"margin-left margin-right-lg margin-top-lg"},
+          ["input", {type:"radio", value:"predefined", name:"a11yVisualSettings", id:"uci_couleur_predefenie_input", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? "checked" : false}],
+          ["label", {"for":"uci_couleur_predefenie_input", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
+          accessibilitytoolbar.makePredefinedCouleurTpl(),
+          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"message_couleur"},
+            ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
+            ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
+          ]
+        ],
+        ["div", {id:"uci_div_right_couleur", "class":"margin-left margin-top-lg"},
+          ["div", {"class":"cdu_c"},
+            ["input", {type:"radio", value:"personnal", name:"a11yVisualSettings", id:"uci_couleur_personnalisees_input", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? "checked" : false}],
+            ["label", {"for":"uci_couleur_personnalisees_input", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre_use_personal')]              
+          ],
+          ["div", {id:"uci_couleur_police", "class":"padding-left-align cdu_c"},
+            ["span", {id:"aria_label_texte"},accessibilitytoolbar.get('uci_color_txt_texte')],
+            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur margin-top cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
+          ],
+          ["div", {id:"uci_couleur_fond", "class":"padding-left-align cdu_c"},
+            ["span", {id:"uci_aria_label_fond", "class":"uci_couleur_clear"},accessibilitytoolbar.get('uci_color_txt_background')],
+            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur margin-top cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
+          ]
+        ]
+      ]);
+    }
 }
 // Source: app/js/UciApparence.js
 /**
@@ -1486,352 +1404,145 @@ UciApparence = {
      * @constructor init
      */
 
-    mesCouleurs: [
-        ["#330000","#331900","#333300","#193300","#003300","#003319","#003333","#001933","#000033","#190033","#330033","#330019","#000000"],
-        ["#990000","#994C00","#999900","#4C9900","#009900","#00994C","#009999","#004C99","#000099","#4C0099","#990099","#99004C","#404040"],
-        ["#FF0000","#FF8000","#FFFF00","#80FF00","#00FF00","#00FF80","#00FFFF","#0080FF","#0000FF","#7F00FF","#FF00FF","#FF007F","#808080"],
-        ["#FF6666","#FFB266","#FFFF66","#B2FF66","#66FF66","#66FFB2","#66FFFF","#66B2FF","#6666FF","#B266FF","#FF66FF","#FF66B2","#C0C0C0"],
-        ["#FFCCCC","#FFE5CC","#FFFFCC","#E5FFCC","#CCFFCC","#CCFFE5","#CCFFFF","#CCE5FF","#CCCCFF","#E5CCFF","#FFCCFF","#FFCCE5","#FFFFFF"]
-    ],
-
     InitUciApparence: function () {
-        attr_apparence = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_apparence'>";
-/************************************gestion de la partie gauche********************************************************/
-        attr_apparence += "<div id='uci_apparence_div_left'>";
-
-        //Gestion de la mise en page : supprimer la mise en page
-        attr_apparence += "<div id='uci_div_supprimer_miseenpage'>";
-
-        attr_apparence += "<input type='checkbox' value='true' name='a11yLinearize'  id='a11yLinearize'";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11yLinearize") === "true" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='a11yLinearize'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_listmode');
-        attr_apparence += "</label>";
-        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_listmode'>";
-        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_listmode'><p>";
-        attr_apparence += accessibilitytoolbar.get('uci_help_listmode');
-        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_apparence += "</div>";
-
-        //Gestion de la mise en page : alignement a gauche
-        attr_apparence += "<div id='uci_div_alignement_gauche'>";
-        attr_apparence += "<input type='checkbox' value='left' name='a11yLeftText' id='alignement_gauche'";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='alignement_gauche'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_alignleft');
-        attr_apparence += "</label>";
-        attr_apparence += "</div>";
-
-
-        //Gestion de la mise en page : numerotation des ligne
-        attr_apparence += "<div id='uci_div_numero_ligne'>";
-        attr_apparence += "<input type='checkbox' value='decimal'  name='a11yNumerotationList' id='putNumOnList'";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='putNumOnList'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_putnumonlist');
-        attr_apparence += "</label>";
-        attr_apparence += "</div>";
-
-        //gestion de l'apparence des liens
-        attr_apparence += "<div id='uci_div_apparence_liens'>";
-        attr_apparence += "<input type='checkbox' value='true' name='a11yNavLienEnabled' id='apparence_lien'";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='apparence_lien'>";
-        attr_apparence += accessibilitytoolbar.get('uci_titre_links');
-        attr_apparence += "</label>";
-        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_links'>";
-        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_links'><p>";
-        attr_apparence += accessibilitytoolbar.get('uci_help_links');
-        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_apparence += "</div>";
-
-        //gestion du lien actif : couleur
-        if(accessibilitytoolbar.userPref.get("a11yNavLienEnabled")=== "true"){
-            attr_apparence += "<div id='uci_gestion_lien' style='display:block'>";
-        }else {
-            attr_apparence += "<div id='uci_gestion_lien' style='display:none'>";
-        }
-
-        attr_apparence += "<div id='uci_div_lien_selectionne'>";
-        attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_active')+"</span>";
-        
-        //gestion du lien actif : mise en forme
-        attr_apparence += "<div class='cdu_left'>";
-        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienSelStyle' title=\""+accessibilitytoolbar.get("uci_title_link_active_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
-        attr_apparence += "</option>";
-        attr_apparence += "</select>";
-        attr_apparence += "</div>";
-        // end apparence mise en forme
-        
-        // start link color        
-        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienSel' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_active_color')+"\">";
-        attr_apparence += "<span class='cdu_color' aria-hidden='true' style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important'>&nbsp;</span>";
-        attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_active_color')+"</span>";
-        attr_apparence +="</a>";
-        attr_apparence += "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_selectionne' style='display:none'>";
-        //couleur de police
-        var tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_sel' role='radiogroup' aria-labelledby='uci_NavLienSel'>";
-        var index = 0;
-        var indexCouleur = 0;
-        var currentLine = "";
-        var moreclass = "";
-        var focus_li;
-        for (index = 0; index < UciApparence.mesCouleurs.length; ++index) {
-            if(UciApparence.mesCouleurs[index] instanceof Array)
-            {
-                indexCouleur = 0;
-                currentLine = UciApparence.mesCouleurs[index];
-                for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienSelColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienSelColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
-                    tableauCouleurPolice += "</li>";
-                    moreclass = "";
-                }
-                moreclass = "uci_couleur_clear";
-            }
-        }
-        tableauCouleurPolice += '</ul>';
-        attr_apparence += tableauCouleurPolice;
-        attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";
-        // end color
-        
-        attr_apparence += "</div>";
-        // end link
-
-        //gestion des liens non visite
-        //gestion des liens non visite : couleur 
-        attr_apparence += "<div id='uci_div_lien_notselectionne'>";
-        attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_notvisited')+"</span>";
-        
-        
-        //gestion des liens non visite : mise en forme
-        attr_apparence += "<div class='cdu_left'>";
-        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienNonVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_notvisited_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
-        attr_apparence += "</option>";
-        attr_apparence += "</select>";
-        attr_apparence += "</div>";
-        // end mise en forme
-        // start couleur
-        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienNonVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"\">";
-        attr_apparence += "<span class='cdu_color' aria-hidden='true' style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important'>&nbsp;</span>";
-        attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_notvisited_color')+"</span>";
-        attr_apparence +="</a>";
-        attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_notselectionne' style='display:none'>";        
-        //couleur de police
-        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_notsel' role='radiogroup' aria-labelledby='uci_NavLienNonVis'>";
-        index = 0;
-        indexCouleur = 0;
-        currentLine = "";
-        moreclass = "";
-        for (index = 0; index < UciApparence.mesCouleurs.length; ++index) {
-            if(UciApparence.mesCouleurs[index] instanceof Array)
-            {
-                indexCouleur = 0;
-                currentLine = UciApparence.mesCouleurs[index];
-                for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienNonVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'"  : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
-
-                    tableauCouleurPolice += "</li>";
-                    moreclass = "";
-                }
-                moreclass = "uci_couleur_clear";
-            }
-        }
-        tableauCouleurPolice += '</ul>';
-        attr_apparence += tableauCouleurPolice;
-        attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";
-        
-        // end link    
-        attr_apparence += "</div>";
-
-        //gestion des liens visités
-        //gestion des liens visite : couleur
-        
-        
-        attr_apparence += "<div id='uci_div_lien_visite'>";
-        attr_apparence += "<span class='uci_span_lien cdu_c'>"+accessibilitytoolbar.get('uci_txt_visited')+"</span>";
-        
-        //gestion des liens visité : mise en forme
-        attr_apparence += "<div class='cdu_left'>";
-        attr_apparence += "<select class='uci_select_lien' name='a11yNavLienVisStyle' title=\""+accessibilitytoolbar.get("uci_title_link_visited_render")+"\">";
-        attr_apparence += "<option value='keepit' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_default');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='underline' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_underline');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='border' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_border');
-        attr_apparence += "</option>";
-        attr_apparence += "<option value='bold' "+(accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold" ? " selected='selected'" : "")+">";
-        attr_apparence += accessibilitytoolbar.get('uci_link_render_options_bold');
-        attr_apparence += "</option>";
-        attr_apparence += "</select>";
-        attr_apparence += "</div>";
-        // fin mise en forme
-        // start couleur
-        attr_apparence += "<div class='cdu_left'><a href='#' id='uci_NavLienVis' class='uci_inline uci_couleur_li' title=\""+accessibilitytoolbar.get('uci_title_link_visited_color')+"\">";
-        attr_apparence += "<span class='cdu_color' aria-hidden='true' style='background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important'>&nbsp;</span>";
-        attr_apparence += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_link_visited_color')+"</span>";
-        attr_apparence +="</a>";
-
-
-        attr_apparence+= "<div class='uci_span_help_bulle' id='uci_palette_couleur_lien_visite' style='display:none'>";
-        //couleur de police
-        tableauCouleurPolice = "<ul class='uci_table_couleur cdu_c' id='uci_reponses_couleur_lien_visite' role='radiogroup' aria-labelledby='uci_NavLienVis'>";
-        index = 0;
-        indexCouleur = 0;
-        currentLine = "";
-        moreclass = "";
-        for (index = 0; index < UciApparence.mesCouleurs.length; ++index) {
-            if(UciApparence.mesCouleurs[index] instanceof Array)
-            {
-                indexCouleur = 0;
-                currentLine = UciApparence.mesCouleurs[index];
-                for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {
-                    tableauCouleurPolice += "<li id='uci_a11yNavLienVisColor_"+currentLine[indexCouleur]+"' role='radio' class='uci_inline cdu_c uci_couleur_li "+moreclass+" "+(accessibilitytoolbar.userPref.get("a11yNavLienVisColor") === currentLine[indexCouleur] ? "uci_couleur_li_selected' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" style='background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;'>&#160;";
-                    tableauCouleurPolice += "</li>";
-                    moreclass = "";
-                }
-                moreclass = "uci_couleur_clear";
-            }
-        }
-        tableauCouleurPolice += '</ul>';
-        attr_apparence += tableauCouleurPolice;
-        attr_apparence += "<span class='uci_fleche_help_bulle'></span></div></div>";           
-        // fin couleur
-        
-        
-        attr_apparence += '</div>';
-        attr_apparence += '</div>';
-
-        
-/*********************************************Fin de la partie gauche******************************************************/
-        attr_apparence += "</div>"; //uci_apparence_div_left
-
-/**********************************************Gestion de la partie de droite**********************************************/
-
-        attr_apparence += "<div id='uci_apparence_div_right'>";
-        //desactiver la transparence
-        attr_apparence += "<div id='uci_div_desactiver_transparence'>";
-        attr_apparence += "<input type='checkbox' value='1' name='a11ySupEffetTransp' id='uci_desactiver_transparence'";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11ySupEffetTransp") === "1" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='uci_desactiver_transparence'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_disabletransp');
-        attr_apparence += "</label>";
-        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_disabletransp'>";
-        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_disabletransp'><p>";
-        attr_apparence += accessibilitytoolbar.get('uci_help_disabletransp');
-        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_apparence += "</div>";
-
-        //debut gestion de la désactivation des images de fond
-        attr_apparence += "<div id='uci_div_disabled_fond_picture'>";
-        attr_apparence += "<input type='checkbox' value='true' name='a11ySupImageFont' id='uci_label_disablebgpictures'";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='uci_label_disablebgpictures'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_disablebgpictures');
-        attr_apparence += "</label>";
-        attr_apparence += "</div>";
-
-        //debut gestion de la désactivation des images de premier plan
-        attr_apparence += "<div id='uci_div_disabled_first_plan_picture'>";
-        attr_apparence += "<input type='checkbox' value='true' name='a11ySupImageFirstPlan' id='uci_label_disablepppictures' ";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") === "true" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='uci_label_disablepppictures'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_disablepppictures');
-        attr_apparence += "</label >";
-        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_disablepppictures'>";
-        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_disablepppictures'><p>";
-        attr_apparence += accessibilitytoolbar.get('uci_help_disablepppictures');
-        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_apparence += "</div>";
-
-        //debut gestion du masque
- 
-        attr_apparence += "<div id='uci_mask_enabled'>";
-        attr_apparence += "<input type='checkbox' value='true' name='a11yMaskEnabled' id='uci_check_mask' ";
-        attr_apparence += accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked='checked'" : "";
-        attr_apparence += "/>";
-        attr_apparence += "<label for='uci_check_mask'>";
-        attr_apparence += accessibilitytoolbar.get('uci_label_mask');
-        attr_apparence += "</label >";
-        /*
-        attr_apparence += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_mask'>";
-        attr_apparence += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_apparence += "<span class='uci_span_help_bulle cdu_n' id='uci_help_mask'><p>";
-        attr_apparence += accessibilitytoolbar.get('uci_help_mask');
-        attr_apparence += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        */
-        attr_apparence += "</div>";
-        if(accessibilitytoolbar.getCompatible('a11yMaskEnabled')) { 
-        	if(accessibilitytoolbar.userPref.get("a11yMaskEnabled") === 'true'){
-                attr_apparence += "<div id='uci_div_mask' style='display:block'>";
-            }else {
-                attr_apparence += "<div id='uci_div_mask' style='display:none'>";
-            }
-        	
-        	attr_apparence += "<div id='uci_mask_epaisseur'>";
-            
-            attr_apparence += "<span id='uci_title_epaisseur_mask' class='margin-top cdu_left'>";
-            attr_apparence += accessibilitytoolbar.get('uci_txt_mask_size');
-            attr_apparence += "</span>";
-             
-            attr_apparence += "<ul class='uci_liste_bton' id='uci_reponses_epaisseurmask' role='radiogroup' aria-labelledby='uci_title_epaisseur_mask'>";            
-            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thin' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-            attr_apparence += accessibilitytoolbar.get('uci_radio_default');
-            attr_apparence += "</li>";
-            attr_apparence += "<li id='uci_a11yMaskEpaisseur_medium' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-            attr_apparence += accessibilitytoolbar.get('uci_radio_medium');
-            attr_apparence += "</li>";
-            attr_apparence += "<li id='uci_a11yMaskEpaisseur_thick' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-            attr_apparence += accessibilitytoolbar.get('uci_radio_large');
-            attr_apparence += "</li>";
-            attr_apparence += "</ul>";
-            
-            attr_apparence += "</div>";
-        	
-        	
-        	
-        	attr_apparence += "</div>";
-        }
-/**********************************************Fin de la partie de droite*************************************************/
-        attr_apparence += "</div>";
-/*************************************************Fin de la partie apparence**********************************************/
-        attr_apparence += "</div>";
-        return attr_apparence;
+      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_apparence", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
+          ["div", {id:"uci_apparence_div_left"},
+            ["div", {id:"uci_div_supprimer_miseenpage"},
+              ["input", {type:"checkbox", value:"true", name:"a11yLinearize", id:"a11yLinearize", checked:accessibilitytoolbar.userPref.get("a11yLinearize") === "true" ? "checked" : false}],
+              ["label", {"for":"a11yLinearize"}, accessibilitytoolbar.get('uci_label_listmode')],
+              accessibilitytoolbar.makeHelpTpl("uci_link_help_listmode","uci_help_listmode",accessibilitytoolbar.get('uci_help_listmode'))
+            ],
+            ["div", {id:"uci_div_alignement_gauche"},
+              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"alignement_gauche", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
+              ["label", {"for":"alignement_gauche"}, accessibilitytoolbar.get('uci_label_alignleft')]
+            ],
+            ["div", {id:"uci_div_numero_ligne"},
+              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"putNumOnList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
+              ["label", {"for":"putNumOnList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
+            ],
+            ["div", {id:"uci_div_apparence_liens"},
+              ["input", {type:"checkbox", value:"true", name:"a11yNavLienEnabled", id:"apparence_lien", checked:accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked" : false}],
+              ["label", {"for":"apparence_lien"}, accessibilitytoolbar.get('uci_titre_links')],
+              accessibilitytoolbar.makeHelpTpl("uci_link_help_links","uci_help_links",accessibilitytoolbar.get('uci_help_links'))
+            ],
+            ["div", {id:"uci_gestion_lien", style:(accessibilitytoolbar.userPref.get("a11yNavLienEnabled")=== "true" ? "display:block" : "display:none")},
+              ["div", {id:"uci_div_lien_selectionne"},
+                ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_active')],
+                ["div", {"class":"cdu_left"},
+                  ["select", {"class":"uci_select_lien", name:"a11yNavLienSelStyle", title:accessibilitytoolbar.get("uci_title_link_active_render")},
+                    ["option", {value:"keepit", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_default')],
+                    ["option", {value:"underline", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_underline')],
+                    ["option", {value:"border", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_border')],
+                    ["option", {value:"bold", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_bold')]            
+                  ]
+                ],
+                ["div", {"class":"cdu_left"},
+                  ["a", {href:"#", id:"uci_NavLienSel", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_title_link_active_color')},
+                    ["span", {"class":"cdu_color", "aria-hidden":"true", style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"},"\u00a0"],
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_link_active_color')]
+                  ],
+                  ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_selectionne", style:"display:none"},
+                    accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienSelColor_",accessibilitytoolbar.userPref.get("a11yNavLienSelColor"),"uci_reponses_couleur_lien_sel","uci_NavLienSel")
+                  ]
+                ]
+              ],
+              ["div", {id:"uci_div_lien_notselectionne"},
+                ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_notvisited')],
+                ["div", {"class":"cdu_left"},
+                  ["select", {"class":"uci_select_lien", name:"a11yNavLienNonVisStyle", title:accessibilitytoolbar.get("uci_title_link_notvisited_render")},
+                    ["option", {value:"keepit", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_default')],
+                    ["option", {value:"underline", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_underline')],
+                    ["option", {value:"border", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_border')],
+                    ["option", {value:"bold", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_bold')]            
+                  ]
+                ],
+                ["div", {"class":"cdu_left"},
+                  ["a", {href:"#", id:"uci_NavLienNonVis", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_title_link_notvisited_color')},
+                    ["span", {"class":"cdu_color", "aria-hidden":"true", style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"},"\u00a0"],
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_link_notvisited_color')]
+                  ],
+                  ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_notselectionne", style:"display:none"},
+                    accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienNonVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor"),"uci_reponses_couleur_lien_notsel","uci_NavLienNonVis")
+                  ]
+                ]
+              ],
+              ["div", {id:"uci_div_lien_visite"},
+                ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_visited')],
+                ["div", {"class":"cdu_left"},
+                  ["select", {"class":"uci_select_lien", name:"a11yNavLienVisStyle", title:accessibilitytoolbar.get("uci_title_link_visited_render")},
+                    ["option", {value:"keepit", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_default')],
+                    ["option", {value:"underline", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_underline')],
+                    ["option", {value:"border", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_border')],
+                    ["option", {value:"bold", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_bold')]            
+                  ]
+                ],
+                ["div", {"class":"cdu_left"},
+                  ["a", {href:"#", id:"uci_NavLienVis", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_title_link_visited_color')},
+                    ["span", {"class":"cdu_color", "aria-hidden":"true", style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"},"\u00a0"],
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_link_visited_color')]
+                  ],
+                  ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_visite", style:"display:none"},
+                    accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienVisColor"),"uci_reponses_couleur_lien_visite","uci_NavLienVis")
+                  ]
+                ]
+              ]
+            ]
+          ],
+          ["div", {id:"uci_apparence_div_right"},
+            ["div", {id:"uci_div_desactiver_transparence"},
+              ["input", {type:"checkbox", value:"1", name:"a11ySupEffetTransp", id:"uci_desactiver_transparence", checked:accessibilitytoolbar.userPref.get("a11ySupEffetTransp") === "1" ? "checked" : false}],
+              ["label", {"for":"uci_desactiver_transparence"}, accessibilitytoolbar.get('uci_label_disabletransp')],
+              accessibilitytoolbar.makeHelpTpl("uci_link_help_disabletransp","uci_help_disabletransp",accessibilitytoolbar.get('uci_help_disabletransp'))
+            ],
+            ["div", {id:"uci_div_disabled_fond_picture"},
+              ["input", {type:"checkbox", value:"true", name:"a11ySupImageFont", id:"uci_label_disablebgpictures", checked:accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked" : false}],
+              ["label", {"for":"uci_label_disablebgpictures"}, accessibilitytoolbar.get('uci_label_disablebgpictures')]
+            ],
+            ["div", {id:"uci_div_disabled_first_plan_picture"},
+              ["input", {type:"checkbox", value:"true", name:"a11ySupImageFirstPlan", id:"uci_label_disablepppictures", checked:accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") === "true" ? "checked" : false}],
+              ["label", {"for":"uci_label_disablepppictures"}, accessibilitytoolbar.get('uci_label_disablepppictures')],
+              accessibilitytoolbar.makeHelpTpl("uci_link_help_disablepppictures","uci_help_disablepppictures",accessibilitytoolbar.get('uci_help_disablepppictures'))
+            ],
+            ["div", {id:"uci_mask_enabled"},
+              ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"uci_check_mask", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
+              ["label", {"for":"uci_check_mask"}, accessibilitytoolbar.get('uci_label_mask')]
+            ],
+            ["div", {id:"uci_div_mask", style:(accessibilitytoolbar.userPref.get("a11yMaskEnabled")=== "true" ? "display:block" : "display:none")},
+              ["div", {id:"uci_mask_epaisseur"},
+                ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_size')],
+                ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
+                  ["li", 
+                    {id:"uci_a11yMaskEpaisseur_thin",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "true" : "false",
+                    },
+                    accessibilitytoolbar.get('uci_radio_default')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yMaskEpaisseur_medium",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "true" : "false",
+                    },
+                    accessibilitytoolbar.get('uci_radio_medium')
+                  ],
+                  ["li", 
+                    {id:"uci_a11yMaskEpaisseur_thick",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "true" : "false",
+                    },
+                    accessibilitytoolbar.get('uci_radio_large')
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]);
     },
 
     displayLien: function (elementparent,id) {
@@ -1903,247 +1614,245 @@ UciTypographie = {
     /*
      * @constructor
      */
-    InitUciTypographie: function () {
-        attr_typography = "<div class='uci_contenu_onglet cdu_c' role='tabpanel' id='uci_contenu_onglet_typographie' style='display: block'>";
+    InitUciTypographie: function () {      
+      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_typographie", "class":"uci_contenu_onglet cdu_c", role:"tabpanel", style:"display:block"},
+          ["div", {id:"uci_typo_div_left","class":"cdu_c"},
+          // font size
+            ["div", {"class":"uci_aria_button_group cdu_c"},
+              ["span", {"class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontsize')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_bigger",role:"radiogroup"},
+                ["li", {id:"uci_a11yBigger_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_normal')
+                  }, ["span",
+                    "A",
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_normal')]
+                  ]
+                ],
+                ["li", 
+                  {id:"uci_a11yBigger_150",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_medium')
+                  },
+                  ["span",
+                    "A",
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_medium')]
+                  ]
+                ],
+                ["li", 
+                  {id:"uci_a11yBigger_200",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_large')
+                  },
+                  ["span",
+                    "A",
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_large')]
+                  ]
+                ]
+              ]
+            ],
 
-/************************************gestion de la partie gauche********************************************************/
-        attr_typography += "<div id='uci_typo_div_left' class='cdu_c'>";
-        /*gestion de la taille de police*/
-        attr_typography += "<div class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<span class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontsize');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_bigger' role='radiogroup'>";
-        attr_typography += "<li id='uci_a11yBigger_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
-        attr_typography += "<span>";
-        attr_typography += "A";
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_normal');
-        attr_typography += "</span>";
-        attr_typography += "</span>";
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yBigger_150' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
-        attr_typography += "<span>";
-        attr_typography += "A";
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_medium');
-        attr_typography += "</span>";
-        attr_typography += "</span>";
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yBigger_200' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
-        attr_typography += "<span>";
-        attr_typography += "A";
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography +=  accessibilitytoolbar.get('uci_title_fontsize_radio_large');
-        attr_typography += "</span>";
-        attr_typography += "</span>";
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        //gestion de l'espacement entre les mots            
-        attr_typography += "<div id='uci_typo_espacement_mot' class='uci_aria_button_group cdu_c uci_clear'>";
-        attr_typography += "<span id='uci_espacement_word_aria_label' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_wordspacing');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_wordspacing' role='radiogroup' aria-labelledby='uci_espacement_word_aria_label'>";
-        attr_typography += "<li id='uci_a11ySpacement_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_wordspacing_radio_normal')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11ySpacement_0.5' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_wordspacing_radio_medium')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_medium');     
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11ySpacement_1' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_wordspacing_radio_large')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_large');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-/******************************************************Fin partie de gauche**************************************************/
-        attr_typography += "</div>";
-/************************************gestion de la partie centrale********************************************************/
-        attr_typography += "<div id='uci_typo_div_centre' class='cdu_c'>";
+            // Wording espacement
+            ["div", {id:"uci_typo_espacement_mot", "class":"uci_aria_button_group cdu_c uci_clear"},
+              ["span", {"class":"cdu_left uci_label", id:"uci_espacement_word_aria_label"},accessibilitytoolbar.get('uci_typo_titre_wordspacing')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_wordspacing",role:"radiogroup", "aria-labelledby":"uci_espacement_word_aria_label"},
+                ["li", 
+                  {id:"uci_a11ySpacement_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_wordspacing_radio_normal')
+                  },
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11ySpacement_0.5",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_wordspacing_radio_medium')
+                  },
+                  accessibilitytoolbar.get('uci_radio_medium')
+                ],
+                ["li", 
+                  {id:"uci_a11ySpacement_1",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_wordspacing_radio_large')
+                  },
+                  accessibilitytoolbar.get('uci_radio_large')
+                ]
+              ]
+            ]
+          ],
 
-        // Gestion de la police à utiliser pour les dysléxique
-        attr_typography += "<div id='uci_typo_dyslexy_font' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<span id='uci_title_typographie' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_fontfamily'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_fontfamily');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</span>";
-        
-        
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_fontfamily' role='radiogroup' aria-labelledby='uci_title_typographie'>";
-        attr_typography += "<li id='uci_a11yDyslexyFont_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_normal')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";        
-        attr_typography += "<li id='uci_a11yDyslexyFont_arial' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')+"\">";
-        attr_typography += "Arial";
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yDyslexyFont_opendyslexic' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')+"\">";
-        attr_typography += "Open Dyslexic";
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        
-        
-        
-        /*
-        attr_typography += "<div id='uci_typo_dyslexy_font' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<div id='box-a11yDyslexyFontEnabled_off'>" ;
-        
-        if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' "+(accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on" ? " checked='checked'" : "")+" />";
-            attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie'>";
-        } else {
-            attr_typography += "<input type='checkbox' value='on' name='a11yDyslexyFontEnabled' id='uci_chekbox_dyslexy_font' disabled />";
-            attr_typography += "<label for='uci_chekbox_dyslexy_font' id='uci_title_typographie' class='uci_disable_label'>";
-        }                
-        attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-        attr_typography += "</label>";
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_fontfamily'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_fontfamily'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_fontfamily');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</div>";
-        
-        // only if compatible
-        if(accessibilitytoolbar.getCompatible('a11yDyslexyFontEnabled')) {
-            if (accessibilitytoolbar.userPref.get("a11yDyslexyFontEnabled") === "on"){
-                attr_typography += "<div id='uci_fieldset_fontfamily' style='display:block'>";
-            }else {
-                attr_typography += "<div id='uci_fieldset_fontfamily' style='display:none'>";
-            }
-    
-            attr_typography += "<span class='cdu_n'>";
-            attr_typography += accessibilitytoolbar.get('uci_typo_titre_fontfamily');
-            attr_typography += "</span>";
-            
-            attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_fontfamily' role='radiogroup' aria-labelledby='uci_title_typographie'>";
-            attr_typography += "<li id='uci_a11yDyslexyFont_arial' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')+"\">";
-            attr_typography += "Arial";
-            attr_typography += "</li>";
-            attr_typography += "<li id='uci_a11yDyslexyFont_opendyslexic' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')+"\">";
-            attr_typography += "Open Dyslexic";
-            attr_typography += "</li>";
-            attr_typography += "</ul>";
-            attr_typography += "</div>"; //uci_fieldset_fontfamily
-        }
-        attr_typography += "</div>";
-        */
-        // gestion espacement entre les lignes
-        attr_typography += "<div id='uci_typo_spacement_line' class='uci_aria_button_group cdu_c uci_clear'>";        
-        attr_typography += "<span id='uci_typo_spacement_line_aria_label' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_linespacing');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_linespacement' role='radiogroup' aria-labelledby='uci_typo_spacement_line_aria_label'>";
-        attr_typography += "<li id='uci_a11yLineSpacement_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_linespacing_radio_normal')+"\">";       
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yLineSpacement_2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_linespacing_radio_medium')+"\">";         
-        attr_typography += accessibilitytoolbar.get('uci_radio_medium');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yLineSpacement_3' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_linespacing_radio_large')+"\">";    
-        attr_typography += accessibilitytoolbar.get('uci_radio_large');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-/************************************Fin de la partie centrale*************************************************************/
-        attr_typography += "</div>";
-/***************************************Debut de la partie droite*************************************************************/
-        attr_typography += "<div id='uci_typo_div_right' class='cdu_c'>";
+          ["div", {id:"uci_typo_div_centre","class":"cdu_c"},
+          // font family
+            ["div", {"class":"uci_aria_button_group cdu_c"},
+              ["span", {id:"uci_title_typographie", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontfamily'),
+                accessibilitytoolbar.makeHelpTpl("uci_link_help_fontfamily","uci_typo_help_fontfamily",accessibilitytoolbar.get('uci_typo_help_fontfamily'))
+              ],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_fontfamily",role:"radiogroup","aria-labelledby":"uci_title_typographie"},
+                ["li", {id:"uci_a11yDyslexyFont_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_normal')
+                  }, 
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yDyslexyFont_arial",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')
+                  },
+                  "Arial"
+                ],
+                ["li", 
+                  {id:"uci_a11yDyslexyFont_opendyslexic",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')
+                  },
+                  "Open Dyslexic"
+                ]
+              ]
+            ],
 
+            // Line spacing
+            ["div", {id:"uci_typo_spacement_line", "class":"uci_aria_button_group cdu_c uci_clear"},
+              ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_linespacement",role:"radiogroup", "aria-labelledby":"uci_typo_spacement_line_aria_label"},
+                ["li", 
+                  {id:"uci_a11yLineSpacement_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_linespacing_radio_normal')
+                  },
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yLineSpacement_2",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_linespacing_radio_medium')
+                  },
+                  accessibilitytoolbar.get('uci_radio_medium')
+                ],
+                ["li", 
+                  {id:"uci_a11yLineSpacement_3",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_linespacing_radio_large')
+                  },
+                  accessibilitytoolbar.get('uci_radio_large')
+                ]
+              ]
+            ]
+          ],
 
-        
-        // Gestion de la casse du texte
-        attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<span id='uci_fieldset_changecasse' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_changecase'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_changecase');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</span>";
-        
-        
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_changecasse' role='radiogroup' aria-labelledby='uci_fieldset_changecasse'>";
-        attr_typography += "<li id='uci_a11yModifCasse_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_changecase_normal_title')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";        
-        
-        attr_typography += "<li id='uci_a11yModifCasse_capitalize' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\"" + accessibilitytoolbar.get('uci_changecase_firstlettre_title') +"\">";
-        attr_typography +=  accessibilitytoolbar.get('uci_changecase_firstlettre');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_lowercase' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\"" + accessibilitytoolbar.get('uci_changecase_tolower_title') +"\">";
-        attr_typography += accessibilitytoolbar.get('uci_changecase_tolower');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        
-        /*
-        attr_typography += "<div id='uci_typo_modif_casse' class='uci_aria_button_group cdu_c'>";
-        attr_typography += "<div id='box-a11yModifCasseEnabled_off'>";
-        attr_typography += "<input type='checkbox' name='a11yModifCasseEnabled' id='uci_chekbox_casse'"+(accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on" ? " checked='checked'" : "")+" />";
-        attr_typography += "<label for='uci_chekbox_casse'>";
-        attr_typography += "<span>";
-        attr_typography +=  accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "</span>";
-        attr_typography += "</label>";
-        attr_typography += "<a href='#' class='uci_link_help_bulle' role='presentation' id='uci_link_help_changecase'>";
-        attr_typography += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-help\"></span>";
-        attr_typography += "<span class='uci_span_help_bulle cdu_n' id='uci_typo_help_changecase'><p>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_help_changecase');
-        attr_typography += "</p><span class='uci_fleche_help_bulle'></span></span></a>";
-        attr_typography += "</div>";
-        if (accessibilitytoolbar.userPref.get("a11yModifCasseEnabled") === "on"){
-            attr_typography += "<div id='uci_fieldset_changecasse' style='display:block'>";
-        }else {
-            attr_typography += "<div id='uci_fieldset_changecasse' style='display:none'>";
-        }
-        attr_typography += "<span class='cdu_n'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_changecase');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_changecasse' role='radiogroup' aria-labelledby='uci_fieldset_changecasse'>";
-        attr_typography += "<li id='uci_a11yModifCasse_capitalize' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_typography +=  accessibilitytoolbar.get('uci_changecase_firstlettre');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_uppercase' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_typography += accessibilitytoolbar.get('uci_changecase_toupper');
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yModifCasse_lowercase' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" >";
-        attr_typography += accessibilitytoolbar.get('uci_changecase_tolower');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";        
-        attr_typography += "</div>";
-        */
-        // gestion de l'espacement entre les caractère
-        attr_typography += "<div class='uci_aria_button_group cdu_c uci_clear'>";
-        attr_typography += "<span id='uci_typo_font_caractere' class='cdu_left uci_label'>";
-        attr_typography += accessibilitytoolbar.get('uci_typo_titre_charspacing');
-        attr_typography += "</span>";
-        attr_typography += "<ul class='uci_liste_bton' id='uci_reponses_charspacing' role='radiogroup' aria-labelledby='uci_typo_font_caractere'>";
-        attr_typography += "<li id='uci_a11yCharSpacement_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yCharSpacement") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_charspacing_radio_normal')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_default');  
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yCharSpacement_0.2' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yCharSpacement") === "0.2" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_charspacing_radio_medium')+"\">";  
-        attr_typography += accessibilitytoolbar.get('uci_radio_medium');     
-        attr_typography += "</li>";
-        attr_typography += "<li id='uci_a11yCharSpacement_0.5' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yCharSpacement") === "0.5" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_charspacing_radio_large')+"\">";
-        attr_typography += accessibilitytoolbar.get('uci_radio_large');
-        attr_typography += "</li>";
-        attr_typography += "</ul>";
-        attr_typography += "</div>";
-        
-/***************************************Fin de la partie droite*************************************************************/
-        attr_typography += "</div>";
-/***************************************Fin de la partie Typographie********************************************************/
-        attr_typography += "</div>";
-        return attr_typography;
+          ["div", {id:"uci_typo_div_right","class":"cdu_c"},
+          // font family
+            ["div", {"class":"uci_aria_button_group cdu_c"},
+              ["span", {id:"uci_fieldset_changecasse", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_changecase'),
+                accessibilitytoolbar.makeHelpTpl("uci_link_help_changecase","uci_typo_help_changecase",accessibilitytoolbar.get('uci_typo_help_changecase'))
+              ],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_changecasse",role:"radiogroup","aria-labelledby":"uci_fieldset_changecasse"},
+                ["li", {id:"uci_a11yModifCasse_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_normal_title')
+                  }, 
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yModifCasse_capitalize",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "capitalize" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_firstlettre_title')
+                  },
+                  accessibilitytoolbar.get('uci_changecase_firstlettre')
+                ],
+                ["li", 
+                  {id:"uci_a11yModifCasse_lowercase",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "lowercase" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_tolower_title')
+                  },
+                  accessibilitytoolbar.get('uci_changecase_tolower')
+                ]
+              ]
+            ],
+ 
+            // char spacing
+            ["div", {id:"uci_typo_spacement_line", "class":"uci_aria_button_group cdu_c uci_clear"},
+              ["span", {"class":"cdu_left uci_label", id:"uci_typo_font_caractere"},accessibilitytoolbar.get('uci_typo_titre_charspacing')],
+              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_charspacing",role:"radiogroup", "aria-labelledby":"uci_typo_font_caractere"},
+                ["li", 
+                  {id:"uci_a11yCharSpacement_keepit",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_normal')
+                  },
+                  accessibilitytoolbar.get('uci_radio_default')
+                ],
+                ["li", 
+                  {id:"uci_a11yCharSpacement_0.2",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "true" : "false",
+                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_medium')
+                  },
+                  accessibilitytoolbar.get('uci_radio_medium')
+                ],
+                ["li", 
+                  {id:"uci_a11yCharSpacement_0.5",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_large')
+                  },
+                  accessibilitytoolbar.get('uci_radio_large')
+                ]
+              ]
+            ]
+          ]
+        ]);       
     },
 
     displayFieldset: function (id) {
@@ -2183,21 +1892,7 @@ UciTypographie = {
 /*global document: false */
 /* global alert */
 UciValidation = {
-    /**
-     * @property
-     * @private
-     */
-    attr_validation: "",
-    /*
-     * @constructor init
-     */
-    InitUciValidation: function () {
-        this.attr_validation = "<div id='uci_validation_button'>";        
-        this.attr_validation += "<input type='reset' class='ucibtn ucibtn-info' id='uci_annuler' value=\""+accessibilitytoolbar.get('uci_button_cancel')+"\" />";
-        this.attr_validation += "<input type='submit' class='ucibtn ucibtn-primary' id='uci_valider' value=\""+accessibilitytoolbar.get('uci_button_valid')+"\" />";
-        this.attr_validation += "</div>";
-        return this.attr_validation;
-    },
+    
 
     Validation: function (/*event*/e) {
         var event = e || window.event;
@@ -2260,254 +1955,216 @@ UciIhm = {
      * 	constructor uci_ihm() : Constructeur de la class uciIhm
      *
      */
-    InitUciIHM: function () {
-        var attr_ihm = "<div class='cdu_c'>";
-        attr_ihm += "<div id='uci_toolbar-quick' class='cdu_c'>";
-        /****************************Integration dans la toolbar du menu de gauche********************************************
-         * Mise en place du lien "masquer la barre", qui permettra de masquer la barre du confort d'utilisateur
-         * Mise en place du logo " + de confort" pour donner identité graphique à la barre de confort
-         * *********************************************************************************************************************/
-
-        attr_ihm += "<div class='uci_logo_plus_de_confort cdu_c'>";
-        attr_ihm += "<h1 class='uci_alt_logo'>";
-        attr_ihm += accessibilitytoolbar.get('uci_serv_name')+'<span class="uci-plus-orange">+</span>';
-        attr_ihm += "</h1>"+        
-            "<div class='cdu_c uci-onoffswitch'>"+
-                "<a class='"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"uci-onoffswitch-label-on' title=\""+accessibilitytoolbar.get('uci_title_disable_cdu')+"\"":"uci-onoffswitch-label' title=\""+accessibilitytoolbar.get('uci_title_enable_cdu')+"\"")+" id='uci-onoffswitch' href='#'>"+
-                    "<span class='uci-onoffswitch-inner-before'>On</span>"+
-                    "<span class='uci-onoffswitch-inner-after'>Off</span>"+
-                "</a>"+
-            "</div>";
-    
-        attr_ihm += "</div>";
-        attr_ihm += "<div class='uci_right'>";
-        
-        attr_ihm += "<!--[if IE 7 ]>";
-            attr_ihm += "<div id='uci_left_toolbar' class='cdu_c uci_notmask ie7'";
-            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {            
-                attr_ihm += " style='display:none'";
-            }
-            attr_ihm += ">";
-        attr_ihm += "<![endif]-->";
-        attr_ihm += "<!--[if (gte IE 8) | (!IE)]><!-->";
-            attr_ihm += "<div id='uci_left_toolbar' class='cdu_c uci_notmask'";
-            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {            
-                attr_ihm += " style='display:none'";
-            }
-            attr_ihm += ">";    
-        attr_ihm += "<!--<![endif]-->";
-        
-        /***************************************Fin menu de gauche*************************************************************/
-
-        /**********************************************Menu central de la toolbar**********************************************
-         * Mise en place des choix rapides concernant les tailles de police : 3 choix possibles
-         * Mise en place des choix rapides concernant les contraste de couleur de police et d'arriere plan : 2 choix possibles
-         * Mise en place du lien " + plus de confort" pour permettre l'ouverture complète aux options du CDU
-         ***********************************************************************************************************************/
-        /*
-         * gestion de la police
-         */
-        attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_bigger_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_keepit' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_normal')+"\">";
-        attr_ihm += "<span>";
-        attr_ihm += "A";
-        attr_ihm += "<span class=\"cdu_n\">";
-        attr_ihm +=  accessibilitytoolbar.get('uci_title_fontsize_radio_normal');
-        attr_ihm += "</span>";
-        attr_ihm += "</span>";
-        attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_150' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_medium')+"\">";
-        attr_ihm += "<span>";
-        attr_ihm += "A";
-        attr_ihm += "<span class=\"cdu_n\">";
-        attr_ihm +=  accessibilitytoolbar.get('uci_title_fontsize_radio_medium');
-        attr_ihm += "</span>";
-        attr_ihm += "</span>";
-        attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yBigger_200' role='radio' class='uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_fontsize_radio_large')+"\">";
-        attr_ihm += "<span>";
-        attr_ihm += "A";
-        attr_ihm += "<span class=\"cdu_n\">";
-        attr_ihm +=  accessibilitytoolbar.get('uci_title_fontsize_radio_large');
-        attr_ihm += "</span>";
-        attr_ihm += "</span>";
-        attr_ihm += "</li>";
-        attr_ihm += "</ul>";
-        /**
-         * Gestion des couleurs
-         */
-        attr_ihm += "<ul class='uci_liste_bton cdu_c' id='uci_reponses_couleurpredefinie_quick_set' role='radiogroup'>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_keepit' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_keepit')+"\">";
-        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_keepit')+"</span>";
-        attr_ihm += "<span class='cdu-icon cdu-icon-test'>"+
-                "<span class='cdu-icon path1'></span>"+
-                "<span class='cdu-icon path2'></span>"+
-                "<span class='cdu-icon path3'></span>"+
-                "<span class='cdu-icon path4'></span>"+
-                "</span>";
-        attr_ihm += "</li>";
-        attr_ihm += "<li id='uci_quick_a11yVisualPredefinedSettings_blackonwhite' role='radio' class='uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active' aria-checked='true' tabindex='0'" : "' aria-checked='false' tabindex='-1'")+" title=\""+accessibilitytoolbar.get('uci_title_color_blackonwhite')+"\">";
-        attr_ihm += "<span class='cdu_n'>"+accessibilitytoolbar.get('uci_title_color_blackonwhite')+"</span>";
-        attr_ihm += "<span class='cdu-icon cdu-icon-couleurs2'></span>";
-        attr_ihm += "</li>";
-        attr_ihm += "</ul>";
-        attr_ihm += "</div>";
-        /***************************************** Fin bloc uci_left_toolbar de la toolbar *****************************************/
-        
-        
-        attr_ihm += "<!--[if IE 7 ]>";
-            attr_ihm += "<div id='uci_middle_toolbar' class='cdu_c uci_notmask ie7'";
-            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {        
-                attr_ihm += " style='display:none'";
-            }
-            attr_ihm += ">";
-        attr_ihm += "<![endif]-->";
-        attr_ihm += "<!--[if (gte IE 8) | (!IE)]><!-->";
-            attr_ihm += "<div id='uci_middle_toolbar' class='cdu_c uci_notmask'";
-            if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on") {        
-                attr_ihm += " style='display:none'";
-            }
-            attr_ihm += ">";    
-        attr_ihm += "<!--<![endif]-->";
-
-        //  gestion du lien "+ de confort"          
-        attr_ihm += "<a class='uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary' href=\"#\" id='uci_moreconfort'>";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-plus2\" id=\"uci_icon_moreconfort\">"+""+"</span>";
-        attr_ihm += "<span id='uci_moreconfort_content'>"+accessibilitytoolbar.get('uci_txt_more_settings')+"</span>";
-        attr_ihm += "</a>";
-        attr_ihm += "</div>";
-
-        attr_ihm += "<!--[if IE 7 ]>";
-            attr_ihm += "<div id='uci_right_toolbar' class='cdu_c uci_notmask ie7'>";
-        attr_ihm += "<![endif]-->";
-        attr_ihm += "<!--[if (gte IE 8) | (!IE)]><!-->";
-            attr_ihm += "<div id='uci_right_toolbar' class='cdu_c uci_notmask'>";  
-        attr_ihm += "<!--<![endif]-->";
-        
-        /************************************************Menu de droite de la toolbar*******************************************         
-         * Mise en place du menu facebook tout a droite, permettant d'un menu comprenant :
-         * le choix de langues
-         * la consultation de l'aide générale
-         * la reinitialisation de tout mes réglages
-         * le masquage de la barre "+ de confort"
-         **********************************************************************************************************************/
-        
-        attr_ihm += "<ul>"+
-                        "<li class='uci_inline uci_menu_help'>"+
-                                "<button class='uci_bton_menu cdu_c' id='uci_activer_menu'>"+
-        							accessibilitytoolbar.get('uci_txt_link_menu') +
-                                "</button>";
-        //gestion du menu deroulant du menu
-        attr_ihm += "<div>";
-        attr_ihm += "<div id='uci_cdu_menu' style='display:none;'>";        
-        attr_ihm += "<ul>";
-        attr_ihm += "<li>";
-        attr_ihm += "<div id='uci_language'>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "FR"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_FR' value='FR' id='uci_FR' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "EN"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_EN' value='EN' id='uci_EN' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_en')+"\"/>";
-        attr_ihm += "<input class='"+(accessibilitytoolbar.userPref.get("a11yLanguage") === "ES"?'uci_choix active':'uci_choix')+" ucibtn ucibtn-sm ucibtn-secondary' type='button' name='uci_language_SP' value='SP' id='uci_SP' title=\""+accessibilitytoolbar.get('uci_txt_menu_change_lang_es')+"\"/>";
-        attr_ihm += "</div>";
-        
-        attr_ihm += "</li>";
-        attr_ihm += "<li><a class='uci_menu_ouverture_aide' href=\"http://confort-plus.orange.com\" title=\""+(accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\"_BLANK\">";
-        attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-info"></span><span>' + accessibilitytoolbar.get('uci_menu_info') + '</span>';
-        attr_ihm += "</a></li>";
-        attr_ihm += "<li><a class='uci_menu_ouverture_aide' href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"\" title=\""+(accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window'))+")\" target=\""+helpPathTarget+"\">";
-        attr_ihm += '<span aria-hidden=\"true\" class="cdu-icon cdu-icon-help"></span><span>' + accessibilitytoolbar.get('uci_menu_help') + '</span>';
-        attr_ihm += "</a></li>";
-        
-        attr_ihm += "</ul>";
-        attr_ihm += "</div></div></li>"; // fin menu     
-        
-        attr_ihm += "<li class='uci_inline uci_menu_close'><button id='uci_menu_activer_menu' class='uci_bton_menu cdu_c' title='"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"' type='button'>";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-croix\"></span>"
-        attr_ihm += "<span class=\"cdu_n\">"+accessibilitytoolbar.get('uci_link_hide_toolbar')+"</span>"
-        attr_ihm += "</button></li></ul>";
-        
-        attr_ihm += "</div>"; // fin div uci_right_toolbar
-        attr_ihm += "</div>"; // fin div uci_right
-        attr_ihm += "</div>"; // fin div toolbar quick
-        /*********************************************Gestion du menu d'onglet*****************************************************
-         Mise en place d'un système d'onglet, pour la gestion des différents onglets composant le CDU :
-         - Onglet typographie : reprenant les différents éléments en rapport
-         * à la police d'écriture
-         * aux tailles des texte
-         * aux tailles des espacements des mots,des lignes, des caractères
-         * à la casse du texte.
-         - Onglet agencement : reprenant les différents éléments en rapport :
-         * à la gestion de la mise en page
-         * à l'alignement des texte
-         * à l'apparence des liens de navigations
-         * à la supression des effet de transparence, aux images de fond, à la suppréssion des images de premier plan
-         - Onglet couleurs : reprenant les différents éléments suivant :
-         * Utilisation prédéfinis de couleurs de fond et d'écriture
-         * Ou utilisation de couleurs prédéfinies
-         * Gestion du contraste entre les couleurs
-         - Onglet aide motrices : reprenant les différents comportement d'aide à la motricité :
-         * Sauter le contenu
-         * Gestion de la navigation par pointage
-         * Gestion de la sélection automatique des éléments
-         ***************************************************************************************************************************/
-
-        attr_ihm += "<div class='uci_systeme_onglets uci_clear cdu_c' id=\"uci_zone_form\" style='display:none;'>";
-        
-        attr_ihm += "<div id=\"uci_activateOnglet\" style='display:none;'>"; // uci_activateOnglet        
-        attr_ihm += "<div id='uci_menu_remove_all' class='uci_choix ucibtn ucibtn-sm ucibtn-secondary'>"+
-        "<span class='cdu-icon cdu-icon-reload2' aria-hidden='true'></span>"+
-        accessibilitytoolbar.get('uci_menu_remove_all')+
-        "</div>";
-        attr_ihm += "<!--[if IE 7]><div class='uci_onglets uci_ongletsie7'><![endif]-->";
-        attr_ihm += "<!--[if (IE) & (!IE 7)]><div class='uci_onglets'><![endif]-->";        
-        attr_ihm += "<!--[if (!IE)]>--><div class='uci_onglets'><!--<![endif]-->"; // uci_onglets
-        attr_ihm += "<div>"; // 2
-        attr_ihm += "<div class='uci_container_onglets'>";  // 1
-
-        attr_ihm += "<ul id='uci_onglet_confort' role='tablist' class='cdu_c'>";
-        attr_ihm += "<li role='tab' aria-selected='true' aria-controls='uci_contenu_onglet_typographie' tabindex='0' class='uci_inline onglet_1'> <span class='onglet' id=\"onglet_typographie\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-typographie\"></span>";
-        attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_typo');
-        attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_apparence' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_apparence\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-agencement\"></span>";
-        attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_apparence');
-        attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_couleur' tabindex='-1' class='uci_inline onglet_0'> <span  class=\"onglet\" id=\"onglet_couleur\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-couleurs2\"></span>";
-        attr_ihm +=  accessibilitytoolbar.get('uci_txt_onglet_color');
-        attr_ihm += "</span></li>";
-        attr_ihm += "<li role='tab' aria-selected='false' aria-controls='uci_contenu_onglet_aidemotrice' tabindex='-1' class='uci_inline onglet_0'> <span class=\"onglet\" id=\"onglet_aidemotrice\">";
-        attr_ihm += "<span aria-hidden=\"true\" class=\"cdu-icon cdu-icon-comportement\"></span>";
-        attr_ihm += accessibilitytoolbar.get('uci_txt_onglet_motor_help');
-        attr_ihm += "</span></li>";
-        attr_ihm += "</ul>";
-
-        attr_ihm += "</div>"; // fin 1
-        attr_ihm += "</div>"; // fin 2
-        attr_ihm += "</div>"; // fin uci_onglets
-
-        attr_ihm += "<div class='uci_div_conteneur_contenu_onglets'>";
-        attr_ihm += "<!--[if IE 7]><div class='uci_contenu_onglets uci_contenu_ongletsie7'><![endif]-->";
-        attr_ihm += "<!--[if (IE) & (!IE 7)]><div class='uci_contenu_onglets'><![endif]-->";        
-        attr_ihm += "<!--[if (!IE)]>--><div class='uci_contenu_onglets'><!--<![endif]-->"; // uci_contenu_onglets
-        attr_ihm += UciTypographie.InitUciTypographie();
-        attr_ihm += UciApparence.InitUciApparence();
-        var couleur = new UciCouleur();
-        attr_ihm += couleur.InitUciCouleur();
-        attr_ihm += UciAideMotrice.InitUciAideMotrice();
-        attr_ihm += "</div>"; // fin contenu onglets
-        attr_ihm += "</div>"; // fin clear
-        attr_ihm += "</div>"; // fin uci_activateOnglet
-
-
-        //var validation =  new UciValidation();
-        var strValidation = UciValidation.InitUciValidation();
-        attr_ihm += "<div id='uci_validation' class='cdu_n'>"+strValidation+"</div>";
-
-        attr_ihm += "</div>"; // fin uci_zone_form
-        attr_ihm += "</div>"; // fin container
-		
-		attr_ihm += "<div id='uci_confirm_validation'><span>" + accessibilitytoolbar.get('uci_confirm_validation') + "</span></div>";
-        return attr_ihm;
+    InitUciIHM: function () {        
+      return accessibilitytoolbar.make(["div", {"class":"cdu_c"},
+          ["div", {id:"uci_toolbar-quick", "class":"cdu_c"},
+            ["div", {"class":"uci_logo_plus_de_confort cdu_c"},
+              ["h1", {"class":"uci_alt_logo"},
+                accessibilitytoolbar.get('uci_serv_name'),
+                ["span", {"class":"uci-plus-orange"}, "+"]
+              ],
+              ["div", {"class":"cdu_c uci-onoffswitch"},
+                ["a", {"class":"uci-onoffswitch-label"+(accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?"-on":""),
+                        title:accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on"?accessibilitytoolbar.get('uci_title_disable_cdu'):accessibilitytoolbar.get('uci_title_enable_cdu'),
+                        id:"uci-onoffswitch",
+                        href:"#"
+                  },
+                  ["span", {"class":"uci-onoffswitch-inner-before"}, "On"],
+                  ["span", {"class":"uci-onoffswitch-inner-after"}, "Off"]
+                ]
+              ]            
+            ],
+            ["div", {"class":"uci_right"},
+              ["div", {"class":"cdu_c uci_notmask", id:"uci_left_toolbar", style:(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none":"")},
+                ["ul", {"class":"uci_liste_bton cdu_c",id:"uci_reponses_bigger_quick_set",role:"radiogroup"},
+                  ["li", {id:"uci_quick_a11yBigger_keepit",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",                    
+                      title:accessibilitytoolbar.get('uci_title_fontsize_radio_normal')
+                    }, ["span",
+                      "A",
+                      ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_normal')]
+                    ]
+                  ],
+                  ["li", 
+                    {id:"uci_quick_a11yBigger_150",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",                    
+                      title:accessibilitytoolbar.get('uci_title_fontsize_radio_medium')
+                    },
+                    ["span",
+                      "A",
+                      ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_medium')]
+                    ]
+                  ],
+                  ["li", 
+                    {id:"uci_quick_a11yBigger_200",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",                    
+                      title:accessibilitytoolbar.get('uci_title_fontsize_radio_large')
+                    },
+                    ["span",
+                      "A",
+                      ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_large')]
+                    ]
+                  ]
+                ],
+                ["ul", {"class":"uci_liste_bton cdu_c",id:"uci_reponses_couleurpredefinie_quick_set",role:"radiogroup"},
+                  ["li", {id:"uci_quick_a11yVisualPredefinedSettings_keepit",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "true" : "false",                    
+                      title:accessibilitytoolbar.get('uci_title_color_keepit')
+                    },
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_color_keepit')],
+                    ["span", {"class":"cdu-icon cdu-icon-test"},
+                      ["span", {"class":"cdu-icon path1"}],
+                      ["span", {"class":"cdu-icon path2"}],
+                      ["span", {"class":"cdu-icon path3"}],
+                      ["span", {"class":"cdu-icon path4"}]
+                    ]
+                  ],
+                  ["li", 
+                    {id:"uci_quick_a11yVisualPredefinedSettings_blackonwhite",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "true" : "false",                    
+                      title:accessibilitytoolbar.get('uci_title_color_blackonwhite')
+                    },
+                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_color_blackonwhite')],
+                    ["span", {"class":"cdu-icon cdu-icon-couleurs2"}]
+                  ]
+                ]
+              ],
+              ["div", {"class":"cdu_c uci_notmask", id:"uci_middle_toolbar", style:(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none":"")},
+                ["a", {"class":"uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href:"#", id:"uci_moreconfort"},
+                  ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-plus2", id:"uci_icon_moreconfort"}],
+                  ["span", { id:"uci_moreconfort_content"}, accessibilitytoolbar.get('uci_txt_more_settings')]
+                ]
+              ],
+              ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
+                ["ul",
+                  ["li", {"class":"uci_inline uci_menu_help"},
+                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                    ["div",
+                      ["div", {id:"uci_cdu_menu", style:"display:none;"},
+                        ["ul",
+                          ["li",
+                            ["div", {id:"uci_language"},
+                              ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "FR"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
+                                          type:"button",
+                                          name:"uci_language_FR",
+                                          value:"FR",
+                                          id:"uci_FR",
+                                          title:accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')
+                                        }],
+                              ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "EN"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
+                                          type:"button",
+                                          name:"uci_language_EN",
+                                          value:"EN",
+                                          id:"uci_EN",
+                                          title:accessibilitytoolbar.get('uci_txt_menu_change_lang_en')
+                                        }],
+                              ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "ES"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
+                                          type:"button",
+                                          name:"uci_language_ES",
+                                          value:"ES",
+                                          id:"uci_ES",
+                                          title:accessibilitytoolbar.get('uci_txt_menu_change_lang_es')
+                                        }]
+                            ]
+                          ],
+                          ["li",
+                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com", title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
+                              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-info"}],
+                              ["span", accessibilitytoolbar.get('uci_menu_info')]
+                            ]
+                          ],
+                          ["li",
+                            ["a", {"class":"uci_menu_ouverture_aide", href:helpPath[accessibilitytoolbar.strings.getLocale()], title:accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:helpPathTarget},
+                              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-help"}],
+                              ["span", accessibilitytoolbar.get('uci_menu_help')]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ],
+                  ["li", {"class":"uci_inline uci_menu_close"},
+                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_menu_activer_menu", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
+                      ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
+                      ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_link_hide_toolbar')]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          ["div", {"class":"uci_systeme_onglets uci_clear cdu_c", id:"uci_zone_form", style:"display:none;"},
+            ["div", {id:"uci_activateOnglet", style:"display:none;"},
+              ["div", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all"},
+                ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-reload2"}],
+                accessibilitytoolbar.get('uci_menu_remove_all')
+              ],
+              ["div", {"class":"uci_onglets"},
+                ["div",
+                  ["div", {"class":"uci_container_onglets"},
+                    ["ul", {id:"uci_onglet_confort", role:"tablist", "class":"cdu_c"},
+                      ["li", {role:"tab", "aria-selected":"true", "aria-controls":"uci_contenu_onglet_typographie", tabindex:"0", "class":"uci_inline onglet_1"},
+                        ["span", {"class":"onglet", id:"onglet_typographie"},
+                          ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-typographie"}],
+                          accessibilitytoolbar.get('uci_txt_onglet_typo')
+                        ]
+                      ],
+                      ["li", {role:"tab", "aria-selected":"false", "aria-controls":"uci_contenu_onglet_apparence", tabindex:"-1", "class":"uci_inline onglet_0"},
+                        ["span", {"class":"onglet", id:"onglet_apparence"},
+                          ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-agencement"}],
+                          accessibilitytoolbar.get('uci_txt_onglet_apparence')
+                        ]
+                      ],
+                      ["li", {role:"tab", "aria-selected":"false", "aria-controls":"uci_contenu_onglet_couleur", tabindex:"-1", "class":"uci_inline onglet_0"},
+                        ["span", {"class":"onglet", id:"onglet_couleur"},
+                          ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-couleurs2"}],
+                          accessibilitytoolbar.get('uci_txt_onglet_color')
+                        ]
+                      ],
+                      ["li", {role:"tab", "aria-selected":"false", "aria-controls":"uci_contenu_onglet_aidemotrice", tabindex:"-1", "class":"uci_inline onglet_0"},
+                        ["span", {"class":"onglet", id:"onglet_aidemotrice"},
+                          ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-comportement"}],
+                          accessibilitytoolbar.get('uci_txt_onglet_motor_help')
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              ["div", {"class":"uci_div_conteneur_contenu_onglets"},
+                ["div", {"class":"uci_contenu_onglets"},
+                  UciTypographie.InitUciTypographie(),
+                  UciApparence.InitUciApparence(),
+                  UciCouleur.InitUciCouleur(),
+                  UciAideMotrice.InitUciAideMotrice()
+                ]
+              ]
+            ],
+            ["div", {id:"uci_validation", "class":"cdu_n"},
+              ["input", {type:"reset", "class":"ucibtn ucibtn-info", id:"uci_annuler", value:accessibilitytoolbar.get('uci_button_cancel')}],
+              ["input", {type:"submit", "class":"ucibtn ucibtn-primary", id:"uci_valider", value:accessibilitytoolbar.get('uci_button_valid')}]
+            ]
+          ],
+          ["div", {id:"uci_confirm_validation"},
+            ["span",accessibilitytoolbar.get('uci_confirm_validation')]
+          ]
+        ]
+      );
     },
     
 
@@ -2721,6 +2378,119 @@ UciIhm = {
         return false;
     }
 };
+// Source: app/js/mask.js
+/**
+    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
+    
+    Copyright (C) 2014  Orange
+
+    Orange Confort+ is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    Orange Confort+ is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (LICENSE.txt file).
+**/
+UciMask = {
+        settings: {
+            launched : false,
+            thickness : 'none'
+        },
+
+        init: function() {
+	        if ((!window.Modernizer) || !Modernizr.touch) { 
+	        	topMask = document.createElement("div");
+	        	topMask.className="topMask";
+	        	topMask.id="topMask";
+	        	bottomMask = document.createElement("div");
+	        	bottomMask.className="bottomMask";
+	        	bottomMask.id="bottomMask";
+            document.getElementsByTagName("body")[0].appendChild(topMask);
+            document.getElementsByTagName("body")[0].appendChild(bottomMask); 
+	        }
+        },
+        
+        start: function() {
+        	if(!UciMask.settings.launched)
+            {
+        		  UciMask.maskEventCreate();
+            }           
+        },
+        
+        maskEventCreate: function() {   
+          // For W3C Browser
+          if (document.addEventListener) {
+            document.addEventListener('mousemove', UciMask.maskEvent, false);
+          }
+          //For IE browser
+          else if (document.attachEvent) {
+            document.attachEvent('onmousemove', UciMask.maskEvent);
+          } 
+          UciMask.settings.launched = true;
+        },        
+     
+        maskEventRemove: function() { 
+          if (document.removeEventListener) {
+            document.removeEventListener('mousemove', UciMask.maskEvent, false);
+          }
+          //For IE browser
+          else if (document.attachEvent) {
+            document.detachEvent('onmousemove', UciMask.maskEvent);
+          }
+        	
+          // if the mask was launched before, removed it from the dom
+        	document.getElementById('topMask').style.display = "none";
+          document.getElementById('bottomMask').style.display = "none";
+          UciMask.settings.launched = false;
+        },
+        
+        maskEvent: function(e) {
+          UciMask.draw(e.clientY);
+        },
+        
+        draw: function(positionY) {
+        	switch(UciMask.settings.thickness) {
+        		case 'thin':
+        			var size = 20;
+        			break;
+        		case 'medium':
+        			var size = 40;
+        			break;
+        		case 'thick':
+        			var size = 60;
+        			break;
+        		case 'none':
+        		default:
+        			var size = 0;
+        	}
+        	if(typeof positionY == 'undefined') {
+        		size = 0;
+        	}
+        	var topMaskHeight = 0;
+          if((positionY - (size / 2)) > 0)   {
+            topMaskHeight = positionY - (size / 2);
+          }
+        	document.getElementById('topMask').style.height = topMaskHeight + "px";
+        	document.getElementById('topMask').style.display = "block";
+        	var bottomMaskHeight = 0;
+          var winHeight = 0;
+          if (window.getComputedStyle) {
+            winHeight = parseInt(document.documentElement.clientHeight,10);
+          } else {
+            winHeight = parseInt(document.documentElement.offsetHeight, 10);
+          }
+           
+          if((winHeight - topMaskHeight - size) > 0)   {
+            bottomMaskHeight = winHeight - topMaskHeight - size;
+          }
+          document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
+        	document.getElementById('bottomMask').style.display = "block";
+        }
+}
+
 // Source: app/js/toolbar.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -4831,10 +4601,10 @@ function RemoteControlPad() {
         pad = document.createElement("div");
         pad.id = "remotecontrol";
         /* rect: left-x, top-y, right-x, bottom-y. */
-        pad.innerHTML = "<map name='remotemap'>"
-            + "<area href='#' class='dontclick scrollup' shape='rect' coords='0,0," + imgWidth + "," + (imgHeight / 2) + "' alt='" + accessibilitytoolbar.get("remotepad_scrollup") + "' />"
-            + "<area href='#' class='dontclick scrolldown' shape='rect' coords='0," + (imgHeight / 2) + "," + (imgHeight / 2) + "," + imgHeight + "' alt='" + accessibilitytoolbar.get("remotepad_scrolldown") + "' />"
-            + "</map>";
+        pad.appendChild(accessibilitytoolbar.make(["map", {name:"remotemap"},
+          ["area", {href:"#", "class":"dontclick scrollup", shape:"rect", coords:"0,0," + imgWidth + "," + (imgHeight / 2), alt:accessibilitytoolbar.get("remotepad_scrollup")}],
+          ["area", {href:"#", "class":"dontclick scrolldown", shape:"rect", coords:"0," + (imgHeight / 2) + "," + (imgHeight / 2) + "," + imgHeight, alt:accessibilitytoolbar.get("remotepad_scrolldown")}]
+        ]));
         var i = document.createElement("img");
         i.src = imgSrc;
         i.width = imgWidth;
@@ -4950,10 +4720,6 @@ accessibilitytoolbar = {
      */
     contentToJumpTo: null,
     /**
-     * Cookie error message
-     */
-    secCookie: null,
-    /**
      * User preference manager
      */
     userPref: null,
@@ -4995,6 +4761,9 @@ accessibilitytoolbar = {
 
     // when the user change the lang of the interface, wee need to reload after save is done
     needToReload : false,
+    
+    // mask already loaded?
+    toolbarMaskInit : false,
     
     // addevent input params : 
     // 1- for addeventlistenername
@@ -5332,30 +5101,18 @@ accessibilitytoolbar = {
         l.id = "a11yCSS";
         this.head.appendChild(l);    
         
-        var newStyle = document.createElement("style");
-        newStyle.setAttribute("type", "text/css");
-        newStyle.id = "a11yCSSFontStyle";
-        if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-            newStyle.styleSheet.cssText = "@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}";
+        if(fontsPath['fonticone']) {
+          var newStyle = document.createElement("style");
+          newStyle.setAttribute("type", "text/css");
+          newStyle.id = "a11yCSSFontStyle";
+          if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+              newStyle.styleSheet.cssText = "@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}";
+          }
+          else { // standards-oriented browsers
+              newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}"));
+          }
+          document.getElementsByTagName('head')[0].appendChild(newStyle);
         }
-        else { // standards-oriented browsers
-            newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: "+ fontsPath['fonticone'] +";font-style: normal;font-weight: normal;}"));
-        }
-        document.getElementsByTagName('head')[0].appendChild(newStyle);
-        
-    },
-
-    /**
-     *
-     */
-    toolbarCDUContent: function (){   
-        var str = "";
-        if(accessibilitytoolbar.idLinkModeContainer){
-            str = accessibilitytoolbar.toolbarCreateLink();
-        }else{
-            str = accessibilitytoolbar.toolbarCreateButton();
-        }
-        return str;
     },
 
     /**
@@ -5363,18 +5120,11 @@ accessibilitytoolbar = {
      *
      */
     toolbarCreateButton: function () {
-        var str="";
-            if(accessibilitytoolbar.userPref.get('a11yToolbarEnable')=='on'){
-                str += "<p id='cdu_close' style='display:none'><button title=\"";
-            }else{
-                str += "<p id='cdu_close' style='display:block'><button title=\"";
-            }
-
-            str +=this.get('uci_alt_logo');
-            str += "\">";
-            str += this.get('uci_serv_name');
-            str += "<span>+</span></button></p>";            
-        return str;
+        return accessibilitytoolbar.make(["p",{id:"cdu_close", style:accessibilitytoolbar.userPref.get('a11yToolbarEnable')=='on'?"display:none":"display:block"},
+          ["button", {title:this.get('uci_alt_logo')},this.get('uci_serv_name'),
+            ["span","+"]
+          ]
+        ]);
     },
 
     /**
@@ -5382,7 +5132,6 @@ accessibilitytoolbar = {
      *
      */
     toolbarCreateLink: function () {
-        var str="";
         var style = ".cdu_hide {display:none} #cdu_close {display:none}";
         var newStyle = document.createElement("style");
         newStyle.setAttribute("type", "text/css");
@@ -5394,9 +5143,7 @@ accessibilitytoolbar = {
         var _head = document.getElementsByTagName('head')[0];
         // newStyle
         _head.insertBefore(newStyle, _head.firstChild);
-
-
-        //initialisation str for using into createToolbar function
+        
         //search link container
         this.node = document.getElementById(accessibilitytoolbar.idLinkModeContainer);
         //create link with attribute
@@ -5436,31 +5183,15 @@ accessibilitytoolbar = {
                 this.body.insertBefore(skipLinkCreate, this.body.firstChild);
             }
         }
-        return str;
-
     },
 
     /**
      * Generates the accessibility tool-bar per se
      */
     createToolbar: function () {
-        var str = "";
-        
-        str += "<form onsubmit='return false;' onreset='return false;' name='uci_form' action='#' id='uci_form'>";
-        if (accessibilitytoolbar.secCookie !== null) {
-            str += "<p id='cdu_secu'>";
-            str += "<span class='cdu_hide'>";
-            str += this.get('uci_securityCookieChangeAlert');
-            str += "</span>";
-            str += this.get("uci_securityCookieChange");
-            str += "&#160;<a href=\""+helpPath[accessibilitytoolbar.strings.getLocale()]+"#_Gestion_des_cookies\">" + this.get("uci_securityCookieChangeLinkPage") + "</a>";
-            str += "</p>";
-        }else {
-            str += UciIhm.InitUciIHM();
-        }
-        str += "</form>";
-
-        return str;
+        return accessibilitytoolbar.make(["form", {name:"uci_form", action:"#", id:"uci_form"},
+          UciIhm.InitUciIHM()
+        ]);
     },
 
     /**
@@ -5485,45 +5216,44 @@ accessibilitytoolbar = {
      * Add object to objectList for toolbar events
      */
     createObjectBehaviour: function (){
-        if (accessibilitytoolbar.secCookie === null) {
-            var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
-            var selectButtons = document.getElementById("cdu_content").getElementsByTagName("select");
-        
-            // User settings behaviour
-            var toolbar = document.getElementById("cdu_content");
-            for (var i = 0; i < actionButtons.length; i++) {
-                if(actionButtons[i].type && actionButtons[i].type!=='submit' && actionButtons[i].type!=='reset'
-                && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' )) && !actionButtons[i].disabled)
-                    accessibilitytoolbar.uciAttachEvent('click','onclick',actionButtons[i],accessibilitytoolbar.setPref);
-            }
-            for (i = 0; i < selectButtons.length; i++) {
-                accessibilitytoolbar.uciAttachEvent('change','onchange',selectButtons[i],accessibilitytoolbar.setPref);
-            }
-
-            accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienSel'),accessibilitytoolbar.displayOrNot);
-            accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienNonVis'),accessibilitytoolbar.displayOrNot);
-            accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienVis'),accessibilitytoolbar.displayOrNot);
-            document.getElementById('uci_NavLienSel').firstChild.onclick = function (e) { document.getElementById('uci_NavLienSel').click();accessibilitytoolbar.stopEvt(e);};
-            document.getElementById('uci_NavLienNonVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienNonVis').click();accessibilitytoolbar.stopEvt(e);};
-            document.getElementById('uci_NavLienVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienVis').click();accessibilitytoolbar.stopEvt(e);};
-                        
-            var liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_sel").getElementsByTagName("li");
-            for (i=0; i < liButtonsPalette.length; i++){
-               accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-               accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-            }
-
-            liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_notsel").getElementsByTagName("li");
-            for (i=0; i < liButtonsPalette.length; i++){
-               accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-               accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-            }
-            liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_visite").getElementsByTagName("li");
-            for (i=0; i < liButtonsPalette.length; i++){
-               accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-               accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
-            }
+        var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
+        var selectButtons = document.getElementById("cdu_content").getElementsByTagName("select");
+    
+        // User settings behaviour
+        var toolbar = document.getElementById("cdu_content");
+        for (var i = 0; i < actionButtons.length; i++) {
+            if(actionButtons[i].type && actionButtons[i].type!=='submit' && actionButtons[i].type!=='reset'
+            && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' )) && !actionButtons[i].disabled)
+                accessibilitytoolbar.uciAttachEvent('click','onclick',actionButtons[i],accessibilitytoolbar.setPref);
         }
+        for (i = 0; i < selectButtons.length; i++) {
+            accessibilitytoolbar.uciAttachEvent('change','onchange',selectButtons[i],accessibilitytoolbar.setPref);
+        }
+
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienSel'),accessibilitytoolbar.displayOrNot);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienNonVis'),accessibilitytoolbar.displayOrNot);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_NavLienVis'),accessibilitytoolbar.displayOrNot);
+        document.getElementById('uci_NavLienSel').firstChild.onclick = function (e) { document.getElementById('uci_NavLienSel').click();accessibilitytoolbar.stopEvt(e);};
+        document.getElementById('uci_NavLienNonVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienNonVis').click();accessibilitytoolbar.stopEvt(e);};
+        document.getElementById('uci_NavLienVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienVis').click();accessibilitytoolbar.stopEvt(e);};
+                    
+        var liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_sel").getElementsByTagName("li");
+        for (i=0; i < liButtonsPalette.length; i++){
+           accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+           accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+        }
+
+        liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_notsel").getElementsByTagName("li");
+        for (i=0; i < liButtonsPalette.length; i++){
+           accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+           accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+        }
+        liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_visite").getElementsByTagName("li");
+        for (i=0; i < liButtonsPalette.length; i++){
+           accessibilitytoolbar.uciAttachEvent('blur','onblur',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+           accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',liButtonsPalette[i],accessibilitytoolbar.HidePaletColor);
+        }
+        
         accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger');
         accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger_quick_set');
         accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie_quick_set');
@@ -5554,14 +5284,14 @@ accessibilitytoolbar = {
         //gestion des evenement sur les onglets :
         accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_moreconfort'),UciIhm.more_confort);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciValidation.Annulation();UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_SP'), function() {return UciIhm.changement_langue('ES');});
-        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function() {UciValidation.Validation(); UciIhm.confirm_validation(); });
-        accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), UciValidation.Annulation);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
+        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});
+        accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Annulation();});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
@@ -5748,7 +5478,7 @@ accessibilitytoolbar = {
             var contentToolbar = document.createElement("div");
             contentToolbar.setAttribute("id" ,'cdu_content');
             contentToolbar.className = 'cdu_displayN';
-            contentToolbar.innerHTML = accessibilitytoolbar.createToolbar();
+            contentToolbar.appendChild(accessibilitytoolbar.createToolbar());
             document.getElementById('cdu_zone').appendChild(contentToolbar);
             // add JS behaviour
             accessibilitytoolbar.createObjectBehaviour();
@@ -6016,7 +5746,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function (init) {   
-        var links, i, allElts, scriptJquery, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
             if(document.getElementById('cdu_close'))
             {
@@ -6143,7 +5873,9 @@ accessibilitytoolbar = {
                 //load the font face
                 if(accessibilitytoolbar.userPref.get("a11yDyslexyFont")==='opendyslexic')
                 {
+                  if(fontsPath['opendyslexicregular']) {
                     s += "@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicregular'] +";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicitalic'] +";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicbold'] +";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+                  }
                 }
                 if(accessibilitytoolbar.isModern) {
                   s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
@@ -6251,68 +5983,19 @@ accessibilitytoolbar = {
             
             // reading mask
             if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") !== "false") {
-            	//load jquery adn mask js if jquery not loaded
-                if (typeof jQuery == 'undefined') {
-                    scriptJquery = document.createElement('script');
-                    scriptJquery.src = jquery_min_js;
-                    done = false;
-                    // wait for jquery complete load
-                    scriptJquery.onload = scriptJquery.onreadystatechange = function () {
-                        if (!done && ( !this.readyState
-                            || this.readyState == "loaded"
-                            || this.readyState == "complete")) {
-                            done = true;
-                            //load the mask
-                            if (!accessibilitytoolbar.toolbarMask) {
-                                mask = document.createElement('script');
-                                mask.src = mask_js;
-                                doneMask = false;
-                                // wait until mask complete loaded
-                                mask.onload = mask.onreadystatechange = function () {
-                                    if (!doneMask && ( !this.readyState
-                                        || this.readyState == "loaded"
-                                        || this.readyState == "complete")) {
-                                    	doneMask = true;
-                                    	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                                    	UciMask.start();
-                                    }
-                                };
-                                document.getElementsByTagName('body')[0].appendChild(mask);
-                                accessibilitytoolbar.toolbarMask = true;
-                            }
-                        }
-                    };
-                    document.getElementsByTagName('body')[0].appendChild(scriptJquery);
+                UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
+                if(!accessibilitytoolbar.toolbarMaskInit){
+                    UciMask.init();
+                    accessibilitytoolbar.toolbarMaskInit = true;
                 }
-                // if jquery loaded, check if mask loaded
-                else if (typeof jQuery !== 'undefined' && !accessibilitytoolbar.toolbarMask) {
-                    mask = document.createElement('script');
-                    mask.src = mask_js;
-                    doneMask = false;
-                    // wait until mask complete loaded
-                    mask.onload = mask.onreadystatechange = function () {
-                        if (!doneMask && ( !this.readyState
-                            || this.readyState == "loaded"
-                            || this.readyState == "complete")) {
-                        	doneMask = true;
-                            //run the mask
-                        	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                            UciMask.start();
-                        }
-                    };
-                    document.getElementsByTagName('body')[0].appendChild(mask);
-                    accessibilitytoolbar.toolbarMask = true;
-                }
-                else if (typeof jQuery !== 'undefined' && accessibilitytoolbar.toolbarMask) {
-                	UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                    UciMask.start();
-                }
+                UciMask.start();
+                
             	s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
             	s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
             }
             // if mask was launch before deactivation kill!
-            else if(accessibilitytoolbar.toolbarMask && UciMask.settings.launched)
+            else if(UciMask.settings.launched)
             {
             	UciMask.maskEventRemove();
             }
@@ -6510,8 +6193,13 @@ accessibilitytoolbar = {
         }
         
         var htmlContent = document.createElement("div");
-        htmlContent.setAttribute("id","cdu_zone"); 
-        htmlContent.innerHTML = accessibilitytoolbar.toolbarCDUContent();
+        htmlContent.setAttribute("id","cdu_zone");         
+        if(accessibilitytoolbar.idLinkModeContainer) {
+          accessibilitytoolbar.toolbarCreateLink();
+        }
+        else {
+          htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
+        }
         document.getElementById('accessibilitytoolbarGraphic').removeChild(document.getElementById('accessibilitytoolbarGraphic').firstChild);
         document.getElementById('accessibilitytoolbarGraphic').appendChild(htmlContent);
         
@@ -6665,11 +6353,16 @@ accessibilitytoolbar = {
             }
         } catch(e) {
         	accessibilitytoolbar.isModern = false;
-            d.className = 'cdu_old_browser';
+          d.className = 'cdu_old_browser';
         }
         var htmlContent = document.createElement("div");
         htmlContent.setAttribute("id","cdu_zone"); 
-        htmlContent.innerHTML = accessibilitytoolbar.toolbarCDUContent();
+        if(accessibilitytoolbar.idLinkModeContainer) {
+          accessibilitytoolbar.toolbarCreateLink();
+        }
+        else {
+          htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
+        }
         d.appendChild(htmlContent);
         this.body.insertBefore(d, this.body.firstChild);
         accessibilitytoolbar.loadTheToolbar();
@@ -6678,14 +6371,11 @@ accessibilitytoolbar = {
 
     loadTheToolbar: function () {
         accessibilitytoolbar.createButtonLinkBehaviour();
-        if (accessibilitytoolbar.secCookie === null) {
-            accessibilitytoolbar.cleanImgDisabled();
-            // set CSS to the user's settings
-            accessibilitytoolbar.setCSS(true);
-            // jump to content if needed
-            accessibilitytoolbar.jumpToContent();
-        }
-
+        accessibilitytoolbar.cleanImgDisabled();
+        // set CSS to the user's settings
+        accessibilitytoolbar.setCSS(true);
+        // jump to content if needed
+        accessibilitytoolbar.jumpToContent();
     },
     
     /**
@@ -6729,6 +6419,137 @@ accessibilitytoolbar = {
             window.eventReturnValue = false;
         }
         return false;
+    },
+
+    /**
+     * Check if parameter is an array
+     * @return true if it is, false otherwise
+     */
+    isArray: function(a) {
+        return Object.prototype.toString.call(a) === "[object Array]";
+    },
+
+    /**
+     * Check if parameter is a string
+     * @return true if it is, false otherwise
+     */
+    isString: function(x) {
+        return Object.prototype.toString.call(x) === "[object String]";
+    },
+
+    /**
+     * src code : http://stackoverflow.com/questions/2946656/advantages-of-createelement-over-innerhtml#answer-2947012
+     * make create an html tree
+     * desc is an array, 
+     * first elmt is the name of the htmltag
+     * second one is a object containing attributes/value for this tag
+     * all NEXT one if exists are the TextNodeContent OR an array of children OR a nodeElement
+     * sample call : 
+     *  accessibilitytoolbar.make(["p", {"class":"myPClassname"}, "Here is a ", ["a", { href:"http://www.google.com/" }, "link"], "."]);
+     * 
+     */
+    make: function(desc) {
+        if (!this.isArray(desc)) {
+            return make.call(this, Array.prototype.slice.call(arguments));
+        }
+
+        var name = desc[0];
+        var attributes = desc[1];
+
+        var el = document.createElement(name);
+
+        var start = 1;
+        if (typeof attributes === "object" && attributes !== null && !this.isArray(attributes)) {
+            for (var attr in attributes) {
+                // specific boolean attributes checked or selected, if state is false, don't add it
+                if((attr != "checked" && attr != "selected") || attributes[attr]) {                    
+                    el.setAttribute(attr,attributes[attr]);
+                }
+            }
+            start = 2;
+        }
+
+        for (var i = start; i < desc.length; i++) {
+            // An array? so build the node
+            if (this.isArray(desc[i])) {
+                el.appendChild(this.make(desc[i]));
+            }
+            // A string? add has a textnode
+            else if(this.isString(desc[i])) {
+                el.appendChild(document.createTextNode(desc[i]));
+            }
+            // not a string nor an array, so it's a node
+            else if(desc[i]) {
+                el.appendChild(desc[i]);
+            }
+        }
+
+        return el;
+    },
+
+    makeHelpTpl: function(linkId,spanId,content) {
+      return ["a", {href:"#", "class":"uci_link_help_bulle", role:"presentation", id:linkId},
+              ["span", {"aria-hidden":"true","class":"cdu-icon cdu-icon-help"}],
+              ["span", {"class":"uci_span_help_bulle cdu_n", id:spanId},
+                ["p",content],
+                ["span", {"aria-hidden":"true","class":"uci_fleche_help_bulle"}]
+              ]              
+            ];
+    },
+
+    makeCouleurTpl: function(ulClass,idOption,currentUserValue,ulId,idLabel) {
+      var mesCouleurs = [
+        ["#330000","#331900","#333300","#193300","#003300","#003319","#003333","#001933","#000033","#190033","#330033","#330019","#000000"],
+        ["#990000","#994C00","#999900","#4C9900","#009900","#00994C","#009999","#004C99","#000099","#4C0099","#990099","#99004C","#404040"],
+        ["#FF0000","#FF8000","#FFFF00","#80FF00","#00FF00","#00FF80","#00FFFF","#0080FF","#0000FF","#7F00FF","#FF00FF","#FF007F","#808080"],
+        ["#FF6666","#FFB266","#FFFF66","#B2FF66","#66FF66","#66FFB2","#66FFFF","#66B2FF","#6666FF","#B266FF","#FF66FF","#FF66B2","#C0C0C0"],
+        ["#FFCCCC","#FFE5CC","#FFFFCC","#E5FFCC","#CCFFCC","#CCFFE5","#CCFFFF","#CCE5FF","#CCCCFF","#E5CCFF","#FFCCFF","#FFCCE5","#FFFFFF"]
+      ];
+      var tableauCouleurPolice = ["ul", {"class":ulClass, id:ulId, role:"radiogroup", "aria-labelledby":idLabel}]
+      var index = 0;
+      var indexCouleur = 0;
+      var currentLine = "";
+      var moreclass = "";
+      var current_li;
+      for (index = 0; index < mesCouleurs.length; ++index) {
+        if(mesCouleurs[index] instanceof Array)
+        {
+          indexCouleur = 0;
+          currentLine = mesCouleurs[index];
+          for (indexCouleur = 0; indexCouleur < currentLine.length; ++indexCouleur) {              
+              current_li = ["li", {id:idOption+currentLine[indexCouleur], 
+                role:"radio", 
+                "class":"uci_inline cdu_c uci_couleur_li cdu_c "+moreclass+" "+(currentUserValue === currentLine[indexCouleur] ? "uci_couleur_li_selected" : ""), 
+                tabindex:currentUserValue === currentLine[indexCouleur] ? "0" : "-1",
+                "aria-checked":currentUserValue === currentLine[indexCouleur] ? "true" : "false",
+                style:"background:"+currentLine[indexCouleur]+"!important; color:#FFF!important;"},
+                "\u00a0"
+                ];
+              tableauCouleurPolice.push(current_li)
+              moreclass = "";
+          }
+          moreclass = "uci_couleur_clear";
+        }
+      }
+      current_li = ["span", {"class":"uci_fleche_help_bulle"}];
+      tableauCouleurPolice.push(current_li)
+      return tableauCouleurPolice;
+    },
+
+    makePredefinedCouleurTpl: function() {
+      var predifinedCombinaisons = ['keepit','blackonwhite','whiteonblack','blueonyellow','yellowonblue','greenonblack','blackongreen','blueonwhite','whiteonblue'];
+      var curCouleur;
+      var aCouleur = ["ul", {"class":"padding-left-align uci_clear uci_liste_bton", id:"uci_reponses_couleurpredefinie", role:"radiogroup", "aria-labelledby":"uci_couleur_predefenie_input"}];
+      for(var key in predifinedCombinaisons){
+        curCouleur = ["li", {id:"uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key], role:"radio", "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active" :""),
+          tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "0" : "-1",
+          "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "true" : "false"
+          },
+          accessibilitytoolbar.get('uci_title_color_'+predifinedCombinaisons[key])
+        ];
+        aCouleur.push(curCouleur);
+      }
+      return aCouleur;
     },
 
     /**
