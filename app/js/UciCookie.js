@@ -24,14 +24,18 @@
 function UciStorage() {
     "use strict";
     var oNewNode = document.createElement("iframe");
-                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + document.location.pathname);
-                    oNewNode.setAttribute("id", 'id_frame_cookie');
-                    oNewNode.setAttribute("name", 'frame_cookie');
-                    oNewNode.setAttribute("width", '0');
-                    oNewNode.setAttribute("height", '0');
-                    oNewNode.setAttribute("style", 'width:0;height:0;border:0;display:block;');
-                    oNewNode.setAttribute("aria-hidden", 'true');
-                    oNewNode.setAttribute("title", accessibilitytoolbar.get('uci_iframe_cookie'));
+    if(document.location.port) {
+      oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + ':' + document.location.port + document.location.pathname);
+    } else {
+      oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + document.location.pathname);
+    }
+    oNewNode.setAttribute("id", 'id_frame_cookie');
+    oNewNode.setAttribute("name", 'frame_cookie');
+    oNewNode.setAttribute("width", '0');
+    oNewNode.setAttribute("height", '0');
+    oNewNode.setAttribute("style", 'width:0;height:0;border:0;display:block;');
+    oNewNode.setAttribute("aria-hidden", 'true');
+    oNewNode.setAttribute("title", accessibilitytoolbar.get('uci_iframe_cookie'));
                     
     
         /*****************************************************************************************************************/
@@ -42,7 +46,12 @@ function UciStorage() {
     this.updateUserPref = function() {
         // Update the cdu cookies with the stackv3 value
         var pref = this.encode();
-        document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
+        if(document.location.port) {
+          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + ':' + document.location.port + document.location.pathname;
+        } else {
+          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
+        }
+        
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
     };
