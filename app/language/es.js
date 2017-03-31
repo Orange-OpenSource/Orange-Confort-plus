@@ -106,7 +106,7 @@ traduction['ES']={
   uci_help_disablepppictures:"Este comando suprime la visualizaci\363n de im\341genes en la p\341gina y son reemplazadas por sus alternativas textuales. Un enlace permite visualizar las im\341genes a petici\363n ",
   uci_help_links:"Este comando define la apariencia de los enlaces en la p\341gina. Puedes elegir el color y el formato de los enlaces",
   uci_color_titre:"Combinaci\363n de colores predefinidos",
-  uci_color_titre_use_personal:"Telecionar colores personalizados",
+  uci_color_titre_use_personal:"Seleccionar colores personalizados",
   uci_color_txt_texte:"Color de texto",
   uci_color_txt_background:"Color de fondo",
   uci_color_warning_title:"Contrate insuficiente",
