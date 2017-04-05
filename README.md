@@ -20,10 +20,10 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 
 
 ## Browser extension
-- [Firefox] (https://addons.mozilla.org/fr/firefox/addon/orange-confort/)
-- [chrome] (https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp)
-- [Internet Explorer 11 64bits] (https://github.com/Orange-OpenSource/Orange-Confort-plus/raw/master/dist/Addin%20IE/Orange.ConfortPlus.IEExtension.Installer_x64.msi)
-- [Internet Explorer 11 32bits] (https://github.com/Orange-OpenSource/Orange-Confort-plus/raw/master/dist/Addin%20IE/Orange.ConfortPlus.IEExtension.Installer_x86.msi)
+- [Firefox](https://addons.mozilla.org/fr/firefox/addon/orange-confort/)
+- [Chrome](https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp)
+- [Internet Explorer 11 64bits](https://github.com/Orange-OpenSource/Orange-Confort-plus/raw/master/dist/Addin%20IE/Orange.ConfortPlus.IEExtension.Installer_x64.msi)
+- [Internet Explorer 11 32bits](https://github.com/Orange-OpenSource/Orange-Confort-plus/raw/master/dist/Addin%20IE/Orange.ConfortPlus.IEExtension.Installer_x86.msi)
 
 ## Quick start
 - Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
