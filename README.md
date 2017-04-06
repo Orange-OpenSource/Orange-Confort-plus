@@ -29,7 +29,7 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 ## Deploying _Orange Confort+_ on your website
 To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: you just need to customize the values in `dist/serveur/js/toolbar.js`and `dist/serveur/toolbar-min.js`
 
-Edit the files, and replace
+Edit the files, and change the following variables:
  
 ```
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN'; // Here is your website protocol and url (end without /) eg: http://myexample.com
@@ -39,7 +39,8 @@ var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES'; // YOURP
 Now you're ready to deploy it, just copy all the files and folders from `dist/serveur` to your website tree in `myconfortplus` folder if you used it for YOURPATHTOSOURCEFILES value.
 
 You can call it anywhere on your website, just by adding the Javascript link in your pages like this: 
-<script type="text/javascript" src="http://myexemple.com/myconfortplus/js/toolbar-min.js"></script>
+
+`<script type="text/javascript" src="http://myexemple.com/myconfortplus/js/toolbar-min.js"></script>`
 
 NB: The user settings are saved onto your domain and are never shared with other websites, or extension. 
 
