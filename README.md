@@ -14,7 +14,8 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 ## Table of contents
 
 - [Browser extension](#browser-extension)
-- [Quick start](#quick-start)
+- [Deploy it on your website](#deploy-it-on-your-website)
+- [Contribute](#contribute)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Copyright and license](#copyright-and-license)
 
@@ -25,34 +26,35 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 - [Internet Explorer 11 64bits](https://github.com/Orange-OpenSource/Orange-Confort-plus/raw/master/dist/Addin%20IE/Orange.ConfortPlus.IEExtension.Installer_x64.msi)
 - [Internet Explorer 11 32bits](https://github.com/Orange-OpenSource/Orange-Confort-plus/raw/master/dist/Addin%20IE/Orange.ConfortPlus.IEExtension.Installer_x86.msi)
 
-## Quick start
+## Deploy it on your website
+Deploy _Orange Confort+_ onto your domain - Prepackaged version available, just need to put your values
+You need to custom the values in `dist/serveur/js/toolbar.js`and `dist/serveur/toolbar-min.js`
+Edit the files, and replace
+ 
+```
+var hebergementDomaine = 'https://HEBERGEMENTDOMAIN'; // Here is your website protocol and url (end without /) eg: http://myexemple.com
+var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES'; // YOURPATHTOSOURCEFILES is the deployment path (starting en ending with a /) eg: /myconfortplus/
+```
+
+Now you're ready to deploy it, just copy all the files and folders from `dist/serveur` to your website tree in `myconfortplus`folder if you used it for YOURPATHTOSOURCEFILES value.
+
+Now you can include it everywhere, by just adding the Javascript inclusion in your pages like : 
+<script type="text/javascript" src="http://myexemple.com/myconfortplus/js/toolbar-min.js"></script>
+
+NB: The user settings are saved onto your domain and are never shared with other websites, or extension. 
+
+## Contribute
 - Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
-- Configure your protocol, domain and deployment path into config.json file.
-- Build your dist, deploy and look at the testpage.html
 
-### 1. Configuring the service
+- Install dependencies
+`$ npm install`
+`$ bower install`
 
-```
-{
-"hebergementProtocol": "https:",
-"cookieDomain": "HEBERGEMENTDOMAIN",
-"hebergementDomaine": "HEBERGEMENTDOMAIN",
-"hebergementFullPath": "YOURPATHTOSOURCEFILES"
-}
-```
+Watch it localy : 
+`$ grunt serve`
+Go to http://localhost:9010/testpage.html
 
-- `cookieDomain` is the domain on which the cookie will be fixed. It must be the same or a portion of the `hebergementDomaine` domain.
-- `hebergementDomaine` is the domain where you host the _Orange Confort+_ service.
-- `hebergementFullPath` is the full path to the service on your server, complete with beginning and end slash.
-
-### 2. Building the dist
-
-1. `$ npm install`
-2. `$ bower install`
-3. `$ grunt`
-
-### 3. Deploy _Orange Confort+_ onto your domain - Prepackaged version available, just need to put your values
-- `dist/serveur` -> Serveur mode content, allow to share cookie on multiple domain
+Now you're ready to update all files in `/app` and they will automaticaly reload after update.
 
 ## Bugs and feature requests
 
