@@ -1,6 +1,6 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -12,7 +12,7 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
-**/ 
+**/
 /**
  * @class IHM
  * @classdesc Cette classe permettra de gérer les appels des onglets de la toolbar
@@ -30,7 +30,7 @@ UciIhm = {
      * 	constructor uci_ihm() : Constructeur de la class uciIhm
      *
      */
-    InitUciIHM: function () {        
+    InitUciIHM: function () {
       return accessibilitytoolbar.make(["div", {"class":"cdu_c"},
           ["div", {id:"uci_toolbar-quick", "class":"cdu_c"},
             ["div", {"class":"uci_logo_plus_de_confort cdu_c"},
@@ -47,7 +47,7 @@ UciIhm = {
                   ["span", {"class":"uci-onoffswitch-inner-before"}, "On"],
                   ["span", {"class":"uci-onoffswitch-inner-after"}, "Off"]
                 ]
-              ]            
+              ]
             ],
             ["div", {"class":"uci_right"},
               ["div", {"class":"cdu_c uci_notmask", id:"uci_left_toolbar", style:(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none":"")},
@@ -56,19 +56,19 @@ UciIhm = {
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active": ""),
                       tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",                    
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",
                       title:accessibilitytoolbar.get('uci_title_fontsize_radio_normal')
                     }, ["span",
                       "A",
                       ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_normal')]
                     ]
                   ],
-                  ["li", 
+                  ["li",
                     {id:"uci_quick_a11yBigger_150",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active": ""),
                       tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",                    
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",
                       title:accessibilitytoolbar.get('uci_title_fontsize_radio_medium')
                     },
                     ["span",
@@ -76,12 +76,12 @@ UciIhm = {
                       ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_medium')]
                     ]
                   ],
-                  ["li", 
+                  ["li",
                     {id:"uci_quick_a11yBigger_200",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active": ""),
                       tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",                    
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",
                       title:accessibilitytoolbar.get('uci_title_fontsize_radio_large')
                     },
                     ["span",
@@ -95,7 +95,7 @@ UciIhm = {
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active": ""),
                       tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "true" : "false",                    
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "true" : "false",
                       title:accessibilitytoolbar.get('uci_title_color_keepit')
                     },
                     ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_color_keepit')],
@@ -106,12 +106,12 @@ UciIhm = {
                       ["span", {"class":"cdu-icon path4"}]
                     ]
                   ],
-                  ["li", 
+                  ["li",
                     {id:"uci_quick_a11yVisualPredefinedSettings_blackonwhite",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active": ""),
                       tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "true" : "false",                    
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "true" : "false",
                       title:accessibilitytoolbar.get('uci_title_color_blackonwhite')
                     },
                     ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_color_blackonwhite')],
@@ -174,6 +174,12 @@ UciIhm = {
                             ["a", {"class":"uci_menu_ouverture_aide", href:helpPath[accessibilitytoolbar.strings.getLocale()], title:accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:helpPathTarget},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-help"}],
                               ["span", accessibilitytoolbar.get('uci_menu_help')]
+                            ]
+                          ],
+                          ["li",
+                            ["a", {id: "uci_menu_ouverture_guide", class:"uci_menu_ouverture_aide", title:accessibilitytoolbar.get('uci_menu_guide')},
+                              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-help"}],
+                              ["span", accessibilitytoolbar.get('uci_menu_guide')]
                             ]
                           ]
                         ]
@@ -244,11 +250,15 @@ UciIhm = {
           ],
           ["div", {id:"uci_confirm_validation"},
             ["span",accessibilitytoolbar.get('uci_confirm_validation')]
+          ],
+          ["div", {id:"uci_cdu_popin", style:"display:none;"},
+            UciHelp.InitUciHelp(),
+            UciHelp.InitUciDiscover()
           ]
         ]
       );
     },
-    
+
 
     /* Permet de désactiver l’affichage du menu facebook.
        @param nofocus boolean true if focus don't need to be pushed
@@ -306,20 +316,20 @@ UciIhm = {
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex')=== '0')
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','-2');
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '0')
-                document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');   
-            document.getElementById('uci_menu_activer_menu').setAttribute('tabindex','-2');                        
+                document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');
+            document.getElementById('uci_menu_activer_menu').setAttribute('tabindex','-2');
             document.getElementById('uci_activer_menu').setAttribute('tabindex','-2');
             if(document.getElementById('uci_zone_form'))
             {
                 document.getElementById('uci_zone_form').style.display = "block";
 				        UciIhm.hide_confirm_validation();
             }
-            //document.getElementById('uci_fermeture_more_confort').style.display = "block";            
-            document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
-            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");         
+            //document.getElementById('uci_fermeture_more_confort').style.display = "block";
+            document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");
+            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");
             document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/,"uci_mask");
             document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','true');
-            document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','true');         
+            document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','true');
             document.getElementById('uci_moreconfort').title=accessibilitytoolbar.get('uci_txt_low_settings');
             document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_low_settings_display');
             // disable hide the toolbar
@@ -349,11 +359,11 @@ UciIhm = {
             document.getElementById('uci_zone_form').style.display = "none";
         }
         document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
-        document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');              
-            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");      
+        document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');
+            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
             document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
         document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','false');
-        
+
         if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '-2')
             document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex','0');
         if(document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex')=== '-2')
@@ -363,10 +373,10 @@ UciIhm = {
         if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex')=== '-2')
             document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','0');
         if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
+            document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');
         document.getElementById('uci_activer_menu').removeAttribute('tabindex');
         document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
-        document.getElementById('uci_moreconfort').removeAttribute('title');  
+        document.getElementById('uci_moreconfort').removeAttribute('title');
         document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_more_settings');
         return false;
     },
@@ -374,7 +384,7 @@ UciIhm = {
 		document.getElementById('uci_confirm_validation').style.display = "block";
     setTimeout(function(){document.getElementById('uci_confirm_validation').style.display = "none";}, 5000);
 	},
-	
+
 	hide_confirm_validation: function() {
 		document.getElementById('uci_confirm_validation').style.display = "none";
 	},
@@ -393,7 +403,7 @@ UciIhm = {
     changement_langue: function (/* String*/langue) {
         // if stack value not equal to storedValue then display a confirm message to inform the user
         var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-        if ((accessibilitytoolbar.userPref.encode()+tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.storedValue) 
+        if ((accessibilitytoolbar.userPref.encode()+tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.storedValue)
                 || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))){
             accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
             accessibilitytoolbar.userPref.set("a11yLanguage", langue);
@@ -434,9 +444,9 @@ UciIhm = {
             accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "off");
             document.getElementById("uci-onoffswitch").className="uci-onoffswitch-label";
             document.getElementById("uci-onoffswitch").focus();
-        }    
+        }
         accessibilitytoolbar.userPref.updateBlackList();
-        
+
         accessibilitytoolbar.cleanImgDisabled();
         accessibilitytoolbar.setCSS();
         UciIhm.close_menu(true);

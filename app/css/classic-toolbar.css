@@ -746,6 +746,11 @@ a.cdu_hide:focus {
 	font-size: 0.875em;
 	white-space: nowrap;
 }
+
+#uci_menu_ouverture_guide {
+	cursor: pointer;
+}
+
 #accessibilitytoolbarGraphic a.uci_menu_ouverture_aide {
 	text-decoration: none;
 }
@@ -1743,4 +1748,162 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 /* hide promote link if exist */
 #confortPlusTarget {
 	display: none;
+}
+
+
+
+/********     CSS for user guide **********/
+#uci_cdu_popin {
+		/*display: none; /*--masqué par défaut--*/
+		background-color: rgba(0,0,0,0.5);
+		position: fixed; left: 0; top: 0;
+		width: 100%; height: 100%;
+		/*z-index: 9999;*/
+}
+
+#uci_main_popin_help .uci-popin-content  {
+	width: 400px;
+	height: 300px;
+	background: #fff;
+	border: 0;
+	margin: 6% auto;
+}
+
+
+#uci_main_popin_help .uci-popin-header,
+#uci_discover .uci-discover-header {
+	position: relative;
+	min-height: 1.25rem;
+	padding: 0;
+	padding-top: 0.5rem;
+	margin-bottom: 1.5rem;
+	border: 0;
+	background-color: #0c9;
+	height: 50px;
+}
+
+#uci_main_popin_help .uci-popin-header .uci-popin-title,
+#uci_discover .uci-discover-header .uci-discover-title {
+	position: relative;
+	top: 2px;
+	left: 20px;
+	font-size: 1.5rem;
+}
+
+#uci_main_popin_help .uci-popin-header .uci-popin-btn,
+#uci_discover .uci-discover-header .uci-popin-btn{
+	background: transparent;
+	border: transparent;
+	height: 40px;
+	width: 40px;
+	right: 0;
+	top: 5px;
+	position: absolute;
+}
+
+#uci_main_popin_help .uci-popin-body {
+	width: 100%
+}
+
+#uci_main_popin_help .uci-popin-discover,
+#uci_main_popin_help .uci-popin-read,
+#uci_main_popin_help .uci-popin-layout,
+#uci_main_popin_help .uci-popin-motor {
+	display: block;
+	height: 40px;
+	border-bottom: solid 1px grey;
+	margin-bottom: 0.5rem;
+	
+}
+
+#uci_main_popin_help .uci-popin-discover .uci-popin-discover-icon,
+#uci_main_popin_help .uci-popin-read .uci-popin-read-icon,
+#uci_main_popin_help .uci-popin-layout .uci-popin-layout-icon,
+#uci_main_popin_help .uci-popin-motor .uci-popin-motor-icon {
+	background-image: url("../images/assistance_32x32_fe.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	left: 10px;
+	margin-right: 3.5rem;
+	position: relative;
+	cursor: pointer;
+}
+
+#uci_main_popin_help .uci-popin-discover .uci-popin-discover-text,
+#uci_main_popin_help .uci-popin-read .uci-popin-read-text,
+#uci_main_popin_help .uci-popin-layout .uci-popin-layout-text,
+#uci_main_popin_help .uci-popin-motor .uci-popin-motor-text {
+	font-size: 1rem;
+	display: inline-block;
+	height: 40px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#uci_main_popin_help .uci-popin-button{
+	float: right;
+    margin-right: 5%;
+}
+
+#uci_discover {
+	display: none;
+	width: 600px;
+	height: 600px;
+	background: #fff;
+	border: 0;
+	/*margin-top: 6%;
+	margin-left: auto;
+	margin-right: auto;*/
+	margin: 6% auto;
+
+}
+
+#uci_discover .uci-discover-body{
+	margin: 2%;
+}
+
+#uci_discover .uci-discover-body-exemple{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#uci_discover .uci-discover-selection{
+	margin-bottom: 2%;
+}
+
+#uci_discover .uci-discover-body-text {
+	font-size: 0.8rem;
+}
+
+#uci_discover .uci-discover-frame {
+	border: #000 2px solid;
+	width: 550px;
+	height: 250px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#uci_discover .uci-discover-frame-text{
+	display: inline-block;
+    width: 48%;
+    margin: 1%;
+    vertical-align: top;
+}
+
+#uci_discover .uci-discover-frame-image{
+	display: inline-block;
+    width: 48%;
+    background-color: #000;
+    margin: 1%;
+}
+
+#uci_discover .uci-discover-image{
+	/*height: 100%; */
+    width: 50%;
+    /* display: inline-block; */
+    /* background-color: #000; */
+    margin-left: 25%;
+    /* margin-right: 33%; */
 }
