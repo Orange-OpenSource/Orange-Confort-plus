@@ -1842,15 +1842,22 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	cursor: pointer;
 }
 
-#uci_main_popin_help .uci-popin-button{
+#uci_discover .uci-popin-button-right,
+#uci_main_popin_help .uci-popin-button-right{
 	float: right;
-    margin-right: 5%;
+    margin-right: 2%;
+}
+
+#uci_discover .uci-popin-button-left,
+#uci_main_popin_help .uci-popin-button-left{
+	float: left;
+    margin-left: 2%;
 }
 
 #uci_discover {
 	display: none;
 	width: 600px;
-	height: 600px;
+	height: 560px;
 	background: #fff;
 	border: 0;
 	/*margin-top: 6%;
@@ -1879,27 +1886,26 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 #uci_discover .uci-discover-frame {
 	border: #000 2px solid;
-	width: 550px;
-	height: 250px;
+	width: 575px;
+	height: 260px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-#uci_discover .uci-discover-frame-text{
+#discover_frame .uci-discover-frame-text{
 	display: inline-block;
-    width: 48%;
-    margin: 1%;
+    width: 49%;
     vertical-align: top;
+	text-align: right;
 }
 
-#uci_discover .uci-discover-frame-image{
+#discover_frame .uci-discover-frame-image{
 	display: inline-block;
-    width: 48%;
+    width: 49%;
     background-color: #000;
-    margin: 1%;
 }
 
-#uci_discover .uci-discover-image{
+#discover_frame .uci-discover-image{
 	/*height: 100%; */
     width: 50%;
     /* display: inline-block; */
