@@ -174,8 +174,14 @@ UciHelp = {
     }
   },
 
+    if (document.getElementById("uci_cdu_popin")) {
+      document.getElementById("uci_main_popin_help").style.display = "block";
+      document.getElementById("uci_discover").style.display = "none";
+    }
+  },
   hide_popin: function () {
     document.getElementById("uci_main_popin_help").style.display = "block";
+    /*if (document.getElementById("uci_popin_button").style.display == "block"){
     document.getElementById("uci_cdu_popin").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
     document.getElementById("uci_discover_none").checked = true;
@@ -196,6 +202,7 @@ UciHelp = {
     }
     UciHelp.demo_reset();
     document.getElementById("uci_activer_menu").focus();
+    document.getElementById("uci_discover").style.display = "none";
   },
 
   show_discover: function () {

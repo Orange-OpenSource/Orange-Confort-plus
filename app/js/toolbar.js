@@ -2837,6 +2837,10 @@ accessibilitytoolbar = {
 
         /******************************************************************************************************/
 
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_none'), UciHelp.demo_reset);
+
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
@@ -3308,6 +3312,7 @@ accessibilitytoolbar = {
         if (demo != null) {
             accessibilitytoolbar.userPref = demo;
         }
+        }
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
             if (document.getElementById('cdu_close')) {
                 document.getElementById('cdu_close').style.display == 'none';
@@ -3329,6 +3334,9 @@ accessibilitytoolbar = {
                             }
                         } catch (e) { }
                         indexIFrame++;
+                    }
+                }
+         }
                     }
                 }
          }
@@ -3691,6 +3699,44 @@ accessibilitytoolbar = {
                             }
                         } catch (e) { }
                         indexFrame++;
+                    }
+                }
+            }
+        } else {
+            if (demo != null) {
+                newStyle = document.createElement("style");
+                newStyle.setAttribute("type", "text/css");
+                newStyle.id = "a11yUserPrefStyle";
+                console.log("ok");
+                fontSizeDef = '16px';
+                if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+                    s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
+                }
+                if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
+                    s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
+                }
+                if ( s !== ""){
+                    if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+                        newStyle.styleSheet.cssText = s;
+                    } else { // standards-oriented browsers
+                        newStyle.appendChild(document.createTextNode(s));
+                    }
+                    console.log(newStyle);
+                    //document.getElementsByTagName('head')[0].appendChild(newStyle)
+                    indexIFrame = 0;
+                    TheIFrames = document.getElementsByTagName("iframe");
+                    if (TheIFrames.length > 0) {
+                        while (theIFrame = TheIFrames[indexIFrame]) {
+                            try {
+                                theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                                if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                                    console.log("toto");
+                                    theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+                                }
+                            } catch (e) { }
+                            indexIFrame++;
+                        }
+                    }
                     }
                 }
             }
