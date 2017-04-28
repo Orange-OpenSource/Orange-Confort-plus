@@ -251,10 +251,17 @@ UciIhm = {
           ["div", {id:"uci_confirm_validation"},
             ["span",accessibilitytoolbar.get('uci_confirm_validation')]
           ],
+          ["div", {id:"masque_haut", "class":"masque-haut"},
+            ["div", {id:"masque_haut_logo", "class":"masque-haut-logo"}],
+            ["div", {id:"masque_haut_param", "class":"masque-haut-param"}],
+            ["div", {id:"masque_haut_advanced_param", "class":"masque-haut-advanced-param"}],
+           ["div", {id:"masque_haut_exit", "class":"masque-haut-exit"}]
+          ],
+          /*,
           ["div", {id:"uci_cdu_popin", style:"display:none;"},
             UciHelp.InitUciHelp(),
             UciHelp.InitUciDiscover()
-          ]
+          ]*/
         ]
       );
     },

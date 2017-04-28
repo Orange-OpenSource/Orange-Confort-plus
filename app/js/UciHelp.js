@@ -30,7 +30,9 @@ UciHelp = {
    * @constructor
    */
   InitUciHelp: function () {
-    return accessibilitytoolbar.make(["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block" },
+    return accessibilitytoolbar.make(["div",
+     
+      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block" },
       ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
         ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
           ["span", { id: "uci_help_title", "class": "uci-popin-title" }, "Guide pas à pas"],
@@ -58,6 +60,7 @@ UciHelp = {
           ]
         ]
       ]
+    ]
     ])
   },
   InitUciDiscover: function () {
@@ -87,28 +90,74 @@ UciHelp = {
       ]
     ])
   },
+  InitUciReading: function (newName){
+    return accessibilitytoolbar.make(["div", {id:"uci_reading",  name: newName},
+      ["div",{id: "triangle"},
+       ["div", {"class": "triangle"}]
+      ],
+      ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
+        ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
+          ["span", { id: "uci_reading_title", "class": "uci-reading-title" }, "Réglages rapides"],
+          ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
+        ],
+        ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
+        ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
+          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, "menu"],
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
+          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, "exit"],
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"]
+          
+        ]
+      ]
+    ])
+  },
   show_popin: function () {
     if (document.getElementById("uci_cdu_popin")) {
       document.getElementById("uci_cdu_popin").style.display = "block";
+      document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
+      document.getElementById("masque_haut").style.display = "block";
+      UciHelp.calculate_overlay_position()
     }
   },
   show_menu: function () {
     if (document.getElementById("uci_cdu_popin")) {
+      document.getElementById("masque_haut_param").className = "masque-haut-param";
+      document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
       document.getElementById("uci_main_popin_help").style.display = "block";
       document.getElementById("uci_discover").style.display = "none";
     }
+    if (document.getElementById("uci_reading")){
+      if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
+        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
+        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
+          UciIhm.hide_more_confort();
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+      }
+      parent = document.getElementById("uci_reading").parentNode;
+      parent.removeChild(parent.lastChild);
+    }
   },
   hide_popin: function () {
-    console.log("toto");
-    /*if (document.getElementById("uci_popin_button").style.display == "block"){
-      document.getElementById("uci_cdu_popin").style.display = "none";
-    }
-    if (document.getElementById("uci_discover").style.display == "block"){
-      document.getElementById("uci_cdu_popin").style.display = "none";
-    }*/
     document.getElementById("uci_main_popin_help").style.display = "block";
     document.getElementById("uci_cdu_popin").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
+    document.getElementById("uci_discover_none").checked = true;
+    document.getElementById("masque_haut_param").className = "masque-haut-param";
+    document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
+    document.getElementById("masque_haut").style.display = "none";
+    if (document.getElementById("uci_reading")){
+      if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
+        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
+        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
+          UciIhm.hide_more_confort();
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+      }
+      parent = document.getElementById("uci_reading").parentNode;
+      parent.removeChild(parent.lastChild);
+    }
+      UciHelp.demo_reset();
   },
   show_discover: function () {
     if (document.getElementById("uci_main_popin_help")) {
@@ -129,5 +178,172 @@ UciHelp = {
   demo_reset: function () {
     demo = new UciUserPref();
     accessibilitytoolbar.setCSS("false", demo);
+  },
+  calculate_overlay_position: function () {
+    widthTmp = document.getElementById("uci_toolbar-quick").clientWidth - document.getElementsByClassName("uci_right")[0].clientWidth;
+    heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
+    document.getElementById("masque_haut_logo").style.width = widthTmp - 15 + "px";
+    document.getElementById("masque_haut_logo").style.height = heightTmp + "px";
+    
+    widthTmp = document.getElementById("uci_right_toolbar").clientWidth + document.getElementById("uci_middle_toolbar").clientWidth;
+    document.getElementById("masque_haut_advanced_param").style.width = document.getElementById("uci_middle_toolbar").clientWidth + 16 + "px";
+    document.getElementById("masque_haut_advanced_param").style.height = heightTmp + "px";
+
+    document.getElementById("masque_haut_param").style.width = document.getElementById("uci_left_toolbar").clientWidth + "px";
+    document.getElementById("masque_haut_param").style.height = heightTmp + "px";
+
+    document.getElementById("masque_haut_exit").style.width = document.getElementById("uci_right_toolbar").clientWidth + "px";
+    document.getElementById("masque_haut_exit").style.height = heightTmp + "px";
+  },
+
+
+
+  position_popin_help : function (){
+    if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam"){
+      document.getElementById("uci_reading").style.right =  document.getElementById("masque_haut_exit").clientWidth+"px";
+      document.getElementById("triangle").lastChild.className = "triangleright";
+    }
+
+    if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
+        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
+        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
+      document.getElementById("uci_reading").style.top =  document.getElementById("uci_form").clientHeight + 2 + "px";
+      document.getElementById("triangle").lastChild.className = "triangleright";
+    }
+
+    if (document.getElementById("uci_reading") != null && ( document.getElementById("uci_reading").getAttribute("name") !== "typographie" &&
+                                                            document.getElementById("uci_reading").getAttribute("name") !== "agencement" &&
+                                                            document.getElementById("uci_reading").getAttribute("name") !== "couleur" &&
+                                                            document.getElementById("uci_reading").getAttribute("name") !== "comportement")){
+      heightTmp = document.getElementById("uci_toolbar-quick").clientHeight ;
+      document.getElementById("uci_reading").style.top = heightTmp+ 2 +"px";
+    }
+  },
+
+
+  show_reading : function(){
+    document.getElementById("uci_main_popin_help").style.display = "none";
+    //document.getElementById("uci_reading").style.display = "block";
+    document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
+    document.getElementById("masque_haut_param").className = "readingElements";
+    UciHelp.position_popin_help();
+     UciHelp.calculate_overlay_position();
+  },
+  hide_reading : function(name){
+    if (name == "reading"){
+      document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
+      document.getElementById("masque_haut_param").className = "readingElements";
+    }
+    if (name == "advancedparam"){
+      document.getElementById("masque_haut_param").className = "masque-haut-param";
+      document.getElementById("masque_haut_advanced_param").className = "readingElements";
+    }
+   
+  },
+  changeText: function (move) {
+    var movePosition = parseInt(document.getElementById("uci_reading_body").getAttribute("value"));
+    if (move === "left") {
+      switch (document.getElementById("uci_reading").getAttribute("name")){
+        case "reading" :
+          if (movePosition > 0 ) {
+            movePosition--;
+            document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
+            document.getElementById("uci_reading_body").setAttribute("value", movePosition);
+          }
+          break;
+        case "advancedparam" :
+          movePosition = 0;
+          document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
+          document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
+          UciHelp.hide_reading("reading");
+          document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
+          UciHelp.position_popin_help();
+          UciHelp.calculate_overlay_position();
+          break;
+        case "typographie" :
+          UciIhm.hide_more_confort();
+          document.getElementById("uci_zone_form").removeChild(document.getElementById("uci_zone_form").lastChild);
+          document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
+          UciHelp.position_popin_help();
+          document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_advance_param');
+          UciHelp.calculate_overlay_position();
+          break;
+        case "agencement":
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+          document.getElementById("uci_reading_body").innerHTML = "typographie";
+          document.getElementById("uci_reading").setAttribute("name","typographie");
+          UciHelp.position_popin_help();
+          break;
+        case "couleur":
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
+          document.getElementById("uci_reading_body").innerHTML = "agencement";
+          document.getElementById("uci_reading").setAttribute("name","agencement");
+          UciHelp.position_popin_help();
+          break;
+        case "comportement":
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
+          document.getElementById("uci_reading_body").innerHTML = "couleur";
+          document.getElementById("uci_reading").setAttribute("name","couleur");
+          UciHelp.position_popin_help();
+          break;
+      }
+    }
+    if (move === "right") {
+      switch (document.getElementById("uci_reading").getAttribute("name")){
+        case "reading" :
+          if (movePosition < 3) {
+            movePosition++;
+            document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
+            document.getElementById("uci_reading_body").setAttribute("value", movePosition);
+          } else if ( movePosition == 3){
+              movePosition = 0;
+              document.getElementById("masque_haut_param").removeChild(document.getElementById("masque_haut_param").firstChild);
+              document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
+              document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_advance_param');
+              UciHelp.hide_reading("advancedparam");
+              UciHelp.position_popin_help();
+              
+          }
+          break;
+        case "advancedparam":
+          if (movePosition == 0){
+            document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
+            document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading("typographie"));
+            document.getElementById("uci_reading_body").innerHTML = "typographie";
+            UciIhm.more_confort();
+            UciHelp.calculate_overlay_position();
+            UciHelp.position_popin_help();
+          }
+          break;
+        case "typographie":
+          if (movePosition == 0){
+            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
+            document.getElementById("uci_reading_body").innerHTML = "agencement";
+            document.getElementById("uci_reading").setAttribute("name","agencement");
+            UciHelp.position_popin_help();
+          }
+          break;
+        case "agencement":
+          if (movePosition == 0){
+            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
+            document.getElementById("uci_reading_body").innerHTML = "couleur";
+             document.getElementById("uci_reading").setAttribute("name","couleur");
+             UciHelp.position_popin_help();
+          }
+          break;
+        case "couleur":
+          if (movePosition == 0){
+            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
+            document.getElementById("uci_reading_body").innerHTML = "comportement";
+             document.getElementById("uci_reading").setAttribute("name","comportement");
+             UciHelp.position_popin_help();
+          }
+          break;
+      }
+     
+      
+    }
+    
   }
 }

@@ -1753,12 +1753,15 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 
 /********     CSS for user guide **********/
+
+
 #uci_cdu_popin {
 		/*display: none; /*--masqué par défaut--*/
 		background-color: rgba(0,0,0,0.5);
-		position: fixed; left: 0; top: 0;
-		width: 100%; height: 100%;
-		/*z-index: 9999;*/
+		position: absolute;
+		left: 0;
+		width: 100%;
+		z-index: 2147483644;
 }
 
 #uci_main_popin_help .uci-popin-content  {
@@ -1771,7 +1774,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 
 #uci_main_popin_help .uci-popin-header,
-#uci_discover .uci-discover-header {
+#uci_discover .uci-discover-header,
+#uci_reading .uci-reading-header {
 	position: relative;
 	min-height: 1.25rem;
 	padding: 0;
@@ -1783,7 +1787,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_main_popin_help .uci-popin-header .uci-popin-title,
-#uci_discover .uci-discover-header .uci-discover-title {
+#uci_discover .uci-discover-header .uci-discover-title,
+#uci_reading .uci-reading-header .uci-reading-title {
 	position: relative;
 	top: 2px;
 	left: 20px;
@@ -1791,7 +1796,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_main_popin_help .uci-popin-header .uci-popin-btn,
-#uci_discover .uci-discover-header .uci-popin-btn{
+#uci_discover .uci-discover-header .uci-popin-btn,
+#uci_reading .uci-reading-header .uci-popin-btn {
 	background: transparent;
 	border: transparent;
 	height: 40px;
@@ -1843,13 +1849,15 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_discover .uci-popin-button-right,
-#uci_main_popin_help .uci-popin-button-right{
+#uci_main_popin_help .uci-popin-button-right,
+#uci_reading .uci-popin-button-right{
 	float: right;
     margin-right: 2%;
 }
 
 #uci_discover .uci-popin-button-left,
-#uci_main_popin_help .uci-popin-button-left{
+#uci_main_popin_help .uci-popin-button-left,
+#uci_reading .uci-popin-button-left{
 	float: left;
     margin-left: 2%;
 }
@@ -1912,4 +1920,69 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
     /* background-color: #000; */
     margin-left: 25%;
     /* margin-right: 33%; */
+}
+
+#masque_haut{
+	position: absolute;
+}
+
+#masque_haut .masque-haut-advanced-param,
+#masque_haut .masque-haut-logo,
+#masque_haut .masque-haut-param,
+#masque_haut .masque-haut-exit{
+	background-color: rgba(0,0,0,0.5);
+	position: relative;
+	display: inline-block;
+}
+
+#masque_haut .readingElements{
+	background-color: rgba(0,0,0,0);
+	border: solid 2px #000;
+	border-bottom: none;
+	display: inline-block;
+}
+
+#uci_reading{
+	display: inline-block;
+	width: 400px;
+    height: 220px;
+    background: #fff;
+    border: 0;
+    position: absolute;
+	z-index: 2147483645;
+}
+
+#uci_reading .uci-move-left{
+	margin-left:25%;
+}
+
+#uci_reading .uci-move-right{
+	margin-right:25%;
+}
+#uci_reading .uci_reading_body{
+	font-size: 0.7rem;
+	height: 85px;
+	margin: 2%;
+}
+
+#uci_reading #triangle{
+	background-color: rgba(0,0,0,0.5);
+}
+
+#uci_reading .triangle{
+	width: 0px;
+	height: 0px;
+	border-left: 20px solid transparent;
+	border-bottom: 20px solid #000;
+	border-right: 20px solid transparent; 
+}
+
+#uci_reading .triangleright{
+	width: 0px;
+	height: 0px;
+	border-left: 20px solid transparent;
+	border-bottom: 20px solid #000;
+	border-right: 20px solid transparent; 
+	position: relative;
+	left: 360px;
 }
