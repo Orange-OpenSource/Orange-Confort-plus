@@ -32,6 +32,7 @@ UciHelp = {
   InitUciHelp: function () {
     return accessibilitytoolbar.make(["div",
       ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block"},
+      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block" },
       ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
         ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
           ["h2", { id: "uci_help_title", "class": "uci-popin-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_menu_guide')],
@@ -72,6 +73,7 @@ UciHelp = {
           ]
         ]
       ]
+    ]
     ]
     ])
   },
@@ -138,6 +140,26 @@ UciHelp = {
     ])
   },
 
+    return accessibilitytoolbar.make(["div", {id:"uci_reading",  name: newName},
+      ["div",{id: "triangle"},
+       ["div", {"class": "triangle"}]
+      ],
+      ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
+        ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
+          ["span", { id: "uci_reading_title", "class": "uci-reading-title" }, "Réglages rapides"],
+          ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
+        ],
+        ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
+        ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
+          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, "menu"],
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
+          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, "exit"],
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"]
+          
+        ]
+      ]
+    ])
+  },
   show_popin: function () {
     document.getElementById("uci_activer_menu").blur();
     if (document.getElementById("uci_cdu_popin")) {
@@ -175,13 +197,25 @@ UciHelp = {
   },
 
     if (document.getElementById("uci_cdu_popin")) {
+      document.getElementById("masque_haut_param").className = "masque-haut-param";
+      document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
       document.getElementById("uci_main_popin_help").style.display = "block";
       document.getElementById("uci_discover").style.display = "none";
+    }
+    if (document.getElementById("uci_reading")){
+      if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
+        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
+        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
+          UciIhm.hide_more_confort();
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+      }
+      parent = document.getElementById("uci_reading").parentNode;
+      parent.removeChild(parent.lastChild);
     }
   },
   hide_popin: function () {
     document.getElementById("uci_main_popin_help").style.display = "block";
-    /*if (document.getElementById("uci_popin_button").style.display == "block"){
     document.getElementById("uci_cdu_popin").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
     document.getElementById("uci_discover_none").checked = true;
@@ -203,6 +237,22 @@ UciHelp = {
     UciHelp.demo_reset();
     document.getElementById("uci_activer_menu").focus();
     document.getElementById("uci_discover").style.display = "none";
+    document.getElementById("uci_discover_none").checked = true;
+    document.getElementById("masque_haut_param").className = "masque-haut-param";
+    document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
+    document.getElementById("masque_haut").style.display = "none";
+    if (document.getElementById("uci_reading")){
+      if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
+        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
+        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
+          UciIhm.hide_more_confort();
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+      }
+      parent = document.getElementById("uci_reading").parentNode;
+      parent.removeChild(parent.lastChild);
+    }
+      UciHelp.demo_reset();
   },
 
   show_discover: function () {
