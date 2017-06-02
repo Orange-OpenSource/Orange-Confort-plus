@@ -35,28 +35,30 @@ UciHelp = {
       ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block" },
       ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
         ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
-          ["span", { id: "uci_help_title", "class": "uci-popin-title" }, "Guide pas à pas"],
+          ["span", { id: "uci_help_title", "class": "uci-popin-title" }, accessibilitytoolbar.get('uci_menu_guide')],
           ["button", { id: "uci_help_close", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
-          ["div", { id: "uci_popin_discover", "class": "uci-popin-discover" },
-            ["span", { id: "uci_popin_discover_icon", "class": "uci-popin-discover-icon" }],
-            ["span", { id: "uci_popin_discover_text", "class": "uci-popin-discover-text" }, "Découvrir le service"]
-          ],
-          ["div", { id: "uci_popin_read", "class": "uci-popin-read" },
-            ["div", { id: "uci_popin_read_icon", "class": "uci-popin-read-icon" }],
-            ["div", { id: "uci_popin_read_text", "class": "uci-popin-read-text" }, "Améliorer la lisibilité"]
-          ],
-          ["div", { id: "uci_popin_layout", "class": "uci-popin-layout" },
-            ["div", { id: "uci_popin_layout_icon", "class": "uci-popin-layout-icon" }],
-            ["div", { id: "uci_popin_layout_text", "class": "uci-popin-layout-text" }, "Modifier la mise en page"]
-          ],
-          ["div", { id: "uci_popin_motor", "class": "uci-popin-motor" },
-            ["div", { id: "uci_popin_motor_icon", "class": "uci-popin-motor-icon" }],
-            ["div", { id: "uci_popin_motor_text", "class": "uci-popin-motor-text" }, "Utiliser l'aide motrice"]
+          ["ul", 
+            ["li", { id: "uci_popin_discover", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-discover" },
+              ["span", { id: "uci_popin_discover_icon", "class": "uci-popin-discover-icon" }],
+              ["span", { id: "uci_popin_discover_text", "class": "uci-popin-discover-text" }, accessibilitytoolbar.get('discover_service')]
+            ],
+            ["li", { id: "uci_popin_read", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-read" },
+              ["div", { id: "uci_popin_read_icon", "class": "uci-popin-read-icon" }],
+              ["div", { id: "uci_popin_read_text", "class": "uci-popin-read-text" },  accessibilitytoolbar.get('improve_readability')]
+            ],
+            ["li", { id: "uci_popin_layout", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-layout" },
+              ["div", { id: "uci_popin_layout_icon", "class": "uci-popin-layout-icon" }],
+              ["div", { id: "uci_popin_layout_text", "class": "uci-popin-layout-text" }, accessibilitytoolbar.get('edit_layout')]
+            ],
+            ["li", { id: "uci_popin_motor", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-motor" },
+              ["div", { id: "uci_popin_motor_icon", "class": "uci-popin-motor-icon" }],
+              ["div", { id: "uci_popin_motor_text", "class": "uci-popin-motor-text" }, accessibilitytoolbar.get('use_motor_assistance')]
+            ]
           ],
           ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
-            ["button", { id: "uci_popin_button", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, "exit"]
+            ["button", { id: "uci_popin_button", name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm uci-popin-button-right ucibtn-secondary" },  accessibilitytoolbar.get('uci_exit')]
           ]
         ]
       ]
@@ -67,7 +69,7 @@ UciHelp = {
     return accessibilitytoolbar.make(["div", { id: "uci_discover", "class": "uci-discover", style: "display:none;" },
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-discover-header" },
-          ["span", { id: "uci_discover_title", "class": "uci-discover-title" }, "Découvrir le service"],
+          ["span", { id: "uci_discover_title", "class": "uci-discover-title" }, accessibilitytoolbar.get('discover_service')],
           ["button", { id: "uci_discover_close", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         ["div", { id: "uci_discover_body", "class": "uci-discover-body" },
@@ -75,20 +77,20 @@ UciHelp = {
           ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple" }, "Exemples :"],
           ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text" },
             ["input", { type: "radio", name: "example", "checked": "true", id: "uci_discover_none" }],
-            ["label", { "for": "uci_discover_none" }, "Aucun reglages"],
+            ["label", { "for": "uci_discover_none" }, accessibilitytoolbar.get('uci_default')],
             ["input", { type: "radio", name: "example", id: "uci_discover_reading" }],
-            ["label", { "for": "uci_discover_reading" }, "Améliorer la lisibilité"],
+            ["label", { "for": "uci_discover_reading" }, accessibilitytoolbar.get('improve_readability')],
             ["input", { type: "radio", name: "example", id: "uci_discover_layout" }],
-            ["label", { "for": "uci_discover_layout" }, "Modifier la mise en page"]
+            ["label", { "for": "uci_discover_layout" }, accessibilitytoolbar.get('edit_layout')]
           ],
-          ["iframe", { id: "uci_discover_frame", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo.html" }]
+          ["iframe", { id: "uci_discover_frame", "tabindex":"-1", "aria-hidden":"true", title:"demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo.html" }]
         ],
         ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
-          ["button", { id: "uci_popin_menu", name: "uci_popin_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, "menu"],  
-          ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, "exit"]
+          ["button", { id: "uci_popin_menu", name: "uci_popin_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],  
+          ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_exit')]
         ]
       ]
-    ])
+    ])  
   },
   InitUciReading: function (newName){
     return accessibilitytoolbar.make(["div", {id:"uci_reading",  name: newName},
@@ -102,17 +104,22 @@ UciHelp = {
         ],
         ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
         ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
-          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, "menu"],
+          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
           ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
-          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, "exit"],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"]
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"],
+          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
           
         ]
       ]
     ])
   },
   show_popin: function () {
+    
     if (document.getElementById("uci_cdu_popin")) {
+      if (document.getElementById("uci_zone_form").style.display === "block"){
+        document.getElementById("uci_zone_form").style.display = "none";
+      }
+      document.getElementById("uci_help_close").focus(true);
       document.getElementById("uci_cdu_popin").style.display = "block";
       document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
       document.getElementById("masque_haut").style.display = "block";
@@ -161,6 +168,7 @@ UciHelp = {
   },
   show_discover: function () {
     if (document.getElementById("uci_main_popin_help")) {
+      document.getElementById("uci_help_title").focus(true);
       document.getElementById("uci_main_popin_help").style.display = "none";
       document.getElementById("uci_discover").style.display = "block";
     }
@@ -222,14 +230,17 @@ UciHelp = {
   },
 
 
-  show_reading : function(){
+  show_reading : function(name){
     document.getElementById("uci_main_popin_help").style.display = "none";
-    //document.getElementById("uci_reading").style.display = "block";
+    
     document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
     document.getElementById("masque_haut_param").className = "readingElements";
     UciHelp.position_popin_help();
-     UciHelp.calculate_overlay_position();
+    UciHelp.calculate_overlay_position();
+    document.getElementById("uci_reading").style.display = "block";
+    document.getElementById("uci_reading_title").focus(true);
   },
+
   hide_reading : function(name){
     if (name == "reading"){
       document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
@@ -241,6 +252,7 @@ UciHelp = {
     }
    
   },
+
   changeText: function (move) {
     var movePosition = parseInt(document.getElementById("uci_reading_body").getAttribute("value"));
     if (move === "left") {
@@ -341,9 +353,36 @@ UciHelp = {
           }
           break;
       }
-     
-      
     }
-    
+    if (move === "center"){
+       switch (document.getElementById("uci_reading").getAttribute("name")){
+        case "agencement":
+            //document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
+            document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading("agencement"));
+            document.getElementById("uci_reading_body").innerHTML = "agencement";
+            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
+            UciHelp.calculate_overlay_position();
+            UciHelp.position_popin_help();
+          break;
+       /* case "agencement":
+          if (movePosition == 0){
+            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
+            document.getElementById("uci_reading_body").innerHTML = "agencement";
+            //document.getElementById("uci_reading").setAttribute("name","agencement");
+            UciHelp.position_popin_help();
+          }
+          break;*/
+        case "couleur":
+            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
+            document.getElementById("uci_reading_body").innerHTML = "comportement";
+            //document.getElementById("uci_reading").setAttribute("name","comportement");
+            UciHelp.position_popin_help();
+          break;
+      }
+    }
+
+
+
+    document.getElementById("uci_reading_title").focus(true);
   }
 }

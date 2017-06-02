@@ -2811,7 +2811,9 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_discover_close'), UciHelp.hide_popin);
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_discover'), UciHelp.show_discover);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_read'), UciHelp.show_reading);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_read'), function(){UciHelp.show_reading()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_layout'), function(){UciHelp.show_reading("agencement")});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_motor'), function(){UciHelp.show_reading("comportement")});
 
         accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
         accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
@@ -3850,7 +3852,10 @@ accessibilitytoolbar = {
         else {
           htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
         }
-        document.getElementById('accessibilitytoolbarGraphic').removeChild(document.getElementById('accessibilitytoolbarGraphic').firstChild);
+        while(document.getElementById('accessibilitytoolbarGraphic').firstChild) {
+            document.getElementById('accessibilitytoolbarGraphic').removeChild( document.getElementById('accessibilitytoolbarGraphic').firstChild);
+        }
+        //document.getElementById('accessibilitytoolbarGraphic').removeChild(document.getElementById('accessibilitytoolbarGraphic').firstChild);
         document.getElementById('accessibilitytoolbarGraphic').appendChild(htmlContent);
         
         accessibilitytoolbar.loadTheToolbar();

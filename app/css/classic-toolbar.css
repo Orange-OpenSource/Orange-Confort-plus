@@ -1765,11 +1765,11 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_main_popin_help .uci-popin-content  {
-	width: 400px;
-	height: 300px;
+	width: 20rem;
+	/*height: 300px;*/
 	background: #fff;
 	border: 0;
-	margin: 6% auto;
+	margin: 2rem auto;
 }
 
 
@@ -1780,10 +1780,10 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	min-height: 1.25rem;
 	padding: 0;
 	padding-top: 0.5rem;
-	margin-bottom: 1.5rem;
+	/*margin-bottom: 1.5rem;*/
 	border: 0;
 	background-color: #0c9;
-	height: 50px;
+	height: 3rem;
 }
 
 #uci_main_popin_help .uci-popin-header .uci-popin-title,
@@ -1800,11 +1800,9 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 #uci_reading .uci-reading-header .uci-popin-btn {
 	background: transparent;
 	border: transparent;
-	height: 40px;
-	width: 40px;
-	right: 0;
-	top: 5px;
-	position: absolute;
+	float: right;
+	margin-top: 0.2rem;
+	margin-right: 0.5rem;
 }
 
 #uci_main_popin_help .uci-popin-body {
@@ -1816,9 +1814,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 #uci_main_popin_help .uci-popin-layout,
 #uci_main_popin_help .uci-popin-motor {
 	display: block;
-	height: 40px;
+	height: 3rem;
 	border-bottom: solid 1px grey;
-	margin-bottom: 0.5rem;
 	
 }
 
@@ -1829,12 +1826,13 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	background-image: url("../images/assistance_32x32_fe.png");
 	background-repeat: no-repeat;
 	display: inline-block;
-	height: 32px;
-	width: 32px;
-	left: 10px;
-	margin-right: 3.5rem;
+	height: 2rem;
+	width: 2rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
 	position: relative;
 	cursor: pointer;
+	margin-top: 0.5rem;
 }
 
 #uci_main_popin_help .uci-popin-discover .uci-popin-discover-text,
@@ -1843,49 +1841,57 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 #uci_main_popin_help .uci-popin-motor .uci-popin-motor-text {
 	font-size: 1rem;
 	display: inline-block;
-	height: 40px;
 	vertical-align: middle;
 	cursor: pointer;
+	margin-bottom: 1.5rem;
+}
+
+#uci_main_popin_help .uci-popin-buttom,
+#uci_discover .uci-popin-buttom{
+	height: 3.5rem;
 }
 
 #uci_discover .uci-popin-button-right,
 #uci_main_popin_help .uci-popin-button-right,
 #uci_reading .uci-popin-button-right{
 	float: right;
-    margin-right: 2%;
+    margin-right: 1rem;
+	margin-top: 0.8rem;
+	margin-bottom: 1rem;
 }
 
 #uci_discover .uci-popin-button-left,
 #uci_main_popin_help .uci-popin-button-left,
 #uci_reading .uci-popin-button-left{
 	float: left;
-    margin-left: 2%;
+    margin-left:  1rem;
+	margin-top: 0.8rem;
+	margin-bottom: 1rem;
 }
 
 #uci_discover {
 	display: none;
 	width: 600px;
-	height: 560px;
 	background: #fff;
 	border: 0;
 	/*margin-top: 6%;
 	margin-left: auto;
 	margin-right: auto;*/
-	margin: 6% auto;
+	margin: 2rem auto;
 
 }
 
 #uci_discover .uci-discover-body{
-	margin: 2%;
+	margin: 1rem 1rem 0 1rem;
 }
 
 #uci_discover .uci-discover-body-exemple{
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 #uci_discover .uci-discover-selection{
-	margin-bottom: 2%;
+	margin-bottom: 1rem;
 }
 
 #uci_discover .uci-discover-body-text {
@@ -1943,9 +1949,9 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_reading{
-	display: inline-block;
-	width: 400px;
-    height: 220px;
+	display: block;
+	width: 25rem;
+    /*height: 220px;*/
     background: #fff;
     border: 0;
     position: absolute;
@@ -1953,16 +1959,19 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_reading .uci-move-left{
-	margin-left:25%;
+	float : left;
+	margin-left:6rem;
+	margin-right:0.5rem;
 }
 
 #uci_reading .uci-move-right{
-	margin-right:25%;
+	float : left;
+	margin-left:0.5rem;
 }
 #uci_reading .uci_reading_body{
 	font-size: 0.7rem;
-	height: 85px;
-	margin: 2%;
+	height: 5.3rem;
+	margin: 1rem;
 }
 
 #uci_reading #triangle{

@@ -147,4 +147,20 @@ traduction['EN']={
   uci_new_window:"New window",
   uci_iframe_cookie:"Technical Content Orange Confort+",
   uci_confirm_validation:"Settings saved",
+  uci_menu_guide:"Guide step by step",
+  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, "+
+                      "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
+                      "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
+  uci_discover_lorem_0: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
+  uci_discover_lorem_1: "1",
+  uci_discover_lorem_2: "2",
+  uci_discover_lorem_3: "3",
+  uci_advance_param : "little test to show Confort + criteres",
+  discover_service : "discover the service",
+  improve_readability : "Improve Readability",
+  edit_layout : "Edit layout",
+  use_motor_assistance : "Use motor assistance",
+  uci_exit : "exit",
+  uci_menu : "menu",
+  uci_default : "default"
 };
