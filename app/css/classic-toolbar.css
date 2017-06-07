@@ -29,12 +29,14 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-comportement,
 #accessibilitytoolbarGraphic .cdu-icon-croix,
 #accessibilitytoolbarGraphic .cdu-icon-help,
+#accessibilitytoolbarGraphic .cdu-help_guide,
 #accessibilitytoolbarGraphic .cdu-icon-moins2,
 #accessibilitytoolbarGraphic .cdu-icon-plus2,
 #accessibilitytoolbarGraphic .cdu-icon-reload2,
 #accessibilitytoolbarGraphic .cdu-icon-typographie,
 #accessibilitytoolbarGraphic .cdu-icon-info,
 #accessibilitytoolbarGraphic .cdu-icon-couleurs2,
+#accessibilitytoolbarGraphic .uci-presentation,
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test,
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span {
 	font-family: 'orangeconfortplus';
@@ -64,6 +66,9 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	content: "\3f";
 	color: #5F7ABD;
 }
+#accessibilitytoolbarGraphic .cdu-help_guide:before {
+	content: "\1f4d6";
+}
 #accessibilitytoolbarGraphic .cdu-icon-info:before {
 	content: "\2757";
 }
@@ -78,6 +83,19 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #accessibilitytoolbarGraphic .cdu-icon-couleurs2:before {
 	content: "\1f532";
+}
+#accessibilitytoolbarGraphic .uci-main-popin-help .uci-presentation:before {
+	content: "\1f4f0";
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    vertical-align: middle;
+	display: inline-block;
+	margin-top: 1rem;
+}
+#accessibilitytoolbarGraphic .uci-buttom-speed .uci-presentation:before {
+	content: "\1f4f0";
+    font-size: 1.5rem;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path1:before {
 	content: "\2b18";
@@ -796,6 +814,7 @@ a.cdu_hide:focus {
 	font-size: 1em;
 	float: left;
 }
+
 .uci_inline {
 	display: block;
 	float: left;
@@ -1818,6 +1837,36 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	border-bottom: solid 1px grey;
 	
 }
+#uci_discover .uci-popin-buttom .uci-buttom-speed{
+	margin-left: 13rem;
+    /*width: 9rem;
+    height: 6rem;
+    float: left;*/
+}
+
+#uci_discover .uci-popin-buttom .uci-popin-discover-icon,
+#uci_discover .uci-popin-buttom .uci-popin-read-icon,
+#uci_discover .uci-popin-buttom .uci-popin-layout-icon,
+#uci_discover .uci-popin-buttom .uci-popin-motor-icon {
+	background-color: transparent;
+	display: inline-block;
+	height: 2rem;
+	width: 2rem;
+	position: relative;
+	cursor: pointer;
+	margin-top: 0.5rem;
+	border: transparent;
+}
+#uci_discover .uci-popin-buttom .uci-popin-discover-icon:active,
+#uci_discover .uci-popin-buttom .uci-popin-read-icon:active,
+#uci_discover .uci-popin-buttom .uci-popin-layout-icon:active,
+#uci_discover .uci-popin-buttom .uci-popin-motor-icon:active{
+	background-color: transparent;
+}
+#uci_discover .uci-popin-buttom .uci-button_noborder{
+	border: transparent;
+}
+
 
 #uci_main_popin_help .uci-popin-discover .uci-popin-discover-icon,
 #uci_main_popin_help .uci-popin-read .uci-popin-read-icon,
@@ -1843,7 +1892,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	display: inline-block;
 	vertical-align: middle;
 	cursor: pointer;
-	margin-bottom: 1.5rem;
+	margin-top: 1rem;
 }
 
 #uci_main_popin_help .uci-popin-buttom,
@@ -1871,7 +1920,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 #uci_discover {
 	display: none;
-	width: 600px;
+	width: 38rem;
 	background: #fff;
 	border: 0;
 	/*margin-top: 6%;
@@ -1894,14 +1943,18 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	margin-bottom: 1rem;
 }
 
+#uci_discover #uci_discover_selection label{
+	margin-right: 2rem;
+}
+
 #uci_discover .uci-discover-body-text {
 	font-size: 0.8rem;
 }
 
 #uci_discover .uci-discover-frame {
 	border: #000 2px solid;
-	width: 575px;
-	height: 260px;
+	width: 36rem;
+	height: 16rem;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1968,6 +2021,13 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	float : left;
 	margin-left:0.5rem;
 }
+
+#uci_reading .uci_reading_disable{
+	color: grey;
+	cursor: normal;
+	border-color: grey;
+}
+
 #uci_reading .uci_reading_body{
 	font-size: 0.7rem;
 	height: 5.3rem;

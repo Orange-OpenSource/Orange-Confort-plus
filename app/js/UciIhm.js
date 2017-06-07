@@ -178,7 +178,7 @@ UciIhm = {
                           ],
                           ["li",
                             ["a", {id: "uci_menu_ouverture_guide", class:"uci_menu_ouverture_aide", title:accessibilitytoolbar.get('uci_menu_guide')},
-                              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-help"}],
+                              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-help_guide"}],
                               ["span", accessibilitytoolbar.get('uci_menu_guide')]
                             ]
                           ]
