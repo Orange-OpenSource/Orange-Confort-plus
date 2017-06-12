@@ -195,10 +195,10 @@ UciHelp = {
     accessibilitytoolbar.setCSS("false", demo);
   },
   calculate_overlay_position: function (resize) {
-    if (resize !== null){
+    if (resize !== null && resize !== undefined){
       document.getElementById("masque_haut").setAttribute("value", resize);
     }
-    if (document.getElementById("masque_haut").getAttribute("value")){
+    if (document.getElementById("masque_haut").getAttribute("value") == 1){
       widthTmp = document.getElementById("uci_toolbar-quick").clientWidth - document.getElementsByClassName("uci_right")[0].clientWidth;
       heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
       document.getElementById("masque_haut_logo").style.width = widthTmp - 15 + "px";

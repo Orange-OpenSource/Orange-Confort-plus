@@ -2819,7 +2819,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
         accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_none'), UciHelp.demo_reset);
 
-        accessibilitytoolbar.uciAttachEvent('resize','onresize',window,  UciHelp.calculate_overlay_position);
+        accessibilitytoolbar.uciAttachEvent('resize','onresize',window, function(){UciHelp.calculate_overlay_position()});
 
         
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_left'), function(){UciHelp.changeText("left");});
