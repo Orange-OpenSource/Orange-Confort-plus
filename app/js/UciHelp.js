@@ -44,32 +44,32 @@ UciHelp = {
         ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
           ["ul", 
             ["li",
-              ["a", { id: "uci_popin_discover", href:"#", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-discover", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_discover", href:"#", "tabindex":"0", "class": "uci-popin-discover", title:accessibilitytoolbar.get('edit_layout')},
                 ["span", { id: "uci_popin_discover_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_discover_text", "class": "uci-popin-discover-text" }, accessibilitytoolbar.get('discover_service')]
               ]
             ],
             ["li",
-              ["a", { id: "uci_popin_read", href:"#", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-read", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_read", href:"#", "tabindex":"0", "class": "uci-popin-read", title:accessibilitytoolbar.get('edit_layout')},
                 ["span", { id: "uci_popin_read_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_read_text", "class": "uci-popin-read-text" },  accessibilitytoolbar.get('improve_readability')]
               ]
             ],
             ["li",
-              ["a", { id: "uci_popin_layout", href:"#", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-layout", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_layout", href:"#", "tabindex":"0", "class": "uci-popin-layout", title:accessibilitytoolbar.get('edit_layout')},
                 ["span", { id: "uci_popin_layout_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_layout_text", "class": "uci-popin-layout-text" }, accessibilitytoolbar.get('edit_layout')]
               ]
             ],
             ["li",
-              ["a", { id: "uci_popin_motor", href:"#", "role":"radio","tabindex":"0", "aria-checked":"true", "class": "uci-popin-motor", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_motor", href:"#", "tabindex":"0", "class": "uci-popin-motor", title:accessibilitytoolbar.get('edit_layout')},
                 ["span", { id: "uci_popin_motor_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_motor_text", "class": "uci-popin-motor-text" }, accessibilitytoolbar.get('use_motor_assistance')]
               ]
             ]
           ],
-          ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
-            ["button", { id: "uci_popin_button", name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm uci-popin-button-right ucibtn-secondary" },  accessibilitytoolbar.get('uci_exit')]
+          ["div", {"class": "uci-popin-buttom" },
+            ["button", {name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm uci-popin-button-right ucibtn-secondary" },  accessibilitytoolbar.get('uci_exit')]
           ]
         ]
       ]
@@ -81,7 +81,7 @@ UciHelp = {
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-discover-header" },
           ["span", { id: "uci_discover_title", "class": "uci-discover-title" }, accessibilitytoolbar.get('discover_service')],
-          ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_help_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
+          ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
             ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
             ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
           ]
@@ -99,7 +99,7 @@ UciHelp = {
           ],
           ["iframe", { id: "uci_discover_frame", "tabindex":"-1", "aria-hidden":"true", title:"demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo.html" }]
         ],
-        ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
+        ["div", {"class": "uci-popin-buttom" },
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
           ["div", {"class" : "uci-buttom-speed"},
             ["button", { id: "uci_popin_read_btn", title : accessibilitytoolbar.get('improve_readability'),  name: "uci_popin_menu","type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick :"UciHelp.show_reading()" }],
@@ -122,7 +122,7 @@ UciHelp = {
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
-        ["div", { id: "uci_popin_buttom", "class": "uci-popin-buttom" },
+        ["div", {"class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
           ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
           ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"],

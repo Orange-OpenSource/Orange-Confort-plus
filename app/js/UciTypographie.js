@@ -154,7 +154,7 @@ UciTypographie = {
             ],
 
             // Line spacing
-            ["div", {id:"uci_typo_spacement_line", "class":"uci_aria_button_group cdu_c uci_clear"},
+            ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
               ["ul", {"class":"uci_liste_bton",id:"uci_reponses_linespacement",role:"radiogroup", "aria-labelledby":"uci_typo_spacement_line_aria_label"},
                 ["li", 
@@ -231,7 +231,7 @@ UciTypographie = {
             ],
  
             // char spacing
-            ["div", {id:"uci_typo_spacement_line", "class":"uci_aria_button_group cdu_c uci_clear"},
+            ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_font_caractere"},accessibilitytoolbar.get('uci_typo_titre_charspacing')],
               ["ul", {"class":"uci_liste_bton",id:"uci_reponses_charspacing",role:"radiogroup", "aria-labelledby":"uci_typo_font_caractere"},
                 ["li", 
