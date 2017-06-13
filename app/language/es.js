@@ -155,5 +155,13 @@ traduction['ES']={
   uci_discover_lorem_1: "1",
   uci_discover_lorem_2: "2",
   uci_discover_lorem_3: "3",
-  uci_advance_param : "little test to show Confort + criteres"
+  uci_advance_param : "little test to show Confort + criteres",
+  discover_service : "D\351couvrir le service",
+  improve_readability : "Am\351liorer le service",
+  edit_layout : "Modifier la mise en page",
+  use_motor_assistance : "Utiliser l'aide motrice",
+  uci_exit : "quitter",
+  uci_close_guide : "Quitter le guide",
+  uci_menu : "menu",
+  uci_default : "Aucun R\351glages"
 };

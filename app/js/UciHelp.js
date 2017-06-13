@@ -36,7 +36,10 @@ UciHelp = {
       ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
         ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
           ["span", { id: "uci_help_title", "class": "uci-popin-title" }, accessibilitytoolbar.get('uci_menu_guide')],
-          ["button", { id: "uci_help_close", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
+          ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_help_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
+            ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
+            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
+          ]
         ],
         ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
           ["ul", 
@@ -78,7 +81,10 @@ UciHelp = {
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-discover-header" },
           ["span", { id: "uci_discover_title", "class": "uci-discover-title" }, accessibilitytoolbar.get('discover_service')],
-          ["button", { id: "uci_discover_close", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
+          ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_help_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
+            ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
+            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
+          ]
         ],
         ["div", { id: "uci_discover_body", "class": "uci-discover-body" },
           ["span", { id: "uci_discover_body_text", "class": "uci-discover-body-text" }, accessibilitytoolbar.get('uci_discover_text')],

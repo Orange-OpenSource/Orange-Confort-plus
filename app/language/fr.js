@@ -161,6 +161,7 @@ traduction['FR']={
   edit_layout : "Modifier la mise en page",
   use_motor_assistance : "Utiliser l'aide motrice",
   uci_exit : "quitter",
+  uci_close_guide : "Quitter le guide",
   uci_menu : "menu",
   uci_default : "Aucun R\351glages"
 };

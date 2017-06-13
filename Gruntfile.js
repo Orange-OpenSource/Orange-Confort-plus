@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       },
       livereload: {
         options: {
-          open: true,
+          open: 'http://localhost:9010/testpage.html',
           middleware: function(connect) {
             return [
               connect.static(appConfig.app)

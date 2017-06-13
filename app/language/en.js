@@ -138,7 +138,7 @@ traduction['EN']={
   uci_loopActivableQuick:"Navigate quickly through items",
   uci_loopBackward:"Navigate backwards",
   uci_stopLoop:"Pause navigation",
-  uci_closeButton:"close",
+  uci_closeButton:"Close",
   uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue ?",
   uci_remove_all_settings:"All your settings will be deleted, do you want to continue ?",
   uci_radio_default:"Default",
@@ -160,7 +160,8 @@ traduction['EN']={
   improve_readability : "Improve Readability",
   edit_layout : "Edit layout",
   use_motor_assistance : "Use motor assistance",
-  uci_exit : "exit",
-  uci_menu : "menu",
+  uci_exit : "Exit",
+  uci_close_guide : "Close guide",
+  uci_menu : "Menu",
   uci_default : "default"
 };
