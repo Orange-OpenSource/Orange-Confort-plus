@@ -2071,3 +2071,21 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	position: relative;
 	left: 360px;
 }
+
+#uci_popin_body a:hover, #uci_popin_body a:focus{
+	background: #000;
+	color: #FFF;
+}
+
+#uci_popin_header .uci-popin-btn:focus,
+#uci_popin_header .uci-popin-btn:hover {
+	background: #000;
+	color: #FFF;
+}
+
+#uci_cdu_popin h2{
+	display: inline;
+}
+#uci_reading h2{
+	display: inline;
+}

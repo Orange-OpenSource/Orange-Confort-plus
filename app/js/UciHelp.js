@@ -31,11 +31,10 @@ UciHelp = {
    */
   InitUciHelp: function () {
     return accessibilitytoolbar.make(["div",
-     
-      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block" },
+      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block"},
       ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
         ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
-          ["span", { id: "uci_help_title", "class": "uci-popin-title" }, accessibilitytoolbar.get('uci_menu_guide')],
+          ["h2", { id: "uci_help_title", "class": "uci-popin-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_menu_guide')],
           ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_help_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
             ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
             ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
@@ -80,13 +79,13 @@ UciHelp = {
     return accessibilitytoolbar.make(["div", { id: "uci_discover", "class": "uci-discover", style: "display:none;" },
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-discover-header" },
-          ["span", { id: "uci_discover_title", "class": "uci-discover-title" }, accessibilitytoolbar.get('discover_service')],
+          ["h2", { id: "uci_discover_title", "class": "uci-discover-title", "tabindex":"0" }, accessibilitytoolbar.get('discover_service')],
           ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
             ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
             ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
           ]
         ],
-        ["div", { id: "uci_discover_body", "class": "uci-discover-body" },
+        ["div", { id: "uci_discover_body", "class": "uci-discover-body","aria-hidden":"true" },
           ["span", { id: "uci_discover_body_text", "class": "uci-discover-body-text" }, accessibilitytoolbar.get('uci_discover_text')],
           ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple" }, "Exemples :"],
           ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text" },
@@ -97,7 +96,7 @@ UciHelp = {
             ["input", { type: "radio", name: "example", id: "uci_discover_layout" }],
             ["label", { "for": "uci_discover_layout" }, accessibilitytoolbar.get('edit_layout')]
           ],
-          ["iframe", { id: "uci_discover_frame", "tabindex":"-1", "aria-hidden":"true", title:"demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo.html" }]
+          ["iframe", { id: "uci_discover_frame", "tabindex":"-1",  title:"demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo.html" }]
         ],
         ["div", {"class": "uci-popin-buttom" },
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
@@ -118,14 +117,14 @@ UciHelp = {
       ],
       ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
         ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
-          ["span", { id: "uci_reading_title", "class": "uci-reading-title" }, "Réglages rapides"],
+          ["h2", { id: "uci_reading_title", "class": "uci-reading-title" }, "Réglages rapides"],
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
         ["div", {"class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
-          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"],
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')",title: accessibilitytoolbar.get('uci_next') , name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"],
           ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
           
         ]
@@ -134,16 +133,17 @@ UciHelp = {
   },
 
   show_popin: function () {
-    
+    document.getElementById("uci_activer_menu").blur();
     if (document.getElementById("uci_cdu_popin")) {
       if (document.getElementById("uci_zone_form").style.display === "block"){
         document.getElementById("uci_zone_form").style.display = "none";
       }
-      document.getElementById("uci_help_close").focus(true);
+      
       document.getElementById("uci_cdu_popin").style.display = "block";
       document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
       document.getElementById("masque_haut").style.display = "block";
       UciHelp.calculate_overlay_position(1);
+      document.getElementById("uci_help_title").focus();
     }
   },
 
@@ -188,12 +188,13 @@ UciHelp = {
       parent = document.getElementById("uci_reading").parentNode;
       parent.removeChild(parent.lastChild);
     }
-      UciHelp.demo_reset();
+    UciHelp.demo_reset();
+    document.getElementById("uci_activer_menu").focus();
   },
 
   show_discover: function () {
     if (document.getElementById("uci_main_popin_help")) {
-      document.getElementById("uci_help_title").focus(true);
+      document.getElementById("uci_help_title").focus();
       document.getElementById("uci_main_popin_help").style.display = "none";
       document.getElementById("uci_discover").style.display = "block";
     }
@@ -280,7 +281,7 @@ UciHelp = {
       UciHelp.position_popin_help();
       UciHelp.calculate_overlay_position();
     }
-    document.getElementById("uci_reading_title").focus(true);
+    document.getElementById("uci_reading_title").focus();
     document.getElementById("uci_reading").style.display = "block"
   },
 
@@ -430,9 +431,6 @@ UciHelp = {
           break;
       }
     }
-
-
-
-    document.getElementById("uci_reading_title").focus(true);
+    document.getElementById("uci_reading_title").focus();
   }
 }

@@ -163,5 +163,7 @@ traduction['FR']={
   uci_exit : "quitter",
   uci_close_guide : "Quitter le guide",
   uci_menu : "menu",
-  uci_default : "Aucun R\351glages"
+  uci_default : "Aucun R\351glages",
+  uci_previous: "pr\351c\351dent",
+  uci_next: "suivant"
 };

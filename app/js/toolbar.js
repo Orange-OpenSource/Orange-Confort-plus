@@ -2821,7 +2821,8 @@ accessibilitytoolbar = {
 
         accessibilitytoolbar.uciAttachEvent('resize','onresize',window, function(){UciHelp.calculate_overlay_position()});
 
-        
+        //accessibilitytoolbar.uciAttachEvent('focusout','onfocusout',document.getElementById("uci_cdu_menu"), function(){UciIhm.close_menu()});
+        //accessibilitytoolbar.uciAttachEvent('mouseout','onmouseout',document.getElementById("uci_cdu_menu").children, function(){UciIhm.close_menu()});
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_left'), function(){UciHelp.changeText("left");});
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_right'), function(){UciHelp.changeText("right");});
 
