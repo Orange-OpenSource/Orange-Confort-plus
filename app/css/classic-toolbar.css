@@ -1788,7 +1788,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	background-color: #000;
 	
 }
-
+.uci_menu_ouverture_aide:focus .spanhover,
 .uci_menu_ouverture_aide:hover .spanhover,
 .uci_menu_ouverture_aide:focus .spanhover,
 .uci_menu_ouverture_aide:hover .cdu-help_guide,
