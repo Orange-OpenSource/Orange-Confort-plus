@@ -2795,7 +2795,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
         
-        
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
         
         /********************************************** gestion de l'aide ***********************************************/
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_ouverture_guide'),function(){UciIhm.close_menu();UciHelp.show_popin()});
@@ -3026,6 +3026,7 @@ accessibilitytoolbar = {
                 UciHelp.InitUciDiscover()
                 //UciHelp.InitUciReading()
             ]));
+            
             // add JS behaviour
             accessibilitytoolbar.createObjectBehaviour();
         }

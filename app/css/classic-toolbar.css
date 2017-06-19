@@ -790,13 +790,15 @@ a.cdu_hide:focus {
 	font-size: 1.5em;
 	vertical-align: sub;
 }
-.uci_bton_menu, .uci_bton_menu:active, .uci_bton_menu:hover {
+.uci_bton_menu, .uci_bton_menu:active {
 	background-color: transparent;
 	border: none;
 	padding: 0;
 }
-.uci_bton_menu:focus {
+.uci_bton_menu:focus, .uci_bton_menu:hover {
 	outline: 2px dotted;
+	background-color: #000;
+	color: #FFF !important;
 }
 .cdu-icon-reload2 {
 	font-size: 1em;
@@ -1769,7 +1771,21 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	display: none;
 }
 
-
+.uci_menu_ouverture_aide:hover, .uci_menu_ouverture_aide:focus{
+	/*filter: invert(0%);*/
+	background-color: #000;
+}
+.uci_menu_ouverture_aide:hover .spanhover,
+.uci_menu_ouverture_aide:focus .spanhover,
+.uci_menu_ouverture_aide:hover .cdu-help_guide,
+.uci_menu_ouverture_aide:focus .cdu-help_guide,
+.uci_menu_ouverture_aide:hover .cdu-icon-help,
+.uci_menu_ouverture_aide:focus .cdu-icon-help,
+.uci_menu_ouverture_aide:hover .cdu-icon-info,
+.uci_menu_ouverture_aide:focus .cdu-icon-info
+ {
+	filter: invert(100%);
+}
 
 /********     CSS for user guide **********/
 
