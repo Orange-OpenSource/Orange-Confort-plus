@@ -187,7 +187,7 @@ UciIhm = {
                     ]
                   ],
                   ["li", {"class":"uci_inline uci_menu_close"},
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_menu_activer_menu", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
+                    ["button", {"class":"uci_bton_menu cdu_c","onfocus":"UciIhm.close_menu('',true)", id:"uci_menu_activer_menu", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
                       ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
                       ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_link_hide_toolbar')]
                     ]
@@ -272,7 +272,7 @@ UciIhm = {
     */
 
 
-    close_menu: function (nofocus) {
+    close_menu: function (nofocus,changefocus) {
       // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
       // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
       if(document.getElementById('uci_cdu_menu'))
@@ -285,7 +285,8 @@ UciIhm = {
 			    li.className = 'uci_inline uci_menu_help';
         }
         if(nofocus) return false;
-        document.getElementById("uci_activer_menu").focus();
+        if(!changefocus)
+          document.getElementById("uci_activer_menu").focus();
       }
     },
     /*Permet d’activer le menu facebook du confort d’utilisation*/
@@ -301,7 +302,7 @@ UciIhm = {
                 var li = button.parentNode;
 			    li.className = 'uci_inline uci_menu_help active';
             }
-            document.getElementById("uci_activer_menu").focus();
+            document.getElementById("uci_FR").focus();
         } else {
             UciIhm.close_menu();
         }
