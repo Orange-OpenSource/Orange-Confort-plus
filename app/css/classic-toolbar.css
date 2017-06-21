@@ -1830,6 +1830,12 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	font-size: 1.5rem;
 }
 
+#uci_main_popin_help .uci-popin-header .uci-popin-title:focus,
+#uci_discover .uci-discover-header .uci-discover-title:focus,
+#uci_reading .uci-reading-header .uci-reading-title:focus{
+	border: 4px solid #000;
+} 
+
 #uci_main_popin_help .uci-popin-header .uci-popin-btn,
 #uci_discover .uci-discover-header .uci-popin-btn,
 #uci_reading .uci-reading-header .uci-popin-btn {

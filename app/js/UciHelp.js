@@ -68,7 +68,7 @@ UciHelp = {
             ]
           ],
           ["div", {"class": "uci-popin-buttom" },
-            ["button", {name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm uci-popin-button-right ucibtn-secondary" },  accessibilitytoolbar.get('uci_exit')]
+            ["button", {id: "uci_popin_button", name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm ucibtn-secondary uci-popin-button-right" },  accessibilitytoolbar.get('uci_exit')]
           ]
         ]
       ]
@@ -85,10 +85,10 @@ UciHelp = {
             ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
           ]
         ],
-        ["div", { id: "uci_discover_body", "class": "uci-discover-body","aria-hidden":"true" },
+        ["div", { id: "uci_discover_body", "class": "uci-discover-body" },
           ["span", { id: "uci_discover_body_text", "class": "uci-discover-body-text" }, accessibilitytoolbar.get('uci_discover_text')],
-          ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple" }, "Exemples :"],
-          ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text" },
+          ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple", "aria-hidden":"true" }, "Exemples :"],
+          ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text", "aria-hidden":"true" },
             ["input", { type: "radio", name: "example", "checked": "true", id: "uci_discover_none" }],
             ["label", { "for": "uci_discover_none" }, accessibilitytoolbar.get('uci_default')],
             ["input", { type: "radio", name: "example", id: "uci_discover_reading" }],
@@ -117,15 +117,15 @@ UciHelp = {
       ],
       ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
         ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
-          ["h2", { id: "uci_reading_title", "class": "uci-reading-title" }, "Réglages rapides"],
+          ["h2", { id: "uci_reading_title", "class": "uci-reading-title", "tabindex":"0" }, "Réglages rapides"],
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
         ["div", {"class": "uci-popin-buttom" },
-          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
-          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn-secondary" }, "<"],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')",title: accessibilitytoolbar.get('uci_next') , name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn-secondary" }, ">"],
-          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
+          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden":"true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, "<"],
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')","aria_hidden":"true", title: accessibilitytoolbar.get('uci_next') , name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, ">"],
+          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
           
         ]
       ]
@@ -283,6 +283,7 @@ UciHelp = {
     }
     document.getElementById("uci_reading_title").focus();
     document.getElementById("uci_reading").style.display = "block"
+    document.getElementById("uci_reading_title").focus();
   },
 
   hide_reading : function(name){
