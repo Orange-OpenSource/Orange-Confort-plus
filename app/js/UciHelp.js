@@ -264,28 +264,26 @@ UciHelp = {
       document.getElementById("uci_reading").style.top = heightTmp+ 2 +"px";
     }
   },
-  navigation_popin: function(_event_, id) {
+  navigation_popin: function(e, id) {
     var winObj="";
-    if ( window.event )
-      winObj = window.event;
-        // --- Netscape and other explorers
-    else
-      winObj = _event_;
+    if ( !e )
+      e = window.event;
 
-    var intKeyCode = winObj.keyCode;
+    var intKeyCode = e.keyCode;
     console.log(intKeyCode);
     console.log(id);
-    console.log(winObj.shiftKey);
+    console.log(e.shiftKey);
     if (intKeyCode ===27 && id ==="uci_main_popin_help"){
       UciHelp.hide_popin();
     }
-    if (intKeyCode ===9 && id ==="uci_popin_button"){
-      winObj.stopPropagation();
+    if (!e.shiftKey && intKeyCode ===9 && id ==="uci_popin_button"){
+      accessibilitytoolbar.stopEvt(e);
       console.log ("focus");
       document.getElementById("uci_help_title").focus();
       
     }
-    if (winObj.shiftKey && event.keyCode === 9 && id === "uci_help_title") { 
+    if (e.shiftKey && intKeyCode === 9 && id === "uci_help_title") { 
+      accessibilitytoolbar.stopEvt(e);
       console.log("toto");
       document.getElementById("uci_popin_button").focus();
     }
