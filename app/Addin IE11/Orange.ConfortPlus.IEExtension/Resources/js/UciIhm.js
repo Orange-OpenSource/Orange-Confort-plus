@@ -127,8 +127,15 @@ UciIhm = {
               ],
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
+                  /*["li", {"class":"uci_inline uci_menu_profile"},
+                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_activer_profile", type:"button"}, "profile"],
+                    ["div",
+                      ["div", {id:"uci_cdu_profile", style:"display:none;"}],
+                      UciProfile.InitUciProfile()
+                    ]
+                  ],*/
                   ["li", {"class":"uci_inline uci_menu_help"},
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
                       ["div", {id:"uci_cdu_menu", style:"display:none;"},
                         ["ul",
@@ -167,19 +174,19 @@ UciIhm = {
                           ["li",
                             ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com/index_"+accessibilitytoolbar.strings.getLocale().toLowerCase(), title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-info"}],
-                              ["span", accessibilitytoolbar.get('uci_menu_info')]
+                              ["span", {"class":"spanhover"}, accessibilitytoolbar.get('uci_menu_info')]
                             ]
                           ],
                           ["li",
                             ["a", {"class":"uci_menu_ouverture_aide", href:helpPath[accessibilitytoolbar.strings.getLocale()], title:accessibilitytoolbar.get('uci_menu_help')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:helpPathTarget},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-help"}],
-                              ["span", accessibilitytoolbar.get('uci_menu_help')]
+                              ["span", {"class":"spanhover"}, accessibilitytoolbar.get('uci_menu_help')]
                             ]
                           ],
                           ["li",
                             ["a", {id: "uci_menu_ouverture_guide", href:"#", class:"uci_menu_ouverture_aide", title:accessibilitytoolbar.get('uci_menu_guide')},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-help_guide"}],
-                              ["span", accessibilitytoolbar.get('uci_menu_guide')]
+                              ["span", {"class":"spanhover"}, accessibilitytoolbar.get('uci_menu_guide')]
                             ]
                           ]
                         ]
@@ -283,6 +290,7 @@ UciIhm = {
           button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
 			    var li = button.parentNode;
 			    li.className = 'uci_inline uci_menu_help';
+          button.setAttribute("aria-expanded", "false");
         }
         if(nofocus) return false;
         if(!changefocus)
@@ -298,9 +306,10 @@ UciIhm = {
             document.getElementById('uci_cdu_menu').style.display = "block";
             var button = document.getElementById("uci_activer_menu");
             if(button.nodeName === 'BUTTON') {
-                button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
-                var li = button.parentNode;
-			    li.className = 'uci_inline uci_menu_help active';
+              button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
+              var li = button.parentNode;
+			        li.className = 'uci_inline uci_menu_help active';
+              button.setAttribute("aria-expanded", "true");
             }
             document.getElementById("uci_FR").focus();
         } else {

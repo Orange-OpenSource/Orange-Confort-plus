@@ -332,6 +332,9 @@ UciHelp = {
     var winObj="";
     if ( !e )
       e = window.event;
+        // --- Netscape and other explorers
+    else
+      winObj = _event_;
 
     var intKeyCode = e.keyCode;
     console.log(intKeyCode);

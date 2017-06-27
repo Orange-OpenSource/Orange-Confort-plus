@@ -67,6 +67,7 @@ UciProfile = {
                               ["label", {"class":"labelcolor", "for": "uci_profile"+i }, "Toto"]
                           ];
       tableauProfile.push(returnSavedProfile);
+      tableauProfile.push(returnSavedProfile);
     }
     console.log(tableauProfile);
     return tableauProfile;
