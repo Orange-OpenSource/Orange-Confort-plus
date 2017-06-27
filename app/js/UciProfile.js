@@ -31,22 +31,44 @@ UciProfile = {
    */
     InitUciProfile: function () {
       return accessibilitytoolbar.make(["div",
-        ["div", /*UciProfile.UciSavedProfile() */],
+         UciProfile.UciSavedProfile(),
+        ["span","profils predefinis"],
+        ["ul",
+          ["li",{class: "uci_menu_ouverture_aide"}, 
+            ["input", { type: "radio", name: "example", "checked": "true", id: "uci_profile_none" }],
+            ["label", { "class":"labelcolor","for": "uci_profile_none" }, "Aucun profile"]
+          ],
+          ["li",{class: "uci_menu_ouverture_aide"},
+            ["input", { type: "radio", name: "example", "checked": "false", id: "uci_profile_reading" }],
+            ["label", { "class":"labelcolor","for": "uci_profile_reading" }, "Ameliorer la lisibilite"],
+          ],
+          ["li",{class: "uci_menu_ouverture_aide"},
+            ["input", { type: "radio", name: "example", "checked": "false", id: "uci_profile_layout" }],
+            ["label", { "class":"labelcolor","for": "uci_profile_layout" }, "Modifier la mise en page"],
+          ],
+          ["li",{class: "uci_menu_ouverture_aide"},
+            ["input", { type: "radio", name: "example", "checked": "false", id: "uci_profile_move" }],
+            ["label", { "class":"labelcolor","for": "uci_profile_move" }, "Aide motrice"],
+          ],
+        ]
       
     ])
   },
   uci_show_profile: function(){
-
+    document.getElementById("uci_cdu_profile").style.display = "block";
   },
 
   UciSavedProfile: function (params) {
     var returnSavedProfile = "";
-    var tableauProfile = [];
-    console.log("toto a velo");
+    var tableauProfile = ["ul", {"class":"toto", id:"ulId", role:"radiogroup", "aria-labelledby":"idLabel"}];
     for (i=0; i < 3; i++){
-      returnSavedProfile = ["input", { type: "radio", name: "example", "checked": "true", id: "uci_profile"+i }];
-        tableauProfile.push(returnSavedProfile)
+      returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
+                              ["input", {type: "radio", name: "example", "checked": "true", id: "uci_profile"+i }],
+                              ["label", {"class":"labelcolor", "for": "uci_profile"+i }, "Toto"]
+                          ];
+      tableauProfile.push(returnSavedProfile);
     }
-     return tableauProfile;
+    console.log(tableauProfile);
+    return tableauProfile;
   }
 }

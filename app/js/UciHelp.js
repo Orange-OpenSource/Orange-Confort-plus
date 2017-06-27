@@ -264,7 +264,32 @@ UciHelp = {
       document.getElementById("uci_reading").style.top = heightTmp+ 2 +"px";
     }
   },
+  navigation_popin: function(_event_, id) {
+    var winObj="";
+    if ( window.event )
+      winObj = window.event;
+        // --- Netscape and other explorers
+    else
+      winObj = _event_;
 
+    var intKeyCode = winObj.keyCode;
+    console.log(intKeyCode);
+    console.log(id);
+    console.log(winObj.shiftKey);
+    if (intKeyCode ===27 && id ==="uci_main_popin_help"){
+      UciHelp.hide_popin();
+    }
+    if (intKeyCode ===9 && id ==="uci_popin_button"){
+      winObj.stopPropagation();
+      console.log ("focus");
+      document.getElementById("uci_help_title").focus();
+      
+    }
+    if (winObj.shiftKey && event.keyCode === 9 && id === "uci_help_title") { 
+      console.log("toto");
+      document.getElementById("uci_popin_button").focus();
+    }
+  },
 
   show_reading : function(name){
     document.getElementById("uci_main_popin_help").style.display = "none";

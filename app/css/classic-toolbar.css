@@ -592,7 +592,7 @@ a.cdu_hide:focus {
 	vertical-align: middle;
 	line-height: 1 !important;
 }
-.uci_menu_close, .uci_menu_help {
+.uci_menu_close, .uci_menu_help, .uci_menu_profile {
 	margin: 0;
 	padding: 1em 1.25em;
 	border-right: 1px solid #CCC;
@@ -740,6 +740,18 @@ a.cdu_hide:focus {
 	zoom: 1;
 	min-width: 14em;
 }
+#uci_cdu_profile {
+	border: 2px solid #000;
+	position: absolute;
+	right: 139px;
+	top: 3.125em;
+	padding: 10px;
+	background-color: #FFFFFF;
+	z-index: 2147483645;
+	zoom: 1;
+	min-width: 14em;
+}
+
 .uci_menu_help {
 	position: relative;
 }
@@ -1774,7 +1786,9 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 .uci_menu_ouverture_aide:hover, .uci_menu_ouverture_aide:focus{
 	/*filter: invert(0%);*/
 	background-color: #000;
+	
 }
+
 .uci_menu_ouverture_aide:hover .spanhover,
 .uci_menu_ouverture_aide:focus .spanhover,
 .uci_menu_ouverture_aide:hover .cdu-help_guide,
@@ -2094,4 +2108,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 #uci_reading h2{
 	display: inline;
+}
+
+.uci_menu_ouverture_aide:hover .labelcolor{
+	color: #fff !important;
 }
