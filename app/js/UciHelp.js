@@ -111,21 +111,27 @@ UciHelp = {
     ])  
   },
   InitUciReading: function (newName){
-    return accessibilitytoolbar.make(["div", {id:"uci_reading",  name: newName},
+    return accessibilitytoolbar.make(["div", {id:"uci_reading",  onkeydown: "UciHelp.navigation_popin(event, 'uci_reading')", name: newName},
       ["div",{id: "triangle"},
        ["div", {"class": "triangle"}]
       ],
       ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
         ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
-          ["h2", { id: "uci_reading_title", "class": "uci-reading-title", "tabindex":"0" }, "Réglages rapides"],
+          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-reading-title", "tabindex":"0" }, "Réglages rapides"],
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
         ["div", {"class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
-          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden":"true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, "<"],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')","aria_hidden":"true", title: accessibilitytoolbar.get('uci_next') , name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, ">"],
-          ["button", { id: "uci_reading_exit", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden":"true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
+            ["span", {"aria-hidden":"true"}, "<"],
+            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_previous')]
+          ],
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')","aria_hidden":"true", title: accessibilitytoolbar.get('uci_next') , name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
+            ["span", {"aria-hidden":"true"}, ">"],
+            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_next')]
+          ],
+          ["button", { id: "uci_reading_exit", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_exit')", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
           
         ]
       ]
@@ -273,19 +279,38 @@ UciHelp = {
     console.log(intKeyCode);
     console.log(id);
     console.log(e.shiftKey);
-    if (intKeyCode ===27 && id ==="uci_main_popin_help"){
+    if (intKeyCode ===27 && (id ==="uci_main_popin_help" || id ==="uci_discover" || id ==="uci_reading")){
       UciHelp.hide_popin();
     }
-    if (!e.shiftKey && intKeyCode ===9 && id ==="uci_popin_button"){
+    if (!e.shiftKey && intKeyCode ===9 && (id ==="uci_popin_button" || id === "uci_popin_exit" || id === "uci_reading_exit" )) {
       accessibilitytoolbar.stopEvt(e);
       console.log ("focus");
-      document.getElementById("uci_help_title").focus();
-      
+      switch (id){
+        case "uci_popin_button":
+          document.getElementById("uci_help_title").focus();
+          break;
+        case "uci_popin_exit":
+          document.getElementById("uci_discover_title").focus();
+          break;
+        case "uci_reading_exit":
+          document.getElementById("uci_reading_title").focus();
+          break;
+      }  
     }
-    if (e.shiftKey && intKeyCode === 9 && id === "uci_help_title") { 
+    if (e.shiftKey && intKeyCode === 9 && (id === "uci_help_title" || id === "uci_discover_title" || id === "uci_reading_title") ) { 
       accessibilitytoolbar.stopEvt(e);
       console.log("toto");
-      document.getElementById("uci_popin_button").focus();
+      switch (id){
+        case "uci_help_title":
+          document.getElementById("uci_popin_button").focus();
+          break;
+        case "uci_discover_title":
+          document.getElementById("uci_popin_exit").focus();
+          break;
+        case "uci_reading_title":
+          document.getElementById("uci_reading_exit").focus();
+          break;
+      }
     }
   },
 

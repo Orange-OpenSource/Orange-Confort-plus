@@ -2825,6 +2825,11 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_main_popin_help'), function(event){UciHelp.navigation_popin(event, "uci_main_popin_help")});
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_help_title'), function(event){UciHelp.navigation_popin(event, "uci_help_title")});
 
+
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_popin_exit'), function(event){UciHelp.navigation_popin(event, "uci_popin_exit")});
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_discover'), function(event){UciHelp.navigation_popin(event, "uci_discover")});
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_discover_title'), function(event){UciHelp.navigation_popin(event, "uci_discover_title")});
+
         //accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById("uci_menu_activer_menu"), function(){UciIhm.close_menu()});
         //accessibilitytoolbar.uciAttachEvent('mouseout','onmouseout',document.getElementById("uci_cdu_menu"), function(){UciIhm.close_menu()});
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_left'), function(){UciHelp.changeText("left");});
