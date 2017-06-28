@@ -2255,7 +2255,7 @@ UciIhm = {
                             ]
                           ],
                           ["li",
-                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com", title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
+                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com/index_"+accessibilitytoolbar.strings.getLocale().toLowerCase(), title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-info"}],
                               ["span", accessibilitytoolbar.get('uci_menu_info')]
                             ]
