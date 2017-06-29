@@ -127,13 +127,6 @@ UciIhm = {
               ],
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
-                  /*["li", {"class":"uci_inline uci_menu_profile"},
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_activer_profile", type:"button"}, "profile"],
-                    ["div",
-                      ["div", {id:"uci_cdu_profile", style:"display:none;"}],
-                      UciProfile.InitUciProfile()
-                    ]
-                  ],*/
                   ["li", {"class":"uci_inline uci_menu_help"},
                     ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",

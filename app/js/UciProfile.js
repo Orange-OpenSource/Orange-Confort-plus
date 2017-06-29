@@ -61,12 +61,11 @@ UciProfile = {
   UciSavedProfile: function (params) {
     var returnSavedProfile = "";
     var tableauProfile = ["ul", {"class":"toto", id:"ulId", role:"radiogroup", "aria-labelledby":"idLabel"}];
-    for (i=0; i < 5; i++){
+    for (i=0; i < 3; i++){
       returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
                               ["input", {type: "radio", name: "example", "checked": "true", id: "uci_profile"+i }],
                               ["label", {"class":"labelcolor", "for": "uci_profile"+i }, "Toto"]
                           ];
-      tableauProfile.push(returnSavedProfile);
       tableauProfile.push(returnSavedProfile);
     }
     console.log(tableauProfile);
