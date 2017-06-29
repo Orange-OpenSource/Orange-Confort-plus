@@ -3265,7 +3265,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function (init, demo) {
-        var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent;
         if (demo != null) {
             accessibilitytoolbar.userPref = demo;
         }
@@ -3273,7 +3273,10 @@ accessibilitytoolbar = {
             if (document.getElementById('cdu_close')) {
                 document.getElementById('cdu_close').style.display == 'none';
             }
-            accessibilitytoolbar.show();
+            toolbarContent = document.getElementById("cdu_content");
+            if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
+                accessibilitytoolbar.show();
+            }
         }
          if (demo != null) {
                 indexIFrame = 0;
