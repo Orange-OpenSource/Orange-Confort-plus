@@ -2802,6 +2802,8 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
         
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
+
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_typo_help_fontfamily');});
         

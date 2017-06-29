@@ -574,7 +574,7 @@ a.cdu_hide:focus {
 	vertical-align: middle;
 	line-height: 1 !important;
 }
-.uci_menu_close, .uci_menu_help {
+.uci_menu_close, .uci_menu_help, .uci_menu_profile {
 	margin: 0;
 	padding: 1em 1.25em;
 	border-right: 1px solid #CCC;
@@ -722,10 +722,24 @@ a.cdu_hide:focus {
 	zoom: 1;
 	min-width: 14em;
 }
+#uci_cdu_profile {
+	border: 2px solid #000;
+	position: absolute;
+	right: 139px;
+	top: 3.125em;
+	padding: 10px;
+	background-color: #FFFFFF;
+	z-index: 2147483645;
+	zoom: 1;
+	min-width: 14em;
+}
 .uci_menu_help {
 	position: relative;
 }
 .uci_menu_help.active #uci_activer_menu {
+	color: #f16e00;
+}
+.uci_menu_profile.active #uci_activer_profile {
 	color: #f16e00;
 }
 #uci_cdu_menu li {
