@@ -305,6 +305,7 @@ namespace Orange.ConfortPlus.IEExtension
             sb.Append(Tools.GetStringFromRessource("language/en.js"));
             sb.Append(Tools.GetStringFromRessource("language/es.js"));
             sb.Append(Tools.GetStringFromRessource("language/fr.js"));
+            sb.Append(Tools.GetStringFromRessource("language/pl.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciAideMotrice.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciCouleur.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciApparence.js"));

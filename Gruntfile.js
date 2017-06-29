@@ -236,6 +236,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/language/en.js",
             "<%= yeoman.app %>/language/es.js",
             "<%= yeoman.app %>/language/fr.js",
+            "<%= yeoman.app %>/language/pl.js",
             "<%= yeoman.app %>/js/UciAideMotrice.js",
             "<%= yeoman.app %>/js/UciCouleur.js",
             "<%= yeoman.app %>/js/UciApparence.js",

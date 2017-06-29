@@ -2796,6 +2796,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_PL'), function() {return UciIhm.changement_langue('PL');});
         accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Annulation();});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);

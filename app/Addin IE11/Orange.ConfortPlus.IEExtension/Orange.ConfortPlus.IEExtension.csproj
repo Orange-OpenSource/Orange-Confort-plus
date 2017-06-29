@@ -179,6 +179,7 @@
     <EmbeddedResource Include="Resources\language\en.js" />
     <EmbeddedResource Include="Resources\language\es.js" />
     <EmbeddedResource Include="Resources\language\fr.js" />
+    <EmbeddedResource Include="Resources\language\pl.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cdu-disabled.ico">
