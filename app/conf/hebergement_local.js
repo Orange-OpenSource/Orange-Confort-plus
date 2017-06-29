@@ -30,7 +30,8 @@ var hebergementFullPath = hebergementDomaine + '/';
  var helpPath = {
      FR: hebergementFullPath + "help/help_fr.html",
      EN: hebergementFullPath + "help/help_en.html",
-     ES: hebergementFullPath + "help/help_es.html"
+     ES: hebergementFullPath + "help/help_es.html",
+     PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.css';

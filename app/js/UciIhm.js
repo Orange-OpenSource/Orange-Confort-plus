@@ -162,11 +162,18 @@ UciIhm = {
                                           value:"ES",
                                           id:"uci_ES",
                                           title:accessibilitytoolbar.get('uci_txt_menu_change_lang_es')
+                                        }],
+                              ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "PL"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
+                                          type:"button",
+                                          name:"uci_language_PL",
+                                          value:"PL",
+                                          id:"uci_PL",
+                                          title:accessibilitytoolbar.get('uci_txt_menu_change_lang_pl')
                                         }]
                             ]
                           ],
                           ["li",
-                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com", title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
+                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com/index_"+accessibilitytoolbar.strings.getLocale().toLowerCase(), title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-info"}],
                               ["span", accessibilitytoolbar.get('uci_menu_info')]
                             ]

@@ -28,7 +28,8 @@ var fontsPath = {
 var helpPath = {
     FR:  "javascript:window.postMessage('orangeconfort+help_fr',document.location);",
     EN:  "javascript:window.postMessage('orangeconfort+help_en',document.location);",
-    ES:  "javascript:window.postMessage('orangeconfort+help_es',document.location);"
+    ES:  "javascript:window.postMessage('orangeconfort+help_es',document.location);",
+    PL:  "javascript:window.postMessage('orangeconfort+help_pl',document.location);"
 };
 var helpPathTarget = '';
 var hebergementFullPath = '';
