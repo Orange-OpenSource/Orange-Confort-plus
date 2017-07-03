@@ -12,7 +12,7 @@ var fontsPath = {
 var helpPath = {
 	FR:  chrome.extension.getURL('help/help_fr.html'),//self.options.helpfr,
     EN:  chrome.extension.getURL('help/help_en.html'),//self.options.helpen,
-    ES:  chrome.extension.getURL('help/help_es.html')//self.options.helpes,
+    ES:  chrome.extension.getURL('help/help_es.html'),//self.options.helpes,
     PL:  chrome.extension.getURL('help/help_pl.html')//self.options.helppl
 };
 var helpPathTarget = '_blank';

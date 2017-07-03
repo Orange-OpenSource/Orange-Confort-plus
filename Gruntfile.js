@@ -401,22 +401,22 @@ module.exports = function(grunt) {
             ]
         },
       chromeext:{
-            options: {
-              patterns: [
-                {
-                    match: 'start.server',
-                    replacement: 'start.extensionChrome'
-                },{
-                    match: 'UciCookie.js',
-                    replacement: 'UciSimpleStorage.js'
-                }
-              ],
-              usePrefix:false
-            },
-            files: [
-              {expand: true, src: ['<%= yeoman.dist %>/Addin Chrome/help/*.html'], dest: ''}
-            ]
-        }
+        options: {
+          patterns: [
+            {
+                match: 'start.server',
+                replacement: 'start.extensionChrome'
+            },{
+                match: 'UciCookie.js',
+                replacement: 'UciSimpleStorage.js'
+            }
+          ],
+          usePrefix:false
+        },
+        files: [
+          {expand: true, src: ['<%= yeoman.dist %>/Addin Chrome/help/*.html'], dest: ''}
+        ]
+      }
     }    
   });
   
@@ -435,6 +435,8 @@ module.exports = function(grunt) {
     'copy:docs'
   ]);
   
+  // this task just create the unziped folder, to build the xpi you need to run : 
+  // "jpm xpi" in command line from the dist/Addin Firefox folder
   grunt.registerTask('buildfirefoxext', [    
     'clean:firefoxext',
     'copy:firefoxext',    
