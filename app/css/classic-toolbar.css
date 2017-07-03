@@ -21,10 +21,6 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	box-shadow: none;
 }
 /*******************************************************icons font*********************************************/
-#accessibilitytoolbarGraphic.cdu_old_browser .cdu-icon-test {
-	font-family: helvetica, arial, sans-serif;
-	display: none;
-}
 #accessibilitytoolbarGraphic .cdu-icon-agencement,
 #accessibilitytoolbarGraphic .cdu-icon-comportement,
 #accessibilitytoolbarGraphic .cdu-icon-croix,
@@ -37,8 +33,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-info,
 #accessibilitytoolbarGraphic .cdu-icon-couleurs2,
 #accessibilitytoolbarGraphic .uci-presentation,
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test,
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test span {
+#accessibilitytoolbarGraphic .cdu-icon-test,
+#accessibilitytoolbarGraphic .cdu-icon-test span {
 	font-family: 'orangeconfortplus';
 	speak: none;
 	font-style: normal;
@@ -97,46 +93,29 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	content: "\1f4f0";
     font-size: 1.5rem;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path1:before {
+#accessibilitytoolbarGraphic .cdu-icon-test .path1:before {
 	content: "\2b18";
 	color: rgb(246, 208, 0);
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path2:before {
+#accessibilitytoolbarGraphic .cdu-icon-test .path2:before {
 	content: "\2b19";
 	margin-left: -1em;
 	color: rgb(95, 123, 190);
 	position: absolute;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path3:before {
+#accessibilitytoolbarGraphic .cdu-icon-test .path3:before {
 	content: "\2b1a";
 	margin-left: -1em;
 	color: rgb(78, 201, 36);
 	position: absolute;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .cdu-icon-test .path4:before {
+#accessibilitytoolbarGraphic .cdu-icon-test .path4:before {
 	content: "\2b1b";
 	margin-left: -1em;
 	color: rgb(193, 67, 26);
 	position: absolute;
 }
-/* icons for IE8 and older */
-#accessibilitytoolbarGraphic.cdu_old_browser #uci_left_toolbar .cdu-icon-test {
-	background-image: url('data: image/png;	base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAiCAYAAAAtZZsLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjVDNzFDM0I5Q0IwNTExRTNCQ0NCRUJCRkYzREZEQzhBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjVDNzFDM0JBQ0IwNTExRTNCQ0NCRUJCRkYzREZEQzhBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NUM3MUMzQjdDQjA1MTFFM0JDQ0JFQkJGRjNERkRDOEEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NUM3MUMzQjhDQjA1MTFFM0JDQ0JFQkJGRjNERkRDOEEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz79Dm89AAAECklEQVR42uyYzUsbURDAJ5uYpjGraxO/ApoUi6VCISUeemvEU2mL6UnwlFDBY/0P/Lh5kOJRL4mHnmu1V2l6KYUamiJUEGwDEa0pgWhCajUfndl8vV1dsxsDSuksQ97bffveb+fNzM5GVygU4DoLB9dcrj2gge3odDrVN25sbAj440F1oTpQnaVL1BeYoSHUJOoHag8ODkZqzc26nU7SqQGIUATxkgGrRwhwAUGDDQNEMAKaKoE1SqKofgQN1Q1Y2sYAqldplQQdhQTcxKNH1yO5pocUmGFbbKfArTTFDEJOawZEONrC9zJ/kkisEIP53Dxk8CAZ5oZhlBsV20bYhwEYEyGLD/IMTTalNFUQIf3nAXIKW1oTjmQtv1aBI1nPr1faNlirwJFYsX+B+HDNSVVphtlWoZYT6fX6RmaUVyVfr5kHJ+UR2rS0BKaJCTDOzIAuVbXKePc48Hq+0h/rGqveZPXhEwjSfm0JyE9IfDAcDtOMP1jrERxpWfJuNxwvLopts9kMFocF4tk48AYehLQAsVis6INGIwzctYP+z2bRB0/uQzQaVQPpd7vdwXMTdSlaJVurD4elJmf6mUwGsjtZ4G/wkMvlIJaJVa6dnJzA5rcYPoS9GMWpKtzBoR62fzaJ7f6uU+hszbFLjFDQKAGOyB+nyemEHANl9niYsCiCkJ4nBJ1iXILkMMPB64/NcHxazBifvxvhxaM0tJrzrJEUffDM20GYmwPe663ANc/OXioSDn9zFTgSatM5tcWCUz5gDy1gCQTgHvrqrdVV+GWzXQrQbOIuPEd+rVgsKG3Tzs5Ow3JJb7sBnj4U4N2npNindm/7Kfpz0U04jotoAmy0UGA9cefB//iO2I/H4xj5Va+2Wq1XCyi+IjEVldMRKwgHNptt+coBz3sjdXZ2Qnd3dxDrgRCbmyWAPM+fSQuNFkEQigneYmHXJYdcQLjpCytqHBhCQE+9C3d0dIhBtb+/L/qa3Er9/f0Et4Ldr6VKu1xFhVSV/G1tbcsHBwceWkSLkOX7+vpo4QViRetMbW1tudgEjnMnEW4IYSJa5pYkJZPJtOJwOJJarUeWx4WfkyVQVwwGwxBCRmVzB7XCnQHECZL4pH6KJi2yt7cXkc9zdHQkAdzd3X3bkM9OsoDT6QyST2kQX6nILdeUvmw2K/Flu91eV1Aplvx4/g2WR95EIqFlvlCpGnLJfRQD5DbOr6reUv3RhNcCyWTSR3Wc1sBhBeFCLS0tQ2rHa/rsxOtehAugJQWMcMXSSknQXegN8UBLgGj+LsYxtG1Us7/E/OZMp9NiQidYeb5jX1uUFzG1+HHeoJaHkvyhRZ2yqrzZhTpJPor6paAsARpbj0uwTLr/f7/964B/BRgAc3bfWcrih08AAAAASUVORK5CYII=') !important;
-	background-position: center center !important;
-	background-repeat: no-repeat !important;
-	display: block;
-	height: 1em;
-	width: 1em;
-}
-#accessibilitytoolbarGraphic.cdu_old_browser .uci_choix.uci_choix_selected .cdu-icon-test {
-	background-image: url('data: image/png;	base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAiCAYAAAAtZZsLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2ODFBRjQwQ0IwNTExRTM4QThFQkY0RDczRjQ2QUVCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2ODFBRjQxQ0IwNTExRTM4QThFQkY0RDczRjQ2QUVCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY4MUFGM0VDQjA1MTFFMzhBOEVCRjRENzNGNDZBRUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY4MUFGM0ZDQjA1MTFFMzhBOEVCRjRENzNGNDZBRUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7hu+2+AAAEJUlEQVR42uyYW2sTQRSAz2ZzsU1j11q1YtG11isU0geroOAGERSLjeINBU1AfZGa6g+wjfgiCDY+qpAUvLyIrSAKCnYrCF6QRnxQ8UIQi0WLjbY2TZM2npNsk91tN8nGgEU8cMicncnMl5lzmQ2TSCRgJosBZrjMeECj3GAYJu8v/jgBHH4IqHbUJai81EU2JxsqooZRe6hdfhGCueaWux2jMHIAIhRBeGRghQgB+hA0UDRABCOgVgmsWBJCdSOoWDCgdIx+VKfWKv1WM/SXWaBsLA61gxFFH2MGYCtS7Xi/JqgXIdt0AyIcHWG3yp8U8n5OCZzcvAKGzWzS3v32Kxx/8TkVfWUA1sYUJEnsA0DksSZkACHd0wEaNI40JxxJR93CNBzJzZXz023TsgzcpJ1FXLhmS15pRnasXC4nYkq4YmaUC5Kv58yDLeoIHXoKMHALYPABwEQ08/xoxT6wsba0faDqQKZzrgsdkFPaucWfNQ9Ku+dRw/18mrHHhwAqd6Xa/KMbcP3YNfhiiIDNaAP++V0YlcbFgiKYN/eik4dS9mv6DOQC5JHBJR9oVA1wqo822qccEP0sg+0LwmzfduAqeEhEwjDal8nBE99DMHy2HthFqcOIv89kk0/saug1bUm262MPYPH4a/kSTdkAm9Q/ybSER6hQ2i4VBKk4ZEBIp024CC0HIxkwLIJzZVdhhJmdtO9bDoN3aAdUTvTJN0nTB6dUh3mnPWBzOtNwlceb/igSBgzVaTgSatOzfC8LvHpA7KEXqs4chtWYm6ovYzH52PFHgNZZhqzPJl1C64inPaaRKzuLlkv48gg01nFw50k4aTeu54B/FYHxYWmA2RrUBVhsocA6uO4quL2pvDzW064ILlPDIQWgotT99DB/9XptanBByUG/Qx6FRpgBQhXJLLSAZWtrAO8DonzTFIDGWmFKWij6DbnOCWy1HdfalAmMWoEc0odwbVkrCbtcEBFQKHRhi+BJBlX0njfpa+pdKm3upijtQvOl/Bhp1/K68pvsezrGxHaBFtEFhztfeqSTFvZRJWJrNrb+Or/WLk/gpvq9YYRzIExQz9yKpGSoWtM1a/+lsN7do53HhXfSTqB2MdZKB1uzQVFeDAtWBfTCTQHECcK4i26KJj0SvdcWVM8Tf3NfATjaeep2UV47aQcw1APkUzrEJV1yJ29FrsTwN4UvW7a1FRbhWld+fN4ZueZ2xp4F9MwnSrch+xQfbe5eivOH8pkk75cm7PPHX3W5EBT0Bo6i1jZ3i8blDke+43W9dmK/MzEy6I897+DGRJ/m1UpL0F2oQtTrCRDd78U4ho6NIseD+Y0fx2Qef9cDCYRV5zt52TJjXsTU4sZ5dfmJ4g8tMiY1zy/bUVvIR1F7E9rip7GFuIScifn/99u/DvhbgAEA5rbK2KzKCuUAAAAASUVORK5CYII=') !important;
-}
-#accessibilitytoolbarGraphic.cdu_old_browser .uci_choix .cdu-icon-test {
-	background-image: url('data: image/png;	base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAiCAYAAAAtZZsLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjVDNzFDM0I5Q0IwNTExRTNCQ0NCRUJCRkYzREZEQzhBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjVDNzFDM0JBQ0IwNTExRTNCQ0NCRUJCRkYzREZEQzhBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NUM3MUMzQjdDQjA1MTFFM0JDQ0JFQkJGRjNERkRDOEEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NUM3MUMzQjhDQjA1MTFFM0JDQ0JFQkJGRjNERkRDOEEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz79Dm89AAAECklEQVR42uyYzUsbURDAJ5uYpjGraxO/ApoUi6VCISUeemvEU2mL6UnwlFDBY/0P/Lh5kOJRL4mHnmu1V2l6KYUamiJUEGwDEa0pgWhCajUfndl8vV1dsxsDSuksQ97bffveb+fNzM5GVygU4DoLB9dcrj2gge3odDrVN25sbAj440F1oTpQnaVL1BeYoSHUJOoHag8ODkZqzc26nU7SqQGIUATxkgGrRwhwAUGDDQNEMAKaKoE1SqKofgQN1Q1Y2sYAqldplQQdhQTcxKNH1yO5pocUmGFbbKfArTTFDEJOawZEONrC9zJ/kkisEIP53Dxk8CAZ5oZhlBsV20bYhwEYEyGLD/IMTTalNFUQIf3nAXIKW1oTjmQtv1aBI1nPr1faNlirwJFYsX+B+HDNSVVphtlWoZYT6fX6RmaUVyVfr5kHJ+UR2rS0BKaJCTDOzIAuVbXKePc48Hq+0h/rGqveZPXhEwjSfm0JyE9IfDAcDtOMP1jrERxpWfJuNxwvLopts9kMFocF4tk48AYehLQAsVis6INGIwzctYP+z2bRB0/uQzQaVQPpd7vdwXMTdSlaJVurD4elJmf6mUwGsjtZ4G/wkMvlIJaJVa6dnJzA5rcYPoS9GMWpKtzBoR62fzaJ7f6uU+hszbFLjFDQKAGOyB+nyemEHANl9niYsCiCkJ4nBJ1iXILkMMPB64/NcHxazBifvxvhxaM0tJrzrJEUffDM20GYmwPe663ANc/OXioSDn9zFTgSatM5tcWCUz5gDy1gCQTgHvrqrdVV+GWzXQrQbOIuPEd+rVgsKG3Tzs5Ow3JJb7sBnj4U4N2npNindm/7Kfpz0U04jotoAmy0UGA9cefB//iO2I/H4xj5Va+2Wq1XCyi+IjEVldMRKwgHNptt+coBz3sjdXZ2Qnd3dxDrgRCbmyWAPM+fSQuNFkEQigneYmHXJYdcQLjpCytqHBhCQE+9C3d0dIhBtb+/L/qa3Er9/f0Et4Ldr6VKu1xFhVSV/G1tbcsHBwceWkSLkOX7+vpo4QViRetMbW1tudgEjnMnEW4IYSJa5pYkJZPJtOJwOJJarUeWx4WfkyVQVwwGwxBCRmVzB7XCnQHECZL4pH6KJi2yt7cXkc9zdHQkAdzd3X3bkM9OsoDT6QyST2kQX6nILdeUvmw2K/Flu91eV1Aplvx4/g2WR95EIqFlvlCpGnLJfRQD5DbOr6reUv3RhNcCyWTSR3Wc1sBhBeFCLS0tQ2rHa/rsxOtehAugJQWMcMXSSknQXegN8UBLgGj+LsYxtG1Us7/E/OZMp9NiQidYeb5jX1uUFzG1+HHeoJaHkvyhRZ2yqrzZhTpJPor6paAsARpbj0uwTLr/f7/964B/BRgAc3bfWcrih08AAAAASUVORK5CYII=') !important;
-}
-#accessibilitytoolbarGraphic.cdu_old_browser #uci_quick_a11yVisualPredefinedSettings_blackonwhite.uci_choix .cdu-icon-test {
-	background-image: url('data: image/png;	base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAiCAYAAAAtZZsLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjY4MzQ3OERBQ0IwNTExRTM5QjhBODc3MzhEQkMzRkU3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjY4MzQ3OERCQ0IwNTExRTM5QjhBODc3MzhEQkMzRkU3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NjgzNDc4RDhDQjA1MTFFMzlCOEE4NzczOERCQzNGRTciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NjgzNDc4RDlDQjA1MTFFMzlCOEE4NzczOERCQzNGRTciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7LSuYRAAADr0lEQVR42uyYQUsbQRTHJzGIiEpEURQkKYI3IUU/QPwAYnrUU3LyaMCrEOPNU/Gol10veqw1H6Dbu9IUD4IgDSiKgrCoeBAl/f+3m3VmzZjdGKyUPhic2dm8+e3M+799a6RarYr3bFHxzu3dA8bkQSQSCfzDvb29OP6k0VJoCbSkO8VxXLrVQrPRvrM/OTlZbuRbDruIMmgACChCLEhgzRgB1wBqtgwQYAQquGCtsgpaDqBW04DuMRpoGd0q5+fn4uzsTHR3d4uxsTFl7ubmRhwdHTn9iYkJnYsiIJdDAwKOR/jNF0+KcfH5+XkHhDY7OysWFxc98Lm5OW9uenpaFAoFnSsTkLl6gFHNkTaEo21sbHgAtO3tba9fKpWUOY5fsCzWzAdKM9KxxhsFUVtbWyszymc31hvmwbxfodwpHmWxWFR2ZWlpScTjT8+Rzz9tQjabVeY4DmCG/4ISg/v7+/T4S949wrHVjMG+vr7u9Ds7O0V7e7s4OTlxYIaHh50+jdc5Pjg4cMbj4+OiUqkEgcxhDbNuonbVqhwtoIVufHd3Jx4eHhyQx8dHD452f3/vjDnn5BQJjuKyrD/ZJZ1O+9U/Q9HoAGf8j5NMJhUoOpSNIGz1jNBySNTULSufwtra2hJDQ0PyJmlj8NnbYXV1VWQyGQ9uZWXlVUpgzpSh2ee1oMVC0n8DHRiG4eSm3d1d0d/f/ypAWTj1rjGuQ1UzPKbj42PnmBk7jLvXGMUiq519XvOAotHySyp+k+p1ZGREDAwMOP3Ly0tFXIlEwsQp5XQieRMjkAxVs76+PobQprYe/FvGN9Lg4CCVbKIesORTVQBZkfjTQquNgqAQurq65HVZ0K4BbvnFiho3WgBMN7sw44qiYq7zi4m7xIQMuB0Mf7qVdq2KsgKV/L29vZsXFxdpLhLGuPOjo6NceI2s2J3C4eFhSk7g8G0Dbgow5TC+lTTT0dGxAxXZYXePO4+FP3En0HZisdgUICs+32ZYuGeAcGDjSXNUU8i3Q9nv5/r6WgE8PT392pLPTu4A3r9mvYzfoOBMSTVlFkWEEsu1oiGsaUt+XP+CCiRzdXUVxp/lVkMpf4xCIB/gP1C9FfijCXOGbdtZlkphhSMb4Kyenp6poPeH+uzEfAZwBnYyDoVrSyudsVxDTH8MI5DQ38W4h8fGmn0B+S15e3vrJHTC6ooHCo15EaklB79mmIdS/qHFQa0F/HEKLc8YRftR1ZvBe5sJCZkp8v/fb/864G8BBgA/Iv42CVzLfwAAAABJRU5ErkJggg==') !important;
-}
+
 /*******************************************************Toolbar general*********************************************/
 /******************************************Chargement de la font orange**************************************************/
 #accessibilitytoolbarGraphic {
@@ -156,27 +135,27 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	color: #000;
 	font-size: inherit;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] {
+#accessibilitytoolbarGraphic input[type="radio"] {
 	left: -9999px;
 	position: absolute;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:before,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:before,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:after,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:after {
+#accessibilitytoolbarGraphic input[type="radio"] + label,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label,
+#accessibilitytoolbarGraphic input[type="radio"] + label:before,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:before,
+#accessibilitytoolbarGraphic input[type="radio"] + label:after,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:after {
 	padding: 0;
 	margin: 0;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:before,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:after {
+#accessibilitytoolbarGraphic input[type="radio"] + label,
+#accessibilitytoolbarGraphic input[type="radio"] + label:before,
+#accessibilitytoolbarGraphic input[type="radio"] + label:after {
 	box-sizing: border-box;
 	background-image: none;
 	height: auto;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label {
+#accessibilitytoolbarGraphic input[type="radio"] + label {
 	border: 1px dotted transparent;
 	cursor: pointer;
 	display: inline-block;
@@ -187,7 +166,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	position: relative;
 	color: #000;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:before {
+#accessibilitytoolbarGraphic input[type="radio"] + label:before {
 	background-color: #fff;
 	border: 3px solid #ccc;
 	border-radius: 50%;
@@ -199,7 +178,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	font-size: 1em;
 	top: 0;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:after {
+#accessibilitytoolbarGraphic input[type="radio"] + label:after {
 	color: #fff;
 	content: "";
 	font-size: 1em;
@@ -212,43 +191,43 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	background: transparent;
 	top: 0;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:not(:checked) + label:after {
+#accessibilitytoolbarGraphic input[type="radio"]:not(:checked) + label:after {
 	opacity: 0;
 	transform: scale(0);
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:checked + label:after {
+#accessibilitytoolbarGraphic input[type="radio"]:checked + label:after {
 	opacity: 1;
 	transform: scale(1);
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:checked + label:before {
+#accessibilitytoolbarGraphic input[type="radio"]:checked + label:before {
 	border-color: #f16e00;
 	border-width: 6px;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:disabled + label:before {
+#accessibilitytoolbarGraphic input[type="radio"]:disabled + label:before {
 	border-color: #ddd;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:disabled:checked + label:after {
+#accessibilitytoolbarGraphic input[type="radio"]:disabled:checked + label:after {
 	border-color: #ddd;
 	color: #fff;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:disabled + label {
+#accessibilitytoolbarGraphic input[type="radio"]:disabled + label {
 	color: #ddd;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"]:focus + label {
+#accessibilitytoolbarGraphic input[type="radio"]:focus + label {
 	border: 1px dotted #000;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:before,
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:after {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:before,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:after {
 	box-sizing: border-box;
 	background-image: none;
 	height: auto;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] {
+#accessibilitytoolbarGraphic input[type="checkbox"] {
 	left: -9999px;
 	position: absolute;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label {
 	border: 1px dotted transparent;
 	cursor: pointer;
 	display: inline-block;
@@ -259,7 +238,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	position: relative;
 	color: #000;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:before {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:before {
 	background-color: #fff;
 	border: 2px solid #ccc;
 	content: "";
@@ -270,7 +249,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	font-size: 1em;
 	top: 0;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:after {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:after {
 	color: #fff;
 	content: "\2714";
 	font-family: "orangeconfortplus";
@@ -283,31 +262,31 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	background: transparent;
 	top: 0;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:not(:checked) + label:after {
+#accessibilitytoolbarGraphic input[type="checkbox"]:not(:checked) + label:after {
 	opacity: 0;
 	transform: scale(0);
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:checked + label:after {
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label:after {
 	background-color: #f16e00;
 	opacity: 1;
 	transform: scale(1);
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:checked + label:before {
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label:before {
 	background-color: #f16e00;
 	border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:disabled + label:before {
+#accessibilitytoolbarGraphic input[type="checkbox"]:disabled + label:before {
 	border-color: #ddd;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:disabled:checked + label:after {
+#accessibilitytoolbarGraphic input[type="checkbox"]:disabled:checked + label:after {
 	background-color: #ddd;
 	border-color: #ddd;
 	color: #fff;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:disabled + label {
+#accessibilitytoolbarGraphic input[type="checkbox"]:disabled + label {
 	color: #ddd;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"]:focus + label {
+#accessibilitytoolbarGraphic input[type="checkbox"]:focus + label {
 	border: 1px dotted #000;
 }
 #accessibilitytoolbarGraphic a {
@@ -360,12 +339,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 .cdu_left {
 	float: left;
 }
-#accessibilitytoolbarGraphic.cdu_modern_browser .uci_couleur_left {
+#accessibilitytoolbarGraphic .uci_couleur_left {
 	float: left;
-}
-#accessibilitytoolbarGraphic.cdu_old_browser .uci_couleur_left {
-	float: left;
-	margin-left: .3em;
 }
 .uci_label {
 	margin-bottom: .25em;
@@ -594,12 +569,21 @@ a.cdu_hide:focus {
 }
 .uci_menu_close, .uci_menu_help {
 	margin: 0;
-	padding: 1em 1.25em;
 	border-right: 1px solid #CCC;
 	line-height: 1.125;
 }
+.uci_menu_help {
+	padding: .5625em .625em;
+	position: relative;
+}
+.uci_menu_help .uci_bton_menu {
+	padding: .4375em .625em;
+}
 .uci_menu_close {
-	padding: 0.75em 1.25em;
+	padding: .6em .625em;
+}
+.uci_menu_close .uci_bton_menu {
+	padding: .25em .625em;
 }
 #uci_right_toolbar li:last-child {
 	border: none;
@@ -653,7 +637,7 @@ a.cdu_hide:focus {
 	padding: .625em 1.25em;
 	float: left;
 }
-.uci-onoffswitch-label:focus, .uci-onoffswitch-label-on:focus {
+.uci_focus_outline .uci-onoffswitch-label:focus,.uci_focus_outline .uci-onoffswitch-label-on:focus {
 	outline: dotted 2px;
 }
 #accessibilitytoolbarGraphic .uci-onoffswitch-label,
@@ -741,14 +725,11 @@ a.cdu_hide:focus {
 	min-width: 14em;
 }
 
-.uci_menu_help {
-	position: relative;
-}
 .uci_menu_help.active #uci_activer_menu {
 	color: #f16e00;
 }
 #uci_cdu_menu li {
-	padding: 0 0 1em;
+	padding: 0 0 .3125em;
 }
 #uci_language {
 	border: 0px none;
@@ -772,6 +753,7 @@ a.cdu_hide:focus {
 
 #accessibilitytoolbarGraphic a.uci_menu_ouverture_aide {
 	text-decoration: none;
+	display: block;
 }
 #accessibilitytoolbarGraphic a.uci_menu_ouverture_aide span {
 	text-decoration: none;
@@ -794,12 +776,14 @@ a.cdu_hide:focus {
 .uci_bton_menu, .uci_bton_menu:active {
 	background-color: transparent;
 	border: none;
-	padding: 0;
 }
 .uci_bton_menu:focus, .uci_bton_menu:hover {
-	outline: 2px dotted;
 	background-color: #000;
 	color: #FFF !important;
+}
+.uci_focus_outline .uci_focus_outline .uci_bton_menu:focus, 
+.uci_focus_outline .uci_focus_outline .uci_bton_menu:hover {
+	outline: 2px dotted;
 }
 .cdu-icon-reload2 {
 	font-size: 1em;
@@ -810,7 +794,7 @@ a.cdu_hide:focus {
 	padding-right: 10px;
 }
 #accessibilitytoolbarGraphic .cdu-icon-croix {
-	font-size: 1.5em;
+	font-size: 1.25em;
 	font-weight: bold;
 }
 .uci_link_help_bulle .cdu-icon-help {
@@ -822,9 +806,7 @@ a.cdu_hide:focus {
 	display: block;
 	float: left;
 }
-#accessibilitytoolbarGraphic.cdu_old_browser .uci_inline {
-	display: inline-table;
-}
+
 .uci_liste_bton {
 	list-style: none outside none;
 	margin: 0;
@@ -1338,26 +1320,24 @@ ul#uci_reponses_bigger_quick_set {
 	font-size: 1em;
 	border-radius: inherit;
 }
-#accessibilitytoolbarGraphic .ucibtn:focus,
-#accessibilitytoolbarGraphic .ucibtn.focus,
-#accessibilitytoolbarGraphic .ucibtn:active:focus,
-#accessibilitytoolbarGraphic .ucibtn:active.focus,
-#accessibilitytoolbarGraphic .ucibtn.active:focus,
-#accessibilitytoolbarGraphic .ucibtn.active.focus {
-	outline: 2px dotted;
-	outline-offset: -2px;
-}
+
 #accessibilitytoolbarGraphic .ucibtn:focus,
 #accessibilitytoolbarGraphic .ucibtn:hover {
-	text-decoration: none;
-}
-#accessibilitytoolbarGraphic .ucibtn.focus {
 	text-decoration: none;
 }
 #accessibilitytoolbarGraphic .ucibtn:active,
 #accessibilitytoolbarGraphic .ucibtn.active {
 	background-image: none;
 	outline: 0;
+}
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:focus,
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.focus,
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:active:focus,
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:active.focus,
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.active:focus,
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.active.focus {
+	outline: 2px dotted;
+	outline-offset: -2px;
 }
 #accessibilitytoolbarGraphic .ucibtn.disabled,
 #accessibilitytoolbarGraphic .ucibtn:disabled {
@@ -1833,10 +1813,10 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	font-size: 1.5rem;
 }
 
-#uci_main_popin_help .uci-popin-header .uci-popin-title:focus,
-#uci_discover .uci-discover-header .uci-discover-title:focus,
-#uci_reading .uci-reading-header .uci-reading-title:focus{
-	border: 4px solid #000;
+.uci_focus_outline #uci_main_popin_help .uci-popin-header .uci-popin-title:focus,
+.uci_focus_outline #uci_discover .uci-discover-header .uci-discover-title:focus,
+.uci_focus_outline #uci_reading .uci-reading-header .uci-reading-title:focus{
+	outline: dotted 2px;
 } 
 
 #uci_main_popin_help .uci-popin-header .uci-popin-btn,

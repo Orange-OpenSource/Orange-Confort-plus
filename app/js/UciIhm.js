@@ -120,21 +120,13 @@ UciIhm = {
                 ]
               ],
               ["div", {"class":"cdu_c uci_notmask", id:"uci_middle_toolbar", style:(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none":"")},
-                ["a", {"class":"uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href:"#", id:"uci_moreconfort"},
+                ["a", {"class":"uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href:"#", id:"uci_moreconfort", "role":"bouton"},
                   ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-plus2", id:"uci_icon_moreconfort"}],
                   ["span", { id:"uci_moreconfort_content"}, accessibilitytoolbar.get('uci_txt_more_settings')]
                 ]
               ],
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
-                  /*["li", {"class":"uci_inline uci_menu_profile"},
-                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, "profile"],
-                    ["div",
-                      ["div", {id:"uci_cdu_profile", style:"display:none;"},
-                        UciProfile.InitUciProfile()
-                      ]
-                    ]
-                  ],*/
                   ["li", {"class":"uci_inline uci_menu_help"},
                     ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",

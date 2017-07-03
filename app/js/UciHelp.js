@@ -44,25 +44,28 @@ UciHelp = {
         ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
           ["ul", 
             ["li",
-              ["a", { id: "uci_popin_discover", href:"#", "tabindex":"0", "class": "uci-popin-discover", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_discover", href:"#", "tabindex":"0", "class": "uci-popin-discover", title:accessibilitytoolbar.get('discover_service')},
+
                 ["span", { id: "uci_popin_discover_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_discover_text", "class": "uci-popin-discover-text" }, accessibilitytoolbar.get('discover_service')]
               ]
             ],
             ["li",
-              ["a", { id: "uci_popin_read", href:"#", "tabindex":"0", "class": "uci-popin-read", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_read", href:"#", "tabindex":"0", "class": "uci-popin-read", title:accessibilitytoolbar.get('improve_readability')},
+
                 ["span", { id: "uci_popin_read_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_read_text", "class": "uci-popin-read-text" },  accessibilitytoolbar.get('improve_readability')]
               ]
             ],
             ["li",
-              ["a", { id: "uci_popin_layout", href:"#", "tabindex":"0", "class": "uci-popin-layout", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_layout", href:"#", "role":"button", "class": "uci-popin-layout"},
                 ["span", { id: "uci_popin_layout_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_layout_text", "class": "uci-popin-layout-text" }, accessibilitytoolbar.get('edit_layout')]
               ]
             ],
             ["li",
-              ["a", { id: "uci_popin_motor", href:"#", "tabindex":"0", "class": "uci-popin-motor", title:accessibilitytoolbar.get('edit_layout')},
+              ["a", { id: "uci_popin_motor", href:"#", "tabindex":"0", "class": "uci-popin-motor", title:accessibilitytoolbar.get('use_motor_assistance')},
+
                 ["span", { id: "uci_popin_motor_icon", "class": "uci-presentation" }],
                 ["span", { id: "uci_popin_motor_text", "class": "uci-popin-motor-text" }, accessibilitytoolbar.get('use_motor_assistance')]
               ]

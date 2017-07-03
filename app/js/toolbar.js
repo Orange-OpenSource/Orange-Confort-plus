@@ -2165,12 +2165,6 @@ function hasConfortdelecture() {
  * @class Entry point for the accessibility tool-bar
  */
 accessibilitytoolbar = {
-    
-	/**
-     * {bool}
-     */
-    isModern: true,
-
 	/**
      * {object}
      */
@@ -2724,7 +2718,7 @@ accessibilitytoolbar = {
     createObjectBehaviour: function (){
         var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
         var selectButtons = document.getElementById("cdu_content").getElementsByTagName("select");
-    
+                
         // User settings behaviour
         var toolbar = document.getElementById("cdu_content");
         for (var i = 0; i < actionButtons.length; i++) {
@@ -2798,22 +2792,22 @@ accessibilitytoolbar = {
         
         
         /********************************************** gestion de l'aide ***********************************************/
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_ouverture_guide'),function(){UciIhm.close_menu();UciHelp.show_popin()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_ouverture_guide'),function(e){accessibilitytoolbar.stopEvt(e);UciIhm.close_menu();UciHelp.show_popin()});
         
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_exit'), UciHelp.hide_popin);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_menu'), UciHelp.show_menu);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_menu'), UciHelp.show_menu);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_button'), UciHelp.hide_popin);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_help_close'), UciHelp.hide_popin);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_close'), UciHelp.hide_popin);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_exit'), UciHelp.hide_popin);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_exit'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.hide_popin()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_menu'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.show_menu()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_menu'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.show_menu()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_button'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.hide_popin()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_help_close'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.hide_popin()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_close'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.hide_popin()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_exit'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.hide_popin()});
                 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_discover_close'), UciHelp.hide_popin);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_discover_close'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.hide_popin()});
 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_discover'), UciHelp.show_discover);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_read'), function(){UciHelp.show_reading()});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_layout'), function(){UciHelp.show_reading("agencement")});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_motor'), function(){UciHelp.show_reading("comportement")});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_discover'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.show_discover()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_read'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.show_reading()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_layout'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.show_reading("agencement")});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_popin_motor'), function(e){accessibilitytoolbar.stopEvt(e);UciHelp.show_reading("comportement")});
 
         accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
         accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
@@ -2896,6 +2890,15 @@ accessibilitytoolbar = {
             }
             i++;
         }
+
+        // Add a class to the toolbar for focus display
+        accessibilitytoolbar.uciAttachEvent('mousedown','onmousedown',document,function() {
+            document.getElementById("accessibilitytoolbarGraphic").className='';
+        });
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document,function() {
+            document.getElementById("accessibilitytoolbarGraphic").className='uci_focus_outline';
+        });
+
         i = 0;        
         theFrames=document.getElementsByTagName('iframe');
         if(theFrames.length>0)
@@ -3441,11 +3444,7 @@ accessibilitytoolbar = {
 
                 //gestion de l'espacement des caractères
                 if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
-                    if (accessibilitytoolbar.isModern) {
-                        s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
-                    } else {
-                        s += "*{letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
-                    }
+                    s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
                 }
 
                 //gestion de la casse : a11yModifCase
@@ -3461,11 +3460,7 @@ accessibilitytoolbar = {
                             s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
                         }
                     }
-                    if (accessibilitytoolbar.isModern) {
-                        s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
-                    } else {
-                        s += "*{font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
-                    }
+                    s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
                 }
 
                 //gestion alignement des texte à gauche
@@ -4046,21 +4041,7 @@ accessibilitytoolbar = {
         var d = document.createElement('div');
         d.id = "accessibilitytoolbarGraphic";
         d.lang = this.strings.getLocale();
-        d.className = 'cdu_modern_browser';
-        accessibilitytoolbar.isModern = true;
-        var nav = this.getNavigateur();
-        var list = ['MSIE 8.', 'MSIE 7.', 'MSIE 6.'];
-        try {
-            for(var i = 0, len = list.length; i < len; ++i) {
-                var pos = nav.indexOf(list[i]);
-                if(pos !== -1) {
-                    throw "OldBrowser";
-                }
-            }
-        } catch(e) {
-        	accessibilitytoolbar.isModern = false;
-          d.className = 'cdu_old_browser';
-        }
+        d.className = 'uci_focus_outline';
         var htmlContent = document.createElement("div");
         htmlContent.setAttribute("id","cdu_zone"); 
         if(accessibilitytoolbar.idLinkModeContainer) {
