@@ -70,6 +70,7 @@ function startCDU(tab) {
                           data.url("confort+/language/en.js"),
                           data.url("confort+/language/es.js"),
                           data.url("confort+/language/fr.js"),
+                          data.url("confort+/language/pl.js"),
                           data.url("confort+/js/UciAideMotrice.js"),
                           data.url("confort+/js/UciCouleur.js"),
                           data.url("confort+/js/UciApparence.js"),
@@ -86,6 +87,7 @@ function startCDU(tab) {
 			   helpfr: data.url("javascript:window.postMessage('orangeconfort+helpfr', document.location.href);"),
 			   helpen: data.url("javascript:window.postMessage('orangeconfort+helpen', document.location.href);"),
 			   helpes: data.url("javascript:window.postMessage('orangeconfort+helpes', document.location.href);"),
+			   helppl: data.url("javascript:window.postMessage('orangeconfort+helppl', document.location.href);"),
                helpPathTarget: ''
 			}
 		});

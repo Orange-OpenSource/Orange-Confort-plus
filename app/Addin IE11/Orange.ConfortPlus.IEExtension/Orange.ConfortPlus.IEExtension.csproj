@@ -131,6 +131,7 @@
     <EmbeddedResource Include="Resources\help\help_en.html" />
     <EmbeddedResource Include="Resources\help\help_es.html" />
     <EmbeddedResource Include="Resources\help\help_fr.html" />
+    <EmbeddedResource Include="Resources\help\help_pl.html" />
     <EmbeddedResource Include="Resources\images\arrows_60.png" />
     <EmbeddedResource Include="Resources\images\assistance_32x32_fe.png" />
     <EmbeddedResource Include="Resources\images\btn_close_cross.png" />

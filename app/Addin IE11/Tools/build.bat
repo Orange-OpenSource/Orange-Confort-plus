@@ -34,6 +34,9 @@ powershell -Command "(gc help_fr.html -Encoding "UTF8") -replace 'build:js ../js
 
 powershell -Command "(gc help_es.html -Encoding "UTF8") -replace '../css/help.css', 'cdu://Resources/css/help.css' | Out-File -Encoding "UTF8" help_es.html"
 powershell -Command "(gc help_es.html -Encoding "UTF8") -replace 'build:js ../js/toolbar-min.js -->', 'build:js ../js/toolbar-min.js' | Out-File -Encoding "UTF8" help_es.html"
+
+powershell -Command "(gc help_pl.html -Encoding "UTF8") -replace '../css/help.css', 'cdu://Resources/css/help.css' | Out-File -Encoding "UTF8" help_pl.html"
+powershell -Command "(gc help_pl.html -Encoding "UTF8") -replace 'build:js ../js/toolbar-min.js -->', 'build:js ../js/toolbar-min.js' | Out-File -Encoding "UTF8" help_pl.html"
 # cd %~dp0\..\Orange.ConfortPlus.IEExtension\Resources\css\
 # powershell -Command "(gc classic-toolbar.css -Encoding "UTF8") -replace '../fonts/orangeconfortplus.eot', 'cdu://Resources/fonts/orangeconfortplus.eot' | Out-File -Encoding "UTF8" classic-toolbar.css"
 cd %~dp0
