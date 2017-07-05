@@ -68,7 +68,6 @@ UciProfile = {
                           ];
       tableauProfile.push(returnSavedProfile);
     }
-    console.log(tableauProfile);
     return tableauProfile;
   }
 }

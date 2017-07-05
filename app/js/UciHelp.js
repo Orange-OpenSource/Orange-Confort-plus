@@ -340,15 +340,11 @@ UciHelp = {
       winObj = _event_;
 
     var intKeyCode = e.keyCode;
-    console.log(intKeyCode);
-    console.log(id);
-    console.log(e.shiftKey);
     if (intKeyCode ===27 && (id ==="uci_main_popin_help" || id ==="uci_discover" || id ==="uci_reading")){
       UciHelp.hide_popin();
     }
     if (!e.shiftKey && intKeyCode ===9 && (id ==="uci_popin_button" || id === "uci_popin_exit" || id === "uci_reading_exit" )) {
       accessibilitytoolbar.stopEvt(e);
-      console.log ("focus");
       switch (id){
         case "uci_popin_button":
           document.getElementById("uci_help_title").focus();
@@ -363,7 +359,6 @@ UciHelp = {
     }
     if (e.shiftKey && intKeyCode === 9 && (id === "uci_help_title" || id === "uci_discover_title" || id === "uci_reading_title") ) { 
       accessibilitytoolbar.stopEvt(e);
-      console.log("toto");
       switch (id){
         case "uci_help_title":
           document.getElementById("uci_popin_button").focus();
