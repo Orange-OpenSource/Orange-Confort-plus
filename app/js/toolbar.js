@@ -2729,7 +2729,9 @@ accessibilitytoolbar = {
         var toolbar = document.getElementById("cdu_content");
         for (var i = 0; i < actionButtons.length; i++) {
             if(actionButtons[i].type && actionButtons[i].type!=='submit' && actionButtons[i].type!=='reset'
-            && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' )) && !actionButtons[i].disabled)
+            && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' || actionButtons[i].id==='uci_profile_reading' || actionButtons[i].id==='uci_profile_none'
+                || actionButtons[i].id==='uci_profile_layout')) 
+            && !actionButtons[i].disabled)
                 accessibilitytoolbar.uciAttachEvent('click','onclick',actionButtons[i],accessibilitytoolbar.setPref);
         }
         for (i = 0; i < selectButtons.length; i++) {
@@ -2802,7 +2804,15 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
         
+        /********** Profile *********************/
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_reading'),UciProfile.improve_visibility);
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_none'),UciProfile.reset);
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_layout'),UciProfile.improve_layout);
+        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),UciProfile.showProfile);
+        //accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),UciProfile.SaveProfile);
+        /***************************************************/
+
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_typo_help_fontfamily');});
@@ -3253,398 +3263,441 @@ accessibilitytoolbar = {
      * 1. linearize if need be by destroying all CSS informations
      * 2. add a new STYLE node with the user's preferences
      */
-    setCSS: function (init) {   
-        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+    setCSS: function (init, demo) {
+        var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        if (demo != null) {
+            accessibilitytoolbar.userPref = demo;
+        }
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
-            if(document.getElementById('cdu_close'))
-            {
+            if (document.getElementById('cdu_close')) {
                 document.getElementById('cdu_close').style.display == 'none';
             }
             accessibilitytoolbar.show();
-        }  
+        }
+         if (demo != null) {
+                indexIFrame = 0;
+                TheIFrames = document.getElementsByTagName("iframe");
+                if (TheIFrames.length > 0) {
+                    while (theIFrame = TheIFrames[indexIFrame]) {
+                        try {
+                            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                            if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                                theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+                            }
+                        } catch (e) { }
+                        indexIFrame++;
+                    }
+                }
+         }
         // Remove previous user style
         if (document.getElementById("a11yUserPrefStyle")) {
             document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
+           
+            
             /*
-             * remove css to frames if possible
-             * Works only if frame src is onto the same domain
-             *
-             */
+            * remove css to frames if possible
+            * Works only if frame src is onto the same domain
+            *
+            */
             indexFrame = 0;
-            theFrames=window.frames;
+            theFrames = window.frames;
             //theFrames=document.getElementsByTagName("iframe");
-            if(theFrames.length>0)
-            {
-                while(theFrame = theFrames[indexFrame]){
-                    try{
+            if (theFrames.length > 0) {
+                while (theFrame = theFrames[indexFrame]) {
+                    try {
                         //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
                         theFrameDocument = theFrame.document || theFrame.contentDocument;
-                        if(theFrameDocument.getElementsByTagName('head')[0]){
+                        if (theFrameDocument.getElementsByTagName('head')[0]) {
                             theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
                         }
-                    } catch(e){}
+                    } catch (e) { }
                     indexFrame++;
                 }
             }
         }
-        
+
         accessibilitytoolbar.removeOrStartRemote();
-        accessibilitytoolbar.removeOrStartLoopingMode();   
+        accessibilitytoolbar.removeOrStartLoopingMode();
         // Remove linearization if it had been done : 
         // 1. linearize ? -- which is the same as: get rid of all CSS info first
         // if the user remove the option, we need to put back the stylesheets and styles attributes
-        if (accessibilitytoolbar.userPref.get("a11yLinearize") === "false" 
-          || accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")=="off") {
-            if(accessibilitytoolbar.savesStylesheets.length>0)
-            {
-                for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
-                    document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i],document.getElementById('a11yCSS'));
-                }
-                // then clean the array
-                accessibilitytoolbar.savesStylesheets = [];
-            }
-            if(accessibilitytoolbar.savStyleElmtAtt.length>0)
-            {
-                i = "";
-                for (i in accessibilitytoolbar.savStyleElmtAtt) {
-                    accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style",accessibilitytoolbar.savStyleAttElmt[i]);
-                }
-                // then clean the array
-                accessibilitytoolbar.savStyleElmtAtt = [];
-                accessibilitytoolbar.savStyleAttElmt = [];
-            }   
-        }
-        if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled")!="off"){
-            // 1. linearize ? -- which is the same as: get rid of all CSS info first
-            if (accessibilitytoolbar.userPref.get("a11yLinearize") !== "false") {
-                // delete all the CSS references
-                links = document.getElementsByTagName("link");
-                for (i = links.length - 1; i >= 0; i--) {
-                    if (links[i].rel.match(/stylesheet/i) && (!links[i].id || !links[i].id.match(/a11yCSS/))) {
-                        accessibilitytoolbar.savesStylesheets.push(links[i]);
-                        links[i].parentNode.removeChild(links[i]);
+        if (demo == null) {
+            if (accessibilitytoolbar.userPref.get("a11yLinearize") === "false"
+                || accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") == "off") {
+                if (accessibilitytoolbar.savesStylesheets.length > 0) {
+                    for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
+                        document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i], document.getElementById('a11yCSS'));
                     }
+                    // then clean the array
+                    accessibilitytoolbar.savesStylesheets = [];
                 }
-
-                // remove the style attribute
-                allElts = accessibilitytoolbar.body.getElementsByTagName("*");
-                for (i = 0; i < allElts.length; i++) {
-                    if ((allElts[i].className  instanceof String && !allElts[i].className.match(/uci_/) && !allElts[i].className.match(/cdu_/)) ||  (allElts[i].id && !allElts[i].id.match(/uci_/) && !allElts[i].id.match(/cdu_/))) {
-                        if(allElts[i].getAttribute("style"))
-                        {
-                            accessibilitytoolbar.savStyleElmtAtt[i]=allElts[i];
-                            accessibilitytoolbar.savStyleAttElmt[i]=allElts[i].getAttribute("style");
-                            allElts[i].removeAttribute("style");
+                if (accessibilitytoolbar.savStyleElmtAtt.length > 0) {
+                    i = "";
+                    for (i in accessibilitytoolbar.savStyleElmtAtt) {
+                        accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style", accessibilitytoolbar.savStyleAttElmt[i]);
+                    }
+                    // then clean the array
+                    accessibilitytoolbar.savStyleElmtAtt = [];
+                    accessibilitytoolbar.savStyleAttElmt = [];
+                }
+            }
+            if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") != "off") {
+                // 1. linearize ? -- which is the same as: get rid of all CSS info first
+                if (accessibilitytoolbar.userPref.get("a11yLinearize") !== "false") {
+                    // delete all the CSS references
+                    links = document.getElementsByTagName("link");
+                    for (i = links.length - 1; i >= 0; i--) {
+                        if (links[i].rel.match(/stylesheet/i) && (!links[i].id || !links[i].id.match(/a11yCSS/))) {
+                            accessibilitytoolbar.savesStylesheets.push(links[i]);
+                            links[i].parentNode.removeChild(links[i]);
                         }
                     }
-                }
-            }
-            
-            // generate the CSS instructions
-            // 1. do we want bigger fonts?
-            // make it proportional to the initial font          
-            fontSizeDef = '16px';
-            if(window.getComputedStyle) {
-              fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
-            }
-            
-            if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef)/16) + "% !important; }\n";
-            }
 
-            //gestion de l'affichage du mode espacement des mots
-            if (accessibilitytoolbar.userPref.get("a11ySpacement") !== "keepit") {
-                s += "*{ word-spacing:" + accessibilitytoolbar.userPref.get("a11ySpacement") + "em !important; }\n";
-            }
-
-            //gestion de l'affichage du mode espacement des lignes
-            if (accessibilitytoolbar.userPref.get("a11yLineSpacement") !== "keepit") {
-                s += "*{ line-height:" + accessibilitytoolbar.userPref.get("a11yLineSpacement") + " !important; }\n";
-            }
-
-            //gestion de l'espacement des caractères
-            if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
-              if(accessibilitytoolbar.isModern) {
-                s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
-              } else{
-                s += "*{letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
-              }
-            }
-
-            //gestion de la casse : a11yModifCase
-            if (accessibilitytoolbar.userPref.get("a11yModifCasse") !== "keepit") {
-                s += "*{ text-transform:" + accessibilitytoolbar.userPref.get("a11yModifCasse") + " !important; }\n";
-            }
-
-            //gestion de la police d'écriture
-            if (accessibilitytoolbar.userPref.get("a11yDyslexyFont")!=='keepit') {
-                //load the font face
-                if(accessibilitytoolbar.userPref.get("a11yDyslexyFont")==='opendyslexic')
-                {
-                  if(fontsPath['opendyslexicregular']) {
-                    s += "@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicregular'] +";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicitalic'] +";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: "+ fontsPath['opendyslexicbold'] +";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
-                  }
-                }
-                if(accessibilitytoolbar.isModern) {
-                  s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
-                } else{
-                  s += "*{font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n"; 
-                }
-            }
-
-            //gestion alignement des texte à gauche
-            if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
-            }
-
-            //numerotation en mode liste
-            if (accessibilitytoolbar.userPref.get("a11yNumerotationList") !== "false") {
-
-                s += "ul, ol  {list-style-position:initial !important; list-style-image: none !important; list-style-type: " + accessibilitytoolbar.userPref.get("a11yNumerotationList") + "!important; }\n";
-            }
-
-            //gestion des liens de navigations
-            if (accessibilitytoolbar.userPref.get("a11yNavLienEnabled") !== "false"){
-                //gestion des liens non visités
-                if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border") {
-                    s += "a:link  {border: 1px solid !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                }  else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold") {
-                    s += "a:link  {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                } else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline") {
-                    s += "a:link  {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                } else {
-                    s += "a:link  {color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                }
-
-                //gestion des liens visités
-                if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border") {
-                    s += "a:visited {border: 1px solid !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                } else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold") {
-                    s += "a:visited {font-weight: bold !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                }else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline") {
-                    s += "a:visited {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                }else {
-                    s += "a:visited {color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                }
-
-                //gestion du lien actif
-                if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border") {
-                    s += "a:active {border: 2px solid #F16E00!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                } else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline") {
-                    s += "a:active {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                }
-                else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold") {
-                    s += "a:active {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                }else {
-                    s += "a:active {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:focus {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    s += "a:hover {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-
-                }
-            }
-
-            //suppression des effets de transparences
-            if (accessibilitytoolbar.userPref.get("a11ySupEffetTransp") !== "false") {                            
-                s += "*  { opacity: 1 !important; -ms-filter: 'none'; filter: none !important }";                
-            }
-
-            //supression des images de fond
-            if (accessibilitytoolbar.userPref.get("a11ySupImageFont") !== "false") {
-                s += "*  { background-image: none !important; }\n";
-            }
-
-            
-            var listeimg,i,backGroundColor,fontColor,uminositeFond,LuminositePolice,newStyle;
-            //suppression des images de premier plan
-            
-            if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") !== "false" && !document.getElementById("spanImage1")){
-                listeimg = document.images;
-                for (i = 0; i < listeimg.length; i++) {
-                    if(!document.getElementById("spanImage"+i)){
-                        if(!(/^uci_(\S+)$/.exec(listeimg[i].parentNode.id))){
-                            imageAlt = listeimg[i].alt;
-                            spanImage = document.createElement("span");
-                            spanImage.setAttribute("id", "spanImage" + i);
-                            var newlink = document.createElement('a');
-                            if (imageAlt === ""){
-                                newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + accessibilitytoolbar.get('uci_link_display_picture_no_alt');
-                            }else {
-                                newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + imageAlt;
+                    // remove the style attribute
+                    allElts = accessibilitytoolbar.body.getElementsByTagName("*");
+                    for (i = 0; i < allElts.length; i++) {
+                        if ((allElts[i].className instanceof String && !allElts[i].className.match(/uci_/) && !allElts[i].className.match(/cdu_/)) || (allElts[i].id && !allElts[i].id.match(/uci_/) && !allElts[i].id.match(/cdu_/))) {
+                            if (allElts[i].getAttribute("style")) {
+                                accessibilitytoolbar.savStyleElmtAtt[i] = allElts[i];
+                                accessibilitytoolbar.savStyleAttElmt[i] = allElts[i].getAttribute("style");
+                                allElts[i].removeAttribute("style");
                             }
-                            newlink.href = "#uci_img_" + i;
-                            accessibilitytoolbar.uciAttachEvent('click','onclick',newlink,accessibilitytoolbar.activationPicture);
-                            spanImage.appendChild(newlink);
-                            listeimg[i].parentNode.insertBefore(spanImage, listeimg[i]);
-                            listeimg[i].className=listeimg[i].className+" uci_disable_image";        
                         }
                     }
                 }
-            }else if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") == "false"){                
-                accessibilitytoolbar.cleanImgDisabled();
-            } 
-            
-            // reading mask
-            if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") !== "false") {
-                UciMask.settings.thickness=accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                if(!accessibilitytoolbar.toolbarMaskInit){
-                    UciMask.init();
-                    accessibilitytoolbar.toolbarMaskInit = true;
+
+                // generate the CSS instructions
+                // 1. do we want bigger fonts?
+                // make it proportional to the initial font          
+                fontSizeDef = '16px';
+                if (window.getComputedStyle) {
+                    fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0], null).getPropertyValue("font-size") || '16px';
                 }
-                UciMask.start();
-                
-            	s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
-            	s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
-            }
-            // if mask was launch before deactivation kill!
-            else if(UciMask.settings.launched)
-            {
-            	UciMask.maskEventRemove();
-            }
-                
+                if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+                    s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
+                }
 
-            //gestion des couleurs
-            // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
-            if(!init) {
-                document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/,"");
-                document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/,"");            
-            }
-            if((accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" && accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") !=="keepit") || (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" && accessibilitytoolbar.userPref.get("a11yFontColor") !== accessibilitytoolbar.userPref.get("a11yBackgroundColor")))
-            {
-                if (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined") {
-                    if(!init) {
-                        document.getElementById('uci_message_constraste').style.display= 'none';
-                        element = document.getElementById('uci_reponses_bigger_quick_set');
+                //gestion de l'affichage du mode espacement des mots
+                if (accessibilitytoolbar.userPref.get("a11ySpacement") !== "keepit") {
+                    s += "*{ word-spacing:" + accessibilitytoolbar.userPref.get("a11ySpacement") + "em !important; }\n";
+                }
+
+                //gestion de l'affichage du mode espacement des lignes
+                if (accessibilitytoolbar.userPref.get("a11yLineSpacement") !== "keepit") {
+                    s += "*{ line-height:" + accessibilitytoolbar.userPref.get("a11yLineSpacement") + " !important; }\n";
+                }
+
+                //gestion de l'espacement des caractères
+                if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
+                    if (accessibilitytoolbar.isModern) {
+                        s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
+                    } else {
+                        s += "*{letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
                     }
-                    backGroundColor = "#FFF";
-                    fontColor = "#000";  
-                    
-                    var predifinedCombinaisons = {
-                    'blackonwhite':{fontColor : '#000',backGroundColor : '#FFF'},
-                    'whiteonblack':{fontColor : '#fff',backGroundColor : '#000'},
-                    'blueonyellow':{fontColor : '#00F',backGroundColor : '#FF0'},
-                    'yellowonblue':{fontColor : '#FF0',backGroundColor : '#00F'},
-                    'greenonblack':{fontColor : '#090',backGroundColor : '#000'},
-                    'blackongreen':{fontColor : '#000',backGroundColor : '#090'},
-                    'blueonwhite':{fontColor : '#00F',backGroundColor : '#FFF'},
-                    'whiteonblue':{fontColor : '#FFF',backGroundColor : '#00F'}};
-                    if(predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")])
-                    {
-                      fontColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor;
-                      backGroundColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor ;
-                      
-                    }         
-                    /*defect 67 */ 
-                    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") == "whiteonblack")
-                    {       
-                        if(!init) {                                
-                          document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
-                          document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
+                }
+
+                //gestion de la casse : a11yModifCase
+                if (accessibilitytoolbar.userPref.get("a11yModifCasse") !== "keepit") {
+                    s += "*{ text-transform:" + accessibilitytoolbar.userPref.get("a11yModifCasse") + " !important; }\n";
+                }
+
+                //gestion de la police d'écriture
+                if (accessibilitytoolbar.userPref.get("a11yDyslexyFont") !== 'keepit') {
+                    //load the font face
+                    if (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === 'opendyslexic') {
+                        if (fontsPath['opendyslexicregular']) {
+                            s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
                         }
-                        fontColor = "#FFF";
-                        backGroundColor = "#000";
                     }
+                    if (accessibilitytoolbar.isModern) {
+                        s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                    } else {
+                        s += "*{font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
+                    }
+                }
+
+                //gestion alignement des texte à gauche
+                if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
+                    s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
+                }
+
+                //numerotation en mode liste
+                if (accessibilitytoolbar.userPref.get("a11yNumerotationList") !== "false") {
+
+                    s += "ul, ol  {list-style-position:initial !important; list-style-image: none !important; list-style-type: " + accessibilitytoolbar.userPref.get("a11yNumerotationList") + "!important; }\n";
+                }
+
+                //gestion des liens de navigations
+                if (accessibilitytoolbar.userPref.get("a11yNavLienEnabled") !== "false") {
+                    //gestion des liens non visités
+                    if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border") {
+                        s += "a:link  {border: 1px solid !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold") {
+                        s += "a:link  {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline") {
+                        s += "a:link  {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                    } else {
+                        s += "a:link  {color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+                    }
+
+                    //gestion des liens visités
+                    if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border") {
+                        s += "a:visited {border: 1px solid !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold") {
+                        s += "a:visited {font-weight: bold !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline") {
+                        s += "a:visited {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                    } else {
+                        s += "a:visited {color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
+                    }
+
+                    //gestion du lien actif
+                    if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border") {
+                        s += "a:active {border: 2px solid #F16E00!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:focus {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:hover {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline") {
+                        s += "a:active {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:focus {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:hover {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    }
+                    else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold") {
+                        s += "a:active {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:focus {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:hover {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                    } else {
+                        s += "a:active {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:focus {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                        s += "a:hover {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+
+                    }
+                }
+                //suppression des effets de transparences
+                if (accessibilitytoolbar.userPref.get("a11ySupEffetTransp") !== "false") {
+                    s += "*  { opacity: 1 !important; -ms-filter: 'none'; filter: none !important }";
+                }
+
+                //supression des images de fond
+                if (accessibilitytoolbar.userPref.get("a11ySupImageFont") !== "false") {
+                    s += "*  { background-image: none !important; }\n";
+                }
+
+
+                var listeimg, i, backGroundColor, fontColor, uminositeFond, LuminositePolice, newStyle;
+                //suppression des images de premier plan
+
+                if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") !== "false" && !document.getElementById("spanImage1")) {
+                    listeimg = document.images;
+                    for (i = 0; i < listeimg.length; i++) {
+                        if (!document.getElementById("spanImage" + i)) {
+                            if (!(/^uci_(\S+)$/.exec(listeimg[i].parentNode.id))) {
+                                imageAlt = listeimg[i].alt;
+                                spanImage = document.createElement("span");
+                                spanImage.setAttribute("id", "spanImage" + i);
+                                var newlink = document.createElement('a');
+                                if (imageAlt === "") {
+                                    newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + accessibilitytoolbar.get('uci_link_display_picture_no_alt');
+                                } else {
+                                    newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + imageAlt;
+                                }
+                                newlink.href = "#uci_img_" + i;
+                                accessibilitytoolbar.uciAttachEvent('click', 'onclick', newlink, accessibilitytoolbar.activationPicture);
+                                spanImage.appendChild(newlink);
+                                listeimg[i].parentNode.insertBefore(spanImage, listeimg[i]);
+                                listeimg[i].className = listeimg[i].className + " uci_disable_image";
+                            }
+                        }
+                    }
+                } else if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") == "false") {
+                    accessibilitytoolbar.cleanImgDisabled();
+                }
+
+                // reading mask
+                if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") !== "false") {
+                    UciMask.settings.thickness = accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
+                    if (!accessibilitytoolbar.toolbarMaskInit) {
+                        UciMask.init();
+                        accessibilitytoolbar.toolbarMaskInit = true;
+                    }
+                    UciMask.start();
+
+                    s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+                    s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+
+                }
+                // if mask was launch before deactivation kill!
+                else if (UciMask.settings.launched) {
+                    UciMask.maskEventRemove();
+                }
+
+
+                //gestion des couleurs
+                // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
+                if (!init) {
+                    document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
+                    document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
+                }
+                if ((accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" && accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") !== "keepit") || (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" && accessibilitytoolbar.userPref.get("a11yFontColor") !== accessibilitytoolbar.userPref.get("a11yBackgroundColor"))) {
+                    if (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined") {
+                        if (!init) {
+                            document.getElementById('uci_message_constraste').style.display = 'none';
+                            element = document.getElementById('uci_reponses_bigger_quick_set');
+                        }
+                        backGroundColor = "#FFF";
+                        fontColor = "#000";
+
+                        var predifinedCombinaisons = {
+                            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
+                            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
+                            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
+                            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
+                            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
+                            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
+                            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
+                            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+                        };
+                        if (predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")]) {
+                            fontColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor;
+                            backGroundColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor;
+
+                        }
+                        /*defect 67 */
+                        if (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
+                            if (!init) {
+                                document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
+                                document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
+                            }
+                            fontColor = "#FFF";
+                            backGroundColor = "#000";
+                        }
+                    }
+                    else {
+                        /**
+                         * Convert hexa colo to rgb
+                        */
+                        /* Implemented algorithm                                         
+                        R = hexToR("#FFFFFF");
+                        G = hexToG("#FFFFFF");
+                        B = hexToB("#FFFFFF");
+                        
+                        function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
+                        function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
+                        function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
+                        function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+                        
+                        Puis application calcul luminosité relative
+                        http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                    
+                        
+                        */
+                        LuminositeFond = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(1, 3), 16)) * 0.2126
+                            + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(3, 5), 16)) * 0.7152
+                            + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(5, 7), 16)) * 0.0722;
+
+                        LuminositePolice = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(1, 3), 16)) * 0.2126
+                            + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(3, 5), 16)) * 0.7152
+                            + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(5, 7), 16)) * 0.0722;
+
+                        //calcul du contraste entre 2 couleurs
+                        /*
+                        contrast ratio
+                            (L1 + 0.05) / (L2 + 0.05), where
+                                L1 is the relative luminance of the lighter of the colors, and
+                                L2 is the relative luminance of the darker of the colors.
+                        */
+                        if (!init) {
+                            if (((Math.max(LuminositePolice, LuminositeFond) + 0.05) / (Math.min(LuminositePolice, LuminositeFond) + 0.05)) < 4.5) {
+                                if (document.getElementById('uci_message_constraste').style.display === 'none') {
+                                    document.getElementById('uci_message_constraste').style.display = 'block';
+                                }
+                            } else if (document.getElementById('uci_message_constraste').style.display === 'block') {
+                                document.getElementById('uci_message_constraste').style.display = 'none';
+                            }
+                        }
+                        fontColor = accessibilitytoolbar.userPref.get("a11yFontColor");
+                        backGroundColor = accessibilitytoolbar.userPref.get("a11yBackgroundColor");
+                    }
+
+                    s += "* { color:" + fontColor + " !important; }\n";
+                    s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
+                    // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
+                    s += "input { border-width: 1px !important; border-style: solid !important}\n";
+                    s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
+                    s += "table {border-collapse: collapse !important;}";
+                    s += "* { background-color:" + backGroundColor + " !important;}";
+                    // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
+                    // background:" + backGroundColor + " !important; }\n";
+                    s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
+
+                    document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
                 }
                 else {
-                    /**
-                     * Convert hexa colo to rgb
-                    */
-                    /* Implemented algorithm                                         
-                    R = hexToR("#FFFFFF");
-                    G = hexToG("#FFFFFF");
-                    B = hexToB("#FFFFFF");
-                    
-                    function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
-                    function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
-                    function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
-                    function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
-                    
-                    Puis application calcul luminosité relative
-                    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                    
-                    
-                    */                    
-                    LuminositeFond = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(1,3),16)) * 0.2126 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(3,5),16)) * 0.7152 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(5,7),16)) * 0.0722;
-                    
-                    LuminositePolice = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(1,3),16)) * 0.2126 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(3,5),16)) * 0.7152 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(5,7),16)) * 0.0722;
+                    document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
+                }
+            }
 
-                    //calcul du contraste entre 2 couleurs
-                    /*
-                      contrast ratio
-                        (L1 + 0.05) / (L2 + 0.05), where
-                            L1 is the relative luminance of the lighter of the colors, and
-                            L2 is the relative luminance of the darker of the colors.
-                    */
-                    if(!init) {
-                        if (((Math.max(LuminositePolice, LuminositeFond) + 0.05)/(Math.min(LuminositePolice, LuminositeFond) + 0.05)) < 4.5 ) {
-                            if (document.getElementById('uci_message_constraste').style.display  === 'none'){
-                                document.getElementById('uci_message_constraste').style.display = 'block';
+            /*
+           * Apply css to frames if possible
+           * Works only if frame src is onto the same domain
+           *
+           */
+            if (s !== "") {
+                newStyle = document.createElement("style");
+                newStyle.setAttribute("type", "text/css");
+                newStyle.id = "a11yUserPrefStyle";
+                if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+                    newStyle.styleSheet.cssText = s;
+                } else { // standards-oriented browsers
+                    newStyle.appendChild(document.createTextNode(s));
+                }
+                document.getElementsByTagName('head')[0].appendChild(newStyle);
+                indexFrame = 0;
+                theFrames = window.frames;
+                //frames=document.getElementsByTagName("iframe");
+                if (theFrames.length > 0) {
+                    while (theFrame = theFrames[indexFrame]) {
+                        try {
+                            theFrameDocument = theFrame.document || theFrame.contentDocument;
+                            if (theFrameDocument.getElementsByTagName('head')[0]) {
+                                theFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
                             }
-                        } else if (document.getElementById('uci_message_constraste').style.display === 'block'){
-                            document.getElementById('uci_message_constraste').style.display= 'none';
+                        } catch (e) { }
+                        indexFrame++;
+                    }
+                }
+            }
+        } else {
+            if (demo != null) {
+                newStyle = document.createElement("style");
+                newStyle.setAttribute("type", "text/css");
+                newStyle.id = "a11yUserPrefStyle";
+                fontSizeDef = '16px';
+                if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+                    s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
+                }
+                if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
+                    s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
+                }
+                if ( s !== ""){
+                    if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+                        newStyle.styleSheet.cssText = s;
+                    } else { // standards-oriented browsers
+                        newStyle.appendChild(document.createTextNode(s));
+                    }
+                    //document.getElementsByTagName('head')[0].appendChild(newStyle)
+                    indexIFrame = 0;
+                    TheIFrames = document.getElementsByTagName("iframe");
+                    if (TheIFrames.length > 0) {
+                        while (theIFrame = TheIFrames[indexIFrame]) {
+                            try {
+                                theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                                if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                                    theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+                                }
+                            } catch (e) { }
+                            indexIFrame++;
                         }
                     }
-                    fontColor = accessibilitytoolbar.userPref.get("a11yFontColor");
-                    backGroundColor = accessibilitytoolbar.userPref.get("a11yBackgroundColor");                        
-                }
-                
-                s += "* { color:" + fontColor + " !important; }\n";
-                s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";                
-                // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
-                s += "input { border-width: 1px !important; border-style: solid !important}\n";
-                s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
-                s += "table {border-collapse: collapse !important;}";
-                s += "* { background-color:" + backGroundColor + " !important;}"; 
-                // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
-                // background:" + backGroundColor + " !important; }\n";
-                s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";     
-                
-                document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
-            }
-            else {
-                document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
-            }
-        }
-            
-        // create a new style sheet
-        if (s !== "") {
-            newStyle = document.createElement("style");
-            newStyle.setAttribute("type", "text/css");
-            newStyle.id = "a11yUserPrefStyle";
-            if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-                newStyle.styleSheet.cssText = s;
-            }
-            else { // standards-oriented browsers
-                newStyle.appendChild(document.createTextNode(s));
-            }
-            document.getElementsByTagName('head')[0].appendChild(newStyle);
-            /*
-             * Apply css to frames if possible
-             * Works only if frame src is onto the same domain
-             *
-             */
-            indexFrame = 0;
-            theFrames=window.frames;
-            //frames=document.getElementsByTagName("iframe");
-            if(theFrames.length>0)
-            {
-                while(theFrame = theFrames[indexFrame]){
-                    try{                        
-                        theFrameDocument = theFrame.document || theFrame.contentDocument;
-                        if(theFrameDocument.getElementsByTagName('head')[0]){
-                            theFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-                        }                        
-                    } catch(e){}
-                    indexFrame++;
                 }
             }
         }
