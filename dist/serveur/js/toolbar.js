@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.0.0 - 15-03-2017
+/* orange-confort-plus - version 4.0.0 - 05-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
@@ -35,7 +35,8 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
  var helpPath = {
      FR: hebergementFullPath + "help/help_fr.html",
      EN: hebergementFullPath + "help/help_en.html",
-     ES: hebergementFullPath + "help/help_es.html"
+     ES: hebergementFullPath + "help/help_es.html",
+     PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.4d031b35.css';
@@ -205,6 +206,7 @@ this.storedValue = false;
         "a11yLanguage-1": "a11yLanguage-FR",
         "a11yLanguage-2": "a11yLanguage-EN",
         "a11yLanguage-3": "a11yLanguage-ES",
+        "a11yLanguage-4": "a11yLanguage-PL",
         "a11yJumpToContent-0": "a11yJumpToContent-false",
         "a11yJumpToContent-1": "a11yJumpToContent-true",
         "a11yLinearize-0": "a11yLinearize-false",
@@ -580,14 +582,18 @@ this.storedValue = false;
 
 function UciStorage() {
 var oNewNode = document.createElement("iframe");
-                    oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + document.location.pathname);
-                    oNewNode.setAttribute("id", 'id_frame_cookie');
-                    oNewNode.setAttribute("name", 'frame_cookie');
-                    oNewNode.setAttribute("width", '0');
-                    oNewNode.setAttribute("height", '0');
-                    oNewNode.setAttribute("style", 'width:0;height:0;border:0;display:block;');
-                    oNewNode.setAttribute("aria-hidden", 'true');
-                    oNewNode.setAttribute("title", accessibilitytoolbar.get('uci_iframe_cookie'));
+    if(document.location.port) {
+      oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + ':' + document.location.port + document.location.pathname);
+    } else {
+      oNewNode.setAttribute("src", hebergementFullPath + 'cookie.html?hostname='+document.location.hostname+'&origin=' + document.location.protocol + '//' + document.location.hostname + document.location.pathname);
+    }
+    oNewNode.setAttribute("id", 'id_frame_cookie');
+    oNewNode.setAttribute("name", 'frame_cookie');
+    oNewNode.setAttribute("width", '0');
+    oNewNode.setAttribute("height", '0');
+    oNewNode.setAttribute("style", 'width:0;height:0;border:0;display:block;');
+    oNewNode.setAttribute("aria-hidden", 'true');
+    oNewNode.setAttribute("title", accessibilitytoolbar.get('uci_iframe_cookie'));
                     
     
         /*****************************************************************************************************************/
@@ -598,7 +604,12 @@ var oNewNode = document.createElement("iframe");
     this.updateUserPref = function() {
         // Update the cdu cookies with the stackv3 value
         var pref = this.encode();
-        document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
+        if(document.location.port) {
+          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + ':' + document.location.port + document.location.pathname;
+        } else {
+          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
+        }
+        
         var tempMatrix = this.convertMatrixv3.reverse();
         this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
     };
@@ -696,6 +707,7 @@ traduction['EN']={
   uci_txt_menu_change_lang_fr:"Show this service in french",
   uci_txt_menu_change_lang_en:"Show this service in english",
   uci_txt_menu_change_lang_es:"Show this service in spanish",
+  uci_txt_menu_change_lang_pl:"Show this service in Polish",
   uci_txt_onglet_typo:"Typography",
   uci_txt_onglet_apparence:"Layout",
   uci_txt_onglet_color:"Colors",
@@ -843,9 +855,10 @@ traduction['ES']={
   uci_menu_help:"Consultar ayuda general",
   uci_menu_info:"A prop\363sito",
   uci_menu_remove_all:"Reajustar",
-  uci_txt_menu_change_lang_fr:"Mostrar el servicio en franc\351s",
-  uci_txt_menu_change_lang_en:"Mostrar el servicio en ingles",
-  uci_txt_menu_change_lang_es:"Mostrar el servicio en espa\361ol",
+  uci_txt_menu_change_lang_fr:"Mostrar el servicio en Franc\351s",
+  uci_txt_menu_change_lang_en:"Mostrar el servicio en Ingles",
+  uci_txt_menu_change_lang_es:"Mostrar el servicio en Espa\361ol",
+  uci_txt_menu_change_lang_pl:"Mostrar el servicio en Polaco",
   uci_txt_onglet_typo:"Tipograf\355a",
   uci_txt_onglet_apparence:"Apariencia",
   uci_txt_onglet_color:"Colores",
@@ -907,7 +920,7 @@ traduction['ES']={
   uci_help_disablepppictures:"Este comando suprime la visualizaci\363n de im\341genes en la p\341gina y son reemplazadas por sus alternativas textuales. Un enlace permite visualizar las im\341genes a petici\363n ",
   uci_help_links:"Este comando define la apariencia de los enlaces en la p\341gina. Puedes elegir el color y el formato de los enlaces",
   uci_color_titre:"Combinaci\363n de colores predefinidos",
-  uci_color_titre_use_personal:"Telecionar colores personalizados",
+  uci_color_titre_use_personal:"Seleccionar colores personalizados",
   uci_color_txt_texte:"Color de texto",
   uci_color_txt_background:"Color de fondo",
   uci_color_warning_title:"Contrate insuficiente",
@@ -993,9 +1006,10 @@ traduction['FR']={
   uci_menu_help:"Consulter l\47aide g\351n\351rale",
   uci_menu_info:"A propos",
   uci_menu_remove_all:"R\351initialiser",
-  uci_txt_menu_change_lang_fr:"Afficher le service en fran\347ais",
-  uci_txt_menu_change_lang_en:"Afficher le service en anglais",
-  uci_txt_menu_change_lang_es:"Afficher le service en espagnol",
+  uci_txt_menu_change_lang_fr:"Afficher le service en Fran\347ais",
+  uci_txt_menu_change_lang_en:"Afficher le service en Anglais",
+  uci_txt_menu_change_lang_es:"Afficher le service en Espagnol",
+  uci_txt_menu_change_lang_pl:"Afficher le service en Polonais",
   uci_txt_onglet_typo:"Typographie",
   uci_txt_onglet_apparence:"Agencement",
   uci_txt_onglet_color:"Couleurs",
@@ -1099,6 +1113,157 @@ traduction['FR']={
   uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
 };
 
+// Source: app/language/pl.js
+/**
+    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
+    
+    Copyright (C) 2014 - 2017  Orange SA
+
+    Orange Confort+ is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    Orange Confort+ is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (LICENSE.txt file).
+**/
+traduction['PL']={
+    uci_link_hide_toolbar:"Schowaj pasek narzędzi",
+  uci_alt_logo:"Confort+",
+  uci_serv_name:"Confort",
+  uci_title_fontsize_radio_normal:"Domyślny rozmiar czcionki",
+  uci_title_fontsize_radio_medium:"Średni rozmiar czcionki",
+  uci_title_fontsize_radio_large:"Duży rozmiar czcionki",
+  uci_title_color_keepit:"Domyślne kolory",
+  uci_title_color_blackonwhite:"Czarny tekst na białym tle",
+  uci_title_color_whiteonblack:"Biały tekst na czarnym tle",
+  uci_title_color_blueonyellow:"Niebieski tekst na żółtym tle",        
+  uci_title_color_yellowonblue:"Żółty tekst na niebieskim tle",
+  uci_title_color_greenonblack:"Zielony tekst na czarnym tle",
+  uci_title_color_blackongreen:"Czarny tekst na zielonym tle",
+  uci_title_color_blueonwhite:"Niebieski tekst na białym tle",
+  uci_title_color_whiteonblue:"Biały tekst na niebieskim tle",
+  uci_button_valid:"Zachowaj ustawienia",
+  uci_button_cancel:"Anuluj",
+  uci_txt_more_settings:"Więcej ustawień",
+  uci_txt_low_settings_display:"Mniej ustawień",
+  uci_txt_low_settings:"Zamknij panel więcej ustawień",
+  uci_title_disable_cdu:"Dezaktywuj Confort+ na tej stronie",
+  uci_title_enable_cdu:"Aktywuj Confort+ na tej stronie",
+  uci_txt_link_menu:"Pomoc",
+  uci_txt_link_menu_open:"Pokaż menu",
+  uci_txt_link_menu_close:"Schowaj menu",
+  uci_menu_help:"Pokaż pomoc",
+  uci_menu_info:"O aplikacji",
+  uci_menu_remove_all:"Zresetuj",
+  uci_txt_menu_change_lang_fr:"Pokaż usługę w języku francuskim",
+  uci_txt_menu_change_lang_en:"Pokaż usługę w języku angielskim",
+  uci_txt_menu_change_lang_es:"Pokaż usługę w języku hiszpańskim",
+uci_txt_menu_change_lang_pl:"Pokaż usługę w języku polskim",
+uci_txt_onglet_typo:"Typografia",
+uci_txt_onglet_apparence:"Układ",
+uci_txt_onglet_color:"Kolory",
+uci_txt_onglet_motor_help:"Zachowanie",
+uci_typo_titre_fontsize:"Rozmiar czcionki",
+uci_typo_titre_wordspacing:"Odstępy między słowami",
+uci_typo_titre_charspacing:"Odstępy między znakami",
+uci_typo_titre_linespacing:"Odstępy między wierszami",
+uci_typo_titre_fontfamily:"Rodzina czcionek",
+uci_typo_titre_changecase:"Rodzaj pisowni małe i wielkie litery",
+uci_typo_help_fontfamily:"Ta funkcja pozwala na zmianę czcionki na stronie, w celu poprawienia komfortu czytania",
+uci_typo_help_changecase:"Ta funkcja pozwala dostosować prezentację tekstów do Twoich potrzeb",
+uci_title_wordspacing_radio_normal:"Domyślne przerwy między słowami",
+uci_title_wordspacing_radio_medium:"Średnie przerwy między słowami",
+uci_title_wordspacing_radio_large:"Duże przerwy między słowami",
+uci_title_charspacing_radio_normal:"Domyślne przerwy między znakami",
+uci_title_charspacing_radio_medium:"Średnie przerwy między znakami", 
+uci_title_charspacing_radio_large:"Duże przerwy między znakami", 
+uci_title_linespacing_radio_normal:"Domyślne przerwy między wierszami",
+uci_title_linespacing_radio_medium:"Średnie przerwy między wierszami",
+uci_title_linespacing_radio_large:"Duże przerwy między wierszami",
+uci_title_minfont_radio_normal:"Minimalny rozmiar czcionki 12px",
+uci_title_minfont_radio_medium:"Minimalny rozmiar czcionki 16px",
+uci_title_minfont_radio_large:"Minimalny rozmiar czcionki 18px",
+uci_title_fontfamily_radio_normal:"Domyślna czcionka",
+uci_title_fontfamily_radio_arial:"Czcionka Arial",
+uci_title_fontfamily_radio_opendys:"Użyj fontów dla dyslektyków",
+uci_changecase_firstlettre_title:"Zacznij każde słowo z wielkiej litery",
+uci_changecase_firstlettre:"Pierwsza litera wielka",
+uci_changecase_normal_title:"Domyślny wygląd tekstu",
+uci_changecase_tolower_title:"Tekst z małych liter",
+uci_changecase_tolower:"małe litery",
+uci_label_listmode:"Anuluj rozkład",
+uci_label_alignleft:"Ułóż tekst do lewej",
+uci_label_putnumonlist:"Lista z numerami elementów",
+uci_label_disabletransp:"Usuń efekt przezroczystości",
+uci_label_disablebgpictures:"Wyłącz obrazy w tle",
+uci_label_disablepppictures:"Anuluj obrazy z pierwszego planu",
+uci_label_mask:"Włącz podświetlenie selektywne",
+uci_link_display_picture:"Pokaż ten obraz :",
+uci_link_display_picture_no_alt:"Opis niedostępny",
+uci_titre_links:"Wygląd linków nawigacyjnych",
+uci_txt_notvisited:"Linki",
+uci_txt_visited:"Odwiedzone linki",
+uci_txt_active:"Wybrany link",
+uci_title_link_notvisited_color:"Domyślne kolory linków",
+uci_title_link_visited_color:"Kolory linków odwiedzonych",
+uci_title_link_active_color:"Kolor wybranego linku",
+uci_title_link_notvisited_render:"Formatowanie linków",
+uci_title_link_visited_render:"Dodatkowe formatowanie odwiedzonych linków",
+uci_title_link_active_render:"Dodatkowe formatowanie wybranego linku",
+uci_link_render_options_default:"domyślne",
+uci_link_render_options_underline:"podkreśl",
+uci_link_render_options_border:"pole",
+uci_link_render_options_bold:"pogrubienie",
+uci_txt_mask_size:"Wysokość maski",
+uci_help_listmode:"Ta funkcja pozwala zmienić czcionki użyte na stronie na Twoją domyślną rodzinę czcionek (zdefiniowaną w Twojej przeglądarce lub na Twoim komputerze). Ponadto, tekst wyświetlany jest linearnie, bez podziału na kolumny.",
+uci_help_disabletransp:"To funkcja umożliwiająca wyłączenie potencjalnie transparentnych elementów. Dzięki temu zmniejsza zakłócenia podczas czytania strony.",
+uci_help_disablepppictures:"Ta funkcja ukrywa grafiki umieszczone na stronie w celu uniknięcia zakłóceń w czytaniu. Grafiki użyte na stronie zastępowane są ich tekstowymi odpowiednikami. Odnośnik pozwala sprawdzenie grafiki na żądanie.",
+uci_help_links:"Ta funkcja pozwala zdefiniować widoczność linków. Możesz wybrać kolor oraz szczegóły formatowania.",
+uci_color_titre:"Połączenie ustawionych kolorów",
+uci_color_titre_use_personal:"Wybierz spersonalizowane kolory",
+uci_color_txt_texte:"Kolor czcionki",
+uci_color_txt_background:"Kolor tła",
+uci_color_warning_title:"Zbyt niski kontrast",
+uci_color_warning_content:"Tekst i kolor tła mają zbyt niski contrast. Może to spowodować ból oczu lub problemy z czytaniem.",
+uci_label_jumptocontent:"Zawsze przechodź do zawartości",
+uci_help_jumptocontent:"Zezwalaj na automatyczne pozycjonowanie (ustawienie) zawartości na stronie głównej w szczególności poprzez ustawienie linków nawigacyjnych.",
+uci_enableMotorMode:"Wsparcie silnika",
+uci_label_telecomande:"Nawigacja “po najechaniu”",
+uci_help_telecomande:"Dodaj pionowe przwijanie za pomocą strzałek. Pozwól również na dodanie aktywnych linków widocznych na “przewijaku” po przesunięciu strony.",
+uci_legend_delai_clic:"Opóźnienie przed automatycznym kliknięciem",
+uci_label_1sec:"1 sekunda",
+uci_label_2sec:"2 sekundy",
+uci_label_3sec:"3 sekundy",
+uci_label_6sec:"6 sekund",
+uci_label_automove:"Automatyczny wybór elementów",
+uci_help_automove:"Wybierz  kolejne klikalne elementy. Naciśnij klawisz “Enter” lub “Spacja” w celu uruchomienia menu kontekstowego pozwalającego na aktywację wybranych elementów lub ich modyfikację.",
+uci_legend_menupos:"Pozycja menu",
+uci_label_centeredmenu:"Środek strony",
+uci_label_nearelemtmenu:"Obok wybranego elementu",
+uci_legend_time_before_sel:"Opóźnienie wybranego elementu",
+uci_help_quickmode:"liczba ignorowanych elementów pomiędzy wybranymi elementami",
+uci_legend_pasquickmode:"Kroki trybu szybkiego",
+uci_label_2par2:"1",
+uci_label_5par5:"4",
+uci_label_10par10:"9",
+uci_doClick:"Kliknij",
+uci_loopActivable:"Nawiguj po elementach",
+uci_loopActivableQuick:"Szybko nawiguj po elementach",
+uci_loopBackward:"Nawiguj wstecz",
+uci_stopLoop:"Zatrzymaj nawigację",
+uci_closeButton:"Zamknij",
+uci_modif_not_saved:"Niezapisane ustawienia zostaną utracone, czy chcesz kontynuować?",
+uci_remove_all_settings:"Wszystkie ustawienia zostaną skasowane, czy chcesz kontynuować?",
+uci_radio_default:"Domyślne",
+uci_radio_medium:"Średnie",
+uci_radio_large:"Duże",
+uci_new_window:"Nowe okno",
+uci_iframe_cookie:"Zawartość techniczna Orange Confort+",
+uci_confirm_validation:"Ustawienia zapisane", 
+};
 // Source: app/js/UciAideMotrice.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -2079,11 +2244,18 @@ UciIhm = {
                                           value:"ES",
                                           id:"uci_ES",
                                           title:accessibilitytoolbar.get('uci_txt_menu_change_lang_es')
+                                        }],
+                              ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "PL"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
+                                          type:"button",
+                                          name:"uci_language_PL",
+                                          value:"PL",
+                                          id:"uci_PL",
+                                          title:accessibilitytoolbar.get('uci_txt_menu_change_lang_pl')
                                         }]
                             ]
                           ],
                           ["li",
-                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com", title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
+                            ["a", {"class":"uci_menu_ouverture_aide", href:"http://confort-plus.orange.com/index_"+accessibilitytoolbar.strings.getLocale().toLowerCase(), title:accessibilitytoolbar.get('uci_menu_info')+" ("+accessibilitytoolbar.get('uci_new_window')+")", target:"_blank"},
                               ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-info"}],
                               ["span", accessibilitytoolbar.get('uci_menu_info')]
                             ]
@@ -5290,6 +5462,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_PL'), function() {return UciIhm.changement_langue('PL');});
         accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Annulation();});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
@@ -5746,13 +5919,16 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function (init) {   
-        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef;
+        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
             if(document.getElementById('cdu_close'))
             {
                 document.getElementById('cdu_close').style.display == 'none';
             }
-            accessibilitytoolbar.show();
+            toolbarContent = document.getElementById("cdu_content");
+            if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
+                accessibilitytoolbar.show();
+            }
         }  
         // Remove previous user style
         if (document.getElementById("a11yUserPrefStyle")) {
@@ -6044,30 +6220,12 @@ accessibilitytoolbar = {
                     }
                 }
                 else {
-                    /**
-                     * Convert hexa colo to rgb
-                    */
-                    /* Implemented algorithm                                         
-                    R = hexToR("#FFFFFF");
-                    G = hexToG("#FFFFFF");
-                    B = hexToB("#FFFFFF");
-                    
-                    function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
-                    function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
-                    function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
-                    function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
-                    
-                    Puis application calcul luminosité relative
-                    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                    
-                    
+                    /**                    
+                    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
                     */                    
-                    LuminositeFond = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(1,3),16)) * 0.2126 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(3,5),16)) * 0.7152 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(5,7),16)) * 0.0722;
+                    LuminositeFond = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
                     
-                    LuminositePolice = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(1,3),16)) * 0.2126 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(3,5),16)) * 0.7152 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(5,7),16)) * 0.0722;
+                    LuminositePolice = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yFontColor"));
 
                     //calcul du contraste entre 2 couleurs
                     /*
@@ -6140,6 +6298,80 @@ accessibilitytoolbar = {
                 }
             }
         }
+    },
+    // from HTMLCS : https://github.com/squizlabs/HTML_CodeSniffer/blob/90b8660fbc22698f98f3d50122241c123b3491c0/HTMLCS.js#L820
+    /**
+     * Calculate relative luminescence for a colour in the sRGB colour profile.
+     *
+     * Supports rgb() and hex colours. rgba() also supported but the alpha
+     * channel is currently ignored.
+     * Hex colours can have an optional "#" at the front, which is stripped.
+     * Relative luminescence formula is defined in the definitions of WCAG 2.0.
+     * It can be either three or six hex digits, as per CSS conventions.
+     * It should return a value in the range [0.0, 1.0].
+     *
+     * @param {String} colour The colour to calculate from.
+     *
+     * @returns {Number}
+     */
+    relativeLum:  function(colour) {
+        if (colour.charAt) {
+            var colour = this.colourStrToRGB(colour);
+        }
+
+        var transformed = {};
+        for (var x in colour) {
+            if (colour[x] <= 0.03928) {
+                transformed[x] = colour[x] / 12.92;
+            } else {
+                transformed[x] = Math.pow(((colour[x] + 0.055) / 1.055), 2.4);
+            }
+        }//end for
+
+        var lum = ((transformed.red * 0.2126) + (transformed.green * 0.7152) + (transformed.blue * 0.0722));
+        return lum;
+    },
+
+    /**
+     * Convert a colour string to a structure with red/green/blue elements.
+     *
+     * Supports rgb() and hex colours (3 or 6 hex digits, optional "#").
+     * rgba() also supported but the alpha channel is currently ignored.
+     * Each red/green/blue element is in the range [0.0, 1.0].
+     *
+     * @param {String} colour The colour to convert.
+     *
+     * @returns {Object}
+     */
+    colourStrToRGB: function(colour) {
+        colour = colour.toLowerCase();
+
+        if (colour.substring(0, 3) === 'rgb') {
+            // rgb[a](0, 0, 0[, 0]) format.
+            var matches = /^rgba?\s*\((\d+),\s*(\d+),\s*(\d+)([^)]*)\)$/.exec(colour);
+            colour = {
+                red: (matches[1] / 255),
+                green: (matches[2] / 255),
+                blue: (matches[3] / 255)
+            }
+        } else {
+            // Hex digit format.
+            if (colour.charAt(0) === '#') {
+                colour = colour.substr(1);
+            }
+
+            if (colour.length === 3) {
+                colour = colour.replace(/^(.)(.)(.)$/, '$1$1$2$2$3$3');
+            }
+
+            colour = {
+                red: (parseInt(colour.substr(0, 2), 16) / 255),
+                green: (parseInt(colour.substr(2, 2), 16) / 255),
+                blue: (parseInt(colour.substr(4, 2), 16) / 255)
+            };
+        }
+
+        return colour;
     },
              
     /*

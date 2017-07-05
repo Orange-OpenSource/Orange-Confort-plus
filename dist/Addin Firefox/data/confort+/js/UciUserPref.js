@@ -86,6 +86,7 @@ function UciUserPref() {
         "a11yLanguage-1": "a11yLanguage-FR",
         "a11yLanguage-2": "a11yLanguage-EN",
         "a11yLanguage-3": "a11yLanguage-ES",
+        "a11yLanguage-4": "a11yLanguage-PL",
         "a11yJumpToContent-0": "a11yJumpToContent-false",
         "a11yJumpToContent-1": "a11yJumpToContent-true",
         "a11yLinearize-0": "a11yLinearize-false",

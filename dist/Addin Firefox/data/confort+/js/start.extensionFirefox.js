@@ -31,6 +31,9 @@ window.addEventListener('message', function(event) {
       if(message === 'orangeconfort+helpes') {
           self.port.emit('orangeconfort+openhelp', 'es');
       }
+      if(message === 'orangeconfort+helppl') {
+          self.port.emit('orangeconfort+openhelp', 'pl');
+      }
       if(message === 'orangeconfort+userprefget') {
       self.port.emit('orangeconfort+userprefget', document.location.hostname);
       }

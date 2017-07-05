@@ -45,6 +45,7 @@ traduction['EN']={
   uci_txt_menu_change_lang_fr:"Show this service in french",
   uci_txt_menu_change_lang_en:"Show this service in english",
   uci_txt_menu_change_lang_es:"Show this service in spanish",
+  uci_txt_menu_change_lang_pl:"Show this service in Polish",
   uci_txt_onglet_typo:"Typography",
   uci_txt_onglet_apparence:"Layout",
   uci_txt_onglet_color:"Colors",

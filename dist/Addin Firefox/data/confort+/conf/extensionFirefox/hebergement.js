@@ -11,7 +11,8 @@ var fontsPath = {
 var helpPath = {
     FR: self.options.helpfr,
     EN: self.options.helpen,
-    ES: self.options.helpes
+    ES: self.options.helpes,
+    PL: self.options.helppl
 };
 var helpPathTarget = self.options.helpPathTarget;
 var hebergementFullPath='';

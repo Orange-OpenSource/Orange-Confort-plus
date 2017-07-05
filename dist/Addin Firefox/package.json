@@ -6,7 +6,7 @@
   "author": "Orange SA",
   "license": "GPL-2.0 (https://spdx.org/licenses/GPL-2.0.html#licenseText)",
   "homepage": "http://confort-plus.orange.com/",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "main": "lib/main.js",
   "engines": {
     "firefox": ">=34.0",
