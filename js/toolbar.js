@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.0.0 - 03-07-2017
+/* orange-confort-plus - version 4.1.0 - 05-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -6220,30 +6220,12 @@ accessibilitytoolbar = {
                     }
                 }
                 else {
-                    /**
-                     * Convert hexa colo to rgb
-                    */
-                    /* Implemented algorithm                                         
-                    R = hexToR("#FFFFFF");
-                    G = hexToG("#FFFFFF");
-                    B = hexToB("#FFFFFF");
-                    
-                    function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
-                    function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
-                    function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
-                    function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
-                    
-                    Puis application calcul luminosité relative
-                    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                    
-                    
+                    /**                    
+                    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
                     */                    
-                    LuminositeFond = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(1,3),16)) * 0.2126 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(3,5),16)) * 0.7152 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yBackgroundColor").substring(5,7),16)) * 0.0722;
+                    LuminositeFond = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
                     
-                    LuminositePolice = accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(1,3),16)) * 0.2126 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(3,5),16)) * 0.7152 
-                        + accessibilitytoolbar.conversionColor(parseInt(accessibilitytoolbar.userPref.get("a11yFontColor").substring(5,7),16)) * 0.0722;
+                    LuminositePolice = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yFontColor"));
 
                     //calcul du contraste entre 2 couleurs
                     /*
@@ -6316,6 +6298,80 @@ accessibilitytoolbar = {
                 }
             }
         }
+    },
+    // from HTMLCS : https://github.com/squizlabs/HTML_CodeSniffer/blob/90b8660fbc22698f98f3d50122241c123b3491c0/HTMLCS.js#L820
+    /**
+     * Calculate relative luminescence for a colour in the sRGB colour profile.
+     *
+     * Supports rgb() and hex colours. rgba() also supported but the alpha
+     * channel is currently ignored.
+     * Hex colours can have an optional "#" at the front, which is stripped.
+     * Relative luminescence formula is defined in the definitions of WCAG 2.0.
+     * It can be either three or six hex digits, as per CSS conventions.
+     * It should return a value in the range [0.0, 1.0].
+     *
+     * @param {String} colour The colour to calculate from.
+     *
+     * @returns {Number}
+     */
+    relativeLum:  function(colour) {
+        if (colour.charAt) {
+            var colour = this.colourStrToRGB(colour);
+        }
+
+        var transformed = {};
+        for (var x in colour) {
+            if (colour[x] <= 0.03928) {
+                transformed[x] = colour[x] / 12.92;
+            } else {
+                transformed[x] = Math.pow(((colour[x] + 0.055) / 1.055), 2.4);
+            }
+        }//end for
+
+        var lum = ((transformed.red * 0.2126) + (transformed.green * 0.7152) + (transformed.blue * 0.0722));
+        return lum;
+    },
+
+    /**
+     * Convert a colour string to a structure with red/green/blue elements.
+     *
+     * Supports rgb() and hex colours (3 or 6 hex digits, optional "#").
+     * rgba() also supported but the alpha channel is currently ignored.
+     * Each red/green/blue element is in the range [0.0, 1.0].
+     *
+     * @param {String} colour The colour to convert.
+     *
+     * @returns {Object}
+     */
+    colourStrToRGB: function(colour) {
+        colour = colour.toLowerCase();
+
+        if (colour.substring(0, 3) === 'rgb') {
+            // rgb[a](0, 0, 0[, 0]) format.
+            var matches = /^rgba?\s*\((\d+),\s*(\d+),\s*(\d+)([^)]*)\)$/.exec(colour);
+            colour = {
+                red: (matches[1] / 255),
+                green: (matches[2] / 255),
+                blue: (matches[3] / 255)
+            }
+        } else {
+            // Hex digit format.
+            if (colour.charAt(0) === '#') {
+                colour = colour.substr(1);
+            }
+
+            if (colour.length === 3) {
+                colour = colour.replace(/^(.)(.)(.)$/, '$1$1$2$2$3$3');
+            }
+
+            colour = {
+                red: (parseInt(colour.substr(0, 2), 16) / 255),
+                green: (parseInt(colour.substr(2, 2), 16) / 255),
+                blue: (parseInt(colour.substr(4, 2), 16) / 255)
+            };
+        }
+
+        return colour;
     },
              
     /*
