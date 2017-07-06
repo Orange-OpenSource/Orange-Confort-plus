@@ -31,48 +31,48 @@ UciHelp = {
    */
   InitUciHelp: function () {
     return accessibilitytoolbar.make(
-      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help"},
+      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help" },
         ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
           ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
-            ["h2", { id: "uci_help_title", "class": "uci-popin-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_menu_guide')],
-            ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_help_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
-              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
-              ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
+            ["h2", { id: "uci_help_title", "class": "uci-popin-title", "tabindex": "0" }, accessibilitytoolbar.get('uci_menu_guide')],
+            ["button", { "class": "ucibtn-secondary uci-popin-btn", id: "uci_help_close", title: accessibilitytoolbar.get('uci_close_guide'), type: "button" },
+              ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
+              ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
             ]
           ],
-        ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
-            ["ul", 
+          ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
+            ["ul",
               ["li",
-                ["a", { id: "uci_popin_discover", href:"#", "tabindex":"0", "class": "uci-popin-discover", title:accessibilitytoolbar.get('discover_service')},
+                ["a", { id: "uci_popin_discover", href: "#", "tabindex": "0", "class": "uci-popin-discover", title: accessibilitytoolbar.get('discover_service') },
 
                   ["span", { id: "uci_popin_discover_icon", "class": "uci-presentation" }],
                   ["span", { id: "uci_popin_discover_text", "class": "uci-popin-discover-text" }, accessibilitytoolbar.get('discover_service')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_read", href:"#", "tabindex":"0", "class": "uci-popin-read", title:accessibilitytoolbar.get('improve_readability')},
+                ["a", { id: "uci_popin_read", href: "#", "tabindex": "0", "class": "uci-popin-read", title: accessibilitytoolbar.get('improve_readability') },
 
                   ["span", { id: "uci_popin_read_icon", "class": "uci-presentation" }],
-                  ["span", { id: "uci_popin_read_text", "class": "uci-popin-read-text" },  accessibilitytoolbar.get('improve_readability')]
+                  ["span", { id: "uci_popin_read_text", "class": "uci-popin-read-text" }, accessibilitytoolbar.get('improve_readability')]
                 ]
               ],
               ["li",
-              ["a", { id: "uci_popin_layout", href:"#", "tabindex":"0", "class": "uci-popin-layout", title:accessibilitytoolbar.get('edit_layout')},
+                ["a", { id: "uci_popin_layout", href: "#", "tabindex": "0", "class": "uci-popin-layout", title: accessibilitytoolbar.get('edit_layout') },
 
                   ["span", { id: "uci_popin_layout_icon", "class": "uci-presentation" }],
                   ["span", { id: "uci_popin_layout_text", "class": "uci-popin-layout-text" }, accessibilitytoolbar.get('edit_layout')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_motor", href:"#", "tabindex":"0", "class": "uci-popin-motor", title:accessibilitytoolbar.get('use_motor_assistance')},
+                ["a", { id: "uci_popin_motor", href: "#", "tabindex": "0", "class": "uci-popin-motor", title: accessibilitytoolbar.get('use_motor_assistance') },
 
                   ["span", { id: "uci_popin_motor_icon", "class": "uci-presentation" }],
                   ["span", { id: "uci_popin_motor_text", "class": "uci-popin-motor-text" }, accessibilitytoolbar.get('use_motor_assistance')]
                 ]
               ]
             ],
-            ["div", {"class": "uci-popin-buttom" },
-              ["button", {id: "uci_popin_button", name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm ucibtn-secondary uci-popin-button-right" },  accessibilitytoolbar.get('uci_exit')]
+            ["div", { "class": "uci-popin-buttom" },
+              ["button", { id: "uci_popin_button", name: "uci_popin_exit", "type": "button", "class": "ucibtn ucibtn-sm ucibtn-secondary uci-popin-button-right" }, accessibilitytoolbar.get('uci_exit')]
             ]
           ]
         ]
@@ -82,16 +82,16 @@ UciHelp = {
     return accessibilitytoolbar.make(["div", { id: "uci_discover", "class": "uci-discover", style: "display:none;" },
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-discover-header" },
-          ["h2", { id: "uci_discover_title", "class": "uci-discover-title", "tabindex":"0" }, accessibilitytoolbar.get('discover_service')],
-          ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
-            ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
-            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')]
+          ["h2", { id: "uci_discover_title", "class": "uci-discover-title", "tabindex": "0" }, accessibilitytoolbar.get('discover_service')],
+          ["button", { "class": "ucibtn-secondary uci-popin-btn", id: "uci_discover_close", title: accessibilitytoolbar.get('uci_close_guide'), type: "button" },
+            ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
+            ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
           ]
         ],
         ["div", { id: "uci_discover_body", "class": "uci-discover-body" },
           ["span", { id: "uci_discover_body_text", "class": "uci-discover-body-text" }, accessibilitytoolbar.get('uci_discover_text')],
-          ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple", "aria-hidden":"true" }, "Exemples :"],
-          ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text", "aria-hidden":"true" },
+          ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple", "aria-hidden": "true" }, "Exemples :"],
+          ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text", "aria-hidden": "true" },
             ["input", { type: "radio", name: "example", "checked": "true", id: "uci_discover_none" }],
             ["label", { "for": "uci_discover_none" }, accessibilitytoolbar.get('uci_default')],
             ["input", { type: "radio", name: "example", id: "uci_discover_reading" }],
@@ -99,43 +99,43 @@ UciHelp = {
             ["input", { type: "radio", name: "example", id: "uci_discover_layout" }],
             ["label", { "for": "uci_discover_layout" }, accessibilitytoolbar.get('edit_layout')]
           ],
-          ["iframe", { id: "uci_discover_frame", "tabindex":"-1",  title:"demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo_"+accessibilitytoolbar.strings.getLocale().toLowerCase()+".html" }]
+          ["iframe", { id: "uci_discover_frame", "tabindex": "-1", title: "demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo_" + accessibilitytoolbar.strings.getLocale().toLowerCase() + ".html" }]
         ],
-        ["div", {"class": "uci-popin-buttom" },
-          ["button", { id: "uci_popin_menu", name: "uci_popin_menu","type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
-          ["div", {"class" : "uci-buttom-speed"},
-            ["button", { id: "uci_popin_read_btn", title : accessibilitytoolbar.get('improve_readability'),  name: "uci_popin_menu","type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick :"UciHelp.show_reading()" }],
-            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'),name: "uci_popin_menu","type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick :"UciHelp.show_reading('agencement')" }],
-            ["button", { id: "uci_popin_motor_btn", title : accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu","type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick :"UciHelp.show_reading('comportement')"}]
+        ["div", { "class": "uci-popin-buttom" },
+          ["button", { id: "uci_popin_menu", name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
+          ["div", { "class": "uci-buttom-speed" },
+            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading()" }],
+            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('agencement')" }],
+            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('comportement')" }]
           ],
           ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_exit')]
         ]
       ]
-    ])  
+    ])
   },
-  InitUciReading: function (newName){
-    return accessibilitytoolbar.make(["div", {id:"uci_reading",  onkeydown: "UciHelp.navigation_popin(event, 'uci_reading')", name: newName},
-      ["div",{id: "triangle"},
-       ["div", {"class": "triangle"}]
+  InitUciReading: function (newName) {
+    return accessibilitytoolbar.make(["div", { id: "uci_reading", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading')", name: newName },
+      ["div", { id: "triangle" },
+        ["div", { "class": "triangle" }]
       ],
       ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
         ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
-          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-reading-title", "tabindex":"0" }, "Réglages rapides"],
-          ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()","type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
+          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-reading-title", "tabindex": "0" }, "Réglages rapides"],
+          ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
-        ["div", {id:"uci_reading_body", "class":"uci_reading_body", "value":0}, accessibilitytoolbar.get('uci_discover_lorem_0')],
-        ["div", {"class": "uci-popin-buttom" },
-          ["button", { id: "uci_reading_menu", onclick :"UciHelp.show_menu()", name: "uci_reading_menu","type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
-          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden":"true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left","type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
-            ["span", {"aria-hidden":"true"}, "<"],
-            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_previous')]
+        ["div", { id: "uci_reading_body", "class": "uci_reading_body", "value": 0 }, accessibilitytoolbar.get('uci_discover_lorem_0')],
+        ["div", { "class": "uci-popin-buttom" },
+          ["button", { id: "uci_reading_menu", onclick: "UciHelp.show_menu()", name: "uci_reading_menu", "type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
+            ["span", { "aria-hidden": "true" }, "<"],
+            ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_previous')]
           ],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')","aria_hidden":"true", title: accessibilitytoolbar.get('uci_next') , name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
-            ["span", {"aria-hidden":"true"}, ">"],
-            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_next')]
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_next'), name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
+            ["span", { "aria-hidden": "true" }, ">"],
+            ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_next')]
           ],
-          ["button", { id: "uci_reading_exit", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_exit')", onclick : "UciHelp.hide_popin()", name: "uci_reading_exit","type": "button", "class": "uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
-          
+          ["button", { id: "uci_reading_exit", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_exit')", onclick: "UciHelp.hide_popin()", name: "uci_reading_exit", "type": "button", "class": "uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_exit')]
+
         ]
       ]
     ])
@@ -144,12 +144,12 @@ UciHelp = {
   show_popin: function () {
     document.getElementById("uci_activer_menu").blur();
     if (document.getElementById("uci_cdu_popin")) {
-      if (document.getElementById("uci_zone_form").style.display === "block"){
+      if (document.getElementById("uci_zone_form").style.display === "block") {
         document.getElementById("uci_zone_form").style.display = "none";
       }
-      
+
       document.getElementById("uci_cdu_popin").style.display = "block";
-      document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
+      document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
       document.getElementById("masque_haut").style.display = "block";
       UciHelp.calculate_overlay_position(1);
       document.getElementById("uci_help_title").focus();
@@ -164,13 +164,13 @@ UciHelp = {
       document.getElementById("uci_main_popin_help").style.display = "block";
       document.getElementById("uci_discover").style.display = "none";
     }
-    if (document.getElementById("uci_reading")){
+    if (document.getElementById("uci_reading")) {
       if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
         document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
         document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
-          UciIhm.hide_more_confort();
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+        document.getElementById("uci_reading").getAttribute("name") === "comportement") {
+        UciIhm.hide_more_confort();
+        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
       parent = document.getElementById("uci_reading").parentNode;
       parent.removeChild(parent.lastChild);
@@ -186,13 +186,13 @@ UciHelp = {
     document.getElementById("masque_haut_param").className = "masque-haut-param";
     document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
     document.getElementById("masque_haut").style.display = "none";
-    if (document.getElementById("uci_reading")){
+    if (document.getElementById("uci_reading")) {
       if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
         document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
         document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
-          UciIhm.hide_more_confort();
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+        document.getElementById("uci_reading").getAttribute("name") === "comportement") {
+        UciIhm.hide_more_confort();
+        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
       parent = document.getElementById("uci_reading").parentNode;
       parent.removeChild(parent.lastChild);
@@ -230,12 +230,12 @@ UciHelp = {
     if (resize !== null && resize !== undefined) {
       document.getElementById("masque_haut").setAttribute("value", resize);
     }
-    if (document.getElementById("masque_haut").getAttribute("value") == 1){
+    if (document.getElementById("masque_haut").getAttribute("value") == 1) {
       widthTmp = document.getElementById("uci_toolbar-quick").clientWidth - document.getElementsByClassName("uci_right")[0].clientWidth;
       heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
       document.getElementById("masque_haut_logo").style.width = widthTmp - 15 + "px";
       document.getElementById("masque_haut_logo").style.height = heightTmp + "px";
-      
+
       widthTmp = document.getElementById("uci_right_toolbar").clientWidth + document.getElementById("uci_middle_toolbar").clientWidth;
       document.getElementById("masque_haut_advanced_param").style.width = document.getElementById("uci_middle_toolbar").clientWidth + 16 + "px";
       document.getElementById("masque_haut_advanced_param").style.height = heightTmp + "px";
@@ -246,45 +246,45 @@ UciHelp = {
       document.getElementById("masque_haut_exit").style.width = document.getElementById("uci_right_toolbar").clientWidth + "px";
       document.getElementById("masque_haut_exit").style.height = heightTmp + "px";
     }
-    
+
   },
 
 
 
-  position_popin_help : function (){
-    if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam"){
-      document.getElementById("uci_reading").style.right =  document.getElementById("masque_haut_exit").clientWidth+"px";
+  position_popin_help: function () {
+    if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam") {
+      document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_exit").clientWidth + "px";
       document.getElementById("triangle").lastChild.className = "triangleright";
     }
 
     if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
-        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
-        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-        document.getElementById("uci_reading").getAttribute("name") === "comportement" ){
-      document.getElementById("uci_reading").style.top =  document.getElementById("uci_form").clientHeight + 2 + "px";
+      document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+      document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
+      document.getElementById("uci_reading").getAttribute("name") === "comportement") {
+      document.getElementById("uci_reading").style.top = document.getElementById("uci_form").clientHeight + 2 + "px";
       document.getElementById("triangle").lastChild.className = "triangleright";
     }
 
-    if (document.getElementById("uci_reading") != null && ( document.getElementById("uci_reading").getAttribute("name") !== "typographie" &&
-                                                            document.getElementById("uci_reading").getAttribute("name") !== "agencement" &&
-                                                            document.getElementById("uci_reading").getAttribute("name") !== "couleur" &&
-                                                            document.getElementById("uci_reading").getAttribute("name") !== "comportement")){
-      heightTmp = document.getElementById("uci_toolbar-quick").clientHeight ;
-      document.getElementById("uci_reading").style.top = heightTmp+ 2 +"px";
+    if (document.getElementById("uci_reading") != null && (document.getElementById("uci_reading").getAttribute("name") !== "typographie" &&
+      document.getElementById("uci_reading").getAttribute("name") !== "agencement" &&
+      document.getElementById("uci_reading").getAttribute("name") !== "couleur" &&
+      document.getElementById("uci_reading").getAttribute("name") !== "comportement")) {
+      heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
+      document.getElementById("uci_reading").style.top = heightTmp + 2 + "px";
     }
   },
-  navigation_popin: function(e, id) {
-    var winObj="";
-    if ( !e )
+  navigation_popin: function (e, id) {
+    var winObj = "";
+    if (!e)
       e = window.event;
 
     var intKeyCode = e.keyCode;
-    if (intKeyCode ===27 && (id ==="uci_main_popin_help" || id ==="uci_discover" || id ==="uci_reading")){
+    if (intKeyCode === 27 && (id === "uci_main_popin_help" || id === "uci_discover" || id === "uci_reading")) {
       UciHelp.hide_popin();
     }
-    if (!e.shiftKey && intKeyCode ===9 && (id ==="uci_popin_button" || id === "uci_popin_exit" || id === "uci_reading_exit" )) {
+    if (!e.shiftKey && intKeyCode === 9 && (id === "uci_popin_button" || id === "uci_popin_exit" || id === "uci_reading_exit")) {
       accessibilitytoolbar.stopEvt(e);
-      switch (id){
+      switch (id) {
         case "uci_popin_button":
           document.getElementById("uci_help_title").focus();
           break;
@@ -294,11 +294,11 @@ UciHelp = {
         case "uci_reading_exit":
           document.getElementById("uci_reading_title").focus();
           break;
-      }  
+      }
     }
-    if (e.shiftKey && intKeyCode === 9 && (id === "uci_help_title" || id === "uci_discover_title" || id === "uci_reading_title") ) { 
+    if (e.shiftKey && intKeyCode === 9 && (id === "uci_help_title" || id === "uci_discover_title" || id === "uci_reading_title")) {
       accessibilitytoolbar.stopEvt(e);
-      switch (id){
+      switch (id) {
         case "uci_help_title":
           document.getElementById("uci_popin_button").focus();
           break;
@@ -312,15 +312,15 @@ UciHelp = {
     }
   },
 
-  show_reading : function(name){
+  show_reading: function (name) {
     document.getElementById("uci_main_popin_help").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
     //document.getElementById("uci_reading").style.display = "block";
-    if (name === "agencement" || name === "comportement"){
+    if (name === "agencement" || name === "comportement") {
       document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading(name));
-      document.getElementById("uci_reading").setAttribute("name",name);
+      document.getElementById("uci_reading").setAttribute("name", name);
       UciHelp.changeText("center");
-    }else {
+    } else {
       document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
       document.getElementById("uci_reading_move_left").style.visibility = "hidden";
       document.getElementById("masque_haut_param").className = "readingElements";
@@ -332,31 +332,31 @@ UciHelp = {
     document.getElementById("uci_reading_title").focus();
   },
 
-  hide_reading : function(name){
-    if (name == "reading"){
+  hide_reading: function (name) {
+    if (name == "reading") {
       document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
       document.getElementById("masque_haut_param").className = "readingElements";
     }
-    if (name == "advancedparam"){
+    if (name == "advancedparam") {
       document.getElementById("masque_haut_param").className = "masque-haut-param";
       document.getElementById("masque_haut_advanced_param").className = "readingElements";
     }
-   
+
   },
 
   changeText: function (move) {
     var movePosition = parseInt(document.getElementById("uci_reading_body").getAttribute("value"));
     if (move === "left") {
-      switch (document.getElementById("uci_reading").getAttribute("name")){
-        case "reading" :
-          if (movePosition > 0 ) {
+      switch (document.getElementById("uci_reading").getAttribute("name")) {
+        case "reading":
+          if (movePosition > 0) {
             movePosition--;
             document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
             document.getElementById("uci_reading_body").setAttribute("value", movePosition);
             document.getElementById("uci_reading_move_left").style.visibility = "visible";
           }
           break;
-        case "advancedparam" :
+        case "advancedparam":
           movePosition = 0;
           document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
           document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
@@ -366,7 +366,7 @@ UciHelp = {
           UciHelp.position_popin_help();
           UciHelp.calculate_overlay_position();
           break;
-        case "typographie" :
+        case "typographie":
           UciIhm.hide_more_confort();
           document.getElementById("uci_zone_form").removeChild(document.getElementById("uci_zone_form").lastChild);
           document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
@@ -377,44 +377,44 @@ UciHelp = {
         case "agencement":
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
           document.getElementById("uci_reading_body").innerHTML = "typographie";
-          document.getElementById("uci_reading").setAttribute("name","typographie");
+          document.getElementById("uci_reading").setAttribute("name", "typographie");
           UciHelp.position_popin_help();
           break;
         case "couleur":
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
           document.getElementById("uci_reading_body").innerHTML = "agencement";
-          document.getElementById("uci_reading").setAttribute("name","agencement");
+          document.getElementById("uci_reading").setAttribute("name", "agencement");
           UciHelp.position_popin_help();
           break;
         case "comportement":
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
           document.getElementById("uci_reading_body").innerHTML = "couleur";
-          document.getElementById("uci_reading").setAttribute("name","couleur");
+          document.getElementById("uci_reading").setAttribute("name", "couleur");
           document.getElementById("uci_reading_move_right").style.visibility = "visible";
           UciHelp.position_popin_help();
           break;
       }
     }
     if (move === "right") {
-      switch (document.getElementById("uci_reading").getAttribute("name")){
-        case "reading" :
+      switch (document.getElementById("uci_reading").getAttribute("name")) {
+        case "reading":
           if (movePosition < 3) {
             movePosition++;
             document.getElementById("uci_reading_move_left").style.visibility = "visible";
             document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
             document.getElementById("uci_reading_body").setAttribute("value", movePosition);
-          } else if ( movePosition == 3){
-              movePosition = 0;
-              document.getElementById("masque_haut_param").removeChild(document.getElementById("masque_haut_param").firstChild);
-              document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
-              document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_advance_param');
-              UciHelp.hide_reading("advancedparam");
-              UciHelp.position_popin_help();
-              
+          } else if (movePosition == 3) {
+            movePosition = 0;
+            document.getElementById("masque_haut_param").removeChild(document.getElementById("masque_haut_param").firstChild);
+            document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
+            document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_advance_param');
+            UciHelp.hide_reading("advancedparam");
+            UciHelp.position_popin_help();
+
           }
           break;
         case "advancedparam":
-          if (movePosition == 0){
+          if (movePosition == 0) {
             document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
             document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading("typographie"));
             document.getElementById("uci_reading_body").innerHTML = "typographie";
@@ -424,57 +424,57 @@ UciHelp = {
           }
           break;
         case "typographie":
-          if (movePosition == 0){
+          if (movePosition == 0) {
             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
             document.getElementById("uci_reading_body").innerHTML = "agencement";
-            document.getElementById("uci_reading").setAttribute("name","agencement");
+            document.getElementById("uci_reading").setAttribute("name", "agencement");
             UciHelp.position_popin_help();
           }
           break;
         case "agencement":
-          if (movePosition == 0){
+          if (movePosition == 0) {
             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
             document.getElementById("uci_reading_body").innerHTML = "couleur";
-             document.getElementById("uci_reading").setAttribute("name","couleur");
-             UciHelp.position_popin_help();
+            document.getElementById("uci_reading").setAttribute("name", "couleur");
+            UciHelp.position_popin_help();
           }
           break;
         case "couleur":
-          if (movePosition == 0){
+          if (movePosition == 0) {
             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
             document.getElementById("uci_reading_body").innerHTML = "comportement";
-             document.getElementById("uci_reading").setAttribute("name","comportement");
-             document.getElementById("uci_reading_move_right").style.visibility = "hidden";
-             UciHelp.position_popin_help();
+            document.getElementById("uci_reading").setAttribute("name", "comportement");
+            document.getElementById("uci_reading_move_right").style.visibility = "hidden";
+            UciHelp.position_popin_help();
           }
           break;
       }
     }
-    if (move === "center"){
-       switch (document.getElementById("uci_reading").getAttribute("name")){
+    if (move === "center") {
+      switch (document.getElementById("uci_reading").getAttribute("name")) {
         case "agencement":
-            //document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
-            UciIhm.more_confort();
-            document.getElementById("uci_reading_body").innerHTML = "agencement";
-            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-            UciHelp.calculate_overlay_position();
-            UciHelp.position_popin_help();
+          //document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
+          UciIhm.more_confort();
+          document.getElementById("uci_reading_body").innerHTML = "agencement";
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
+          UciHelp.calculate_overlay_position();
+          UciHelp.position_popin_help();
           break;
-       /* case "agencement":
-          if (movePosition == 0){
-            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-            document.getElementById("uci_reading_body").innerHTML = "agencement";
-            //document.getElementById("uci_reading").setAttribute("name","agencement");
-            UciHelp.position_popin_help();
-          }
-          break;*/
+        /* case "agencement":
+           if (movePosition == 0){
+             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
+             document.getElementById("uci_reading_body").innerHTML = "agencement";
+             //document.getElementById("uci_reading").setAttribute("name","agencement");
+             UciHelp.position_popin_help();
+           }
+           break;*/
         case "comportement":
-            UciIhm.more_confort();
-            document.getElementById("uci_reading_body").innerHTML = "comportement";
-            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
-            document.getElementById("uci_reading_move_right").style.visibility = "hidden";
-            UciHelp.calculate_overlay_position();
-            UciHelp.position_popin_help();
+          UciIhm.more_confort();
+          document.getElementById("uci_reading_body").innerHTML = "comportement";
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
+          document.getElementById("uci_reading_move_right").style.visibility = "hidden";
+          UciHelp.calculate_overlay_position();
+          UciHelp.position_popin_help();
           break;
       }
     }
