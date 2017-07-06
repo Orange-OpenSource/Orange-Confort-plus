@@ -2815,6 +2815,9 @@ accessibilitytoolbar = {
 
         accessibilitytoolbar.uciAttachEvent('resize','onresize',window, function(){UciHelp.calculate_overlay_position()});
 
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_popin_button'), function(event){UciHelp.navigation_popin(event, "uci_popin_button")});
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_main_popin_help'), function(event){UciHelp.navigation_popin(event, "uci_main_popin_help")});
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_help_title'), function(event){UciHelp.navigation_popin(event, "uci_help_title")});
         
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_left'), function(){UciHelp.changeText("left");});
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_right'), function(){UciHelp.changeText("right");});
@@ -2827,7 +2830,12 @@ accessibilitytoolbar = {
 
         accessibilitytoolbar.uciAttachEvent('resize','onresize',window,  UciHelp.calculate_overlay_position);
 
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_popin_exit'), function(event){UciHelp.navigation_popin(event, "uci_popin_exit")});
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_discover'), function(event){UciHelp.navigation_popin(event, "uci_discover")});
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_discover_title'), function(event){UciHelp.navigation_popin(event, "uci_discover_title")});
         
+        //accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById("uci_menu_activer_menu"), function(){UciIhm.close_menu()});
+        //accessibilitytoolbar.uciAttachEvent('mouseout','onmouseout',document.getElementById("uci_cdu_menu"), function(){UciIhm.close_menu()});
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_left'), function(){UciHelp.changeText("left");});
         //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_reading_move_right'), function(){UciHelp.changeText("right");});
 
@@ -2839,7 +2847,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_PL'), function() {return UciIhm.changement_langue('PL');});
         accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Annulation();});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), function(e) {accessibilitytoolbar.stopEvt(e);UciIhm.desactiveCDUForWebSite()});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
         
@@ -3312,7 +3320,6 @@ accessibilitytoolbar = {
         if (demo != null) {
             accessibilitytoolbar.userPref = demo;
         }
-        }
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
             if (document.getElementById('cdu_close')) {
                 document.getElementById('cdu_close').style.display == 'none';
@@ -3322,24 +3329,21 @@ accessibilitytoolbar = {
                 accessibilitytoolbar.show();
             }
         }
-         if (demo != null) {
-                indexIFrame = 0;
-                TheIFrames = document.getElementsByTagName("iframe");
-                if (TheIFrames.length > 0) {
-                    while (theIFrame = TheIFrames[indexIFrame]) {
-                        try {
-                            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-                            if (theIFrameDocument.getElementsByTagName('head')[0]) {
-                                theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
-                            }
-                        } catch (e) { }
-                        indexIFrame++;
-                    }
+        if (demo != null) {
+            indexIFrame = 0;
+            TheIFrames = document.getElementsByTagName("iframe");
+            if (TheIFrames.length > 0) {
+                while (theIFrame = TheIFrames[indexIFrame]) {
+                    try {
+                        theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                        if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                            theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+                        }
+                    } catch (e) { }
+                    indexIFrame++;
                 }
-         }
-                    }
-                }
-         }
+            }
+        }
         // Remove previous user style
         if (document.getElementById("a11yUserPrefStyle")) {
             document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
@@ -3619,12 +3623,12 @@ accessibilitytoolbar = {
                         }
                     }
                     else {
-                    /**                    
-                    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
-                    */                    
-                    LuminositeFond = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
-                    
-                    LuminositePolice = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yFontColor"));
+                        /**                    
+                        http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
+                        */                    
+                        LuminositeFond = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
+                        
+                        LuminositePolice = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yFontColor"));
 
                         //calcul du contraste entre 2 couleurs
                         /*
@@ -3694,77 +3698,42 @@ accessibilitytoolbar = {
                     }
                 }
             }
-        } else {
-            if (demo != null) {
-                newStyle = document.createElement("style");
-                newStyle.setAttribute("type", "text/css");
-                newStyle.id = "a11yUserPrefStyle";
-                fontSizeDef = '16px';
-                if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                    s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
-                }
-                if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                    s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
-                }
-                if ( s !== ""){
-                    if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-                        newStyle.styleSheet.cssText = s;
-                    } else { // standards-oriented browsers
-                        newStyle.appendChild(document.createTextNode(s));
-                    }
-                    //document.getElementsByTagName('head')[0].appendChild(newStyle)
-                    indexIFrame = 0;
-                    TheIFrames = document.getElementsByTagName("iframe");
-                    if (TheIFrames.length > 0) {
-                        while (theIFrame = TheIFrames[indexIFrame]) {
-                            try {
-                                theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-                                if (theIFrameDocument.getElementsByTagName('head')[0]) {
-                                    theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-                                }
-                            } catch (e) { }
-                            indexIFrame++;
-                        }
-                    }
-                    }
-                }
+        } 
+        else {
+            newStyle = document.createElement("style");
+            newStyle.setAttribute("type", "text/css");
+            newStyle.id = "a11yUserPrefStyle";
+            fontSizeDef = '16px';
+            if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
             }
-        } else {
-            if (demo != null) {
-                newStyle = document.createElement("style");
-                newStyle.setAttribute("type", "text/css");
-                newStyle.id = "a11yUserPrefStyle";
-                fontSizeDef = '16px';
-                if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                    s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
+            if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
+                s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
+            }
+            if ( s !== ""){
+                if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+                    newStyle.styleSheet.cssText = s;
+                } else { // standards-oriented browsers
+                    newStyle.appendChild(document.createTextNode(s));
                 }
-                if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                    s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
-                }
-                if ( s !== ""){
-                    if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-                        newStyle.styleSheet.cssText = s;
-                    } else { // standards-oriented browsers
-                        newStyle.appendChild(document.createTextNode(s));
-                    }
-                    //document.getElementsByTagName('head')[0].appendChild(newStyle)
-                    indexIFrame = 0;
-                    TheIFrames = document.getElementsByTagName("iframe");
-                    if (TheIFrames.length > 0) {
-                        while (theIFrame = TheIFrames[indexIFrame]) {
-                            try {
-                                theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-                                if (theIFrameDocument.getElementsByTagName('head')[0]) {
-                                    theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-                                }
-                            } catch (e) { }
-                            indexIFrame++;
-                        }
+                //document.getElementsByTagName('head')[0].appendChild(newStyle)
+                indexIFrame = 0;
+                TheIFrames = document.getElementsByTagName("iframe");
+                if (TheIFrames.length > 0) {
+                    while (theIFrame = TheIFrames[indexIFrame]) {
+                        try {
+                            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                            if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                                theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+                            }
+                        } catch (e) { }
+                        indexIFrame++;
                     }
                 }
             }
         }
     },
+
     // from HTMLCS : https://github.com/squizlabs/HTML_CodeSniffer/blob/90b8660fbc22698f98f3d50122241c123b3491c0/HTMLCS.js#L820
     /**
      * Calculate relative luminescence for a colour in the sRGB colour profile.
