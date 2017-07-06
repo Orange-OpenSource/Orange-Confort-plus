@@ -3316,20 +3316,11 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function (init, demo) {
-        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody;
-        if (demo != null) {
-            accessibilitytoolbar.userPref = demo;
-        }
-        if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
-            if (document.getElementById('cdu_close')) {
-                document.getElementById('cdu_close').style.display == 'none';
-            }
-            toolbarContent = document.getElementById("cdu_content");
-            if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
-                accessibilitytoolbar.show();
-            }
-        }
-        if (demo != null) {
+        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref;
+        localUserPref = accessibilitytoolbar.userPref;
+        // were in demo mode
+        if (demo) {
+            localUserPref = demo;
             indexIFrame = 0;
             TheIFrames = document.getElementsByTagName("iframe");
             if (TheIFrames.length > 0) {
@@ -3343,345 +3334,372 @@ accessibilitytoolbar = {
                     indexIFrame++;
                 }
             }
+        } else {
+          // default mode, settings for the page 
+          if (localUserPref.get("a11yToolbarEnable") !== "off") {
+              if (document.getElementById('cdu_close')) {
+                  document.getElementById('cdu_close').style.display == 'none';
+              }
+              toolbarContent = document.getElementById("cdu_content");
+              if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
+                  accessibilitytoolbar.show();
+              }
+          }        
+          // Remove previous user style
+          if (document.getElementById("a11yUserPrefStyle")) { 
+              document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));           
+              
+              /*
+              * remove css to frames if possible
+              * Works only if frame src is onto the same domain
+              *
+              */
+              indexFrame = 0;
+              theFrames = window.frames;
+              //theFrames=document.getElementsByTagName("iframe");
+              if (theFrames.length > 0) {
+                  while (theFrame = theFrames[indexFrame]) {
+                      try {
+                          //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
+                          theFrameDocument = theFrame.document || theFrame.contentDocument;
+                          if (theFrameDocument.getElementsByTagName('head')[0]) {
+                              theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
+                          }
+                      } catch (e) { }
+                      indexFrame++;
+                  }
+              }
+          }
+  
+          accessibilitytoolbar.removeOrStartRemote();
+          accessibilitytoolbar.removeOrStartLoopingMode();
         }
-        // Remove previous user style
-        if (document.getElementById("a11yUserPrefStyle")) {
-            document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
-           
-            
-            /*
-            * remove css to frames if possible
-            * Works only if frame src is onto the same domain
-            *
-            */
-            indexFrame = 0;
-            theFrames = window.frames;
-            //theFrames=document.getElementsByTagName("iframe");
-            if (theFrames.length > 0) {
-                while (theFrame = theFrames[indexFrame]) {
-                    try {
-                        //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
-                        theFrameDocument = theFrame.document || theFrame.contentDocument;
-                        if (theFrameDocument.getElementsByTagName('head')[0]) {
-                            theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
-                        }
-                    } catch (e) { }
-                    indexFrame++;
-                }
-            }
-        }
-
-        accessibilitytoolbar.removeOrStartRemote();
-        accessibilitytoolbar.removeOrStartLoopingMode();
         // Remove linearization if it had been done : 
         // 1. linearize ? -- which is the same as: get rid of all CSS info first
         // if the user remove the option, we need to put back the stylesheets and styles attributes
-        if (demo == null) {
-            if (accessibilitytoolbar.userPref.get("a11yLinearize") === "false"
-                || accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") == "off") {
-                if (accessibilitytoolbar.savesStylesheets.length > 0) {
-                    for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
-                        document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i], document.getElementById('a11yCSS'));
-                    }
-                    // then clean the array
-                    accessibilitytoolbar.savesStylesheets = [];
-                }
-                if (accessibilitytoolbar.savStyleElmtAtt.length > 0) {
-                    i = "";
-                    for (i in accessibilitytoolbar.savStyleElmtAtt) {
-                        accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style", accessibilitytoolbar.savStyleAttElmt[i]);
-                    }
-                    // then clean the array
-                    accessibilitytoolbar.savStyleElmtAtt = [];
-                    accessibilitytoolbar.savStyleAttElmt = [];
-                }
-            }
-            if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") != "off") {
-                // 1. linearize ? -- which is the same as: get rid of all CSS info first
-                if (accessibilitytoolbar.userPref.get("a11yLinearize") !== "false") {
-                    // delete all the CSS references
-                    links = document.getElementsByTagName("link");
-                    for (i = links.length - 1; i >= 0; i--) {
-                        if (links[i].rel.match(/stylesheet/i) && (!links[i].id || !links[i].id.match(/a11yCSS/))) {
-                            accessibilitytoolbar.savesStylesheets.push(links[i]);
-                            links[i].parentNode.removeChild(links[i]);
-                        }
-                    }
+        
+        if (localUserPref.get("a11yLinearize") === "false"
+          || localUserPref.get("a11ySiteWebEnabled") == "off") {
+          
+          if (accessibilitytoolbar.savesStylesheets.length > 0) {
+              for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
+                  document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i], document.getElementById('a11yCSS'));
+              }
+              // then clean the array
+              accessibilitytoolbar.savesStylesheets = [];
+          }
+          if (accessibilitytoolbar.savStyleElmtAtt.length > 0) {
+              i = "";
+              for (i in accessibilitytoolbar.savStyleElmtAtt) {
+                  accessibilitytoolbar.savStyleElmtAtt[i].setAttribute("style", accessibilitytoolbar.savStyleAttElmt[i]);
+              }
+              // then clean the array
+              accessibilitytoolbar.savStyleElmtAtt = [];
+              accessibilitytoolbar.savStyleAttElmt = [];
+          }
+        }
+          
+        if (localUserPref.get("a11ySiteWebEnabled") != "off") {
+          // 1. linearize ? -- which is the same as: get rid of all CSS info first
+          if (localUserPref.get("a11yLinearize") !== "false") {
+              // delete all the CSS references
+              links = document.getElementsByTagName("link");
+              for (i = links.length - 1; i >= 0; i--) {
+                  if (links[i].rel.match(/stylesheet/i) && (!links[i].id || !links[i].id.match(/a11yCSS/))) {
+                      accessibilitytoolbar.savesStylesheets.push(links[i]);
+                      links[i].parentNode.removeChild(links[i]);
+                  }
+              }
 
-                    // remove the style attribute
-                    allElts = accessibilitytoolbar.body.getElementsByTagName("*");
-                    for (i = 0; i < allElts.length; i++) {
-                        if ((allElts[i].className instanceof String && !allElts[i].className.match(/uci_/) && !allElts[i].className.match(/cdu_/)) || (allElts[i].id && !allElts[i].id.match(/uci_/) && !allElts[i].id.match(/cdu_/))) {
-                            if (allElts[i].getAttribute("style")) {
-                                accessibilitytoolbar.savStyleElmtAtt[i] = allElts[i];
-                                accessibilitytoolbar.savStyleAttElmt[i] = allElts[i].getAttribute("style");
-                                allElts[i].removeAttribute("style");
-                            }
-                        }
-                    }
-                }
+              // remove the style attribute
+              allElts = accessibilitytoolbar.body.getElementsByTagName("*");
+              for (i = 0; i < allElts.length; i++) {
+                  if ((allElts[i].className instanceof String && !allElts[i].className.match(/uci_/) && !allElts[i].className.match(/cdu_/)) || (allElts[i].id && !allElts[i].id.match(/uci_/) && !allElts[i].id.match(/cdu_/))) {
+                      if (allElts[i].getAttribute("style")) {
+                          accessibilitytoolbar.savStyleElmtAtt[i] = allElts[i];
+                          accessibilitytoolbar.savStyleAttElmt[i] = allElts[i].getAttribute("style");
+                          allElts[i].removeAttribute("style");
+                      }
+                  }
+              }
+          }
 
-                // generate the CSS instructions
-                // 1. do we want bigger fonts?
-                // make it proportional to the initial font          
-            fontSizeDef = fontSizeBody = '16px';
-                if (window.getComputedStyle) {
+          // generate the CSS instructions
+          // 1. do we want bigger fonts?
+          // make it proportional to the initial font          
+          fontSizeDef = fontSizeBody = '16px';
+          if (window.getComputedStyle) {
                 // get the font-size from html tag
                 fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
                 // get the font-size from the body
                 fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0],null).getPropertyValue("font-size") || '16px';
-                }
+          }
+  
+          if (localUserPref.get("a11yBigger") !== "keepit") {
+              s += "html { font-size:" + localUserPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
+          }
+  
+          //gestion de l'affichage du mode espacement des mots
+          if (localUserPref.get("a11ySpacement") !== "keepit") {
+              s += "*{ word-spacing:" + localUserPref.get("a11ySpacement") + "em !important; }\n";
+          }
+  
+          //gestion de l'affichage du mode espacement des lignes
+          if (localUserPref.get("a11yLineSpacement") !== "keepit") {
+              s += "*{ line-height:" + localUserPref.get("a11yLineSpacement") + " !important; }\n";
+          }
+  
+          //gestion de l'espacement des caractères
+          if (localUserPref.get("a11yCharSpacement") !== "keepit") {
+              s += "* :not(.cdu-icon) {letter-spacing:" + localUserPref.get("a11yCharSpacement") + "em !important; }\n";
+          }
+  
+          //gestion de la casse : a11yModifCase
+          if (localUserPref.get("a11yModifCasse") !== "keepit") {
+              s += "*{ text-transform:" + localUserPref.get("a11yModifCasse") + " !important; }\n";
+          }
+  
+          //gestion de la police d'écriture
+          if (localUserPref.get("a11yDyslexyFont") !== 'keepit') {
+              //load the font face
+              if (localUserPref.get("a11yDyslexyFont") === 'opendyslexic') {
+                  if (fontsPath['opendyslexicregular']) {
+                      s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+                  }
+              }
+              s += "* :not(.cdu-icon) {font-family:" + localUserPref.get("a11yDyslexyFont") + " !important; }\n";
+          }
+  
+          //gestion alignement des texte à gauche
+          if (localUserPref.get("a11yLeftText") !== "false") {
+              s += "* {text-align:" + localUserPref.get("a11yLeftText") + "!important; }\n";
+          }
+  
+          //numerotation en mode liste
+          if (localUserPref.get("a11yNumerotationList") !== "false") {
+  
+              s += "ul, ol  {list-style-position:initial !important; list-style-image: none !important; list-style-type: " + localUserPref.get("a11yNumerotationList") + "!important; }\n";
+          }
 
-                if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                    s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
-                }
+          //gestion des liens de navigations
+          if (localUserPref.get("a11yNavLienEnabled") !== "false") {
+              //gestion des liens non visités
+              if (localUserPref.get("a11yNavLienNonVisStyle") === "border") {
+                  s += "a:link  {border: 1px solid !important; color : " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+              } else if (localUserPref.get("a11yNavLienNonVisStyle") === "bold") {
+                  s += "a:link  {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+              } else if (localUserPref.get("a11yNavLienNonVisStyle") === "underline") {
+                  s += "a:link  {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+              } else {
+                  s += "a:link  {color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+              }
 
-                //gestion de l'affichage du mode espacement des mots
-                if (accessibilitytoolbar.userPref.get("a11ySpacement") !== "keepit") {
-                    s += "*{ word-spacing:" + accessibilitytoolbar.userPref.get("a11ySpacement") + "em !important; }\n";
-                }
+              //gestion des liens visités
+              if (localUserPref.get("a11yNavLienVisStyle") === "border") {
+                  s += "a:visited {border: 1px solid !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+              } else if (localUserPref.get("a11yNavLienVisStyle") === "bold") {
+                  s += "a:visited {font-weight: bold !important; color : " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+              } else if (localUserPref.get("a11yNavLienVisStyle") === "underline") {
+                  s += "a:visited {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+              } else {
+                  s += "a:visited {color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+              }
 
-                //gestion de l'affichage du mode espacement des lignes
-                if (accessibilitytoolbar.userPref.get("a11yLineSpacement") !== "keepit") {
-                    s += "*{ line-height:" + accessibilitytoolbar.userPref.get("a11yLineSpacement") + " !important; }\n";
-                }
+              //gestion du lien actif
+              if (localUserPref.get("a11yNavLienSelStyle") === "border") {
+                  s += "a:active {border: 2px solid #F16E00!important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:focus {border: 2px solid #F16E00 !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:hover {border: 2px solid #F16E00 !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+              } else if (localUserPref.get("a11yNavLienSelStyle") === "underline") {
+                  s += "a:active {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:focus {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:hover {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+              }
+              else if (localUserPref.get("a11yNavLienSelStyle") === "bold") {
+                  s += "a:active {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:focus {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:hover {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+              } else {
+                  s += "a:active {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:focus {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  s += "a:hover {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
 
-                //gestion de l'espacement des caractères
-                if (accessibilitytoolbar.userPref.get("a11yCharSpacement") !== "keepit") {
-                    s += "* :not(.cdu-icon) {letter-spacing:" + accessibilitytoolbar.userPref.get("a11yCharSpacement") + "em !important; }\n";
-                }
+              }
+          }
+          //suppression des effets de transparences
+          if (localUserPref.get("a11ySupEffetTransp") !== "false") {
+              s += "*  { opacity: 1 !important; -ms-filter: 'none'; filter: none !important }";
+          }
 
-                //gestion de la casse : a11yModifCase
-                if (accessibilitytoolbar.userPref.get("a11yModifCasse") !== "keepit") {
-                    s += "*{ text-transform:" + accessibilitytoolbar.userPref.get("a11yModifCasse") + " !important; }\n";
-                }
+          //supression des images de fond
+          if (localUserPref.get("a11ySupImageFont") !== "false") {
+              s += "*  { background-image: none !important; }\n";
+          }
 
-                //gestion de la police d'écriture
-                if (accessibilitytoolbar.userPref.get("a11yDyslexyFont") !== 'keepit') {
-                    //load the font face
-                    if (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === 'opendyslexic') {
-                        if (fontsPath['opendyslexicregular']) {
-                            s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
-                        }
-                    }
-                    s += "* :not(.cdu-icon) {font-family:" + accessibilitytoolbar.userPref.get("a11yDyslexyFont") + " !important; }\n";
-                }
+          var listeimg, i, backGroundColor, fontColor, uminositeFond, LuminositePolice, newStyle;
+          //suppression des images de premier plan
 
-                //gestion alignement des texte à gauche
-                if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                    s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
-                }
+          if (localUserPref.get("a11ySupImageFirstPlan") !== "false" && !document.getElementById("spanImage1")) {
+              listeimg = document.images;
+              for (i = 0; i < listeimg.length; i++) {
+                  if (!document.getElementById("spanImage" + i)) {
+                      if (!(/^uci_(\S+)$/.exec(listeimg[i].parentNode.id))) {
+                          imageAlt = listeimg[i].alt;
+                          spanImage = document.createElement("span");
+                          spanImage.setAttribute("id", "spanImage" + i);
+                          var newlink = document.createElement('a');
+                          if (imageAlt === "") {
+                              newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + accessibilitytoolbar.get('uci_link_display_picture_no_alt');
+                          } else {
+                              newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + imageAlt;
+                          }
+                          newlink.href = "#uci_img_" + i;
+                          accessibilitytoolbar.uciAttachEvent('click', 'onclick', newlink, accessibilitytoolbar.activationPicture);
+                          spanImage.appendChild(newlink);
+                          listeimg[i].parentNode.insertBefore(spanImage, listeimg[i]);
+                          listeimg[i].className = listeimg[i].className + " uci_disable_image";
+                      }
+                  }
+              }
+          } else if (localUserPref.get("a11ySupImageFirstPlan") == "false") {
+              accessibilitytoolbar.cleanImgDisabled();
+          }
 
-                //numerotation en mode liste
-                if (accessibilitytoolbar.userPref.get("a11yNumerotationList") !== "false") {
+          // reading mask
+          if (localUserPref.get("a11yMaskEnabled") !== "false") {
+              UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
+              if (!accessibilitytoolbar.toolbarMaskInit) {
+                  UciMask.init();
+                  accessibilitytoolbar.toolbarMaskInit = true;
+              }
+              UciMask.start();
 
-                    s += "ul, ol  {list-style-position:initial !important; list-style-image: none !important; list-style-type: " + accessibilitytoolbar.userPref.get("a11yNumerotationList") + "!important; }\n";
-                }
+              s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+              s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
 
-                //gestion des liens de navigations
-                if (accessibilitytoolbar.userPref.get("a11yNavLienEnabled") !== "false") {
-                    //gestion des liens non visités
-                    if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border") {
-                        s += "a:link  {border: 1px solid !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "bold") {
-                        s += "a:link  {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline") {
-                        s += "a:link  {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                    } else {
-                        s += "a:link  {color: " + accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-                    }
+          }
+          // if mask was launch before deactivation kill!
+          else if (UciMask.settings.launched) {
+              UciMask.maskEventRemove();
+          }
 
-                    //gestion des liens visités
-                    if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border") {
-                        s += "a:visited {border: 1px solid !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "bold") {
-                        s += "a:visited {font-weight: bold !important; color : " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline") {
-                        s += "a:visited {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                    } else {
-                        s += "a:visited {color: " + accessibilitytoolbar.userPref.get("a11yNavLienVisColor") + " !important; }\n";
-                    }
+          //gestion des couleurs
+          // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
+          if (!init) {
+              document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
+              document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
+          }
+          if ((localUserPref.get("a11yVisualSettings") === "predefined" && localUserPref.get("a11yVisualPredefinedSettings") !== "keepit") 
+            || (localUserPref.get("a11yVisualSettings") === "personnal" && localUserPref.get("a11yFontColor") !== localUserPref.get("a11yBackgroundColor"))) {
+              if (localUserPref.get("a11yVisualSettings") === "predefined") {
+                  if (!init) {
+                      document.getElementById('uci_message_constraste').style.display = 'none';
+                      element = document.getElementById('uci_reponses_bigger_quick_set');
+                  }
+                  backGroundColor = "#FFF";
+                  fontColor = "#000";
 
-                    //gestion du lien actif
-                    if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border") {
-                        s += "a:active {border: 2px solid #F16E00!important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:focus {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:hover {border: 2px solid #F16E00 !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    } else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline") {
-                        s += "a:active {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:focus {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:hover {text-decoration:underline !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    }
-                    else if (accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "bold") {
-                        s += "a:active {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:focus {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:hover {font-weight: bold !important; color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                    } else {
-                        s += "a:active {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:focus {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
-                        s += "a:hover {color: " + accessibilitytoolbar.userPref.get("a11yNavLienSelColor") + " !important; }\n";
+                  var predifinedCombinaisons = {
+                      'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
+                      'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
+                      'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
+                      'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
+                      'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
+                      'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
+                      'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
+                      'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+                  };
+                  if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
+                      fontColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
+                      backGroundColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].backGroundColor;
 
-                    }
-                }
-                //suppression des effets de transparences
-                if (accessibilitytoolbar.userPref.get("a11ySupEffetTransp") !== "false") {
-                    s += "*  { opacity: 1 !important; -ms-filter: 'none'; filter: none !important }";
-                }
+                  }
+                  /*defect 67 */
+                  if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
+                      if (!init) {
+                          document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
+                          document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
+                      }
+                      fontColor = "#FFF";
+                      backGroundColor = "#000";
+                  }
+              } 
+              else {
+                  /**                    
+                  http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
+                  */                    
+                  LuminositeFond = accessibilitytoolbar.relativeLum(localUserPref.get("a11yBackgroundColor"));
+                  
+                  LuminositePolice = accessibilitytoolbar.relativeLum(localUserPref.get("a11yFontColor"));
 
-                //supression des images de fond
-                if (accessibilitytoolbar.userPref.get("a11ySupImageFont") !== "false") {
-                    s += "*  { background-image: none !important; }\n";
-                }
+                  //calcul du contraste entre 2 couleurs
+                  /*
+                  contrast ratio
+                      (L1 + 0.05) / (L2 + 0.05), where
+                          L1 is the relative luminance of the lighter of the colors, and
+                          L2 is the relative luminance of the darker of the colors.
+                  */
+                  if (!init) {
+                      if (((Math.max(LuminositePolice, LuminositeFond) + 0.05) / (Math.min(LuminositePolice, LuminositeFond) + 0.05)) < 4.5) {
+                          if (document.getElementById('uci_message_constraste').style.display === 'none') {
+                              document.getElementById('uci_message_constraste').style.display = 'block';
+                          }
+                      } else if (document.getElementById('uci_message_constraste').style.display === 'block') {
+                          document.getElementById('uci_message_constraste').style.display = 'none';
+                      }
+                  }
+                  fontColor = localUserPref.get("a11yFontColor");
+                  backGroundColor = localUserPref.get("a11yBackgroundColor");
+              }
 
+              s += "* { color:" + fontColor + " !important; }\n";
+              s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
+              // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
+              s += "input { border-width: 1px !important; border-style: solid !important}\n";
+              s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
+              s += "table {border-collapse: collapse !important;}";
+              s += "* { background-color:" + backGroundColor + " !important;}";
+              // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
+              // background:" + backGroundColor + " !important; }\n";
+              s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
 
-                var listeimg, i, backGroundColor, fontColor, uminositeFond, LuminositePolice, newStyle;
-                //suppression des images de premier plan
+              document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
+          }
+          else {
+              document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
+          }
 
-                if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") !== "false" && !document.getElementById("spanImage1")) {
-                    listeimg = document.images;
-                    for (i = 0; i < listeimg.length; i++) {
-                        if (!document.getElementById("spanImage" + i)) {
-                            if (!(/^uci_(\S+)$/.exec(listeimg[i].parentNode.id))) {
-                                imageAlt = listeimg[i].alt;
-                                spanImage = document.createElement("span");
-                                spanImage.setAttribute("id", "spanImage" + i);
-                                var newlink = document.createElement('a');
-                                if (imageAlt === "") {
-                                    newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + accessibilitytoolbar.get('uci_link_display_picture_no_alt');
-                                } else {
-                                    newlink.textContent = accessibilitytoolbar.get('uci_link_display_picture') + " " + imageAlt;
-                                }
-                                newlink.href = "#uci_img_" + i;
-                                accessibilitytoolbar.uciAttachEvent('click', 'onclick', newlink, accessibilitytoolbar.activationPicture);
-                                spanImage.appendChild(newlink);
-                                listeimg[i].parentNode.insertBefore(spanImage, listeimg[i]);
-                                listeimg[i].className = listeimg[i].className + " uci_disable_image";
+          /*
+          * Apply css to frames if possible
+          * Works only if frame src is onto the same domain
+          *
+          */
+          if (s !== "") {
+              newStyle = document.createElement("style");
+              newStyle.setAttribute("type", "text/css");
+              newStyle.id = "a11yUserPrefStyle";
+              if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
+                  newStyle.styleSheet.cssText = s;
+              } else { // standards-oriented browsers
+                  newStyle.appendChild(document.createTextNode(s));
+              }
+
+              // If demo mode add thestyle to the demo frame
+              if(demo) {
+                indexIFrame = 0;
+                TheIFrames = document.getElementsByTagName("iframe");
+                if (TheIFrames.length > 0) {
+                    while (theIFrame = TheIFrames[indexIFrame]) {
+                        try {
+                            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                            if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                                theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
                             }
-                        }
+                        } catch (e) { }
+                        indexIFrame++;
                     }
-                } else if (accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") == "false") {
-                    accessibilitytoolbar.cleanImgDisabled();
                 }
-
-                // reading mask
-                if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") !== "false") {
-                    UciMask.settings.thickness = accessibilitytoolbar.userPref.get("a11yMaskEpaisseur");
-                    if (!accessibilitytoolbar.toolbarMaskInit) {
-                        UciMask.init();
-                        accessibilitytoolbar.toolbarMaskInit = true;
-                    }
-                    UciMask.start();
-
-                    s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
-                    s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
-
-                }
-                // if mask was launch before deactivation kill!
-                else if (UciMask.settings.launched) {
-                    UciMask.maskEventRemove();
-                }
-
-
-                //gestion des couleurs
-                // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
-                if (!init) {
-                    document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
-                    document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
-                }
-                if ((accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" && accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") !== "keepit") || (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" && accessibilitytoolbar.userPref.get("a11yFontColor") !== accessibilitytoolbar.userPref.get("a11yBackgroundColor"))) {
-                    if (accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined") {
-                        if (!init) {
-                            document.getElementById('uci_message_constraste').style.display = 'none';
-                            element = document.getElementById('uci_reponses_bigger_quick_set');
-                        }
-                        backGroundColor = "#FFF";
-                        fontColor = "#000";
-
-                        var predifinedCombinaisons = {
-                            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
-                            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
-                            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
-                            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
-                            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
-                            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
-                            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
-                            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
-                        };
-                        if (predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")]) {
-                            fontColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor;
-                            backGroundColor = predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor;
-
-                        }
-                        /*defect 67 */
-                        if (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
-                            if (!init) {
-                                document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
-                                document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
-                            }
-                            fontColor = "#FFF";
-                            backGroundColor = "#000";
-                        }
-                    }
-                    else {
-                        /**                    
-                        http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
-                        */                    
-                        LuminositeFond = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
-                        
-                        LuminositePolice = accessibilitytoolbar.relativeLum(accessibilitytoolbar.userPref.get("a11yFontColor"));
-
-                        //calcul du contraste entre 2 couleurs
-                        /*
-                        contrast ratio
-                            (L1 + 0.05) / (L2 + 0.05), where
-                                L1 is the relative luminance of the lighter of the colors, and
-                                L2 is the relative luminance of the darker of the colors.
-                        */
-                        if (!init) {
-                            if (((Math.max(LuminositePolice, LuminositeFond) + 0.05) / (Math.min(LuminositePolice, LuminositeFond) + 0.05)) < 4.5) {
-                                if (document.getElementById('uci_message_constraste').style.display === 'none') {
-                                    document.getElementById('uci_message_constraste').style.display = 'block';
-                                }
-                            } else if (document.getElementById('uci_message_constraste').style.display === 'block') {
-                                document.getElementById('uci_message_constraste').style.display = 'none';
-                            }
-                        }
-                        fontColor = accessibilitytoolbar.userPref.get("a11yFontColor");
-                        backGroundColor = accessibilitytoolbar.userPref.get("a11yBackgroundColor");
-                    }
-
-                    s += "* { color:" + fontColor + " !important; }\n";
-                    s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
-                    // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
-                    s += "input { border-width: 1px !important; border-style: solid !important}\n";
-                    s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
-                    s += "table {border-collapse: collapse !important;}";
-                    s += "* { background-color:" + backGroundColor + " !important;}";
-                    // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
-                    // background:" + backGroundColor + " !important; }\n";
-                    s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
-
-                    document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
-                }
-                else {
-                    document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
-                }
-            }
-
-            /*
-           * Apply css to frames if possible
-           * Works only if frame src is onto the same domain
-           *
-           */
-            if (s !== "") {
-                newStyle = document.createElement("style");
-                newStyle.setAttribute("type", "text/css");
-                newStyle.id = "a11yUserPrefStyle";
-                if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-                    newStyle.styleSheet.cssText = s;
-                } else { // standards-oriented browsers
-                    newStyle.appendChild(document.createTextNode(s));
-                }
+              } else { // Not demo mode set the style to the page
                 document.getElementsByTagName('head')[0].appendChild(newStyle);
                 indexFrame = 0;
                 theFrames = window.frames;
@@ -3697,40 +3715,8 @@ accessibilitytoolbar = {
                         indexFrame++;
                     }
                 }
-            }
-        } 
-        else {
-            newStyle = document.createElement("style");
-            newStyle.setAttribute("type", "text/css");
-            newStyle.id = "a11yUserPrefStyle";
-            fontSizeDef = '16px';
-            if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
-                s += "html { font-size:" + accessibilitytoolbar.userPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
-            }
-            if (accessibilitytoolbar.userPref.get("a11yLeftText") !== "false") {
-                s += "* {text-align:" + accessibilitytoolbar.userPref.get("a11yLeftText") + "!important; }\n";
-            }
-            if ( s !== ""){
-                if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-                    newStyle.styleSheet.cssText = s;
-                } else { // standards-oriented browsers
-                    newStyle.appendChild(document.createTextNode(s));
-                }
-                //document.getElementsByTagName('head')[0].appendChild(newStyle)
-                indexIFrame = 0;
-                TheIFrames = document.getElementsByTagName("iframe");
-                if (TheIFrames.length > 0) {
-                    while (theIFrame = TheIFrames[indexIFrame]) {
-                        try {
-                            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-                            if (theIFrameDocument.getElementsByTagName('head')[0]) {
-                                theIFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-                            }
-                        } catch (e) { }
-                        indexIFrame++;
-                    }
-                }
-            }
+              }
+          }
         }
     },
 

@@ -31,7 +31,7 @@ UciHelp = {
    */
   InitUciHelp: function () {
     return accessibilitytoolbar.make(
-      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help", style: "display:block" },
+      ["div", { id: "uci_main_popin_help", "class": "uci-main-popin-help"},
         ["div", { id: "uci_popin_content", "class": "uci-popin-content" },
           ["div", { id: "uci_popin_header", "class": "uci-popin-header" },
             ["h2", { id: "uci_help_title", "class": "uci-popin-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_menu_guide')],
@@ -210,24 +210,24 @@ UciHelp = {
   },
 
   demo_visibility: function () {
-    demo = new UciUserPref();
+    var demo = new UciUserPref();
     demo.set("a11yBigger", 150);
     accessibilitytoolbar.setCSS("false", demo);
   },
 
   demo_layout: function () {
-    demo = new UciUserPref();
+    var demo = new UciUserPref();
     demo.set("a11yLeftText", "left");
     accessibilitytoolbar.setCSS("false", demo);
   },
 
   demo_reset: function () {
-    demo = new UciUserPref();
+    var demo = new UciUserPref();
     accessibilitytoolbar.setCSS("false", demo);
   },
 
   calculate_overlay_position: function (resize) {
-    if (resize !== null && resize !== undefined){
+    if (resize !== null && resize !== undefined) {
       document.getElementById("masque_haut").setAttribute("value", resize);
     }
     if (document.getElementById("masque_haut").getAttribute("value") == 1){
