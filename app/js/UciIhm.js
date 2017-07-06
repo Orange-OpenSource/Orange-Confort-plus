@@ -192,7 +192,7 @@ UciIhm = {
           ],
           ["div", {"class":"uci_systeme_onglets uci_clear cdu_c", id:"uci_zone_form", style:"display:none;"},
             ["div", {id:"uci_activateOnglet", style:"display:none;"},
-              ["div", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all"},
+              ["button", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all", type:"button"},
                 ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-reload2"}],
                 accessibilitytoolbar.get('uci_menu_remove_all')
               ],
