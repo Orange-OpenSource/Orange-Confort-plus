@@ -146,7 +146,7 @@ UciProfile = {
   },
 
   showProfile: function(){
-    document.getElementById("uci_zone_form").appendChild(UciProfile.SaveProfile());
+    document.getElementById("uci_cdu_popin").appendChild(UciProfile.SaveProfile());
   },
 
   improve_visibility: function () {

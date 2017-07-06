@@ -2998,6 +2998,7 @@ accessibilitytoolbar = {
             contentToolbar.className = 'cdu_displayN';
             contentToolbar.appendChild(accessibilitytoolbar.createToolbar());
             document.getElementById('cdu_zone').appendChild(contentToolbar);
+            document.getElementById('accessibilitytoolbarGraphic').appendChild(accessibilitytoolbar.make(["div", {id:"uci_cdu_popin", style:"display:none;"}]));
             // add JS behaviour
             accessibilitytoolbar.createObjectBehaviour();
         }

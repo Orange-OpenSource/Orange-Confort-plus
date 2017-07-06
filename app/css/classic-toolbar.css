@@ -1758,3 +1758,19 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 #confortPlusTarget {
 	display: none;
 }
+
+#uci_cdu_popin {
+		/*display: none; /*--masqué par défaut--*/
+		background-color: rgba(0,0,0,0.5);
+		position: absolute;
+		left: 0;
+		width: 100%;
+		z-index: 2147483646;
+		height: 100%
+}
+
+#save_profile{
+    background-color: #FFF;
+    width: 380px;
+    height: 160px;
+}
