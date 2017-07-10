@@ -3294,7 +3294,7 @@ accessibilitytoolbar = {
     // were in demo mode
     if (demo) {
       localUserPref = demo;
-      demoFrame = document.getElementsByTagName("uci_discover_frame");
+      demoFrame = document.getElementById("uci_discover_frame");
       try {
         demoFrameDocument = demoFrame.document || demoFrame.contentDocument;
         if (demoFrameDocument.getElementsByTagName('head')[0]) {
@@ -3653,7 +3653,7 @@ accessibilitytoolbar = {
 
         // If demo mode add thestyle to the demo frame
         if (demo) {
-          demoFrame = document.getElementsByTagName("uci_discover_frame");
+          demoFrame = document.getElementById("uci_discover_frame");
           try {
             demoFrameDocument = demoFrame.document || demoFrame.contentDocument;
             if (demoFrameDocument.getElementsByTagName('head')[0]) {
