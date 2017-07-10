@@ -58,7 +58,7 @@ UciProfile = {
       ["div", {id:"save_popin"},
         ["div", { id: "uci_save_header", "class": "uci-save-header" },
           ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('save_service')],
-          ["button", {"class":"ucibtn-secondary uci-popin-btn", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
+          ["button", {"class":"ucibtn-secondary uci-popin-btn", onclick: "UciProfile.hide_save_profile()", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
             ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
             ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
           ]
@@ -66,17 +66,21 @@ UciProfile = {
         ["div", {id: "saveContent"},
           ["ul",
             ["li",{class: "uci_menu_ouverture_aide"},
-              ["input", { type: "radio", "checked": "true", name: "example", id: "uci_profile_select" }],
-              ["label", { "class":"labelcolor","for": "uci_profile_reading" }, "profile"],
+              ["input", { type: "radio", onchange: "UciProfile.changeStatus(1)","checked": "true", name: "example", id: "uci_profile_select" }],
+              ["label", { "class":"labelcolor","for": "uci_profile_select" }, "profile"],
               
               UciProfile.selectProfile(),
             ],
             ["li",{class: "uci_menu_ouverture_aide"},
-              ["input", { type: "radio", name: "example", id: "uci_profile_reading" }],
-              ["label", { "class":"labelcolor","for": "uci_profile_reading" }, "Ameliorer la lisibilite"],
-              ["input", {type: "texte"}]
+              ["input", { type: "radio", onchange: "UciProfile.changeStatus(2)", name: "example", id: "uci_profile_save" }],
+              ["label", { "class":"labelcolor","for": "uci_profile_save" }, "Ameliorer la lisibilite"],
+              ["input", {id: "profile_name", type: "texte", disabled:"disabled"}]
             ],
           ]
+        ],
+        ["div", {"class": "uci-popin-buttom" },
+          ["button", { id: "save_cancel", name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
+          ["button", { id: "save_submit", name: "saveSubmit", onclick:"UciProfile.submit_profile()","type": "button", "class": "uci-popin-button-right ucibtn-primary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_valid')]
         ]
       ]
     ])
@@ -103,6 +107,12 @@ UciProfile = {
 	  return false;
   },
 
+  hide_save_profile: function(){
+    document.getElementById("uci_cdu_popin").style.display = "none";
+    parent = document.getElementById("save_popin").parentNode;
+    parent.removeChild(parent.lastChild);
+  },
+
   close_menu: function (nofocus) {
       // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
       // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
@@ -117,6 +127,17 @@ UciProfile = {
       }
       if(nofocus) return false;
       document.getElementById("uci_activer_profile").focus();
+    }
+  },
+
+  changeStatus:function(option){
+    if (option == 1){
+      document.getElementById("select").removeAttribute("disabled");
+      document.getElementById("profile_name").setAttribute("disabled", "disabled");
+    }
+    else if (option == 2){
+      document.getElementById("profile_name").removeAttribute("disabled");
+      document.getElementById("select").setAttribute("disabled", "disabled");
     }
   },
 
@@ -141,12 +162,14 @@ UciProfile = {
       returnAllProfile = ["option",{"value":i},""+i+""];
       tableauSelectProfile.push(returnAllProfile);
     }
-    console.log(tableauSelectProfile);
+    UciProfile.close_menu();
     return tableauSelectProfile;
   },
 
   showProfile: function(){
     document.getElementById("uci_cdu_popin").appendChild(UciProfile.SaveProfile());
+    document.getElementById("uci_cdu_popin").style.display= "block";
+    document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
   },
 
   improve_visibility: function () {
