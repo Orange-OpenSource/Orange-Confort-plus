@@ -2,7 +2,7 @@
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
-var hebergementFullPath = hebergementDomaine + '/';
+var hebergementFullPath = hebergementDomaine + '/crossdom/';
 // Source: app/conf/hebergement.js
 /*
 
