@@ -1,8 +1,8 @@
-/* orange-confort-plus - version 4.1.0 - 05-07-2017
+/* orange-confort-plus - version 4.1.0 - 13-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
-var hebergementDomaine = 'http://confort-plus.orange.com';
-var hebergementFullPath = hebergementDomaine + '/';
+var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
+var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
 // Source: app/conf/hebergement.js
 /*
 
@@ -2282,7 +2282,7 @@ UciIhm = {
           ],
           ["div", {"class":"uci_systeme_onglets uci_clear cdu_c", id:"uci_zone_form", style:"display:none;"},
             ["div", {id:"uci_activateOnglet", style:"display:none;"},
-              ["div", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all"},
+              ["button", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all", type:"button"},
                 ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-reload2"}],
                 accessibilitytoolbar.get('uci_menu_remove_all')
               ],
@@ -5919,7 +5919,7 @@ accessibilitytoolbar = {
      * 2. add a new STYLE node with the user's preferences
      */
     setCSS: function (init) {   
-        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent;
+        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody;
         if (accessibilitytoolbar.userPref.get("a11yToolbarEnable") !== "off") {
             if(document.getElementById('cdu_close'))
             {
@@ -6011,9 +6011,12 @@ accessibilitytoolbar = {
             // generate the CSS instructions
             // 1. do we want bigger fonts?
             // make it proportional to the initial font          
-            fontSizeDef = '16px';
+            fontSizeDef = fontSizeBody = '16px';
             if(window.getComputedStyle) {
-              fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
+                // get the font-size from html tag
+                fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
+                // get the font-size from the body
+                fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0],null).getPropertyValue("font-size") || '16px';
             }
             
             if (accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
