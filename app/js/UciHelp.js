@@ -123,7 +123,8 @@ UciHelp = {
           ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-reading-title", "tabindex": "0" }, "Réglages rapides"],
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
-        ["div", { id: "uci_reading_body", "class": "uci_reading_body", "value": 0 }, accessibilitytoolbar.get('uci_discover_lorem_0')],
+        
+        ["div", { id: "uci_reading_body", "class": "uci_reading_body", "value": 0 }, accessibilitytoolbar.get(newName)],
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick: "UciHelp.show_menu()", name: "uci_reading_menu", "type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
           ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
@@ -346,49 +347,57 @@ UciHelp = {
 
   changeText: function (move) {
     var movePosition = parseInt(document.getElementById("uci_reading_body").getAttribute("value"));
+    var textDomElement = document.getElementById("uci_reading_body");
     if (move === "left") {
       switch (document.getElementById("uci_reading").getAttribute("name")) {
         case "reading":
           if (movePosition > 0) {
             movePosition--;
-            document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
+            var newNode = document.createTextNode(accessibilitytoolbar.get('uci_discover_lorem_' + movePosition));
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             document.getElementById("uci_reading_body").setAttribute("value", movePosition);
             document.getElementById("uci_reading_move_left").style.visibility = "visible";
           }
           break;
         case "advancedparam":
           movePosition = 0;
+          var newNode = document.createTextNode(accessibilitytoolbar.get('uci_discover_lorem_' + movePosition));
           document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
           document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
           UciHelp.hide_reading("reading");
-          document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           document.getElementById("uci_reading_move_left").style.visibility = "hidden";
           UciHelp.position_popin_help();
           UciHelp.calculate_overlay_position();
           break;
         case "typographie":
+          var newNode = document.createTextNode(accessibilitytoolbar.get('uci_advance_param'));
           UciIhm.hide_more_confort();
           document.getElementById("uci_zone_form").removeChild(document.getElementById("uci_zone_form").lastChild);
+
           document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
           UciHelp.position_popin_help();
-          document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_advance_param');
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           UciHelp.calculate_overlay_position();
           break;
         case "agencement":
+          var newNode = document.createTextNode("typographie");
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
-          document.getElementById("uci_reading_body").innerHTML = "typographie";
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           document.getElementById("uci_reading").setAttribute("name", "typographie");
           UciHelp.position_popin_help();
           break;
         case "couleur":
+          var newNode = document.createTextNode("agencement");
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-          document.getElementById("uci_reading_body").innerHTML = "agencement";
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           document.getElementById("uci_reading").setAttribute("name", "agencement");
           UciHelp.position_popin_help();
           break;
         case "comportement":
+          var newNode = document.createTextNode("couleur");
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
-          document.getElementById("uci_reading_body").innerHTML = "couleur";
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           document.getElementById("uci_reading").setAttribute("name", "couleur");
           document.getElementById("uci_reading_move_right").style.visibility = "visible";
           UciHelp.position_popin_help();
@@ -400,14 +409,16 @@ UciHelp = {
         case "reading":
           if (movePosition < 3) {
             movePosition++;
+            var newNode = document.createTextNode(accessibilitytoolbar.get('uci_discover_lorem_' + movePosition));
             document.getElementById("uci_reading_move_left").style.visibility = "visible";
-            document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_discover_lorem_' + movePosition);
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             document.getElementById("uci_reading_body").setAttribute("value", movePosition);
           } else if (movePosition == 3) {
             movePosition = 0;
+            var newNode = document.createTextNode(accessibilitytoolbar.get('uci_advance_param'));
             document.getElementById("masque_haut_param").removeChild(document.getElementById("masque_haut_param").firstChild);
             document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
-            document.getElementById("uci_reading_body").innerHTML = accessibilitytoolbar.get('uci_advance_param');
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             UciHelp.hide_reading("advancedparam");
             UciHelp.position_popin_help();
 
@@ -415,34 +426,40 @@ UciHelp = {
           break;
         case "advancedparam":
           if (movePosition == 0) {
+            var newNode = document.createTextNode("typographie");
             document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
             document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading("typographie"));
-            document.getElementById("uci_reading_body").innerHTML = "typographie";
+            document.getElementById("uci_reading").setAttribute("name", "typographie");
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             UciIhm.more_confort();
             UciHelp.calculate_overlay_position();
             UciHelp.position_popin_help();
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
           }
           break;
         case "typographie":
           if (movePosition == 0) {
+            var newNode = document.createTextNode("agencement");
             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-            document.getElementById("uci_reading_body").innerHTML = "agencement";
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             document.getElementById("uci_reading").setAttribute("name", "agencement");
             UciHelp.position_popin_help();
           }
           break;
         case "agencement":
           if (movePosition == 0) {
+            var newNode = document.createTextNode("couleur");
             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
-            document.getElementById("uci_reading_body").innerHTML = "couleur";
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             document.getElementById("uci_reading").setAttribute("name", "couleur");
             UciHelp.position_popin_help();
           }
           break;
         case "couleur":
           if (movePosition == 0) {
+            var newNode = document.createTextNode("comportement");
             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
-            document.getElementById("uci_reading_body").innerHTML = "comportement";
+            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             document.getElementById("uci_reading").setAttribute("name", "comportement");
             document.getElementById("uci_reading_move_right").style.visibility = "hidden";
             UciHelp.position_popin_help();
@@ -453,24 +470,17 @@ UciHelp = {
     if (move === "center") {
       switch (document.getElementById("uci_reading").getAttribute("name")) {
         case "agencement":
-          //document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
           UciIhm.more_confort();
-          document.getElementById("uci_reading_body").innerHTML = "agencement";
+          var newNode = document.createTextNode("agencement");
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
           UciHelp.calculate_overlay_position();
           UciHelp.position_popin_help();
           break;
-        /* case "agencement":
-           if (movePosition == 0){
-             accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-             document.getElementById("uci_reading_body").innerHTML = "agencement";
-             //document.getElementById("uci_reading").setAttribute("name","agencement");
-             UciHelp.position_popin_help();
-           }
-           break;*/
         case "comportement":
           UciIhm.more_confort();
-          document.getElementById("uci_reading_body").innerHTML = "comportement";
+          var newNode = document.createTextNode("comportement");
+          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
           document.getElementById("uci_reading_move_right").style.visibility = "hidden";
           UciHelp.calculate_overlay_position();
