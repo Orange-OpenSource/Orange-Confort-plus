@@ -43,31 +43,31 @@ UciHelp = {
           ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
             ["ul",
               ["li",
-                ["a", { id: "uci_popin_discover", href: "#", "class": "uci-popin-discover", title: accessibilitytoolbar.get('discover_service') },
+                ["a", { id: "uci_popin_discover", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('discover_service') },
 
                   ["span", { id: "uci_popin_discover_icon", "class": "uci-presentation" }],
-                  ["span", { id: "uci_popin_discover_text", "class": "uci-popin-discover-text" }, accessibilitytoolbar.get('discover_service')]
+                  ["span", { id: "uci_popin_discover_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('discover_service')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_read", href: "#", "class": "uci-popin-read", title: accessibilitytoolbar.get('improve_readability') },
+                ["a", { id: "uci_popin_read", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('improve_readability') },
 
                   ["span", { id: "uci_popin_read_icon", "class": "uci-presentation" }],
-                  ["span", { id: "uci_popin_read_text", "class": "uci-popin-read-text" }, accessibilitytoolbar.get('improve_readability')]
+                  ["span", { id: "uci_popin_read_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('improve_readability')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_layout", href: "#", "class": "uci-popin-layout", title: accessibilitytoolbar.get('edit_layout') },
+                ["a", { id: "uci_popin_layout", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('edit_layout') },
 
                   ["span", { id: "uci_popin_layout_icon", "class": "uci-presentation" }],
-                  ["span", { id: "uci_popin_layout_text", "class": "uci-popin-layout-text" }, accessibilitytoolbar.get('edit_layout')]
+                  ["span", { id: "uci_popin_layout_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('edit_layout')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_motor", href: "#", "class": "uci-popin-motor", title: accessibilitytoolbar.get('use_motor_assistance') },
+                ["a", { id: "uci_popin_motor", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('use_motor_assistance') },
 
                   ["span", { id: "uci_popin_motor_icon", "class": "uci-presentation" }],
-                  ["span", { id: "uci_popin_motor_text", "class": "uci-popin-motor-text" }, accessibilitytoolbar.get('use_motor_assistance')]
+                  ["span", { id: "uci_popin_motor_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('use_motor_assistance')]
                 ]
               ]
             ],
@@ -361,11 +361,9 @@ UciHelp = {
           break;
         case "advancedparam":
           movePosition = 0;
-          var newNode = document.createTextNode(accessibilitytoolbar.get('uci_discover_lorem_' + movePosition));
           document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
           document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
           UciHelp.hide_reading("reading");
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
           document.getElementById("uci_reading_move_left").style.visibility = "hidden";
           UciHelp.position_popin_help();
           UciHelp.calculate_overlay_position();
@@ -374,7 +372,6 @@ UciHelp = {
           var newNode = document.createTextNode(accessibilitytoolbar.get('uci_advance_param'));
           UciIhm.hide_more_confort();
           document.getElementById("uci_zone_form").removeChild(document.getElementById("uci_zone_form").lastChild);
-
           document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
           UciHelp.position_popin_help();
           textDomElement.replaceChild(newNode, textDomElement.lastChild);
@@ -415,10 +412,8 @@ UciHelp = {
             document.getElementById("uci_reading_body").setAttribute("value", movePosition);
           } else if (movePosition == 3) {
             movePosition = 0;
-            var newNode = document.createTextNode(accessibilitytoolbar.get('uci_advance_param'));
             document.getElementById("masque_haut_param").removeChild(document.getElementById("masque_haut_param").firstChild);
             document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             UciHelp.hide_reading("advancedparam");
             UciHelp.position_popin_help();
 
@@ -426,15 +421,12 @@ UciHelp = {
           break;
         case "advancedparam":
           if (movePosition == 0) {
-            var newNode = document.createTextNode("typographie");
             document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
             document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading("typographie"));
             document.getElementById("uci_reading").setAttribute("name", "typographie");
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
             UciIhm.more_confort();
             UciHelp.calculate_overlay_position();
             UciHelp.position_popin_help();
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
           }
           break;
         case "typographie":
