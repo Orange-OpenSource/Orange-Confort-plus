@@ -1791,9 +1791,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 
-#uci_main_popin_help .uci-popin-header,
-#uci_discover .uci-discover-header,
-#uci_reading .uci-reading-header {
+.uci-popin-header {
 	position: relative;
 	min-height: 1.25rem;
 	padding: 0;
@@ -1804,24 +1802,18 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	height: 3rem;
 }
 
-#uci_main_popin_help .uci-popin-header .uci-popin-title,
-#uci_discover .uci-discover-header .uci-discover-title,
-#uci_reading .uci-reading-header .uci-reading-title {
+.uci-popin-header .uci-popin-title {
 	position: relative;
 	top: 2px;
 	left: 20px;
 	font-size: 1.5rem;
 }
 
-.uci_focus_outline #uci_main_popin_help .uci-popin-header .uci-popin-title:focus,
-.uci_focus_outline #uci_discover .uci-discover-header .uci-discover-title:focus,
-.uci_focus_outline #uci_reading .uci-reading-header .uci-reading-title:focus{
+.uci_focus_outline .uci-popin-header .uci-popin-title:focus{
 	outline: dotted 2px;
 } 
 
-#uci_main_popin_help .uci-popin-header .uci-popin-btn,
-#uci_discover .uci-discover-header .uci-popin-btn,
-#uci_reading .uci-reading-header .uci-popin-btn {
+.uci-popin-header .uci-popin-btn {
 	background: transparent;
 	border: transparent;
 	float: right;
@@ -1833,10 +1825,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	width: 100%
 }
 
-#uci_main_popin_help .uci-popin-li,
-#uci_main_popin_help .uci-popin-read,
-#uci_main_popin_help .uci-popin-layout,
-#uci_main_popin_help .uci-popin-motor {
+#uci_main_popin_help .uci-popin-li {
 	display: block;
 	height: 3rem;
 	border-bottom: solid 1px grey;
@@ -1849,7 +1838,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
     float: left;*/
 }
 
-#uci_discover .uci-popin-buttom .uci-popin-discover-icon,
+/*#uci_discover .uci-popin-buttom .uci-popin-discover-icon,
 #uci_discover .uci-popin-buttom .uci-popin-read-icon,
 #uci_discover .uci-popin-buttom .uci-popin-layout-icon,
 #uci_discover .uci-popin-buttom .uci-popin-motor-icon {
@@ -1862,12 +1851,13 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	margin-top: 0.5rem;
 	border: transparent;
 }
+
 #uci_discover .uci-popin-buttom .uci-popin-discover-icon:active,
 #uci_discover .uci-popin-buttom .uci-popin-read-icon:active,
 #uci_discover .uci-popin-buttom .uci-popin-layout-icon:active,
 #uci_discover .uci-popin-buttom .uci-popin-motor-icon:active{
 	background-color: transparent;
-}
+}*/
 #uci_discover .uci-popin-buttom .uci-button_noborder{
 	border: transparent;
 }

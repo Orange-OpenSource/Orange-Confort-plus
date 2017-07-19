@@ -81,8 +81,8 @@ UciHelp = {
   InitUciDiscover: function () {
     return accessibilitytoolbar.make(["div", { id: "uci_discover", "class": "uci-discover", style: "display:none;" },
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
-        ["div", { id: "uci_discover_header", "class": "uci-discover-header" },
-          ["h2", { id: "uci_discover_title", "class": "uci-discover-title", "tabindex": "0" }, accessibilitytoolbar.get('discover_service')],
+        ["div", { id: "uci_discover_header", "class": "uci-popin-header" },
+          ["h2", { id: "uci_discover_title", "class": "uci-popin-title", "tabindex": "0" }, accessibilitytoolbar.get('discover_service')],
           ["button", { "class": "ucibtn-secondary uci-popin-btn", id: "uci_discover_close", title: accessibilitytoolbar.get('uci_close_guide'), type: "button" },
             ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
@@ -118,9 +118,9 @@ UciHelp = {
       ["div", { id: "triangle" },
         ["div", { "class": "triangle" }]
       ],
-      ["div", { id: "uci_reading_content", "class": "uci-reading-content" },
-        ["div", { id: "uci_reading_header", "class": "uci-reading-header" },
-          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-reading-title", "tabindex": "0" }, "Réglages rapides"],
+      ["div", { id: "uci_reading_content", "class": "uci-popin-content" },
+        ["div", { id: "uci_reading_header", "class": "uci-popin-header" },
+          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-popin-title", "tabindex": "0" }, "Réglages rapides"],
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         
