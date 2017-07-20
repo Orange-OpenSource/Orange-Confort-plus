@@ -280,7 +280,6 @@ UciHelp = {
       e = window.event;
 
     var intKeyCode = e.keyCode;
-    console.log(intKeyCode);
     if (intKeyCode === 27 && (id === "uci_main_popin_help" || id === "uci_discover" || id === "uci_reading")) {
       UciHelp.hide_popin();
     }
