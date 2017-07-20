@@ -2239,10 +2239,6 @@ accessibilitytoolbar = {
      */
 
     loopingmode: null,
-    /**
-     * {storedValue} cookie value received or not
-     */
-    storedValue: false,
 
     /**
      * {RemoteControlMode} Remote control Manager
@@ -2490,12 +2486,7 @@ accessibilitytoolbar = {
           UciIhm.hide_confirm_validation();
         }
         document.getElementById('uci_zone_form').style.display="block";
-        if(accessibilitytoolbar.userPref.get("a11yApercuAuto")!=="off"){
-          accessibilitytoolbar.setCSS();
-
-          // jump to content if needed
-          accessibilitytoolbar.jumpToContent();
-        }
+        accessibilitytoolbar.setCSS();
     },
 
     uci_OuvrirMenuOnglet: function(elmt){
@@ -2799,21 +2790,15 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_PL'), function() {return UciIhm.changement_langue('PL');});
-        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});
+        accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation(); UciIhm.confirm_validation();});        
         accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Annulation();});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci-onoffswitch'), UciIhm.desactiveCDUForWebSite);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_dyslexy_font'), function() {return UciTypographie.displayFieldset('uci_fieldset_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_chekbox_casse'), function() {return UciTypographie.displayFieldset('uci_fieldset_changecasse');});
         
-        /********** Profile *********************/
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
-        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_reading'),UciProfile.improve_visibility);
-        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_none'),UciProfile.reset);
-        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_layout'),UciProfile.improve_layout);
-        accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),UciProfile.showProfile);
-        //accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),UciProfile.SaveProfile);
         /***************************************************/
-
+        // add event to profile menu
+        UciProfile.create_menu_events();
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_fontfamily');});
         accessibilitytoolbar.uciAttachEvent('blur','onblur',document.getElementById('uci_link_help_fontfamily'), function() {return accessibilitytoolbar.toolbarHideHelp('uci_typo_help_fontfamily');});
@@ -2953,10 +2938,10 @@ accessibilitytoolbar = {
      * If user has change his preference, save the change
      * @see {ToolbarData}
      */
-    saveUserPref: function () {
+    saveUserPref: function (profilName) {
         if (this.hasDoneSettings) {
             this.hasDoneSettings = false;
-            this.userPref.updateUserPref();
+            this.userPref.updateUserPref(profilName);
         }
     },
 
@@ -3140,17 +3125,9 @@ accessibilitytoolbar = {
         {
             value = "false";
         }
-        // when the user disable the auto-preview, we need to get back the css with the cookie saved value
-        if(prefName==="a11yApercuAuto" && value==="off"){
-            accessibilitytoolbar.removePreviewCss();
-        }
         accessibilitytoolbar.userPref.set(prefName, value);
 
-        if(accessibilitytoolbar.userPref.get("a11yApercuAuto")!=="off"){
-            accessibilitytoolbar.setCSS();
-            // jump to content if needed
-            accessibilitytoolbar.jumpToContent();
-        }
+        accessibilitytoolbar.setCSS();
     },
 
     /**
@@ -3244,19 +3221,6 @@ accessibilitytoolbar = {
     restartLoopingmode: function () {
         this.loopingmode.restartLoopingmode();
         /* easy does it :) */
-    },
-
-    removePreviewCss: function(){
-        // get the current stack values
-        var currentStackv3value = this.userPref.encode()+'0';
-        // put the cookie value into the stackv3
-        this.userPref.decode(accessibilitytoolbar.userPref.storedValue);
-        this.cleanImgDisabled();
-        // then apply the cookie css value
-        this.setCSS();  
-        // then come back to the current settings
-        this.userPref.decode(currentStackv3value);
-
     },
 
     /**
@@ -3691,6 +3655,8 @@ accessibilitytoolbar = {
                 }
             }
         }
+        // jump to content if needed
+        accessibilitytoolbar.jumpToContent();
     },
     // from HTMLCS : https://github.com/squizlabs/HTML_CodeSniffer/blob/90b8660fbc22698f98f3d50122241c123b3491c0/HTMLCS.js#L820
     /**

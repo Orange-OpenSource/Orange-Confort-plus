@@ -55,7 +55,7 @@ self.port.on('orangeconfort+userprefgetresponse', function(value) {
 
 self.port.on('orangeconfort+closecdu', function() {
 	if(block == false) {
-		accessibilitytoolbar.userPref.setStoredValue('00006510006506506500000000000000000065000000100');
+		accessibilitytoolbar.userPref.setStoredValue();
 		accessibilitytoolbar.reloadToolbar();
 		accessibilitytoolbar.close();
 	}

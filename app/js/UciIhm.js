@@ -127,18 +127,18 @@ UciIhm = {
               ],
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
-                  ["li", {"class":"uci_inline uci_menu_profile"},
+                  ["li", {"class":"uci_inline uci_menu_bton"},
                     ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, "profile"],
                     ["div",
-                      ["div", {id:"uci_cdu_profile", style:"display:none;"},
+                      ["div", {id:"uci_cdu_profile", style:"display:none;", class:"uci_submenu"},
                         UciProfile.InitUciProfile()
                       ]
                     ]
                   ],
-                  ["li", {"class":"uci_inline uci_menu_help"},
+                  ["li", {"class":"uci_inline uci_menu_bton"},
                     ["button", {"class":"uci_bton_menu cdu_c", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
-                      ["div", {id:"uci_cdu_menu", style:"display:none;"},
+                      ["div", {id:"uci_cdu_menu", style:"display:none;",class:"uci_submenu"},
                         ["ul",
                           ["li",
                             ["div", {id:"uci_language"},
@@ -273,7 +273,7 @@ UciIhm = {
         if(button.nodeName === 'BUTTON') {
           button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
 			    var li = button.parentNode;
-			    li.className = 'uci_inline uci_menu_help';
+			    li.className = 'uci_inline uci_menu_bton';
         }
         if(nofocus) return false;
         document.getElementById("uci_activer_menu").focus();
@@ -290,7 +290,7 @@ UciIhm = {
         if(button.nodeName === 'BUTTON') {
           button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
           var li = button.parentNode;
-			    li.className = 'uci_inline uci_menu_help active';
+			    li.className = 'uci_inline uci_menu_bton active';
         }
         UciProfile.close_menu();
         document.getElementById("uci_activer_menu").focus();
@@ -404,7 +404,7 @@ UciIhm = {
         var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
         if ((accessibilitytoolbar.userPref.encode()+tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.storedValue) 
                 || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))){
-            accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+            accessibilitytoolbar.userPref.decode();
             accessibilitytoolbar.userPref.set("a11yLanguage", langue);
             accessibilitytoolbar.needToReload = true;
             accessibilitytoolbar.userPref.updateUserPref();
@@ -416,9 +416,8 @@ UciIhm = {
     remove_all: function () {
         // when more settings is open, disable quick settings buttons
         if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-        if(confirm(accessibilitytoolbar.get('uci_remove_all_settings'))) {
-            var defaultstoredValue = "0000651000650650650000000000000000006500000010"+(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled')==='on'?'0':'1');
-            accessibilitytoolbar.userPref.setStoredValue(defaultstoredValue);
+        if(confirm(accessibilitytoolbar.get('uci_remove_all_settings'))) {            
+            accessibilitytoolbar.userPref.setStoredValue();
             accessibilitytoolbar.userPref.updateUserPref();
             accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
             accessibilitytoolbar.reloadToolbar();
@@ -456,7 +455,7 @@ UciIhm = {
     ToolbarHide: function () {
         // when more settings is open, disable quick settings buttons
         if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+        accessibilitytoolbar.userPref.decode();
         accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
         accessibilitytoolbar.userPref.updateUserPref();
 

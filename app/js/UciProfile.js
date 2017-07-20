@@ -35,8 +35,8 @@ UciProfile = {
       ["span","profils predefinis"],
       ["ul",
         ["li",{class: "uci_menu_ouverture_aide"}, 
-          ["input", { type: "radio", name: "example", "checked": "true", id: "uci_profile_none" }],
-          ["label", { "class":"labelcolor","for": "uci_profile_none" }, "Aucun profile"]
+          ["input", { type: "radio", name: "example", id: "uci_profile_none" }],
+          ["label", { "class":"labelcolor","for": "uci_profile_none" }, "Aucun profil"]
         ],
         ["li",{class: "uci_menu_ouverture_aide"},
           ["input", { type: "radio", name: "example", id: "uci_profile_reading" }],
@@ -56,31 +56,33 @@ UciProfile = {
   SaveProfile: function (){
     return accessibilitytoolbar.make(["div",{id :"save_profile"},
       ["div", {id:"save_popin"},
-        ["div", { id: "uci_save_header", "class": "uci-save-header" },
-          ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('save_service')],
-          ["button", {"class":"ucibtn-secondary uci-popin-btn", onclick: "UciProfile.hide_save_profile()", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
-            ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
-            ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
+        ["form", {name:"uci_form_profil", action:"#", id:"uci_form_profil"},
+          ["div", { id: "uci_save_header", "class": "uci-save-header" },
+            ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('save_service')],
+            ["button", {"class":"ucibtn-secondary uci-popin-btn", onclick: "UciProfile.hide_save_profile()", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
+              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
+              ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
+            ]
+          ],
+          ["div", {id: "saveContent"},
+            ["ul",
+              ["li",{class: "uci_menu_ouverture_aide"},
+                ["input", { type: "radio", onchange: "UciProfile.changeStatus(1)","checked": "true", name: "example", id: "uci_profile_select" }],
+                ["label", { "class":"labelcolor","for": "uci_profile_select" }, "profile"],
+                
+                UciProfile.selectProfile(),
+              ],
+              ["li",{class: "uci_menu_ouverture_aide"},
+                ["input", { type: "radio", onchange: "UciProfile.changeStatus(2)", name: "example", id: "uci_profile_save" }],
+                ["label", { "class":"labelcolor","for": "uci_profile_save" }, "Ameliorer la lisibilite"],
+                ["input", {id: "profile_name", type: "texte", disabled:"disabled"}]
+              ],
+            ]
+          ],
+          ["div", {"class": "uci-popin-buttom" },
+            ["button", { id: "save_cancel", name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
+            ["input", { id: "save_submit", name: "saveSubmit", "type": "submit", "class": "uci-popin-button-right ucibtn-primary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_valid')]
           ]
-        ],
-        ["div", {id: "saveContent"},
-          ["ul",
-            ["li",{class: "uci_menu_ouverture_aide"},
-              ["input", { type: "radio", onchange: "UciProfile.changeStatus(1)","checked": "true", name: "example", id: "uci_profile_select" }],
-              ["label", { "class":"labelcolor","for": "uci_profile_select" }, "profile"],
-              
-              UciProfile.selectProfile(),
-            ],
-            ["li",{class: "uci_menu_ouverture_aide"},
-              ["input", { type: "radio", onchange: "UciProfile.changeStatus(2)", name: "example", id: "uci_profile_save" }],
-              ["label", { "class":"labelcolor","for": "uci_profile_save" }, "Ameliorer la lisibilite"],
-              ["input", {id: "profile_name", type: "texte", disabled:"disabled"}]
-            ],
-          ]
-        ],
-        ["div", {"class": "uci-popin-buttom" },
-          ["button", { id: "save_cancel", name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
-          ["button", { id: "save_submit", name: "saveSubmit", onclick:"UciProfile.submit_profile()","type": "button", "class": "uci-popin-button-right ucibtn-primary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_valid')]
         ]
       ]
     ])
@@ -95,11 +97,9 @@ UciProfile = {
       if(button.nodeName === 'BUTTON') {
         button.title = "profile";
         var li = button.parentNode;
-	      li.className = 'uci_inline uci_menu_profile active';
+	      li.className = 'uci_inline uci_menu_bton active';
       }
-      UciIhm.close_menu();
-      document.getElementById("uci_activer_profile").focus();
-      
+      UciIhm.close_menu(true);      
     } else {
       UciProfile.close_menu();
     }
@@ -114,8 +114,8 @@ UciProfile = {
   },
 
   close_menu: function (nofocus) {
-      // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
-      // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
+    // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
+    // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
     if(document.getElementById('uci_cdu_profile'))
     {
 		  document.getElementById('uci_cdu_profile').style.display = "none";
@@ -123,7 +123,7 @@ UciProfile = {
       if(button.nodeName === 'BUTTON') {
         button.title = "profile";
 		    var li = button.parentNode;
-		   li.className = 'uci_inline uci_menu_profile';
+		   li.className = 'uci_inline uci_menu_bton';
       }
       if(nofocus) return false;
       document.getElementById("uci_activer_profile").focus();
@@ -132,35 +132,53 @@ UciProfile = {
 
   changeStatus:function(option){
     if (option == 1){
-      document.getElementById("select").removeAttribute("disabled");
+      document.getElementById("uci-selectProfile").removeAttribute("disabled");
       document.getElementById("profile_name").setAttribute("disabled", "disabled");
     }
     else if (option == 2){
       document.getElementById("profile_name").removeAttribute("disabled");
-      document.getElementById("select").setAttribute("disabled", "disabled");
+      document.getElementById("uci-selectProfile").setAttribute("disabled", "disabled");
     }
   },
 
   UciSavedProfile: function (params) {
     var returnSavedProfile = "";
-    var tableauProfile = ["ul", {"class":"toto", id:"ulId", role:"radiogroup", "aria-labelledby":"idLabel"}];
-    for (i=0; i < 5; i++){
-      returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
-                              ["input", {type: "radio", name: "example", "checked": "true", id: "uci_profile"+i }],
-                              ["label", {"class":"labelcolor", "for": "uci_profile"+i }, "Toto"]
-                          ];
+    var profil = null;
+    var i = 0;
+    var tableauProfile = ["ul", {role:"radiogroup", "aria-labelledby":"idLabel"}];
+    for (profil in accessibilitytoolbar.userPref.settings.profiles) {
+        if(accessibilitytoolbar.userPref.settings.current === profil) {
+          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
+                                  ["input", {type: "radio", name: "example", "checked": "true", id: "uci_profile"+i, onchange:"UciProfile.loadProfile('"+profil+"')" }],
+                                  ["label", {"class":"labelcolor", "for": "uci_profile"+i }, profil]
+                              ];
+        } else {
+          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
+                                  ["input", {type: "radio", name: "example", id: "uci_profile"+i, onchange:"UciProfile.loadProfile('"+profil+"')" }],
+                                  ["label", {"class":"labelcolor", "for": "uci_profile"+i }, profil]
+                              ];
+        }
       tableauProfile.push(returnSavedProfile);
+      i++;
     }
-    console.log(tableauProfile);
     return tableauProfile;
   },
 
   selectProfile: function(){
     var returnAllProfile = "";
-    var tableauSelectProfile = ["select", {id:"select", "class": "toto"}];
-    for (i=0; i<5; i++){
-      returnAllProfile = ["option",{"value":i},""+i+""];
+    var profil = null;
+    var i = 0;
+    var tableauSelectProfile = ["select", {id:"uci-selectProfile"}];
+    tableauSelectProfile.push(["option",{"value":""},"créer nouveau"]);
+    for (profil in accessibilitytoolbar.userPref.settings.profiles) {
+      // if it's current profile, select it
+      if(accessibilitytoolbar.userPref.settings.current === profil) {
+        returnAllProfile = ["option",{"value":i,"selected":"selected"},""+profil+""];
+      } else {
+        returnAllProfile = ["option",{"value":i},""+profil+""];
+      }
       tableauSelectProfile.push(returnAllProfile);
+      i++;
     }
     UciProfile.close_menu();
     return tableauSelectProfile;
@@ -170,25 +188,48 @@ UciProfile = {
     document.getElementById("uci_cdu_popin").appendChild(UciProfile.SaveProfile());
     document.getElementById("uci_cdu_popin").style.display= "block";
     document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
+    accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form_profil'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation();UciProfile.hide_save_profile();UciIhm.confirm_validation();});
   },
 
   improve_visibility: function () {
     /* mise en place du masque */
-    accessibilitytoolbar.userPref.decode("00006510106506506500000000000000000065000000100");
+    accessibilitytoolbar.userPref.decode("0000651010650650650000000000000000006500000010");
     accessibilitytoolbar.setCSS();
   },
 
   improve_layout: function () {
     /* font dyslexie + taille fonte */
-    accessibilitytoolbar.userPref.decode("00006510006506506500000001100000000065001000100");
+    accessibilitytoolbar.userPref.decode("0000651000650650650000000110000000006500100010");
     accessibilitytoolbar.setCSS();
   },
   improve_motricity: function (){
 
   },
   reset: function (){
-    var defaultstoredValue = "0000651000650650650000000000000000006500000010"+(accessibilitytoolbar.userPref.get('a11ySiteWebEnabled')==='on'?'0':'1');
-    accessibilitytoolbar.userPref.setStoredValue(defaultstoredValue);
+    accessibilitytoolbar.userPref.setStoredValue();
+    accessibilitytoolbar.setCSS();
+  },
+
+  /**
+   * Attach events to the profile menu
+   * 
+   */
+  create_menu_events: function() {
+    /********** Profile *********************/
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_reading'),UciProfile.improve_visibility);
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_none'),UciProfile.reset);
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_layout'),UciProfile.improve_layout);
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),UciProfile.showProfile);
+  },
+
+  /**
+   * Load a profile on option update
+   * 
+   */
+  loadProfile: function(profilName) {
+    accessibilitytoolbar.userPref.settings.current = profilName;
+    accessibilitytoolbar.userPref.readUserPref();
     accessibilitytoolbar.setCSS();
   }
 }

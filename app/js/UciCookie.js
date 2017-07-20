@@ -43,17 +43,17 @@ function UciStorage() {
     /**
      * Update browser cookies in order to save each of user preference value.
      */
-    this.updateUserPref = function() {
+    this.updateUserPref = function(profilName) {
         // Update the cdu cookies with the stackv3 value
-        var pref = this.encode();
+        this.setStoredValue(this.encode(),profilName);
+        var UsageConfortpref = this.encodeUsageConfort();
         if(document.location.port) {
-          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + ':' + document.location.port + document.location.pathname;
+          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+UsageConfortpref+"&origin="+document.location.protocol + "//" + document.location.hostname + ':' + document.location.port + document.location.pathname;
         } else {
-          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+pref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
+          document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+UsageConfortpref+"&origin="+document.location.protocol + "//" + document.location.hostname + document.location.pathname;
         }
         
-        var tempMatrix = this.convertMatrixv3.reverse();
-        this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
+        
     };
 
     /**
@@ -62,8 +62,7 @@ function UciStorage() {
     this.updateBlackList = function() {
         // Update the cdu cookies with the stackv3 value
         document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?hostname="+document.location.hostname;
-        var tempMatrix = this.convertMatrixv3.reverse();
-        this.storedValue = this.storedValue.substr(0,this.storedValue.length-1)+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
+        this.setStoredValue(this.encode());
     };
     
     /**
@@ -83,9 +82,9 @@ function UciStorage() {
         }
         //cookieData
         else
-        {                                                                         
-            accessibilitytoolbar.storedValue = event.data;
-            accessibilitytoolbar.userPref.setStoredValue( event.data);
+        {   
+            // new version with profiles
+            accessibilitytoolbar.userPref.decodeUsageConfort(event.data);
         }
     };
     

@@ -76,7 +76,7 @@
           valuePref = defaultValuePref;
           saveCookie(namePref, defaultValuePref);
         }
-        return ""+valuePref+valueBlacklist;
+        return valueBlacklist+"|"+valuePref;
       }  
       
       function updateBlackList(hostname) {

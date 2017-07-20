@@ -26,6 +26,7 @@ UciValidation = {
 
     Validation: function (/*event*/e) {
         var event = e || window.event;
+        var profilName = "";
         if (event && event.stopPropagation) {
             event.stopPropagation();
             event.preventDefault();
@@ -37,15 +38,27 @@ UciValidation = {
         
         accessibilitytoolbar.setCSS();
         accessibilitytoolbar.hasDoneSettings = true;
-        accessibilitytoolbar.saveUserPref();
+        // check if there's a profile named
+        if(document.getElementById('uci-selectProfile').value === "") {
+            // if value == "" that's a new profile
+            profilName = document.getElementById('profile_name').value
+        } else {
+            profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[document.getElementById('uci-selectProfile').value];
+        }
+        
+        accessibilitytoolbar.saveUserPref(profilName);
         document.getElementById('uci_validation').className = "cdu_n";
+        // update profile list
+        document.getElementById("uci_cdu_profile").replaceChild(UciProfile.InitUciProfile(),document.getElementById("uci_cdu_profile").firstChild);
+        // add event to profile menu
+        UciProfile.create_menu_events();
         UciIhm.hide_more_confort();
         return false;
     },
 
     Annulation: function () {
         document.getElementById("uci-onoffswitch").focus();
-        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+        accessibilitytoolbar.userPref.decode();
         // Keep the toolbar open
         accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
         accessibilitytoolbar.reloadToolbar();
