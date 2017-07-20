@@ -116,6 +116,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	position: absolute;
 }
 
+
+
 /*******************************************************Toolbar general*********************************************/
 /******************************************Chargement de la font orange**************************************************/
 #accessibilitytoolbarGraphic {
@@ -768,11 +770,13 @@ a.cdu_hide:focus {
 	font-size: 1.5em;
 	vertical-align: sub;
 }
-#accessibilitytoolbarGraphic .uci_menu_ouverture_aide .cdu-icon:before {
-	color: #000;
-	font-size: 1.5em;
+
+#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover .cdu-icon:before,
+#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:focus .cdu-icon:before  {
+	color: #fff;
 	vertical-align: sub;
 }
+
 .uci_bton_menu, .uci_bton_menu:active {
 	background-color: transparent;
 	border: none;
@@ -1344,7 +1348,7 @@ ul#uci_reponses_bigger_quick_set {
 	cursor: not-allowed;
 	opacity: .65;
 }
-a#accessibilitytoolbarGraphic .ucibtn.disabled {
+#accessibilitytoolbarGraphic .ucibtn.disabled {
 	pointer-events: none;
 }
 #accessibilitytoolbarGraphic .ucibtn-sm {
@@ -1767,7 +1771,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 .uci_menu_ouverture_aide:hover .cdu-icon-info,
 .uci_menu_ouverture_aide:focus .cdu-icon-info
  {
-	filter: invert(100%);
+	/*filter: invert(100%);*/
+	color: #fff;
 }
 
 /********     CSS for user guide **********/
