@@ -127,11 +127,11 @@ UciHelp = {
         ["div", { id: "uci_reading_body", "class": "uci_reading_body", "value": 0 }, accessibilitytoolbar.get(newName)],
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick: "UciHelp.show_menu()", name: "uci_reading_menu", "type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
-          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", onkeydown: "UciHelp.navigation_popin(event, 'left')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
             ["span", { "aria-hidden": "true" }, "<"],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_previous')]
           ],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_next'), name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", onkeydown: "UciHelp.navigation_popin(event, 'right')",  "aria_hidden": "true", title: accessibilitytoolbar.get('uci_next'), name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
             ["span", { "aria-hidden": "true" }, ">"],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_next')]
           ],
@@ -280,6 +280,7 @@ UciHelp = {
       e = window.event;
 
     var intKeyCode = e.keyCode;
+    console.log(intKeyCode);
     if (intKeyCode === 27 && (id === "uci_main_popin_help" || id === "uci_discover" || id === "uci_reading")) {
       UciHelp.hide_popin();
     }
@@ -310,6 +311,14 @@ UciHelp = {
           document.getElementById("uci_reading_exit").focus();
           break;
       }
+    }
+    if (intKeyCode === 39 && (id === "uci_reading_title" || id === "uci_reading" ||id === "uci_reading_exit") ){
+      accessibilitytoolbar.stopEvt(e);
+      UciHelp.changeText('right')
+    }
+    if (intKeyCode === 37 && (id === "uci_reading_title" || id === "uci_reading" ||id === "uci_reading_exit") ){
+      accessibilitytoolbar.stopEvt(e);
+      UciHelp.changeText('left')
     }
   },
 
