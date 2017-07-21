@@ -243,6 +243,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciTypographie.js",
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciIhm.js",
+            "<%= yeoman.app %>/js/UciHelp.js",
             "<%= yeoman.app %>/js/mask.js",
             "<%= yeoman.app %>/js/toolbar.js",
             "<%= yeoman.app %>/js/start.server.js"
