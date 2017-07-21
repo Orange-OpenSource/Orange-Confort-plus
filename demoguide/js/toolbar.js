@@ -2308,7 +2308,7 @@ UciIhm = {
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
-            ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "bouton" },
+            ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "button" },
               ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-plus2", id: "uci_icon_moreconfort" }],
               ["span", { id: "uci_moreconfort_content" }, accessibilitytoolbar.get('uci_txt_more_settings')]
             ]
@@ -2698,9 +2698,22 @@ UciHelp = {
   * @property
   * @private
    */
+  /******************************************************* object tour *******************************************************/
+  /* This object used ton configure the navigation on uci_reading                                                            */
+  /*                                                                                                                         */  
+  /* advancedparam : it's to know the status of more seting panel (expened or close)                                         */
+  /* parentId      : Define the div where you need to do the appenchild                                                      */
+  /* prev          : Define the previous object when you navigate (previous button). It's the id of the sub-object           */
+  /* next          : Define the next object when you navigate (next button). It's the id of the sub-object                   */
+  /*                                                                                                                         */  
+  /* We use the keys of object to retrive the good text localisation.                                                        */
+  /*  For exemple :                                                                                                          */
+  /*  READING it's a key, and if you see on the en.js, language file, you will find a parameter with the same name           */
+  /*  and the text to display on the popin                                                                                   */
+  /******************************************************* object tour *******************************************************/
+
   tour : {
     reading:{
-      text:"reading",
       adcancedparam : "close",
       parentId: "masque_haut_param",
       prev:"",
@@ -2708,49 +2721,42 @@ UciHelp = {
 
     },
     reading1: {
-      text:"reading1",
       adcancedparam : "close",
       parentId: "masque_haut_param",
       prev:"reading",
       next: "reading2"
     },
     reading2:{
-      text:"reading2",
       adcancedparam : "close",
       parentId: "masque_haut_param",
       prev:"reading1",
       next: "advancedparam"
     },
     advancedparam : {
-      text:"advancedparam",
       adcancedparam : "close",
       parentId: "masque_haut_param",
       prev:"reading2",
       next: "typographie"
     },
     typographie : {
-      text:"typographie",
       adcancedparam : "open",
       parentId: "uci_zone_form",
       prev:"advancedparam",
       next: "apparence"
     },
     apparence : {
-      text:"apparence",
       adcancedparam : "isopen",
       parentId: "uci_zone_form",
       prev:"typographie",
       next: "couleur"
     },
     couleur : {
-      text:"couleur",
       adcancedparam : "isopen",
       parentId: "uci_zone_form",
       prev:"apparence",
       next: "aidemotrice"
     },
     aidemotrice : {
-      text:"aidemotrice",
       adcancedparam : "isopen",
       parentId: "uci_zone_form",
       prev:"couleur",
@@ -2851,18 +2857,21 @@ UciHelp = {
       ],
       ["div", { id: "uci_reading_content", "class": "uci-popin-content" },
         ["div", { id: "uci_reading_header", "class": "uci-popin-header" },
-          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", "class": "uci-popin-title", "tabindex": "0" }, "Réglages rapides"],
-          ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
+          ["h2", { id: "uci_reading_title", onkeydown: "UciHelp.navigation_popin(event, 'uci_reading_title')", class: "uci-popin-title", "tabindex": "0" }, "Réglages rapides"],
+          ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()", title: accessibilitytoolbar.get('uci_close_guide'), type: "button", "class": "ucibtn-secondary uci-popin-btn" },
+            ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
+            ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
+          ]
         ],
         
         ["div", { id: "uci_reading_body", "class": "uci_reading_body" }, accessibilitytoolbar.get(newName)],
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick: "UciHelp.show_menu()", name: "uci_reading_menu", "type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
-          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", onkeydown: "UciHelp.navigation_popin(event, 'left')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
+          ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('previous')", onkeydown: "UciHelp.navigation_popin(event, 'previous')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
             ["span", { "aria-hidden": "true" }, "<"],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_previous')]
           ],
-          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('right')", onkeydown: "UciHelp.navigation_popin(event, 'right')",  "aria_hidden": "true", title: accessibilitytoolbar.get('uci_next'), name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
+          ["button", { id: "uci_reading_move_right", onclick: "UciHelp.changeText('next')", onkeydown: "UciHelp.navigation_popin(event, 'next')",  "aria_hidden": "true", title: accessibilitytoolbar.get('uci_next'), name: "uci_reading_move_right", "type": "button", "class": "uci-move-right uci-popin-button-right ucibtn ucibtn-sm ucibtn-secondary" },
             ["span", { "aria-hidden": "true" }, ">"],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_next')]
           ],
@@ -2904,8 +2913,8 @@ UciHelp = {
         UciIhm.hide_more_confort();
         accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
-      parent = document.getElementById("uci_reading").parentNode;
-      parent.removeChild(parent.lastChild);
+      var parent_node = document.getElementById("uci_reading").parentNode;
+      parent_node.removeChild(parent_node.lastChild);
     }
   },
 
@@ -2926,8 +2935,8 @@ UciHelp = {
         UciIhm.hide_more_confort();
         accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
-      parent = document.getElementById("uci_reading").parentNode;
-      parent.removeChild(parent.lastChild);
+      var parent_node = document.getElementById("uci_reading").parentNode;
+      parent_node.removeChild(parent_node.lastChild);
     }
     UciHelp.demo_reset();
     document.getElementById("uci_activer_menu").focus();
@@ -2949,7 +2958,8 @@ UciHelp = {
       //document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading(name));
       //document.getElementById("uci_reading").setAttribute("name", name);
       //UciHelp.changeText("center");
-      UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name]);
+      var index = Object.keys(UciHelp.tour).indexOf(name);
+      UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name], index);
     } else {
       document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
       document.getElementById("uci_reading_move_left").style.visibility = "hidden";
@@ -3065,91 +3075,83 @@ UciHelp = {
     }
     if (intKeyCode === 39 && (id === "uci_reading_title" || id === "uci_reading" ||id === "uci_reading_exit") ){
       accessibilitytoolbar.stopEvt(e);
-      UciHelp.changeText('right')
+      UciHelp.changeText('next')
     }
     if (intKeyCode === 37 && (id === "uci_reading_title" || id === "uci_reading" ||id === "uci_reading_exit") ){
       accessibilitytoolbar.stopEvt(e);
-      UciHelp.changeText('left')
+      UciHelp.changeText('previous')
     }
   },
 
   
-
   hide_reading: function (name) {
     if (name === "reading"  || name === "reading1" || name === "reading2") {
       document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
       document.getElementById("masque_haut_param").className = "readingElements";
     }
-    if (name === "advancedparam") {
+    if (name === "advancedparam" || name === "typographie" || name === "apparence" || name === "couleur" || name === "aidemotrice" ) {
       document.getElementById("masque_haut_param").className = "masque-haut-param";
       document.getElementById("masque_haut_advanced_param").className = "readingElements";
     }
   },
 
+  /********************************** changeText ********************************************************/
+  /* Select the current element of UciHelp.tour, and send the next or previous element                  */
+  /* @move : next or previous, it's the direction */
+  /* */
+  /******************************************************************************************************/
   changeText: function (move) {
     var currentName = document.getElementById("uci_reading").getAttribute("name");
-    
     var currentObject = UciHelp.tour[currentName];
     var prevObject = UciHelp.tour[currentObject.prev];
     var nextObject = UciHelp.tour[currentObject.next];
-    if (move === "left"){
-        UciHelp._readingTraitement(currentObject, prevObject);
-    } else if (move === "right"){
-      UciHelp._readingTraitement(currentObject, nextObject);
+    var index = Object.keys(UciHelp.tour).indexOf(currentName);
+    if (move === "previous"){
+      index = index-1;
+        UciHelp._readingTraitement(currentObject, prevObject, index);
+    } else if (move === "next"){
+      index = index+1;
+      UciHelp._readingTraitement(currentObject, nextObject, index);
     }
-    /*UciHelp.tour.forEach(function(element, index) {
-      if (element.name === currentName){
-        if (move === "left"){
-          if (index-1 >= 0){
-            var nextIndex = index-1;
-            UciHelp._readingTraitement(nextIndex, parent, element);
-          }
-        } else if (move === "right"){
-          if (index+1 < UciHelp.tour.length){
-            var nextIndex = index+1;
-           UciHelp._readingTraitement(nextIndex, parent, element);
-          }
-        }
-      }
-      
-      
-      /*todo 
-        connaitre l'element sur lequel on est et l'index
-        faire le test pour le positionnement en fonction de la direction
-        gérer l'affichage
-    }, this);*/
     document.getElementById("uci_reading_title").focus();
   },
 
-  _directReading: function(name){
-    var currentObject = UciHelp.tour[name];
-    document.getElementById(currentObject.parentId).appendChild(UciHelp.InitUciReading(name));
-    UciIhm.more_confort(); 
-    accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + currentObject.text + "").parentNode);
-  },
-
-  _readingTraitement: function (currentObject, nextObject) {
-    //if (currentObject.parentId !== nextObject.parentId){
-      if (nextObject !== undefined){
-        if (document.getElementById("uci_reading")){
-          var parent = document.getElementById("uci_reading").parentNode;
-          parent.removeChild(parent.lastChild);
-        }
-        document.getElementById(nextObject.parentId).appendChild(UciHelp.InitUciReading(nextObject.text));
-      //}
+  /********************************** _readingTraitement ********************************************************/
+  /* This function manage automically display of reading popin                                                  */
+  /* @input param :                                                                                             */
+  /* currentObject : It's the current popin displayed                                                           */
+  /* nextObject : It's the next popin to display                                                                */
+  /**************************************************************************************************************/
+  _readingTraitement: function (currentObject, nextObject, index) {
+    if (nextObject !== undefined){
+      /* index is the index of nextObject to display */
+      /* We must test the value to don't crach and stay on the limit */
+      if (index < 0){
+        index = 0;
+      }
+      if (index >= Object.keys(UciHelp.tour).length){
+        index = Object.keys(UciHelp.tour).length - 1;
+      }
+      var name = Object.keys(UciHelp.tour)[index]
+      
+      if (document.getElementById("uci_reading")){
+         var parent = document.getElementById("uci_reading").parentNode;
+         parent.removeChild(parent.lastChild);
+      }
+        document.getElementById(nextObject.parentId).appendChild(UciHelp.InitUciReading(name));
       if (nextObject.adcancedparam === "open" && currentObject.adcancedparam !== "isopen") {
         UciIhm.more_confort();
       }
       if (nextObject.adcancedparam === "close") {
         UciIhm.hide_more_confort();
       }
-      if (nextObject.adcancedparam === "isopen" ) {
+      if (nextObject.adcancedparam === "isopen" || nextObject.adcancedparam === "open") {
         if (document.getElementById('uci_activateOnglet').style.display === "none"){
           UciIhm.more_confort();
         }
-        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + nextObject.text + "").parentNode);
+        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + name + "").parentNode);
       }
-      UciHelp.hide_reading(nextObject.text);
+      UciHelp.hide_reading(name);
       UciHelp.position_popin_help();
       UciHelp.calculate_overlay_position();
       if (nextObject.prev === "") {
@@ -3160,142 +3162,6 @@ UciHelp = {
       }
     }
   }
-    
-    
-    
-    /*if (move === "left") {
-      switch (document.getElementById("uci_reading").getAttribute("name")) {
-        case "reading":
-          if (movePosition > 0) {
-            movePosition--;
-            var newNode = document.createTextNode(accessibilitytoolbar.get('uci_discover_lorem_' + movePosition));
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
-            document.getElementById("uci_reading_body").setAttribute("value", movePosition);
-            document.getElementById("uci_reading_move_left").style.visibility = "visible";
-          }
-          break;
-        case "advancedparam":
-          movePosition = 0;
-          document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
-          document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
-          UciHelp.hide_reading("reading");
-          document.getElementById("uci_reading_move_left").style.visibility = "hidden";
-          UciHelp.position_popin_help();
-          UciHelp.calculate_overlay_position();
-          break;
-        case "typographie":
-          var newNode = document.createTextNode(accessibilitytoolbar.get('uci_advance_param'));
-          UciIhm.hide_more_confort();
-          document.getElementById("uci_zone_form").removeChild(document.getElementById("uci_zone_form").lastChild);
-          document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
-          UciHelp.position_popin_help();
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
-          UciHelp.calculate_overlay_position();
-          break;
-        case "agencement":
-          var newNode = document.createTextNode("typographie");
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
-          document.getElementById("uci_reading").setAttribute("name", "typographie");
-          UciHelp.position_popin_help();
-          break;
-        case "couleur":
-          var newNode = document.createTextNode("agencement");
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
-          document.getElementById("uci_reading").setAttribute("name", "agencement");
-          UciHelp.position_popin_help();
-          break;
-        case "comportement":
-          var newNode = document.createTextNode("couleur");
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
-          document.getElementById("uci_reading").setAttribute("name", "couleur");
-          document.getElementById("uci_reading_move_right").style.visibility = "visible";
-          UciHelp.position_popin_help();
-          break;
-      }
-    }
-    if (move === "right") {
-      switch (document.getElementById("uci_reading").getAttribute("name")) {
-        case "reading":
-          if (movePosition < 3) {
-            movePosition++;
-            var newNode = document.createTextNode(accessibilitytoolbar.get('uci_discover_lorem_' + movePosition));
-            document.getElementById("uci_reading_move_left").style.visibility = "visible";
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
-            document.getElementById("uci_reading_body").setAttribute("value", movePosition);
-          } else if (movePosition == 3) {
-            movePosition = 0;
-            document.getElementById("masque_haut_param").removeChild(document.getElementById("masque_haut_param").firstChild);
-            document.getElementById("masque_haut_advanced_param").appendChild(UciHelp.InitUciReading("advancedparam"));
-            UciHelp.hide_reading("advancedparam");
-            UciHelp.position_popin_help();
-
-          }
-          break;
-        case "advancedparam":
-          if (movePosition == 0) {
-            document.getElementById("masque_haut_advanced_param").removeChild(document.getElementById("masque_haut_advanced_param").firstChild);
-            document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading("typographie"));
-            document.getElementById("uci_reading").setAttribute("name", "typographie");
-            UciIhm.more_confort();
-            UciHelp.calculate_overlay_position();
-            UciHelp.position_popin_help();
-          }
-          break;
-        case "typographie":
-          if (movePosition == 0) {
-            var newNode = document.createTextNode("agencement");
-            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
-            document.getElementById("uci_reading").setAttribute("name", "agencement");
-            UciHelp.position_popin_help();
-          }
-          break;
-        case "agencement":
-          if (movePosition == 0) {
-            var newNode = document.createTextNode("couleur");
-            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_couleur").parentNode);
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
-            document.getElementById("uci_reading").setAttribute("name", "couleur");
-            UciHelp.position_popin_help();
-          }
-          break;
-        case "couleur":
-          if (movePosition == 0) {
-            var newNode = document.createTextNode("comportement");
-            accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
-            textDomElement.replaceChild(newNode, textDomElement.lastChild);
-            document.getElementById("uci_reading").setAttribute("name", "comportement");
-            document.getElementById("uci_reading_move_right").style.visibility = "hidden";
-            UciHelp.position_popin_help();
-          }
-          break;
-      }
-    }
-    if (move === "center") {
-      switch (document.getElementById("uci_reading").getAttribute("name")) {
-        case "agencement":
-          UciIhm.more_confort();
-          var newNode = document.createTextNode("agencement");
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_apparence").parentNode);
-          UciHelp.calculate_overlay_position();
-          UciHelp.position_popin_help();
-          break;
-        case "comportement":
-          UciIhm.more_confort();
-          var newNode = document.createTextNode("comportement");
-          textDomElement.replaceChild(newNode, textDomElement.lastChild);
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_aidemotrice").parentNode);
-          document.getElementById("uci_reading_move_right").style.visibility = "hidden";
-          UciHelp.calculate_overlay_position();
-          UciHelp.position_popin_help();
-          break;
-      }
-    }*/
-    
 }
 // Source: app/js/mask.js
 /**
