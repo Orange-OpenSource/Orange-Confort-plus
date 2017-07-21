@@ -147,4 +147,8 @@ uci_radio_large:"Duże",
 uci_new_window:"Nowe okno",
 uci_iframe_cookie:"Zawartość techniczna Orange Confort+",
 uci_confirm_validation:"Ustawienia zapisane", 
+  save_service: "TODO",
+  uci_profile_save_label: "TODO",
+  uci_profile_new_option: "TODO",
+  uci_profile_new_label: "TODO",
 };

@@ -41,7 +41,7 @@ UciValidation = {
         // check if there's a profile named
         if(document.getElementById('uci-selectProfile').value === "") {
             // if value == "" that's a new profile
-            profilName = document.getElementById('profile_name').value
+            profilName = document.getElementById('uci_profile_name').value
         } else {
             profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[document.getElementById('uci-selectProfile').value];
         }

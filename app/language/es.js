@@ -147,4 +147,8 @@ traduction['ES']={
   uci_new_window:"Nueva ventana",
   uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
   uci_confirm_validation:"Preferencias registrados",
+  save_service: "TODO",
+  uci_profile_save_label: "TODO",
+  uci_profile_new_option: "TODO",
+  uci_profile_new_label: "TODO",
 };

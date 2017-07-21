@@ -147,5 +147,8 @@ traduction['FR']={
   uci_new_window:"Nouvelle fen\352tre",
   uci_iframe_cookie:"Contenu technique Orange Confort+",
   uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
-  save_service: "Enregistrer le profile",
+  save_service: "Enregistrer le profil",
+  uci_profile_save_label: "Enregistrer mes réglages",
+  uci_profile_new_option: "nouveau profil",
+  uci_profile_new_label: "Nouveau profil",
 };

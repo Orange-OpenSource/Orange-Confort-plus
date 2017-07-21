@@ -147,5 +147,8 @@ traduction['EN']={
   uci_new_window:"New window",
   uci_iframe_cookie:"Technical Content Orange Confort+",
   uci_confirm_validation:"Settings saved",
-  save_service: "save profile",
+  save_service: "TODO",
+  uci_profile_save_label: "TODO",
+  uci_profile_new_option: "TODO",
+  uci_profile_new_label: "TODO",
 };

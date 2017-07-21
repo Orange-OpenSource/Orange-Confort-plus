@@ -891,20 +891,12 @@ ul#uci_reponses_bigger_quick_set {
 	margin-left: 0px;
 	margin-right: 0px;
 	cursor: pointer;
-	/*border-bottom: 1px solid;
-*/
 	background-repeat: no-repeat;
 	background-position: 5px center;
-	/*border-image: none;
-	border-style: solid;
-*/
 	min-width: 100px;
 	color: #000;
 }
 .onglet_0 {
-	/*border-color: #000 #000 #F16E00;
-	border-width: 2px 1px 2px;
-*/
 	border-bottom: 2px solid transparent;
 	border-top: 2px solid transparent;
 	border-right: 2px solid transparent;
@@ -912,9 +904,6 @@ ul#uci_reponses_bigger_quick_set {
 	margin-bottom: -2px;
 }
 .onglet_1 {
-	/* border-color: #F16E00 #F16E00 #FFFFFF;
-	border-width: 2px;
-*/
 	border-bottom: 2px solid transparent;
 	border-top: 2px solid #000;
 	border-right: 2px solid #000;
@@ -953,8 +942,6 @@ ul#uci_reponses_bigger_quick_set {
 	margin-right: 20px;
 	margin-top: 0;
 	margin-bottom: 0;
-	/*min-width: 25%;
-*/
 }
 #uci_apparence_div_left {
 	margin-right: 30px;
@@ -1201,9 +1188,6 @@ ul#uci_reponses_bigger_quick_set {
 .cdu_color {
 	margin: 1px;
 	display: block;
-	/*width: 1.5em;
-	height: 1.5em;
-*/
 }
 .uci_couleur_clear {
 	clear: both;
@@ -1747,7 +1731,6 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_cdu_popin {
-		/*display: none; /*--masqué par défaut--*/
 		background-color: rgba(0,0,0,0.5);
 		position: absolute;
 		left: 0;
@@ -1756,15 +1739,15 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 		height: 100%
 }
 
-#save_popin{
+.save_popin{
     background-color: #FFF;
-    width: 380px;
-    height: 160px;
+    width: 30em;
+    min-height: 10em;
 		margin-left: auto;
 		margin-right: auto;
 }
 
-#save_popin .uci-save-header {
+.save_popin .uci-save-header {
 	position: relative;
 	min-height: 1.25rem;
 	padding: 0;
@@ -1775,14 +1758,14 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	height: 3rem;
 }
 
-#save_popin .uci-save-header .uci-save-title {
+.save_popin .uci-save-header .uci-save-title {
 	position: relative;
 	top: 2px;
 	left: 20px;
 	font-size: 1.5rem;
 }
 
-#save_popin .uci-save-header .uci-popin-btn {
+.save_popin .uci-save-header .uci-popin-btn {
 	background: transparent;
 	border: transparent;
 	float: right;
@@ -1790,16 +1773,20 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	margin-right: 0.5rem;
 }
 
-#save_popin h2{
+.save_popin h2{
 	display: inline;
 }
 
-#save_popin .uci-popin-buttom{
+.save_popin .uci-popin-buttom{
 	height: 3.5rem;
 }
 
+.uci_select_profile{
+	vertical-align: middle;
+}
+
 #uci_discover .uci-popin-button-right,
-#save_popin .uci-popin-button-right,
+.save_popin .uci-popin-button-right,
 #uci_main_popin_help .uci-popin-button-right,
 #uci_reading .uci-popin-button-right{
 	float: right;
@@ -1809,7 +1796,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 #uci_discover .uci-popin-button-left,
-#save_popin .uci-popin-button-left,
+.save_popin .uci-popin-button-left,
 #uci_main_popin_help .uci-popin-button-left,
 #uci_reading .uci-popin-button-left{
 	float: left;

@@ -55,7 +55,7 @@ UciProfile = {
   },
   SaveProfile: function (){
     return accessibilitytoolbar.make(["div",{id :"save_profile"},
-      ["div", {id:"save_popin"},
+      ["div", {"class":"save_popin"},
         ["form", {name:"uci_form_profil", action:"#", id:"uci_form_profil"},
           ["div", { id: "uci_save_header", "class": "uci-save-header" },
             ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('save_service')],
@@ -64,24 +64,21 @@ UciProfile = {
               ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
             ]
           ],
-          ["div", {id: "saveContent"},
+          ["div",
             ["ul",
               ["li",{class: "uci_menu_ouverture_aide"},
-                ["input", { type: "radio", onchange: "UciProfile.changeStatus(1)","checked": "true", name: "example", id: "uci_profile_select" }],
-                ["label", { "class":"labelcolor","for": "uci_profile_select" }, "profile"],
-                
+                ["label", { "class":"labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" : "],
                 UciProfile.selectProfile(),
               ],
-              ["li",{class: "uci_menu_ouverture_aide"},
-                ["input", { type: "radio", onchange: "UciProfile.changeStatus(2)", name: "example", id: "uci_profile_save" }],
-                ["label", { "class":"labelcolor","for": "uci_profile_save" }, "Ameliorer la lisibilite"],
-                ["input", {id: "profile_name", type: "texte", disabled:"disabled"}]
+              ["li",{class: "uci_menu_ouverture_aide", id:"uci_profile_name_container", "style":"display:none"},
+                ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label')+" : "],
+                ["input", {id: "uci_profile_name", type: "texte", "class":"margin-left"}]
               ],
             ]
           ],
           ["div", {"class": "uci-popin-buttom" },
-            ["button", { id: "save_cancel", name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
-            ["input", { id: "save_submit", name: "saveSubmit", "type": "submit", "class": "uci-popin-button-right ucibtn-primary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_valid')]
+            ["button", { name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
+            ["input", { name: "saveSubmit", "type": "submit", "class": "uci-popin-button-right ucibtn-primary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_valid')]
           ]
         ]
       ]
@@ -109,8 +106,7 @@ UciProfile = {
 
   hide_save_profile: function(){
     document.getElementById("uci_cdu_popin").style.display = "none";
-    parent = document.getElementById("save_popin").parentNode;
-    parent.removeChild(parent.lastChild);
+    document.getElementById("uci_cdu_popin").removeChild(document.getElementById("save_profile"));
   },
 
   close_menu: function (nofocus) {
@@ -130,14 +126,11 @@ UciProfile = {
     }
   },
 
-  changeStatus:function(option){
-    if (option == 1){
-      document.getElementById("uci-selectProfile").removeAttribute("disabled");
-      document.getElementById("profile_name").setAttribute("disabled", "disabled");
-    }
-    else if (option == 2){
-      document.getElementById("profile_name").removeAttribute("disabled");
-      document.getElementById("uci-selectProfile").setAttribute("disabled", "disabled");
+  changeStatus:function(){
+    if (document.getElementById('uci-selectProfile').value !== ""){
+      document.getElementById("uci_profile_name_container").style.display = "none";
+    } else {
+      document.getElementById("uci_profile_name_container").style.display = "inline";
     }
   },
 
@@ -168,8 +161,8 @@ UciProfile = {
     var returnAllProfile = "";
     var profil = null;
     var i = 0;
-    var tableauSelectProfile = ["select", {id:"uci-selectProfile"}];
-    tableauSelectProfile.push(["option",{"value":""},"créer nouveau"]);
+    var tableauSelectProfile = ["select", {id:"uci-selectProfile","class":"uci_select_profile margin-left",onchange: "UciProfile.changeStatus(2)"}];
+    tableauSelectProfile.push(["option",{"value":""},accessibilitytoolbar.get('uci_profile_new_option')]);
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
       // if it's current profile, select it
       if(accessibilitytoolbar.userPref.settings.current === profil) {
