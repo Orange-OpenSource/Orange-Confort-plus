@@ -372,7 +372,7 @@ UciIhm = {
     document.getElementById("uci-onoffswitch").focus();
     document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-plus2";
     document.getElementById('uci_activateOnglet').style.display = "none";
-    if (hideValidationBtn && document.getElementById('uci_zone_form')) {
+    if (document.getElementById('uci_zone_form') && (hideValidationBtn || document.getElementById('uci_validation').className === "cdu_n")) {
       document.getElementById('uci_zone_form').style.display = "none";
     }
     document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
