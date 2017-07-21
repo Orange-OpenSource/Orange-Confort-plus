@@ -243,6 +243,7 @@ UciHelp = {
       var parent_node = document.getElementById("uci_reading").parentNode;
       parent_node.removeChild(parent_node.lastChild);
     }
+    document.getElementById("uci_help_title").focus();
   },
 
   hide_popin: function () {
@@ -271,9 +272,10 @@ UciHelp = {
 
   show_discover: function () {
     if (document.getElementById("uci_main_popin_help")) {
-      document.getElementById("uci_help_title").focus();
+      
       document.getElementById("uci_main_popin_help").style.display = "none";
       document.getElementById("uci_discover").style.display = "block";
+      document.getElementById("uci_discover_title").focus();
     }
   },
 
