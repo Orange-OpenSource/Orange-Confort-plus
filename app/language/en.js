@@ -166,8 +166,9 @@ traduction['EN']={
   uci_default : "default",
   uci_previous: "previous",
   uci_next: "next",
-  agencement : "agencement",
-  comportement: "comportement",
+  apparence : "apparence",
+  aidemotrice: "aidemotrice",
   typographie :"typographie",
+  couleur: "couleurs",
   advancedparam: "advancedparam"
 };

@@ -164,8 +164,9 @@ traduction['ES']={
   uci_close_guide : "Quitter le guide",
   uci_menu : "menu",
   uci_default : "Aucun R\351glages",
-  agencement : "todo",
-  comportement: "todo",
-  typographie :"todo",
+  apparence : "apparence",
+  aidemotrice: "aidemotrice",
+  typographie :"typographie",
+  couleur: "couleurs",
   advancedparam: "todo"
 };

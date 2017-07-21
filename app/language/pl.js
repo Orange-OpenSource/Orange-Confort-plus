@@ -164,8 +164,9 @@ uci_menu_guide:"Guide pas \340 pas",
   uci_default : "TODO",
   uci_previous: "TODO",
   uci_next: "TODO",
-  agencement : "todo",
-  comportement: "todo",
-  typographie :"todo",
+  apparence : "apparence",
+  aidemotrice: "aidemotrice",
+  typographie :"typographie",
+  couleur: "couleurs",
   advancedparam: "todo"
 };

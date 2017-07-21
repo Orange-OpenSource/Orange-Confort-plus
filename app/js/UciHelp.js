@@ -25,7 +25,65 @@ UciHelp = {
   * @property
   * @private
    */
+  tour : {
+    reading:{
+      text:"reading",
+      adcancedparam : "close",
+      parentId: "masque_haut_param",
+      prev:"",
+      next: "reading1"
 
+    },
+    reading1: {
+      text:"reading1",
+      adcancedparam : "close",
+      parentId: "masque_haut_param",
+      prev:"reading",
+      next: "reading2"
+    },
+    reading2:{
+      text:"reading2",
+      adcancedparam : "close",
+      parentId: "masque_haut_param",
+      prev:"reading1",
+      next: "advancedparam"
+    },
+    advancedparam : {
+      text:"advancedparam",
+      adcancedparam : "close",
+      parentId: "masque_haut_param",
+      prev:"reading2",
+      next: "typographie"
+    },
+    typographie : {
+      text:"typographie",
+      adcancedparam : "open",
+      parentId: "uci_zone_form",
+      prev:"advancedparam",
+      next: "apparence"
+    },
+    apparence : {
+      text:"apparence",
+      adcancedparam : "isopen",
+      parentId: "uci_zone_form",
+      prev:"typographie",
+      next: "couleur"
+    },
+    couleur : {
+      text:"couleur",
+      adcancedparam : "isopen",
+      parentId: "uci_zone_form",
+      prev:"apparence",
+      next: "aidemotrice"
+    },
+    aidemotrice : {
+      text:"aidemotrice",
+      adcancedparam : "isopen",
+      parentId: "uci_zone_form",
+      prev:"couleur",
+      next: ""
+    }
+  },
   /*
    * @constructor
    */
@@ -105,8 +163,8 @@ UciHelp = {
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
           ["div", { "class": "uci-buttom-speed" },
             ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading()" }],
-            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('agencement')" }],
-            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('comportement')" }]
+            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('apparence')" }],
+            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('aidemotrice')" }]
           ],
           ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_exit')]
         ]
@@ -124,7 +182,7 @@ UciHelp = {
           ["button", { id: "uci_reading_close", onclick: "UciHelp.hide_popin()", "type": "button", "class": "cdu-icon-croix ucibtn-secondary uci-popin-btn" }]
         ],
         
-        ["div", { id: "uci_reading_body", "class": "uci_reading_body", "value": 0 }, accessibilitytoolbar.get(newName)],
+        ["div", { id: "uci_reading_body", "class": "uci_reading_body" }, accessibilitytoolbar.get(newName)],
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_reading_menu", onclick: "UciHelp.show_menu()", name: "uci_reading_menu", "type": "button", "class": "uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" }, accessibilitytoolbar.get('uci_menu')],
           ["button", { id: "uci_reading_move_left", onclick: "UciHelp.changeText('left')", onkeydown: "UciHelp.navigation_popin(event, 'left')", "aria_hidden": "true", title: accessibilitytoolbar.get('uci_previous'), name: "uci_reding_move_Left", "type": "button", "class": "uci-move-left uci-popin-button-left ucibtn ucibtn-sm ucibtn-secondary" },
@@ -167,9 +225,9 @@ UciHelp = {
     }
     if (document.getElementById("uci_reading")) {
       if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
-        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "apparence" ||
         document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-        document.getElementById("uci_reading").getAttribute("name") === "comportement") {
+        document.getElementById("uci_reading").getAttribute("name") === "aidemotrice") {
         UciIhm.hide_more_confort();
         accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
@@ -189,9 +247,9 @@ UciHelp = {
     document.getElementById("masque_haut").style.display = "none";
     if (document.getElementById("uci_reading")) {
       if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
-        document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+        document.getElementById("uci_reading").getAttribute("name") === "apparence" ||
         document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-        document.getElementById("uci_reading").getAttribute("name") === "comportement") {
+        document.getElementById("uci_reading").getAttribute("name") === "aidemotrice") {
         UciIhm.hide_more_confort();
         accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
@@ -208,6 +266,27 @@ UciHelp = {
       document.getElementById("uci_main_popin_help").style.display = "none";
       document.getElementById("uci_discover").style.display = "block";
     }
+  },
+
+  show_reading: function (name) {
+    document.getElementById("uci_main_popin_help").style.display = "none";
+    document.getElementById("uci_discover").style.display = "none";
+    //document.getElementById("uci_reading").style.display = "block";
+    if (name === "apparence" || name === "aidemotrice") {
+      //document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading(name));
+      //document.getElementById("uci_reading").setAttribute("name", name);
+      //UciHelp.changeText("center");
+      UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name]);
+    } else {
+      document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
+      document.getElementById("uci_reading_move_left").style.visibility = "hidden";
+      document.getElementById("masque_haut_param").className = "readingElements";
+      UciHelp.position_popin_help();
+      UciHelp.calculate_overlay_position();
+    }
+    document.getElementById("uci_reading_title").focus();
+    document.getElementById("uci_reading").style.display = "block"
+    document.getElementById("uci_reading_title").focus();
   },
 
   demo_visibility: function () {
@@ -254,22 +333,22 @@ UciHelp = {
 
   position_popin_help: function () {
     if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam") {
-      document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_exit").clientWidth + "px";
+      //document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_param").clientWidth + "px";
       document.getElementById("triangle").lastChild.className = "triangleright";
     }
 
     if (document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
-      document.getElementById("uci_reading").getAttribute("name") === "agencement" ||
+      document.getElementById("uci_reading").getAttribute("name") === "apparence" ||
       document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-      document.getElementById("uci_reading").getAttribute("name") === "comportement") {
+      document.getElementById("uci_reading").getAttribute("name") === "aidemotrice") {
       document.getElementById("uci_reading").style.top = document.getElementById("uci_form").clientHeight + 2 + "px";
       document.getElementById("triangle").lastChild.className = "triangleright";
     }
 
     if (document.getElementById("uci_reading") != null && (document.getElementById("uci_reading").getAttribute("name") !== "typographie" &&
-      document.getElementById("uci_reading").getAttribute("name") !== "agencement" &&
+      document.getElementById("uci_reading").getAttribute("name") !== "apparence" &&
       document.getElementById("uci_reading").getAttribute("name") !== "couleur" &&
-      document.getElementById("uci_reading").getAttribute("name") !== "comportement")) {
+      document.getElementById("uci_reading").getAttribute("name") !== "aidemotrice")) {
       heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
       document.getElementById("uci_reading").style.top = heightTmp + 2 + "px";
     }
@@ -321,42 +400,97 @@ UciHelp = {
     }
   },
 
-  show_reading: function (name) {
-    document.getElementById("uci_main_popin_help").style.display = "none";
-    document.getElementById("uci_discover").style.display = "none";
-    //document.getElementById("uci_reading").style.display = "block";
-    if (name === "agencement" || name === "comportement") {
-      document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading(name));
-      document.getElementById("uci_reading").setAttribute("name", name);
-      UciHelp.changeText("center");
-    } else {
-      document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
-      document.getElementById("uci_reading_move_left").style.visibility = "hidden";
-      document.getElementById("masque_haut_param").className = "readingElements";
-      UciHelp.position_popin_help();
-      UciHelp.calculate_overlay_position();
-    }
-    document.getElementById("uci_reading_title").focus();
-    document.getElementById("uci_reading").style.display = "block"
-    document.getElementById("uci_reading_title").focus();
-  },
+  
 
   hide_reading: function (name) {
-    if (name == "reading") {
+    if (name === "reading"  || name === "reading1" || name === "reading2") {
       document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
       document.getElementById("masque_haut_param").className = "readingElements";
     }
-    if (name == "advancedparam") {
+    if (name === "advancedparam") {
       document.getElementById("masque_haut_param").className = "masque-haut-param";
       document.getElementById("masque_haut_advanced_param").className = "readingElements";
     }
-
   },
 
   changeText: function (move) {
-    var movePosition = parseInt(document.getElementById("uci_reading_body").getAttribute("value"));
-    var textDomElement = document.getElementById("uci_reading_body");
-    if (move === "left") {
+    var currentName = document.getElementById("uci_reading").getAttribute("name");
+    
+    var currentObject = UciHelp.tour[currentName];
+    var prevObject = UciHelp.tour[currentObject.prev];
+    var nextObject = UciHelp.tour[currentObject.next];
+    if (move === "left"){
+        UciHelp._readingTraitement(currentObject, prevObject);
+    } else if (move === "right"){
+      UciHelp._readingTraitement(currentObject, nextObject);
+    }
+    /*UciHelp.tour.forEach(function(element, index) {
+      if (element.name === currentName){
+        if (move === "left"){
+          if (index-1 >= 0){
+            var nextIndex = index-1;
+            UciHelp._readingTraitement(nextIndex, parent, element);
+          }
+        } else if (move === "right"){
+          if (index+1 < UciHelp.tour.length){
+            var nextIndex = index+1;
+           UciHelp._readingTraitement(nextIndex, parent, element);
+          }
+        }
+      }
+      
+      
+      /*todo 
+        connaitre l'element sur lequel on est et l'index
+        faire le test pour le positionnement en fonction de la direction
+        gérer l'affichage
+    }, this);*/
+    document.getElementById("uci_reading_title").focus();
+  },
+
+  _directReading: function(name){
+    var currentObject = UciHelp.tour[name];
+    document.getElementById(currentObject.parentId).appendChild(UciHelp.InitUciReading(name));
+    UciIhm.more_confort(); 
+    accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + currentObject.text + "").parentNode);
+  },
+
+  _readingTraitement: function (currentObject, nextObject) {
+    //if (currentObject.parentId !== nextObject.parentId){
+      if (nextObject !== undefined){
+        if (document.getElementById("uci_reading")){
+          var parent = document.getElementById("uci_reading").parentNode;
+          parent.removeChild(parent.lastChild);
+        }
+        document.getElementById(nextObject.parentId).appendChild(UciHelp.InitUciReading(nextObject.text));
+      //}
+      if (nextObject.adcancedparam === "open" && currentObject.adcancedparam !== "isopen") {
+        UciIhm.more_confort();
+      }
+      if (nextObject.adcancedparam === "close") {
+        UciIhm.hide_more_confort();
+      }
+      if (nextObject.adcancedparam === "isopen" ) {
+        if (document.getElementById('uci_activateOnglet').style.display === "none"){
+          UciIhm.more_confort();
+        }
+        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + nextObject.text + "").parentNode);
+      }
+      UciHelp.hide_reading(nextObject.text);
+      UciHelp.position_popin_help();
+      UciHelp.calculate_overlay_position();
+      if (nextObject.prev === "") {
+        document.getElementById("uci_reading_move_left").style.visibility = "hidden";
+      }
+      if (nextObject.next === "") {
+        document.getElementById("uci_reading_move_right").style.visibility = "hidden";
+      }
+    }
+  }
+    
+    
+    
+    /*if (move === "left") {
       switch (document.getElementById("uci_reading").getAttribute("name")) {
         case "reading":
           if (movePosition > 0) {
@@ -487,7 +621,6 @@ UciHelp = {
           UciHelp.position_popin_help();
           break;
       }
-    }
-    document.getElementById("uci_reading_title").focus();
-  }
+    }*/
+    
 }
