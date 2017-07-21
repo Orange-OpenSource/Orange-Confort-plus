@@ -2376,13 +2376,13 @@ accessibilitytoolbar = {
                 // Touche Espace
                 if(e.keyCode == '32')
                 {
-                    accessibilitytoolbar.uciCocherRadioButton(target);
+                    accessibilitytoolbar.uciCocherRadioButton(target,true);
                 }
                 // Touches haut ou gauche
                 else if(e.keyCode == '38' || e.keyCode == '37')
                 {
                     // coche le bouton pr�c�dent, soit il existe, soit on revient au dernier �l�ment
-                    accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || target.parentNode.children[(target.parentNode.children.length-1)]);
+                    accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || target.parentNode.children[(target.parentNode.children.length-1)],true);
 
                     accessibilitytoolbar.stopEvt(e);
                 }
@@ -2390,7 +2390,7 @@ accessibilitytoolbar = {
                 else if(e.keyCode == '40' || e.keyCode == '39')
                 {
                     // coche le bouton suivant, soit il existe, soit on revient au premier �l�ment
-                    accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || target.parentNode.children[0]);
+                    accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || target.parentNode.children[0],true);
 
                     // on stoppe la propagation de l'�v�nement
                     //IE9 & Other Browsers
@@ -2399,7 +2399,7 @@ accessibilitytoolbar = {
             }
         }
     },
-    uciCocherRadioButton: function(elmt) {
+    uciCocherRadioButton: function(elmt,focus,updateIhmOnly) {
         // on active le bouton en question
         elmt.setAttribute('aria-checked','true');
         elmt.tabIndex='0';
@@ -2412,20 +2412,20 @@ accessibilitytoolbar = {
         elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/,"uci_couleur_li uci_couleur_li_selected");
         elmt.className = elmt.className.replace(/uci_choix{0,1}/,"uci_choix active");
         if(elmt.id.match(/a11yBigger/g) || elmt.id.match(/a11yVisualPredefined/g)) {
-            if(document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null) {
+            if(updateIhmOnly || document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null) {
                 var element = /^uci_(\S+)$/.exec(elmt.id);
                 // on vérifie que son copain existe dans les réglages rapides
                 if(document.getElementById('uci_quick_'+ element[1])) {
-                    accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_quick_'+ element[1]));                    
+                    accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_quick_'+ element[1]),focus,updateIhmOnly);                    
                 }
-                elmt.focus();
+                if(focus) elmt.focus();
             } else if(document.getElementById('uci_activateOnglet').style.display == 'none' && elmt.id.match(/uci_quick/gi) !=null) {
                 var element = /^uci_quick_(\S+)$/.exec(elmt.id);
-                accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_'+ element[1]));
-                elmt.focus();
+                accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_'+ element[1]),focus,updateIhmOnly);
+                if(focus) elmt.focus();
             }
         } else {
-            elmt.focus();
+            if(focus) elmt.focus();
         }
 
         // on d�sactive ses fr�res
@@ -2468,16 +2468,18 @@ accessibilitytoolbar = {
                 }
                 accessibilitytoolbar.userPref.set(prefName,value);
                 // if the user change the font or background color without activating the option, then activate it
-                if((accessibilitytoolbar.userPref.get('a11yVisualSettings') !=='personnal') && (resArray[resArray.length-2] === 'a11yFontColor' || resArray[resArray.length-2] === 'a11yBackgroundColor')){
-                    accessibilitytoolbar.userPref.set('a11yVisualSettings','personnal');
-                    document.getElementById('uci_couleur_personnalisees_input').checked='checked';
-                    document.getElementById('uci_couleur_predefenie_input').removeAttribute('checked');
-                } else { 
-                  if(accessibilitytoolbar.userPref.get('a11yVisualSettings') ==='personnal' && resArray[resArray.length-2] === 'a11yVisualPredefinedSettings') {
-                      accessibilitytoolbar.userPref.set('a11yVisualSettings','predefined');
-                      document.getElementById('uci_couleur_predefenie_input').checked='checked';
-                      document.getElementById('uci_couleur_personnalisees_input').removeAttribute('checked');
-                  }
+                if(!updateIhmOnly) {
+                    if((accessibilitytoolbar.userPref.get('a11yVisualSettings') !=='personnal') && (resArray[resArray.length-2] === 'a11yFontColor' || resArray[resArray.length-2] === 'a11yBackgroundColor')){
+                        accessibilitytoolbar.userPref.set('a11yVisualSettings','personnal');
+                        document.getElementById('a11yVisualSettings-personnal').checked='checked';
+                        document.getElementById('a11yVisualSettings-predefined').removeAttribute('checked');
+                    } else { 
+                        if(accessibilitytoolbar.userPref.get('a11yVisualSettings') ==='personnal' && resArray[resArray.length-2] === 'a11yVisualPredefinedSettings') {
+                            accessibilitytoolbar.userPref.set('a11yVisualSettings','predefined');
+                            document.getElementById('a11yVisualSettings-predefined').checked='checked';
+                            document.getElementById('a11yVisualSettings-personnal').removeAttribute('checked');
+                        }
+                    }
                 }
             }
         }
@@ -2826,13 +2828,15 @@ accessibilitytoolbar = {
         
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMotorModeEnabled'), UciAideMotrice.activate_aide_motrice);
         
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('apparence_lien'), function() {UciApparence.displayLien('apparence_lien','uci_gestion_lien');});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yNavLienEnabled'), function() {UciApparence.displayLien('a11yNavLienEnabled','uci_gestion_lien');});
        
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_check_mask'), function() {UciApparence.displayLien('uci_check_mask','uci_div_mask');});    
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMaskEnabled'), function() {UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');});    
         
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_sel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_selectionne");});    
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_notsel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_notselectionne");});  
-        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_visite'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_visite");});  
+        accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_visite'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_visite");});
+        // ad behavior for profile save : 
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfile()});
     },
     /**
      * Function event implementation
@@ -3128,6 +3132,50 @@ accessibilitytoolbar = {
         accessibilitytoolbar.userPref.set(prefName, value);
 
         accessibilitytoolbar.setCSS();
+    },
+
+    /**
+     * Update IHM element when updating setting value with profiles for example
+     * 
+     */
+    updateIhmFormsSettings: function() {
+// warning font-color activate the main option...
+        var pref,prefarray,ariaRadioSettings = ["a11yBigger","a11yDyslexyFont","a11ySpacement","a11yLineSpacement","a11yCharSpacement",
+                            "a11yModifCasse","a11yMaskEpaisseur","a11yNavLienSelColor","a11yNavLienNonVisColor",
+                            "a11yNavLienVisColor","a11yVisualPredefinedSettings","a11yFontColor","a11yBackgroundColor",
+                            "a11yDelayBeforeClick","a11yMenuPositionning","a11yDelayBeforeLoop","a11yQuickMode"];
+        var checkboxSettings = ["a11yLinearize","a11yLeftText","a11yNumerotationList","a11yNavLienEnabled","a11ySupEffetTransp","a11ySupImageFont","a11ySupImageFirstPlan","a11yMaskEnabled","a11yMotorModeEnabled","a11yJumpToContent"];
+        var radioSettings = ["a11yVisualSettings-predefined","a11yVisualSettings-personnal","a11yMotorMode-remote","a11yMotorMode-looping"];
+        var selectSettings = ["a11yNavLienSelStyle","a11yNavLienNonVisStyle","a11yNavLienVisStyle"];
+        for(pref in ariaRadioSettings) {
+            accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_"+ariaRadioSettings[pref]+"_"+accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])),false,true);
+        }
+        for(pref in checkboxSettings) {
+            if(accessibilitytoolbar.userPref.get(checkboxSettings[pref]) === "true") {
+                document.getElementById(checkboxSettings[pref]).checked = true;
+            } else {
+                document.getElementById(checkboxSettings[pref]).checked = false;
+            }
+        }
+        for(pref in radioSettings) {
+            prefarray = radioSettings[pref].split("-");
+            if(accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1]) {
+                document.getElementById(radioSettings[pref]).checked = true;
+            } else {
+                document.getElementById(radioSettings[pref]).checked = false;
+            }
+        }
+        for(pref in selectSettings) {
+            var sel = document.getElementById(selectSettings[pref]);
+            var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
+            var opts = sel.options;
+            for (var opt, j = 0; opt = opts[j]; j++) {
+                if (opt.value == val) {
+                sel.selectedIndex = j;
+                break;
+                }
+            }
+        }
     },
 
     /**
@@ -4130,7 +4178,7 @@ accessibilitytoolbar = {
     makePredefinedCouleurTpl: function() {
       var predifinedCombinaisons = ['keepit','blackonwhite','whiteonblack','blueonyellow','yellowonblue','greenonblack','blackongreen','blueonwhite','whiteonblue'];
       var curCouleur;
-      var aCouleur = ["ul", {"class":"padding-left-align uci_clear uci_liste_bton", id:"uci_reponses_couleurpredefinie", role:"radiogroup", "aria-labelledby":"uci_couleur_predefenie_input"}];
+      var aCouleur = ["ul", {"class":"padding-left-align uci_clear uci_liste_bton", id:"uci_reponses_couleurpredefinie", role:"radiogroup", "aria-labelledby":"a11yVisualSettings-predefined"}];
       for(var key in predifinedCombinaisons){
         curCouleur = ["li", {id:"uci_a11yVisualPredefinedSettings_"+predifinedCombinaisons[key], role:"radio", "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary"+(key % 2 === 0 ? "":" uci_clear")+" ucibtn-"+predifinedCombinaisons[key]+" "+(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active" :""),
           tabindex:accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "0" : "-1",

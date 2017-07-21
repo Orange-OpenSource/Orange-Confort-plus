@@ -42,23 +42,23 @@ UciApparence = {
               accessibilitytoolbar.makeHelpTpl("uci_link_help_listmode","uci_help_listmode",accessibilitytoolbar.get('uci_help_listmode'))
             ],
             ["div", {id:"uci_div_alignement_gauche"},
-              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"alignement_gauche", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
-              ["label", {"for":"alignement_gauche"}, accessibilitytoolbar.get('uci_label_alignleft')]
+              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
+              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
             ],
             ["div", {id:"uci_div_numero_ligne"},
-              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"putNumOnList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
-              ["label", {"for":"putNumOnList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
+              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
+              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ],
             ["div", {id:"uci_div_apparence_liens"},
-              ["input", {type:"checkbox", value:"true", name:"a11yNavLienEnabled", id:"apparence_lien", checked:accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked" : false}],
-              ["label", {"for":"apparence_lien"}, accessibilitytoolbar.get('uci_titre_links')],
+              ["input", {type:"checkbox", value:"true", name:"a11yNavLienEnabled", id:"a11yNavLienEnabled", checked:accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked" : false}],
+              ["label", {"for":"a11yNavLienEnabled"}, accessibilitytoolbar.get('uci_titre_links')],
               accessibilitytoolbar.makeHelpTpl("uci_link_help_links","uci_help_links",accessibilitytoolbar.get('uci_help_links'))
             ],
             ["div", {id:"uci_gestion_lien", style:(accessibilitytoolbar.userPref.get("a11yNavLienEnabled")=== "true" ? "display:block" : "display:none")},
               ["div", {id:"uci_div_lien_selectionne"},
                 ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_active')],
                 ["div", {"class":"cdu_left"},
-                  ["select", {"class":"uci_select_lien", name:"a11yNavLienSelStyle", title:accessibilitytoolbar.get("uci_title_link_active_render")},
+                  ["select", {"class":"uci_select_lien", name:"a11yNavLienSelStyle", id:"a11yNavLienSelStyle", title:accessibilitytoolbar.get("uci_title_link_active_render")},
                     ["option", {value:"keepit", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "keepit" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_default')],
                     ["option", {value:"underline", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "underline" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_underline')],
                     ["option", {value:"border", selected:accessibilitytoolbar.userPref.get("a11yNavLienSelStyle") === "border" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_border')],
@@ -78,7 +78,7 @@ UciApparence = {
               ["div", {id:"uci_div_lien_notselectionne"},
                 ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_notvisited')],
                 ["div", {"class":"cdu_left"},
-                  ["select", {"class":"uci_select_lien", name:"a11yNavLienNonVisStyle", title:accessibilitytoolbar.get("uci_title_link_notvisited_render")},
+                  ["select", {"class":"uci_select_lien", name:"a11yNavLienNonVisStyle", id:"a11yNavLienNonVisStyle", title:accessibilitytoolbar.get("uci_title_link_notvisited_render")},
                     ["option", {value:"keepit", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "keepit" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_default')],
                     ["option", {value:"underline", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "underline" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_underline')],
                     ["option", {value:"border", selected:accessibilitytoolbar.userPref.get("a11yNavLienNonVisStyle") === "border" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_border')],
@@ -98,7 +98,7 @@ UciApparence = {
               ["div", {id:"uci_div_lien_visite"},
                 ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_visited')],
                 ["div", {"class":"cdu_left"},
-                  ["select", {"class":"uci_select_lien", name:"a11yNavLienVisStyle", title:accessibilitytoolbar.get("uci_title_link_visited_render")},
+                  ["select", {"class":"uci_select_lien", name:"a11yNavLienVisStyle", id:"a11yNavLienVisStyle", title:accessibilitytoolbar.get("uci_title_link_visited_render")},
                     ["option", {value:"keepit", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "keepit" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_default')],
                     ["option", {value:"underline", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "underline" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_underline')],
                     ["option", {value:"border", selected:accessibilitytoolbar.userPref.get("a11yNavLienVisStyle") === "border" ? "selected": false}, accessibilitytoolbar.get('uci_link_render_options_border')],
@@ -119,22 +119,22 @@ UciApparence = {
           ],
           ["div", {id:"uci_apparence_div_right"},
             ["div", {id:"uci_div_desactiver_transparence"},
-              ["input", {type:"checkbox", value:"1", name:"a11ySupEffetTransp", id:"uci_desactiver_transparence", checked:accessibilitytoolbar.userPref.get("a11ySupEffetTransp") === "1" ? "checked" : false}],
-              ["label", {"for":"uci_desactiver_transparence"}, accessibilitytoolbar.get('uci_label_disabletransp')],
+              ["input", {type:"checkbox", value:"1", name:"a11ySupEffetTransp", id:"a11ySupEffetTransp", checked:accessibilitytoolbar.userPref.get("a11ySupEffetTransp") === "1" ? "checked" : false}],
+              ["label", {"for":"a11ySupEffetTransp"}, accessibilitytoolbar.get('uci_label_disabletransp')],
               accessibilitytoolbar.makeHelpTpl("uci_link_help_disabletransp","uci_help_disabletransp",accessibilitytoolbar.get('uci_help_disabletransp'))
             ],
             ["div", {id:"uci_div_disabled_fond_picture"},
-              ["input", {type:"checkbox", value:"true", name:"a11ySupImageFont", id:"uci_label_disablebgpictures", checked:accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked" : false}],
-              ["label", {"for":"uci_label_disablebgpictures"}, accessibilitytoolbar.get('uci_label_disablebgpictures')]
+              ["input", {type:"checkbox", value:"true", name:"a11ySupImageFont", id:"a11ySupImageFont", checked:accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked" : false}],
+              ["label", {"for":"a11ySupImageFont"}, accessibilitytoolbar.get('uci_label_disablebgpictures')]
             ],
             ["div", {id:"uci_div_disabled_first_plan_picture"},
-              ["input", {type:"checkbox", value:"true", name:"a11ySupImageFirstPlan", id:"uci_label_disablepppictures", checked:accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") === "true" ? "checked" : false}],
-              ["label", {"for":"uci_label_disablepppictures"}, accessibilitytoolbar.get('uci_label_disablepppictures')],
+              ["input", {type:"checkbox", value:"true", name:"a11ySupImageFirstPlan", id:"a11ySupImageFirstPlan", checked:accessibilitytoolbar.userPref.get("a11ySupImageFirstPlan") === "true" ? "checked" : false}],
+              ["label", {"for":"a11ySupImageFirstPlan"}, accessibilitytoolbar.get('uci_label_disablepppictures')],
               accessibilitytoolbar.makeHelpTpl("uci_link_help_disablepppictures","uci_help_disablepppictures",accessibilitytoolbar.get('uci_help_disablepppictures'))
             ],
             ["div", {id:"uci_mask_enabled"},
-              ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"uci_check_mask", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
-              ["label", {"for":"uci_check_mask"}, accessibilitytoolbar.get('uci_label_mask')]
+              ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"a11yMaskEnabled", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
+              ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
             ],
             ["div", {id:"uci_div_mask", style:(accessibilitytoolbar.userPref.get("a11yMaskEnabled")=== "true" ? "display:block" : "display:none")},
               ["div", {id:"uci_mask_epaisseur"},

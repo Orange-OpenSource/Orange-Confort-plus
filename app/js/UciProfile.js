@@ -191,20 +191,6 @@ UciProfile = {
     accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form_profil'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation();UciProfile.hide_save_profile();UciIhm.confirm_validation();});
   },
 
-  improve_visibility: function () {
-    /* mise en place du masque */
-    accessibilitytoolbar.userPref.decode("0000651010650650650000000000000000006500000010");
-    accessibilitytoolbar.setCSS();
-  },
-
-  improve_layout: function () {
-    /* font dyslexie + taille fonte */
-    accessibilitytoolbar.userPref.decode("0000651000650650650000000110000000006500100010");
-    accessibilitytoolbar.setCSS();
-  },
-  improve_motricity: function (){
-
-  },
   reset: function (){
     accessibilitytoolbar.userPref.setStoredValue();
     accessibilitytoolbar.setCSS();
@@ -217,19 +203,24 @@ UciProfile = {
   create_menu_events: function() {
     /********** Profile *********************/
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_reading'),UciProfile.improve_visibility);
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_reading'),function(){UciProfile.loadProfile(false,"0000651000650650650001100110000000006500100010")});
     accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_none'),UciProfile.reset);
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_layout'),UciProfile.improve_layout);
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),UciProfile.showProfile);
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_layout'),function(){UciProfile.loadProfile(false,"0000651000650650650111101310000000006500000010")});
+    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),function(){UciProfile.loadProfile(false,"0000651000650650650001100310000101006500000010")});
   },
 
   /**
    * Load a profile on option update
    * 
    */
-  loadProfile: function(profilName) {
-    accessibilitytoolbar.userPref.settings.current = profilName;
-    accessibilitytoolbar.userPref.readUserPref();
-    accessibilitytoolbar.setCSS();
+  loadProfile: function(profilName,settingsValue) {
+    if(profilName) {
+      accessibilitytoolbar.userPref.settings.current = profilName;
+      accessibilitytoolbar.userPref.readUserPref();
+      accessibilitytoolbar.updateIhmFormsSettings();
+    } else {
+      accessibilitytoolbar.userPref.decode(settingsValue);
+      accessibilitytoolbar.updateIhmFormsSettings();
+    }
   }
 }

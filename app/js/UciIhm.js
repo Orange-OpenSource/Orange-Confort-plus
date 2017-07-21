@@ -304,6 +304,7 @@ UciIhm = {
     more_confort: function (e) {
     	if (document.getElementById('uci_activateOnglet').style.display === "none") {
             UciIhm.close_menu();
+            UciProfile.close_menu();
             document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-moins2";
             document.getElementById('uci_activateOnglet').style.display = "block";
             if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '0')

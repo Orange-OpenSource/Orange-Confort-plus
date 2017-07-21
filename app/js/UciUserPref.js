@@ -439,7 +439,6 @@ function UciUserPref() {
      * preference stackv3.
      */
     this.readUserPref = function () {
-        console.log(this.settings.profiles[this.settings.current]);
         this.decode(this.settings.profiles[this.settings.current]);
         this.finish = true;
     };
