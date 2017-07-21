@@ -2883,10 +2883,14 @@ accessibilitytoolbar = {
 
     // Add a class to the toolbar for focus display
     accessibilitytoolbar.uciAttachEvent('mousedown', 'onmousedown', document, function () {
-      document.getElementById("accessibilitytoolbarGraphic").className = '';
+      if(document.getElementById("accessibilitytoolbarGraphic")) {
+        document.getElementById("accessibilitytoolbarGraphic").className = '';
+      }
     });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document, function () {
-      document.getElementById("accessibilitytoolbarGraphic").className = 'uci_focus_outline';
+      if(document.getElementById("accessibilitytoolbarGraphic")) {
+        document.getElementById("accessibilitytoolbarGraphic").className = 'uci_focus_outline';
+      }
     });
 
     i = 0;
