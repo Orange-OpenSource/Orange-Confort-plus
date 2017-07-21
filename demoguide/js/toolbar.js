@@ -2830,7 +2830,7 @@ UciHelp = {
             ["input", { type: "radio", name: "example", id: "uci_discover_layout" }],
             ["label", { "for": "uci_discover_layout" }, accessibilitytoolbar.get('edit_layout')]
           ],
-          ["iframe", { id: "uci_discover_frame", "tabindex": "-1", title: "demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: "../demo_" + accessibilitytoolbar.strings.getLocale().toLowerCase() + ".html" }]
+          ["iframe", { id: "uci_discover_frame", "tabindex": "-1", title: "demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: hebergementFullPath + "demo_" + accessibilitytoolbar.strings.getLocale().toLowerCase() + ".html" }]
         ],
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
