@@ -126,7 +126,7 @@ UciIhm = {
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
-            ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "bouton" },
+            ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "button" },
               ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-plus2", id: "uci_icon_moreconfort" }],
               ["span", { id: "uci_moreconfort_content" }, accessibilitytoolbar.get('uci_txt_more_settings')]
             ]
