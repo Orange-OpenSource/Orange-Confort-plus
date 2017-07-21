@@ -367,12 +367,12 @@ UciIhm = {
     accessibilitytoolbar.stopEvt(e);
     return false;
   },
-  hide_more_confort: function () {
+  hide_more_confort: function (hideValidationBtn) {
     UciIhm.hide_confirm_validation();
     document.getElementById("uci-onoffswitch").focus();
     document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-plus2";
     document.getElementById('uci_activateOnglet').style.display = "none";
-    if (document.getElementById('uci_zone_form')) {
+    if (hideValidationBtn && document.getElementById('uci_zone_form')) {
       document.getElementById('uci_zone_form').style.display = "none";
     }
     document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
@@ -454,7 +454,7 @@ UciIhm = {
       document.getElementById("uci-onoffswitch").className = "uci-onoffswitch-label-on";
       document.getElementById("uci-onoffswitch").focus();
     } else {
-      UciIhm.hide_more_confort();
+      UciIhm.hide_more_confort(true);
       document.getElementById('uci_left_toolbar').style.display = 'none';
       document.getElementById('uci_middle_toolbar').style.display = 'none';
       document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_enable_cdu');

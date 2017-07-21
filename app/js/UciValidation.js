@@ -39,7 +39,7 @@ UciValidation = {
         accessibilitytoolbar.hasDoneSettings = true;
         accessibilitytoolbar.saveUserPref();
         document.getElementById('uci_validation').className = "cdu_n";
-        UciIhm.hide_more_confort();
+        UciIhm.hide_more_confort(true);
         return false;
     },
 
