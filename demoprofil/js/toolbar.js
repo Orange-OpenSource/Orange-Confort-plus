@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.32d2da25.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.e428293a.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -824,10 +824,11 @@ traduction['EN']={
   uci_new_window:"New window",
   uci_iframe_cookie:"Technical Content Orange Confort+",
   uci_confirm_validation:"Settings saved",
-  save_service: "TODO",
-  uci_profile_save_label: "TODO",
-  uci_profile_new_option: "TODO",
-  uci_profile_new_label: "TODO",
+  save_service: "Save profile",
+  uci_txt_link_profil: "Profiles",
+  uci_profile_save_label: "Save my settings",
+  uci_profile_new_option: "new profile",
+  uci_profile_new_label: "New profile",
 };
 // Source: app/language/es.js
 /**
@@ -980,6 +981,7 @@ traduction['ES']={
   uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
   uci_confirm_validation:"Preferencias registrados",
   save_service: "TODO",
+  uci_txt_link_profil: "Profils",
   uci_profile_save_label: "TODO",
   uci_profile_new_option: "TODO",
   uci_profile_new_label: "TODO",
@@ -1135,6 +1137,7 @@ traduction['FR']={
   uci_iframe_cookie:"Contenu technique Orange Confort+",
   uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
   save_service: "Enregistrer le profil",
+  uci_txt_link_profil: "Profils",
   uci_profile_save_label: "Enregistrer mes réglages",
   uci_profile_new_option: "nouveau profil",
   uci_profile_new_label: "Nouveau profil",
@@ -1291,6 +1294,7 @@ uci_new_window:"Nowe okno",
 uci_iframe_cookie:"Zawartość techniczna Orange Confort+",
 uci_confirm_validation:"Ustawienia zapisane", 
   save_service: "TODO",
+  uci_txt_link_profil: "TODO",
   uci_profile_save_label: "TODO",
   uci_profile_new_option: "TODO",
   uci_profile_new_label: "TODO",
@@ -2482,7 +2486,7 @@ UciIhm = {
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
                   ["li", {"class":"uci_inline uci_menu_bton"},
-                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, "profile"],
+                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
                       ["div", {id:"uci_cdu_profile", style:"display:none;", class:"uci_submenu"},
                         UciProfile.InitUciProfile()
