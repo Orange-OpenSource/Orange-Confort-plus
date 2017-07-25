@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 21-07-2017
+/* orange-confort-plus - version 4.1.0 - 25-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.7bc28b82.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.13d448d4.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -814,9 +814,8 @@ traduction['EN']={
                       "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
                       "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
   reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
-  uci_discover_lorem_1: "1",
-  uci_discover_lorem_2: "2",
-  uci_discover_lorem_3: "3",
+  reading1: "1",
+  reading2: "2",
   uci_advance_param : "little test to show Confort + criteres",
   discover_service : "discover the service",
   improve_readability : "Improve Readability",
@@ -989,9 +988,8 @@ traduction['ES']={
                       "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
                       "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
   reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
-  uci_discover_lorem_1: "1",
-  uci_discover_lorem_2: "2",
-  uci_discover_lorem_3: "3",
+  reading1: "1",
+  reading2: "2",
   uci_advance_param : "little test to show Confort + criteres",
   discover_service : "D\351couvrir le service",
   improve_readability : "Am\351liorer le service",
@@ -1336,9 +1334,8 @@ uci_confirm_validation:"Ustawienia zapisane",
 uci_menu_guide:"Guide pas \340 pas",
   uci_discover_text: "TODO",
   reading: "TODO",
-  uci_discover_lorem_1: "TODO",
-  uci_discover_lorem_2: "TODO",
-  uci_discover_lorem_3: "TODO",
+  reading1: "TODO",
+  reading2: "TODO",
   uci_advance_param : "TODO",
   discover_service : "TODO",
   improve_readability : "TODO",
@@ -2426,8 +2423,8 @@ UciIhm = {
               ]
             ]
           ],
-          ["div", { "class": "uci_div_conteneur_contenu_onglets" },
-            ["div", { "class": "uci_contenu_onglets" },
+          ["div", { id:"uci-div-conteneur-contenu-onglets", "class": "uci_div_conteneur_contenu_onglets" },
+            ["div", { id:"uci-contenu-onglets", "class": "uci_contenu_onglets" },
               UciTypographie.InitUciTypographie(),
               UciApparence.InitUciApparence(),
               UciCouleur.InitUciCouleur(),
@@ -2882,6 +2879,10 @@ UciHelp = {
     ])
   },
 
+  IniUnclicKMoreSettings: function(){
+    return accessibilitytoolbar.make(["div",{id: "unclickMoreSettings"}])
+  },
+
   show_popin: function () {
     document.getElementById("uci_activer_menu").blur();
     if (document.getElementById("uci_cdu_popin")) {
@@ -2911,11 +2912,16 @@ UciHelp = {
         document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
         document.getElementById("uci_reading").getAttribute("name") === "aidemotrice") {
         UciIhm.hide_more_confort();
-        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+        var unclick = document.getElementById("unclickMoreSettings").parentNode;
+        unclick.removeChild(unclick.lastChild);
+        //accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
       var parent_node = document.getElementById("uci_reading").parentNode;
       parent_node.removeChild(parent_node.lastChild);
+      
     }
+    
+    document.getElementById("uci_help_title").focus();
   },
 
   hide_popin: function () {
@@ -2933,33 +2939,38 @@ UciHelp = {
         document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
         document.getElementById("uci_reading").getAttribute("name") === "aidemotrice") {
         UciIhm.hide_more_confort();
-        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+        var unclick = document.getElementById("unclickMoreSettings").parentNode;
+        unclick.removeChild(unclick.lastChild);
+        //accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
       }
       var parent_node = document.getElementById("uci_reading").parentNode;
       parent_node.removeChild(parent_node.lastChild);
     }
+    
     UciHelp.demo_reset();
     document.getElementById("uci_activer_menu").focus();
   },
 
   show_discover: function () {
     if (document.getElementById("uci_main_popin_help")) {
-      document.getElementById("uci_help_title").focus();
       document.getElementById("uci_main_popin_help").style.display = "none";
       document.getElementById("uci_discover").style.display = "block";
+      document.getElementById("uci_discover_title").focus();
     }
   },
 
-  show_reading: function (name) {
+  show_reading: function (name, changeOnglet) {
     document.getElementById("uci_main_popin_help").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
     //document.getElementById("uci_reading").style.display = "block";
-    if (name === "apparence" || name === "aidemotrice") {
+    if (name === "typographie" || name === "apparence" || name === "couleur" || name === "aidemotrice") {
       //document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading(name));
       //document.getElementById("uci_reading").setAttribute("name", name);
       //UciHelp.changeText("center");
       var index = Object.keys(UciHelp.tour).indexOf(name);
-      UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name], index);
+      //if (changeOnglet !== false){
+        UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name], index, changeOnglet);
+      //}
     } else {
       document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
       document.getElementById("uci_reading_move_left").style.visibility = "hidden";
@@ -3116,13 +3127,21 @@ UciHelp = {
     document.getElementById("uci_reading_title").focus();
   },
 
+  _unclickMoreSettings : function(){
+    if (!document.getElementById("unclickMoreSettings")){
+      document.getElementById("accessibilitytoolbarGraphic").appendChild(accessibilitytoolbar.make(["div",{id: "unclickMoreSettings", class: "unclick_more_settings"}]));
+    }
+    document.getElementById("unclickMoreSettings").style.top = (0 - document.getElementById("uci-contenu-onglets").clientHeight)+"px";
+    document.getElementById("unclickMoreSettings").style.height = document.getElementById("uci-contenu-onglets").clientHeight+"px";
+  },
+
   /********************************** _readingTraitement ********************************************************/
   /* This function manage automically display of reading popin                                                  */
   /* @input param :                                                                                             */
   /* currentObject : It's the current popin displayed                                                           */
   /* nextObject : It's the next popin to display                                                                */
   /**************************************************************************************************************/
-  _readingTraitement: function (currentObject, nextObject, index) {
+  _readingTraitement: function (currentObject, nextObject, index, changeOnglet) {
     if (nextObject !== undefined){
       /* index is the index of nextObject to display */
       /* We must test the value to don't crach and stay on the limit */
@@ -3135,12 +3154,17 @@ UciHelp = {
       var name = Object.keys(UciHelp.tour)[index]
       
       if (document.getElementById("uci_reading")){
-         var parent = document.getElementById("uci_reading").parentNode;
-         parent.removeChild(parent.lastChild);
+        var parent = document.getElementById("uci_reading").parentNode;
+        parent.removeChild(parent.lastChild);
       }
-        document.getElementById(nextObject.parentId).appendChild(UciHelp.InitUciReading(name));
+      if (document.getElementById("unclickMoreSettings")){
+        var unclick = document.getElementById("unclickMoreSettings").parentNode;
+        unclick.removeChild(unclick.lastChild);
+      }
+      document.getElementById(nextObject.parentId).appendChild(UciHelp.InitUciReading(name));
       if (nextObject.adcancedparam === "open" && currentObject.adcancedparam !== "isopen") {
         UciIhm.more_confort();
+        this._unclickMoreSettings();
       }
       if (nextObject.adcancedparam === "close") {
         UciIhm.hide_more_confort();
@@ -3148,9 +3172,15 @@ UciHelp = {
       if (nextObject.adcancedparam === "isopen" || nextObject.adcancedparam === "open") {
         if (document.getElementById('uci_activateOnglet').style.display === "none"){
           UciIhm.more_confort();
+          
         }
-        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + name + "").parentNode);
+        if (changeOnglet !== false){
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + name + "").parentNode, false);
+          
+        }
+        this._unclickMoreSettings();
       }
+
       UciHelp.hide_reading(name);
       UciHelp.position_popin_help();
       UciHelp.calculate_overlay_position();
@@ -5753,7 +5783,7 @@ accessibilitytoolbar = {
     }
   },
 
-  uci_OuvrirMenuOnglet: function (elmt) {
+  uci_OuvrirMenuOnglet: function (elmt, showReading) {
     elmt.setAttribute('aria-selected', 'true');
     elmt.tabIndex = '0';
     elmt.parentNode.tabIndex = '0';
@@ -5774,6 +5804,10 @@ accessibilitytoolbar = {
         document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline onglet_0';
         document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display = "none";
       }
+    }
+    if (document.getElementById("uci_reading") && showReading === undefined){
+      var name = elmt.firstChild.id.split("_")[elmt.firstChild.id.split("_").length-1];
+      UciHelp.show_reading(name, false);    
     }
   },
 

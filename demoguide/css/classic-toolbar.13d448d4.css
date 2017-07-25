@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 21-07-2017
+/* orange-confort-plus - version 4.1.0 - 25-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -118,6 +118,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	color: rgb(193, 67, 26);
 	position: absolute;
 }
+
+
 
 /*******************************************************Toolbar general*********************************************/
 /******************************************Chargement de la font orange**************************************************/
@@ -771,11 +773,13 @@ a.cdu_hide:focus {
 	font-size: 1.5em;
 	vertical-align: sub;
 }
-#accessibilitytoolbarGraphic .uci_menu_ouverture_aide .cdu-icon:before {
-	color: #000;
-	font-size: 1.5em;
+
+#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover .cdu-icon:before,
+#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:focus .cdu-icon:before  {
+	color: #fff;
 	vertical-align: sub;
 }
+
 .uci_bton_menu, .uci_bton_menu:active {
 	background-color: transparent;
 	border: none;
@@ -1347,7 +1351,7 @@ ul#uci_reponses_bigger_quick_set {
 	cursor: not-allowed;
 	opacity: .65;
 }
-a#accessibilitytoolbarGraphic .ucibtn.disabled {
+#accessibilitytoolbarGraphic .ucibtn.disabled {
 	pointer-events: none;
 }
 #accessibilitytoolbarGraphic .ucibtn-sm {
@@ -1770,7 +1774,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 .uci_menu_ouverture_aide:hover .cdu-icon-info,
 .uci_menu_ouverture_aide:focus .cdu-icon-info
  {
-	filter: invert(100%);
+	/*filter: invert(100%);*/
+	color: #fff;
 }
 
 /********     CSS for user guide **********/
@@ -1794,9 +1799,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 }
 
 
-#uci_main_popin_help .uci-popin-header,
-#uci_discover .uci-discover-header,
-#uci_reading .uci-reading-header {
+.uci-popin-header {
 	position: relative;
 	min-height: 1.25rem;
 	padding: 0;
@@ -1807,24 +1810,18 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	height: 3rem;
 }
 
-#uci_main_popin_help .uci-popin-header .uci-popin-title,
-#uci_discover .uci-discover-header .uci-discover-title,
-#uci_reading .uci-reading-header .uci-reading-title {
+.uci-popin-header .uci-popin-title {
 	position: relative;
 	top: 2px;
 	left: 20px;
 	font-size: 1.5rem;
 }
 
-.uci_focus_outline #uci_main_popin_help .uci-popin-header .uci-popin-title:focus,
-.uci_focus_outline #uci_discover .uci-discover-header .uci-discover-title:focus,
-.uci_focus_outline #uci_reading .uci-reading-header .uci-reading-title:focus{
+.uci_focus_outline .uci-popin-header .uci-popin-title:focus{
 	outline: dotted 2px;
 } 
 
-#uci_main_popin_help .uci-popin-header .uci-popin-btn,
-#uci_discover .uci-discover-header .uci-popin-btn,
-#uci_reading .uci-reading-header .uci-popin-btn {
+.uci-popin-header .uci-popin-btn {
 	background: transparent;
 	border: transparent;
 	float: right;
@@ -1836,10 +1833,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	width: 100%
 }
 
-#uci_main_popin_help .uci-popin-discover,
-#uci_main_popin_help .uci-popin-read,
-#uci_main_popin_help .uci-popin-layout,
-#uci_main_popin_help .uci-popin-motor {
+#uci_main_popin_help .uci-popin-li {
 	display: block;
 	height: 3rem;
 	border-bottom: solid 1px grey;
@@ -1852,7 +1846,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
     float: left;*/
 }
 
-#uci_discover .uci-popin-buttom .uci-popin-discover-icon,
+/*#uci_discover .uci-popin-buttom .uci-popin-discover-icon,
 #uci_discover .uci-popin-buttom .uci-popin-read-icon,
 #uci_discover .uci-popin-buttom .uci-popin-layout-icon,
 #uci_discover .uci-popin-buttom .uci-popin-motor-icon {
@@ -1865,37 +1859,18 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	margin-top: 0.5rem;
 	border: transparent;
 }
+
 #uci_discover .uci-popin-buttom .uci-popin-discover-icon:active,
 #uci_discover .uci-popin-buttom .uci-popin-read-icon:active,
 #uci_discover .uci-popin-buttom .uci-popin-layout-icon:active,
 #uci_discover .uci-popin-buttom .uci-popin-motor-icon:active{
 	background-color: transparent;
-}
+}*/
 #uci_discover .uci-popin-buttom .uci-button_noborder{
 	border: transparent;
 }
 
-
-#uci_main_popin_help .uci-popin-discover .uci-popin-discover-icon,
-#uci_main_popin_help .uci-popin-read .uci-popin-read-icon,
-#uci_main_popin_help .uci-popin-layout .uci-popin-layout-icon,
-#uci_main_popin_help .uci-popin-motor .uci-popin-motor-icon {
-	background-image: url("../images/assistance_32x32_fe.png");
-	background-repeat: no-repeat;
-	display: inline-block;
-	height: 2rem;
-	width: 2rem;
-	margin-right: 1rem;
-	margin-left: 1rem;
-	position: relative;
-	cursor: pointer;
-	margin-top: 0.5rem;
-}
-
-#uci_main_popin_help .uci-popin-discover .uci-popin-discover-text,
-#uci_main_popin_help .uci-popin-read .uci-popin-read-text,
-#uci_main_popin_help .uci-popin-layout .uci-popin-layout-text,
-#uci_main_popin_help .uci-popin-motor .uci-popin-motor-text {
+#uci_main_popin_help .uci-popin-li .uci-popin-text {
 	font-size: 1rem;
 	display: inline-block;
 	vertical-align: middle;
@@ -1903,50 +1878,27 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	margin-top: 1rem;
 }
 
-<<<<<<< HEAD
-#uci_main_popin_help .uci-popin-buttom,
-#uci_discover .uci-popin-buttom{
+.uci-popin-buttom{
 	height: 3.5rem;
 }
 
-#uci_discover .uci-popin-button-right,
-#uci_main_popin_help .uci-popin-button-right,
-#uci_reading .uci-popin-button-right{
+.uci-popin-button-right{
 	float: right;
     margin-right: 1rem;
 	margin-top: 0.8rem;
 	margin-bottom: 1rem;
 }
 
-#uci_discover .uci-popin-button-left,
-#uci_main_popin_help .uci-popin-button-left,
-#uci_reading .uci-popin-button-left{
+.uci-popin-button-left{
 	float: left;
     margin-left:  1rem;
 	margin-top: 0.8rem;
 	margin-bottom: 1rem;
-=======
-#uci_discover .uci-popin-button-right,
-#uci_main_popin_help .uci-popin-button-right{
-	float: right;
-    margin-right: 2%;
-}
-
-#uci_discover .uci-popin-button-left,
-#uci_main_popin_help .uci-popin-button-left{
-	float: left;
-    margin-left: 2%;
->>>>>>> Aide page 2
 }
 
 #uci_discover {
 	display: none;
-<<<<<<< HEAD
 	width: 38rem;
-=======
-	width: 600px;
-	height: 560px;
->>>>>>> Aide page 2
 	background: #fff;
 	border: 0;
 	/*margin-top: 6%;
@@ -1979,13 +1931,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 #uci_discover .uci-discover-frame {
 	border: #000 2px solid;
-<<<<<<< HEAD
 	width: 36rem;
 	height: 16rem;
-=======
-	width: 575px;
-	height: 260px;
->>>>>>> Aide page 2
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -2107,4 +2054,10 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 .uci_menu_ouverture_aide:hover .labelcolor{
 	color: #fff !important;
+}
+
+.unclick_more_settings {
+	top: 0px;
+	width: 100%;
+	position: relative;
 }
