@@ -2795,7 +2795,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
     accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_none'), UciHelp.demo_reset);
 
-    accessibilitytoolbar.uciAttachEvent('resize', 'onresize', window, function () { UciHelp.calculate_overlay_position() });
+    accessibilitytoolbar.uciAttachEvent('resize', 'onresize', window, function () { UciHelp.calculate_overlay_position(); UciHelp._unclickMoreSettings(); UciHelp.position_popin_help() });
 
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_popin_button'), function (event) { UciHelp.navigation_popin(event, "uci_popin_button") });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_main_popin_help'), function (event) { UciHelp.navigation_popin(event, "uci_main_popin_help") });
@@ -2810,7 +2810,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
     accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_none'), UciHelp.demo_reset);
 
-    accessibilitytoolbar.uciAttachEvent('resize', 'onresize', window, UciHelp.calculate_overlay_position);
+    //accessibilitytoolbar.uciAttachEvent('resize', 'onresize', window, UciHelp.calculate_overlay_position);
 
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_popin_exit'), function (event) { UciHelp.navigation_popin(event, "uci_popin_exit") });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_discover'), function (event) { UciHelp.navigation_popin(event, "uci_discover") });
