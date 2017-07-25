@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 24-07-2017
+/* orange-confort-plus - version 4.1.0 - 25-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.e428293a.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.421bfcba.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -139,11 +139,11 @@ function ToolbarStrings() {
  @class Collection of user preference
  */
 function UciUserPref() {
-const defautStoredValue = "0000651000650650650000000000000000006500000010";
+this.defautStoredValue = "0000651000650650650000000000000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
-    this.settings = {current: "Default", profiles: {"Default": defautStoredValue}};    
+    this.settings = {current: "", profiles: {}};    
     this.finish = false;
  
     
@@ -492,6 +492,7 @@ const defautStoredValue = "0000651000650650650000000000000000006500000010";
             var disablevalue = settings.shift();
             this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
             // second one set the profile value
+            this.settings.current = "Default";
             this.settings.profiles[this.settings.current] = settings.shift();            
         } else { // need to explode the values
             // first param set site enable or disable
@@ -550,7 +551,7 @@ const defautStoredValue = "0000651000650650650000000000000000006500000010";
         if(storedValue) {
             this.settings.profiles[this.settings.current] = storedValue;
         } else { // if no storedvalue is provided set the default value
-            this.settings.profiles[this.settings.current] = defautStoredValue;
+            this.settings.profiles[this.settings.current] = this.defautStoredValue;
         }
         this.readUserPref();
     };
@@ -619,7 +620,9 @@ var oNewNode = document.createElement("iframe");
      */
     this.updateUserPref = function(profilName) {
         // Update the cdu cookies with the stackv3 value
-        this.setStoredValue(this.encode(),profilName);
+        if(profilName) {
+          this.setStoredValue(this.encode(),profilName);
+        }
         var UsageConfortpref = this.encodeUsageConfort();
         if(document.location.port) {
           document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+UsageConfortpref+"&origin="+document.location.protocol + "//" + document.location.hostname + ':' + document.location.port + document.location.pathname;
@@ -825,10 +828,19 @@ traduction['EN']={
   uci_iframe_cookie:"Technical Content Orange Confort+",
   uci_confirm_validation:"Settings saved",
   save_service: "Save profile",
+  uci_rename_profile: "Rename profile",
+  uci_profile_rename_label: "New name",
+  uci_profile_curent_name: "Current profile name",
   uci_txt_link_profil: "Profiles",
   uci_profile_save_label: "Save my settings",
   uci_profile_new_option: "new profile",
   uci_profile_new_label: "New profile",
+  uci_predefined_profils_title: "predefined profiles",
+  uci_predefined_none: "No profile",
+  uci_predefined_improve_readability: "Improve readability",
+  uci_predefined_change_layout: "Change the layout",
+  uci_predefined_motor_help: "Start motor help",
+  uci_profile_delete_warning: "ATTENTION"
 };
 // Source: app/language/es.js
 /**
@@ -981,10 +993,19 @@ traduction['ES']={
   uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
   uci_confirm_validation:"Preferencias registrados",
   save_service: "TODO",
+  uci_rename_profile: "Renommer le profil",
+  uci_profile_rename_label: "Nouveau nom",
+  uci_profile_curent_name: "Current profile name",
   uci_txt_link_profil: "Profils",
   uci_profile_save_label: "TODO",
   uci_profile_new_option: "TODO",
   uci_profile_new_label: "TODO",
+  uci_predefined_profils_title: "predefined profiles",
+  uci_predefined_none: "No profile",
+  uci_predefined_improve_readability: "Improve readability",
+  uci_predefined_change_layout: "Change the layout",
+  uci_predefined_motor_help: "Start motor help",
+  uci_profile_delete_warning: "ATTENTION"
 };
 // Source: app/language/fr.js
 /**
@@ -1137,10 +1158,19 @@ traduction['FR']={
   uci_iframe_cookie:"Contenu technique Orange Confort+",
   uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
   save_service: "Enregistrer le profil",
+  uci_rename_profile: "Renommer le profil",
+  uci_profile_rename_label: "Nouveau nom",
+  uci_profile_curent_name: "Nom actuel du profil",
   uci_txt_link_profil: "Profils",
   uci_profile_save_label: "Enregistrer mes réglages",
   uci_profile_new_option: "nouveau profil",
   uci_profile_new_label: "Nouveau profil",
+  uci_predefined_profils_title: "profils predefinis",
+  uci_predefined_none: "Aucun profil",
+  uci_predefined_improve_readability: "Améliorer la lisibilité",
+  uci_predefined_change_layout: "Modifier la mise en page",
+  uci_predefined_motor_help: "Activer l'aide motrice",
+  uci_profile_delete_warning: "ATTENTION"
 };
 
 // Source: app/language/pl.js
@@ -1294,10 +1324,19 @@ uci_new_window:"Nowe okno",
 uci_iframe_cookie:"Zawartość techniczna Orange Confort+",
 uci_confirm_validation:"Ustawienia zapisane", 
   save_service: "TODO",
+  uci_rename_profile: "Renommer le profil",
+  uci_profile_rename_label: "Nouveau nom",
+  uci_profile_curent_name: "Current profile name",
   uci_txt_link_profil: "TODO",
   uci_profile_save_label: "TODO",
   uci_profile_new_option: "TODO",
   uci_profile_new_label: "TODO",
+  uci_predefined_profils_title: "predefined profiles",
+  uci_predefined_none: "No profile",
+  uci_predefined_improve_readability: "Improve readability",
+  uci_predefined_change_layout: "Change the layout",
+  uci_predefined_motor_help: "Start motor help",
+  uci_profile_delete_warning: "ATTENTION"
 };
 // Source: app/js/UciAideMotrice.js
 /**
@@ -2107,20 +2146,33 @@ UciValidation = {
         document.getElementById("uci-onoffswitch").focus();
         
         accessibilitytoolbar.setCSS();
-        // check if there's a profile named
-        if(document.getElementById('uci-selectProfile').value === "") {
-            // if value == "" that's a new profile
-            profilName = document.getElementById('uci_profile_name').value
+        // profile name edit mode
+        if(document.getElementById("previous_profil_name")) {
+            oldName = document.getElementById("previous_profil_name").value;
+            profilName = document.getElementById('uci_profile_name').value;
+            accessibilitytoolbar.userPref.settings.profiles[profilName]=accessibilitytoolbar.userPref.settings.profiles[oldName];
+            delete accessibilitytoolbar.userPref.settings.profiles[oldName]
+            // if that was the curent also update his name
+            if(accessibilitytoolbar.userPref.settings.current === oldName) {
+                accessibilitytoolbar.userPref.settings.current = profilName;
+            }
+            profilName = accessibilitytoolbar.userPref.settings.current;
+            accessibilitytoolbar.saveUserPref();
         } else {
-            profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[document.getElementById('uci-selectProfile').value];
+            // check if there's a profile named
+            if(document.getElementById('uci-selectProfile').value === "") {
+                // if value == "" that's a new profile
+                profilName = document.getElementById('uci_profile_name').value;
+            } else {
+                profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[document.getElementById('uci-selectProfile').value];
+            }
+            accessibilitytoolbar.saveUserPref(profilName);
         }
-        
-        accessibilitytoolbar.saveUserPref(profilName);
+        console.log(accessibilitytoolbar.userPref.settings);
+        // accessibilitytoolbar.saveUserPref(profilName);
         document.getElementById('uci_validation').className = "cdu_n";
         // update profile list
-        document.getElementById("uci_cdu_profile").replaceChild(UciProfile.InitUciProfile(),document.getElementById("uci_cdu_profile").firstChild);
-        // add event to profile menu
-        UciProfile.create_menu_events();
+        UciProfile.refreshMenuDisplay();
         UciIhm.hide_more_confort();
         return false;
     },
@@ -2168,29 +2220,10 @@ UciProfile = {
    */
   InitUciProfile: function () {
     return accessibilitytoolbar.make(["div",
-      UciProfile.UciSavedProfile(),
-      ["span","profils predefinis"],
-      ["ul",
-        ["li",{class: "uci_menu_ouverture_aide"}, 
-          ["input", { type: "radio", name: "radio-profil", id: "uci_profile_none" }],
-          ["label", { "class":"labelcolor","for": "uci_profile_none" }, "Aucun profil"]
-        ],
-        ["li",{class: "uci_menu_ouverture_aide"},
-          ["input", { type: "radio", name: "radio-profil", id: "uci_profile_reading" }],
-          ["label", { "class":"labelcolor","for": "uci_profile_reading" }, "Ameliorer la lisibilite"],
-        ],
-        ["li",{class: "uci_menu_ouverture_aide"},
-          ["input", { type: "radio", name: "radio-profil", id: "uci_profile_layout" }],
-          ["label", { "class":"labelcolor","for": "uci_profile_layout" }, "Modifier la mise en page"],
-        ],
-        ["li",{class: "uci_menu_ouverture_aide"},
-          ["input", { type: "radio", name: "radio-profil", id: "uci_profile_move" }],
-          ["label", { "class":"labelcolor","for": "uci_profile_move" }, "Aide motrice"],
-        ],
-      ]  
+        UciProfile.UciSavedProfile(),         
     ])
   },
-  SaveProfile: function (){
+  saveProfile: function (){
     return accessibilitytoolbar.make(["div",{id :"save_profile"},
       ["div", {"class":"save_popin"},
         ["form", {name:"uci_form_profil", action:"#", id:"uci_form_profil"},
@@ -2212,6 +2245,31 @@ UciProfile = {
                 ["input", {id: "uci_profile_name", type: "texte", "class":"margin-left"}]
               ],
             ]
+          ],
+          ["div", {"class": "uci-popin-buttom" },
+            ["button", { name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
+            ["input", { name: "saveSubmit", "type": "submit", "class": "uci-popin-button-right ucibtn-primary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_valid')]
+          ]
+        ]
+      ]
+    ])
+  },
+  formProfile: function (profilName){
+    return accessibilitytoolbar.make(["div",{id :"save_profile"},
+      ["div", {"class":"save_popin"},
+        ["form", {name:"uci_form_profil", action:"#", id:"uci_form_profil"},
+          ["div", { id: "uci_save_header", "class": "uci-save-header" },
+            ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_rename_profile')],
+            ["button", {"class":"ucibtn-secondary uci-popin-btn", onclick: "UciProfile.hide_save_profile()", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
+              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
+              ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
+            ]
+          ],
+          ["div",
+            ["div",accessibilitytoolbar.get('uci_profile_curent_name')+" : "+profilName],
+            ["input",{ "type":"hidden", id:"previous_profil_name", value:profilName}],
+            ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label')+" : "],
+            ["input", {id: "uci_profile_name", type: "texte", "class":"margin-left"}]            
           ],
           ["div", {"class": "uci-popin-buttom" },
             ["button", { name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "button", "class": "uci-popin-button-left ucibtn-info ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_button_cancel')],
@@ -2271,26 +2329,51 @@ UciProfile = {
     }
   },
 
-  UciSavedProfile: function (params) {
+  UciSavedProfile: function () {
     var returnSavedProfile = "";
     var profil = null;
+    var hideclass = "";
     var i = 0;
-    var tableauProfile = ["ul", {role:"radiogroup", "aria-labelledby":"idLabel"}];
+    var tableauProfile = ["ul"];
+    // allow delete only if there's more than one profile
+    var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
+    if(nbprofile <= 1) {
+      hideclass = " uci_hide_trash";
+    }
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
         if(accessibilitytoolbar.userPref.settings.current === profil) {
-          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
-                                  ["input", {type: "radio", name: "radio-profil", "checked": "true", id: "uci_profile"+i, onchange:"UciProfile.loadProfile('"+profil+"')" }],
-                                  ["label", {"class":"labelcolor", "for": "uci_profile"+i }, profil]
+          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"+hideclass},
+                                  ["a", { id: "uci_profile"+i, href:"#", role:"button" , onclick:"UciProfile.loadProfile('"+profil+"','"+accessibilitytoolbar.userPref.settings.profiles[profil]+"','uci_profile"+i+"')", "class":"uci_profil_link" }, profil],
+                                  ["div",
+                                    ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
+                                    ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash margin-left-lg", title:"Delete profile : "+profil }]
+                                  ],
                               ];
         } else {
-          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide"},
-                                  ["input", {type: "radio", name: "radio-profil", id: "uci_profile"+i, onchange:"UciProfile.loadProfile('"+profil+"')" }],
-                                  ["label", {"class":"labelcolor", "for": "uci_profile"+i }, profil]
+          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+hideclass},
+                                  ["a", { id: "uci_profile"+i, href:"#", role:"button" , onclick:"UciProfile.loadProfile('"+profil+"','"+accessibilitytoolbar.userPref.settings.profiles[profil]+"','uci_profile"+i+"')", "class":"uci_profil_link" }, profil],
+                                  ["div",
+                                    ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
+                                    ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash margin-left-lg", title:"Delete profile : "+profil }]
+                                  ],
                               ];
         }
       tableauProfile.push(returnSavedProfile);
       i++;
     }
+    tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", "class":"uci_dropdown-divider"}]);
+    tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"}, 
+          ["a", { id: "uci_profile_none", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_none')]
+        ]);
+    tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"},
+          ["a", { id: "uci_profile_reading", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+        ]);
+    tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"},
+          ["a", { id: "uci_profile_layout", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+        ]);
+    tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"},
+          ["a", { id: "uci_profile_move", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+        ]);
     return tableauProfile;
   },
 
@@ -2315,15 +2398,11 @@ UciProfile = {
   },
 
   showProfile: function(){
-    document.getElementById("uci_cdu_popin").appendChild(UciProfile.SaveProfile());
+    UciIhm.hide_confirm_validation();
+    document.getElementById("uci_cdu_popin").appendChild(UciProfile.saveProfile());
     document.getElementById("uci_cdu_popin").style.display= "block";
     document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
     accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form_profil'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation();UciProfile.hide_save_profile();UciIhm.confirm_validation();});
-  },
-
-  reset: function (){
-    accessibilitytoolbar.userPref.setStoredValue();
-    accessibilitytoolbar.setCSS();
   },
 
   /**
@@ -2333,24 +2412,95 @@ UciProfile = {
   create_menu_events: function() {
     /********** Profile *********************/
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_profile'),UciProfile.uci_show_profile);
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_reading'),function(){UciProfile.loadProfile(false,"0000651000650650650001100110000000006500100010")});
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_none'),UciProfile.reset);
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_layout'),function(){UciProfile.loadProfile(false,"0000651000650650650111101310000000006500000010")});
-    accessibilitytoolbar.uciAttachEvent('change','onchange',document.getElementById('uci_profile_move'),function(){UciProfile.loadProfile(false,"0000651000650650650001100310000101006500000010")});
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_reading'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile(false,"0000651000650650650001100110000000006500100010","uci_profile_reading")});
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_none'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile(false,accessibilitytoolbar.userPref.defautStoredValue,"uci_profile_none")});
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_layout'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile(false,"0000651000650650650111101310000000006500000010","uci_profile_layout")});
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_move'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile(false,"0000651000650650650001100310000101006500000010","uci_profile_move")});
+  },
+
+  /**
+   * Refresh profile list
+   * 
+   */
+  refreshMenuDisplay: function() {
+    // update profile list
+    document.getElementById("uci_cdu_profile").replaceChild(this.InitUciProfile(),document.getElementById("uci_cdu_profile").firstChild);
+    // add event to profile menu
+    this.create_menu_events();
   },
 
   /**
    * Load a profile on option update
    * 
    */
-  loadProfile: function(profilName,settingsValue) {
+  loadProfile: function(profilName,settingsValue,idCible) {
+    e = window.event;
+    accessibilitytoolbar.stopEvt(e);
     if(profilName) {
       accessibilitytoolbar.userPref.settings.current = profilName;
       accessibilitytoolbar.userPref.readUserPref();
       accessibilitytoolbar.updateIhmFormsSettings();
+      accessibilitytoolbar.saveUserPref();
     } else {
       accessibilitytoolbar.userPref.decode(settingsValue);
       accessibilitytoolbar.updateIhmFormsSettings();
+    }
+    // update the selected element
+    if(idCible) {
+      var parent = document.getElementById(idCible).parentNode;
+      var sibblings = parent.parentNode.childNodes;
+      var curNode;
+      // remove uci_menu_active from all 
+      for(curNode in sibblings) {
+        if(sibblings[curNode].className) {            
+          sibblings[curNode].className = sibblings[curNode].className.replace(/ uci_menu_active{0,1}/,"");
+        }
+      }
+      // add uci_menu_active class to selected element
+      parent.className += " uci_menu_active";
+    }
+  },
+
+  /**
+   * edit a profil
+   * 
+   */
+  editProfile: function(profilName) {
+    e = window.event;
+    accessibilitytoolbar.stopEvt(e);
+    UciIhm.hide_confirm_validation();
+    document.getElementById("uci_cdu_popin").appendChild(UciProfile.formProfile(profilName));
+    document.getElementById("uci_cdu_popin").style.display= "block";
+    document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
+    accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form_profil'), function(e) {accessibilitytoolbar.stopEvt(e);UciValidation.Validation();UciProfile.hide_save_profile();UciIhm.confirm_validation();});
+  },
+
+  /**
+   * remove a profil
+   * 
+   */
+  trashProfile: function(profilName,idToRemove) {
+    var profilok = false;
+    e = window.event;
+    accessibilitytoolbar.stopEvt(e);
+    if(confirm(accessibilitytoolbar.get('uci_profile_delete_warning'))) {
+      delete accessibilitytoolbar.userPref.settings.profiles[profilName];
+      // if it's the current profile, check if there's another to set
+      if(accessibilitytoolbar.userPref.settings.current === profilName) {
+        accessibilitytoolbar.userPref.settings.current = "";
+        // load empty settings
+        this.loadProfile(false,accessibilitytoolbar.userPref.defautStoredValue,"uci_profile_none");
+      }
+      var parentDelete = document.getElementById(idToRemove).parentNode;
+      var parentDeleteParent = parentDelete.parentNode;
+      parentDeleteParent.removeChild(parentDelete);
+      console.log(accessibilitytoolbar.userPref.settings);
+      var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
+      if(nbprofile <= 1) {
+        console.log(parentDeleteParent);
+        parentDeleteParent.firstChild.className += " uci_hide_trash";
+      }
+      accessibilitytoolbar.saveUserPref();
     }
   }
 }
@@ -2499,7 +2649,7 @@ UciIhm = {
                       ["div", {id:"uci_cdu_menu", style:"display:none;",class:"uci_submenu"},
                         ["ul",
                           ["li",
-                            ["div", {id:"uci_language"},
+                            ["div", {id:"uci_language", "class":"uci_lang"},
                               ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "FR"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
                                           type:"button",
                                           name:"uci_language_FR",
