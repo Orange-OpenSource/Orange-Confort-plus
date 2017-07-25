@@ -2791,9 +2791,10 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_layout'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("apparence") });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_motor'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("aidemotrice") });
 
-    accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
-    accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
-    accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_none'), UciHelp.demo_reset);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_none'), UciHelp.demo_reset);
+    
 
     accessibilitytoolbar.uciAttachEvent('resize', 'onresize', window, function () { UciHelp.calculate_overlay_position(); UciHelp._unclickMoreSettings(); UciHelp.position_popin_help() });
 
@@ -2898,7 +2899,7 @@ accessibilitytoolbar = {
     if (theFrames.length > 0) {
       while (theFrame = theFrames[i]) {
         try {
-          theFrameDocument = theFrame.document || theFrame.contentDocument;
+          theFrameDocument = theFrame.contentDocument || theFrame.document;
           // attach event to frame onload to reload the css...
           accessibilitytoolbar.uciAttachEvent('load', 'onload', theFrame, accessibilitytoolbar.setCSS);
         } catch (e) { }
@@ -2910,7 +2911,7 @@ accessibilitytoolbar = {
     if (theFrames.length > 0) {
       while (theFrame = theFrames[i]) {
         try {
-          theFrameDocument = theFrame.document || theFrame.contentDocument;
+          theFrameDocument = theFrame.contentDocument || theFrame.document;
           // attach event to frame onload to reload the css...
           accessibilitytoolbar.uciAttachEvent('load', 'onload', theFrame, accessibilitytoolbar.setCSS);
         } catch (e) { }
@@ -3304,9 +3305,19 @@ accessibilitytoolbar = {
       localUserPref = demo;
       demoFrame = document.getElementById("uci_discover_frame");
       try {
-        demoFrameDocument = demoFrame.document || demoFrame.contentDocument;
-        if (demoFrameDocument.getElementsByTagName('head')[0]) {
-          demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
+        demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
+        // just for IE11, check if we're on ie11
+        if(!!window.MSInputMethodContext && !!document.documentMode) {
+            try {
+                demoFrameDocument.createStyleSheet().cssText="";
+            } catch(fa) {
+                if(demoFrameDocument.styleSheets[0])
+                    demoFrameDocument.styleSheets[0].cssText="";
+            }
+        } else {
+            if (demoFrameDocument.getElementsByTagName('head')[0]) {
+                demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
+            }
         }
       } catch (e) { }
     } else {
@@ -3331,12 +3342,10 @@ accessibilitytoolbar = {
         */
         indexFrame = 0;
         theFrames = window.frames;
-        //theFrames=document.getElementsByTagName("iframe");
         if (theFrames.length > 0) {
           while (theFrame = theFrames[indexFrame]) {
             try {
-              //theFrameDocument = theFrame.contentDocument || theFrame.contentWindow.document;
-              theFrameDocument = theFrame.document || theFrame.contentDocument;
+              theFrameDocument = theFrame.contentDocument || theFrame.document;
               if (theFrameDocument.getElementsByTagName('head')[0]) {
                 theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
               }
@@ -3663,11 +3672,21 @@ accessibilitytoolbar = {
         if (demo) {
           demoFrame = document.getElementById("uci_discover_frame");
           try {
-            demoFrameDocument = demoFrame.document || demoFrame.contentDocument;
-            if (demoFrameDocument.getElementsByTagName('head')[0]) {
-              demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+            demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
+            // just for IE11, check if we're on ie11
+            if(!!window.MSInputMethodContext && !!document.documentMode) {
+                try {
+                    demoFrameDocument.createStyleSheet().cssText=s;
+                } catch(fa) {
+                    if(demoFrameDocument.styleSheets[0])
+                        demoFrameDocument.styleSheets[0].cssText=s;
+                }
+            } else {
+                if (demoFrameDocument.getElementsByTagName('head')[0]) {
+                    demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+                }
             }
-          } catch (e) { }
+          } catch (e) {}
         } else { // Not demo mode set the style to the page
           document.getElementsByTagName('head')[0].appendChild(newStyle);
           indexFrame = 0;
@@ -3676,7 +3695,7 @@ accessibilitytoolbar = {
           if (theFrames.length > 0) {
             while (theFrame = theFrames[indexFrame]) {
               try {
-                theFrameDocument = theFrame.document || theFrame.contentDocument;
+                theFrameDocument = theFrame.contentDocument || theFrame.document;
                 if (theFrameDocument.getElementsByTagName('head')[0]) {
                   theFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
                 }
