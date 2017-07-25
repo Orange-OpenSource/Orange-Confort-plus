@@ -22,6 +22,7 @@ copy /Y "%~dp0\..\..\js\UciSimpleStorage.js" "%~dp0\..\Orange.ConfortPlus.IEExte
 copy /Y "%~dp0\..\..\js\UciTypographie.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciTypographie.js"
 copy /Y "%~dp0\..\..\js\UciUserPref.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciUserPref.js"
 copy /Y "%~dp0\..\..\js\UciValidation.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciValidation.js"
+copy /Y "%~dp0\..\..\js\UciProfile.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciProfile.js"
 copy /Y "%~dp0\..\..\js\start.extensionIE.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\start.extensionIE.js"
 copy /Y "%~dp0\..\..\conf\extensionIE\hebergement.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\hebergement.js"
 

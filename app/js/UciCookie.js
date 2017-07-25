@@ -45,7 +45,9 @@ function UciStorage() {
      */
     this.updateUserPref = function(profilName) {
         // Update the cdu cookies with the stackv3 value
-        this.setStoredValue(this.encode(),profilName);
+        if(profilName) {
+          this.setStoredValue(this.encode(),profilName);
+        }
         var UsageConfortpref = this.encodeUsageConfort();
         if(document.location.port) {
           document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?UsageConfort="+UsageConfortpref+"&origin="+document.location.protocol + "//" + document.location.hostname + ':' + document.location.port + document.location.pathname;

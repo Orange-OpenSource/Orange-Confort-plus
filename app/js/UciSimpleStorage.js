@@ -31,7 +31,9 @@ function UciStorage() {
      */
     this.updateUserPref = function(profilName) {
         // Update the cdu cookies with the stackv3 value
-        this.setStoredValue(this.encode(),profilName);
+        if(profilName) {
+          this.setStoredValue(this.encode(),profilName);
+        }
         var UsageConfortpref = this.encodeUsageConfort();
         this.postMessage("orangeconfort+userprefsave", UsageConfortpref, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
         if(accessibilitytoolbar.needToReload)

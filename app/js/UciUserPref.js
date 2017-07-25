@@ -18,11 +18,18 @@
  */
 function UciUserPref() {
     "use strict";
-    const defautStoredValue = "0000651000650650650000000000000000006500000010";
+    this.defautStoredValue = "0000651000650650650000000000000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
-    this.settings = {current: "Default", profiles: {"Default": defautStoredValue}};    
+    this.settings = {current: "", profiles: {}};   
+    this.predefinedSettings = {
+      '0':this.defautStoredValue,
+      '1':"0000651000650650650001100110000000006500100010",
+      '2':"0000651000650650650111101310000000006500000010",
+      '3':"0000651000650650650001100310000101006500000010"
+    }
+
     this.finish = false;
  
     
@@ -293,7 +300,8 @@ function UciUserPref() {
         var prefName;
         // if decode without params, load the latest saved value for curent profile
         if(typeof pref === 'undefined') {
-            pref = this.settings.profiles[this.settings.current];
+            this.settings.current = '0';
+            pref = this.predefinedSettings[this.settings.current];
         }
         // uniquement si le nombre de caractères du cookie est correct!
         if(pref.length===46)
@@ -371,6 +379,7 @@ function UciUserPref() {
             var disablevalue = settings.shift();
             this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
             // second one set the profile value
+            this.settings.current = "Default";
             this.settings.profiles[this.settings.current] = settings.shift();            
         } else { // need to explode the values
             // first param set site enable or disable
@@ -429,7 +438,7 @@ function UciUserPref() {
         if(storedValue) {
             this.settings.profiles[this.settings.current] = storedValue;
         } else { // if no storedvalue is provided set the default value
-            this.settings.profiles[this.settings.current] = defautStoredValue;
+            this.settings.profiles[this.settings.current] = this.defautStoredValue;
         }
         this.readUserPref();
     };
@@ -439,8 +448,24 @@ function UciUserPref() {
      * preference stackv3.
      */
     this.readUserPref = function () {
+      if(this.settings.current.length <=1) {
+        this.decode(this.predefinedSettings[this.settings.current]);
+      } else {
         this.decode(this.settings.profiles[this.settings.current]);
-        this.finish = true;
+      }
+      this.finish = true;
+    };
+
+
+    /**
+     * get the current saved pref ass the numerical  string to be compared to current setting in the stack
+     */
+    this.getCurrentPref = function () {
+      if(this.settings.current.length <=1) {
+        return this.predefinedSettings[this.settings.current];
+      } else {
+        return this.settings.profiles[this.settings.current];
+      }
     };
 
     /**

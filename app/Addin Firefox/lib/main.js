@@ -76,6 +76,7 @@ function startCDU(tab) {
                           data.url("confort+/js/UciApparence.js"),
                           data.url("confort+/js/UciTypographie.js"),
                           data.url("confort+/js/UciValidation.js"),
+                          data.url("confort+/js/UciProfile.js"),
                           data.url("confort+/js/UciIhm.js"),
                           data.url("confort+/js/toolbar.js"),
                           data.url("confort+/js/mask.js"),

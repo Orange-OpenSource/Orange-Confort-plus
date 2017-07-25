@@ -175,6 +175,7 @@
     <EmbeddedResource Include="Resources\js\UciTypographie.js" />
     <EmbeddedResource Include="Resources\js\UciUserPref.js" />
     <EmbeddedResource Include="Resources\js\UciValidation.js" />
+    <EmbeddedResource Include="Resources\js\UciProfile.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\language\en.js" />

@@ -2483,11 +2483,13 @@ accessibilitytoolbar = {
                 }
             }
         }
-        if(document.getElementById('uci_validation').className==='cdu_n'){
-          document.getElementById('uci_validation').className="";
-          UciIhm.hide_confirm_validation();
+        if(!updateIhmOnly) {
+          if(document.getElementById('uci_validation').className==='cdu_n'){
+            document.getElementById('uci_validation').className="";
+            UciIhm.hide_confirm_validation();
+          }
+          document.getElementById('uci_zone_form').style.display="block";
         }
-        document.getElementById('uci_zone_form').style.display="block";
         accessibilitytoolbar.setCSS();
     },
 
@@ -2722,10 +2724,10 @@ accessibilitytoolbar = {
         var toolbar = document.getElementById("cdu_content");
         for (var i = 0; i < actionButtons.length; i++) {
             if(actionButtons[i].type && actionButtons[i].type!=='submit' && actionButtons[i].type!=='reset'
-            && !(actionButtons[i].id && (actionButtons[i].id==='uci_fr' || actionButtons[i].id==='uci_en' || actionButtons[i].id==='uci_sp' || actionButtons[i].id==='uci_profile_reading' || actionButtons[i].id==='uci_profile_none'
-                || actionButtons[i].id==='uci_profile_layout')) 
-            && !actionButtons[i].disabled)
+            && !(actionButtons[i].id && (actionButtons[i].id==='uci_FR' || actionButtons[i].id==='uci_EN' || actionButtons[i].id==='uci_ES' || actionButtons[i].id==='uci_PL'))
+            && !actionButtons[i].disabled) {
                 accessibilitytoolbar.uciAttachEvent('click','onclick',actionButtons[i],accessibilitytoolbar.setPref);
+            }
         }
         for (i = 0; i < selectButtons.length; i++) {
             accessibilitytoolbar.uciAttachEvent('change','onchange',selectButtons[i],accessibilitytoolbar.setPref);
@@ -2836,7 +2838,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_notsel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_notselectionne");});  
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_visite'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_visite");});
         // ad behavior for profile save : 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfile()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfilePopin()});
     },
     /**
      * Function event implementation
@@ -2943,10 +2945,7 @@ accessibilitytoolbar = {
      * @see {ToolbarData}
      */
     saveUserPref: function (profilName) {
-        if (this.hasDoneSettings) {
-            this.hasDoneSettings = false;
-            this.userPref.updateUserPref(profilName);
-        }
+        this.userPref.updateUserPref(profilName);
     },
 
     /*
@@ -2988,7 +2987,10 @@ accessibilitytoolbar = {
             contentToolbar.className = 'cdu_displayN';
             contentToolbar.appendChild(accessibilitytoolbar.createToolbar());
             document.getElementById('cdu_zone').appendChild(contentToolbar);
-            document.getElementById('accessibilitytoolbarGraphic').appendChild(accessibilitytoolbar.make(["div", {id:"uci_cdu_popin", style:"display:none;"}]));
+            // create only once
+            if(!document.getElementById('uci_cdu_popin')) {
+              document.getElementById('accessibilitytoolbarGraphic').appendChild(accessibilitytoolbar.make(["div", {id:"uci_cdu_popin", style:"display:none;"}]));
+            }
             // add JS behaviour
             accessibilitytoolbar.createObjectBehaviour();
         }
@@ -3036,13 +3038,6 @@ accessibilitytoolbar = {
             document.getElementById('cdu_close').style.display = "block";
         }
         document.getElementById("cdu_content").className = 'cdu_displayN';
-        if (accessibilitytoolbar.hasDoneSettings) {
-            accessibilitytoolbar.saveUserPref();
-        } else {
-            if (document.location.href.match(new RegExp("#" + accessibilitytoolbar.contentToJumpTo))) {
-                document.location.reload();
-            }
-        }
     },
     
     close: function () {
@@ -3120,9 +3115,6 @@ accessibilitytoolbar = {
             document.getElementById('uci_validation').className="";
             document.getElementById('uci_zone_form').style.display="block";
         }
-        if (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') == 'off'){
-
-        }
         var value = target.value;
         // for checkbox default value when unckecked = false
         if(target.type == "checkbox" && (!target.checked || !target.checked=="checked") )
@@ -3139,7 +3131,6 @@ accessibilitytoolbar = {
      * 
      */
     updateIhmFormsSettings: function() {
-// warning font-color activate the main option...
         var pref,prefarray,ariaRadioSettings = ["a11yBigger","a11yDyslexyFont","a11ySpacement","a11yLineSpacement","a11yCharSpacement",
                             "a11yModifCasse","a11yMaskEpaisseur","a11yNavLienSelColor","a11yNavLienNonVisColor",
                             "a11yNavLienVisColor","a11yVisualPredefinedSettings","a11yFontColor","a11yBackgroundColor",
@@ -3839,8 +3830,7 @@ accessibilitytoolbar = {
         else {
           htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
         }
-        document.getElementById('accessibilitytoolbarGraphic').removeChild(document.getElementById('accessibilitytoolbarGraphic').firstChild);
-        document.getElementById('accessibilitytoolbarGraphic').appendChild(htmlContent);
+        document.getElementById('accessibilitytoolbarGraphic').replaceChild(htmlContent,document.getElementById('cdu_zone'));        
         
         accessibilitytoolbar.loadTheToolbar();
     },

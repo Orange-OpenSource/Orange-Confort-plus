@@ -29,6 +29,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-comportement,
 #accessibilitytoolbarGraphic .cdu-icon-croix,
 #accessibilitytoolbarGraphic .cdu-icon-help,
+#accessibilitytoolbarGraphic .cdu-icon-edit,
+#accessibilitytoolbarGraphic .cdu-icon-trash,
 #accessibilitytoolbarGraphic .cdu-icon-moins2,
 #accessibilitytoolbarGraphic .cdu-icon-plus2,
 #accessibilitytoolbarGraphic .cdu-icon-reload2,
@@ -47,6 +49,12 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	letter-spacing: 0;
+}
+#accessibilitytoolbarGraphic .cdu-icon-trash:before {
+	content: "\2302";
+}
+#accessibilitytoolbarGraphic .cdu-icon-edit:before {
+	content: "\270d";
 }
 #accessibilitytoolbarGraphic .cdu-icon-agencement:before {
 	content: "\1f4fa";
@@ -107,8 +115,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	background-position: center center !important;
 	background-repeat: no-repeat !important;
 	display: block;
-	height: 1em;
-	width: 1em;
+	height: 1rem;
+	width: 1rem;
 }
 #accessibilitytoolbarGraphic.cdu_old_browser .uci_choix.uci_choix_selected .cdu-icon-test {
 	background-image: url('data: image/png;	base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAiCAYAAAAtZZsLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU2ODFBRjQwQ0IwNTExRTM4QThFQkY0RDczRjQ2QUVCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU2ODFBRjQxQ0IwNTExRTM4QThFQkY0RDczRjQ2QUVCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTY4MUFGM0VDQjA1MTFFMzhBOEVCRjRENzNGNDZBRUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTY4MUFGM0ZDQjA1MTFFMzhBOEVCRjRENzNGNDZBRUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7hu+2+AAAEJUlEQVR42uyYW2sTQRSAz2ZzsU1j11q1YtG11isU0geroOAGERSLjeINBU1AfZGa6g+wjfgiCDY+qpAUvLyIrSAKCnYrCF6QRnxQ8UIQi0WLjbY2TZM2npNsk91tN8nGgEU8cMicncnMl5lzmQ2TSCRgJosBZrjMeECj3GAYJu8v/jgBHH4IqHbUJai81EU2JxsqooZRe6hdfhGCueaWux2jMHIAIhRBeGRghQgB+hA0UDRABCOgVgmsWBJCdSOoWDCgdIx+VKfWKv1WM/SXWaBsLA61gxFFH2MGYCtS7Xi/JqgXIdt0AyIcHWG3yp8U8n5OCZzcvAKGzWzS3v32Kxx/8TkVfWUA1sYUJEnsA0DksSZkACHd0wEaNI40JxxJR93CNBzJzZXz023TsgzcpJ1FXLhmS15pRnasXC4nYkq4YmaUC5Kv58yDLeoIHXoKMHALYPABwEQ08/xoxT6wsba0faDqQKZzrgsdkFPaucWfNQ9Ku+dRw/18mrHHhwAqd6Xa/KMbcP3YNfhiiIDNaAP++V0YlcbFgiKYN/eik4dS9mv6DOQC5JHBJR9oVA1wqo822qccEP0sg+0LwmzfduAqeEhEwjDal8nBE99DMHy2HthFqcOIv89kk0/saug1bUm262MPYPH4a/kSTdkAm9Q/ybSER6hQ2i4VBKk4ZEBIp024CC0HIxkwLIJzZVdhhJmdtO9bDoN3aAdUTvTJN0nTB6dUh3mnPWBzOtNwlceb/igSBgzVaTgSatOzfC8LvHpA7KEXqs4chtWYm6ovYzH52PFHgNZZhqzPJl1C64inPaaRKzuLlkv48gg01nFw50k4aTeu54B/FYHxYWmA2RrUBVhsocA6uO4quL2pvDzW064ILlPDIQWgotT99DB/9XptanBByUG/Qx6FRpgBQhXJLLSAZWtrAO8DonzTFIDGWmFKWij6DbnOCWy1HdfalAmMWoEc0odwbVkrCbtcEBFQKHRhi+BJBlX0njfpa+pdKm3upijtQvOl/Bhp1/K68pvsezrGxHaBFtEFhztfeqSTFvZRJWJrNrb+Or/WLk/gpvq9YYRzIExQz9yKpGSoWtM1a/+lsN7do53HhXfSTqB2MdZKB1uzQVFeDAtWBfTCTQHECcK4i26KJj0SvdcWVM8Tf3NfATjaeep2UV47aQcw1APkUzrEJV1yJ29FrsTwN4UvW7a1FRbhWld+fN4ZueZ2xp4F9MwnSrch+xQfbe5eivOH8pkk75cm7PPHX3W5EBT0Bo6i1jZ3i8blDke+43W9dmK/MzEy6I897+DGRJ/m1UpL0F2oQtTrCRDd78U4ho6NIseD+Y0fx2Qef9cDCYRV5zt52TJjXsTU4sZ5dfmJ4g8tMiY1zy/bUVvIR1F7E9rip7GFuIScifn/99u/DvhbgAEA5rbK2KzKCuUAAAAASUVORK5CYII=') !important;
@@ -164,8 +172,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	display: inline-block;
 	font-style: normal;
 	font-weight: bold;
-	line-height: 1.25em !important;
-	padding-left: 1.875em;
+	line-height: 1.25 !important;
+	padding-left: 1.875rem;
 	position: relative;
 	color: #000;
 }
@@ -174,23 +182,23 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	border: 3px solid #ccc;
 	border-radius: 50%;
 	content: "";
-	height: 1.25em;
+	height: 1.25rem;
 	left: 0;
 	position: absolute;
-	width: 1.25em;
-	font-size: 1em;
+	width: 1.25rem;
+	font-size: 1rem;
 	top: 0;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser input[type="radio"] + label:after {
 	color: #fff;
 	content: "";
-	font-size: 1em;
-	height: 1.25em;
+	font-size: 1rem;
+	height: 1.25rem;
 	left: 0;
 	position: absolute;
 	text-align: center;
 	top: 0;
-	width: 1.25em;
+	width: 1.25rem;
 	background: transparent;
 	top: 0;
 }
@@ -236,8 +244,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	display: inline-block;
 	font-style: normal;
 	font-weight: bold;
-	line-height: 1.25em !important;
-	padding-left: 1.875em;
+	line-height: 1.25 !important;
+	padding-left: 1.875rem;
 	position: relative;
 	color: #000;
 }
@@ -245,23 +253,23 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	background-color: #fff;
 	border: 2px solid #ccc;
 	content: "";
-	height: 1.25em;
+	height: 1.25rem;
 	left: 0;
 	position: absolute;
-	width: 1.25em;
-	font-size: 1em;
+	width: 1.25rem;
+	font-size: 1rem;
 	top: 0;
 }
 #accessibilitytoolbarGraphic.cdu_modern_browser input[type="checkbox"] + label:after {
 	color: #fff;
 	content: "\2714";
 	font-family: "orangeconfortplus";
-	font-size: 1em;
-	height: 1.25em;
+	font-size: 1rem;
+	height: 1.25rem;
 	left: 0px;
 	position: absolute;
 	text-align: center;
-	width: 1.25em;
+	width: 1.25rem;
 	background: transparent;
 	top: 0;
 }
@@ -294,7 +302,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #accessibilitytoolbarGraphic a {
 	color:  #000;
-	text-decoration: underline;
+	text-decoration: none;
 }
 #accessibilitytoolbarGraphic ul,
 #accessibilitytoolbarGraphic li {
@@ -317,8 +325,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	font-size: 130%;
 	line-height: 1 !important;
 	font-weight: bold;
-	padding-top: .1em;
-	padding-left: .240em;
+	padding-top: .1rem;
+	padding-left: .240rem;
 }
 .uci_alt_logo .uci-plus-orange {
 	float: right;
@@ -347,10 +355,10 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #accessibilitytoolbarGraphic.cdu_old_browser .uci_couleur_left {
 	float: left;
-	margin-left: .3em;
+	margin-left: .3rem;
 }
 .uci_label {
-	margin-bottom: .25em;
+	margin-bottom: .25rem;
 }
 .cdu_n {
 	height: 1px;
@@ -371,10 +379,10 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	width: 100%;
 	float: left;
 	padding: 0;
-	min-height: 2.625em;
+	min-height: 2.625rem;
 }
 .uci_right {
-	min-height: 2.625em;
+	min-height: 2.625rem;
 }
 #cdu_close {
 	background: none repeat scroll 0 0 #FFFFFF;
@@ -396,24 +404,10 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	border: 0 none;
 	cursor: pointer;
-	font-size: 1em;
+	font-size: 1rem;
 	font-weight: bold;
 	line-height: 1.3 !important;
 	padding: 5px 16px;
-}
-#cdu_secu {
-	background: url("../images/homescreen_tips_72x72_fe.e6b9a38d.gif") no-repeat scroll 5px 7px #FFFFFF;
-	border: 0.084em solid #A3A3A3 !important;
-	/*box-shadow: 0 0.08em 0.25em rgba(0, 0, 0, 0.64);
-*/
-	font-size: 165%;
-	margin: 1em 0 !important;
-	min-height: 60px;
-	padding: 1em 1em 1em 85px;
-}
-#cdu_secu a {
-	color: #F16E00;
-	text-decoration: underline;
 }
 .remotecontrol-selected {
 	background-color: #fff !important;
@@ -531,7 +525,7 @@ a#activable_to_activable_backward:link, a#activable_to_activable_backward:visite
 }
 a.cdu_hide:focus {
 	display: block;
-	font-size: 1em;
+	font-size: 1rem;
 	height: auto;
 	left: 80px;
 	position: relative !important;
@@ -545,14 +539,12 @@ a.cdu_hide:focus {
 	display: inline-block;
 	vertical-align: middle;
 	padding: 10px 0;
-	/*height: 3.25em;
-*/
 }
 #uci_left_toolbar {
-	padding-right: 1.25em;
+	padding-right: 1.25rem;
 }
 #uci_middle_toolbar {
-	padding-right: 1.25em;
+	padding-right: 1.25rem;
 	border-right: 1px solid #CCC;
 }
 #uci_right_toolbar {
@@ -576,12 +568,12 @@ a.cdu_hide:focus {
 }
 .uci_menu_close, .uci_menu_bton {
 	margin: 0;
-	padding: 1em 1.25em;
+	padding: 1rem 1.25rem;
 	border-right: 1px solid #CCC;
 	line-height: 1.125;
 }
 .uci_menu_close {
-	padding: 0.75em 1.25em;
+	padding: 0.75rem 1.25rem;
 }
 #uci_right_toolbar li:last-child {
 	border: none;
@@ -606,17 +598,17 @@ a.cdu_hide:focus {
 	cursor: not-allowed !important;
 }
 .cdu_c img {
-	margin-right: 0.1em;
+	margin-right: 0.1rem;
 }
 .uci_logo_plus_de_confort {
-	padding: 0 0 0 .625em;
-	height: 3.125em;
-	line-height: 3.125em;
+	padding: 0 0 0 .625rem;
+	height: 3.125rem;
+	line-height: 3.125rem;
 	float: left;
 }
 .uci_alt_logo {
 	color: #000000;
-	font-size: 2em;
+	font-size: 2rem;
 	font-family: Helvetica;
 	display: inline;
 	float: left;
@@ -624,7 +616,7 @@ a.cdu_hide:focus {
 	padding: 0;
 	overflow: hidden;
 	border-right: 1px solid #CCCCCC;
-	padding-right: .625em;
+	padding-right: .625rem;
 	line-height: inherit;
 }
 .uci-onoffswitch {
@@ -632,7 +624,7 @@ a.cdu_hide:focus {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	padding: .625em 1.25em;
+	padding: .625rem 1.25rem;
 	float: left;
 }
 .uci-onoffswitch-label:focus, .uci-onoffswitch-label-on:focus {
@@ -649,11 +641,11 @@ a.cdu_hide:focus {
 .uci-onoffswitch-label, .uci-onoffswitch-label-on {
 	border: 2px solid #666;
 	display: block;
-	height: 1.625em;
+	height: 1.625rem;
 	margin: 0;
 	padding: 0 10px;
 	position: relative;
-	width: 2.25em;
+	width: 2.25rem;
 }
 .uci-onoffswitch-label {
 	background: #666 none repeat scroll 0 0;
@@ -666,7 +658,7 @@ a.cdu_hide:focus {
 	background: #fff none repeat scroll 0 0 !important;
 	content: "";
 	display: block;
-	height: 1.625em;
+	height: 1.625rem;
 	position: absolute;
 	top: 0;
 	width: 1.75em;
@@ -676,22 +668,22 @@ a.cdu_hide:focus {
 	left: 0;
 }
 .uci-onoffswitch-label-on:before {
-	left: 1.75em;
+	left: 1.75rem;
 }
 .uci-onoffswitch-inner-before, .uci-onoffswitch-inner-after {
 	color: #fff;
 	display: block;
 	font-weight: bold;
-	line-height: 1.625em;
+	line-height: 1.625;
 	opacity: 1;
 	position: absolute;
 	z-index: 2147483644;
 }
 .uci-onoffswitch-inner-before {
-	left: 0.1875em;
+	left: 0.1875rem;
 }
 .uci-onoffswitch-inner-after {
-	left: 1.9375em;
+	left: 1.9375rem;
 	text-align: right;
 }
 .uci-onoffswitch-label, .uci-onoffswitch-label-on, .uci-onoffswitch-label:before, .uci-onoffswitch-label-on:before, .uci-onoffswitch-inner-before, .uci-onoffswitch-inner-after {
@@ -715,12 +707,12 @@ a.cdu_hide:focus {
 	border: 2px solid #000;
 	position: absolute;
 	right: -2px;
-	top: 3.125em;
-	padding: 10px;
+	top: 3.125rem;
+	padding: .625rem 0;
 	background-color: #FFFFFF;
 	z-index: 2147483645;
 	zoom: 1;
-	min-width: 14em;
+	min-width: 14rem;
 }
 
 .uci_menu_bton {
@@ -730,44 +722,57 @@ a.cdu_hide:focus {
 	color: #f16e00;
 }
 .uci_submenu li {
-	padding: 0 0 1em;
+	padding: .625rem 1.25rem;
 }
-#uci_language {
+.uci_lang {
 	border: 0px none;
+  display: inline-flex;
 }
 .uci_submenu ul {
 	zoom: 1;
 }
-/******************************************Fin Mise en place du menu Facebook**********************************/
-/** mise en forme des ï¿½lï¿½ments de liste de l'ihm rendu bouton **/
+
 .uci_menu_ouverture_aide {
 	min-width: 100px;
 	padding: 5px;
 	background-position: left;
-	font-size: 0.875em;
+	font-size: 0.875rem;
 	white-space: nowrap;
 }
-#accessibilitytoolbarGraphic a.uci_menu_ouverture_aide {
-	text-decoration: none;
+.uci_menu_space-between {
+	justify-content: space-between;
+	display: flex;
+  flex-wrap: nowrap;
+}
+.uci_profil_link {
+	line-height: 1.8;
+	width: 100%;
+}
+.uci_hide_trash .cdu-icon-trash {
+	display: none;
 }
 #accessibilitytoolbarGraphic a.uci_menu_ouverture_aide span {
-	text-decoration: none;
 	vertical-align: middle;
 }
 #accessibilitytoolbarGraphic a.uci_menu_ouverture_aide span.cdu-icon {
-	text-decoration: none;
-	padding-right: 0.625em;
+	padding-right: 0.625rem;
 }
+
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide .cdu-icon:before {
 	color: #000;
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	vertical-align: sub;
 }
-#accessibilitytoolbarGraphic .uci_menu_ouverture_aide .cdu-icon:before {
-	color: #000;
-	font-size: 1.5em;
-	vertical-align: sub;
+
+#accessibilitytoolbarGraphic .uci_menu_active ,
+#accessibilitytoolbarGraphic .uci_menu_active a,
+#accessibilitytoolbarGraphic .uci_menu_active .cdu-icon:before{
+	background-color: #000;
+	color: #FFF;
+	text-decoration: underline;
+  text-decoration-color: #000;
 }
+
 .uci_bton_menu, .uci_bton_menu:active, .uci_bton_menu:hover {
 	background-color: transparent;
 	border: none;
@@ -776,20 +781,38 @@ a.cdu_hide:focus {
 .uci_bton_menu:focus {
 	outline: 2px dotted;
 }
+li.uci_dropdown-divider {
+  height: 0;
+  overflow: hidden;
+  border-top: 1px solid #eee;
+	margin: .625rem 0;
+	padding: 0;
+}
+.uci_dropdown::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: .625rem;
+  vertical-align: 10%;
+  content: "";
+  border-top: 0.4375rem solid;
+  border-right: 0.4375rem solid transparent;
+  border-left: 0.4375rem solid transparent;	
+}
 .cdu-icon-reload2 {
-	font-size: 1em;
+	font-size: 1rem;
 }
 #accessibilitytoolbarGraphic .cdu-icon-plus2,
 #accessibilitytoolbarGraphic .cdu-icon-moins2 {
-	font-size: 1em;
+	font-size: .875rem;
 	padding-right: 10px;
 }
 #accessibilitytoolbarGraphic .cdu-icon-croix {
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	font-weight: bold;
 }
 .uci_link_help_bulle .cdu-icon-help {
-	font-size: 1em;
+	font-size: 1rem;
 	float: left;
 }
 .uci_inline {
@@ -813,7 +836,7 @@ a.cdu_hide:focus {
 #accessibilitytoolbarGraphic .uci_choix {
 	background-color: #fff;
 	font-weight: 700;
-	margin-right: 0.7142em;
+	margin-right: 0.7142rem;
 	margin-left: 0;
 	box-sizing: content-box;
 }
@@ -844,16 +867,14 @@ a.cdu_hide:focus {
 }
 #uci_reponses_couleurpredefinie_quick_set .cdu-icon-test,
 #uci_reponses_couleurpredefinie_quick_set .cdu-icon-couleurs2 {
-	font-size: 1.44345em;
+	font-size: 1.44345rem;
 	display: block;
-	padding: 0.0625em;
+	padding: 0.0625rem;
 }
 ul#uci_reponses_bigger_quick_set {
 	padding-right: 20px;
 	padding-top: 0;
 	padding-bottom: 0;
-	/* margin: 0.825em 0 0;
-*/
 }
 /******************************************Mise en place des onglets CDU***************************************/
 #accessibilitytoolbarGraphic #uci_onglet_confort {
@@ -920,14 +941,14 @@ ul#uci_reponses_bigger_quick_set {
 	padding-right: 5px;
 }
 .uci_contenu_onglets, .uci_onglets {
-	margin: 0 .625em;
+	margin: 0 .625rem;
 }
 .uci_contenu_onglet {
 	background-color: #FFF;
 	border: 2px solid #000;
 	display: none;
 	width: 100%;
-	padding: 0 .625em 1.25em .625em;
+	padding: 0 .625rem 1.25rem .625rem;
 }
 /*****************************************Fin de la mise en place des ongletsk*********************************/
 /**********************************************Onglet typographie*********************************************/
@@ -970,17 +991,16 @@ ul#uci_reponses_bigger_quick_set {
 	line-height: .6 !important;
 }
 #accessibilitytoolbarGraphic .uci_link_help_bulle {
-	width: 1em;
-	height: 1em;
+	width: 1rem;
+	height: 1rem;
 	display: inline-block;
-	margin: 0 0 0 0.5em;
-	text-decoration: none;
+	margin: 0 0 0 0.5rem;
 }
 .uci_span_help_bulle p {
 	position: relative;
 	top: -10px;
-	margin-left: 1em;
-	font-size: 0.875em;
+	margin-left: 1rem;
+	font-size: 0.875rem;
 }
 .uci_fleche_help_bulle {
 	border-right-color: #ccc;
@@ -1016,9 +1036,7 @@ ul#uci_reponses_bigger_quick_set {
 	margin-top: -10px;
 }
 .uci_aria_button_group {
-	/*min-height: 4em;
-*/
-	margin: 1.25em 0 0 0;
+	margin: 1.25rem 0 0 0;
 }
 /***********************************************Fin onglet typography******************************************/
 /******************************************Onglet Apparence****************************************************/
@@ -1030,20 +1048,20 @@ ul#uci_reponses_bigger_quick_set {
 #uci_div_disabled_fond_picture,
 #uci_div_disabled_first_plan_picture,
 #uci_mask_enabled {
-	padding-top: 1.25em;
+	padding-top: 1.25rem;
 }
 #uci_div_mask {
-	margin-left: 1.3em;
+	margin-left: 1.3rem;
 }
 .uci_select_lien {
 	border: 2px solid #000;
 	padding: 1px;
-	font-size: .875em;
+	font-size: .875rem;
 }
 .uci_span_lien {
-	min-width: 10em;
+	min-width: 10rem;
 	float: left;
-	margin: 3px 0 3px 1.875em;
+	margin: 3px 0 3px 1.875rem;
 	font-weight: normal;
 }
 #uci_gestion_lien .cdu_left {
@@ -1103,37 +1121,40 @@ ul#uci_reponses_bigger_quick_set {
 }
 /**Helper classes for quick putting left/right/top/bottom margin normal or double**/
 #accessibilitytoolbarGraphic .margin-top-sm {
-	margin-top: .3125em !important;
+	margin-top: .3125rem !important;
 }
 #accessibilitytoolbarGraphic .margin-top {
-	margin-top: .625em !important;
+	margin-top: .625rem !important;
 }
 #accessibilitytoolbarGraphic .margin-bottom {
-	margin-bottom: .625em !important;
+	margin-bottom: .625rem !important;
+}
+#accessibilitytoolbarGraphic .padding-bottom {
+	padding-bottom: .625rem !important;
 }
 #accessibilitytoolbarGraphic .margin-left {
-	margin-left: .625em !important;
+	margin-left: .625rem !important;
 }
 #accessibilitytoolbarGraphic .margin-right {
-	margin-right: .625em !important;
+	margin-right: .625rem !important;
 }
 #accessibilitytoolbarGraphic .margin-top-lg {
-	margin-top: 1.25em !important;
+	margin-top: 1.25rem !important;
 }
 #accessibilitytoolbarGraphic .margin-bottom-lg {
-	margin-bottom: 1.25em !important;
+	margin-bottom: 1.25rem !important;
 }
 #accessibilitytoolbarGraphic .margin-left-lg {
-	margin-left: 1.25em !important;
+	margin-left: 1.25rem !important;
 }
 #accessibilitytoolbarGraphic .margin-right-lg {
-	margin-right: 1.25em !important;
+	margin-right: 1.25rem !important;
 }
 #accessibilitytoolbarGraphic .font-normal {
 	font-weight: normal;
 }
 #accessibilitytoolbarGraphic .padding-left-align {
-	padding-left: 1.875em !important;
+	padding-left: 1.875rem !important;
 }
 /***********************************************Onglet Couleurs************************************************/
 #uci_div_right_couleur,
@@ -1145,7 +1166,7 @@ ul#uci_reponses_bigger_quick_set {
 	vertical-align: top;
 }
 #setting_bloc_content {
-	padding: 1.25em 0;
+	padding: 1.25rem 0;
 }
 #uci_div_right_couleur,
 #uci_motor_div_right,
@@ -1171,19 +1192,18 @@ ul#uci_reponses_bigger_quick_set {
 	min-width: 416px;
 }
 #accessibilitytoolbarGraphic .uci_couleur_li {
-	width: 1.625em;
-	height: 1.625em;
+	width: 1.625rem;
+	height: 1.625rem;
 	font-weight: 700;
 	cursor: pointer;
 	vertical-align: middle;
-	text-decoration: none;
 	margin: 1px;
 }
 #uci_div_lien_selectionne,
 #uci_div_lien_notselectionne,
 #uci_div_lien_visite {
 	float: left;
-	margin-top: .625em;
+	margin-top: .625rem;
 }
 .cdu_color {
 	margin: 1px;
@@ -1199,10 +1219,10 @@ ul#uci_reponses_bigger_quick_set {
 	float: right;
 	clear: both;
 	border: 2px solid #000;
-	margin-right: 1em;
+	margin-right: 1rem;
 }
 #uci_menu_remove_all .cdu-icon-reload2 {
-	padding-right: 0.3em;
+	padding-right: 0.3rem;
 }
 .message_couleur {
 	background-color: white !important;
@@ -1217,7 +1237,7 @@ ul#uci_reponses_bigger_quick_set {
 }
 /*********************************************Onglet aperÃ§u****************************************************/
 #uci_reponses_couleurpredefinie li {
-	max-width: 12em;
+	max-width: 12rem;
 }
 #uci_reponses_couleurpredefinie li a:hover {
 	color: white;
@@ -1225,12 +1245,12 @@ ul#uci_reponses_bigger_quick_set {
 #accessibilitytoolbarGraphic #uci_reponses_couleurpredefinie .uci_choix,
 #uci_couleur_police,
 #aria_label_texte {
-	margin-top: .625em;
+	margin-top: .625rem;
 }
 /***************************************************Fin espace Menu***********************************************/
 /*****************************************Espace validation****************************************************/
 #accessibilitytoolbarGraphic #uci_validation {
-	padding: 1.25em 0;
+	padding: 1.25rem 0;
 	text-align: center;
 	width: 100%;
 	float: left;
@@ -1244,7 +1264,7 @@ ul#uci_reponses_bigger_quick_set {
 	border: 2px solid #F16E00;
 }
 #accessibilitytoolbarGraphic .uci_button_reset {
-	margin-left: 1em;
+	margin-left: 1rem;
 	background-color: #000;
 	color: #FFF;
 	min-height: 40px;
@@ -1255,12 +1275,12 @@ ul#uci_reponses_bigger_quick_set {
 	width: 40%;
 }
 #accessibilitytoolbarGraphic #uci_confirm_validation {
-	padding: 0.5em 0;
+	padding: 0.5rem 0;
 	text-align: center;
 	width: 100%;
 	float: left;
 	clear: both;
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	display: none;
 }
 #accessibilitytoolbarGraphic #uci_confirm_validation span {
@@ -1268,9 +1288,6 @@ ul#uci_reponses_bigger_quick_set {
 	background-repeat: no-repeat;
 	background-position: 0% 50%;
 	padding-left: 28px;
-}
-#uci_help_listmode p {
-	text-decoration: none;
 }
 #uci_message_constraste > p {
 	margin-top: 60px;
@@ -1292,8 +1309,8 @@ ul#uci_reponses_bigger_quick_set {
 	-ms-user-select: none;
 	user-select: none;
 	border: 2px solid transparent;
-	padding: 0.5em 1.125em;
-	font-size: 1em;
+	padding: 0.5rem 1.125rem;
+	font-size: 1rem;
 	border-radius: inherit;
 }
 #accessibilitytoolbarGraphic .ucibtn:focus,
@@ -1304,13 +1321,6 @@ ul#uci_reponses_bigger_quick_set {
 #accessibilitytoolbarGraphic .ucibtn.active.focus {
 	outline: 2px dotted;
 	outline-offset: -2px;
-}
-#accessibilitytoolbarGraphic .ucibtn:focus,
-#accessibilitytoolbarGraphic .ucibtn:hover {
-	text-decoration: none;
-}
-#accessibilitytoolbarGraphic .ucibtn.focus {
-	text-decoration: none;
 }
 #accessibilitytoolbarGraphic .ucibtn:active,
 #accessibilitytoolbarGraphic .ucibtn.active {
@@ -1326,9 +1336,9 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	pointer-events: none;
 }
 #accessibilitytoolbarGraphic .ucibtn-sm {
-	padding: 0.4286em 0.5714em;
-	font-size: 0.875em;
-	min-width: 0.7142em;
+	padding: 0.375rem 0.5rem;
+	font-size: 0.875rem;
+	min-width: 0.7142rem;
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary {
 	color: #000;
@@ -1545,7 +1555,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	color: #fff;
 	background-color: #f16e00;
 	border-color: #f16e00;
-	margin-left: 1.25em;
+	margin-left: 1.25rem;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary:focus,
 #accessibilitytoolbarGraphic .ucibtn-primary:hover {
@@ -1741,8 +1751,8 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 .save_popin{
     background-color: #FFF;
-    width: 30em;
-    min-height: 10em;
+    width: 30rem;
+    min-height: 10rem;
 		margin-left: auto;
 		margin-right: auto;
 }
@@ -1750,8 +1760,7 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 .save_popin .uci-save-header {
 	position: relative;
 	min-height: 1.25rem;
-	padding: 0;
-	padding-top: 0.5rem;
+	padding: .625rem;
 	/*margin-bottom: 1.5rem;*/
 	border: 0;
 	background-color: #0c9;
@@ -1761,7 +1770,6 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 .save_popin .uci-save-header .uci-save-title {
 	position: relative;
 	top: 2px;
-	left: 20px;
 	font-size: 1.5rem;
 }
 
@@ -1769,8 +1777,6 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 	background: transparent;
 	border: transparent;
 	float: right;
-	margin-top: 0.2rem;
-	margin-right: 0.5rem;
 }
 
 .save_popin h2{
@@ -1783,6 +1789,32 @@ a#accessibilitytoolbarGraphic .ucibtn.disabled {
 
 .uci_select_profile{
 	vertical-align: middle;
+}
+
+.uci_profile_info_msg {
+	font-size: small;
+}
+
+.uci_form-control {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #000;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border: 2px solid #ccc;
+  border-radius: 0;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.uci_form-control:focus {
+  color: #000;
+  background-color: #fff;
+  border-color: #999;
+  outline: none;
 }
 
 #uci_discover .uci-popin-button-right,

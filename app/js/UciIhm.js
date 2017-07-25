@@ -128,7 +128,7 @@ UciIhm = {
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
                   ["li", {"class":"uci_inline uci_menu_bton"},
-                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, "profile"],
+                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
                       ["div", {id:"uci_cdu_profile", style:"display:none;", class:"uci_submenu"},
                         UciProfile.InitUciProfile()
@@ -141,7 +141,7 @@ UciIhm = {
                       ["div", {id:"uci_cdu_menu", style:"display:none;",class:"uci_submenu"},
                         ["ul",
                           ["li",
-                            ["div", {id:"uci_language"},
+                            ["div", {id:"uci_language", "class":"uci_lang"},
                               ["input", {"class":(accessibilitytoolbar.userPref.get("a11yLanguage") === "FR"?"uci_choix active":"uci_choix")+" ucibtn ucibtn-sm ucibtn-secondary",
                                           type:"button",
                                           name:"uci_language_FR",
@@ -350,35 +350,35 @@ UciIhm = {
         return false;
     },
     hide_more_confort: function () {
-		UciIhm.hide_confirm_validation();
-    	document.getElementById("uci-onoffswitch").focus();
-        document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-plus2";
-        document.getElementById('uci_activateOnglet').style.display = "none";
-        if(document.getElementById('uci_zone_form'))
-        {
-            document.getElementById('uci_zone_form').style.display = "none";
-        }
-        document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
-        document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');              
-            document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");      
-            document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
-        document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','false');
-        
-        if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex','0');
-        if(document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yBigger_150').setAttribute('tabindex','0');
-        if(document.getElementById('uci_quick_a11yBigger_200').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yBigger_200').setAttribute('tabindex','0');
-        if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','0');
-        if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
-            document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
-        document.getElementById('uci_activer_menu').removeAttribute('tabindex');
-        document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
-        document.getElementById('uci_moreconfort').removeAttribute('title');  
-        document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_more_settings');
-        return false;
+		  UciIhm.hide_confirm_validation();
+    	// document.getElementById("uci-onoffswitch").focus();
+      document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-plus2";
+      document.getElementById('uci_activateOnglet').style.display = "none";
+      if(document.getElementById('uci_zone_form'))
+      {
+          document.getElementById('uci_zone_form').style.display = "none";
+      }
+      document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
+      document.getElementById('uci_left_toolbar').setAttribute('aria-hidden','false');              
+          document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");      
+          document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/,"uci_notmask");
+      document.getElementById('uci_right_toolbar').setAttribute('aria-hidden','false');
+      
+      if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '-2')
+          document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex','0');
+      if(document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex')=== '-2')
+          document.getElementById('uci_quick_a11yBigger_150').setAttribute('tabindex','0');
+      if(document.getElementById('uci_quick_a11yBigger_200').getAttribute('tabindex')=== '-2')
+          document.getElementById('uci_quick_a11yBigger_200').setAttribute('tabindex','0');
+      if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex')=== '-2')
+          document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','0');
+      if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
+          document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
+      document.getElementById('uci_activer_menu').removeAttribute('tabindex');
+      document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
+      document.getElementById('uci_moreconfort').removeAttribute('title');  
+      document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_more_settings');
+      return false;
     },
 	confirm_validation: function() {
 		document.getElementById('uci_confirm_validation').style.display = "block";
@@ -403,7 +403,7 @@ UciIhm = {
     changement_langue: function (/* String*/langue) {
         // if stack value not equal to storedValue then display a confirm message to inform the user
         var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-        if ((accessibilitytoolbar.userPref.encode()+tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.storedValue) 
+        if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.settings.profiles[accessibilitytoolbar.userPref.settings.current]) 
                 || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))){
             accessibilitytoolbar.userPref.decode();
             accessibilitytoolbar.userPref.set("a11yLanguage", langue);
