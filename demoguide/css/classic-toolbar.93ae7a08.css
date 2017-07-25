@@ -1937,28 +1937,6 @@ ul#uci_reponses_bigger_quick_set {
 	margin-right: auto;
 }
 
-#discover_frame .uci-discover-frame-text{
-	display: inline-block;
-    width: 49%;
-    vertical-align: top;
-	text-align: right;
-}
-
-#discover_frame .uci-discover-frame-image{
-	display: inline-block;
-    width: 49%;
-    background-color: #000;
-}
-
-#discover_frame .uci-discover-image{
-	/*height: 100%; */
-    width: 50%;
-    /* display: inline-block; */
-    /* background-color: #000; */
-    margin-left: 25%;
-    /* margin-right: 33%; */
-}
-
 #masque_haut{
 	position: absolute;
 }
