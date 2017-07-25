@@ -244,8 +244,8 @@ UciIhm = {
               ]
             ]
           ],
-          ["div", { "class": "uci_div_conteneur_contenu_onglets" },
-            ["div", { "class": "uci_contenu_onglets" },
+          ["div", { id:"uci-div-conteneur-contenu-onglets", "class": "uci_div_conteneur_contenu_onglets" },
+            ["div", { id:"uci-contenu-onglets", "class": "uci_contenu_onglets" },
               UciTypographie.InitUciTypographie(),
               UciApparence.InitUciApparence(),
               UciCouleur.InitUciCouleur(),

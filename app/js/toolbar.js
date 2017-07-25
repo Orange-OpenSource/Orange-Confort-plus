@@ -2474,7 +2474,7 @@ accessibilitytoolbar = {
     }
   },
 
-  uci_OuvrirMenuOnglet: function (elmt) {
+  uci_OuvrirMenuOnglet: function (elmt, showReading) {
     elmt.setAttribute('aria-selected', 'true');
     elmt.tabIndex = '0';
     elmt.parentNode.tabIndex = '0';
@@ -2495,6 +2495,10 @@ accessibilitytoolbar = {
         document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline onglet_0';
         document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display = "none";
       }
+    }
+    if (document.getElementById("uci_reading") && showReading === undefined){
+      var name = elmt.firstChild.id.split("_")[elmt.firstChild.id.split("_").length-1];
+      UciHelp.show_reading(name, false);    
     }
   },
 

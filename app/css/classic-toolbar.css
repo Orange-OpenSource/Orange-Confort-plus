@@ -2052,3 +2052,9 @@ ul#uci_reponses_bigger_quick_set {
 .uci_menu_ouverture_aide:hover .labelcolor{
 	color: #fff !important;
 }
+
+.unclick_more_settings {
+	top: 0px;
+	width: 100%;
+	position: relative;
+}
