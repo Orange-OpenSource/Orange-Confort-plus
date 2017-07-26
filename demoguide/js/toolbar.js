@@ -1,8 +1,8 @@
 /* orange-confort-plus - version 4.1.0 - 26-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
-var hebergementDomaine = 'http://confort-plus.orange.com';
-var hebergementFullPath = hebergementDomaine + '/demoguide/';
+var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
+var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
 // Source: app/conf/hebergement.js
 /*
 
@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.d5c479ec.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.f0d9d3ff.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -2727,7 +2727,7 @@ UciHelp = {
     },
     advancedparam : {
       adcancedparam : "close",
-      parentId: "masque_haut_param",
+      parentId: "masque_haut_advanced_param",
       prev:"reading2",
       next: "typographie"
     },
@@ -3024,7 +3024,7 @@ UciHelp = {
   position_popin_help: function () {
     if (document.getElementById("uci_reading")){
       if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam") {
-        //document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_param").clientWidth + "px";
+        document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_exit").clientWidth + "px";
         document.getElementById("triangle").lastChild.className = "triangleright";
       }
 
@@ -3034,7 +3034,8 @@ UciHelp = {
       }
 
       if (document.getElementById("uci_reading") != null && UciHelp._isOnMoreSettingHelp()) {
-        heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
+        heightTmp = document.getElementById("uci_middle_toolbar").offsetTop + document.getElementById("uci_right_toolbar").clientHeight
+        //heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
         document.getElementById("uci_reading").style.top = heightTmp + 2 + "px";
       }
     }
