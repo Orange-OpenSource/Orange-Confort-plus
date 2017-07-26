@@ -289,6 +289,7 @@ UciProfile = {
    * 
    */
   setFocusOut: function() {
+    clearTimeout(this.timerFocusOut);
     this.timerFocusOut = setTimeout(function(){UciIhm.uci_close_menu('uci_profile_menu')},10);
   },
 

@@ -2787,7 +2787,7 @@ accessibilitytoolbar = {
         //gestion des evenement sur les onglets :
         accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_moreconfort'),UciIhm.more_confort);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciValidation.Annulation();UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_close_toolbar'),function() {UciValidation.Annulation();UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_help_menu_button'),function(e) {UciIhm.uci_toggle_menu('uci_help_menu',e)});
         accessibilitytoolbar.uciAttachEvent('focusout','onfocusout',document.getElementById('uci_help_list'),UciIhm.setFocusOut);
@@ -2839,8 +2839,22 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_sel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_selectionne");});    
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_notsel'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_notselectionne");});  
         accessibilitytoolbar.uciAttachEvent('keydown','onkeydown',document.getElementById('uci_reponses_couleur_lien_visite'), function(event) {UciApparence.uciFermetureOverlay(event,"uci_palette_couleur_lien_visite");});
-        // ad behavior for profile save : 
+        // add behavior for profile save : 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfilePopin()});
+
+        // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci-onoffswitch'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_150'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_200'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_moreconfort'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_profile_menu_button'),function() {UciIhm.setFocusOut()});    
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_help_menu_button'),function() {UciProfile.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_close_toolbar'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+        
     },
     /**
      * Function event implementation

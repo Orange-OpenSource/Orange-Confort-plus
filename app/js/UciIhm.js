@@ -190,7 +190,7 @@ UciIhm = {
                     ]
                   ],
                   ["li", {"class":"uci_inline uci_menu_close"},
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_menu_activer_menu", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
+                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
                       ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
                       ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_link_hide_toolbar')]
                     ]
@@ -301,6 +301,7 @@ UciIhm = {
      * 
      */
     setFocusOut: function() {
+      clearTimeout(this.timerFocusOut);
       this.timerFocusOut = setTimeout(function(){UciIhm.uci_close_menu('uci_help_menu')},10);
     },
 
@@ -327,7 +328,7 @@ UciIhm = {
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','-2');
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '0')
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');   
-            document.getElementById('uci_menu_activer_menu').setAttribute('tabindex','-2');                        
+            document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                        
             document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
             if(document.getElementById('uci_zone_form'))
             {
@@ -386,7 +387,7 @@ UciIhm = {
       if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
           document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
       document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
-      document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
+      document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
       document.getElementById('uci_moreconfort').removeAttribute('title');  
       document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_more_settings');
       return false;
