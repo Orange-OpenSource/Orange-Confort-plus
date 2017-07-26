@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 25-07-2017
+/* orange-confort-plus - version 4.1.0 - 26-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -547,10 +547,12 @@ a.cdu_hide:focus {
 */
 }
 #uci_left_toolbar {
-	padding-right: 1.25em;
+	padding-right: .625em;
+	padding-left: .625em;
 }
 #uci_middle_toolbar {
 	padding-right: 1.25em;
+	padding-left: .625em;
 	border-right: 1px solid #CCC;
 }
 #uci_right_toolbar {
@@ -570,7 +572,7 @@ a.cdu_hide:focus {
 }
 #uci_right_toolbar button {
 	vertical-align: middle;
-	line-height: 1 !important;
+	line-height: 1.25;
 }
 .uci_menu_close, .uci_menu_help {
 	margin: 0;
@@ -578,14 +580,14 @@ a.cdu_hide:focus {
 	line-height: 1.125;
 }
 .uci_menu_help {
-	padding: .5625em .625em;
+	padding: .5em .625em;
 	position: relative;
 }
 .uci_menu_help .uci_bton_menu {
 	padding: .4375em .625em;
 }
 .uci_menu_close {
-	padding: .6em .625em;
+	padding: .563em .625em;
 }
 .uci_menu_close .uci_bton_menu {
 	padding: .25em .625em;
@@ -1937,24 +1939,27 @@ ul#uci_reponses_bigger_quick_set {
 	margin-right: auto;
 }
 
-#masque_haut{
+.masque-haut{
 	position: absolute;
+	line-height: 0;
 }
 
-#masque_haut .masque-haut-advanced-param,
-#masque_haut .masque-haut-logo,
-#masque_haut .masque-haut-param,
-#masque_haut .masque-haut-exit{
+.masque-haut .masque-haut-advanced-param,
+.masque-haut .masque-haut-logo,
+.masque-haut .masque-haut-intermediaire,
+.masque-haut .masque-haut-param,
+.masque-haut .masque-haut-exit{
 	background-color: rgba(0,0,0,0.5);
 	position: relative;
 	display: inline-block;
 }
 
-#masque_haut .readingElements{
+.masque-haut .readingElements{
 	background-color: rgba(0,0,0,0);
 	border: solid 2px #000;
 	border-bottom: none;
 	display: inline-block;
+	line-height: normal;
 }
 
 #uci_reading{
