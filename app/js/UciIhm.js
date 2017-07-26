@@ -33,7 +33,7 @@ UciIhm = {
   InitUciIHM: function () {
     return accessibilitytoolbar.make(["div", { "class": "cdu_c" },
       ["div", { id: "uci_toolbar-quick", "class": "cdu_c" },
-        ["div", { "class": "uci_logo_plus_de_confort cdu_c" },
+        ["div", { "class": "uci_logo_plus_de_confort cdu_c", id:"uci_logo" },
           ["h1", { "class": "uci_alt_logo" },
             accessibilitytoolbar.get('uci_serv_name'),
             ["span", { "class": "uci-plus-orange" }, "+"]
@@ -50,7 +50,7 @@ UciIhm = {
             ]
           ]
         ],
-        ["div", { "class": "uci_right" },
+        ["div", { "class": "uci_right", id:"uci_right" },
           ["div", { "class": "cdu_c uci_notmask", id: "uci_left_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
             ["ul", { "class": "uci_liste_bton cdu_c", id: "uci_reponses_bigger_quick_set", role: "radiogroup" },
               ["li", {
@@ -263,6 +263,7 @@ UciIhm = {
       ],
       ["div", { id: "masque_haut", "class": "masque-haut" },
         ["div", { id: "masque_haut_logo", "class": "masque-haut-logo" }],
+        ["span", { id: "masque_haut_intermediaire", "class": "masque-haut-intermediaire" }],
         ["div", { id: "masque_haut_param", "class": "masque-haut-param" }],
         ["div", { id: "masque_haut_advanced_param", "class": "masque-haut-advanced-param" }],
         ["div", { id: "masque_haut_exit", "class": "masque-haut-exit" }]
