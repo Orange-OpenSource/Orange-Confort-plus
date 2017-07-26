@@ -72,38 +72,38 @@ UciProfile = {
     }
     tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", "class":"uci_dropdown-divider"}]);
     if(accessibilitytoolbar.userPref.settings.current === '0') {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_active"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
           ["a", { id: "uci_profile_none", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     } else {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
           ["a", { id: "uci_profile_none", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '1') {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_active"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
           ["a", { id: "uci_profile_reading", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     } else {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
           ["a", { id: "uci_profile_reading", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '2') {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_active"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
           ["a", { id: "uci_profile_layout", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     } else {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
           ["a", { id: "uci_profile_layout", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '3') {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_active"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
           ["a", { id: "uci_profile_move", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     } else {
-      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide"}, 
+      tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
           ["a", { id: "uci_profile_move", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     }
@@ -205,15 +205,6 @@ UciProfile = {
   },
 
   /**
-   * Display the menu
-   * 
-   */
-  uci_toggle_profile: function(e){
-    // when more settings is open, disable quick settings buttons
-    if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
-  },
-
-  /**
    * Hide the popin
    * 
    */
@@ -275,7 +266,6 @@ UciProfile = {
    */
   create_menu_events: function() {
     /********** Profile *********************/
-    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_menu_button'),function(e){UciIhm.uci_toggle_menu('uci_profile_menu',e)});
     accessibilitytoolbar.uciAttachEvent('focusout','onfocusout',document.getElementById('uci_profile_list'),UciProfile.setFocusOut);
     accessibilitytoolbar.uciAttachEvent('focusin','onfocusin',document.getElementById('uci_profile_list'),UciProfile.setFocusIn);
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_none'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('0',"uci_profile_none")});

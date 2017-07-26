@@ -2843,6 +2843,7 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfilePopin()});
 
         // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_menu_button'),function(e){UciIhm.uci_toggle_menu('uci_profile_menu',e)});
         accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci-onoffswitch'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
         accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
         accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_150'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
