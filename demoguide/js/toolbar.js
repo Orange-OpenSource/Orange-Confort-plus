@@ -1,8 +1,8 @@
 /* orange-confort-plus - version 4.1.0 - 26-07-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
-var hebergementDomaine = 'https://HEBERGEMENTDOMAIN';
-var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES';
+var hebergementDomaine = 'http://confort-plus.orange.com';
+var hebergementFullPath = hebergementDomaine + '/demoguide/';
 // Source: app/conf/hebergement.js
 /*
 
