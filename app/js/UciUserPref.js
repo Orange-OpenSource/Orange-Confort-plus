@@ -18,7 +18,7 @@
  */
 function UciUserPref() {
     "use strict";
-    this.defautStoredValue = "0000651000650650650000000000000000006500000010";
+    this.defautStoredValue = "0000651000650650650001100310000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
@@ -257,11 +257,11 @@ function UciUserPref() {
         "a11yDelayBeforeLoop": "1",
         "a11yQuickMode": "2",
         "a11yCharSpacement": "keepit",
-        "a11yDyslexyFontEnabled": "false",
+        "a11yDyslexyFontEnabled": "true",
         "a11yDyslexyFont": "keepit",
         "a11yLineSpacement" : "keepit",
         "a11ySpacement": "keepit",
-        "a11yModifCasseEnabled": "false",
+        "a11yModifCasseEnabled": "true",
         "a11yModifCasse" : "keepit",
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
@@ -435,10 +435,12 @@ function UciUserPref() {
         if(profilName) {
             this.settings.current = profilName;
         }
-        if(storedValue) {
-            this.settings.profiles[this.settings.current] = storedValue;
-        } else { // if no storedvalue is provided set the default value
-            this.settings.profiles[this.settings.current] = this.defautStoredValue;
+        if(this.settings.current.length >= 3) {
+            if(storedValue) {
+                this.settings.profiles[this.settings.current] = storedValue;
+            } else { // if no storedvalue is provided set the default value
+                this.settings.profiles[this.settings.current] = this.defautStoredValue;
+            }
         }
         this.readUserPref();
     };

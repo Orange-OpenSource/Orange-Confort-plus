@@ -2789,7 +2789,9 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_moreconfort'),UciIhm.more_confort);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_activer_menu'),function() {UciValidation.Annulation();UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_menu_remove_all'),UciIhm.remove_all);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_activer_menu'),UciIhm.uci_activate_menu);
+        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_help_menu_button'),function(e) {UciIhm.uci_toggle_menu('uci_help_menu',e)});
+        accessibilitytoolbar.uciAttachEvent('focusout','onfocusout',document.getElementById('uci_help_list'),UciIhm.setFocusOut);
+        accessibilitytoolbar.uciAttachEvent('focusin','onfocusin',document.getElementById('uci_help_list'),UciIhm.setFocusIn);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_FR'), function() {return UciIhm.changement_langue('FR');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_EN'), function() {return UciIhm.changement_langue('EN');});
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_ES'), function() {return UciIhm.changement_langue('ES');});
@@ -3032,7 +3034,6 @@ accessibilitytoolbar = {
      * Hide the graphic tool-bar
      */
     hide: function () {
-        UciIhm.close_menu(true);
         if(document.getElementById('cdu_close'))
         {
             document.getElementById('cdu_close').style.display = "block";

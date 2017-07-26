@@ -24,6 +24,7 @@
  * @class Entry point for the accessibility tool-bar
  */
 UciIhm = {
+    timerFocusOut: null,
     /*
      * @public
      * @constructor
@@ -127,18 +128,18 @@ UciIhm = {
               ],
               ["div", {"class":"cdu_c uci_notmask", id:"uci_right_toolbar"},
                 ["ul",
-                  ["li", {"class":"uci_inline uci_menu_bton"},
-                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_activer_profile", type:"button"}, accessibilitytoolbar.get('uci_txt_link_profil')],
+                  ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
+                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
-                      ["div", {id:"uci_cdu_profile", style:"display:none;", class:"uci_submenu"},
+                      ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
                         UciProfile.InitUciProfile()
                       ]
                     ]
                   ],
-                  ["li", {"class":"uci_inline uci_menu_bton"},
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_activer_menu", type:"button"}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                  ["li", {"class":"uci_inline uci_menu_bton", id:"uci_help_list"},
+                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
-                      ["div", {id:"uci_cdu_menu", style:"display:none;",class:"uci_submenu"},
+                      ["div", {id:"uci_help_menu", style:"display:none;", class:"uci_submenu"},
                         ["ul",
                           ["li",
                             ["div", {id:"uci_language", "class":"uci_lang"},
@@ -257,54 +258,63 @@ UciIhm = {
       );
     },
     
-
-    /* Permet de désactiver l’affichage du menu facebook.
-       @param nofocus boolean true if focus don't need to be pushed
-    */
-
-
-    close_menu: function (nofocus) {
-      // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
-      // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
-      if(document.getElementById('uci_cdu_menu'))
-      {
-		    document.getElementById('uci_cdu_menu').style.display = "none";
-        var button = document.getElementById("uci_activer_menu");
-        if(button.nodeName === 'BUTTON') {
-          button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
-			    var li = button.parentNode;
-			    li.className = 'uci_inline uci_menu_bton';
-        }
-        if(nofocus) return false;
-        document.getElementById("uci_activer_menu").focus();
-      }
-    },
-    /*Permet d’activer le menu facebook du confort d’utilisation*/
-    uci_activate_menu: function (e) {
-        // when more settings is open, disable quick settings buttons
-      if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-      var menu = document.getElementById('uci_cdu_menu');
-		  if (document.getElementById('uci_cdu_menu').style.display === "none") {
-        document.getElementById('uci_cdu_menu').style.display = "block";
-        var button = document.getElementById("uci_activer_menu");
-        if(button.nodeName === 'BUTTON') {
-          button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
-          var li = button.parentNode;
-			    li.className = 'uci_inline uci_menu_bton active';
-        }
-        UciProfile.close_menu();
-        document.getElementById("uci_activer_menu").focus();
+    /**
+     * Open a submenu
+     * 
+     */
+    uci_toggle_menu: function(idMenu,e) {
+      if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+      var menu = document.getElementById(idMenu);
+      if (menu.style.display === "none") {
+        menu.style.display = "block";
+        var button = document.getElementById(idMenu+"_button");
+        button.title = accessibilitytoolbar.get('uci_txt_link_menu_close') + " " + button.textContent;
+        button.setAttribute('aria-expanded',true);
+        var li = button.parentNode;
+        li.className = 'uci_inline uci_menu_bton active';
       } else {
-        UciIhm.close_menu();
+        UciIhm.uci_close_menu(idMenu);
       }
       accessibilitytoolbar.stopEvt(e);
-		  return false;
+      return false;
     },
+
+    /**
+     * Close a submenu
+     * 
+     */
+    uci_close_menu: function(idMenu) {
+      var menu = document.getElementById(idMenu);
+      if(menu)
+      {
+        menu.style.display = "none";
+        var button = document.getElementById(idMenu+"_button");
+        button.title = accessibilitytoolbar.get('uci_txt_link_menu_open') + " " + button.textContent;
+        button.setAttribute('aria-expanded',false);
+        var li = button.parentNode;
+        li.className = 'uci_inline uci_menu_bton';      
+      }
+    },
+
+    /**
+     * If focus really goes out, close the submenu
+     * 
+     */
+    setFocusOut: function() {
+      this.timerFocusOut = setTimeout(function(){UciIhm.uci_close_menu('uci_help_menu')},10);
+    },
+
+    /**
+     * kill timer if focus goes in
+     * 
+     */
+    setFocusIn: function() {
+      clearTimeout(this.timerFocusOut);
+    },
+
     /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/
     more_confort: function (e) {
     	if (document.getElementById('uci_activateOnglet').style.display === "none") {
-            UciIhm.close_menu();
-            UciProfile.close_menu();
             document.getElementById("uci_icon_moreconfort").className= "cdu-icon cdu-icon-moins2";
             document.getElementById('uci_activateOnglet').style.display = "block";
             if(document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex')=== '0')
@@ -318,7 +328,7 @@ UciIhm = {
             if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '0')
                 document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','-2');   
             document.getElementById('uci_menu_activer_menu').setAttribute('tabindex','-2');                        
-            document.getElementById('uci_activer_menu').setAttribute('tabindex','-2');
+            document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
             if(document.getElementById('uci_zone_form'))
             {
                 document.getElementById('uci_zone_form').style.display = "block";
@@ -349,6 +359,7 @@ UciIhm = {
         accessibilitytoolbar.stopEvt(e);
         return false;
     },
+
     hide_more_confort: function () {
 		  UciIhm.hide_confirm_validation();
     	// document.getElementById("uci-onoffswitch").focus();
@@ -374,20 +385,21 @@ UciIhm = {
           document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex','0');
       if(document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex')=== '-2')
           document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex','0');        
-      document.getElementById('uci_activer_menu').removeAttribute('tabindex');
+      document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
       document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
       document.getElementById('uci_moreconfort').removeAttribute('title');  
       document.getElementById('uci_moreconfort_content').textContent=accessibilitytoolbar.get('uci_txt_more_settings');
       return false;
     },
-	confirm_validation: function() {
-		document.getElementById('uci_confirm_validation').style.display = "block";
-    setTimeout(function(){document.getElementById('uci_confirm_validation').style.display = "none";}, 5000);
-	},
-	
-	hide_confirm_validation: function() {
-		document.getElementById('uci_confirm_validation').style.display = "none";
-	},
+
+    confirm_validation: function() {
+      document.getElementById('uci_confirm_validation').style.display = "block";
+      setTimeout(function(){document.getElementById('uci_confirm_validation').style.display = "none";}, 5000);
+    },
+
+    hide_confirm_validation: function() {
+      document.getElementById('uci_confirm_validation').style.display = "none";
+    },
 
     activate_liens: function (id_liens) {
         if (document.getElementById(id_liens).style.display === "none") {
@@ -403,7 +415,7 @@ UciIhm = {
     changement_langue: function (/* String*/langue) {
         // if stack value not equal to storedValue then display a confirm message to inform the user
         var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-        if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.settings.profiles[accessibilitytoolbar.userPref.settings.current]) 
+        if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
                 || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))){
             accessibilitytoolbar.userPref.decode();
             accessibilitytoolbar.userPref.set("a11yLanguage", langue);
@@ -415,8 +427,6 @@ UciIhm = {
         return false;
     },
     remove_all: function () {
-        // when more settings is open, disable quick settings buttons
-        if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
         if(confirm(accessibilitytoolbar.get('uci_remove_all_settings'))) {            
             accessibilitytoolbar.userPref.setStoredValue();
             accessibilitytoolbar.userPref.updateUserPref();
@@ -448,14 +458,13 @@ UciIhm = {
         
         accessibilitytoolbar.cleanImgDisabled();
         accessibilitytoolbar.setCSS();
-        UciIhm.close_menu(true);
         accessibilitytoolbar.stopEvt(e);
         return false;
     },
 
     ToolbarHide: function () {
         // when more settings is open, disable quick settings buttons
-        if(document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
+        if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
         accessibilitytoolbar.userPref.decode();
         accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
         accessibilitytoolbar.userPref.updateUserPref();
