@@ -218,7 +218,7 @@ UciHelp = {
     if (document.getElementById("uci_cdu_popin")) {
       if (document.getElementById("uci_zone_form").style.display === "block") {
         document.getElementById("uci_zone_form").style.display = "none";
-        
+        document.getElementById('uci_validation').className = "cdu_n";
       }
       document.getElementById("uci_main_popin_help").style.display = "block"
       document.getElementById("masque_haut_param").className = "masque-haut-param";
@@ -293,15 +293,9 @@ UciHelp = {
   show_reading: function (name, changeOnglet) {
     document.getElementById("uci_main_popin_help").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
-    //document.getElementById("uci_reading").style.display = "block";
     if (name === "typographie" || name === "apparence" || name === "couleur" || name === "aidemotrice") {
-      //document.getElementById("uci_zone_form").appendChild(UciHelp.InitUciReading(name));
-      //document.getElementById("uci_reading").setAttribute("name", name);
-      //UciHelp.changeText("center");
       var index = Object.keys(UciHelp.tour).indexOf(name);
-      //if (changeOnglet !== false){
         UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name], index, changeOnglet);
-      //}
     } else {
       document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
       document.getElementById("uci_reading_move_left").style.visibility = "hidden";
@@ -345,19 +339,17 @@ UciHelp = {
       document.getElementById("masque_haut_logo").style.height = document.getElementById("uci_logo").clientHeight + "px";
       
       document.getElementById("masque_haut_intermediaire").style.width = offsetLeft + "px";
-      document.getElementById("masque_haut_intermediaire").style.height = document.getElementById("uci_middle_toolbar").clientHeight + "px";
+      document.getElementById("masque_haut_intermediaire").style.height = document.getElementById("uci_right_toolbar").clientHeight + "px";
       
       document.getElementById("masque_haut_advanced_param").style.width = document.getElementById("uci_middle_toolbar").clientWidth + "px";
-      document.getElementById("masque_haut_advanced_param").style.height = document.getElementById("uci_middle_toolbar").clientHeight + "px";
+      document.getElementById("masque_haut_advanced_param").style.height = document.getElementById("uci_right_toolbar").clientHeight + "px";
       
 
       document.getElementById("masque_haut_param").style.width = document.getElementById("uci_left_toolbar").clientWidth + "px";      
-      document.getElementById("masque_haut_param").style.height = document.getElementById("uci_left_toolbar").clientHeight + "px";
-      //document.getElementById("masque_haut_param").style.marginLeft = offsetLeft + "px";
+      document.getElementById("masque_haut_param").style.height = document.getElementById("uci_right_toolbar").clientHeight + "px";
 
       document.getElementById("masque_haut_exit").style.width = document.getElementById("uci_right_toolbar").clientWidth + "px";
       document.getElementById("masque_haut_exit").style.height = document.getElementById("uci_right_toolbar").clientHeight + "px";
-      //document.getElementById("masque_haut_exit").style.marginLeft = offsetLeft + "px";
     }
   },
 

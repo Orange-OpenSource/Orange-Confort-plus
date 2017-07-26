@@ -539,7 +539,7 @@ a.cdu_hide:focus {
 #uci_right_toolbar {
 	display: inline-block;
 	vertical-align: middle;
-	padding: 10px 0;
+	padding: .625rem 0;
 	/*height: 3.25em;
 */
 }

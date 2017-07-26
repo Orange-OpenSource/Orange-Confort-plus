@@ -263,16 +263,11 @@ UciIhm = {
       ],
       ["div", { id: "masque_haut", "class": "masque-haut" },
         ["div", { id: "masque_haut_logo", "class": "masque-haut-logo" }],
-        ["span", { id: "masque_haut_intermediaire", "class": "masque-haut-intermediaire" }],
+        ["div", { id: "masque_haut_intermediaire", "class": "masque-haut-intermediaire" }],
         ["div", { id: "masque_haut_param", "class": "masque-haut-param" }],
         ["div", { id: "masque_haut_advanced_param", "class": "masque-haut-advanced-param" }],
         ["div", { id: "masque_haut_exit", "class": "masque-haut-exit" }]
-      ],
-      /*,
-      ["div", {id:"uci_cdu_popin", style:"display:none;"},
-        UciHelp.InitUciHelp(),
-        UciHelp.InitUciDiscover()
-      ]*/
+      ]
     ]
     );
   },
