@@ -542,7 +542,7 @@ a.cdu_hide:focus {
 #uci_right_toolbar {
 	display: inline-block;
 	vertical-align: middle;
-	padding: 10px 0;
+	padding: .625rem 0;
 	/*height: 3.25em;
 */
 }
@@ -1939,22 +1939,22 @@ ul#uci_reponses_bigger_quick_set {
 	margin-right: auto;
 }
 
-.masque-haut{
+#masque_haut{
 	position: absolute;
 	line-height: 0;
 }
 
-.masque-haut .masque-haut-advanced-param,
-.masque-haut .masque-haut-logo,
-.masque-haut .masque-haut-intermediaire,
-.masque-haut .masque-haut-param,
-.masque-haut .masque-haut-exit{
+#masque_haut .masque-haut-advanced-param,
+#masque_haut .masque-haut-logo,
+#masque_haut .masque-haut-intermediaire,
+#masque_haut .masque-haut-param,
+#masque_haut .masque-haut-exit{
 	background-color: rgba(0,0,0,0.5);
 	position: relative;
 	display: inline-block;
 }
 
-.masque-haut .readingElements{
+#masque_haut .readingElements{
 	background-color: rgba(0,0,0,0);
 	border: solid 2px #000;
 	border-bottom: none;
