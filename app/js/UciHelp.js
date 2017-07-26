@@ -61,7 +61,7 @@ UciHelp = {
     },
     advancedparam : {
       adcancedparam : "close",
-      parentId: "masque_haut_param",
+      parentId: "masque_haut_advanced_param",
       prev:"reading2",
       next: "typographie"
     },
@@ -358,7 +358,7 @@ UciHelp = {
   position_popin_help: function () {
     if (document.getElementById("uci_reading")){
       if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam") {
-        //document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_param").clientWidth + "px";
+        document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_exit").clientWidth + "px";
         document.getElementById("triangle").lastChild.className = "triangleright";
       }
 
@@ -368,7 +368,8 @@ UciHelp = {
       }
 
       if (document.getElementById("uci_reading") != null && UciHelp._isOnMoreSettingHelp()) {
-        heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
+        heightTmp = document.getElementById("uci_middle_toolbar").offsetTop + document.getElementById("uci_right_toolbar").clientHeight
+        //heightTmp = document.getElementById("uci_toolbar-quick").clientHeight;
         document.getElementById("uci_reading").style.top = heightTmp + 2 + "px";
       }
     }
