@@ -82,10 +82,10 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #accessibilitytoolbarGraphic .uci-main-popin-help .uci-presentation:before {
 	content: "\1f4f0";
-    font-size: 1.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    vertical-align: middle;
+  font-size: 1.5rem;
+  margin-left: 0.625rem;
+  margin-right: 0.625rem;
+  vertical-align: middle;
 	display: inline-block;
 	margin-top: 1rem;
 }
@@ -1812,7 +1812,7 @@ ul#uci_reponses_bigger_quick_set {
 .uci-popin-header .uci-popin-title {
 	position: relative;
 	top: 2px;
-	left: 20px;
+	margin-left: 0.625rem;
 	font-size: 1.5rem;
 }
 
@@ -1825,7 +1825,7 @@ ul#uci_reponses_bigger_quick_set {
 	border: transparent;
 	float: right;
 	margin-top: 0.2rem;
-	margin-right: 0.5rem;
+	margin-right: 0.625rem;
 }
 
 #uci_main_popin_help .uci-popin-body {
@@ -1883,14 +1883,14 @@ ul#uci_reponses_bigger_quick_set {
 
 .uci-popin-button-right{
 	float: right;
-    margin-right: 1rem;
+  margin-right: 0.625rem;
 	margin-top: 0.8rem;
 	margin-bottom: 1rem;
 }
 
 .uci-popin-button-left{
 	float: left;
-    margin-left:  1rem;
+  margin-left:  0.625rem;
 	margin-top: 0.8rem;
 	margin-bottom: 1rem;
 }
@@ -1908,7 +1908,7 @@ ul#uci_reponses_bigger_quick_set {
 }
 
 #uci_discover .uci-discover-body{
-	margin: 1rem 1rem 0 1rem;
+	margin: 1rem 0.625rem 0 0.625rem;
 }
 
 #uci_discover .uci-discover-body-exemple{
@@ -1930,7 +1930,7 @@ ul#uci_reponses_bigger_quick_set {
 
 #uci_discover .uci-discover-frame {
 	border: #000 2px solid;
-	width: 36rem;
+	width: 100%;
 	height: 16rem;
 	margin-left: auto;
 	margin-right: auto;
@@ -1989,7 +1989,7 @@ ul#uci_reponses_bigger_quick_set {
 #uci_reading .uci_reading_body{
 	font-size: 0.7rem;
 	height: 5.3rem;
-	margin: 1rem;
+	margin: 0.625rem;
 }
 
 #uci_reading #triangle{
@@ -2040,4 +2040,10 @@ ul#uci_reponses_bigger_quick_set {
 	top: 0px;
 	width: 100%;
 	position: relative;
+}
+
+#uci_main_popin_help button,
+#uci_discover  button,
+#uci_reading button{
+	padding : 0;
 }
