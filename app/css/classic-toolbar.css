@@ -2039,7 +2039,7 @@ ul#uci_reponses_bigger_quick_set {
 .unclick_more_settings {
 	top: 0px;
 	width: 100%;
-	position: relative;
+	position: absolute;
 }
 
 #uci_main_popin_help button,

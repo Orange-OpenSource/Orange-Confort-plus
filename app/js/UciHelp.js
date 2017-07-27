@@ -210,7 +210,7 @@ UciHelp = {
   },
 
   IniUnclicKMoreSettings: function(){
-    return accessibilitytoolbar.make(["div",{id: "unclickMoreSettings"}])
+    return accessibilitytoolbar.make(["div",{id: "unclickMoreSettings", "class":"unclick_more_settings"}]);
   },
 
   show_popin: function () {
@@ -457,10 +457,10 @@ UciHelp = {
 
   _unclickMoreSettings : function(){
     if (!document.getElementById("unclickMoreSettings")){
-      document.getElementById("accessibilitytoolbarGraphic").appendChild(accessibilitytoolbar.make(["div",{id: "unclickMoreSettings", class: "unclick_more_settings"}]));
+      document.getElementById("accessibilitytoolbarGraphic").appendChild(UciHelp.IniUnclicKMoreSettings());
     }
-    document.getElementById("unclickMoreSettings").style.top = (0 - document.getElementById("uci-contenu-onglets").clientHeight)+"px";
     document.getElementById("unclickMoreSettings").style.height = document.getElementById("uci-contenu-onglets").clientHeight+"px";
+    document.getElementById("unclickMoreSettings").style.top = document.getElementById("uci-div-conteneur-contenu-onglets").offsetTop+"px";
   },
 
   _canBeOnMoreSettingHelp: function(){
