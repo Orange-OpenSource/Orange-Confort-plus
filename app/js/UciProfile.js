@@ -53,7 +53,7 @@ UciProfile = {
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
         if(accessibilitytoolbar.userPref.settings.current === profil) {
           returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"+hideclass},
-                                  ["a", { id: "uci_profile"+i, href:"#", role:"button" , onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link" }, profil],
+                                  ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":"true"}, profil],
                                   ["div",
                                     ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
                                     ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash margin-left-lg", title:"Delete profile : "+profil }]
@@ -74,7 +74,7 @@ UciProfile = {
     tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", "class":"uci_dropdown-divider"}]);
     if(accessibilitytoolbar.userPref.settings.current === '0') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
@@ -83,7 +83,7 @@ UciProfile = {
     }
     if(accessibilitytoolbar.userPref.settings.current === '1') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
@@ -92,7 +92,7 @@ UciProfile = {
     }
     if(accessibilitytoolbar.userPref.settings.current === '2') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
@@ -101,7 +101,7 @@ UciProfile = {
     }
     if(accessibilitytoolbar.userPref.settings.current === '3') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
@@ -338,10 +338,14 @@ UciProfile = {
         for(curNode in sibblings) {
           if(sibblings[curNode].className) {            
             sibblings[curNode].className = sibblings[curNode].className.replace(/ uci_menu_active{0,1}/,"");
+            if(sibblings[curNode].firstChild) {
+              sibblings[curNode].firstChild.removeAttribute("aria-current");
+            }
           }
         }
         // add uci_menu_active class to selected element
         parent.className += " uci_menu_active";
+        document.getElementById(idCible).setAttribute("aria-current",true);
         // Push the focus to the selected element, if menu is shown
         if(document.getElementById('uci_profile_menu').style.display !== "none") {
           document.getElementById(idCible).focus();
