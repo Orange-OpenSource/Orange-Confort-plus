@@ -436,7 +436,8 @@ UciIhm = {
   changement_langue: function (/* String*/langue) {
     // if stack value not equal to storedValue then display a confirm message to inform the user
     var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-        if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
+        // Ignore the displaytoolbar, and lang flag for comparison 
+        if ((accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
             accessibilitytoolbar.userPref.decode();
       accessibilitytoolbar.userPref.set("a11yLanguage", langue);
@@ -444,6 +445,7 @@ UciIhm = {
       accessibilitytoolbar.userPref.updateUserPref();
       // when the user change the lang of the interface, wee need to reload after save is done
       accessibilitytoolbar.reloadToolbar();
+      accessibilitytoolbar.saveUserPref();
     }
     return false;
   },

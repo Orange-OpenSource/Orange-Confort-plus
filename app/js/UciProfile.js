@@ -320,7 +320,8 @@ UciProfile = {
   loadProfile: function(profilName,idCible,doesntneedtotconfirm) {
     e = window.event;
     accessibilitytoolbar.stopEvt(e);
-    if (doesntneedtotconfirm || (accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
+    // Ignore the displaytoolbar, and lang flag for comparison
+    if (doesntneedtotconfirm || (accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved')))
     {
       // hide validataion buttons
