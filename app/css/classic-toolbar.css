@@ -2086,22 +2086,12 @@ ul#uci_reponses_bigger_quick_set {
   outline: none;
 }
 
-/*#uci_discover .uci-popin-button-right,
-.save_popin .uci-popin-button-right,
-#uci_main_popin_help .uci-popin-button-right,
-#uci_reading .uci-popin-button-right*/
-
 .save_popin .uci-popin-button-right{
 	float: right;
     margin-right: 1rem;
 	margin-top: 0.8rem;
 	margin-bottom: 1rem;
 }
-
-/*#uci_discover .uci-popin-button-left,
-.save_popin .uci-popin-button-left,
-#uci_main_popin_help .uci-popin-button-left,
-#uci_reading .uci-popin-button-left*/
 
 .save_popin .uci-popin-button-left{
 	float: left;
