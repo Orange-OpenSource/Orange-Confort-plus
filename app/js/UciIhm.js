@@ -24,6 +24,7 @@
  * @class Entry point for the accessibility tool-bar
  */
 UciIhm = {
+    timerFocusOut: null,
   /*
    * @public
    * @constructor
@@ -133,13 +134,21 @@ UciIhm = {
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_right_toolbar" },
             ["ul",
-              ["li", { "class": "uci_inline uci_menu_help" },
-                ["button", { "class": "uci_bton_menu cdu_c", "aria-haspopup": "true", "aria-expanded": "false", id: "uci_activer_menu", type: "button" }, accessibilitytoolbar.get('uci_txt_link_menu')],
-                ["div",
-                  ["div", { id: "uci_cdu_menu", style: "display:none;" },
-                    ["ul",
-                      ["li",
-                        ["div", { id: "uci_language" },
+                  ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
+                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
+                    ["div",
+                      ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
+                        UciProfile.InitUciProfile()
+                      ]
+                    ]
+                  ],
+                  ["li", {"class":"uci_inline uci_menu_bton", id:"uci_help_list"},
+                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                    ["div",
+                      ["div", {id:"uci_help_menu", style:"display:none;", class:"uci_submenu"},
+                        ["ul",
+                          ["li",
+                            ["div", {id:"uci_language", "class":"uci_lang"},
                           ["input", {
                             "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "FR" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
                             type: "button",
@@ -197,18 +206,18 @@ UciIhm = {
                 ]
               ],
               ["li", { "class": "uci_inline uci_menu_close" },
-                ["button", { "class": "uci_bton_menu cdu_c", "onfocus": "UciIhm.close_menu('',true)", id: "uci_menu_activer_menu", title: accessibilitytoolbar.get('uci_link_hide_toolbar'), type: "button" },
-                  ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
-                  ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_link_hide_toolbar')]
+                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
+                      ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
+                      ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_link_hide_toolbar')]
+                    ]
+                  ]
                 ]
               ]
             ]
-          ]
-        ]
-      ],
-      ["div", { "class": "uci_systeme_onglets uci_clear cdu_c", id: "uci_zone_form", style: "display:none;" },
-        ["div", { id: "uci_activateOnglet", style: "display:none;" },
-          ["button", { "class": "uci_choix ucibtn ucibtn-sm ucibtn-secondary", id: "uci_menu_remove_all", type: "button" },
+          ],
+          ["div", {"class":"uci_systeme_onglets uci_clear cdu_c", id:"uci_zone_form", style:"display:none;"},
+            ["div", {id:"uci_activateOnglet", style:"display:none;"},
+              ["button", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all", type:"button"},
             ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-reload2" }],
             accessibilitytoolbar.get('uci_menu_remove_all')
           ],
@@ -272,54 +281,64 @@ UciIhm = {
     );
   },
 
-
-  /* Permet de désactiver l’affichage du menu facebook.
-     @param nofocus boolean true if focus don't need to be pushed
-  */
-
-
-  close_menu: function (nofocus, changefocus) {
-    // if cookie can't be retrieve for security reason, uci_cdu_menu doesn't exist and throw an error
-    // fix issue #11 https://github.com/Orange-OpenSource/Orange-Confort-plus/issues/11
-    if (document.getElementById('uci_cdu_menu')) {
-      document.getElementById('uci_cdu_menu').style.display = "none";
-      var button = document.getElementById("uci_activer_menu");
-      if (button.nodeName === 'BUTTON') {
-        button.title = accessibilitytoolbar.get('uci_txt_link_menu_open');
+    /**
+     * Open a submenu
+     * 
+     */
+    uci_toggle_menu: function(idMenu,e) {
+      if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+      var menu = document.getElementById(idMenu);
+      if (menu.style.display === "none") {
+        menu.style.display = "block";
+        var button = document.getElementById(idMenu+"_button");
+        button.title = accessibilitytoolbar.get('uci_txt_link_menu_close') + " " + button.textContent;
+        button.setAttribute('aria-expanded',true);
         var li = button.parentNode;
-        li.className = 'uci_inline uci_menu_help';
-        button.setAttribute("aria-expanded", "false");
+        li.className = 'uci_inline uci_menu_bton active';
+      } else {
+        UciIhm.uci_close_menu(idMenu);
       }
-      if (nofocus) return false;
-      if (!changefocus)
-        document.getElementById("uci_activer_menu").focus();
-    }
-  },
-  /*Permet d’activer le menu facebook du confort d’utilisation*/
-  uci_activate_menu: function (e) {
-    // when more settings is open, disable quick settings buttons
-    if (document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-    var menu = document.getElementById('uci_cdu_menu');
-    if (document.getElementById('uci_cdu_menu').style.display === "none") {
-      document.getElementById('uci_cdu_menu').style.display = "block";
-      var button = document.getElementById("uci_activer_menu");
-      if (button.nodeName === 'BUTTON') {
-        button.title = accessibilitytoolbar.get('uci_txt_link_menu_close');
+      accessibilitytoolbar.stopEvt(e);
+      return false;
+    },
+
+    /**
+     * Close a submenu
+     * 
+     */
+    uci_close_menu: function(idMenu) {
+      var menu = document.getElementById(idMenu);
+      if(menu)
+      {
+        menu.style.display = "none";
+        var button = document.getElementById(idMenu+"_button");
+        button.title = accessibilitytoolbar.get('uci_txt_link_menu_open') + " " + button.textContent;
+        button.setAttribute('aria-expanded',false);
         var li = button.parentNode;
-        li.className = 'uci_inline uci_menu_help active';
-        button.setAttribute("aria-expanded", "true");
+        li.className = 'uci_inline uci_menu_bton';      
       }
-      document.getElementById("uci_FR").focus();
-    } else {
-      UciIhm.close_menu();
-    }
-    accessibilitytoolbar.stopEvt(e);
-    return false;
-  },
+    },
+
+    /**
+     * If focus really goes out, close the submenu
+     * 
+     */
+    setFocusOut: function() {
+      clearTimeout(this.timerFocusOut);
+      this.timerFocusOut = setTimeout(function(){UciIhm.uci_close_menu('uci_help_menu')},10);
+    },
+
+    /**
+     * kill timer if focus goes in
+     * 
+     */
+    setFocusIn: function() {
+      clearTimeout(this.timerFocusOut);
+    },
+
   /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/
   more_confort: function (e) {
     if (document.getElementById('uci_activateOnglet').style.display === "none") {
-      UciIhm.close_menu();
       document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-moins2";
       document.getElementById('uci_activateOnglet').style.display = "block";
       if (document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex') === '0')
@@ -332,8 +351,8 @@ UciIhm = {
         document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex', '-2');
       if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex') === '0')
         document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex', '-2');
-      document.getElementById('uci_menu_activer_menu').setAttribute('tabindex', '-2');
-      document.getElementById('uci_activer_menu').setAttribute('tabindex', '-2');
+            document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                        
+            document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
       if (document.getElementById('uci_zone_form')) {
         document.getElementById('uci_zone_form').style.display = "block";
         UciIhm.hide_confirm_validation();
@@ -365,7 +384,7 @@ UciIhm = {
   },
   hide_more_confort: function (hideValidationBtn) {
     UciIhm.hide_confirm_validation();
-    document.getElementById("uci-onoffswitch").focus();
+    	// document.getElementById("uci-onoffswitch").focus();
     document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-plus2";
     document.getElementById('uci_activateOnglet').style.display = "none";
     if (document.getElementById('uci_zone_form') && (hideValidationBtn || document.getElementById('uci_validation').className === "cdu_n")) {
@@ -387,12 +406,13 @@ UciIhm = {
       document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex', '0');
     if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex') === '-2')
       document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex', '0');
-    document.getElementById('uci_activer_menu').removeAttribute('tabindex');
-    document.getElementById('uci_menu_activer_menu').removeAttribute('tabindex');
+      document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
+      document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
     document.getElementById('uci_moreconfort').removeAttribute('title');
     document.getElementById('uci_moreconfort_content').textContent = accessibilitytoolbar.get('uci_txt_more_settings');
     return false;
   },
+
   confirm_validation: function () {
     document.getElementById('uci_confirm_validation').style.display = "block";
     setTimeout(function () { document.getElementById('uci_confirm_validation').style.display = "none"; }, 5000);
@@ -416,9 +436,9 @@ UciIhm = {
   changement_langue: function (/* String*/langue) {
     // if stack value not equal to storedValue then display a confirm message to inform the user
     var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-    if ((accessibilitytoolbar.userPref.encode() + tempMatrix['a11ySiteWebEnabled' + "-" + accessibilitytoolbar.userPref.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "") === accessibilitytoolbar.userPref.storedValue)
+        if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
-      accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+            accessibilitytoolbar.userPref.decode();
       accessibilitytoolbar.userPref.set("a11yLanguage", langue);
       accessibilitytoolbar.needToReload = true;
       accessibilitytoolbar.userPref.updateUserPref();
@@ -428,18 +448,14 @@ UciIhm = {
     return false;
   },
   remove_all: function () {
-    // when more settings is open, disable quick settings buttons
-    if (document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-    if (confirm(accessibilitytoolbar.get('uci_remove_all_settings'))) {
-      var defaultstoredValue = "0000651000650650650000000000000000006500000010" + (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') === 'on' ? '0' : '1');
-      accessibilitytoolbar.userPref.setStoredValue(defaultstoredValue);
+        if(confirm(accessibilitytoolbar.get('uci_remove_all_settings'))) {            
+            accessibilitytoolbar.userPref.setStoredValue();
       accessibilitytoolbar.userPref.updateUserPref();
       accessibilitytoolbar.userPref.set('a11yToolbarEnable', 'on');
       accessibilitytoolbar.reloadToolbar();
     }
     return false;
   },
-
 
   desactiveCDUForWebSite: function (e) {
     if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") !== "on") {
@@ -462,15 +478,14 @@ UciIhm = {
 
     accessibilitytoolbar.cleanImgDisabled();
     accessibilitytoolbar.setCSS();
-    UciIhm.close_menu(true);
     accessibilitytoolbar.stopEvt(e);
     return false;
   },
 
   ToolbarHide: function () {
     // when more settings is open, disable quick settings buttons
-    if (document.getElementById('uci_right_toolbar').className.match("/uci_mask/")) return false;
-    accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+        if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+        accessibilitytoolbar.userPref.decode();
     accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
     accessibilitytoolbar.userPref.updateUserPref();
 

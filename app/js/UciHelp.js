@@ -214,12 +214,19 @@ UciHelp = {
   },
 
   show_popin: function () {
-    document.getElementById("uci_activer_menu").blur();
     if (document.getElementById("uci_cdu_popin")) {
       if (document.getElementById("uci_zone_form").style.display === "block") {
         document.getElementById("uci_zone_form").style.display = "none";
         document.getElementById('uci_validation').className = "cdu_n";
       }
+      // clean the popin
+      while(document.getElementById("uci_cdu_popin").firstChild) {
+        document.getElementById("uci_cdu_popin").removeChild(document.getElementById("uci_cdu_popin").firstChild);
+      }
+      document.getElementById("uci_cdu_popin").appendChild(UciHelp.InitUciHelp());
+      document.getElementById("uci_cdu_popin").appendChild(UciHelp.InitUciDiscover());
+      this.attachPopinEvents();
+      
       document.getElementById("uci_main_popin_help").style.display = "block"
       document.getElementById("masque_haut_param").className = "masque-haut-param";
       document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";;
@@ -230,6 +237,46 @@ UciHelp = {
       document.getElementById("uci_help_title").focus();
     }
   },
+  
+  /**
+   * Attach events to elements on the dom
+   *
+   */
+  attachPopinEvents: function() {
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_exit'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_menu'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_menu() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_reading_menu'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_menu() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_button'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_help_close'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_reading_close'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_reading_exit'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
+
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_close'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
+
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_discover'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_discover() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_read'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading() });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_layout'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("apparence") });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_motor'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("aidemotrice") });
+
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_none'), UciHelp.demo_reset);
+    
+
+    accessibilitytoolbar.uciAttachEvent('resize', 'onresize', window, function () { UciHelp.calculate_overlay_position(); UciHelp._unclickMoreSettings(); UciHelp.position_popin_help() });
+
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_popin_button'), function (event) { UciHelp.navigation_popin(event, "uci_popin_button") });
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_main_popin_help'), function (event) { UciHelp.navigation_popin(event, "uci_main_popin_help") });
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_help_title'), function (event) { UciHelp.navigation_popin(event, "uci_help_title") });
+
+    accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
+    accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
+    accessibilitytoolbar.uciAttachEvent('change', 'onchange', document.getElementById('uci_discover_none'), UciHelp.demo_reset);
+
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_popin_exit'), function (event) { UciHelp.navigation_popin(event, "uci_popin_exit") });
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_discover'), function (event) { UciHelp.navigation_popin(event, "uci_discover") });
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_discover_title'), function (event) { UciHelp.navigation_popin(event, "uci_discover_title") });
+  },   
 
   show_menu: function () {
     UciHelp.calculate_overlay_position();
@@ -279,7 +326,7 @@ UciHelp = {
     }
     
     UciHelp.demo_reset();
-    document.getElementById("uci_activer_menu").focus();
+    document.getElementById("uci_help_menu_button").focus();
   },
 
   show_discover: function () {

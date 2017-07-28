@@ -28,8 +28,8 @@ UciCouleur = {
     InitUciCouleur: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
         ["div", {id:"uci_div_couleur_predefinie", "class":"margin-left margin-right-lg margin-top-lg"},
-          ["input", {type:"radio", value:"predefined", name:"a11yVisualSettings", id:"uci_couleur_predefenie_input", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? "checked" : false}],
-          ["label", {"for":"uci_couleur_predefenie_input", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
+          ["input", {type:"radio", value:"predefined", name:"a11yVisualSettings", id:"a11yVisualSettings-predefined", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? "checked" : false}],
+          ["label", {"for":"a11yVisualSettings-predefined", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
           accessibilitytoolbar.makePredefinedCouleurTpl(),
           ["div", {id:"uci_message_constraste", style:"display:none;", "class":"message_couleur"},
             ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
@@ -38,8 +38,8 @@ UciCouleur = {
         ],
         ["div", {id:"uci_div_right_couleur", "class":"margin-left margin-top-lg"},
           ["div", {"class":"cdu_c"},
-            ["input", {type:"radio", value:"personnal", name:"a11yVisualSettings", id:"uci_couleur_personnalisees_input", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? "checked" : false}],
-            ["label", {"for":"uci_couleur_personnalisees_input", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre_use_personal')]              
+            ["input", {type:"radio", value:"personnal", name:"a11yVisualSettings", id:"a11yVisualSettings-personnal", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? "checked" : false}],
+            ["label", {"for":"a11yVisualSettings-personnal", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre_use_personal')]              
           ],
           ["div", {id:"uci_couleur_police", "class":"padding-left-align cdu_c"},
             ["span", {id:"aria_label_texte"},accessibilitytoolbar.get('uci_color_txt_texte')],

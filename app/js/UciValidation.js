@@ -26,6 +26,7 @@ UciValidation = {
 
     Validation: function (/*event*/e) {
         var event = e || window.event;
+        var profilName = "";
         if (event && event.stopPropagation) {
             event.stopPropagation();
             event.preventDefault();
@@ -36,16 +37,38 @@ UciValidation = {
         document.getElementById("uci-onoffswitch").focus();
         
         accessibilitytoolbar.setCSS();
-        accessibilitytoolbar.hasDoneSettings = true;
-        accessibilitytoolbar.saveUserPref();
+        // profile name edit mode
+        if(document.getElementById("previous_profil_name")) {
+            oldName = document.getElementById("previous_profil_name").value;
+            profilName = document.getElementById('uci_profile_name').value;
+            accessibilitytoolbar.userPref.settings.profiles[profilName]=accessibilitytoolbar.userPref.settings.profiles[oldName];
+            delete accessibilitytoolbar.userPref.settings.profiles[oldName]
+            // if that was the curent also update his name
+            if(accessibilitytoolbar.userPref.settings.current === oldName) {
+                accessibilitytoolbar.userPref.settings.current = profilName;
+            }
+            profilName = accessibilitytoolbar.userPref.settings.current;
+            accessibilitytoolbar.saveUserPref();
+        } else {
+            // check if there's a profile named
+            if(document.getElementById('uci-selectProfile').value === "") {
+                // if value == "" that's a new profile
+                profilName = document.getElementById('uci_profile_name').value;
+            } else {
+                profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[document.getElementById('uci-selectProfile').value];
+            }
+            accessibilitytoolbar.saveUserPref(profilName);
+        }
         document.getElementById('uci_validation').className = "cdu_n";
-        UciIhm.hide_more_confort(true);
+        // update profile list
+        UciProfile.refreshMenuDisplay();
+        UciIhm.hide_more_confort();
         return false;
     },
 
     Annulation: function () {
         document.getElementById("uci-onoffswitch").focus();
-        accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.storedValue);
+        accessibilitytoolbar.userPref.decode();
         // Keep the toolbar open
         accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
         accessibilitytoolbar.reloadToolbar();

@@ -13,52 +13,23 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
-/**
- * User pref stackv3 generic class.
- * Old color combinaisons : 
- * ,"00F-FF0" // "blueonyellow"
-									,"FF0-00F" // "yellowonblue"
-								//	,"090-000" // "greenonblack"
-								//	,"000-090" // "blackongreen"
-                blueonyellow 00F-FF0
-                00F = 35 / FF0 = 29
-                yellowonblue FF0-00F
-                FF0 = 29 / 00F = 35 
-                greenonblack 090-000
-                090 = 18 / 000 = 65
-                blackongreen 000-090
-                000 = 65 / 090 = 18
-                black on yellow 000 - FF0
-                000 = 65 / FF0 = 29
-                yellowonblack FF0 - 000
-                FF0 = 29 / 000 = 65
-                blueonwhite : 0000FF - FFF
-                00F = 35 / FFF = 00
-                whiteonblue : FFF - 0000FF
-                FFF = 00 / 00F = 35
-                
-                3-blueonyellow 00F-FF0
-                00F = 35 / FF0 = 29
-                4-yellowonblue FF0-00F
-                FF0 = 29 / 00F = 35                 
-                5-greenonblack 090-000
-                090 = 18 / 000 = 65
-                6-blackongreen 000-090
-                000 = 65 / 090 = 18
-                7-blueonwhite : 0000FF - FFF
-                00F = 35 / FFF = 00
-                8-whiteonblue : FFF - 0000FF
-                FFF = 00 / 00F = 35
-
-
-                
-                
+/**               
  @class Collection of user preference
  */
 function UciUserPref() {
     "use strict";
-    
+    this.defautStoredValue = "0000651000650650650001100310000000006500000010";
+    // settings value
     this.storedValue = false;
+    // list of available settings by profils
+    this.settings = {current: "", profiles: {}};   
+    this.predefinedSettings = {
+      '0':this.defautStoredValue,
+      '1':"0000651000650650650001100110000000006500100010",
+      '2':"0000651000650650650111101310000000006500000010",
+      '3':"0000651000650650650001100310000101006500000010"
+    }
+
     this.finish = false;
  
     
@@ -76,8 +47,8 @@ function UciUserPref() {
      * @private
      */
     this.convertMatrixv3 = {
-        "a11yApercuAuto-0":     "a11yApercuAuto-false",
-        "a11yApercuAuto-1":     "a11yApercuAuto-off",
+        "a11yApercuAuto-0":     "a11yApercuAuto-false", // no more used
+        "a11yApercuAuto-1":     "a11yApercuAuto-off", // no more used
         "a11ySiteWebEnabled-0": "a11ySiteWebEnabled-on",
         "a11ySiteWebEnabled-1": "a11ySiteWebEnabled-off",
         "a11yToolbarEnable-0": "a11yToolbarEnable-off",
@@ -220,7 +191,7 @@ function UciUserPref() {
     this.maskMatrixv3 = {
         // Mask Name                | Dec Value
         "a11ySiteWebEnabled":     [46,1],
-        "a11yApercuAuto":         [45,1],
+        "a11yApercuAuto":         [45,1], // no more used
         "a11yToolbarEnable":      [44,1],
         "a11yLanguage":           [43,1],
         "a11yJumpToContent":      [42,1],
@@ -286,11 +257,11 @@ function UciUserPref() {
         "a11yDelayBeforeLoop": "1",
         "a11yQuickMode": "2",
         "a11yCharSpacement": "keepit",
-        "a11yDyslexyFontEnabled": "false",
+        "a11yDyslexyFontEnabled": "true",
         "a11yDyslexyFont": "keepit",
         "a11yLineSpacement" : "keepit",
         "a11ySpacement": "keepit",
-        "a11yModifCasseEnabled": "false",
+        "a11yModifCasseEnabled": "true",
         "a11yModifCasse" : "keepit",
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
@@ -327,12 +298,18 @@ function UciUserPref() {
     /*jshint validthis:true */
     this.decode = function (/* String*/ pref) {
         var prefName;
+        // if decode without params, load the latest saved value for curent profile
+        if(typeof pref === 'undefined') {
+            this.settings.current = '0';
+            pref = this.predefinedSettings[this.settings.current];
+        }
         // uniquement si le nombre de caractères du cookie est correct!
-        if(pref.length===47)
+        if(pref.length===46)
         {
-           
           for (prefName in this.maskMatrixv3) {
-             this.stackv3[prefName]= this.convertMatrixv3[prefName + "-" +pref.substr(this.maskMatrixv3[prefName][0],this.maskMatrixv3[prefName][1])].replace(/.*-/, "");
+            if(prefName !== "a11ySiteWebEnabled") {
+                this.stackv3[prefName]= this.convertMatrixv3[prefName + "-" +pref.substr(this.maskMatrixv3[prefName][0],this.maskMatrixv3[prefName][1])].replace(/.*-/, "");
+            }
           }
           // v4 update font-familly management
           // if font previously disabled, consider that default font need to be updated
@@ -376,6 +353,49 @@ function UciUserPref() {
     };
 
     /**
+     * Create the string separate by | for cookie or localstorage save
+     * format: currentprofilname|profilname1|valueprofil1|profilname2|valueprofil2 ....
+     * 
+     */
+    this.encodeUsageConfort= function () {
+        var encodedValue = this.settings.current;
+        var profil;
+        for (profil in this.settings.profiles) {
+            encodedValue += "|"+profil+"|"+this.settings.profiles[profil];
+        }        
+        return encodedValue;
+    };
+
+    /**
+     * Create the string separate by | for cookie or localstorage save
+     * format: websitedisable|currentprofilname|profilname1|valueprofil1|profilname2|valueprofil2 ....
+     * 
+     */
+    this.decodeUsageConfort= function (storageValue) {
+        var settings = storageValue.split('|');
+        // check if we're in previous storage value, there's no | into the storageValue
+        if(settings.length===2) {
+            // first param set site enable or disable
+            var disablevalue = settings.shift();
+            this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
+            // second one set the profile value
+            this.settings.current = "Default";
+            this.settings.profiles[this.settings.current] = settings.shift();            
+        } else { // need to explode the values
+            // first param set site enable or disable
+            var disablevalue = settings.shift();
+            this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
+            this.settings.current = settings.shift();
+            // parse all profiles
+            var profil = null;
+            while(profil = settings.shift()) {
+                this.settings.profiles[profil] = settings.shift();                
+            }
+        }
+        this.readUserPref();
+    };
+
+    /**
      * Return the value of a given user preference name
      * @param {String} param representing the user preference name
      * @return {String} value : the corresponding user preference value. Could be a string or a number.
@@ -411,8 +431,17 @@ function UciUserPref() {
     /*
      * @constructor init
      */
-    this.setStoredValue = function (storedValue) {
-        this.storedValue = storedValue;
+    this.setStoredValue = function (storedValue,profilName) {
+        if(profilName) {
+            this.settings.current = profilName;
+        }
+        if(this.settings.current.length >= 3) {
+            if(storedValue) {
+                this.settings.profiles[this.settings.current] = storedValue;
+            } else { // if no storedvalue is provided set the default value
+                this.settings.profiles[this.settings.current] = this.defautStoredValue;
+            }
+        }
         this.readUserPref();
     };
 
@@ -421,11 +450,24 @@ function UciUserPref() {
      * preference stackv3.
      */
     this.readUserPref = function () {
-        if(this.storedValue !== false)
-        {
-            this.decode(this.storedValue);
-        }
-        this.finish = true;
+      if(this.settings.current.length <=1) {
+        this.decode(this.predefinedSettings[this.settings.current]);
+      } else {
+        this.decode(this.settings.profiles[this.settings.current]);
+      }
+      this.finish = true;
+    };
+
+
+    /**
+     * get the current saved pref ass the numerical  string to be compared to current setting in the stack
+     */
+    this.getCurrentPref = function () {
+      if(this.settings.current.length <=1) {
+        return this.predefinedSettings[this.settings.current];
+      } else {
+        return this.settings.profiles[this.settings.current];
+      }
     };
 
     /**
