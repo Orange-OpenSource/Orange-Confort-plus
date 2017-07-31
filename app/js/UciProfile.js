@@ -27,6 +27,21 @@ UciProfile = {
    */
   timerFocusOut: null,
   isTrashing: false,
+  
+  createButtonProfile: function() {
+    if(accessibilitytoolbar.profileEnabled) {
+      return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
+                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
+                    ["div",
+                      ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
+                      this.InitUciProfile()
+                      ]
+                    ]
+                  ];
+    } else {
+      return;
+    }
+  },
   /*
    * @constructor
    */

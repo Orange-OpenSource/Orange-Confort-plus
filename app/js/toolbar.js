@@ -2219,10 +2219,16 @@ accessibilitytoolbar = {
    * User preference manager
    */
   userPref: null,
+  
   /**
-   * Flag to check if user has change is preference
+   * Enale profile management
    */
-  hasDoneSettings: false,
+  profileEnabled: false,
+  
+  /**
+   * Enale step by step guide management
+   */
+  guideEnabled: false,
 
   /**
    * {LoopingMode} Looping mode Manager
@@ -2770,7 +2776,9 @@ accessibilitytoolbar = {
         accessibilitytoolbar.uciAttachEvent('focusin','onfocusin',document.getElementById('uci_help_list'),UciIhm.setFocusIn);
 
     /********************************************** gestion de l'aide ***********************************************/
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_ouverture_guide'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.uci_close_menu('uci_help_menu'); UciHelp.show_popin() });
+    if(accessibilitytoolbar.guideEnabled) { 
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_ouverture_guide'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.uci_close_menu('uci_help_menu'); UciHelp.show_popin() });
+    }
 
     
 
@@ -2786,9 +2794,6 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_dyslexy_font'), function () { return UciTypographie.displayFieldset('uci_fieldset_fontfamily'); });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_casse'), function () { return UciTypographie.displayFieldset('uci_fieldset_changecasse'); });
 
-        /***************************************************/
-        // add event to profile menu
-        UciProfile.create_menu_events();
 
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_link_help_fontfamily'), function () { return accessibilitytoolbar.toolbarDisplayHelp('uci_typo_help_fontfamily'); });
     accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_fontfamily'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_typo_help_fontfamily'); });
@@ -2823,23 +2828,27 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_sel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_selectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_notsel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_notselectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_visite'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_visite"); });
-        // add behavior for profile save : 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfilePopin()});
+    
+    // add event to profile menu
+    if(accessibilitytoolbar.profileEnabled) {
+      UciProfile.create_menu_events();    
+      // add behavior for profile save : 
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfilePopin()});
 
-        // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_menu_button'),function(e){UciIhm.uci_toggle_menu('uci_profile_menu',e)});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci-onoffswitch'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_150'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_200'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_moreconfort'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_profile_menu_button'),function() {UciIhm.setFocusOut()});    
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_help_menu_button'),function() {UciProfile.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_close_toolbar'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-        
+      // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_menu_button'),function(e){UciIhm.uci_toggle_menu('uci_profile_menu',e)});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci-onoffswitch'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_150'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_200'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_moreconfort'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_profile_menu_button'),function() {UciIhm.setFocusOut()});    
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_help_menu_button'),function() {UciProfile.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_close_toolbar'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+    }        
   },
   /**
    * Function event implementation

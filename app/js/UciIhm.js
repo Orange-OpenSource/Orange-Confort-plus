@@ -134,14 +134,7 @@ UciIhm = {
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_right_toolbar" },
             ["ul",
-                  ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
-                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
-                    ["div",
-                      ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
-                        UciProfile.InitUciProfile()
-                      ]
-                    ]
-                  ],
+                  UciProfile.createButtonProfile(),
                   ["li", {"class":"uci_inline uci_menu_bton", id:"uci_help_list"},
                     ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
@@ -195,12 +188,7 @@ UciIhm = {
                           ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_help')]
                         ]
                       ],
-                      ["li",
-                        ["a", { id: "uci_menu_ouverture_guide", href: "#", class: "uci_menu_ouverture_aide", title: accessibilitytoolbar.get('uci_menu_guide') },
-                          ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-help_guide" }],
-                          ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_guide')]
-                        ]
-                      ]
+                      UciHelp.createLinkGuide()
                     ]
                   ]
                 ]
@@ -435,17 +423,21 @@ UciIhm = {
 
   changement_langue: function (/* String*/langue) {
     // if stack value not equal to storedValue then display a confirm message to inform the user
-    var tempMatrix = accessibilitytoolbar.userPref.convertMatrixv3.reverse();
-        // Ignore the displaytoolbar, and lang flag for comparison 
-        if ((accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
+    // Ignore the displaytoolbar, and lang flag for comparison 
+    if ((accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
-            accessibilitytoolbar.userPref.decode();
+      accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
       accessibilitytoolbar.userPref.set("a11yLanguage", langue);
       accessibilitytoolbar.needToReload = true;
       accessibilitytoolbar.userPref.updateUserPref();
       // when the user change the lang of the interface, wee need to reload after save is done
       accessibilitytoolbar.reloadToolbar();
-      accessibilitytoolbar.saveUserPref();
+      if(accessibilitytoolbar.userPref.settings.current.length >= 3) {
+        accessibilitytoolbar.saveUserPref(accessibilitytoolbar.userPref.settings.current);
+      } else {
+        accessibilitytoolbar.saveUserPref();
+      }
+      
     }
     return false;
   },
