@@ -379,8 +379,18 @@ function UciUserPref() {
             var disablevalue = settings.shift();
             this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
             // second one set the profile value
-            this.settings.current = "Default";
-            this.settings.profiles[this.settings.current] = settings.shift();            
+            var userValue = settings.shift();
+            // If there's no user settings, set as "no profile"
+            // 0000651000650650650001100310000000006500000000
+            // 0000651000650650650001100310000000006500000010
+            // doesn't car about toolbar is displayed or not
+            if(userValue.length < 3 || userValue.substr(0,userValue.length-2) === this.defautStoredValue.substr(0,this.defautStoredValue.length-2)) {
+                this.settings.current = "0";
+            }
+            else { 
+                this.settings.current = "Default";
+                this.settings.profiles[this.settings.current] = userValue;
+            }            
         } else { // need to explode the values
             // first param set site enable or disable
             var disablevalue = settings.shift();

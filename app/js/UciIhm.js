@@ -176,19 +176,19 @@ UciIhm = {
                           }]
                         ]
                       ],
-                      ["li",
-                        ["a", { "class": "uci_menu_ouverture_aide", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank" },
-                          ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-info" }],
-                          ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_info')]
-                        ]
-                      ],
+                      UciHelp.createLinkGuide(),
                       ["li",
                         ["a", { "class": "uci_menu_ouverture_aide", href: helpPath[accessibilitytoolbar.strings.getLocale()], title: accessibilitytoolbar.get('uci_menu_help') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: helpPathTarget },
                           ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-help" }],
                           ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_help')]
                         ]
                       ],
-                      UciHelp.createLinkGuide()
+                      ["li",
+                        ["a", { "class": "uci_menu_ouverture_aide", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank" },
+                          ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-info" }],
+                          ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_info')]
+                        ]
+                      ]
                     ]
                   ]
                 ]

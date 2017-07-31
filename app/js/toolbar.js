@@ -2469,6 +2469,7 @@ accessibilitytoolbar = {
           if(document.getElementById('uci_validation').className==='cdu_n'){
             document.getElementById('uci_validation').className="";
             UciIhm.hide_confirm_validation();
+            document.getElementById('uci_cdu_popin').style.display = "none";
           }
           document.getElementById('uci_zone_form').style.display="block";
     }
@@ -3133,6 +3134,7 @@ accessibilitytoolbar = {
     if (document.getElementById('uci_validation').className === 'cdu_n') {
       document.getElementById('uci_validation').className = "";
       document.getElementById('uci_zone_form').style.display = "block";
+      document.getElementById('uci_cdu_popin').style.display = "none";
     }
     var value = target.value;
     // for checkbox default value when unckecked = false
@@ -3883,8 +3885,8 @@ accessibilitytoolbar = {
     else {
       htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
     }
-        document.getElementById('accessibilitytoolbarGraphic').replaceChild(htmlContent,document.getElementById('cdu_zone'));        
-
+    document.getElementById('accessibilitytoolbarGraphic').replaceChild(htmlContent,document.getElementById('cdu_zone'));        
+    document.getElementById('uci_cdu_popin').style.display="none";
     accessibilitytoolbar.loadTheToolbar();
   },
 

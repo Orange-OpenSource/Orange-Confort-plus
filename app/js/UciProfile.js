@@ -57,17 +57,13 @@ UciProfile = {
   createProfileList: function () {
     var returnSavedProfile = "";
     var profil = null;
-    var hideclass = "";
     var i = 0;
     var tableauProfile = ["ul"];
     // allow delete only if there's more than one profile
     var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
-    if(nbprofile <= 1) {
-      hideclass = " uci_hide_trash";
-    }
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
         if(accessibilitytoolbar.userPref.settings.current === profil) {
-          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"+hideclass},
+          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"},
                                   ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":"true"}, profil],
                                   ["div",
                                     ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
@@ -75,7 +71,7 @@ UciProfile = {
                                   ],
                               ];
         } else {
-          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+hideclass},
+          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"},
                                   ["a", { id: "uci_profile"+i, href:"#", role:"button" , onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link" }, profil],
                                   ["div",
                                     ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
@@ -86,7 +82,9 @@ UciProfile = {
       tableauProfile.push(returnSavedProfile);
       i++;
     }
-    tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", "class":"uci_dropdown-divider"}]);
+    if(i>0) {
+      tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", "class":"uci_dropdown-divider"}]);
+    }
     if(accessibilitytoolbar.userPref.settings.current === '0') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
           ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_none')]
@@ -243,6 +241,9 @@ UciProfile = {
    */
   showProfilePopin: function(){
     UciIhm.hide_confirm_validation();
+    if(document.getElementById('uci_activateOnglet').style.display === "none") {
+      document.getElementById('uci_zone_form').style.display = "none";
+    }
     // clean the popin
     while(document.getElementById("uci_cdu_popin").firstChild) {
       document.getElementById("uci_cdu_popin").removeChild(document.getElementById("uci_cdu_popin").firstChild);
@@ -267,15 +268,11 @@ UciProfile = {
       // if value == "" that's a new profile
       profilName = document.getElementById('uci_profile_name').value;
       // check if profile name is alpha num with accent and special languages chars, but not parenthesis, punct or others symbol
-      if(profilName.length < 3 || !profilName.match(/^[A-Za-z0-9\u00C0-\u02AF\u0390-\u0556 !\u00F7]+$/)) {
+      if(profilName.length < 3 || !profilName.match(/^[A-Za-z0-9\u00C0-\u02AF\u0390-\u0556 !\u00F7]+$/) || accessibilitytoolbar.userPref.settings.profiles[profilName]) {
         // display the error message into the popin
         document.getElementById("uci_profile_name").style.borderColor = "#cd3c14";
-        return false;
-      }      
-      // check if there's already a profile with this name!
-      if(accessibilitytoolbar.userPref.settings.profiles[profilName]) {
-        // display the error message into the popin
-        document.getElementById("uci_profile_name").style.borderColor = "#cd3c14";
+        document.getElementById("uci_profile_info_msg").style.color = "#cd3c14";        
+        document.getElementById("uci_profile_name").focus();
         return false;
       }
     }
@@ -339,9 +336,11 @@ UciProfile = {
     if (doesntneedtotconfirm || (accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved')))
     {
-      // hide validataion buttons
+      // hide validation buttons
       document.getElementById('uci_validation').className = "cdu_n";
-      document.getElementById('uci_zone_form').style.display = "none";      
+      document.getElementById('uci_zone_form').style.display = "none";
+      
+      if(uci_activateOnglet)      
       if(profilName) {
         accessibilitytoolbar.userPref.settings.current = profilName;
         accessibilitytoolbar.userPref.readUserPref();
@@ -417,10 +416,6 @@ UciProfile = {
       var parentDelete = document.getElementById(idToRemove).parentNode;
       var parentDeleteParent = parentDelete.parentNode;
       parentDeleteParent.removeChild(parentDelete);
-      var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
-      if(nbprofile <= 1) {
-        parentDeleteParent.firstChild.className += " uci_hide_trash";
-      }
       accessibilitytoolbar.saveUserPref();
     } else {
       this.isTrashing = false;

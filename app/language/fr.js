@@ -147,7 +147,7 @@ traduction['FR']={
   uci_new_window:"Nouvelle fen\352tre",
   uci_iframe_cookie:"Contenu technique Orange Confort+",
   uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
-  uci_menu_guide:"Guide pas \340 pas",
+  uci_menu_guide:"Visite guidée",
   uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, "+
                       "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
                       "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
@@ -157,7 +157,7 @@ traduction['FR']={
   uci_discover_lorem_3: "3",
   uci_advance_param : "Petit test pour faire afficher + de criteres",
   discover_service : "D\351couvrir le service",
-  improve_readability : "Am\351liorer le service",
+  improve_readability : "Améliorer la lisibilité",
   edit_layout : "Modifier la mise en page",
   use_motor_assistance : "Utiliser l'aide motrice",
   uci_exit : "quitter",
@@ -178,8 +178,8 @@ traduction['FR']={
   uci_predefined_motor_help: "Activer l'aide motrice",
   uci_profile_delete_warning: "ATTENTION",
   uci_button_valid_profil: "Modifier le nom du profil",
-  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  uci_default : "Aucun R\351glages",
+  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
+  uci_default : "Aucun R\351glage",
   uci_previous: "pr\351c\351dent",
   uci_next: "suivant",
   apparence : "apparence",

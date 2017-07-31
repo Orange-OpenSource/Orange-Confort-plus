@@ -1923,11 +1923,10 @@ ul#uci_reponses_bigger_quick_set {
 
 #uci_reading{
 	display: block;
-	width: 25rem;
-    /*height: 220px;*/
-    background: #fff;
-    border: 0;
-    position: absolute;
+	width: 25.9rem;
+	background: #fff;
+	border: 0;
+	position: absolute;
 	z-index: 2147483645;
 }
 
@@ -1973,7 +1972,7 @@ ul#uci_reponses_bigger_quick_set {
 	border-bottom: 20px solid #000;
 	border-right: 20px solid transparent; 
 	position: relative;
-	left: 360px;
+	left: 23.4rem;
 }
 
 #uci_popin_body a:hover, #uci_popin_body a:focus{
