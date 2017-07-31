@@ -185,5 +185,6 @@ traduction['EN']={
   aidemotrice: "aidemotrice",
   typographie :"typographie",
   couleur: "couleurs",
-  advancedparam: "advancedparam"
+  advancedparam: "advancedparam",
+  howToClose: "Press escape to close the mask or clic on the close button on the right (it's hidden, move your mouse on the right to show it)"
 };

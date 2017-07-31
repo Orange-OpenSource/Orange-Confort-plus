@@ -183,5 +183,6 @@ traduction['ES']={
   aidemotrice: "aidemotrice",
   typographie :"typographie",
   couleur: "couleurs",
-  advancedparam: "todo"
+  advancedparam: "todo",
+  howToClose: "TODO"
 };

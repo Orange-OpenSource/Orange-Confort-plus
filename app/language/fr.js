@@ -186,5 +186,6 @@ traduction['FR']={
   aidemotrice: "aidemotrice",
   typographie :"typographie",
   couleur: "couleurs",
-  advancedparam: "advancedparam"
+  advancedparam: "advancedparam",
+  howToClose: "Pour fermer le masque appuyer sur la touche \321chap ou utiliser la croix cach\350e tout \340 droite du masque"
 };
