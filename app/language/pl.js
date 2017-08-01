@@ -14,11 +14,10 @@
     GNU General Public License for more details (LICENSE.txt file).
 **/
 traduction['PL']={
-    uci_link_hide_toolbar:"Schowaj pasek narzędzi",
+  uci_link_hide_toolbar:"Schowaj pasek narzędzi",
   uci_alt_logo:"Confort+",
   uci_serv_name:"Confort",
-  uci_title_fontsize_radio_normal:"Domyślny rozmiar czcionki",
-  uci_title_fontsize_radio_medium:"Średni rozmiar czcionki",
+  uci_title_fontsize_radio_medium:"Zwiększ rozmiar czcionki",
   uci_title_fontsize_radio_large:"Duży rozmiar czcionki",
   uci_title_color_keepit:"Domyślne kolory",
   uci_title_color_blackonwhite:"Czarny tekst na białym tle",

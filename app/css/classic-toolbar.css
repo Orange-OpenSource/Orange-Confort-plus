@@ -709,7 +709,7 @@ a.cdu_hide:focus {
 	position: absolute;
 	right: -2px;
 	top: 3.125rem;
-	padding: .625rem 0;
+	padding: 0;
 	background-color: #FFFFFF;
 	z-index: 2147483645;
 	zoom: 1;
@@ -719,12 +719,18 @@ a.cdu_hide:focus {
 .uci_menu_bton.active .uci_bton_menu {
 	color: #f16e00;
 }
+
 .uci_submenu li {
+	padding: 0;
+}
+
+.uci_submenu li a {
 	padding: .625rem 1.25rem;
 }
 .uci_lang {
 	border: 0px none;
   display: inline-flex;
+	margin: .625rem 1.25rem;
 }
 .uci_submenu ul {
 	zoom: 1;
@@ -851,6 +857,7 @@ li.uci_dropdown-divider {
 	margin-right: 0.7142rem;
 	margin-left: 0;
 	box-sizing: content-box;
+	flex: 1;
 }
 .uci_choix:last-child {
 	margin-right: 0;
@@ -883,10 +890,16 @@ li.uci_dropdown-divider {
 	display: block;
 	padding: 0.0625rem;
 }
-ul#uci_reponses_bigger_quick_set {
+#uci_reponses_bigger_quick_set {
 	padding-right: 20px;
 	padding-top: 0;
 	padding-bottom: 0;
+	justify-content: space-between;
+  display: flex;
+}
+#uci_reponses_bigger {
+	justify-content: space-between;
+  display: flex;
 }
 /******************************************Mise en place des onglets CDU***************************************/
 #accessibilitytoolbarGraphic #uci_onglet_confort {
@@ -972,25 +985,11 @@ ul#uci_reponses_bigger_quick_set {
 #uci_apparence_div_left {
 	margin-right: 30px;
 }
-#uci_a11yBigger_keepit,
-#uci_quick_a11yBigger_keepit,
-#uci_a11yMaskEpaisseur_thin,
-#uci_a11yBigger_150,
-#uci_quick_a11yBigger_150,
-#uci_a11yMaskEpaisseur_medium,
-#uci_a11yBigger_200,
-#uci_quick_a11yBigger_200,
-#uci_a11yMaskEpaisseur_thick {
-	text-align: center;
-	vertical-align: bottom;
-}
-#uci_a11yBigger_keepit span,
-#uci_quick_a11yBigger_keepit span,
+
 #uci_a11yMaskEpaisseur_thin span {
 	font-size: 75%;
 }
-#uci_a11yBigger_200 span,
-#uci_quick_a11yBigger_200 span,
+
 #uci_a11yMaskEpaisseur_thick span {
 	font-size: 125%;
 	line-height: .6 !important;
@@ -1241,6 +1240,7 @@ ul#uci_reponses_bigger_quick_set {
 	margin: 15px;
 }
 /*********************************************Onglet aperÃ§u****************************************************/
+
 #uci_reponses_couleurpredefinie li {
 	max-width: 12rem;
 }
@@ -1751,9 +1751,7 @@ ul#uci_reponses_bigger_quick_set {
 	background-color: #000;
 	
 }
-.uci_menu_ouverture_aide:focus .spanhover,
-.uci_menu_ouverture_aide:hover .spanhover,
-.uci_menu_ouverture_aide:focus .spanhover,
+
 .uci_menu_ouverture_aide:hover .cdu-help_guide,
 .uci_menu_ouverture_aide:focus .cdu-help_guide,
 .uci_menu_ouverture_aide:hover .cdu-icon-help,

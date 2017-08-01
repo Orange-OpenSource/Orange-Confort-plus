@@ -63,9 +63,14 @@ function UciUserPref() {
         "a11yLinearize-0": "a11yLinearize-false",
         "a11yLinearize-1": "a11yLinearize-true",
         //Gestion de la taille de police
+        //25, 33, 50, 67, 75, 80, 90,
+        // keepit, 110, 125, 150, 175, 200
         "a11yBigger-0": "a11yBigger-keepit",
         "a11yBigger-1": "a11yBigger-150",
         "a11yBigger-2": "a11yBigger-200",
+        "a11yBigger-3": "a11yBigger-110",
+        "a11yBigger-4": "a11yBigger-125",
+        "a11yBigger-5": "a11yBigger-175",
         "a11yVisualSettings-0": "a11yVisualSettings-predefined",
         "a11yVisualSettings-1": "a11yVisualSettings-personnal",
         "a11yVisualPredefinedSettings-0": "a11yVisualPredefinedSettings-keepit",

@@ -53,46 +53,28 @@ UciIhm = {
         ],
         ["div", { "class": "uci_right", id:"uci_right" },
           ["div", { "class": "cdu_c uci_notmask", id: "uci_left_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
-            ["ul", { "class": "uci_liste_bton cdu_c", id: "uci_reponses_bigger_quick_set", role: "radiogroup" },
-              ["li", {
-                id: "uci_quick_a11yBigger_keepit",
-                role: "radio",
-                "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary " + (accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active" : ""),
-                tabindex: accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "0" : "-1",
-                "aria-checked": accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",
-                title: accessibilitytoolbar.get('uci_title_fontsize_radio_normal')
-              }, ["span",
-                  "A",
-                  ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_title_fontsize_radio_normal')]
-                ]
-              ],
-              ["li",
+            
+            
+            ["div", { "class": "uci_liste_bton cdu_c", id: "uci_reponses_bigger_quick_set"},
+              ["input",
                 {
-                  id: "uci_quick_a11yBigger_150",
-                  role: "radio",
-                  "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary " + (accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active" : ""),
-                  tabindex: accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "0" : "-1",
-                  "aria-checked": accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",
-                  title: accessibilitytoolbar.get('uci_title_fontsize_radio_medium')
-                },
-                ["span",
-                  "A",
-                  ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_title_fontsize_radio_medium')]
-                ]
+                  id: "uci_quick_a11yBigger_less",
+                  type: "button",
+                  "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary",
+                  title: accessibilitytoolbar.get('uci_title_fontsize_radio_medium'),
+                  value: "A-",
+                  "disabled": (accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? 'disabled' : '')
+                }
               ],
-              ["li",
+              ["input",
                 {
-                  id: "uci_quick_a11yBigger_200",
-                  role: "radio",
-                  "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary " + (accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active" : ""),
-                  tabindex: accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "0" : "-1",
-                  "aria-checked": accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",
-                  title: accessibilitytoolbar.get('uci_title_fontsize_radio_large')
-                },
-                ["span",
-                  "A",
-                  ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_title_fontsize_radio_large')]
-                ]
+                  id: "uci_quick_a11yBigger_more",
+                  type: "button",
+                  "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary",
+                  title: accessibilitytoolbar.get('uci_title_fontsize_radio_large'),
+                  value: "A+",
+                  "disabled": (accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? 'disabled' : '')
+                }
               ]
             ],
             ["ul", { "class": "uci_liste_bton cdu_c", id: "uci_reponses_couleurpredefinie_quick_set", role: "radiogroup" },
@@ -180,13 +162,13 @@ UciIhm = {
                       ["li",
                         ["a", { "class": "uci_menu_ouverture_aide", href: helpPath[accessibilitytoolbar.strings.getLocale()], title: accessibilitytoolbar.get('uci_menu_help') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: helpPathTarget },
                           ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-help" }],
-                          ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_help')]
+                          ["span", accessibilitytoolbar.get('uci_menu_help')]
                         ]
                       ],
                       ["li",
                         ["a", { "class": "uci_menu_ouverture_aide", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank" },
                           ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-info" }],
-                          ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_info')]
+                          ["span", accessibilitytoolbar.get('uci_menu_info')]
                         ]
                       ]
                     ]
@@ -328,13 +310,11 @@ UciIhm = {
   more_confort: function (e) {
     if (document.getElementById('uci_activateOnglet').style.display === "none") {
       document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-moins2";
-      document.getElementById('uci_activateOnglet').style.display = "block";
-      if (document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex', '-2');
-      if (document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_150').setAttribute('tabindex', '-2');
-      if (document.getElementById('uci_quick_a11yBigger_200').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_200').setAttribute('tabindex', '-2');
+      document.getElementById('uci_activateOnglet').style.display = "block";      
+      if (document.getElementById('uci_quick_a11yBigger_less').getAttribute('tabindex') === '0')
+        document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
+      if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '0')
+        document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
       if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex') === '0')
         document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex', '-2');
       if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex') === '0')
@@ -384,12 +364,10 @@ UciIhm = {
     document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');
 
-    if (document.getElementById('uci_quick_a11yBigger_keepit').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_keepit').setAttribute('tabindex', '0');
-    if (document.getElementById('uci_quick_a11yBigger_150').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_150').setAttribute('tabindex', '0');
-    if (document.getElementById('uci_quick_a11yBigger_200').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_200').setAttribute('tabindex', '0');
+    if (document.getElementById('uci_quick_a11yBigger_less').getAttribute('tabindex') === '-2')
+      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '0');
+    if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '-2')
+      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '0');
     if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex') === '-2')
       document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex', '0');
     if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex') === '-2')

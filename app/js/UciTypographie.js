@@ -34,44 +34,27 @@ UciTypographie = {
           ["div", {id:"uci_typo_div_left","class":"cdu_c"},
           // font size
             ["div", {"class":"uci_aria_button_group cdu_c"},
-              ["span", {"class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontsize')],
-              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_bigger",role:"radiogroup"},
-                ["li", {id:"uci_a11yBigger_keepit",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_normal')
-                  }, ["span",
-                    "A",
-                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_normal')]
-                  ]
+              ["div", {"class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontsize')],
+              ["div", { "class": "uci_liste_bton", id: "uci_reponses_bigger"},
+                ["input",
+                  {
+                    id: "uci_a11yBigger_less",
+                    type: "button",
+                    "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary",
+                    title: accessibilitytoolbar.get('uci_title_fontsize_radio_medium'),
+                    value: "A-",
+                    "disabled": (accessibilitytoolbar.userPref.get("a11yBigger") === "keepit" ? 'disabled' : '')
+                  }
                 ],
-                ["li", 
-                  {id:"uci_a11yBigger_150",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "150" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_medium')
-                  },
-                  ["span",
-                    "A",
-                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_medium')]
-                  ]
-                ],
-                ["li", 
-                  {id:"uci_a11yBigger_200",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontsize_radio_large')
-                  },
-                  ["span",
-                    "A",
-                    ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_title_fontsize_radio_large')]
-                  ]
+                ["input",
+                  {
+                    id: "uci_a11yBigger_more",
+                    type: "button",
+                    "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary",
+                    title: accessibilitytoolbar.get('uci_title_fontsize_radio_large'),
+                    value: "A+",
+                    "disabled": (accessibilitytoolbar.userPref.get("a11yBigger") === "200" ? 'disabled' : '')
+                  }
                 ]
               ]
             ],

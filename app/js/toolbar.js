@@ -2709,8 +2709,7 @@ accessibilitytoolbar = {
     var toolbar = document.getElementById("cdu_content");
     for (var i = 0; i < actionButtons.length; i++) {
       if (actionButtons[i].type && actionButtons[i].type !== 'submit' && actionButtons[i].type !== 'reset'
-            && !(actionButtons[i].id && (actionButtons[i].id==='uci_FR' || actionButtons[i].id==='uci_EN' || actionButtons[i].id==='uci_ES' || actionButtons[i].id==='uci_PL'))
-            && !actionButtons[i].disabled) {
+            && !(actionButtons[i].id && (actionButtons[i].id==='uci_FR' || actionButtons[i].id==='uci_EN' || actionButtons[i].id==='uci_ES' || actionButtons[i].id==='uci_PL'))) {
         accessibilitytoolbar.uciAttachEvent('click', 'onclick', actionButtons[i], accessibilitytoolbar.setPref);
     }
         }
@@ -2742,8 +2741,8 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
     }
 
-    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger');
-    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger_quick_set');
+    // accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger');
+    // accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger_quick_set');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie_quick_set');
 
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_wordspacing');
@@ -2839,9 +2838,8 @@ accessibilitytoolbar = {
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
       accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_menu_button'),function(e){UciIhm.uci_toggle_menu('uci_profile_menu',e)});
       accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci-onoffswitch'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_150'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_200'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_less'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
+      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_more'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
       accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
       accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
       accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_moreconfort'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
@@ -3125,18 +3123,43 @@ accessibilitytoolbar = {
    * @param {Event} e : the event to be processed
    */
   setPref: function (e) {
-    var event = e || window.event;
-    var target = e.target || window.event.srcElement;
-    var prefName = target.getAttribute("name");
-    var prefType = target.getAttribute("type");
-    var elementLists = null;
-    var parent = null;
+    var event, target, prefName, prefType, value, currentValue, aSizeValues, index;
+    event = e || window.event;
+    target = e.target || window.event.srcElement;
+    // speciffic case for font-size
+    if(target.id && target.id.match(/_a11yBigger_/)) {
+      aSizeValues = ["keepit", "110", "125", "150", "175", "200"];
+      prefName = "a11yBigger";
+      currentValue = accessibilitytoolbar.userPref.get(prefName);
+      index = aSizeValues.indexOf(currentValue);
+      if(target.id.match(/_a11yBigger_less/)) {
+        value = aSizeValues[index-1];
+        if(value === "keepit") {
+          document.getElementById("uci_quick_a11yBigger_less").setAttribute("disabled", true);
+          document.getElementById("uci_a11yBigger_less").setAttribute("disabled", true);
+        }
+        document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
+        document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
+      } else {
+        value = aSizeValues[index+1];                                                            
+        if(value === "200") {
+          document.getElementById("uci_quick_a11yBigger_more").setAttribute("disabled", true);
+          document.getElementById("uci_a11yBigger_more").setAttribute("disabled", true);
+        }
+        document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
+        document.getElementById("uci_a11yBigger_less").removeAttribute("disabled");
+      }
+    } else {
+      prefName = target.getAttribute("name");
+      value = target.value;
+    }
+    prefType = target.getAttribute("type");
     if (document.getElementById('uci_validation').className === 'cdu_n') {
       document.getElementById('uci_validation').className = "";
       document.getElementById('uci_zone_form').style.display = "block";
       document.getElementById('uci_cdu_popin').style.display = "none";
     }
-    var value = target.value;
+    
     // for checkbox default value when unckecked = false
     if (target.type == "checkbox" && (!target.checked || !target.checked == "checked")) {
       value = "false";
@@ -3144,14 +3167,14 @@ accessibilitytoolbar = {
     accessibilitytoolbar.userPref.set(prefName, value);
 
         accessibilitytoolbar.setCSS();
-    },
+  },
 
     /**
      * Update IHM element when updating setting value with profiles for example
      * 
      */
     updateIhmFormsSettings: function() {
-        var pref,prefarray,ariaRadioSettings = ["a11yBigger","a11yDyslexyFont","a11ySpacement","a11yLineSpacement","a11yCharSpacement",
+        var pref,prefarray,ariaRadioSettings = ["a11yDyslexyFont","a11ySpacement","a11yLineSpacement","a11yCharSpacement",
                             "a11yModifCasse","a11yMaskEpaisseur","a11yNavLienSelColor","a11yNavLienNonVisColor",
                             "a11yNavLienVisColor","a11yVisualPredefinedSettings","a11yFontColor","a11yBackgroundColor",
                             "a11yDelayBeforeClick","a11yMenuPositionning","a11yDelayBeforeLoop","a11yQuickMode"];
@@ -3186,6 +3209,18 @@ accessibilitytoolbar = {
                 break;
                 }
             }
+    }
+    document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
+    document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
+    document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
+    document.getElementById("uci_a11yBigger_less").removeAttribute("disabled");
+    if(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit") {
+        document.getElementById("uci_quick_a11yBigger_less").setAttribute("disabled", true);
+        document.getElementById("uci_a11yBigger_less").setAttribute("disabled", true);
+    }
+    if(accessibilitytoolbar.userPref.get("a11yBigger") === "200") {
+        document.getElementById("uci_quick_a11yBigger_more").setAttribute("disabled", true);
+        document.getElementById("uci_a11yBigger_more").setAttribute("disabled", true);
     }
   },
 
@@ -4130,8 +4165,8 @@ accessibilitytoolbar = {
     var start = 1;
     if (typeof attributes === "object" && attributes !== null && !this.isArray(attributes)) {
       for (var attr in attributes) {
-        // specific boolean attributes checked or selected, if state is false, don't add it
-        if ((attr != "checked" && attr != "selected") || attributes[attr]) {
+        // specific boolean attributes checked, selected, and disabled if state is false, don't add it
+        if ((attr != "checked" && attr != "selected"  && attr != "disabled") || attributes[attr]) {
           el.setAttribute(attr, attributes[attr]);
         }
       }

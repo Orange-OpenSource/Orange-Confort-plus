@@ -96,7 +96,7 @@ UciHelp = {
       return ["li",
         ["a", { id: "uci_menu_ouverture_guide", href: "#", class: "uci_menu_ouverture_aide", title: accessibilitytoolbar.get('uci_menu_guide') },
           ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-help_guide" }],
-          ["span", { "class": "spanhover" }, accessibilitytoolbar.get('uci_menu_guide')]
+          ["span", accessibilitytoolbar.get('uci_menu_guide')]
         ]
       ];
     } else {
