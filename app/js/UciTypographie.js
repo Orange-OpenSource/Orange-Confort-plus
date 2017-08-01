@@ -175,7 +175,7 @@ UciTypographie = {
           ],
 
           ["div", {id:"uci_typo_div_right","class":"cdu_c"},
-          // font family
+            // font family
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["span", {id:"uci_fieldset_changecasse", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_changecase'),
                 accessibilitytoolbar.makeHelpTpl("uci_link_help_changecase","uci_typo_help_changecase",accessibilitytoolbar.get('uci_typo_help_changecase'))
@@ -209,43 +209,6 @@ UciTypographie = {
                     title:accessibilitytoolbar.get('uci_changecase_tolower_title')
                   },
                   accessibilitytoolbar.get('uci_changecase_tolower')
-                ]
-              ]
-            ],
- 
-            // char spacing
-            ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
-              ["span", {"class":"cdu_left uci_label", id:"uci_typo_font_caractere"},accessibilitytoolbar.get('uci_typo_titre_charspacing')],
-              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_charspacing",role:"radiogroup", "aria-labelledby":"uci_typo_font_caractere"},
-                ["li", 
-                  {id:"uci_a11yCharSpacement_keepit",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_normal')
-                  },
-                  accessibilitytoolbar.get('uci_radio_default')
-                ],
-                ["li", 
-                  {id:"uci_a11yCharSpacement_0.2",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.2" ? "true" : "false",
-                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_medium')
-                  },
-                  accessibilitytoolbar.get('uci_radio_medium')
-                ],
-                ["li", 
-                  {id:"uci_a11yCharSpacement_0.5",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "0.5" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_charspacing_radio_large')
-                  },
-                  accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
             ]

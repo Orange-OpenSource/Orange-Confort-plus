@@ -99,6 +99,7 @@ function UciUserPref() {
         "a11yQuickMode-0": "a11yQuickMode-2",
         "a11yQuickMode-1": "a11yQuickMode-5",
         "a11yQuickMode-2": "a11yQuickMode-10",
+        // no more used!!!a11yCharSpacement
         "a11yCharSpacement-0": "a11yCharSpacement-keepit",
         "a11yCharSpacement-1": "a11yCharSpacement-0.2",
         "a11yCharSpacement-2": "a11yCharSpacement-0.5",
@@ -212,6 +213,7 @@ function UciUserPref() {
         "a11yMenuPositionning":   [30,1],
         "a11yDelayBeforeLoop":    [29,1],
         "a11yQuickMode":          [28,1],
+        // no more used!!!a11yCharSpacement
         "a11yCharSpacement":      [27,1],
         "a11yDyslexyFontEnabled": [26,1],
         "a11yDyslexyFont":        [25,1],
@@ -261,6 +263,7 @@ function UciUserPref() {
         "a11yMenuPositionning": "center",
         "a11yDelayBeforeLoop": "1",
         "a11yQuickMode": "2",
+        // no more used!!!a11yCharSpacement
         "a11yCharSpacement": "keepit",
         "a11yDyslexyFontEnabled": "true",
         "a11yDyslexyFont": "keepit",

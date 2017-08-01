@@ -3174,7 +3174,7 @@ accessibilitytoolbar = {
      * 
      */
     updateIhmFormsSettings: function() {
-        var pref,prefarray,ariaRadioSettings = ["a11yDyslexyFont","a11ySpacement","a11yLineSpacement","a11yCharSpacement",
+        var pref,prefarray,ariaRadioSettings = ["a11yDyslexyFont","a11ySpacement","a11yLineSpacement",
                             "a11yModifCasse","a11yMaskEpaisseur","a11yNavLienSelColor","a11yNavLienNonVisColor",
                             "a11yNavLienVisColor","a11yVisualPredefinedSettings","a11yFontColor","a11yBackgroundColor",
                             "a11yDelayBeforeClick","a11yMenuPositionning","a11yDelayBeforeLoop","a11yQuickMode"];
@@ -3473,11 +3473,6 @@ accessibilitytoolbar = {
       //gestion de l'affichage du mode espacement des lignes
       if (localUserPref.get("a11yLineSpacement") !== "keepit") {
         s += "*{ line-height:" + localUserPref.get("a11yLineSpacement") + " !important; }\n";
-      }
-
-      //gestion de l'espacement des caractères
-      if (localUserPref.get("a11yCharSpacement") !== "keepit") {
-        s += "* :not(.cdu-icon) {letter-spacing:" + localUserPref.get("a11yCharSpacement") + "em !important; }\n";
       }
 
       //gestion de la casse : a11yModifCase
