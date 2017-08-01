@@ -147,7 +147,7 @@ UciMask = {
           if((positionY - (size / 2)) > 0)   {
             topMaskHeight = positionY - (size / 2);
           }
-        	document.getElementById('topMask').style.height = topMaskHeight + "px";
+          document.getElementById('topMask').style.height = topMaskHeight + "px";
           document.getElementById('topMask').style.display = "block";
           document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
           document.getElementById('closeMaskDiv').style.display = "block";

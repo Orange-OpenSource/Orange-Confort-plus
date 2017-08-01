@@ -2126,5 +2126,7 @@ ul#uci_reponses_bigger_quick_set {
 }
 .howtoclose{
 	color: #FFF;
-  z-index: 2147483646;
+	z-index: 2147483646;
+	padding-bottom: 0.625rem;
+	padding-right: 0.625rem;
 }
