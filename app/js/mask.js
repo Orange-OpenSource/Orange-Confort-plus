@@ -1,6 +1,6 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014  Orange
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@ UciMask = {
         },
 
         init: function() {
-	        if ((!window.Modernizer) || !Modernizr.touch) { 
+	        if ((!window.Modernizer) || !Modernizr.touch) {
 	        	topMask = document.createElement("div");
 	        	topMask.className="topMask";
 	        	topMask.id="topMask";
@@ -30,15 +30,15 @@ UciMask = {
             document.getElementsByTagName("body")[0].appendChild(topMask);
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
             document.getElementsByTagName("body")[0].appendChild(bottomMask);
-           document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv()); 
+           document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
 	        }
         },
-        
+
         start: function() {
         	if(!UciMask.settings.launched)
             {
         		  UciMask.maskEventCreate();
-            }           
+            }
         },
 
         initCloseMask: function(){
@@ -55,8 +55,8 @@ UciMask = {
         explainHowToCloseDiv: function(){
           return accessibilitytoolbar.make(["div", {id:"howToClose", "class": "closeMask howtoclose"},  accessibilitytoolbar.get('howToClose') ])
         },
-        
-        maskEventCreate: function() {   
+
+        maskEventCreate: function() {
           // For W3C Browser
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
@@ -70,10 +70,10 @@ UciMask = {
             document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
-          } 
+          }
           UciMask.settings.launched = true;
-        },        
-        
+        },
+
         changeVisibility: function(state){
           document.getElementById("closeMask").style.visibility = state;
         },
@@ -87,7 +87,7 @@ UciMask = {
           if (intKeyCode === 27 &&  document.getElementById('topMask').style.display === "block") {
             UciMask.closeMask();
           }
-          
+
         },
 
         closeMask: function(){
@@ -98,7 +98,7 @@ UciMask = {
           UciMask.maskEventRemove();
         },
 
-        maskEventRemove: function() { 
+        maskEventRemove: function() {
           if (document.removeEventListener) {
             document.removeEventListener('mousemove', UciMask.maskEvent, false);
           }
@@ -106,21 +106,21 @@ UciMask = {
           else if (document.attachEvent) {
             document.detachEvent('onmousemove', UciMask.maskEvent);
           }
-        	
+
           // if the mask was launched before, removed it from the dom
           document.getElementById('topMask').style.display = "none";
           document.getElementById('closeMaskDiv').style.display = "none";
           document.getElementById('bottomMask').style.display = "none";
           UciMask.settings.launched = false;
         },
-        
+
         maskEvent: function(e) {
           UciMask.draw(e.clientY);
         },
-        
+
         draw: function(positionY) {
           closeMask = document.getElementById("closeMask");
-        	switch(UciMask.settings.thickness) {
+        	/*switch(UciMask.settings.thickness) {
         		case 'thin':
               var size = 20;
               closeMask.style.height = "20px";
@@ -139,7 +139,11 @@ UciMask = {
         		case 'none':
         		default:
         			var size = 0;
-        	}
+          }*/
+          var size = 90;
+          closeMask.style.height = "90px";
+          closeMask.style.width = "90px";
+          //closeMask.style.fontSize = "2rem";
         	if(typeof positionY == 'undefined') {
         		size = 0;
         	}
@@ -159,7 +163,7 @@ UciMask = {
           } else {
             winHeight = parseInt(document.documentElement.offsetHeight, 10);
           }
-           
+
           if((winHeight - topMaskHeight - size) > 0)   {
             bottomMaskHeight = winHeight - topMaskHeight - size;
           }

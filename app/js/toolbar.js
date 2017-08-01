@@ -2818,7 +2818,8 @@ accessibilitytoolbar = {
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yNavLienEnabled'), function() {UciApparence.displayLien('a11yNavLienEnabled','uci_gestion_lien');});
 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMaskEnabled'), function() {UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');});    
+    // Issue #33  
+    //accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMaskEnabled'), function() {UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');});    
 
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_sel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_selectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_notsel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_notselectionne"); });
