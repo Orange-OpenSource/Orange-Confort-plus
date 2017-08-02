@@ -184,5 +184,9 @@ traduction['ES']={
   typographie :"typographie",
   couleur: "couleurs",
   advancedparam: "todo",
-  howToClose: "TODO"
+  howToClose: "TODO",
+  uci_radio_light:"TODO",
+  uci_radio_medium1:"TODO",
+  uci_radio_dark:"TODO",
+  uci_txt_mask_opacity:"TODO"
 };

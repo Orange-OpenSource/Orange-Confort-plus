@@ -184,5 +184,9 @@ uci_menu_guide:"Guide pas \340 pas",
   uci_profile_delete_warning: "ATTENTION",
   uci_button_valid_profil: "Modifier le nom du profil",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  howToClose: "TODO"
+  howToClose: "TODO",
+  uci_radio_light:"TODO",
+  uci_radio_medium1:"TODO",
+  uci_radio_dark:"TODO",
+  uci_txt_mask_opacity:"TODO"
 };

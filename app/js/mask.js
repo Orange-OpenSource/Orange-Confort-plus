@@ -120,26 +120,26 @@ UciMask = {
 
         draw: function(positionY) {
           closeMask = document.getElementById("closeMask");
-        	/*switch(UciMask.settings.thickness) {
+        	switch(UciMask.settings.thickness) {
         		case 'thin':
               var size = 20;
-              closeMask.style.height = "20px";
-              closeMask.style.width = "20px";
+              document.getElementById('topMask').style.opacity = "0.5";
+              document.getElementById('bottomMask').style.opacity = "0.5";
         			break;
         		case 'medium':
               var size = 40;
-              closeMask.style.height = "40px";
-              closeMask.style.width = "40px";
+              document.getElementById('topMask').style.opacity = "0.25";
+              document.getElementById('bottomMask').style.opacity = "0.25";
         			break;
         		case 'thick':
-              var size = 60;;
-              closeMask.style.height = "60px";
-              closeMask.style.width = "60px";
+              var size = 60;
+              document.getElementById('topMask').style.opacity = "0.9";
+              document.getElementById('bottomMask').style.opacity = "0.9";
         			break;
         		case 'none':
         		default:
         			var size = 0;
-          }*/
+          }
           var size = 90;
           closeMask.style.height = "90px";
           closeMask.style.width = "90px";

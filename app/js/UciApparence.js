@@ -138,17 +138,8 @@ UciApparence = {
             ],
             ["div", {id:"uci_div_mask", style:(accessibilitytoolbar.userPref.get("a11yMaskEnabled")=== "true" ? "display:block" : "display:none")},
               ["div", {id:"uci_mask_epaisseur"},
-                ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_size')],
+                ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
-                  ["li", 
-                    {id:"uci_a11yMaskEpaisseur_thin",
-                      role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "true" : "false",
-                    },
-                    accessibilitytoolbar.get('uci_radio_default')
-                  ],
                   ["li", 
                     {id:"uci_a11yMaskEpaisseur_medium",
                       role:"radio",
@@ -156,7 +147,16 @@ UciApparence = {
                       tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "0" : "-1",
                       "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "true" : "false",
                     },
-                    accessibilitytoolbar.get('uci_radio_medium')
+                    accessibilitytoolbar.get('uci_radio_light')
+                  ], 
+                  ["li", 
+                    {id:"uci_a11yMaskEpaisseur_thin",
+                      role:"radio",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "true" : "false",
+                    },
+                    accessibilitytoolbar.get('uci_radio_medium1')
                   ],
                   ["li", 
                     {id:"uci_a11yMaskEpaisseur_thick",
@@ -165,7 +165,7 @@ UciApparence = {
                       tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "0" : "-1",
                       "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "true" : "false",
                     },
-                    accessibilitytoolbar.get('uci_radio_large')
+                    accessibilitytoolbar.get('uci_radio_dark')
                   ]
                 ]
               ]
