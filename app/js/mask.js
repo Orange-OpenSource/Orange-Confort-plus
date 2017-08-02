@@ -122,23 +122,21 @@ UciMask = {
           closeMask = document.getElementById("closeMask");
         	switch(UciMask.settings.thickness) {
         		case 'thin':
-              var size = 20;
               document.getElementById('topMask').style.opacity = "0.5";
               document.getElementById('bottomMask').style.opacity = "0.5";
         			break;
         		case 'medium':
-              var size = 40;
               document.getElementById('topMask').style.opacity = "0.25";
               document.getElementById('bottomMask').style.opacity = "0.25";
         			break;
-        		case 'thick':
-              var size = 60;
+        		case 'thick':;
               document.getElementById('topMask').style.opacity = "0.9";
               document.getElementById('bottomMask').style.opacity = "0.9";
         			break;
         		case 'none':
         		default:
-        			var size = 0;
+        			document.getElementById('topMask').style.opacity = "0.5";
+              document.getElementById('bottomMask').style.opacity = "0.5";
           }
           var size = 90;
           closeMask.style.height = "90px";

@@ -3547,7 +3547,6 @@ accessibilitytoolbar = {
       }
 
       // reading mask
-      console.log(localUserPref.get("a11yMaskEnabled"));
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
         if (!accessibilitytoolbar.toolbarMaskInit) {
@@ -3556,10 +3555,10 @@ accessibilitytoolbar = {
         }
         UciMask.start();
 
-        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.5; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
+        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:black; opacity:0; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
 
     
-        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.5; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
+        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
 
       }
       // if mask was launch before deactivation kill!
