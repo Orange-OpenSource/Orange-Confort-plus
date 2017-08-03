@@ -178,5 +178,10 @@ traduction['ES']={
   aidemotrice: "aidemotrice",
   typographie :"typographie",
   couleur: "couleurs",
-  advancedparam: "todo"
+  advancedparam: "todo",
+  howToClose: "TODO",
+  uci_radio_light:"TODO",
+  uci_radio_medium1:"TODO",
+  uci_radio_dark:"TODO",
+  uci_txt_mask_opacity:"TODO"
 };

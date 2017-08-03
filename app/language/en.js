@@ -180,5 +180,10 @@ traduction['EN']={
   aidemotrice: "aidemotrice",
   typographie :"typographie",
   couleur: "couleurs",
-  advancedparam: "advancedparam"
+  advancedparam: "advancedparam",
+  howToClose: "Press escape to close the mask or clic on the close button on the right (it's hidden, move your mouse on the right to show it)",
+  uci_radio_light:"Light",
+  uci_radio_medium1:"Medium",
+  uci_radio_dark:"Dark",
+  uci_txt_mask_opacity:"Mask opacity"
 };

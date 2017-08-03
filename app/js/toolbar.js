@@ -2829,7 +2829,8 @@ accessibilitytoolbar = {
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yNavLienEnabled'), function() {UciApparence.displayLien('a11yNavLienEnabled','uci_gestion_lien');});
 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMaskEnabled'), function() {UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');});    
+    // Issue #33  
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMaskEnabled'), function() {UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');});    
 
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_sel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_selectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_notsel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_notselectionne"); });
@@ -3608,8 +3609,10 @@ accessibilitytoolbar = {
         }
         UciMask.start();
 
-        s += ".topMask  { position: fixed; z-index:2147483646; top:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
-        s += ".bottomMask  { position: fixed; z-index:2147483646; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0.9; }\n";
+        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:black; opacity:0; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
+
+    
+        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
 
       }
       // if mask was launch before deactivation kill!

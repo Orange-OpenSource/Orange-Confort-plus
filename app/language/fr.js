@@ -181,5 +181,10 @@ traduction['FR']={
   aidemotrice: "aidemotrice",
   typographie :"typographie",
   couleur: "couleurs",
-  advancedparam: "advancedparam"
+  advancedparam: "advancedparam",
+  howToClose: "Pour fermer le masque appuyer sur la touche \351chap ou utiliser la croix cach\351e tout \340 droite du masque",
+  uci_radio_light:"L\351ger",
+  uci_radio_medium1:"Moyen",
+  uci_radio_dark:"Fonc\351",
+  uci_txt_mask_opacity:"Opacit\351 du masque"
 };

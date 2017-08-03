@@ -1,6 +1,6 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014  Orange
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -20,38 +20,85 @@ UciMask = {
         },
 
         init: function() {
-	        if ((!window.Modernizer) || !Modernizr.touch) { 
+	        if ((!window.Modernizer) || !Modernizr.touch) {
 	        	topMask = document.createElement("div");
 	        	topMask.className="topMask";
 	        	topMask.id="topMask";
 	        	bottomMask = document.createElement("div");
 	        	bottomMask.className="bottomMask";
-	        	bottomMask.id="bottomMask";
+            bottomMask.id="bottomMask";
             document.getElementsByTagName("body")[0].appendChild(topMask);
-            document.getElementsByTagName("body")[0].appendChild(bottomMask); 
+            document.getElementById('topMask').appendChild(UciMask.initCloseMask());
+            document.getElementsByTagName("body")[0].appendChild(bottomMask);
+           document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
 	        }
         },
-        
+
         start: function() {
         	if(!UciMask.settings.launched)
             {
         		  UciMask.maskEventCreate();
-            }           
+            }
         },
-        
-        maskEventCreate: function() {   
+
+        initCloseMask: function(){
+          return accessibilitytoolbar.make(
+            ["div", {id:"closeMaskDiv", "class": "closeMask"},
+              ["button", { id: "closeMask", onclick: "UciMask.closeMask()", title: accessibilitytoolbar.get('uci_close_guide'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
+                ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
+                ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
+              ]
+            ]
+          );
+        },
+
+        explainHowToCloseDiv: function(){
+          return accessibilitytoolbar.make(["div", {id:"howToClose", "class": "closeMask howtoclose"},  accessibilitytoolbar.get('howToClose') ])
+        },
+
+        maskEventCreate: function() {
           // For W3C Browser
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
+            document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
+            document.getElementById("closeMaskDiv").addEventListener('mouseover',function(){UciMask.changeVisibility("visible")}, false);
+            document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")}, false);
           }
           //For IE browser
           else if (document.attachEvent) {
             document.attachEvent('onmousemove', UciMask.maskEvent);
-          } 
+            document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
+            document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
+            document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
+          }
           UciMask.settings.launched = true;
-        },        
-     
-        maskEventRemove: function() { 
+        },
+
+        changeVisibility: function(state){
+          document.getElementById("closeMask").style.visibility = state;
+        },
+
+        exitMask: function(e){
+          var winObj = "";
+          if (!e)
+            e = window.event;
+
+          var intKeyCode = e.keyCode;
+          if (intKeyCode === 27 &&  document.getElementById('topMask').style.display === "block") {
+            UciMask.closeMask();
+          }
+
+        },
+
+        closeMask: function(){
+          document.getElementById('a11yMaskEnabled').checked = false;
+          UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');
+          accessibilitytoolbar.userPref.set("a11yMaskEnabled", "false");
+          accessibilitytoolbar.setCSS();
+          UciMask.maskEventRemove();
+        },
+
+        maskEventRemove: function() {
           if (document.removeEventListener) {
             document.removeEventListener('mousemove', UciMask.maskEvent, false);
           }
@@ -59,32 +106,42 @@ UciMask = {
           else if (document.attachEvent) {
             document.detachEvent('onmousemove', UciMask.maskEvent);
           }
-        	
+
           // if the mask was launched before, removed it from the dom
-        	document.getElementById('topMask').style.display = "none";
+          document.getElementById('topMask').style.display = "none";
+          document.getElementById('closeMaskDiv').style.display = "none";
           document.getElementById('bottomMask').style.display = "none";
           UciMask.settings.launched = false;
         },
-        
+
         maskEvent: function(e) {
           UciMask.draw(e.clientY);
         },
-        
+
         draw: function(positionY) {
+          closeMask = document.getElementById("closeMask");
         	switch(UciMask.settings.thickness) {
         		case 'thin':
-        			var size = 20;
+              document.getElementById('topMask').style.opacity = "0.5";
+              document.getElementById('bottomMask').style.opacity = "0.5";
         			break;
         		case 'medium':
-        			var size = 40;
+              document.getElementById('topMask').style.opacity = "0.25";
+              document.getElementById('bottomMask').style.opacity = "0.25";
         			break;
-        		case 'thick':
-        			var size = 60;
+        		case 'thick':;
+              document.getElementById('topMask').style.opacity = "0.9";
+              document.getElementById('bottomMask').style.opacity = "0.9";
         			break;
         		case 'none':
         		default:
-        			var size = 0;
-        	}
+        			document.getElementById('topMask').style.opacity = "0.5";
+              document.getElementById('bottomMask').style.opacity = "0.5";
+          }
+          var size = 90;
+          closeMask.style.height = "90px";
+          closeMask.style.width = "90px";
+          //closeMask.style.fontSize = "2rem";
         	if(typeof positionY == 'undefined') {
         		size = 0;
         	}
@@ -92,8 +149,11 @@ UciMask = {
           if((positionY - (size / 2)) > 0)   {
             topMaskHeight = positionY - (size / 2);
           }
-        	document.getElementById('topMask').style.height = topMaskHeight + "px";
-        	document.getElementById('topMask').style.display = "block";
+          document.getElementById('topMask').style.height = topMaskHeight + "px";
+          document.getElementById('topMask').style.display = "block";
+          document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
+          document.getElementById('closeMaskDiv').style.display = "block";
+          document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
         	var bottomMaskHeight = 0;
           var winHeight = 0;
           if (window.getComputedStyle) {
@@ -101,10 +161,11 @@ UciMask = {
           } else {
             winHeight = parseInt(document.documentElement.offsetHeight, 10);
           }
-           
+
           if((winHeight - topMaskHeight - size) > 0)   {
             bottomMaskHeight = winHeight - topMaskHeight - size;
           }
+
           document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
         	document.getElementById('bottomMask').style.display = "block";
         }
