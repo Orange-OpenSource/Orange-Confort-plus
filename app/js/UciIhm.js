@@ -111,7 +111,7 @@ UciIhm = {
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
             ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "button" },
               ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-plus2", id: "uci_icon_moreconfort" }],
-              ["span", { id: "uci_moreconfort_content" }, accessibilitytoolbar.get('uci_txt_more_settings')]
+              ["span", { id: "uci_moreconfort_txt" }, accessibilitytoolbar.get('uci_txt_more_settings')]
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_right_toolbar" },
@@ -332,7 +332,7 @@ UciIhm = {
       document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'true');
       document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'true');
       document.getElementById('uci_moreconfort').title = accessibilitytoolbar.get('uci_txt_low_settings');
-      document.getElementById('uci_moreconfort_content').textContent = accessibilitytoolbar.get('uci_txt_low_settings_display');
+      document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_low_settings_display');
       // disable hide the toolbar
       // disable hide fontsize buttons
       // disable color button
@@ -375,7 +375,7 @@ UciIhm = {
       document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
       document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
     document.getElementById('uci_moreconfort').removeAttribute('title');
-    document.getElementById('uci_moreconfort_content').textContent = accessibilitytoolbar.get('uci_txt_more_settings');
+    document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_more_settings');
     return false;
   },
 
@@ -456,8 +456,8 @@ UciIhm = {
 
   ToolbarHide: function () {
     // when more settings is open, disable quick settings buttons
-        if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
-        accessibilitytoolbar.userPref.decode();
+    if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+    accessibilitytoolbar.userPref.decode();
     accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
     accessibilitytoolbar.userPref.updateUserPref();
 

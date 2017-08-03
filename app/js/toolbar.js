@@ -531,7 +531,7 @@ function LoopingMode() {
    * @private
    */
   var filterLink = function (elt) {
-    if (elt.nodeName.match(/^A|AREA$/gi) && !LoopingUtility.isMenuItem(elt)) {
+    if (elt && elt.nodeName.match(/^A|AREA$/gi) && !LoopingUtility.isMenuItem(elt)) {
       return true;
     }
     else {
@@ -1030,6 +1030,9 @@ function LoopingMode() {
       menu.hide();
       menu.clean();
     }
+    // remove element with looping class
+    elt = document.querySelector("[class*=loopingmode-focused]");
+    if(elt) elt.className = elt.className.replace(/loopingmode-focused {0,1}/, "");
   };
 
   // public Api used by accessibilitytoolbar
@@ -2702,11 +2705,11 @@ accessibilitytoolbar = {
    * Add object to objectList for toolbar events
    */
   createObjectBehaviour: function () {
-    var actionButtons = document.getElementById("cdu_content").getElementsByTagName("input");
-    var selectButtons = document.getElementById("cdu_content").getElementsByTagName("select");
+    var actionButtons = document.getElementById("cdu_toolbar").getElementsByTagName("input");
+    var selectButtons = document.getElementById("cdu_toolbar").getElementsByTagName("select");
 
     // User settings behaviour
-    var toolbar = document.getElementById("cdu_content");
+    var toolbar = document.getElementById("cdu_toolbar");
     for (var i = 0; i < actionButtons.length; i++) {
       if (actionButtons[i].type && actionButtons[i].type !== 'submit' && actionButtons[i].type !== 'reset'
             && !(actionButtons[i].id && (actionButtons[i].id==='uci_FR' || actionButtons[i].id==='uci_EN' || actionButtons[i].id==='uci_ES' || actionButtons[i].id==='uci_PL'))) {
@@ -2769,7 +2772,12 @@ accessibilitytoolbar = {
     //gestion des evenement sur les onglets :
     accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_moreconfort'), UciIhm.more_confort);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_close_toolbar'),function() {UciValidation.Annulation();UciIhm.ToolbarHide(); UciIhm.hide_confirm_validation();} );
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_close_toolbar'),function() {
+      if(document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      UciValidation.Annulation();
+      UciIhm.ToolbarHide(); 
+      UciIhm.hide_confirm_validation();
+    });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_remove_all'), UciIhm.remove_all);
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_help_menu_button'),function(e) {UciIhm.uci_toggle_menu('uci_help_menu',e)});
         accessibilitytoolbar.uciAttachEvent('focusout','onfocusout',document.getElementById('uci_help_list'),UciIhm.setFocusOut);
@@ -2818,8 +2826,6 @@ accessibilitytoolbar = {
 
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarDisplayHelp('uci_help_mask'); });
     accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_help_mask'); });
-
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('a11yMotorModeEnabled'), UciAideMotrice.activate_aide_motrice);
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yNavLienEnabled'), function() {UciApparence.displayLien('a11yNavLienEnabled','uci_gestion_lien');});
 
@@ -2980,7 +2986,7 @@ accessibilitytoolbar = {
    * @param {Event} e Event to be processed.
    */
   toggle: function (/*Event*/e) {
-    var toolbarContent = document.getElementById("cdu_content");
+    var toolbarContent = document.getElementById("cdu_toolbar");
 
     if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
       if (document.getElementById('cdu_close')) {
@@ -2999,10 +3005,10 @@ accessibilitytoolbar = {
     // check if need to update the cookie
     accessibilitytoolbar.userPref.set('a11yToolbarEnable', 'on');
     // if toolbar content not already create
-    if (!document.getElementById("cdu_content")) {
+    if (!document.getElementById("cdu_toolbar")) {
       // create content 
       var contentToolbar = document.createElement("div");
-      contentToolbar.setAttribute("id", 'cdu_content');
+      contentToolbar.setAttribute("id", 'cdu_toolbar');
       contentToolbar.className = 'cdu_displayN';
       contentToolbar.appendChild(accessibilitytoolbar.createToolbar());
       document.getElementById('cdu_zone').appendChild(contentToolbar);
@@ -3013,7 +3019,7 @@ accessibilitytoolbar = {
       // add JS behaviour
       accessibilitytoolbar.createObjectBehaviour();
     }
-    document.getElementById("cdu_content").className = "";
+    document.getElementById("cdu_toolbar").className = "";
     try {
       document.getElementById("uci-onoffswitch").focus();
     }
@@ -3054,7 +3060,7 @@ accessibilitytoolbar = {
     if (document.getElementById('cdu_close')) {
       document.getElementById('cdu_close').style.display = "block";
     }
-    document.getElementById("cdu_content").className = 'cdu_displayN';
+    document.getElementById("cdu_toolbar").className = 'cdu_displayN';
     document.getElementById("uci_cdu_popin").className = 'cdu_displayN';
   },
 
@@ -3128,6 +3134,7 @@ accessibilitytoolbar = {
     target = e.target || window.event.srcElement;
     // speciffic case for font-size
     if(target.id && target.id.match(/_a11yBigger_/)) {
+      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;    
       aSizeValues = ["keepit", "110", "125", "150", "175", "200"];
       prefName = "a11yBigger";
       currentValue = accessibilitytoolbar.userPref.get(prefName);
@@ -3178,8 +3185,8 @@ accessibilitytoolbar = {
                             "a11yModifCasse","a11yMaskEpaisseur","a11yNavLienSelColor","a11yNavLienNonVisColor",
                             "a11yNavLienVisColor","a11yVisualPredefinedSettings","a11yFontColor","a11yBackgroundColor",
                             "a11yDelayBeforeClick","a11yMenuPositionning","a11yDelayBeforeLoop","a11yQuickMode"];
-        var checkboxSettings = ["a11yLinearize","a11yLeftText","a11yNumerotationList","a11yNavLienEnabled","a11ySupEffetTransp","a11ySupImageFont","a11ySupImageFirstPlan","a11yMaskEnabled","a11yMotorModeEnabled","a11yJumpToContent"];
-        var radioSettings = ["a11yVisualSettings-predefined","a11yVisualSettings-personnal","a11yMotorMode-remote","a11yMotorMode-looping"];
+        var checkboxSettings = ["a11yLinearize","a11yLeftText","a11yNumerotationList","a11yNavLienEnabled","a11ySupEffetTransp","a11ySupImageFont","a11ySupImageFirstPlan","a11yMaskEnabled","a11yJumpToContent","a11yMotorModeRemote","a11yMotorModeLooping"];
+        var radioSettings = ["a11yVisualSettings-predefined","a11yVisualSettings-personnal"];
         var selectSettings = ["a11yNavLienSelStyle","a11yNavLienNonVisStyle","a11yNavLienVisStyle"];
         for(pref in ariaRadioSettings) {
             accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_"+ariaRadioSettings[pref]+"_"+accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])),false,true);
@@ -3230,17 +3237,21 @@ accessibilitytoolbar = {
   jumpToContent: function () {
     if (this.userPref.get("a11yJumpToContent") === "true" && this.contentToJumpTo) {
       if (!document.location.href.match(/#.+$/)) {
+        console.log('update href');
+        console.log(this.contentToJumpTo);
         document.location.href = "#" + this.contentToJumpTo;
       }
     } else {
+      console.log('else....');
       if (document.location.hash === '#' + this.contentToJumpTo) {
+        console.log('clearHash');
         document.location.hash = "";
       }
     }
   },
 
   removeOrStartRemote: function () {
-    if (this.userPref.get("a11ySiteWebEnabled") !== "off" && this.userPref.get("a11yMotorModeEnabled") == "true" && this.userPref.get("a11yMotorMode") == "remote") {
+    if (this.userPref.get("a11ySiteWebEnabled") !== "off" && this.userPref.get("a11yMotorModeRemote") === "true") {
       if (this.remotecontrol == null) {
         this.startRemote();
       }
@@ -3268,7 +3279,7 @@ accessibilitytoolbar = {
   },
 
   removeOrStartLoopingMode: function () {
-    if (this.userPref.get("a11ySiteWebEnabled") !== "off" && this.userPref.get("a11yMotorModeEnabled") == "true" && this.userPref.get("a11yMotorMode") == "looping") {
+    if (this.userPref.get("a11ySiteWebEnabled") !== "off" && this.userPref.get("a11yMotorModeLooping") === "true") {
       this.startLoopingmode();
     } else {
       if (this.loopingmode !== null) {
@@ -3352,26 +3363,25 @@ accessibilitytoolbar = {
         if (document.getElementById('cdu_close')) {
           document.getElementById('cdu_close').style.display == 'none';
         }
-        toolbarContent = document.getElementById("cdu_content");
+        toolbarContent = document.getElementById("cdu_toolbar");
         if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
           accessibilitytoolbar.show();
         }
       }
-         if (demo != null) {
-                indexIFrame = 0;
-                TheIFrames = document.getElementsByTagName("iframe");
-                if (TheIFrames.length > 0) {
-                    while (theIFrame = TheIFrames[indexIFrame]) {
-                        try {
-                            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-                            if (theIFrameDocument.getElementsByTagName('head')[0]) {
-                                theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
-                            }
-                        } catch (e) { }
-                        indexIFrame++;
-                    }
-                }
-         }
+      
+      indexIFrame = 0;
+      TheIFrames = document.getElementsByTagName("iframe");
+      if (TheIFrames.length > 0) {
+          while (theIFrame = TheIFrames[indexIFrame]) {
+              try {
+                  theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+                  if (theIFrameDocument.getElementsByTagName('head')[0]) {
+                      theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+                  }
+              } catch (e) { }
+              indexIFrame++;
+          }
+      }
       // Remove previous user style
       if (document.getElementById("a11yUserPrefStyle")) {
         document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
@@ -3399,6 +3409,9 @@ accessibilitytoolbar = {
 
       accessibilitytoolbar.removeOrStartRemote();
       accessibilitytoolbar.removeOrStartLoopingMode();
+
+      // jump to content if needed
+      accessibilitytoolbar.jumpToContent();
     }
     // Remove linearization if it had been done : 
     // 1. linearize ? -- which is the same as: get rid of all CSS info first
@@ -3740,7 +3753,7 @@ accessibilitytoolbar = {
               indexFrame++;
             }
           }
-            }
+        }
       }
     }
   },
@@ -4005,10 +4018,10 @@ accessibilitytoolbar = {
     if (!accessibilitytoolbar.contentToJumpTo) {
       var mainElement = '';
       if (document.getElementsByTagName('main') && document.getElementsByTagName('main').length > 0) {
-        mainElement = document.getElementsByTagName('main')[0]
+        mainElement = document.getElementsByTagName('main')[0];
       }
-      else if (document.querySelector('[role="main"]')) {
-        mainElement = document.querySelector('[role="main"]');
+      else {
+        mainElement = document.querySelector('[role="main"],[id*="content"],[id*="main"],[class*="content"],[class*="main"]');
       }
       if (mainElement) {
         if (mainElement.id) {
@@ -4074,8 +4087,6 @@ accessibilitytoolbar = {
     accessibilitytoolbar.cleanImgDisabled();
     // set CSS to the user's settings
     accessibilitytoolbar.setCSS(true);
-    // jump to content if needed
-    accessibilitytoolbar.jumpToContent();
   },
 
   /**

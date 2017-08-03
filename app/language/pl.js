@@ -110,7 +110,7 @@ uci_color_warning_content:"Tekst i kolor tła mają zbyt niski contrast. Może t
 uci_label_jumptocontent:"Zawsze przechodź do zawartości",
 uci_help_jumptocontent:"Zezwalaj na automatyczne pozycjonowanie (ustawienie) zawartości na stronie głównej w szczególności poprzez ustawienie linków nawigacyjnych.",
 uci_enableMotorMode:"Wsparcie silnika",
-uci_label_telecomande:"Nawigacja “po najechaniu”",
+uci_label_telecomande:"Nawigować “po najechaniu”",
 uci_help_telecomande:"Dodaj pionowe przwijanie za pomocą strzałek. Pozwól również na dodanie aktywnych linków widocznych na “przewijaku” po przesunięciu strony.",
 uci_legend_delai_clic:"Opóźnienie przed automatycznym kliknięciem",
 uci_label_1sec:"1 sekunda",

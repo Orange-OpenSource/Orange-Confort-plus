@@ -595,7 +595,8 @@ a.cdu_hide:focus {
 }
 #uci_left_toolbar.uci_mask a,
 #uci_left_toolbar.uci_mask li,
-#uci_right_toolbar.uci_mask button {
+#uci_left_toolbar.uci_mask input,
+#uci_right_toolbar.uci_mask button{
 	cursor: not-allowed !important;
 }
 .cdu_c img {
@@ -1139,6 +1140,9 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .margin-left {
 	margin-left: .625rem !important;
 }
+#accessibilitytoolbarGraphic .padding-left {
+	padding-left: .625rem !important;
+}
 #accessibilitytoolbarGraphic .margin-right {
 	margin-right: .625rem !important;
 }
@@ -1161,27 +1165,12 @@ li.uci_dropdown-divider {
 	padding-left: 1.875rem !important;
 }
 /***********************************************Onglet Couleurs************************************************/
-#uci_div_right_couleur,
-#uci_motor_div_right,
-#uci_div_motor,
-#uci_motor_div_left,
-#uci_div_couleur_predefinie,
-#setting_bloc_content {
-	vertical-align: top;
-}
-#setting_bloc_content {
-	padding: 1.25rem 0;
-}
-#uci_div_right_couleur,
-#uci_motor_div_right,
-#uci_motor_div_left,
-#uci_div_couleur_predefinie {
+ 
+.uci_w50-left{
 	max-width: 50%;
 	float: left;
 }
-#uci_motor_general {
-	clear: both;
-}
+
 #aria_label_texte,
 #uci_aria_label_fond {
 	margin-right: 10px;
@@ -2096,3 +2085,5 @@ li.uci_dropdown-divider {
 	margin-top: 0.8rem;
 	margin-bottom: 1rem;
 }
+
+
