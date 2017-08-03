@@ -187,7 +187,7 @@ UciIhm = {
           ],
           ["div", {"class":"uci_systeme_onglets uci_clear cdu_c", id:"uci_zone_form", style:"display:none;"},
             ["div", {id:"uci_activateOnglet", style:"display:none;"},
-              ["button", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary", id:"uci_menu_remove_all", type:"button"},
+              ["button", {"class":"uci_choix ucibtn ucibtn-sm ucibtn-secondary margin-right", id:"uci_menu_remove_all", type:"button"},
             ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-reload2" }],
             accessibilitytoolbar.get('uci_menu_remove_all')
           ],
@@ -218,6 +218,12 @@ UciIhm = {
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-comportement" }],
                       accessibilitytoolbar.get('uci_txt_onglet_motor_help')
                     ]
+                  ],
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_settings", tabindex: "-1", "class": "uci_inline onglet_0" },
+                    ["span", { "class": "onglet", id: "onglet_settings" },
+                      ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-settings" }],
+                      accessibilitytoolbar.get('uci_txt_onglet_settings')
+                    ]
                   ]
                 ]
               ]
@@ -228,7 +234,8 @@ UciIhm = {
               UciTypographie.InitUciTypographie(),
               UciApparence.InitUciApparence(),
               UciCouleur.InitUciCouleur(),
-              UciAideMotrice.InitUciAideMotrice()
+              UciAideMotrice.InitUciAideMotrice(),
+              UciSettings.InitUciSettings()
             ]
           ]
         ],

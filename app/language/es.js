@@ -49,6 +49,7 @@ traduction['ES']={
   uci_txt_onglet_apparence:"Apariencia",
   uci_txt_onglet_color:"Colores",
   uci_txt_onglet_motor_help:"Comportamiento",
+  uci_txt_onglet_settings:"Settings",
   uci_typo_titre_fontsize:"Tama\361o del texto",
   uci_typo_titre_wordspacing:"Espacio entre palabras",
   uci_typo_titre_linespacing:"Espacio interlineal",

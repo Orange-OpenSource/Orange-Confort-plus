@@ -240,6 +240,7 @@ module.exports = function(grunt) {
             "<%= yeoman.app %>/js/UciAideMotrice.js",
             "<%= yeoman.app %>/js/UciCouleur.js",
             "<%= yeoman.app %>/js/UciApparence.js",
+            "<%= yeoman.app %>/js/UciSettings.js",
             "<%= yeoman.app %>/js/UciTypographie.js",
             "<%= yeoman.app %>/js/UciValidation.js",
             "<%= yeoman.app %>/js/UciProfile.js",

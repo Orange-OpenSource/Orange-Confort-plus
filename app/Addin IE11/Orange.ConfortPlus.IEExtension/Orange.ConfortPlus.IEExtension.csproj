@@ -169,6 +169,7 @@
     <EmbeddedResource Include="Resources\js\ToolbarStrings.js" />
     <EmbeddedResource Include="Resources\js\UciAideMotrice.js" />
     <EmbeddedResource Include="Resources\js\UciApparence.js" />
+    <EmbeddedResource Include="Resources\js\UciSettings.js" />
     <EmbeddedResource Include="Resources\js\UciCouleur.js" />
     <EmbeddedResource Include="Resources\js\UciIhm.js" />
     <EmbeddedResource Include="Resources\js\UciSimpleStorage.js" />

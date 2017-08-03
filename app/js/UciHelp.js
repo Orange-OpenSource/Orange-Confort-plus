@@ -123,28 +123,28 @@ UciHelp = {
               ["li",
                 ["a", { id: "uci_popin_discover", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('discover_service') },
 
-                  ["span", { id: "uci_popin_discover_icon", "class": "uci-presentation" }],
+                  ["span", { id: "uci_popin_discover_icon", "class": "uci-guide-discover uci-icon margin-left margin-right", "aria-hidden":"true" }],
                   ["span", { id: "uci_popin_discover_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('discover_service')]
                 ]
               ],
               ["li",
                 ["a", { id: "uci_popin_read", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('improve_readability') },
 
-                  ["span", { id: "uci_popin_read_icon", "class": "uci-presentation" }],
+                  ["span", { id: "uci_popin_read_icon", "class": "uci-guide-readability uci-icon margin-left margin-right", "aria-hidden":"true" }],
                   ["span", { id: "uci_popin_read_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('improve_readability')]
                 ]
               ],
               ["li",
                 ["a", { id: "uci_popin_layout", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('edit_layout') },
 
-                  ["span", { id: "uci_popin_layout_icon", "class": "uci-presentation" }],
+                  ["span", { id: "uci_popin_layout_icon", "class": "uci-guide-layout uci-icon margin-left margin-right", "aria-hidden":"true" }],
                   ["span", { id: "uci_popin_layout_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('edit_layout')]
                 ]
               ],
               ["li",
                 ["a", { id: "uci_popin_motor", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('use_motor_assistance') },
 
-                  ["span", { id: "uci_popin_motor_icon", "class": "uci-presentation" }],
+                  ["span", { id: "uci_popin_motor_icon", "class": "uci-guide-motor uci-icon margin-left margin-right", "aria-hidden":"true" }],
                   ["span", { id: "uci_popin_motor_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('use_motor_assistance')]
                 ]
               ]
@@ -182,9 +182,9 @@ UciHelp = {
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
           ["div", { "class": "uci-buttom-speed" },
-            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading()" }],
-            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('apparence')" }],
-            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-presentation uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder", onclick: "UciHelp.show_reading('aidemotrice')" }]
+            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-readability", onclick: "UciHelp.show_reading()" }],
+            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-layout", onclick: "UciHelp.show_reading('apparence')" }],
+            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-motor", onclick: "UciHelp.show_reading('aidemotrice')" }]
           ],
           ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_exit')]
         ]

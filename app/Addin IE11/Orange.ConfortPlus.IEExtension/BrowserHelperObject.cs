@@ -309,6 +309,7 @@ namespace Orange.ConfortPlus.IEExtension
             sb.Append(Tools.GetStringFromRessource("js/UciAideMotrice.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciCouleur.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciApparence.js"));
+            sb.Append(Tools.GetStringFromRessource("js/UciSettings.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciTypographie.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciHelp.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciValidation.js"));

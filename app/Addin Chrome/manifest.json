@@ -32,7 +32,7 @@
   ]
   ,"content_scripts": [{
    "matches": ["<all_urls>"],    
-   "js": ["conf/hebergement.js","js/ToolbarStrings.js","js/UciUserPref.js","js/UciSimpleStorage.js","language/en.js","language/es.js","language/fr.js","language/pl.js","js/UciAideMotrice.js","js/UciCouleur.js","js/UciApparence.js","js/UciTypographie.js","js/UciHelp.js","js/UciProfile.js,"js/UciValidation.js","js/UciIhm.js","js/toolbar.js","js/mask.js","js/start.extensionChrome.js"],
+   "js": ["conf/hebergement.js","js/ToolbarStrings.js","js/UciUserPref.js","js/UciSimpleStorage.js","language/en.js","language/es.js","language/fr.js","language/pl.js","js/UciAideMotrice.js","js/UciCouleur.js","js/UciApparence.js","js/UciSettings.js","js/UciTypographie.js","js/UciHelp.js","js/UciProfile.js,"js/UciValidation.js","js/UciIhm.js","js/toolbar.js","js/mask.js","js/start.extensionChrome.js"],
    "run_at": "document_end"
   }],
   "icons": { "16": "data/icon-16.png",

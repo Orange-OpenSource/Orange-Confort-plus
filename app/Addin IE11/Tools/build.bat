@@ -16,6 +16,7 @@ copy /Y "%~dp0\..\..\js\toolbar.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Res
 copy /Y "%~dp0\..\..\js\ToolbarStrings.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\ToolbarStrings.js"
 copy /Y "%~dp0\..\..\js\UciAideMotrice.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciAideMotrice.js"
 copy /Y "%~dp0\..\..\js\UciApparence.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciApparence.js"
+copy /Y "%~dp0\..\..\js\UciSettings.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciSettings.js"
 copy /Y "%~dp0\..\..\js\UciCouleur.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciCouleur.js"
 copy /Y "%~dp0\..\..\js\UciIhm.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciIhm.js"
 copy /Y "%~dp0\..\..\js\UciSimpleStorage.js" "%~dp0\..\Orange.ConfortPlus.IEExtension\Resources\js\UciSimpleStorage.js"

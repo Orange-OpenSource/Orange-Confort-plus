@@ -55,30 +55,24 @@ UciProfile = {
    * Create the object array of list elements
    */
   createProfileList: function () {
-    var returnSavedProfile = "";
+    var current, ariaCurrent, returnSavedProfile = "";
     var profil = null;
     var i = 0;
     var tableauProfile = ["ul"];
     // allow delete only if there's more than one profile
     var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
+        current = "";
+        ariaCurrent = "false";
         if(accessibilitytoolbar.userPref.settings.current === profil) {
-          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"},
-                                  ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":"true"}, profil],
-                                  ["div",
-                                    ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
-                                    ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash margin-left-lg", title:"Delete profile : "+profil }]
-                                  ],
-                              ];
-        } else {
-          returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"},
-                                  ["a", { id: "uci_profile"+i, href:"#", role:"button" , onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link" }, profil],
-                                  ["div",
-                                    ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit margin-left-lg", title:"Rename profile : "+profil }],
-                                    ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash margin-left-lg", title:"Delete profile : "+profil }]
-                                  ],
-                              ];
-        }
+          current = " uci_menu_active";
+          ariaCurrent = "true";
+        }   
+        returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
+                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent}, profil],
+                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:"Rename profile : "+profil }],
+                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:"Delete profile : "+profil }]
+                             ];
       tableauProfile.push(returnSavedProfile);
       i++;
     }

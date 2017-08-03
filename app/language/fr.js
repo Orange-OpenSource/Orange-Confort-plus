@@ -49,6 +49,7 @@ traduction['FR']={
   uci_txt_onglet_apparence:"Agencement",
   uci_txt_onglet_color:"Couleurs",
   uci_txt_onglet_motor_help:"Comportement",
+  uci_txt_onglet_settings:"Settings",
   uci_typo_titre_fontsize:"Taille du texte ",
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   uci_typo_titre_linespacing:"Espacement entre les lignes",
