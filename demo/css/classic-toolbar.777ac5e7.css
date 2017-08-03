@@ -27,6 +27,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-agencement,
 #accessibilitytoolbarGraphic .cdu-icon-comportement,
 #accessibilitytoolbarGraphic .cdu-icon-croix,
+#closeMaskDiv .cdu-icon-croix,
 #accessibilitytoolbarGraphic .cdu-icon-help,
 #accessibilitytoolbarGraphic .cdu-help_guide,
 #accessibilitytoolbarGraphic .cdu-icon-edit,
@@ -63,6 +64,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-comportement:before {
 	content: "\1f446";
 }
+#closeMaskDiv .cdu-icon-croix:before,
 #accessibilitytoolbarGraphic .cdu-icon-croix:before {
 	content: "\58";
 }
@@ -830,6 +832,7 @@ li.uci_dropdown-divider {
 	font-size: .875rem;
 	padding-right: 10px;
 }
+#closeMaskDiv .cdu-icon-croix,
 #accessibilitytoolbarGraphic .cdu-icon-croix {
 	font-size: 1.25em;
 	font-weight: bold;
@@ -1338,13 +1341,16 @@ li.uci_dropdown-divider {
 	font-size: 0.875rem;
 	min-width: 0.7142rem;
 }
+#closeMaskDiv .ucibtn-secondary,
 #accessibilitytoolbarGraphic .ucibtn-secondary {
 	color: #000;
 	background-color: transparent;
 	border-color: #000;
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:hover {
+#accessibilitytoolbarGraphic .ucibtn-secondary:hover,
+#closeMaskDiv .ucibtn-secondary:focus,
+#closeMaskDiv .ucibtn-secondary:hover {
 	color: #fff;
 	background-color: #000;
 	border-color: #000;
@@ -1683,11 +1689,14 @@ li.uci_dropdown-divider {
 	background-color: transparent;
 	border-color: #fff;
 }
+#closeMaskDiv .ucibtn-secondary,
 #accessibilitytoolbarGraphic .ucibtn-secondary {
 	color: #000;
 	background-color: transparent;
 	border-color: #000;
 }
+#closeMaskDiv .ucibtn-secondary:focus,
+#closeMaskDiv .ucibtn-secondary:hover,
 #accessibilitytoolbarGraphic .ucibtn-secondary:focus,
 #accessibilitytoolbarGraphic .ucibtn-secondary:hover {
 	color: #fff;
@@ -2089,4 +2098,24 @@ li.uci_dropdown-divider {
 	margin-bottom: 1rem;
 }
 
+.closeMask{
+	position: absolute;
+	right: 0px;
+	z-index: 2147483646;
+}
 
+.closeMaskHidden{
+	visibility: hidden;
+}
+
+#closeMaskDiv button {
+	margin: 0;
+	padding: 0;
+
+}
+.howtoclose{
+	color: #FFF;
+	z-index: 2147483646;
+	padding-bottom: 0.625rem;
+	padding-right: 0.625rem;
+}
