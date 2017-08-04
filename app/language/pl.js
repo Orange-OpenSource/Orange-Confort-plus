@@ -184,5 +184,6 @@ uci_menu_guide:"Guide pas \340 pas",
   uci_radio_light:"TODO",
   uci_radio_medium1:"TODO",
   uci_radio_dark:"TODO",
-  uci_txt_mask_opacity:"TODO"
+  uci_txt_mask_opacity:"TODO",
+  uci_close_mask : "Close reading mask"
 };

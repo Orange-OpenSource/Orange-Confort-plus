@@ -2828,9 +2828,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_help_mask'); });
 
         accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yNavLienEnabled'), function() {UciApparence.displayLien('a11yNavLienEnabled','uci_gestion_lien');});
-
-    // Issue #33  
-    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yMaskEnabled'), function() {UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');});    
+    
 
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_sel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_selectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_notsel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_notselectionne"); });
@@ -3609,10 +3607,10 @@ accessibilitytoolbar = {
         }
         UciMask.start();
 
-        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:black; opacity:0; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
+        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
 
     
-        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:black; opacity:0; -moz-transition: opacity 0.4s linear 0s; -webkit-transition: opacity 0.4s linear 0s;transition: opacity 0.4s linear 0s; }\n";
+        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
 
       }
       // if mask was launch before deactivation kill!
@@ -3836,43 +3834,6 @@ accessibilitytoolbar = {
     return colour;
   },
   
-    /*
-     *
-     * @param {String} colour The colour to convert.
-     *
-     * @returns {Object}
-     */
-    colourStrToRGB: function(colour) {
-        colour = colour.toLowerCase();
-
-        if (colour.substring(0, 3) === 'rgb') {
-            // rgb[a](0, 0, 0[, 0]) format.
-            var matches = /^rgba?\s*\((\d+),\s*(\d+),\s*(\d+)([^)]*)\)$/.exec(colour);
-            colour = {
-                red: (matches[1] / 255),
-                green: (matches[2] / 255),
-                blue: (matches[3] / 255)
-            }
-        } else {
-            // Hex digit format.
-            if (colour.charAt(0) === '#') {
-                colour = colour.substr(1);
-            }
-
-            if (colour.length === 3) {
-                colour = colour.replace(/^(.)(.)(.)$/, '$1$1$2$2$3$3');
-            }
-
-            colour = {
-                red: (parseInt(colour.substr(0, 2), 16) / 255),
-                green: (parseInt(colour.substr(2, 2), 16) / 255),
-                blue: (parseInt(colour.substr(4, 2), 16) / 255)
-            };
-        }
-
-        return colour;
-  },
-
   /*
    * remove the link from pictures disabled
    */

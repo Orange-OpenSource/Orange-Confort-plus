@@ -69,11 +69,13 @@ traduction['FR']={
   uci_title_fontfamily_radio_normal:"Police de caract\350res par d\351faut", 
   uci_title_fontfamily_radio_arial:"Police de caract\350res Arial",
   uci_title_fontfamily_radio_opendys:"Police de caract\350res Open Dyslexic",
-  uci_changecase_firstlettre_title:"Premi\350re Lettre De Chaque Mot En Majuscule",
-  uci_changecase_firstlettre:"Premi\350re Lettre En Majuscule",
+  uci_changecase_firstlettre_title:"Premi\350re lettre de chaque mot en majuscule",
+  uci_changecase_firstlettre:"Premi\350re Lettre",
   uci_changecase_normal_title:"Affichage du texte par d\351faut",
   uci_changecase_tolower_title:"texte en minuscule",
   uci_changecase_tolower:"minuscule",
+  uci_changecase_uppercase:"MAJUSCULE",
+  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
   uci_label_listmode:"Suppression de la mise en page",
   uci_label_alignleft:"Alignement des textes \340 gauche ",
   uci_label_putnumonlist:"Num\351rotation des \351l\351ments de liste",
@@ -187,5 +189,6 @@ traduction['FR']={
   uci_radio_light:"L\351ger",
   uci_radio_medium1:"Moyen",
   uci_radio_dark:"Fonc\351",
-  uci_txt_mask_opacity:"Opacit\351 du masque"
+  uci_txt_mask_opacity:"Opacit\351 du masque",
+  uci_close_mask : "Fermer le masque de lecture"
 };

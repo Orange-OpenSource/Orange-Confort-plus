@@ -104,7 +104,7 @@ UciApparence = {
               ]
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right"},
+          ["div", {"class":"uci_onglet_div margin-left-lg margin-right-lg"},
           // Line spacing
             ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
@@ -176,12 +176,14 @@ UciApparence = {
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ],
+            ]
+          ],
+          ["div", {"class":"uci_onglet_div margin-left-lg margin-right"},
             ["div", {id:"uci_mask_enabled"},
               ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"a11yMaskEnabled", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
               ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
             ],
-            ["div", {id:"uci_div_mask", style:(accessibilitytoolbar.userPref.get("a11yMaskEnabled")=== "true" ? "display:block" : "display:none")},
+            ["div", {id:"uci_div_mask"},
               ["div", {id:"uci_mask_epaisseur"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},

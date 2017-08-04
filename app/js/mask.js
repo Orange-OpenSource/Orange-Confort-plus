@@ -44,9 +44,9 @@ UciMask = {
         initCloseMask: function(){
           return accessibilitytoolbar.make(
             ["div", {id:"closeMaskDiv", "class": "closeMask"},
-              ["button", { id: "closeMask", onclick: "UciMask.closeMask()", title: accessibilitytoolbar.get('uci_close_guide'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
+              ["button", { id: "closeMask", onclick: "UciMask.closeMask()", title: accessibilitytoolbar.get('uci_close_mask'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
                 ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
-                ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
+                ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_mask')]
               ]
             ]
           );
@@ -92,7 +92,6 @@ UciMask = {
 
         closeMask: function(){
           document.getElementById('a11yMaskEnabled').checked = false;
-          UciApparence.displayLien('a11yMaskEnabled','uci_div_mask');
           accessibilitytoolbar.userPref.set("a11yMaskEnabled", "false");
           accessibilitytoolbar.setCSS();
           UciMask.maskEventRemove();
@@ -120,28 +119,24 @@ UciMask = {
 
         draw: function(positionY) {
           closeMask = document.getElementById("closeMask");
+          document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
         	switch(UciMask.settings.thickness) {
-        		case 'thin':
-              document.getElementById('topMask').style.opacity = "0.5";
-              document.getElementById('bottomMask').style.opacity = "0.5";
-        			break;
         		case 'medium':
-              document.getElementById('topMask').style.opacity = "0.25";
-              document.getElementById('bottomMask').style.opacity = "0.25";
+              document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
+              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
+              document.getElementById('howToClose').className += " howtocloselight";
         			break;
         		case 'thick':;
-              document.getElementById('topMask').style.opacity = "0.9";
-              document.getElementById('bottomMask').style.opacity = "0.9";
+              document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
+              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
         			break;
-        		case 'none':
         		default:
-        			document.getElementById('topMask').style.opacity = "0.5";
-              document.getElementById('bottomMask').style.opacity = "0.5";
+        			document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
+              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
           }
           var size = 90;
           closeMask.style.height = "90px";
           closeMask.style.width = "90px";
-          //closeMask.style.fontSize = "2rem";
         	if(typeof positionY == 'undefined') {
         		size = 0;
         	}
@@ -154,6 +149,7 @@ UciMask = {
           document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
           document.getElementById('closeMaskDiv').style.display = "block";
           document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
+          
         	var bottomMaskHeight = 0;
           var winHeight = 0;
           if (window.getComputedStyle) {

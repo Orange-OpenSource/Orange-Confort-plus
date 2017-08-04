@@ -186,5 +186,6 @@ traduction['EN']={
   uci_radio_light:"Light",
   uci_radio_medium1:"Medium",
   uci_radio_dark:"Dark",
-  uci_txt_mask_opacity:"Mask opacity"
+  uci_txt_mask_opacity:"Mask opacity",
+  uci_close_mask : "Close reading mask"
 };

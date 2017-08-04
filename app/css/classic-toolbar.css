@@ -55,9 +55,11 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #accessibilitytoolbarGraphic .cdu-icon-trash:before {
 	content: "\2302";
+	font-size: 1.2rem !important;
 }
 #accessibilitytoolbarGraphic .cdu-icon-edit:before {
 	content: "\270d";
+	font-size: 1.2rem !important;
 }
 #accessibilitytoolbarGraphic .cdu-icon-agencement:before {
 	content: "\1f4fa";
@@ -80,7 +82,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	color: #5F7ABD;
 }
 #accessibilitytoolbarGraphic .cdu-help_guide:before {
-	content: "\1f4d6";
+	content: "\1f4f7";
 }
 #accessibilitytoolbarGraphic .cdu-icon-info:before {
 	content: "\2757";
@@ -1866,7 +1868,7 @@ li.uci_dropdown-divider {
 	width: 38rem;
 	background: #fff;
 	border: 0;
-	margin: 2rem auto;
+	margin: 0 auto;
 
 }
 
@@ -2117,7 +2119,11 @@ li.uci_dropdown-divider {
 }
 .howtoclose{
 	color: #FFF;
+	font-weight: bold;
 	z-index: 2147483646;
 	padding-bottom: 0.625rem;
 	padding-right: 0.625rem;
+}
+.howtocloselight{
+	color: #000;
 }
