@@ -54,7 +54,7 @@ traduction['FR']={
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   uci_typo_titre_linespacing:"Espacement entre les lignes",
   uci_typo_titre_fontfamily:"Police de caract\350re",
-  uci_typo_titre_changecase:"Casse du texte",
+  uci_typo_titre_changecase:"Majuscules / Minuscules",
   uci_typo_help_fontfamily:"Permet de modifier la police d\351finie par le site internet afin d\47am\351liorer le confort lors de la lecture.",
   uci_typo_help_changecase:"Permet de modifier l\47affichage des textes en fonction de vos besoins.",
   uci_title_wordspacing_radio_normal:"Espace normal entre les mots",

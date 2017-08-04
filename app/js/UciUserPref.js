@@ -116,11 +116,12 @@ function UciUserPref() {
         "a11ySpacement-1": "a11ySpacement-0.5",
         "a11ySpacement-2": "a11ySpacement-1",
         //gestion de la casse des mots
-        "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false",
-        "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on",
+        "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false", // not used
+        "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on", // not used
         "a11yModifCasse-0": "a11yModifCasse-capitalize",
         "a11yModifCasse-1": "a11yModifCasse-keepit",
         "a11yModifCasse-2": "a11yModifCasse-lowercase",
+        "a11yModifCasse-3": "a11yModifCasse-uppercase",
         //gestion de l'apparence ; Alignement a gauche
         "a11yLeftText-0":           "a11yLeftText-false",
         "a11yLeftText-1":           "a11yLeftText-left",

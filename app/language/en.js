@@ -74,6 +74,8 @@ traduction['EN']={
   uci_changecase_normal_title:"Default text display",
   uci_changecase_tolower_title:"lower case text",
   uci_changecase_tolower:"lower case",
+  uci_changecase_uppercase:"MAJUSCULE",
+  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
   uci_label_listmode:"Cancel layout",
   uci_label_alignleft:"Text align left",
   uci_label_putnumonlist:"Numbering list elements",

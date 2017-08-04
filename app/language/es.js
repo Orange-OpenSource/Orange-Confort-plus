@@ -74,6 +74,8 @@ traduction['ES']={
   uci_changecase_normal_title:"Mostrar el texto por defecto",
   uci_changecase_tolower_title:"texto en min\372sculas",
   uci_changecase_tolower:"min\372sculas",
+  uci_changecase_uppercase:"MAJUSCULE",
+  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
   uci_label_listmode:"Desactiva el dise\361o de la p\341gina ",
   uci_label_alignleft:"Alinea textos a la izquierda",
   uci_label_putnumonlist:"Numeriza los esquemas",

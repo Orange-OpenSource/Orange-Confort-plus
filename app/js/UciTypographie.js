@@ -134,6 +134,16 @@ UciTypographie = {
                     title:accessibilitytoolbar.get('uci_changecase_tolower_title')
                   },
                   accessibilitytoolbar.get('uci_changecase_tolower')
+                ],
+                ["li", 
+                  {id:"uci_a11yModifCasse_uppercase",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_uppercase_title')
+                  },
+                  accessibilitytoolbar.get('uci_changecase_uppercase')
                 ]
               ]
             ]
