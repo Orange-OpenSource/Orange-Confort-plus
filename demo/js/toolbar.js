@@ -237,11 +237,12 @@ this.defautStoredValue = "0000651000650650650001100310000000006500000010";
         "a11ySpacement-1": "a11ySpacement-0.5",
         "a11ySpacement-2": "a11ySpacement-1",
         //gestion de la casse des mots
-        "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false",
-        "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on",
+        "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false", // not used
+        "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on", // not used
         "a11yModifCasse-0": "a11yModifCasse-capitalize",
         "a11yModifCasse-1": "a11yModifCasse-keepit",
         "a11yModifCasse-2": "a11yModifCasse-lowercase",
+        "a11yModifCasse-3": "a11yModifCasse-uppercase",
         //gestion de l'apparence ; Alignement a gauche
         "a11yLeftText-0":           "a11yLeftText-false",
         "a11yLeftText-1":           "a11yLeftText-left",
@@ -793,11 +794,13 @@ traduction['EN']={
   uci_title_fontfamily_radio_normal:"Default font face", 
   uci_title_fontfamily_radio_arial:"Arial font face",
   uci_title_fontfamily_radio_opendys:"Open Dyslexic font face",
-  uci_changecase_firstlettre_title:"First Character Of Each Word To Upper Case",
-  uci_changecase_firstlettre:"First Character To Upper",
+  uci_changecase_firstlettre_title:"First character of each word to upper case",
+  uci_changecase_firstlettre:"First Character",
   uci_changecase_normal_title:"Default text display",
   uci_changecase_tolower_title:"lower case text",
   uci_changecase_tolower:"lower case",
+  uci_changecase_uppercase:"UPPER CASE",
+  uci_changecase_uppercase_title:"Upper case text",
   uci_label_listmode:"Cancel layout",
   uci_label_alignleft:"Text align left",
   uci_label_putnumonlist:"Numbering list elements",
@@ -990,6 +993,8 @@ traduction['ES']={
   uci_changecase_normal_title:"Mostrar el texto por defecto",
   uci_changecase_tolower_title:"texto en min\372sculas",
   uci_changecase_tolower:"min\372sculas",
+  uci_changecase_uppercase:"MAJUSCULE",
+  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
   uci_label_listmode:"Desactiva el dise\361o de la p\341gina ",
   uci_label_alignleft:"Alinea textos a la izquierda",
   uci_label_putnumonlist:"Numeriza los esquemas",
@@ -1160,7 +1165,7 @@ traduction['FR']={
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   uci_typo_titre_linespacing:"Espacement entre les lignes",
   uci_typo_titre_fontfamily:"Police de caract\350re",
-  uci_typo_titre_changecase:"Casse du texte",
+  uci_typo_titre_changecase:"Majuscules / Minuscules",
   uci_typo_help_fontfamily:"Permet de modifier la police d\351finie par le site internet afin d\47am\351liorer le confort lors de la lecture.",
   uci_typo_help_changecase:"Permet de modifier l\47affichage des textes en fonction de vos besoins.",
   uci_title_wordspacing_radio_normal:"Espace normal entre les mots",
@@ -1175,11 +1180,13 @@ traduction['FR']={
   uci_title_fontfamily_radio_normal:"Police de caract\350res par d\351faut", 
   uci_title_fontfamily_radio_arial:"Police de caract\350res Arial",
   uci_title_fontfamily_radio_opendys:"Police de caract\350res Open Dyslexic",
-  uci_changecase_firstlettre_title:"Premi\350re Lettre De Chaque Mot En Majuscule",
-  uci_changecase_firstlettre:"Premi\350re Lettre En Majuscule",
+  uci_changecase_firstlettre_title:"Premi\350re lettre de chaque mot en majuscule",
+  uci_changecase_firstlettre:"Premi\350re Lettre",
   uci_changecase_normal_title:"Affichage du texte par d\351faut",
   uci_changecase_tolower_title:"texte en minuscule",
   uci_changecase_tolower:"minuscule",
+  uci_changecase_uppercase:"MAJUSCULE",
+  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
   uci_label_listmode:"Suppression de la mise en page",
   uci_label_alignleft:"Alignement des textes \340 gauche ",
   uci_label_putnumonlist:"Num\351rotation des \351l\351ments de liste",
@@ -1374,6 +1381,8 @@ uci_changecase_firstlettre:"Pierwsza litera wielka",
 uci_changecase_normal_title:"Domyślny wygląd tekstu",
 uci_changecase_tolower_title:"Tekst z małych liter",
 uci_changecase_tolower:"małe litery",
+uci_changecase_uppercase:"MAJUSCULE",
+uci_changecase_uppercase_title:"Affichage du texte en majuscule",
 uci_label_listmode:"Anuluj rozkład",
 uci_label_alignleft:"Ułóż tekst do lewej",
 uci_label_putnumonlist:"Lista z numerami elementów",
@@ -2192,6 +2201,16 @@ UciTypographie = {
                     title:accessibilitytoolbar.get('uci_changecase_tolower_title')
                   },
                   accessibilitytoolbar.get('uci_changecase_tolower')
+                ],
+                ["li", 
+                  {id:"uci_a11yModifCasse_uppercase",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yModifCasse") === "uppercase" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_changecase_uppercase_title')
+                  },
+                  accessibilitytoolbar.get('uci_changecase_uppercase')
                 ]
               ]
             ]
@@ -7800,43 +7819,6 @@ accessibilitytoolbar = {
     return colour;
   },
   
-    /*
-     *
-     * @param {String} colour The colour to convert.
-     *
-     * @returns {Object}
-     */
-    colourStrToRGB: function(colour) {
-        colour = colour.toLowerCase();
-
-        if (colour.substring(0, 3) === 'rgb') {
-            // rgb[a](0, 0, 0[, 0]) format.
-            var matches = /^rgba?\s*\((\d+),\s*(\d+),\s*(\d+)([^)]*)\)$/.exec(colour);
-            colour = {
-                red: (matches[1] / 255),
-                green: (matches[2] / 255),
-                blue: (matches[3] / 255)
-            }
-        } else {
-            // Hex digit format.
-            if (colour.charAt(0) === '#') {
-                colour = colour.substr(1);
-            }
-
-            if (colour.length === 3) {
-                colour = colour.replace(/^(.)(.)(.)$/, '$1$1$2$2$3$3');
-            }
-
-            colour = {
-                red: (parseInt(colour.substr(0, 2), 16) / 255),
-                green: (parseInt(colour.substr(2, 2), 16) / 255),
-                blue: (parseInt(colour.substr(4, 2), 16) / 255)
-            };
-        }
-
-        return colour;
-  },
-
   /*
    * remove the link from pictures disabled
    */
