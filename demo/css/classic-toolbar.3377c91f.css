@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 03-08-2017
+/* orange-confort-plus - version 4.1.0 - 04-08-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -25,6 +25,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 /*******************************************************icons font*********************************************/
 #accessibilitytoolbarGraphic .cdu-icon-agencement,
+#accessibilitytoolbarGraphic .cdu-icon-settings,
 #accessibilitytoolbarGraphic .cdu-icon-comportement,
 #accessibilitytoolbarGraphic .cdu-icon-croix,
 #closeMaskDiv .cdu-icon-croix,
@@ -38,7 +39,10 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-typographie,
 #accessibilitytoolbarGraphic .cdu-icon-info,
 #accessibilitytoolbarGraphic .cdu-icon-couleurs2,
-#accessibilitytoolbarGraphic .uci-presentation,
+#accessibilitytoolbarGraphic .uci-guide-discover,
+#accessibilitytoolbarGraphic .uci-guide-readability,
+#accessibilitytoolbarGraphic .uci-guide-layout,
+#accessibilitytoolbarGraphic .uci-guide-motor,
 #accessibilitytoolbarGraphic .cdu-icon-test,
 #accessibilitytoolbarGraphic .cdu-icon-test span {
 	font-family: 'orangeconfortplus';
@@ -54,15 +58,20 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #accessibilitytoolbarGraphic .cdu-icon-trash:before {
 	content: "\2302";
+	font-size: 1.2rem !important;
 }
 #accessibilitytoolbarGraphic .cdu-icon-edit:before {
 	content: "\270d";
+	font-size: 1.2rem !important;
 }
 #accessibilitytoolbarGraphic .cdu-icon-agencement:before {
 	content: "\1f4fa";
 }
 #accessibilitytoolbarGraphic .cdu-icon-comportement:before {
 	content: "\1f446";
+}
+#accessibilitytoolbarGraphic .cdu-icon-settings:before {
+	content: "\1f527";
 }
 #closeMaskDiv .cdu-icon-croix:before,
 #accessibilitytoolbarGraphic .cdu-icon-croix:before {
@@ -76,7 +85,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	color: #5F7ABD;
 }
 #accessibilitytoolbarGraphic .cdu-help_guide:before {
-	content: "\1f4d6";
+	content: "\1f4f7";
 }
 #accessibilitytoolbarGraphic .cdu-icon-info:before {
 	content: "\2757";
@@ -93,18 +102,21 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-couleurs2:before {
 	content: "\1f532";
 }
-#accessibilitytoolbarGraphic .uci-main-popin-help .uci-presentation:before {
-	content: "\1f4f0";
+#accessibilitytoolbarGraphic .uci-guide-discover:before {
+	content: "\1f680";
   font-size: 1.5rem;
-  margin-left: 0.625rem;
-  margin-right: 0.625rem;
-  vertical-align: middle;
-	display: inline-block;
-	margin-top: 1rem;
 }
-#accessibilitytoolbarGraphic .uci-buttom-speed .uci-presentation:before {
-	content: "\1f4f0";
-    font-size: 1.5rem;
+#accessibilitytoolbarGraphic .uci-guide-readability:before {
+	content: "\1f50e";
+  font-size: 1.5rem;
+}
+#accessibilitytoolbarGraphic .uci-guide-layout:before {
+	content: "\2630";
+  font-size: 1.5rem;
+}
+#accessibilitytoolbarGraphic .uci-guide-motor:before {
+	content: "\1f4bb";
+  font-size: 1.5rem;
 }
 #accessibilitytoolbarGraphic .cdu-icon-test .path1:before {
 	content: "\2b18";
@@ -861,10 +873,12 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .uci_choix {
 	background-color: #fff;
 	font-weight: 700;
-	margin-right: 0.7142rem;
 	margin-left: 0;
 	box-sizing: content-box;
 	flex: 1;
+}
+#accessibilitytoolbarGraphic .uci_choix + .uci_choix:not(.uci_clear) {
+	margin-left: 0.7142rem;
 }
 .uci_choix:last-child {
 	margin-right: 0;
@@ -977,20 +991,13 @@ li.uci_dropdown-divider {
 }
 /*****************************************Fin de la mise en place des ongletsk*********************************/
 /**********************************************Onglet typographie*********************************************/
-#uci_typo_div_left,
-#uci_typo_div_centre,
-#uci_typo_div_right,
-#uci_apparence_div_left,
-#uci_apparence_div_right {
+
+
+.uci_onglet_div {
 	float: left;
 	vertical-align: top;
-	margin-left: 10px;
-	margin-right: 20px;
 	margin-top: 0;
 	margin-bottom: 0;
-}
-#uci_apparence_div_left {
-	margin-right: 30px;
 }
 
 #uci_a11yMaskEpaisseur_thin span {
@@ -1149,6 +1156,9 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .padding-left {
 	padding-left: .625rem !important;
 }
+#accessibilitytoolbarGraphic .padding-right {
+	padding-right: .625rem !important;
+}
 #accessibilitytoolbarGraphic .margin-right {
 	margin-right: .625rem !important;
 }
@@ -1217,8 +1227,6 @@ li.uci_dropdown-divider {
 #uci_menu_remove_all {
 	float: right;
 	clear: both;
-	border: 2px solid #000;
-	margin-right: 1rem;
 }
 #uci_menu_remove_all .cdu-icon-reload2 {
 	padding-right: 0.3rem;
@@ -1820,7 +1828,8 @@ li.uci_dropdown-divider {
 }
 
 #uci_main_popin_help .uci-popin-li {
-	display: block;
+	display: flex;
+  align-items: center;
 	height: 3rem;
 	border-bottom: solid 1px grey;
 	
@@ -1835,10 +1844,8 @@ li.uci_dropdown-divider {
 
 #uci_main_popin_help .uci-popin-li .uci-popin-text {
 	font-size: 1rem;
-	display: inline-block;
 	vertical-align: middle;
 	cursor: pointer;
-	margin-top: 1rem;
 }
 
 .uci-popin-buttom{
@@ -1864,7 +1871,7 @@ li.uci_dropdown-divider {
 	width: 38rem;
 	background: #fff;
 	border: 0;
-	margin: 2rem auto;
+	margin: 0 auto;
 
 }
 
@@ -2115,7 +2122,11 @@ li.uci_dropdown-divider {
 }
 .howtoclose{
 	color: #FFF;
+	font-weight: bold;
 	z-index: 2147483646;
 	padding-bottom: 0.625rem;
 	padding-right: 0.625rem;
+}
+.howtocloselight{
+	color: #000;
 }
