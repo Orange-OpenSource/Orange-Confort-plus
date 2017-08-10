@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.4146c3ef.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.b6264820.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -469,7 +469,6 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         for (prefName in this.maskMatrixv3) {
             if (prefName !== "") {
                 // si la pref existe dans le stack sinon 0
-                console.log(prefName);
                 if(prefName in this.stackv3) {
                     pref = tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, "") + pref;
                 }
@@ -2768,7 +2767,7 @@ UciIhm = {
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
-            ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "button" },
+            ["button", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "type": "button" },
               ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-plus2", id: "uci_icon_moreconfort" }],
               ["span", { id: "uci_moreconfort_txt" }, accessibilitytoolbar.get('uci_txt_more_settings')]
             ]
@@ -2984,13 +2983,12 @@ UciIhm = {
     if (document.getElementById('uci_activateOnglet').style.display === "none") {
       document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-moins2";
       document.getElementById('uci_activateOnglet').style.display = "block";      
-      if (document.getElementById('uci_quick_a11yBigger_less').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
-      if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
+      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
+      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
-            document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                        
-            document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
+      document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
+      document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
+      document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
       if (document.getElementById('uci_zone_form')) {
         document.getElementById('uci_zone_form').style.display = "block";
         UciIhm.hide_confirm_validation();
@@ -3033,12 +3031,10 @@ UciIhm = {
     document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');
-
-    if (document.getElementById('uci_quick_a11yBigger_less').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '0');
-    if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '0');
+    document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
+    document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
+    document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
     document.getElementById('uci_moreconfort').removeAttribute('title');
@@ -3099,6 +3095,7 @@ UciIhm = {
   desactiveCDUForWebSite: function (e) {
     if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") !== "on") {
       document.getElementById('uci_left_toolbar').style.display = '';
+      document.getElementById('uci_profile_list').style.display = '';
       document.getElementById('uci_middle_toolbar').style.display = '';
       document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_disable_cdu');
       accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "on");
@@ -3107,6 +3104,7 @@ UciIhm = {
     } else {
       UciIhm.hide_more_confort(true);
       document.getElementById('uci_left_toolbar').style.display = 'none';
+      document.getElementById('uci_profile_list').style.display = 'none';
       document.getElementById('uci_middle_toolbar').style.display = 'none';
       document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_enable_cdu');
       accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "off");
@@ -3800,14 +3798,14 @@ UciMask = {
           // For W3C Browser
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
-            document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
+            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover',function(){UciMask.changeVisibility("visible")}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")}, false);
           }
           //For IE browser
           else if (document.attachEvent) {
             document.attachEvent('onmousemove', UciMask.maskEvent);
-            document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
+            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
           }
@@ -6220,7 +6218,7 @@ accessibilitytoolbar = {
       if (e.keyCode == '13' && etat == 'false') {
         accessibilitytoolbar.uci_OuvrirMenuOnglet(target);
       }
-      // Touches haut ou bas
+      // Touches haut ou gauche
       else if (e.keyCode == '38 ' || e.keyCode == '37') {
         // accede à l'onglet pr�c�dent, soit il existe, soit on revient au dernier �l�ment
         accessibilitytoolbar.uci_OuvrirMenuOnglet(accessibilitytoolbar.previousElementSibling(target_enfant) || target.children[(target.children.length - 1)]);
@@ -6230,14 +6228,17 @@ accessibilitytoolbar = {
       else if (e.keyCode == '40' || e.keyCode == '39') {
         // accede à l'onglet suivant, soit il existe, soit on revient au premier �l�ment
         accessibilitytoolbar.uci_OuvrirMenuOnglet(accessibilitytoolbar.nextElementSibling(target_enfant) || target.children[0]);
-
-        // on stoppe la propagation de l'�v�nement
         accessibilitytoolbar.stopEvt(e);
       }
     }
   },
+  thisOrpreviousElementSibling: function (el) {
+    if(!el.hasAttribute('role')) return (this.previousElementSibling(el));
+    return el;
+  },
   previousElementSibling: function (el) {
     if (el.previousElementSibling) {
+      if(!el.previousElementSibling.hasAttribute('role')) return (this.previousElementSibling(el.previousElementSibling));
       return el.previousElementSibling;
     } else {
       while (el = el.previousSibling) {
@@ -6245,8 +6246,13 @@ accessibilitytoolbar = {
       }
     }
   },
+  thisOrnextElementSibling: function (el) {
+    if(!el.hasAttribute('role')) return (this.nextElementSibling(el));
+    return el;
+  },
   nextElementSibling: function (el) {
     if (el.nextElementSibling) {
+      if(!el.nextElementSibling.hasAttribute('role')) return (this.nextElementSibling(el.nextElementSibling));
       return el.nextElementSibling;
     } else {
       while (el = el.nextSibling) {
@@ -6280,17 +6286,13 @@ accessibilitytoolbar = {
         // Touches haut ou gauche
         else if (e.keyCode == '38' || e.keyCode == '37') {
           // coche le bouton pr�c�dent, soit il existe, soit on revient au dernier �l�ment
-          accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || target.parentNode.children[(target.parentNode.children.length - 1)], true);
-
+          accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || accessibilitytoolbar.thisOrpreviousElementSibling(target.parentNode.children[(target.parentNode.children.length - 1)]), true);
           accessibilitytoolbar.stopEvt(e);
         }
         // Touches bas ou droite
         else if (e.keyCode == '40' || e.keyCode == '39') {
           // coche le bouton suivant, soit il existe, soit on revient au premier �l�ment
-          accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || target.parentNode.children[0], true);
-
-          // on stoppe la propagation de l'�v�nement
-          //IE9 & Other Browsers
+          accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || accessibilitytoolbar.thisOrnextElementSibling(target.parentNode.children[0]), true);
           accessibilitytoolbar.stopEvt(e);
         }
       }
@@ -6388,7 +6390,7 @@ accessibilitytoolbar = {
     var iterator = 0;
     for (iterator = 0; iterator < reponses.children.length; iterator++) {
       // on r�cup�re un fils
-      if (reponses.children[iterator] != elmt) {
+      if (reponses.children[iterator] != elmt && reponses.children[iterator].hasAttribute('role')) {
         reponses.children[iterator].setAttribute('aria-selected', 'false');
         reponses.children[iterator].tabIndex = '-1';
         reponses.children[iterator].parentNode.tabIndex = '-1';
@@ -6413,8 +6415,10 @@ accessibilitytoolbar = {
       for (iterator = 0; iterator < reponses.children.length; iterator++) {
         // on r�cup�re un fils
         children = reponses.children[iterator];
-        accessibilitytoolbar.uciAttachEvent('click', 'onclick', children, accessibilitytoolbar.uciRadioButtonEvent);
-        accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', children, accessibilitytoolbar.uciRadioButtonEvent);
+        if(children.hasAttribute('role')) {
+          accessibilitytoolbar.uciAttachEvent('click', 'onclick', children, accessibilitytoolbar.uciRadioButtonEvent);
+          accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', children, accessibilitytoolbar.uciRadioButtonEvent);
+        }
       }
     }
   },
@@ -6641,6 +6645,16 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('blur', 'onblur', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
       accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
     }
+    liButtonsPalette = document.getElementById("uci_reponses_couleurpolice").getElementsByTagName("li");
+    for (i = 0; i < liButtonsPalette.length; i++) {
+      accessibilitytoolbar.uciAttachEvent('blur', 'onblur', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
+      accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
+    }
+    liButtonsPalette = document.getElementById("uci_reponses_couleurbackground").getElementsByTagName("li");
+    for (i = 0; i < liButtonsPalette.length; i++) {
+      accessibilitytoolbar.uciAttachEvent('blur', 'onblur', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
+      accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
+    }
 
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_wordspacing');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_linespacement');
@@ -6726,6 +6740,8 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_sel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_selectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_notsel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_notselectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_visite'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_visite"); });
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleurpolice'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_texte"); });
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleurbackground'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_background"); });
 
     // add event to profile menu
     if (accessibilitytoolbar.profileEnabled) {
@@ -6853,7 +6869,6 @@ accessibilitytoolbar = {
   },
 
   HideColorPalettePret: function (target) {
-    // var element = /^uci_a11yNavLienSelColor(\S+)$/.exec(document.activeElement.id);
     if (document.activeElement.parentNode.id !== target.parentNode.id) {
       if (document.getElementById('uci_palette_couleur_lien_selectionne').style.display === "block") {
         document.getElementById('uci_palette_couleur_lien_selectionne').style.display = "none";
@@ -6861,6 +6876,10 @@ accessibilitytoolbar = {
         document.getElementById('uci_palette_couleur_lien_notselectionne').style.display = "none";
       } else if (document.getElementById('uci_palette_couleur_lien_visite').style.display === "block") {
         document.getElementById('uci_palette_couleur_lien_visite').style.display = "none";
+      } else if (document.getElementById('uci_palette_couleur_texte').style.display === "block") {
+        document.getElementById('uci_palette_couleur_texte').style.display = "none";
+      } else if (document.getElementById('uci_palette_couleur_background').style.display === "block") {
+        document.getElementById('uci_palette_couleur_background').style.display = "none";
       }
     }
   },
@@ -8164,19 +8183,23 @@ accessibilitytoolbar = {
     aCouleur.push(curCouleur);
     // add a link for custom color update
     curCouleur = ["li", {"class":"margin-left uci_inline uci_update_list margin-top-xl"},
+    ["div",
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
         ["div", {"class":"cdu_left"},
           ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
           ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_texte", style:"display:none"},
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
           ]
+        ]
         ],
+        ["div",
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_background')],
         ["div", {"class":"cdu_left"},
           ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
           ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_background", style:"display:none"},
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
           ]
+        ]
         ]
     ];
     aCouleur.push(curCouleur);
