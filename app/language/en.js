@@ -104,8 +104,8 @@ traduction['EN']={
   uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
   uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
   uci_help_links:"This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
-  uci_color_titre:"Combination of preset colors",
-  uci_color_titre_use_personal:"Select personalized colors",
+  uci_color_titre:"Font and background color",
+  uci_title_color_personnal:"Select personalized colors",
   uci_color_txt_texte:"Font color",
   uci_color_txt_background:"Background color",
   uci_color_warning_title:"Insufficient contrast",
@@ -176,7 +176,7 @@ traduction['EN']={
   uci_predefined_motor_help: "Start motor help",
   uci_profile_delete_warning: "ATTENTION",
   uci_button_valid_profil: "Update profile name",
-  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
+  uci_profile_name_format: "ENGLISH Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
   uci_previous: "previous",
   uci_next: "next",
   apparence : "apparence",
@@ -189,5 +189,6 @@ traduction['EN']={
   uci_radio_medium1:"Medium",
   uci_radio_dark:"Dark",
   uci_txt_mask_opacity:"Mask opacity",
-  uci_close_mask : "Close reading mask"
+  uci_close_mask : "Close reading mask",
+  update_custom_colors: "Update personalized colors"
 };

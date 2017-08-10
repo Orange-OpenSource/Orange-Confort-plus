@@ -27,7 +27,7 @@ namespace Orange.ConfortPlus.IEExtension
     /// </summary>
     public class StorageInfo
     {
-        private const string DEFAULT_USERPREF = "00006510006506506500000000000000000065000000100";
+        private const string DEFAULT_USERPREF = "0000651000390350270001100310000000006500000010";
         
         private const string TRUE_VALUE = "1";
         private const string FALSE_VALUE = "0";

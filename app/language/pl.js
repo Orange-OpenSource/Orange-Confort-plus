@@ -105,7 +105,7 @@ uci_help_disabletransp:"To funkcja umożliwiająca wyłączenie potencjalnie tra
 uci_help_disablepppictures:"Ta funkcja ukrywa grafiki umieszczone na stronie w celu uniknięcia zakłóceń w czytaniu. Grafiki użyte na stronie zastępowane są ich tekstowymi odpowiednikami. Odnośnik pozwala sprawdzenie grafiki na żądanie.",
 uci_help_links:"Ta funkcja pozwala zdefiniować widoczność linków. Możesz wybrać kolor oraz szczegóły formatowania.",
 uci_color_titre:"Połączenie ustawionych kolorów",
-uci_color_titre_use_personal:"Wybierz spersonalizowane kolory",
+uci_title_color_personnal:"Wybierz spersonalizowane kolory",
 uci_color_txt_texte:"Kolor czcionki",
 uci_color_txt_background:"Kolor tła",
 uci_color_warning_title:"Zbyt niski kontrast",
@@ -187,5 +187,6 @@ uci_menu_guide:"Guide pas \340 pas",
   uci_radio_medium1:"TODO",
   uci_radio_dark:"TODO",
   uci_txt_mask_opacity:"TODO",
-  uci_close_mask : "Close reading mask"
+  uci_close_mask : "Close reading mask",
+  update_custom_colors: "TODO"
 };

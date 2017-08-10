@@ -35,13 +35,12 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-reload2,
 #accessibilitytoolbarGraphic .cdu-icon-typographie,
 #accessibilitytoolbarGraphic .cdu-icon-info,
-#accessibilitytoolbarGraphic .cdu-icon-couleurs2,
+#accessibilitytoolbarGraphic .cdu-icon-color,
 #accessibilitytoolbarGraphic .uci-guide-discover,
 #accessibilitytoolbarGraphic .uci-guide-readability,
 #accessibilitytoolbarGraphic .uci-guide-layout,
 #accessibilitytoolbarGraphic .uci-guide-motor,
-#accessibilitytoolbarGraphic .cdu-icon-test,
-#accessibilitytoolbarGraphic .cdu-icon-test span {
+#accessibilitytoolbarGraphic .cdu-icon-masque{
 	font-family: 'orangeconfortplus';
 	speak: none;
 	font-style: normal;
@@ -96,8 +95,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-reload2:before {
 	content: "\21bb";
 }
-#accessibilitytoolbarGraphic .cdu-icon-couleurs2:before {
-	content: "\1f532";
+#accessibilitytoolbarGraphic .cdu-icon-masque:before {
+	content: "\268c";
 }
 #accessibilitytoolbarGraphic .uci-guide-discover:before {
 	content: "\1f680";
@@ -115,33 +114,57 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	content: "\1f4bb";
   font-size: 1.5rem;
 }
-#accessibilitytoolbarGraphic .cdu-icon-test .path1:before {
-	content: "\2b18";
-	color: rgb(246, 208, 0);
+
+#accessibilitytoolbarGraphic .cdu-icon-color .path1:before {
+  content: "\1f3a8";
 }
-#accessibilitytoolbarGraphic .cdu-icon-test .path2:before {
-	content: "\2b19";
-	margin-left: -1em;
-	color: rgb(95, 123, 190);
-	position: absolute;
+#accessibilitytoolbarGraphic .cdu-icon-color .path2:before {
+  content: "\1f3a9";
+  margin-left: -1em;
 }
-#accessibilitytoolbarGraphic .cdu-icon-test .path3:before {
-	content: "\2b1a";
-	margin-left: -1em;
-	color: rgb(78, 201, 36);
-	position: absolute;
+#accessibilitytoolbarGraphic .cdu-icon-color .path3:before {
+  content: "\1f3aa";
+	color: transparent;
+  margin-left: -1em;
 }
-#accessibilitytoolbarGraphic .cdu-icon-test .path4:before {
-	content: "\2b1b";
-	margin-left: -1em;
-	color: rgb(193, 67, 26);
-	position: absolute;
+#accessibilitytoolbarGraphic .cdu-icon-color .path4:before {
+  content: "\1f3ab";
+	color: transparent;
+  margin-left: -1em;
+}
+#accessibilitytoolbarGraphic .cdu-icon-color .path5:before {
+  content: "\1f3ac";
+	color: transparent;
+  margin-left: -1em;
+}
+#accessibilitytoolbarGraphic .cdu-icon-color .path6:before {
+  content: "\1f3ad";
+	color: transparent;
+  margin-left: -1em;
 }
 
+#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path1:before,
+#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path2:before {
+  color: #000;
+}
+#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path3:before {
+  color: #50bf88;
+}
+#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path4:before,
+#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path6:before {
+  color: #ffd200;
+}
+
+#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path5:before {
+  color: #b4e8f6;
+}
+
+#accessibilitytoolbarGraphic .onglet .cdu-icon-color span {
+	padding: 0 !important;
+}
 
 
 /*******************************************************Toolbar general*********************************************/
-/******************************************Chargement de la font orange**************************************************/
 #accessibilitytoolbarGraphic {
 	color: #000000;
 	position: relative;
@@ -154,6 +177,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	width: 100%;
 	display: block !important;
 }
+
 #accessibilitytoolbarGraphic input,
 #accessibilitytoolbarGraphic button {
 	color: #000;
@@ -172,6 +196,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	padding: 0;
 	margin: 0;
 }
+
 #accessibilitytoolbarGraphic input[type="radio"] + label,
 #accessibilitytoolbarGraphic input[type="radio"] + label:before,
 #accessibilitytoolbarGraphic input[type="radio"] + label:after {
@@ -180,7 +205,6 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	height: auto;
 }
 #accessibilitytoolbarGraphic input[type="radio"] + label {
-	border: 1px dotted transparent;
 	cursor: pointer;
 	display: inline-block;
 	font-style: normal;
@@ -251,7 +275,6 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	position: absolute;
 }
 #accessibilitytoolbarGraphic input[type="checkbox"] + label {
-	border: 1px dotted transparent;
 	cursor: pointer;
 	display: inline-block;
 	font-style: normal;
@@ -310,8 +333,34 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	color: #ddd;
 }
 #accessibilitytoolbarGraphic input[type="checkbox"]:focus + label {
-	border: 1px dotted #000;
+	border-width: 1px;
+	border-style: dotted;
 }
+
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox {
+  padding-left: 0;
+  height: 1.625rem;
+  width: 1.625rem;
+  box-sizing: content-box;
+  border-width: 2px;
+	border-style: solid;
+}
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox .cdu-icon-color{
+  font-size: 1.625rem;
+}
+
+
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox:after,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox:before,
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.uci_couleur_checkbox:after,
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.uci_couleur_checkbox:before {
+  width: 0;
+  height: 0;
+  border: none;
+  background: none;
+  content: "";
+}
+
 #accessibilitytoolbarGraphic a {
 	color:  #000;
 	text-decoration: none;
@@ -406,7 +455,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 #cdu_close button {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-	border: 0 none;
+	border: none;
 	cursor: pointer;
 	font-size: 1rem;
 	font-weight: bold;
@@ -420,7 +469,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	text-decoration: none !important;
 }
 div#remotecontrol {
-	border: 0 none;
+	border: none;
 	bottom: 20px;
 	margin: 0;
 	position: absolute;
@@ -431,7 +480,7 @@ html > body div#remotecontrol {
 	position: fixed;
 }
 div#remotecontrol img {
-	border: 0 none;
+	border: none;
 }
 .loopingmode-focused {
 	background-color: #fff !important;
@@ -446,7 +495,7 @@ div#remotecontrol img {
 }
 div#loopingBar {
 	background: url("../images/bg_menu.gif") repeat-y scroll left top #FFFFFF;
-	border: 1px solid #000;
+	border: 2px solid #000;
 	color: #000;
 	font-family: arial, helvetica, sans-serif;
 	font-size: 100%;
@@ -471,7 +520,7 @@ div#loopingBar strong {
 div#loopingBar a:link, div#loopingBar a:visited {
 	background-position: 1px 2px;
 	background-repeat: no-repeat;
-	border: 0 none;
+	border: none;
 	color: #000;
 	display: block;
 	height: 20px;
@@ -487,7 +536,7 @@ html > body div#loopingBar a:link, html > body div#loopingBar a:visited {
 div#loopingBar a:hover, div#loopingBar a:active, div#loopingBar a:focus {
 	background-color: #EFEFEF;
 	background-position: 0 1px;
-	border: 1px solid #000;
+	border: 2px solid #000;
 	color: #000;
 	display: block;
 	margin: 1px;
@@ -518,7 +567,7 @@ a#activable_to_activable_backward:link, a#activable_to_activable_backward:visite
 	visibility: hidden;
 }
 .cdu_hide {
-	border: 0 none !important;
+	border: none !important;
 	clip: rect(1px, 1px, 1px, 1px);
 	display: block;
 	height: 1px;
@@ -607,9 +656,9 @@ a.cdu_hide:focus {
 /* Safari 1.x */
 	-khtml-opacity: 0.2;
 }
-#uci_left_toolbar.uci_mask a,
-#uci_left_toolbar.uci_mask li,
+
 #uci_left_toolbar.uci_mask input,
+#uci_left_toolbar.uci_mask button,
 #uci_right_toolbar.uci_mask button{
 	cursor: not-allowed !important;
 }
@@ -720,7 +769,8 @@ a.cdu_hide:focus {
 	z-index: 2147483645;
 }
 .uci_submenu {
-	border: 2px solid #000;
+	border-width: 2px;
+	border-style: solid;
 	position: absolute;
 	right: -2px;
 	top: 3.125rem;
@@ -743,7 +793,7 @@ a.cdu_hide:focus {
 	padding: .625rem 1.25rem;
 }
 .uci_lang {
-	border: 0px none;
+	border: none;
   display: inline-flex;
 	margin: .625rem 1.25rem;
 }
@@ -807,9 +857,10 @@ a.cdu_hide:focus {
 	background-color: transparent;
 	border: none;
 }
-.uci_bton_menu:focus, .uci_bton_menu:hover {
+#accessibilitytoolbarGraphic button.uci_bton_menu:focus, 
+#accessibilitytoolbarGraphic button.uci_bton_menu:hover {
 	background-color: #000;
-	color: #FFF !important;
+	color: #FFF;
 }
 .uci_focus_outline .uci_focus_outline .uci_bton_menu:focus, 
 .uci_focus_outline .uci_focus_outline .uci_bton_menu:hover {
@@ -865,7 +916,7 @@ li.uci_dropdown-divider {
 .uci_choix, .uci_couleur_li {
 	color: #000000;
 	cursor: pointer;
-	border: 2px solid #000;
+	border: 2px solid #000000;
 }
 #accessibilitytoolbarGraphic .uci_choix {
 	background-color: #fff;
@@ -902,8 +953,8 @@ li.uci_dropdown-divider {
 #uci_left_toolbar.uci_mask #uci_reponses_bigger_quick_set.uci_choix:focus {
 	color: #000000 !important;
 }
-#uci_reponses_couleurpredefinie_quick_set .cdu-icon-test,
-#uci_reponses_couleurpredefinie_quick_set .cdu-icon-couleurs2 {
+
+#uci_reponses_couleurpredefinie_quick_set .cdu-icon-color {
 	font-size: 1.44345rem;
 	display: block;
 	padding: 0.0625rem;
@@ -961,10 +1012,9 @@ li.uci_dropdown-divider {
 	margin-bottom: -2px;
 }
 .onglet_1 {
-	border-bottom: 2px solid transparent;
-	border-top: 2px solid #000;
-	border-right: 2px solid #000;
-	border-left: 2px solid #000;
+	border-top-color: initial;
+	border-right-color: initial;
+	border-left-color: initial;
 	background-color: #fff;
 	color: #000;
 	margin-bottom: -2px;
@@ -981,7 +1031,8 @@ li.uci_dropdown-divider {
 }
 .uci_contenu_onglet {
 	background-color: #FFF;
-	border: 2px solid #000;
+	border-width: 2px;
+	border-style: solid;
 	display: none;
 	width: 100%;
 	padding: 0 .625rem 1.25rem .625rem;
@@ -1058,18 +1109,16 @@ li.uci_dropdown-divider {
 #uci_div_supprimer_miseenpage,
 #uci_div_alignement_gauche,
 #uci_div_numero_ligne,
-#uci_div_apparence_liens,
 #uci_div_desactiver_transparence,
 #uci_div_disabled_fond_picture,
 #uci_div_disabled_first_plan_picture,
 #uci_mask_enabled {
 	padding-top: 1.25rem;
 }
-#uci_div_mask {
-	margin-left: 1.3rem;
-}
+
 .uci_select_lien {
-	border: 2px solid #000;
+	border-width: 2px;
+	border-style: solid;
 	padding: 1px;
 	font-size: .875rem;
 }
@@ -1120,13 +1169,11 @@ li.uci_dropdown-divider {
 #uci_a11yDyslexyFont_opendyslexic {
 	font-family: arial, helvetica, sans-serif;
 }
-#uci_mask_epaisseur {
-	display: block;
-}
+
 .uci_div_conteneur_contenu_onglets .uci_liste_bton {
 	clear: both;
 }
-#uci_mask_epaisseur,
+
 #uci_div_lien_notselectionne,
 #uci_div_lien_visite, .uci_div_conteneur_contenu_onglets {
 	clear: both;
@@ -1161,6 +1208,9 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .margin-top-lg {
 	margin-top: 1.25rem !important;
+}
+#accessibilitytoolbarGraphic .margin-top-xl {
+	margin-top: 2.5rem !important;
 }
 #accessibilitytoolbarGraphic .margin-bottom-lg {
 	margin-bottom: 1.25rem !important;
@@ -1205,6 +1255,9 @@ li.uci_dropdown-divider {
 	vertical-align: middle;
 	margin: 1px;
 }
+#accessibilitytoolbarGraphic .uci_color_btn {
+	padding: 0;
+}
 #uci_div_lien_selectionne,
 #uci_div_lien_notselectionne,
 #uci_div_lien_visite {
@@ -1239,14 +1292,15 @@ li.uci_dropdown-divider {
 	padding: 5px;
 	margin: 15px;
 }
-/*********************************************Onglet aperÃ§u****************************************************/
+#uci_reponses_couleurpredefinie {
+	display: flex;
+  flex-wrap: wrap;
+}
 
-#uci_reponses_couleurpredefinie li {
-	max-width: 12rem;
+#uci_reponses_couleurpredefinie .uci_inline {
+	flex: 40%;
 }
-#uci_reponses_couleurpredefinie li a:hover {
-	color: white;
-}
+
 #accessibilitytoolbarGraphic #uci_reponses_couleurpredefinie .uci_choix,
 #uci_couleur_police,
 #aria_label_texte {
@@ -1274,7 +1328,8 @@ li.uci_dropdown-divider {
 	color: #FFF;
 	min-height: 40px;
 	min-width: 125px;
-	border: 2px solid #000;
+	border-width: 2px;
+	border-style: solid;
 }
 *+html .uci_button_valider, *+html .uci_button_reset {
 	width: 40%;
@@ -1715,38 +1770,6 @@ li.uci_dropdown-divider {
 	background-image: none;
 	border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic .ucibtn-blackonwhite {
-	color: #000;
-	background-color: #FFF;
-}
-#accessibilitytoolbarGraphic .ucibtn-whiteonblack {
-	color: #FFF;
-	background-color: #000;
-}
-#accessibilitytoolbarGraphic .ucibtn-blueonyellow {
-	color: #00F;
-	background-color: #FF0;
-}
-#accessibilitytoolbarGraphic .ucibtn-yellowonblue {
-	color: #FF0;
-	background-color: #00F;
-}
-#accessibilitytoolbarGraphic .ucibtn-greenonblack {
-	color: #090;
-	background-color: #000;
-}
-#accessibilitytoolbarGraphic .ucibtn-blackongreen {
-	color: #000;
-	background-color: #090;
-}
-#accessibilitytoolbarGraphic .ucibtn-blueonwhite {
-	color: #00F;
-	background-color: #FFF;
-}
-#accessibilitytoolbarGraphic .ucibtn-whiteonblue {
-	color: #FFF;
-	background-color: #00F;
-}
 /* hide promote link if exist */
 #confortPlusTarget {
 	display: none;
@@ -1894,7 +1917,8 @@ li.uci_dropdown-divider {
 }
 
 #uci_discover .uci-discover-frame {
-	border: #000 2px solid;
+	border-width: 2px;
+	border-style: solid;
 	width: 100%;
 	height: 16rem;
 	margin-left: auto;
@@ -2126,4 +2150,21 @@ li.uci_dropdown-divider {
 }
 .howtocloselight{
 	color: #000;
+}
+
+#accessibilitytoolbarGraphic .uci_update_list {
+  border: none;
+	text-align: left;
+	padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  min-width: 0.7142rem;
+	display: inline-block;
+  font-weight: bold;
+  line-height: 1;
+	user-select: none;
+	box-sizing: content-box;
+}
+
+#accessibilitytoolbarGraphic a.uci_update_link {
+  text-decoration: underline;
 }

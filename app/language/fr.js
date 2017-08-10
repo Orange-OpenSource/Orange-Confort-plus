@@ -104,8 +104,8 @@ traduction['FR']={
   uci_help_disabletransp:"Cette commande permet de d\351sactiver les effets de transparence \351ventuels de la page. Cela limite les perturbations lors de la lecture du contenu.",
   uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",
   uci_help_links:"Cette commande permet de d\351finir l\47apparence des liens dans la page. Vous pouvez choisir la couleur et la mise en forme de ceux-ci.",
-  uci_color_titre:"Combinaison de couleurs pr\351d\351finies",
-  uci_color_titre_use_personal:"Combinaison de couleurs personnalis\351es",
+  uci_color_titre:"Couleur du texte et de l'arrière plan",
+  uci_title_color_personnal:"Combinaison de couleurs personnalis\351es",
   uci_color_txt_texte:"Couleur du texte",
   uci_color_txt_background:"Couleur du fond",
   uci_color_warning_title:"Contraste insuffisant ",
@@ -174,7 +174,7 @@ traduction['FR']={
   uci_predefined_improve_readability: "Améliorer la lisibilité",
   uci_predefined_change_layout: "Modifier la mise en page",
   uci_predefined_motor_help: "Activer l'aide motrice",
-  uci_profile_delete_warning: "ATTENTION",
+  uci_profile_delete_warning: "Vous êtes sur le point de supprimer un profil, cette action est irréversible.",
   uci_button_valid_profil: "Modifier le nom du profil",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
   uci_default : "Aucun R\351glage",
@@ -190,5 +190,6 @@ traduction['FR']={
   uci_radio_medium1:"Moyen",
   uci_radio_dark:"Fonc\351",
   uci_txt_mask_opacity:"Opacit\351 du masque",
-  uci_close_mask : "Fermer le masque de lecture"
+  uci_close_mask : "Fermer le masque de lecture",
+  update_custom_colors: "Modifier les couleurs personnalisées"
 };

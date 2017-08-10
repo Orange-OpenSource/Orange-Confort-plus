@@ -18,16 +18,16 @@
  */
 function UciUserPref() {
     "use strict";
-    this.defautStoredValue = "0000651000650650650001100310000000006500000010";
+    this.defautStoredValue = "0000651000390350270001100310000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
       '0':this.defautStoredValue,
-      '1':"0000651000650650650001100110000000006500100010",
-      '2':"0000651000650650650111101310000000006500000010",
-      '3':"0000651000650650650001100310000101006500000010"
+      '1':"0000651000390350270001100110000000006500100010",
+      '2':"0000651000390350270111101310000000006500000010",
+      '3':"0000651000390350270001100310000101006500000010"
     }
 
     this.finish = false;
@@ -71,9 +71,9 @@ function UciUserPref() {
         "a11yBigger-3": "a11yBigger-110",
         "a11yBigger-4": "a11yBigger-125",
         "a11yBigger-5": "a11yBigger-175",
-        "a11yVisualSettings-0": "a11yVisualSettings-predefined",
-        "a11yVisualSettings-1": "a11yVisualSettings-personnal",
-        "a11yVisualPredefinedSettings-0": "a11yVisualPredefinedSettings-keepit",
+        "a11yVisualSettings-0": "a11yVisualSettings-false",
+        "a11yVisualSettings-1": "a11yVisualSettings-true",
+        "a11yVisualPredefinedSettings-0": "a11yVisualPredefinedSettings-personnal",
         "a11yVisualPredefinedSettings-1": "a11yVisualPredefinedSettings-whiteonblack",
         "a11yVisualPredefinedSettings-2": "a11yVisualPredefinedSettings-blackonwhite",
         "a11yVisualPredefinedSettings-3": "a11yVisualPredefinedSettings-blueonyellow",
@@ -254,8 +254,8 @@ function UciUserPref() {
         "a11yJumpToContent": "false",
         "a11yLinearize": "false",
         "a11yBigger": "keepit",
-        "a11yVisualSettings": "predefined",
-        "a11yVisualPredefinedSettings": "keepit",
+        "a11yVisualSettings": "false",
+        "a11yVisualPredefinedSettings": "blackonwhite",
         "a11yFontColor": "#000000",
         "a11yBackgroundColor": "#FFFFFF",
         "a11yMotorModeRemote": "false",
@@ -275,11 +275,11 @@ function UciUserPref() {
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
         "a11yNavLienEnabled":     "false",
-        "a11yNavLienSelColor":    "#000000",
+        "a11yNavLienSelColor":    "#FF0000",
         "a11yNavLienSelStyle":    "keepit",
-        "a11yNavLienNonVisColor": "#000000",
+        "a11yNavLienNonVisColor": "#0000FF",
         "a11yNavLienNonVisStyle": "keepit",
-        "a11yNavLienVisColor":    "#000000",
+        "a11yNavLienVisColor":    "#FF007F",
         "a11yNavLienVisStyle":    "keepit",
         "a11yMaskEnabled":       "false",
         // UNUSED a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
@@ -348,6 +348,7 @@ function UciUserPref() {
         for (prefName in this.maskMatrixv3) {
             if (prefName !== "") {
                 // si la pref existe dans le stack sinon 0
+                console.log(prefName);
                 if(prefName in this.stackv3) {
                     pref = tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, "") + pref;
                 }

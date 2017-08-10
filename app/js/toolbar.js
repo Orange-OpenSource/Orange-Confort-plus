@@ -1032,7 +1032,7 @@ function LoopingMode() {
     }
     // remove element with looping class
     elt = document.querySelector("[class*=loopingmode-focused]");
-    if(elt) elt.className = elt.className.replace(/loopingmode-focused {0,1}/, "");
+    if (elt) elt.className = elt.className.replace(/loopingmode-focused {0,1}/, "");
   };
 
   // public Api used by accessibilitytoolbar
@@ -2222,16 +2222,16 @@ accessibilitytoolbar = {
    * User preference manager
    */
   userPref: null,
-  
+
   /**
    * Enale profile management
    */
-  profileEnabled: false,
-  
+  profileEnabled: true,
+
   /**
    * Enale step by step guide management
    */
-  guideEnabled: false,
+  guideEnabled: true,
 
   /**
    * {LoopingMode} Looping mode Manager
@@ -2365,19 +2365,19 @@ accessibilitytoolbar = {
       else if (e.type == 'keydown') {
         // Touche Espace
         if (e.keyCode == '32') {
-                    accessibilitytoolbar.uciCocherRadioButton(target,true);
+          accessibilitytoolbar.uciCocherRadioButton(target, true);
         }
         // Touches haut ou gauche
         else if (e.keyCode == '38' || e.keyCode == '37') {
           // coche le bouton pr�c�dent, soit il existe, soit on revient au dernier �l�ment
-                    accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || target.parentNode.children[(target.parentNode.children.length-1)],true);
+          accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || target.parentNode.children[(target.parentNode.children.length - 1)], true);
 
           accessibilitytoolbar.stopEvt(e);
         }
         // Touches bas ou droite
         else if (e.keyCode == '40' || e.keyCode == '39') {
           // coche le bouton suivant, soit il existe, soit on revient au premier �l�ment
-                    accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || target.parentNode.children[0],true);
+          accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || target.parentNode.children[0], true);
 
           // on stoppe la propagation de l'�v�nement
           //IE9 & Other Browsers
@@ -2386,7 +2386,7 @@ accessibilitytoolbar = {
       }
     }
   },
-    uciCocherRadioButton: function(elmt,focus,updateIhmOnly) {
+  uciCocherRadioButton: function (elmt, focus, updateIhmOnly) {
     // on active le bouton en question
     elmt.setAttribute('aria-checked', 'true');
     elmt.tabIndex = '0';
@@ -2398,22 +2398,8 @@ accessibilitytoolbar = {
     // add the selected class
     elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/, "uci_couleur_li uci_couleur_li_selected");
     elmt.className = elmt.className.replace(/uci_choix{0,1}/, "uci_choix active");
-    if (elmt.id.match(/a11yBigger/g) || elmt.id.match(/a11yVisualPredefined/g)) {
-            if(updateIhmOnly || document.getElementById('uci_activateOnglet').style.display == 'block' && elmt.id.match(/uci_a11y/gi) !=null) {
-        var element = /^uci_(\S+)$/.exec(elmt.id);
-        // on vérifie que son copain existe dans les réglages rapides
-        if (document.getElementById('uci_quick_' + element[1])) {
-                    accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_quick_'+ element[1]),focus,updateIhmOnly);                    
-        }
-                if(focus) elmt.focus();
-      } else if (document.getElementById('uci_activateOnglet').style.display == 'none' && elmt.id.match(/uci_quick/gi) != null) {
-        var element = /^uci_quick_(\S+)$/.exec(elmt.id);
-                accessibilitytoolbar.uciCocherRadioButton(document.getElementById('uci_'+ element[1]),focus,updateIhmOnly);
-                if(focus) elmt.focus();
-      }
-    } else {
-            if(focus) elmt.focus();
-    }
+    
+    if (focus) elmt.focus();
 
     // on d�sactive ses fr�res
     var reponses = elmt.parentNode;
@@ -2438,45 +2424,45 @@ accessibilitytoolbar = {
         // make switch case on prefname
         prefName = resArray[resArray.length - 2];
         value = resArray[resArray.length - 1];
-        if (prefName === 'a11yNavLienSelColor') {
-          document.getElementById('uci_NavLienSel').firstChild.style.backgroundColor = value;
-          if (document.getElementById('uci_NavLienSel').firstChild.style.setProperty)
-            document.getElementById('uci_NavLienSel').firstChild.style.setProperty("background-color", value, "important");
-        } else if (prefName === 'a11yNavLienNonVisColor') {
-          document.getElementById('uci_NavLienNonVis').firstChild.style.backgroundColor = value;
-          if (document.getElementById('uci_NavLienSel').firstChild.style.setProperty)
-            document.getElementById('uci_NavLienNonVis').firstChild.style.setProperty("background-color", value, "important");
-        } else if (prefName === 'a11yNavLienVisColor') {
-          document.getElementById('uci_NavLienVis').firstChild.style.backgroundColor = value;
-          if (document.getElementById('uci_NavLienSel').firstChild.style.setProperty)
-            document.getElementById('uci_NavLienVis').firstChild.style.setProperty("background-color", value, "important");
+        switch(prefName) {
+          case 'a11yNavLienSelColor' :
+              document.getElementById('uci_NavLienSel').style.setProperty("background-color", value, "important");
+            break;
+          case 'a11yNavLienNonVisColor' :
+              document.getElementById('uci_NavLienNonVis').style.setProperty("background-color", value, "important");
+            break;
+          case 'a11yNavLienVisColor' :
+              document.getElementById('uci_NavLienVis').style.setProperty("background-color", value, "important");
+            break;
+          case 'a11yFontColor' :
+              document.getElementById('aria_label_texte').style.setProperty("background-color", value, "important");
+              document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("color", value, "important");
+              accessibilitytoolbar.checkLum(value,accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
+            break;
+          case 'a11yBackgroundColor' :
+              document.getElementById('uci_aria_label_fond').style.setProperty("background-color", value, "important");
+              document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("background-color", value, "important");
+              accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yFontColor"),value);
+            break;
         }
         accessibilitytoolbar.userPref.set(prefName, value);
         // if the user change the font or background color without activating the option, then activate it
-                if(!updateIhmOnly) {
-        if ((accessibilitytoolbar.userPref.get('a11yVisualSettings') !== 'personnal') && (resArray[resArray.length - 2] === 'a11yFontColor' || resArray[resArray.length - 2] === 'a11yBackgroundColor')) {
-          accessibilitytoolbar.userPref.set('a11yVisualSettings', 'personnal');
-                        document.getElementById('a11yVisualSettings-personnal').checked='checked';
-                        document.getElementById('a11yVisualSettings-predefined').removeAttribute('checked');
-                    } else { 
-                        if(accessibilitytoolbar.userPref.get('a11yVisualSettings') ==='personnal' && resArray[resArray.length-2] === 'a11yVisualPredefinedSettings') {
-                            accessibilitytoolbar.userPref.set('a11yVisualSettings','predefined');
-                            document.getElementById('a11yVisualSettings-predefined').checked='checked';
-                            document.getElementById('a11yVisualSettings-personnal').removeAttribute('checked');
-                        }
-                    }
-                }
-            }
+        if (!updateIhmOnly && accessibilitytoolbar.userPref.get('a11yVisualSettings') === 'false' && resArray[resArray.length - 2] === 'a11yVisualPredefinedSettings') {
+          accessibilitytoolbar.userPref.set('a11yVisualSettings', 'true');
+          document.getElementById('a11yVisualSettings').checked = true;
+          document.getElementById('uci_quick_a11yVisualSettings').checked = true;
         }
-        if(!updateIhmOnly) {
-          if(document.getElementById('uci_validation').className==='cdu_n'){
-            document.getElementById('uci_validation').className="";
-            UciIhm.hide_confirm_validation();
-            document.getElementById('uci_cdu_popin').style.display = "none";
-          }
-          document.getElementById('uci_zone_form').style.display="block";
+      }
     }
-        accessibilitytoolbar.setCSS();
+    if (!updateIhmOnly) {
+      if (document.getElementById('uci_validation').className === 'cdu_n') {
+        document.getElementById('uci_validation').className = "";
+        UciIhm.hide_confirm_validation();
+        document.getElementById('uci_cdu_popin').style.display = "none";
+      }
+      document.getElementById('uci_zone_form').style.display = "block";
+    }
+    accessibilitytoolbar.setCSS();
   },
 
   uci_OuvrirMenuOnglet: function (elmt, showReading) {
@@ -2484,7 +2470,7 @@ accessibilitytoolbar = {
     elmt.tabIndex = '0';
     elmt.parentNode.tabIndex = '0';
     var spanId = /^uci_contenu_(\S+)$/.exec(elmt.getAttribute('aria-controls'));
-    document.getElementById(spanId[1]).parentElement.className = 'uci_inline onglet_1';
+    document.getElementById(spanId[1]).parentElement.className = 'uci_inline onglet_0 onglet_1';
     document.getElementById(elmt.getAttribute('aria-controls')).style.display = "block";
     elmt.focus();
     // on d�sactive ses fr�res
@@ -2501,9 +2487,9 @@ accessibilitytoolbar = {
         document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display = "none";
       }
     }
-    if (document.getElementById("uci_reading") && showReading === undefined){
-      var name = elmt.firstChild.id.split("_")[elmt.firstChild.id.split("_").length-1];
-      UciHelp.show_reading(name, false);    
+    if (document.getElementById("uci_reading") && showReading === undefined) {
+      var name = elmt.firstChild.id.split("_")[elmt.firstChild.id.split("_").length - 1];
+      UciHelp.show_reading(name, false);
     }
   },
 
@@ -2712,20 +2698,22 @@ accessibilitytoolbar = {
     var toolbar = document.getElementById("cdu_toolbar");
     for (var i = 0; i < actionButtons.length; i++) {
       if (actionButtons[i].type && actionButtons[i].type !== 'submit' && actionButtons[i].type !== 'reset'
-            && !(actionButtons[i].id && (actionButtons[i].id==='uci_FR' || actionButtons[i].id==='uci_EN' || actionButtons[i].id==='uci_ES' || actionButtons[i].id==='uci_PL'))) {
+        && !(actionButtons[i].id && (actionButtons[i].id === 'uci_FR' || actionButtons[i].id === 'uci_EN' || actionButtons[i].id === 'uci_ES' || actionButtons[i].id === 'uci_PL'))) {
         accessibilitytoolbar.uciAttachEvent('click', 'onclick', actionButtons[i], accessibilitytoolbar.setPref);
+      }
     }
-        }
     for (i = 0; i < selectButtons.length; i++) {
       accessibilitytoolbar.uciAttachEvent('change', 'onchange', selectButtons[i], accessibilitytoolbar.setPref);
     }
-
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_a11yVisualPredefinedSettings_personnal_update'), function(e){
+      accessibilitytoolbar.stopEvt(e);
+      document.getElementById('uci_personnal_setting').style.display = "block";
+    });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_NavLienSel'), accessibilitytoolbar.displayOrNot);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_NavLienNonVis'), accessibilitytoolbar.displayOrNot);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_NavLienVis'), accessibilitytoolbar.displayOrNot);
-    document.getElementById('uci_NavLienSel').firstChild.onclick = function (e) { document.getElementById('uci_NavLienSel').click(); accessibilitytoolbar.stopEvt(e); };
-    document.getElementById('uci_NavLienNonVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienNonVis').click(); accessibilitytoolbar.stopEvt(e); };
-    document.getElementById('uci_NavLienVis').firstChild.onclick = function (e) { document.getElementById('uci_NavLienVis').click(); accessibilitytoolbar.stopEvt(e); };
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('aria_label_texte'), accessibilitytoolbar.displayOrNot);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_aria_label_fond'), accessibilitytoolbar.displayOrNot);
 
     var liButtonsPalette = document.getElementById("uci_reponses_couleur_lien_sel").getElementsByTagName("li");
     for (i = 0; i < liButtonsPalette.length; i++) {
@@ -2744,12 +2732,7 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
     }
 
-    // accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger');
-    // accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_bigger_quick_set');
-    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie_quick_set');
-
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_wordspacing');
-    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_charspacing');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_linespacement');
     if (this.getCompatible('a11yDyslexyFontEnabled')) {
       accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_fontfamily');
@@ -2772,23 +2755,26 @@ accessibilitytoolbar = {
     //gestion des evenement sur les onglets :
     accessibilitytoolbar.uci_aria_menu_simulation('uci_onglet_confort');
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_moreconfort'), UciIhm.more_confort);
-    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_close_toolbar'),function() {
-      if(document.getElementById('uci_activateOnglet').style.display === 'block') return false;
-      UciValidation.Annulation();
-      UciIhm.ToolbarHide(); 
-      UciIhm.hide_confirm_validation();
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_close_toolbar'), function () {
+      if (document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      if ((accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
+      || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
+        UciValidation.Annulation();
+        UciIhm.ToolbarHide();
+        UciIhm.hide_confirm_validation();
+      }
     });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_remove_all'), UciIhm.remove_all);
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_help_menu_button'),function(e) {UciIhm.uci_toggle_menu('uci_help_menu',e)});
-        accessibilitytoolbar.uciAttachEvent('focusout','onfocusout',document.getElementById('uci_help_list'),UciIhm.setFocusOut);
-        accessibilitytoolbar.uciAttachEvent('focusin','onfocusin',document.getElementById('uci_help_list'),UciIhm.setFocusIn);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_help_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_help_menu', e) });
+    accessibilitytoolbar.uciAttachEvent('focusout', 'onfocusout', document.getElementById('uci_help_list'), UciIhm.setFocusOut);
+    accessibilitytoolbar.uciAttachEvent('focusin', 'onfocusin', document.getElementById('uci_help_list'), UciIhm.setFocusIn);
 
     /********************************************** gestion de l'aide ***********************************************/
-    if(accessibilitytoolbar.guideEnabled) { 
+    if (accessibilitytoolbar.guideEnabled) {
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_ouverture_guide'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.uci_close_menu('uci_help_menu'); UciHelp.show_popin() });
     }
 
-    
+
 
     /******************************************************************************************************/
 
@@ -2827,32 +2813,28 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarDisplayHelp('uci_help_mask'); });
     accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_help_mask'); });
 
-        accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('a11yNavLienEnabled'), function() {UciApparence.displayLien('a11yNavLienEnabled','uci_gestion_lien');});
-    
-
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_sel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_selectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_notsel'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_notselectionne"); });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document.getElementById('uci_reponses_couleur_lien_visite'), function (event) { UciApparence.uciFermetureOverlay(event, "uci_palette_couleur_lien_visite"); });
-    
+
     // add event to profile menu
-    if(accessibilitytoolbar.profileEnabled) {
-      UciProfile.create_menu_events();    
+    if (accessibilitytoolbar.profileEnabled) {
+      UciProfile.create_menu_events();
       // add behavior for profile save : 
-      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function(e) {accessibilitytoolbar.stopEvt(e);document.getElementById('uci_validation').className = "cdu_n";UciProfile.showProfilePopin()});
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function (e) { accessibilitytoolbar.stopEvt(e); document.getElementById('uci_validation').className = "cdu_n"; UciProfile.showProfilePopin() });
 
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
-      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_menu_button'),function(e){UciIhm.uci_toggle_menu('uci_profile_menu',e)});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci-onoffswitch'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_less'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yBigger_more'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_moreconfort'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_profile_menu_button'),function() {UciIhm.setFocusOut()});    
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_help_menu_button'),function() {UciProfile.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('focus','onfocus',document.getElementById('uci_close_toolbar'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_valider'),function() {UciProfile.setFocusOut();UciIhm.setFocusOut()});
-    }        
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_profile_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_profile_menu', e) });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_moreconfort'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_profile_menu_button'), function () { UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_help_menu_button'), function () { UciProfile.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+    }
   },
   /**
    * Function event implementation
@@ -2870,12 +2852,12 @@ accessibilitytoolbar = {
 
     // Add a class to the toolbar for focus display
     accessibilitytoolbar.uciAttachEvent('mousedown', 'onmousedown', document, function () {
-      if(document.getElementById("accessibilitytoolbarGraphic")) {
+      if (document.getElementById("accessibilitytoolbarGraphic")) {
         document.getElementById("accessibilitytoolbarGraphic").className = '';
       }
     });
     accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document, function () {
-      if(document.getElementById("accessibilitytoolbarGraphic")) {
+      if (document.getElementById("accessibilitytoolbarGraphic")) {
         document.getElementById("accessibilitytoolbarGraphic").className = 'uci_focus_outline';
       }
     });
@@ -2930,6 +2912,14 @@ accessibilitytoolbar = {
         idCible = "uci_palette_couleur_lien_visite";
         idEnfant = document.getElementById('uci_a11yNavLienVisColor_' + accessibilitytoolbar.userPref.get("a11yNavLienVisColor"));
         break;
+      case 'aria_label_texte':
+        idCible = "uci_palette_couleur_texte";
+        idEnfant = document.getElementById('uci_a11yFontColor_' + accessibilitytoolbar.userPref.get("a11yFontColor"));
+        break;
+      case 'uci_aria_label_fond':
+        idCible = "uci_palette_couleur_background";
+        idEnfant = document.getElementById('uci_a11yBackgroundColor_' + accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
+        break;
     }
     if (document.getElementById(idCible) !== null) {
       if (document.getElementById(idCible).style.display === "none") {
@@ -2969,8 +2959,8 @@ accessibilitytoolbar = {
    * If user has change his preference, save the change
    * @see {ToolbarData}
    */
-    saveUserPref: function (profilName) {
-        this.userPref.updateUserPref(profilName);
+  saveUserPref: function (profilName) {
+    this.userPref.updateUserPref(profilName);
   },
 
   /*
@@ -3012,8 +3002,8 @@ accessibilitytoolbar = {
       contentToolbar.appendChild(accessibilitytoolbar.createToolbar());
       document.getElementById('cdu_zone').appendChild(contentToolbar);
       // create only once
-      if(!document.getElementById('uci_cdu_popin')) {
-        document.getElementById('accessibilitytoolbarGraphic').appendChild(accessibilitytoolbar.make(["div", { id: "uci_cdu_popin", "class":"uci_cdu_popin", style: "display:none;" }]));
+      if (!document.getElementById('uci_cdu_popin')) {
+        document.getElementById('accessibilitytoolbarGraphic').appendChild(accessibilitytoolbar.make(["div", { id: "uci_cdu_popin", "class": "uci_cdu_popin", style: "display:none;" }]));
       }
       // add JS behaviour
       accessibilitytoolbar.createObjectBehaviour();
@@ -3060,7 +3050,7 @@ accessibilitytoolbar = {
       document.getElementById('cdu_close').style.display = "block";
     }
     document.getElementById("cdu_toolbar").className = 'cdu_displayN';
-    document.getElementById("uci_cdu_popin").className = 'cdu_displayN';
+    document.getElementById("uci_cdu_popin").style.display = "none";
   },
 
   close: function () {
@@ -3132,23 +3122,23 @@ accessibilitytoolbar = {
     event = e || window.event;
     target = e.target || window.event.srcElement;
     // speciffic case for font-size
-    if(target.id && target.id.match(/_a11yBigger_/)) {
-      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;    
+    if (target.id && target.id.match(/_a11yBigger_/)) {
+      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
       aSizeValues = ["keepit", "110", "125", "150", "175", "200"];
       prefName = "a11yBigger";
       currentValue = accessibilitytoolbar.userPref.get(prefName);
       index = aSizeValues.indexOf(currentValue);
-      if(target.id.match(/_a11yBigger_less/)) {
-        value = aSizeValues[index-1];
-        if(value === "keepit") {
+      if (target.id.match(/_a11yBigger_less/)) {
+        value = aSizeValues[index - 1];
+        if (value === "keepit") {
           document.getElementById("uci_quick_a11yBigger_less").setAttribute("disabled", true);
           document.getElementById("uci_a11yBigger_less").setAttribute("disabled", true);
         }
         document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
         document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
       } else {
-        value = aSizeValues[index+1];                                                            
-        if(value === "200") {
+        value = aSizeValues[index + 1];
+        if (value === "200") {
           document.getElementById("uci_quick_a11yBigger_more").setAttribute("disabled", true);
           document.getElementById("uci_a11yBigger_more").setAttribute("disabled", true);
         }
@@ -3165,68 +3155,78 @@ accessibilitytoolbar = {
       document.getElementById('uci_zone_form').style.display = "block";
       document.getElementById('uci_cdu_popin').style.display = "none";
     }
-    
+
     // for checkbox default value when unckecked = false
     if (target.type == "checkbox" && (!target.checked || !target.checked == "checked")) {
       value = "false";
     }
+    if (target.id && target.id.match(/a11yVisualSettings/)) {
+      if(value !== "false") {
+        document.getElementById("uci_quick_a11yVisualSettings").checked = true;
+        document.getElementById("a11yVisualSettings").checked = true;          
+      } else {
+        document.getElementById("uci_quick_a11yVisualSettings").checked = false;
+        document.getElementById("a11yVisualSettings").checked = false;
+      }
+      prefName = "a11yVisualSettings";
+    }
     accessibilitytoolbar.userPref.set(prefName, value);
 
-        accessibilitytoolbar.setCSS();
+    accessibilitytoolbar.setCSS();
   },
 
-    /**
-     * Update IHM element when updating setting value with profiles for example
-     * 
-     */
-    updateIhmFormsSettings: function() {
-        var pref,prefarray,ariaRadioSettings = ["a11yDyslexyFont","a11ySpacement","a11yLineSpacement",
-                            "a11yModifCasse","a11yMaskEpaisseur","a11yNavLienSelColor","a11yNavLienNonVisColor",
-                            "a11yNavLienVisColor","a11yVisualPredefinedSettings","a11yFontColor","a11yBackgroundColor",
-                            "a11yDelayBeforeClick","a11yMenuPositionning","a11yDelayBeforeLoop","a11yQuickMode"];
-        var checkboxSettings = ["a11yLinearize","a11yLeftText","a11yNumerotationList","a11yNavLienEnabled","a11ySupEffetTransp","a11ySupImageFont","a11ySupImageFirstPlan","a11yMaskEnabled","a11yJumpToContent","a11yMotorModeRemote","a11yMotorModeLooping"];
-        var radioSettings = ["a11yVisualSettings-predefined","a11yVisualSettings-personnal"];
-        var selectSettings = ["a11yNavLienSelStyle","a11yNavLienNonVisStyle","a11yNavLienVisStyle"];
-        for(pref in ariaRadioSettings) {
-            accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_"+ariaRadioSettings[pref]+"_"+accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])),false,true);
-        }
-        for(pref in checkboxSettings) {
-            if(accessibilitytoolbar.userPref.get(checkboxSettings[pref]) === "true") {
-                document.getElementById(checkboxSettings[pref]).checked = true;
-            } else {
-                document.getElementById(checkboxSettings[pref]).checked = false;
-            }
-        }
-        for(pref in radioSettings) {
-            prefarray = radioSettings[pref].split("-");
-            if(accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1]) {
-                document.getElementById(radioSettings[pref]).checked = true;
-            } else {
-                document.getElementById(radioSettings[pref]).checked = false;
-            }
-        }
-        for(pref in selectSettings) {
-            var sel = document.getElementById(selectSettings[pref]);
-            var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
-            var opts = sel.options;
-            for (var opt, j = 0; opt = opts[j]; j++) {
-                if (opt.value == val) {
-                sel.selectedIndex = j;
-                break;
-                }
-            }
+  /**
+   * Update IHM element when updating setting value with profiles for example
+   * 
+   */
+  updateIhmFormsSettings: function () {
+    var pref, prefarray, ariaRadioSettings = ["a11yDyslexyFont", "a11ySpacement", "a11yLineSpacement",
+      "a11yModifCasse", "a11yMaskEpaisseur", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
+      "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
+      "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
+    var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
+    // var radioSettings = ["a11yVisualSettings-predefined", "a11yVisualSettings-personnal"];
+    // var selectSettings = ["a11yNavLienSelStyle", "a11yNavLienNonVisStyle", "a11yNavLienVisStyle"];
+    for (pref in ariaRadioSettings) {
+      accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
     }
+    for (pref in checkboxSettings) {
+      if (accessibilitytoolbar.userPref.get(checkboxSettings[pref]) === "true") {
+        document.getElementById(checkboxSettings[pref]).checked = true;
+      } else {
+        document.getElementById(checkboxSettings[pref]).checked = false;
+      }
+    }
+    /*for (pref in radioSettings) {
+      prefarray = radioSettings[pref].split("-");
+      if (accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1]) {
+        document.getElementById(radioSettings[pref]).checked = true;
+      } else {
+        document.getElementById(radioSettings[pref]).checked = false;
+      }
+    }
+    for (pref in selectSettings) {
+      var sel = document.getElementById(selectSettings[pref]);
+      var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
+      var opts = sel.options;
+      for (var opt, j = 0; opt = opts[j]; j++) {
+        if (opt.value == val) {
+          sel.selectedIndex = j;
+          break;
+        }
+      }
+    }*/
     document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_less").removeAttribute("disabled");
-    if(accessibilitytoolbar.userPref.get("a11yBigger") === "keepit") {
-        document.getElementById("uci_quick_a11yBigger_less").setAttribute("disabled", true);
-        document.getElementById("uci_a11yBigger_less").setAttribute("disabled", true);
+    if (accessibilitytoolbar.userPref.get("a11yBigger") === "keepit") {
+      document.getElementById("uci_quick_a11yBigger_less").setAttribute("disabled", true);
+      document.getElementById("uci_a11yBigger_less").setAttribute("disabled", true);
     }
-    if(accessibilitytoolbar.userPref.get("a11yBigger") === "200") {
-        document.getElementById("uci_quick_a11yBigger_more").setAttribute("disabled", true);
-        document.getElementById("uci_a11yBigger_more").setAttribute("disabled", true);
+    if (accessibilitytoolbar.userPref.get("a11yBigger") === "200") {
+      document.getElementById("uci_quick_a11yBigger_more").setAttribute("disabled", true);
+      document.getElementById("uci_a11yBigger_more").setAttribute("disabled", true);
     }
   },
 
@@ -3236,14 +3236,10 @@ accessibilitytoolbar = {
   jumpToContent: function () {
     if (this.userPref.get("a11yJumpToContent") === "true" && this.contentToJumpTo) {
       if (!document.location.href.match(/#.+$/)) {
-        console.log('update href');
-        console.log(this.contentToJumpTo);
         document.location.href = "#" + this.contentToJumpTo;
       }
     } else {
-      console.log('else....');
       if (document.location.hash === '#' + this.contentToJumpTo) {
-        console.log('clearHash');
         document.location.hash = "";
       }
     }
@@ -3334,7 +3330,7 @@ accessibilitytoolbar = {
    * 2. add a new STYLE node with the user's preferences
    */
   setCSS: function (init, demo) {
-        var links, i, allElts,  done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref;
+    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref;
     localUserPref = accessibilitytoolbar.userPref;
     // were in demo mode
     if (demo) {
@@ -3343,17 +3339,17 @@ accessibilitytoolbar = {
       try {
         demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
         // just for IE11, check if we're on ie11
-        if(!!window.MSInputMethodContext && !!document.documentMode) {
-            try {
-                demoFrameDocument.createStyleSheet().cssText="";
-            } catch(fa) {
-                if(demoFrameDocument.styleSheets[0])
-                    demoFrameDocument.styleSheets[0].cssText="";
-            }
+        if (!!window.MSInputMethodContext && !!document.documentMode) {
+          try {
+            demoFrameDocument.createStyleSheet().cssText = "";
+          } catch (fa) {
+            if (demoFrameDocument.styleSheets[0])
+              demoFrameDocument.styleSheets[0].cssText = "";
+          }
         } else {
-            if (demoFrameDocument.getElementsByTagName('head')[0]) {
-                demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
-            }
+          if (demoFrameDocument.getElementsByTagName('head')[0]) {
+            demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
+          }
         }
       } catch (e) { }
     } else {
@@ -3367,25 +3363,25 @@ accessibilitytoolbar = {
           accessibilitytoolbar.show();
         }
       }
-      
+
       indexIFrame = 0;
       TheIFrames = document.getElementsByTagName("iframe");
       if (TheIFrames.length > 0) {
-          while (theIFrame = TheIFrames[indexIFrame]) {
-              try {
-                  theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-                  if (theIFrameDocument.getElementsByTagName('head')[0]) {
-                      theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
-                  }
-              } catch (e) { }
-              indexIFrame++;
-          }
+        while (theIFrame = TheIFrames[indexIFrame]) {
+          try {
+            theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+            if (theIFrameDocument.getElementsByTagName('head')[0]) {
+              theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+            }
+          } catch (e) { }
+          indexIFrame++;
+        }
       }
       // Remove previous user style
       if (document.getElementById("a11yUserPrefStyle")) {
         document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
 
-            
+
         /*
         * remove css to frames if possible
         * Works only if frame src is onto the same domain
@@ -3467,10 +3463,10 @@ accessibilitytoolbar = {
       // make it proportional to the initial font          
       fontSizeDef = fontSizeBody = '16px';
       if (window.getComputedStyle) {
-                // get the font-size from html tag
-                fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0],null).getPropertyValue("font-size") || '16px';
-                // get the font-size from the body
-                fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0],null).getPropertyValue("font-size") || '16px';
+        // get the font-size from html tag
+        fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0], null).getPropertyValue("font-size") || '16px';
+        // get the font-size from the body
+        fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0], null).getPropertyValue("font-size") || '16px';
       }
 
       if (localUserPref.get("a11yBigger") !== "keepit") {
@@ -3518,7 +3514,7 @@ accessibilitytoolbar = {
       if (localUserPref.get("a11yNavLienEnabled") !== "false") {
         //gestion des liens non visités
         if (localUserPref.get("a11yNavLienNonVisStyle") === "border") {
-          s += "a:link  {border: 1px solid !important; color : " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+          s += "a:link  {border: 2px solid !important; color : " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
         } else if (localUserPref.get("a11yNavLienNonVisStyle") === "bold") {
           s += "a:link  {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
         } else if (localUserPref.get("a11yNavLienNonVisStyle") === "underline") {
@@ -3529,7 +3525,7 @@ accessibilitytoolbar = {
 
         //gestion des liens visités
         if (localUserPref.get("a11yNavLienVisStyle") === "border") {
-          s += "a:visited {border: 1px solid !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+          s += "a:visited {border: 2px solid !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
         } else if (localUserPref.get("a11yNavLienVisStyle") === "bold") {
           s += "a:visited {font-weight: bold !important; color : " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
         } else if (localUserPref.get("a11yNavLienVisStyle") === "underline") {
@@ -3609,7 +3605,7 @@ accessibilitytoolbar = {
 
         s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
 
-    
+
         s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
 
       }
@@ -3624,9 +3620,9 @@ accessibilitytoolbar = {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
         document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
       }
-      if ((localUserPref.get("a11yVisualSettings") === "predefined" && localUserPref.get("a11yVisualPredefinedSettings") !== "keepit")
-        || (localUserPref.get("a11yVisualSettings") === "personnal" && localUserPref.get("a11yFontColor") !== localUserPref.get("a11yBackgroundColor"))) {
-        if (localUserPref.get("a11yVisualSettings") === "predefined") {
+      if (localUserPref.get("a11yVisualSettings") === "true") {
+        // || (localUserPref.get("a11yVisualSettings") === "personnal" && localUserPref.get("a11yFontColor") !== localUserPref.get("a11yBackgroundColor"))) {
+        if (localUserPref.get("a11yVisualPredefinedSettings") !== "personnal") {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
             element = document.getElementById('uci_reponses_bigger_quick_set');
@@ -3647,7 +3643,6 @@ accessibilitytoolbar = {
           if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
             fontColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
             backGroundColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].backGroundColor;
-
           }
           /*defect 67 */
           if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
@@ -3660,29 +3655,7 @@ accessibilitytoolbar = {
           }
         }
         else {
-          /**                    
-          http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
-          */
-          LuminositeFond = accessibilitytoolbar.relativeLum(localUserPref.get("a11yBackgroundColor"));
-
-          LuminositePolice = accessibilitytoolbar.relativeLum(localUserPref.get("a11yFontColor"));
-
-          //calcul du contraste entre 2 couleurs
-          /*
-          contrast ratio
-              (L1 + 0.05) / (L2 + 0.05), where
-                  L1 is the relative luminance of the lighter of the colors, and
-                  L2 is the relative luminance of the darker of the colors.
-          */
-          if (!init) {
-            if (((Math.max(LuminositePolice, LuminositeFond) + 0.05) / (Math.min(LuminositePolice, LuminositeFond) + 0.05)) < 4.5) {
-              if (document.getElementById('uci_message_constraste').style.display === 'none') {
-                document.getElementById('uci_message_constraste').style.display = 'block';
-              }
-            } else if (document.getElementById('uci_message_constraste').style.display === 'block') {
-              document.getElementById('uci_message_constraste').style.display = 'none';
-            }
-          }
+          accessibilitytoolbar.checkLum(localUserPref.get("a11yFontColor"),localUserPref.get("a11yBackgroundColor"),init);
           fontColor = localUserPref.get("a11yFontColor");
           backGroundColor = localUserPref.get("a11yBackgroundColor");
         }
@@ -3690,13 +3663,15 @@ accessibilitytoolbar = {
         s += "* { color:" + fontColor + " !important; }\n";
         s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
         // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
-        s += "input { border-width: 1px !important; border-style: solid !important}\n";
-        s += "td,th {border:1px solid " + fontColor + " !important; padding:.2em !important;}";
+        s += "input { border-width: 2px !important; border-style: solid !important}\n";
+        s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
         s += "table {border-collapse: collapse !important;}";
         s += "* { background-color:" + backGroundColor + " !important;}";
         // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
         // background:" + backGroundColor + " !important; }\n";
         s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
+        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
+        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
 
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
       }
@@ -3725,19 +3700,19 @@ accessibilitytoolbar = {
           try {
             demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
             // just for IE11, check if we're on ie11
-            if(!!window.MSInputMethodContext && !!document.documentMode) {
-                try {
-                    demoFrameDocument.createStyleSheet().cssText=s;
-                } catch(fa) {
-                    if(demoFrameDocument.styleSheets[0])
-                        demoFrameDocument.styleSheets[0].cssText=s;
-                }
+            if (!!window.MSInputMethodContext && !!document.documentMode) {
+              try {
+                demoFrameDocument.createStyleSheet().cssText = s;
+              } catch (fa) {
+                if (demoFrameDocument.styleSheets[0])
+                  demoFrameDocument.styleSheets[0].cssText = s;
+              }
             } else {
-                if (demoFrameDocument.getElementsByTagName('head')[0]) {
-                    demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-                }
+              if (demoFrameDocument.getElementsByTagName('head')[0]) {
+                demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+              }
             }
-          } catch (e) {}
+          } catch (e) { }
         } else { // Not demo mode set the style to the page
           document.getElementsByTagName('head')[0].appendChild(newStyle);
           indexFrame = 0;
@@ -3833,7 +3808,37 @@ accessibilitytoolbar = {
 
     return colour;
   },
-  
+
+  /**
+   * Check if color relative lum between font and BG is accessible, otherwise display a warning message
+   * 
+   */
+  checkLum: function(fontColor,bgcolor,init) {
+    /**                    
+    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
+    */
+    LuminositeFond = accessibilitytoolbar.relativeLum(bgcolor);
+
+    LuminositePolice = accessibilitytoolbar.relativeLum(fontColor);
+
+    //calcul du contraste entre 2 couleurs
+    /*
+    contrast ratio
+        (L1 + 0.05) / (L2 + 0.05), where
+            L1 is the relative luminance of the lighter of the colors, and
+            L2 is the relative luminance of the darker of the colors.
+    */
+    if (!init) {
+      if (((Math.max(LuminositePolice, LuminositeFond) + 0.05) / (Math.min(LuminositePolice, LuminositeFond) + 0.05)) < 4.5) {
+        if (document.getElementById('uci_message_constraste').style.display === 'none') {
+          document.getElementById('uci_message_constraste').style.display = 'block';
+        }
+      } else if (document.getElementById('uci_message_constraste').style.display === 'block') {
+        document.getElementById('uci_message_constraste').style.display = 'none';
+      }
+    }
+  },
+
   /*
    * remove the link from pictures disabled
    */
@@ -3892,8 +3897,8 @@ accessibilitytoolbar = {
     else {
       htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
     }
-    document.getElementById('accessibilitytoolbarGraphic').replaceChild(htmlContent,document.getElementById('cdu_zone'));        
-    document.getElementById('uci_cdu_popin').style.display="none";
+    document.getElementById('accessibilitytoolbarGraphic').replaceChild(htmlContent, document.getElementById('cdu_zone'));
+    document.getElementById('uci_cdu_popin').style.display = "none";
     accessibilitytoolbar.loadTheToolbar();
   },
 
@@ -4136,7 +4141,7 @@ accessibilitytoolbar = {
     if (typeof attributes === "object" && attributes !== null && !this.isArray(attributes)) {
       for (var attr in attributes) {
         // specific boolean attributes checked, selected, and disabled if state is false, don't add it
-        if ((attr != "checked" && attr != "selected"  && attr != "disabled") || attributes[attr]) {
+        if ((attr != "checked" && attr != "selected" && attr != "disabled") || attributes[attr]) {
           el.setAttribute(attr, attributes[attr]);
         }
       }
@@ -4212,19 +4217,59 @@ accessibilitytoolbar = {
   },
 
   makePredefinedCouleurTpl: function () {
-    var predifinedCombinaisons = ['keepit', 'blackonwhite', 'whiteonblack', 'blueonyellow', 'yellowonblue', 'greenonblack', 'blackongreen', 'blueonwhite', 'whiteonblue'];
+    var predifinedCombinaisons = {
+            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
+            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
+            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
+            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
+            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
+            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
+            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
+            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+          };
     var curCouleur;
-      var aCouleur = ["ul", {"class":"padding-left-align uci_clear uci_liste_bton", id:"uci_reponses_couleurpredefinie", role:"radiogroup", "aria-labelledby":"a11yVisualSettings-predefined"}];
+    var aCouleur = ["ul", { "class": "padding-left-align uci_clear uci_liste_bton", id: "uci_reponses_couleurpredefinie", role: "radiogroup", "aria-labelledby": "a11yVisualSettings" }];
+    var index = 0;
     for (var key in predifinedCombinaisons) {
       curCouleur = ["li", {
-        id: "uci_a11yVisualPredefinedSettings_" + predifinedCombinaisons[key], role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary" + (key % 2 === 0 ? "" : " uci_clear") + " ucibtn-" + predifinedCombinaisons[key] + " " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "active" : ""),
-        tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "0" : "-1",
-        "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === predifinedCombinaisons[key] ? "true" : "false"
+        id: "uci_a11yVisualPredefinedSettings_" + key, role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary" + (index % 2 === 0 ? " uci_clear" : "") + " ucibtn-" + key + " " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "active" : ""),
+        tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "0" : "-1",
+        "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "true" : "false",
+         style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"
       },
-        accessibilitytoolbar.get('uci_title_color_' + predifinedCombinaisons[key])
+        accessibilitytoolbar.get('uci_title_color_' + key)
       ];
       aCouleur.push(curCouleur);
+      index++;
     }
+    // add custom color button
+    curCouleur = ["li", {
+      id: "uci_a11yVisualPredefinedSettings_personnal", role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary uci_clear ucibtn-personnal margin-top-xl " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "active" : ""),
+      tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "0" : "-1",
+      "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "true" : "false",
+      style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"
+    },
+      accessibilitytoolbar.get('uci_title_color_personnal')
+    ];
+    aCouleur.push(curCouleur);
+    // add a link for custom color update
+    curCouleur = ["li", {"class":"margin-left uci_inline uci_update_list margin-top-xl"},
+        ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
+        ["div", {"class":"cdu_left"},
+          ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
+          ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_texte", style:"display:none"},
+            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
+          ]
+        ],
+        ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_background')],
+        ["div", {"class":"cdu_left"},
+          ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
+          ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_background", style:"display:none"},
+            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
+          ]
+        ]
+    ];
+    aCouleur.push(curCouleur);
     return aCouleur;
   },
 

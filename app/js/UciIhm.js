@@ -77,34 +77,23 @@ UciIhm = {
                 }
               ]
             ],
-            ["ul", { "class": "uci_liste_bton cdu_c", id: "uci_reponses_couleurpredefinie_quick_set", role: "radiogroup" },
-              ["li", {
-                id: "uci_quick_a11yVisualPredefinedSettings_keepit",
-                role: "radio",
-                "class": "uci_choix uci_inline ucibtn-secondary " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "active" : ""),
-                tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "0" : "-1",
-                "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "keepit" ? "true" : "false",
-                title: accessibilitytoolbar.get('uci_title_color_keepit')
-              },
-                ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_title_color_keepit')],
-                ["span", { "class": "cdu-icon cdu-icon-test" },
-                  ["span", { "class": "cdu-icon path1" }],
-                  ["span", { "class": "cdu-icon path2" }],
-                  ["span", { "class": "cdu-icon path3" }],
-                  ["span", { "class": "cdu-icon path4" }]
-                ]
-              ],
-              ["li",
-                {
-                  id: "uci_quick_a11yVisualPredefinedSettings_blackonwhite",
-                  role: "radio",
-                  "class": "uci_choix uci_inline ucibtn-secondary " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "active" : ""),
-                  tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "0" : "-1",
-                  "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "blackonwhite" ? "true" : "false",
-                  title: accessibilitytoolbar.get('uci_title_color_blackonwhite')
-                },
-                ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_title_color_blackonwhite')],
-                ["span", { "class": "cdu-icon cdu-icon-couleurs2" }]
+            ["input", {
+              type:"checkbox", 
+              value:"true", 
+              name:"uci_quick_a11yVisualSettings", 
+              id:"uci_quick_a11yVisualSettings", 
+              checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false,
+              "class": "uci_choix uci_inline ucibtn-secondary "}
+            ],
+            ["label", {"for":"uci_quick_a11yVisualSettings", "class":"uci_couleur_checkbox"},
+              ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_color_titre')],
+              ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-color" },
+                ["span", { "class": "cdu-icon path1" }],
+                ["span", { "class": "cdu-icon path2" }],
+                ["span", { "class": "cdu-icon path3" }],
+                ["span", { "class": "cdu-icon path4" }],
+                ["span", { "class": "cdu-icon path5" }],
+                ["span", { "class": "cdu-icon path6" }]
               ]
             ]
           ],
@@ -195,7 +184,7 @@ UciIhm = {
             ["div",
               ["div", { "class": "uci_container_onglets" },
                 ["ul", { id: "uci_onglet_confort", role: "tablist", "class": "cdu_c" },
-                  ["li", { role: "tab", "aria-selected": "true", "aria-controls": "uci_contenu_onglet_typographie", tabindex: "0", "class": "uci_inline onglet_1" },
+                  ["li", { role: "tab", "aria-selected": "true", "aria-controls": "uci_contenu_onglet_typographie", tabindex: "0", "class": "uci_inline onglet_0 onglet_1" },
                     ["span", { "class": "onglet", id: "onglet_typographie" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-typographie" }],
                       accessibilitytoolbar.get('uci_txt_onglet_typo')
@@ -209,7 +198,14 @@ UciIhm = {
                   ],
                   ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_couleur", tabindex: "-1", "class": "uci_inline onglet_0" },
                     ["span", { "class": "onglet", id: "onglet_couleur" },
-                      ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-couleurs2" }],
+                      ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-color" },
+                        ["span", { "class": "cdu-icon path1" }],
+                        ["span", { "class": "cdu-icon path2" }],
+                        ["span", { "class": "cdu-icon path3" }],
+                        ["span", { "class": "cdu-icon path4" }],
+                        ["span", { "class": "cdu-icon path5" }],
+                        ["span", { "class": "cdu-icon path6" }]
+                      ],
                       accessibilitytoolbar.get('uci_txt_onglet_color')
                     ]
                   ],
@@ -322,10 +318,7 @@ UciIhm = {
         document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
       if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '0')
         document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
-      if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex', '-2');
-      if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex', '-2');
+      document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
             document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                        
             document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
       if (document.getElementById('uci_zone_form')) {
@@ -375,12 +368,9 @@ UciIhm = {
       document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '0');
     if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '-2')
       document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '0');
-    if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yVisualPredefinedSettings_keepit').setAttribute('tabindex', '0');
-    if (document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yVisualPredefinedSettings_blackonwhite').setAttribute('tabindex', '0');
-      document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
-      document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
+    document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
+    document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
+    document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
     document.getElementById('uci_moreconfort').removeAttribute('title');
     document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_more_settings');
     return false;
@@ -398,10 +388,10 @@ UciIhm = {
   activate_liens: function (id_liens) {
     if (document.getElementById(id_liens).style.display === "none") {
       document.getElementById(id_liens).style.display = "block";
-      document.getElementById(checked_apparence).checked = "true";
+      document.getElementById(checked_apparence).checked = true;
     } else {
       document.getElementById(id_liens).style.display = "none";
-      document.getElementById(checked_apparence).checked = "false";
+      document.getElementById(checked_apparence).checked = false;
     }
     return false;
   },
@@ -464,7 +454,7 @@ UciIhm = {
   ToolbarHide: function () {
     // when more settings is open, disable quick settings buttons
     if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
-    accessibilitytoolbar.userPref.decode();
+    accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
     accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
     accessibilitytoolbar.userPref.updateUserPref();
 
