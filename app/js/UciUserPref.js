@@ -348,7 +348,6 @@ function UciUserPref() {
         for (prefName in this.maskMatrixv3) {
             if (prefName !== "") {
                 // si la pref existe dans le stack sinon 0
-                console.log(prefName);
                 if(prefName in this.stackv3) {
                     pref = tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, "") + pref;
                 }

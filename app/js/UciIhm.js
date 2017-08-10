@@ -98,7 +98,7 @@ UciIhm = {
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
-            ["a", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "role": "button" },
+            ["button", { "class": "uci_lien_plus_reglage cdu_c ucibtn ucibtn-sm ucibtn-secondary", href: "#", id: "uci_moreconfort", "type": "button" },
               ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-plus2", id: "uci_icon_moreconfort" }],
               ["span", { id: "uci_moreconfort_txt" }, accessibilitytoolbar.get('uci_txt_more_settings')]
             ]
@@ -314,13 +314,12 @@ UciIhm = {
     if (document.getElementById('uci_activateOnglet').style.display === "none") {
       document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-moins2";
       document.getElementById('uci_activateOnglet').style.display = "block";      
-      if (document.getElementById('uci_quick_a11yBigger_less').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
-      if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '0')
-        document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
+      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
+      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
-            document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                        
-            document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
+      document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
+      document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
+      document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
       if (document.getElementById('uci_zone_form')) {
         document.getElementById('uci_zone_form').style.display = "block";
         UciIhm.hide_confirm_validation();
@@ -363,12 +362,10 @@ UciIhm = {
     document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');
-
-    if (document.getElementById('uci_quick_a11yBigger_less').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '0');
-    if (document.getElementById('uci_quick_a11yBigger_more').getAttribute('tabindex') === '-2')
-      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '0');
+    document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
+    document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
+    document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
     document.getElementById('uci_moreconfort').removeAttribute('title');
@@ -429,6 +426,7 @@ UciIhm = {
   desactiveCDUForWebSite: function (e) {
     if (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") !== "on") {
       document.getElementById('uci_left_toolbar').style.display = '';
+      document.getElementById('uci_profile_list').style.display = '';
       document.getElementById('uci_middle_toolbar').style.display = '';
       document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_disable_cdu');
       accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "on");
@@ -437,6 +435,7 @@ UciIhm = {
     } else {
       UciIhm.hide_more_confort(true);
       document.getElementById('uci_left_toolbar').style.display = 'none';
+      document.getElementById('uci_profile_list').style.display = 'none';
       document.getElementById('uci_middle_toolbar').style.display = 'none';
       document.getElementById('uci-onoffswitch').title = accessibilitytoolbar.get('uci_title_enable_cdu');
       accessibilitytoolbar.userPref.set("a11ySiteWebEnabled", "off");

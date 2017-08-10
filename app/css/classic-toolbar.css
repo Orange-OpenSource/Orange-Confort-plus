@@ -143,10 +143,6 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
   margin-left: -1em;
 }
 
-#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path1:before,
-#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path2:before {
-  color: #000;
-}
 #accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path3:before {
   color: #50bf88;
 }
@@ -158,6 +154,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path5:before {
   color: #b4e8f6;
 }
+
 
 #accessibilitytoolbarGraphic .onglet .cdu-icon-color span {
 	padding: 0 !important;
@@ -942,6 +939,8 @@ li.uci_dropdown-divider {
 .uci_notmask .uci_choix:hover, .uci_notmask .uci_choix:focus,
 #accessibilitytoolbarGraphic .uci_notmask input.uci_choix:hover,
 #accessibilitytoolbarGraphic .uci_notmask input.uci_choix:focus,
+#accessibilitytoolbarGraphic .uci_notmask input.uci_choix:hover + label,
+#accessibilitytoolbarGraphic .uci_notmask input.uci_choix:focus + label,
 #uci_activateOnglet .uci_choix:hover,
 #uci_activateOnglet .uci_choix:focus,
 #uci_onglet_confort li:hover .onglet,
@@ -1133,7 +1132,9 @@ li.uci_dropdown-divider {
 }
 #uci_palette_couleur_lien_selectionne,
 #uci_palette_couleur_lien_notselectionne,
-#uci_palette_couleur_lien_visite {
+#uci_palette_couleur_lien_visite,
+#uci_palette_couleur_texte,
+#uci_palette_couleur_background {
 	margin-left: 40px;
 }
 .hMouse {
@@ -1380,13 +1381,13 @@ li.uci_dropdown-divider {
 	outline: 0;
 }
 #accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:focus,
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.focus,
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:active:focus,
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:active.focus,
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.active:focus,
 #accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.active.focus {
 	outline: 2px dotted;
 	outline-offset: -2px;
+}
+
+#accessibilitytoolbarGraphic.uci_focus_outline button.uci_color_btn:focus{
+	border-style: dotted;
 }
 #accessibilitytoolbarGraphic .ucibtn.disabled,
 #accessibilitytoolbarGraphic .ucibtn:disabled {

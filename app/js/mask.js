@@ -60,14 +60,14 @@ UciMask = {
           // For W3C Browser
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
-            document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
+            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover',function(){UciMask.changeVisibility("visible")}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")}, false);
           }
           //For IE browser
           else if (document.attachEvent) {
             document.attachEvent('onmousemove', UciMask.maskEvent);
-            document.addEventListener('keydown', function(){UciMask.exitMask(event)}, false);
+            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
           }
