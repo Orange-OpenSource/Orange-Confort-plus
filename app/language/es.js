@@ -19,7 +19,7 @@ traduction['ES']={
   uci_serv_name:"Confort",
   uci_title_fontsize_radio_medium:"Reducir el tamaño de la fuente",
   uci_title_fontsize_radio_large:"Aumentar el tamaño de la fuente",
-  uci_title_color_keepit:"Colores por defecto",
+  uci_title_color_keepit:"Colores iniciales",
   uci_title_color_blackonwhite:"Texto negro y fondo blanco",
   uci_title_color_whiteonblack:"Texto blanco y fondo negro",
   uci_title_color_blueonyellow:"Texto azul y fondo amarillo",

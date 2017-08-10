@@ -19,7 +19,7 @@ traduction['PL']={
   uci_serv_name:"Confort",
   uci_title_fontsize_radio_medium:"Zwiększ rozmiar czcionki",
   uci_title_fontsize_radio_large:"Duży rozmiar czcionki",
-  uci_title_color_keepit:"Domyślne kolory",
+  uci_title_color_keepit:"Początkowe kolory",
   uci_title_color_blackonwhite:"Czarny tekst na białym tle",
   uci_title_color_whiteonblack:"Biały tekst na czarnym tle",
   uci_title_color_blueonyellow:"Niebieski tekst na żółtym tle",        
