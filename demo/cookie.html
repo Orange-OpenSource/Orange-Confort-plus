@@ -104,7 +104,7 @@
       if(hostname && origin && window && window.parent && window.parent.postMessage) {                        
         window.parent.postMessage(readCookies(), origin);
       }
-      else if(UsageConfort && origin) {                                                                      
+      else if((UsageConfort || UsageConfort==="") && origin) {                                                                      
         saveCookie(namePref, UsageConfort);
       } else if(hostname) {
         updateBlackList(hostname);
