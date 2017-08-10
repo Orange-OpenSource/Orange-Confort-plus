@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.6d2b1a79.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.4146c3ef.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -139,16 +139,16 @@ function ToolbarStrings() {
  @class Collection of user preference
  */
 function UciUserPref() {
-this.defautStoredValue = "0000651000650650650001100310000000006500000010";
+this.defautStoredValue = "0000651000390350270001100310000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
       '0':this.defautStoredValue,
-      '1':"0000651000650650650001100110000000006500100010",
-      '2':"0000651000650650650111101310000000006500000010",
-      '3':"0000651000650650650001100310000101006500000010"
+      '1':"0000651000390350270001100110000000006500100010",
+      '2':"0000651000390350270111101310000000006500000010",
+      '3':"0000651000390350270001100310000101006500000010"
     }
 
     this.finish = false;
@@ -396,11 +396,11 @@ this.defautStoredValue = "0000651000650650650001100310000000006500000010";
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
         "a11yNavLienEnabled":     "false",
-        "a11yNavLienSelColor":    "#000000",
+        "a11yNavLienSelColor":    "#FF0000",
         "a11yNavLienSelStyle":    "keepit",
-        "a11yNavLienNonVisColor": "#000000",
+        "a11yNavLienNonVisColor": "#0000FF",
         "a11yNavLienNonVisStyle": "keepit",
-        "a11yNavLienVisColor":    "#000000",
+        "a11yNavLienVisColor":    "#FF007F",
         "a11yNavLienVisStyle":    "keepit",
         "a11yMaskEnabled":       "false",
         // UNUSED a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
@@ -745,7 +745,7 @@ traduction['EN']={
   uci_serv_name:"Confort",
   uci_title_fontsize_radio_medium:"Decrease font size",
   uci_title_fontsize_radio_large:"Increase font size",
-  uci_title_color_keepit:"Default colors ",
+  uci_title_color_keepit:"Initial colors",
   uci_title_color_blackonwhite:"Black text on white background",
   uci_title_color_whiteonblack:"White text on black background",
   uci_title_color_blueonyellow:"Blue text on yellow background",
@@ -940,7 +940,7 @@ traduction['ES']={
   uci_serv_name:"Confort",
   uci_title_fontsize_radio_medium:"Reducir el tamaño de la fuente",
   uci_title_fontsize_radio_large:"Aumentar el tamaño de la fuente",
-  uci_title_color_keepit:"Colores por defecto",
+  uci_title_color_keepit:"Colores iniciales",
   uci_title_color_blackonwhite:"Texto negro y fondo blanco",
   uci_title_color_whiteonblack:"Texto blanco y fondo negro",
   uci_title_color_blueonyellow:"Texto azul y fondo amarillo",
@@ -1133,7 +1133,7 @@ traduction['FR']={
   uci_serv_name:"Confort",
   uci_title_fontsize_radio_medium:"Réduire la taille de police",
   uci_title_fontsize_radio_large:"Agrandir la taille de police",
-  uci_title_color_keepit:"Couleurs par d\351faut",
+  uci_title_color_keepit:"Couleurs initiales",
   uci_title_color_blackonwhite:"Texte noir sur fond blanc",
   uci_title_color_whiteonblack:"Texte blanc sur fond noir",
   uci_title_color_blueonyellow:"Texte bleu sur fond jaune",
@@ -1330,7 +1330,7 @@ traduction['PL']={
   uci_serv_name:"Confort",
   uci_title_fontsize_radio_medium:"Zwiększ rozmiar czcionki",
   uci_title_fontsize_radio_large:"Duży rozmiar czcionki",
-  uci_title_color_keepit:"Domyślne kolory",
+  uci_title_color_keepit:"Początkowe kolory",
   uci_title_color_blackonwhite:"Czarny tekst na białym tle",
   uci_title_color_whiteonblack:"Biały tekst na czarnym tle",
   uci_title_color_blueonyellow:"Niebieski tekst na żółtym tle",        
@@ -1743,7 +1743,7 @@ UciCouleur = {
             ["div", {id:"uci_div_lien_selectionne"},
               ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_active')],
               ["div", {"class":"cdu_left"},
-                ["button", {type:"button", id:"uci_NavLienSel", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_title_link_active_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"}],
+                ["button", {type:"button", id:"uci_NavLienSel", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_active_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"}],
                 ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_selectionne", style:"display:none"},
                   accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienSelColor_",accessibilitytoolbar.userPref.get("a11yNavLienSelColor"),"uci_reponses_couleur_lien_sel","uci_NavLienSel")
                 ]
@@ -1752,7 +1752,7 @@ UciCouleur = {
             ["div", {id:"uci_div_lien_notselectionne"},
               ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_notvisited')],
               ["div", {"class":"cdu_left"},
-                ["button", {type:"button", id:"uci_NavLienNonVis", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_title_link_notvisited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important"}],
+                ["button", {type:"button", id:"uci_NavLienNonVis", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_notvisited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important"}],
                 ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_notselectionne", style:"display:none"},
                   accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienNonVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor"),"uci_reponses_couleur_lien_notsel","uci_NavLienNonVis")
                 ]
@@ -1761,7 +1761,7 @@ UciCouleur = {
             ["div", {id:"uci_div_lien_visite"},
               ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_visited')],
               ["div", {"class":"cdu_left"},
-                ["button", {type:"button", id:"uci_NavLienVis", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_title_link_visited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important"}],
+                ["button", {type:"button", id:"uci_NavLienVis", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_visited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important"}],
                 ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_visite", style:"display:none"},
                   accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienVisColor"),"uci_reponses_couleur_lien_visite","uci_NavLienVis")
                 ]
@@ -8166,14 +8166,14 @@ accessibilitytoolbar = {
     curCouleur = ["li", {"class":"margin-left uci_inline uci_update_list margin-top-xl"},
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
         ["div", {"class":"cdu_left"},
-          ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
+          ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
           ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_texte", style:"display:none"},
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
           ]
         ],
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_background')],
         ["div", {"class":"cdu_left"},
-          ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
+          ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
           ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_background", style:"display:none"},
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
           ]
