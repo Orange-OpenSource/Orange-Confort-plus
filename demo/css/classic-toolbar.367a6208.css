@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 10-08-2017
+/* orange-confort-plus - version 4.1.0 - 04-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -124,37 +124,42 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic .cdu-icon-color .path2:before {
   content: "\1f3a9";
   margin-left: -1em;
+	position: absolute;
 }
 #accessibilitytoolbarGraphic .cdu-icon-color .path3:before {
   content: "\1f3aa";
 	color: transparent;
   margin-left: -1em;
+	position: absolute;
 }
 #accessibilitytoolbarGraphic .cdu-icon-color .path4:before {
   content: "\1f3ab";
 	color: transparent;
   margin-left: -1em;
+	position: absolute;
 }
 #accessibilitytoolbarGraphic .cdu-icon-color .path5:before {
   content: "\1f3ac";
 	color: transparent;
   margin-left: -1em;
+	position: absolute;
 }
 #accessibilitytoolbarGraphic .cdu-icon-color .path6:before {
   content: "\1f3ad";
 	color: transparent;
   margin-left: -1em;
+	position: absolute;
 }
 
-#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path3:before {
+#accessibilitytoolbarGraphic .uci_quick_checkbox .cdu-icon-color .path3:before {
   color: #50bf88;
 }
-#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path4:before,
-#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path6:before {
+#accessibilitytoolbarGraphic .uci_quick_checkbox .cdu-icon-color .path4:before,
+#accessibilitytoolbarGraphic .uci_quick_checkbox .cdu-icon-color .path6:before {
   color: #ffd200;
 }
 
-#accessibilitytoolbarGraphic .uci_couleur_checkbox .cdu-icon-color .path5:before {
+#accessibilitytoolbarGraphic .uci_quick_checkbox .cdu-icon-color .path5:before {
   color: #b4e8f6;
 }
 
@@ -260,9 +265,12 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic input[type="radio"]:disabled + label {
 	color: #ddd;
 }
+
 #accessibilitytoolbarGraphic input[type="radio"]:focus + label {
-	border: 1px dotted #000;
+	outline: dotted 2px;
+	outline-offset: -2px;
 }
+
 #accessibilitytoolbarGraphic input[type="checkbox"] + label,
 #accessibilitytoolbarGraphic input[type="checkbox"] + label:before,
 #accessibilitytoolbarGraphic input[type="checkbox"] + label:after {
@@ -332,28 +340,34 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 #accessibilitytoolbarGraphic input[type="checkbox"]:disabled + label {
 	color: #ddd;
 }
-#accessibilitytoolbarGraphic input[type="checkbox"]:focus + label {
-	border-width: 1px;
-	border-style: dotted;
+#accessibilitytoolbarGraphic input[type="checkbox"]:focus + label:not(.uci_quick_checkbox) {
+	outline: dotted 2px;
+	outline-offset: -2px;
 }
 
-#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox{
   padding-left: 0;
   height: 1.625rem;
   width: 1.625rem;
   box-sizing: content-box;
+	vertical-align: middle;
+}
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_color_checkbox {
   border-width: 2px;
 	border-style: solid;
 }
-#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox .cdu-icon-color{
+
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox .cdu-icon-color,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox .cdu-icon-masque{
   font-size: 1.625rem;
 }
 
 
-#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox:after,
-#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_couleur_checkbox:before,
-#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.uci_couleur_checkbox:after,
-#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.uci_couleur_checkbox:before {
+
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox:after,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox:before,
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.uci_quick_checkbox:after,
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.uci_quick_checkbox:before {
   width: 0;
   height: 0;
   border: none;
@@ -692,7 +706,8 @@ a.cdu_hide:focus {
 	padding: .625rem 1.25rem;
 	float: left;
 }
-.uci_focus_outline .uci-onoffswitch-label:focus,.uci_focus_outline .uci-onoffswitch-label-on:focus {
+.uci_focus_outline .uci-onoffswitch-label:focus,
+.uci_focus_outline .uci-onoffswitch-label-on:focus {
 	outline: dotted 2px;
 }
 #accessibilitytoolbarGraphic .uci-onoffswitch-label,
@@ -857,13 +872,13 @@ a.cdu_hide:focus {
 	background-color: transparent;
 	border: none;
 }
-#accessibilitytoolbarGraphic button.uci_bton_menu:focus, 
-#accessibilitytoolbarGraphic button.uci_bton_menu:hover {
+#accessibilitytoolbarGraphic button.uci_bton_menu:focus:not([tabindex]), 
+#accessibilitytoolbarGraphic button.uci_bton_menu:hover:not([tabindex]) {
 	background-color: #000;
 	color: #FFF;
 }
-.uci_focus_outline .uci_focus_outline .uci_bton_menu:focus, 
-.uci_focus_outline .uci_focus_outline .uci_bton_menu:hover {
+.uci_focus_outline .uci_bton_menu:focus:not([tabindex]), 
+.uci_focus_outline .uci_bton_menu:hover:not([tabindex]) {
 	outline: 2px dotted;
 }
 li.uci_dropdown-divider {
@@ -1113,8 +1128,7 @@ li.uci_dropdown-divider {
 #uci_div_numero_ligne,
 #uci_div_desactiver_transparence,
 #uci_div_disabled_fond_picture,
-#uci_div_disabled_first_plan_picture,
-#uci_mask_enabled {
+#uci_div_disabled_first_plan_picture{
 	padding-top: 1.25rem;
 }
 
@@ -1141,7 +1155,7 @@ li.uci_dropdown-divider {
 	margin-left: 40px;
 }
 .hMouse {
-	display: block;
+	display: none;
 	position: fixed;
 	width: 100%;
 	height: 0px;
@@ -1150,7 +1164,7 @@ li.uci_dropdown-divider {
 	z-index: 2147483647;
 }
 .vMouse {
-	display: block;
+	display: none;
 	position: fixed;
 	height: 100%;
 	width: 0px;
@@ -1224,6 +1238,9 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .margin-right-lg {
 	margin-right: 1.25rem !important;
+}
+#accessibilitytoolbarGraphic .margin-right-xlg {
+	margin-right: 1.875rem !important;
 }
 #accessibilitytoolbarGraphic .font-normal {
 	font-weight: normal;
@@ -1383,11 +1400,16 @@ li.uci_dropdown-divider {
 	background-image: none;
 	outline: 0;
 }
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:focus,
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn.active.focus {
+/*
+#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:focus{
 	outline: 2px dotted;
 	outline-offset: -2px;
 }
+
+#accessibilitytoolbarGraphic.uci_focus_outline button.uci_color_btn:focus{
+	border-style: dotted;
+}
+*/
 #accessibilitytoolbarGraphic .ucibtn.disabled,
 #accessibilitytoolbarGraphic .ucibtn:disabled {
 	cursor: not-allowed;
@@ -1407,108 +1429,52 @@ li.uci_dropdown-divider {
 	background-color: transparent;
 	border-color: #000;
 }
+
 #accessibilitytoolbarGraphic .ucibtn-secondary:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:hover,
+#accessibilitytoolbarGraphic .ucibtn-secondary:hover:not(label):not([tabindex]),
 #closeMaskDiv .ucibtn-secondary:focus,
-#closeMaskDiv .ucibtn-secondary:hover {
+#closeMaskDiv .ucibtn-secondary:hover,
+#accessibilitytoolbarGraphic input[type="checkbox"]:focus:not(:disabled) + label.ucibtn-secondary,
+#accessibilitytoolbarGraphic input[type="checkbox"]:not(:disabled) + label.ucibtn-secondary:hover {
 	color: #fff;
 	background-color: #000;
 	border-color: #000;
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:active,
-#accessibilitytoolbarGraphic .ucibtn-secondary.active {
+#accessibilitytoolbarGraphic .ucibtn-secondary.active,
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.ucibtn-secondary {
 	color: #fff;
 	background-color: #f16e00;
 	background-image: none;
 	border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic .ucibtn-secondary:active:hover,
+#accessibilitytoolbarGraphic .ucibtn-secondary:active:hover:not(label):not([tabindex]),
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:active.focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary.active:hover,
+#accessibilitytoolbarGraphic .ucibtn-secondary.active:hover:not(label):not([tabindex]),
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary.active.focus {
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked:not(:disabled) + label.ucibtn-secondary:hover,
+#accessibilitytoolbarGraphic input[type="checkbox"]:checked:focus:not(:disabled) + label.ucibtn-secondary {
 	color: #fff;
 	background-color: #000;
 	border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic .ucibtn-secondary.disabled,
-#accessibilitytoolbarGraphic .ucibtn-secondary:disabled {
-	color: #fff;
-	background-color: #ccc;
-	border-color: #ccc;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary.disabled:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary.disabled.focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:disabled:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:disabled.focus {
-	color: #fff;
-	background-color: #ccc;
-	border-color: #ccc;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary.disabled:hover,
-#accessibilitytoolbarGraphic .ucibtn-secondary:disabled:hover {
-	color: #fff;
-	background-color: #ccc;
-	border-color: #ccc;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary.disabled,
+
 #accessibilitytoolbarGraphic .ucibtn-secondary:disabled {
 	color: #ccc;
 	background-color: transparent;
 	border-color: #ccc;
 }
-#accessibilitytoolbarGraphic .ucibtn-secondary.disabled:hover,
+
+#accessibilitytoolbarGraphic .ucibtn-secondary:disabled:focus {
+	color: #fff;
+	background-color: #ccc;
+	border-color: #ccc;
+}
+
 #accessibilitytoolbarGraphic .ucibtn-secondary:disabled:hover {
 	color: #ccc;
 	background-color: transparent;
 	border-color: #ccc;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse {
-	color: #000;
-	background-color: #fff;
-	border-color: #fff;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
-	color: #000;
-	background-color: #fff;
-	border-color: #fff;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active {
-	color: #fff;
-	background-color: #f16e00;
-	background-image: none;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus {
-	color: #fff;
-	background-color: #f16e00;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
-	color: #fff;
-	background-color: transparent;
-	border-color: #fff;
 }
 #accessibilitytoolbarGraphic .ucibtn-info {
 	color: #fff;
@@ -1562,58 +1528,6 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-info:hover {
 	background-color: transparent;
 	border-color: #000;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse {
-	color: #fff;
-	background-color: transparent;
-	border-color: #fff;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:focus,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
-	color: #000;
-	background-color: #fff;
-	border-color: #fff;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active, .open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle {
-	color: #fff;
-	background-color: #f16e00;
-	background-image: none;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus, .open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:hover, .open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:focus, .open > #accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle.focus {
-	color: #fff;
-	background-color: #f16e00;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
-	color: #666;
-	background-color: transparent;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover,
-#accessibilitytoolbarGraphic .ucibtn-info#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
-	color: #666;
-	background-color: transparent;
-	border-color: #666;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary {
 	color: #fff;
@@ -1681,6 +1595,7 @@ li.uci_dropdown-divider {
 	background-color: transparent;
 	border-color: #000;
 }
+/*
 #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse {
 	color: #fff;
 	background-color: #f16e00;
@@ -1763,6 +1678,7 @@ li.uci_dropdown-divider {
 	background-color: #000;
 	border-color: #000;
 }
+
 #accessibilitytoolbarGraphic .ucibtn-secondary:active,
 #accessibilitytoolbarGraphic .ucibtn-secondary.active, .open > #accessibilitytoolbarGraphic .ucibtn-secondary.dropdown-toggle {
 	color: #fff;
@@ -1770,6 +1686,7 @@ li.uci_dropdown-divider {
 	background-image: none;
 	border-color: #f16e00;
 }
+*/
 /* hide promote link if exist */
 #confortPlusTarget {
 	display: none;
@@ -2168,3 +2085,4 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic a.uci_update_link {
   text-decoration: underline;
 }
+

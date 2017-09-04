@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 10-08-2017
+/* orange-confort-plus - version 4.1.0 - 04-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -39,7 +39,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.b6264820.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.367a6208.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -270,10 +270,12 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         //gestion mask
         "a11yMaskEnabled-0":       "a11yMaskEnabled-false",
         "a11yMaskEnabled-1":       "a11yMaskEnabled-true",
-        // UNUSED a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
+        // mask option, reading mask, hruler or vruler
+        "a11yMaskOption-0" :     "a11yMaskOption-mask",
+        "a11yMaskOption-1" :     "a11yMaskOption-hruler",
+        "a11yMaskOption-2" :     "a11yMaskOption-vruler",
+        // UNUSED a11yMaskHorizontal, a11yMaskColor
         // but keep it for backward compatibility
-        "a11yMaskVertical-0" :     "a11yMaskVertical-false",
-        "a11yMaskVertical-1" :     "a11yMaskVertical-true",
         "a11yMaskHorizontal-0" :   "a11yMaskHorizontal-false",
         "a11yMaskHorizontal-1" :   "a11yMaskHorizontal-true",
 
@@ -352,10 +354,10 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         "a11yNavLienNonVisStyle": [12,1],
         "a11yNavLienVisColor":    [10,2],
         "a11yNavLienVisStyle":    [9,1],
-        "a11yMaskEnabled":       [8,1],
-        // THE THREE FOLLOWING OFFSETS ARE UNUSED!! a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
+        "a11yMaskEnabled":        [8,1],
+        "a11yMaskOption" :        [7,1],
+        // THE TWO FOLLOWING OFFSETS ARE UNUSED!! a11yMaskHorizontal, a11yMaskColor
         // but keep it for backward compatibility
-        "a11yMaskVertical" :     [7,1],
         "a11yMaskHorizontal" :   [6,1],        
         "a11yMaskColor":         [4,2],
         "a11yMaskEpaisseur" :    [3,1],
@@ -402,18 +404,18 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         "a11yNavLienNonVisStyle": "keepit",
         "a11yNavLienVisColor":    "#FF007F",
         "a11yNavLienVisStyle":    "keepit",
-        "a11yMaskEnabled":       "false",
-        // UNUSED a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
+        "a11yMaskEnabled":        "false",
+        "a11yMaskOption" :        "mask",
+        // UNUSED a11yMaskHorizontal, a11yMaskColor
         // but keep it for backward compatibility
-        "a11yMaskVertical" :     "false",
-        "a11yMaskHorizontal" :   "true",
-        "a11yMaskColor" :        "#000000",
-        "a11yMaskEpaisseur" :    "thin",
+        "a11yMaskHorizontal" :    "true",
+        "a11yMaskColor" :         "#000000",
+        "a11yMaskEpaisseur" :     "thin",
         "a11ySupEffetTransp":     "false",
-        "a11ySupImageFont" :     "false",
+        "a11ySupImageFont" :      "false",
         "a11ySupImageFirstPlan" : "false",
-        "a11ySiteWebEnabled" : "on",
-        "a11yApercuAuto" : "false"
+        "a11ySiteWebEnabled" :    "on",
+        "a11yApercuAuto" :        "false"
     };
     
     /**
@@ -771,10 +773,10 @@ traduction['EN']={
   uci_txt_menu_change_lang_es:"Show this service in spanish",
   uci_txt_menu_change_lang_pl:"Show this service in Polish",
   uci_txt_onglet_typo:"Typography",
-  uci_txt_onglet_apparence:"Layout",
+  uci_txt_onglet_apparence:"Reading help",
   uci_txt_onglet_color:"Colors",
   uci_txt_onglet_motor_help:"Behaviour",
-  uci_txt_onglet_settings:"Settings",
+  uci_txt_onglet_settings:"Advanced settings",
   uci_typo_titre_fontsize:"Font size",
   uci_typo_titre_wordspacing:"Word spacing",
   uci_typo_titre_linespacing:"Line spacing",
@@ -808,6 +810,8 @@ traduction['EN']={
   uci_label_disablebgpictures:"Disable background images",
   uci_label_disablepppictures:"Cancel foreground images",
   uci_label_mask:"Show a reading mask",
+  uci_label_regle_vertical:"Show a vertical ruler",
+  uci_label_regle_horizontale:"Show a horizontal ruler",
   uci_link_display_picture:"View this picture:",
   uci_link_display_picture_no_alt:"Description not available",
   uci_titre_links:"Navigation links appearence",
@@ -830,6 +834,7 @@ traduction['EN']={
   uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
   uci_help_links:"This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
   uci_color_titre:"Font and background color",
+  uci_mask_titre:"Reading mask",
   uci_title_color_personnal:"Select personalized colors",
   uci_color_txt_texte:"Font color",
   uci_color_txt_background:"Background color",
@@ -909,7 +914,7 @@ traduction['EN']={
   typographie :"typographie",
   couleur: "couleurs",
   advancedparam: "advancedparam",
-  howToClose: "Press escape to close the mask or clic on the close button on the right (it's hidden, move your mouse on the right to show it)",
+  howToClose: "Close mask : Esc key or close cross on right",
   uci_radio_light:"Light",
   uci_radio_medium1:"Medium",
   uci_radio_dark:"Dark",
@@ -966,7 +971,7 @@ traduction['ES']={
   uci_txt_menu_change_lang_es:"Mostrar el servicio en Espa\361ol",
   uci_txt_menu_change_lang_pl:"Mostrar el servicio en Polaco",
   uci_txt_onglet_typo:"Tipograf\355a",
-  uci_txt_onglet_apparence:"Apariencia",
+  uci_txt_onglet_apparence:"READING HELP Apariencia",
   uci_txt_onglet_color:"Colores",
   uci_txt_onglet_motor_help:"Comportamiento",
   uci_txt_onglet_settings:"Settings",
@@ -1003,6 +1008,8 @@ traduction['ES']={
   uci_label_disablebgpictures:"Anula im\341genes de fondo",
   uci_label_disablepppictures:"Anula im\341genes del primer plano",
   uci_label_mask:"Mostrar una m\341scara de la lectura",
+  uci_label_regle_vertical:"Visualizar regla vertical",
+  uci_label_regle_horizontale:"Visualizar regla horizontal",
   uci_link_display_picture:"Visualizar la imagen :",
   uci_link_display_picture_no_alt:"Descripci\363n no disponible",
   uci_titre_links:"Apariencia enlaces de navegaci\363n ",
@@ -1025,6 +1032,7 @@ traduction['ES']={
   uci_help_disablepppictures:"Este comando suprime la visualizaci\363n de im\341genes en la p\341gina y son reemplazadas por sus alternativas textuales. Un enlace permite visualizar las im\341genes a petici\363n ",
   uci_help_links:"Este comando define la apariencia de los enlaces en la p\341gina. Puedes elegir el color y el formato de los enlaces",
   uci_color_titre:"Combinaci\363n de colores predefinidos",
+  uci_mask_titre:"Masque de lecture",
   uci_title_color_personnal:"Seleccionar colores personalizados",
   uci_color_txt_texte:"Color de texto",
   uci_color_txt_background:"Color de fondo",
@@ -1159,10 +1167,10 @@ traduction['FR']={
   uci_txt_menu_change_lang_es:"Afficher le service en Espagnol",
   uci_txt_menu_change_lang_pl:"Afficher le service en Polonais",
   uci_txt_onglet_typo:"Typographie",
-  uci_txt_onglet_apparence:"Agencement",
+  uci_txt_onglet_apparence:"Aide à la lecture",
   uci_txt_onglet_color:"Couleurs",
   uci_txt_onglet_motor_help:"Comportement",
-  uci_txt_onglet_settings:"Settings",
+  uci_txt_onglet_settings:"Réglages avancés",
   uci_typo_titre_fontsize:"Taille du texte ",
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   uci_typo_titre_linespacing:"Espacement entre les lignes",
@@ -1196,6 +1204,8 @@ traduction['FR']={
   uci_label_disablebgpictures:"Suppression des images de fond",
   uci_label_disablepppictures:"Suppression des images de premier plan",
   uci_label_mask:"Affichage d'un masque de lecture",
+  uci_label_regle_vertical:"Affichage d\47une r\350gle verticale",
+  uci_label_regle_horizontale:"Affichage d\47une r\350gle horizontale",
   uci_link_display_picture:"Voir cette image :",
   uci_link_display_picture_no_alt:"Description non disponible",
   uci_titre_links:"Apparence des liens de navigation",
@@ -1218,6 +1228,7 @@ traduction['FR']={
   uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",
   uci_help_links:"Cette commande permet de d\351finir l\47apparence des liens dans la page. Vous pouvez choisir la couleur et la mise en forme de ceux-ci.",
   uci_color_titre:"Couleur du texte et de l'arrière plan",
+  uci_mask_titre:"Masque de lecture",
   uci_title_color_personnal:"Combinaison de couleurs personnalis\351es",
   uci_color_txt_texte:"Couleur du texte",
   uci_color_txt_background:"Couleur du fond",
@@ -1298,7 +1309,7 @@ traduction['FR']={
   typographie :"typographie",
   couleur: "couleurs",
   advancedparam: "advancedparam",
-  howToClose: "Pour fermer le masque appuyer sur la touche \351chap ou utiliser la croix cach\351e tout \340 droite du masque",
+  howToClose: "Fermeture du masque : touche Echap ou croix à droite",
   uci_radio_light:"L\351ger",
   uci_radio_medium1:"Moyen",
   uci_radio_dark:"Fonc\351",
@@ -1356,7 +1367,7 @@ traduction['PL']={
   uci_txt_menu_change_lang_es:"Pokaż usługę w języku hiszpańskim",
 uci_txt_menu_change_lang_pl:"Pokaż usługę w języku polskim",
 uci_txt_onglet_typo:"Typografia",
-uci_txt_onglet_apparence:"Układ",
+uci_txt_onglet_apparence:"READING HELP Układ",
 uci_txt_onglet_color:"Kolory",
 uci_txt_onglet_motor_help:"Zachowanie",
 uci_txt_onglet_settings:"Settings",
@@ -1393,6 +1404,8 @@ uci_label_disabletransp:"Usuń efekt przezroczystości",
 uci_label_disablebgpictures:"Wyłącz obrazy w tle",
 uci_label_disablepppictures:"Anuluj obrazy z pierwszego planu",
 uci_label_mask:"Włącz podświetlenie selektywne",
+  uci_label_regle_vertical:"Show a vertical ruler",
+  uci_label_regle_horizontale:"Show a horizontal ruler",
 uci_link_display_picture:"Pokaż ten obraz :",
 uci_link_display_picture_no_alt:"Opis niedostępny",
 uci_titre_links:"Wygląd linków nawigacyjnych",
@@ -1415,6 +1428,7 @@ uci_help_disabletransp:"To funkcja umożliwiająca wyłączenie potencjalnie tra
 uci_help_disablepppictures:"Ta funkcja ukrywa grafiki umieszczone na stronie w celu uniknięcia zakłóceń w czytaniu. Grafiki użyte na stronie zastępowane są ich tekstowymi odpowiednikami. Odnośnik pozwala sprawdzenie grafiki na żądanie.",
 uci_help_links:"Ta funkcja pozwala zdefiniować widoczność linków. Możesz wybrać kolor oraz szczegóły formatowania.",
 uci_color_titre:"Połączenie ustawionych kolorów",
+uci_mask_titre:"Masque de lecture",
 uci_title_color_personnal:"Wybierz spersonalizowane kolory",
 uci_color_txt_texte:"Kolor czcionki",
 uci_color_txt_background:"Kolor tła",
@@ -1725,7 +1739,7 @@ UciCouleur = {
      */
     InitUciCouleur: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-        ["div", {"class":"margin-left margin-right-lg margin-top-lg uci_w50-left"},
+        ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
           ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
           ["label", {"for":"a11yVisualSettings", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
           accessibilitytoolbar.makePredefinedCouleurTpl(),
@@ -1734,7 +1748,7 @@ UciCouleur = {
             ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
           ]
         ],
-        ["div", {"class":"margin-left margin-right-lg margin-top-lg uci_w50-left"},
+        ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
           ["input", {type:"checkbox", value:"true", name:"a11yNavLienEnabled", id:"a11yNavLienEnabled", checked:accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked" : false}],
           ["label", {"for":"a11yNavLienEnabled"}, accessibilitytoolbar.get('uci_titre_links')],
           accessibilitytoolbar.makeHelpTpl("uci_link_help_links","uci_help_links",accessibilitytoolbar.get('uci_help_links')),
@@ -1801,7 +1815,7 @@ UciApparence = {
 
     InitUciApparence: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_apparence", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-          ["div", {"class":"uci_onglet_div margin-left margin-right-lg"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
           // Line spacing
             ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
@@ -1875,13 +1889,35 @@ UciApparence = {
               ]
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right-lg"},
-            ["div", {id:"uci_mask_enabled"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
+            ["div", {id:"uci_div_alignement_gauche"},
+              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
+              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
+            ],
+            ["div", {id:"uci_div_numero_ligne"},
+              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
+              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
+            ]
+          ],
+          ["div", {"class":"uci_onglet_div margin-left margin-right"},
+            ["div", {"class":"margin-top-lg"},
               ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"a11yMaskEnabled", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
               ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
             ],
+            ["div", {"class":"padding-left-align margin-top-lg"},
+              ["input", {type:"radio", value:"hruler", name:"a11yMaskOption", id:"a11yHRuler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "hruler" ? "checked" : false}],
+              ["label", {"for":"a11yHRuler"}, accessibilitytoolbar.get('uci_label_regle_horizontale')]
+            ],
+            ["div", {"class":"padding-left-align margin-top-lg"},
+              ["input", {type:"radio", value:"vruler", name:"a11yMaskOption", id:"a11yVRuler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "vruler" ? "checked" : false}],
+              ["label", {"for":"a11yVRuler"}, accessibilitytoolbar.get('uci_label_regle_vertical')]
+            ],
+            ["div", {"class":"padding-left-align margin-top-lg"},
+              ["input", {type:"radio", value:"mask", name:"a11yMaskOption", id:"a11yMask", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "mask" ? "checked" : false}],
+              ["label", {"for":"a11yMask"}, accessibilitytoolbar.get('uci_label_mask')]
+            ],
             ["div", {"class":"padding-left-align"},
-              ["div",
+              ["div", {"class":"padding-left-align"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
                   ["li", 
@@ -1913,16 +1949,6 @@ UciApparence = {
                   ]
                 ]
               ]
-            ]
-          ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right"},
-            ["div", {id:"uci_div_alignement_gauche"},
-              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
-              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
-            ],
-            ["div", {id:"uci_div_numero_ligne"},
-              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
-              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ]
           ]
         ]);
@@ -1972,7 +1998,7 @@ UciSettings = {
 
     InitUciSettings: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_settings", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-          ["div", {"class":"uci_onglet_div margin-left margin-right-lg"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
             ["div", {id:"uci_div_supprimer_miseenpage"},
               ["input", {type:"checkbox", value:"true", name:"a11yLinearize", id:"a11yLinearize", checked:accessibilitytoolbar.userPref.get("a11yLinearize") === "true" ? "checked" : false}],
               ["label", {"for":"a11yLinearize"}, accessibilitytoolbar.get('uci_label_listmode')],
@@ -1984,7 +2010,7 @@ UciSettings = {
               accessibilitytoolbar.makeHelpTpl("uci_link_help_disabletransp","uci_help_disabletransp",accessibilitytoolbar.get('uci_help_disabletransp'))
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right"},
             ["div", {id:"uci_div_disabled_fond_picture"},
               ["input", {type:"checkbox", value:"true", name:"a11ySupImageFont", id:"a11ySupImageFont", checked:accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked" : false}],
               ["label", {"for":"a11ySupImageFont"}, accessibilitytoolbar.get('uci_label_disablebgpictures')]
@@ -2026,8 +2052,8 @@ UciTypographie = {
      * @constructor
      */
     InitUciTypographie: function () {      
-      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_typographie", "class":"uci_contenu_onglet cdu_c", role:"tabpanel", style:"display:block"},
-          ["div", {"class":"uci_onglet_div margin-left margin-right-lg cdu_c"},
+      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_typographie", "class":"uci_contenu_onglet cdu_c", role:"tabpanel", style:"display:flex"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg cdu_c"},
           // font size
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["div", {"class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontsize')],
@@ -2058,7 +2084,7 @@ UciTypographie = {
             
           ],
 
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right-lg cdu_c"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg cdu_c"},
           // font family
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["span", {id:"uci_title_typographie", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontfamily'),
@@ -2100,7 +2126,7 @@ UciTypographie = {
             
           ],
 
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right cdu_c"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
             // font family
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["span", {id:"uci_fieldset_changecasse", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_changecase'),
@@ -2750,11 +2776,10 @@ UciIhm = {
               type:"checkbox", 
               value:"true", 
               name:"uci_quick_a11yVisualSettings", 
-              id:"uci_quick_a11yVisualSettings", 
-              checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false,
-              "class": "uci_choix uci_inline ucibtn-secondary "}
+              id:"uci_quick_a11yVisualSettings",
+              checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}
             ],
-            ["label", {"for":"uci_quick_a11yVisualSettings", "class":"uci_couleur_checkbox"},
+            ["label", {"for":"uci_quick_a11yVisualSettings", "class":"ucibtn ucibtn-sm ucibtn-secondary uci_quick_checkbox uci_color_checkbox", title:accessibilitytoolbar.get('uci_color_titre')},
               ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_color_titre')],
               ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-color" },
                 ["span", { "class": "cdu-icon path1" }],
@@ -2764,6 +2789,17 @@ UciIhm = {
                 ["span", { "class": "cdu-icon path5" }],
                 ["span", { "class": "cdu-icon path6" }]
               ]
+            ],
+            ["input", {
+              type:"checkbox", 
+              value:"true", 
+              name:"uci_quick_a11yMaskEnabled", 
+              id:"uci_quick_a11yMaskEnabled", 
+              checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? true : false}
+            ],
+            ["label", {"for":"uci_quick_a11yMaskEnabled", "class":"ucibtn ucibtn-sm ucibtn-secondary uci_quick_checkbox margin-left-lg", title:accessibilitytoolbar.get('uci_mask_titre')},
+              ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_mask_titre')],
+              ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-masque" }]
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
@@ -2986,6 +3022,7 @@ UciIhm = {
       document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_quick_a11yMaskEnabled').setAttribute('disabled', 'disabled');
       document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
       document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
       document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
@@ -3034,6 +3071,7 @@ UciIhm = {
     document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
     document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
+    document.getElementById('uci_quick_a11yMaskEnabled').removeAttribute('disabled');
     document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
@@ -3754,7 +3792,8 @@ UciHelp = {
 UciMask = {
         settings: {
             launched : false,
-            thickness : 'none'
+            thickness : 'none',
+            option: 'mask' // option could be mask, vruler or hruler
         },
 
         init: function() {
@@ -3768,7 +3807,15 @@ UciMask = {
             document.getElementsByTagName("body")[0].appendChild(topMask);
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
             document.getElementsByTagName("body")[0].appendChild(bottomMask);
-           document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
+            document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
+            vMouse = document.createElement("div");
+            vMouse.className="vMouse";
+            vMouse.id="vMouse";
+            hMouse = document.createElement("div");
+            hMouse.className="hMouse";
+            hMouse.id="hMouse";
+            document.getElementsByTagName("body")[0].appendChild(vMouse);
+            document.getElementsByTagName("body")[0].appendChild(hMouse);
 	        }
         },
 
@@ -3822,16 +3869,17 @@ UciMask = {
             e = window.event;
 
           var intKeyCode = e.keyCode;
-          if (intKeyCode === 27 &&  document.getElementById('topMask').style.display === "block") {
+          if (intKeyCode === 27 && (
+            document.getElementById('topMask').style.display === "block" 
+            || document.getElementById('vMouse').style.display === "block"
+            || document.getElementById('hMouse').style.display === "block")) {
             UciMask.closeMask();
           }
 
         },
 
         closeMask: function(){
-          document.getElementById('a11yMaskEnabled').checked = false;
-          accessibilitytoolbar.userPref.set("a11yMaskEnabled", "false");
-          accessibilitytoolbar.setCSS();
+          accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"false",type:"checkbox"}});
           UciMask.maskEventRemove();
         },
 
@@ -3848,60 +3896,91 @@ UciMask = {
           document.getElementById('topMask').style.display = "none";
           document.getElementById('closeMaskDiv').style.display = "none";
           document.getElementById('bottomMask').style.display = "none";
+          document.getElementById('vMouse').style.display = "none";
+          document.getElementById('hMouse').style.display = "none";
           UciMask.settings.launched = false;
         },
 
         maskEvent: function(e) {
-          UciMask.draw(e.clientY);
+          UciMask.draw(e.clientY,e.clientX);
         },
 
-        draw: function(positionY) {
-          closeMask = document.getElementById("closeMask");
-          document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
-        	switch(UciMask.settings.thickness) {
-        		case 'medium':
-              document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
-              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
-              document.getElementById('howToClose').className += " howtocloselight";
-        			break;
-        		case 'thick':;
-              document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
-              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
-        			break;
-        		default:
-        			document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
-              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
-          }
-          var size = 90;
-          closeMask.style.height = "90px";
-          closeMask.style.width = "90px";
-        	if(typeof positionY == 'undefined') {
-        		size = 0;
-        	}
-        	var topMaskHeight = 0;
-          if((positionY - (size / 2)) > 0)   {
-            topMaskHeight = positionY - (size / 2);
-          }
-          document.getElementById('topMask').style.height = topMaskHeight + "px";
-          document.getElementById('topMask').style.display = "block";
-          document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
-          document.getElementById('closeMaskDiv').style.display = "block";
-          document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
-          
-        	var bottomMaskHeight = 0;
-          var winHeight = 0;
-          if (window.getComputedStyle) {
-            winHeight = parseInt(document.documentElement.clientHeight,10);
+        draw: function(positionY,positionX) {
+          // mask mode
+          if(this.settings.option === 'mask') {
+            closeMask = document.getElementById("closeMask");
+            document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
+            switch(UciMask.settings.thickness) {
+              case 'medium':
+                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
+                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
+                document.getElementById('howToClose').className += " howtocloselight";
+                break;
+              case 'thick':;
+                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
+                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
+                break;
+              default:
+                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
+                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
+            }
+            var size = 90;
+            closeMask.style.height = "90px";
+            closeMask.style.width = "90px";
+            if(typeof positionY == 'undefined') {
+              size = 0;
+            }
+            var topMaskHeight = 0;
+            if((positionY - (size / 2)) > 0)   {
+              topMaskHeight = positionY - (size / 2);
+            }
+            document.getElementById('topMask').style.height = topMaskHeight + "px";
+            document.getElementById('topMask').style.display = "block";
+            document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
+            document.getElementById('closeMaskDiv').style.display = "block";
+            document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
+            
+            var bottomMaskHeight = 0;
+            var winHeight = 0;
+            if (window.getComputedStyle) {
+              winHeight = parseInt(document.documentElement.clientHeight,10);
+            } else {
+              winHeight = parseInt(document.documentElement.offsetHeight, 10);
+            }
+
+            if((winHeight - topMaskHeight - size) > 0)   {
+              bottomMaskHeight = winHeight - topMaskHeight - size;
+            }
+
+            document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
+            document.getElementById('bottomMask').style.display = "block";
           } else {
-            winHeight = parseInt(document.documentElement.offsetHeight, 10);
-          }
+            document.getElementById('topMask').style.display = "none";
+            document.getElementById('closeMaskDiv').style.display = "none";
+            document.getElementById('bottomMask').style.display = "none";
+            // vruler or hruler
+            if (this.settings.option === 'vruler') {
+            	document.getElementById('vMouse').style.display = "block";
+            	document.getElementById('vMouse').style.left = (''+ (positionX+1) +'px');
+            } 
+            else
+            {
+              // if the vertical ruler was launched before, removed it from the dom
+              document.getElementById('vMouse').style.display = "none";
+            }
+                
+            // horizontal    
+            if (this.settings.option === 'hruler') {
+              document.getElementById('hMouse').style.display = "block";
+            	document.getElementById('hMouse').style.top = (''+ (positionY+1) +'px');            	
+            }  
+            else
+            {    
+              // if the horizontal ruler was launched before, removed it from the dom
+            	document.getElementById('hMouse').style.display = "none";
+            } 
 
-          if((winHeight - topMaskHeight - size) > 0)   {
-            bottomMaskHeight = winHeight - topMaskHeight - size;
           }
-
-          document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
-        	document.getElementById('bottomMask').style.display = "block";
         }
 }
 
@@ -7047,7 +7126,7 @@ accessibilitytoolbar = {
    * @param {Event} e : the event to be processed
    */
   setPref: function (e) {
-    var event, target, prefName, prefType, value, currentValue, aSizeValues, index;
+    var event, target, prefName, value, currentValue, aSizeValues, index;
     event = e || window.event;
     target = e.target || window.event.srcElement;
     // speciffic case for font-size
@@ -7075,10 +7154,9 @@ accessibilitytoolbar = {
         document.getElementById("uci_a11yBigger_less").removeAttribute("disabled");
       }
     } else {
-      prefName = target.getAttribute("name");
+      prefName = target.name;
       value = target.value;
     }
-    prefType = target.getAttribute("type");
     if (document.getElementById('uci_validation').className === 'cdu_n') {
       document.getElementById('uci_validation').className = "";
       document.getElementById('uci_zone_form').style.display = "block";
@@ -7099,6 +7177,17 @@ accessibilitytoolbar = {
       }
       prefName = "a11yVisualSettings";
     }
+    if (target.id && target.id.match(/a11yMaskEnabled/)) {
+      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      if(value !== "false") {
+        document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
+        document.getElementById("a11yMaskEnabled").checked = true;          
+      } else {
+        document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
+        document.getElementById("a11yMaskEnabled").checked = false;
+      }
+      prefName = "a11yMaskEnabled";
+    }
     accessibilitytoolbar.userPref.set(prefName, value);
 
     accessibilitytoolbar.setCSS();
@@ -7114,7 +7203,7 @@ accessibilitytoolbar = {
       "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
-    // var radioSettings = ["a11yVisualSettings-predefined", "a11yVisualSettings-personnal"];
+    var radioSettings = ["a11yMaskOption"];
     // var selectSettings = ["a11yNavLienSelStyle", "a11yNavLienNonVisStyle", "a11yNavLienVisStyle"];
     for (pref in ariaRadioSettings) {
       accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
@@ -7126,7 +7215,7 @@ accessibilitytoolbar = {
         document.getElementById(checkboxSettings[pref]).checked = false;
       }
     }
-    /*for (pref in radioSettings) {
+    for (pref in radioSettings) {
       prefarray = radioSettings[pref].split("-");
       if (accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1]) {
         document.getElementById(radioSettings[pref]).checked = true;
@@ -7134,6 +7223,7 @@ accessibilitytoolbar = {
         document.getElementById(radioSettings[pref]).checked = false;
       }
     }
+    /*
     for (pref in selectSettings) {
       var sel = document.getElementById(selectSettings[pref]);
       var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
@@ -7523,28 +7613,10 @@ accessibilitytoolbar = {
         accessibilitytoolbar.cleanImgDisabled();
       }
 
-      // reading mask
-      if (localUserPref.get("a11yMaskEnabled") !== "false") {
-        UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
-        if (!accessibilitytoolbar.toolbarMaskInit) {
-          UciMask.init();
-          accessibilitytoolbar.toolbarMaskInit = true;
-        }
-        UciMask.start();
-
-        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-
-
-        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-
-      }
-      // if mask was launch before deactivation kill!
-      else if (UciMask.settings.launched) {
-        UciMask.maskEventRemove();
-      }
-
       //gestion des couleurs
       // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
+      backGroundColor = "#FFF";
+      fontColor = "#000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
         document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
@@ -7555,9 +7627,7 @@ accessibilitytoolbar = {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
             element = document.getElementById('uci_reponses_bigger_quick_set');
-          }
-          backGroundColor = "#FFF";
-          fontColor = "#000";
+          }          
 
           var predifinedCombinaisons = {
             'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
@@ -7599,13 +7669,40 @@ accessibilitytoolbar = {
         // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
         // background:" + backGroundColor + " !important; }\n";
         s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
+        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
+        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
 
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
       }
       else {
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
+      }
+      
+      // reading mask      
+      if (localUserPref.get("a11yMaskEnabled") !== "false") {
+        UciMask.settings.option = localUserPref.get("a11yMaskOption");
+        UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
+        if (!accessibilitytoolbar.toolbarMaskInit) {
+          UciMask.init();
+          accessibilitytoolbar.toolbarMaskInit = true;
+        }
+        UciMask.start();
+        switch(localUserPref.get("a11yMaskOption")) {
+          case "mask":            
+            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+          break;
+          case "vruler":
+            s += ".vMouse {border-left: thick solid "+fontColor+" }";
+          break;
+          case "hruler":
+            s += ".hMouse {border-bottom: thick solid "+fontColor+" }";
+          break;          
+        }        
+      }
+      // if mask was launch before deactivation kill!
+      else if (UciMask.settings.launched) {
+        UciMask.maskEventRemove();
       }
 
       /*
@@ -8098,7 +8195,7 @@ accessibilitytoolbar = {
   makeHelpTpl: function (linkId, spanId, content) {
     return ["a", { href: "#", "class": "uci_link_help_bulle", role: "presentation", id: linkId },
       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-help" }],
-      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId },
+      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId, role:"tooltip" },                 
         ["p", content],
         ["span", { "aria-hidden": "true", "class": "uci_fleche_help_bulle" }]
       ]
