@@ -16,7 +16,8 @@
 UciMask = {
         settings: {
             launched : false,
-            thickness : 'none'
+            thickness : 'none',
+            option: 'mask' // option could be mask, vruler or hruler
         },
 
         init: function() {
@@ -30,7 +31,15 @@ UciMask = {
             document.getElementsByTagName("body")[0].appendChild(topMask);
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
             document.getElementsByTagName("body")[0].appendChild(bottomMask);
-           document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
+            document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
+            vMouse = document.createElement("div");
+            vMouse.className="vMouse";
+            vMouse.id="vMouse";
+            hMouse = document.createElement("div");
+            hMouse.className="hMouse";
+            hMouse.id="hMouse";
+            document.getElementsByTagName("body")[0].appendChild(vMouse);
+            document.getElementsByTagName("body")[0].appendChild(hMouse);
 	        }
         },
 
@@ -84,16 +93,17 @@ UciMask = {
             e = window.event;
 
           var intKeyCode = e.keyCode;
-          if (intKeyCode === 27 &&  document.getElementById('topMask').style.display === "block") {
+          if (intKeyCode === 27 && (
+            document.getElementById('topMask').style.display === "block" 
+            || document.getElementById('vMouse').style.display === "block"
+            || document.getElementById('hMouse').style.display === "block")) {
             UciMask.closeMask();
           }
 
         },
 
         closeMask: function(){
-          document.getElementById('a11yMaskEnabled').checked = false;
-          accessibilitytoolbar.userPref.set("a11yMaskEnabled", "false");
-          accessibilitytoolbar.setCSS();
+          accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"false",type:"checkbox"}});
           UciMask.maskEventRemove();
         },
 
@@ -110,59 +120,90 @@ UciMask = {
           document.getElementById('topMask').style.display = "none";
           document.getElementById('closeMaskDiv').style.display = "none";
           document.getElementById('bottomMask').style.display = "none";
+          document.getElementById('vMouse').style.display = "none";
+          document.getElementById('hMouse').style.display = "none";
           UciMask.settings.launched = false;
         },
 
         maskEvent: function(e) {
-          UciMask.draw(e.clientY);
+          UciMask.draw(e.clientY,e.clientX);
         },
 
-        draw: function(positionY) {
-          closeMask = document.getElementById("closeMask");
-          document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
-        	switch(UciMask.settings.thickness) {
-        		case 'medium':
-              document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
-              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
-              document.getElementById('howToClose').className += " howtocloselight";
-        			break;
-        		case 'thick':;
-              document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
-              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
-        			break;
-        		default:
-        			document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
-              document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
-          }
-          var size = 90;
-          closeMask.style.height = "90px";
-          closeMask.style.width = "90px";
-        	if(typeof positionY == 'undefined') {
-        		size = 0;
-        	}
-        	var topMaskHeight = 0;
-          if((positionY - (size / 2)) > 0)   {
-            topMaskHeight = positionY - (size / 2);
-          }
-          document.getElementById('topMask').style.height = topMaskHeight + "px";
-          document.getElementById('topMask').style.display = "block";
-          document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
-          document.getElementById('closeMaskDiv').style.display = "block";
-          document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
-          
-        	var bottomMaskHeight = 0;
-          var winHeight = 0;
-          if (window.getComputedStyle) {
-            winHeight = parseInt(document.documentElement.clientHeight,10);
+        draw: function(positionY,positionX) {
+          // mask mode
+          if(this.settings.option === 'mask') {
+            closeMask = document.getElementById("closeMask");
+            document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
+            switch(UciMask.settings.thickness) {
+              case 'medium':
+                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
+                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
+                document.getElementById('howToClose').className += " howtocloselight";
+                break;
+              case 'thick':;
+                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
+                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
+                break;
+              default:
+                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
+                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
+            }
+            var size = 90;
+            closeMask.style.height = "90px";
+            closeMask.style.width = "90px";
+            if(typeof positionY == 'undefined') {
+              size = 0;
+            }
+            var topMaskHeight = 0;
+            if((positionY - (size / 2)) > 0)   {
+              topMaskHeight = positionY - (size / 2);
+            }
+            document.getElementById('topMask').style.height = topMaskHeight + "px";
+            document.getElementById('topMask').style.display = "block";
+            document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
+            document.getElementById('closeMaskDiv').style.display = "block";
+            document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
+            
+            var bottomMaskHeight = 0;
+            var winHeight = 0;
+            if (window.getComputedStyle) {
+              winHeight = parseInt(document.documentElement.clientHeight,10);
+            } else {
+              winHeight = parseInt(document.documentElement.offsetHeight, 10);
+            }
+
+            if((winHeight - topMaskHeight - size) > 0)   {
+              bottomMaskHeight = winHeight - topMaskHeight - size;
+            }
+
+            document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
+            document.getElementById('bottomMask').style.display = "block";
           } else {
-            winHeight = parseInt(document.documentElement.offsetHeight, 10);
-          }
+            document.getElementById('topMask').style.display = "none";
+            document.getElementById('closeMaskDiv').style.display = "none";
+            document.getElementById('bottomMask').style.display = "none";
+            // vruler or hruler
+            if (this.settings.option === 'vruler') {
+            	document.getElementById('vMouse').style.display = "block";
+            	document.getElementById('vMouse').style.left = (''+ (positionX+1) +'px');
+            } 
+            else
+            {
+              // if the vertical ruler was launched before, removed it from the dom
+              document.getElementById('vMouse').style.display = "none";
+            }
+                
+            // horizontal    
+            if (this.settings.option === 'hruler') {
+              document.getElementById('hMouse').style.display = "block";
+            	document.getElementById('hMouse').style.top = (''+ (positionY+1) +'px');            	
+            }  
+            else
+            {    
+              // if the horizontal ruler was launched before, removed it from the dom
+            	document.getElementById('hMouse').style.display = "none";
+            } 
 
-          if((winHeight - topMaskHeight - size) > 0)   {
-            bottomMaskHeight = winHeight - topMaskHeight - size;
           }
-
-          document.getElementById('bottomMask').style.height = bottomMaskHeight + "px";
-        	document.getElementById('bottomMask').style.display = "block";
         }
 }

@@ -3139,7 +3139,7 @@ accessibilitytoolbar = {
    * @param {Event} e : the event to be processed
    */
   setPref: function (e) {
-    var event, target, prefName, prefType, value, currentValue, aSizeValues, index;
+    var event, target, prefName, value, currentValue, aSizeValues, index;
     event = e || window.event;
     target = e.target || window.event.srcElement;
     // speciffic case for font-size
@@ -3167,10 +3167,9 @@ accessibilitytoolbar = {
         document.getElementById("uci_a11yBigger_less").removeAttribute("disabled");
       }
     } else {
-      prefName = target.getAttribute("name");
+      prefName = target.name;
       value = target.value;
     }
-    prefType = target.getAttribute("type");
     if (document.getElementById('uci_validation').className === 'cdu_n') {
       document.getElementById('uci_validation').className = "";
       document.getElementById('uci_zone_form').style.display = "block";
@@ -3191,6 +3190,17 @@ accessibilitytoolbar = {
       }
       prefName = "a11yVisualSettings";
     }
+    if (target.id && target.id.match(/a11yMaskEnabled/)) {
+      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      if(value !== "false") {
+        document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
+        document.getElementById("a11yMaskEnabled").checked = true;          
+      } else {
+        document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
+        document.getElementById("a11yMaskEnabled").checked = false;
+      }
+      prefName = "a11yMaskEnabled";
+    }
     accessibilitytoolbar.userPref.set(prefName, value);
 
     accessibilitytoolbar.setCSS();
@@ -3206,7 +3216,7 @@ accessibilitytoolbar = {
       "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
-    // var radioSettings = ["a11yVisualSettings-predefined", "a11yVisualSettings-personnal"];
+    var radioSettings = ["a11yMaskOption"];
     // var selectSettings = ["a11yNavLienSelStyle", "a11yNavLienNonVisStyle", "a11yNavLienVisStyle"];
     for (pref in ariaRadioSettings) {
       accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
@@ -3218,7 +3228,7 @@ accessibilitytoolbar = {
         document.getElementById(checkboxSettings[pref]).checked = false;
       }
     }
-    /*for (pref in radioSettings) {
+    for (pref in radioSettings) {
       prefarray = radioSettings[pref].split("-");
       if (accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1]) {
         document.getElementById(radioSettings[pref]).checked = true;
@@ -3226,6 +3236,7 @@ accessibilitytoolbar = {
         document.getElementById(radioSettings[pref]).checked = false;
       }
     }
+    /*
     for (pref in selectSettings) {
       var sel = document.getElementById(selectSettings[pref]);
       var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
@@ -3615,28 +3626,10 @@ accessibilitytoolbar = {
         accessibilitytoolbar.cleanImgDisabled();
       }
 
-      // reading mask
-      if (localUserPref.get("a11yMaskEnabled") !== "false") {
-        UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
-        if (!accessibilitytoolbar.toolbarMaskInit) {
-          UciMask.init();
-          accessibilitytoolbar.toolbarMaskInit = true;
-        }
-        UciMask.start();
-
-        s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-
-
-        s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-
-      }
-      // if mask was launch before deactivation kill!
-      else if (UciMask.settings.launched) {
-        UciMask.maskEventRemove();
-      }
-
       //gestion des couleurs
       // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
+      backGroundColor = "#FFF";
+      fontColor = "#000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
         document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
@@ -3647,9 +3640,7 @@ accessibilitytoolbar = {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
             element = document.getElementById('uci_reponses_bigger_quick_set');
-          }
-          backGroundColor = "#FFF";
-          fontColor = "#000";
+          }          
 
           var predifinedCombinaisons = {
             'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
@@ -3691,13 +3682,40 @@ accessibilitytoolbar = {
         // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
         // background:" + backGroundColor + " !important; }\n";
         s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_couleur_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
+        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
+        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
 
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
       }
       else {
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
+      }
+      
+      // reading mask      
+      if (localUserPref.get("a11yMaskEnabled") !== "false") {
+        UciMask.settings.option = localUserPref.get("a11yMaskOption");
+        UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
+        if (!accessibilitytoolbar.toolbarMaskInit) {
+          UciMask.init();
+          accessibilitytoolbar.toolbarMaskInit = true;
+        }
+        UciMask.start();
+        switch(localUserPref.get("a11yMaskOption")) {
+          case "mask":            
+            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+          break;
+          case "vruler":
+            s += ".vMouse {border-left: thick solid "+fontColor+" }";
+          break;
+          case "hruler":
+            s += ".hMouse {border-bottom: thick solid "+fontColor+" }";
+          break;          
+        }        
+      }
+      // if mask was launch before deactivation kill!
+      else if (UciMask.settings.launched) {
+        UciMask.maskEventRemove();
       }
 
       /*
@@ -4190,7 +4208,7 @@ accessibilitytoolbar = {
   makeHelpTpl: function (linkId, spanId, content) {
     return ["a", { href: "#", "class": "uci_link_help_bulle", role: "presentation", id: linkId },
       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-help" }],
-      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId },
+      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId, role:"tooltip" },                 
         ["p", content],
         ["span", { "aria-hidden": "true", "class": "uci_fleche_help_bulle" }]
       ]

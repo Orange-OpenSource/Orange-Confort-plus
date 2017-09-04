@@ -27,7 +27,7 @@ UciApparence = {
 
     InitUciApparence: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_apparence", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-          ["div", {"class":"uci_onglet_div margin-left margin-right-lg"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
           // Line spacing
             ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
@@ -101,13 +101,35 @@ UciApparence = {
               ]
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right-lg"},
-            ["div", {id:"uci_mask_enabled"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
+            ["div", {id:"uci_div_alignement_gauche"},
+              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
+              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
+            ],
+            ["div", {id:"uci_div_numero_ligne"},
+              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
+              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
+            ]
+          ],
+          ["div", {"class":"uci_onglet_div margin-left margin-right"},
+            ["div", {"class":"margin-top-lg"},
               ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"a11yMaskEnabled", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
               ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
             ],
+            ["div", {"class":"padding-left-align margin-top-lg"},
+              ["input", {type:"radio", value:"hruler", name:"a11yMaskOption", id:"a11yHRuler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "hruler" ? "checked" : false}],
+              ["label", {"for":"a11yHRuler"}, accessibilitytoolbar.get('uci_label_regle_horizontale')]
+            ],
+            ["div", {"class":"padding-left-align margin-top-lg"},
+              ["input", {type:"radio", value:"vruler", name:"a11yMaskOption", id:"a11yVRuler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "vruler" ? "checked" : false}],
+              ["label", {"for":"a11yVRuler"}, accessibilitytoolbar.get('uci_label_regle_vertical')]
+            ],
+            ["div", {"class":"padding-left-align margin-top-lg"},
+              ["input", {type:"radio", value:"mask", name:"a11yMaskOption", id:"a11yMask", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "mask" ? "checked" : false}],
+              ["label", {"for":"a11yMask"}, accessibilitytoolbar.get('uci_label_mask')]
+            ],
             ["div", {"class":"padding-left-align"},
-              ["div",
+              ["div", {"class":"padding-left-align"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
                   ["li", 
@@ -139,16 +161,6 @@ UciApparence = {
                   ]
                 ]
               ]
-            ]
-          ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right"},
-            ["div", {id:"uci_div_alignement_gauche"},
-              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
-              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
-            ],
-            ["div", {id:"uci_div_numero_ligne"},
-              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
-              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ]
           ]
         ]);

@@ -27,7 +27,7 @@ UciCouleur = {
      */
     InitUciCouleur: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-        ["div", {"class":"margin-left margin-right-lg margin-top-lg uci_w50-left"},
+        ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
           ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
           ["label", {"for":"a11yVisualSettings", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
           accessibilitytoolbar.makePredefinedCouleurTpl(),
@@ -36,7 +36,7 @@ UciCouleur = {
             ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
           ]
         ],
-        ["div", {"class":"margin-left margin-right-lg margin-top-lg uci_w50-left"},
+        ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
           ["input", {type:"checkbox", value:"true", name:"a11yNavLienEnabled", id:"a11yNavLienEnabled", checked:accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked" : false}],
           ["label", {"for":"a11yNavLienEnabled"}, accessibilitytoolbar.get('uci_titre_links')],
           accessibilitytoolbar.makeHelpTpl("uci_link_help_links","uci_help_links",accessibilitytoolbar.get('uci_help_links')),

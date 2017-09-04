@@ -27,7 +27,7 @@ UciSettings = {
 
     InitUciSettings: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_settings", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-          ["div", {"class":"uci_onglet_div margin-left margin-right-lg"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
             ["div", {id:"uci_div_supprimer_miseenpage"},
               ["input", {type:"checkbox", value:"true", name:"a11yLinearize", id:"a11yLinearize", checked:accessibilitytoolbar.userPref.get("a11yLinearize") === "true" ? "checked" : false}],
               ["label", {"for":"a11yLinearize"}, accessibilitytoolbar.get('uci_label_listmode')],
@@ -39,7 +39,7 @@ UciSettings = {
               accessibilitytoolbar.makeHelpTpl("uci_link_help_disabletransp","uci_help_disabletransp",accessibilitytoolbar.get('uci_help_disabletransp'))
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right"},
             ["div", {id:"uci_div_disabled_fond_picture"},
               ["input", {type:"checkbox", value:"true", name:"a11ySupImageFont", id:"a11ySupImageFont", checked:accessibilitytoolbar.userPref.get("a11ySupImageFont") === "true" ? "checked" : false}],
               ["label", {"for":"a11ySupImageFont"}, accessibilitytoolbar.get('uci_label_disablebgpictures')]

@@ -149,10 +149,12 @@ function UciUserPref() {
         //gestion mask
         "a11yMaskEnabled-0":       "a11yMaskEnabled-false",
         "a11yMaskEnabled-1":       "a11yMaskEnabled-true",
-        // UNUSED a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
+        // mask option, reading mask, hruler or vruler
+        "a11yMaskOption-0" :     "a11yMaskOption-mask",
+        "a11yMaskOption-1" :     "a11yMaskOption-hruler",
+        "a11yMaskOption-2" :     "a11yMaskOption-vruler",
+        // UNUSED a11yMaskHorizontal, a11yMaskColor
         // but keep it for backward compatibility
-        "a11yMaskVertical-0" :     "a11yMaskVertical-false",
-        "a11yMaskVertical-1" :     "a11yMaskVertical-true",
         "a11yMaskHorizontal-0" :   "a11yMaskHorizontal-false",
         "a11yMaskHorizontal-1" :   "a11yMaskHorizontal-true",
 
@@ -231,10 +233,10 @@ function UciUserPref() {
         "a11yNavLienNonVisStyle": [12,1],
         "a11yNavLienVisColor":    [10,2],
         "a11yNavLienVisStyle":    [9,1],
-        "a11yMaskEnabled":       [8,1],
-        // THE THREE FOLLOWING OFFSETS ARE UNUSED!! a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
+        "a11yMaskEnabled":        [8,1],
+        "a11yMaskOption" :        [7,1],
+        // THE TWO FOLLOWING OFFSETS ARE UNUSED!! a11yMaskHorizontal, a11yMaskColor
         // but keep it for backward compatibility
-        "a11yMaskVertical" :     [7,1],
         "a11yMaskHorizontal" :   [6,1],        
         "a11yMaskColor":         [4,2],
         "a11yMaskEpaisseur" :    [3,1],
@@ -281,18 +283,18 @@ function UciUserPref() {
         "a11yNavLienNonVisStyle": "keepit",
         "a11yNavLienVisColor":    "#FF007F",
         "a11yNavLienVisStyle":    "keepit",
-        "a11yMaskEnabled":       "false",
-        // UNUSED a11yMaskVertical, a11yMaskHorizontal, a11yMaskColor
+        "a11yMaskEnabled":        "false",
+        "a11yMaskOption" :        "mask",
+        // UNUSED a11yMaskHorizontal, a11yMaskColor
         // but keep it for backward compatibility
-        "a11yMaskVertical" :     "false",
-        "a11yMaskHorizontal" :   "true",
-        "a11yMaskColor" :        "#000000",
-        "a11yMaskEpaisseur" :    "thin",
+        "a11yMaskHorizontal" :    "true",
+        "a11yMaskColor" :         "#000000",
+        "a11yMaskEpaisseur" :     "thin",
         "a11ySupEffetTransp":     "false",
-        "a11ySupImageFont" :     "false",
+        "a11ySupImageFont" :      "false",
         "a11ySupImageFirstPlan" : "false",
-        "a11ySiteWebEnabled" : "on",
-        "a11yApercuAuto" : "false"
+        "a11ySiteWebEnabled" :    "on",
+        "a11yApercuAuto" :        "false"
     };
     
     /**

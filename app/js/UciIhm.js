@@ -81,11 +81,10 @@ UciIhm = {
               type:"checkbox", 
               value:"true", 
               name:"uci_quick_a11yVisualSettings", 
-              id:"uci_quick_a11yVisualSettings", 
-              checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false,
-              "class": "uci_choix uci_inline ucibtn-secondary "}
+              id:"uci_quick_a11yVisualSettings",
+              checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}
             ],
-            ["label", {"for":"uci_quick_a11yVisualSettings", "class":"uci_couleur_checkbox"},
+            ["label", {"for":"uci_quick_a11yVisualSettings", "class":"ucibtn ucibtn-sm ucibtn-secondary uci_quick_checkbox uci_color_checkbox", title:accessibilitytoolbar.get('uci_color_titre')},
               ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_color_titre')],
               ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-color" },
                 ["span", { "class": "cdu-icon path1" }],
@@ -95,6 +94,17 @@ UciIhm = {
                 ["span", { "class": "cdu-icon path5" }],
                 ["span", { "class": "cdu-icon path6" }]
               ]
+            ],
+            ["input", {
+              type:"checkbox", 
+              value:"true", 
+              name:"uci_quick_a11yMaskEnabled", 
+              id:"uci_quick_a11yMaskEnabled", 
+              checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? true : false}
+            ],
+            ["label", {"for":"uci_quick_a11yMaskEnabled", "class":"ucibtn ucibtn-sm ucibtn-secondary uci_quick_checkbox margin-left-lg", title:accessibilitytoolbar.get('uci_mask_titre')},
+              ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_mask_titre')],
+              ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-masque" }]
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
@@ -317,6 +327,7 @@ UciIhm = {
       document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_quick_a11yMaskEnabled').setAttribute('disabled', 'disabled');
       document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
       document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
       document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
@@ -365,6 +376,7 @@ UciIhm = {
     document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
     document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
+    document.getElementById('uci_quick_a11yMaskEnabled').removeAttribute('disabled');
     document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_close_toolbar').removeAttribute('tabindex');

@@ -25,8 +25,8 @@ UciTypographie = {
      * @constructor
      */
     InitUciTypographie: function () {      
-      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_typographie", "class":"uci_contenu_onglet cdu_c", role:"tabpanel", style:"display:block"},
-          ["div", {"class":"uci_onglet_div margin-left margin-right-lg cdu_c"},
+      return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_typographie", "class":"uci_contenu_onglet cdu_c", role:"tabpanel", style:"display:flex"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg cdu_c"},
           // font size
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["div", {"class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontsize')],
@@ -57,7 +57,7 @@ UciTypographie = {
             
           ],
 
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right-lg cdu_c"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg cdu_c"},
           // font family
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["span", {id:"uci_title_typographie", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontfamily'),
@@ -99,7 +99,7 @@ UciTypographie = {
             
           ],
 
-          ["div", {"class":"uci_onglet_div margin-left-lg margin-right cdu_c"},
+          ["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
             // font family
             ["div", {"class":"uci_aria_button_group cdu_c"},
               ["span", {id:"uci_fieldset_changecasse", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_changecase'),
