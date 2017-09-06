@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 04-09-2017
+/* orange-confort-plus - version 4.1.0 - 06-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -347,8 +347,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 
 #accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox{
   padding-left: 0;
-  height: 1.625rem;
-  width: 1.625rem;
+  min-height: 1.625rem;
+  min-width: 1.625rem;
   box-sizing: content-box;
 	vertical-align: middle;
 }
