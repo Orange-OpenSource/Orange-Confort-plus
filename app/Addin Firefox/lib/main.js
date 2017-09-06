@@ -47,6 +47,32 @@ css += "@font-face{" +
     "url(" + data.url('confort+/fonts/open-dyslexic/ttf/OpenDyslexic-Italic.ttf') + ") format('truetype')," +
     "url(" + data.url('confort+/fonts/open-dyslexic/svg/OpenDyslexic-Italic.svg') + "#opendyslexic) format('svg');font-style: italic;font-weight: normal;}";	
 
+css += "@font-face{" +
+    "font-family:'opensans';" +
+    "url(" + data.url('confort+/fonts/open-sans/OpenSans-Regular.ttf') + ") format('truetype');font-style: normal;font-weight: normal;}";
+css += "@font-face{" +
+    "font-family:'opensans';" +
+    "url(" + data.url('confort+/fonts/open-sans/OpenSans-Bold.ttf') + ") format('truetype');font-style: normal;font-weight: bold;}";
+css += "@font-face{" +
+    "font-family:'opensans';" +
+    "url(" + data.url('confort+/fonts/open-sans/OpenSans-BoldItalic.ttf') + ") format('truetype');font-style: italic;font-weight: bold;}";
+css += "@font-face{" +
+    "font-family:'opensans';" +
+    "url(" + data.url('confort+/fonts/open-sans/OpenSans-Italic.ttf') + ") format('truetype');font-style: italic;font-weight: normal;}";
+    
+    
+css += "@font-face{" +
+    "font-family:'accessibledfa';" +
+    "url(" + data.url('confort+/fonts/accessibleDFA/AccessibleDfa.ttf') + ") format('truetype');font-style: normal;font-weight: normal;}";
+css += "@font-face{" +
+    "font-family:'accessibledfa';" +
+    "url(" + data.url('confort+/fonts/accessibleDFA/AccessibleDfa.ttf') + ") format('truetype');font-style: normal;font-weight: bold;}";
+css += "@font-face{" +
+    "font-family:'accessibledfa';" +
+    "url(" + data.url('confort+/fonts/accessibleDFA/AccessibleDfa.ttf') + ") format('truetype');font-style: italic;font-weight: bold;}";
+css += "@font-face{" +
+    "font-family:'accessibledfa';" +
+    "url(" + data.url('confort+/fonts/accessibleDFA/AccessibleDfa.ttf') + ") format('truetype');font-style: italic;font-weight: normal;}";
 //var cssEnc = 'data:text/css;base64,' + window.btoa(css);
 var cssEnc = encodeURIComponent(css);
 var cssUri = BrowserUtils.makeURI('data:text/css,' + cssEnc);

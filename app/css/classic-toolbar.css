@@ -344,8 +344,8 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 
 #accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox{
   padding-left: 0;
-  height: 1.625rem;
-  width: 1.625rem;
+  min-height: 1.625rem;
+  min-width: 1.625rem;
   box-sizing: content-box;
 	vertical-align: middle;
 }

@@ -69,6 +69,8 @@ traduction['ES']={
   uci_title_fontfamily_radio_normal:"Tipo de letra por defecto", 
   uci_title_fontfamily_radio_arial:"Tipo de letra Arial",
   uci_title_fontfamily_radio_opendys:"Tipo de letra Open Dyslexic",
+  uci_title_fontfamily_radio_opensans:"Tipo de letra Open Sans",
+  uci_title_fontfamily_radio_accessibledfa:"Tipo de letra Accessible DFA",
   uci_changecase_firstlettre_title:"primera letra de cada palabra en May\372scula",
   uci_changecase_firstlettre:"Primera Letra En May\372scula",
   uci_changecase_normal_title:"Mostrar el texto por defecto",

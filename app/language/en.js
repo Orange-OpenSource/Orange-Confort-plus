@@ -69,6 +69,8 @@ traduction['EN']={
   uci_title_fontfamily_radio_normal:"Default font face", 
   uci_title_fontfamily_radio_arial:"Arial font face",
   uci_title_fontfamily_radio_opendys:"Open Dyslexic font face",
+  uci_title_fontfamily_radio_opensans:"Open Sans font face",
+  uci_title_fontfamily_radio_accessibledfa:"Accessible DFA font face",
   uci_changecase_firstlettre_title:"First character of each word to upper case",
   uci_changecase_firstlettre:"First Character",
   uci_changecase_normal_title:"Default text display",

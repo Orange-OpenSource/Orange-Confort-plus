@@ -108,6 +108,8 @@ function UciUserPref() {
         "a11yDyslexyFont-0": "a11yDyslexyFont-arial",
         "a11yDyslexyFont-1": "a11yDyslexyFont-opendyslexic",
         "a11yDyslexyFont-3": "a11yDyslexyFont-keepit",
+        "a11yDyslexyFont-4": "a11yDyslexyFont-opensans",
+        "a11yDyslexyFont-5": "a11yDyslexyFont-accessibledfa",
         "a11yLineSpacement-0": "a11yLineSpacement-keepit",
         "a11yLineSpacement-1": "a11yLineSpacement-2",
         "a11yLineSpacement-2": "a11yLineSpacement-3",

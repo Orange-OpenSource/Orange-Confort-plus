@@ -69,6 +69,8 @@ traduction['FR']={
   uci_title_fontfamily_radio_normal:"Police de caract\350res par d\351faut", 
   uci_title_fontfamily_radio_arial:"Police de caract\350res Arial",
   uci_title_fontfamily_radio_opendys:"Police de caract\350res Open Dyslexic",
+  uci_title_fontfamily_radio_opensans:"Police de caract\350res Open Sans",
+  uci_title_fontfamily_radio_accessibledfa:"Police de caract\350res Accessible DFA",
   uci_changecase_firstlettre_title:"Premi\350re lettre de chaque mot en majuscule",
   uci_changecase_firstlettre:"Premi\350re Lettre",
   uci_changecase_normal_title:"Affichage du texte par d\351faut",

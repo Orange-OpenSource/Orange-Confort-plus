@@ -3216,16 +3216,24 @@ accessibilitytoolbar = {
       "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
-    var radioSettings = ["a11yMaskOption"];
+    var radioSettings = ["a11yMaskOption-mask","a11yMaskOption-vruler","a11yMaskOption-hruler"];
+    var curpref;
     // var selectSettings = ["a11yNavLienSelStyle", "a11yNavLienNonVisStyle", "a11yNavLienVisStyle"];
     for (pref in ariaRadioSettings) {
       accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
     }
     for (pref in checkboxSettings) {
-      if (accessibilitytoolbar.userPref.get(checkboxSettings[pref]) === "true") {
-        document.getElementById(checkboxSettings[pref]).checked = true;
+      curpref = checkboxSettings[pref];
+      if (accessibilitytoolbar.userPref.get(curpref) === "true") {
+        if(curpref === "a11yMaskEnabled" || curpref ==="a11yVisualSettings") {
+          document.getElementById("uci_quick_"+curpref).checked = true;
+        }
+        document.getElementById(curpref).checked = true;
       } else {
-        document.getElementById(checkboxSettings[pref]).checked = false;
+        if(curpref === "a11yMaskEnabled" || curpref ==="a11yVisualSettings") {
+          document.getElementById("uci_quick_"+curpref).checked = false;
+        }
+        document.getElementById(curpref).checked = false;
       }
     }
     for (pref in radioSettings) {
@@ -3362,7 +3370,7 @@ accessibilitytoolbar = {
    * 2. add a new STYLE node with the user's preferences
    */
   setCSS: function (init, demo) {
-    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref;
+    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref, userFont;
     localUserPref = accessibilitytoolbar.userPref;
     // were in demo mode
     if (demo) {
@@ -3521,14 +3529,32 @@ accessibilitytoolbar = {
       }
 
       //gestion de la police d'écriture
-      if (localUserPref.get("a11yDyslexyFont") !== 'keepit') {
-        //load the font face
-        if (localUserPref.get("a11yDyslexyFont") === 'opendyslexic') {
-          if (fontsPath['opendyslexicregular']) {
-            s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
-          }
+      userFont = localUserPref.get("a11yDyslexyFont");
+      if (userFont !== 'keepit') {
+        switch(userFont) {
+          case 'opendyslexic':
+            if (fontsPath['opendyslexicregular']) {
+              s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+            }
+            break;
+          case 'opensans':
+            if (fontsPath['opensansregular']) {
+              s += "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansregular'] + ";font-style: normal;font-weight: normal;}"
+              +"@font-face{font-family: \"opensans\";src: " + fontsPath['opensansitalic'] + ";font-style: italic;font-weight: normal;}"
+              +"@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbold'] + ";font-weight: bold;font-style: normal;}"
+              +"@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+            }
+            break;
+          case 'accessibledfa':
+            if (fontsPath['accessibledfa']) {
+              s += "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: normal;font-weight: normal;}"
+              +"@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: italic;font-weight: normal;}"
+              +"@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: normal;}"
+              +"@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: italic;} ";
+            }
+            break;
         }
-        s += "* :not(.cdu-icon) {font-family:" + localUserPref.get("a11yDyslexyFont") + " !important; }\n";
+        s += "* :not(.cdu-icon) {font-family:" + userFont + " !important; }\n";
       }
 
       //gestion alignement des texte à gauche

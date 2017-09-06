@@ -84,6 +84,26 @@ UciTypographie = {
                   "Arial"
                 ],
                 ["li", 
+                  {id:"uci_a11yDyslexyFont_opensans",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_opensans')
+                  },
+                  "Open Sans"
+                ],
+                ["li", 
+                  {id:"uci_a11yDyslexyFont_accessibledfa",
+                    role:"radio",
+                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "active": ""),
+                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "0" : "-1",
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "true" : "false",                    
+                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_accessibledfa')
+                  },
+                  "Accessible DFA"
+                ],
+                ["li", 
                   {id:"uci_a11yDyslexyFont_opendyslexic",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active": ""),

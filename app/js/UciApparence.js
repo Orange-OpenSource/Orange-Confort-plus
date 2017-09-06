@@ -63,7 +63,7 @@ UciApparence = {
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ],
+            ],            
             // Wording espacement
             ["div", {id:"uci_typo_espacement_mot", "class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_espacement_word_aria_label"},accessibilitytoolbar.get('uci_typo_titre_wordspacing')],
@@ -99,9 +99,7 @@ UciApparence = {
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ]
-          ],
-          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
+            ],
             ["div", {id:"uci_div_alignement_gauche"},
               ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
               ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
@@ -117,16 +115,16 @@ UciApparence = {
               ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
             ],
             ["div", {"class":"padding-left-align margin-top-lg"},
-              ["input", {type:"radio", value:"hruler", name:"a11yMaskOption", id:"a11yHRuler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "hruler" ? "checked" : false}],
-              ["label", {"for":"a11yHRuler"}, accessibilitytoolbar.get('uci_label_regle_horizontale')]
+              ["input", {type:"radio", value:"hruler", name:"a11yMaskOption", id:"a11yMaskOption-hruler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "hruler" ? "checked" : false}],
+              ["label", {"for":"a11yMaskOption-hruler"}, accessibilitytoolbar.get('uci_label_regle_horizontale')]
             ],
             ["div", {"class":"padding-left-align margin-top-lg"},
-              ["input", {type:"radio", value:"vruler", name:"a11yMaskOption", id:"a11yVRuler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "vruler" ? "checked" : false}],
-              ["label", {"for":"a11yVRuler"}, accessibilitytoolbar.get('uci_label_regle_vertical')]
+              ["input", {type:"radio", value:"vruler", name:"a11yMaskOption", id:"a11yMaskOption-vruler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "vruler" ? "checked" : false}],
+              ["label", {"for":"a11yMaskOption-vruler"}, accessibilitytoolbar.get('uci_label_regle_vertical')]
             ],
             ["div", {"class":"padding-left-align margin-top-lg"},
-              ["input", {type:"radio", value:"mask", name:"a11yMaskOption", id:"a11yMask", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "mask" ? "checked" : false}],
-              ["label", {"for":"a11yMask"}, accessibilitytoolbar.get('uci_label_mask')]
+              ["input", {type:"radio", value:"mask", name:"a11yMaskOption", id:"a11yMaskOption-mask", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "mask" ? "checked" : false}],
+              ["label", {"for":"a11yMaskOption-mask"}, accessibilitytoolbar.get('uci_label_mask')]
             ],
             ["div", {"class":"padding-left-align"},
               ["div", {"class":"padding-left-align"},
