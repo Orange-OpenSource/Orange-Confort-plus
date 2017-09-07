@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 06-09-2017
+/* orange-confort-plus - version 4.1.0 - 07-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.50102c45.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.5d2cca72.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -286,9 +286,9 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         "a11yMaskHorizontal-0" :   "a11yMaskHorizontal-false",
         "a11yMaskHorizontal-1" :   "a11yMaskHorizontal-true",
 
-        "a11yMaskEpaisseur-0" :    "a11yMaskEpaisseur-thin",
-        "a11yMaskEpaisseur-1" :    "a11yMaskEpaisseur-medium",
-        "a11yMaskEpaisseur-2" :    "a11yMaskEpaisseur-thick",
+        "a11yMaskOpacity-0" :    "a11yMaskOpacity-.5",
+        "a11yMaskOpacity-1" :    "a11yMaskOpacity-.25",
+        "a11yMaskOpacity-2" :    "a11yMaskOpacity-.9",
 
         "a11ySupEffetTransp-0":     "a11ySupEffetTransp-false",
         "a11ySupEffetTransp-1":     "a11ySupEffetTransp-1",
@@ -367,7 +367,7 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         // but keep it for backward compatibility
         "a11yMaskHorizontal" :   [6,1],        
         "a11yMaskColor":         [4,2],
-        "a11yMaskEpaisseur" :    [3,1],
+        "a11yMaskOpacity" :    [3,1],
         "a11ySupEffetTransp":     [2,1],
         "a11ySupImageFont" :      [1,1],
         "a11ySupImageFirstPlan" : [0,1]
@@ -417,7 +417,7 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         // but keep it for backward compatibility
         "a11yMaskHorizontal" :    "true",
         "a11yMaskColor" :         "#000000",
-        "a11yMaskEpaisseur" :     "thin",
+        "a11yMaskOpacity" :     ".5",
         "a11ySupEffetTransp":     "false",
         "a11ySupImageFont" :      "false",
         "a11ySupImageFirstPlan" : "false",
@@ -748,188 +748,183 @@ UciStorage.prototype = new UciUserPref();
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['EN']={
-  uci_link_hide_toolbar:"Hide toolbar",
+  howToClose: "Close mask : Esc key or close cross on right",
+  save_service: "Save profile",
   uci_alt_logo:"Confort+",
-  uci_serv_name:"Confort",
-  uci_title_fontsize_radio_medium:"Decrease font size",
-  uci_title_fontsize_radio_large:"Increase font size",
-  uci_title_color_keepit:"Initial colors",
-  uci_title_color_blackonwhite:"Black text on white background",
-  uci_title_color_whiteonblack:"White text on black background",
-  uci_title_color_blueonyellow:"Blue text on yellow background",
-  uci_title_color_yellowonblue:"Yellow text on blue background",
-  uci_title_color_greenonblack:"Green text on black background",
-  uci_title_color_blackongreen:"Black text on green background",
-  uci_title_color_blueonwhite:"Blue text on white background",
-  uci_title_color_whiteonblue:"White text on blue background",
-  uci_button_valid:"Save my settings",
   uci_button_cancel:"Cancel",
-  uci_txt_more_settings:"More settings",
-  uci_txt_low_settings_display:"Less settings",
-  uci_txt_low_settings:"Close more settings panel",
-  uci_title_disable_cdu:"Deactivate Confort+ on this site",
-  uci_title_enable_cdu:"Activate Confort+ on this site",
-  uci_txt_link_menu:"Help",
-  uci_txt_link_menu_open:"Show menu",
-  uci_txt_link_menu_close:"Hide menu",
+  uci_button_valid:"Save my settings",
+  uci_button_valid_profil: "Update profile name",
+  uci_changecase_firstlettre:"First Character",
+  uci_changecase_firstlettre_title:"First character of each word to upper case",
+  uci_changecase_normal_title:"Default text display",
+  uci_changecase_tolower:"lower case",
+  uci_changecase_tolower_title:"lower case text",
+  uci_changecase_uppercase:"UPPER CASE",
+  uci_changecase_uppercase_title:"Upper case text",
+  uci_close_guide : "Close guide",
+  uci_close_mask : "Close reading mask",
+  uci_closeButton:"Close",
+  uci_color_titre:"Font and background color",
+  uci_color_txt_background:"Background color",
+  uci_color_txt_texte:"Font color",
+  uci_color_warning_content:"Text and background colors has an insufficient contrast. This may make it difficult to read and cause eyestrain.",
+  uci_color_warning_title:"Insufficient contrast",
+  uci_confirm_validation:"Settings saved",
+  uci_tour_discover_default : "No settings",
+  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
+  uci_doClick:"Click",
+  uci_enableMotorMode:"Motor help",
+  uci_exit : "Exit",
+  uci_help_automove:"Select clickable elements one after the other. Press the enter or space key to open a contextual menu allowing to activate the selected element or to modify ",
+  uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
+  uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
+  uci_help_jumptocontent:"Allow an automatic positioning on main page content, in particular, by jumping navigation links",
+  uci_help_links:"This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
+  uci_help_listmode:"This feature replaces site font faces with your default font faces (those defined in your browser or computeur). Moreover, the content is linearised and displayed without columns.",
+  uci_help_quickmode:"(number of \253 ignored \273 elements between to selected elements)",
+  uci_help_telecomande:"Add vertical scrolling arrows on rollover. Allow also, clickable links activation on rollover after a defined delay",
+  uci_iframe_cookie:"Technical Content Orange Confort+",
+  uci_label_10par10:"9",
+  uci_label_1sec:"1 second",
+  uci_label_2par2:"1",
+  uci_label_2sec:"2 seconds",
+  uci_label_3sec:"3 seconds",
+  uci_label_5par5:"4",
+  uci_label_6sec:"6 seconds",
+  uci_label_alignleft:"Text align left",
+  uci_label_automove:"Automatically select clickable elements",
+  uci_label_centeredmenu:"Center on the page",
+  uci_label_disablebgpictures:"Disable background images",
+  uci_label_disablepppictures:"Cancel foreground images",
+  uci_label_disabletransp:"Cancel transparency effects",
+  uci_label_jumptocontent:"Always skip to content",
+  uci_label_listmode:"Cancel layout",
+  uci_mask_label:"Show a reading mask",
+  uci_label_nearelemtmenu:"Next to the selected item",
+  uci_label_putnumonlist:"Numbering list elements",
+  uci_label_regle_horizontale:"Show a horizontal ruler",
+  uci_label_regle_vertical:"Show a vertical ruler",
+  uci_label_telecomande:"Browse on hover",
+  uci_legend_delai_clic:"Delay before automatic click",
+  uci_legend_menupos:"Menu position",
+  uci_legend_pasquickmode:"Quick mode steps",
+  uci_legend_time_before_sel:"Elements selection delay",
+  uci_link_display_picture:"View this picture:",
+  uci_link_display_picture_no_alt:"Description not available",
+  uci_link_hide_toolbar:"Hide toolbar",
+  uci_link_render_options_bold:"bold",
+  uci_link_render_options_border:"box",
+  uci_link_render_options_default:"by default",
+  uci_link_render_options_underline:"underline",
+  uci_loopActivable:"Navigate through items",
+  uci_loopActivableQuick:"Navigate quickly through items",
+  uci_loopBackward:"Navigate backwards",
+  uci_mask_titre:"Reading mask", // V4
+  uci_mask_settings_titre: "Reading mask settings", // V4
+  uci_mask_settings_help: "To activate the mask, please use the button in the Quick Access ribbon, or the Ctrl/Cmd+M keyboard shortcut", // V4
+  uci_other_settings_titre: "Other settings", //v4
+  uci_menu : "Menu",
+  uci_menu_guide:"Guide step by step",
   uci_menu_help:"Visit general help",
   uci_menu_info:"About",
   uci_menu_remove_all:"Reset",
-  uci_txt_menu_change_lang_fr:"Show this service in french",
+  uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue ?",
+  uci_new_window:"New window",
+  uci_next: "next",
+  uci_predefined_change_layout: "Change the layout",
+  uci_predefined_improve_readability: "Improve readability",
+  uci_predefined_motor_help: "Start motor help",
+  uci_predefined_none: "No profile",
+  uci_predefined_profils_title: "predefined profiles",
+  uci_previous: "previous",
+  uci_profile_curent_name: "Current profile name",
+  uci_profile_delete_warning: "ATTENTION",
+  uci_profile_name_format: "ENGLISH Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
+  uci_profile_new_label: "New profile",
+  uci_profile_new_option: "new profile",
+  uci_profile_rename_label: "New name",
+  uci_profile_save_label: "Save my settings",
+  uci_radio_dark:"Dark",
+  uci_radio_default:"Default",
+  uci_radio_large:"Large",
+  uci_radio_light:"Light",
+  uci_radio_medium:"Medium",
+  uci_radio_medium1:"Medium",
+  uci_remove_all_settings:"All your settings will be deleted, do you want to continue ?",
+  uci_rename_profile: "Rename profile",
+  uci_serv_name:"Confort",
+  uci_stopLoop:"Pause navigation",
+  uci_title_color_blackongreen:"Black text on green background",
+  uci_title_color_blackonwhite:"Black text on white background",
+  uci_title_color_blueonwhite:"Blue text on white background",
+  uci_title_color_blueonyellow:"Blue text on yellow background",
+  uci_title_color_greenonblack:"Green text on black background",
+  uci_title_color_keepit:"Initial colors",
+  uci_title_color_personnal:"Select personalized colors",
+  uci_title_color_whiteonblack:"White text on black background",
+  uci_title_color_whiteonblue:"White text on blue background",
+  uci_title_color_yellowonblue:"Yellow text on blue background",
+  uci_title_disable_cdu:"Deactivate Confort+ on this site",
+  uci_title_enable_cdu:"Activate Confort+ on this site",
+  uci_title_fontfamily_radio_accessibledfa:"Accessible design for all font face",
+  uci_title_fontfamily_radio_arial:"Arial font face",
+  uci_title_fontfamily_radio_normal:"Default font face", 
+  uci_title_fontfamily_radio_opendys:"Open Dyslexic font face",
+  uci_title_fontfamily_radio_opensans:"Open Sans font face",
+  uci_title_fontsize_radio_large:"Increase font size",
+  uci_title_fontsize_radio_medium:"Decrease font size",
+  uci_title_linespacing_radio_large:"Large line spacing",
+  uci_title_linespacing_radio_medium:"Medium line spacing",
+  uci_title_linespacing_radio_normal:"Default line spacing",
+  uci_title_link_active_color:"Selected link color",
+  uci_title_link_active_render:"Selected link additionnal formatting",
+  uci_title_link_notvisited_color:"Default links color",
+  uci_title_link_notvisited_render:"Links formatting",
+  uci_title_link_visited_color:"Visited links color",
+  uci_title_link_visited_render:"Visited links additionnal formatting",
+  uci_title_wordspacing_radio_large:"Large word spacing",
+  uci_title_wordspacing_radio_medium:"Medium word spacing",
+  uci_title_wordspacing_radio_normal:"Default word spacing ",
+  uci_titre_links:"Navigation links appearence",
+  uci_tour_discover_edit_layout : "Edit layout",
+  uci_tour_discover_improve_readability : "Improve Readability",
+  uci_tour_discover_service : "discover the service",
+  uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
+  uci_tour_step_1_advancedparam: "advancedparam",
+  uci_tour_step_2_typographie :"typographie",
+  uci_tour_step_3_apparence : "apparence",
+  uci_tour_step_4_couleur: "couleurs",
+  uci_tour_step_5_aidemotrice: "aidemotrice",
+  uci_txt_active:"Selected link",
+  uci_txt_link_menu:"Help",
+  uci_txt_link_menu_close:"Hide menu",
+  uci_txt_link_menu_open:"Show menu",
+  uci_txt_link_profil: "Profiles",
+  uci_txt_low_settings:"Close more settings panel",
+  uci_txt_low_settings_display:"Less settings",
+  uci_txt_mask_opacity:"Mask opacity",
+  uci_txt_mask_size:"Mask height",
   uci_txt_menu_change_lang_en:"Show this service in english",
   uci_txt_menu_change_lang_es:"Show this service in spanish",
+  uci_txt_menu_change_lang_fr:"Show this service in french",
   uci_txt_menu_change_lang_pl:"Show this service in Polish",
-  uci_txt_onglet_typo:"Typography",
+  uci_txt_more_settings:"More settings",
+  uci_txt_notvisited:"Links",
   uci_txt_onglet_apparence:"Reading help",
   uci_txt_onglet_color:"Colors",
   uci_txt_onglet_motor_help:"Behaviour",
   uci_txt_onglet_settings:"Advanced settings",
-  uci_typo_titre_fontsize:"Font size",
-  uci_typo_titre_wordspacing:"Word spacing",
-  uci_typo_titre_linespacing:"Line spacing",
-  uci_typo_titre_fontfamily:"Font face",
-  uci_typo_titre_changecase:"Text case",
-  uci_typo_help_fontfamily:"This feature allows to modify the site defined font to improve reading confort",
-  uci_typo_help_changecase:"This feature allows to modify texts display to meet your needs",
-  uci_title_wordspacing_radio_normal:"Default word spacing ",
-  uci_title_wordspacing_radio_medium:"Medium word spacing",
-  uci_title_wordspacing_radio_large:"Large word spacing",
-  uci_title_linespacing_radio_normal:"Default line spacing",
-  uci_title_linespacing_radio_medium:"Medium line spacing",
-  uci_title_linespacing_radio_large:"Large line spacing",
-  uci_title_minfont_radio_normal:"Minimal text size 12px",
-  uci_title_minfont_radio_medium:"Minimal text size 16px",
-  uci_title_minfont_radio_large:"Minimal text size 18px",
-  uci_title_fontfamily_radio_normal:"Default font face", 
-  uci_title_fontfamily_radio_arial:"Arial font face",
-  uci_title_fontfamily_radio_opendys:"Open Dyslexic font face",
-  uci_title_fontfamily_radio_opensans:"Open Sans font face",
-  uci_title_fontfamily_radio_accessibledfa:"Accessible DFA font face",
-  uci_changecase_firstlettre_title:"First character of each word to upper case",
-  uci_changecase_firstlettre:"First Character",
-  uci_changecase_normal_title:"Default text display",
-  uci_changecase_tolower_title:"lower case text",
-  uci_changecase_tolower:"lower case",
-  uci_changecase_uppercase:"UPPER CASE",
-  uci_changecase_uppercase_title:"Upper case text",
-  uci_label_listmode:"Cancel layout",
-  uci_label_alignleft:"Text align left",
-  uci_label_putnumonlist:"Numbering list elements",
-  uci_label_disabletransp:"Cancel transparency effects",
-  uci_label_disablebgpictures:"Disable background images",
-  uci_label_disablepppictures:"Cancel foreground images",
-  uci_label_mask:"Show a reading mask",
-  uci_label_regle_vertical:"Show a vertical ruler",
-  uci_label_regle_horizontale:"Show a horizontal ruler",
-  uci_link_display_picture:"View this picture:",
-  uci_link_display_picture_no_alt:"Description not available",
-  uci_titre_links:"Navigation links appearence",
-  uci_txt_notvisited:"Links",
+  uci_txt_onglet_typo:"Typography",
   uci_txt_visited:"Visited links",
-  uci_txt_active:"Selected link",
-  uci_title_link_notvisited_color:"Default links color",
-  uci_title_link_visited_color:"Visited links color",
-  uci_title_link_active_color:"Selected link color",
-  uci_title_link_notvisited_render:"Links formatting",
-  uci_title_link_visited_render:"Visited links additionnal formatting",
-  uci_title_link_active_render:"Selected link additionnal formatting",
-  uci_link_render_options_default:"by default",
-  uci_link_render_options_underline:"underline",
-  uci_link_render_options_border:"box",
-  uci_link_render_options_bold:"bold",
-  uci_txt_mask_size:"Mask height",
-  uci_help_listmode:"This feature replaces site font faces with your default font faces (those defined in your browser or computeur). Moreover, the content is linearised and displayed without columns.",
-  uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
-  uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
-  uci_help_links:"This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
-  uci_color_titre:"Font and background color",
-  uci_mask_titre:"Reading mask",
-  uci_title_color_personnal:"Select personalized colors",
-  uci_color_txt_texte:"Font color",
-  uci_color_txt_background:"Background color",
-  uci_color_warning_title:"Insufficient contrast",
-  uci_color_warning_content:"Text and background colors has an insufficient contrast. This may make it difficult to read and cause eyestrain.",
-  uci_label_jumptocontent:"Always skip to content",
-  uci_help_jumptocontent:"Allow an automatic positioning on main page content, in particular, by jumping navigation links",
-  uci_enableMotorMode:"Motor help",
-  uci_label_telecomande:"Browse on hover",
-  uci_help_telecomande:"Add vertical scrolling arrows on rollover. Allow also, clickable links activation on rollover after a defined delay",
-  uci_legend_delai_clic:"Delay before automatic click",
-  uci_label_1sec:"1 second",
-  uci_label_2sec:"2 seconds",
-  uci_label_3sec:"3 seconds",
-  uci_label_6sec:"6 seconds",
-  uci_label_automove:"Automatically select clickable elements",
-  uci_help_automove:"Select clickable elements one after the other. Press the enter or space key to open a contextual menu allowing to activate the selected element or to modify ",
-  uci_legend_menupos:"Menu position",
-  uci_label_centeredmenu:"Center on the page",
-  uci_label_nearelemtmenu:"Next to the selected item",
-  uci_legend_time_before_sel:"Elements selection delay",
-  uci_help_quickmode:"(number of \253 ignored \273 elements between to selected elements)",
-  uci_legend_pasquickmode:"Quick mode steps",
-  uci_label_2par2:"1",
-  uci_label_5par5:"4",
-  uci_label_10par10:"9",
-  uci_doClick:"Click",
-  uci_loopActivable:"Navigate through items",
-  uci_loopActivableQuick:"Navigate quickly through items",
-  uci_loopBackward:"Navigate backwards",
-  uci_stopLoop:"Pause navigation",
-  uci_closeButton:"Close",
-  uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue ?",
-  uci_remove_all_settings:"All your settings will be deleted, do you want to continue ?",
-  uci_radio_default:"Default",
-  uci_radio_medium:"Medium",
-  uci_radio_large:"Large",
-  uci_new_window:"New window",
-  uci_iframe_cookie:"Technical Content Orange Confort+",
-  uci_confirm_validation:"Settings saved",
-  uci_menu_guide:"Guide step by step",
-  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, "+
-                      "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
-                      "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
-  reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
-  reading1: "1",
-  reading2: "2",
-  uci_advance_param : "little test to show Confort + criteres",
-  discover_service : "discover the service",
-  improve_readability : "Improve Readability",
-  edit_layout : "Edit layout",
-  use_motor_assistance : "Use motor assistance",
-  uci_exit : "Exit",
-  uci_close_guide : "Close guide",
-  uci_menu : "Menu",
-  uci_default : "default",
-  save_service: "Save profile",
-  uci_rename_profile: "Rename profile",
-  uci_profile_rename_label: "New name",
-  uci_profile_curent_name: "Current profile name",
-  uci_txt_link_profil: "Profiles",
-  uci_profile_save_label: "Save my settings",
-  uci_profile_new_option: "new profile",
-  uci_profile_new_label: "New profile",
-  uci_predefined_profils_title: "predefined profiles",
-  uci_predefined_none: "No profile",
-  uci_predefined_improve_readability: "Improve readability",
-  uci_predefined_change_layout: "Change the layout",
-  uci_predefined_motor_help: "Start motor help",
-  uci_profile_delete_warning: "ATTENTION",
-  uci_button_valid_profil: "Update profile name",
-  uci_profile_name_format: "ENGLISH Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  uci_previous: "previous",
-  uci_next: "next",
-  apparence : "apparence",
-  aidemotrice: "aidemotrice",
-  typographie :"typographie",
-  couleur: "couleurs",
-  advancedparam: "advancedparam",
-  howToClose: "Close mask : Esc key or close cross on right",
-  uci_radio_light:"Light",
-  uci_radio_medium1:"Medium",
-  uci_radio_dark:"Dark",
-  uci_txt_mask_opacity:"Mask opacity",
-  uci_close_mask : "Close reading mask",
-  update_custom_colors: "Update personalized colors"
+  uci_typo_help_changecase:"This feature allows to modify texts display to meet your needs",
+  uci_typo_help_fontfamily:"This feature allows to modify the site defined font to improve reading confort",
+  uci_typo_titre_changecase:"Text case",
+  uci_typo_titre_fontfamily:"Font face",
+  uci_typo_titre_fontsize:"Font size",
+  uci_typo_titre_linespacing:"Line spacing",
+  uci_typo_titre_wordspacing:"Word spacing",
+  update_custom_colors: "Update personalized colors",
+ uci_tour_discover_use_motor_assistance : "Use motor assistance",
 };
 // Source: app/language/es.js
 /**
@@ -948,186 +943,181 @@ traduction['EN']={
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['ES']={
-  uci_link_hide_toolbar:"Esconder el panel",
+  howToClose: "Cerrar la máscara: tecla Esc o cruz cerrada a la derecha", //v4
+  save_service: "Guardar perfil", //v4
   uci_alt_logo:"Confort+",
-  uci_serv_name:"Confort",
-  uci_title_fontsize_radio_medium:"Reducir el tamaño de la fuente",
-  uci_title_fontsize_radio_large:"Aumentar el tamaño de la fuente",
-  uci_title_color_keepit:"Colores iniciales",
-  uci_title_color_blackonwhite:"Texto negro y fondo blanco",
-  uci_title_color_whiteonblack:"Texto blanco y fondo negro",
-  uci_title_color_blueonyellow:"Texto azul y fondo amarillo",
-  uci_title_color_yellowonblue:"Texto amarillo y fondo azul",
-  uci_title_color_greenonblack:"Texto verde y fondo negro",
-  uci_title_color_blackongreen:"Texto negro y fondo verde",
-  uci_title_color_blueonwhite:"Texto azul y fondo blanco",
-  uci_title_color_whiteonblue:"Texto blanco y fondo azul",
-  uci_button_valid:"Memorizar mis ajustes",
   uci_button_cancel:"No memorizar mis ajustes",
-  uci_txt_more_settings:"M\341s ajustes",
-  uci_txt_low_settings_display:"Menos ajustes",
-  uci_txt_low_settings:"Cerrar el panel m\341s ajustes",
-  uci_title_disable_cdu:"Desactivar Confort+ para este sitio",
-  uci_title_enable_cdu:"Activar Confort+ para este sitio",
-  uci_txt_link_menu:"Ayuda",
-  uci_txt_link_menu_open:"Mostrar men\372",
-  uci_txt_link_menu_close:"Ocultar men\372",
+  uci_button_valid:"Memorizar mis ajustes",
+  uci_button_valid_profil: "Actualizar el nombre del perfil", //v4
+  uci_changecase_firstlettre:"Primera Letra En May\372scula",
+  uci_changecase_firstlettre_title:"primera letra de cada palabra en May\372scula",
+  uci_changecase_normal_title:"Mostrar el texto por defecto",
+  uci_changecase_tolower:"min\372sculas",
+  uci_changecase_tolower_title:"texto en min\372sculas",
+  uci_changecase_uppercase:"Mayúscula",//v4
+  uci_changecase_uppercase_title:"Texto en mayúsculas",//v4
+  uci_close_guide : "Cerrar guía",//v4
+  uci_close_mask : "Cerrar la máscara de lectura",//v4
+  uci_closeButton:"Cerrar",
+  uci_color_titre:"Combinaci\363n de colores predefinidos",
+  uci_color_txt_background:"Color de fondo",
+  uci_color_txt_texte:"Color de texto",
+  uci_color_warning_content:"Los colores de texto y fondo tienen un contraste insuficiente, en consecuencia la lectura puede ser inconfortable y provocar un cansancio visual.\nTe recomendamos modificar la combinaci\363n de colores",
+  uci_color_warning_title:"Contrate insuficiente",
+  uci_confirm_validation:"Preferencias registrados",
+  uci_tour_discover_default : "No hay ajustes", //V4
+  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, ",
+  uci_doClick:"Pulsar",
+  uci_enableMotorMode:"Asistencia motriz",
+  uci_exit : "Salida", // V4
+  uci_help_automove:"Selecciona uno tras otro los elementos clicables\nPresiona la tecla Entrar o Espacio para abrir el men\372 que te permite activar el elemento seleccionado, o bien modificar el tipo de recorrido de la p\341gina (r\341pido, atr\341s, parar)",
+  uci_help_disablepppictures:"Este comando suprime la visualizaci\363n de im\341genes en la p\341gina y son reemplazadas por sus alternativas textuales. Un enlace permite visualizar las im\341genes a petici\363n ",
+  uci_help_disabletransp:"Este comando desactiva los efectos de transparencia eventuales de la p\341gina, limitando as\355 las perturbaciones de lectura del contenido",
+  uci_help_jumptocontent:"Permite posicionarse autom\341ticamente en el contenido principal de la p\341gina, saltandose en particular todos los enlaces de navegaci\363n ",
+  uci_help_links:"Este comando define la apariencia de los enlaces en la p\341gina. Puedes elegir el color y el formato de los enlaces",
+  uci_help_listmode:"Este comando reemplaza el tipo de letra del sitio por las tuyas por defecto (aquellas que has definido en tu ordenador o tu navegador). Adem\341s el contenido se vuelve completamente lineal y sin columnas.",
+  uci_help_quickmode:"(cantidad de elementos \253 ignorados \273 entre 2 elementos seleccionados)",
+  uci_help_telecomande:"A\361ade flechas verticales para recorrer la p\341gina, activadas al pasar el rat\363n por encima.\nActiva los elementos clicables al pasar el rat\363n por encima, y con un retraso predefinido en los ajustes",
+  uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
+  uci_label_10par10:"9",
+  uci_label_1sec:"1 segundo",
+  uci_label_2par2:"1",
+  uci_label_2sec:"2 segundos",
+  uci_label_3sec:"3 segundos",
+  uci_label_5par5:"4",
+  uci_label_6sec:"6 segundos",
+  uci_label_alignleft:"Alinea textos a la izquierda",
+  uci_label_automove:"Navegar con selecci\363n autom\341tica de elementos",
+  uci_label_centeredmenu:"Centrar en la p\341gina",
+  uci_label_disablebgpictures:"Anula im\341genes de fondo",
+  uci_label_disablepppictures:"Anula im\341genes del primer plano",
+  uci_label_disabletransp:"Anula efectos de transparencia",
+  uci_label_jumptocontent:"Saltar siempre al contenido principal",
+  uci_label_listmode:"Desactiva el dise\361o de la p\341gina ",
+  uci_mask_label:"Mostrar una m\341scara de la lectura",
+  uci_label_nearelemtmenu:"Al lado del elemento seleccionado",
+  uci_label_putnumonlist:"Numeriza los esquemas",
+  uci_label_regle_horizontale:"Visualizar regla horizontal",
+  uci_label_regle_vertical:"Visualizar regla vertical",
+  uci_label_telecomande:"Navegar con clic autom\341tico",
+  uci_legend_delai_clic:"Temporizaci\363n del clic autom\341tico",
+  uci_legend_menupos:"Posici\363n del men\372",
+  uci_legend_pasquickmode:"Pasos de modo r\341pido",
+  uci_legend_time_before_sel:"Temporizaci\363n de selecci\363n de elementos",
+  uci_link_display_picture:"Visualizar la imagen :",
+  uci_link_display_picture_no_alt:"Descripci\363n no disponible",
+  uci_link_hide_toolbar:"Esconder el panel",
+  uci_link_render_options_bold:"en negrita",
+  uci_link_render_options_border:"encuadrado",
+  uci_link_render_options_default:"por defecto ",
+  uci_link_render_options_underline:"subrayado",
+  uci_loopActivable:"Recorrer la p\341gina",
+  uci_loopActivableQuick:"Navegar r\341pidamente",
+  uci_loopBackward:"Navegar hacia atr\341s",
+  uci_mask_titre:"Máscara de lectura", // V4
+  uci_mask_settings_titre: "Configuración de la máscara de lectura", // V4
+  uci_mask_settings_help: "Para activar la máscara, utilice el botón de la cinta de acceso rápido o el atajo de teclado Ctrl / Cmd + M", // V4
+  uci_other_settings_titre: "Otros ajustes", //v4
+  uci_menu : "menu",
+  uci_menu_guide:"Guide step by step",
   uci_menu_help:"Consultar ayuda general",
   uci_menu_info:"A prop\363sito",
   uci_menu_remove_all:"Reajustar",
-  uci_txt_menu_change_lang_fr:"Mostrar el servicio en Franc\351s",
+  uci_modif_not_saved:"Los ajustes no memorizados se perder\341n \277 Deseas proseguir esta acci\363n ?",
+  uci_new_window:"Nueva ventana",
+  uci_predefined_change_layout: "Change the layout",
+  uci_predefined_improve_readability: "Improve readability",
+  uci_predefined_motor_help: "Start motor help",
+  uci_predefined_none: "No profile",
+  uci_predefined_profils_title: "predefined profiles",
+  uci_profile_curent_name: "Current profile name",
+  uci_profile_delete_warning: "ATTENTION",
+  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
+  uci_profile_new_label: "TODO",
+  uci_profile_new_option: "TODO",
+  uci_profile_rename_label: "Nouveau nom",
+  uci_profile_save_label: "TODO",
+  uci_radio_dark:"TODO",
+  uci_radio_default:"Normal",
+  uci_radio_large:"Grande",
+  uci_radio_light:"TODO",
+  uci_radio_medium:"Medio",
+  uci_radio_medium1:"TODO",
+  uci_remove_all_settings:"Se borrar\341n todos los ajustes \277 Estas seguro de querer proseguir ?",
+  uci_rename_profile: "Renommer le profil",
+  uci_serv_name:"Confort",
+  uci_stopLoop:"Parar la navegaci\363n",
+  uci_title_color_blackongreen:"Texto negro y fondo verde",
+  uci_title_color_blackonwhite:"Texto negro y fondo blanco",
+  uci_title_color_blueonwhite:"Texto azul y fondo blanco",
+  uci_title_color_blueonyellow:"Texto azul y fondo amarillo",
+  uci_title_color_greenonblack:"Texto verde y fondo negro",
+  uci_title_color_keepit:"Colores iniciales",
+  uci_title_color_personnal:"Seleccionar colores personalizados",
+  uci_title_color_whiteonblack:"Texto blanco y fondo negro",
+  uci_title_color_whiteonblue:"Texto blanco y fondo azul",
+  uci_title_color_yellowonblue:"Texto amarillo y fondo azul",
+  uci_title_disable_cdu:"Desactivar Confort+ para este sitio",
+  uci_title_enable_cdu:"Activar Confort+ para este sitio",
+  uci_title_fontfamily_radio_accessibledfa:"Tipo de letra Accessible design for all",
+  uci_title_fontfamily_radio_arial:"Tipo de letra Arial",
+  uci_title_fontfamily_radio_normal:"Tipo de letra por defecto", 
+  uci_title_fontfamily_radio_opendys:"Tipo de letra Open Dyslexic",
+  uci_title_fontfamily_radio_opensans:"Tipo de letra Open Sans",
+  uci_title_fontsize_radio_large:"Aumentar el tamaño de la fuente",
+  uci_title_fontsize_radio_medium:"Reducir el tamaño de la fuente",
+  uci_title_linespacing_radio_large:"Espacio grande entre lineas",
+  uci_title_linespacing_radio_medium:"Espacio medio entre lineas",
+  uci_title_linespacing_radio_normal:"Espacio normal entre lineas",
+  uci_title_link_active_color:"Color de enlace seleccionado",
+  uci_title_link_active_render:"Formato complementario del enlace seleccioan",
+  uci_title_link_notvisited_color:"Color de enlaces por defecto",
+  uci_title_link_notvisited_render:"Formato de enlaces",
+  uci_title_link_visited_color:"Color de enlaces consultados",
+  uci_title_link_visited_render:"Formato complementario de enlaces consultados",
+  uci_title_wordspacing_radio_large:"Espacio grande entre palabras",
+  uci_title_wordspacing_radio_medium:"Espacio medio entre palabras",
+  uci_title_wordspacing_radio_normal:"Espacio normal entre palabras",
+  uci_titre_links:"Apariencia enlaces de navegaci\363n ",
+  uci_tour_discover_edit_layout : "Modifier la mise en page",
+  uci_tour_discover_improve_readability : "Am\351liorer le service",
+  uci_tour_discover_service : "D\351couvrir le service",
+  uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
+  uci_tour_step_1_advancedparam: "todo",
+  uci_tour_step_2_typographie :"typographie",
+  uci_tour_step_3_apparence : "apparence",
+  uci_tour_step_4_couleur: "couleurs",
+  uci_tour_step_5_aidemotrice: "aidemotrice",
+  uci_txt_active:"Enlace seleccionado",
+  uci_txt_link_menu:"Ayuda",
+  uci_txt_link_menu_close:"Ocultar men\372",
+  uci_txt_link_menu_open:"Mostrar men\372",
+  uci_txt_link_profil: "Profils",
+  uci_txt_low_settings:"Cerrar el panel m\341s ajustes",
+  uci_txt_low_settings_display:"Menos ajustes",
+  uci_txt_mask_opacity:"TODO",
+  uci_txt_mask_size:"Espesor de la m\341scara",
   uci_txt_menu_change_lang_en:"Mostrar el servicio en Ingles",
   uci_txt_menu_change_lang_es:"Mostrar el servicio en Espa\361ol",
+  uci_txt_menu_change_lang_fr:"Mostrar el servicio en Franc\351s",
   uci_txt_menu_change_lang_pl:"Mostrar el servicio en Polaco",
-  uci_txt_onglet_typo:"Tipograf\355a",
+  uci_txt_more_settings:"M\341s ajustes",
+  uci_txt_notvisited:"Enlaces",
   uci_txt_onglet_apparence:"READING HELP Apariencia",
   uci_txt_onglet_color:"Colores",
   uci_txt_onglet_motor_help:"Comportamiento",
   uci_txt_onglet_settings:"Settings",
-  uci_typo_titre_fontsize:"Tama\361o del texto",
-  uci_typo_titre_wordspacing:"Espacio entre palabras",
-  uci_typo_titre_linespacing:"Espacio interlineal",
-  uci_typo_titre_fontfamily:"Tipo de fuente",
-  uci_typo_titre_changecase:"Alternar MAY/min",
-  uci_typo_help_fontfamily:"Este comando permite modificar la fuente definida por el sitio web, con el fin de mejorar la Confort<span class='uci-plus-orange'>+</span>",
-  uci_typo_help_changecase:"Este comando permite modificar la presentaci\363n del texto seg\372n tus necesidades",
-  uci_title_wordspacing_radio_normal:"Espacio normal entre palabras",
-  uci_title_wordspacing_radio_medium:"Espacio medio entre palabras",
-  uci_title_wordspacing_radio_large:"Espacio grande entre palabras",
-  uci_title_linespacing_radio_normal:"Espacio normal entre lineas",
-  uci_title_linespacing_radio_medium:"Espacio medio entre lineas",
-  uci_title_linespacing_radio_large:"Espacio grande entre lineas",
-  uci_title_minfont_radio_normal:"Tama\361o m\355nimo de letra 12 ptos",
-  uci_title_minfont_radio_medium:"Tama\361o m\355nimo de letra 16 ptos",
-  uci_title_minfont_radio_large:"Tama\361o m\355nimo de letra 18 ptos",
-  uci_title_fontfamily_radio_normal:"Tipo de letra por defecto", 
-  uci_title_fontfamily_radio_arial:"Tipo de letra Arial",
-  uci_title_fontfamily_radio_opendys:"Tipo de letra Open Dyslexic",
-  uci_title_fontfamily_radio_opensans:"Tipo de letra Open Sans",
-  uci_title_fontfamily_radio_accessibledfa:"Tipo de letra Accessible DFA",
-  uci_changecase_firstlettre_title:"primera letra de cada palabra en May\372scula",
-  uci_changecase_firstlettre:"Primera Letra En May\372scula",
-  uci_changecase_normal_title:"Mostrar el texto por defecto",
-  uci_changecase_tolower_title:"texto en min\372sculas",
-  uci_changecase_tolower:"min\372sculas",
-  uci_changecase_uppercase:"MAJUSCULE",
-  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
-  uci_label_listmode:"Desactiva el dise\361o de la p\341gina ",
-  uci_label_alignleft:"Alinea textos a la izquierda",
-  uci_label_putnumonlist:"Numeriza los esquemas",
-  uci_label_disabletransp:"Anula efectos de transparencia",
-  uci_label_disablebgpictures:"Anula im\341genes de fondo",
-  uci_label_disablepppictures:"Anula im\341genes del primer plano",
-  uci_label_mask:"Mostrar una m\341scara de la lectura",
-  uci_label_regle_vertical:"Visualizar regla vertical",
-  uci_label_regle_horizontale:"Visualizar regla horizontal",
-  uci_link_display_picture:"Visualizar la imagen :",
-  uci_link_display_picture_no_alt:"Descripci\363n no disponible",
-  uci_titre_links:"Apariencia enlaces de navegaci\363n ",
-  uci_txt_notvisited:"Enlaces",
+  uci_txt_onglet_typo:"Tipograf\355a",
   uci_txt_visited:"Enlaces consultados",
-  uci_txt_active:"Enlace seleccionado",
-  uci_title_link_notvisited_color:"Color de enlaces por defecto",
-  uci_title_link_visited_color:"Color de enlaces consultados",
-  uci_title_link_active_color:"Color de enlace seleccionado",
-  uci_title_link_notvisited_render:"Formato de enlaces",
-  uci_title_link_visited_render:"Formato complementario de enlaces consultados",
-  uci_title_link_active_render:"Formato complementario del enlace seleccioan",
-  uci_link_render_options_default:"por defecto ",
-  uci_link_render_options_underline:"subrayado",
-  uci_link_render_options_border:"encuadrado",
-  uci_link_render_options_bold:"en negrita",
-  uci_txt_mask_size:"Espesor de la m\341scara",
-  uci_help_listmode:"Este comando reemplaza el tipo de letra del sitio por las tuyas por defecto (aquellas que has definido en tu ordenador o tu navegador). Adem\341s el contenido se vuelve completamente lineal y sin columnas.",
-  uci_help_disabletransp:"Este comando desactiva los efectos de transparencia eventuales de la p\341gina, limitando as\355 las perturbaciones de lectura del contenido",
-  uci_help_disablepppictures:"Este comando suprime la visualizaci\363n de im\341genes en la p\341gina y son reemplazadas por sus alternativas textuales. Un enlace permite visualizar las im\341genes a petici\363n ",
-  uci_help_links:"Este comando define la apariencia de los enlaces en la p\341gina. Puedes elegir el color y el formato de los enlaces",
-  uci_color_titre:"Combinaci\363n de colores predefinidos",
-  uci_mask_titre:"Masque de lecture",
-  uci_title_color_personnal:"Seleccionar colores personalizados",
-  uci_color_txt_texte:"Color de texto",
-  uci_color_txt_background:"Color de fondo",
-  uci_color_warning_title:"Contrate insuficiente",
-  uci_color_warning_content:"Los colores de texto y fondo tienen un contraste insuficiente, en consecuencia la lectura puede ser inconfortable y provocar un cansancio visual.\nTe recomendamos modificar la combinaci\363n de colores",
-  uci_label_jumptocontent:"Saltar siempre al contenido principal",
-  uci_help_jumptocontent:"Permite posicionarse autom\341ticamente en el contenido principal de la p\341gina, saltandose en particular todos los enlaces de navegaci\363n ",
-  uci_enableMotorMode:"Asistencia motriz",
-  uci_label_telecomande:"Navegar con clic autom\341tico",
-  uci_help_telecomande:"A\361ade flechas verticales para recorrer la p\341gina, activadas al pasar el rat\363n por encima.\nActiva los elementos clicables al pasar el rat\363n por encima, y con un retraso predefinido en los ajustes",
-  uci_legend_delai_clic:"Temporizaci\363n del clic autom\341tico",
-  uci_label_1sec:"1 segundo",
-  uci_label_2sec:"2 segundos",
-  uci_label_3sec:"3 segundos",
-  uci_label_6sec:"6 segundos",
-  uci_label_automove:"Navegar con selecci\363n autom\341tica de elementos",
-  uci_help_automove:"Selecciona uno tras otro los elementos clicables\nPresiona la tecla Entrar o Espacio para abrir el men\372 que te permite activar el elemento seleccionado, o bien modificar el tipo de recorrido de la p\341gina (r\341pido, atr\341s, parar)",
-  uci_legend_menupos:"Posici\363n del men\372",
-  uci_label_centeredmenu:"Centrar en la p\341gina",
-  uci_label_nearelemtmenu:"Al lado del elemento seleccionado",
-  uci_legend_time_before_sel:"Temporizaci\363n de selecci\363n de elementos",
-  uci_help_quickmode:"(cantidad de elementos \253 ignorados \273 entre 2 elementos seleccionados)",
-  uci_legend_pasquickmode:"Pasos de modo r\341pido",
-  uci_label_2par2:"1",
-  uci_label_5par5:"4",
-  uci_label_10par10:"9",
-  uci_doClick:"Pulsar",
-  uci_loopActivable:"Recorrer la p\341gina",
-  uci_loopActivableQuick:"Navegar r\341pidamente",
-  uci_loopBackward:"Navegar hacia atr\341s",
-  uci_stopLoop:"Parar la navegaci\363n",
-  uci_closeButton:"cerrar",
-  uci_modif_not_saved:"Los ajustes no memorizados se perder\341n \277 Deseas proseguir esta acci\363n ?",
-  uci_remove_all_settings:"Se borrar\341n todos los ajustes \277 Estas seguro de querer proseguir ?",
-  uci_radio_default:"Normal",
-  uci_radio_medium:"Medio",
-  uci_radio_large:"Grande",
-  uci_new_window:"Nueva ventana",
-  uci_iframe_cookie:"Contenido t\351cnico Orange Confort+",
-  uci_confirm_validation:"Preferencias registrados",
-  uci_menu_guide:"Guide step by step",
-  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, "+
-                      "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
-                      "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
-  reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
-  reading1: "1",
-  reading2: "2",
-  uci_advance_param : "little test to show Confort + criteres",
-  discover_service : "D\351couvrir le service",
-  improve_readability : "Am\351liorer le service",
-  edit_layout : "Modifier la mise en page",
-  use_motor_assistance : "Utiliser l'aide motrice",
-  uci_exit : "quitter",
-  uci_close_guide : "Quitter le guide",
-  uci_menu : "menu",
-  uci_default : "Aucun R\351glages",
-  save_service: "TODO",
-  uci_rename_profile: "Renommer le profil",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_curent_name: "Current profile name",
-  uci_txt_link_profil: "Profils",
-  uci_profile_save_label: "TODO",
-  uci_profile_new_option: "TODO",
-  uci_profile_new_label: "TODO",
-  uci_predefined_profils_title: "predefined profiles",
-  uci_predefined_none: "No profile",
-  uci_predefined_improve_readability: "Improve readability",
-  uci_predefined_change_layout: "Change the layout",
-  uci_predefined_motor_help: "Start motor help",
-  uci_profile_delete_warning: "ATTENTION",
-  uci_button_valid_profil: "Modifier le nom du profil",
-  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  apparence : "apparence",
-  aidemotrice: "aidemotrice",
-  typographie :"typographie",
-  couleur: "couleurs",
-  advancedparam: "todo",
-  howToClose: "TODO",
-  uci_radio_light:"TODO",
-  uci_radio_medium1:"TODO",
-  uci_radio_dark:"TODO",
-  uci_txt_mask_opacity:"TODO",
-  uci_close_mask : "Close reading mask",
-  update_custom_colors: "TODO"
+  uci_typo_help_changecase:"Este comando permite modificar la presentaci\363n del texto seg\372n tus necesidades",
+  uci_typo_help_fontfamily:"Este comando permite modificar la fuente definida por el sitio web, con el fin de mejorar la Confort<span class='uci-plus-orange'>+</span>",
+  uci_typo_titre_changecase:"Alternar MAY/min",
+  uci_typo_titre_fontfamily:"Tipo de fuente",
+  uci_typo_titre_fontsize:"Tama\361o del texto",
+  uci_typo_titre_linespacing:"Espacio interlineal",
+  uci_typo_titre_wordspacing:"Espacio entre palabras",
+  update_custom_colors: "TODO",
+ uci_tour_discover_use_motor_assistance : "Utiliser l'aide motrice",
 };
 // Source: app/language/fr.js
 /**
@@ -1146,189 +1136,184 @@ traduction['ES']={
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['FR']={
-  uci_link_hide_toolbar:"Masquer la barre",
+  howToClose: "Fermeture du masque : touche Echap ou croix à droite",
+  save_service: "Enregistrer le profil",
   uci_alt_logo:"Confort+",
-  uci_serv_name:"Confort",
-  uci_title_fontsize_radio_medium:"Réduire la taille de police",
-  uci_title_fontsize_radio_large:"Agrandir la taille de police",
-  uci_title_color_keepit:"Couleurs initiales",
-  uci_title_color_blackonwhite:"Texte noir sur fond blanc",
-  uci_title_color_whiteonblack:"Texte blanc sur fond noir",
-  uci_title_color_blueonyellow:"Texte bleu sur fond jaune",
-  uci_title_color_yellowonblue:"Texte jaune sur fond bleu",
-  uci_title_color_greenonblack:"Texte vert sur fond noir",
-  uci_title_color_blackongreen:"Texte noir sur fond vert",
-  uci_title_color_blueonwhite:"Texte bleu sur fond blanc",
-  uci_title_color_whiteonblue:"Texte blanc sur fond bleu",
-  uci_button_valid:"Enregistrer mes r\351glages",
   uci_button_cancel:"Annuler",
-  uci_txt_more_settings:"Plus de r\351glages",
-  uci_txt_low_settings_display:"Moins de r\351glages",
-  uci_txt_low_settings:"Fermer la zone plus de r\351glages",
-  uci_title_disable_cdu:"D\351sactiver Confort+ pour ce site",
-  uci_title_enable_cdu:"Activer Confort+ pour ce site",
-  uci_txt_link_menu:"Aide",
-  uci_txt_link_menu_open:"Afficher le menu",
-  uci_txt_link_menu_close:"Masquer le menu",
+  uci_button_valid:"Enregistrer mes r\351glages",
+  uci_button_valid_profil: "Modifier le nom du profil",
+  uci_changecase_firstlettre:"Premi\350re Lettre",
+  uci_changecase_firstlettre_title:"Premi\350re lettre de chaque mot en majuscule",
+  uci_changecase_normal_title:"Affichage du texte par d\351faut",
+  uci_changecase_tolower:"minuscule",
+  uci_changecase_tolower_title:"texte en minuscule",
+  uci_changecase_uppercase:"MAJUSCULE",
+  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
+  uci_close_guide : "Quitter le guide",
+  uci_close_mask : "Fermer le masque de lecture",
+  uci_closeButton:"Fermer",
+  uci_color_titre:"Couleur du texte et de l'arrière plan",
+  uci_color_txt_background:"Couleur du fond",
+  uci_color_txt_texte:"Couleur du texte",
+  uci_color_warning_content:"La couleur du texte pr\351sente un contraste insuffisant avec la couleur du fond. Ceci risque de rendre la lecture inconfortable et de provoquer une fatigue visuelle. \nNous vous recommandons de modifier la combinaison de couleurs.",
+  uci_color_warning_title:"Contraste insuffisant ",
+  uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
+  uci_tour_discover_default : "Aucun R\351glage",
+  uci_discover_lorem_3: "3",
+  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
+  uci_doClick:"Cliquer",
+  uci_enableMotorMode:"Aide motrice",
+  uci_exit : "Quitter",
+  uci_help_automove:"S\351lectionne l\47un apr\350s l\47autre les \351l\351ments cliquables.\nAppuyez sur la touche entr\351e ou espace pour ouvrir le menu qui permet soit d\47activer l\47\351l\351ment s\351lectionn\351, soit de modifier le mode de parcours (rapide, arri\350re, arr\352ter)",
+  uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",
+  uci_help_disabletransp:"Cette commande permet de d\351sactiver les effets de transparence \351ventuels de la page. Cela limite les perturbations lors de la lecture du contenu.",
+  uci_help_jumptocontent:"Permet de se positionner automatiquement sur le contenu principal de la page, en sautant notamment tous les liens de navigation.",
+  uci_help_links:"Cette commande permet de d\351finir l\47apparence des liens dans la page. Vous pouvez choisir la couleur et la mise en forme de ceux-ci.",
+  uci_help_listmode:"Cette commande remplace les polices du site par vos polices par d\351faut (celles que vous avez d\351finies dans votre ordinateur ou votre navigateur). De plus le contenu devient compl\350tement lin\351aire et sans colonnes.",
+  uci_help_quickmode:"(nombre d\47\351l\351ments \253 ignor\351s \273 entre deux \351l\351ments s\351lectionn\351s)",
+  uci_help_telecomande:"Ajoute des fl\350ches de d\351filement vertical activ\351es au survol de la souris.\nPermet aussi d\47activer les \351l\351ments cliquables au survol de la souris apr\350s le d\351lai param\351tr\351.",
+  uci_iframe_cookie:"Contenu technique Orange Confort+",
+  uci_label_10par10:"9",
+  uci_label_1sec:"1 seconde",
+  uci_label_2par2:"1",
+  uci_label_2sec:"2 secondes",
+  uci_label_3sec:"3 secondes",
+  uci_label_5par5:"4",
+  uci_label_6sec:"6 secondes",
+  uci_label_alignleft:"Alignement des textes \340 gauche ",
+  uci_label_automove:"Sélectionner automatiquement les éléments cliquables",
+  uci_label_centeredmenu:"Centr\351 sur la page",
+  uci_label_disablebgpictures:"Suppression des images de fond",
+  uci_label_disablepppictures:"Suppression des images de premier plan",
+  uci_label_disabletransp:"Suppression des effets de transparence",
+  uci_label_jumptocontent:"Aller automatiquement au contenu ",
+  uci_label_listmode:"Suppression de la mise en page",
+  uci_mask_label:"Affichage d'un masque de lecture",
+  uci_label_nearelemtmenu:"\340 c\364t\351 de l'\351l\351ment s\351lectionn\351",
+  uci_label_putnumonlist:"Num\351rotation des \351l\351ments de liste",
+  uci_label_regle_horizontale:"Affichage d\47une r\350gle horizontale",
+  uci_label_regle_vertical:"Affichage d\47une r\350gle verticale",
+  uci_label_telecomande:"Naviguer par pointage",
+  uci_legend_delai_clic:"D\351lai avant le clic automatique",
+  uci_legend_menupos:"Position du menu",
+  uci_legend_pasquickmode:"Pas du mode rapide",
+  uci_legend_time_before_sel:"D\351lai de s\351lection des \351l\351ments",
+  uci_link_display_picture:"Voir cette image :",
+  uci_link_display_picture_no_alt:"Description non disponible",
+  uci_link_hide_toolbar:"Masquer la barre",
+  uci_link_render_options_bold:"mis en gras",
+  uci_link_render_options_border:"encadr\351",
+  uci_link_render_options_default:"par d\351fault",
+  uci_link_render_options_underline:"soulign\351",
+  uci_loopActivable:"Parcourir la page",
+  uci_loopActivableQuick:"Naviguer rapidement",
+  uci_loopBackward:"Naviguer en arri\351re",
+  uci_mask_titre:"Masque de lecture",
+  uci_mask_settings_titre: "Réglages du masque de lecture",
+  uci_mask_settings_help: "Pour activer le masque utilisez le bouton dans la barre d'accès rapide, ou le raccourcis clavier Ctrl/Cmd+M",
+  uci_other_settings_titre: "Autres réglages",
+  uci_menu : "Menu",
+  uci_menu_guide:"Visite guidée",
   uci_menu_help:"Consulter l\47aide g\351n\351rale",
   uci_menu_info:"A propos",
   uci_menu_remove_all:"R\351initialiser",
-  uci_txt_menu_change_lang_fr:"Afficher le service en Fran\347ais",
+  uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action?",
+  uci_new_window:"Nouvelle fen\352tre",
+  uci_next: "suivant",
+  uci_predefined_change_layout: "Modifier la mise en page",
+  uci_predefined_improve_readability: "Améliorer la lisibilité",
+  uci_predefined_motor_help: "Activer l'aide motrice",
+  uci_predefined_none: "Aucun profil",
+  uci_predefined_profils_title: "profils predefinis",
+  uci_previous: "pr\351c\351dent",
+  uci_profile_curent_name: "Nom actuel du profil",
+  uci_profile_delete_warning: "Vous êtes sur le point de supprimer un profil, cette action est irréversible.",
+  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
+  uci_profile_new_label: "Nouveau profil",
+  uci_profile_new_option: "nouveau profil",
+  uci_profile_rename_label: "Nouveau nom",
+  uci_profile_save_label: "Enregistrer mes réglages",
+  uci_radio_dark:"Fonc\351",
+  uci_radio_default:"Normal",
+  uci_radio_large:"Grand",
+  uci_radio_light:"L\351ger",
+  uci_radio_medium:"Moyen",
+  uci_radio_medium1:"Moyen",
+  uci_remove_all_settings:"Tous vos r\351glages seront supprim\351s, souhaitez-vous poursuivre cette action?",
+  uci_rename_profile: "Renommer le profil",
+  uci_serv_name:"Confort",
+  uci_stopLoop:"Arr\352ter la navigation",
+  uci_title_color_blackongreen:"Texte noir sur fond vert",
+  uci_title_color_blackonwhite:"Texte noir sur fond blanc",
+  uci_title_color_blueonwhite:"Texte bleu sur fond blanc",
+  uci_title_color_blueonyellow:"Texte bleu sur fond jaune",
+  uci_title_color_greenonblack:"Texte vert sur fond noir",
+  uci_title_color_keepit:"Couleurs initiales",
+  uci_title_color_personnal:"Combinaison de couleurs personnalis\351es",
+  uci_title_color_whiteonblack:"Texte blanc sur fond noir",
+  uci_title_color_whiteonblue:"Texte blanc sur fond bleu",
+  uci_title_color_yellowonblue:"Texte jaune sur fond bleu",
+  uci_title_disable_cdu:"D\351sactiver Confort+ pour ce site",
+  uci_title_enable_cdu:"Activer Confort+ pour ce site",
+  uci_title_fontfamily_radio_accessibledfa:"Police de caract\350res Accessible design for all",
+  uci_title_fontfamily_radio_arial:"Police de caract\350res Arial",
+  uci_title_fontfamily_radio_normal:"Police de caract\350res par d\351faut", 
+  uci_title_fontfamily_radio_opendys:"Police de caract\350res Open Dyslexic",
+  uci_title_fontfamily_radio_opensans:"Police de caract\350res Open Sans",
+  uci_title_fontsize_radio_large:"Agrandir la taille de police",
+  uci_title_fontsize_radio_medium:"Réduire la taille de police",
+  uci_title_linespacing_radio_large:"Espace grand entre les lignes",
+  uci_title_linespacing_radio_medium:"Espace moyen entre les lignes",
+  uci_title_linespacing_radio_normal:"Espace normal entre les lignes",
+  uci_title_link_active_color:"Couleur du lien s\351lectionn\351",
+  uci_title_link_active_render:"Mise en forme compl\351mentaire du lien s\351lectionn\351",
+  uci_title_link_notvisited_color:"Couleur des liens par d\351faut",
+  uci_title_link_notvisited_render:"Mise en forme des liens",
+  uci_title_link_visited_color:"Couleur des liens visit\351s",
+  uci_title_link_visited_render:"Mise en forme compl\351mentaire des liens visit\351s",
+  uci_title_wordspacing_radio_large:"Espace grand entre les mots",
+  uci_title_wordspacing_radio_medium:"Espace moyen entre les mots",
+  uci_title_wordspacing_radio_normal:"Espace normal entre les mots",
+  uci_titre_links:"Apparence des liens de navigation",
+  uci_tour_discover_edit_layout : "Modifier la mise en page",
+  uci_tour_discover_improve_readability : "Améliorer la lisibilité",
+  uci_tour_discover_service : "D\351couvrir le service",
+  uci_tour_discover_use_motor_assistance : "Utiliser l'aide motrice",
+  uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
+  uci_tour_step_1_advancedparam: "advancedparamtxt",
+  uci_tour_step_2_typographie :"typographie",
+  uci_tour_step_3_apparence : "apparence",
+  uci_tour_step_4_couleur: "couleurs",
+  uci_tour_step_5_aidemotrice: "aidemotrice",
+  uci_txt_active:"Lien s\351lectionn\351",
+  uci_txt_link_menu:"Aide",
+  uci_txt_link_menu_close:"Masquer le menu",
+  uci_txt_link_menu_open:"Afficher le menu",
+  uci_txt_link_profil: "Profils",
+  uci_txt_low_settings:"Fermer la zone plus de r\351glages",
+  uci_txt_low_settings_display:"Moins de r\351glages",
+  uci_txt_mask_opacity:"Opacit\351 du masque",
+  uci_txt_mask_size:"Epaisseur du masque",
   uci_txt_menu_change_lang_en:"Afficher le service en Anglais",
   uci_txt_menu_change_lang_es:"Afficher le service en Espagnol",
+  uci_txt_menu_change_lang_fr:"Afficher le service en Fran\347ais",
   uci_txt_menu_change_lang_pl:"Afficher le service en Polonais",
-  uci_txt_onglet_typo:"Typographie",
+  uci_txt_more_settings:"Plus de r\351glages",
+  uci_txt_notvisited:"Liens",
   uci_txt_onglet_apparence:"Aide à la lecture",
   uci_txt_onglet_color:"Couleurs",
   uci_txt_onglet_motor_help:"Comportement",
   uci_txt_onglet_settings:"Réglages avancés",
-  uci_typo_titre_fontsize:"Taille du texte ",
-  uci_typo_titre_wordspacing:"Espacement entre les mots ",
-  uci_typo_titre_linespacing:"Espacement entre les lignes",
-  uci_typo_titre_fontfamily:"Police de caract\350re",
-  uci_typo_titre_changecase:"Majuscules / Minuscules",
-  uci_typo_help_fontfamily:"Permet de modifier la police d\351finie par le site internet afin d\47am\351liorer le confort lors de la lecture.",
-  uci_typo_help_changecase:"Permet de modifier l\47affichage des textes en fonction de vos besoins.",
-  uci_title_wordspacing_radio_normal:"Espace normal entre les mots",
-  uci_title_wordspacing_radio_medium:"Espace moyen entre les mots",
-  uci_title_wordspacing_radio_large:"Espace grand entre les mots",
-  uci_title_linespacing_radio_normal:"Espace normal entre les lignes",
-  uci_title_linespacing_radio_medium:"Espace moyen entre les lignes",
-  uci_title_linespacing_radio_large:"Espace grand entre les lignes",
-  uci_title_minfont_radio_normal:"Taille minimale du texte 12px",
-  uci_title_minfont_radio_medium:"Taille minimale du texte 16px",
-  uci_title_minfont_radio_large:"Taille minimale du texte 18px",
-  uci_title_fontfamily_radio_normal:"Police de caract\350res par d\351faut", 
-  uci_title_fontfamily_radio_arial:"Police de caract\350res Arial",
-  uci_title_fontfamily_radio_opendys:"Police de caract\350res Open Dyslexic",
-  uci_title_fontfamily_radio_opensans:"Police de caract\350res Open Sans",
-  uci_title_fontfamily_radio_accessibledfa:"Police de caract\350res Accessible DFA",
-  uci_changecase_firstlettre_title:"Premi\350re lettre de chaque mot en majuscule",
-  uci_changecase_firstlettre:"Premi\350re Lettre",
-  uci_changecase_normal_title:"Affichage du texte par d\351faut",
-  uci_changecase_tolower_title:"texte en minuscule",
-  uci_changecase_tolower:"minuscule",
-  uci_changecase_uppercase:"MAJUSCULE",
-  uci_changecase_uppercase_title:"Affichage du texte en majuscule",
-  uci_label_listmode:"Suppression de la mise en page",
-  uci_label_alignleft:"Alignement des textes \340 gauche ",
-  uci_label_putnumonlist:"Num\351rotation des \351l\351ments de liste",
-  uci_label_disabletransp:"Suppression des effets de transparence",
-  uci_label_disablebgpictures:"Suppression des images de fond",
-  uci_label_disablepppictures:"Suppression des images de premier plan",
-  uci_label_mask:"Affichage d'un masque de lecture",
-  uci_label_regle_vertical:"Affichage d\47une r\350gle verticale",
-  uci_label_regle_horizontale:"Affichage d\47une r\350gle horizontale",
-  uci_link_display_picture:"Voir cette image :",
-  uci_link_display_picture_no_alt:"Description non disponible",
-  uci_titre_links:"Apparence des liens de navigation",
-  uci_txt_notvisited:"Liens",
+  uci_txt_onglet_typo:"Typographie",
   uci_txt_visited:"Liens visit\351s",
-  uci_txt_active:"Lien s\351lectionn\351",
-  uci_title_link_notvisited_color:"Couleur des liens par d\351faut",
-  uci_title_link_visited_color:"Couleur des liens visit\351s",
-  uci_title_link_active_color:"Couleur du lien s\351lectionn\351",
-  uci_title_link_notvisited_render:"Mise en forme des liens",
-  uci_title_link_visited_render:"Mise en forme compl\351mentaire des liens visit\351s",
-  uci_title_link_active_render:"Mise en forme compl\351mentaire du lien s\351lectionn\351",
-  uci_link_render_options_default:"par d\351fault",
-  uci_link_render_options_underline:"soulign\351",
-  uci_link_render_options_border:"encadr\351",
-  uci_link_render_options_bold:"mis en gras",
-  uci_txt_mask_size:"Epaisseur du masque",
-  uci_help_listmode:"Cette commande remplace les polices du site par vos polices par d\351faut (celles que vous avez d\351finies dans votre ordinateur ou votre navigateur). De plus le contenu devient compl\350tement lin\351aire et sans colonnes.",
-  uci_help_disabletransp:"Cette commande permet de d\351sactiver les effets de transparence \351ventuels de la page. Cela limite les perturbations lors de la lecture du contenu.",
-  uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",
-  uci_help_links:"Cette commande permet de d\351finir l\47apparence des liens dans la page. Vous pouvez choisir la couleur et la mise en forme de ceux-ci.",
-  uci_color_titre:"Couleur du texte et de l'arrière plan",
-  uci_mask_titre:"Masque de lecture",
-  uci_title_color_personnal:"Combinaison de couleurs personnalis\351es",
-  uci_color_txt_texte:"Couleur du texte",
-  uci_color_txt_background:"Couleur du fond",
-  uci_color_warning_title:"Contraste insuffisant ",
-  uci_color_warning_content:"La couleur du texte pr\351sente un contraste insuffisant avec la couleur du fond. Ceci risque de rendre la lecture inconfortable et de provoquer une fatigue visuelle. \nNous vous recommandons de modifier la combinaison de couleurs.",
-  uci_label_jumptocontent:"Aller automatiquement au contenu ",
-  uci_help_jumptocontent:"Permet de se positionner automatiquement sur le contenu principal de la page, en sautant notamment tous les liens de navigation.",
-  uci_enableMotorMode:"Aide motrice",
-  uci_label_telecomande:"Naviguer par pointage",
-  uci_help_telecomande:"Ajoute des fl\350ches de d\351filement vertical activ\351es au survol de la souris.\nPermet aussi d\47activer les \351l\351ments cliquables au survol de la souris apr\350s le d\351lai param\351tr\351.",
-  uci_legend_delai_clic:"D\351lai avant le clic automatique",
-  uci_label_1sec:"1 seconde",
-  uci_label_2sec:"2 secondes",
-  uci_label_3sec:"3 secondes",
-  uci_label_6sec:"6 secondes",
-  uci_label_automove:"Sélectionner automatiquement les éléments cliquables",
-  uci_help_automove:"S\351lectionne l\47un apr\350s l\47autre les \351l\351ments cliquables.\nAppuyez sur la touche entr\351e ou espace pour ouvrir le menu qui permet soit d\47activer l\47\351l\351ment s\351lectionn\351, soit de modifier le mode de parcours (rapide, arri\350re, arr\352ter)",
-  uci_legend_menupos:"Position du menu",
-  uci_label_centeredmenu:"Centr\351 sur la page",
-  uci_label_nearelemtmenu:"\340 c\364t\351 de l'\351l\351ment s\351lectionn\351",
-  uci_legend_time_before_sel:"D\351lai de s\351lection des \351l\351ments",
-  uci_help_quickmode:"(nombre d\47\351l\351ments \253 ignor\351s \273 entre deux \351l\351ments s\351lectionn\351s)",
-  uci_legend_pasquickmode:"Pas du mode rapide",
-  uci_label_2par2:"1",
-  uci_label_5par5:"4",
-  uci_label_10par10:"9",
-  uci_doClick:"Cliquer",
-  uci_loopActivable:"Parcourir la page",
-  uci_loopActivableQuick:"Naviguer rapidement",
-  uci_loopBackward:"Naviguer en arri\351re",
-  uci_stopLoop:"Arr\352ter la navigation",
-  uci_closeButton:"Fermer",
-  uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action?",
-  uci_remove_all_settings:"Tous vos r\351glages seront supprim\351s, souhaitez-vous poursuivre cette action?",
-  uci_radio_default:"Normal",
-  uci_radio_medium:"Moyen",
-  uci_radio_large:"Grand",
-  uci_new_window:"Nouvelle fen\352tre",
-  uci_iframe_cookie:"Contenu technique Orange Confort+",
-  uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
-  uci_menu_guide:"Visite guidée",
-  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, "+
-                      "des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, "+
-                      "orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
-  reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
-  reading1: "1",
-  reading2: "2",
-  uci_discover_lorem_3: "3",
-  uci_advance_param : "Petit test pour faire afficher + de criteres",
-  discover_service : "D\351couvrir le service",
-  improve_readability : "Améliorer la lisibilité",
-  edit_layout : "Modifier la mise en page",
-  use_motor_assistance : "Utiliser l'aide motrice",
-  uci_exit : "quitter",
-  uci_close_guide : "Quitter le guide",
-  uci_menu : "menu",
-  save_service: "Enregistrer le profil",
-  uci_rename_profile: "Renommer le profil",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_curent_name: "Nom actuel du profil",
-  uci_txt_link_profil: "Profils",
-  uci_profile_save_label: "Enregistrer mes réglages",
-  uci_profile_new_option: "nouveau profil",
-  uci_profile_new_label: "Nouveau profil",
-  uci_predefined_profils_title: "profils predefinis",
-  uci_predefined_none: "Aucun profil",
-  uci_predefined_improve_readability: "Améliorer la lisibilité",
-  uci_predefined_change_layout: "Modifier la mise en page",
-  uci_predefined_motor_help: "Activer l'aide motrice",
-  uci_profile_delete_warning: "Vous êtes sur le point de supprimer un profil, cette action est irréversible.",
-  uci_button_valid_profil: "Modifier le nom du profil",
-  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
-  uci_default : "Aucun R\351glage",
-  uci_previous: "pr\351c\351dent",
-  uci_next: "suivant",
-  apparence : "apparence",
-  aidemotrice: "aidemotrice",
-  typographie :"typographie",
-  couleur: "couleurs",
-  advancedparam: "advancedparam",
-  howToClose: "Fermeture du masque : touche Echap ou croix à droite",
-  uci_radio_light:"L\351ger",
-  uci_radio_medium1:"Moyen",
-  uci_radio_dark:"Fonc\351",
-  uci_txt_mask_opacity:"Opacit\351 du masque",
-  uci_close_mask : "Fermer le masque de lecture",
-  update_custom_colors: "Modifier les couleurs personnalisées"
+  uci_typo_help_changecase:"Permet de modifier l\47affichage des textes en fonction de vos besoins.",
+  uci_typo_help_fontfamily:"Permet de modifier la police d\351finie par le site internet afin d\47am\351liorer le confort lors de la lecture.",
+  uci_typo_titre_changecase:"Majuscules / Minuscules",
+  uci_typo_titre_fontfamily:"Police de caract\350re",
+  uci_typo_titre_fontsize:"Taille du texte ",
+  uci_typo_titre_linespacing:"Espacement entre les lignes",
+  uci_typo_titre_wordspacing:"Espacement entre les mots ",
+  update_custom_colors: "Modifier les couleurs personnalisées",
 };
 
 // Source: app/language/pl.js
@@ -1347,187 +1332,184 @@ traduction['FR']={
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
-traduction['PL']={
-  uci_link_hide_toolbar:"Schowaj pasek narzędzi",
-  uci_alt_logo:"Confort+",
-  uci_serv_name:"Confort",
-  uci_title_fontsize_radio_medium:"Zwiększ rozmiar czcionki",
-  uci_title_fontsize_radio_large:"Duży rozmiar czcionki",
-  uci_title_color_keepit:"Początkowe kolory",
-  uci_title_color_blackonwhite:"Czarny tekst na białym tle",
-  uci_title_color_whiteonblack:"Biały tekst na czarnym tle",
-  uci_title_color_blueonyellow:"Niebieski tekst na żółtym tle",        
-  uci_title_color_yellowonblue:"Żółty tekst na niebieskim tle",
-  uci_title_color_greenonblack:"Zielony tekst na czarnym tle",
-  uci_title_color_blackongreen:"Czarny tekst na zielonym tle",
-  uci_title_color_blueonwhite:"Niebieski tekst na białym tle",
-  uci_title_color_whiteonblue:"Biały tekst na niebieskim tle",
-  uci_button_valid:"Zachowaj ustawienia",
-  uci_button_cancel:"Anuluj",
-  uci_txt_more_settings:"Więcej ustawień",
-  uci_txt_low_settings_display:"Mniej ustawień",
-  uci_txt_low_settings:"Zamknij panel więcej ustawień",
-  uci_title_disable_cdu:"Dezaktywuj Confort+ na tej stronie",
-  uci_title_enable_cdu:"Aktywuj Confort+ na tej stronie",
-  uci_txt_link_menu:"Pomoc",
-  uci_txt_link_menu_open:"Pokaż menu",
-  uci_txt_link_menu_close:"Schowaj menu",
-  uci_menu_help:"Pokaż pomoc",
-  uci_menu_info:"O aplikacji",
-  uci_menu_remove_all:"Zresetuj",
-  uci_txt_menu_change_lang_fr:"Pokaż usługę w języku francuskim",
-  uci_txt_menu_change_lang_en:"Pokaż usługę w języku angielskim",
-  uci_txt_menu_change_lang_es:"Pokaż usługę w języku hiszpańskim",
-uci_txt_menu_change_lang_pl:"Pokaż usługę w języku polskim",
-uci_txt_onglet_typo:"Typografia",
-uci_txt_onglet_apparence:"READING HELP Układ",
-uci_txt_onglet_color:"Kolory",
-uci_txt_onglet_motor_help:"Zachowanie",
-uci_txt_onglet_settings:"Settings",
-uci_typo_titre_fontsize:"Rozmiar czcionki",
-uci_typo_titre_wordspacing:"Odstępy między słowami",
-uci_typo_titre_linespacing:"Odstępy między wierszami",
-uci_typo_titre_fontfamily:"Rodzina czcionek",
-uci_typo_titre_changecase:"Rodzaj pisowni małe i wielkie litery",
-uci_typo_help_fontfamily:"Ta funkcja pozwala na zmianę czcionki na stronie, w celu poprawienia komfortu czytania",
-uci_typo_help_changecase:"Ta funkcja pozwala dostosować prezentację tekstów do Twoich potrzeb",
-uci_title_wordspacing_radio_normal:"Domyślne przerwy między słowami",
-uci_title_wordspacing_radio_medium:"Średnie przerwy między słowami",
-uci_title_wordspacing_radio_large:"Duże przerwy między słowami",
-uci_title_linespacing_radio_normal:"Domyślne przerwy między wierszami",
-uci_title_linespacing_radio_medium:"Średnie przerwy między wierszami",
-uci_title_linespacing_radio_large:"Duże przerwy między wierszami",
-uci_title_minfont_radio_normal:"Minimalny rozmiar czcionki 12px",
-uci_title_minfont_radio_medium:"Minimalny rozmiar czcionki 16px",
-uci_title_minfont_radio_large:"Minimalny rozmiar czcionki 18px",
-uci_title_fontfamily_radio_normal:"Domyślna czcionka",
-uci_title_fontfamily_radio_arial:"Czcionka Arial",
-uci_title_fontfamily_radio_opendys:"Użyj fontów dla dyslektyków",
-uci_title_fontfamily_radio_opensans:"Czcionka Open Sans",
-uci_title_fontfamily_radio_accessibledfa:"Czcionka Accessible DFA",
-uci_changecase_firstlettre_title:"Zacznij każde słowo z wielkiej litery",
-uci_changecase_firstlettre:"Pierwsza litera wielka",
-uci_changecase_normal_title:"Domyślny wygląd tekstu",
-uci_changecase_tolower_title:"Tekst z małych liter",
-uci_changecase_tolower:"małe litery",
-uci_changecase_uppercase:"MAJUSCULE",
-uci_changecase_uppercase_title:"Affichage du texte en majuscule",
-uci_label_listmode:"Anuluj rozkład",
-uci_label_alignleft:"Ułóż tekst do lewej",
-uci_label_putnumonlist:"Lista z numerami elementów",
-uci_label_disabletransp:"Usuń efekt przezroczystości",
-uci_label_disablebgpictures:"Wyłącz obrazy w tle",
-uci_label_disablepppictures:"Anuluj obrazy z pierwszego planu",
-uci_label_mask:"Włącz podświetlenie selektywne",
-  uci_label_regle_vertical:"Show a vertical ruler",
-  uci_label_regle_horizontale:"Show a horizontal ruler",
-uci_link_display_picture:"Pokaż ten obraz :",
-uci_link_display_picture_no_alt:"Opis niedostępny",
-uci_titre_links:"Wygląd linków nawigacyjnych",
-uci_txt_notvisited:"Linki",
-uci_txt_visited:"Odwiedzone linki",
-uci_txt_active:"Wybrany link",
-uci_title_link_notvisited_color:"Domyślne kolory linków",
-uci_title_link_visited_color:"Kolory linków odwiedzonych",
-uci_title_link_active_color:"Kolor wybranego linku",
-uci_title_link_notvisited_render:"Formatowanie linków",
-uci_title_link_visited_render:"Dodatkowe formatowanie odwiedzonych linków",
-uci_title_link_active_render:"Dodatkowe formatowanie wybranego linku",
-uci_link_render_options_default:"domyślne",
-uci_link_render_options_underline:"podkreśl",
-uci_link_render_options_border:"pole",
-uci_link_render_options_bold:"pogrubienie",
-uci_txt_mask_size:"Wysokość maski",
-uci_help_listmode:"Ta funkcja pozwala zmienić czcionki użyte na stronie na Twoją domyślną rodzinę czcionek (zdefiniowaną w Twojej przeglądarce lub na Twoim komputerze). Ponadto, tekst wyświetlany jest linearnie, bez podziału na kolumny.",
-uci_help_disabletransp:"To funkcja umożliwiająca wyłączenie potencjalnie transparentnych elementów. Dzięki temu zmniejsza zakłócenia podczas czytania strony.",
-uci_help_disablepppictures:"Ta funkcja ukrywa grafiki umieszczone na stronie w celu uniknięcia zakłóceń w czytaniu. Grafiki użyte na stronie zastępowane są ich tekstowymi odpowiednikami. Odnośnik pozwala sprawdzenie grafiki na żądanie.",
-uci_help_links:"Ta funkcja pozwala zdefiniować widoczność linków. Możesz wybrać kolor oraz szczegóły formatowania.",
-uci_color_titre:"Połączenie ustawionych kolorów",
-uci_mask_titre:"Masque de lecture",
-uci_title_color_personnal:"Wybierz spersonalizowane kolory",
-uci_color_txt_texte:"Kolor czcionki",
-uci_color_txt_background:"Kolor tła",
-uci_color_warning_title:"Zbyt niski kontrast",
-uci_color_warning_content:"Tekst i kolor tła mają zbyt niski contrast. Może to spowodować ból oczu lub problemy z czytaniem.",
-uci_label_jumptocontent:"Zawsze przechodź do zawartości",
-uci_help_jumptocontent:"Zezwalaj na automatyczne pozycjonowanie (ustawienie) zawartości na stronie głównej w szczególności poprzez ustawienie linków nawigacyjnych.",
-uci_enableMotorMode:"Wsparcie silnika",
-uci_label_telecomande:"Nawigować “po najechaniu”",
-uci_help_telecomande:"Dodaj pionowe przwijanie za pomocą strzałek. Pozwól również na dodanie aktywnych linków widocznych na “przewijaku” po przesunięciu strony.",
-uci_legend_delai_clic:"Opóźnienie przed automatycznym kliknięciem",
-uci_label_1sec:"1 sekunda",
-uci_label_2sec:"2 sekundy",
-uci_label_3sec:"3 sekundy",
-uci_label_6sec:"6 sekund",
-uci_label_automove:"Automatyczny wybór elementów",
-uci_help_automove:"Wybierz  kolejne klikalne elementy. Naciśnij klawisz “Enter” lub “Spacja” w celu uruchomienia menu kontekstowego pozwalającego na aktywację wybranych elementów lub ich modyfikację.",
-uci_legend_menupos:"Pozycja menu",
-uci_label_centeredmenu:"Środek strony",
-uci_label_nearelemtmenu:"Obok wybranego elementu",
-uci_legend_time_before_sel:"Opóźnienie wybranego elementu",
-uci_help_quickmode:"liczba ignorowanych elementów pomiędzy wybranymi elementami",
-uci_legend_pasquickmode:"Kroki trybu szybkiego",
-uci_label_2par2:"1",
-uci_label_5par5:"4",
-uci_label_10par10:"9",
-uci_doClick:"Kliknij",
-uci_loopActivable:"Nawiguj po elementach",
-uci_loopActivableQuick:"Szybko nawiguj po elementach",
-uci_loopBackward:"Nawiguj wstecz",
-uci_stopLoop:"Zatrzymaj nawigację",
-uci_closeButton:"Zamknij",
-uci_modif_not_saved:"Niezapisane ustawienia zostaną utracone, czy chcesz kontynuować?",
-uci_remove_all_settings:"Wszystkie ustawienia zostaną skasowane, czy chcesz kontynuować?",
-uci_radio_default:"Domyślne",
-uci_radio_medium:"Średnie",
-uci_radio_large:"Duże",
-uci_new_window:"Nowe okno",
-uci_iframe_cookie:"Zawartość techniczna Orange Confort+",
-uci_confirm_validation:"Ustawienia zapisane", 
-uci_menu_guide:"Guide pas \340 pas",
-  uci_discover_text: "TODO",
-  reading: "TODO",
-  reading1: "TODO",
-  reading2: "TODO",
-  uci_advance_param : "TODO",
-  discover_service : "TODO",
-  improve_readability : "TODO",
-  edit_layout : "TODO",
-  use_motor_assistance : "TODO",
-  uci_exit : "TODO",
-  uci_close_guide : "TODO",
-  uci_menu : "TODO",
-  uci_default : "TODO",
-  uci_previous: "TODO",
+traduction['PL'] = {
+  howToClose: "Zamknij maskę: klawisz Esc lub prawy krzyżyk po prawej",  //v4
+  save_service: "Zapisz profil", //v4
+  uci_alt_logo: "Confort+",
+  uci_button_cancel: "Anuluj",
+  uci_button_valid: "Zachowaj ustawienia",
+  uci_button_valid_profil: "Zaktualizuj nazwę profilu", //v4
+  uci_changecase_firstlettre: "Pierwsza litera wielka",
+  uci_changecase_firstlettre_title: "Zacznij każde słowo z wielkiej litery",
+  uci_changecase_normal_title: "Domyślny wygląd tekstu",
+  uci_changecase_tolower: "małe litery",
+  uci_changecase_tolower_title: "Tekst z małych liter",
+  uci_changecase_uppercase: "Duże litery", //v4
+  uci_changecase_uppercase_title: "Tekst z wielkich liter",// V4
+  uci_close_guide: "Zamknij przewodnik", //v4
+  uci_close_mask: "Zamknij maskę do czytania", //v4
+  uci_closeButton: "Zamknij",
+  uci_color_titre: "Połączenie ustawionych kolorów",
+  uci_color_txt_background: "Kolor tła",
+  uci_color_txt_texte: "Kolor czcionki",
+  uci_color_warning_content: "Tekst i kolor tła mają zbyt niski contrast. Może to spowodować ból oczu lub problemy z czytaniem.",
+  uci_color_warning_title: "Zbyt niski kontrast",
+  uci_confirm_validation: "Ustawienia zapisane",
+  uci_tour_discover_default: "Brak ustawień", //v4
+  uci_discover_text: "TODO", //v4
+  uci_doClick: "Kliknij",
+  uci_enableMotorMode: "Wsparcie silnika",
+  uci_exit: "Wyjście", //v4
+  uci_help_automove: "Wybierz  kolejne klikalne elementy. Naciśnij klawisz “Enter” lub “Spacja” w celu uruchomienia menu kontekstowego pozwalającego na aktywację wybranych elementów lub ich modyfikację.",
+  uci_help_disablepppictures: "Ta funkcja ukrywa grafiki umieszczone na stronie w celu uniknięcia zakłóceń w czytaniu. Grafiki użyte na stronie zastępowane są ich tekstowymi odpowiednikami. Odnośnik pozwala sprawdzenie grafiki na żądanie.",
+  uci_help_disabletransp: "To funkcja umożliwiająca wyłączenie potencjalnie transparentnych elementów. Dzięki temu zmniejsza zakłócenia podczas czytania strony.",
+  uci_help_jumptocontent: "Zezwalaj na automatyczne pozycjonowanie (ustawienie) zawartości na stronie głównej w szczególności poprzez ustawienie linków nawigacyjnych.",
+  uci_help_links: "Ta funkcja pozwala zdefiniować widoczność linków. Możesz wybrać kolor oraz szczegóły formatowania.",
+  uci_help_listmode: "Ta funkcja pozwala zmienić czcionki użyte na stronie na Twoją domyślną rodzinę czcionek (zdefiniowaną w Twojej przeglądarce lub na Twoim komputerze). Ponadto, tekst wyświetlany jest linearnie, bez podziału na kolumny.",
+  uci_help_quickmode: "liczba ignorowanych elementów pomiędzy wybranymi elementami",
+  uci_help_telecomande: "Dodaj pionowe przwijanie za pomocą strzałek. Pozwól również na dodanie aktywnych linków widocznych na “przewijaku” po przesunięciu strony.",
+  uci_iframe_cookie: "Zawartość techniczna Orange Confort+",
+  uci_label_10par10: "9",
+  uci_label_1sec: "1 sekunda",
+  uci_label_2par2: "1",
+  uci_label_2sec: "2 sekundy",
+  uci_label_3sec: "3 sekundy",
+  uci_label_5par5: "4",
+  uci_label_6sec: "6 sekundy",
+  uci_label_alignleft: "Ułóż tekst do lewej",
+  uci_label_automove: "Automatyczny wybór elementów",
+  uci_label_centeredmenu: "Środek strony",
+  uci_label_disablebgpictures: "Wyłącz obrazy w tle",
+  uci_label_disablepppictures: "Anuluj obrazy z pierwszego planu",
+  uci_label_disabletransp: "Usuń efekt przezroczystości",
+  uci_label_jumptocontent: "Zawsze przechodź do zawartości",
+  uci_label_listmode: "Anuluj rozkład",
+  uci_mask_label: "Włącz podświetlenie selektywne",
+  uci_label_nearelemtmenu: "Obok wybranego elementu",
+  uci_label_putnumonlist: "Lista z numerami elementów",
+  uci_label_regle_horizontale: "Show a horizontal ruler",// V4
+  uci_label_regle_vertical: "Show a vertical ruler",// V4
+  uci_label_telecomande: "Nawigować “po najechaniu”",
+  uci_legend_delai_clic: "Opóźnienie przed automatycznym kliknięciem",
+  uci_legend_menupos: "Pozycja menu",
+  uci_legend_pasquickmode: "Kroki trybu szybkiego",
+  uci_legend_time_before_sel: "Opóźnienie wybranego elementu",
+  uci_link_display_picture: "Pokaż ten obraz :",
+  uci_link_display_picture_no_alt: "Opis niedostępny",
+  uci_link_hide_toolbar: "Schowaj pasek narzędzi",
+  uci_link_render_options_bold: "pogrubienie",
+  uci_link_render_options_border: "pole",
+  uci_link_render_options_default: "domyślne",
+  uci_link_render_options_underline: "podkreśl",
+  uci_loopActivable: "Nawiguj po elementach",
+  uci_loopActivableQuick: "Szybko nawiguj po elementach",
+  uci_loopBackward: "Nawiguj wstecz",
+  uci_mask_titre: "Maska czytania",// V4
+  uci_mask_settings_titre: "Odczytywanie ustawień maski", // V4
+  uci_mask_settings_help: "Aby uaktywnić maskę, użyj przycisku w pasku szybkiego dostępu lub skrótu Ctrl / Cmd + M", // V4
+  uci_other_settings_titre: "Inne ustawienia", //v4
+  uci_menu: "TODO", // V4
+  uci_menu_guide: "Guide pas \340 pas", // V4
+  uci_menu_help: "Pokaż pomoc",
+  uci_menu_info: "O aplikacji",
+  uci_menu_remove_all: "Zresetuj",
+  uci_modif_not_saved: "Niezapisane ustawienia zostaną utracone, czy chcesz kontynuować?",
+  uci_new_window: "Nowe okno",
   uci_next: "TODO",
-  apparence : "apparence",
-  aidemotrice: "aidemotrice",
-  typographie :"typographie",
-  couleur: "couleurs",
-  advancedparam: "todo",
-  save_service: "TODO",
-  uci_rename_profile: "Renommer le profil",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_curent_name: "Current profile name",
-  uci_txt_link_profil: "TODO",
-  uci_profile_save_label: "TODO",
-  uci_profile_new_option: "TODO",
-  uci_profile_new_label: "TODO",
-  uci_predefined_profils_title: "predefined profiles",
-  uci_predefined_none: "No profile",
-  uci_predefined_improve_readability: "Improve readability",
   uci_predefined_change_layout: "Change the layout",
+  uci_predefined_improve_readability: "Improve readability",
   uci_predefined_motor_help: "Start motor help",
+  uci_predefined_none: "No profile",
+  uci_predefined_profils_title: "predefined profiles",
+  uci_previous: "TODO",
+  uci_profile_curent_name: "Current profile name",
   uci_profile_delete_warning: "ATTENTION",
-  uci_button_valid_profil: "Modifier le nom du profil",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  howToClose: "TODO",
-  uci_radio_light:"TODO",
-  uci_radio_medium1:"TODO",
-  uci_radio_dark:"TODO",
-  uci_txt_mask_opacity:"TODO",
-  uci_close_mask : "Close reading mask",
-  update_custom_colors: "TODO"
+  uci_profile_new_label: "TODO",
+  uci_profile_new_option: "TODO",
+  uci_profile_rename_label: "Nouveau nom",
+  uci_profile_save_label: "TODO",
+  uci_radio_dark: "TODO",
+  uci_radio_default: "Domyślne",
+  uci_radio_large: "Duże",
+  uci_radio_light: "TODO",
+  uci_radio_medium: "Średnie",
+  uci_radio_medium1: "TODO",
+  uci_remove_all_settings: "Wszystkie ustawienia zostaną skasowane, czy chcesz kontynuować?",
+  uci_rename_profile: "Renommer le profil",
+  uci_serv_name: "Confort",
+  uci_stopLoop: "Zatrzymaj nawigację",
+  uci_title_color_blackongreen: "Czarny tekst na zielonym tle",
+  uci_title_color_blackonwhite: "Czarny tekst na białym tle",
+  uci_title_color_blueonwhite: "Niebieski tekst na białym tle",
+  uci_title_color_blueonyellow: "Niebieski tekst na żółtym tle",
+  uci_title_color_greenonblack: "Zielony tekst na czarnym tle",
+  uci_title_color_keepit: "Początkowe kolory",
+  uci_title_color_personnal: "Wybierz spersonalizowane kolory",
+  uci_title_color_whiteonblack: "Biały tekst na czarnym tle",
+  uci_title_color_whiteonblue: "Biały tekst na niebieskim tle",
+  uci_title_color_yellowonblue: "Żółty tekst na niebieskim tle",
+  uci_title_disable_cdu: "Dezaktywuj Confort+ na tej stronie",
+  uci_title_enable_cdu: "Aktywuj Confort+ na tej stronie",
+  uci_title_fontfamily_radio_accessibledfa: "Czcionka Accessible design for all",
+  uci_title_fontfamily_radio_arial: "Czcionka Arial",
+  uci_title_fontfamily_radio_normal: "Domyślna czcionka",
+  uci_title_fontfamily_radio_opendys: "Użyj fontów dla dyslektyków",
+  uci_title_fontfamily_radio_opensans: "Czcionka Open Sans",
+  uci_title_fontsize_radio_large: "Duży rozmiar czcionki",
+  uci_title_fontsize_radio_medium: "Zwiększ rozmiar czcionki",
+  uci_title_linespacing_radio_large: "Duże przerwy między wierszami",
+  uci_title_linespacing_radio_medium: "Średnie przerwy między wierszami",
+  uci_title_linespacing_radio_normal: "Domyślne przerwy między wierszami",
+  uci_title_link_active_color: "Kolor wybranego linku",
+  uci_title_link_active_render: "Dodatkowe formatowanie wybranego linku",
+  uci_title_link_notvisited_color: "Domyślne kolory linków",
+  uci_title_link_notvisited_render: "Formatowanie linków",
+  uci_title_link_visited_color: "Kolory linków odwiedzonych",
+  uci_title_link_visited_render: "Dodatkowe formatowanie odwiedzonych linków",
+  uci_title_wordspacing_radio_large: "Duże przerwy między słowami",
+  uci_title_wordspacing_radio_medium: "Średnie przerwy między słowami",
+  uci_title_wordspacing_radio_normal: "Domyślne przerwy między słowami",
+  uci_titre_links: "Wygląd linków nawigacyjnych",
+  uci_tour_discover_edit_layout: "TODO",
+  uci_tour_discover_improve_readability: "TODO",
+  uci_tour_discover_service: "TODO",
+  uci_tour_step_0_reading: "TODO",
+  uci_tour_step_1_advancedparam: "todo",
+  uci_tour_step_2_typographie: "typographie",
+  uci_tour_step_3_apparence: "apparence",
+  uci_tour_step_4_couleur: "couleurs",
+  uci_tour_step_5_aidemotrice: "aidemotrice",
+  uci_txt_active: "Wybrany link",
+  uci_txt_link_menu: "Pomoc",
+  uci_txt_link_menu_close: "Schowaj menu",
+  uci_txt_link_menu_open: "Pokaż menu",
+  uci_txt_link_profil: "TODO",
+  uci_txt_low_settings: "Zamknij panel więcej ustawień",
+  uci_txt_low_settings_display: "Mniej ustawień",
+  uci_txt_mask_opacity: "TODO",
+  uci_txt_mask_size: "Wysokość maski",
+  uci_txt_menu_change_lang_en: "Pokaż usługę w języku angielskim",
+  uci_txt_menu_change_lang_es: "Pokaż usługę w języku hiszpańskim",
+  uci_txt_menu_change_lang_fr: "Pokaż usługę w języku francuskim",
+  uci_txt_menu_change_lang_pl: "Pokaż usługę w języku polskim",
+  uci_txt_more_settings: "Więcej ustawień",
+  uci_txt_notvisited: "Linki",
+  uci_txt_onglet_apparence: "READING HELP Układ",
+  uci_txt_onglet_color: "Kolory",
+  uci_txt_onglet_motor_help: "Zachowanie",
+  uci_txt_onglet_settings: "Settings",
+  uci_txt_onglet_typo: "Typografia",
+  uci_txt_visited: "Odwiedzone linki",
+  uci_typo_help_changecase: "Ta funkcja pozwala dostosować prezentację tekstów do Twoich potrzeb",
+  uci_typo_help_fontfamily: "Ta funkcja pozwala na zmianę czcionki na stronie, w celu poprawienia komfortu czytania",
+  uci_typo_titre_changecase: "Rodzaj pisowni małe i wielkie litery",
+  uci_typo_titre_fontfamily: "Rodzina czcionek",
+  uci_typo_titre_fontsize: "Rozmiar czcionki",
+  uci_typo_titre_linespacing: "Odstępy między wierszami",
+  uci_typo_titre_wordspacing: "Odstępy między słowami",
+  update_custom_colors: "TODO",
+ uci_tour_discover_use_motor_assistance : "TODO",
 };
 // Source: app/js/UciAideMotrice.js
 /**
@@ -1902,66 +1884,68 @@ UciApparence = {
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ],
-            ["div", {id:"uci_div_alignement_gauche"},
-              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
-              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
-            ],
-            ["div", {id:"uci_div_numero_ligne"},
-              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
-              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left margin-right"},
-            ["div", {"class":"margin-top-lg"},
-              ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"a11yMaskEnabled", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
-              ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
+            ["div", {"class":"margin-top-lg"}, accessibilitytoolbar.get('uci_mask_settings_titre'),
+            ["p", {"class":"font-normal margin-left-lg margin-top"}, accessibilitytoolbar.get('uci_mask_settings_help')]
             ],
-            ["div", {"class":"padding-left-align margin-top-lg"},
+            ["div", {"class":"margin-left-lg margin-top-lg"},
               ["input", {type:"radio", value:"hruler", name:"a11yMaskOption", id:"a11yMaskOption-hruler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "hruler" ? "checked" : false}],
               ["label", {"for":"a11yMaskOption-hruler"}, accessibilitytoolbar.get('uci_label_regle_horizontale')]
             ],
-            ["div", {"class":"padding-left-align margin-top-lg"},
+            ["div", {"class":"margin-left-lg margin-top-lg"},
               ["input", {type:"radio", value:"vruler", name:"a11yMaskOption", id:"a11yMaskOption-vruler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "vruler" ? "checked" : false}],
               ["label", {"for":"a11yMaskOption-vruler"}, accessibilitytoolbar.get('uci_label_regle_vertical')]
             ],
-            ["div", {"class":"padding-left-align margin-top-lg"},
+            ["div", {"class":"margin-left-lg margin-top-lg"},
               ["input", {type:"radio", value:"mask", name:"a11yMaskOption", id:"a11yMaskOption-mask", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "mask" ? "checked" : false}],
-              ["label", {"for":"a11yMaskOption-mask"}, accessibilitytoolbar.get('uci_label_mask')]
+              ["label", {"for":"a11yMaskOption-mask"}, accessibilitytoolbar.get('uci_mask_label')]
             ],
-            ["div", {"class":"padding-left-align"},
+            ["div", {"class":"margin-left-lg"},
               ["div", {"class":"padding-left-align"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
                   ["li", 
-                    {id:"uci_a11yMaskEpaisseur_medium",
+                    {id:"uci_a11yMaskOpacity_.25",
                       role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "true" : "false",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_light')
                   ], 
                   ["li", 
-                    {id:"uci_a11yMaskEpaisseur_thin",
+                    {id:"uci_a11yMaskOpacity_.5",
                       role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "true" : "false",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_medium1')
                   ],
                   ["li", 
-                    {id:"uci_a11yMaskEpaisseur_thick",
+                    {id:"uci_a11yMaskOpacity_.9",
                       role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "true" : "false",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_dark')
                   ]
                 ]
               ]
+            ]
+          ],
+          ["div", {"class":"uci_onglet_div margin-left margin-right"},
+            ["div", {"class":"margin-top-lg"}, accessibilitytoolbar.get('uci_other_settings_titre')],
+            ["div", {"class":"margin-left-lg margin-top-lg"},
+              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
+              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
+            ],
+            ["div", {"class":"margin-left-lg margin-top-lg"},
+              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
+              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ]
           ]
         ]);
@@ -2141,7 +2125,7 @@ UciTypographie = {
                     "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "true" : "false",                    
                     title:accessibilitytoolbar.get('uci_title_fontfamily_radio_accessibledfa')
                   },
-                  "Accessible DFA"
+                  "Accessible-DFA"
                 ],
                 ["li", 
                   {id:"uci_a11yDyslexyFont_opendyslexic",
@@ -2826,11 +2810,11 @@ UciIhm = {
             ["input", {
               type:"checkbox", 
               value:"true", 
-              name:"uci_quick_a11yMaskEnabled", 
-              id:"uci_quick_a11yMaskEnabled", 
+              name:"a11yMaskEnabled", 
+              id:"a11yMaskEnabled", 
               checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? true : false}
             ],
-            ["label", {"for":"uci_quick_a11yMaskEnabled", "class":"ucibtn ucibtn-sm ucibtn-secondary uci_quick_checkbox margin-left-lg", title:accessibilitytoolbar.get('uci_mask_titre')},
+            ["label", {"for":"a11yMaskEnabled", "class":"ucibtn ucibtn-sm ucibtn-secondary uci_quick_checkbox margin-left-lg", title:accessibilitytoolbar.get('uci_mask_titre')},
               ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_mask_titre')],
               ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-masque" }]
             ]
@@ -3055,7 +3039,7 @@ UciIhm = {
       document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
-      document.getElementById('uci_quick_a11yMaskEnabled').setAttribute('disabled', 'disabled');
+      document.getElementById('a11yMaskEnabled').setAttribute('disabled', 'disabled');
       document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
       document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
       document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
@@ -3104,7 +3088,7 @@ UciIhm = {
     document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
     document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
-    document.getElementById('uci_quick_a11yMaskEnabled').removeAttribute('disabled');
+    document.getElementById('a11yMaskEnabled').removeAttribute('disabled');
     document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
     document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
@@ -3250,53 +3234,44 @@ UciHelp = {
   /******************************************************* object tour *******************************************************/
 
   tour : {
-    reading:{
-      adcancedparam : "close",
+    uci_tour_step_0_reading:{
+      advancedparam : "close",
       parentId: "masque_haut_param",
       prev:"",
-      next: "reading1"
-
+      next: "uci_tour_step_1_advancedparam"
     },
-    reading1: {
-      adcancedparam : "close",
-      parentId: "masque_haut_param",
-      prev:"reading",
-      next: "reading2"
-    },
-    reading2:{
-      adcancedparam : "close",
-      parentId: "masque_haut_param",
-      prev:"reading1",
-      next: "advancedparam"
-    },
-    advancedparam : {
-      adcancedparam : "close",
+    uci_tour_step_1_advancedparam : {
+      advancedparam : "close",
       parentId: "masque_haut_advanced_param",
-      prev:"reading2",
-      next: "typographie"
+      prev:"uci_tour_step_0_reading",
+      next: "uci_tour_step_2_typographie"
     },
-    typographie : {
-      adcancedparam : "open",
+    uci_tour_step_2_typographie : {
+      advancedparam : "open",
       parentId: "uci_zone_form",
-      prev:"advancedparam",
-      next: "apparence"
+      ongletId: "onglet_typographie",
+      prev:"uci_tour_step_1_advancedparam",
+      next: "uci_tour_step_3_apparence"
     },
-    apparence : {
-      adcancedparam : "isopen",
+    uci_tour_step_3_apparence : {
+      advancedparam : "isopen",
       parentId: "uci_zone_form",
-      prev:"typographie",
-      next: "couleur"
+      ongletId: "onglet_apparence",
+      prev:"uci_tour_step_2_typographie",
+      next: "uci_tour_step_4_couleur"
     },
-    couleur : {
-      adcancedparam : "isopen",
+    uci_tour_step_4_couleur : {
+      advancedparam : "isopen",
       parentId: "uci_zone_form",
-      prev:"apparence",
-      next: "aidemotrice"
+      ongletId: "onglet_couleur",
+      prev:"uci_tour_step_3_apparence",
+      next: "uci_tour_step_5_aidemotrice"
     },
-    aidemotrice : {
-      adcancedparam : "isopen",
+    uci_tour_step_5_aidemotrice : {
+      advancedparam : "isopen",
       parentId: "uci_zone_form",
-      prev:"couleur",
+      ongletId: "onglet_aidemotrice",
+      prev:"uci_tour_step_4_couleur",
       next: ""
     }
   },
@@ -3331,31 +3306,31 @@ UciHelp = {
           ["div", { id: "uci_popin_body", "class": "uci-popin-body" },
             ["ul",
               ["li",
-                ["a", { id: "uci_popin_discover", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('discover_service') },
+                ["a", { id: "uci_popin_discover", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('uci_tour_discover_service') },
 
                   ["span", { id: "uci_popin_discover_icon", "class": "uci-guide-discover uci-icon margin-left margin-right", "aria-hidden":"true" }],
-                  ["span", { id: "uci_popin_discover_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('discover_service')]
+                  ["span", { id: "uci_popin_discover_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('uci_tour_discover_service')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_read", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('improve_readability') },
+                ["a", { id: "uci_popin_read", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('uci_tour_discover_improve_readability') },
 
                   ["span", { id: "uci_popin_read_icon", "class": "uci-guide-readability uci-icon margin-left margin-right", "aria-hidden":"true" }],
-                  ["span", { id: "uci_popin_read_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('improve_readability')]
+                  ["span", { id: "uci_popin_read_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('uci_tour_discover_improve_readability')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_layout", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('edit_layout') },
+                ["a", { id: "uci_popin_layout", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('uci_tour_discover_edit_layout') },
 
                   ["span", { id: "uci_popin_layout_icon", "class": "uci-guide-layout uci-icon margin-left margin-right", "aria-hidden":"true" }],
-                  ["span", { id: "uci_popin_layout_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('edit_layout')]
+                  ["span", { id: "uci_popin_layout_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('uci_tour_discover_edit_layout')]
                 ]
               ],
               ["li",
-                ["a", { id: "uci_popin_motor", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('use_motor_assistance') },
+                ["a", { id: "uci_popin_motor", href: "#", "class": "uci-popin-li", title: accessibilitytoolbar.get('uci_tour_discover_use_motor_assistance') },
 
                   ["span", { id: "uci_popin_motor_icon", "class": "uci-guide-motor uci-icon margin-left margin-right", "aria-hidden":"true" }],
-                  ["span", { id: "uci_popin_motor_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('use_motor_assistance')]
+                  ["span", { id: "uci_popin_motor_text", "class": "uci-popin-text" }, accessibilitytoolbar.get('uci_tour_discover_use_motor_assistance')]
                 ]
               ]
             ],
@@ -3381,20 +3356,20 @@ UciHelp = {
           ["div", { id: "uci_discover_body_exemple", "class": "uci-discover-body-exemple", "aria-hidden": "true" }, "Exemples :"],
           ["div", { id: "uci_discover_selection", "class": "uci-discover-selection uci-discover-body-text", "aria-hidden": "true" },
             ["input", { type: "radio", name: "example", "checked": "true", id: "uci_discover_none" }],
-            ["label", { "for": "uci_discover_none" }, accessibilitytoolbar.get('uci_default')],
+            ["label", { "for": "uci_discover_none" }, accessibilitytoolbar.get('uci_tour_discover_default')],
             ["input", { type: "radio", name: "example", id: "uci_discover_reading" }],
-            ["label", { "for": "uci_discover_reading" }, accessibilitytoolbar.get('improve_readability')],
+            ["label", { "for": "uci_discover_reading" }, accessibilitytoolbar.get('uci_tour_discover_improve_readability')],
             ["input", { type: "radio", name: "example", id: "uci_discover_layout" }],
-            ["label", { "for": "uci_discover_layout" }, accessibilitytoolbar.get('edit_layout')]
+            ["label", { "for": "uci_discover_layout" }, accessibilitytoolbar.get('uci_tour_discover_edit_layout')]
           ],
           ["iframe", { id: "uci_discover_frame", "tabindex": "-1", title: "demo", name: "uci_discover_frame", "class": "uci-discover-frame", src: hebergementFullPath + "demo_" + accessibilitytoolbar.strings.getLocale().toLowerCase() + ".html" }]
         ],
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
           ["div", { "class": "uci-buttom-speed" },
-            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-readability", onclick: "UciHelp.show_reading()" }],
-            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-layout", onclick: "UciHelp.show_reading('apparence')" }],
-            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-motor", onclick: "UciHelp.show_reading('aidemotrice')" }]
+            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-readability", onclick: "UciHelp.show_reading(uci_tour_step_0_reading)" }],
+            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-layout", onclick: "UciHelp.show_reading('uci_tour_step_3_apparence')" }],
+            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-motor", onclick: "UciHelp.show_reading('uci_tour_step_5_aidemotrice')" }]
           ],
           ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_exit')]
         ]
@@ -3478,9 +3453,9 @@ UciHelp = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_close'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.hide_popin() });
 
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_discover'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_discover() });
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_read'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading() });
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_layout'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("apparence") });
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_motor'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("aidemotrice") });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_read'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("uci_tour_step_0_reading") });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_layout'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("uci_tour_step_3_apparence") });
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_popin_motor'), function (e) { accessibilitytoolbar.stopEvt(e); UciHelp.show_reading("uci_tour_step_5_aidemotrice") });
 
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_reading'), UciHelp.demo_visibility);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_discover_layout'), UciHelp.demo_layout);
@@ -3564,11 +3539,11 @@ UciHelp = {
   show_reading: function (name, changeOnglet) {
     document.getElementById("uci_main_popin_help").style.display = "none";
     document.getElementById("uci_discover").style.display = "none";
-    if (name === "typographie" || name === "apparence" || name === "couleur" || name === "aidemotrice") {
+    if (name === "uci_tour_step_2_typographie" || name === "uci_tour_step_3_apparence" || name === "uci_tour_step_4_couleur" || name === "uci_tour_step_5_aidemotrice") {
       var index = Object.keys(UciHelp.tour).indexOf(name);
         UciHelp._readingTraitement(UciHelp.tour[name], UciHelp.tour[name], index, changeOnglet);
     } else {
-      document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("reading"));
+      document.getElementById("masque_haut_param").appendChild(UciHelp.InitUciReading("uci_tour_step_0_reading"));
       document.getElementById("uci_reading_move_left").style.visibility = "hidden";
       document.getElementById("masque_haut_param").className = "readingElements";
       UciHelp.position_popin_help();
@@ -3628,7 +3603,7 @@ UciHelp = {
 
   position_popin_help: function () {
     if (document.getElementById("uci_reading")){
-      if (document.getElementById("uci_reading").getAttribute("name") === "advancedparam") {
+      if (document.getElementById("uci_reading").getAttribute("name") === "uci_tour_step_1_advancedparam") {
         document.getElementById("uci_reading").style.right = document.getElementById("masque_haut_exit").clientWidth + "px";
         document.getElementById("triangle").lastChild.className = "triangleright";
       }
@@ -3694,11 +3669,10 @@ UciHelp = {
 
   
   hide_reading: function (name) {
-    if (name === "reading"  || name === "reading1" || name === "reading2") {
+    if (name === "uci_tour_step_0_reading") {
       document.getElementById("masque_haut_advanced_param").className = "masque-haut-advanced-param";
       document.getElementById("masque_haut_param").className = "readingElements";
-    }
-    if (name === "advancedparam" || name === "typographie" || name === "apparence" || name === "couleur" || name === "aidemotrice" ) {
+    } else {
       document.getElementById("masque_haut_param").className = "masque-haut-param";
       document.getElementById("masque_haut_advanced_param").className = "readingElements";
       document.getElementById("uci_menu_remove_all").setAttribute("disabled", true);
@@ -3735,17 +3709,11 @@ UciHelp = {
   },
 
   _canBeOnMoreSettingHelp: function(){
-    return document.getElementById("uci_reading").getAttribute("name") === "typographie" ||
-        document.getElementById("uci_reading").getAttribute("name") === "apparence" ||
-        document.getElementById("uci_reading").getAttribute("name") === "couleur" ||
-        document.getElementById("uci_reading").getAttribute("name") === "aidemotrice";
+    return document.getElementById("uci_activateOnglet").style.display === "block";
   },
   
   _isOnMoreSettingHelp: function(){
-    return document.getElementById("uci_reading").getAttribute("name") !== "typographie" &&
-      document.getElementById("uci_reading").getAttribute("name") !== "apparence" &&
-      document.getElementById("uci_reading").getAttribute("name") !== "couleur" &&
-      document.getElementById("uci_reading").getAttribute("name") !== "aidemotrice";
+    return document.getElementById("uci_activateOnglet").style.display !== "block";
   },
 
   /********************************** _readingTraitement ********************************************************/
@@ -3775,23 +3743,17 @@ UciHelp = {
         unclick.removeChild(unclick.lastChild);
       }
       document.getElementById(nextObject.parentId).appendChild(UciHelp.InitUciReading(name));
-      if (nextObject.adcancedparam === "open" && currentObject.adcancedparam !== "isopen") {
-        UciIhm.more_confort();
-        this._unclickMoreSettings();
-      }
-      if (nextObject.adcancedparam === "close") {
+      if (nextObject.advancedparam === "close") {
         UciIhm.hide_more_confort();
       }
-      if (nextObject.adcancedparam === "isopen" || nextObject.adcancedparam === "open") {
-        if (document.getElementById('uci_activateOnglet').style.display === "none"){
-          UciIhm.more_confort();
-          
-        }
-        if (changeOnglet !== false){
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_" + name + "").parentNode, false);
-          
+      if (nextObject.advancedparam === "open") {
+        if (document.getElementById('uci_activateOnglet').style.display === "none") {
+          UciIhm.more_confort();          
         }
         this._unclickMoreSettings();
+        if (changeOnglet !== false){
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById(nextObject.ongletId).parentNode, false);          
+        }
       }
 
       UciHelp.hide_reading(name);
@@ -3832,10 +3794,10 @@ UciMask = {
         init: function() {
 	        if ((!window.Modernizer) || !Modernizr.touch) {
 	        	topMask = document.createElement("div");
-	        	topMask.className="topMask";
+	        	topMask.className="uci_mask topMask";
 	        	topMask.id="topMask";
 	        	bottomMask = document.createElement("div");
-	        	bottomMask.className="bottomMask";
+	        	bottomMask.className="uci_mask bottomMask";
             bottomMask.id="bottomMask";
             document.getElementsByTagName("body")[0].appendChild(topMask);
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
@@ -3943,20 +3905,6 @@ UciMask = {
           if(this.settings.option === 'mask') {
             closeMask = document.getElementById("closeMask");
             document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
-            switch(UciMask.settings.thickness) {
-              case 'medium':
-                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
-                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
-                document.getElementById('howToClose').className += " howtocloselight";
-                break;
-              case 'thick':;
-                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
-                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
-                break;
-              default:
-                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
-                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
-            }
             var size = 90;
             closeMask.style.height = "90px";
             closeMask.style.width = "90px";
@@ -6873,7 +6821,23 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
     }
+
+    // add a global listener for mask shortcut activation
+    accessibilitytoolbar.uciAttachEvent('keyup','onkeyup',document, accessibilitytoolbar.documentKeyupEvent);
   },
+
+  /**
+   * Global document keyboard eventHandler for catching shortcuts
+   */
+  documentKeyupEvent: function(e) {
+    // ctrl key and M at the same time (Start the mask if not already stated)
+    if ((e.ctrlKey || e.metaKey) && e.keyCode == 77 && accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") {
+        // call your function to do the thing
+        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"true",type:"checkbox",checked:"checked"}});
+        accessibilitytoolbar.setCSS();
+    }
+  },
+
   /**
    * Function event implementation
    * Create an object list with
@@ -7211,12 +7175,12 @@ accessibilitytoolbar = {
       prefName = "a11yVisualSettings";
     }
     if (target.id && target.id.match(/a11yMaskEnabled/)) {
-      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      // if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
       if(value !== "false") {
-        document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
+        // document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
         document.getElementById("a11yMaskEnabled").checked = true;          
       } else {
-        document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
+        // document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
         document.getElementById("a11yMaskEnabled").checked = false;
       }
       prefName = "a11yMaskEnabled";
@@ -7232,7 +7196,7 @@ accessibilitytoolbar = {
    */
   updateIhmFormsSettings: function () {
     var pref, prefarray, ariaRadioSettings = ["a11yDyslexyFont", "a11ySpacement", "a11yLineSpacement",
-      "a11yModifCasse", "a11yMaskEpaisseur", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
+      "a11yModifCasse", "a11yMaskOpacity", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
       "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
@@ -7245,12 +7209,12 @@ accessibilitytoolbar = {
     for (pref in checkboxSettings) {
       curpref = checkboxSettings[pref];
       if (accessibilitytoolbar.userPref.get(curpref) === "true") {
-        if(curpref === "a11yMaskEnabled" || curpref ==="a11yVisualSettings") {
+        if(curpref ==="a11yVisualSettings") {
           document.getElementById("uci_quick_"+curpref).checked = true;
         }
         document.getElementById(curpref).checked = true;
       } else {
-        if(curpref === "a11yMaskEnabled" || curpref ==="a11yVisualSettings") {
+        if(curpref === "a11yVisualSettings") {
           document.getElementById("uci_quick_"+curpref).checked = false;
         }
         document.getElementById(curpref).checked = false;
@@ -7390,7 +7354,7 @@ accessibilitytoolbar = {
    * 2. add a new STYLE node with the user's preferences
    */
   setCSS: function (init, demo) {
-    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref, userFont;
+    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref, userFont, bgColorRGB;
     localUserPref = accessibilitytoolbar.userPref;
     // were in demo mode
     if (demo) {
@@ -7674,8 +7638,8 @@ accessibilitytoolbar = {
 
       //gestion des couleurs
       // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
-      backGroundColor = "#FFF";
-      fontColor = "#000";
+      backGroundColor = "#FFFFFF";
+      fontColor = "#000000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
         document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
@@ -7689,14 +7653,14 @@ accessibilitytoolbar = {
           }          
 
           var predifinedCombinaisons = {
-            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
-            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
-            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
-            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
-            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
-            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
-            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
-            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+            'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+            'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+            'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+            'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+            'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+            'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
           if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
             fontColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
@@ -7724,7 +7688,7 @@ accessibilitytoolbar = {
         s += "input { border-width: 2px !important; border-style: solid !important}\n";
         s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
         s += "table {border-collapse: collapse !important;}";
-        s += "* { background-color:" + backGroundColor + " !important;}";
+        s += "*:not(.uci_mask) { background-color:" + backGroundColor + " !important;}";
         // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
         // background:" + backGroundColor + " !important; }\n";
         s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
@@ -7740,16 +7704,17 @@ accessibilitytoolbar = {
       // reading mask      
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.option = localUserPref.get("a11yMaskOption");
-        UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
+        UciMask.settings.thickness = localUserPref.get("a11yMaskOpacity");
         if (!accessibilitytoolbar.toolbarMaskInit) {
           UciMask.init();
           accessibilitytoolbar.toolbarMaskInit = true;
         }
         UciMask.start();
         switch(localUserPref.get("a11yMaskOption")) {
-          case "mask":            
-            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+          case "mask":
+            bgColorRGB = this.colourStrToRGB(fontColor);
+            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
           break;
           case "vruler":
             s += ".vMouse {border-left: thick solid "+fontColor+" }";
@@ -8303,14 +8268,14 @@ accessibilitytoolbar = {
 
   makePredefinedCouleurTpl: function () {
     var predifinedCombinaisons = {
-            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
-            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
-            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
-            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
-            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
-            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
-            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
-            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+            'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+            'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+            'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+            'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+            'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+            'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
     var curCouleur;
     var aCouleur = ["ul", { "class": "padding-left-align uci_clear uci_liste_bton", id: "uci_reponses_couleurpredefinie", role: "radiogroup", "aria-labelledby": "a11yVisualSettings" }];

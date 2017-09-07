@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 06-09-2017
+/* orange-confort-plus - version 4.1.0 - 07-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -1054,6 +1054,9 @@ li.uci_dropdown-divider {
 	width: 100%;
 	padding: 0 .625rem 1.25rem .625rem;
 }
+#uci_contenu_onglet_apparence .uci_onglet_div {
+	max-width: 33%;
+}
 /*****************************************Fin de la mise en place des ongletsk*********************************/
 /**********************************************Onglet typographie*********************************************/
 
@@ -1065,14 +1068,6 @@ li.uci_dropdown-divider {
 	margin-bottom: 0;
 }
 
-#uci_a11yMaskEpaisseur_thin span {
-	font-size: 75%;
-}
-
-#uci_a11yMaskEpaisseur_thick span {
-	font-size: 125%;
-	line-height: .6 !important;
-}
 #accessibilitytoolbarGraphic .uci_link_help_bulle {
 	width: 1rem;
 	height: 1rem;
@@ -1124,8 +1119,6 @@ li.uci_dropdown-divider {
 /***********************************************Fin onglet typography******************************************/
 /******************************************Onglet Apparence****************************************************/
 #uci_div_supprimer_miseenpage,
-#uci_div_alignement_gauche,
-#uci_div_numero_ligne,
 #uci_div_desactiver_transparence,
 #uci_div_disabled_fond_picture,
 #uci_div_disabled_first_plan_picture{
