@@ -14,7 +14,7 @@
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['EN']={
-  howToClose: "Close mask : Esc key or close cross on right",
+  howToClose: "Close mask: Esc key or close cross on right",
   save_service: "Save profile",
   uci_alt_logo:"Confort+",
   uci_button_cancel:"Cancel",
@@ -27,8 +27,8 @@ traduction['EN']={
   uci_changecase_tolower_title:"lower case text",
   uci_changecase_uppercase:"UPPER CASE",
   uci_changecase_uppercase_title:"Upper case text",
-  uci_close_guide : "Close guide",
-  uci_close_mask : "Close reading mask",
+  uci_close_guide: "Close guide",
+  uci_close_mask: "Close reading mask",
   uci_closeButton:"Close",
   uci_color_titre:"Font and background color",
   uci_color_txt_background:"Background color",
@@ -36,11 +36,11 @@ traduction['EN']={
   uci_color_warning_content:"Text and background colors has an insufficient contrast. This may make it difficult to read and cause eyestrain.",
   uci_color_warning_title:"Insufficient contrast",
   uci_confirm_validation:"Settings saved",
-  uci_tour_discover_default : "No settings",
+  uci_tour_discover_default: "No settings",
   uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
   uci_doClick:"Click",
   uci_enableMotorMode:"Motor help",
-  uci_exit : "Exit",
+  uci_exit: "Exit",
   uci_help_automove:"Select clickable elements one after the other. Press the enter or space key to open a contextual menu allowing to activate the selected element or to modify ",
   uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
   uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
@@ -87,9 +87,9 @@ traduction['EN']={
   uci_loopBackward:"Navigate backwards",
   uci_mask_titre:"Reading mask", // V4
   uci_mask_settings_titre: "Reading mask settings", // V4
-  uci_mask_settings_help: "To activate the mask, please use the button in the Quick Access ribbon, or the Ctrl/Cmd+M keyboard shortcut", // V4
+  uci_mask_settings_help: "To activate the mask, please use the button in the Quick Access ribbon, or the Ctrl+M keyboard shortcut", // V4
   uci_other_settings_titre: "Other settings", //v4
-  uci_menu : "Menu",
+  uci_menu: "Menu",
   uci_menu_guide:"Guide step by step",
   uci_menu_help:"Visit general help",
   uci_menu_info:"About",
@@ -105,7 +105,7 @@ traduction['EN']={
   uci_previous: "previous",
   uci_profile_curent_name: "Current profile name",
   uci_profile_delete_warning: "ATTENTION",
-  uci_profile_name_format: "ENGLISH Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
+  uci_profile_name_format: "Minimal length: 3 characters; please no special characters.", // V4
   uci_profile_new_label: "New profile",
   uci_profile_new_option: "new profile",
   uci_profile_rename_label: "New name",
@@ -152,13 +152,13 @@ traduction['EN']={
   uci_title_wordspacing_radio_medium:"Medium word spacing",
   uci_title_wordspacing_radio_normal:"Default word spacing ",
   uci_titre_links:"Navigation links appearence",
-  uci_tour_discover_edit_layout : "Edit layout",
-  uci_tour_discover_improve_readability : "Improve Readability",
-  uci_tour_discover_service : "discover the service",
+  uci_tour_discover_edit_layout: "Edit layout",
+  uci_tour_discover_improve_readability: "Improve Readability",
+  uci_tour_discover_service: "discover the service",
   uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
   uci_tour_step_1_advancedparam: "advancedparam",
-  uci_tour_step_2_typographie :"typographie",
-  uci_tour_step_3_apparence : "apparence",
+  uci_tour_step_2_typographie:"typographie",
+  uci_tour_step_3_apparence: "apparence",
   uci_tour_step_4_couleur: "couleurs",
   uci_tour_step_5_aidemotrice: "aidemotrice",
   uci_txt_active:"Selected link",
@@ -190,7 +190,7 @@ traduction['EN']={
   uci_typo_titre_linespacing:"Line spacing",
   uci_typo_titre_wordspacing:"Word spacing",
   update_custom_colors: "Update personalized colors",
- uci_tour_discover_use_motor_assistance : "Use motor assistance",
+ uci_tour_discover_use_motor_assistance: "Use motor assistance",
   uci_profile_rename: "Rename profile",
   uci_profile_delete: "Delete profile",
 };
