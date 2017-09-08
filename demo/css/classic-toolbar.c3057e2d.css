@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 07-09-2017
+/* orange-confort-plus - version 4.1.0 - 08-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -292,7 +292,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	position: relative;
 	color: #000;
 }
-#accessibilitytoolbarGraphic input[type="checkbox"] + label:before {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:not(.uci_quick_checkbox):before {
 	background-color: #fff;
 	border: 2px solid #ccc;
 	content: "";
@@ -303,7 +303,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	font-size: 1rem;
 	top: 0;
 }
-#accessibilitytoolbarGraphic input[type="checkbox"] + label:after {
+#accessibilitytoolbarGraphic input[type="checkbox"] + label:not(.uci_quick_checkbox):after {
 	color: #fff;
 	content: "\2714";
 	font-family: "orangeconfortplus";
@@ -346,11 +346,15 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 }
 
 #accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox{
-  padding-left: 0;
+  padding: .125rem;
   min-height: 1.625rem;
   min-width: 1.625rem;
-  box-sizing: content-box;
+  box-sizing: border-box;
 	vertical-align: middle;
+}
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox .cdu-icon-color,
+#accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox .cdu-icon-masque{
+  vertical-align: middle;
 }
 #accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_color_checkbox {
   border-width: 2px;
@@ -359,7 +363,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 
 #accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox .cdu-icon-color,
 #accessibilitytoolbarGraphic input[type="checkbox"] + label.uci_quick_checkbox .cdu-icon-masque{
-  font-size: 1.625rem;
+  font-size: 1.375rem;
 }
 
 
@@ -904,7 +908,7 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .cdu-icon-plus2,
 #accessibilitytoolbarGraphic .cdu-icon-moins2 {
-	font-size: .875rem;
+	font-size: .87rem;
 	padding-right: 10px;
 }
 #closeMaskDiv .cdu-icon-croix,
@@ -1416,6 +1420,11 @@ li.uci_dropdown-divider {
 	font-size: 0.875rem;
 	min-width: 0.7142rem;
 }
+#accessibilitytoolbarGraphic .ucibtn-sm:active,
+#accessibilitytoolbarGraphic .ucibtn-sm.active{
+	padding: 0.25rem 0.375rem;
+	border-width: 4px;
+}
 #closeMaskDiv .ucibtn-secondary,
 #accessibilitytoolbarGraphic .ucibtn-secondary {
 	color: #000;
@@ -1704,16 +1713,6 @@ li.uci_dropdown-divider {
 
 /********     CSS for user guide **********/
 
-
-#accessibilitytoolbarGraphic .uci_cdu_popin {
-		/*display: none; /*--masqué par défaut--*/
-		background-color: rgba(0,0,0,0.5);
-		position: absolute;
-		left: 0;
-		width: 100%;
-		z-index: 2147483644;
-}
-
 #uci_main_popin_help .uci-popin-content  {
 	width: 20rem;
 	/*height: 300px;*/
@@ -1814,16 +1813,9 @@ li.uci_dropdown-divider {
     margin-bottom: 1rem;
 }
 
-#uci_discover .uci-discover-selection{
-	margin-bottom: 1rem;
-}
-
-#uci_discover #uci_discover_selection label{
-	margin-right: 2rem;
-}
 
 #uci_discover .uci-discover-body-text {
-	font-size: 0.8rem;
+	font-size: 0.875rem;
 }
 
 #uci_discover .uci-discover-frame {
@@ -1951,7 +1943,6 @@ li.uci_dropdown-divider {
 		position: absolute;
 		left: 0;
 		width: 100%;
-		z-index: 2147483644;
 		height: 100%
 }
 
@@ -1961,6 +1952,7 @@ li.uci_dropdown-divider {
     min-height: 10rem;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 3.25rem;
 }
 
 .save_popin .uci-save-header {
