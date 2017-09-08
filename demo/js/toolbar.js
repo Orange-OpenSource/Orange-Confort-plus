@@ -925,6 +925,8 @@ traduction['EN']={
   uci_typo_titre_wordspacing:"Word spacing",
   update_custom_colors: "Update personalized colors",
  uci_tour_discover_use_motor_assistance : "Use motor assistance",
+  uci_profile_rename: "Rename profile",
+  uci_profile_delete: "Delete profile",
 };
 // Source: app/language/es.js
 /**
@@ -1118,6 +1120,8 @@ traduction['ES']={
   uci_typo_titre_wordspacing:"Espacio entre palabras",
   update_custom_colors: "TODO",
  uci_tour_discover_use_motor_assistance : "Utiliser l'aide motrice",
+  uci_profile_rename: "Rename profile",//V4
+  uci_profile_delete: "Delete profile",// v4
 };
 // Source: app/language/fr.js
 /**
@@ -1314,6 +1318,8 @@ traduction['FR']={
   uci_typo_titre_linespacing:"Espacement entre les lignes",
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   update_custom_colors: "Modifier les couleurs personnalisées",
+  uci_profile_rename: "Renommer le profil",
+  uci_profile_delete: "Supprimer le profil",
 };
 
 // Source: app/language/pl.js
@@ -1510,6 +1516,8 @@ traduction['PL'] = {
   uci_typo_titre_wordspacing: "Odstępy między słowami",
   update_custom_colors: "TODO",
  uci_tour_discover_use_motor_assistance : "TODO",
+  uci_profile_rename: "Rename profile", //v4
+  uci_profile_delete: "Delete profile", //v4
 };
 // Source: app/js/UciAideMotrice.js
 /**
@@ -2362,8 +2370,8 @@ UciProfile = {
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
                                 ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent}, profil],
-                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:"Rename profile : "+profil }],
-                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:"Delete profile : "+profil }]
+                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" : "+profil }],
+                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" : "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
