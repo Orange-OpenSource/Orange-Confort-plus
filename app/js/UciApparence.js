@@ -99,66 +99,68 @@ UciApparence = {
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ],
-            ["div", {id:"uci_div_alignement_gauche"},
-              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
-              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
-            ],
-            ["div", {id:"uci_div_numero_ligne"},
-              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
-              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left margin-right"},
-            ["div", {"class":"margin-top-lg"},
-              ["input", {type:"checkbox", value:"true", name:"a11yMaskEnabled", id:"a11yMaskEnabled", checked:accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "true" ? "checked" : false}],
-              ["label", {"for":"a11yMaskEnabled"}, accessibilitytoolbar.get('uci_label_mask')]
+          ["div", {"class":"uci_onglet_div margin-left margin-right-xlg"},
+            ["div", {"class":"margin-top-lg"}, accessibilitytoolbar.get('uci_mask_settings_titre'),
+            ["p", {"class":"font-normal margin-left-lg margin-top"}, accessibilitytoolbar.get('uci_mask_settings_help')]
             ],
-            ["div", {"class":"padding-left-align margin-top-lg"},
+            ["div", {"class":"margin-left-lg margin-top-lg"},
               ["input", {type:"radio", value:"hruler", name:"a11yMaskOption", id:"a11yMaskOption-hruler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "hruler" ? "checked" : false}],
               ["label", {"for":"a11yMaskOption-hruler"}, accessibilitytoolbar.get('uci_label_regle_horizontale')]
             ],
-            ["div", {"class":"padding-left-align margin-top-lg"},
+            ["div", {"class":"margin-left-lg margin-top-lg"},
               ["input", {type:"radio", value:"vruler", name:"a11yMaskOption", id:"a11yMaskOption-vruler", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "vruler" ? "checked" : false}],
               ["label", {"for":"a11yMaskOption-vruler"}, accessibilitytoolbar.get('uci_label_regle_vertical')]
             ],
-            ["div", {"class":"padding-left-align margin-top-lg"},
+            ["div", {"class":"margin-left-lg margin-top-lg"},
               ["input", {type:"radio", value:"mask", name:"a11yMaskOption", id:"a11yMaskOption-mask", checked:accessibilitytoolbar.userPref.get("a11yMaskOption") === "mask" ? "checked" : false}],
-              ["label", {"for":"a11yMaskOption-mask"}, accessibilitytoolbar.get('uci_label_mask')]
+              ["label", {"for":"a11yMaskOption-mask"}, accessibilitytoolbar.get('uci_mask_label')]
             ],
-            ["div", {"class":"padding-left-align"},
+            ["div", {"class":"margin-left-lg"},
               ["div", {"class":"padding-left-align"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
                   ["li", 
-                    {id:"uci_a11yMaskEpaisseur_medium",
+                    {id:"uci_a11yMaskOpacity_.25",
                       role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "medium" ? "true" : "false",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_light')
                   ], 
                   ["li", 
-                    {id:"uci_a11yMaskEpaisseur_thin",
+                    {id:"uci_a11yMaskOpacity_.5",
                       role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thin" ? "true" : "false",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_medium1')
                   ],
                   ["li", 
-                    {id:"uci_a11yMaskEpaisseur_thick",
+                    {id:"uci_a11yMaskOpacity_.9",
                       role:"radio",
-                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "active": ""),
-                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "0" : "-1",
-                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskEpaisseur") === "thick" ? "true" : "false",
+                      "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "active": ""),
+                      tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "0" : "-1",
+                      "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_dark')
                   ]
                 ]
               ]
+            ]
+          ],
+          ["div", {"class":"uci_onglet_div margin-left margin-right"},
+            ["div", {"class":"margin-top-lg"}, accessibilitytoolbar.get('uci_other_settings_titre')],
+            ["div", {"class":"margin-left-lg margin-top-lg"},
+              ["input", {type:"checkbox", value:"left", name:"a11yLeftText", id:"a11yLeftText", checked:accessibilitytoolbar.userPref.get("a11yLeftText") === "left" ? "checked" : false}],
+              ["label", {"for":"a11yLeftText"}, accessibilitytoolbar.get('uci_label_alignleft')]
+            ],
+            ["div", {"class":"margin-left-lg margin-top-lg"},
+              ["input", {type:"checkbox", value:"decimal", name:"a11yNumerotationList", id:"a11yNumerotationList", checked:accessibilitytoolbar.userPref.get("a11yNumerotationList") === "decimal" ? "checked" : false}],
+              ["label", {"for":"a11yNumerotationList"}, accessibilitytoolbar.get('uci_label_putnumonlist')]
             ]
           ]
         ]);

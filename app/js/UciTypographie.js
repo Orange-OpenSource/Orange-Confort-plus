@@ -101,7 +101,7 @@ UciTypographie = {
                     "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "true" : "false",                    
                     title:accessibilitytoolbar.get('uci_title_fontfamily_radio_accessibledfa')
                   },
-                  "Accessible DFA"
+                  "Accessible-DFA"
                 ],
                 ["li", 
                   {id:"uci_a11yDyslexyFont_opendyslexic",

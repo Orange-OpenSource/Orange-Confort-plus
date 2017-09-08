@@ -160,9 +160,9 @@ function UciUserPref() {
         "a11yMaskHorizontal-0" :   "a11yMaskHorizontal-false",
         "a11yMaskHorizontal-1" :   "a11yMaskHorizontal-true",
 
-        "a11yMaskEpaisseur-0" :    "a11yMaskEpaisseur-thin",
-        "a11yMaskEpaisseur-1" :    "a11yMaskEpaisseur-medium",
-        "a11yMaskEpaisseur-2" :    "a11yMaskEpaisseur-thick",
+        "a11yMaskOpacity-0" :    "a11yMaskOpacity-.5",
+        "a11yMaskOpacity-1" :    "a11yMaskOpacity-.25",
+        "a11yMaskOpacity-2" :    "a11yMaskOpacity-.9",
 
         "a11ySupEffetTransp-0":     "a11ySupEffetTransp-false",
         "a11ySupEffetTransp-1":     "a11ySupEffetTransp-1",
@@ -241,7 +241,7 @@ function UciUserPref() {
         // but keep it for backward compatibility
         "a11yMaskHorizontal" :   [6,1],        
         "a11yMaskColor":         [4,2],
-        "a11yMaskEpaisseur" :    [3,1],
+        "a11yMaskOpacity" :    [3,1],
         "a11ySupEffetTransp":     [2,1],
         "a11ySupImageFont" :      [1,1],
         "a11ySupImageFirstPlan" : [0,1]
@@ -291,7 +291,7 @@ function UciUserPref() {
         // but keep it for backward compatibility
         "a11yMaskHorizontal" :    "true",
         "a11yMaskColor" :         "#000000",
-        "a11yMaskEpaisseur" :     "thin",
+        "a11yMaskOpacity" :     ".5",
         "a11ySupEffetTransp":     "false",
         "a11ySupImageFont" :      "false",
         "a11ySupImageFirstPlan" : "false",

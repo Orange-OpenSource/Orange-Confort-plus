@@ -2853,7 +2853,22 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
     }
+
+    // add a global listener for mask shortcut activation
+    accessibilitytoolbar.uciAttachEvent('keyup','onkeyup',document, accessibilitytoolbar.documentKeyupEvent);
   },
+
+  /**
+   * Global document keyboard eventHandler for catching shortcuts
+   */
+  documentKeyupEvent: function(e) {
+    // ctrl key and M at the same time (Start the mask if not already stated)
+    if ((e.ctrlKey || e.metaKey) && e.keyCode == 77 && accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") {
+        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"true",type:"checkbox",checked:"checked"}});
+        accessibilitytoolbar.setCSS();
+    }
+  },
+
   /**
    * Function event implementation
    * Create an object list with
@@ -3191,12 +3206,12 @@ accessibilitytoolbar = {
       prefName = "a11yVisualSettings";
     }
     if (target.id && target.id.match(/a11yMaskEnabled/)) {
-      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      // if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
       if(value !== "false") {
-        document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
+        // document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
         document.getElementById("a11yMaskEnabled").checked = true;          
       } else {
-        document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
+        // document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
         document.getElementById("a11yMaskEnabled").checked = false;
       }
       prefName = "a11yMaskEnabled";
@@ -3212,7 +3227,7 @@ accessibilitytoolbar = {
    */
   updateIhmFormsSettings: function () {
     var pref, prefarray, ariaRadioSettings = ["a11yDyslexyFont", "a11ySpacement", "a11yLineSpacement",
-      "a11yModifCasse", "a11yMaskEpaisseur", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
+      "a11yModifCasse", "a11yMaskOpacity", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
       "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
@@ -3225,12 +3240,12 @@ accessibilitytoolbar = {
     for (pref in checkboxSettings) {
       curpref = checkboxSettings[pref];
       if (accessibilitytoolbar.userPref.get(curpref) === "true") {
-        if(curpref === "a11yMaskEnabled" || curpref ==="a11yVisualSettings") {
+        if(curpref ==="a11yVisualSettings") {
           document.getElementById("uci_quick_"+curpref).checked = true;
         }
         document.getElementById(curpref).checked = true;
       } else {
-        if(curpref === "a11yMaskEnabled" || curpref ==="a11yVisualSettings") {
+        if(curpref === "a11yVisualSettings") {
           document.getElementById("uci_quick_"+curpref).checked = false;
         }
         document.getElementById(curpref).checked = false;
@@ -3370,7 +3385,7 @@ accessibilitytoolbar = {
    * 2. add a new STYLE node with the user's preferences
    */
   setCSS: function (init, demo) {
-    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref, userFont;
+    var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame, theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref, userFont, bgColorRGB;
     localUserPref = accessibilitytoolbar.userPref;
     // were in demo mode
     if (demo) {
@@ -3508,7 +3523,8 @@ accessibilitytoolbar = {
         // get the font-size from the body
         fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0], null).getPropertyValue("font-size") || '16px';
       }
-
+      s += "body { font-size:1rem !important; }\n";
+      s += "html { font-size:"+ (100 * parseFloat(fontSizeBody) / 16) + "% !important; }\n";
       if (localUserPref.get("a11yBigger") !== "keepit") {
         s += "html { font-size:" + localUserPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
       }
@@ -3654,8 +3670,8 @@ accessibilitytoolbar = {
 
       //gestion des couleurs
       // 2. add a new STYLE node with the user's preferences only if font color wasn't equal to the background one
-      backGroundColor = "#FFF";
-      fontColor = "#000";
+      backGroundColor = "#FFFFFF";
+      fontColor = "#000000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
         document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
@@ -3669,14 +3685,14 @@ accessibilitytoolbar = {
           }          
 
           var predifinedCombinaisons = {
-            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
-            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
-            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
-            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
-            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
-            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
-            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
-            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+            'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+            'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+            'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+            'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+            'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+            'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
           if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
             fontColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
@@ -3704,7 +3720,7 @@ accessibilitytoolbar = {
         s += "input { border-width: 2px !important; border-style: solid !important}\n";
         s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
         s += "table {border-collapse: collapse !important;}";
-        s += "* { background-color:" + backGroundColor + " !important;}";
+        s += "*:not(.uci_mask) { background-color:" + backGroundColor + " !important;}";
         // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
         // background:" + backGroundColor + " !important; }\n";
         s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
@@ -3720,16 +3736,17 @@ accessibilitytoolbar = {
       // reading mask      
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.option = localUserPref.get("a11yMaskOption");
-        UciMask.settings.thickness = localUserPref.get("a11yMaskEpaisseur");
+        UciMask.settings.thickness = localUserPref.get("a11yMaskOpacity");
         if (!accessibilitytoolbar.toolbarMaskInit) {
           UciMask.init();
           accessibilitytoolbar.toolbarMaskInit = true;
         }
         UciMask.start();
         switch(localUserPref.get("a11yMaskOption")) {
-          case "mask":            
-            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(0,0,0,0); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+          case "mask":
+            bgColorRGB = this.colourStrToRGB(fontColor);
+            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
           break;
           case "vruler":
             s += ".vMouse {border-left: thick solid "+fontColor+" }";
@@ -4283,14 +4300,14 @@ accessibilitytoolbar = {
 
   makePredefinedCouleurTpl: function () {
     var predifinedCombinaisons = {
-            'blackonwhite': { fontColor: '#000', backGroundColor: '#FFF' },
-            'whiteonblack': { fontColor: '#fff', backGroundColor: '#000' },
-            'blueonyellow': { fontColor: '#00F', backGroundColor: '#FF0' },
-            'yellowonblue': { fontColor: '#FF0', backGroundColor: '#00F' },
-            'greenonblack': { fontColor: '#090', backGroundColor: '#000' },
-            'blackongreen': { fontColor: '#000', backGroundColor: '#090' },
-            'blueonwhite': { fontColor: '#00F', backGroundColor: '#FFF' },
-            'whiteonblue': { fontColor: '#FFF', backGroundColor: '#00F' }
+            'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+            'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+            'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+            'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+            'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+            'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
     var curCouleur;
     var aCouleur = ["ul", { "class": "padding-left-align uci_clear uci_liste_bton", id: "uci_reponses_couleurpredefinie", role: "radiogroup", "aria-labelledby": "a11yVisualSettings" }];

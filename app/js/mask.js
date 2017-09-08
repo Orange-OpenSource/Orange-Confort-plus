@@ -23,10 +23,10 @@ UciMask = {
         init: function() {
 	        if ((!window.Modernizer) || !Modernizr.touch) {
 	        	topMask = document.createElement("div");
-	        	topMask.className="topMask";
+	        	topMask.className="uci_mask topMask";
 	        	topMask.id="topMask";
 	        	bottomMask = document.createElement("div");
-	        	bottomMask.className="bottomMask";
+	        	bottomMask.className="uci_mask bottomMask";
             bottomMask.id="bottomMask";
             document.getElementsByTagName("body")[0].appendChild(topMask);
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
@@ -93,6 +93,7 @@ UciMask = {
             e = window.event;
 
           var intKeyCode = e.keyCode;
+          // escape key
           if (intKeyCode === 27 && (
             document.getElementById('topMask').style.display === "block" 
             || document.getElementById('vMouse').style.display === "block"
@@ -134,20 +135,6 @@ UciMask = {
           if(this.settings.option === 'mask') {
             closeMask = document.getElementById("closeMask");
             document.getElementById('howToClose').className = document.getElementById('howToClose').className.replace(/ howtocloselight{0,1}/, "");
-            switch(UciMask.settings.thickness) {
-              case 'medium':
-                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.25)";
-                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, .25)";
-                document.getElementById('howToClose').className += " howtocloselight";
-                break;
-              case 'thick':;
-                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.9)";
-                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.9)";
-                break;
-              default:
-                document.getElementById('topMask').style.background = "rgba(0, 0, 0, 0.5)";
-                document.getElementById('bottomMask').style.background = "rgba(0, 0, 0, 0.5)";
-            }
             var size = 90;
             closeMask.style.height = "90px";
             closeMask.style.width = "90px";
