@@ -3359,7 +3359,7 @@ UciHelp = {
     return accessibilitytoolbar.make(["div", { id: "uci_discover", "class": "uci-discover", style: "display:none;" },
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-popin-header" },
-          ["h2", { id: "uci_discover_title", "class": "uci-popin-title", "tabindex": "0" }, accessibilitytoolbar.get('discover_service')],
+          ["h2", { id: "uci_discover_title", "class": "uci-popin-title", "tabindex": "0" }, accessibilitytoolbar.get('uci_tour_discover_service')],
           ["button", { "class": "ucibtn-secondary uci-popin-btn", id: "uci_discover_close", title: accessibilitytoolbar.get('uci_close_guide'), type: "button" },
             ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
@@ -3381,9 +3381,9 @@ UciHelp = {
         ["div", { "class": "uci-popin-buttom" },
           ["button", { id: "uci_popin_menu", name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_menu')],
           ["div", { "class": "uci-buttom-speed" },
-            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-readability", onclick: "UciHelp.show_reading('uci_tour_step_0_reading')" }],
-            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-layout", onclick: "UciHelp.show_reading('uci_tour_step_3_apparence')" }],
-            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-motor", onclick: "UciHelp.show_reading('uci_tour_step_5_aidemotrice')" }]
+            ["button", { id: "uci_popin_read_btn", title: accessibilitytoolbar.get('uci_predefined_improve_readability'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-readability", onclick: "UciHelp.show_reading('uci_tour_step_0_reading')" }],
+            ["button", { id: "uci_popin_layout_btn", title: accessibilitytoolbar.get('uci_predefined_edit_layout'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-layout", onclick: "UciHelp.show_reading('uci_tour_step_3_apparence')" }],
+            ["button", { id: "uci_popin_motor_btn", title: accessibilitytoolbar.get('uci_predefined_use_motor_assistance'), name: "uci_popin_menu", "type": "button", "class": "uci-popin-button-left ucibtn-secondary ucibtn ucibtn-sm uci-button_noborder uci-guide-motor", onclick: "UciHelp.show_reading('uci_tour_step_5_aidemotrice')" }]
           ],
           ["button", { id: "uci_popin_exit", name: "uci_popin_exit", "type": "button", "class": "uci-popin-button-right ucibtn-secondary ucibtn ucibtn-sm" }, accessibilitytoolbar.get('uci_exit')]
         ]
