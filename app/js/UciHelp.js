@@ -151,7 +151,7 @@ UciHelp = {
     return accessibilitytoolbar.make(["div", { id: "uci_discover", "class": "uci-discover", style: "display:none;" },
       ["div", { id: "uci_discover_content", "class": "uci-discover-content" },
         ["div", { id: "uci_discover_header", "class": "uci-popin-header" },
-          ["h2", { id: "uci_discover_title", "class": "uci-popin-title", "tabindex": "0" }, accessibilitytoolbar.get('discover_service')],
+          ["h2", { id: "uci_discover_title", "class": "uci-popin-title", "tabindex": "0" }, accessibilitytoolbar.get('uci_tour_discover_service')],
           ["button", { "class": "ucibtn-secondary uci-popin-btn", id: "uci_discover_close", title: accessibilitytoolbar.get('uci_close_guide'), type: "button" },
             ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
             ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_guide')]
