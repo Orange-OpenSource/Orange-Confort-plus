@@ -12,7 +12,8 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
-**/ 
+**/
+// Space before vertical punctuation in French
 traduction['FR']={
   howToClose: "Fermeture du masque : touche Echap ou croix à droite",
   save_service: "Enregistrer le profil",
@@ -104,13 +105,13 @@ traduction['FR']={
   uci_predefined_none: "Aucun profil",
   uci_predefined_profils_title: "profils predefinis",
   uci_previous: "pr\351c\351dent",
-  uci_profile_curent_name: "Nom actuel du profil",
+  uci_profile_curent_name: "Nom actuel du profil :",
   uci_profile_delete_warning: "Vous êtes sur le point de supprimer un profil, cette action est irréversible.",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
   uci_profile_new_label: "Nouveau profil",
   uci_profile_new_option: "nouveau profil",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_save_label: "Enregistrer mes réglages",
+  uci_profile_rename_label: "Nouveau nom :",
+  uci_profile_save_label: "Enregistrer mes réglages :",
   uci_radio_dark:"Fonc\351",
   uci_radio_default:"Normal",
   uci_radio_large:"Grand",
@@ -192,6 +193,6 @@ traduction['FR']={
   uci_typo_titre_linespacing:"Espacement entre les lignes",
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   update_custom_colors: "Modifier les couleurs personnalisées",
-  uci_profile_rename: "Renommer le profil",
-  uci_profile_delete: "Supprimer le profil",
+  uci_profile_rename: "Renommer le profil :",
+  uci_profile_delete: "Supprimer le profil :",
 };

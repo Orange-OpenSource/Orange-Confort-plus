@@ -13,6 +13,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
+// No space before vertical punctuation in polish
 traduction['PL'] = {
   howToClose: "Zamknij maskę: klawisz Esc lub prawy krzyżyk po prawej",  //v4
   save_service: "Zapisz profil", //v4
@@ -103,13 +104,13 @@ traduction['PL'] = {
   uci_predefined_none: "No profile",
   uci_predefined_profils_title: "predefined profiles",
   uci_previous: "TODO",
-  uci_profile_curent_name: "Current profile name",
+  uci_profile_curent_name: "Current profile name :",
   uci_profile_delete_warning: "ATTENTION",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
   uci_profile_new_label: "TODO",
   uci_profile_new_option: "TODO",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_save_label: "TODO",
+  uci_profile_rename_label: "Nouveau nom:",
+  uci_profile_save_label: "TODO:",
   uci_radio_dark: "TODO",
   uci_radio_default: "Domyślne",
   uci_radio_large: "Duże",
@@ -191,6 +192,6 @@ traduction['PL'] = {
   uci_typo_titre_wordspacing: "Odstępy między słowami",
   update_custom_colors: "TODO",
  uci_tour_discover_use_motor_assistance : "TODO",
-  uci_profile_rename: "Rename profile", //v4
-  uci_profile_delete: "Delete profile", //v4
+  uci_profile_rename: "Rename profile :", //v4
+  uci_profile_delete: "Delete profile :", //v4
 };

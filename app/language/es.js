@@ -13,6 +13,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
+// No space before vertical punctuation in spanish
 traduction['ES']={
   howToClose: "Cerrar la máscara: tecla Esc o cruz cerrada a la derecha", //v4
   save_service: "Guardar perfil", //v4
@@ -101,13 +102,13 @@ traduction['ES']={
   uci_predefined_motor_help: "Start motor help",
   uci_predefined_none: "No profile",
   uci_predefined_profils_title: "predefined profiles",
-  uci_profile_curent_name: "Current profile name",
+  uci_profile_curent_name: "Current profile name :",
   uci_profile_delete_warning: "ATTENTION",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
   uci_profile_new_label: "TODO",
   uci_profile_new_option: "TODO",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_save_label: "TODO",
+  uci_profile_rename_label: "Nouveau nom:",
+  uci_profile_save_label: "TODO:",
   uci_radio_dark:"TODO",
   uci_radio_default:"Normal",
   uci_radio_large:"Grande",
@@ -189,6 +190,6 @@ traduction['ES']={
   uci_typo_titre_wordspacing:"Espacio entre palabras",
   update_custom_colors: "TODO",
  uci_tour_discover_use_motor_assistance : "Utiliser l'aide motrice",
-  uci_profile_rename: "Rename profile",//V4
-  uci_profile_delete: "Delete profile",// v4
+  uci_profile_rename: "Rename profile :",//V4
+  uci_profile_delete: "Delete profile :",// v4
 };

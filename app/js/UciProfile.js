@@ -70,8 +70,8 @@ UciProfile = {
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
                                 ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent}, profil],
-                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" : "+profil }],
-                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" : "+profil }]
+                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
+                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
@@ -136,11 +136,11 @@ UciProfile = {
           ],
           ["div", {"class":"margin-top margin-left margin-right" },
             ["div",
-              ["label", { "class":"labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" : "],
+              ["label", { "class":"labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" "],
               UciProfile.selectProfile(),
             ],
             ["div",{id:"uci_profile_name_container", "style":displayInput, "class":"margin-top"},
-              ["label", { "class":"labelcolor","for":"uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label')+" : ",
+              ["label", { "class":"labelcolor","for":"uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label'),
               ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
               ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control"}]
             ],
@@ -193,9 +193,9 @@ UciProfile = {
             ]
           ],
           ["div", {"class":"margin-top margin-left margin-right"},
-            ["div", {"class":"margin-bottom"}, accessibilitytoolbar.get('uci_profile_curent_name')+" : "+profilName],
+            ["div", {"class":"margin-bottom"}, accessibilitytoolbar.get('uci_profile_curent_name')+" "+profilName],
             ["input",{ "type":"hidden", id:"previous_profil_name", value:profilName}],
-            ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label')+" : ",
+            ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label'),
             ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
             ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control"}]
           ],
