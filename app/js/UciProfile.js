@@ -31,7 +31,7 @@ UciProfile = {
   createButtonProfile: function() {
     if(accessibilitytoolbar.profileEnabled) {
       return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
-                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
                       ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
                       this.InitUciProfile()
@@ -69,7 +69,7 @@ UciProfile = {
           ariaCurrent = "true";
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
-                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent}, profil],
+                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
                                 ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
                                 ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
@@ -81,38 +81,38 @@ UciProfile = {
     }
     if(accessibilitytoolbar.userPref.settings.current === '0') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '1') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '2') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '3') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     }
     

@@ -117,7 +117,7 @@ UciIhm = {
             ["ul",
                   UciProfile.createButtonProfile(),
                   ["li", {"class":"uci_inline uci_menu_bton", id:"uci_help_list"},
-                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
                       ["div", {id:"uci_help_menu", style:"display:none;", class:"uci_submenu"},
                         ["ul",
@@ -175,7 +175,7 @@ UciIhm = {
                 ]
               ],
               ["li", { "class": "uci_inline uci_menu_close" },
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
                       ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
                       ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_link_hide_toolbar')]
                     ]
@@ -269,7 +269,7 @@ UciIhm = {
      * 
      */
     uci_toggle_menu: function(idMenu,e) {
-      if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+      //if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
       var menu = document.getElementById(idMenu);
       if (menu.style.display === "none") {
         menu.style.display = "block";
@@ -323,14 +323,16 @@ UciIhm = {
   more_confort: function (e) {
     if (document.getElementById('uci_activateOnglet').style.display === "none") {
       document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-moins2";
-      document.getElementById('uci_activateOnglet').style.display = "block";      
-      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
-      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
+      document.getElementById('uci_activateOnglet').style.display = "block";
+      document.getElementById('uci_quick_a11yBigger_less').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_quick_a11yBigger_more').setAttribute('disabled', 'disabled');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
-      document.getElementById('a11yMaskEnabled').setAttribute('disabled', 'disabled');
-      document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
-      document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
-      document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
+      document.getElementById('a11yMaskEnabled').setAttribute('disabled', 'disabled');          
+      if(document.getElementById('uci_profile_menu_button')) {
+        document.getElementById('uci_profile_menu_button').setAttribute('disabled', 'disabled');
+      }
+      document.getElementById('uci_help_menu_button').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_close_toolbar').setAttribute('disabled', 'disabled');
       if (document.getElementById('uci_zone_form')) {
         document.getElementById('uci_zone_form').style.display = "block";
         UciIhm.hide_confirm_validation();
@@ -338,10 +340,11 @@ UciIhm = {
       //document.getElementById('uci_fermeture_more_confort').style.display = "block";
       document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
       document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
-      document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
+      //document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
       document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'true');
-      document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'true');
+      //document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'true');
       document.getElementById('uci_moreconfort').title = accessibilitytoolbar.get('uci_txt_low_settings');
+      document.getElementById('uci_moreconfort').className += " active";
       document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_low_settings_display');
       // disable hide the toolbar
       // disable hide fontsize buttons
@@ -371,16 +374,23 @@ UciIhm = {
     document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'false');
     document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');
-    document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
-    document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
+    //document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
+    // document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');    
+    if(accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+      document.getElementById('uci_quick_a11yBigger_less').removeAttribute('disabled');
+    }
+    if(accessibilitytoolbar.userPref.get("a11yBigger") !== "200") {
+      document.getElementById('uci_quick_a11yBigger_more').removeAttribute('disabled');
+    }    
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
     document.getElementById('a11yMaskEnabled').removeAttribute('disabled');
-    document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
-    document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
-    document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
+    if(document.getElementById('uci_profile_menu_button')) {
+      document.getElementById('uci_profile_menu_button').removeAttribute('disabled');
+    }
+    document.getElementById('uci_help_menu_button').removeAttribute('disabled');
+    document.getElementById('uci_close_toolbar').removeAttribute('disabled');
     document.getElementById('uci_moreconfort').removeAttribute('title');
+    document.getElementById('uci_moreconfort').className = document.getElementById('uci_moreconfort').className.replace(/ active{0,1}/, "");
     document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_more_settings');
     return false;
   },
@@ -464,7 +474,7 @@ UciIhm = {
 
   ToolbarHide: function () {
     // when more settings is open, disable quick settings buttons
-    if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+    // if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
     accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
     accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
     accessibilitytoolbar.userPref.updateUserPref();
