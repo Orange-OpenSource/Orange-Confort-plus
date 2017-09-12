@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.47138a9f.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.05a52c3f.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -7517,8 +7517,8 @@ accessibilitytoolbar = {
         // get the font-size from the body
         fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0], null).getPropertyValue("font-size") || '16px';
       }
-      s += "body { font-size:1rem !important; }\n";
-      s += "html { font-size:"+ (100 * parseFloat(fontSizeBody) / 16) + "% !important; }\n";
+      // s += "body { font-size:1rem !important; }\n";
+      s += "#accessibilitytoolbarGraphic { font-size:"+ (16 / parseFloat(fontSizeBody)) + "em !important; }\n";
       if (localUserPref.get("a11yBigger") !== "keepit") {
         s += "html { font-size:" + localUserPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
       }
