@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.cd215765.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.91b9595b.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -150,10 +150,10 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
-      '0':this.defautStoredValue,
-      '1':"0000651000390350270001100110000000006500100010",
-      '2':"0000651000390350270111101310000000006500000010",
-      '3':"0000651000390350270001100310000101006500000010"
+      '0':this.defautStoredValue, // no profile
+      '1':"0000651000390350270001100510000000006500100010", // improve reading (accessible dfa + font-size = 150%)
+      '2':"0000651000390350270111101310000000006500000010", // change layout (medium line spacing, text left, numbered list)
+      '3':"0000651000390350270001100310000101006500000010" // start motor help (start browse on hover)
     }
 
     this.finish = false;
@@ -582,7 +582,7 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
      */
     this.setStoredValue = function (storedValue,profilName) {
         if(profilName) {
-            this.settings.current = profilName;
+          this.settings.current = profilName;
         }
         if(this.settings.current.length >= 3) {
             if(storedValue) {
@@ -590,6 +590,8 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
             } else { // if no storedvalue is provided set the default value
                 this.settings.profiles[this.settings.current] = this.defautStoredValue;
             }
+        } else { // if we are on a predefined profile, set to no profile
+            this.settings.current = 0;
         }
         this.readUserPref();
     };
@@ -4768,7 +4770,7 @@ function LoopingMode() {
    */
   this.registerTrigger = function () {
     // Callback function for onkeyup event
-    var keyUpFunc = function (/*Event*/ e) {
+    this.keyUpFunc = function (/*Event*/ e) {
       if (!that.isMenuEnabled) return true;
       if (LoopingKey.keyPressed(e) === LoopingKey.ENTER || LoopingKey.keyPressed(e) === LoopingKey.SPACE) {
         // Prevent default action
@@ -4831,13 +4833,7 @@ function LoopingMode() {
         return true;
       }
     };
-    // Call back function for onkeypress event
-    var keyPressFunc = function (/*Event*/ e) {
-      if (LoopingKey.keyPressed(e) === LoopingKey.ENTER || LoopingKey.keyPressed(e) === LoopingKey.SPACE) {
-        accessibilitytoolbar.stopEvt(e);
-        return false;
-      }
-    };
+    
     // Call back function for onclick event
     var mouseClickFunc = function (/*Event*/ e) {
       // Launch the action associated to the clicked menu item
@@ -4849,27 +4845,35 @@ function LoopingMode() {
     // Registering call back for W3C Browser
     if (document.addEventListener) {
       // onkeyup event
-      document.addEventListener('keyup', keyUpFunc, true);
+      document.addEventListener('keyup', this.keyUpFunc, true);
       // onkeypress event
-      document.addEventListener('keydown', keyPressFunc, true);
+      document.addEventListener('keydown', that.keyPressFunc, true);
       // Mouse click event
       menu.getContainer().addEventListener('click', mouseClickFunc, false);
     }
     // Registering call back for IE Browser
     else if (document.attachEvent) {
       // onkeyup event
-      document.attachEvent('onkeyup', keyUpFunc);
+      document.attachEvent('onkeyup', this.keyUpFunc);
       // onkeypress event
-      document.attachEvent('onkeypress', keyPressFunc);
+      document.attachEvent('onkeypress', that.keyPressFunc);
       // Mouse click event
       menu.getContainer().attachEvent('onclick', mouseClickFunc);
     }
     // Registering call back for older browser
     else {
-      document.onkeyup = keyUpFunc;
+      document.onkeyup = this.keyUpFunc;
+      document.onkeypress = that.keyPressFunc;
       menu.getContainer().onclick = mouseClickFunc;
+    }    
+  };
+
+  // Call back function for onkeypress event
+  this.keyPressFunc = function (/*Event*/ e) {
+    if (LoopingKey.keyPressed(e) === LoopingKey.ENTER || LoopingKey.keyPressed(e) === LoopingKey.SPACE) {
+      accessibilitytoolbar.stopEvt(e);
+      return false;
     }
-    document.onkeypress = keyPressFunc;
   };
   /**
    * Start the loop over the looping menu item collection
@@ -5002,9 +5006,8 @@ function LoopingMode() {
    */
   this.killLoopingMode = function () {
     this.stopLoop();
-    clearTimeout(LoopingUtility.timerId);
     that.isMenuEnabled = 0;
-    var elt = LoopingUtility.getFocusedElement();
+    elt = document.querySelector("[class*=loopingmode-focused]");
     if (elt) {
       // Case of link
       if (filterLink(elt)) {
@@ -5027,9 +5030,20 @@ function LoopingMode() {
       menu.hide();
       menu.clean();
     }
-    // remove element with looping class
-    elt = document.querySelector("[class*=loopingmode-focused]");
-    if (elt) elt.className = elt.className.replace(/loopingmode-focused {0,1}/, "");
+    // Registering call back for W3C Browser
+    if (document.addEventListener) {
+      // onkeyup event
+      document.removeEventListener('keyup', this.keyUpFunc, true);
+      // onkeypress event
+      document.removeEventListener('keydown', that.keyPressFunc, true);
+    }
+    // Registering call back for IE Browser
+    else if (document.attachEvent) {
+      // onkeyup event
+      document.detachEvent('onkeyup', this.keyUpFunc);
+      // onkeypress event
+      document.detachEvent('onkeypress', that.keyPressFunc);
+    }
   };
 
   // public Api used by accessibilitytoolbar
@@ -7355,7 +7369,11 @@ accessibilitytoolbar = {
 */
   startLoopingmode: function () {
     // Create a new looping mode manager
-    if (this.loopingmode == null) this.loopingmode = new LoopingMode();
+    if (this.loopingmode == null) { 
+      this.loopingmode = new LoopingMode();
+    } else {
+      this.loopingmode.registerTrigger();
+    }
     // Set the user prefered position
     if (this.userPref.get("a11yMenuPositionning") == "center") {
       this.loopingmode.setPosition(LoopingMenuPosition.CENTER);
