@@ -6225,7 +6225,7 @@ accessibilitytoolbar = {
   /**
    * Enale step by step guide management
    */
-  guideEnabled: true,
+  guideEnabled: false,
 
   /**
    * {LoopingMode} Looping mode Manager
