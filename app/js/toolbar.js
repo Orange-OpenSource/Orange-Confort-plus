@@ -3758,7 +3758,7 @@ accessibilitytoolbar = {
         UciMask.start();
         switch(localUserPref.get("a11yMaskOption")) {
           case "mask":
-            bgColorRGB = this.colourStrToRGB(fontColor);
+            bgColorRGB = accessibilitytoolbar.colourStrToRGB(fontColor);
             s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
             s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
           break;

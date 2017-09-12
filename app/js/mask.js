@@ -128,7 +128,7 @@ UciMask = {
         },
 
         maskEvent: function(e) {
-          if(e.clientY) {
+          if(e) {
             UciMask.draw(e.clientY,e.clientX);
           }
         },
