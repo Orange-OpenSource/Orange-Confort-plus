@@ -1326,7 +1326,7 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .ucibtn-sm:active,
 #accessibilitytoolbarGraphic .ucibtn-sm.active{
-	padding: 0.25em 0.375em;
+	padding: 0.285714em 0.428571em;
 	border-width: 4px;
 }
 #closeMaskDiv .ucibtn-secondary,

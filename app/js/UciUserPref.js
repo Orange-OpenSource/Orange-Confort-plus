@@ -24,10 +24,10 @@ function UciUserPref() {
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
-      '0':this.defautStoredValue,
-      '1':"0000651000390350270001100110000000006500100010",
-      '2':"0000651000390350270111101310000000006500000010",
-      '3':"0000651000390350270001100310000101006500000010"
+      '0':this.defautStoredValue, // no profile
+      '1':"0000651000390350270001100510000000006500100010", // improve reading (accessible dfa + font-size = 150%)
+      '2':"0000651000390350270111101310000000006500000010", // change layout (medium line spacing, text left, numbered list)
+      '3':"0000651000390350270001100310000101006500000010" // start motor help (start browse on hover)
     }
 
     this.finish = false;
@@ -456,7 +456,7 @@ function UciUserPref() {
      */
     this.setStoredValue = function (storedValue,profilName) {
         if(profilName) {
-            this.settings.current = profilName;
+          this.settings.current = profilName;
         }
         if(this.settings.current.length >= 3) {
             if(storedValue) {
@@ -464,6 +464,8 @@ function UciUserPref() {
             } else { // if no storedvalue is provided set the default value
                 this.settings.profiles[this.settings.current] = this.defautStoredValue;
             }
+        } else { // if we are on a predefined profile, set to no profile
+            this.settings.current = 0;
         }
         this.readUserPref();
     };
