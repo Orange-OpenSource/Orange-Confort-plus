@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 08-09-2017
+/* orange-confort-plus - version 4.1.0 - 12-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -639,24 +639,6 @@ a.cdu_hide:focus {
 	vertical-align: middle;
 	line-height: 1.25;
 }
-.uci_menu_close, .uci_menu_bton {
-	margin: 0;
-	border-right: 1px solid #CCC;
-	line-height: 1.125;
-}
-.uci_menu_bton {
-	padding: .5em .625em;
-	position: relative;
-}
-.uci_menu_bton .uci_bton_menu {
-	padding: .4375em .625em;
-}
-.uci_menu_close {
-	padding: .563em .625em;
-}
-.uci_menu_close .uci_bton_menu {
-	padding: .25em .625em;
-}
 #uci_right_toolbar li:last-child {
 	border: none;
 }
@@ -857,13 +839,16 @@ a.cdu_hide:focus {
 	font-size: 1.5rem;
 	vertical-align: sub;
 }
+#accessibilitytoolbarGraphic .uci_menu_active a,
+#accessibilitytoolbarGraphic .uci_menu_active .cdu-icon:before{
+	border: 2px solid transparent;
+}
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover .cdu-icon:before,
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide:focus .cdu-icon:before,
-#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:focus a,
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover a,
-#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:focus,
-#accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover,
-#accessibilitytoolbarGraphic .uci_menu_active ,
+#accessibilitytoolbarGraphic a.uci_menu_ouverture_aide:hover,
+#accessibilitytoolbarGraphic .uci_menu_ouverture_aide a:focus,
+#accessibilitytoolbarGraphic a.uci_menu_ouverture_aide:focus,
 #accessibilitytoolbarGraphic .uci_menu_active a,
 #accessibilitytoolbarGraphic .uci_menu_active .cdu-icon:before{
 	background-color: #000;
@@ -871,18 +856,17 @@ a.cdu_hide:focus {
 	text-decoration: underline;
   text-decoration-color: #000;
 }
+#accessibilitytoolbarGraphic .uci_menu_active a:focus,
+#accessibilitytoolbarGraphic .uci_menu_active a:hover {
+  border-color : #f16E00;
+}
 
 .uci_bton_menu, .uci_bton_menu:active {
 	background-color: transparent;
 	border: none;
 }
-#accessibilitytoolbarGraphic button.uci_bton_menu:focus:not([tabindex]), 
-#accessibilitytoolbarGraphic button.uci_bton_menu:hover:not([tabindex]) {
-	background-color: #000;
-	color: #FFF;
-}
-.uci_focus_outline .uci_bton_menu:focus:not([tabindex]), 
-.uci_focus_outline .uci_bton_menu:hover:not([tabindex]) {
+.uci_focus_outline .uci_bton_menu:focus:not([tabindex="-2"]), 
+.uci_focus_outline .uci_bton_menu:hover:not([tabindex="-2"]) {
 	outline: 2px dotted;
 }
 li.uci_dropdown-divider {
@@ -1397,16 +1381,6 @@ li.uci_dropdown-divider {
 	background-image: none;
 	outline: 0;
 }
-/*
-#accessibilitytoolbarGraphic.uci_focus_outline .ucibtn:focus{
-	outline: 2px dotted;
-	outline-offset: -2px;
-}
-
-#accessibilitytoolbarGraphic.uci_focus_outline button.uci_color_btn:focus{
-	border-style: dotted;
-}
-*/
 #accessibilitytoolbarGraphic .ucibtn.disabled,
 #accessibilitytoolbarGraphic .ucibtn:disabled {
 	cursor: not-allowed;
@@ -1433,10 +1407,10 @@ li.uci_dropdown-divider {
 }
 
 #accessibilitytoolbarGraphic .ucibtn-secondary:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:hover:not(label):not([tabindex]),
+#accessibilitytoolbarGraphic .ucibtn-secondary:hover:not(:disabled):not(label):not([tabindex="-2"]),
 #closeMaskDiv .ucibtn-secondary:focus,
 #closeMaskDiv .ucibtn-secondary:hover,
-#accessibilitytoolbarGraphic input[type="checkbox"]:focus:not(:disabled) + label.ucibtn-secondary,
+#accessibilitytoolbarGraphic input[type="checkbox"]:focus + label.ucibtn-secondary,
 #accessibilitytoolbarGraphic input[type="checkbox"]:not(:disabled) + label.ucibtn-secondary:hover {
 	color: #fff;
 	background-color: #000;
@@ -1450,15 +1424,15 @@ li.uci_dropdown-divider {
 	background-image: none;
 	border-color: #f16e00;
 }
-#accessibilitytoolbarGraphic .ucibtn-secondary:active:hover:not(label):not([tabindex]),
+#accessibilitytoolbarGraphic .ucibtn-secondary:active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary.active:hover:not(label):not([tabindex]),
+#accessibilitytoolbarGraphic .ucibtn-secondary.active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:focus,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked:not(:disabled) + label.ucibtn-secondary:hover,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked:focus:not(:disabled) + label.ucibtn-secondary {
 	color: #fff;
-	background-color: #000;
-	border-color: #f16e00;
+	background-color: #f16E00;
+	border-color: #000;
 }
 
 #accessibilitytoolbarGraphic .ucibtn-secondary:disabled {
@@ -1597,98 +1571,7 @@ li.uci_dropdown-divider {
 	background-color: transparent;
 	border-color: #000;
 }
-/*
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse {
-	color: #fff;
-	background-color: #f16e00;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:hover {
-	color: #000;
-	background-color: #fff;
-	border-color: #fff;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active, .open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle {
-	color: #fff;
-	background-color: #f16e00;
-	background-image: none;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus {
-	color: #fff;
-	background-color: #f16e00;
-	border-color: #f16e00;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.disabled:hover,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:disabled:hover {
-	color: #000;
-	background-color: #666;
-	border-color: #666;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active, .open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle {
-	color: #fff;
-	background-color: transparent;
-	border-color: #fff;
-}
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:hover,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active:focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse:active.focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:hover,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active:focus,
-#accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.active.focus, .open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:hover, .open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle:focus, .open > #accessibilitytoolbarGraphic .ucibtn-primary#accessibilitytoolbarGraphic .ucibtn-inverse.dropdown-toggle.focus {
-	color: #fff;
-	background-color: transparent;
-	border-color: #fff;
-}
-#closeMaskDiv .ucibtn-secondary,
-#accessibilitytoolbarGraphic .ucibtn-secondary {
-	color: #000;
-	background-color: transparent;
-	border-color: #000;
-}
-#closeMaskDiv .ucibtn-secondary:focus,
-#closeMaskDiv .ucibtn-secondary:hover,
-#accessibilitytoolbarGraphic .ucibtn-secondary:focus,
-#accessibilitytoolbarGraphic .ucibtn-secondary:hover {
-	color: #fff;
-	background-color: #000;
-	border-color: #000;
-}
 
-#accessibilitytoolbarGraphic .ucibtn-secondary:active,
-#accessibilitytoolbarGraphic .ucibtn-secondary.active, .open > #accessibilitytoolbarGraphic .ucibtn-secondary.dropdown-toggle {
-	color: #fff;
-	background-color: #f16e00;
-	background-image: none;
-	border-color: #f16e00;
-}
-*/
 /* hide promote link if exist */
 #confortPlusTarget {
 	display: none;
@@ -1696,19 +1579,14 @@ li.uci_dropdown-divider {
 
 .uci_menu_ouverture_aide:hover, .uci_menu_ouverture_aide:focus{
 	/*filter: invert(0%);*/
-	background-color: #000;
-	
+	/*background-color: #000;	*/
 }
 
-.uci_menu_ouverture_aide:hover .cdu-help_guide,
-.uci_menu_ouverture_aide:focus .cdu-help_guide,
-.uci_menu_ouverture_aide:hover .cdu-icon-help,
-.uci_menu_ouverture_aide:focus .cdu-icon-help,
-.uci_menu_ouverture_aide:hover .cdu-icon-info,
-.uci_menu_ouverture_aide:focus .cdu-icon-info
+.uci_menu_ouverture_aide:hover .cdu-icon,
+.uci_menu_ouverture_aide:focus .cdu-icon
  {
 	/*filter: invert(100%);*/
-	color: #fff;
+	/*color: #fff;*/
 }
 
 /********     CSS for user guide **********/
@@ -1922,10 +1800,6 @@ li.uci_dropdown-divider {
 	display: inline;
 }
 
-.uci_menu_ouverture_aide:hover .labelcolor{
-	color: #fff !important;
-}
-
 .unclick_more_settings {
 	top: 0px;
 	width: 100%;
@@ -2071,3 +1945,22 @@ li.uci_dropdown-divider {
   text-decoration: underline;
 }
 
+#accessibilitytoolbarGraphic .uci_menu_close, .uci_menu_bton {
+	margin: 0;
+	border-right: 1px solid #CCC;
+	line-height: 1.125;
+}
+#accessibilitytoolbarGraphic .uci_menu_bton {
+	padding: .625em;
+	position: relative;
+}
+#accessibilitytoolbarGraphic .uci_menu_close {
+	padding: .625em;
+}
+#accessibilitytoolbarGraphic .uci_menu_close .uci_bton_menu .cdu-icon {
+	line-height: .5;
+  vertical-align: inherit;
+}
+#accessibilitytoolbarGraphic .uci_w-100 {
+	width: 100%;
+}

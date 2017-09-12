@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 08-09-2017
+/* orange-confort-plus - version 4.1.0 - 12-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.c3057e2d.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.47138a9f.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -748,7 +748,7 @@ UciStorage.prototype = new UciUserPref();
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['EN']={
-  howToClose: "Close mask : Esc key or close cross on right",
+  howToClose: "Close mask: Esc key or click “close” cross on right",
   save_service: "Save profile",
   uci_alt_logo:"Confort+",
   uci_button_cancel:"Cancel",
@@ -761,28 +761,28 @@ traduction['EN']={
   uci_changecase_tolower_title:"lower case text",
   uci_changecase_uppercase:"UPPER CASE",
   uci_changecase_uppercase_title:"Upper case text",
-  uci_close_guide : "Close guide",
-  uci_close_mask : "Close reading mask",
+  uci_close_guide: "Close guide",
+  uci_close_mask: "Close reading mask",
   uci_closeButton:"Close",
   uci_color_titre:"Font and background color",
   uci_color_txt_background:"Background color",
   uci_color_txt_texte:"Font color",
-  uci_color_warning_content:"Text and background colors has an insufficient contrast. This may make it difficult to read and cause eyestrain.",
+  uci_color_warning_content:"Text and background colors have an insufficient contrast. This may make it difficult to read and cause eyestrain.",
   uci_color_warning_title:"Insufficient contrast",
   uci_confirm_validation:"Settings saved",
-  uci_tour_discover_default : "No settings",
-  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
+  uci_tour_discover_default: "No settings",
+  uci_discover_text: "This service offers around twenty options to adapt websites to your needs, whether you have visual impairments or eye strain, problems to recognize words due to dyslexia or anything else, difficulties using the mouse or if you can't configure your computer, Orange Comfort+ brings solutions:<br/>fix your settings once and all websites take your preferences into account.",
   uci_doClick:"Click",
   uci_enableMotorMode:"Motor help",
-  uci_exit : "Exit",
-  uci_help_automove:"Select clickable elements one after the other. Press the enter or space key to open a contextual menu allowing to activate the selected element or to modify ",
-  uci_help_disablepppictures:"This feature hides images of the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
+  uci_exit: "Exit",
+  uci_help_automove:"Select clickable elements one after the other. Press the Enter or Space key to open a contextual menu allowing to activate the selected element or to modify options.",
+  uci_help_disablepppictures:"This feature hides images in the page to avoid reading disturbance. Those are replaced by their text alternatives. A link allows to show the image on demand.",
   uci_help_disabletransp:"This feature allows deactivation of possible transparency effects in the page. This minimises disturbance when reading content.",
-  uci_help_jumptocontent:"Allow an automatic positioning on main page content, in particular, by jumping navigation links",
+  uci_help_jumptocontent:"Allow an automatic positioning on main page content, in particular by skipping navigation bars.",
   uci_help_links:"This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
   uci_help_listmode:"This feature replaces site font faces with your default font faces (those defined in your browser or computeur). Moreover, the content is linearised and displayed without columns.",
-  uci_help_quickmode:"(number of \253 ignored \273 elements between to selected elements)",
-  uci_help_telecomande:"Add vertical scrolling arrows on rollover. Allow also, clickable links activation on rollover after a defined delay",
+  uci_help_quickmode:"(number of \253 ignored \273 elements between two selected elements)",
+  uci_help_telecomande:"Adds arrows to scroll vertically on mouse hover. Also allows clickable link activation on mouse hover after a defined delay.",
   uci_iframe_cookie:"Technical Content Orange Confort+",
   uci_label_10par10:"9",
   uci_label_1sec:"1 second",
@@ -791,17 +791,17 @@ traduction['EN']={
   uci_label_3sec:"3 seconds",
   uci_label_5par5:"4",
   uci_label_6sec:"6 seconds",
-  uci_label_alignleft:"Text align left",
+  uci_label_alignleft:"Text align: left",
   uci_label_automove:"Automatically select clickable elements",
   uci_label_centeredmenu:"Center on the page",
   uci_label_disablebgpictures:"Disable background images",
-  uci_label_disablepppictures:"Cancel foreground images",
+  uci_label_disablepppictures:"Disable images",
   uci_label_disabletransp:"Cancel transparency effects",
   uci_label_jumptocontent:"Always skip to content",
   uci_label_listmode:"Cancel layout",
   uci_mask_label:"Show a reading mask",
   uci_label_nearelemtmenu:"Next to the selected item",
-  uci_label_putnumonlist:"Numbering list elements",
+  uci_label_putnumonlist:"Number list elements",
   uci_label_regle_horizontale:"Show a horizontal ruler",
   uci_label_regle_vertical:"Show a vertical ruler",
   uci_label_telecomande:"Browse on hover",
@@ -821,14 +821,14 @@ traduction['EN']={
   uci_loopBackward:"Navigate backwards",
   uci_mask_titre:"Reading mask", // V4
   uci_mask_settings_titre: "Reading mask settings", // V4
-  uci_mask_settings_help: "To activate the mask, please use the button in the Quick Access ribbon, or the Ctrl/Cmd+M keyboard shortcut", // V4
+  uci_mask_settings_help: "To activate the mask, please use the button in the Quick Access ribbon, or the Ctrl+M keyboard shortcut", // V4
   uci_other_settings_titre: "Other settings", //v4
-  uci_menu : "Menu",
+  uci_menu: "Menu",
   uci_menu_guide:"Guide step by step",
   uci_menu_help:"Visit general help",
   uci_menu_info:"About",
   uci_menu_remove_all:"Reset",
-  uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue ?",
+  uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue?",
   uci_new_window:"New window",
   uci_next: "next",
   uci_predefined_change_layout: "Change the layout",
@@ -837,20 +837,20 @@ traduction['EN']={
   uci_predefined_none: "No profile",
   uci_predefined_profils_title: "predefined profiles",
   uci_previous: "previous",
-  uci_profile_curent_name: "Current profile name",
+  uci_profile_curent_name: "Current profile name:",
   uci_profile_delete_warning: "ATTENTION",
-  uci_profile_name_format: "ENGLISH Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  uci_profile_new_label: "New profile",
+  uci_profile_name_format: "Minimal length: 3 characters; please no special characters.", // V4
+  uci_profile_new_label: "New profile:",
   uci_profile_new_option: "new profile",
-  uci_profile_rename_label: "New name",
-  uci_profile_save_label: "Save my settings",
+  uci_profile_rename_label: "New name:",
+  uci_profile_save_label: "Save my settings:",
   uci_radio_dark:"Dark",
   uci_radio_default:"Default",
   uci_radio_large:"Large",
   uci_radio_light:"Light",
   uci_radio_medium:"Medium",
   uci_radio_medium1:"Medium",
-  uci_remove_all_settings:"All your settings will be deleted, do you want to continue ?",
+  uci_remove_all_settings:"All your settings will be deleted, do you want to continue?",
   uci_rename_profile: "Rename profile",
   uci_serv_name:"Confort",
   uci_stopLoop:"Pause navigation",
@@ -866,11 +866,11 @@ traduction['EN']={
   uci_title_color_yellowonblue:"Yellow text on blue background",
   uci_title_disable_cdu:"Deactivate Confort+ on this site",
   uci_title_enable_cdu:"Activate Confort+ on this site",
-  uci_title_fontfamily_radio_accessibledfa:"Accessible design for all font face",
+  uci_title_fontfamily_radio_accessibledfa:"“Accessible design for all” font face",
   uci_title_fontfamily_radio_arial:"Arial font face",
   uci_title_fontfamily_radio_normal:"Default font face", 
-  uci_title_fontfamily_radio_opendys:"Open Dyslexic font face",
-  uci_title_fontfamily_radio_opensans:"Open Sans font face",
+  uci_title_fontfamily_radio_opendys:"“Open Dyslexic” font face",
+  uci_title_fontfamily_radio_opensans:"“Open Sans” font face",
   uci_title_fontsize_radio_large:"Increase font size",
   uci_title_fontsize_radio_medium:"Decrease font size",
   uci_title_linespacing_radio_large:"Large line spacing",
@@ -886,13 +886,13 @@ traduction['EN']={
   uci_title_wordspacing_radio_medium:"Medium word spacing",
   uci_title_wordspacing_radio_normal:"Default word spacing ",
   uci_titre_links:"Navigation links appearence",
-  uci_tour_discover_edit_layout : "Edit layout",
-  uci_tour_discover_improve_readability : "Improve Readability",
-  uci_tour_discover_service : "discover the service",
+  uci_tour_discover_edit_layout: "Edit layout",
+  uci_tour_discover_improve_readability: "Improve Readability",
+  uci_tour_discover_service: "discover the service",
   uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
   uci_tour_step_1_advancedparam: "advancedparam",
-  uci_tour_step_2_typographie :"typographie",
-  uci_tour_step_3_apparence : "apparence",
+  uci_tour_step_2_typographie:"typographie",
+  uci_tour_step_3_apparence: "apparence",
   uci_tour_step_4_couleur: "couleurs",
   uci_tour_step_5_aidemotrice: "aidemotrice",
   uci_txt_active:"Selected link",
@@ -904,9 +904,9 @@ traduction['EN']={
   uci_txt_low_settings_display:"Less settings",
   uci_txt_mask_opacity:"Mask opacity",
   uci_txt_mask_size:"Mask height",
-  uci_txt_menu_change_lang_en:"Show this service in english",
-  uci_txt_menu_change_lang_es:"Show this service in spanish",
-  uci_txt_menu_change_lang_fr:"Show this service in french",
+  uci_txt_menu_change_lang_en:"Show this service in English",
+  uci_txt_menu_change_lang_es:"Show this service in Spanish",
+  uci_txt_menu_change_lang_fr:"Show this service in French",
   uci_txt_menu_change_lang_pl:"Show this service in Polish",
   uci_txt_more_settings:"More settings",
   uci_txt_notvisited:"Links",
@@ -916,15 +916,15 @@ traduction['EN']={
   uci_txt_onglet_settings:"Advanced settings",
   uci_txt_onglet_typo:"Typography",
   uci_txt_visited:"Visited links",
-  uci_typo_help_changecase:"This feature allows to modify texts display to meet your needs",
-  uci_typo_help_fontfamily:"This feature allows to modify the site defined font to improve reading confort",
+  uci_typo_help_changecase:"This feature allows to modify text display to meet your needs",
+  uci_typo_help_fontfamily:"This feature allows to modify the site-defined font to improve reading confort",
   uci_typo_titre_changecase:"Text case",
   uci_typo_titre_fontfamily:"Font face",
   uci_typo_titre_fontsize:"Font size",
   uci_typo_titre_linespacing:"Line spacing",
   uci_typo_titre_wordspacing:"Word spacing",
   update_custom_colors: "Update personalized colors",
- uci_tour_discover_use_motor_assistance : "Use motor assistance",
+  uci_tour_discover_use_motor_assistance: "Use motor assistance",
   uci_profile_rename: "Rename profile",
   uci_profile_delete: "Delete profile",
 };
@@ -944,6 +944,7 @@ traduction['EN']={
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
+// No space before vertical punctuation in spanish
 traduction['ES']={
   howToClose: "Cerrar la máscara: tecla Esc o cruz cerrada a la derecha", //v4
   save_service: "Guardar perfil", //v4
@@ -1032,13 +1033,13 @@ traduction['ES']={
   uci_predefined_motor_help: "Start motor help",
   uci_predefined_none: "No profile",
   uci_predefined_profils_title: "predefined profiles",
-  uci_profile_curent_name: "Current profile name",
+  uci_profile_curent_name: "Current profile name :",
   uci_profile_delete_warning: "ATTENTION",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
   uci_profile_new_label: "TODO",
   uci_profile_new_option: "TODO",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_save_label: "TODO",
+  uci_profile_rename_label: "Nouveau nom:",
+  uci_profile_save_label: "TODO:",
   uci_radio_dark:"TODO",
   uci_radio_default:"Normal",
   uci_radio_large:"Grande",
@@ -1120,8 +1121,8 @@ traduction['ES']={
   uci_typo_titre_wordspacing:"Espacio entre palabras",
   update_custom_colors: "TODO",
  uci_tour_discover_use_motor_assistance : "Utiliser l'aide motrice",
-  uci_profile_rename: "Rename profile",//V4
-  uci_profile_delete: "Delete profile",// v4
+  uci_profile_rename: "Rename profile :",//V4
+  uci_profile_delete: "Delete profile :",// v4
 };
 // Source: app/language/fr.js
 /**
@@ -1138,7 +1139,8 @@ traduction['ES']={
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
-**/ 
+**/
+// Space before vertical punctuation in French
 traduction['FR']={
   howToClose: "Fermeture du masque : touche Echap ou croix à droite",
   save_service: "Enregistrer le profil",
@@ -1164,11 +1166,11 @@ traduction['FR']={
   uci_confirm_validation:"Pr\351f\351rences enregistr\351es",
   uci_tour_discover_default : "Aucun R\351glage",
   uci_discover_lorem_3: "3",
-  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les dites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, des probl\350mes de reconaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une dois et tous les sites Web prendront en compte vos pr\351f\351rences.",
+  uci_discover_text: "Ce service offre une vingtaine d'options pour adapter les sites Web à votre besoin: que vous ayez des d\351ficiences visuelles ou une simple fatigue, des probl\350mes de reconnaissance des mots pour des raisons de dyslexie ou autres, de la difficult\351 à utiliser une souris ou que vous ne sachiez pas comment param\351trer votre ordinateur, Orange Confort+ vous apporte des solutions : </br> un paramétrage à r\351aliser une fois et tous les sites Web prendront en compte vos pr\351f\351rences.",
   uci_doClick:"Cliquer",
   uci_enableMotorMode:"Aide motrice",
   uci_exit : "Quitter",
-  uci_help_automove:"S\351lectionne l\47un apr\350s l\47autre les \351l\351ments cliquables.\nAppuyez sur la touche entr\351e ou espace pour ouvrir le menu qui permet soit d\47activer l\47\351l\351ment s\351lectionn\351, soit de modifier le mode de parcours (rapide, arri\350re, arr\352ter)",
+  uci_help_automove:"S\351lectionne l\47un apr\350s l\47autre les \351l\351ments cliquables.\nAppuyez sur la touche Entr\351e ou Espace pour ouvrir le menu qui permet soit d\47activer l\47\351l\351ment s\351lectionn\351, soit de modifier le mode de parcours (rapide, arri\350re, arr\352ter).",
   uci_help_disablepppictures:"Cette commande permet de supprimer l\47affichage des images dans la page qui peuvent g\352ner la lecture. Celles-ci sont alors remplac\351es par leurs alternatives textuelles. Un lien permet d\47afficher l\47image \340 la demande.",
   uci_help_disabletransp:"Cette commande permet de d\351sactiver les effets de transparence \351ventuels de la page. Cela limite les perturbations lors de la lecture du contenu.",
   uci_help_jumptocontent:"Permet de se positionner automatiquement sur le contenu principal de la page, en sautant notamment tous les liens de navigation.",
@@ -1214,14 +1216,14 @@ traduction['FR']={
   uci_loopBackward:"Naviguer en arri\351re",
   uci_mask_titre:"Masque de lecture",
   uci_mask_settings_titre: "Réglages du masque de lecture",
-  uci_mask_settings_help: "Pour activer le masque utilisez le bouton dans la barre d'accès rapide, ou le raccourcis clavier Ctrl/Cmd+M",
+  uci_mask_settings_help: "Pour activer le masque utilisez le bouton dans la barre d'accès rapide, ou le raccourci clavier Ctrl+M",
   uci_other_settings_titre: "Autres réglages",
   uci_menu : "Menu",
   uci_menu_guide:"Visite guidée",
   uci_menu_help:"Consulter l\47aide g\351n\351rale",
   uci_menu_info:"A propos",
   uci_menu_remove_all:"R\351initialiser",
-  uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action?",
+  uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action ?",
   uci_new_window:"Nouvelle fen\352tre",
   uci_next: "suivant",
   uci_predefined_change_layout: "Modifier la mise en page",
@@ -1230,20 +1232,20 @@ traduction['FR']={
   uci_predefined_none: "Aucun profil",
   uci_predefined_profils_title: "profils predefinis",
   uci_previous: "pr\351c\351dent",
-  uci_profile_curent_name: "Nom actuel du profil",
+  uci_profile_curent_name: "Nom actuel du profil :",
   uci_profile_delete_warning: "Vous êtes sur le point de supprimer un profil, cette action est irréversible.",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
   uci_profile_new_label: "Nouveau profil",
   uci_profile_new_option: "nouveau profil",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_save_label: "Enregistrer mes réglages",
+  uci_profile_rename_label: "Nouveau nom :",
+  uci_profile_save_label: "Enregistrer mes réglages :",
   uci_radio_dark:"Fonc\351",
   uci_radio_default:"Normal",
   uci_radio_large:"Grand",
   uci_radio_light:"L\351ger",
   uci_radio_medium:"Moyen",
   uci_radio_medium1:"Moyen",
-  uci_remove_all_settings:"Tous vos r\351glages seront supprim\351s, souhaitez-vous poursuivre cette action?",
+  uci_remove_all_settings:"Tous vos r\351glages seront supprim\351s, souhaitez-vous poursuivre cette action ?",
   uci_rename_profile: "Renommer le profil",
   uci_serv_name:"Confort",
   uci_stopLoop:"Arr\352ter la navigation",
@@ -1259,7 +1261,7 @@ traduction['FR']={
   uci_title_color_yellowonblue:"Texte jaune sur fond bleu",
   uci_title_disable_cdu:"D\351sactiver Confort+ pour ce site",
   uci_title_enable_cdu:"Activer Confort+ pour ce site",
-  uci_title_fontfamily_radio_accessibledfa:"Police de caract\350res Accessible design for all",
+  uci_title_fontfamily_radio_accessibledfa:"Police de caract\350res « Accessible design for all »",
   uci_title_fontfamily_radio_arial:"Police de caract\350res Arial",
   uci_title_fontfamily_radio_normal:"Police de caract\350res par d\351faut", 
   uci_title_fontfamily_radio_opendys:"Police de caract\350res Open Dyslexic",
@@ -1294,10 +1296,10 @@ traduction['FR']={
   uci_txt_link_menu_close:"Masquer le menu",
   uci_txt_link_menu_open:"Afficher le menu",
   uci_txt_link_profil: "Profils",
-  uci_txt_low_settings:"Fermer la zone plus de r\351glages",
+  uci_txt_low_settings:"Fermer la zone « Plus de r\351glages »",
   uci_txt_low_settings_display:"Moins de r\351glages",
   uci_txt_mask_opacity:"Opacit\351 du masque",
-  uci_txt_mask_size:"Epaisseur du masque",
+  uci_txt_mask_size:"Épaisseur du masque",
   uci_txt_menu_change_lang_en:"Afficher le service en Anglais",
   uci_txt_menu_change_lang_es:"Afficher le service en Espagnol",
   uci_txt_menu_change_lang_fr:"Afficher le service en Fran\347ais",
@@ -1318,8 +1320,8 @@ traduction['FR']={
   uci_typo_titre_linespacing:"Espacement entre les lignes",
   uci_typo_titre_wordspacing:"Espacement entre les mots ",
   update_custom_colors: "Modifier les couleurs personnalisées",
-  uci_profile_rename: "Renommer le profil",
-  uci_profile_delete: "Supprimer le profil",
+  uci_profile_rename: "Renommer le profil :",
+  uci_profile_delete: "Supprimer le profil :",
 };
 
 // Source: app/language/pl.js
@@ -1338,6 +1340,7 @@ traduction['FR']={
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/
+// No space before vertical punctuation in polish
 traduction['PL'] = {
   howToClose: "Zamknij maskę: klawisz Esc lub prawy krzyżyk po prawej",  //v4
   save_service: "Zapisz profil", //v4
@@ -1428,13 +1431,13 @@ traduction['PL'] = {
   uci_predefined_none: "No profile",
   uci_predefined_profils_title: "predefined profiles",
   uci_previous: "TODO",
-  uci_profile_curent_name: "Current profile name",
+  uci_profile_curent_name: "Current profile name :",
   uci_profile_delete_warning: "ATTENTION",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
   uci_profile_new_label: "TODO",
   uci_profile_new_option: "TODO",
-  uci_profile_rename_label: "Nouveau nom",
-  uci_profile_save_label: "TODO",
+  uci_profile_rename_label: "Nouveau nom:",
+  uci_profile_save_label: "TODO:",
   uci_radio_dark: "TODO",
   uci_radio_default: "Domyślne",
   uci_radio_large: "Duże",
@@ -1516,8 +1519,8 @@ traduction['PL'] = {
   uci_typo_titre_wordspacing: "Odstępy między słowami",
   update_custom_colors: "TODO",
  uci_tour_discover_use_motor_assistance : "TODO",
-  uci_profile_rename: "Rename profile", //v4
-  uci_profile_delete: "Delete profile", //v4
+  uci_profile_rename: "Rename profile :", //v4
+  uci_profile_delete: "Delete profile :", //v4
 };
 // Source: app/js/UciAideMotrice.js
 /**
@@ -2331,7 +2334,7 @@ UciProfile = {
   createButtonProfile: function() {
     if(accessibilitytoolbar.profileEnabled) {
       return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
-                    ["button", {"class":"uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
                       ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
                       this.InitUciProfile()
@@ -2369,9 +2372,9 @@ UciProfile = {
           ariaCurrent = "true";
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
-                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent}, profil],
-                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" : "+profil }],
-                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" : "+profil }]
+                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
+                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
+                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
@@ -2381,38 +2384,38 @@ UciProfile = {
     }
     if(accessibilitytoolbar.userPref.settings.current === '0') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '1') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '2') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '3') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     }
     
@@ -2436,11 +2439,11 @@ UciProfile = {
           ],
           ["div", {"class":"margin-top margin-left margin-right" },
             ["div",
-              ["label", { "class":"labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" : "],
+              ["label", { "class":"labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" "],
               UciProfile.selectProfile(),
             ],
             ["div",{id:"uci_profile_name_container", "style":displayInput, "class":"margin-top"},
-              ["label", { "class":"labelcolor","for":"uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label')+" : ",
+              ["label", { "class":"labelcolor","for":"uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label'),
               ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
               ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control"}]
             ],
@@ -2493,9 +2496,9 @@ UciProfile = {
             ]
           ],
           ["div", {"class":"margin-top margin-left margin-right"},
-            ["div", {"class":"margin-bottom"}, accessibilitytoolbar.get('uci_profile_curent_name')+" : "+profilName],
+            ["div", {"class":"margin-bottom"}, accessibilitytoolbar.get('uci_profile_curent_name')+" "+profilName],
             ["input",{ "type":"hidden", id:"previous_profil_name", value:profilName}],
-            ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label')+" : ",
+            ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label'),
             ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
             ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control"}]
           ],
@@ -2843,7 +2846,7 @@ UciIhm = {
             ["ul",
                   UciProfile.createButtonProfile(),
                   ["li", {"class":"uci_inline uci_menu_bton", id:"uci_help_list"},
-                    ["button", {"class":"uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
                       ["div", {id:"uci_help_menu", style:"display:none;", class:"uci_submenu"},
                         ["ul",
@@ -2901,7 +2904,7 @@ UciIhm = {
                 ]
               ],
               ["li", { "class": "uci_inline uci_menu_close" },
-                    ["button", {"class":"uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
                       ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
                       ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_link_hide_toolbar')]
                     ]
@@ -2995,7 +2998,7 @@ UciIhm = {
      * 
      */
     uci_toggle_menu: function(idMenu,e) {
-      if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+      //if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
       var menu = document.getElementById(idMenu);
       if (menu.style.display === "none") {
         menu.style.display = "block";
@@ -3049,14 +3052,16 @@ UciIhm = {
   more_confort: function (e) {
     if (document.getElementById('uci_activateOnglet').style.display === "none") {
       document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-moins2";
-      document.getElementById('uci_activateOnglet').style.display = "block";      
-      document.getElementById('uci_quick_a11yBigger_less').setAttribute('tabindex', '-2');
-      document.getElementById('uci_quick_a11yBigger_more').setAttribute('tabindex', '-2');
+      document.getElementById('uci_activateOnglet').style.display = "block";
+      document.getElementById('uci_quick_a11yBigger_less').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_quick_a11yBigger_more').setAttribute('disabled', 'disabled');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
-      document.getElementById('a11yMaskEnabled').setAttribute('disabled', 'disabled');
-      document.getElementById('uci_close_toolbar').setAttribute('tabindex','-2');                     
-      document.getElementById('uci_help_menu_button').setAttribute('tabindex','-2');
-      document.getElementById('uci_profile_menu_button').setAttribute('tabindex','-2');
+      document.getElementById('a11yMaskEnabled').setAttribute('disabled', 'disabled');          
+      if(document.getElementById('uci_profile_menu_button')) {
+        document.getElementById('uci_profile_menu_button').setAttribute('disabled', 'disabled');
+      }
+      document.getElementById('uci_help_menu_button').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_close_toolbar').setAttribute('disabled', 'disabled');
       if (document.getElementById('uci_zone_form')) {
         document.getElementById('uci_zone_form').style.display = "block";
         UciIhm.hide_confirm_validation();
@@ -3064,10 +3069,11 @@ UciIhm = {
       //document.getElementById('uci_fermeture_more_confort').style.display = "block";
       document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
       document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
-      document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
+      //document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_notmask{0,1}/, "uci_mask");
       document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'true');
-      document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'true');
+      //document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'true');
       document.getElementById('uci_moreconfort').title = accessibilitytoolbar.get('uci_txt_low_settings');
+      document.getElementById('uci_moreconfort').className += " active";
       document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_low_settings_display');
       // disable hide the toolbar
       // disable hide fontsize buttons
@@ -3097,16 +3103,23 @@ UciIhm = {
     document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'false');
     document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');
-    document.getElementById('uci_quick_a11yBigger_less').removeAttribute('tabindex');    
-    document.getElementById('uci_quick_a11yBigger_more').removeAttribute('tabindex');
+    //document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
+    // document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');    
+    if(accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
+      document.getElementById('uci_quick_a11yBigger_less').removeAttribute('disabled');
+    }
+    if(accessibilitytoolbar.userPref.get("a11yBigger") !== "200") {
+      document.getElementById('uci_quick_a11yBigger_more').removeAttribute('disabled');
+    }    
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
     document.getElementById('a11yMaskEnabled').removeAttribute('disabled');
-    document.getElementById('uci_profile_menu_button').removeAttribute('tabindex');
-    document.getElementById('uci_help_menu_button').removeAttribute('tabindex');
-    document.getElementById('uci_close_toolbar').removeAttribute('tabindex');
+    if(document.getElementById('uci_profile_menu_button')) {
+      document.getElementById('uci_profile_menu_button').removeAttribute('disabled');
+    }
+    document.getElementById('uci_help_menu_button').removeAttribute('disabled');
+    document.getElementById('uci_close_toolbar').removeAttribute('disabled');
     document.getElementById('uci_moreconfort').removeAttribute('title');
+    document.getElementById('uci_moreconfort').className = document.getElementById('uci_moreconfort').className.replace(/ active{0,1}/, "");
     document.getElementById('uci_moreconfort_txt').textContent = accessibilitytoolbar.get('uci_txt_more_settings');
     return false;
   },
@@ -3190,7 +3203,7 @@ UciIhm = {
 
   ToolbarHide: function () {
     // when more settings is open, disable quick settings buttons
-    if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
+    // if(document.getElementById('uci_right_toolbar').className.match(/uci_mask/)) return false;
     accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
     accessibilitytoolbar.userPref.set("a11yToolbarEnable", "off");
     accessibilitytoolbar.userPref.updateUserPref();
