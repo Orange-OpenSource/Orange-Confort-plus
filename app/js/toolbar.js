@@ -2234,6 +2234,11 @@ accessibilitytoolbar = {
   guideEnabled: false,
 
   /**
+   * Saving last mouse position
+   */
+  mouseLastEvent: null,
+
+  /**
    * {LoopingMode} Looping mode Manager
    */
 
@@ -2856,6 +2861,8 @@ accessibilitytoolbar = {
 
     // add a global listener for mask shortcut activation
     accessibilitytoolbar.uciAttachEvent('keyup','onkeyup',document, accessibilitytoolbar.documentKeyupEvent);
+    // add a global listener for mouse position
+    accessibilitytoolbar.uciAttachEvent('mousemove','onmousemove',document, accessibilitytoolbar.mouseMouveEvent);
   },
 
   /**
@@ -2867,6 +2874,13 @@ accessibilitytoolbar = {
         accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"true",type:"checkbox",checked:"checked"}});
         accessibilitytoolbar.setCSS();
     }
+  },
+
+  /**
+   * Global document mouse eventHandler for catching mousePosition when enabling mask
+   */
+  mouseMouveEvent: function(e) {
+    accessibilitytoolbar.mouseLastEvent = e;
   },
 
   /**

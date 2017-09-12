@@ -45,9 +45,10 @@ UciMask = {
 
         start: function() {
         	if(!UciMask.settings.launched)
-            {
-        		  UciMask.maskEventCreate();
-            }
+          {
+        	  UciMask.maskEventCreate();
+          }
+          UciMask.maskEvent(accessibilitytoolbar.mouseLastEvent);
         },
 
         initCloseMask: function(){
@@ -69,7 +70,6 @@ UciMask = {
           // For W3C Browser
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
-            document.addEventListener('mouseenter', UciMask.maskEvent, false);
             document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover',function(){UciMask.changeVisibility("visible")}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")}, false);
@@ -77,7 +77,6 @@ UciMask = {
           //For IE browser
           else if (document.attachEvent) {
             document.attachEvent('onmousemove', UciMask.maskEvent);
-            document.attachEvent('onmouseenter', UciMask.maskEvent);
             document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
             document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
             document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
@@ -113,12 +112,10 @@ UciMask = {
         maskEventRemove: function() {
           if (document.removeEventListener) {
             document.removeEventListener('mousemove', UciMask.maskEvent, false);
-            document.removeEventListener('mouseenter', UciMask.maskEvent, false);
           }
           //For IE browser
           else if (document.attachEvent) {
             document.detachEvent('onmousemove', UciMask.maskEvent);
-            document.detachEvent('onmouseenter', UciMask.maskEvent);
           }
 
           // if the mask was launched before, removed it from the dom
@@ -131,7 +128,9 @@ UciMask = {
         },
 
         maskEvent: function(e) {
-          UciMask.draw(e.clientY,e.clientX);
+          if(e.clientY) {
+            UciMask.draw(e.clientY,e.clientX);
+          }
         },
 
         draw: function(positionY,positionX) {
