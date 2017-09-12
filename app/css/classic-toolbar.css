@@ -826,6 +826,7 @@ a.cdu_hide:focus {
 }
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover .cdu-icon:before,
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide:focus .cdu-icon:before,
+#accessibilitytoolbarGraphic .uci_menu_ouverture_aide .cdu-icon:focus:before,
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide:hover a,
 #accessibilitytoolbarGraphic a.uci_menu_ouverture_aide:hover,
 #accessibilitytoolbarGraphic .uci_menu_ouverture_aide a:focus,
@@ -873,7 +874,7 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .cdu-icon-plus2,
 #accessibilitytoolbarGraphic .cdu-icon-moins2 {
-	font-size: .87em;
+	font-size: .99em;
 	padding-right: 10px;
 }
 #closeMaskDiv .cdu-icon-croix,
@@ -985,9 +986,9 @@ li.uci_dropdown-divider {
 	margin-bottom: -2px;
 }
 .onglet_1 {
-	border-top-color: initial;
-	border-right-color: initial;
-	border-left-color: initial;
+	border-top-color: inherit;
+	border-right-color: inherit;
+	border-left-color: inherit;
 	background-color: #fff;
 	color: #000;
 	margin-bottom: -2px;
@@ -1195,7 +1196,7 @@ li.uci_dropdown-divider {
  
 .uci_w50-left{
 	max-width: 50%;
-	/* float: left; */
+	float: left;
 }
 
 #aria_label_texte,
@@ -1319,9 +1320,9 @@ li.uci_dropdown-divider {
 	opacity: .65;
 }
 #accessibilitytoolbarGraphic .ucibtn-sm {
-	padding: 0.375em 0.5em;
+	padding: 0.4285714em 0.5714em;
 	font-size: 0.875em;
-	min-width: 0.7142em;
+	min-width: 1.25em;
 }
 #accessibilitytoolbarGraphic .ucibtn-sm:active,
 #accessibilitytoolbarGraphic .ucibtn-sm.active{
