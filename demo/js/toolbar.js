@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.05a52c3f.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.cd215765.css';
 
 // Source: app/js/ToolbarStrings.js
 /**
@@ -3841,9 +3841,10 @@ UciMask = {
 
         start: function() {
         	if(!UciMask.settings.launched)
-            {
-        		  UciMask.maskEventCreate();
-            }
+          {
+        	  UciMask.maskEventCreate();
+          }
+          UciMask.maskEvent(accessibilitytoolbar.mouseLastEvent);
         },
 
         initCloseMask: function(){
@@ -3923,7 +3924,9 @@ UciMask = {
         },
 
         maskEvent: function(e) {
-          UciMask.draw(e.clientY,e.clientX);
+          if(e.clientY) {
+            UciMask.draw(e.clientY,e.clientX);
+          }
         },
 
         draw: function(positionY,positionX) {
@@ -6228,6 +6231,11 @@ accessibilitytoolbar = {
   guideEnabled: false,
 
   /**
+   * Saving last mouse position
+   */
+  mouseLastEvent: null,
+
+  /**
    * {LoopingMode} Looping mode Manager
    */
 
@@ -6850,6 +6858,8 @@ accessibilitytoolbar = {
 
     // add a global listener for mask shortcut activation
     accessibilitytoolbar.uciAttachEvent('keyup','onkeyup',document, accessibilitytoolbar.documentKeyupEvent);
+    // add a global listener for mouse position
+    accessibilitytoolbar.uciAttachEvent('mousemove','onmousemove',document, accessibilitytoolbar.mouseMouveEvent);
   },
 
   /**
@@ -6861,6 +6871,13 @@ accessibilitytoolbar = {
         accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"true",type:"checkbox",checked:"checked"}});
         accessibilitytoolbar.setCSS();
     }
+  },
+
+  /**
+   * Global document mouse eventHandler for catching mousePosition when enabling mask
+   */
+  mouseMouveEvent: function(e) {
+    accessibilitytoolbar.mouseLastEvent = e;
   },
 
   /**
