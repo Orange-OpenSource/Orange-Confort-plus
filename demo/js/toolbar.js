@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 12-09-2017
+/* orange-confort-plus - version 4.1.0 - 14-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -44,8 +44,8 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.91b9595b.css';
-
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.b334ee7c.css';
+ var onOffEnabled=true;
 // Source: app/js/ToolbarStrings.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -516,23 +516,30 @@ this.defautStoredValue = "0000651000390350270001100310000000006500000010";
         if(settings.length===2) {
             // first param set site enable or disable
             var disablevalue = settings.shift();
+            if(!onOffEnabled) disablevalue = 0;
             this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
             // second one set the profile value
             var userValue = settings.shift();
             // If there's no user settings, set as "no profile"
-            // 0000651000650650650001100310000000006500000000
-            // 0000651000650650650001100310000000006500000010
-            // doesn't car about toolbar is displayed or not
-            if(userValue.length < 3 || userValue.substr(0,userValue.length-2) === this.defautStoredValue.substr(0,this.defautStoredValue.length-2)) {
-                this.settings.current = "0";
-            }
-            else { 
-                this.settings.current = "Default";
-                this.settings.profiles[this.settings.current] = userValue;
+            // doesn't care about toolbar is displayed or not
+            // length < 3 = preset profile
+            if(userValue.length < 3) {
+                this.settings.current = userValue;
+            } else {
+                // check if user setting is not default ones
+                if(userValue.substr(0,userValue.length-2) === this.defautStoredValue.substr(0,this.defautStoredValue.length-2)) {
+                    this.settings.current = "0";
+                }
+                // Otherwise create a default profile wich contain old settings
+                else { 
+                    this.settings.current = "Default";
+                    this.settings.profiles[this.settings.current] = userValue;
+                }
             }            
         } else { // need to explode the values
             // first param set site enable or disable
             var disablevalue = settings.shift();
+            if(!onOffEnabled) disablevalue = 0;
             this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
             this.settings.current = settings.shift();
             // parse all profiles
@@ -667,9 +674,6 @@ var oNewNode = document.createElement("iframe");
     oNewNode.setAttribute("style", 'width:0;height:0;border:0;display:block;');
     oNewNode.setAttribute("aria-hidden", 'true');
     oNewNode.setAttribute("title", accessibilitytoolbar.get('uci_iframe_cookie'));
-                    
-    
-        /*****************************************************************************************************************/
 
     /**
      * Update browser cookies in order to save each of user preference value.
@@ -695,7 +699,7 @@ var oNewNode = document.createElement("iframe");
     this.updateBlackList = function() {
         // Update the cdu cookies with the stackv3 value
         document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?hostname="+document.location.hostname;
-        this.setStoredValue(this.encode());
+        // this.setStoredValue(this.encode());
     };
     
     /**
@@ -1750,10 +1754,12 @@ UciCouleur = {
     InitUciCouleur: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
         ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
-          ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
-          ["label", {"for":"a11yVisualSettings", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
-          accessibilitytoolbar.makePredefinedCouleurTpl(),
-          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"message_couleur"},
+          ["div",
+            ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
+            ["label", {"for":"a11yVisualSettings"}, accessibilitytoolbar.get('uci_color_titre')],
+            accessibilitytoolbar.makePredefinedCouleurSelect(),
+          ],
+          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
             ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
             ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
           ]
@@ -2257,7 +2263,7 @@ UciValidation = {
             window.event.cancelBubble = true;
             window.eventReturnValue = false;
         }
-        document.getElementById("uci-onoffswitch").focus();
+        document.getElementById("uci_logo_link").focus();
         
         accessibilitytoolbar.setCSS();
 
@@ -2294,7 +2300,7 @@ UciValidation = {
     },
 
     Annulation: function () {
-        document.getElementById("uci-onoffswitch").focus();
+        document.getElementById("uci_logo_link").focus();
         accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
         // Keep the toolbar open
         accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');
@@ -2335,7 +2341,7 @@ UciProfile = {
   
   createButtonProfile: function() {
     if(accessibilitytoolbar.profileEnabled) {
-      return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
+      return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "")},
                     ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
                       ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
@@ -2365,7 +2371,6 @@ UciProfile = {
     var i = 0;
     var tableauProfile = ["ul"];
     // allow delete only if there's more than one profile
-    var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
         current = "";
         ariaCurrent = "false";
@@ -2374,9 +2379,9 @@ UciProfile = {
           ariaCurrent = "true";
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
-                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
-                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
-                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
+                                ["a", { id: "uci_profile"+i, href:"#", role:"button", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
+                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
+                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
@@ -2467,7 +2472,7 @@ UciProfile = {
     var returnAllProfile = "";
     var profil = null;
     var i = 0;
-    var tableauSelectProfile = ["select", {id:"uci-selectProfile","class":"uci_select_profile margin-left",onchange: "UciProfile.changeStatus(2)"}];
+    var tableauSelectProfile = ["select", {id:"uci-selectProfile","class":"uci_select_profile margin-left",onchange: "if(this.value !== ''){document.getElementById('uci_profile_name_container').style.display = 'none';} else {document.getElementById('uci_profile_name_container').style.display = 'block';}"}];
     tableauSelectProfile.push(["option",{"value":""},accessibilitytoolbar.get('uci_profile_new_option')]);
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
       // if it's current profile, select it
@@ -2520,18 +2525,6 @@ UciProfile = {
   hide_save_profile: function(){
     document.getElementById("uci_profile_menu_button").focus();
     document.getElementById("uci_cdu_popin").style.display = "none";
-  },
-
-  /**
-   * Manage profile option update to display the input field for new profile option 
-   * 
-   */
-  changeStatus:function(){
-    if (document.getElementById('uci-selectProfile').value !== ""){
-      document.getElementById("uci_profile_name_container").style.display = "none";
-    } else {
-      document.getElementById("uci_profile_name_container").style.display = "block";
-    }
   },
 
   /**
@@ -2598,6 +2591,14 @@ UciProfile = {
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_reading'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('1',"uci_profile_reading")});
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_layout'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('2',"uci_profile_layout")});
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_move'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('3',"uci_profile_move")});
+    // allow delete only if there's more than one profile
+    var i = 0;
+    for (profil in accessibilitytoolbar.userPref.settings.profiles) {
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile"+i),function(e){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.loadProfile(''+profil,target.id)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_edit"+i),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.editProfile(''+profil)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_trash"+i),function(e){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.trashProfile(''+profil,target.id)});
+      i++;
+    }
   },
 
   /**
@@ -2766,21 +2767,11 @@ UciIhm = {
     return accessibilitytoolbar.make(["div", { "class": "cdu_c" },
       ["div", { id: "uci_toolbar-quick", "class": "cdu_c" },
         ["div", { "class": "uci_logo_plus_de_confort cdu_c", id:"uci_logo" },
-          ["h1", { "class": "uci_alt_logo" },
+          ["a", { "class": "uci_alt_logo", id:"uci_logo_link", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank"  },
             accessibilitytoolbar.get('uci_serv_name'),
             ["span", { "class": "uci-plus-orange" }, "+"]
           ],
-          ["div", { "class": "cdu_c uci-onoffswitch" },
-            ["a", {
-              "class": "uci-onoffswitch-label" + (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? "-on" : ""),
-              title: accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? accessibilitytoolbar.get('uci_title_disable_cdu') : accessibilitytoolbar.get('uci_title_enable_cdu'),
-              id: "uci-onoffswitch",
-              href: "#"
-            },
-              ["span", { "class": "uci-onoffswitch-inner-before" }, "On"],
-              ["span", { "class": "uci-onoffswitch-inner-after" }, "Off"]
-            ]
-          ]
+          this.makeUciOnOff()
         ],
         ["div", { "class": "uci_right", id:"uci_right" },
           ["div", { "class": "cdu_c uci_notmask", id: "uci_left_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
@@ -2925,20 +2916,20 @@ UciIhm = {
             ["div",
               ["div", { "class": "uci_container_onglets" },
                 ["ul", { id: "uci_onglet_confort", role: "tablist", "class": "cdu_c" },
-                  ["li", { role: "tab", "aria-selected": "true", "aria-controls": "uci_contenu_onglet_typographie", tabindex: "0", "class": "uci_inline onglet_0 onglet_1" },
-                    ["span", { "class": "onglet", id: "onglet_typographie" },
+                  ["li", { role: "tab", "aria-selected": "true", "aria-controls": "uci_contenu_onglet_typographie", tabindex: "0", "class": "uci_inline uci_onglet_0 uci_onglet_1" },
+                    ["span", { "class": "uci_onglet", id: "onglet_typographie" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-typographie" }],
                       accessibilitytoolbar.get('uci_txt_onglet_typo')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_apparence", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_apparence" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_apparence", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_apparence" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-agencement" }],
                       accessibilitytoolbar.get('uci_txt_onglet_apparence')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_couleur", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_couleur" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_couleur", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_couleur" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-color" },
                         ["span", { "class": "cdu-icon path1" }],
                         ["span", { "class": "cdu-icon path2" }],
@@ -2950,14 +2941,14 @@ UciIhm = {
                       accessibilitytoolbar.get('uci_txt_onglet_color')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_aidemotrice", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_aidemotrice" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_aidemotrice", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_aidemotrice" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-comportement" }],
                       accessibilitytoolbar.get('uci_txt_onglet_motor_help')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_settings", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_settings" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_settings", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_settings" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-settings" }],
                       accessibilitytoolbar.get('uci_txt_onglet_settings')
                     ]
@@ -2994,6 +2985,23 @@ UciIhm = {
     ]
     );
   },
+
+  makeUciOnOff: function() {   
+    if(onOffEnabled) {
+      return ["div", { "class": "cdu_c uci-onoffswitch" },
+              ["a", {
+                "class": "uci-onoffswitch-label" + (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? "-on" : ""),
+                title: accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? accessibilitytoolbar.get('uci_title_disable_cdu') : accessibilitytoolbar.get('uci_title_enable_cdu'),
+                id: "uci-onoffswitch",
+                href: "#"
+              },
+                ["span", { "class": "uci-onoffswitch-inner-before" }, "On"],
+                ["span", { "class": "uci-onoffswitch-inner-after" }, "Off"]
+              ]
+            ];
+    } else return '';
+  },
+   
 
     /**
      * Open a submenu
@@ -3096,7 +3104,6 @@ UciIhm = {
   },
   hide_more_confort: function (hideValidationBtn) {
     UciIhm.hide_confirm_validation();
-    	// document.getElementById("uci-onoffswitch").focus();
     document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-plus2";
     document.getElementById('uci_activateOnglet').style.display = "none";
     if (document.getElementById('uci_zone_form') && (hideValidationBtn || document.getElementById('uci_validation').className === "cdu_n")) {
@@ -3104,9 +3111,7 @@ UciIhm = {
     }
     document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'false');
-    document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    //document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    // document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');    
+    document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");    
     if(accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
       document.getElementById('uci_quick_a11yBigger_less').removeAttribute('disabled');
     }
@@ -3278,28 +3283,28 @@ UciHelp = {
     uci_tour_step_2_typographie : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_typographie",
+      ongletId: "uci_onglet_typographie",
       prev:"uci_tour_step_1_advancedparam",
       next: "uci_tour_step_3_apparence"
     },
     uci_tour_step_3_apparence : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_apparence",
+      ongletId: "uci_onglet_apparence",
       prev:"uci_tour_step_2_typographie",
       next: "uci_tour_step_4_couleur"
     },
     uci_tour_step_4_couleur : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_couleur",
+      ongletId: "uci_onglet_couleur",
       prev:"uci_tour_step_3_apparence",
       next: "uci_tour_step_5_aidemotrice"
     },
     uci_tour_step_5_aidemotrice : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_aidemotrice",
+      ongletId: "uci_onglet_aidemotrice",
       prev:"uci_tour_step_4_couleur",
       next: ""
     }
@@ -3518,7 +3523,7 @@ UciHelp = {
     }
     if (document.getElementById("uci_reading")) {
       if (UciHelp._canBeOnMoreSettingHelp()) {
-        //accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+        //accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("uci_onglet_typographie").parentNode);
         UciIhm.hide_more_confort();
         var unclick = document.getElementById("unclickMoreSettings").parentNode;
         unclick.removeChild(unclick.lastChild);
@@ -3543,7 +3548,7 @@ UciHelp = {
     document.getElementById("masque_haut").style.display = "none";
     if (document.getElementById("uci_reading")) {
       if (UciHelp._canBeOnMoreSettingHelp()) {
-        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode,false);
+        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("uci_onglet_typographie").parentNode,false);
         UciIhm.hide_more_confort();
         var unclick = document.getElementById("unclickMoreSettings").parentNode;
         unclick.removeChild(unclick.lastChild);
@@ -3778,8 +3783,8 @@ UciHelp = {
           UciIhm.more_confort();          
         }
         this._unclickMoreSettings();
-        if (nextObject.ongletId){
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById(nextObject.ongletId).parentNode, false);          
+        if (nextObject.uci_ongletId){
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById(nextObject.uci_ongletId).parentNode, false);          
         }
       }
 
@@ -6254,7 +6259,7 @@ accessibilitytoolbar = {
    */
 
   loopingmode: null,
-
+                                                                                                                     
   /**
    * {RemoteControlMode} Remote control Manager
    */
@@ -6456,13 +6461,15 @@ accessibilitytoolbar = {
             break;
           case 'a11yFontColor' :
               document.getElementById('aria_label_texte').style.setProperty("background-color", value, "important");
-              document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("color", value, "important");
+              //document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("color", value, "important");
               accessibilitytoolbar.checkLum(value,accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
+              accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),value);
             break;
           case 'a11yBackgroundColor' :
               document.getElementById('uci_aria_label_fond').style.setProperty("background-color", value, "important");
-              document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("background-color", value, "important");
+              //document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("background-color", value, "important");
               accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yFontColor"),value);
+              accessibilitytoolbar.updateColorBox(value,accessibilitytoolbar.userPref.get("a11yFontColor"));
             break;
         }
         accessibilitytoolbar.userPref.set(prefName, value);
@@ -6490,7 +6497,7 @@ accessibilitytoolbar = {
     elmt.tabIndex = '0';
     elmt.parentNode.tabIndex = '0';
     var spanId = /^uci_contenu_(\S+)$/.exec(elmt.getAttribute('aria-controls'));
-    document.getElementById(spanId[1]).parentElement.className = 'uci_inline onglet_0 onglet_1';
+    document.getElementById(spanId[1]).parentElement.className = 'uci_inline uci_onglet_0 uci_onglet_1';
     document.getElementById(elmt.getAttribute('aria-controls')).style.display = "block";
     elmt.focus();
     // on d�sactive ses fr�res
@@ -6503,7 +6510,7 @@ accessibilitytoolbar = {
         reponses.children[iterator].tabIndex = '-1';
         reponses.children[iterator].parentNode.tabIndex = '-1';
         var spanIdOther = /^uci_contenu_(\S+)$/.exec(reponses.children[iterator].getAttribute('aria-controls'));
-        document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline onglet_0';
+        document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline uci_onglet_0';
         document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display = "none";
       }
     }
@@ -6763,7 +6770,6 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('blur', 'onblur', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
       accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
     }
-
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_wordspacing');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_linespacement');
     if (this.getCompatible('a11yDyslexyFontEnabled')) {
@@ -6773,7 +6779,7 @@ accessibilitytoolbar = {
     if (this.getCompatible('a11yMaskEnabled')) {
       accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_epaisseurmask');
     }
-    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie');
+    // accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpolice');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurbackground');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleur_lien_visite');
@@ -6806,8 +6812,6 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_ouverture_guide'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.uci_close_menu('uci_help_menu'); UciHelp.show_popin() });
     }
 
-
-
     /******************************************************************************************************/
 
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_FR'), function () { return UciIhm.changement_langue('FR'); });
@@ -6816,7 +6820,9 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_PL'), function () { return UciIhm.changement_langue('PL'); });
     accessibilitytoolbar.uciAttachEvent('submit', 'onsubmit', document.getElementById('uci_form'), function (e) { accessibilitytoolbar.stopEvt(e); UciValidation.Validation(); UciIhm.confirm_validation(); });
     accessibilitytoolbar.uciAttachEvent('reset', 'onreset', document.getElementById('uci_form'), function (e) { accessibilitytoolbar.stopEvt(e); UciValidation.Annulation(); });
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci-onoffswitch'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.desactiveCDUForWebSite() });
+    if(onOffEnabled) {
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci-onoffswitch'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.desactiveCDUForWebSite() });
+    }
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_dyslexy_font'), function () { return UciTypographie.displayFieldset('uci_fieldset_fontfamily'); });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_casse'), function () { return UciTypographie.displayFieldset('uci_fieldset_changecasse'); });
 
@@ -6859,7 +6865,9 @@ accessibilitytoolbar = {
 
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_profile_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_profile_menu', e) });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      if(onOffEnabled) {
+        accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      }
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
@@ -7071,7 +7079,7 @@ accessibilitytoolbar = {
     }
     document.getElementById("cdu_toolbar").className = "";
     try {
-      document.getElementById("uci-onoffswitch").focus();
+      document.getElementById("uci_logo_link").focus();
     }
     catch (e) { }
   },
@@ -7215,6 +7223,32 @@ accessibilitytoolbar = {
       document.getElementById('uci_zone_form').style.display = "block";
       document.getElementById('uci_cdu_popin').style.display = "none";
     }
+    // update box color
+    if(prefName === 'a11yVisualPredefinedSettings') {
+      // get current option value
+      var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').options[document.getElementById('uci_reponses_couleurpredefinie').selectedIndex].value;
+      //var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').value;a11yVisualPredefinedSettings
+      var predifinedCombinaisons = {
+        'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+        'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+        'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+        'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+        'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+        'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+        'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
+        'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
+      };
+      
+      if(curOptionValue === 'personnal') {
+        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+        accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+        document.getElementById('uci_custom_color_panel').style.display = "block";
+      } else {
+        document.getElementById('uci_message_constraste').style.display = 'none';
+        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].fontColor,predifinedCombinaisons[curOptionValue].backGroundColor);
+        document.getElementById('uci_custom_color_panel').style.display = "none";
+      }      
+    }
 
     // for checkbox default value when unckecked = false
     if (target.type == "checkbox" && (!target.checked || !target.checked == "checked")) {
@@ -7258,7 +7292,7 @@ accessibilitytoolbar = {
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
     var radioSettings = ["a11yMaskOption-mask","a11yMaskOption-vruler","a11yMaskOption-hruler"];
     var curpref;
-    // var selectSettings = ["a11yNavLienSelStyle", "a11yNavLienNonVisStyle", "a11yNavLienVisStyle"];
+    var selectSettings = ["uci_reponses_couleurpredefinie"];
     for (pref in ariaRadioSettings) {
       accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
     }
@@ -7284,7 +7318,7 @@ accessibilitytoolbar = {
         document.getElementById(radioSettings[pref]).checked = false;
       }
     }
-    /*
+    
     for (pref in selectSettings) {
       var sel = document.getElementById(selectSettings[pref]);
       var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
@@ -7295,7 +7329,7 @@ accessibilitytoolbar = {
           break;
         }
       }
-    }*/
+    }
     document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
@@ -7616,47 +7650,15 @@ accessibilitytoolbar = {
       //gestion des liens de navigations
       if (localUserPref.get("a11yNavLienEnabled") !== "false") {
         //gestion des liens non visités
-        if (localUserPref.get("a11yNavLienNonVisStyle") === "border") {
-          s += "a:link  {border: 2px solid !important; color : " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienNonVisStyle") === "bold") {
-          s += "a:link  {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienNonVisStyle") === "underline") {
-          s += "a:link  {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        } else {
-          s += "a:link  {color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        }
+        s += "a:link  {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
 
         //gestion des liens visités
-        if (localUserPref.get("a11yNavLienVisStyle") === "border") {
-          s += "a:visited {border: 2px solid !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienVisStyle") === "bold") {
-          s += "a:visited {font-weight: bold !important; color : " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienVisStyle") === "underline") {
-          s += "a:visited {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        } else {
-          s += "a:visited {color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        }
+        s += "a:visited {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
 
         //gestion du lien actif
-        if (localUserPref.get("a11yNavLienSelStyle") === "border") {
-          s += "a:active {border: 2px solid #F16E00!important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {border: 2px solid #F16E00 !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {border: 2px solid #F16E00 !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienSelStyle") === "underline") {
-          s += "a:active {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        }
-        else if (localUserPref.get("a11yNavLienSelStyle") === "bold") {
-          s += "a:active {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        } else {
-          s += "a:active {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-
-        }
+        s += "a:active {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:focus {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:hover {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
       }
       //suppression des effets de transparences
       if (localUserPref.get("a11ySupEffetTransp") !== "false") {
@@ -7703,7 +7705,7 @@ accessibilitytoolbar = {
       fontColor = "#000000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
-        document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
+        // document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
       }
       if (localUserPref.get("a11yVisualSettings") === "true") {
         // || (localUserPref.get("a11yVisualSettings") === "personnal" && localUserPref.get("a11yFontColor") !== localUserPref.get("a11yBackgroundColor"))) {
@@ -7720,7 +7722,7 @@ accessibilitytoolbar = {
             'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
             'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
             'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
             'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
           if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
@@ -7731,7 +7733,7 @@ accessibilitytoolbar = {
           if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
             if (!init) {
               document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
-              document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
+              // document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
             }
             fontColor = "#FFF";
             backGroundColor = "#000";
@@ -8327,7 +8329,11 @@ accessibilitytoolbar = {
     return tableauCouleurPolice;
   },
 
-  makePredefinedCouleurTpl: function () {
+  updateColorBox: function(bgColor,fontColor) {
+    document.getElementById('uci_color_box').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+  },
+  
+  makePredefinedCouleurSelect: function () {
     var predifinedCombinaisons = {
             'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
             'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
@@ -8335,37 +8341,47 @@ accessibilitytoolbar = {
             'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
             'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
             'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
             'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
-    var curCouleur;
-    var aCouleur = ["ul", { "class": "padding-left-align uci_clear uci_liste_bton", id: "uci_reponses_couleurpredefinie", role: "radiogroup", "aria-labelledby": "a11yVisualSettings" }];
+    var curCouleur, spanColor;
+    var globalCouleur = ["div"]
+    var aCouleurs = ["div", { "class": "padding-left-align margin-top uci_color_div"}]
+    var aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings" }];
     var index = 0;
     for (var key in predifinedCombinaisons) {
-      curCouleur = ["li", {
-        id: "uci_a11yVisualPredefinedSettings_" + key, role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary" + (index % 2 === 0 ? " uci_clear" : "") + " ucibtn-" + key + " " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "active" : ""),
-        tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "0" : "-1",
-        "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "true" : "false",
-         style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"
+      curCouleur = ["option", {
+        id: "uci_a11yVisualPredefinedSettings_" + key,
+        value: key, 
+        selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? true : false)
       },
         accessibilitytoolbar.get('uci_title_color_' + key)
       ];
       aCouleur.push(curCouleur);
+      if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key) {
+        spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"}, "A"]
+      }
       index++;
     }
     // add custom color button
-    curCouleur = ["li", {
-      id: "uci_a11yVisualPredefinedSettings_personnal", role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary uci_clear ucibtn-personnal margin-top-xl " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "active" : ""),
-      tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "0" : "-1",
-      "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "true" : "false",
-      style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"
+    curCouleur = ["option", {
+      id: "uci_a11yVisualPredefinedSettings_personnal",
+      value: 'personnal', 
+      selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? true : false)
     },
       accessibilitytoolbar.get('uci_title_color_personnal')
     ];
     aCouleur.push(curCouleur);
+    customColorStyle="display:none";
+    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
+      spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}, "A"]
+      // show the custom boxes
+      customColorStyle="display:block";
+    }
+    
     // add a link for custom color update
-    curCouleur = ["li", {"class":"margin-left uci_inline uci_update_list margin-top-xl"},
-    ["div",
+    curCouleur = ["div", {"class":"margin-top uci_custom_color", id:"uci_custom_color_panel", style:customColorStyle},
+      ["div", { "class":"cdu_c"},
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
         ["div", {"class":"cdu_left"},
           ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
@@ -8373,8 +8389,8 @@ accessibilitytoolbar = {
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
           ]
         ]
-        ],
-        ["div",
+      ],
+      ["div", { "class":"cdu_c margin-top"},
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_background')],
         ["div", {"class":"cdu_left"},
           ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
@@ -8382,12 +8398,17 @@ accessibilitytoolbar = {
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
           ]
         ]
-        ]
+      ]
     ];
-    aCouleur.push(curCouleur);
-    return aCouleur;
+    
+    aCouleurs.push(aCouleur);
+    aCouleurs.push(spanColor);
+    globalCouleur.push(aCouleurs);
+    globalCouleur.push(curCouleur);
+        
+    return globalCouleur;
   },
-
+  
   /**
    * Start the thing
    */
