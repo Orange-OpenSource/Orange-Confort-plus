@@ -1848,6 +1848,7 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .uci_select_color {
 	border-color: inherit;
 	font-weight: normal;
+	text-align: left;
 }
 
 #accessibilitytoolbarGraphic .uci_color_box {
