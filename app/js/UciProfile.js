@@ -30,7 +30,7 @@ UciProfile = {
   
   createButtonProfile: function() {
     if(accessibilitytoolbar.profileEnabled) {
-      return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list"},
+      return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "")},
                     ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
                       ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
@@ -60,7 +60,6 @@ UciProfile = {
     var i = 0;
     var tableauProfile = ["ul"];
     // allow delete only if there's more than one profile
-    var nbprofile = Object.keys(accessibilitytoolbar.userPref.settings.profiles).length;
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
         current = "";
         ariaCurrent = "false";
@@ -69,9 +68,9 @@ UciProfile = {
           ariaCurrent = "true";
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
-                                ["a", { id: "uci_profile"+i, href:"#", role:"button", onclick:"UciProfile.loadProfile('"+profil+"','uci_profile"+i+"')", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
-                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , onclick:"UciProfile.editProfile('"+profil+"')", "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
-                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , onclick:"UciProfile.trashProfile('"+profil+"','uci_profile"+i+"')", "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
+                                ["a", { id: "uci_profile"+i, href:"#", role:"button", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
+                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
+                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
@@ -162,7 +161,7 @@ UciProfile = {
     var returnAllProfile = "";
     var profil = null;
     var i = 0;
-    var tableauSelectProfile = ["select", {id:"uci-selectProfile","class":"uci_select_profile margin-left",onchange: "UciProfile.changeStatus(2)"}];
+    var tableauSelectProfile = ["select", {id:"uci-selectProfile","class":"uci_select_profile margin-left",onchange: "if(this.value !== ''){document.getElementById('uci_profile_name_container').style.display = 'none';} else {document.getElementById('uci_profile_name_container').style.display = 'block';}"}];
     tableauSelectProfile.push(["option",{"value":""},accessibilitytoolbar.get('uci_profile_new_option')]);
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
       // if it's current profile, select it
@@ -215,18 +214,6 @@ UciProfile = {
   hide_save_profile: function(){
     document.getElementById("uci_profile_menu_button").focus();
     document.getElementById("uci_cdu_popin").style.display = "none";
-  },
-
-  /**
-   * Manage profile option update to display the input field for new profile option 
-   * 
-   */
-  changeStatus:function(){
-    if (document.getElementById('uci-selectProfile').value !== ""){
-      document.getElementById("uci_profile_name_container").style.display = "none";
-    } else {
-      document.getElementById("uci_profile_name_container").style.display = "block";
-    }
   },
 
   /**
@@ -293,6 +280,14 @@ UciProfile = {
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_reading'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('1',"uci_profile_reading")});
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_layout'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('2',"uci_profile_layout")});
     accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_profile_move'),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.loadProfile('3',"uci_profile_move")});
+    // allow delete only if there's more than one profile
+    var i = 0;
+    for (profil in accessibilitytoolbar.userPref.settings.profiles) {
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile"+i),function(e){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.loadProfile(''+profil,target.id)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_edit"+i),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.editProfile(''+profil)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_trash"+i),function(e){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.trashProfile(''+profil,target.id)});
+      i++;
+    }
   },
 
   /**

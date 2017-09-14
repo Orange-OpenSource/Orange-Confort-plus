@@ -40,3 +40,4 @@ var hebergementFullPath = hebergementDomaine + '/';
  };
  var helpPathTarget = '_blank';
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.css';
+ var onOffEnabled=true;

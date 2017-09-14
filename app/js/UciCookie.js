@@ -36,9 +36,6 @@ function UciStorage() {
     oNewNode.setAttribute("style", 'width:0;height:0;border:0;display:block;');
     oNewNode.setAttribute("aria-hidden", 'true');
     oNewNode.setAttribute("title", accessibilitytoolbar.get('uci_iframe_cookie'));
-                    
-    
-        /*****************************************************************************************************************/
 
     /**
      * Update browser cookies in order to save each of user preference value.
@@ -64,7 +61,6 @@ function UciStorage() {
     this.updateBlackList = function() {
         // Update the cdu cookies with the stackv3 value
         document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?hostname="+document.location.hostname;
-        this.setStoredValue(this.encode());
     };
     
     /**

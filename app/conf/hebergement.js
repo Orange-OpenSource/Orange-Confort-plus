@@ -39,3 +39,4 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
  };
  var helpPathTarget = '_blank';
  var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.css';
+ var onOffEnabled=true;

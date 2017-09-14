@@ -35,21 +35,11 @@ UciIhm = {
     return accessibilitytoolbar.make(["div", { "class": "cdu_c" },
       ["div", { id: "uci_toolbar-quick", "class": "cdu_c" },
         ["div", { "class": "uci_logo_plus_de_confort cdu_c", id:"uci_logo" },
-          ["h1", { "class": "uci_alt_logo" },
+          ["a", { "class": "uci_alt_logo", id:"uci_logo_link", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank"  },
             accessibilitytoolbar.get('uci_serv_name'),
             ["span", { "class": "uci-plus-orange" }, "+"]
           ],
-          ["div", { "class": "cdu_c uci-onoffswitch" },
-            ["a", {
-              "class": "uci-onoffswitch-label" + (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? "-on" : ""),
-              title: accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? accessibilitytoolbar.get('uci_title_disable_cdu') : accessibilitytoolbar.get('uci_title_enable_cdu'),
-              id: "uci-onoffswitch",
-              href: "#"
-            },
-              ["span", { "class": "uci-onoffswitch-inner-before" }, "On"],
-              ["span", { "class": "uci-onoffswitch-inner-after" }, "Off"]
-            ]
-          ]
+          this.makeUciOnOff()
         ],
         ["div", { "class": "uci_right", id:"uci_right" },
           ["div", { "class": "cdu_c uci_notmask", id: "uci_left_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
@@ -194,20 +184,20 @@ UciIhm = {
             ["div",
               ["div", { "class": "uci_container_onglets" },
                 ["ul", { id: "uci_onglet_confort", role: "tablist", "class": "cdu_c" },
-                  ["li", { role: "tab", "aria-selected": "true", "aria-controls": "uci_contenu_onglet_typographie", tabindex: "0", "class": "uci_inline onglet_0 onglet_1" },
-                    ["span", { "class": "onglet", id: "onglet_typographie" },
+                  ["li", { role: "tab", "aria-selected": "true", "aria-controls": "uci_contenu_onglet_typographie", tabindex: "0", "class": "uci_inline uci_onglet_0 uci_onglet_1" },
+                    ["span", { "class": "uci_onglet", id: "onglet_typographie" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-typographie" }],
                       accessibilitytoolbar.get('uci_txt_onglet_typo')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_apparence", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_apparence" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_apparence", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_apparence" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-agencement" }],
                       accessibilitytoolbar.get('uci_txt_onglet_apparence')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_couleur", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_couleur" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_couleur", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_couleur" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-color" },
                         ["span", { "class": "cdu-icon path1" }],
                         ["span", { "class": "cdu-icon path2" }],
@@ -219,14 +209,14 @@ UciIhm = {
                       accessibilitytoolbar.get('uci_txt_onglet_color')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_aidemotrice", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_aidemotrice" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_aidemotrice", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_aidemotrice" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-comportement" }],
                       accessibilitytoolbar.get('uci_txt_onglet_motor_help')
                     ]
                   ],
-                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_settings", tabindex: "-1", "class": "uci_inline onglet_0" },
-                    ["span", { "class": "onglet", id: "onglet_settings" },
+                  ["li", { role: "tab", "aria-selected": "false", "aria-controls": "uci_contenu_onglet_settings", tabindex: "-1", "class": "uci_inline uci_onglet_0" },
+                    ["span", { "class": "uci_onglet", id: "onglet_settings" },
                       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-settings" }],
                       accessibilitytoolbar.get('uci_txt_onglet_settings')
                     ]
@@ -263,6 +253,23 @@ UciIhm = {
     ]
     );
   },
+
+  makeUciOnOff: function() {   
+    if(onOffEnabled) {
+      return ["div", { "class": "cdu_c uci-onoffswitch" },
+              ["a", {
+                "class": "uci-onoffswitch-label" + (accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? "-on" : ""),
+                title: accessibilitytoolbar.userPref.get("a11ySiteWebEnabled") === "on" ? accessibilitytoolbar.get('uci_title_disable_cdu') : accessibilitytoolbar.get('uci_title_enable_cdu'),
+                id: "uci-onoffswitch",
+                href: "#"
+              },
+                ["span", { "class": "uci-onoffswitch-inner-before" }, "On"],
+                ["span", { "class": "uci-onoffswitch-inner-after" }, "Off"]
+              ]
+            ];
+    } else return '';
+  },
+   
 
     /**
      * Open a submenu
@@ -365,7 +372,6 @@ UciIhm = {
   },
   hide_more_confort: function (hideValidationBtn) {
     UciIhm.hide_confirm_validation();
-    	// document.getElementById("uci-onoffswitch").focus();
     document.getElementById("uci_icon_moreconfort").className = "cdu-icon cdu-icon-plus2";
     document.getElementById('uci_activateOnglet').style.display = "none";
     if (document.getElementById('uci_zone_form') && (hideValidationBtn || document.getElementById('uci_validation').className === "cdu_n")) {
@@ -373,9 +379,7 @@ UciIhm = {
     }
     document.getElementById('uci_left_toolbar').className = document.getElementById('uci_left_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
     document.getElementById('uci_left_toolbar').setAttribute('aria-hidden', 'false');
-    document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    //document.getElementById('uci_right_toolbar').className = document.getElementById('uci_right_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");
-    // document.getElementById('uci_right_toolbar').setAttribute('aria-hidden', 'false');    
+    document.getElementById('uci_middle_toolbar').className = document.getElementById('uci_middle_toolbar').className.replace(/uci_mask{0,1}/, "uci_notmask");    
     if(accessibilitytoolbar.userPref.get("a11yBigger") !== "keepit") {
       document.getElementById('uci_quick_a11yBigger_less').removeAttribute('disabled');
     }

@@ -22,3 +22,4 @@ var helpPath = {
 };
 var helpPathTarget = '_blank';
 var hebergementFullPath='';
+var onOffEnabled=false;

@@ -2255,7 +2255,7 @@ accessibilitytoolbar = {
    */
 
   loopingmode: null,
-
+                                                                                                                     
   /**
    * {RemoteControlMode} Remote control Manager
    */
@@ -2457,13 +2457,13 @@ accessibilitytoolbar = {
             break;
           case 'a11yFontColor' :
               document.getElementById('aria_label_texte').style.setProperty("background-color", value, "important");
-              document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("color", value, "important");
               accessibilitytoolbar.checkLum(value,accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
+              accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),value);
             break;
           case 'a11yBackgroundColor' :
               document.getElementById('uci_aria_label_fond').style.setProperty("background-color", value, "important");
-              document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("background-color", value, "important");
               accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yFontColor"),value);
+              accessibilitytoolbar.updateColorBox(value,accessibilitytoolbar.userPref.get("a11yFontColor"));
             break;
         }
         accessibilitytoolbar.userPref.set(prefName, value);
@@ -2491,7 +2491,7 @@ accessibilitytoolbar = {
     elmt.tabIndex = '0';
     elmt.parentNode.tabIndex = '0';
     var spanId = /^uci_contenu_(\S+)$/.exec(elmt.getAttribute('aria-controls'));
-    document.getElementById(spanId[1]).parentElement.className = 'uci_inline onglet_0 onglet_1';
+    document.getElementById(spanId[1]).parentElement.className = 'uci_inline uci_onglet_0 uci_onglet_1';
     document.getElementById(elmt.getAttribute('aria-controls')).style.display = "block";
     elmt.focus();
     // on d�sactive ses fr�res
@@ -2504,7 +2504,7 @@ accessibilitytoolbar = {
         reponses.children[iterator].tabIndex = '-1';
         reponses.children[iterator].parentNode.tabIndex = '-1';
         var spanIdOther = /^uci_contenu_(\S+)$/.exec(reponses.children[iterator].getAttribute('aria-controls'));
-        document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline onglet_0';
+        document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline uci_onglet_0';
         document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display = "none";
       }
     }
@@ -2764,7 +2764,6 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('blur', 'onblur', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
       accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', liButtonsPalette[i], accessibilitytoolbar.HidePaletColor);
     }
-
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_wordspacing');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_linespacement');
     if (this.getCompatible('a11yDyslexyFontEnabled')) {
@@ -2774,7 +2773,6 @@ accessibilitytoolbar = {
     if (this.getCompatible('a11yMaskEnabled')) {
       accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_epaisseurmask');
     }
-    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpolice');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurbackground');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleur_lien_visite');
@@ -2807,8 +2805,6 @@ accessibilitytoolbar = {
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_ouverture_guide'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.uci_close_menu('uci_help_menu'); UciHelp.show_popin() });
     }
 
-
-
     /******************************************************************************************************/
 
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_FR'), function () { return UciIhm.changement_langue('FR'); });
@@ -2817,7 +2813,9 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_PL'), function () { return UciIhm.changement_langue('PL'); });
     accessibilitytoolbar.uciAttachEvent('submit', 'onsubmit', document.getElementById('uci_form'), function (e) { accessibilitytoolbar.stopEvt(e); UciValidation.Validation(); UciIhm.confirm_validation(); });
     accessibilitytoolbar.uciAttachEvent('reset', 'onreset', document.getElementById('uci_form'), function (e) { accessibilitytoolbar.stopEvt(e); UciValidation.Annulation(); });
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci-onoffswitch'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.desactiveCDUForWebSite() });
+    if(onOffEnabled) {
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci-onoffswitch'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.desactiveCDUForWebSite() });
+    }
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_dyslexy_font'), function () { return UciTypographie.displayFieldset('uci_fieldset_fontfamily'); });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_casse'), function () { return UciTypographie.displayFieldset('uci_fieldset_changecasse'); });
 
@@ -2860,7 +2858,9 @@ accessibilitytoolbar = {
 
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_profile_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_profile_menu', e) });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      if(onOffEnabled) {
+        accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      }
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
@@ -3072,7 +3072,7 @@ accessibilitytoolbar = {
     }
     document.getElementById("cdu_toolbar").className = "";
     try {
-      document.getElementById("uci-onoffswitch").focus();
+      document.getElementById("uci_logo_link").focus();
     }
     catch (e) { }
   },
@@ -3216,6 +3216,32 @@ accessibilitytoolbar = {
       document.getElementById('uci_zone_form').style.display = "block";
       document.getElementById('uci_cdu_popin').style.display = "none";
     }
+    // update box color
+    if(prefName === 'a11yVisualPredefinedSettings') {
+      // get current option value
+      var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').options[document.getElementById('uci_reponses_couleurpredefinie').selectedIndex].value;
+      //var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').value;a11yVisualPredefinedSettings
+      var predifinedCombinaisons = {
+        'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+        'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+        'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+        'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+        'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+        'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+        'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
+        'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
+      };
+      
+      if(curOptionValue === 'personnal') {
+        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+        accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+        document.getElementById('uci_custom_color_panel').style.display = "block";
+      } else {
+        document.getElementById('uci_message_constraste').style.display = 'none';
+        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].fontColor,predifinedCombinaisons[curOptionValue].backGroundColor);
+        document.getElementById('uci_custom_color_panel').style.display = "none";
+      }      
+    }
 
     // for checkbox default value when unckecked = false
     if (target.type == "checkbox" && (!target.checked || !target.checked == "checked")) {
@@ -3259,7 +3285,7 @@ accessibilitytoolbar = {
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
     var radioSettings = ["a11yMaskOption-mask","a11yMaskOption-vruler","a11yMaskOption-hruler"];
     var curpref;
-    // var selectSettings = ["a11yNavLienSelStyle", "a11yNavLienNonVisStyle", "a11yNavLienVisStyle"];
+    var selectSettings = ["uci_reponses_couleurpredefinie"];
     for (pref in ariaRadioSettings) {
       accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
     }
@@ -3285,7 +3311,7 @@ accessibilitytoolbar = {
         document.getElementById(radioSettings[pref]).checked = false;
       }
     }
-    /*
+    
     for (pref in selectSettings) {
       var sel = document.getElementById(selectSettings[pref]);
       var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
@@ -3296,7 +3322,7 @@ accessibilitytoolbar = {
           break;
         }
       }
-    }*/
+    }
     document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
@@ -3617,47 +3643,15 @@ accessibilitytoolbar = {
       //gestion des liens de navigations
       if (localUserPref.get("a11yNavLienEnabled") !== "false") {
         //gestion des liens non visités
-        if (localUserPref.get("a11yNavLienNonVisStyle") === "border") {
-          s += "a:link  {border: 2px solid !important; color : " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienNonVisStyle") === "bold") {
-          s += "a:link  {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienNonVisStyle") === "underline") {
-          s += "a:link  {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        } else {
-          s += "a:link  {color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
-        }
+        s += "a:link  {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
 
         //gestion des liens visités
-        if (localUserPref.get("a11yNavLienVisStyle") === "border") {
-          s += "a:visited {border: 2px solid !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienVisStyle") === "bold") {
-          s += "a:visited {font-weight: bold !important; color : " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienVisStyle") === "underline") {
-          s += "a:visited {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        } else {
-          s += "a:visited {color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
-        }
+        s += "a:visited {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
 
         //gestion du lien actif
-        if (localUserPref.get("a11yNavLienSelStyle") === "border") {
-          s += "a:active {border: 2px solid #F16E00!important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {border: 2px solid #F16E00 !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {border: 2px solid #F16E00 !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        } else if (localUserPref.get("a11yNavLienSelStyle") === "underline") {
-          s += "a:active {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {text-decoration:underline !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        }
-        else if (localUserPref.get("a11yNavLienSelStyle") === "bold") {
-          s += "a:active {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {font-weight: bold !important; color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        } else {
-          s += "a:active {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:focus {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-          s += "a:hover {color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-
-        }
+        s += "a:active {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:focus {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:hover {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
       }
       //suppression des effets de transparences
       if (localUserPref.get("a11ySupEffetTransp") !== "false") {
@@ -3704,10 +3698,8 @@ accessibilitytoolbar = {
       fontColor = "#000000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
-        document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
       }
       if (localUserPref.get("a11yVisualSettings") === "true") {
-        // || (localUserPref.get("a11yVisualSettings") === "personnal" && localUserPref.get("a11yFontColor") !== localUserPref.get("a11yBackgroundColor"))) {
         if (localUserPref.get("a11yVisualPredefinedSettings") !== "personnal") {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
@@ -3721,7 +3713,7 @@ accessibilitytoolbar = {
             'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
             'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
             'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
             'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
           if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
@@ -3732,7 +3724,6 @@ accessibilitytoolbar = {
           if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
             if (!init) {
               document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
-              document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
             }
             fontColor = "#FFF";
             backGroundColor = "#000";
@@ -4328,7 +4319,11 @@ accessibilitytoolbar = {
     return tableauCouleurPolice;
   },
 
-  makePredefinedCouleurTpl: function () {
+  updateColorBox: function(bgColor,fontColor) {
+    document.getElementById('uci_color_box').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+  },
+  
+  makePredefinedCouleurSelect: function () {
     var predifinedCombinaisons = {
             'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
             'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
@@ -4336,37 +4331,47 @@ accessibilitytoolbar = {
             'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
             'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
             'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-            'blueonwhite': { fontColor: '#00FF00', backGroundColor: '#FFFFFF' },
+            'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
             'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
           };
-    var curCouleur;
-    var aCouleur = ["ul", { "class": "padding-left-align uci_clear uci_liste_bton", id: "uci_reponses_couleurpredefinie", role: "radiogroup", "aria-labelledby": "a11yVisualSettings" }];
+    var curCouleur, spanColor;
+    var globalCouleur = ["div"]
+    var aCouleurs = ["div", { "class": "padding-left-align margin-top uci_color_div"}]
+    var aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings" }];
     var index = 0;
     for (var key in predifinedCombinaisons) {
-      curCouleur = ["li", {
-        id: "uci_a11yVisualPredefinedSettings_" + key, role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary" + (index % 2 === 0 ? " uci_clear" : "") + " ucibtn-" + key + " " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "active" : ""),
-        tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "0" : "-1",
-        "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? "true" : "false",
-         style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"
+      curCouleur = ["option", {
+        id: "uci_a11yVisualPredefinedSettings_" + key,
+        value: key, 
+        selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? true : false)
       },
         accessibilitytoolbar.get('uci_title_color_' + key)
       ];
       aCouleur.push(curCouleur);
+      if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key) {
+        spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"}, "A"]
+      }
       index++;
     }
     // add custom color button
-    curCouleur = ["li", {
-      id: "uci_a11yVisualPredefinedSettings_personnal", role: "radio", "class": "uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary uci_clear ucibtn-personnal margin-top-xl " + (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "active" : ""),
-      tabindex: accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "0" : "-1",
-      "aria-checked": accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? "true" : "false",
-      style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"
+    curCouleur = ["option", {
+      id: "uci_a11yVisualPredefinedSettings_personnal",
+      value: 'personnal', 
+      selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? true : false)
     },
       accessibilitytoolbar.get('uci_title_color_personnal')
     ];
     aCouleur.push(curCouleur);
+    customColorStyle="display:none";
+    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
+      spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}, "A"]
+      // show the custom boxes
+      customColorStyle="display:block";
+    }
+    
     // add a link for custom color update
-    curCouleur = ["li", {"class":"margin-left uci_inline uci_update_list margin-top-xl"},
-    ["div",
+    curCouleur = ["div", {"class":"margin-top uci_custom_color", id:"uci_custom_color_panel", style:customColorStyle},
+      ["div", { "class":"cdu_c"},
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
         ["div", {"class":"cdu_left"},
           ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
@@ -4374,8 +4379,8 @@ accessibilitytoolbar = {
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
           ]
         ]
-        ],
-        ["div",
+      ],
+      ["div", { "class":"cdu_c margin-top"},
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_background')],
         ["div", {"class":"cdu_left"},
           ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
@@ -4383,12 +4388,17 @@ accessibilitytoolbar = {
             accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
           ]
         ]
-        ]
+      ]
     ];
-    aCouleur.push(curCouleur);
-    return aCouleur;
+    
+    aCouleurs.push(aCouleur);
+    aCouleurs.push(spanColor);
+    globalCouleur.push(aCouleurs);
+    globalCouleur.push(curCouleur);
+        
+    return globalCouleur;
   },
-
+  
   /**
    * Start the thing
    */

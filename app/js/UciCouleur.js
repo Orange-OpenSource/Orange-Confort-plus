@@ -28,10 +28,12 @@ UciCouleur = {
     InitUciCouleur: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
         ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
-          ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
-          ["label", {"for":"a11yVisualSettings", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
-          accessibilitytoolbar.makePredefinedCouleurTpl(),
-          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"message_couleur"},
+          ["div",
+            ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
+            ["label", {"for":"a11yVisualSettings"}, accessibilitytoolbar.get('uci_color_titre')],
+            accessibilitytoolbar.makePredefinedCouleurSelect(),
+          ],
+          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
             ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
             ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
           ]

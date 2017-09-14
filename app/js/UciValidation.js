@@ -34,7 +34,7 @@ UciValidation = {
             window.event.cancelBubble = true;
             window.eventReturnValue = false;
         }
-        document.getElementById("uci-onoffswitch").focus();
+        document.getElementById("uci_logo_link").focus();
         
         accessibilitytoolbar.setCSS();
 
@@ -71,7 +71,7 @@ UciValidation = {
     },
 
     Annulation: function () {
-        document.getElementById("uci-onoffswitch").focus();
+        document.getElementById("uci_logo_link").focus();
         accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
         // Keep the toolbar open
         accessibilitytoolbar.userPref.set('a11yToolbarEnable','on');

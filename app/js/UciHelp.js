@@ -55,28 +55,28 @@ UciHelp = {
     uci_tour_step_2_typographie : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_typographie",
+      ongletId: "uci_onglet_typographie",
       prev:"uci_tour_step_1_advancedparam",
       next: "uci_tour_step_3_apparence"
     },
     uci_tour_step_3_apparence : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_apparence",
+      ongletId: "uci_onglet_apparence",
       prev:"uci_tour_step_2_typographie",
       next: "uci_tour_step_4_couleur"
     },
     uci_tour_step_4_couleur : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_couleur",
+      ongletId: "uci_onglet_couleur",
       prev:"uci_tour_step_3_apparence",
       next: "uci_tour_step_5_aidemotrice"
     },
     uci_tour_step_5_aidemotrice : {
       advancedparam : "open",
       parentId: "uci_zone_form",
-      ongletId: "onglet_aidemotrice",
+      ongletId: "uci_onglet_aidemotrice",
       prev:"uci_tour_step_4_couleur",
       next: ""
     }
@@ -295,7 +295,7 @@ UciHelp = {
     }
     if (document.getElementById("uci_reading")) {
       if (UciHelp._canBeOnMoreSettingHelp()) {
-        //accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode);
+        //accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("uci_onglet_typographie").parentNode);
         UciIhm.hide_more_confort();
         var unclick = document.getElementById("unclickMoreSettings").parentNode;
         unclick.removeChild(unclick.lastChild);
@@ -320,7 +320,7 @@ UciHelp = {
     document.getElementById("masque_haut").style.display = "none";
     if (document.getElementById("uci_reading")) {
       if (UciHelp._canBeOnMoreSettingHelp()) {
-        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("onglet_typographie").parentNode,false);
+        accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById("uci_onglet_typographie").parentNode,false);
         UciIhm.hide_more_confort();
         var unclick = document.getElementById("unclickMoreSettings").parentNode;
         unclick.removeChild(unclick.lastChild);
@@ -555,8 +555,8 @@ UciHelp = {
           UciIhm.more_confort();          
         }
         this._unclickMoreSettings();
-        if (nextObject.ongletId){
-          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById(nextObject.ongletId).parentNode, false);          
+        if (nextObject.uci_ongletId){
+          accessibilitytoolbar.uci_OuvrirMenuOnglet(document.getElementById(nextObject.uci_ongletId).parentNode, false);          
         }
       }
 

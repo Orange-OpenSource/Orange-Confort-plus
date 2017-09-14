@@ -23,8 +23,6 @@
 
 function UciStorage() {
     "use strict";
-    
-        /*****************************************************************************************************************/
 
     /**
      * Update browser cookies in order to save each of user preference value.

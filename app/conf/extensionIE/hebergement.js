@@ -38,3 +38,4 @@ var helpPath = {
 };
 var helpPathTarget = '';
 var hebergementFullPath = '';
+var onOffEnabled=false;

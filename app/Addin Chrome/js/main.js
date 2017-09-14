@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		    if(index > -1) {
 		        flag = 1;
 		    }
-			chrome.tabs.sendMessage(sender.tab.id, {message:'orangeconfort+userprefgetresponse', value:localStorage.getItem('userPref') + flag});
+			chrome.tabs.sendMessage(sender.tab.id, {message:'orangeconfort+userprefgetresponse', value:flag+"|"+localStorage.getItem('userPref')});
 			break;
 		case 'orangeconfort+userprefsave' :
 			localStorage.setItem('userPref', request.value);
