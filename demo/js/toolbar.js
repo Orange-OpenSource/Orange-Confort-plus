@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 14-09-2017
+/* orange-confort-plus - version 4.1.0 - 15-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.6009812e.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.b37de526.css';
  var onOffEnabled=true;
 // Source: app/js/ToolbarStrings.js
 /**
@@ -144,16 +144,19 @@ function ToolbarStrings() {
  @class Collection of user preference
  */
 function UciUserPref() {
-this.defautStoredValue = "0000651000390350270001100310000000006500000010";
+this.defautStoredValue = "0000651000380350270001100310000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
       '0':this.defautStoredValue, // no profile
-      '1':"0000651000390350270001100510000000006500100010", // improve reading (accessible dfa + font-size = 150%)
-      '2':"0000651000390350270111101310000000006500000010", // change layout (medium line spacing, text left, numbered list)
-      '3':"0000651000390350270001100310000101006500000010" // start motor help (start browse on hover)
+      '1':"0100651000380350270001100010000000006571400010",
+      // 1 = Arial + font-size = 125% + Texte jaune sur fond bleu + supprimer les images de fond
+      '2':"0000651010380350270111101010000000006500400010",
+      // 2 = Arial + + font-size = 120%  + espace entre les lignes Moyen + texte à gauche + numbered list + activation du masque moyen ( ?)
+      '3':"0000651000380350271001100310000001006500000010" 
+      // 3 = start browse on hover + apparence des liens (souligné + couleur standard)
     }
 
     this.finish = false;
@@ -699,7 +702,6 @@ var oNewNode = document.createElement("iframe");
     this.updateBlackList = function() {
         // Update the cdu cookies with the stackv3 value
         document.getElementById('id_frame_cookie').src=hebergementFullPath+"cookie.html?hostname="+document.location.hostname;
-        // this.setStoredValue(this.encode());
     };
     
     /**
@@ -754,7 +756,7 @@ UciStorage.prototype = new UciUserPref();
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['EN']={
-  howToClose: "Close mask: Esc key or click “close” cross on right",
+  howToClose: "Close mask: Esc key",
   save_service: "Save profile",
   uci_alt_logo:"Confort+",
   uci_button_cancel:"Cancel",
@@ -952,7 +954,7 @@ traduction['EN']={
 **/ 
 // No space before vertical punctuation in spanish
 traduction['ES']={
-  howToClose: "Cerrar la máscara: tecla Esc o cruz cerrada a la derecha", //v4
+  howToClose: "Cerrar la máscara: tecla Esc", //v4
   save_service: "Guardar perfil", //v4
   uci_alt_logo:"Confort+",
   uci_button_cancel:"No memorizar mis ajustes",
@@ -1148,7 +1150,7 @@ traduction['ES']={
 **/
 // Space before vertical punctuation in French
 traduction['FR']={
-  howToClose: "Fermeture du masque : touche Echap ou croix à droite",
+  howToClose: "Fermeture du masque : touche Echap",
   save_service: "Enregistrer le profil",
   uci_alt_logo:"Confort+",
   uci_button_cancel:"Annuler",
@@ -1232,9 +1234,9 @@ traduction['FR']={
   uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action ?",
   uci_new_window:"Nouvelle fen\352tre",
   uci_next: "suivant",
-  uci_predefined_change_layout: "Modifier la mise en page",
-  uci_predefined_improve_readability: "Améliorer la lisibilité",
-  uci_predefined_motor_help: "Activer l'aide motrice",
+  uci_predefined_change_layout: "Faciliter la lecture", // V4
+  uci_predefined_improve_readability: "Améliorer la lisibilité", // V4
+  uci_predefined_motor_help: "Naviguer sans effort", // V4
   uci_predefined_none: "Aucun profil",
   uci_predefined_profils_title: "profils predefinis",
   uci_previous: "pr\351c\351dent",
@@ -1348,7 +1350,7 @@ traduction['FR']={
 **/
 // No space before vertical punctuation in polish
 traduction['PL'] = {
-  howToClose: "Zamknij maskę: klawisz Esc lub prawy krzyżyk po prawej",  //v4
+  howToClose: "Zamknij maskę: klawisz Esc",  //v4
   save_service: "Zapisz profil", //v4
   uci_alt_logo: "Confort+",
   uci_button_cancel: "Anuluj",
@@ -1758,10 +1760,6 @@ UciCouleur = {
             ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
             ["label", {"for":"a11yVisualSettings"}, accessibilitytoolbar.get('uci_color_titre')],
             accessibilitytoolbar.makePredefinedCouleurSelect(),
-          ],
-          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
-            ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
-            ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
           ]
         ],
         ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
@@ -1797,6 +1795,10 @@ UciCouleur = {
               ]
             ]
           ]
+        ],
+        ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
+          ["div", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
+          ["span", {style:"color: black !important; background-color: #FFFFFF !important;", "class":"uci_message_contraste_lbl", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
         ]
       ]);
     }
@@ -3825,24 +3827,32 @@ UciMask = {
 
         init: function() {
 	        if ((!window.Modernizer) || !Modernizr.touch) {
-	        	topMask = document.createElement("div");
-	        	topMask.className="uci_mask topMask";
-	        	topMask.id="topMask";
-	        	bottomMask = document.createElement("div");
-	        	bottomMask.className="uci_mask bottomMask";
-            bottomMask.id="bottomMask";
-            document.getElementsByTagName("body")[0].appendChild(topMask);
+            // check if mask already exist, remove textual content for translation
+            if(!document.getElementById('topMask')) {
+  	        	topMask = document.createElement("div");
+  	        	topMask.className="uci_mask topMask";
+  	        	topMask.id="topMask";
+  	        	bottomMask = document.createElement("div");
+  	        	bottomMask.className="uci_mask bottomMask";
+              bottomMask.id="bottomMask";
+              document.getElementsByTagName("body")[0].appendChild(topMask);            
+              document.getElementsByTagName("body")[0].appendChild(bottomMask);                          
+              vMouse = document.createElement("div");
+              vMouse.className="vMouse";
+              vMouse.id="vMouse";
+              hMouse = document.createElement("div");
+              hMouse.className="hMouse";
+              hMouse.id="hMouse";
+              document.getElementsByTagName("body")[0].appendChild(vMouse);
+              document.getElementsByTagName("body")[0].appendChild(hMouse);              
+            }
+            // remove tomask childs if exists
+            while(document.getElementById('topMask').hasChildNodes()) {
+              document.getElementById('topMask').removeChild(document.getElementById('topMask').childNodes[0]);
+            }
+            // append textual content to topmask
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
-            document.getElementsByTagName("body")[0].appendChild(bottomMask);
             document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
-            vMouse = document.createElement("div");
-            vMouse.className="vMouse";
-            vMouse.id="vMouse";
-            hMouse = document.createElement("div");
-            hMouse.className="hMouse";
-            hMouse.id="hMouse";
-            document.getElementsByTagName("body")[0].appendChild(vMouse);
-            document.getElementsByTagName("body")[0].appendChild(hMouse);
 	        }
         },
 
@@ -3866,7 +3876,7 @@ UciMask = {
         },
 
         explainHowToCloseDiv: function(){
-          return accessibilitytoolbar.make(["div", {id:"howToClose", "class": "closeMask howtoclose"},  accessibilitytoolbar.get('howToClose') ])
+          return accessibilitytoolbar.make(["div", {id:"howToClose", "class": "howtoclose"},  accessibilitytoolbar.get('howToClose') ])
         },
 
         maskEventCreate: function() {
@@ -3874,21 +3884,13 @@ UciMask = {
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
             document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-            document.getElementById("closeMaskDiv").addEventListener('mouseover',function(){UciMask.changeVisibility("visible")}, false);
-            document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")}, false);
           }
           //For IE browser
           else if (document.attachEvent) {
             document.attachEvent('onmousemove', UciMask.maskEvent);
             document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-            document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
-            document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
           }
           UciMask.settings.launched = true;
-        },
-
-        changeVisibility: function(state){
-          document.getElementById("closeMask").style.visibility = state;
         },
 
         exitMask: function(e){
@@ -6284,9 +6286,6 @@ accessibilitytoolbar = {
   // when the user change the lang of the interface, wee need to reload after save is done
   needToReload: false,
 
-  // mask already loaded?
-  toolbarMaskInit: false,
-
   // addevent input params : 
   // 1- for addeventlistenername
   // 2- for attacheventlistener
@@ -6461,13 +6460,11 @@ accessibilitytoolbar = {
             break;
           case 'a11yFontColor' :
               document.getElementById('aria_label_texte').style.setProperty("background-color", value, "important");
-              //document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("color", value, "important");
               accessibilitytoolbar.checkLum(value,accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
               accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),value);
             break;
           case 'a11yBackgroundColor' :
               document.getElementById('uci_aria_label_fond').style.setProperty("background-color", value, "important");
-              //document.getElementById('uci_a11yVisualPredefinedSettings_personnal').style.setProperty("background-color", value, "important");
               accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yFontColor"),value);
               accessibilitytoolbar.updateColorBox(value,accessibilitytoolbar.userPref.get("a11yFontColor"));
             break;
@@ -6779,7 +6776,6 @@ accessibilitytoolbar = {
     if (this.getCompatible('a11yMaskEnabled')) {
       accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_epaisseurmask');
     }
-    // accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpredefinie');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpolice');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurbackground');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleur_lien_visite');
@@ -6889,8 +6885,10 @@ accessibilitytoolbar = {
    */
   documentKeyupEvent: function(e) {
     // ctrl key and M at the same time (Start the mask if not already stated)
-    if ((e.ctrlKey || e.metaKey) && e.keyCode == 77 && accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") {
-        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"true",type:"checkbox",checked:"checked"}});
+    if ((e.ctrlKey || e.metaKey) && e.keyCode == 77) {
+        var value = "false";
+        if(accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") value="true"
+        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:value,type:"checkbox",checked:"checked"}});
         accessibilitytoolbar.setCSS();
     }
   },
@@ -7245,7 +7243,7 @@ accessibilitytoolbar = {
         document.getElementById('uci_custom_color_panel').style.display = "block";
       } else {
         document.getElementById('uci_message_constraste').style.display = 'none';
-        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].fontColor,predifinedCombinaisons[curOptionValue].backGroundColor);
+        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].backGroundColor,predifinedCombinaisons[curOptionValue].fontColor);
         document.getElementById('uci_custom_color_panel').style.display = "none";
       }      
     }
@@ -7650,15 +7648,15 @@ accessibilitytoolbar = {
       //gestion des liens de navigations
       if (localUserPref.get("a11yNavLienEnabled") !== "false") {
         //gestion des liens non visités
-        s += "a:link  {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):link  {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
 
         //gestion des liens visités
-        s += "a:visited {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):visited {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
 
         //gestion du lien actif
-        s += "a:active {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        s += "a:focus {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        s += "a:hover {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):active {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):focus {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):hover {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
       }
       //suppression des effets de transparences
       if (localUserPref.get("a11ySupEffetTransp") !== "false") {
@@ -7705,10 +7703,8 @@ accessibilitytoolbar = {
       fontColor = "#000000";
       if (!init) {
         document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className.replace(/ uci_black{0,1}/, "");
-        // document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className.replace(/ uci_black{0,1}/, "");
       }
       if (localUserPref.get("a11yVisualSettings") === "true") {
-        // || (localUserPref.get("a11yVisualSettings") === "personnal" && localUserPref.get("a11yFontColor") !== localUserPref.get("a11yBackgroundColor"))) {
         if (localUserPref.get("a11yVisualPredefinedSettings") !== "personnal") {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
@@ -7733,7 +7729,6 @@ accessibilitytoolbar = {
           if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
             if (!init) {
               document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
-              // document.getElementById('uci_reponses_couleurpredefinie').className = document.getElementById('uci_reponses_couleurpredefinie').className + " uci_black";
             }
             fontColor = "#FFF";
             backGroundColor = "#000";
@@ -7744,20 +7739,21 @@ accessibilitytoolbar = {
           fontColor = localUserPref.get("a11yFontColor");
           backGroundColor = localUserPref.get("a11yBackgroundColor");
         }
-
-        s += "* { color:" + fontColor + " !important; }\n";
-        s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
-        // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
-        s += "input { border-width: 2px !important; border-style: solid !important}\n";
-        s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
-        s += "table {border-collapse: collapse !important;}";
-        s += "*:not(.uci_mask) { background-color:" + backGroundColor + " !important;}";
-        // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
-        // background:" + backGroundColor + " !important; }\n";
-        s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
-
+        // don't apply personnal colors if they're the same
+        if(fontColor !== backGroundColor) {
+          s += "* { color:" + fontColor + " !important; }\n";
+          s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
+          // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
+          s += "input { border-width: 2px !important; border-style: solid !important}\n";
+          s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
+          s += "table {border-collapse: collapse !important;}";
+          s += "*:not(.uci_mask) { background-color:" + backGroundColor + " !important;}";
+          // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
+          // background:" + backGroundColor + " !important; }\n";
+          s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
+          s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
+          s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
+        }
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
       }
       else {
@@ -7768,10 +7764,7 @@ accessibilitytoolbar = {
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.option = localUserPref.get("a11yMaskOption");
         UciMask.settings.thickness = localUserPref.get("a11yMaskOpacity");
-        if (!accessibilitytoolbar.toolbarMaskInit) {
-          UciMask.init();
-          accessibilitytoolbar.toolbarMaskInit = true;
-        }
+        UciMask.init();
         UciMask.start();
         switch(localUserPref.get("a11yMaskOption")) {
           case "mask":
