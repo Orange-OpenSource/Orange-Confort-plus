@@ -18,16 +18,19 @@
  */
 function UciUserPref() {
     "use strict";
-    this.defautStoredValue = "0000651000390350270001100310000000006500000010";
+    this.defautStoredValue = "0000651000380350270001100310000000006500000010";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
       '0':this.defautStoredValue, // no profile
-      '1':"0000651000390350270001100510000000006500100010", // improve reading (accessible dfa + font-size = 150%)
-      '2':"0000651000390350270111101310000000006500000010", // change layout (medium line spacing, text left, numbered list)
-      '3':"0000651000390350270001100310000101006500000010" // start motor help (start browse on hover)
+      '1':"0100651000380350270001100010000000006571400010",
+      // 1 = Arial + font-size = 125% + Texte jaune sur fond bleu + supprimer les images de fond
+      '2':"0000651010380350270111101010000000006500400010",
+      // 2 = Arial + + font-size = 120%  + espace entre les lignes Moyen + texte à gauche + numbered list + activation du masque moyen ( ?)
+      '3':"0000651000380350271001100310000001006500000010" 
+      // 3 = start browse on hover + apparence des liens (souligné + couleur standard)
     }
 
     this.finish = false;

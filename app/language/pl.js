@@ -15,7 +15,7 @@
 **/
 // No space before vertical punctuation in polish
 traduction['PL'] = {
-  howToClose: "Zamknij maskę: klawisz Esc lub prawy krzyżyk po prawej",  //v4
+  howToClose: "Zamknij maskę: klawisz Esc",  //v4
   save_service: "Zapisz profil", //v4
   uci_alt_logo: "Confort+",
   uci_button_cancel: "Anuluj",

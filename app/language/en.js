@@ -14,7 +14,7 @@
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
 traduction['EN']={
-  howToClose: "Close mask: Esc key or click “close” cross on right",
+  howToClose: "Close mask: Esc key",
   save_service: "Save profile",
   uci_alt_logo:"Confort+",
   uci_button_cancel:"Cancel",

@@ -2280,9 +2280,6 @@ accessibilitytoolbar = {
   // when the user change the lang of the interface, wee need to reload after save is done
   needToReload: false,
 
-  // mask already loaded?
-  toolbarMaskInit: false,
-
   // addevent input params : 
   // 1- for addeventlistenername
   // 2- for attacheventlistener
@@ -2882,8 +2879,10 @@ accessibilitytoolbar = {
    */
   documentKeyupEvent: function(e) {
     // ctrl key and M at the same time (Start the mask if not already stated)
-    if ((e.ctrlKey || e.metaKey) && e.keyCode == 77 && accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") {
-        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:"true",type:"checkbox",checked:"checked"}});
+    if ((e.ctrlKey || e.metaKey) && e.keyCode == 77) {
+        var value = "false";
+        if(accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") value="true"
+        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:value,type:"checkbox",checked:"checked"}});
         accessibilitytoolbar.setCSS();
     }
   },
@@ -3238,7 +3237,7 @@ accessibilitytoolbar = {
         document.getElementById('uci_custom_color_panel').style.display = "block";
       } else {
         document.getElementById('uci_message_constraste').style.display = 'none';
-        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].fontColor,predifinedCombinaisons[curOptionValue].backGroundColor);
+        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].backGroundColor,predifinedCombinaisons[curOptionValue].fontColor);
         document.getElementById('uci_custom_color_panel').style.display = "none";
       }      
     }
@@ -3643,15 +3642,15 @@ accessibilitytoolbar = {
       //gestion des liens de navigations
       if (localUserPref.get("a11yNavLienEnabled") !== "false") {
         //gestion des liens non visités
-        s += "a:link  {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):link  {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienNonVisColor") + " !important; }\n";
 
         //gestion des liens visités
-        s += "a:visited {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):visited {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienVisColor") + " !important; }\n";
 
         //gestion du lien actif
-        s += "a:active {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        s += "a:focus {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
-        s += "a:hover {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):active {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):focus {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
+        s += "a:not(.uci_alt_logo):hover {text-decoration:underline !important;color: " + localUserPref.get("a11yNavLienSelColor") + " !important; }\n";
       }
       //suppression des effets de transparences
       if (localUserPref.get("a11ySupEffetTransp") !== "false") {
@@ -3734,20 +3733,21 @@ accessibilitytoolbar = {
           fontColor = localUserPref.get("a11yFontColor");
           backGroundColor = localUserPref.get("a11yBackgroundColor");
         }
-
-        s += "* { color:" + fontColor + " !important; }\n";
-        s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
-        // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
-        s += "input { border-width: 2px !important; border-style: solid !important}\n";
-        s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
-        s += "table {border-collapse: collapse !important;}";
-        s += "*:not(.uci_mask) { background-color:" + backGroundColor + " !important;}";
-        // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
-        // background:" + backGroundColor + " !important; }\n";
-        s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
-        s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
-
+        // don't apply personnal colors if they're the same
+        if(fontColor !== backGroundColor) {
+          s += "* { color:" + fontColor + " !important; }\n";
+          s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
+          // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
+          s += "input { border-width: 2px !important; border-style: solid !important}\n";
+          s += "td,th {border: 2px solid " + fontColor + " !important; padding:.2em !important;}";
+          s += "table {border-collapse: collapse !important;}";
+          s += "*:not(.uci_mask) { background-color:" + backGroundColor + " !important;}";
+          // FIX 17/01/2017 keep background images, as thay can be used to transmit information like icons or other
+          // background:" + backGroundColor + " !important; }\n";
+          s += "*:link, *:visited , *:hover { color:" + fontColor + ";}\n";
+          s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path1:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path2:before {color:" + fontColor + "}\n";
+          s += "#accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path5:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path3:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path4:before, #accessibilitytoolbarGraphic input[type='checkbox']:checked + label.uci_color_checkbox .cdu-icon-color .path6:before {color:" + backGroundColor + "}\n";
+        }
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_enabled';
       }
       else {
@@ -3758,10 +3758,7 @@ accessibilitytoolbar = {
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.option = localUserPref.get("a11yMaskOption");
         UciMask.settings.thickness = localUserPref.get("a11yMaskOpacity");
-        if (!accessibilitytoolbar.toolbarMaskInit) {
-          UciMask.init();
-          accessibilitytoolbar.toolbarMaskInit = true;
-        }
+        UciMask.init();
         UciMask.start();
         switch(localUserPref.get("a11yMaskOption")) {
           case "mask":

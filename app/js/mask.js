@@ -22,24 +22,32 @@ UciMask = {
 
         init: function() {
 	        if ((!window.Modernizer) || !Modernizr.touch) {
-	        	topMask = document.createElement("div");
-	        	topMask.className="uci_mask topMask";
-	        	topMask.id="topMask";
-	        	bottomMask = document.createElement("div");
-	        	bottomMask.className="uci_mask bottomMask";
-            bottomMask.id="bottomMask";
-            document.getElementsByTagName("body")[0].appendChild(topMask);
+            // check if mask already exist, remove textual content for translation
+            if(!document.getElementById('topMask')) {
+  	        	topMask = document.createElement("div");
+  	        	topMask.className="uci_mask topMask";
+  	        	topMask.id="topMask";
+  	        	bottomMask = document.createElement("div");
+  	        	bottomMask.className="uci_mask bottomMask";
+              bottomMask.id="bottomMask";
+              document.getElementsByTagName("body")[0].appendChild(topMask);            
+              document.getElementsByTagName("body")[0].appendChild(bottomMask);                          
+              vMouse = document.createElement("div");
+              vMouse.className="vMouse";
+              vMouse.id="vMouse";
+              hMouse = document.createElement("div");
+              hMouse.className="hMouse";
+              hMouse.id="hMouse";
+              document.getElementsByTagName("body")[0].appendChild(vMouse);
+              document.getElementsByTagName("body")[0].appendChild(hMouse);              
+            }
+            // remove tomask childs if exists
+            while(document.getElementById('topMask').hasChildNodes()) {
+              document.getElementById('topMask').removeChild(document.getElementById('topMask').childNodes[0]);
+            }
+            // append textual content to topmask
             document.getElementById('topMask').appendChild(UciMask.initCloseMask());
-            document.getElementsByTagName("body")[0].appendChild(bottomMask);
             document.getElementById("topMask").appendChild(UciMask.explainHowToCloseDiv());
-            vMouse = document.createElement("div");
-            vMouse.className="vMouse";
-            vMouse.id="vMouse";
-            hMouse = document.createElement("div");
-            hMouse.className="hMouse";
-            hMouse.id="hMouse";
-            document.getElementsByTagName("body")[0].appendChild(vMouse);
-            document.getElementsByTagName("body")[0].appendChild(hMouse);
 	        }
         },
 
@@ -63,7 +71,7 @@ UciMask = {
         },
 
         explainHowToCloseDiv: function(){
-          return accessibilitytoolbar.make(["div", {id:"howToClose", "class": "closeMask howtoclose"},  accessibilitytoolbar.get('howToClose') ])
+          return accessibilitytoolbar.make(["div", {id:"howToClose", "class": "howtoclose"},  accessibilitytoolbar.get('howToClose') ])
         },
 
         maskEventCreate: function() {
@@ -71,21 +79,13 @@ UciMask = {
           if (document.addEventListener) {
             document.addEventListener('mousemove', UciMask.maskEvent, false);
             document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-            document.getElementById("closeMaskDiv").addEventListener('mouseover',function(){UciMask.changeVisibility("visible")}, false);
-            document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")}, false);
           }
           //For IE browser
           else if (document.attachEvent) {
             document.attachEvent('onmousemove', UciMask.maskEvent);
             document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-            document.getElementById("closeMaskDiv").addEventListener('mouseover', function(){UciMask.changeVisibility("visible")});
-            document.getElementById("closeMaskDiv").addEventListener('mouseout', function(){UciMask.changeVisibility("hidden")});
           }
           UciMask.settings.launched = true;
-        },
-
-        changeVisibility: function(state){
-          document.getElementById("closeMask").style.visibility = state;
         },
 
         exitMask: function(e){

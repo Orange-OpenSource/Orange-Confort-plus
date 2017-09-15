@@ -15,7 +15,7 @@
 **/
 // Space before vertical punctuation in French
 traduction['FR']={
-  howToClose: "Fermeture du masque : touche Echap ou croix à droite",
+  howToClose: "Fermeture du masque : touche Echap",
   save_service: "Enregistrer le profil",
   uci_alt_logo:"Confort+",
   uci_button_cancel:"Annuler",
@@ -99,9 +99,9 @@ traduction['FR']={
   uci_modif_not_saved:"Vos r\351glages en cours ne seront pas sauvegard\351s, souhaitez-vous poursuivre cette action ?",
   uci_new_window:"Nouvelle fen\352tre",
   uci_next: "suivant",
-  uci_predefined_change_layout: "Modifier la mise en page",
-  uci_predefined_improve_readability: "Améliorer la lisibilité",
-  uci_predefined_motor_help: "Activer l'aide motrice",
+  uci_predefined_change_layout: "Faciliter la lecture", // V4
+  uci_predefined_improve_readability: "Améliorer la lisibilité", // V4
+  uci_predefined_motor_help: "Naviguer sans effort", // V4
   uci_predefined_none: "Aucun profil",
   uci_predefined_profils_title: "profils predefinis",
   uci_previous: "pr\351c\351dent",

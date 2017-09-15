@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	switch(request.message) {
 		case 'orangeconfort+userprefget' :
 			if(localStorage.getItem('userPref') === null) {   
-		        localStorage.setItem('userPref', '0000651000390350270001100310000000006500000010');
+		        localStorage.setItem('userPref', '0000651000380350270001100310000000006500000010');
 		    }
 		    var index = localStorage.getItem('blacklist').indexOf(request.value);
 		    var flag = 0;

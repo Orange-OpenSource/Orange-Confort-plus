@@ -32,10 +32,6 @@ UciCouleur = {
             ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
             ["label", {"for":"a11yVisualSettings"}, accessibilitytoolbar.get('uci_color_titre')],
             accessibilitytoolbar.makePredefinedCouleurSelect(),
-          ],
-          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
-            ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
-            ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
           ]
         ],
         ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
@@ -71,6 +67,10 @@ UciCouleur = {
               ]
             ]
           ]
+        ],
+        ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
+          ["div", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
+          ["span", {style:"color: black !important; background-color: #FFFFFF !important;", "class":"uci_message_contraste_lbl", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
         ]
       ]);
     }

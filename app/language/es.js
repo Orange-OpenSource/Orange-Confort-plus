@@ -15,7 +15,7 @@
 **/ 
 // No space before vertical punctuation in spanish
 traduction['ES']={
-  howToClose: "Cerrar la máscara: tecla Esc o cruz cerrada a la derecha", //v4
+  howToClose: "Cerrar la máscara: tecla Esc", //v4
   save_service: "Guardar perfil", //v4
   uci_alt_logo:"Confort+",
   uci_button_cancel:"No memorizar mis ajustes",

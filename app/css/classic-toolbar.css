@@ -1245,6 +1245,12 @@ li.uci_dropdown-divider {
 	color: black !important;
 	border: 2px solid #F16e00;
 	padding: 5px;
+	padding-left: 80px;
+	min-height: 80px;
+	max-width: 30em;
+}
+.uci_message_contraste_lbl{
+	font-weight: normal;
 }
 
 /***************************************************Fin espace Menu***********************************************/
@@ -1783,7 +1789,8 @@ li.uci_dropdown-divider {
   outline: none;
 }
 
-.closeMask{
+.closeMask,
+.howtoclose {
 	position: absolute;
 	right: 0px;
 	z-index: 2147483646;
@@ -1792,8 +1799,12 @@ li.uci_dropdown-divider {
 .closeMaskHidden{
 	visibility: hidden;
 }
+.closeMask:hover .closeMaskHidden,
+.closeMaskHidden:focus{
+	visibility: visible;
+}
 
-#closeMaskDiv button {
+.closeMask button {
 	margin: 0;
 	padding: 0;
 

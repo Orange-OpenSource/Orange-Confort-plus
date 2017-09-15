@@ -128,7 +128,7 @@ function startCDU(tab) {
     });
     worker.port.on('orangeconfort+userprefget', function (hostname) {
       if (typeof (ss.storage.userPref) == 'undefined') {
-        ss.storage.userPref = '0000651000390350270001100310000000006500000010';
+        ss.storage.userPref = '0000651000380350270001100310000000006500000010';
       }
       var index = ss.storage.blacklist.indexOf(hostname);
       var flag = 0;
