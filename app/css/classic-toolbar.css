@@ -725,6 +725,10 @@ a.cdu_hide:focus {
 }
 .uci-onoffswitch-inner-before {
 	left: 0.1875em;
+	color: #000;
+}
+.uci-onoffswitch-label .uci-onoffswitch-inner-before{
+	color: #fff;
 }
 .uci-onoffswitch-inner-after {
 	left: 1.9375em;

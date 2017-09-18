@@ -192,11 +192,10 @@ UciProfile = {
             ]
           ],
           ["div", {"class":"margin-top margin-left margin-right"},
-            ["div", {"class":"margin-bottom"}, accessibilitytoolbar.get('uci_profile_curent_name')+" "+profilName],
             ["input",{ "type":"hidden", id:"previous_profil_name", value:profilName}],
             ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label'),
             ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
-            ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control"}]
+            ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control", value:profilName}]
           ],
           ["div", {"class": "margin-top margin-left margin-right padding-bottom" },
             ["input", { name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "reset", "class": "ucibtn-info ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_cancel')}],

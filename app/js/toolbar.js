@@ -3637,7 +3637,7 @@ accessibilitytoolbar = {
 
       //gestion alignement des texte à gauche
       if (localUserPref.get("a11yLeftText") !== "false") {
-        s += "* {text-align:" + localUserPref.get("a11yLeftText") + "!important; }\n";
+        s += "*:not(.closeMaskHidden) {text-align:" + localUserPref.get("a11yLeftText") + "!important; }\n";
       }
 
       //numerotation en mode liste
