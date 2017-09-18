@@ -839,9 +839,9 @@ traduction['EN']={
   uci_modif_not_saved:"Your unsaved settings will be lost, do you want to continue?",
   uci_new_window:"New window",
   uci_next: "next",
-  uci_predefined_change_layout: "Change the layout",
-  uci_predefined_improve_readability: "Improve readability",
-  uci_predefined_motor_help: "Start motor help",
+  uci_predefined_change_layout: "Make reading easier", // V4
+  uci_predefined_improve_readability: "Improve readability", // V4
+  uci_predefined_motor_help: "Navigate effortlessly", // V4
   uci_predefined_none: "No profile",
   uci_predefined_profils_title: "predefined profiles",
   uci_previous: "previous",
