@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 15-09-2017
+/* orange-confort-plus - version 4.1.0 - 18-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
@@ -1206,11 +1206,11 @@ li.uci_dropdown-divider {
 .uci_table_couleur {
 	margin: 0;
 	padding: 0;
-	min-width: 130px;
 	max-width: 430px;
+	background-color: white;
 }
 .uci_span_help_bulle .uci_table_couleur {
-	min-width: 416px;
+	min-width: 23em;
 }
 #accessibilitytoolbarGraphic .uci_couleur_li {
 	width: 1.625em;
@@ -1860,6 +1860,10 @@ li.uci_dropdown-divider {
 	border-color: inherit;
 	font-weight: normal;
 	text-align: left;
+}
+#accessibilitytoolbarGraphic .uci_select_color option {
+	color: #000;
+	background-color: #FFF;
 }
 
 #accessibilitytoolbarGraphic .uci_color_box {

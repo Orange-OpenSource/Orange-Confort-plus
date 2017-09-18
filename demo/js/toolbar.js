@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 15-09-2017
+/* orange-confort-plus - version 4.1.0 - 18-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.b37de526.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.35a7ff13.css';
  var onOffEnabled=true;
 // Source: app/js/ToolbarStrings.js
 /**
@@ -8323,7 +8323,9 @@ accessibilitytoolbar = {
   },
 
   updateColorBox: function(bgColor,fontColor) {
-    document.getElementById('uci_color_box').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+//    document.getElementById('uci_color_box').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+    document.getElementById('uci_reponses_couleurpredefinie').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+
   },
   
   makePredefinedCouleurSelect: function () {
@@ -8352,7 +8354,7 @@ accessibilitytoolbar = {
       ];
       aCouleur.push(curCouleur);
       if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key) {
-        spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"}, "A"]
+//        spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"}, "A"]
       }
       index++;
     }
@@ -8367,7 +8369,7 @@ accessibilitytoolbar = {
     aCouleur.push(curCouleur);
     customColorStyle="display:none";
     if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
-      spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}, "A"]
+//      spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}, "A"]
       // show the custom boxes
       customColorStyle="display:block";
     }
