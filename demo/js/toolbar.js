@@ -2339,9 +2339,9 @@ UciProfile = {
           ariaCurrent = "true";
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
-                                ["a", { id: "uci_profile"+i, href:"#", role:"button", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
-                                ["a", { id: "uci_profile_edit"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
-                                ["a", { id: "uci_profile_trash"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
+                                ["a", { id: "uci_profile_"+i, href:"#", role:"button", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
+                                ["a", { id: "uci_profile_edit_"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
+                                ["a", { id: "uci_profile_trash_"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
@@ -2553,9 +2553,9 @@ UciProfile = {
     // allow delete only if there's more than one profile
     var i = 0;
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
-      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile"+i),function(e){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.loadProfile(''+profil,target.id)});
-      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_edit"+i),function(e){accessibilitytoolbar.stopEvt(e);UciProfile.editProfile(''+profil)});
-      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_trash"+i),function(e){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.trashProfile(''+profil,target.id)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_"+i),function(e,profil){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.loadProfile(false,target.id)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_edit_"+i),function(e,profil){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.editProfile(false,target.id)});
+      accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById("uci_profile_trash_"+i),function(e,profil){accessibilitytoolbar.stopEvt(e);var target = e.target || e.srcElement;UciProfile.trashProfile(false,target.id)});
       i++;
     }
   },
@@ -2595,7 +2595,7 @@ UciProfile = {
    * doesntneedtotconfirm is used when a user just trash the current profile
    */
   loadProfile: function(profilName,idCible,doesntneedtotconfirm) {
-    e = window.event;
+    var e = window.event;
     accessibilitytoolbar.stopEvt(e);
     // Ignore the displaytoolbar, and lang flag for comparison
     if (doesntneedtotconfirm || (accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
@@ -2604,8 +2604,12 @@ UciProfile = {
       // hide validation buttons
       document.getElementById('uci_validation').className = "cdu_n";
       document.getElementById('uci_zone_form').style.display = "none";
-      
-      if(uci_activateOnglet)      
+      // if profile name === false then get the index of the profile from the target id
+      if(!profilName && idCible) {
+        var resArray = idCible.split('_');
+        var value = resArray[resArray.length - 1];
+        var profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[value];
+      }
       if(profilName) {
         accessibilitytoolbar.userPref.settings.current = profilName;
         accessibilitytoolbar.userPref.readUserPref();
@@ -2642,9 +2646,15 @@ UciProfile = {
    * edit a profil
    * 
    */
-  editProfile: function(profilName) {
-    e = window.event;
+  editProfile: function(profilName,idCible) {
+    var e = window.event;
     accessibilitytoolbar.stopEvt(e);
+    // if profile name === false then get the index of the profile from the target id
+    if(!profilName && idCible) {
+      var resArray = idCible.split('_');
+      var value = resArray[resArray.length - 1];
+      var profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[value];
+    }
     UciIhm.hide_confirm_validation();
     UciIhm.uci_close_menu('uci_profile_menu');
     // clean the popin
@@ -2664,8 +2674,14 @@ UciProfile = {
    */
   trashProfile: function(profilName,idToRemove) {
     var profilok = false;
-    e = window.event;
+    var e = window.event;
     accessibilitytoolbar.stopEvt(e);
+    // if profile name === false then get the index of the profile from the target id
+    if(!profilName && idToRemove) {
+      var resArray = idToRemove.split('_');
+      var value = resArray[resArray.length - 1];
+      var profilName = Object.keys(accessibilitytoolbar.userPref.settings.profiles)[value];
+    }
     this.isTrashing = true;
     if(confirm(accessibilitytoolbar.get('uci_profile_delete_warning'))) {
       delete accessibilitytoolbar.userPref.settings.profiles[profilName];
