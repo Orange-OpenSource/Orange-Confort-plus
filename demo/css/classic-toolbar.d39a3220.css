@@ -978,14 +978,14 @@ li.uci_dropdown-divider {
 	min-width: 100px;
 	color: #000;
 }
-.uci_uci_onglet_0 {
+.uci_onglet_0 {
 	border-bottom: 2px solid transparent;
 	border-top: 2px solid transparent;
 	border-right: 2px solid transparent;
 	border-left: 2px solid transparent;
 	margin-bottom: -2px;
 }
-.uci_uci_onglet_1 {
+.uci_onglet_1 {
 	border-top-color: inherit;
 	border-right-color: inherit;
 	border-left-color: inherit;
