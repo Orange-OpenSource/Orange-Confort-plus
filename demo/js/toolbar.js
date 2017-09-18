@@ -1290,7 +1290,7 @@ traduction['FR']={
   uci_txt_onglet_settings:"Réglages avancés",
   uci_txt_onglet_typo:"Typographie",
   uci_txt_visited:"Liens visit\351s",
-  uci_typo_help_changecase:"Cette commande permet de modifier la typographie du texte définie par le site Internet afin d’améliorer le confort de lecture.",
+  uci_typo_help_changecase:"Cette commande permet de modifier la typographie du texte définie par le site Internet.",
   uci_typo_help_fontfamily:"Cette commande permet de remplacer la police de caractère définie par le site Internet par une autre police.",
   uci_typo_titre_changecase:"Majuscule / Minuscule",
   uci_typo_titre_fontfamily:"Police de caract\350re",
