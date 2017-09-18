@@ -361,6 +361,7 @@ UciIhm = {
         var elmt_enfant = elmt.children[i];
         if (elmt_enfant.getAttribute('tabindex') === '0' && elmt_enfant.getElementsByTagName('li')) {
           elmt_enfant.focus();
+          break;
         }
       }
 

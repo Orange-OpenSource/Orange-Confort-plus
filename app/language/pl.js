@@ -21,7 +21,7 @@ traduction['PL'] = {
   uci_button_cancel: "Anuluj",
   uci_button_valid: "Zachowaj ustawienia",
   uci_button_valid_profil: "Zaktualizuj nazwę profilu", //v4
-  uci_changecase_firstlettre: "Pierwsza litera wielka",
+  uci_changecase_firstlettre: "Pierwsza litera",
   uci_changecase_firstlettre_title: "Zacznij każde słowo z wielkiej litery",
   uci_changecase_normal_title: "Domyślny wygląd tekstu",
   uci_changecase_tolower: "małe litery",
@@ -31,7 +31,7 @@ traduction['PL'] = {
   uci_close_guide: "Zamknij przewodnik", //v4
   uci_close_mask: "Zamknij maskę do czytania", //v4
   uci_closeButton: "Zamknij",
-  uci_color_titre: "Połączenie ustawionych kolorów",
+  uci_color_titre: "Kolor czcionki i tła",
   uci_color_txt_background: "Kolor tła",
   uci_color_txt_texte: "Kolor czcionki",
   uci_color_warning_content: "Tekst i kolor tła mają zbyt niski contrast. Może to spowodować ból oczu lub problemy z czytaniem.",
@@ -69,20 +69,16 @@ traduction['PL'] = {
   uci_mask_label: "Włącz podświetlenie selektywne",
   uci_label_nearelemtmenu: "Obok wybranego elementu",
   uci_label_putnumonlist: "Lista z numerami elementów",
-  uci_label_regle_horizontale: "Show a horizontal ruler",// V4
-  uci_label_regle_vertical: "Show a vertical ruler",// V4
+  uci_label_regle_horizontale: "Pokaż poziomy linijka",// V4
+  uci_label_regle_vertical: "Pokaż pionowy linijkę",// V4
   uci_label_telecomande: "Nawigować “po najechaniu”",
   uci_legend_delai_clic: "Opóźnienie przed automatycznym kliknięciem",
   uci_legend_menupos: "Pozycja menu",
   uci_legend_pasquickmode: "Kroki trybu szybkiego",
   uci_legend_time_before_sel: "Opóźnienie wybranego elementu",
-  uci_link_display_picture: "Pokaż ten obraz :",
+  uci_link_display_picture: "Pokaż ten obraz:",
   uci_link_display_picture_no_alt: "Opis niedostępny",
   uci_link_hide_toolbar: "Schowaj pasek narzędzi",
-  uci_link_render_options_bold: "pogrubienie",
-  uci_link_render_options_border: "pole",
-  uci_link_render_options_default: "domyślne",
-  uci_link_render_options_underline: "podkreśl",
   uci_loopActivable: "Nawiguj po elementach",
   uci_loopActivableQuick: "Szybko nawiguj po elementach",
   uci_loopBackward: "Nawiguj wstecz",
@@ -90,35 +86,34 @@ traduction['PL'] = {
   uci_mask_settings_titre: "Odczytywanie ustawień maski", // V4
   uci_mask_settings_help: "Aby uaktywnić maskę, użyj przycisku w pasku szybkiego dostępu lub skrótu Ctrl / Cmd + M", // V4
   uci_other_settings_titre: "Inne ustawienia", //v4
-  uci_menu: "TODO", // V4
-  uci_menu_guide: "Guide pas \340 pas", // V4
-  uci_menu_help: "Pokaż pomoc",
+  uci_menu: "Menu", // V4
+  uci_menu_guide: "Przewodnik krok po kroku", // V4
+  uci_menu_help: "Odwiedź ogólną pomoc",
   uci_menu_info: "O aplikacji",
   uci_menu_remove_all: "Zresetuj",
   uci_modif_not_saved: "Niezapisane ustawienia zostaną utracone, czy chcesz kontynuować?",
   uci_new_window: "Nowe okno",
-  uci_next: "TODO",
-  uci_predefined_change_layout: "Change the layout",
-  uci_predefined_improve_readability: "Improve readability",
-  uci_predefined_motor_help: "Start motor help",
-  uci_predefined_none: "No profile",
-  uci_predefined_profils_title: "predefined profiles",
-  uci_previous: "TODO",
-  uci_profile_curent_name: "Current profile name :",
-  uci_profile_delete_warning: "ATTENTION",
-  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  uci_profile_new_label: "TODO",
-  uci_profile_new_option: "TODO",
-  uci_profile_rename_label: "Nouveau nom:",
-  uci_profile_save_label: "TODO:",
-  uci_radio_dark: "TODO",
+  uci_next: "Następny", // v4
+  uci_predefined_change_layout: "Ułatwić czytanie", // v4
+  uci_predefined_improve_readability: "Poprawa czytelności", // v4
+  uci_predefined_motor_help: "Nawiguj bez wysiłku", // v4
+  uci_predefined_none: "Brak profilu",//v4
+  uci_predefined_profils_title: "predefiniowane profile",//v4
+  uci_previous: "poprzedni", //v4
+  uci_profile_curent_name: "Aktualny profil:",//V4
+  uci_profile_delete_warning: "Czy na pewno chcesz usunąć ten profil?",//V4
+  uci_profile_name_format: "Minimalna długość: 3 znaki; proszę, nie ma specjalnych znaków. Nie używaj istniejącej nazwy profilu!", //v4
+  uci_profile_new_label: "Nowy profil:", //V4
+  uci_profile_new_option: "nowy profil", //V4
+  uci_profile_rename_label: "Nowe imie:", //v4
+  uci_profile_save_label: "Zapisz moje ustawienia:",//V4
+  uci_radio_dark: "Ciemny",//v4
   uci_radio_default: "Domyślne",
   uci_radio_large: "Duże",
-  uci_radio_light: "TODO",
+  uci_radio_light: "Jasność",//V4
   uci_radio_medium: "Średnie",
-  uci_radio_medium1: "TODO",
   uci_remove_all_settings: "Wszystkie ustawienia zostaną skasowane, czy chcesz kontynuować?",
-  uci_rename_profile: "Renommer le profil",
+  uci_rename_profile: "Zmień nazwę profilu",//V4
   uci_serv_name: "Confort",
   uci_stopLoop: "Zatrzymaj nawigację",
   uci_title_color_blackongreen: "Czarny tekst na zielonym tle",
@@ -126,7 +121,6 @@ traduction['PL'] = {
   uci_title_color_blueonwhite: "Niebieski tekst na białym tle",
   uci_title_color_blueonyellow: "Niebieski tekst na żółtym tle",
   uci_title_color_greenonblack: "Zielony tekst na czarnym tle",
-  uci_title_color_keepit: "Początkowe kolory",
   uci_title_color_personnal: "Wybierz spersonalizowane kolory",
   uci_title_color_whiteonblack: "Biały tekst na czarnym tle",
   uci_title_color_whiteonblue: "Biały tekst na niebieskim tle",
@@ -144,18 +138,16 @@ traduction['PL'] = {
   uci_title_linespacing_radio_medium: "Średnie przerwy między wierszami",
   uci_title_linespacing_radio_normal: "Domyślne przerwy między wierszami",
   uci_title_link_active_color: "Kolor wybranego linku",
-  uci_title_link_active_render: "Dodatkowe formatowanie wybranego linku",
   uci_title_link_notvisited_color: "Domyślne kolory linków",
-  uci_title_link_notvisited_render: "Formatowanie linków",
   uci_title_link_visited_color: "Kolory linków odwiedzonych",
-  uci_title_link_visited_render: "Dodatkowe formatowanie odwiedzonych linków",
   uci_title_wordspacing_radio_large: "Duże przerwy między słowami",
   uci_title_wordspacing_radio_medium: "Średnie przerwy między słowami",
   uci_title_wordspacing_radio_normal: "Domyślne przerwy między słowami",
   uci_titre_links: "Wygląd linków nawigacyjnych",
-  uci_tour_discover_edit_layout: "TODO",
-  uci_tour_discover_improve_readability: "TODO",
-  uci_tour_discover_service: "TODO",
+  uci_tour_discover_edit_layout: "Modyfikuj układ",//V4
+  uci_tour_discover_improve_readability: "Poprawa czytelności",//V4
+  uci_tour_discover_service: "odkryj usługę",//V4
+  uci_tour_discover_use_motor_assistance: "Użyj pomocy silnikowych",//V4
   uci_tour_step_0_reading: "TODO",
   uci_tour_step_1_advancedparam: "todo",
   uci_tour_step_2_typographie: "typographie",
@@ -166,18 +158,17 @@ traduction['PL'] = {
   uci_txt_link_menu: "Pomoc",
   uci_txt_link_menu_close: "Schowaj menu",
   uci_txt_link_menu_open: "Pokaż menu",
-  uci_txt_link_profil: "TODO",
+  uci_txt_link_profil: "Profile",//V4
   uci_txt_low_settings: "Zamknij panel więcej ustawień",
   uci_txt_low_settings_display: "Mniej ustawień",
-  uci_txt_mask_opacity: "TODO",
-  uci_txt_mask_size: "Wysokość maski",
+  uci_txt_mask_opacity: "Maskowanie kryjące",//V4
   uci_txt_menu_change_lang_en: "Pokaż usługę w języku angielskim",
   uci_txt_menu_change_lang_es: "Pokaż usługę w języku hiszpańskim",
   uci_txt_menu_change_lang_fr: "Pokaż usługę w języku francuskim",
   uci_txt_menu_change_lang_pl: "Pokaż usługę w języku polskim",
   uci_txt_more_settings: "Więcej ustawień",
   uci_txt_notvisited: "Linki",
-  uci_txt_onglet_apparence: "READING HELP Układ",
+  uci_txt_onglet_apparence: "Czytanie pomocy",//V4
   uci_txt_onglet_color: "Kolory",
   uci_txt_onglet_motor_help: "Zachowanie",
   uci_txt_onglet_settings: "Settings",
@@ -190,8 +181,6 @@ traduction['PL'] = {
   uci_typo_titre_fontsize: "Rozmiar czcionki",
   uci_typo_titre_linespacing: "Odstępy między wierszami",
   uci_typo_titre_wordspacing: "Odstępy między słowami",
-  update_custom_colors: "TODO",
- uci_tour_discover_use_motor_assistance : "TODO",
-  uci_profile_rename: "Rename profile :", //v4
-  uci_profile_delete: "Delete profile :", //v4
+  uci_profile_rename: "Zmień nazwę profilu:", //v4
+  uci_profile_delete: "Usuń profil:", //v4
 };

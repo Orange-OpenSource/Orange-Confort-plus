@@ -137,7 +137,7 @@ UciApparence = {
                       tabindex:accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "0" : "-1",
                       "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "true" : "false",
                     },
-                    accessibilitytoolbar.get('uci_radio_medium1')
+                    accessibilitytoolbar.get('uci_radio_medium')
                   ],
                   ["li", 
                     {id:"uci_a11yMaskOpacity_.9",

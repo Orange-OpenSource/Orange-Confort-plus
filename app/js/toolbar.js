@@ -2279,6 +2279,18 @@ accessibilitytoolbar = {
 
   // when the user change the lang of the interface, wee need to reload after save is done
   needToReload: false,
+  
+  // predefined color conbinaisons
+  predifinedCombinaisons: {
+    'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
+    'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
+    'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
+    'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
+    'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
+    'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
+    'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
+    'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
+  },
 
   // addevent input params : 
   // 1- for addeventlistenername
@@ -3219,25 +3231,14 @@ accessibilitytoolbar = {
     if(prefName === 'a11yVisualPredefinedSettings') {
       // get current option value
       var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').options[document.getElementById('uci_reponses_couleurpredefinie').selectedIndex].value;
-      //var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').value;a11yVisualPredefinedSettings
-      var predifinedCombinaisons = {
-        'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
-        'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
-        'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
-        'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
-        'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
-        'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-        'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
-        'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
-      };
-      
+
       if(curOptionValue === 'personnal') {
         accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
         accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
         document.getElementById('uci_custom_color_panel').style.display = "block";
       } else {
         document.getElementById('uci_message_constraste').style.display = 'none';
-        accessibilitytoolbar.updateColorBox(predifinedCombinaisons[curOptionValue].backGroundColor,predifinedCombinaisons[curOptionValue].fontColor);
+        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[curOptionValue].backGroundColor,accessibilitytoolbar.predifinedCombinaisons[curOptionValue].fontColor);
         document.getElementById('uci_custom_color_panel').style.display = "none";
       }      
     }
@@ -3279,7 +3280,7 @@ accessibilitytoolbar = {
   updateIhmFormsSettings: function () {
     var pref, prefarray, ariaRadioSettings = ["a11yDyslexyFont", "a11ySpacement", "a11yLineSpacement",
       "a11yModifCasse", "a11yMaskOpacity", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
-      "a11yNavLienVisColor", "a11yVisualPredefinedSettings", "a11yFontColor", "a11yBackgroundColor",
+      "a11yNavLienVisColor", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
     var radioSettings = ["a11yMaskOption-mask","a11yMaskOption-vruler","a11yMaskOption-hruler"];
@@ -3310,18 +3311,24 @@ accessibilitytoolbar = {
         document.getElementById(radioSettings[pref]).checked = false;
       }
     }
-    
-    for (pref in selectSettings) {
-      var sel = document.getElementById(selectSettings[pref]);
-      var val = accessibilitytoolbar.userPref.get(selectSettings[pref])
-      var opts = sel.options;
-      for (var opt, j = 0; opt = opts[j]; j++) {
-        if (opt.value == val) {
-          sel.selectedIndex = j;
-          break;
-        }
+    // update color select    
+    var sel = document.getElementById("uci_reponses_couleurpredefinie");
+    var val = accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings");
+    var opts = sel.options;
+    for (var opt, j = 0; opt = opts[j]; j++) {
+      if (opt.value == val) {
+        sel.selectedIndex = j;
+        break;
       }
     }
+    if(val === "personnal") {
+      document.getElementById('uci_custom_color_panel').style.display = "block";
+      accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+    } else {
+      document.getElementById('uci_custom_color_panel').style.display = "none";
+      accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor,accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor);
+    }
+    
     document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
@@ -3705,19 +3712,9 @@ accessibilitytoolbar = {
             element = document.getElementById('uci_reponses_bigger_quick_set');
           }          
 
-          var predifinedCombinaisons = {
-            'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
-            'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
-            'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
-            'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
-            'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
-            'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-            'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
-            'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
-          };
-          if (predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
-            fontColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
-            backGroundColor = predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].backGroundColor;
+          if (accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
+            fontColor = accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
+            backGroundColor = accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].backGroundColor;
           }
           /*defect 67 */
           if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
@@ -4317,57 +4314,46 @@ accessibilitytoolbar = {
   },
 
   updateColorBox: function(bgColor,fontColor) {
-    document.getElementById('uci_color_box').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+    document.getElementById('uci_reponses_couleurpredefinie').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
   },
   
   makePredefinedCouleurSelect: function () {
-    var predifinedCombinaisons = {
-            'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
-            'whiteonblack': { fontColor: '#ffFFFf', backGroundColor: '#000000' },
-            'blueonyellow': { fontColor: '#0000FF', backGroundColor: '#FFFF00' },
-            'yellowonblue': { fontColor: '#FFFF00', backGroundColor: '#0000FF' },
-            'greenonblack': { fontColor: '#009900', backGroundColor: '#000000' },
-            'blackongreen': { fontColor: '#000000', backGroundColor: '#009900' },
-            'blueonwhite': { fontColor: '#0000FF', backGroundColor: '#FFFFFF' },
-            'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
-          };
-    var curCouleur, spanColor;
+    var predefColor, customColor, chooseCouleur, aCouleur, customColorStyle;
     var globalCouleur = ["div"]
     var aCouleurs = ["div", { "class": "padding-left-align margin-top uci_color_div"}]
-    var aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings" }];
-    var index = 0;
-    for (var key in predifinedCombinaisons) {
-      curCouleur = ["option", {
+    var index = 0;   
+    
+    customColorStyle="display:none";
+    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
+      aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}];
+      // show the custom boxes
+      customColorStyle="display:block";
+    } else {
+      aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style:"color: "+accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor+" !important;background-color:"+accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor+" !important;"}];
+    }
+    
+    for (var key in accessibilitytoolbar.predifinedCombinaisons) {
+      predefColor = ["option", {
         id: "uci_a11yVisualPredefinedSettings_" + key,
         value: key, 
         selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? true : false)
       },
         accessibilitytoolbar.get('uci_title_color_' + key)
       ];
-      aCouleur.push(curCouleur);
-      if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key) {
-        spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style:"color: "+predifinedCombinaisons[key].fontColor+" !important;background-color:"+predifinedCombinaisons[key].backGroundColor+" !important;"}, "A"]
-      }
+      aCouleur.push(predefColor);
       index++;
     }
     // add custom color button
-    curCouleur = ["option", {
+    customColor = ["option", {
       id: "uci_a11yVisualPredefinedSettings_personnal",
       value: 'personnal', 
       selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? true : false)
     },
       accessibilitytoolbar.get('uci_title_color_personnal')
     ];
-    aCouleur.push(curCouleur);
-    customColorStyle="display:none";
-    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
-      spanColor = ["span", {id:"uci_color_box", "class":"uci_color_box margin-left", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}, "A"]
-      // show the custom boxes
-      customColorStyle="display:block";
-    }
     
     // add a link for custom color update
-    curCouleur = ["div", {"class":"margin-top uci_custom_color", id:"uci_custom_color_panel", style:customColorStyle},
+    chooseCouleur = ["div", {"class":"margin-top uci_custom_color", id:"uci_custom_color_panel", style:customColorStyle},
       ["div", { "class":"cdu_c"},
         ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
         ["div", {"class":"cdu_left"},
@@ -4388,10 +4374,11 @@ accessibilitytoolbar = {
       ]
     ];
     
+    
+    aCouleur.push(customColor);    
     aCouleurs.push(aCouleur);
-    aCouleurs.push(spanColor);
     globalCouleur.push(aCouleurs);
-    globalCouleur.push(curCouleur);
+    globalCouleur.push(chooseCouleur);
         
     return globalCouleur;
   },

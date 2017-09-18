@@ -13,6 +13,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
 **/ 
+// No space before vertical punctuation in english
 traduction['EN']={
   howToClose: "Close mask: Esc key",
   save_service: "Save profile",
@@ -78,10 +79,6 @@ traduction['EN']={
   uci_link_display_picture:"View this picture:",
   uci_link_display_picture_no_alt:"Description not available",
   uci_link_hide_toolbar:"Hide toolbar",
-  uci_link_render_options_bold:"bold",
-  uci_link_render_options_border:"box",
-  uci_link_render_options_default:"by default",
-  uci_link_render_options_underline:"underline",
   uci_loopActivable:"Navigate through items",
   uci_loopActivableQuick:"Navigate quickly through items",
   uci_loopBackward:"Navigate backwards",
@@ -100,12 +97,12 @@ traduction['EN']={
   uci_predefined_change_layout: "Make reading easier", // V4
   uci_predefined_improve_readability: "Improve readability", // V4
   uci_predefined_motor_help: "Navigate effortlessly", // V4
-  uci_predefined_none: "No profile",
-  uci_predefined_profils_title: "predefined profiles",
+  uci_predefined_none: "No profile", //v4
+  uci_predefined_profils_title: "predefined profiles", //V4
   uci_previous: "previous",
   uci_profile_curent_name: "Current profile name:",
-  uci_profile_delete_warning: "ATTENTION",
-  uci_profile_name_format: "Minimal length: 3 characters; please no special characters.", // V4
+  uci_profile_delete_warning: "Do you really want to delete this profile?",
+  uci_profile_name_format: "Minimal length: 3 characters; please no special characters. Don't use an existing profile name!", // V4
   uci_profile_new_label: "New profile:",
   uci_profile_new_option: "new profile",
   uci_profile_rename_label: "New name:",
@@ -115,9 +112,8 @@ traduction['EN']={
   uci_radio_large:"Large",
   uci_radio_light:"Light",
   uci_radio_medium:"Medium",
-  uci_radio_medium1:"Medium",
   uci_remove_all_settings:"All your settings will be deleted, do you want to continue?",
-  uci_rename_profile: "Rename profile",
+  uci_rename_profile: "Rename profile",//V4
   uci_serv_name:"Confort",
   uci_stopLoop:"Pause navigation",
   uci_title_color_blackongreen:"Black text on green background",
@@ -125,7 +121,6 @@ traduction['EN']={
   uci_title_color_blueonwhite:"Blue text on white background",
   uci_title_color_blueonyellow:"Blue text on yellow background",
   uci_title_color_greenonblack:"Green text on black background",
-  uci_title_color_keepit:"Initial colors",
   uci_title_color_personnal:"Select personalized colors",
   uci_title_color_whiteonblack:"White text on black background",
   uci_title_color_whiteonblue:"White text on blue background",
@@ -143,18 +138,16 @@ traduction['EN']={
   uci_title_linespacing_radio_medium:"Medium line spacing",
   uci_title_linespacing_radio_normal:"Default line spacing",
   uci_title_link_active_color:"Selected link color",
-  uci_title_link_active_render:"Selected link additionnal formatting",
   uci_title_link_notvisited_color:"Default links color",
-  uci_title_link_notvisited_render:"Links formatting",
   uci_title_link_visited_color:"Visited links color",
-  uci_title_link_visited_render:"Visited links additionnal formatting",
   uci_title_wordspacing_radio_large:"Large word spacing",
   uci_title_wordspacing_radio_medium:"Medium word spacing",
   uci_title_wordspacing_radio_normal:"Default word spacing ",
   uci_titre_links:"Navigation links appearence",
-  uci_tour_discover_edit_layout: "Edit layout",
+  uci_tour_discover_edit_layout: "Modify the layout",
   uci_tour_discover_improve_readability: "Improve Readability",
   uci_tour_discover_service: "discover the service",
+  uci_tour_discover_use_motor_assistance: "Use motor assistance",
   uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
   uci_tour_step_1_advancedparam: "advancedparam",
   uci_tour_step_2_typographie:"typographie",
@@ -166,10 +159,9 @@ traduction['EN']={
   uci_txt_link_menu_close:"Hide menu",
   uci_txt_link_menu_open:"Show menu",
   uci_txt_link_profil: "Profiles",
-  uci_txt_low_settings:"Close more settings panel",
+  uci_txt_low_settings:"Close “more settings” panel",
   uci_txt_low_settings_display:"Less settings",
   uci_txt_mask_opacity:"Mask opacity",
-  uci_txt_mask_size:"Mask height",
   uci_txt_menu_change_lang_en:"Show this service in English",
   uci_txt_menu_change_lang_es:"Show this service in Spanish",
   uci_txt_menu_change_lang_fr:"Show this service in French",
@@ -189,8 +181,6 @@ traduction['EN']={
   uci_typo_titre_fontsize:"Font size",
   uci_typo_titre_linespacing:"Line spacing",
   uci_typo_titre_wordspacing:"Word spacing",
-  update_custom_colors: "Update personalized colors",
-  uci_tour_discover_use_motor_assistance: "Use motor assistance",
-  uci_profile_rename: "Rename profile",
-  uci_profile_delete: "Delete profile",
+  uci_profile_rename: "Rename profile:",
+  uci_profile_delete: "Delete profile:",
 };

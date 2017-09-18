@@ -975,14 +975,14 @@ li.uci_dropdown-divider {
 	min-width: 100px;
 	color: #000;
 }
-.uci_uci_onglet_0 {
+.uci_onglet_0 {
 	border-bottom: 2px solid transparent;
 	border-top: 2px solid transparent;
 	border-right: 2px solid transparent;
 	border-left: 2px solid transparent;
 	margin-bottom: -2px;
 }
-.uci_uci_onglet_1 {
+.uci_onglet_1 {
 	border-top-color: inherit;
 	border-right-color: inherit;
 	border-left-color: inherit;
@@ -1203,11 +1203,11 @@ li.uci_dropdown-divider {
 .uci_table_couleur {
 	margin: 0;
 	padding: 0;
-	min-width: 130px;
 	max-width: 430px;
+	background-color: white;
 }
 .uci_span_help_bulle .uci_table_couleur {
-	min-width: 416px;
+	min-width: 23em;
 }
 #accessibilitytoolbarGraphic .uci_couleur_li {
 	width: 1.625em;
@@ -1857,6 +1857,10 @@ li.uci_dropdown-divider {
 	border-color: inherit;
 	font-weight: normal;
 	text-align: left;
+}
+#accessibilitytoolbarGraphic .uci_select_color option {
+	color: #000;
+	background-color: #FFF;
 }
 
 #accessibilitytoolbarGraphic .uci_color_box {

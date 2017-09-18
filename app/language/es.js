@@ -18,10 +18,10 @@ traduction['ES']={
   howToClose: "Cerrar la máscara: tecla Esc", //v4
   save_service: "Guardar perfil", //v4
   uci_alt_logo:"Confort+",
-  uci_button_cancel:"No memorizar mis ajustes",
+  uci_button_cancel:"Cancelar",
   uci_button_valid:"Memorizar mis ajustes",
   uci_button_valid_profil: "Actualizar el nombre del perfil", //v4
-  uci_changecase_firstlettre:"Primera Letra En May\372scula",
+  uci_changecase_firstlettre:"Primera Letra",
   uci_changecase_firstlettre_title:"primera letra de cada palabra en May\372scula",
   uci_changecase_normal_title:"Mostrar el texto por defecto",
   uci_changecase_tolower:"min\372sculas",
@@ -31,10 +31,10 @@ traduction['ES']={
   uci_close_guide : "Cerrar guía",//v4
   uci_close_mask : "Cerrar la máscara de lectura",//v4
   uci_closeButton:"Cerrar",
-  uci_color_titre:"Combinaci\363n de colores predefinidos",
+  uci_color_titre:"Color de fuente y fondo",
   uci_color_txt_background:"Color de fondo",
   uci_color_txt_texte:"Color de texto",
-  uci_color_warning_content:"Los colores de texto y fondo tienen un contraste insuficiente, en consecuencia la lectura puede ser inconfortable y provocar un cansancio visual.\nTe recomendamos modificar la combinaci\363n de colores",
+  uci_color_warning_content:"Los colores de texto y fondo tienen un contraste insuficiente, en consecuencia la lectura puede ser inconfortable y provocar un cansancio visual.",
   uci_color_warning_title:"Contrate insuficiente",
   uci_confirm_validation:"Preferencias registrados",
   uci_tour_discover_default : "No hay ajustes", //V4
@@ -76,13 +76,9 @@ traduction['ES']={
   uci_legend_menupos:"Posici\363n del men\372",
   uci_legend_pasquickmode:"Pasos de modo r\341pido",
   uci_legend_time_before_sel:"Temporizaci\363n de selecci\363n de elementos",
-  uci_link_display_picture:"Visualizar la imagen :",
+  uci_link_display_picture:"Visualizar la imagen:",
   uci_link_display_picture_no_alt:"Descripci\363n no disponible",
   uci_link_hide_toolbar:"Esconder el panel",
-  uci_link_render_options_bold:"en negrita",
-  uci_link_render_options_border:"encuadrado",
-  uci_link_render_options_default:"por defecto ",
-  uci_link_render_options_underline:"subrayado",
   uci_loopActivable:"Recorrer la p\341gina",
   uci_loopActivableQuick:"Navegar r\341pidamente",
   uci_loopBackward:"Navegar hacia atr\341s",
@@ -90,33 +86,34 @@ traduction['ES']={
   uci_mask_settings_titre: "Configuración de la máscara de lectura", // V4
   uci_mask_settings_help: "Para activar la máscara, utilice el botón de la cinta de acceso rápido o el atajo de teclado Ctrl / Cmd + M", // V4
   uci_other_settings_titre: "Otros ajustes", //v4
-  uci_menu : "menu",
-  uci_menu_guide:"Guide step by step",
+  uci_menu : "Menú",
+  uci_menu_guide:"Guía paso a paso",
   uci_menu_help:"Consultar ayuda general",
   uci_menu_info:"A prop\363sito",
   uci_menu_remove_all:"Reajustar",
   uci_modif_not_saved:"Los ajustes no memorizados se perder\341n \277 Deseas proseguir esta acci\363n ?",
   uci_new_window:"Nueva ventana",
-  uci_predefined_change_layout: "Change the layout",
-  uci_predefined_improve_readability: "Improve readability",
-  uci_predefined_motor_help: "Start motor help",
-  uci_predefined_none: "No profile",
-  uci_predefined_profils_title: "predefined profiles",
-  uci_profile_curent_name: "Current profile name :",
-  uci_profile_delete_warning: "ATTENTION",
-  uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux",
-  uci_profile_new_label: "TODO",
-  uci_profile_new_option: "TODO",
-  uci_profile_rename_label: "Nouveau nom:",
-  uci_profile_save_label: "TODO:",
-  uci_radio_dark:"TODO",
+  uci_next: "siguiente", // v4
+  uci_predefined_change_layout: "Facilitar la lectura", //V4
+  uci_predefined_improve_readability: "Mejorar la legibilidad", //v4
+  uci_predefined_motor_help: "Navegue sin esfuerzo", //V4
+  uci_predefined_none: "Sin perfil", //V4
+  uci_predefined_profils_title: "perfiles predefinidos", //V4
+  uci_previous: "anterior", //v4
+  uci_profile_curent_name: "Nombre del perfil actual:", //v4
+  uci_profile_delete_warning: "¿Desea realmente borrar este perfil?", //V4
+  uci_profile_name_format: "Longitud mínima: 3 caracteres; por favor no caracteres especiales. ¡No utilice un nombre de perfil existente!",//V4
+  uci_profile_new_label: "Nuevo perfil:",//V4
+  uci_profile_new_option: "nuevo perfil",//V4
+  uci_profile_rename_label: "Nuevo nombre:",//V4
+  uci_profile_save_label: "Guardar mi configuración:",//V4
+  uci_radio_dark:"Oscuro",//V4
   uci_radio_default:"Normal",
   uci_radio_large:"Grande",
-  uci_radio_light:"TODO",
+  uci_radio_light:"Ligero",//V4
   uci_radio_medium:"Medio",
-  uci_radio_medium1:"TODO",
   uci_remove_all_settings:"Se borrar\341n todos los ajustes \277 Estas seguro de querer proseguir ?",
-  uci_rename_profile: "Renommer le profil",
+  uci_rename_profile: "Cambiar el nombre del perfil",//V4
   uci_serv_name:"Confort",
   uci_stopLoop:"Parar la navegaci\363n",
   uci_title_color_blackongreen:"Texto negro y fondo verde",
@@ -124,7 +121,6 @@ traduction['ES']={
   uci_title_color_blueonwhite:"Texto azul y fondo blanco",
   uci_title_color_blueonyellow:"Texto azul y fondo amarillo",
   uci_title_color_greenonblack:"Texto verde y fondo negro",
-  uci_title_color_keepit:"Colores iniciales",
   uci_title_color_personnal:"Seleccionar colores personalizados",
   uci_title_color_whiteonblack:"Texto blanco y fondo negro",
   uci_title_color_whiteonblue:"Texto blanco y fondo azul",
@@ -142,18 +138,16 @@ traduction['ES']={
   uci_title_linespacing_radio_medium:"Espacio medio entre lineas",
   uci_title_linespacing_radio_normal:"Espacio normal entre lineas",
   uci_title_link_active_color:"Color de enlace seleccionado",
-  uci_title_link_active_render:"Formato complementario del enlace seleccioan",
   uci_title_link_notvisited_color:"Color de enlaces por defecto",
-  uci_title_link_notvisited_render:"Formato de enlaces",
   uci_title_link_visited_color:"Color de enlaces consultados",
-  uci_title_link_visited_render:"Formato complementario de enlaces consultados",
   uci_title_wordspacing_radio_large:"Espacio grande entre palabras",
   uci_title_wordspacing_radio_medium:"Espacio medio entre palabras",
   uci_title_wordspacing_radio_normal:"Espacio normal entre palabras",
   uci_titre_links:"Apariencia enlaces de navegaci\363n ",
-  uci_tour_discover_edit_layout : "Modifier la mise en page",
-  uci_tour_discover_improve_readability : "Am\351liorer le service",
-  uci_tour_discover_service : "D\351couvrir le service",
+  uci_tour_discover_edit_layout : "Modificar el diseño",//v4
+  uci_tour_discover_improve_readability : "Mejorar la legibilidad",//V4
+  uci_tour_discover_service : "descubre el servicio",//v4
+  uci_tour_discover_use_motor_assistance: "Use la asistencia del motor", //V4
   uci_tour_step_0_reading: "Incenderat autem audaces usque ad insaniam homines ad haec, quae nefariis egere conatibus, Luscus quidam curator urbis subito visus: eosque ut heiulans baiolorum praecentor ad expediendum quod orsi sunt incitans vocibus crebris. qui haut longe postea ideo vivus exustus est.",
   uci_tour_step_1_advancedparam: "todo",
   uci_tour_step_2_typographie :"typographie",
@@ -164,18 +158,17 @@ traduction['ES']={
   uci_txt_link_menu:"Ayuda",
   uci_txt_link_menu_close:"Ocultar men\372",
   uci_txt_link_menu_open:"Mostrar men\372",
-  uci_txt_link_profil: "Profils",
+  uci_txt_link_profil: "Perfiles", //V4
   uci_txt_low_settings:"Cerrar el panel m\341s ajustes",
   uci_txt_low_settings_display:"Menos ajustes",
-  uci_txt_mask_opacity:"TODO",
-  uci_txt_mask_size:"Espesor de la m\341scara",
+  uci_txt_mask_opacity:"Máscara de opacidad",//V4
   uci_txt_menu_change_lang_en:"Mostrar el servicio en Ingles",
   uci_txt_menu_change_lang_es:"Mostrar el servicio en Espa\361ol",
   uci_txt_menu_change_lang_fr:"Mostrar el servicio en Franc\351s",
   uci_txt_menu_change_lang_pl:"Mostrar el servicio en Polaco",
   uci_txt_more_settings:"M\341s ajustes",
   uci_txt_notvisited:"Enlaces",
-  uci_txt_onglet_apparence:"READING HELP Apariencia",
+  uci_txt_onglet_apparence:"Ayuda de lectura",//V4
   uci_txt_onglet_color:"Colores",
   uci_txt_onglet_motor_help:"Comportamiento",
   uci_txt_onglet_settings:"Settings",
@@ -188,8 +181,6 @@ traduction['ES']={
   uci_typo_titre_fontsize:"Tama\361o del texto",
   uci_typo_titre_linespacing:"Espacio interlineal",
   uci_typo_titre_wordspacing:"Espacio entre palabras",
-  update_custom_colors: "TODO",
- uci_tour_discover_use_motor_assistance : "Utiliser l'aide motrice",
-  uci_profile_rename: "Rename profile :",//V4
-  uci_profile_delete: "Delete profile :",// v4
+  uci_profile_rename: "Cambiar el nombre del perfil:",//V4
+  uci_profile_delete: "Borrar perfil:",// v4
 };
