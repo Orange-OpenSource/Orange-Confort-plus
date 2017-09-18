@@ -7759,6 +7759,8 @@ accessibilitytoolbar = {
       else {
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
       }
+      // in any case set the select border to the font-color
+      s += ".uci_select_color { border-color:" + fontColor + " !important;}";
       
       // reading mask      
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
