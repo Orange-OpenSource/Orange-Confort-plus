@@ -1,4 +1,4 @@
-/* orange-confort-plus - version 4.1.0 - 18-09-2017
+/* orange-confort-plus - version 4.1.0 - 19-09-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
 var hebergementDomaine = 'http://confort-plus.orange.com';
@@ -1725,21 +1725,21 @@ UciCouleur = {
           ["label", {"for":"a11yNavLienEnabled"}, accessibilitytoolbar.get('uci_titre_links')],
           accessibilitytoolbar.makeHelpTpl("uci_link_help_links","uci_help_links",accessibilitytoolbar.get('uci_help_links')),
           ["div", {id:"uci_gestion_lien"},
-            ["div", {id:"uci_div_lien_selectionne"},
-              ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_active')],
-              ["div", {"class":"cdu_left"},
-                ["button", {type:"button", id:"uci_NavLienSel", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_active_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"}],
-                ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_selectionne", style:"display:none"},
-                  accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienSelColor_",accessibilitytoolbar.userPref.get("a11yNavLienSelColor"),"uci_reponses_couleur_lien_sel","uci_NavLienSel")
-                ]
-              ]
-            ],
             ["div", {id:"uci_div_lien_notselectionne"},
               ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_notvisited')],
               ["div", {"class":"cdu_left"},
                 ["button", {type:"button", id:"uci_NavLienNonVis", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_notvisited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important"}],
                 ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_notselectionne", style:"display:none"},
                   accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienNonVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor"),"uci_reponses_couleur_lien_notsel","uci_NavLienNonVis")
+                ]
+              ]
+            ],
+            ["div", {id:"uci_div_lien_selectionne"},
+              ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_active')],
+              ["div", {"class":"cdu_left"},
+                ["button", {type:"button", id:"uci_NavLienSel", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_active_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"}],
+                ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_selectionne", style:"display:none"},
+                  accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienSelColor_",accessibilitytoolbar.userPref.get("a11yNavLienSelColor"),"uci_reponses_couleur_lien_sel","uci_NavLienSel")
                 ]
               ]
             ],
