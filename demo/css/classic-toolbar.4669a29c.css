@@ -1140,7 +1140,7 @@ li.uci_dropdown-divider {
 	clear: both;
 }
 
-#uci_div_lien_notselectionne,
+#uci_div_lien_selectionne,
 #uci_div_lien_visite, .uci_div_conteneur_contenu_onglets {
 	clear: both;
 }

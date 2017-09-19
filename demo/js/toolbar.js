@@ -44,7 +44,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.c774d2bb.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.4669a29c.css';
  var onOffEnabled=true;
 // Source: app/js/ToolbarStrings.js
 /**
