@@ -168,7 +168,7 @@ traduction['FR']={
   uci_txt_menu_change_lang_pl:"Afficher le service en Polonais",
   uci_txt_more_settings:"Plus de r\351glages",
   uci_txt_notvisited:"Liens",
-  uci_txt_onglet_apparence:"Aide à la lecture",
+  uci_txt_onglet_apparence:"Aide \340 la lecture",
   uci_txt_onglet_color:"Couleurs",
   uci_txt_onglet_motor_help:"Comportement",
   uci_txt_onglet_settings:"Réglages avancés",
