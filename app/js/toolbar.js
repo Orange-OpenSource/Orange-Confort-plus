@@ -3728,7 +3728,7 @@ accessibilitytoolbar = {
         }
         // don't apply personnal colors if they're the same
         if(fontColor !== backGroundColor) {
-          s += "* { color:" + fontColor + " !important; }\n";
+          s += "*, div.top_nav li a { color:" + fontColor + " !important; }\n";
           s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
           // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
           s += "input { border-width: 2px !important; border-style: solid !important}\n";
