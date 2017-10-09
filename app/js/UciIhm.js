@@ -423,7 +423,7 @@ UciIhm = {
   changement_langue: function (/* String*/langue) {
     // if stack value not equal to storedValue then display a confirm message to inform the user
     // Ignore the displaytoolbar, and lang flag for comparison 
-    if ((accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
+    if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
       accessibilitytoolbar.userPref.decode(accessibilitytoolbar.userPref.getCurrentPref());
       accessibilitytoolbar.userPref.set("a11yLanguage", langue);

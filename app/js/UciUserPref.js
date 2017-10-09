@@ -18,18 +18,18 @@
  */
 function UciUserPref() {
     "use strict";
-    this.defautStoredValue = "0000651000380350270001100310000000006500000010";
+    this.defautStoredValue = "0000000380350270001003000000006500000";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
       '0':this.defautStoredValue, // no profile
-      '1':"0100651000380350270001100010000000006571400010",
+      '1':"0100000380350270001100000000006571400",
       // 1 = Arial + font-size = 125% + Texte jaune sur fond bleu + supprimer les images de fond
-      '2':"0000651010380350270111101010000000006500400010",
+      '2':"0000010380350270111110000000006500400",
       // 2 = Arial + + font-size = 120%  + espace entre les lignes Moyen + texte à gauche + numbered list + activation du masque moyen ( ?)
-      '3':"0000651000380350271001100310000001006500000010" 
+      '3':"0000000380350271001103000001006500000" 
       // 3 = start browse on hover + apparence des liens (souligné + couleur standard)
     }
 
@@ -50,8 +50,6 @@ function UciUserPref() {
      * @private
      */
     this.convertMatrixv3 = {
-        "a11yApercuAuto-0":     "a11yApercuAuto-false", // no more used
-        "a11yApercuAuto-1":     "a11yApercuAuto-off", // no more used
         "a11ySiteWebEnabled-0": "a11ySiteWebEnabled-on",
         "a11ySiteWebEnabled-1": "a11ySiteWebEnabled-off",
         "a11yToolbarEnable-0": "a11yToolbarEnable-off",
@@ -102,12 +100,6 @@ function UciUserPref() {
         "a11yQuickMode-0": "a11yQuickMode-2",
         "a11yQuickMode-1": "a11yQuickMode-5",
         "a11yQuickMode-2": "a11yQuickMode-10",
-        // no more used!!!a11yCharSpacement
-        "a11yCharSpacement-0": "a11yCharSpacement-keepit",
-        "a11yCharSpacement-1": "a11yCharSpacement-0.2",
-        "a11yCharSpacement-2": "a11yCharSpacement-0.5",
-        "a11yDyslexyFontEnabled-0": "a11yDyslexyFontEnabled-false",
-        "a11yDyslexyFontEnabled-1": "a11yDyslexyFontEnabled-on",
         "a11yDyslexyFont-0": "a11yDyslexyFont-arial",
         "a11yDyslexyFont-1": "a11yDyslexyFont-opendyslexic",
         "a11yDyslexyFont-3": "a11yDyslexyFont-keepit",
@@ -120,9 +112,6 @@ function UciUserPref() {
         "a11ySpacement-0": "a11ySpacement-keepit",
         "a11ySpacement-1": "a11ySpacement-0.5",
         "a11ySpacement-2": "a11ySpacement-1",
-        //gestion de la casse des mots
-        "a11yModifCasseEnabled-0" : "a11yModifCasseEnabled-false", // not used
-        "a11yModifCasseEnabled-1" : "a11yModifCasseEnabled-on", // not used
         "a11yModifCasse-0": "a11yModifCasse-capitalize",
         "a11yModifCasse-1": "a11yModifCasse-keepit",
         "a11yModifCasse-2": "a11yModifCasse-lowercase",
@@ -158,10 +147,6 @@ function UciUserPref() {
         "a11yMaskOption-0" :     "a11yMaskOption-mask",
         "a11yMaskOption-1" :     "a11yMaskOption-hruler",
         "a11yMaskOption-2" :     "a11yMaskOption-vruler",
-        // UNUSED a11yMaskHorizontal, a11yMaskColor
-        // but keep it for backward compatibility
-        "a11yMaskHorizontal-0" :   "a11yMaskHorizontal-false",
-        "a11yMaskHorizontal-1" :   "a11yMaskHorizontal-true",
 
         "a11yMaskOpacity-0" :    "a11yMaskOpacity-.5",
         "a11yMaskOpacity-1" :    "a11yMaskOpacity-.25",
@@ -200,51 +185,41 @@ function UciUserPref() {
     this.create_color('a11yNavLienSelColor-');
     this.create_color('a11yNavLienNonVisColor-');
     this.create_color('a11yNavLienVisColor-');
-    this.create_color('a11yMaskColor-');
     
     this.maskMatrixv3 = {
         // Mask Name                | Dec Value
-        "a11ySiteWebEnabled":     [46,1],
-        "a11yApercuAuto":         [45,1], // no more used
-        "a11yToolbarEnable":      [44,1],
-        "a11yLanguage":           [43,1],
-        "a11yJumpToContent":      [42,1],
-        "a11yLinearize":          [41,1],
-        "a11yBigger":             [40,1],
-        "a11yVisualSettings":     [39,1],
-        "a11yVisualPredefinedSettings": [38,1],
-        "a11yFontColor":          [36,2],
-        "a11yBackgroundColor":    [34,2],
-        "a11yMotorModeRemote":    [33,1],
-        "a11yMotorModeLooping":   [32,1],
-        "a11yDelayBeforeClick":   [31,1],
-        "a11yMenuPositionning":   [30,1],
-        "a11yDelayBeforeLoop":    [29,1],
-        "a11yQuickMode":          [28,1],
-        // no more used!!!a11yCharSpacement
-        "a11yCharSpacement":      [27,1],
-        "a11yDyslexyFontEnabled": [26,1],
-        "a11yDyslexyFont":        [25,1],
-        "a11yLineSpacement":      [24,1],
-        "a11ySpacement":          [23,1],
-        "a11yModifCasseEnabled":  [22,1],
-        "a11yModifCasse":         [21,1],
-        "a11yLeftText":           [20,1],
-        "a11yNumerotationList":   [19,1],
-        "a11yNavLienEnabled":     [18,1],
-        "a11yNavLienSelColor":    [16,2],
-        "a11yNavLienSelStyle":    [15,1],
-        "a11yNavLienNonVisColor": [13,2],
-        "a11yNavLienNonVisStyle": [12,1],
-        "a11yNavLienVisColor":    [10,2],
-        "a11yNavLienVisStyle":    [9,1],
-        "a11yMaskEnabled":        [8,1],
-        "a11yMaskOption" :        [7,1],
-        // THE TWO FOLLOWING OFFSETS ARE UNUSED!! a11yMaskHorizontal, a11yMaskColor
-        // but keep it for backward compatibility
-        "a11yMaskHorizontal" :   [6,1],        
-        "a11yMaskColor":         [4,2],
-        "a11yMaskOpacity" :    [3,1],
+        "a11ySiteWebEnabled":     [39,1],
+        "a11yToolbarEnable":      [38,1],
+        "a11yLanguage":           [37,1],
+        "a11yJumpToContent":      [36,1],
+        "a11yLinearize":          [35,1],
+        "a11yBigger":             [34,1],
+        "a11yVisualSettings":     [33,1],
+        "a11yVisualPredefinedSettings": [32,1],
+        "a11yFontColor":          [30,2],
+        "a11yBackgroundColor":    [28,2],
+        "a11yMotorModeRemote":    [27,1],
+        "a11yMotorModeLooping":   [26,1],
+        "a11yDelayBeforeClick":   [25,1],
+        "a11yMenuPositionning":   [24,1],
+        "a11yDelayBeforeLoop":    [23,1],
+        "a11yQuickMode":          [22,1],
+        "a11yDyslexyFont":        [21,1],
+        "a11yLineSpacement":      [20,1],
+        "a11ySpacement":          [19,1],
+        "a11yModifCasse":         [18,1],
+        "a11yLeftText":           [17,1],
+        "a11yNumerotationList":   [16,1],
+        "a11yNavLienEnabled":     [15,1],
+        "a11yNavLienSelColor":    [13,2],
+        "a11yNavLienSelStyle":    [12,1],
+        "a11yNavLienNonVisColor": [10,2],
+        "a11yNavLienNonVisStyle": [9,1],
+        "a11yNavLienVisColor":    [7,2],
+        "a11yNavLienVisStyle":    [6,1],
+        "a11yMaskEnabled":        [5,1],
+        "a11yMaskOption" :        [4,1],
+        "a11yMaskOpacity" :       [3,1],
         "a11ySupEffetTransp":     [2,1],
         "a11ySupImageFont" :      [1,1],
         "a11ySupImageFirstPlan" : [0,1]
@@ -262,7 +237,7 @@ function UciUserPref() {
         "a11yLinearize": "false",
         "a11yBigger": "keepit",
         "a11yVisualSettings": "false",
-        "a11yVisualPredefinedSettings": "blackonwhite",
+        "a11yVisualPredefinedSettings": "personnal",
         "a11yFontColor": "#000000",
         "a11yBackgroundColor": "#FFFFFF",
         "a11yMotorModeRemote": "false",
@@ -271,13 +246,9 @@ function UciUserPref() {
         "a11yMenuPositionning": "center",
         "a11yDelayBeforeLoop": "1",
         "a11yQuickMode": "2",
-        // no more used!!!a11yCharSpacement
-        "a11yCharSpacement": "keepit",
-        "a11yDyslexyFontEnabled": "true",
         "a11yDyslexyFont": "keepit",
         "a11yLineSpacement" : "keepit",
         "a11ySpacement": "keepit",
-        "a11yModifCasseEnabled": "true",
         "a11yModifCasse" : "keepit",
         "a11yLeftText":           "false",
         "a11yNumerotationList":   "false",
@@ -290,16 +261,11 @@ function UciUserPref() {
         "a11yNavLienVisStyle":    "keepit",
         "a11yMaskEnabled":        "false",
         "a11yMaskOption" :        "mask",
-        // UNUSED a11yMaskHorizontal, a11yMaskColor
-        // but keep it for backward compatibility
-        "a11yMaskHorizontal" :    "true",
-        "a11yMaskColor" :         "#000000",
         "a11yMaskOpacity" :     ".5",
         "a11ySupEffetTransp":     "false",
         "a11ySupImageFont" :      "false",
         "a11ySupImageFirstPlan" : "false",
-        "a11ySiteWebEnabled" :    "on",
-        "a11yApercuAuto" :        "false"
+        "a11ySiteWebEnabled" :    "on"
     };
     
     /**
@@ -320,24 +286,12 @@ function UciUserPref() {
             pref = this.predefinedSettings[this.settings.current];
         }
         // uniquement si le nombre de caractères du cookie est correct!
-        if(pref.length===46)
+        if(pref.length===37)
         {
           for (prefName in this.maskMatrixv3) {
-            if(prefName !== "a11ySiteWebEnabled") {
+            if(prefName !== "a11ySiteWebEnabled" && prefName !== "a11yToolbarEnable" && prefName !== "a11yLanguage") {
                 this.stackv3[prefName]= this.convertMatrixv3[prefName + "-" +pref.substr(this.maskMatrixv3[prefName][0],this.maskMatrixv3[prefName][1])].replace(/.*-/, "");
             }
-          }
-          // v4 update font-familly management
-          // if font previously disabled, consider that default font need to be updated
-          if(this.stackv3['a11yDyslexyFontEnabled']==='false') {
-            this.stackv3['a11yDyslexyFont'] = 'keepit';
-            this.stackv3['a11yDyslexyFontEnabled'] = 'on';
-          }
-          // v4 update casse du texte
-          // if font previously disabled, consider that default text case need to be updated
-          if(this.stackv3['a11yModifCasseEnabled']==='false') {
-            this.stackv3['a11yModifCasse'] = 'keepit';
-            this.stackv3['a11yModifCasseEnabled'] = 'on';
           }
         }
     };
@@ -356,6 +310,7 @@ function UciUserPref() {
             if (prefName !== "") {
                 // si la pref existe dans le stack sinon 0
                 if(prefName in this.stackv3) {
+                    console.log(prefName+":"+tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, ""));
                     pref = tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, "") + pref;
                 }
                 // on garantie la longeur de la chaine
@@ -364,7 +319,9 @@ function UciUserPref() {
                 }
             }
         }
-        pref = pref.substring(0,pref.length-1);
+        pref = pref.substring(0,pref.length-3);
+        // put toolbar enable and lang at the begening
+        // pref = tempMatrix["a11yToolbarEnable" + "-" + this.stackv3["a11yToolbarEnable"]].replace(/.*-/, "") + "|" + tempMatrix["a11yLanguage" + "-" + this.stackv3["a11yLanguage"]].replace(/.*-/, "") + "|" + pref;
         return pref;
     };
 
@@ -374,7 +331,8 @@ function UciUserPref() {
      * 
      */
     this.encodeUsageConfort= function () {
-        var encodedValue = this.settings.current;
+        var tempMatrix = this.convertMatrixv3.reverse();
+        var encodedValue = tempMatrix["a11yToolbarEnable" + "-" + this.stackv3["a11yToolbarEnable"]].replace(/.*-/, "") + "|" + tempMatrix["a11yLanguage" + "-" + this.stackv3["a11yLanguage"]].replace(/.*-/, "") + "|" + this.settings.current;
         var profil;
         for (profil in this.settings.profiles) {
             encodedValue += "|"+profil+"|"+this.settings.profiles[profil];
@@ -389,41 +347,24 @@ function UciUserPref() {
      */
     this.decodeUsageConfort= function (storageValue) {
         var settings = storageValue.split('|');
-        // check if we're in previous storage value, there's no | into the storageValue
-        if(settings.length===2) {
-            // first param set site enable or disable
-            var disablevalue = settings.shift();
-            if(!onOffEnabled) disablevalue = 0;
-            this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
-            // second one set the profile value
-            var userValue = settings.shift();
-            // If there's no user settings, set as "no profile"
-            // doesn't care about toolbar is displayed or not
-            // length < 3 = preset profile
-            if(userValue.length < 3) {
-                this.settings.current = userValue;
-            } else {
-                // check if user setting is not default ones
-                if(userValue.substr(0,userValue.length-2) === this.defautStoredValue.substr(0,this.defautStoredValue.length-2)) {
-                    this.settings.current = "0";
-                }
-                // Otherwise create a default profile wich contain old settings
-                else { 
-                    this.settings.current = "Default";
-                    this.settings.profiles[this.settings.current] = userValue;
-                }
-            }            
-        } else { // need to explode the values
-            // first param set site enable or disable
-            var disablevalue = settings.shift();
-            if(!onOffEnabled) disablevalue = 0;
-            this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
-            this.settings.current = settings.shift();
-            // parse all profiles
-            var profil = null;
-            while(profil = settings.shift()) {
-                this.settings.profiles[profil] = settings.shift();                
-            }
+         // need to explode the values
+         // at least 4 entry : 
+         // first bit set site enable or disable second set toolbar enable, third one set default lang, 4th one set to no profile
+        // first param set site enable or disable
+        var disablevalue = settings.shift();
+        if(!onOffEnabled) disablevalue = 0;
+        this.stackv3["a11ySiteWebEnabled"] = this.convertMatrixv3["a11ySiteWebEnabled" + "-" +disablevalue].replace(/.*-/, "");
+        var a11yToolbarEnable = settings.shift();
+        this.stackv3["a11yToolbarEnable"] = this.convertMatrixv3["a11yToolbarEnable" + "-" +a11yToolbarEnable].replace(/.*-/, "");
+        var a11yLanguage = settings.shift();
+        this.stackv3["a11yLanguage"] = this.convertMatrixv3["a11yLanguage" + "-" +a11yLanguage].replace(/.*-/, "");
+
+
+        this.settings.current = settings.shift();
+        // parse all profiles if they are
+        var profil = null;
+        while(profil = settings.shift()) {
+            this.settings.profiles[profil] = settings.shift();                
         }
         this.readUserPref();
     };

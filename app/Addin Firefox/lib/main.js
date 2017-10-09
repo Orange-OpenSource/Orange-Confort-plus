@@ -127,19 +127,20 @@ function startCDU(tab) {
       });
     });
     worker.port.on('orangeconfort+userprefget', function (hostname) {
-      if (typeof (ss.storage.userPref) == 'undefined') {
-        ss.storage.userPref = '0000651000380350270001100310000000006500000010';
+      if (typeof (ss.storage.UCI41) == 'undefined') {
+        // Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile
+        ss.storage.UCI41 = '1|0|0';
       }
       var index = ss.storage.blacklist.indexOf(hostname);
       var flag = 0;
       if (index > -1) {
         flag = 1;
       }
-      this.emit('orangeconfort+userprefgetresponse', flag + "|" + ss.storage.userPref);
+      this.emit('orangeconfort+userprefgetresponse', flag + "|" + ss.storage.UCI41);
 
     });
     worker.port.on('orangeconfort+userprefsave', function (value) {
-      ss.storage.userPref = value;
+      ss.storage.UCI41 = value;
     });
     worker.port.on('orangeconfort+blacklistsave', function (value) {
       var index = ss.storage.blacklist.indexOf(value);

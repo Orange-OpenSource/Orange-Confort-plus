@@ -65,6 +65,7 @@ self.port.on('orangeconfort+loadcdu', function () {
   head = document.querySelector("head");
   body = document.querySelector("body");
   if ((toolbarServer == null) && (head != null) && (body != null) && (window.location.href != 'about:blank') && !document.getElementById("uci-onoffswitch")) {
+    accessibilitytoolbar.strings.setForceDefaultLocale(browser.i18n.getUILanguage().toUpperCase());
     accessibilitytoolbar.start();
   }
 });

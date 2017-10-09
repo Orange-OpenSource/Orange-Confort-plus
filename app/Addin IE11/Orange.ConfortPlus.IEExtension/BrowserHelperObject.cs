@@ -402,6 +402,7 @@ namespace Orange.ConfortPlus.IEExtension
                         // 6. enable toolbar
                         this.LogInfo("6. enable toolbar");
 
+                        window.execScript("accessibilitytoolbar.strings.setForceDefaultLocale(\""+this.info.Lang+"\");");
                         window.execScript("accessibilitytoolbar.start();");
                     }
                     else
@@ -464,9 +465,7 @@ namespace Orange.ConfortPlus.IEExtension
 
 
                         string script = "function timeoutSetStoredValue() {"
-                            + "if (!accessibilitytoolbar || accessibilitytoolbar == null || !accessibilitytoolbar.userPref || accessibilitytoolbar.userPref == null)"
-                            + "setTimeout(timeoutSetStoredValue,500);"
-                            + "else accessibilitytoolbar.userPref.setStoredValue(\"" + this.info.UserPref + this.info.GetBlackListFlag(uriBuilder.Host) + "\");"
+                            + "accessibilitytoolbar.userPref.decodeUsageConfort(\"0|"+ this.info.UserPref + "\");"
                             + "}"
                             +"setTimeout(timeoutSetStoredValue,500);";
 
@@ -544,14 +543,14 @@ namespace Orange.ConfortPlus.IEExtension
         private void WriteToConsole(string message, string commande)
         {
         
-            /// IHTMLDocument2 document = this.webBrowser.Document as IHTMLDocument2;
-            /// IHTMLWindow2 window = document.parentWindow;
+             /// IHTMLDocument2 document = this.webBrowser.Document as IHTMLDocument2;
+             /// IHTMLWindow2 window = document.parentWindow;
 
-            /// window.execScript(
-            ///    string.Format(
-            ///    "console.{0}(\"{1}\");",
-            ///    commande,
-            ///    message.Replace("\"", "\\\"").Replace(";", " ").Replace("\n", " ")));               
+             /// window.execScript(
+                /// string.Format(
+                /// "console.{0}(\"{1}\");",
+                /// commande,
+                /// message.Replace("\"", "\\\"").Replace(";", " ").Replace("\n", " ")));               
         }
 
         #endregion

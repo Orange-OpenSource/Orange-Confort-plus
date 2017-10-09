@@ -23,18 +23,19 @@ function startCDU(tab) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	switch(request.message) {
 		case 'orangeconfort+userprefget' :
-			if(localStorage.getItem('userPref') === null) {   
-		        localStorage.setItem('userPref', '0000651000380350270001100310000000006500000010');
+			if(localStorage.getItem('UCI41') === null) {
+          // Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile   
+		      localStorage.setItem('UCI41', '1|0|0');
 		    }
 		    var index = localStorage.getItem('blacklist').indexOf(request.value);
 		    var flag = 0;
 		    if(index > -1) {
 		        flag = 1;
 		    }
-			chrome.tabs.sendMessage(sender.tab.id, {message:'orangeconfort+userprefgetresponse', value:flag+"|"+localStorage.getItem('userPref')});
+			chrome.tabs.sendMessage(sender.tab.id, {message:'orangeconfort+userprefgetresponse', value:flag+"|"+localStorage.getItem('UCI41')});
 			break;
 		case 'orangeconfort+userprefsave' :
-			localStorage.setItem('userPref', request.value);
+			localStorage.setItem('UCI41', request.value);
 			break;
 		case 'orangeconfort+blacklistsave' :
 			var blacklist = localStorage.getItem('blacklist');

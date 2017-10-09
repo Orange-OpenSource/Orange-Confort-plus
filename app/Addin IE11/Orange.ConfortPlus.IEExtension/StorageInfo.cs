@@ -19,6 +19,7 @@ namespace Orange.ConfortPlus.IEExtension
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using System.Text;
+    using System.Globalization;
     
     using Microsoft.Win32;
    
@@ -27,19 +28,22 @@ namespace Orange.ConfortPlus.IEExtension
     /// </summary>
     public class StorageInfo
     {
-        private const string DEFAULT_USERPREF = "0000651000390350270001100310000000006500000010";
+        /// Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile 
+        private const string DEFAULT_USERPREF = "1|0|0";
         
         private const string TRUE_VALUE = "1";
         private const string FALSE_VALUE = "0";
 
-        private const string DATA_REGISTRY_PATH = "Software\\Orange.ConfortPlus.IEExtension";
+        private const string DATA_REGISTRY_PATH = "Software\\Orange.ConfortPlus.IEExtension";        
 
         private const string ENABLED_REGISTRY_KEY = "enabled";
-        private const string USERPREF_REGISTRY_KEY = "userpref";
+        private const string USERPREF_REGISTRY_KEY = "UCI41";
+        private const string DEFLANG_REGISTRY_KEY = "LANG";
         private const string BLACKLIST_REGISTRY_KEY = "blacklist";
 
         private bool enabled = false;
         private string userPref = string.Empty;
+        private string lang = "EN";
         private List<string> blacklist = new List<string>();
 
         private bool isLoaded = false;
@@ -84,6 +88,25 @@ namespace Orange.ConfortPlus.IEExtension
             set
             {
                 this.userPref = value;
+                this.Save();
+            }
+        }
+
+
+        /// <summary>
+        /// Get or set user settings. Value is saved on set, loaded on get.
+        /// </summary>
+        public string Lang
+        {
+            get
+            {
+                this.Load();
+                return this.lang;
+            }
+
+            set
+            {
+                this.lang = value;
                 this.Save();
             }
         }
@@ -217,6 +240,10 @@ namespace Orange.ConfortPlus.IEExtension
 
                         registryValue = registryKey.GetValue(USERPREF_REGISTRY_KEY, null);
                         this.userPref = registryValue != null ? registryValue.ToString() : DEFAULT_USERPREF;
+
+                        // lang
+                        CultureInfo culture = CultureInfo.CurrentCulture;
+                        this.lang = culture.Name.Substring(0,2).ToUpper();
 
                         registryValue = registryKey.GetValue(BLACKLIST_REGISTRY_KEY, null);
                         this.blacklist.Clear();

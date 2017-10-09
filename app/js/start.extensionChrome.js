@@ -21,6 +21,7 @@ function startCDU() {
 	var toolbarOnOff = document.getElementById("uci-onoffswitch");
 	if((toolbarServer == null) && (head != null) && (body != null) && (window.location.href != 'about:blank')) {
 		if(toolbarDiv == null && !toolbarOnOff) {
+			accessibilitytoolbar.strings.setForceDefaultLocale(chrome.i18n.getUILanguage().toUpperCase());
 			accessibilitytoolbar.start();
 		}
 	}

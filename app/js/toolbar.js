@@ -2775,13 +2775,9 @@ accessibilitytoolbar = {
     }
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_wordspacing');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_linespacement');
-    if (this.getCompatible('a11yDyslexyFontEnabled')) {
-      accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_fontfamily');
-    }
+    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_fontfamily');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_changecasse');
-    if (this.getCompatible('a11yMaskEnabled')) {
-      accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_epaisseurmask');
-    }
+    accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_epaisseurmask');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurpolice');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleurbackground');
     accessibilitytoolbar.uci_aria_radio_simulation('uci_reponses_couleur_lien_visite');
@@ -2797,7 +2793,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_moreconfort'), UciIhm.more_confort);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_close_toolbar'), function () {
       if (document.getElementById('uci_activateOnglet').style.display === 'block') return false;
-      if ((accessibilitytoolbar.userPref.encode().substr(0,accessibilitytoolbar.userPref.encode().length-3) === accessibilitytoolbar.userPref.getCurrentPref().substr(0,accessibilitytoolbar.userPref.getCurrentPref().length-3)) 
+      if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
         UciValidation.Annulation();
         UciIhm.ToolbarHide();
