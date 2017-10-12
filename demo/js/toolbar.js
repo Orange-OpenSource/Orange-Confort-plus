@@ -2798,7 +2798,7 @@ UciIhm = {
                 ]
               ],
               ["li", { "class": "uci_inline uci_menu_bton", id:"uci_lang_list" },
-                ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_lang_menu_button", type:"button"}, accessibilitytoolbar.userPref.get("a11yLanguage")],
+                ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_lang_menu_button", type:"button"}, accessibilitytoolbar.strings.getLocale().toUpperCase()],
                 ["div",
                   ["div", {id:"uci_lang_menu", style:"display:none;", class:"uci_submenu"},
                     ["div", {id:"uci_language", "class":"uci_lang"},
