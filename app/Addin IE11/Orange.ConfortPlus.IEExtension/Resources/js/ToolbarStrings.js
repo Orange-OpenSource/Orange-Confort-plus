@@ -28,6 +28,12 @@ function ToolbarStrings() {
      * @private
      */
     var defaultLocale = "EN";
+    /**
+     * A {String} force default locale language
+     * @private
+     */
+    var ForceDefaultLocale = false;
+
     /* local to default to - see setLocale() */
 
     /**
@@ -46,8 +52,23 @@ function ToolbarStrings() {
         if (!this.locale || !traduction[this.locale]) {
             this.locale = defaultLocale;
         }
+        // if extension mode force default locale not depending from page lang
+        if(this.ForceDefaultLocale) {
+            this.locale = this.ForceDefaultLocale;
+        }
         //Debug.log("locale (final): " + locale);
         
+    };
+
+    /**
+     * Set default locale for Extension mode
+     * 
+     */
+    this.setForceDefaultLocale = function(defLocal) {
+        // filter existing languages
+        if(defLocal == "EN" || defLocal == "FR" || defLocal == "ES" || defLocal == "PL") {
+            this.ForceDefaultLocale = defLocal;
+        }
     };
 
     /**

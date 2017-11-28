@@ -2802,8 +2802,11 @@ accessibilitytoolbar = {
     });
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_remove_all'), UciIhm.remove_all);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_help_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_help_menu', e) });
-    accessibilitytoolbar.uciAttachEvent('focusout', 'onfocusout', document.getElementById('uci_help_list'), UciIhm.setFocusOut);
-    accessibilitytoolbar.uciAttachEvent('focusin', 'onfocusin', document.getElementById('uci_help_list'), UciIhm.setFocusIn);
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_lang_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_lang_menu', e) });
+    accessibilitytoolbar.uciAttachEvent('focusout', 'onfocusout', document.getElementById('uci_help_list'), UciIhm.setFocusHelpOut);
+    accessibilitytoolbar.uciAttachEvent('focusin', 'onfocusin', document.getElementById('uci_help_list'), UciIhm.setFocusHelpIn);
+    accessibilitytoolbar.uciAttachEvent('focusout', 'onfocusout', document.getElementById('uci_lang_list'), UciIhm.setFocusLangOut);
+    accessibilitytoolbar.uciAttachEvent('focusin', 'onfocusin', document.getElementById('uci_lang_list'), UciIhm.setFocusLangIn);
 
     /********************************************** gestion de l'aide ***********************************************/
     if (accessibilitytoolbar.guideEnabled) {
@@ -2864,16 +2867,17 @@ accessibilitytoolbar = {
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_profile_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_profile_menu', e) });
       if(onOffEnabled) {
-        accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+        accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
       }
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_moreconfort'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_profile_menu_button'), function () { UciIhm.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_help_menu_button'), function () { UciProfile.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
-      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_moreconfort'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_profile_menu_button'), function () { UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_help_menu_button'), function () { UciProfile.setFocusOut(); UciIhm.setFocusLangOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_lang_menu_button'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
     }
 
     // add a global listener for mask shortcut activation

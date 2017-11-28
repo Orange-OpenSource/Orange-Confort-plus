@@ -24,7 +24,8 @@
  * @class Entry point for the accessibility tool-bar
  */
 UciIhm = {
-    timerFocusOut: null,
+    timerFocusHelpOut: null,
+    timerFocusLangOut: null,
   /*
    * @public
    * @constructor
@@ -107,46 +108,10 @@ UciIhm = {
             ["ul",
                   UciProfile.createButtonProfile(),
                   ["li", {"class":"uci_inline uci_menu_bton", id:"uci_help_list"},
-                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
+                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_help_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_menu')}, accessibilitytoolbar.get('uci_txt_link_menu')],
                     ["div",
                       ["div", {id:"uci_help_menu", style:"display:none;", class:"uci_submenu"},
-                        ["ul",
-                          ["li",
-                            ["div", {id:"uci_language", "class":"uci_lang"},
-                          ["input", {
-                            "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "FR" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
-                            type: "button",
-                            name: "uci_language_FR",
-                            value: "FR",
-                            id: "uci_FR",
-                            title: accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')
-                          }],
-                          ["input", {
-                            "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "EN" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
-                            type: "button",
-                            name: "uci_language_EN",
-                            value: "EN",
-                            id: "uci_EN",
-                            title: accessibilitytoolbar.get('uci_txt_menu_change_lang_en')
-                          }],
-                          ["input", {
-                            "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "ES" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
-                            type: "button",
-                            name: "uci_language_ES",
-                            value: "ES",
-                            id: "uci_ES",
-                            title: accessibilitytoolbar.get('uci_txt_menu_change_lang_es')
-                          }],
-                          ["input", {
-                            "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "PL" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
-                            type: "button",
-                            name: "uci_language_PL",
-                            value: "PL",
-                            id: "uci_PL",
-                            title: accessibilitytoolbar.get('uci_txt_menu_change_lang_pl')
-                          }]
-                        ]
-                      ],
+                        ["ul",                          
                       UciHelp.createLinkGuide(),
                       ["li",
                         ["a", { "class": "uci_menu_ouverture_aide", href: helpPath[accessibilitytoolbar.strings.getLocale()], title: accessibilitytoolbar.get('uci_menu_help') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: helpPathTarget },
@@ -164,6 +129,48 @@ UciIhm = {
                   ]
                 ]
               ],
+              ["li", { "class": "uci_inline uci_menu_bton", id:"uci_lang_list" },
+                ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_lang_menu_button", type:"button"}, accessibilitytoolbar.strings.getLocale().toUpperCase()],
+                ["div",
+                  ["div", {id:"uci_lang_menu", style:"display:none;", class:"uci_submenu"},
+                    ["div", {id:"uci_language", "class":"uci_lang"},
+                      ["input", {
+                        "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "FR" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
+                        type: "button",
+                        name: "uci_language_FR",
+                        value: "FR",
+                        id: "uci_FR",
+                        title: accessibilitytoolbar.get('uci_txt_menu_change_lang_fr')
+                      }],
+                      ["input", {
+                        "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "EN" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
+                        type: "button",
+                        name: "uci_language_EN",
+                        value: "EN",
+                        id: "uci_EN",
+                        title: accessibilitytoolbar.get('uci_txt_menu_change_lang_en')
+                      }],
+                      ["input", {
+                        "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "ES" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
+                        type: "button",
+                        name: "uci_language_ES",
+                        value: "ES",
+                        id: "uci_ES",
+                        title: accessibilitytoolbar.get('uci_txt_menu_change_lang_es')
+                      }],
+                      ["input", {
+                        "class": (accessibilitytoolbar.userPref.get("a11yLanguage") === "PL" ? "uci_choix active" : "uci_choix") + " ucibtn ucibtn-sm ucibtn-secondary",
+                        type: "button",
+                        name: "uci_language_PL",
+                        value: "PL",
+                        id: "uci_PL",
+                        title: accessibilitytoolbar.get('uci_txt_menu_change_lang_pl')
+                      }]
+                    ]
+                  ]
+                ]
+              ],
+
               ["li", { "class": "uci_inline uci_menu_close" },
                     ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c", id:"uci_close_toolbar", title:accessibilitytoolbar.get('uci_link_hide_toolbar'), type:"button"},
                       ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
@@ -313,17 +320,33 @@ UciIhm = {
      * If focus really goes out, close the submenu
      * 
      */
-    setFocusOut: function() {
-      clearTimeout(this.timerFocusOut);
-      this.timerFocusOut = setTimeout(function(){UciIhm.uci_close_menu('uci_help_menu')},10);
+    setFocusHelpOut: function() {
+      clearTimeout(this.timerFocusHelpOut);
+      this.timerFocusHelpOut = setTimeout(function(){UciIhm.uci_close_menu('uci_help_menu')},10);
+    },
+
+    /**
+     * If focus really goes out, close the submenu
+     * 
+     */
+    setFocusLangOut: function() {
+      clearTimeout(this.timerFocusLangOut);
+      this.timerFocusLangOut = setTimeout(function(){UciIhm.uci_close_menu('uci_lang_menu')},10);
     },
 
     /**
      * kill timer if focus goes in
      * 
      */
-    setFocusIn: function() {
-      clearTimeout(this.timerFocusOut);
+    setFocusHelpIn: function() {
+      clearTimeout(this.timerFocusHelpOut);
+    },
+    /**
+     * kill timer if focus goes in
+     * 
+     */
+    setFocusLangIn: function() {
+      clearTimeout(this.timerFocusLangOut);
     },
 
   /*Permet d’ouvrir les onglets de plus de confort de la toolbar de CDU.*/

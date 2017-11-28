@@ -383,6 +383,20 @@ module.exports = function(grunt) {
             {expand: true, src: ['<%= yeoman.distserveur %>/*.html'], dest: ''}
           ]
       },
+      replacementsHelp:{
+          options: {
+            patterns: [
+              {
+                  match: '</body>',
+                  replacement: '<script type="text/javascript" src="../js/toolbar-min.js"></script></body>'
+              }                  
+            ],
+            usePrefix:false
+          },
+          files: [
+            {expand: true, src: ['<%= yeoman.distserveur %>/help/*.html'], dest: ''}
+          ]
+      },
       firefoxext:{
             options: {
               patterns: [
@@ -463,6 +477,7 @@ module.exports = function(grunt) {
     'usemin',  
     'htmlmin',
     'replace:replacements',
+    'replace:replacementsHelp',
     'usebanner'
   ]);
 

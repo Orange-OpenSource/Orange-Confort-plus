@@ -23,18 +23,17 @@
 
 function UciStorage() {
     "use strict";
-    
-        /*****************************************************************************************************************/
 
     /**
      * Update browser cookies in order to save each of user preference value.
      */
-    this.updateUserPref = function() {
+    this.updateUserPref = function(profilName) {
         // Update the cdu cookies with the stackv3 value
-        var pref = this.encode();
-        var tempMatrix = this.convertMatrixv3.reverse();
-        this.storedValue = ''+pref+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
-        this.postMessage("orangeconfort+userprefsave", pref, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
+        if(profilName) {
+          this.setStoredValue(this.encode(),profilName);
+        }
+        var UsageConfortpref = this.encodeUsageConfort();
+        this.postMessage("orangeconfort+userprefsave", UsageConfortpref, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
         if(accessibilitytoolbar.needToReload)
         {
             accessibilitytoolbar.reloadToolbar();
@@ -65,8 +64,7 @@ function UciStorage() {
      */
     this.updateBlackList = function() {
         // Update the cdu cookies with the stackv3 value
-        var tempMatrix = this.convertMatrixv3.reverse();
-        this.storedValue = this.storedValue.substr(0,this.storedValue.length-1)+tempMatrix['a11ySiteWebEnabled' + "-" + this.stackv3['a11ySiteWebEnabled']].replace(/.*-/, "");
+        this.setStoredValue(this.encode());
         this.postMessage("orangeconfort+blacklistsave", document.location.hostname, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
     };
 

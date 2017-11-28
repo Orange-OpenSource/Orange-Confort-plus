@@ -34,179 +34,161 @@ UciAideMotrice = {
      */
     InitUciAideMotrice: function () {
         return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_aidemotrice", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-          ["div", {id:"setting_bloc_content"},
+          ["div",{"class":"padding-left margin-top-lg uci_w50-left"},
+            // jump to content
             ["input", {type:"checkbox", name:"a11yJumpToContent", id:"a11yJumpToContent", value:"true", checked:accessibilitytoolbar.userPref.get("a11yJumpToContent") === "true" ? "checked" : false}],
             ["label", {"for":"a11yJumpToContent"},accessibilitytoolbar.get('uci_label_jumptocontent')],
-            accessibilitytoolbar.makeHelpTpl("uci_link_help_jumptocontent","uci_help_jumptocontent",accessibilitytoolbar.get('uci_help_jumptocontent'))
-          ],
-          ["div", {id:"uci_div_motor"},
-            ["input", {type:"checkbox", name:"a11yMotorModeEnabled", id:"a11yMotorModeEnabled", value:"true", checked:accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true" ? "checked" : false}],
-            ["label", {"for":"a11yMotorModeEnabled"},accessibilitytoolbar.get('uci_enableMotorMode')]
-          ],
-          ["div", {id:"uci_motor_general", "class":"padding-left-align", style:accessibilitytoolbar.userPref.get("a11yMotorModeEnabled") === "true"? "display:block" : "display:none" },
-          // Pointed nav
-            ["div",{id:"uci_motor_div_left"},
-              ["input", {type:"radio", name:"a11yMotorMode", id:"a11yMotorMode-remote", value:"remote", checked: accessibilitytoolbar.userPref.get("a11yMotorMode") === "remote" ? "checked" : false}],
-              ["label", {"for":"a11yMotorMode-remote","class":"margin-top"},accessibilitytoolbar.get('uci_label_telecomande')],
-              ["p",{"class":"font-normal margin-right-lg margin-top padding-left-align"},accessibilitytoolbar.get('uci_help_telecomande')],
-              ["div", {id:"uci_motor_mode", "class":"padding-left-align setting-sub-container"},
-              // delay before clic option
-                ["p",{id:"a11yDelayBeforeClick0", "class":"margin-top"}, accessibilitytoolbar.get('uci_legend_delai_clic')],
-                ["ul",{"class":"uci_liste_bton margin-top-sm", id:"uci_reponses_DelayBeforeLoop", role:"radiogroup", "aria-labelledby":"a11yDelayBeforeClick0"},
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeClick_1", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_1sec')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeClick_2", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "0" : "-1",
-                    "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_2sec')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeClick_3", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "0" : "-1",
-                    "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_3sec')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeClick_6", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "0" : "-1",
-                    "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_6sec')
-                  ],
-                ]
+            ["p", {"class":"font-normal padding-left-align margin-top margin-right-lg"}, accessibilitytoolbar.get('uci_help_jumptocontent')],
+            // Pointed nav
+            ["input", {type:"checkbox", name:"a11yMotorModeRemote", id:"a11yMotorModeRemote", value:"true", checked: accessibilitytoolbar.userPref.get("a11yMotorModeRemote") === "true" ? "checked" : false}],
+            ["label", {"for":"a11yMotorModeRemote","class":"margin-top-lg"},accessibilitytoolbar.get('uci_label_telecomande')],
+            ["div", {id:"uci_motor_mode", "class":"padding-left-align setting-sub-container"},
+              ["p",{"class":"font-normal margin-right-lg margin-top"},accessibilitytoolbar.get('uci_help_telecomande')],
+            // delay before clic option
+              ["p",{id:"a11yDelayBeforeClick0", "class":"margin-top"}, accessibilitytoolbar.get('uci_legend_delai_clic')],
+              ["ul",{"class":"uci_liste_bton margin-top-sm", id:"uci_reponses_DelayBeforeLoop", role:"radiogroup", "aria-labelledby":"a11yDelayBeforeClick0"},
+                ["li", 
+                  {id:"uci_a11yDelayBeforeClick_1", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "1" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_1sec')
+                ],
+                ["li", 
+                  {id:"uci_a11yDelayBeforeClick_2", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "0" : "-1",
+                  "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "2" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_2sec')
+                ],
+                ["li", 
+                  {id:"uci_a11yDelayBeforeClick_3", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "0" : "-1",
+                  "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "3" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_3sec')
+                ],
+                ["li", 
+                  {id:"uci_a11yDelayBeforeClick_6", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "0" : "-1",
+                  "aria-checked": accessibilitytoolbar.userPref.get("a11yDelayBeforeClick") === "6" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_6sec')
+                ],
               ]
-            ],
-            // automatic mode 
-            ["div",{id:"uci_motor_div_right"},
-              ["div", {"class":"btn-check ucibtn-check-large"},            
-                ["input", {type:"radio", name:"a11yMotorMode", id:"a11yMotorMode-looping", value:"looping", checked: accessibilitytoolbar.userPref.get("a11yMotorMode") === "looping" ? "checked" : false}],
-                ["label", {"for":"a11yMotorMode-looping","class":"margin-top"},accessibilitytoolbar.get('uci_label_automove')],
-                ["p",{"class":"padding-left-align font-normal margin-top"},accessibilitytoolbar.get('uci_help_automove')]
-              ],
-              ["div", {"class":"padding-left-align"},
+            ]
+          ],
+          // automatic mode 
+          ["div",{"class":"margin-top-lg uci_w50-left"},            
+            ["input", {type:"checkbox", name:"a11yMotorModeLooping", id:"a11yMotorModeLooping", value:"true", checked: accessibilitytoolbar.userPref.get("a11yMotorModeLooping") === "true" ? "checked" : false}],
+            ["label", {"for":"a11yMotorModeLooping"},accessibilitytoolbar.get('uci_label_automove')],
+            ["div", {"class":"padding-left-align"},
+              ["p",{"class":"font-normal margin-top"},accessibilitytoolbar.get('uci_help_automove')],
               // menu position
-                ["p",{id:"a11yMenuPositionning", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_menupos')],
-                ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_a11yMenuPositionning", role:"radiogroup", "aria-labelledby":"a11yMenuPositionning"},
-                  ["li", 
-                    {id:"uci_a11yMenuPositionning_center", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_centeredmenu')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yMenuPositionning_nextto", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_nearelemtmenu')
-                  ]
+              ["p",{id:"a11yMenuPositionning", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_menupos')],
+              ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_a11yMenuPositionning", role:"radiogroup", "aria-labelledby":"a11yMenuPositionning"},
+                ["li", 
+                  {id:"uci_a11yMenuPositionning_center", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "center" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_centeredmenu')
                 ],
-                // loop speed
-                ["p",{id:"a11yDelayBeforeLoop", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_time_before_sel')],
-                ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_DelayBeforeLoop_auto", role:"radiogroup", "aria-labelledby":"a11yDelayBeforeLoop"},
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeLoop_1", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_1sec')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeLoop_2", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_2sec')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeLoop_3", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_3sec')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yDelayBeforeLoop_6", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_6sec')
-                  ]
-                ],
-                // quick step value
-                ["p",{id:"a11yQuickMode", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_pasquickmode')],
-                ["p",{"class": "font-normal margin-top-sm"},accessibilitytoolbar.get('uci_help_quickmode')],
-                ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_a11yQuickMode", role:"radiogroup", "aria-labelledby":"a11yQuickMode"},
-                  ["li", 
-                    {id:"uci_a11yQuickMode_2", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_2par2')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yQuickMode_5", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_5par5')
-                  ],
-                  ["li", 
-                    {id:"uci_a11yQuickMode_10", 
-                    role:"radio", 
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "active" : ""), 
-                    tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "true" : "false"
-                    },
-                    accessibilitytoolbar.get('uci_label_10par10')
-                  ],
+                ["li", 
+                  {id:"uci_a11yMenuPositionning_nextto", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yMenuPositionning") === "nextto" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_nearelemtmenu')
                 ]
+              ],
+              // loop speed
+              ["p",{id:"a11yDelayBeforeLoop", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_time_before_sel')],
+              ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_DelayBeforeLoop_auto", role:"radiogroup", "aria-labelledby":"a11yDelayBeforeLoop"},
+                ["li", 
+                  {id:"uci_a11yDelayBeforeLoop_1", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "1" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_1sec')
+                ],
+                ["li", 
+                  {id:"uci_a11yDelayBeforeLoop_2", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "2" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_2sec')
+                ],
+                ["li", 
+                  {id:"uci_a11yDelayBeforeLoop_3", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "3" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_3sec')
+                ],
+                ["li", 
+                  {id:"uci_a11yDelayBeforeLoop_6", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yDelayBeforeLoop") === "6" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_6sec')
+                ]
+              ],
+              // quick step value
+              ["p",{id:"a11yQuickMode", "class":"uci_clear margin-top"}, accessibilitytoolbar.get('uci_legend_pasquickmode')],
+              ["p",{"class": "font-normal margin-top-sm"},accessibilitytoolbar.get('uci_help_quickmode')],
+              ["ul",{"class":"uci_liste_bton margin-top-sm margin-bottom", id:"uci_reponses_a11yQuickMode", role:"radiogroup", "aria-labelledby":"a11yQuickMode"},
+                ["li", 
+                  {id:"uci_a11yQuickMode_2", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "2" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_2par2')
+                ],
+                ["li", 
+                  {id:"uci_a11yQuickMode_5", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "5" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_5par5')
+                ],
+                ["li", 
+                  {id:"uci_a11yQuickMode_10", 
+                  role:"radio", 
+                  "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "active" : ""), 
+                  tabindex:accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "0" : "-1",
+                  "aria-checked":accessibilitytoolbar.userPref.get("a11yQuickMode") === "10" ? "true" : "false"
+                  },
+                  accessibilitytoolbar.get('uci_label_10par10')
+                ],
               ]
             ]
           ]
-        ]);
-        
-    },
-
-    activate_aide_motrice: function () {
-        if (document.getElementById('a11yMotorModeEnabled').checked) {
-            document.getElementById('uci_motor_general').style.display = "block";
-        } else {
-            document.getElementById('uci_motor_general').style.display = "none";
-        }
+        ]);        
     }
 
 }

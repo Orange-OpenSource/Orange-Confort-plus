@@ -27,28 +27,50 @@ UciCouleur = {
      */
     InitUciCouleur: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_couleur", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
-        ["div", {id:"uci_div_couleur_predefinie", "class":"margin-left margin-right-lg margin-top-lg"},
-          ["input", {type:"radio", value:"predefined", name:"a11yVisualSettings", id:"uci_couleur_predefenie_input", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "predefined" ? "checked" : false}],
-          ["label", {"for":"uci_couleur_predefenie_input", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre')],
-          accessibilitytoolbar.makePredefinedCouleurTpl(),
-          ["div", {id:"uci_message_constraste", style:"display:none;", "class":"message_couleur"},
-            ["p", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
-            ["span", {style:"color: black !important; background-color: #FFFFFF !important;", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
+        ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
+          ["div",
+            ["input", {type:"checkbox", value:"true", name:"a11yVisualSettings", id:"a11yVisualSettings", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "true" ? true : false}],
+            ["label", {"for":"a11yVisualSettings"}, accessibilitytoolbar.get('uci_color_titre')],
+            accessibilitytoolbar.makePredefinedCouleurSelect(),
           ]
         ],
-        ["div", {id:"uci_div_right_couleur", "class":"margin-left margin-top-lg"},
-          ["div", {"class":"cdu_c"},
-            ["input", {type:"radio", value:"personnal", name:"a11yVisualSettings", id:"uci_couleur_personnalisees_input", checked:accessibilitytoolbar.userPref.get("a11yVisualSettings") === "personnal" ? "checked" : false}],
-            ["label", {"for":"uci_couleur_personnalisees_input", "class":"uci_couleur_left"}, accessibilitytoolbar.get('uci_color_titre_use_personal')]              
-          ],
-          ["div", {id:"uci_couleur_police", "class":"padding-left-align cdu_c"},
-            ["span", {id:"aria_label_texte"},accessibilitytoolbar.get('uci_color_txt_texte')],
-            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur margin-top cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
-          ],
-          ["div", {id:"uci_couleur_fond", "class":"padding-left-align cdu_c"},
-            ["span", {id:"uci_aria_label_fond", "class":"uci_couleur_clear"},accessibilitytoolbar.get('uci_color_txt_background')],
-            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur margin-top cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
+        ["div", {"class":"margin-left margin-right-xlg margin-top-lg uci_w50-left"},
+          ["input", {type:"checkbox", value:"true", name:"a11yNavLienEnabled", id:"a11yNavLienEnabled", checked:accessibilitytoolbar.userPref.get("a11yNavLienEnabled") === "true" ? "checked" : false}],
+          ["label", {"for":"a11yNavLienEnabled"}, accessibilitytoolbar.get('uci_titre_links')],
+          accessibilitytoolbar.makeHelpTpl("uci_link_help_links","uci_help_links",accessibilitytoolbar.get('uci_help_links')),
+          ["div", {id:"uci_gestion_lien"},
+            ["div", {id:"uci_div_lien_notselectionne"},
+              ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_notvisited')],
+              ["div", {"class":"cdu_left"},
+                ["button", {type:"button", id:"uci_NavLienNonVis", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_notvisited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor")+"!important"}],
+                ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_notselectionne", style:"display:none"},
+                  accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienNonVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienNonVisColor"),"uci_reponses_couleur_lien_notsel","uci_NavLienNonVis")
+                ]
+              ]
+            ],
+            ["div", {id:"uci_div_lien_selectionne"},
+              ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_active')],
+              ["div", {"class":"cdu_left"},
+                ["button", {type:"button", id:"uci_NavLienSel", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_active_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienSelColor")+"!important"}],
+                ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_selectionne", style:"display:none"},
+                  accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienSelColor_",accessibilitytoolbar.userPref.get("a11yNavLienSelColor"),"uci_reponses_couleur_lien_sel","uci_NavLienSel")
+                ]
+              ]
+            ],
+            ["div", {id:"uci_div_lien_visite"},
+              ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_txt_visited')],
+              ["div", {"class":"cdu_left"},
+                ["button", {type:"button", id:"uci_NavLienVis", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_title_link_visited_color'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yNavLienVisColor")+"!important"}],
+                ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_lien_visite", style:"display:none"},
+                  accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yNavLienVisColor_",accessibilitytoolbar.userPref.get("a11yNavLienVisColor"),"uci_reponses_couleur_lien_visite","uci_NavLienVis")
+                ]
+              ]
+            ]
           ]
+        ],
+        ["div", {id:"uci_message_constraste", style:"display:none;", "class":"margin-top margin-bottom message_couleur"},
+          ["div", {style:"color: black !important; background-color: #FFFFFF !important;"}, accessibilitytoolbar.get("uci_color_warning_title")],
+          ["span", {style:"color: black !important; background-color: #FFFFFF !important;", "class":"uci_message_contraste_lbl", id:"uci_message_contraste_lbl"}, accessibilitytoolbar.get('uci_color_warning_content')]
         ]
       ]);
     }

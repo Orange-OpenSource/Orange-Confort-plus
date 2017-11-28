@@ -1,5 +1,5 @@
 {
-  "hebergementProtocol": "https:",  
-  "hebergementDomaine": "HEBERGEMENTDOMAIN",
-  "hebergementFullPath": "YOURPATHTOSOURCEFILES"
+  "hebergementProtocol": "http:",  
+  "hebergementDomaine": "confort-plus.orange.com",
+  "hebergementFullPath": "/"
 }

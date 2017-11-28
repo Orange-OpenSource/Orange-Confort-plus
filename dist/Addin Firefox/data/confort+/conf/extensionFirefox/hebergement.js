@@ -16,3 +16,4 @@ var helpPath = {
 };
 var helpPathTarget = self.options.helpPathTarget;
 var hebergementFullPath='';
+var onOffEnabled=false;

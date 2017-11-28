@@ -310,7 +310,6 @@ function UciUserPref() {
             if (prefName !== "") {
                 // si la pref existe dans le stack sinon 0
                 if(prefName in this.stackv3) {
-                    console.log(prefName+":"+tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, ""));
                     pref = tempMatrix[prefName + "-" + this.stackv3[prefName]].replace(/.*-/, "") + pref;
                 }
                 // on garantie la longeur de la chaine
