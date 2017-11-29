@@ -1,1 +1,0 @@
-https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Getting_started

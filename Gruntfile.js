@@ -9,9 +9,8 @@ module.exports = function(grunt) {
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist',
-    distserveur: 'dist/serveur',
-    distfirefoxext: 'dist/Addin Firefox',    
-    distchromeext: 'dist/Addin Chrome',    
+    distserveur: 'dist/serveur',    
+    distchromeext: 'dist/WebExtension',    
     pkg: grunt.file.readJSON('bower.json') || {},
 // hebergementProtocol If possible, use HTTPS
 // hebergementDomaine Put your servername below example : "hebergementDomaine": "github.com"
@@ -112,14 +111,6 @@ module.exports = function(grunt) {
           src: [
             '.tmp',
             '<%= yeoman.distserveur %>/*'
-          ]
-        }]
-      },
-      firefoxext: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= yeoman.distfirefoxext %>/*'
           ]
         }]
       },
@@ -291,40 +282,11 @@ module.exports = function(grunt) {
           ]
         }]
       },
-      firefoxext: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>/Addin Firefox',
-          dest: '<%= yeoman.distfirefoxext %>',
-          src: [           
-            '**' 
-          ]
-        },{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.distfirefoxext %>/data/confort+',
-          src: [           
-            'images/**',   
-            'css/**',
-            'fonts/{,*/}**',  
-            'help/**',
-            'language/**',  
-            'js/**' ,
-            '!js/start.extensionChrome.js',     
-            '!js/start.extensionIE.js',
-            '!js/start.server.js',  
-            '!js/UciCookie.js',
-            'conf/extensionFirefox/**' 
-          ]
-        }]
-      },
       chromeext: {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>/Addin Chrome',
+          cwd: '<%= yeoman.app %>/WebExtension',
           dest: '<%= yeoman.distchromeext %>',
           src: [           
             '**' 
@@ -339,17 +301,16 @@ module.exports = function(grunt) {
             'css/**',  
             'help/**',
             'language/**',  
-            'js/**' ,
-            '!js/start.extensionFirefox.js',  
+            'js/**' ,  
             '!js/start.extensionIE.js',  
             '!js/start.server.js',  
             '!js/UciCookie.js',
-            '!conf/extensionChrome/**' 
+            '!conf/WebExtension/**' 
           ]
         },{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>/conf/extensionChrome',
+          cwd: '<%= yeoman.app %>/conf/WebExtension',
           dest: '<%= yeoman.distchromeext %>/conf',
           src: ['*']
         }]
@@ -397,32 +358,12 @@ module.exports = function(grunt) {
             {expand: true, src: ['<%= yeoman.distserveur %>/help/*.html'], dest: ''}
           ]
       },
-      firefoxext:{
-            options: {
-              patterns: [
-                {
-                    match: 'start.server',
-                    replacement: 'start.extensionFirefox'
-                },{
-                    match: 'UciCookie.js',
-                    replacement: 'UciSimpleStorage.js'
-                },{
-                    match: '/js/toolbar-min.js -->',
-                    replacement: '/js/toolbar-min.js '
-                }
-              ],
-              usePrefix:false
-            },
-            files: [
-              {expand: true, src: ['<%= yeoman.dist %>/Addin Firefox/data/confort+/help/*.html'], dest: ''}
-            ]
-        },
       chromeext:{
         options: {
           patterns: [
             {
                 match: 'start.server',
-                replacement: 'start.extensionChrome'
+                replacement: 'start.WebExtension'
             },{
                 match: 'UciCookie.js',
                 replacement: 'UciSimpleStorage.js'
@@ -431,7 +372,7 @@ module.exports = function(grunt) {
           usePrefix:false
         },
         files: [
-          {expand: true, src: ['<%= yeoman.dist %>/Addin Chrome/help/*.html'], dest: ''}
+          {expand: true, src: ['<%= yeoman.dist %>/WebExtension/help/*.html'], dest: ''}
         ]
       }
     }    
@@ -451,15 +392,7 @@ module.exports = function(grunt) {
   grunt.registerTask('docs', [   
     'copy:docs'
   ]);
-  
-  // this task just create the unziped folder, to build the xpi you need to run : 
-  // "jpm xpi" in command line from the dist/Addin Firefox folder
-  grunt.registerTask('buildfirefoxext', [    
-    'clean:firefoxext',
-    'copy:firefoxext',    
-    'replace:firefoxext'
-  ]);
-  
+    
   grunt.registerTask('buildchromeext', [    
     'clean:chromeext',
     'copy:chromeext',
@@ -482,7 +415,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'build','buildfirefoxext','buildchromeext','docs'
+    'build','buildchromeext','docs'
   ]);
 };
 
