@@ -15,6 +15,7 @@
 --> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> <title>Standalone cookie toolbar</title>  <body> <script type="text/javascript">var namePref = 'UCI42';
       var nameBlacklist = 'uci-bl';
       var valueBlacklist = '0';
+      var date = '5020';
       // Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile 
       var defaultValuePref = '0|0|0';
   /*!
@@ -40,7 +41,7 @@
             var expires = "; expires="+date.toGMTString();
         }
         else var expires = "";
-        document.cookie = name+"="+value+expires+";domain="+document.location.hostname+"; path=/";
+        document.cookie = name+"="+value+"; expires="+expires+";domain="+document.location.hostname+"; path=/";
       }
 
       function readCookies() {
@@ -66,7 +67,7 @@
         }
         if(valuePref === null) {
           valuePref = defaultValuePref;
-          saveCookie(namePref, defaultValuePref);
+          saveCookie(namePref, defaultValuePref,date);
         }
         return valueBlacklist+"|"+valuePref;
       }  
@@ -110,7 +111,7 @@
         window.parent.postMessage(readCookies(), origin);
       }
       else if((UsageConfort || UsageConfort==="") && origin) {                                                                      
-        saveCookie(namePref, UsageConfort);
+        saveCookie(namePref, UsageConfort,date);
       } else if(hostname) {
         updateBlackList(hostname);
       }</script>  
