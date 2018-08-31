@@ -36,13 +36,35 @@ var hebergementDomaine = 'https://HEBERGEMENTDOMAIN'; // Here is your website pr
 var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES'; // YOURPATHTOSOURCEFILES is the deployment path (starting en ending with a /) eg: /myconfortplus/
 ```
 
+NB: Pay attention to the protocol you are using, HTTPS or HTTP.
+
 Now you're ready to deploy it, just copy all the files and folders from `dist/serveur` to your website tree in `myconfortplus` folder if you used it for YOURPATHTOSOURCEFILES value.
 
-You can call it anywhere on your website, just by adding the Javascript link in your pages like this: 
+You can call it anywhere on your website, just by adding the Javascript link, before the closing body tag, `</body>`, in your pages like this: 
 
 `<script type="text/javascript" src="http://myexemple.com/myconfortplus/js/toolbar-min.js"></script>`
 
 NB: The user settings are saved onto your domain and are never shared with other websites, or extension. 
+
+If the button doesn't comply with your graphics charts, you can create a link that will trigger Confort plus.
+To do so, just include those scripts along with the aforementionned: 
+
+```
+`<script type="text/javascript">
+accessibilitytoolbar_custom = {
+// MANDATORY : ID of the target container which will include the link. If not null, activate the display in link mode. The link will be added as the last element of the target container. idLinkModeContainer : "id_target_container",
+
+// OPTIONAL (put it as comments if useless) CSS class applied on the link to unify its appearance with the site.
+cssLinkModeClassName : "linkClass",
+ 
+// OPTIONAL (put it as comments if useless) When the service is displayed as a link in the page, a skip link is automatically added at the top of the page. If you already have a group of skip links, you can specify the target container where the skip link will be added. The link will be added as the last element of the target container. 
+//idSkipLinkIdLinkMode : "", 
+
+// OPTIONAL (put it as comments if useless) CSS class applied on the skip link
+//cssSkipLinkClassName : "" 
+};
+</script>`
+```
 
 ## Contribute
 - Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
