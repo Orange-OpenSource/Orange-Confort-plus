@@ -46,7 +46,7 @@ You can call it anywhere on your website, just by adding the Javascript link, be
 
 NB: The user settings are saved onto your domain and are never shared with other websites, or extension. 
 
-If the button doesn't comply with your graphics charts, you can create a link that will trigger Confort plus.
+If the button doesn't comply with your graphics charter, you can create a link that will trigger Confort plus.
 To do so, just include those scripts along with the aforementionned: 
 
 ```
