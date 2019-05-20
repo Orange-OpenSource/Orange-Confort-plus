@@ -20,6 +20,39 @@
     <!--<![endif]-->
 
       <link rel="stylesheet" type="text/css" href="css/confortplus.css" media="all"/>
+      <link rel="stylesheet" type="text/css" href="css/tarteaucitron.css" />
+      <link rel="stylesheet" type="text/css" href="css/tarteaucitronboosted.css" />
+        <script src="js/tarteaucitron.js"></script>
+        <script type="text/javascript">
+            tarteaucitron.init({
+              "privacyUrl": "", /* Privacy policy url */
+    
+              "hashtag": "#cookie-consent", /* Open the panel with this hashtag */
+              "cookieName": "cookie-consent", /* Cookie name */
+        
+              "orientation": "bottom", /* Banner position (top - bottom) */
+              "showAlertSmall": true, /* Show the small banner on bottom right */
+              "cookieslist": true, /* Show the cookie list */
+    
+              "adblocker": false, /* Show a Warning if an adblocker is detected */
+              "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+              "highPrivacy": false, /* Disable auto consent */
+              "handleBrowserDNTRequest": true, /* If Do Not Track == 1, disallow all */
+    
+              "removeCredit": false, /* Remove credit link */
+              "moreInfoLink": true, /* Show more info link */
+              "useExternalCss": true, /* If false, the tarteaucitron.css file will be loaded */
+    
+              //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+                              
+              "readmoreLink": "/cookiespolicy" /* Change the default readmore link */
+            });
+            dataLayer = [{
+            'site_name': 'accessibility-confortplus',  
+            'phase': 'prod',                     // dev, qa, prod
+            'page_type': 'doc'            //  type de page, optionnel
+            }];
+        </script>
 </head>
 <body>
 	<div class="container">
@@ -37,13 +70,13 @@
               <div>Orange Confort+ est une extension pour navigateur à télécharger gratuitement, disponible sur Firefox, Chrome, et Internet Explorer 11</div>
                   <br>
                 <ul><li>	
-                    <a href="https://addons.mozilla.org/fr/firefox/addon/orange-confort/" title="Extension pour le navigateur Firefox">Addon Firefox</a><br>
+                    <a href="https://addons.mozilla.org/fr/firefox/addon/orange-confort/" title="Extension pour le navigateur Firefox"  onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Extension pour le navigateur Firefox'})">Addon Firefox</a><br>
                 </li><li>
-                    <a href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp" title="Extension pour le navigateur Chrome">Addon Chrome</a><br>
+                    <a href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp" title="Extension pour le navigateur Chrome" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Extension pour le navigateur Chrome'})">Addon Chrome</a><br>
                 </li><li>
-                    <a href="https://github.com/Orange-OpenSource/Orange-Confort-plus/releases/download/4.2.0/Orange.ConfortPlus.IEExtension.Installer_x64.msi" title="Extension pour le navigateur Internet Explorer 11 version 64bits">Internet Explorer 11 64bits</a><br> 
+                    <a href="https://github.com/Orange-OpenSource/Orange-Confort-plus/releases/download/4.2.0/Orange.ConfortPlus.IEExtension.Installer_x64.msi" title="Extension pour le navigateur Internet Explorer 11 version 64bits" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Extension pour le navigateur Internet Explorer 11 version 64bits'})">Internet Explorer 11 64bits</a><br> 
                 </li><li>
-                    <a href="https://github.com/Orange-OpenSource/Orange-Confort-plus/releases/download/4.2.0/Orange.ConfortPlus.IEExtension.Installer_x86.msi" title="Extension pour le navigateur Internet Explorer 11 version 32bits">Internet Explorer 11 32bits</a><br> 
+                    <a href="https://github.com/Orange-OpenSource/Orange-Confort-plus/releases/download/4.2.0/Orange.ConfortPlus.IEExtension.Installer_x86.msi" title="Extension pour le navigateur Internet Explorer 11 version 32bits" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Extension pour le navigateur Internet Explorer 11 version 32bits'})">Internet Explorer 11 32bits</a><br> 
                 </li></ul>
             </div>
             </div>
@@ -132,13 +165,13 @@
 
             Le service peut être utilisé sur tous les sites, cependant pour que le service fonctionne de façon optimale, il est préférable que votre site respecte les recommandations d’accessibilité WCAG 2.0 ou RGAA 3.0.<br><br>
 
-            Dans votre site, l'ajout du service Orange Confort+ est réalisé par la simple inclusion d’un fichier JavaScript dans votre code HTML <a href="https://github.com/Orange-OpenSource/Orange-Confort-plus">(Voir la documentation)</a>.<br><br>
+            Dans votre site, l'ajout du service Orange Confort+ est réalisé par la simple inclusion d’un fichier JavaScript dans votre code HTML <a href="https://github.com/Orange-OpenSource/Orange-Confort-plus" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Github Confort plus'})">(Voir la documentation)</a>.<br><br>
 
             Le fichier Javascript du service Orange Confort+ doit être hébergé sur un serveur. Ce serveur peut être celui de votre site, ou un serveur distant hébergé par un partenaire (sur un autre domaine).
             Si vous faites le choix d’utiliser un serveur distant hébergé par un partenaire, l’utilisateur du service Orange Confort+ retrouvera ses réglages sur tous les sites utilisant ce serveur.<br><br>
             
-            <div><a href="https://github.com/Orange-OpenSource/Orange-Confort-plus">Télécharger Orange Confort+</a></div>
-            <div><a href="https://github.com/Orange-OpenSource/Orange-Confort-plus#bugs-and-feature-requests">Support</a></div>
+            <div><a href="https://github.com/Orange-OpenSource/Orange-Confort-plus" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Telecharger Orange Confort +'})">Télécharger Orange Confort+</a></div>
+            <div><a href="https://github.com/Orange-OpenSource/Orange-Confort-plus#bugs-and-feature-requests" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Support'})">Support</a></div>
             </div>
         </div>
         <div class="row">
@@ -149,18 +182,22 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8 center ">
                 <iframe frameborder="0" width="480" height="270" src="//www.dailymotion.com/embed/video/k72vVFzVXVFDMfeMkAM" allowfullscreen name="Vidéo de présentation du service Orange Confort+"></iframe><br/>
-              <a href="http://www.dailymotion.com/video/k2gqiwYf7aGuMaeMkAM" target="_blank">Le service Orange Confort+<span class="sr-only">&nbsp;sur Dailymotion (Nouvelle fenêtre)</span></a> 
+              <a href="http://www.dailymotion.com/video/k2gqiwYf7aGuMaeMkAM" target="_blank">Le service Orange Confort+<span class="sr-only" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Vidéo Dailymotion'})">&nbsp;sur Dailymotion (Nouvelle fenêtre)</span></a> 
               <i>par <a href="http://www.dailymotion.com/Orange" target="_blank">Orange<span class="sr-only">&nbsp;chaine Dailymotion (Nouvelle fenêtre)</span></a></i>
             </div>
         </div>    
         <div class="row">
             <div class="col-md-offset-2 col-md-8 center ">
-                Orange Confort+ utilise la <a href="http://opendyslexic.org/get-it-free/">Police OpenDyslexic</a><br>
+                Orange Confort+ utilise la <a href="http://opendyslexic.org/get-it-free/" onclick="dataLayer.push({'event': 'clic', 'site_name':'accessibility-confortplus', 'phase':'prod', 'track_category':'home', 'track_name':'Politique dyslexiques'})">Police OpenDyslexic</a><br>
             </div>
         </div>
 	</div><br><br>
     
 
 <script type="text/javascript" src="js/toolbar-min.js"></script>
+<script type="text/javascript">
+tarteaucitron.user.googletagmanagerId = 'GTM-TS8BJV5';
+(tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
+</script>
 </body>
 </html>
