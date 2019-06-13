@@ -20,6 +20,41 @@
     <!--<![endif]-->
 
       <link rel="stylesheet" type="text/css" href="css/confortplus.css" media="all"/>
+
+      <link rel="stylesheet" type="text/css" href="css/confortplus.css" media="all"/>
+      <link rel="stylesheet" type="text/css" href="css/tarteaucitron.css" />
+      <link rel="stylesheet" type="text/css" href="css/tarteaucitronboosted.css" />
+        <script src="js/tarteaucitron.js"></script>
+        <script type="text/javascript">
+            tarteaucitron.init({
+              "privacyUrl": "", /* Privacy policy url */
+    
+              "hashtag": "#cookie-consent", /* Open the panel with this hashtag */
+              "cookieName": "cookie-consent", /* Cookie name */
+        
+              "orientation": "bottom", /* Banner position (top - bottom) */
+              "showAlertSmall": true, /* Show the small banner on bottom right */
+              "cookieslist": true, /* Show the cookie list */
+    
+              "adblocker": false, /* Show a Warning if an adblocker is detected */
+              "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+              "highPrivacy": false, /* Disable auto consent */
+              "handleBrowserDNTRequest": true, /* If Do Not Track == 1, disallow all */
+    
+              "removeCredit": false, /* Remove credit link */
+              "moreInfoLink": true, /* Show more info link */
+              "useExternalCss": true, /* If false, the tarteaucitron.css file will be loaded */
+    
+              //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+                              
+              "readmoreLink": "/cookiespolicy" /* Change the default readmore link */
+            });
+            dataLayer = [{
+            'site_name': 'accessibility-confortplus',  
+            'phase': 'prod',                     // dev, qa, prod
+            'page_type': 'doc'            //  type de page, optionnel
+            }];
+        </script>
 </head>
 <body>
     <main>
@@ -163,5 +198,9 @@
     
 </main>
 <script type="text/javascript" src="js/toolbar-min.js"></script>
+<script type="text/javascript">
+    tarteaucitron.user.googletagmanagerId = 'GTM-TS8BJV5';
+    (tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
+</script>
 </body>
 </html>
