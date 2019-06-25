@@ -3438,14 +3438,13 @@ accessibilitytoolbar = {
    * 
    */
   updateIhmFormsSettings: function () {
-    var pref, prefarray, ariaRadioSettings = ["a11yDyslexyFont", "a11ySpacement", "a11yLineSpacement",
+    var pref, prefarray, ariaRadioSettings = ["a11ySpacement", "a11yLineSpacement",
       "a11yModifCasse", "a11yMaskOpacity", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
       "a11yNavLienVisColor", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
     var radioSettings = ["a11yMaskOption-mask","a11yMaskOption-vruler","a11yMaskOption-hruler"];
     var curpref;
-    var selectSettings = ["uci_reponses_couleurpredefinie"];
     for (pref in ariaRadioSettings) {
       accessibilitytoolbar.uciCocherRadioButton(document.getElementById("uci_" + ariaRadioSettings[pref] + "_" + accessibilitytoolbar.userPref.get(ariaRadioSettings[pref])), false, true);
     }
@@ -3471,6 +3470,17 @@ accessibilitytoolbar = {
         document.getElementById(radioSettings[pref]).checked = false;
       }
     }
+    // update font-family select
+    var sel = document.getElementById("uci_reponses_fontfamily");
+    var val = accessibilitytoolbar.userPref.get("a11yDyslexyFont");
+    var opts = sel.options;
+    for (var opt, j = 0; opt = opts[j]; j++) {
+      if (opt.value == val) {
+        sel.selectedIndex = j;
+        break;
+      }
+    }
+    
     // update color select    
     var sel = document.getElementById("uci_reponses_couleurpredefinie");
     var val = accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings");
@@ -3770,6 +3780,14 @@ accessibilitytoolbar = {
       userFont = localUserPref.get("a11yDyslexyFont");
       if (userFont !== 'keepit') {
         switch(userFont) {
+          case 'luciole':
+            if (fontsPath['lucioleregular']) {
+              s += "@font-face{font-family: \"luciole\";src: " + fontsPath['lucioleregular'] + ";font-style: normal;font-weight: normal;}"
+              +"@font-face{font-family: \"luciole\";src: " + fontsPath['lucioleitalic'] + ";font-style: italic;font-weight: normal;}"
+              +"@font-face{font-family: \"luciole\";src: " + fontsPath['luciolebold'] + ";font-weight: bold;font-style: normal;}"
+              +"@font-face{font-family: \"luciole\";src: " + fontsPath['luciolebolditalic'] + ";font-weight: bold;font-style: italic;} ";
+            }
+            break;
           case 'opendyslexic':
             if (fontsPath['opendyslexicregular']) {
               s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";

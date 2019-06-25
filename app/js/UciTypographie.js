@@ -63,60 +63,51 @@ UciTypographie = {
               ["span", {id:"uci_title_typographie", "class":"cdu_left uci_label"},accessibilitytoolbar.get('uci_typo_titre_fontfamily'),
                 accessibilitytoolbar.makeHelpTpl("uci_link_help_fontfamily","uci_typo_help_fontfamily",accessibilitytoolbar.get('uci_typo_help_fontfamily'))
               ],
-              ["ul", {"class":"uci_liste_bton",id:"uci_reponses_fontfamily",role:"radiogroup","aria-labelledby":"uci_title_typographie"},
-                ["li", {id:"uci_a11yDyslexyFont_keepit",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_normal')
-                  }, 
+              ["select", { "class":"ucibtn uci_liste_bton uci_select_font", name:"a11yDyslexyFont", id: "uci_reponses_fontfamily", "aria-labelledby": "uci_title_typographie"},
+                ["option", {
+                  id: "uci_a11yDyslexyFont_keepit",
+                  value: "keepit", 
+                  selected: (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "keepit" ? true : false)
+                },
                   accessibilitytoolbar.get('uci_radio_default')
                 ],
-                ["li", 
-                  {id:"uci_a11yDyslexyFont_arial",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_arial')
-                  },
+                ["option", {
+                  id: "uci_a11yDyslexyFont_arial",
+                  value: "arial", 
+                  selected: (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "arial" ? true : false)
+                },
                   "Arial"
                 ],
-                ["li", 
-                  {id:"uci_a11yDyslexyFont_opensans",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_opensans')
-                  },
+                ["option", {
+                  id: "uci_a11yDyslexyFont_opensans",
+                  value: "opensans", 
+                  selected: (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opensans" ? true : false)
+                },
                   "Open Sans"
                 ],
-                ["li", 
-                  {id:"uci_a11yDyslexyFont_accessibledfa",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_accessibledfa')
-                  },
+                ["option", {
+                  id: "uci_a11yDyslexyFont_accessibledfa",
+                  value: "accessibledfa", 
+                  selected: (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "accessibledfa" ? true : false)
+                },
                   "Accessible-DFA"
                 ],
-                ["li", 
-                  {id:"uci_a11yDyslexyFont_opendyslexic",
-                    role:"radio",
-                    "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "active": ""),
-                    tabindex:accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? "true" : "false",                    
-                    title:accessibilitytoolbar.get('uci_title_fontfamily_radio_opendys')
-                  },
+                ["option", {
+                  id: "uci_a11yDyslexyFont_opendyslexic",
+                  value: "opendyslexic", 
+                  selected: (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "opendyslexic" ? true : false)
+                },
                   "Open Dyslexic"
+                ],
+                ["option", {
+                  id: "uci_a11yDyslexyFont_luciole",
+                  value: "luciole", 
+                  selected: (accessibilitytoolbar.userPref.get("a11yDyslexyFont") === "luciole" ? true : false)
+                },
+                  "Luciole"
                 ]
               ]
             ],
-
-            
           ],
 
           ["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
