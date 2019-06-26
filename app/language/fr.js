@@ -63,6 +63,8 @@ traduction['FR']={
   uci_label_centeredmenu:"Centr\351 sur la page",
   uci_label_disablebgpictures:"Supprimer les images de fond",
   uci_label_disablepppictures:"Supprimer les images de premier plan",
+  uci_label_disablegif:"Désactiver les images animées",
+  uci_label_disablevideo:"Stopper les vidéos",
   uci_label_disabletransp:"Supprimer les effets de transparence",
   uci_label_jumptocontent:"Aller automatiquement au contenu ",
   uci_label_listmode:"Supprimer la mise en page",

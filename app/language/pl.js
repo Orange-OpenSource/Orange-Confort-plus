@@ -63,6 +63,8 @@ traduction['PL'] = {
   uci_label_centeredmenu: "Środek strony",
   uci_label_disablebgpictures: "Wyłącz obrazy w tle",
   uci_label_disablepppictures: "Anuluj obrazy z pierwszego planu",
+  uci_label_disablegif:"Satrzymać animowane obrazy",
+  uci_label_disablevideo:"Zatrzymaj filmy",
   uci_label_disabletransp: "Usuń efekt przezroczystości",
   uci_label_jumptocontent: "Zawsze przechodź do zawartości",
   uci_label_listmode: "Anuluj rozkład",

@@ -63,6 +63,8 @@ traduction['EN']={
   uci_label_centeredmenu:"Center on the page",
   uci_label_disablebgpictures:"Disable background images",
   uci_label_disablepppictures:"Disable images",
+  uci_label_disablegif:"Disable animated images",
+  uci_label_disablevideo:"Stop videos",
   uci_label_disabletransp:"Cancel transparency effects",
   uci_label_jumptocontent:"Always skip to content",
   uci_label_listmode:"Cancel layout",

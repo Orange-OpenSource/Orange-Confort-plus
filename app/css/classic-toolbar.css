@@ -1079,7 +1079,9 @@ li.uci_dropdown-divider {
 #uci_div_supprimer_miseenpage,
 #uci_div_desactiver_transparence,
 #uci_div_disabled_fond_picture,
-#uci_div_disabled_first_plan_picture{
+#uci_div_disabled_first_plan_picture,
+#uci_div_disabled_gif,
+#uci_div_disabled_video{
 	padding-top: 1.25em;
 }
 
