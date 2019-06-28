@@ -2620,6 +2620,13 @@ accessibilitytoolbar = {
   },
 
   freezeGif: function (img) {
+    // if freeze is asked by user on button click
+    if(img.nodeName==="BUTTON") {
+      // select img tag
+      img = img.parentNode.nextElementSibling;
+      // remove button
+      img.parentNode.removeChild(img.previousElementSibling);
+    }
     // freeze only if image not already hidden
     if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') < 0)) {
       var width = img.width,
@@ -2646,6 +2653,8 @@ accessibilitytoolbar = {
         img.className = img.className + " uci_disable_image";
         // inject canvas
         img.parentNode.insertBefore(canvas, img);
+        // add a button to display original picture
+        img.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)"},"Display original picture"]]), canvas);
       };
 
       if (img.complete) {
@@ -2662,10 +2671,18 @@ accessibilitytoolbar = {
 
   // unFreezeGif remove disable image class, and remove previous created canvas
   unFreezeGif: function (img) {
+    // unfreeze img when user ask it
+    if(img.nodeName==="BUTTON") {
+      img.parentNode.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.freezeGif(this)"},"Hide original picture"]]), img.parentNode);
+      img = img.parentNode.nextElementSibling.nextElementSibling;
+    }
     // unfreeze only if img freezed
     if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') >= 0)) {
       // check if canvas exist
       if (img.previousElementSibling && img.previousElementSibling.nodeName === "CANVAS") {
+        // remove canvas
+        img.parentNode.removeChild(img.previousElementSibling);
+        // remove button
         img.parentNode.removeChild(img.previousElementSibling);
       }
       // Display original picture

@@ -1287,7 +1287,8 @@ li.uci_dropdown-divider {
 	margin-top: 60px;
 }
 /* put grey label when checkbox is disabled */
-#accessibilitytoolbarGraphic .ucibtn {
+#accessibilitytoolbarGraphic .ucibtn,
+.ucibtn {
 	display: inline-block;
 	font-weight: bold;
 	line-height: 1;
@@ -1305,7 +1306,9 @@ li.uci_dropdown-divider {
 }
 
 #accessibilitytoolbarGraphic .ucibtn:active,
-#accessibilitytoolbarGraphic .ucibtn.active {
+.ucibtn:active,
+#accessibilitytoolbarGraphic .ucibtn.active,
+.ucibtn.active {
 	background-image: none;
 	outline: 0;
 }
@@ -1314,7 +1317,8 @@ li.uci_dropdown-divider {
 	cursor: not-allowed;
 	opacity: .65;
 }
-#accessibilitytoolbarGraphic .ucibtn-sm {
+#accessibilitytoolbarGraphic .ucibtn-sm,
+.ucibtn-sm {
 	padding: 0.4285714em 0.5714em;
 	font-size: 0.875em;
 	min-width: 2.5em;
@@ -1329,6 +1333,7 @@ li.uci_dropdown-divider {
 	border-width: 4px;
 }
 #closeMaskDiv .ucibtn-secondary,
+.ucibtn-secondary,
 #accessibilitytoolbarGraphic .ucibtn-secondary {
 	color: #000;
 	background-color: transparent;
@@ -1336,7 +1341,9 @@ li.uci_dropdown-divider {
 }
 
 #accessibilitytoolbarGraphic .ucibtn-secondary:focus,
+.ucibtn-secondary:focus,
 #accessibilitytoolbarGraphic .ucibtn-secondary:hover:not(:disabled):not(label):not([tabindex="-2"]),
+.ucibtn-secondary:hover:not(:disabled):not(label):not([tabindex="-2"]),
 #closeMaskDiv .ucibtn-secondary:focus,
 #closeMaskDiv .ucibtn-secondary:hover,
 #accessibilitytoolbarGraphic input[type="checkbox"]:focus + label.ucibtn-secondary,
@@ -1346,6 +1353,7 @@ li.uci_dropdown-divider {
 	border-color: #000;
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:active,
+.ucibtn-secondary:active,
 #accessibilitytoolbarGraphic .ucibtn-secondary.active,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.ucibtn-secondary {
 	color: #fff;
@@ -1355,6 +1363,7 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:focus,
+.ucibtn-secondary:active:focus,
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:focus,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked:not(:disabled) + label.ucibtn-secondary:hover,
