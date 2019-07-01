@@ -54,10 +54,13 @@
 
       "readmoreLink": "/cookiespolicy" /* Change the default readmore link */
     });
+    tarteaucitron.user.googletagmanagerId = 'GTM-TS8BJV5';
+    (tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
     dataLayer = [{
       'site_name': 'accessibility-confortplus',
       'phase': 'prod',                     // dev, qa, prod
-      'page_type': 'doc'            //  type de page, optionnel
+      'page_type': 'doc',            //  type de page, optionnel
+      'page_title': document.title              // obligatoire pour pages dynamiques
     }];
   </script>
 </head>
@@ -250,10 +253,6 @@
 
 
   <script type="text/javascript" src="js/toolbar-min.js"></script>
-  <script type="text/javascript">
-    tarteaucitron.user.googletagmanagerId = 'GTM-TS8BJV5';
-    (tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
-  </script>
 </body>
 
 </html>
