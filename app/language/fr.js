@@ -64,6 +64,8 @@ traduction['FR']={
   uci_label_disablebgpictures:"Supprimer les images de fond",
   uci_label_disablepppictures:"Supprimer les images de premier plan",
   uci_label_disablegif:"Désactiver les images animées",
+  uci_button_enablegif:"Afficher l'image originale",
+  uci_button_disablegif:"Masquer l'image originale",
   uci_label_disablevideo:"Stopper les vidéos",
   uci_label_disabletransp:"Supprimer les effets de transparence",
   uci_label_jumptocontent:"Aller automatiquement au contenu ",

@@ -2645,7 +2645,11 @@ accessibilitytoolbar = {
         for (i = 0; i < img.attributes.length; i++) {
           attr = img.attributes[i];
           if (attr.name !== '"') { // test for invalid attributes
-            canvas.setAttribute(attr.name, attr.value);
+            if(attr.name === "id") {
+              canvas.setAttribute(attr.name, "canv-"+attr.value);
+            } else {
+              canvas.setAttribute(attr.name, attr.value);
+            }
           }
         }
 
@@ -2653,8 +2657,20 @@ accessibilitytoolbar = {
         img.className = img.className + " uci_disable_image";
         // inject canvas
         img.parentNode.insertBefore(canvas, img);
+        // check if img has an ID? Otherwise create one
+        if(!img.id) {
+        // Function UUID from Broofa (https://stackoverflow.com/users/109538)
+        // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/#answer-2117523
+          img.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+        }
+        if(!img.alt) {
+          img.alt="";
+        }
         // add a button to display original picture
-        img.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)"},"Display original picture"]]), canvas);
+        img.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_enablegif')]]), canvas);
       };
 
       if (img.complete) {
@@ -2673,7 +2689,7 @@ accessibilitytoolbar = {
   unFreezeGif: function (img) {
     // unfreeze img when user ask it
     if(img.nodeName==="BUTTON") {
-      img.parentNode.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.freezeGif(this)"},"Hide original picture"]]), img.parentNode);
+      img.parentNode.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.freezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_disablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_disablegif')]]), img.parentNode);
       img = img.parentNode.nextElementSibling.nextElementSibling;
     }
     // unfreeze only if img freezed

@@ -64,6 +64,8 @@ traduction['ES']={
   uci_label_disablebgpictures:"Anula im\341genes de fondo",
   uci_label_disablepppictures:"Anula im\341genes del primer plano",
   uci_label_disablegif:"Detener imágenes animadas",
+  uci_button_enablegif:"Mostrar imagen original",
+  uci_button_disablegif:"Ocultar imagen original",
   uci_label_disablevideo:"Detener videos",
   uci_label_disabletransp:"Anula efectos de transparencia",
   uci_label_jumptocontent:"Saltar siempre al contenido principal",
