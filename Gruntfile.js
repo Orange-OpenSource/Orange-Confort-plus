@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     config: require('./config.json') || {},
   };
   if(process.env.DEPLOY_PRIME_URL) {
-    appConfig.config.hebergementDomaine=process.env.DEPLOY_PRIME_URL.substring(7);
+    appConfig.config.hebergementDomaine=process.env.DEPLOY_PRIME_URL.substring(8);
   }
 
   grunt.initConfig({
