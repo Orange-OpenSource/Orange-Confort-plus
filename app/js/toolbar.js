@@ -2304,7 +2304,19 @@ accessibilitytoolbar = {
       } else if (obj.attachEvent) {
         obj.attachEvent(wichAttach, callBack);
       } else {
-        obj.onclick = callBack;
+        obj[wichAttach] = callBack;
+      }
+    }
+  },
+
+  uciDetachEvent: function (wichAdd, wichAttach, obj, callBack) {
+    if (obj) {
+      if (obj.RemoveEventListener) {
+        obj.removeEventListener(wichAdd, callBack, false);
+      } else if (obj.detachEvent) {
+        obj.detachEvent(wichAttach, callBack);
+      } else {
+        obj[wichAttach] = "";
       }
     }
   },
@@ -2595,6 +2607,166 @@ accessibilitytoolbar = {
     M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
     if ((tem = ua.match(/version\/([\.\d]+)/i)) !== null) M[2] = tem[1];
     return M.join(' ');
+  },
+
+  // freezeGif from Makaze (https://stackoverflow.com/users/1166904/makaze) on stackoverflow : https://stackoverflow.com/questions/3688460/stopping-gif-animation-programmatically#answer-24707088
+  // code licensed under CC-BY-SA https://creativecommons.org/licenses/by-sa/3.0/
+  createElement: function (type, callback) {
+    var element = document.createElement(type);
+
+    callback(element);
+
+    return element;
+  },
+
+  freezeGif: function (img) {
+    // if freeze is asked by user on button click
+    if(img.nodeName==="BUTTON") {
+      // select img tag
+      img = img.parentNode.nextElementSibling;
+      // remove button
+      img.parentNode.removeChild(img.previousElementSibling);
+    }
+    // freeze only if image not already hidden
+    if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') < 0)) {
+      var width = img.width,
+        height = img.height,
+        canvas = accessibilitytoolbar.createElement('canvas', function (clone) {
+          clone.width = width;
+          clone.height = height;
+        }),
+        attr,
+        i = 0;
+
+      var freeze = function () {
+        accessibilitytoolbar.uciDetachEvent('load', 'onload', img, freeze);
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+        for (i = 0; i < img.attributes.length; i++) {
+          attr = img.attributes[i];
+          if (attr.name !== '"') { // test for invalid attributes
+            if(attr.name === "id") {
+              canvas.setAttribute(attr.name, "canv-"+attr.value);
+            } else {
+              canvas.setAttribute(attr.name, attr.value);
+            }
+          }
+        }
+
+        // hide original picture instead of changing opacity
+        img.className = img.className + " uci_disable_image";
+        // inject canvas
+        img.parentNode.insertBefore(canvas, img);
+        // check if img has an ID? Otherwise create one
+        if(!img.id) {
+        // Function UUID from Broofa (https://stackoverflow.com/users/109538)
+        // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/#answer-2117523
+          img.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+        }
+        if(!img.alt) {
+          img.alt="";
+        }
+        // add a button to display original picture
+        img.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_enablegif')]]), canvas);
+      };
+
+      if (img.complete) {
+        freeze();
+      } else {
+        accessibilitytoolbar.uciAttachEvent('load', 'onload', img, freeze);
+      }
+    }
+  },
+
+  freezeAllGifs: function () {
+    return new Array().slice.apply(document.images).map(accessibilitytoolbar.freezeGif);
+  },
+
+  // unFreezeGif remove disable image class, and remove previous created canvas
+  unFreezeGif: function (img) {
+    // unfreeze img when user ask it
+    if(img.nodeName==="BUTTON") {
+      img.parentNode.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.freezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_disablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_disablegif')]]), img.parentNode);
+      img = img.parentNode.nextElementSibling.nextElementSibling;
+    }
+    // unfreeze only if img freezed
+    if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') >= 0)) {
+      // check if canvas exist
+      if (img.previousElementSibling && img.previousElementSibling.nodeName === "CANVAS") {
+        // remove canvas
+        img.parentNode.removeChild(img.previousElementSibling);
+        // remove button
+        img.parentNode.removeChild(img.previousElementSibling);
+      }
+      // Display original picture
+      img.className = img.className.replace(/ uci_disable_image{0,1}/, "");
+    }
+  },
+
+  // unFreezeallgif when turning of the option
+  unFreezeAllGifs: function () {
+    return new Array().slice.apply(document.images).map(accessibilitytoolbar.unFreezeGif);
+  },
+
+  // freeze all video?
+  // the goal is to remove autoplay from video elements
+  // maybe also force the display of controls?
+  freezeVideo: function (video) {
+    // freeze only if not already freeze
+    if(video.getAttribute('data-freeze') != "true") {
+      // save current values
+      var autoplay = video.getAttribute('autoplay'),
+      muted = video.getAttribute('muted'),
+      controls = video.getAttribute('controls');
+      if(autoplay != null) video.setAttribute('data-autoplay',autoplay);
+      if(muted != null) video.setAttribute('data-muted',muted);
+      if(controls != null) video.setAttribute('data-controls',controls);
+      video.setAttribute('data-freeze','true');
+      // attr to remove video.autoplay // stop the autoplay
+      video.removeAttribute('autoplay');
+      // pause video if already started
+      if(video.play) {
+        video.setAttribute('data-play',"true");
+        video.pause();
+      }
+      // attr to define video.muted=true // mute the video
+      video.setAttribute('muted','true');
+      // attr to define video.controls=true // display video controls
+      video.setAttribute('controls','true');
+    }
+  },
+
+  freezeAllVideos: function () {
+    return new Array().slice.apply(document.getElementsByTagName('video')).map(accessibilitytoolbar.freezeVideo);
+  },
+
+  // unfreeze all video
+  // put back initial values
+  unFreezeVideo: function (video) {
+    if(video.getAttribute('data-freeze') == "true") {
+      var autoplay = video.getAttribute('data-autoplay'),
+      muted = video.getAttribute('data-muted'),
+      controls = video.getAttribute('data-controls');
+      video.removeAttribute('data-autoplay');
+      video.removeAttribute('data-muted');
+      video.removeAttribute('data-controls');
+      if(autoplay != null) video.setAttribute('autoplay',autoplay);
+      if(muted == null) video.removeAttribute('muted');
+      if(controls == null) video.removeAttribute('controls');
+      // pause video if already started
+      if(video.getAttribute('data-play')) {
+        video.removeAttribute('data-play');
+        video.play();
+      }
+      video.removeAttribute('data-freeze');
+    }
+  },
+
+  unFreezeAllVideos: function () {
+    return new Array().slice.apply(document.getElementsByTagName('video')).map(accessibilitytoolbar.unFreezeVideo);
   },
 
   /**
@@ -2932,18 +3104,6 @@ accessibilitytoolbar = {
       }
     });
 
-    i = 0;
-    theFrames = document.getElementsByTagName('iframe');
-    if (theFrames.length > 0) {
-      while (theFrame = theFrames[i]) {
-        try {
-          theFrameDocument = theFrame.contentDocument || theFrame.document;
-          // attach event to frame onload to reload the css...
-          accessibilitytoolbar.uciAttachEvent('load', 'onload', theFrame, accessibilitytoolbar.setCSS);
-        } catch (e) { }
-        i++;
-      }
-    }
     i = 0;
     theFrames = document.getElementsByTagName('frame');
     if (theFrames.length > 0) {
@@ -3696,6 +3856,20 @@ accessibilitytoolbar = {
         }
       } else if (localUserPref.get("a11ySupImageFirstPlan") == "false") {
         accessibilitytoolbar.cleanImgDisabled();
+      }
+
+      // disable gif image
+      if (localUserPref.get("a11ySupGif") !== "false") {
+        accessibilitytoolbar.freezeAllGifs();
+      } else {
+        accessibilitytoolbar.unFreezeAllGifs();
+      }
+
+      // disable video
+      if (localUserPref.get("a11yPauseVideo") !== "false") {
+        accessibilitytoolbar.freezeAllVideos();
+      } else {
+        accessibilitytoolbar.unFreezeAllVideos();
       }
 
       //gestion des couleurs

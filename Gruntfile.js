@@ -19,6 +19,9 @@ module.exports = function(grunt) {
 // "hebergementFullPath": "/confortplusserveur/"  
     config: require('./config.json') || {},
   };
+  if(process.env.DEPLOY_PRIME_URL) {
+    appConfig.config.hebergementDomaine=process.env.DEPLOY_PRIME_URL.substring(8);
+  }
 
   grunt.initConfig({
     yeoman: appConfig,
@@ -324,6 +327,14 @@ module.exports = function(grunt) {
           src: [           
             'css/**',
             'fonts/**'
+          ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: 'dist/serveur/',
+          dest: 'docs',
+          src: [           
+            '**'
           ]
         }]
       }
