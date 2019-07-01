@@ -1317,8 +1317,10 @@ li.uci_dropdown-divider {
 	cursor: not-allowed;
 	opacity: .65;
 }
-#accessibilitytoolbarGraphic .ucibtn-sm,
 .ucibtn-sm {
+	font-size: 1rem;
+}
+#accessibilitytoolbarGraphic .ucibtn-sm {
 	padding: 0.4285714em 0.5714em;
 	font-size: 0.875em;
 	min-width: 2.5em;
@@ -1328,7 +1330,7 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-sm:active,
 #accessibilitytoolbarGraphic .ucibtn-sm.active,
 #accessibilitytoolbarGraphic .ucibtn-sm:focus,
-#accessibilitytoolbarGraphic .uci_color_btn:focus{
+#accessibilitytoolbarGraphic .uci_color_btn:focus {
 	padding: 0.285714em 0.428571em;
 	border-width: 4px;
 }
