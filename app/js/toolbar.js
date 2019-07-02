@@ -2620,6 +2620,12 @@ accessibilitytoolbar = {
   },
 
   freezeGif: function (img) {
+    // if clic from unfreeze picture button
+    if(img.target || img.srcElement) {
+      // stop event if gif is in a link
+      accessibilitytoolbar.stopEvt(img);
+      img = img.target || img.srcElement;
+    }
     // if freeze is asked by user on button click
     if(img.nodeName==="BUTTON") {
       // select img tag
@@ -2638,39 +2644,67 @@ accessibilitytoolbar = {
         attr,
         i = 0;
 
-      var freeze = function () {
+      // check if img has an ID? Otherwise create one
+      if(!img.id) {
+      // Function UUID from Broofa (https://stackoverflow.com/users/109538)
+      // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/#answer-2117523
+        img.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
+      async function freeze() {
         accessibilitytoolbar.uciDetachEvent('load', 'onload', img, freeze);
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        async function getImageBlob(imageUrl) {
+          const response = await fetch(imageUrl)
+          return response.blob()
+        }
+        
+        var imageType = "";
+        // retrieve type from data-type if already fetch
+        if(img.getAttribute("data-type")) {
+          imageType=img.getAttribute("data-type");
+        } else {
+          // make a request to fetch the mime type
+          const blob = await getImageBlob(img.src)
+          imageType = blob.type // Image Content-Type (e.g. "image/png")
+          // save the mime-type
+          img.setAttribute("data-type",imageType);
+        }
+        // lock only gif images
+        if(imageType === "image/gif" || imageType === "image/webp") {
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
 
-        for (i = 0; i < img.attributes.length; i++) {
-          attr = img.attributes[i];
-          if (attr.name !== '"') { // test for invalid attributes
-            if(attr.name === "id") {
-              canvas.setAttribute(attr.name, "canv-"+attr.value);
-            } else {
-              canvas.setAttribute(attr.name, attr.value);
+          for (i = 0; i < img.attributes.length; i++) {
+            attr = img.attributes[i];
+            if (attr.name !== '"') { // test for invalid attributes
+              if(attr.name === "id") {
+                canvas.setAttribute(attr.name, "canv-"+attr.value);
+              } else {
+                canvas.setAttribute(attr.name, attr.value);
+              }
             }
           }
-        }
 
-        // hide original picture instead of changing opacity
-        img.className = img.className + " uci_disable_image";
-        // inject canvas
-        img.parentNode.insertBefore(canvas, img);
-        // check if img has an ID? Otherwise create one
-        if(!img.id) {
-        // Function UUID from Broofa (https://stackoverflow.com/users/109538)
-        // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/#answer-2117523
-          img.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-          });
+          // hide original picture instead of changing opacity
+          img.className = img.className + " uci_disable_image";
+          // inject canvas
+          img.parentNode.insertBefore(canvas, img);
+          if(!img.alt) {
+            img.alt="";
+          }
+          // add a button to display original picture
+          var unFreezeDiv = document.createElement("div");
+          var unFreezeButton = document.createElement("button");
+          unFreezeButton.className="ucibtn ucibtn-sm ucibtn-secondary";
+          accessibilitytoolbar.uciAttachEvent("click","onclick",unFreezeButton,accessibilitytoolbar.unFreezeGif);
+          unFreezeButton.setAttribute("aria-controls",img.id+" canv-"+img.id);
+          unFreezeButton.setAttribute("title",accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt);
+          unFreezeButton.textContent = accessibilitytoolbar.get('uci_button_enablegif');
+          unFreezeDiv.appendChild(unFreezeButton);
+          // ["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_enablegif')]
+          img.parentNode.insertBefore(unFreezeDiv, canvas);
         }
-        if(!img.alt) {
-          img.alt="";
-        }
-        // add a button to display original picture
-        img.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_enablegif')]]), canvas);
       };
 
       if (img.complete) {
@@ -2687,9 +2721,24 @@ accessibilitytoolbar = {
 
   // unFreezeGif remove disable image class, and remove previous created canvas
   unFreezeGif: function (img) {
+    // if clic from unfreeze picture button
+    if(img.target || img.srcElement) {
+      // stop event if gif is in a link
+      accessibilitytoolbar.stopEvt(img);
+      img = img.target || img.srcElement;
+    }
     // unfreeze img when user ask it
     if(img.nodeName==="BUTTON") {
-      img.parentNode.parentNode.insertBefore(accessibilitytoolbar.make(["div",["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.freezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_disablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_disablegif')]]), img.parentNode);
+      // add a button to display original picture
+      var freezeDiv = document.createElement("div");
+      var freezeButton = document.createElement("button");
+      freezeButton.className="ucibtn ucibtn-sm ucibtn-secondary";
+      accessibilitytoolbar.uciAttachEvent("click","onclick",freezeButton,accessibilitytoolbar.freezeGif);
+      freezeButton.setAttribute("aria-controls",img.id);
+      freezeButton.setAttribute("title",accessibilitytoolbar.get('uci_button_disablegif')+" "+img.alt);
+      freezeButton.textContent = accessibilitytoolbar.get('uci_button_disablegif');
+      freezeDiv.appendChild(freezeButton);
+      img.parentNode.parentNode.insertBefore(freezeDiv, img.parentNode);
       img = img.parentNode.nextElementSibling.nextElementSibling;
     }
     // unfreeze only if img freezed
