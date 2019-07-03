@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   // show elapsed time at the end
   require('time-grunt')(grunt);
+  var serveStatic = require('serve-static');
   // configurable paths
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -63,8 +64,8 @@ module.exports = function(grunt) {
           open: 'http://localhost:9010/testpage.html',
           middleware: function(connect) {
             return [
-              connect.static("docs"),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app),
+              serveStatic("./bower_components/")
             ];
           }
         }
@@ -74,8 +75,8 @@ module.exports = function(grunt) {
           port: 9000,
           middleware: function(connect) {
             return [
-              connect.static('test'),
-              connect.static(appConfig.app)
+              serveStatic('test'),
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -225,6 +226,8 @@ module.exports = function(grunt) {
             },
         },        
         src: [  
+            "<%= yeoman.app %>/js/gifuct-js.min.js",
+            "<%= yeoman.app %>/js/demogif.js",
             "<%= yeoman.app %>/conf/hebergement.js",
             "<%= yeoman.app %>/js/ToolbarStrings.js",
             "<%= yeoman.app %>/js/UciUserPref.js",
@@ -301,7 +304,7 @@ module.exports = function(grunt) {
           dot: true,
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.distchromeext %>',
-          src: [           
+          src: [
             'images/**',   
             'css/**',  
             'help/**',

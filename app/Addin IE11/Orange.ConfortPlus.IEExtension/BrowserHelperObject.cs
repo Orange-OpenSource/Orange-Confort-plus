@@ -297,7 +297,8 @@ namespace Orange.ConfortPlus.IEExtension
             this.LogInfo("5. load the toolbar");
 
             StringBuilder sb = new StringBuilder();
-
+            sb.Append(Tools.GetStringFromRessource("js/gifuct-js.min.js"));
+            sb.Append(Tools.GetStringFromRessource("js/demogif.js"));
             sb.Append(Tools.GetStringFromRessource("js/hebergement.js"));
             sb.Append(Tools.GetStringFromRessource("js/ToolbarStrings.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciUserPref.js"));
@@ -314,7 +315,7 @@ namespace Orange.ConfortPlus.IEExtension
             sb.Append(Tools.GetStringFromRessource("js/UciHelp.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciValidation.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciProfile.js"));
-            sb.Append(Tools.GetStringFromRessource("js/UciIhm.js")); 
+            sb.Append(Tools.GetStringFromRessource("js/UciIhm.js"));        
             sb.Append(Tools.GetStringFromRessource("js/mask.js"));
             sb.Append(Tools.GetStringFromRessource("js/toolbar.js"));
 

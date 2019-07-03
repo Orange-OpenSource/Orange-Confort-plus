@@ -10,6 +10,8 @@
   "main": [
     "dist/serveur/js/toolbar.js"
   ],
-  "homepage": "http://confort-plus.orange.com/",  
-  "dependencies": {}
+  "homepage": "http://confort-plus.orange.com/",
+  "dependencies": {
+    "gifuct-js": "^1.0.0"
+  }
 }

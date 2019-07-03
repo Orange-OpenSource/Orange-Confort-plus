@@ -834,7 +834,7 @@ function LoopingMode() {
         return true;
       }
     };
-    
+
     // Call back function for onclick event
     var mouseClickFunc = function (/*Event*/ e) {
       // Launch the action associated to the clicked menu item
@@ -866,7 +866,7 @@ function LoopingMode() {
       document.onkeyup = this.keyUpFunc;
       document.onkeypress = that.keyPressFunc;
       menu.getContainer().onclick = mouseClickFunc;
-    }    
+    }
   };
 
   // Call back function for onkeypress event
@@ -2255,7 +2255,7 @@ accessibilitytoolbar = {
    */
 
   loopingmode: null,
-                                                                                                                     
+
   /**
    * {RemoteControlMode} Remote control Manager
    */
@@ -2279,7 +2279,7 @@ accessibilitytoolbar = {
 
   // when the user change the lang of the interface, wee need to reload after save is done
   needToReload: false,
-  
+
   // predefined color conbinaisons
   predifinedCombinaisons: {
     'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
@@ -2363,12 +2363,12 @@ accessibilitytoolbar = {
     }
   },
   thisOrpreviousElementSibling: function (el) {
-    if(!el.hasAttribute('role')) return (this.previousElementSibling(el));
+    if (!el.hasAttribute('role')) return (this.previousElementSibling(el));
     return el;
   },
   previousElementSibling: function (el) {
     if (el.previousElementSibling) {
-      if(!el.previousElementSibling.hasAttribute('role')) return (this.previousElementSibling(el.previousElementSibling));
+      if (!el.previousElementSibling.hasAttribute('role')) return (this.previousElementSibling(el.previousElementSibling));
       return el.previousElementSibling;
     } else {
       while (el = el.previousSibling) {
@@ -2377,12 +2377,12 @@ accessibilitytoolbar = {
     }
   },
   thisOrnextElementSibling: function (el) {
-    if(!el.hasAttribute('role')) return (this.nextElementSibling(el));
+    if (!el.hasAttribute('role')) return (this.nextElementSibling(el));
     return el;
   },
   nextElementSibling: function (el) {
     if (el.nextElementSibling) {
-      if(!el.nextElementSibling.hasAttribute('role')) return (this.nextElementSibling(el.nextElementSibling));
+      if (!el.nextElementSibling.hasAttribute('role')) return (this.nextElementSibling(el.nextElementSibling));
       return el.nextElementSibling;
     } else {
       while (el = el.nextSibling) {
@@ -2440,7 +2440,7 @@ accessibilitytoolbar = {
     // add the selected class
     elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/, "uci_couleur_li uci_couleur_li_selected");
     elmt.className = elmt.className.replace(/uci_choix{0,1}/, "uci_choix active");
-    
+
     if (focus) elmt.focus();
 
     // on d�sactive ses fr�res
@@ -2466,25 +2466,25 @@ accessibilitytoolbar = {
         // make switch case on prefname
         prefName = resArray[resArray.length - 2];
         value = resArray[resArray.length - 1];
-        switch(prefName) {
-          case 'a11yNavLienSelColor' :
-              document.getElementById('uci_NavLienSel').style.setProperty("background-color", value, "important");
+        switch (prefName) {
+          case 'a11yNavLienSelColor':
+            document.getElementById('uci_NavLienSel').style.setProperty("background-color", value, "important");
             break;
-          case 'a11yNavLienNonVisColor' :
-              document.getElementById('uci_NavLienNonVis').style.setProperty("background-color", value, "important");
+          case 'a11yNavLienNonVisColor':
+            document.getElementById('uci_NavLienNonVis').style.setProperty("background-color", value, "important");
             break;
-          case 'a11yNavLienVisColor' :
-              document.getElementById('uci_NavLienVis').style.setProperty("background-color", value, "important");
+          case 'a11yNavLienVisColor':
+            document.getElementById('uci_NavLienVis').style.setProperty("background-color", value, "important");
             break;
-          case 'a11yFontColor' :
-              document.getElementById('aria_label_texte').style.setProperty("background-color", value, "important");
-              accessibilitytoolbar.checkLum(value,accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
-              accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),value);
+          case 'a11yFontColor':
+            document.getElementById('aria_label_texte').style.setProperty("background-color", value, "important");
+            accessibilitytoolbar.checkLum(value, accessibilitytoolbar.userPref.get("a11yBackgroundColor"));
+            accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"), value);
             break;
-          case 'a11yBackgroundColor' :
-              document.getElementById('uci_aria_label_fond').style.setProperty("background-color", value, "important");
-              accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yFontColor"),value);
-              accessibilitytoolbar.updateColorBox(value,accessibilitytoolbar.userPref.get("a11yFontColor"));
+          case 'a11yBackgroundColor':
+            document.getElementById('uci_aria_label_fond').style.setProperty("background-color", value, "important");
+            accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yFontColor"), value);
+            accessibilitytoolbar.updateColorBox(value, accessibilitytoolbar.userPref.get("a11yFontColor"));
             break;
         }
         accessibilitytoolbar.userPref.set(prefName, value);
@@ -2545,7 +2545,7 @@ accessibilitytoolbar = {
       for (iterator = 0; iterator < reponses.children.length; iterator++) {
         // on r�cup�re un fils
         children = reponses.children[iterator];
-        if(children.hasAttribute('role')) {
+        if (children.hasAttribute('role')) {
           accessibilitytoolbar.uciAttachEvent('click', 'onclick', children, accessibilitytoolbar.uciRadioButtonEvent);
           accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', children, accessibilitytoolbar.uciRadioButtonEvent);
         }
@@ -2611,100 +2611,57 @@ accessibilitytoolbar = {
 
   // freezeGif from Makaze (https://stackoverflow.com/users/1166904/makaze) on stackoverflow : https://stackoverflow.com/questions/3688460/stopping-gif-animation-programmatically#answer-24707088
   // code licensed under CC-BY-SA https://creativecommons.org/licenses/by-sa/3.0/
-  createElement: function (type, callback) {
-    var element = document.createElement(type);
-
-    callback(element);
-
-    return element;
-  },
-
   freezeGif: function (img) {
-    // if clic from unfreeze picture button
-    if(img.target || img.srcElement) {
-      // stop event if gif is in a link
-      accessibilitytoolbar.stopEvt(img);
-      img = img.target || img.srcElement;
-    }
-    // if freeze is asked by user on button click
-    if(img.nodeName==="BUTTON") {
-      // select img tag
-      img = img.parentNode.nextElementSibling;
-      // remove button
-      img.parentNode.removeChild(img.previousElementSibling);
-    }
     // freeze only if image not already hidden
     if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') < 0)) {
       var width = img.width,
         height = img.height,
-        canvas = accessibilitytoolbar.createElement('canvas', function (clone) {
-          clone.width = width;
-          clone.height = height;
-        }),
         attr,
         i = 0;
 
-      // check if img has an ID? Otherwise create one
-      if(!img.id) {
-      // Function UUID from Broofa (https://stackoverflow.com/users/109538)
-      // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/#answer-2117523
-        img.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-          return v.toString(16);
-        });
-      }
-      async function freeze() {
+      function freeze() {
         accessibilitytoolbar.uciDetachEvent('load', 'onload', img, freeze);
-        async function getImageBlob(imageUrl) {
-          const response = await fetch(imageUrl)
-          return response.blob()
-        }
-        
-        var imageType = "";
-        // retrieve type from data-type if already fetch
-        if(img.getAttribute("data-type")) {
-          imageType=img.getAttribute("data-type");
-        } else {
-          // make a request to fetch the mime type
-          const blob = await getImageBlob(img.src)
-          imageType = blob.type // Image Content-Type (e.g. "image/png")
-          // save the mime-type
-          img.setAttribute("data-type",imageType);
-        }
-        // lock only gif images
-        if(imageType === "image/gif" || imageType === "image/webp") {
-          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-
-          for (i = 0; i < img.attributes.length; i++) {
-            attr = img.attributes[i];
-            if (attr.name !== '"') { // test for invalid attributes
-              if(attr.name === "id") {
-                canvas.setAttribute(attr.name, "canv-"+attr.value);
-              } else {
-                canvas.setAttribute(attr.name, attr.value);
-              }
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", img.src, true);
+        oReq.responseType = "arraybuffer";
+        oReq.onreadystatechange = function() {
+          if(this.readyState == this.HEADERS_RECEIVED) {
+            var contentType = oReq.getResponseHeader("Content-Type");
+            if (contentType != "image/gif") {
+              oReq.abort();
             }
           }
-
-          // hide original picture instead of changing opacity
-          img.className = img.className + " uci_disable_image";
-          // inject canvas
-          img.parentNode.insertBefore(canvas, img);
-          if(!img.alt) {
-            img.alt="";
-          }
-          // add a button to display original picture
-          var unFreezeDiv = document.createElement("div");
-          var unFreezeButton = document.createElement("button");
-          unFreezeButton.className="ucibtn ucibtn-sm ucibtn-secondary";
-          accessibilitytoolbar.uciAttachEvent("click","onclick",unFreezeButton,accessibilitytoolbar.unFreezeGif);
-          unFreezeButton.setAttribute("aria-controls",img.id+" canv-"+img.id);
-          unFreezeButton.setAttribute("title",accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt);
-          unFreezeButton.textContent = accessibilitytoolbar.get('uci_button_enablegif');
-          unFreezeDiv.appendChild(unFreezeButton);
-          // ["button",{"class":"ucibtn ucibtn-sm ucibtn-secondary", onclick:"accessibilitytoolbar.unFreezeGif(this)", "aria-controls":img.id+" canv-"+img.id, title:accessibilitytoolbar.get('uci_button_enablegif')+" "+img.alt},accessibilitytoolbar.get('uci_button_enablegif')]
-          img.parentNode.insertBefore(unFreezeDiv, canvas);
         }
+
+        oReq.onload = function (oEvent) {
+          var arrayBuffer = oReq.response; // Note: not oReq.responseText
+          if (arrayBuffer) {
+            gif = new GIF(arrayBuffer);
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            var frames = gif.decompressFrames(true);
+            for (i = 0; i < img.attributes.length; i++) {
+              attr = img.attributes[i];
+              if (attr.name !== '"') { // test for invalid attributes
+                if (attr.name === "id") {
+                  canvas.setAttribute(attr.name, "canv-" + attr.value);
+                } else {
+                  canvas.setAttribute(attr.name, attr.value);
+                }
+              }
+            }
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // render the gif
+            renderGIF(frames, canvas , ctx);
+            // hide original picture instead of changing opacity
+            img.className = img.className + " uci_disable_image";
+
+            img.parentNode.insertBefore(canvas, img);
+          }
+        };
+
+        oReq.send(null);
       };
 
       if (img.complete) {
@@ -2721,33 +2678,11 @@ accessibilitytoolbar = {
 
   // unFreezeGif remove disable image class, and remove previous created canvas
   unFreezeGif: function (img) {
-    // if clic from unfreeze picture button
-    if(img.target || img.srcElement) {
-      // stop event if gif is in a link
-      accessibilitytoolbar.stopEvt(img);
-      img = img.target || img.srcElement;
-    }
-    // unfreeze img when user ask it
-    if(img.nodeName==="BUTTON") {
-      // add a button to display original picture
-      var freezeDiv = document.createElement("div");
-      var freezeButton = document.createElement("button");
-      freezeButton.className="ucibtn ucibtn-sm ucibtn-secondary";
-      accessibilitytoolbar.uciAttachEvent("click","onclick",freezeButton,accessibilitytoolbar.freezeGif);
-      freezeButton.setAttribute("aria-controls",img.id);
-      freezeButton.setAttribute("title",accessibilitytoolbar.get('uci_button_disablegif')+" "+img.alt);
-      freezeButton.textContent = accessibilitytoolbar.get('uci_button_disablegif');
-      freezeDiv.appendChild(freezeButton);
-      img.parentNode.parentNode.insertBefore(freezeDiv, img.parentNode);
-      img = img.parentNode.nextElementSibling.nextElementSibling;
-    }
     // unfreeze only if img freezed
     if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') >= 0)) {
       // check if canvas exist
       if (img.previousElementSibling && img.previousElementSibling.nodeName === "CANVAS") {
         // remove canvas
-        img.parentNode.removeChild(img.previousElementSibling);
-        // remove button
         img.parentNode.removeChild(img.previousElementSibling);
       }
       // Display original picture
@@ -2765,26 +2700,26 @@ accessibilitytoolbar = {
   // maybe also force the display of controls?
   freezeVideo: function (video) {
     // freeze only if not already freeze
-    if(video.getAttribute('data-freeze') != "true") {
+    if (video.getAttribute('data-freeze') != "true") {
       // save current values
       var autoplay = video.getAttribute('autoplay'),
-      muted = video.getAttribute('muted'),
-      controls = video.getAttribute('controls');
-      if(autoplay != null) video.setAttribute('data-autoplay',autoplay);
-      if(muted != null) video.setAttribute('data-muted',muted);
-      if(controls != null) video.setAttribute('data-controls',controls);
-      video.setAttribute('data-freeze','true');
+        muted = video.getAttribute('muted'),
+        controls = video.getAttribute('controls');
+      if (autoplay != null) video.setAttribute('data-autoplay', autoplay);
+      if (muted != null) video.setAttribute('data-muted', muted);
+      if (controls != null) video.setAttribute('data-controls', controls);
+      video.setAttribute('data-freeze', 'true');
       // attr to remove video.autoplay // stop the autoplay
       video.removeAttribute('autoplay');
       // pause video if already started
-      if(video.play) {
-        video.setAttribute('data-play',"true");
+      if (video.play) {
+        video.setAttribute('data-play', "true");
         video.pause();
       }
       // attr to define video.muted=true // mute the video
-      video.setAttribute('muted','true');
+      video.setAttribute('muted', 'true');
       // attr to define video.controls=true // display video controls
-      video.setAttribute('controls','true');
+      video.setAttribute('controls', 'true');
     }
   },
 
@@ -2795,18 +2730,18 @@ accessibilitytoolbar = {
   // unfreeze all video
   // put back initial values
   unFreezeVideo: function (video) {
-    if(video.getAttribute('data-freeze') == "true") {
+    if (video.getAttribute('data-freeze') == "true") {
       var autoplay = video.getAttribute('data-autoplay'),
-      muted = video.getAttribute('data-muted'),
-      controls = video.getAttribute('data-controls');
+        muted = video.getAttribute('data-muted'),
+        controls = video.getAttribute('data-controls');
       video.removeAttribute('data-autoplay');
       video.removeAttribute('data-muted');
       video.removeAttribute('data-controls');
-      if(autoplay != null) video.setAttribute('autoplay',autoplay);
-      if(muted == null) video.removeAttribute('muted');
-      if(controls == null) video.removeAttribute('controls');
+      if (autoplay != null) video.setAttribute('autoplay', autoplay);
+      if (muted == null) video.removeAttribute('muted');
+      if (controls == null) video.removeAttribute('controls');
       // pause video if already started
-      if(video.getAttribute('data-play')) {
+      if (video.getAttribute('data-play')) {
         video.removeAttribute('data-play');
         video.play();
       }
@@ -2958,7 +2893,7 @@ accessibilitytoolbar = {
     for (i = 0; i < selectButtons.length; i++) {
       accessibilitytoolbar.uciAttachEvent('change', 'onchange', selectButtons[i], accessibilitytoolbar.setPref);
     }
-    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_a11yVisualPredefinedSettings_personnal_update'), function(e){
+    accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_a11yVisualPredefinedSettings_personnal_update'), function (e) {
       accessibilitytoolbar.stopEvt(e);
       document.getElementById('uci_personnal_setting').style.display = "block";
     });
@@ -3014,8 +2949,8 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_moreconfort'), UciIhm.more_confort);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_close_toolbar'), function () {
       if (document.getElementById('uci_activateOnglet').style.display === 'block') return false;
-      if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
-      || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
+      if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref())
+        || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
         UciValidation.Annulation();
         UciIhm.ToolbarHide();
         UciIhm.hide_confirm_validation();
@@ -3042,7 +2977,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_PL'), function () { return UciIhm.changement_langue('PL'); });
     accessibilitytoolbar.uciAttachEvent('submit', 'onsubmit', document.getElementById('uci_form'), function (e) { accessibilitytoolbar.stopEvt(e); UciValidation.Validation(); UciIhm.confirm_validation(); });
     accessibilitytoolbar.uciAttachEvent('reset', 'onreset', document.getElementById('uci_form'), function (e) { accessibilitytoolbar.stopEvt(e); UciValidation.Annulation(); });
-    if(onOffEnabled) {
+    if (onOffEnabled) {
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci-onoffswitch'), function (e) { accessibilitytoolbar.stopEvt(e); UciIhm.desactiveCDUForWebSite() });
     }
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_chekbox_dyslexy_font'), function () { return UciTypographie.displayFieldset('uci_fieldset_fontfamily'); });
@@ -3087,43 +3022,43 @@ accessibilitytoolbar = {
 
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_profile_menu_button'), function (e) { UciIhm.uci_toggle_menu('uci_profile_menu', e) });
-      if(onOffEnabled) {
+      if (onOffEnabled) {
         accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci-onoffswitch'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
       }
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_moreconfort'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_less'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yBigger_more'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_quick_a11yVisualSettings'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_moreconfort'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_profile_menu_button'), function () { UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_help_menu_button'), function () { UciProfile.setFocusOut(); UciIhm.setFocusLangOut() });
       accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_lang_menu_button'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut() });
-      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
-      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut()  });
+      accessibilitytoolbar.uciAttachEvent('focus', 'onfocus', document.getElementById('uci_close_toolbar'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function () { UciProfile.setFocusOut(); UciIhm.setFocusHelpOut(); UciIhm.setFocusLangOut() });
     }
 
     // add a global listener for mask shortcut activation
-    accessibilitytoolbar.uciAttachEvent('keyup','onkeyup',document, accessibilitytoolbar.documentKeyupEvent);
+    accessibilitytoolbar.uciAttachEvent('keyup', 'onkeyup', document, accessibilitytoolbar.documentKeyupEvent);
     // add a global listener for mouse position
-    accessibilitytoolbar.uciAttachEvent('mousemove','onmousemove',document, accessibilitytoolbar.mouseMouveEvent);
+    accessibilitytoolbar.uciAttachEvent('mousemove', 'onmousemove', document, accessibilitytoolbar.mouseMouveEvent);
   },
 
   /**
    * Global document keyboard eventHandler for catching shortcuts
    */
-  documentKeyupEvent: function(e) {
+  documentKeyupEvent: function (e) {
     // ctrl key and M at the same time (Start the mask if not already stated)
     if ((e.ctrlKey || e.metaKey) && e.keyCode == 77) {
-        var value = "false";
-        if(accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") value="true"
-        accessibilitytoolbar.setPref({target:{id:"a11yMaskEnabled",value:value,type:"checkbox",checked:"checked"}});
-        accessibilitytoolbar.setCSS();
+      var value = "false";
+      if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") value = "true"
+      accessibilitytoolbar.setPref({ target: { id: "a11yMaskEnabled", value: value, type: "checkbox", checked: "checked" } });
+      accessibilitytoolbar.setCSS();
     }
   },
 
   /**
    * Global document mouse eventHandler for catching mousePosition when enabling mask
    */
-  mouseMouveEvent: function(e) {
+  mouseMouveEvent: function (e) {
     accessibilitytoolbar.mouseLastEvent = e;
   },
 
@@ -3437,19 +3372,19 @@ accessibilitytoolbar = {
       document.getElementById('uci_cdu_popin').style.display = "none";
     }
     // update box color
-    if(prefName === 'a11yVisualPredefinedSettings') {
+    if (prefName === 'a11yVisualPredefinedSettings') {
       // get current option value
       var curOptionValue = document.getElementById('uci_reponses_couleurpredefinie').options[document.getElementById('uci_reponses_couleurpredefinie').selectedIndex].value;
 
-      if(curOptionValue === 'personnal') {
-        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
-        accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+      if (curOptionValue === 'personnal') {
+        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"), accessibilitytoolbar.userPref.get("a11yFontColor"));
+        accessibilitytoolbar.checkLum(accessibilitytoolbar.userPref.get("a11yBackgroundColor"), accessibilitytoolbar.userPref.get("a11yFontColor"));
         document.getElementById('uci_custom_color_panel').style.display = "block";
       } else {
         document.getElementById('uci_message_constraste').style.display = 'none';
-        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[curOptionValue].backGroundColor,accessibilitytoolbar.predifinedCombinaisons[curOptionValue].fontColor);
+        accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[curOptionValue].backGroundColor, accessibilitytoolbar.predifinedCombinaisons[curOptionValue].fontColor);
         document.getElementById('uci_custom_color_panel').style.display = "none";
-      }      
+      }
     }
 
     // for checkbox default value when unckecked = false
@@ -3457,9 +3392,9 @@ accessibilitytoolbar = {
       value = "false";
     }
     if (target.id && target.id.match(/a11yVisualSettings/)) {
-      if(value !== "false") {
+      if (value !== "false") {
         document.getElementById("uci_quick_a11yVisualSettings").checked = true;
-        document.getElementById("a11yVisualSettings").checked = true;          
+        document.getElementById("a11yVisualSettings").checked = true;
       } else {
         document.getElementById("uci_quick_a11yVisualSettings").checked = false;
         document.getElementById("a11yVisualSettings").checked = false;
@@ -3468,9 +3403,9 @@ accessibilitytoolbar = {
     }
     if (target.id && target.id.match(/a11yMaskEnabled/)) {
       // if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
-      if(value !== "false") {
+      if (value !== "false") {
         // document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
-        document.getElementById("a11yMaskEnabled").checked = true;          
+        document.getElementById("a11yMaskEnabled").checked = true;
       } else {
         // document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
         document.getElementById("a11yMaskEnabled").checked = false;
@@ -3492,7 +3427,7 @@ accessibilitytoolbar = {
       "a11yNavLienVisColor", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
     var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
-    var radioSettings = ["a11yMaskOption-mask","a11yMaskOption-vruler","a11yMaskOption-hruler"];
+    var radioSettings = ["a11yMaskOption-mask", "a11yMaskOption-vruler", "a11yMaskOption-hruler"];
     var curpref;
     var selectSettings = ["uci_reponses_couleurpredefinie"];
     for (pref in ariaRadioSettings) {
@@ -3501,13 +3436,13 @@ accessibilitytoolbar = {
     for (pref in checkboxSettings) {
       curpref = checkboxSettings[pref];
       if (accessibilitytoolbar.userPref.get(curpref) === "true") {
-        if(curpref ==="a11yVisualSettings") {
-          document.getElementById("uci_quick_"+curpref).checked = true;
+        if (curpref === "a11yVisualSettings") {
+          document.getElementById("uci_quick_" + curpref).checked = true;
         }
         document.getElementById(curpref).checked = true;
       } else {
-        if(curpref === "a11yVisualSettings") {
-          document.getElementById("uci_quick_"+curpref).checked = false;
+        if (curpref === "a11yVisualSettings") {
+          document.getElementById("uci_quick_" + curpref).checked = false;
         }
         document.getElementById(curpref).checked = false;
       }
@@ -3530,14 +3465,14 @@ accessibilitytoolbar = {
         break;
       }
     }
-    if(val === "personnal") {
+    if (val === "personnal") {
       document.getElementById('uci_custom_color_panel').style.display = "block";
-      accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"),accessibilitytoolbar.userPref.get("a11yFontColor"));
+      accessibilitytoolbar.updateColorBox(accessibilitytoolbar.userPref.get("a11yBackgroundColor"), accessibilitytoolbar.userPref.get("a11yFontColor"));
     } else {
       document.getElementById('uci_custom_color_panel').style.display = "none";
-      accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor,accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor);
+      accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor, accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor);
     }
-    
+
     document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
@@ -3611,7 +3546,7 @@ accessibilitytoolbar = {
 */
   startLoopingmode: function () {
     // Create a new looping mode manager
-    if (this.loopingmode == null) { 
+    if (this.loopingmode == null) {
       this.loopingmode = new LoopingMode();
     } else {
       this.loopingmode.registerTrigger();
@@ -3795,7 +3730,7 @@ accessibilitytoolbar = {
         fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0], null).getPropertyValue("font-size") || '16px';
       }
       // s += "body { font-size:1rem !important; }\n";
-      s += "#accessibilitytoolbarGraphic { font-size:"+ (16 / parseFloat(fontSizeBody)) + "em !important; }\n";
+      s += "#accessibilitytoolbarGraphic { font-size:" + (16 / parseFloat(fontSizeBody)) + "em !important; }\n";
       if (localUserPref.get("a11yBigger") !== "keepit") {
         s += "html { font-size:" + localUserPref.get("a11yBigger") * (parseFloat(fontSizeDef) / 16) + "% !important; }\n";
       }
@@ -3818,7 +3753,7 @@ accessibilitytoolbar = {
       //gestion de la police d'écriture
       userFont = localUserPref.get("a11yDyslexyFont");
       if (userFont !== 'keepit') {
-        switch(userFont) {
+        switch (userFont) {
           case 'opendyslexic':
             if (fontsPath['opendyslexicregular']) {
               s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
@@ -3827,17 +3762,17 @@ accessibilitytoolbar = {
           case 'opensans':
             if (fontsPath['opensansregular']) {
               s += "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansregular'] + ";font-style: normal;font-weight: normal;}"
-              +"@font-face{font-family: \"opensans\";src: " + fontsPath['opensansitalic'] + ";font-style: italic;font-weight: normal;}"
-              +"@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbold'] + ";font-weight: bold;font-style: normal;}"
-              +"@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+                + "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansitalic'] + ";font-style: italic;font-weight: normal;}"
+                + "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbold'] + ";font-weight: bold;font-style: normal;}"
+                + "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbolditalic'] + ";font-weight: bold;font-style: italic;} ";
             }
             break;
           case 'accessibledfa':
             if (fontsPath['accessibledfa']) {
               s += "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: normal;font-weight: normal;}"
-              +"@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: italic;font-weight: normal;}"
-              +"@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: normal;}"
-              +"@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: italic;} ";
+                + "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: italic;font-weight: normal;}"
+                + "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: normal;}"
+                + "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: italic;} ";
             }
             break;
         }
@@ -3933,7 +3868,7 @@ accessibilitytoolbar = {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
             element = document.getElementById('uci_reponses_bigger_quick_set');
-          }          
+          }
 
           if (accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
             fontColor = accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
@@ -3949,12 +3884,12 @@ accessibilitytoolbar = {
           }
         }
         else {
-          accessibilitytoolbar.checkLum(localUserPref.get("a11yFontColor"),localUserPref.get("a11yBackgroundColor"),init);
+          accessibilitytoolbar.checkLum(localUserPref.get("a11yFontColor"), localUserPref.get("a11yBackgroundColor"), init);
           fontColor = localUserPref.get("a11yFontColor");
           backGroundColor = localUserPref.get("a11yBackgroundColor");
         }
         // don't apply personnal colors if they're the same
-        if(fontColor !== backGroundColor) {
+        if (fontColor !== backGroundColor) {
           s += "*, div.top_nav li a { color:" + fontColor + " !important; }\n";
           s += "fieldset, button, input { border-color:" + fontColor + " !important; }\n";
           // UPDATE 17/01/2017 add a border with for forms elements to ensure they can be read
@@ -3973,26 +3908,26 @@ accessibilitytoolbar = {
       else {
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
       }
-      
+
       // reading mask      
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.option = localUserPref.get("a11yMaskOption");
         UciMask.settings.thickness = localUserPref.get("a11yMaskOpacity");
         UciMask.init();
         UciMask.start();
-        switch(localUserPref.get("a11yMaskOption")) {
+        switch (localUserPref.get("a11yMaskOption")) {
           case "mask":
             bgColorRGB = accessibilitytoolbar.colourStrToRGB(fontColor);
-            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba("+(255*bgColorRGB.red)+","+(255*bgColorRGB.green)+","+(255*bgColorRGB.blue)+","+localUserPref.get("a11yMaskOpacity")+"); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
-          break;
+            s += ".topMask  { position: fixed; z-index:2147483645; top:0; left:0; width:100%; height:0; background-color:rgba(" + (255 * bgColorRGB.red) + "," + (255 * bgColorRGB.green) + "," + (255 * bgColorRGB.blue) + "," + localUserPref.get("a11yMaskOpacity") + "); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+            s += ".bottomMask  { position: fixed; z-index:2147483645; bottom:0; left:0; width:100%; height:0; background-color:rgba(" + (255 * bgColorRGB.red) + "," + (255 * bgColorRGB.green) + "," + (255 * bgColorRGB.blue) + "," + localUserPref.get("a11yMaskOpacity") + "); -moz-transition: background 0.4s linear 0s; -webkit-transition: background 0.4s linear 0s;transition: background 0.4s linear 0s; }\n";
+            break;
           case "vruler":
-            s += ".vMouse {border-left: thick solid "+fontColor+" }";
-          break;
+            s += ".vMouse {border-left: thick solid " + fontColor + " }";
+            break;
           case "hruler":
-            s += ".hMouse {border-bottom: thick solid "+fontColor+" }";
-          break;          
-        }        
+            s += ".hMouse {border-bottom: thick solid " + fontColor + " }";
+            break;
+        }
       }
       // if mask was launch before deactivation kill!
       else if (UciMask.settings.launched) {
@@ -4133,7 +4068,7 @@ accessibilitytoolbar = {
    * Check if color relative lum between font and BG is accessible, otherwise display a warning message
    * 
    */
-  checkLum: function(fontColor,bgcolor,init) {
+  checkLum: function (fontColor, bgcolor, init) {
     /**                    
     http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
     */
@@ -4489,7 +4424,7 @@ accessibilitytoolbar = {
   makeHelpTpl: function (linkId, spanId, content) {
     return ["a", { href: "#", "class": "uci_link_help_bulle", role: "presentation", id: linkId },
       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-help" }],
-      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId, role:"tooltip" },                 
+      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId, role: "tooltip" },
         ["p", content],
         ["span", { "aria-hidden": "true", "class": "uci_fleche_help_bulle" }]
       ]
@@ -4536,29 +4471,29 @@ accessibilitytoolbar = {
     return tableauCouleurPolice;
   },
 
-  updateColorBox: function(bgColor,fontColor) {
-    document.getElementById('uci_reponses_couleurpredefinie').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
+  updateColorBox: function (bgColor, fontColor) {
+    document.getElementById('uci_reponses_couleurpredefinie').style = "background-color:" + bgColor + "!important; color:" + fontColor + "!important;";
   },
-  
+
   makePredefinedCouleurSelect: function () {
     var predefColor, customColor, chooseCouleur, aCouleur, customColorStyle;
     var globalCouleur = ["div"]
-    var aCouleurs = ["div", { "class": "padding-left-align margin-top uci_color_div"}]
-    var index = 0;   
-    
-    customColorStyle="display:none";
-    if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
-      aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}];
+    var aCouleurs = ["div", { "class": "padding-left-align margin-top uci_color_div" }]
+    var index = 0;
+
+    customColorStyle = "display:none";
+    if (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
+      aCouleur = ["select", { "class": "ucibtn ucibtn-sm uci_select_color", name: "a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style: "background-color:" + accessibilitytoolbar.userPref.get("a11yBackgroundColor") + "!important; color:" + accessibilitytoolbar.userPref.get("a11yFontColor") + "!important;" }];
       // show the custom boxes
-      customColorStyle="display:block";
+      customColorStyle = "display:block";
     } else {
-      aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style:"color: "+accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor+" !important;background-color:"+accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor+" !important;"}];
+      aCouleur = ["select", { "class": "ucibtn ucibtn-sm uci_select_color", name: "a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style: "color: " + accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor + " !important;background-color:" + accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor + " !important;" }];
     }
-    
+
     for (var key in accessibilitytoolbar.predifinedCombinaisons) {
       predefColor = ["option", {
         id: "uci_a11yVisualPredefinedSettings_" + key,
-        value: key, 
+        value: key,
         selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? true : false)
       },
         accessibilitytoolbar.get('uci_title_color_' + key)
@@ -4569,43 +4504,43 @@ accessibilitytoolbar = {
     // add custom color button
     customColor = ["option", {
       id: "uci_a11yVisualPredefinedSettings_personnal",
-      value: 'personnal', 
+      value: 'personnal',
       selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? true : false)
     },
       accessibilitytoolbar.get('uci_title_color_personnal')
     ];
-    
+
     // add a link for custom color update
-    chooseCouleur = ["div", {"class":"margin-top uci_custom_color", id:"uci_custom_color_panel", style:customColorStyle},
-      ["div", { "class":"cdu_c"},
-        ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_texte')],
-        ["div", {"class":"cdu_left"},
-          ["button", {type:"button", id:"aria_label_texte", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_texte'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important"}],
-          ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_texte", style:"display:none"},
-            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yFontColor_",accessibilitytoolbar.userPref.get("a11yFontColor"),"uci_reponses_couleurpolice","aria_label_texte")
+    chooseCouleur = ["div", { "class": "margin-top uci_custom_color", id: "uci_custom_color_panel", style: customColorStyle },
+      ["div", { "class": "cdu_c" },
+        ["span", { "class": "uci_span_lien cdu_c" }, accessibilitytoolbar.get('uci_color_txt_texte')],
+        ["div", { "class": "cdu_left" },
+          ["button", { type: "button", id: "aria_label_texte", "class": "uci_inline uci_couleur_li uci_color_btn", title: accessibilitytoolbar.get('uci_color_txt_texte'), style: "background-color: " + accessibilitytoolbar.userPref.get("a11yFontColor") + "!important" }],
+          ["div", { "class": "uci_span_help_bulle", id: "uci_palette_couleur_texte", style: "display:none" },
+            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c", "uci_a11yFontColor_", accessibilitytoolbar.userPref.get("a11yFontColor"), "uci_reponses_couleurpolice", "aria_label_texte")
           ]
         ]
       ],
-      ["div", { "class":"cdu_c margin-top"},
-        ["span", {"class":"uci_span_lien cdu_c"}, accessibilitytoolbar.get('uci_color_txt_background')],
-        ["div", {"class":"cdu_left"},
-          ["button", {type:"button", id:"uci_aria_label_fond", "class":"uci_inline uci_couleur_li uci_color_btn", title:accessibilitytoolbar.get('uci_color_txt_background'), style:"background-color: "+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important"}],
-          ["div", {"class":"uci_span_help_bulle", id:"uci_palette_couleur_background", style:"display:none"},
-            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c","uci_a11yBackgroundColor_",accessibilitytoolbar.userPref.get("a11yBackgroundColor"),"uci_reponses_couleurbackground","uci_aria_label_fond")
+      ["div", { "class": "cdu_c margin-top" },
+        ["span", { "class": "uci_span_lien cdu_c" }, accessibilitytoolbar.get('uci_color_txt_background')],
+        ["div", { "class": "cdu_left" },
+          ["button", { type: "button", id: "uci_aria_label_fond", "class": "uci_inline uci_couleur_li uci_color_btn", title: accessibilitytoolbar.get('uci_color_txt_background'), style: "background-color: " + accessibilitytoolbar.userPref.get("a11yBackgroundColor") + "!important" }],
+          ["div", { "class": "uci_span_help_bulle", id: "uci_palette_couleur_background", style: "display:none" },
+            accessibilitytoolbar.makeCouleurTpl("uci_table_couleur cdu_c", "uci_a11yBackgroundColor_", accessibilitytoolbar.userPref.get("a11yBackgroundColor"), "uci_reponses_couleurbackground", "uci_aria_label_fond")
           ]
         ]
       ]
     ];
-    
-    
-    aCouleur.push(customColor);    
+
+
+    aCouleur.push(customColor);
     aCouleurs.push(aCouleur);
     globalCouleur.push(aCouleurs);
     globalCouleur.push(chooseCouleur);
-        
+
     return globalCouleur;
   },
-  
+
   /**
    * Start the thing
    */
