@@ -41,6 +41,7 @@ module.exports = function(grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
+          'docs/**',
           '<%= yeoman.app %>/**/*.html',
           '<%= yeoman.app %>/**/*.js',
           '<%= yeoman.app %>/**/*.css',
@@ -62,6 +63,7 @@ module.exports = function(grunt) {
           open: 'http://localhost:9010/testpage.html',
           middleware: function(connect) {
             return [
+              connect.static("docs"),
               connect.static(appConfig.app)
             ];
           }
@@ -322,7 +324,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: 'bower_components/boosted/dist/',
+          cwd: 'node_modules/boosted/dist/',
           dest: 'docs',
           src: [           
             'css/**',
@@ -390,11 +392,15 @@ module.exports = function(grunt) {
   });
   
   grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
+    appConfig.config.hebergementDomaine="localhost:9010";
+    appConfig.config.hebergementProtocol="http:";
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
-  grunt.task.run([
+    grunt.task.run([
+      'build',
+      'docs',
       'connect:livereload',
       'watch'
     ]);
