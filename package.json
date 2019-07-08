@@ -2,7 +2,9 @@
   "name": "orange-confort-plus",
   "version": "4.1.0",
   "author": "Orange",
-  "dependencies": {},
+  "dependencies": {
+    "freezeframe": "^4.0.0-alpha.5"
+  },
   "repository": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git",
   "description": "enhance user experience on web sites",
   "devDependencies": {

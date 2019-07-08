@@ -297,8 +297,7 @@ namespace Orange.ConfortPlus.IEExtension
             this.LogInfo("5. load the toolbar");
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(Tools.GetStringFromRessource("js/gifuct-js.min.js"));
-            sb.Append(Tools.GetStringFromRessource("js/demogif.js"));
+            sb.Append(Tools.GetStringFromRessource("js/freezeframe.min.js"));
             sb.Append(Tools.GetStringFromRessource("js/hebergement.js"));
             sb.Append(Tools.GetStringFromRessource("js/ToolbarStrings.js"));
             sb.Append(Tools.GetStringFromRessource("js/UciUserPref.js"));

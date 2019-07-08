@@ -226,8 +226,7 @@ module.exports = function(grunt) {
             },
         },        
         src: [  
-            "<%= yeoman.app %>/js/gifuct-js.min.js",
-            "<%= yeoman.app %>/js/demogif.js",
+            "<%= yeoman.app %>/js/freezeframe.min.js",
             "<%= yeoman.app %>/conf/hebergement.js",
             "<%= yeoman.app %>/js/ToolbarStrings.js",
             "<%= yeoman.app %>/js/UciUserPref.js",

@@ -2184,8 +2184,14 @@ accessibilitytoolbar = {
      ie X => MSIE X (exemple MSIE 7.0)
      Firefox X => Firefox v (ex Firefox 31.0)
     ***************************************************************************************************/
-    a11yDyslexyFontEnabled: ['MSIE 7.0', 'MSIE 8.0']
+    a11yDyslexyFontEnabled: ['MSIE 7.0', 'MSIE 8.0'],
+    a11ySupGif: ['IE 11.0']
   },
+
+  /**
+   * {freezedframe object} 
+   */
+  freezed: false,
 
   /**
    * {ToolbarStrings} String localization Manager
@@ -2612,87 +2618,47 @@ accessibilitytoolbar = {
   // freezeGif from Makaze (https://stackoverflow.com/users/1166904/makaze) on stackoverflow : https://stackoverflow.com/questions/3688460/stopping-gif-animation-programmatically#answer-24707088
   // code licensed under CC-BY-SA https://creativecommons.org/licenses/by-sa/3.0/
   freezeGif: function (img) {
-    // freeze only if image not already hidden
-    if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') < 0)) {
-      var width = img.width,
-        height = img.height,
-        attr,
-        i = 0;
-
-      function freeze() {
-        accessibilitytoolbar.uciDetachEvent('load', 'onload', img, freeze);
-        var oReq = new XMLHttpRequest();
-        oReq.open("GET", img.src, true);
-        oReq.responseType = "arraybuffer";
-        oReq.onreadystatechange = function() {
-          if(this.readyState == this.HEADERS_RECEIVED) {
-            var contentType = oReq.getResponseHeader("Content-Type");
-            if (contentType != "image/gif") {
-              oReq.abort();
-            }
-          }
-        }
-
-        oReq.onload = function (oEvent) {
-          var arrayBuffer = oReq.response; // Note: not oReq.responseText
-          if (arrayBuffer) {
-            gif = new GIF(arrayBuffer);
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            var frames = gif.decompressFrames(true);
-            for (i = 0; i < img.attributes.length; i++) {
-              attr = img.attributes[i];
-              if (attr.name !== '"') { // test for invalid attributes
-                if (attr.name === "id") {
-                  canvas.setAttribute(attr.name, "canv-" + attr.value);
-                } else {
-                  canvas.setAttribute(attr.name, attr.value);
-                }
-              }
-            }
-            canvas.width = img.width;
-            canvas.height = img.height;
-            // render the gif
-            renderGIF(frames, canvas , ctx);
-            // hide original picture instead of changing opacity
-            img.className = img.className + " uci_disable_image";
-
-            img.parentNode.insertBefore(canvas, img);
-          }
-        };
-
-        oReq.send(null);
-      };
-
-      if (img.complete) {
-        freeze();
-      } else {
-        accessibilitytoolbar.uciAttachEvent('load', 'onload', img, freeze);
-      }
+    if ((typeof img.className === "string" && img.className.indexOf('freezeframe') < 0)) {
+      img.className = img.className + " freezeframe";
     }
   },
 
   freezeAllGifs: function () {
-    return new Array().slice.apply(document.images).map(accessibilitytoolbar.freezeGif);
-  },
-
-  // unFreezeGif remove disable image class, and remove previous created canvas
-  unFreezeGif: function (img) {
-    // unfreeze only if img freezed
-    if ((typeof img.className === "string" && img.className.indexOf('uci_disable_image') >= 0)) {
-      // check if canvas exist
-      if (img.previousElementSibling && img.previousElementSibling.nodeName === "CANVAS") {
-        // remove canvas
-        img.parentNode.removeChild(img.previousElementSibling);
-      }
-      // Display original picture
-      img.className = img.className.replace(/ uci_disable_image{0,1}/, "");
+    if(accessibilitytoolbar.freezed == false) {
+      new Array().slice.apply(document.images).map(accessibilitytoolbar.freezeGif);
+      accessibilitytoolbar.freezed = new Freezeframe({
+        selector: '.freezeframe',
+        trigger: 'hover',
+        overlay: false,
+        responsive: false
+      });
+    } else {
+      accessibilitytoolbar.freezed.stop();
     }
   },
 
   // unFreezeallgif when turning of the option
   unFreezeAllGifs: function () {
-    return new Array().slice.apply(document.images).map(accessibilitytoolbar.unFreezeGif);
+    if(accessibilitytoolbar.freezed !== false) {
+      accessibilitytoolbar.freezed.start();      
+      accessibilitytoolbar.freezed.on('stop', function(items) {
+        // do something on stop
+        if(accessibilitytoolbar.userPref.get("a11ySupGif") === "false") {
+          accessibilitytoolbar.freezed.start();
+        }
+      })
+      
+      accessibilitytoolbar.freezed.on('toggle', function(items, isPlaying) {
+        if (isPlaying) {
+          // do something on start
+        } else {
+          // do something on stop
+          if(accessibilitytoolbar.userPref.get("a11ySupGif") === "false") {
+            accessibilitytoolbar.freezed.start();
+          }
+        }
+      })
+    }
   },
 
   // freeze all video?

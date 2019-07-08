@@ -24,6 +24,29 @@ UciSettings = {
     /*
      * @constructor init
      */
+    FreezeGifOption: function() {
+      if(accessibilitytoolbar.getCompatible('a11ySupGif')) {
+        return accessibilitytoolbar.make(["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
+          ["div", {id:"uci_div_disabled_gif"},
+            ["input", {type:"checkbox", value:"true", name:"a11ySupGif", id:"a11ySupGif", checked:accessibilitytoolbar.userPref.get("a11ySupGif") === "true" ? "checked" : false}],
+            ["label", {"for":"a11ySupGif"}, accessibilitytoolbar.get('uci_label_disablegif')]
+          ],
+          ["div", {id:"uci_div_disabled_video"},
+            ["input", {type:"checkbox", value:"true", name:"a11yPauseVideo", id:"a11yPauseVideo", checked:accessibilitytoolbar.userPref.get("a11yPauseVideo") === "true" ? "checked" : false}],
+            ["label", {"for":"a11yPauseVideo"}, accessibilitytoolbar.get('uci_label_disablevideo')]
+          ]
+        ]
+        )
+      } else {
+        return accessibilitytoolbar.make(["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
+          ["div", {id:"uci_div_disabled_video"},
+            ["input", {type:"checkbox", value:"true", name:"a11yPauseVideo", id:"a11yPauseVideo", checked:accessibilitytoolbar.userPref.get("a11yPauseVideo") === "true" ? "checked" : false}],
+            ["label", {"for":"a11yPauseVideo"}, accessibilitytoolbar.get('uci_label_disablevideo')]
+          ]
+        ]
+        )
+      }
+    },
 
     InitUciSettings: function () {
       return accessibilitytoolbar.make(["div", {id:"uci_contenu_onglet_settings", "class":"uci_contenu_onglet cdu_c", role:"tabpanel"},
@@ -50,16 +73,7 @@ UciSettings = {
               accessibilitytoolbar.makeHelpTpl("uci_link_help_disablepppictures","uci_help_disablepppictures",accessibilitytoolbar.get('uci_help_disablepppictures'))
             ]
           ],
-          ["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
-            ["div", {id:"uci_div_disabled_gif"},
-              ["input", {type:"checkbox", value:"true", name:"a11ySupGif", id:"a11ySupGif", checked:accessibilitytoolbar.userPref.get("a11ySupGif") === "true" ? "checked" : false}],
-              ["label", {"for":"a11ySupGif"}, accessibilitytoolbar.get('uci_label_disablegif')]
-            ],
-            ["div", {id:"uci_div_disabled_video"},
-              ["input", {type:"checkbox", value:"true", name:"a11yPauseVideo", id:"a11yPauseVideo", checked:accessibilitytoolbar.userPref.get("a11yPauseVideo") === "true" ? "checked" : false}],
-              ["label", {"for":"a11yPauseVideo"}, accessibilitytoolbar.get('uci_label_disablevideo')]
-            ]
-          ]
+          this.FreezeGifOption()
         ]);
     }
 }
