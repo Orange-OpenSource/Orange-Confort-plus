@@ -85,4 +85,8 @@ Have a bug or a feature request? Please first check the [issues](https://github.
 
 ## Copyright and license
 
-Code copyright 2014 - 2016 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
+Code copyright 2014 - 2019 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
+
+### Third part
+
+[Luciole Font Family © Laurent Bourcellier & Jonathan Perez](http://www.luciole-vision.com/) [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode)
