@@ -96,6 +96,18 @@ UciIhm = {
             ["label", {"for":"a11yMaskEnabled", "class":"ucibtn ucibtn-secondary uci_quick_checkbox margin-left-lg", title:accessibilitytoolbar.get('uci_mask_titre')},
               ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_mask_titre')],
               ["span", { "aria-hidden":"true", "class": "cdu-icon cdu-icon-masque" }]
+            ],
+            ["input", {
+              type:"checkbox", 
+              value:"true", 
+              name:"uci_quick_a11ySupGif",
+              id:"uci_quick_a11ySupGif", 
+              style:"display:none", 
+              checked:accessibilitytoolbar.userPref.get("a11ySupGif") === "true" ? true : false}
+            ],
+            ["label", {id: "uci_quick_a11ySupGif_label", style:"display:none", "for":"uci_quick_a11ySupGif", "class":"ucibtn ucibtn-secondary uci_quick_checkbox margin-left-lg", title:accessibilitytoolbar.get('uci_label_disablegif')},
+              ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_label_disablegif')],
+              ["span", { "aria-hidden":"true"}, "GIF"]
             ]
           ],
           ["div", { "class": "cdu_c uci_notmask", id: "uci_middle_toolbar", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "") },
@@ -357,6 +369,7 @@ UciIhm = {
       document.getElementById('uci_quick_a11yBigger_less').setAttribute('disabled', 'disabled');
       document.getElementById('uci_quick_a11yBigger_more').setAttribute('disabled', 'disabled');
       document.getElementById('uci_quick_a11yVisualSettings').setAttribute('disabled', 'disabled');
+      document.getElementById('uci_quick_a11ySupGif').setAttribute('disabled', 'disabled');
       document.getElementById('a11yMaskEnabled').setAttribute('disabled', 'disabled');          
       if(document.getElementById('uci_profile_menu_button')) {
         document.getElementById('uci_profile_menu_button').setAttribute('disabled', 'disabled');
@@ -411,6 +424,7 @@ UciIhm = {
       document.getElementById('uci_quick_a11yBigger_more').removeAttribute('disabled');
     }    
     document.getElementById('uci_quick_a11yVisualSettings').removeAttribute('disabled');
+    document.getElementById('uci_quick_a11ySupGif').removeAttribute('disabled');
     document.getElementById('a11yMaskEnabled').removeAttribute('disabled');
     if(document.getElementById('uci_profile_menu_button')) {
       document.getElementById('uci_profile_menu_button').removeAttribute('disabled');

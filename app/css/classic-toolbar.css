@@ -638,10 +638,10 @@ a.cdu_hide:focus {
 	-khtml-opacity: 0.2;
 }
 
+#uci_left_toolbar.uci_mask label,
 #uci_left_toolbar.uci_mask input,
-#uci_left_toolbar.uci_mask button,
 #uci_right_toolbar.uci_mask button{
-	cursor: not-allowed !important;
+  cursor: not-allowed !important;
 }
 .uci_logo_plus_de_confort {
 	padding: 0 0 0 .625em;

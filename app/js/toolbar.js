@@ -2971,6 +2971,11 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_link_help_disablepppictures'), function () { return accessibilitytoolbar.toolbarDisplayHelp('uci_help_disablepppictures'); });
     accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_disablepppictures'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_help_disablepppictures'); });
 
+    if(document.getElementById('uci_link_help_disablegif')) {
+      accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_link_help_disablegif'), function () { return accessibilitytoolbar.toolbarDisplayHelp('uci_help_disablegif'); });
+      accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_disablegif'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_help_disablegif'); });
+    }
+
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarDisplayHelp('uci_help_mask'); });
     accessibilitytoolbar.uciAttachEvent('blur', 'onblur', document.getElementById('uci_link_help_mask'), function () { return accessibilitytoolbar.toolbarHideHelp('uci_help_mask'); });
 
@@ -3003,7 +3008,7 @@ accessibilitytoolbar = {
     }
 
     // add a global listener for mask shortcut activation
-    accessibilitytoolbar.uciAttachEvent('keyup', 'onkeyup', document, accessibilitytoolbar.documentKeyupEvent);
+    accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', document, accessibilitytoolbar.documentKeydownEvent);
     // add a global listener for mouse position
     accessibilitytoolbar.uciAttachEvent('mousemove', 'onmousemove', document, accessibilitytoolbar.mouseMouveEvent);
   },
@@ -3011,13 +3016,22 @@ accessibilitytoolbar = {
   /**
    * Global document keyboard eventHandler for catching shortcuts
    */
-  documentKeyupEvent: function (e) {
-    // ctrl key and M at the same time (Start the mask if not already stated)
+  documentKeydownEvent: function (e) {
+    // ctrl key and M at the same time (Start the mask if not already started)
     if ((e.ctrlKey || e.metaKey) && e.keyCode == 77) {
       var value = "false";
       if (accessibilitytoolbar.userPref.get("a11yMaskEnabled") === "false") value = "true"
       accessibilitytoolbar.setPref({ target: { id: "a11yMaskEnabled", value: value, type: "checkbox", checked: "checked" } });
       accessibilitytoolbar.setCSS();
+      accessibilitytoolbar.stopEvt(e);
+    }
+    // ctrl key and G at the same time (Freeze gif if not already started)
+    if ((e.ctrlKey || e.metaKey) && e.keyCode == 71) {
+      var value = "false";
+      if (accessibilitytoolbar.userPref.get("a11ySupGif") === "false") value = "true"
+      accessibilitytoolbar.setPref({ target: { id: "a11ySupGif", value: value, type: "checkbox", checked: "checked" } });
+      accessibilitytoolbar.setCSS();
+      accessibilitytoolbar.stopEvt(e);
     }
   },
 
@@ -3358,25 +3372,19 @@ accessibilitytoolbar = {
       value = "false";
     }
     if (target.id && target.id.match(/a11yVisualSettings/)) {
-      if (value !== "false") {
-        document.getElementById("uci_quick_a11yVisualSettings").checked = true;
-        document.getElementById("a11yVisualSettings").checked = true;
-      } else {
-        document.getElementById("uci_quick_a11yVisualSettings").checked = false;
-        document.getElementById("a11yVisualSettings").checked = false;
-      }
+      document.getElementById("uci_quick_a11yVisualSettings").checked =  value !== "false";
+      document.getElementById("a11yVisualSettings").checked = value !== "false";
       prefName = "a11yVisualSettings";
     }
     if (target.id && target.id.match(/a11yMaskEnabled/)) {
-      // if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
-      if (value !== "false") {
-        // document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
-        document.getElementById("a11yMaskEnabled").checked = true;
-      } else {
-        // document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
-        document.getElementById("a11yMaskEnabled").checked = false;
-      }
+      document.getElementById("a11yMaskEnabled").checked = value !== "false";
       prefName = "a11yMaskEnabled";
+    }
+    if (target.id && target.id.match(/a11ySupGif/)) {
+      if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
+      document.getElementById("a11ySupGif").checked = value !== "false";
+      document.getElementById("uci_quick_a11ySupGif").checked = value !== "false";
+      prefName = "a11ySupGif";
     }
     accessibilitytoolbar.userPref.set(prefName, value);
 
@@ -3392,7 +3400,7 @@ accessibilitytoolbar = {
       "a11yModifCasse", "a11yMaskOpacity", "a11yNavLienSelColor", "a11yNavLienNonVisColor",
       "a11yNavLienVisColor", "a11yFontColor", "a11yBackgroundColor",
       "a11yDelayBeforeClick", "a11yMenuPositionning", "a11yDelayBeforeLoop", "a11yQuickMode"];
-    var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping"];
+    var checkboxSettings = ["a11yVisualSettings", "a11yLinearize", "a11yLeftText", "a11yNumerotationList", "a11yNavLienEnabled", "a11ySupEffetTransp", "a11ySupImageFont", "a11ySupImageFirstPlan", "a11yMaskEnabled", "a11yJumpToContent", "a11yMotorModeRemote", "a11yMotorModeLooping", "a11ySupGif", "a11yPauseVideo"];
     var radioSettings = ["a11yMaskOption-mask", "a11yMaskOption-vruler", "a11yMaskOption-hruler"];
     var curpref;
     var selectSettings = ["uci_reponses_couleurpredefinie"];
@@ -3401,25 +3409,14 @@ accessibilitytoolbar = {
     }
     for (pref in checkboxSettings) {
       curpref = checkboxSettings[pref];
-      if (accessibilitytoolbar.userPref.get(curpref) === "true") {
-        if (curpref === "a11yVisualSettings") {
-          document.getElementById("uci_quick_" + curpref).checked = true;
-        }
-        document.getElementById(curpref).checked = true;
-      } else {
-        if (curpref === "a11yVisualSettings") {
-          document.getElementById("uci_quick_" + curpref).checked = false;
-        }
-        document.getElementById(curpref).checked = false;
+      if (curpref === "a11yVisualSettings" || curpref === "a11ySupGif") {
+        document.getElementById("uci_quick_" + curpref).checked = accessibilitytoolbar.userPref.get(curpref) === "true";
       }
+      document.getElementById(curpref).checked = accessibilitytoolbar.userPref.get(curpref) === "true";
     }
     for (pref in radioSettings) {
       prefarray = radioSettings[pref].split("-");
-      if (accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1]) {
-        document.getElementById(radioSettings[pref]).checked = true;
-      } else {
-        document.getElementById(radioSettings[pref]).checked = false;
-      }
+      document.getElementById(radioSettings[pref]).checked = accessibilitytoolbar.userPref.get(prefarray[0]) === prefarray[1];      
     }
     // update color select    
     var sel = document.getElementById("uci_reponses_couleurpredefinie");
@@ -3810,8 +3807,13 @@ accessibilitytoolbar = {
 
       // disable gif image
       if (localUserPref.get("a11ySupGif") !== "false") {
+        // show button in shortcut toolbar
+        document.getElementById('uci_quick_a11ySupGif_label').style.display="inline-block";
+        document.getElementById('uci_quick_a11ySupGif').style.display="inline-block";
         accessibilitytoolbar.freezeAllGifs();
       } else {
+        document.getElementById('uci_quick_a11ySupGif_label').style.display="none";
+        document.getElementById('uci_quick_a11ySupGif').style.display="none";
         accessibilitytoolbar.unFreezeAllGifs();
       }
 

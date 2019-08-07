@@ -29,7 +29,8 @@ UciSettings = {
         return accessibilitytoolbar.make(["div", {"class":"uci_onglet_div margin-left margin-right cdu_c"},
           ["div", {id:"uci_div_disabled_gif"},
             ["input", {type:"checkbox", value:"true", name:"a11ySupGif", id:"a11ySupGif", checked:accessibilitytoolbar.userPref.get("a11ySupGif") === "true" ? "checked" : false}],
-            ["label", {"for":"a11ySupGif"}, accessibilitytoolbar.get('uci_label_disablegif')]
+            ["label", {"for":"a11ySupGif"}, accessibilitytoolbar.get('uci_label_disablegif')],
+            accessibilitytoolbar.makeHelpTpl("uci_link_help_disablegif","uci_help_disablegif",accessibilitytoolbar.get('uci_help_disablegif'))
           ],
           ["div", {id:"uci_div_disabled_video"},
             ["input", {type:"checkbox", value:"true", name:"a11yPauseVideo", id:"a11yPauseVideo", checked:accessibilitytoolbar.userPref.get("a11yPauseVideo") === "true" ? "checked" : false}],
