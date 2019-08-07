@@ -1880,6 +1880,23 @@ li.uci_dropdown-divider {
 	background-color: #FFF;
 }
 
+#accessibilitytoolbarGraphic .uci_select_font {
+	border-color: inherit;
+	text-align: left;
+	padding: .19em;
+	font-size: 0.875em;
+	min-width: 2.5em;
+	box-sizing: border-box;
+	min-height: 2.142857142857143em;
+}
+#accessibilitytoolbarGraphic .uci_select_font:active,
+#accessibilitytoolbarGraphic .uci_select_font.active,
+#accessibilitytoolbarGraphic .ucibtn-sm:focus,
+#accessibilitytoolbarGraphic .uci_select_font:focus{
+	padding: 0.05em;
+	border-width: .2857em;
+}
+
 #accessibilitytoolbarGraphic .uci_color_box {
 	border-color: inherit;
 	border-width: 2px;
