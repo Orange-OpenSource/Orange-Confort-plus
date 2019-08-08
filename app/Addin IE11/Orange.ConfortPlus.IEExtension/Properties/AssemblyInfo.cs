@@ -1,5 +1,5 @@
 // <copyright file="AssemblyInfo.cs" company="Orange SA">
-//     Copyright (c) 2016 - 2017 Orange. 
+//     Copyright (c) 2016 - 2019 Orange. 
 // </copyright>
 //
 // This file is part of Orange Confort+ Internet Explorer Extension | An Internet Explorer Extension that embed Orange Confort+ (http://confort-plus.orange.com/)
@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Orange SA")]
 [assembly: AssemblyProduct("Orange.ConfortPlus.IEExtension")]
-[assembly: AssemblyCopyright("Copyright ©  2016 - 2017")]
+[assembly: AssemblyCopyright("Copyright ©  2016 - 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

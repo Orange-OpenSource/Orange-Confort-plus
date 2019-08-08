@@ -1,4 +1,4 @@
-// Copyright (c) 2016 - 2017 Orange. 
+// Copyright (c) 2016 - 2019 Orange. 
 //
 // This file is part of Orange Confort+ Internet Explorer Extension | An Internet Explorer Extension that embed Orange Confort+ (http://confort-plus.orange.com/)
 //
