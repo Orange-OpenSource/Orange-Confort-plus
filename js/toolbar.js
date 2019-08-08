@@ -1,7 +1,7 @@
 /* orange-confort-plus - version 4.1.0 - 24-11-2017
 enhance user experience on websites
  Copyright (C) 2014 - 2017 Orange */
-var hebergementDomaine = 'http://confort-plus.orange.com';
+var hebergementDomaine = 'https://confort-plus.orange.com';
 var hebergementFullPath = hebergementDomaine + '/';
 // Source: app/conf/hebergement.js
 /*
@@ -2704,7 +2704,7 @@ UciIhm = {
     return accessibilitytoolbar.make(["div", { "class": "cdu_c" },
       ["div", { id: "uci_toolbar-quick", "class": "cdu_c" },
         ["div", { "class": "uci_logo_plus_de_confort cdu_c", id:"uci_logo" },
-          ["a", { "class": "uci_alt_logo", id:"uci_logo_link", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank"  },
+          ["a", { "class": "uci_alt_logo", id:"uci_logo_link", href: "https://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank"  },
             accessibilitytoolbar.get('uci_serv_name'),
             ["span", { "class": "uci-plus-orange" }, "+"]
           ],
@@ -2788,7 +2788,7 @@ UciIhm = {
                         ]
                       ],
                       ["li",
-                        ["a", { "class": "uci_menu_ouverture_aide", href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank" },
+                        ["a", { "class": "uci_menu_ouverture_aide", href: "https://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(), title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")", target: "_blank" },
                           ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-info" }],
                           ["span", accessibilitytoolbar.get('uci_menu_info')]
                         ]
