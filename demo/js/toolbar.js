@@ -7829,12 +7829,16 @@ accessibilitytoolbar = {
       // disable gif image
       if (localUserPref.get("a11ySupGif") !== "false") {
         // show button in shortcut toolbar
-        document.getElementById('uci_quick_a11ySupGif_label').style.display="inline-block";
-        document.getElementById('uci_quick_a11ySupGif').style.display="inline-block";
+        if(document.getElementById('uci_quick_a11ySupGif_label')) {
+          document.getElementById('uci_quick_a11ySupGif_label').style.display="inline-block";
+          document.getElementById('uci_quick_a11ySupGif').style.display="inline-block";
+        }
         accessibilitytoolbar.freezeAllGifs();
       } else {
-        document.getElementById('uci_quick_a11ySupGif_label').style.display="none";
-        document.getElementById('uci_quick_a11ySupGif').style.display="none";
+        if(document.getElementById('uci_quick_a11ySupGif_label')) {
+          document.getElementById('uci_quick_a11ySupGif_label').style.display="none";
+          document.getElementById('uci_quick_a11ySupGif').style.display="none";
+        }
         accessibilitytoolbar.unFreezeAllGifs();
       }
 
