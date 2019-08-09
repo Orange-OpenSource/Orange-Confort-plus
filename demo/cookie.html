@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> <!--
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
     Copyright (C) 2014 - 2017  Orange SA
@@ -12,11 +12,12 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
---> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> <title>Standalone cookie toolbar</title>  <body> <script type="text/javascript">var namePref = 'UCI41';
+--> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> <title>Standalone cookie toolbar</title> </head> <body> <script type="text/javascript"> var namePref = 'UCI42';
       var nameBlacklist = 'uci-bl';
       var valueBlacklist = '0';
+      var date = '5020';
       // Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile 
-      var defaultValuePref = '1|0|0';
+      var defaultValuePref = '0|0|0';
   /*!
    * src : http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript#answer-901144
    *
@@ -33,14 +34,14 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
 
-      function saveCookie(name, value,days) {
+      function saveCookie(name, value, days) {
         if (days) {
             var date = new Date();
             date.setTime(date.getTime()+(days*24*60*60*1000));
-            var expires = "; expires="+date.toGMTString();
+            var expires = date.toGMTString();
         }
         else var expires = "";
-        document.cookie = name+"="+value+expires+";domain="+document.location.hostname+"; path=/";
+        document.cookie = name+"="+value+"; expires="+expires+";domain="+document.location.hostname+"; path=/";
       }
 
       function readCookies() {
@@ -66,7 +67,7 @@
         }
         if(valuePref === null) {
           valuePref = defaultValuePref;
-          saveCookie(namePref, defaultValuePref);
+          saveCookie(namePref, defaultValuePref,date);
         }
         return valueBlacklist+"|"+valuePref;
       }  
@@ -110,7 +111,7 @@
         window.parent.postMessage(readCookies(), origin);
       }
       else if((UsageConfort || UsageConfort==="") && origin) {                                                                      
-        saveCookie(namePref, UsageConfort);
+        saveCookie(namePref, UsageConfort, date);
       } else if(hostname) {
         updateBlackList(hostname);
-      }</script>  
+      } </script> 

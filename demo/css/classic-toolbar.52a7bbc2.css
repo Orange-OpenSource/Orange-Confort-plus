@@ -1,6 +1,6 @@
-/* orange-confort-plus - version 4.1.0 - 15-11-2017
+/* orange-confort-plus - version 4.1.0 - 07-08-2019
 enhance user experience on websites
- Copyright (C) 2014 - 2017 Orange */
+ Copyright (C) 2014 - 2019 Orange */
 	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
 	you can redistribute it and/or    modify it under the terms of the GNU General Public License    as published by the Free Software Foundation;
 	either version 2    of the License, or (at your option) any later version.    Orange Confort+ is distributed in the hope that it will be useful,    but WITHOUT ANY WARRANTY;
@@ -1082,7 +1082,9 @@ li.uci_dropdown-divider {
 #uci_div_supprimer_miseenpage,
 #uci_div_desactiver_transparence,
 #uci_div_disabled_fond_picture,
-#uci_div_disabled_first_plan_picture{
+#uci_div_disabled_first_plan_picture,
+#uci_div_disabled_gif,
+#uci_div_disabled_video{
 	padding-top: 1.25em;
 }
 
@@ -1288,7 +1290,8 @@ li.uci_dropdown-divider {
 	margin-top: 60px;
 }
 /* put grey label when checkbox is disabled */
-#accessibilitytoolbarGraphic .ucibtn {
+#accessibilitytoolbarGraphic .ucibtn,
+.ucibtn {
 	display: inline-block;
 	font-weight: bold;
 	line-height: 1;
@@ -1306,7 +1309,9 @@ li.uci_dropdown-divider {
 }
 
 #accessibilitytoolbarGraphic .ucibtn:active,
-#accessibilitytoolbarGraphic .ucibtn.active {
+.ucibtn:active,
+#accessibilitytoolbarGraphic .ucibtn.active,
+.ucibtn.active {
 	background-image: none;
 	outline: 0;
 }
@@ -1314,6 +1319,9 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn:disabled {
 	cursor: not-allowed;
 	opacity: .65;
+}
+.ucibtn-sm {
+	font-size: 1rem;
 }
 #accessibilitytoolbarGraphic .ucibtn-sm {
 	padding: 0.4285714em 0.5714em;
@@ -1325,11 +1333,12 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-sm:active,
 #accessibilitytoolbarGraphic .ucibtn-sm.active,
 #accessibilitytoolbarGraphic .ucibtn-sm:focus,
-#accessibilitytoolbarGraphic .uci_color_btn:focus{
+#accessibilitytoolbarGraphic .uci_color_btn:focus {
 	padding: 0.285714em 0.428571em;
 	border-width: 4px;
 }
 #closeMaskDiv .ucibtn-secondary,
+.ucibtn-secondary,
 #accessibilitytoolbarGraphic .ucibtn-secondary {
 	color: #000;
 	background-color: transparent;
@@ -1337,7 +1346,9 @@ li.uci_dropdown-divider {
 }
 
 #accessibilitytoolbarGraphic .ucibtn-secondary:focus,
+.ucibtn-secondary:focus,
 #accessibilitytoolbarGraphic .ucibtn-secondary:hover:not(:disabled):not(label):not([tabindex="-2"]),
+.ucibtn-secondary:hover:not(:disabled):not(label):not([tabindex="-2"]),
 #closeMaskDiv .ucibtn-secondary:focus,
 #closeMaskDiv .ucibtn-secondary:hover,
 #accessibilitytoolbarGraphic input[type="checkbox"]:focus + label.ucibtn-secondary,
@@ -1347,6 +1358,7 @@ li.uci_dropdown-divider {
 	border-color: #000;
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:active,
+.ucibtn-secondary:active,
 #accessibilitytoolbarGraphic .ucibtn-secondary.active,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.ucibtn-secondary {
 	color: #fff;
@@ -1356,6 +1368,7 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:focus,
+.ucibtn-secondary:active:focus,
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:focus,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked:not(:disabled) + label.ucibtn-secondary:hover,
