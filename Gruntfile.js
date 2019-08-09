@@ -65,6 +65,7 @@ module.exports = function(grunt) {
           middleware: function(connect) {
             return [
               serveStatic(appConfig.app),
+              serveStatic("./docs/"),
               serveStatic("./bower_components/")
             ];
           }
