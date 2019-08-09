@@ -1,7 +1,7 @@
-/* orange-confort-plus - version 4.1.0 - 07-08-2019
+/* orange-confort-plus - version 4.1.0 - 09-08-2019
 enhance user experience on websites
  Copyright (C) 2014 - 2019 Orange */
-	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2017  Orange SA    Orange Confort+ is free software;
+	/**    This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs        Copyright (C) 2014 - 2019  Orange SA    Orange Confort+ is free software;
 	you can redistribute it and/or    modify it under the terms of the GNU General Public License    as published by the Free Software Foundation;
 	either version 2    of the License, or (at your option) any later version.    Orange Confort+ is distributed in the hope that it will be useful,    but WITHOUT ANY WARRANTY;
 without even the implied warranty of    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    GNU General Public License for more details (LICENSE.txt file).**/
@@ -641,10 +641,10 @@ a.cdu_hide:focus {
 	-khtml-opacity: 0.2;
 }
 
+#uci_left_toolbar.uci_mask label,
 #uci_left_toolbar.uci_mask input,
-#uci_left_toolbar.uci_mask button,
 #uci_right_toolbar.uci_mask button{
-	cursor: not-allowed !important;
+  cursor: not-allowed !important;
 }
 .uci_logo_plus_de_confort {
 	padding: 0 0 0 .625em;
@@ -1881,6 +1881,23 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .uci_select_color option {
 	color: #000;
 	background-color: #FFF;
+}
+
+#accessibilitytoolbarGraphic .uci_select_font {
+	border-color: inherit;
+	text-align: left;
+	padding: .19em;
+	font-size: 0.875em;
+	min-width: 2.5em;
+	box-sizing: border-box;
+	min-height: 2.142857142857143em;
+}
+#accessibilitytoolbarGraphic .uci_select_font:active,
+#accessibilitytoolbarGraphic .uci_select_font.active,
+#accessibilitytoolbarGraphic .ucibtn-sm:focus,
+#accessibilitytoolbarGraphic .uci_select_font:focus{
+	padding: 0.05em;
+	border-width: .2857em;
 }
 
 #accessibilitytoolbarGraphic .uci_color_box {
