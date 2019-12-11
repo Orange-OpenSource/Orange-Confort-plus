@@ -40,9 +40,9 @@ NB: Pay attention to the protocol you are using, HTTPS or HTTP.
 
 Now you're ready to deploy it, just copy all the files and folders from `dist/serveur` to your website tree in `myconfortplus` folder if you used it for YOURPATHTOSOURCEFILES value.
 
-You can call it anywhere on your website, just by adding the Javascript link, before the closing body tag, `</body>`, in your pages like this: 
+You can call it anywhere on your website, just by adding the Javascript link, before the closing body tag, `</body>`, in your pages like this (replace `example.com` with your domain): 
 
-`<script type="text/javascript" src="http://myexemple.com/myconfortplus/js/toolbar-min.js"></script>`
+`<script type="text/javascript" src="http://example.com/myconfortplus/js/toolbar-min.js"></script>`
 
 NB: The user settings are saved onto your domain and are never shared with other websites, or extension. 
 
