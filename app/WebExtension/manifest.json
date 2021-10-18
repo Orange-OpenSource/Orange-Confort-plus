@@ -3,13 +3,12 @@
               
   "name": "Orange Confort+"
   ,"description": "Orange Confort+"
-  ,"version": "1.2.0.1"
+  ,"version": "1.2.1.2"
+  ,"default_locale": "fr"
 
   ,"permissions": [
     "tabs",
-    "webNavigation",
-    "http://*/",
-    "https://*/"
+    "webNavigation"
   ]
   ,"browser_action": {
     "default_title": "Orange Confort+"
@@ -19,7 +18,7 @@
       } 
   },          
   "author": "Orange SA",
-  "homepage_url": "http://confort-plus.orange.com/",
+  "homepage_url": "https://confort-plus.orange.com",
   "background": {
     "scripts": ["js/main.js"]
     ,"persistent": true

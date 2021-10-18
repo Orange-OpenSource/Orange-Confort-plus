@@ -103,7 +103,7 @@ traduction['FR']={
   uci_profile_curent_name: "Nom actuel du profil :",
   uci_profile_delete_warning: "Voulez-vous vraiment supprimer ce profil ?",
   uci_profile_name_format: "Longueur minimale de 3 caractères, ne pas saisir de caractères spéciaux, ni de nom de profil existant",
-  uci_profile_new_label: "Nouveau profil",
+  uci_profile_new_label: "Nom de mon nouveau profil :",
   uci_profile_new_option: "nouveau profil",
   uci_profile_rename_label: "Nouveau nom :",
   uci_profile_save_label: "Enregistrer mes réglages :",

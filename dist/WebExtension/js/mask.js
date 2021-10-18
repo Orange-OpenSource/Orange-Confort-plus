@@ -1,3 +1,39 @@
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 21-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 21-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 06-01-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 06-01-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 06-01-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 06-01-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
 
@@ -60,14 +96,16 @@ UciMask = {
         },
 
         initCloseMask: function(){
-          return accessibilitytoolbar.make(
+          var a11y_toolbar = accessibilitytoolbar.make(
             ["div", {id:"closeMaskDiv", "class": "closeMask"},
-              ["button", { id: "closeMask", onclick: "UciMask.closeMask()", title: accessibilitytoolbar.get('uci_close_mask'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
+              ["button", { id: "closeMask", title: accessibilitytoolbar.get('uci_close_mask'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
                 ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
                 ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_mask')]
               ]
             ]
           );
+          a11y_toolbar.querySelector("#closeMask").onclick = function(){ UciMask.closeMask(); };
+          return a11y_toolbar;
         },
 
         explainHowToCloseDiv: function(){

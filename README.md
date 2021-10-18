@@ -70,6 +70,10 @@ cssLinkModeClassName : "linkClass",
 - Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
 
 - Install dependencies
+`$ npm install bower -g`
+`$ npm install grunt -g`
+`$ npm install gulp-cli -g`
+
 `$ npm install`
 `$ bower install`
 

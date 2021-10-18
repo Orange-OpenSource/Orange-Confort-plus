@@ -145,3 +145,5 @@ docs/fonts/icon-orange.svg
 docs/fonts/icon-orange.ttf
 docs/fonts/icon-orange.woff
 docs/fonts/icon-orange.woff2
+
+dist/WebExtension/web-ext-artifacts

@@ -1,3 +1,27 @@
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 22-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 21-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
+/* orange-confort-plus - version 4.1.0 - 21-02-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
     
@@ -1484,7 +1508,7 @@ LoopingKey = {
       charCode[1] = e.which;
     }
     else return -1;
-
+    console.log(charCode);
     // Return the corresponding key code
     if ((charCode[0] == 32 || charCode[1] == 32))
       return LoopingKey.ENTER;
@@ -2338,13 +2362,13 @@ accessibilitytoolbar = {
       }
       // Touches haut ou gauche
       else if (e.keyCode == '38 ' || e.keyCode == '37') {
-        // accede à l'onglet pr�c�dent, soit il existe, soit on revient au dernier �l�ment
+        // accede à l'onglet prcdent, soit il existe, soit on revient au dernier lment
         accessibilitytoolbar.uci_OuvrirMenuOnglet(accessibilitytoolbar.previousElementSibling(target_enfant) || target.children[(target.children.length - 1)]);
         accessibilitytoolbar.stopEvt(e);
       }
       // Touches bas ou droite
       else if (e.keyCode == '40' || e.keyCode == '39') {
-        // accede à l'onglet suivant, soit il existe, soit on revient au premier �l�ment
+        // accede à l'onglet suivant, soit il existe, soit on revient au premier lment
         accessibilitytoolbar.uci_OuvrirMenuOnglet(accessibilitytoolbar.nextElementSibling(target_enfant) || target.children[0]);
         accessibilitytoolbar.stopEvt(e);
       }
@@ -2383,7 +2407,7 @@ accessibilitytoolbar = {
     if (!e)
       e = window.event;
     var target = e.target || e.srcElement;
-    // on boucle jusqu'� remonter sur un li si l'event est envoy� depuis un sous �l�ment
+    // on boucle jusqu' remonter sur un li si l'event est envoy depuis un sous lment
     var tagId = target.id;
     var targetEnfant = target;
     while (tagId === '') {
@@ -2403,13 +2427,13 @@ accessibilitytoolbar = {
         }
         // Touches haut ou gauche
         else if (e.keyCode == '38' || e.keyCode == '37') {
-          // coche le bouton pr�c�dent, soit il existe, soit on revient au dernier �l�ment
+          // coche le bouton prcdent, soit il existe, soit on revient au dernier lment
           accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.previousElementSibling(target) || accessibilitytoolbar.thisOrpreviousElementSibling(target.parentNode.children[(target.parentNode.children.length - 1)]), true);
           accessibilitytoolbar.stopEvt(e);
         }
         // Touches bas ou droite
         else if (e.keyCode == '40' || e.keyCode == '39') {
-          // coche le bouton suivant, soit il existe, soit on revient au premier �l�ment
+          // coche le bouton suivant, soit il existe, soit on revient au premier lment
           accessibilitytoolbar.uciCocherRadioButton(accessibilitytoolbar.nextElementSibling(target) || accessibilitytoolbar.thisOrnextElementSibling(target.parentNode.children[0]), true);
           accessibilitytoolbar.stopEvt(e);
         }
@@ -2431,11 +2455,11 @@ accessibilitytoolbar = {
     
     if (focus) elmt.focus();
 
-    // on d�sactive ses fr�res
+    // on dsactive ses frres
     var reponses = elmt.parentNode;
     var iterator;
     for (iterator = 0; iterator < reponses.children.length; iterator++) {
-      // on r�cup�re un fils
+      // on rcupre un fils
       if (reponses.children[iterator] != elmt) {
         reponses.children[iterator].setAttribute('aria-checked', 'false');
         reponses.children[iterator].tabIndex = '-1';
@@ -2488,7 +2512,7 @@ accessibilitytoolbar = {
       if (document.getElementById('uci_validation').className === 'cdu_n') {
         document.getElementById('uci_validation').className = "";
         UciIhm.hide_confirm_validation();
-        document.getElementById('uci_cdu_popin').style.display = "none";
+        if (document.getElementById('uci_cdu_popin')) document.getElementById('uci_cdu_popin').style.display = "none";
       }
       document.getElementById('uci_zone_form').style.display = "block";
     }
@@ -2503,11 +2527,11 @@ accessibilitytoolbar = {
     document.getElementById(spanId[1]).parentElement.className = 'uci_inline uci_onglet_0 uci_onglet_1';
     document.getElementById(elmt.getAttribute('aria-controls')).style.display = "block";
     elmt.focus();
-    // on d�sactive ses fr�res
+    // on dsactive ses frres
     var reponses = elmt.parentNode;
     var iterator = 0;
     for (iterator = 0; iterator < reponses.children.length; iterator++) {
-      // on r�cup�re un fils
+      // on rcupre un fils
       if (reponses.children[iterator] != elmt && reponses.children[iterator].hasAttribute('role')) {
         reponses.children[iterator].setAttribute('aria-selected', 'false');
         reponses.children[iterator].tabIndex = '-1';
@@ -2524,14 +2548,14 @@ accessibilitytoolbar = {
   },
 
   uci_aria_radio_simulation: function (uciIdListe) {
-    // Gestion des boutons radio simul�s en ARIA
+    // Gestion des boutons radio simuls en ARIA
     var reponses = document.getElementById(uciIdListe);
     if (reponses) {
       var iterator = 0;
       var children;
       // parcours de tous les enfants de la liste
       for (iterator = 0; iterator < reponses.children.length; iterator++) {
-        // on r�cup�re un fils
+        // on rcupre un fils
         children = reponses.children[iterator];
         if(children.hasAttribute('role')) {
           accessibilitytoolbar.uciAttachEvent('click', 'onclick', children, accessibilitytoolbar.uciRadioButtonEvent);
@@ -2549,7 +2573,7 @@ accessibilitytoolbar = {
       var children;
       // parcours de tous les enfants de la liste
       for (iterator = 0; iterator < reponses.children.length; iterator++) {
-        // on r�cup�re un fils
+        // on rcupre un fils
         children = reponses.children[iterator];
         accessibilitytoolbar.uciAttachEvent('click', 'onclick', children, accessibilitytoolbar.uci_MenuButtonEvent);
         accessibilitytoolbar.uciAttachEvent('keydown', 'onkeydown', children, accessibilitytoolbar.uci_MenuButtonEvent);
@@ -3225,7 +3249,7 @@ accessibilitytoolbar = {
     if (document.getElementById('uci_validation').className === 'cdu_n') {
       document.getElementById('uci_validation').className = "";
       document.getElementById('uci_zone_form').style.display = "block";
-      document.getElementById('uci_cdu_popin').style.display = "none";
+      if (document.getElementById('uci_cdu_popin')) document.getElementById('uci_cdu_popin').style.display = "none";
     }
     // update box color
     if(prefName === 'a11yVisualPredefinedSettings') {
@@ -3995,7 +4019,7 @@ accessibilitytoolbar = {
       htmlContent.appendChild(accessibilitytoolbar.toolbarCreateButton());
     }
     document.getElementById('accessibilitytoolbarGraphic').replaceChild(htmlContent, document.getElementById('cdu_zone'));
-    document.getElementById('uci_cdu_popin').style.display = "none";
+    if (document.getElementById('uci_cdu_popin')) document.getElementById('uci_cdu_popin').style.display = "none";
     accessibilitytoolbar.loadTheToolbar();
   },
 
