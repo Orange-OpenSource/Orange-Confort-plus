@@ -1,3 +1,6 @@
+/* orange-confort-plus - version 4.1.0 - 26-09-2022
+enhance user experience on websites
+ Copyright (C) 2014 - 2022 Orange */
 /* orange-confort-plus - version 4.1.0 - 22-02-2022
 enhance user experience on websites
  Copyright (C) 2014 - 2022 Orange */
