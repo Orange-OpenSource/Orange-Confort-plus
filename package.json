@@ -5,7 +5,8 @@
   "repository": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git",
   "description": "enhance user experience on web sites",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions"
+    "preinstall": "npx npm-force-resolutions",
+    "grunt": "grunt"
   },
   "resolutions": {
     "graceful-fs": "^4.2.4"
@@ -15,6 +16,7 @@
     "grunt": "~0.4.5",
     "grunt-autoprefixer": "^1.0.1",
     "grunt-banner": "^0.2.3",
+    "grunt-cli": "^1.4.3",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-connect": "^0.9.0",
