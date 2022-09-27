@@ -3,7 +3,6 @@
   "name": "Orange Confort+",
   "description": "Orange Confort+",
   "version": "1.2.1.2",
-  "default_locale": "fr",
   "browser_action": {
     "default_title": "Orange Confort+",
     "default_icon": {

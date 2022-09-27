@@ -855,7 +855,7 @@ a.cdu_hide:focus {
 }
 #accessibilitytoolbarGraphic .uci_menu_active a:focus,
 #accessibilitytoolbarGraphic .uci_menu_active a:hover {
-  border-color : #f16E00;
+  border-color : #ff7900;
 }
 
 .uci_bton_menu, .uci_bton_menu:active {
@@ -1093,7 +1093,9 @@ li.uci_dropdown-divider {
 #uci_div_supprimer_miseenpage,
 #uci_div_desactiver_transparence,
 #uci_div_disabled_fond_picture,
-#uci_div_disabled_first_plan_picture{
+#uci_div_disabled_first_plan_picture,
+#uci_div_disabled_gif,
+#uci_div_disabled_video{
 	padding-top: 1.25em;
 }
 
@@ -1363,7 +1365,7 @@ li.uci_dropdown-divider {
 	color: #000;
 	background-color: #FF7900;
 	background-image: none;
-	border-color: #f16e00;
+	border-color: #ff7900;
 }
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:hover:not(label):not([tabindex="-2"]),
 #accessibilitytoolbarGraphic .ucibtn-secondary:active:focus,
@@ -1409,7 +1411,7 @@ li.uci_dropdown-divider {
 	color: #000;
 	background-color: #FF7900;
 	background-image: none;
-	border-color: #f16e00;
+	border-color: #ff7900;
 }
 #accessibilitytoolbarGraphic .ucibtn-info:active:hover,
 #accessibilitytoolbarGraphic .ucibtn-info:active:focus,
@@ -1419,7 +1421,7 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-info.active.focus, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle:hover, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle:focus, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle.focus {
 	color: #000;
 	background-color: #FF7900;
-	border-color: #f16e00;
+	border-color: #ff7900;
 }
 #accessibilitytoolbarGraphic .ucibtn-info.disabled,
 #accessibilitytoolbarGraphic .ucibtn-info:disabled {
@@ -1447,7 +1449,7 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .ucibtn-primary {
 	background-color: #FF7900;
-	border-color: #f16e00;
+	border-color: #ff7900;
 	margin-left: 1.25em;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary:focus,
@@ -1461,7 +1463,7 @@ li.uci_dropdown-divider {
 	color: #000;
 	background-color: #FF7900;
 	background-image: none;
-	border-color: #f16e00;
+	border-color: #ff7900;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary:active:hover,
 #accessibilitytoolbarGraphic .ucibtn-primary:active:focus,
@@ -1471,7 +1473,7 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-primary.active.focus, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:hover, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:focus, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle.focus {
 	color: #000;
 	background-color: #FF7900;
-	border-color: #f16e00;
+	border-color: #ff7900;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary.disabled,
 #accessibilitytoolbarGraphic .ucibtn-primary:disabled {
@@ -1895,6 +1897,22 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .uci_select_color option {
 	color: #000;
 	background-color: #FFF;
+}
+
+#accessibilitytoolbarGraphic .uci_select_font {
+	border-color: inherit;
+	text-align: left;
+	padding: .19em;
+	font-size: 0.875em;
+	min-width: 2.5em;
+	box-sizing: border-box;
+	min-height: 2.142857142857143em;
+}
+#accessibilitytoolbarGraphic .uci_select_font:active,
+#accessibilitytoolbarGraphic .uci_select_font.active,
+#accessibilitytoolbarGraphic .uci_select_font:focus{
+	padding: 0.05em;
+	border-width: .2857em;
 }
 
 #accessibilitytoolbarGraphic .uci_color_box {
