@@ -34,7 +34,7 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
 
-      function saveCookie(name, value,days) {
+      function saveCookie(name, value, days) {
         if (days) {
             var date = new Date();
             date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -111,7 +111,7 @@
         window.parent.postMessage(readCookies(), origin);
       }
       else if((UsageConfort || UsageConfort==="") && origin) {                                                                      
-        saveCookie(namePref, UsageConfort,date);
+        saveCookie(namePref, UsageConfort, date);
       } else if(hostname) {
         updateBlackList(hostname);
       }</script>  

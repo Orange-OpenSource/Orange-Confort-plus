@@ -107,10 +107,10 @@ traduction['EN']={
   uci_profile_curent_name: "Current profile name:",
   uci_profile_delete_warning: "Do you really want to delete this profile?",
   uci_profile_name_format: "Minimal length: 3 characters; please no special characters. Don't use an existing profile name!", // V4
-  uci_profile_new_label: "New profile:",
+  uci_profile_new_label: "My new profile name:",
   uci_profile_new_option: "new profile",
   uci_profile_rename_label: "New name:",
-  uci_profile_save_label: "Save my settings:",
+  uci_profile_save_label: "Profil to save:",
   uci_radio_dark:"Dark",
   uci_radio_default:"Default",
   uci_radio_large:"Large",

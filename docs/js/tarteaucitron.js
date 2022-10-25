@@ -524,7 +524,7 @@ var tarteaucitron = {
             html +=         service.name;
             html += '       </label>';
             html += '   </div>';
-            html += '   <div class="tarteaucitronName">';     
+            html += '   <div class="tarteaucitronName">';
             html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
             if (tarteaucitron.parameters.moreInfoLink == true) {
                 html += '       <a href="https://opt-out.ferank.eu/service/' + service.key + '/" target="_blank" rel="noopener" title="'+ tarteaucitron.lang.cookieDetail + ' ' + service.name + ' ' + tarteaucitron.lang.ourSite + ' ' + tarteaucitron.lang.newWindow +'">';
@@ -699,7 +699,7 @@ var tarteaucitron = {
                 if(!document.getElementById(key + 'Allowed').checked) {
                   document.getElementById(key + 'Allowed').setAttribute('checked','checked');
                   document.getElementById(key + 'Allowed').checked=true;
-                }                
+                }
                 document.getElementById(key + 'Line').classList.add('tarteaucitronIsAllowed');
                 document.getElementById(key + 'Line').classList.remove('tarteaucitronIsDenied');
             } else if (status === false) {
@@ -1242,7 +1242,7 @@ var tarteaucitron = {
         "use strict";
         if (!navigator) { return 'en'; }
 
-        var availableLanguages = 'cs,en,fr,es,it,de,nl,pt,pl,ru,el',
+        var availableLanguages = 'en,fr,es,pl',
             defaultLanguage = 'en',
             lang = navigator.language || navigator.browserLanguage ||
                 navigator.systemLanguage || navigator.userLang || null,

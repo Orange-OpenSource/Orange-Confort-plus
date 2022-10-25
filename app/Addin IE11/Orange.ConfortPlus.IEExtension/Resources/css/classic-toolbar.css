@@ -21,6 +21,19 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	box-shadow: none;
 }
 /*******************************************************icons font*********************************************/
+
+/* to not be surcharged by parent website: */
+.cdu-icon:before {
+	font-family: 'orangeconfortplus';
+}
+form#uci_form {
+	width: inherit;
+}
+form#uci_form input {
+	margin: auto;
+}
+
+
 #accessibilitytoolbarGraphic .cdu-icon-agencement,
 #accessibilitytoolbarGraphic .cdu-icon-settings,
 #accessibilitytoolbarGraphic .cdu-icon-comportement,
@@ -52,6 +65,7 @@ button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="su
 	-moz-osx-font-smoothing: grayscale;
 	letter-spacing: 0;
 }
+
 #accessibilitytoolbarGraphic .cdu-icon-trash:before {
 	content: "\2302";
 	font-size: 1.2em !important;
@@ -1346,8 +1360,8 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-secondary:active,
 #accessibilitytoolbarGraphic .ucibtn-secondary.active,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked + label.ucibtn-secondary {
-	color: #fff;
-	background-color: #f16e00;
+	color: #000;
+	background-color: #FF7900;
 	background-image: none;
 	border-color: #f16e00;
 }
@@ -1357,8 +1371,8 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-secondary.active:focus,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked:not(:disabled) + label.ucibtn-secondary:hover,
 #accessibilitytoolbarGraphic input[type="checkbox"]:checked:focus:not(:disabled) + label.ucibtn-secondary {
-	color: #fff;
-	background-color: #f16E00;
+	color: #000;
+	background-color: #FF7900;
 	border-color: #000;
 }
 
@@ -1380,20 +1394,20 @@ li.uci_dropdown-divider {
 	border-color: #ccc;
 }
 #accessibilitytoolbarGraphic .ucibtn-info {
-	color: #fff;
-	background-color: #000;
+	color: #000;
+	background-color: #fff;
 	border-color: #000;
 }
 #accessibilitytoolbarGraphic .ucibtn-info:focus,
 #accessibilitytoolbarGraphic .ucibtn-info:hover {
-	color: #000;
-	background-color: #fff;
+	color: #FFF;
+	background-color: #000;
 	border-color: #fff;
 }
 #accessibilitytoolbarGraphic .ucibtn-info:active,
 #accessibilitytoolbarGraphic .ucibtn-info.active, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle {
-	color: #fff;
-	background-color: #f16e00;
+	color: #000;
+	background-color: #FF7900;
 	background-image: none;
 	border-color: #f16e00;
 }
@@ -1403,8 +1417,8 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-info.active:hover,
 #accessibilitytoolbarGraphic .ucibtn-info.active:focus,
 #accessibilitytoolbarGraphic .ucibtn-info.active.focus, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle:hover, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle:focus, .open > #accessibilitytoolbarGraphic .ucibtn-info.dropdown-toggle.focus {
-	color: #fff;
-	background-color: #f16e00;
+	color: #000;
+	background-color: #FF7900;
 	border-color: #f16e00;
 }
 #accessibilitytoolbarGraphic .ucibtn-info.disabled,
@@ -1429,12 +1443,10 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .ucibtn-info:focus,
 #accessibilitytoolbarGraphic .ucibtn-info:hover {
-	background-color: transparent;
 	border-color: #000;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary {
-	color: #fff;
-	background-color: #f16e00;
+	background-color: #FF7900;
 	border-color: #f16e00;
 	margin-left: 1.25em;
 }
@@ -1446,8 +1458,8 @@ li.uci_dropdown-divider {
 }
 #accessibilitytoolbarGraphic .ucibtn-primary:active,
 #accessibilitytoolbarGraphic .ucibtn-primary.active, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle {
-	color: #fff;
-	background-color: #f16e00;
+	color: #000;
+	background-color: #FF7900;
 	background-image: none;
 	border-color: #f16e00;
 }
@@ -1457,8 +1469,8 @@ li.uci_dropdown-divider {
 #accessibilitytoolbarGraphic .ucibtn-primary.active:hover,
 #accessibilitytoolbarGraphic .ucibtn-primary.active:focus,
 #accessibilitytoolbarGraphic .ucibtn-primary.active.focus, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:hover, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle:focus, .open > #accessibilitytoolbarGraphic .ucibtn-primary.dropdown-toggle.focus {
-	color: #fff;
-	background-color: #f16e00;
+	color: #000;
+	background-color: #FF7900;
 	border-color: #f16e00;
 }
 #accessibilitytoolbarGraphic .ucibtn-primary.disabled,
@@ -1522,7 +1534,7 @@ li.uci_dropdown-divider {
 	padding-top: 0.5em;
 	/*margin-bottom: 1.5em;*/
 	border: 0;
-	background-color: #0c9;
+	background-color: #FFF;
 	height: 3em;
 }
 
@@ -1722,28 +1734,39 @@ li.uci_dropdown-divider {
 }
 
 #accessibilitytoolbarGraphic .uci_cdu_popin {
-		background-color: rgba(0,0,0,0.5);
-		position: absolute;
-		left: 0;
-		width: 100%;
-		height: 100%
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%
 }
 
+#accessibilitytoolbarGraphic .uci_cdu_popin .cdu-icon-croix {
+  font-size: 15px;
+}
+
+#accessibilitytoolbarGraphic .save_popin .margin-top { margin-top: 1.2em !important; }
+#accessibilitytoolbarGraphic .save_popin .margin-right { margin-right: 1.2em !important; }
+#accessibilitytoolbarGraphic .save_popin .padding-bottom { padding-bottom: 1.2em !important; }
+#accessibilitytoolbarGraphic .save_popin .margin-left { margin-left: 1.2em !important; }
+
 .save_popin{
-    background-color: #FFF;
-    width: 30em;
-    min-height: 10em;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 3.25em;
+  background-color: #FFF;
+  font-weight: normal;
+  width: 30em;
+  min-height: 10em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3.25em;
 }
 
 .save_popin .uci-save-header {
 	position: relative;
 	min-height: 1.25em;
-	padding: .625em;
+	padding: .625em 1.2em;
 	border: 0;
-	background-color: #0c9;
+	background-color: #FFF;
+  font-family: 'Segoe UI';
 	height: 3em;
 }
 
@@ -1763,12 +1786,19 @@ li.uci_dropdown-divider {
 	display: inline;
 }
 
+.save_popin .uci-save-buttons{
+  text-align: right;
+}
+
+
 .uci_select_profile{
 	vertical-align: middle;
 }
 
 .uci_profile_info_msg {
 	font-size: small;
+	color: #888;
+	font-style: italic;
 }
 
 .uci_form-control {

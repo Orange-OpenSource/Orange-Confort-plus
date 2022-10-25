@@ -30,10 +30,10 @@ UciProfile = {
   
   createButtonProfile: function() {
     if(accessibilitytoolbar.profileEnabled) {
-      return ["li", {"class":"uci_inline uci_menu_bton", id:"uci_profile_list", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "")},
-                    ["button", {"class":"ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
+      return ["li", {class: "uci_inline uci_menu_bton", id:"uci_profile_list", style: (accessibilitytoolbar.userPref.get('a11ySiteWebEnabled') !== "on" ? "display:none" : "")},
+                    ["button", {class: "ucibtn ucibtn-sm ucibtn-secondary uci_bton_menu cdu_c uci_dropdown", "aria-haspopup":"true", "aria-expanded":"false", id:"uci_profile_menu_button", type:"button", title:accessibilitytoolbar.get('uci_txt_link_menu_open') +" "+ accessibilitytoolbar.get('uci_txt_link_profil')}, accessibilitytoolbar.get('uci_txt_link_profil')],
                     ["div",
-                      ["div", {id:"uci_profile_menu", style:"display:none;", class:"uci_submenu"},
+                      ["div", {id:"uci_profile_menu", style: "display:none;", class: "uci_submenu"},
                       this.InitUciProfile()
                       ]
                     ]
@@ -68,50 +68,50 @@ UciProfile = {
           ariaCurrent = "true";
         }   
         returnSavedProfile = ["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"+current},
-                                ["a", { id: "uci_profile_"+i, href:"#", role:"button", "class":"uci_profil_link", "aria-current":ariaCurrent, "class":"uci_w-100"}, profil],
-                                ["a", { id: "uci_profile_edit_"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
-                                ["a", { id: "uci_profile_trash_"+i, href:"#", role:"button" , "class":"cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
+                                ["a", { id: "uci_profile_"+i, href:"#", role:"button", class: "uci_profil_link", "aria-current":ariaCurrent, class: "uci_w-100"}, profil],
+                                ["a", { id: "uci_profile_edit_"+i, href:"#", role:"button" , class: "cdu-icon cdu-icon-edit padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_rename")+" "+profil }],
+                                ["a", { id: "uci_profile_trash_"+i, href:"#", role:"button" , class: "cdu-icon cdu-icon-trash padding-left padding-right", title:accessibilitytoolbar.get("uci_profile_delete")+" "+profil }]
                              ];
       tableauProfile.push(returnSavedProfile);
       i++;
     }
     if(i>0) {
-      tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", "class":"uci_dropdown-divider"}]);
+      tableauProfile.push(["li",{ "aria-hidden":"true", "role": "presentation", class: "uci_dropdown-divider"}]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '0') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", "aria-current":"true", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_none", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
+          ["a", { id: "uci_profile_none", href:"#", role:"button", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_none')]
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '1') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", "aria-current":"true", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_reading", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
+          ["a", { id: "uci_profile_reading", href:"#", role:"button", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_improve_readability')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '2') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", "aria-current":"true", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_layout", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
+          ["a", { id: "uci_profile_layout", href:"#", role:"button", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_change_layout')],
         ]);
     }
     if(accessibilitytoolbar.userPref.settings.current === '3') {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between uci_menu_active"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", "aria-current":"true", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     } else {
       tableauProfile.push(["li",{class: "uci_menu_ouverture_aide uci_menu_space-between"}, 
-          ["a", { id: "uci_profile_move", href:"#", role:"button", "class":"uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
+          ["a", { id: "uci_profile_move", href:"#", role:"button", class: "uci_w-100" }, accessibilitytoolbar.get('uci_predefined_motor_help')],
         ]);
     }
     
@@ -128,25 +128,29 @@ UciProfile = {
       displayInput = "";
     }
     return accessibilitytoolbar.make(["div",{id :"save_profile"},
-      ["div", {"class":"save_popin"},
+      ["div", {class: "save_popin"},
         ["form", {name:"uci_form_profil", action:"#", id:"uci_form_profil"},
-          ["div", { id: "uci_save_header", "class": "uci-save-header" },
-            ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('save_service')]
+          ["div", { id: "uci_save_header", class: "uci-save-header" },
+            ["h2", { id: "uci_save_title", class: "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('save_service')],
+            ["button", { id: "uci_discover_close", class: "ucibtn-secondary uci-popin-btn", type:"button" },
+              ["span", { "aria-hidden": "true", class: "cdu-icon cdu-icon-croix" }],
+              ["span", { class: "cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
+            ]
           ],
-          ["div", {"class":"margin-top margin-left margin-right" },
+          ["div", {class: "margin-top margin-left margin-right" },
             ["div",
-              ["label", { "class":"labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" "],
+              ["label", { class: "labelcolor","for": "uci-selectProfile" }, accessibilitytoolbar.get('uci_profile_save_label')+" "],
               UciProfile.selectProfile(),
             ],
-            ["div",{id:"uci_profile_name_container", "style":displayInput, "class":"margin-top"},
-              ["label", { "class":"labelcolor","for":"uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label'),
-              ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
-              ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control"}]
+            ["div",{id:"uci_profile_name_container", style: displayInput, class: "margin-top"},
+              ["label", { class: "labelcolor","for":"uci_profile_name" }, accessibilitytoolbar.get('uci_profile_new_label'),
+              ["input", {id: "uci_profile_name", type: "texte", class: "uci_form-control"}],
+              ["div",{ id:"uci_profile_info_msg", class: "uci_profile_info_msg" }, accessibilitytoolbar.get('uci_profile_name_format')]],
             ],
           ],
-          ["div", {"class": "margin-top margin-left margin-right padding-bottom" },
-            ["input", { name: "saveCancel", "type": "reset", "class": "ucibtn-info ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_cancel')}],
-            ["input", { name: "saveSubmit", "type": "submit", "class": "ucibtn-primary ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_valid')}]
+          ["div", {class: "margin-top margin-left margin-right padding-bottom uci-save-buttons" },
+            ["input", { id: "saveCancel", name: "saveCancel", "type": "reset", class: "ucibtn-info ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_cancel')}],
+            ["input", { id: "saveSubmit", name: "saveSubmit", "type": "submit", class: "ucibtn-primary ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_valid')}]
           ]
         ]
       ]
@@ -161,7 +165,7 @@ UciProfile = {
     var returnAllProfile = "";
     var profil = null;
     var i = 0;
-    var tableauSelectProfile = ["select", {id:"uci-selectProfile","class":"uci_select_profile margin-left",onchange: "if(this.value !== ''){document.getElementById('uci_profile_name_container').style.display = 'none';} else {document.getElementById('uci_profile_name_container').style.display = 'block';}"}];
+    var tableauSelectProfile = ["select", {id:"uci-selectProfile",class: "uci_select_profile margin-left",onchange: "if(this.value !== ''){document.getElementById('uci_profile_name_container').style.display = 'none';} else {document.getElementById('uci_profile_name_container').style.display = 'block';}"}];
     tableauSelectProfile.push(["option",{"value":""},accessibilitytoolbar.get('uci_profile_new_option')]);
     for (profil in accessibilitytoolbar.userPref.settings.profiles) {
       // if it's current profile, select it
@@ -182,24 +186,24 @@ UciProfile = {
    */
   formProfile: function (profilName){
     return accessibilitytoolbar.make(["div",{id :"save_profile"},
-      ["div", {"class":"save_popin"},
+      ["div", {class: "save_popin"},
         ["form", {name:"uci_form_profil", action:"#", id:"uci_form_profil"},
-          ["div", { id: "uci_save_header", "class": "uci-save-header" },
-            ["h2", { id: "uci_save_title", "class": "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_rename_profile')],
-            ["button", {"class":"ucibtn-secondary uci-popin-btn", onclick: "UciProfile.hide_save_profile()", id:"uci_discover_close", title:accessibilitytoolbar.get('uci_close_guide'), type:"button"},
-              ["span", {"aria-hidden":"true", "class":"cdu-icon cdu-icon-croix"}],
-              ["span", {"class":"cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
+          ["div", { id: "uci_save_header", class: "uci-save-header" },
+            ["h2", { id: "uci_save_title", class: "uci-save-title", "tabindex":"0" }, accessibilitytoolbar.get('uci_rename_profile')],
+            ["button", { id: "uci_discover_close", class: "ucibtn-secondary uci-popin-btn", type:"button" },
+              ["span", { "aria-hidden": "true", class: "cdu-icon cdu-icon-croix" }],
+              ["span", { class: "cdu_n"}, accessibilitytoolbar.get('uci_close_guide')],
             ]
           ],
-          ["div", {"class":"margin-top margin-left margin-right"},
+          ["div", {class: "margin-top margin-left margin-right"},
             ["input",{ "type":"hidden", id:"previous_profil_name", value:profilName}],
-            ["label", { "class":"labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label'),
-            ["div",{ id:"uci_profile_info_msg", "class":"margin-top uci_profile_info_msg" },accessibilitytoolbar.get('uci_profile_name_format')]],
-            ["input", {id: "uci_profile_name", type: "texte", "class":"margin-top uci_form-control", value:profilName}]
+            ["label", { class: "labelcolor","for": "uci_profile_name" }, accessibilitytoolbar.get('uci_profile_rename_label'),
+            ["input", {id: "uci_profile_name", type: "texte", class: "uci_form-control", value: profilName}],
+            ["div",{ id:"uci_profile_info_msg", class: "uci_profile_info_msg" }, accessibilitytoolbar.get('uci_profile_name_format')]],
           ],
-          ["div", {"class": "margin-top margin-left margin-right padding-bottom" },
-            ["input", { name: "saveCancel", onclick:"UciProfile.hide_save_profile()", "type": "reset", "class": "ucibtn-info ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_cancel')}],
-            ["input", { name: "saveSubmit", "type": "submit", "class": "ucibtn-primary ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_valid_profil')}]
+          ["div", {class: "margin-top margin-left margin-right padding-bottom uci-save-buttons" },
+            ["input", { id: "saveCancel", name: "saveCancel", "type": "reset", class: "ucibtn-info ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_cancel')}],
+            ["input", { id: "saveSubmit", name: "saveSubmit", "type": "submit", class: "ucibtn-primary ucibtn ucibtn-sm", value:accessibilitytoolbar.get('uci_button_valid_profil')}]
           ]
         ]
       ]
@@ -240,6 +244,7 @@ UciProfile = {
     document.getElementById("uci-selectProfile").focus();
     accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form_profil'), function(e) {accessibilitytoolbar.stopEvt(e);UciProfile.checkProfileName();});
     accessibilitytoolbar.uciAttachEvent('reset','onreset',document.getElementById('uci_form_profil'), function(e) {UciProfile.hide_save_profile();document.getElementById('uci_form').reset(e);});
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_discover_close'),function(e){accessibilitytoolbar.stopEvt(e); UciProfile.hide_save_profile();});
   },
 
   /**
@@ -391,10 +396,14 @@ UciProfile = {
       document.getElementById("uci_cdu_popin").removeChild(document.getElementById("uci_cdu_popin").firstChild);
     }
     document.getElementById("uci_cdu_popin").appendChild(UciProfile.formProfile(profilName));
+
     document.getElementById("uci_cdu_popin").style.display= "block";
     document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight+"px";
     document.getElementById("uci_profile_name").focus();
     accessibilitytoolbar.uciAttachEvent('submit','onsubmit',document.getElementById('uci_form_profil'), function(e) {accessibilitytoolbar.stopEvt(e);UciProfile.checkProfileName();});
+
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('saveCancel'),function(e){accessibilitytoolbar.stopEvt(e); UciProfile.hide_save_profile();});
+    accessibilitytoolbar.uciAttachEvent('click','onclick',document.getElementById('uci_discover_close'),function(e){accessibilitytoolbar.stopEvt(e); UciProfile.hide_save_profile();});
   },
 
   /**

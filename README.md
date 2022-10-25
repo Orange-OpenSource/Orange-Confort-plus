@@ -67,17 +67,21 @@ cssLinkModeClassName : "linkClass",
 ```
 
 ## Contribute
-- Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`.
 
-- Install dependencies
-`$ npm install`
-`$ bower install`
+Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`, then run:
 
-Watch it localy : 
-`$ grunt serve`
-Go to http://localhost:9010/testpage.html
+```shell
+npm ci
+```
 
-Now you're ready to update all files in `/app` and they will automaticaly reload after update.
+Watch it locally : 
+
+```shell
+npm run grunt serve
+```
+Go to [localhost:9010](http://localhost:9010/testpage.html).
+
+Now you're ready to update all files in `/app` and they will automatically reload after update.
 
 ## Bugs and feature requests
 
@@ -87,6 +91,6 @@ Have a bug or a feature request? Please first check the [issues](https://github.
 
 Code copyright 2014 - 2019 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
 
-### Third part
+### Third party assets
 
-[Luciole Font Family © Laurent Bourcellier & Jonathan Perez](http://www.luciole-vision.com/) [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode)
+[Luciole Font Family © Laurent Bourcellier & Jonathan Perez](http://www.luciole-vision.com/),  [CC-BY](https://creativecommons.org/licenses/by/4.0/legalcode).

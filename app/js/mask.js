@@ -60,14 +60,16 @@ UciMask = {
         },
 
         initCloseMask: function(){
-          return accessibilitytoolbar.make(
+          var a11y_toolbar = accessibilitytoolbar.make(
             ["div", {id:"closeMaskDiv", "class": "closeMask"},
-              ["button", { id: "closeMask", onclick: "UciMask.closeMask()", title: accessibilitytoolbar.get('uci_close_mask'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
+              ["button", { id: "closeMask", title: accessibilitytoolbar.get('uci_close_mask'), type: "button", "class": "closeMaskHidden uci-popin-btn ucibtn-secondary" },
                 ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-croix" }],
                 ["span", { "class": "cdu_n" }, accessibilitytoolbar.get('uci_close_mask')]
               ]
             ]
           );
+          a11y_toolbar.querySelector("#closeMask").onclick = function(){ UciMask.closeMask(); };
+          return a11y_toolbar;
         },
 
         explainHowToCloseDiv: function(){
