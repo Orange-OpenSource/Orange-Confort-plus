@@ -71,7 +71,7 @@ cssLinkModeClassName : "linkClass",
 Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`, then run:
 
 ```shell
-npm install
+npm ci
 ```
 
 Watch it locally : 
