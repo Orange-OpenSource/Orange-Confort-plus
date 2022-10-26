@@ -1,7 +1,7 @@
 /*  - version  - 26-10-2022
 
  Copyright (C) 2014 - 2022  */
-var hebergementDomaine = 'https://confort-plus.orange.com';
+var hebergementDomaine = 'http://localhost:9010';
 var hebergementFullPath = hebergementDomaine + '/';
 // Source: app/conf/hebergement.js
 /*
