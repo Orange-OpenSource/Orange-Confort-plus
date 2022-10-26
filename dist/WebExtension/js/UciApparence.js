@@ -1,6 +1,6 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -12,7 +12,7 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
-**/ 
+**/
 /**
  * @class uci_typographie
  * @classdesc Cette classe permettra d'implémenter l'onglet apparence
@@ -32,68 +32,68 @@ UciApparence = {
             ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
               ["ul", {"class":"uci_liste_bton",id:"uci_reponses_linespacement",role:"radiogroup", "aria-labelledby":"uci_typo_spacement_line_aria_label"},
-                ["li", 
+                ["li",
                   {id:"uci_a11yLineSpacement_keepit",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_linespacing_radio_normal')
                   },
                   accessibilitytoolbar.get('uci_radio_default')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11yLineSpacement_2",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_linespacing_radio_medium')
                   },
                   accessibilitytoolbar.get('uci_radio_medium')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11yLineSpacement_3",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_linespacing_radio_large')
                   },
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ],            
+            ],
             // Wording espacement
             ["div", {id:"uci_typo_espacement_mot", "class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_espacement_word_aria_label"},accessibilitytoolbar.get('uci_typo_titre_wordspacing')],
               ["ul", {"class":"uci_liste_bton",id:"uci_reponses_wordspacing",role:"radiogroup", "aria-labelledby":"uci_espacement_word_aria_label"},
-                ["li", 
+                ["li",
                   {id:"uci_a11ySpacement_keepit",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_wordspacing_radio_normal')
                   },
                   accessibilitytoolbar.get('uci_radio_default')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11ySpacement_0.5",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_wordspacing_radio_medium')
                   },
                   accessibilitytoolbar.get('uci_radio_medium')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11ySpacement_1",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_wordspacing_radio_large')
                   },
                   accessibilitytoolbar.get('uci_radio_large')
@@ -121,7 +121,7 @@ UciApparence = {
               ["div", {"class":"padding-left-align"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
-                  ["li", 
+                  ["li",
                     {id:"uci_a11yMaskOpacity_.25",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "active": ""),
@@ -129,8 +129,8 @@ UciApparence = {
                       "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_light')
-                  ], 
-                  ["li", 
+                  ],
+                  ["li",
                     {id:"uci_a11yMaskOpacity_.5",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "active": ""),
@@ -139,7 +139,7 @@ UciApparence = {
                     },
                     accessibilitytoolbar.get('uci_radio_medium')
                   ],
-                  ["li", 
+                  ["li",
                     {id:"uci_a11yMaskOpacity_.9",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "active": ""),
@@ -167,12 +167,7 @@ UciApparence = {
     },
 
     uciFermetureOverlay: function(_event_, id) {
-    	var winObj="";
-        if ( window.event )
-            winObj = window.event;
-        // --- Netscape and other explorers
-        else
-            winObj = _event_;
+    	var winObj= window.event;
 
         var intKeyCode = winObj.keyCode;
         if (intKeyCode ===13 || intKeyCode ===27){

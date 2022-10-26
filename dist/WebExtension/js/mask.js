@@ -1,42 +1,3 @@
-/* orange-confort-plus - version 4.1.0 - 26-09-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 22-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 22-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 22-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 22-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 22-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 22-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 21-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 21-02-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 06-01-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 06-01-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 06-01-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-/* orange-confort-plus - version 4.1.0 - 06-01-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
 
@@ -69,8 +30,8 @@ UciMask = {
   	        	bottomMask = document.createElement("div");
   	        	bottomMask.className="uci_mask bottomMask";
               bottomMask.id="bottomMask";
-              document.getElementsByTagName("body")[0].appendChild(topMask);            
-              document.getElementsByTagName("body")[0].appendChild(bottomMask);                          
+              document.getElementsByTagName("body")[0].appendChild(topMask);
+              document.getElementsByTagName("body")[0].appendChild(bottomMask);
               vMouse = document.createElement("div");
               vMouse.className="vMouse";
               vMouse.id="vMouse";
@@ -78,7 +39,7 @@ UciMask = {
               hMouse.className="hMouse";
               hMouse.id="hMouse";
               document.getElementsByTagName("body")[0].appendChild(vMouse);
-              document.getElementsByTagName("body")[0].appendChild(hMouse);              
+              document.getElementsByTagName("body")[0].appendChild(hMouse);
             }
             // remove tomask childs if exists
             while(document.getElementById('topMask').hasChildNodes()) {
@@ -116,16 +77,8 @@ UciMask = {
         },
 
         maskEventCreate: function() {
-          // For W3C Browser
-          if (document.addEventListener) {
-            document.addEventListener('mousemove', UciMask.maskEvent, false);
-            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-          }
-          //For IE browser
-          else if (document.attachEvent) {
-            document.attachEvent('onmousemove', UciMask.maskEvent);
-            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-          }
+          document.addEventListener('mousemove', UciMask.maskEvent, false);
+          document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
           UciMask.settings.launched = true;
         },
 
@@ -137,7 +90,7 @@ UciMask = {
           var intKeyCode = e.keyCode;
           // escape key
           if (intKeyCode === 27 && (
-            document.getElementById('topMask').style.display === "block" 
+            document.getElementById('topMask').style.display === "block"
             || document.getElementById('vMouse').style.display === "block"
             || document.getElementById('hMouse').style.display === "block")) {
             UciMask.closeMask();
@@ -151,14 +104,7 @@ UciMask = {
         },
 
         maskEventRemove: function() {
-          if (document.removeEventListener) {
-            document.removeEventListener('mousemove', UciMask.maskEvent, false);
-          }
-          //For IE browser
-          else if (document.attachEvent) {
-            document.detachEvent('onmousemove', UciMask.maskEvent);
-          }
-
+          document.removeEventListener('mousemove', UciMask.maskEvent, false);
           // if the mask was launched before, removed it from the dom
           document.getElementById('topMask').style.display = "none";
           document.getElementById('closeMaskDiv').style.display = "none";
@@ -194,7 +140,7 @@ UciMask = {
             document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
             document.getElementById('closeMaskDiv').style.display = "block";
             document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
-            
+
             var bottomMaskHeight = 0;
             var winHeight = 0;
             if (window.getComputedStyle) {
@@ -217,23 +163,23 @@ UciMask = {
             if (this.settings.option === 'vruler') {
             	document.getElementById('vMouse').style.display = "block";
             	document.getElementById('vMouse').style.left = (''+ (positionX+1) +'px');
-            } 
+            }
             else
             {
               // if the vertical ruler was launched before, removed it from the dom
               document.getElementById('vMouse').style.display = "none";
             }
-                
-            // horizontal    
+
+            // horizontal
             if (this.settings.option === 'hruler') {
               document.getElementById('hMouse').style.display = "block";
-            	document.getElementById('hMouse').style.top = (''+ (positionY+1) +'px');            	
-            }  
+            	document.getElementById('hMouse').style.top = (''+ (positionY+1) +'px');
+            }
             else
-            {    
+            {
               // if the horizontal ruler was launched before, removed it from the dom
             	document.getElementById('hMouse').style.display = "none";
-            } 
+            }
 
           }
         }

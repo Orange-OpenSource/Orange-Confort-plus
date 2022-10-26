@@ -18,18 +18,18 @@
  */
 function UciUserPref() {
     "use strict";
-    this.defautStoredValue = "0000000380350270001003000000006500000";
+    this.defautStoredValue = "000000000380350270001003000000006500000";
     // settings value
     this.storedValue = false;
     // list of available settings by profils
     this.settings = {current: "", profiles: {}};   
     this.predefinedSettings = {
       '0':this.defautStoredValue, // no profile
-      '1':"0100000380350270001100000000006571400",
+      '1':"000100000380350270001100000000006571400",
       // 1 = Arial + font-size = 125% + Texte jaune sur fond bleu + supprimer les images de fond
-      '2':"0000010380350270111110000000006500400",
+      '2':"000000010380350270111110000000006500400",
       // 2 = Arial + + font-size = 120%  + espace entre les lignes Moyen + texte à gauche + numbered list + activation du masque moyen ( ?)
-      '3':"0000000380350271001103000001006500000" 
+      '3':"000000000380350271001103000001006500000" 
       // 3 = start browse on hover + apparence des liens (souligné + couleur standard)
     }
 
@@ -105,6 +105,7 @@ function UciUserPref() {
         "a11yDyslexyFont-3": "a11yDyslexyFont-keepit",
         "a11yDyslexyFont-4": "a11yDyslexyFont-opensans",
         "a11yDyslexyFont-5": "a11yDyslexyFont-accessibledfa",
+        "a11yDyslexyFont-6": "a11yDyslexyFont-luciole",
         "a11yLineSpacement-0": "a11yLineSpacement-keepit",
         "a11yLineSpacement-1": "a11yLineSpacement-2",
         "a11yLineSpacement-2": "a11yLineSpacement-3",
@@ -141,16 +142,16 @@ function UciUserPref() {
         "a11yNavLienVisStyle-2":    "a11yNavLienVisStyle-underline",
         "a11yNavLienVisStyle-3":    "a11yNavLienVisStyle-bold",
         //gestion mask
-        "a11yMaskEnabled-0":       "a11yMaskEnabled-false",
-        "a11yMaskEnabled-1":       "a11yMaskEnabled-true",
+        "a11yMaskEnabled-0":        "a11yMaskEnabled-false",
+        "a11yMaskEnabled-1":        "a11yMaskEnabled-true",
         // mask option, reading mask, hruler or vruler
-        "a11yMaskOption-0" :     "a11yMaskOption-mask",
-        "a11yMaskOption-1" :     "a11yMaskOption-hruler",
-        "a11yMaskOption-2" :     "a11yMaskOption-vruler",
+        "a11yMaskOption-0" :        "a11yMaskOption-mask",
+        "a11yMaskOption-1" :        "a11yMaskOption-hruler",
+        "a11yMaskOption-2" :        "a11yMaskOption-vruler",
 
-        "a11yMaskOpacity-0" :    "a11yMaskOpacity-.5",
-        "a11yMaskOpacity-1" :    "a11yMaskOpacity-.25",
-        "a11yMaskOpacity-2" :    "a11yMaskOpacity-.9",
+        "a11yMaskOpacity-0" :       "a11yMaskOpacity-.5",
+        "a11yMaskOpacity-1" :       "a11yMaskOpacity-.25",
+        "a11yMaskOpacity-2" :       "a11yMaskOpacity-.9",
 
         "a11ySupEffetTransp-0":     "a11ySupEffetTransp-false",
         "a11ySupEffetTransp-1":     "a11ySupEffetTransp-1",
@@ -158,6 +159,10 @@ function UciUserPref() {
         "a11ySupImageFont-1" :      "a11ySupImageFont-true",
         "a11ySupImageFirstPlan-0" : "a11ySupImageFirstPlan-false",
         "a11ySupImageFirstPlan-1" : "a11ySupImageFirstPlan-true",
+        "a11ySupGif-0" :            "a11ySupGif-false",
+        "a11ySupGif-1" :            "a11ySupGif-true",
+        "a11yPauseVideo-0" :        "a11yPauseVideo-false",
+        "a11yPauseVideo-1" :        "a11yPauseVideo-true",
         /**
          * Reverse the matrix. Keys becomes values and values becomes keys.*/
         reverse: function () {
@@ -188,41 +193,43 @@ function UciUserPref() {
     
     this.maskMatrixv3 = {
         // Mask Name                | Dec Value
-        "a11ySiteWebEnabled":     [39,1],
-        "a11yToolbarEnable":      [38,1],
-        "a11yLanguage":           [37,1],
-        "a11yJumpToContent":      [36,1],
-        "a11yLinearize":          [35,1],
-        "a11yBigger":             [34,1],
-        "a11yVisualSettings":     [33,1],
-        "a11yVisualPredefinedSettings": [32,1],
-        "a11yFontColor":          [30,2],
-        "a11yBackgroundColor":    [28,2],
-        "a11yMotorModeRemote":    [27,1],
-        "a11yMotorModeLooping":   [26,1],
-        "a11yDelayBeforeClick":   [25,1],
-        "a11yMenuPositionning":   [24,1],
-        "a11yDelayBeforeLoop":    [23,1],
-        "a11yQuickMode":          [22,1],
-        "a11yDyslexyFont":        [21,1],
-        "a11yLineSpacement":      [20,1],
-        "a11ySpacement":          [19,1],
-        "a11yModifCasse":         [18,1],
-        "a11yLeftText":           [17,1],
-        "a11yNumerotationList":   [16,1],
-        "a11yNavLienEnabled":     [15,1],
-        "a11yNavLienSelColor":    [13,2],
-        "a11yNavLienSelStyle":    [12,1],
-        "a11yNavLienNonVisColor": [10,2],
-        "a11yNavLienNonVisStyle": [9,1],
-        "a11yNavLienVisColor":    [7,2],
-        "a11yNavLienVisStyle":    [6,1],
-        "a11yMaskEnabled":        [5,1],
-        "a11yMaskOption" :        [4,1],
-        "a11yMaskOpacity" :       [3,1],
-        "a11ySupEffetTransp":     [2,1],
-        "a11ySupImageFont" :      [1,1],
-        "a11ySupImageFirstPlan" : [0,1]
+        "a11ySiteWebEnabled":     [41,1],
+        "a11yToolbarEnable":      [40,1],
+        "a11yLanguage":           [39,1],
+        "a11yJumpToContent":      [38,1],
+        "a11yLinearize":          [37,1],
+        "a11yBigger":             [36,1],
+        "a11yVisualSettings":     [35,1],
+        "a11yVisualPredefinedSettings": [34,1],
+        "a11yFontColor":          [32,2],
+        "a11yBackgroundColor":    [30,2],
+        "a11yMotorModeRemote":    [29,1],
+        "a11yMotorModeLooping":   [28,1],
+        "a11yDelayBeforeClick":   [27,1],
+        "a11yMenuPositionning":   [26,1],
+        "a11yDelayBeforeLoop":    [25,1],
+        "a11yQuickMode":          [24,1],
+        "a11yDyslexyFont":        [23,1],
+        "a11yLineSpacement":      [22,1],
+        "a11ySpacement":          [21,1],
+        "a11yModifCasse":         [20,1],
+        "a11yLeftText":           [19,1],
+        "a11yNumerotationList":   [18,1],
+        "a11yNavLienEnabled":     [17,1],
+        "a11yNavLienSelColor":    [15,2],
+        "a11yNavLienSelStyle":    [14,1],
+        "a11yNavLienNonVisColor": [12,2],
+        "a11yNavLienNonVisStyle": [11,1],
+        "a11yNavLienVisColor":    [9,2],
+        "a11yNavLienVisStyle":    [8,1],
+        "a11yMaskEnabled":        [7,1],
+        "a11yMaskOption" :        [6,1],
+        "a11yMaskOpacity" :       [5,1],
+        "a11ySupEffetTransp":     [4,1],
+        "a11ySupImageFont" :      [3,1],
+        "a11ySupImageFirstPlan" : [2,1],
+        "a11ySupGif" :            [1,1],
+        "a11yPauseVideo" :        [0,1]
     };
     
     /**
@@ -265,7 +272,9 @@ function UciUserPref() {
         "a11ySupEffetTransp":     "false",
         "a11ySupImageFont" :      "false",
         "a11ySupImageFirstPlan" : "false",
-        "a11ySiteWebEnabled" :    "on"
+        "a11ySiteWebEnabled" :    "on",
+        "a11ySupGif" :            "false",
+        "a11yPauseVideo" :        "false"
     };
     
     /**
@@ -285,8 +294,12 @@ function UciUserPref() {
             this.settings.current = '0';
             pref = this.predefinedSettings[this.settings.current];
         }
+        // update cookie value, adding option to disable gif and video create 2 new bits
+        if(pref.length===37) {
+            pref = "00"+pref;
+        }
         // uniquement si le nombre de caractères du cookie est correct!
-        if(pref.length===37)
+        if(pref.length===39)
         {
           for (prefName in this.maskMatrixv3) {
             if(prefName !== "a11ySiteWebEnabled" && prefName !== "a11yToolbarEnable" && prefName !== "a11yLanguage") {
@@ -319,8 +332,6 @@ function UciUserPref() {
             }
         }
         pref = pref.substring(0,pref.length-3);
-        // put toolbar enable and lang at the begening
-        // pref = tempMatrix["a11yToolbarEnable" + "-" + this.stackv3["a11yToolbarEnable"]].replace(/.*-/, "") + "|" + tempMatrix["a11yLanguage" + "-" + this.stackv3["a11yLanguage"]].replace(/.*-/, "") + "|" + pref;
         return pref;
     };
 
@@ -404,7 +415,7 @@ function UciUserPref() {
     /*
      * @constructor init
      */
-    this.setStoredValue = function (storedValue,profilName) {
+    this.setStoredValue = function (storedValue, profilName) {
         if(profilName) {
           this.settings.current = profilName;
         }
@@ -425,7 +436,7 @@ function UciUserPref() {
      * preference stackv3.
      */
     this.readUserPref = function () {
-      if(this.settings.current.length <=1) {
+      if(this.settings.current.length <= 1) {
         this.decode(this.predefinedSettings[this.settings.current]);
       } else {
         this.decode(this.settings.profiles[this.settings.current]);
@@ -435,10 +446,10 @@ function UciUserPref() {
 
 
     /**
-     * get the current saved pref ass the numerical  string to be compared to current setting in the stack
+     * get the current saved pref as the numerical  string to be compared to current setting in the stack
      */
     this.getCurrentPref = function () {
-      if(this.settings.current.length <=1) {
+      if(this.settings.current.length <= 1) {
         return this.predefinedSettings[this.settings.current];
       } else {
         return this.settings.profiles[this.settings.current];

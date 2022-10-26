@@ -63,6 +63,10 @@ traduction['PL'] = {
   uci_label_centeredmenu: "Środek strony",
   uci_label_disablebgpictures: "Wyłącz obrazy w tle",
   uci_label_disablepppictures: "Anuluj obrazy z pierwszego planu",
+  uci_label_disablegif:"Satrzymać animowane obrazy",
+  uci_button_enablegif:"Pokaż oryginalne zdjęcie",
+  uci_button_disablegif:"Ukryj oryginalne zdjęcie",
+  uci_label_disablevideo:"Zatrzymaj filmy",
   uci_label_disabletransp: "Usuń efekt przezroczystości",
   uci_label_jumptocontent: "Zawsze przechodź do zawartości",
   uci_label_listmode: "Anuluj rozkład",
@@ -103,7 +107,7 @@ traduction['PL'] = {
   uci_profile_curent_name: "Aktualny profil:",//V4
   uci_profile_delete_warning: "Czy na pewno chcesz usunąć ten profil?",//V4
   uci_profile_name_format: "Minimalna długość: 3 znaki; proszę, nie ma specjalnych znaków. Nie używaj istniejącej nazwy profilu!", //v4
-  uci_profile_new_label: "Nowy profil:", //V4
+  uci_profile_new_label: "Nowy profil", //V4
   uci_profile_new_option: "nowy profil", //V4
   uci_profile_rename_label: "Nowe imie:", //v4
   uci_profile_save_label: "Zapisz moje ustawienia:",//V4
@@ -127,11 +131,6 @@ traduction['PL'] = {
   uci_title_color_yellowonblue: "Żółty tekst na niebieskim tle",
   uci_title_disable_cdu: "Dezaktywuj Confort+ na tej stronie",
   uci_title_enable_cdu: "Aktywuj Confort+ na tej stronie",
-  uci_title_fontfamily_radio_accessibledfa: "Czcionka Accessible design for all",
-  uci_title_fontfamily_radio_arial: "Czcionka Arial",
-  uci_title_fontfamily_radio_normal: "Domyślna czcionka",
-  uci_title_fontfamily_radio_opendys: "Użyj fontów dla dyslektyków",
-  uci_title_fontfamily_radio_opensans: "Czcionka Open Sans",
   uci_title_fontsize_radio_large: "Duży rozmiar czcionki",
   uci_title_fontsize_radio_medium: "Zwiększ rozmiar czcionki",
   uci_title_linespacing_radio_large: "Duże przerwy między wierszami",

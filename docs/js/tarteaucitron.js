@@ -707,7 +707,6 @@ var tarteaucitron = {
                 //tarteaucitron.userInterface.css(key + 'Allowed', 'backgroundColor', gray);
                 //tarteaucitron.userInterface.css(key + 'Denied', 'backgroundColor', redDark);
                 if(document.getElementById(key + 'Allowed').checked) {
-                  document.getElementById(key + 'Allowed').setAttribute("checked", ""); // For IE
                   document.getElementById(key + 'Allowed').removeAttribute("checked"); // For other browsers
                   document.getElementById(key + 'Allowed').checked = false;
                 }
