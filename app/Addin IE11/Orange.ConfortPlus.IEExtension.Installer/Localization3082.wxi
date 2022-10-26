@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Property Id="ExtensionText3082">Orange Confort+</Property>
-  <Property Id="ToolbarButtonTitle3082">Orange Confort+ - Botón de comando</Property>
-  <Property Id="ExtensionTooltip3082">activar/desactivar "Orange Confort +" en todas las pestañas abiertas</Property>
-</Include>

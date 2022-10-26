@@ -643,13 +643,7 @@ a.cdu_hide:focus {
 /******************************************Element a gauche de la toolbar*******************************/
 #uci_left_toolbar.uci_mask,
 #uci_right_toolbar.uci_mask {
-	opacity: 0.2;
-/* IE 8 */
-	-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=20)";
-/* IE 5-7 */
-	filter: alpha(opacity=20);
-/* Safari 1.x */
-	-khtml-opacity: 0.2;
+	opacity: .2;
 }
 
 #uci_left_toolbar.uci_mask input,
@@ -862,7 +856,7 @@ a.cdu_hide:focus {
 	background-color: transparent;
 	border: none;
 }
-.uci_focus_outline .uci_bton_menu:focus:not([tabindex="-2"]), 
+.uci_focus_outline .uci_bton_menu:focus:not([tabindex="-2"]),
 .uci_focus_outline .uci_bton_menu:hover:not([tabindex="-2"]) {
 	outline: 2px dotted;
 }
@@ -882,7 +876,7 @@ li.uci_dropdown-divider {
   content: "";
   border-top: 0.4375em solid;
   border-right: 0.4375em solid transparent;
-  border-left: 0.4375em solid transparent;	
+  border-left: 0.4375em solid transparent;
 }
 .cdu-icon-reload2 {
 	font-size: 1em;
@@ -1210,7 +1204,7 @@ li.uci_dropdown-divider {
 	padding-left: 1.875em !important;
 }
 /***********************************************Onglet Couleurs************************************************/
- 
+
 .uci_w50-left{
 	max-width: 50%;
 	float: left;
@@ -1549,7 +1543,7 @@ li.uci_dropdown-divider {
 
 .uci_focus_outline .uci-popin-header .uci-popin-title:focus{
 	outline: dotted 2px;
-} 
+}
 
 .uci-popin-header .uci-popin-btn {
 	background: transparent;
@@ -1568,7 +1562,7 @@ li.uci_dropdown-divider {
   align-items: center;
 	height: 3em;
 	border-bottom: solid 1px grey;
-	
+
 }
 #uci_discover .uci-popin-buttom .uci-buttom-speed{
 	margin-left: 13em;
@@ -1692,7 +1686,7 @@ li.uci_dropdown-divider {
 	height: 0px;
 	border-left: 20px solid transparent;
 	border-bottom: 20px solid #000;
-	border-right: 20px solid transparent; 
+	border-right: 20px solid transparent;
 }
 
 #uci_reading .triangleright{
@@ -1700,7 +1694,7 @@ li.uci_dropdown-divider {
 	height: 0px;
 	border-left: 20px solid transparent;
 	border-bottom: 20px solid #000;
-	border-right: 20px solid transparent; 
+	border-right: 20px solid transparent;
 	position: relative;
 	left: 23.4em;
 }

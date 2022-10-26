@@ -307,7 +307,6 @@ module.exports = function(grunt) {
             'help/**',
             'language/**',
             'js/**' ,
-            '!js/start.extensionIE.js',
             '!js/start.server.js',
             '!js/UciCookie.js',
             '!conf/WebExtension/**'

@@ -1,9 +1,0 @@
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\obj\Release\Orange.ConfortPlus.IEExtension.csprojResolveAssemblyReference.cache
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\bin\Release\cdu-disabled.ico
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\bin\Release\cdu.ico
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\bin\Release\Orange.ConfortPlus.IEExtension.dll
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\bin\Release\Orange.ConfortPlus.IEExtension.pdb
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\bin\Release\Interop.SHDocVw.dll
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\bin\Release\Microsoft.mshtml.dll
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\obj\Release\Orange.ConfortPlus.IEExtension.dll
-C:\Applications\nodeWork\Orange-Confort-plus\app\Addin IE11\Orange.ConfortPlus.IEExtension\obj\Release\Orange.ConfortPlus.IEExtension.pdb
