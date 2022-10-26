@@ -1,7 +1,7 @@
-/* orange-confort-plus - version 4.1.0 - 26-09-2022
-enhance user experience on websites
- Copyright (C) 2014 - 2022 Orange */
-var hebergementDomaine = 'http://localhost:9010';
+/*  - version  - 26-10-2022
+
+ Copyright (C) 2014 - 2022  */
+var hebergementDomaine = 'https://confort-plus.orange.com';
 var hebergementFullPath = hebergementDomaine + '/';
 // Source: app/conf/hebergement.js
 /*
@@ -48,7 +48,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
      PL: hebergementFullPath + "help/help_pl.html"
  };
  var helpPathTarget = '_blank';
- var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.53cb0147.css';
+ var uci_classic_toolbar_css = hebergementFullPath + 'css/classic-toolbar.03c7005f.css';
  var onOffEnabled=true;
 // Source: app/js/ToolbarStrings.js
 /**
@@ -1736,7 +1736,7 @@ UciCouleur = {
 // Source: app/js/UciApparence.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -1748,7 +1748,7 @@ UciCouleur = {
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details (LICENSE.txt file).
-**/ 
+**/
 /**
  * @class uci_typographie
  * @classdesc Cette classe permettra d'implémenter l'onglet apparence
@@ -1768,68 +1768,68 @@ UciApparence = {
             ["div", {"class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_typo_spacement_line_aria_label"},accessibilitytoolbar.get('uci_typo_titre_linespacing')],
               ["ul", {"class":"uci_liste_bton",id:"uci_reponses_linespacement",role:"radiogroup", "aria-labelledby":"uci_typo_spacement_line_aria_label"},
-                ["li", 
+                ["li",
                   {id:"uci_a11yLineSpacement_keepit",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "keepit" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_linespacing_radio_normal')
                   },
                   accessibilitytoolbar.get('uci_radio_default')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11yLineSpacement_2",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "2" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_linespacing_radio_medium')
                   },
                   accessibilitytoolbar.get('uci_radio_medium')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11yLineSpacement_3",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11yLineSpacement") === "3" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_linespacing_radio_large')
                   },
                   accessibilitytoolbar.get('uci_radio_large')
                 ]
               ]
-            ],            
+            ],
             // Wording espacement
             ["div", {id:"uci_typo_espacement_mot", "class":"uci_aria_button_group cdu_c uci_clear"},
               ["span", {"class":"cdu_left uci_label", id:"uci_espacement_word_aria_label"},accessibilitytoolbar.get('uci_typo_titre_wordspacing')],
               ["ul", {"class":"uci_liste_bton",id:"uci_reponses_wordspacing",role:"radiogroup", "aria-labelledby":"uci_espacement_word_aria_label"},
-                ["li", 
+                ["li",
                   {id:"uci_a11ySpacement_keepit",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "keepit" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_wordspacing_radio_normal')
                   },
                   accessibilitytoolbar.get('uci_radio_default')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11ySpacement_0.5",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "0.5" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_wordspacing_radio_medium')
                   },
                   accessibilitytoolbar.get('uci_radio_medium')
                 ],
-                ["li", 
+                ["li",
                   {id:"uci_a11ySpacement_1",
                     role:"radio",
                     "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "active": ""),
                     tabindex:accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "0" : "-1",
-                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "true" : "false",                    
+                    "aria-checked":accessibilitytoolbar.userPref.get("a11ySpacement") === "1" ? "true" : "false",
                     title:accessibilitytoolbar.get('uci_title_wordspacing_radio_large')
                   },
                   accessibilitytoolbar.get('uci_radio_large')
@@ -1857,7 +1857,7 @@ UciApparence = {
               ["div", {"class":"padding-left-align"},
                 ["span", {id:"uci_title_epaisseur_mask","class":"margin-top cdu_left"}, accessibilitytoolbar.get('uci_txt_mask_opacity')],
                 ["ul", {"class":"uci_liste_bton",id:"uci_reponses_epaisseurmask",role:"radiogroup", "aria-labelledby":"uci_title_epaisseur_mask"},
-                  ["li", 
+                  ["li",
                     {id:"uci_a11yMaskOpacity_.25",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "active": ""),
@@ -1865,8 +1865,8 @@ UciApparence = {
                       "aria-checked":accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".25" ? "true" : "false",
                     },
                     accessibilitytoolbar.get('uci_radio_light')
-                  ], 
-                  ["li", 
+                  ],
+                  ["li",
                     {id:"uci_a11yMaskOpacity_.5",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".5" ? "active": ""),
@@ -1875,7 +1875,7 @@ UciApparence = {
                     },
                     accessibilitytoolbar.get('uci_radio_medium')
                   ],
-                  ["li", 
+                  ["li",
                     {id:"uci_a11yMaskOpacity_.9",
                       role:"radio",
                       "class":"uci_choix uci_inline ucibtn ucibtn-sm ucibtn-secondary "+(accessibilitytoolbar.userPref.get("a11yMaskOpacity") === ".9" ? "active": ""),
@@ -1903,12 +1903,7 @@ UciApparence = {
     },
 
     uciFermetureOverlay: function(_event_, id) {
-    	var winObj="";
-        if ( window.event )
-            winObj = window.event;
-        // --- Netscape and other explorers
-        else
-            winObj = _event_;
+    	var winObj= window.event;
 
         var intKeyCode = winObj.keyCode;
         if (intKeyCode ===13 || intKeyCode ===27){
@@ -1916,6 +1911,7 @@ UciApparence = {
         }
     }
 }
+
 // Source: app/js/UciSettings.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
@@ -3814,8 +3810,8 @@ UciMask = {
   	        	bottomMask = document.createElement("div");
   	        	bottomMask.className="uci_mask bottomMask";
               bottomMask.id="bottomMask";
-              document.getElementsByTagName("body")[0].appendChild(topMask);            
-              document.getElementsByTagName("body")[0].appendChild(bottomMask);                          
+              document.getElementsByTagName("body")[0].appendChild(topMask);
+              document.getElementsByTagName("body")[0].appendChild(bottomMask);
               vMouse = document.createElement("div");
               vMouse.className="vMouse";
               vMouse.id="vMouse";
@@ -3823,7 +3819,7 @@ UciMask = {
               hMouse.className="hMouse";
               hMouse.id="hMouse";
               document.getElementsByTagName("body")[0].appendChild(vMouse);
-              document.getElementsByTagName("body")[0].appendChild(hMouse);              
+              document.getElementsByTagName("body")[0].appendChild(hMouse);
             }
             // remove tomask childs if exists
             while(document.getElementById('topMask').hasChildNodes()) {
@@ -3861,16 +3857,8 @@ UciMask = {
         },
 
         maskEventCreate: function() {
-          // For W3C Browser
-          if (document.addEventListener) {
-            document.addEventListener('mousemove', UciMask.maskEvent, false);
-            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-          }
-          //For IE browser
-          else if (document.attachEvent) {
-            document.attachEvent('onmousemove', UciMask.maskEvent);
-            document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
-          }
+          document.addEventListener('mousemove', UciMask.maskEvent, false);
+          document.addEventListener('keydown', function(event){UciMask.exitMask(event)}, false);
           UciMask.settings.launched = true;
         },
 
@@ -3882,7 +3870,7 @@ UciMask = {
           var intKeyCode = e.keyCode;
           // escape key
           if (intKeyCode === 27 && (
-            document.getElementById('topMask').style.display === "block" 
+            document.getElementById('topMask').style.display === "block"
             || document.getElementById('vMouse').style.display === "block"
             || document.getElementById('hMouse').style.display === "block")) {
             UciMask.closeMask();
@@ -3896,14 +3884,7 @@ UciMask = {
         },
 
         maskEventRemove: function() {
-          if (document.removeEventListener) {
-            document.removeEventListener('mousemove', UciMask.maskEvent, false);
-          }
-          //For IE browser
-          else if (document.attachEvent) {
-            document.detachEvent('onmousemove', UciMask.maskEvent);
-          }
-
+          document.removeEventListener('mousemove', UciMask.maskEvent, false);
           // if the mask was launched before, removed it from the dom
           document.getElementById('topMask').style.display = "none";
           document.getElementById('closeMaskDiv').style.display = "none";
@@ -3939,7 +3920,7 @@ UciMask = {
             document.getElementById('closeMaskDiv').style.top = topMaskHeight + "px";
             document.getElementById('closeMaskDiv').style.display = "block";
             document.getElementById('howToClose').style.top = topMaskHeight - document.getElementById("howToClose").clientHeight + "px";
-            
+
             var bottomMaskHeight = 0;
             var winHeight = 0;
             if (window.getComputedStyle) {
@@ -3962,23 +3943,23 @@ UciMask = {
             if (this.settings.option === 'vruler') {
             	document.getElementById('vMouse').style.display = "block";
             	document.getElementById('vMouse').style.left = (''+ (positionX+1) +'px');
-            } 
+            }
             else
             {
               // if the vertical ruler was launched before, removed it from the dom
               document.getElementById('vMouse').style.display = "none";
             }
-                
-            // horizontal    
+
+            // horizontal
             if (this.settings.option === 'hruler') {
               document.getElementById('hMouse').style.display = "block";
-            	document.getElementById('hMouse').style.top = (''+ (positionY+1) +'px');            	
-            }  
+            	document.getElementById('hMouse').style.top = (''+ (positionY+1) +'px');
+            }
             else
-            {    
+            {
               // if the horizontal ruler was launched before, removed it from the dom
             	document.getElementById('hMouse').style.display = "none";
-            } 
+            }
 
           }
         }
@@ -3987,7 +3968,7 @@ UciMask = {
 // Source: app/js/toolbar.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -4101,16 +4082,6 @@ function LoopingMenu() {
       decalage = window.pageYOffset;
       windowWidth = window.innerWidth;
       windowHeight = window.innerHeight;
-    } else if (document.documentElement !== 'undefined' && document.documentElement.clientWidth !== 'undefined'
-      && document.documentElement.clientWidth !== 0) {
-      decalage = document.documentElement.scrollTop;
-      windowWidth = document.documentElement.clientWidth, windowHeight = document.documentElement.clientHeight
-    }
-    // and for older IE ...
-    else {
-      decalage = document.body.scrollTop;
-      windowWidth = document.body.clientWidth;
-      windowHeight = document.body.clientHeight;
     }
 
     top = (windowHeight - menuContainer.offsetHeight) / 2;
@@ -4143,19 +4114,6 @@ function LoopingMenu() {
       decalage = window.pageYOffset;
       windowWidth = window.innerWidth;
       windowHeight = window.innerHeight;
-    } // For IE..
-    else if (typeof document.documentElement !== 'undefined'
-      && typeof document.documentElement.clientWidth !== 'undefined'
-      && document.documentElement.clientWidth !== 0) {
-      decalage = document.documentElement.scrollTop;
-      windowWidth = document.documentElement.clientWidth,
-        windowHeight = document.documentElement.clientHeight;
-    }
-    // and for older IE ...
-    else {
-      decalage = document.body.scrollTop;
-      windowWidth = document.body.clientWidth;
-      windowHeight = document.body.clientHeight;
     }
 
     // Getting selected item top,left,height and width
@@ -4821,7 +4779,7 @@ function LoopingMode() {
         return true;
       }
     };
-    
+
     // Call back function for onclick event
     var mouseClickFunc = function (/*Event*/ e) {
       // Launch the action associated to the clicked menu item
@@ -4829,31 +4787,9 @@ function LoopingMode() {
       menu.hide();
       menu.clean();
     };
-
-    // Registering call back for W3C Browser
-    if (document.addEventListener) {
-      // onkeyup event
-      document.addEventListener('keyup', this.keyUpFunc, true);
-      // onkeypress event
-      document.addEventListener('keydown', that.keyPressFunc, true);
-      // Mouse click event
-      menu.getContainer().addEventListener('click', mouseClickFunc, false);
-    }
-    // Registering call back for IE Browser
-    else if (document.attachEvent) {
-      // onkeyup event
-      document.attachEvent('onkeyup', this.keyUpFunc);
-      // onkeypress event
-      document.attachEvent('onkeypress', that.keyPressFunc);
-      // Mouse click event
-      menu.getContainer().attachEvent('onclick', mouseClickFunc);
-    }
-    // Registering call back for older browser
-    else {
-      document.onkeyup = this.keyUpFunc;
-      document.onkeypress = that.keyPressFunc;
-      menu.getContainer().onclick = mouseClickFunc;
-    }    
+    document.addEventListener('keyup', this.keyUpFunc, true);
+    document.addEventListener('keydown', that.keyPressFunc, true);
+    menu.getContainer().addEventListener('click', mouseClickFunc, false);
   };
 
   // Call back function for onkeypress event
@@ -4937,34 +4873,24 @@ function LoopingMode() {
       // By default, simulate a click
       else {
         var fakeClick = null;
-        /* Case of W3C Compliant Browser */
-        if (document.createEvent) {
-          fakeClick = document.createEvent("MouseEvent");
-          fakeClick.initMouseEvent(
+        fakeClick = document.createEvent("MouseEvent");
+        fakeClick.initMouseEvent(
             "click",
             true,
             true,
             window,
             0,
-                        /*event.screenX*/0,
-                        /*event.screenY*/0,
-                        /*event.clientX*/0,
-                        /*event.clientY*/0,
-                        /*event.ctrlKey*/false,
-                        /*event.altKey*/false,
-                        /*event.shiftKey*/false,
-                        /*event.metaKey*/false,
+            /*event.screenX*/0,
+            /*event.screenY*/0,
+            /*event.clientX*/0,
+            /*event.clientY*/0,
+            /*event.ctrlKey*/false,
+            /*event.altKey*/false,
+            /*event.shiftKey*/false,
+            /*event.metaKey*/false,
             0,
             null);
-          elt.dispatchEvent(fakeClick);
-        } else {
-          /* Case of IE */
-          if (document.createEventObject) {
-            fakeClick = document.createEventObject(window.event);
-            fakeClick.button = 1;
-            elt.fireEvent("onclick", fakeClick);
-          }
-        }
+        elt.dispatchEvent(fakeClick);
       }
     }
   };
@@ -5018,20 +4944,10 @@ function LoopingMode() {
       menu.hide();
       menu.clean();
     }
-    // Registering call back for W3C Browser
-    if (document.addEventListener) {
-      // onkeyup event
-      document.removeEventListener('keyup', this.keyUpFunc, true);
-      // onkeypress event
-      document.removeEventListener('keydown', that.keyPressFunc, true);
-    }
-    // Registering call back for IE Browser
-    else if (document.attachEvent) {
-      // onkeyup event
-      document.detachEvent('onkeyup', this.keyUpFunc);
-      // onkeypress event
-      document.detachEvent('onkeypress', that.keyPressFunc);
-    }
+    // onkeyup event
+    document.removeEventListener('keyup', this.keyUpFunc, true);
+    // onkeypress event
+    document.removeEventListener('keydown', that.keyPressFunc, true);
   };
 
   // public Api used by accessibilitytoolbar
@@ -5168,15 +5084,7 @@ LoopingUtility = {
         LoopingUtility.focusedElement = target;
       }
     };
-    // Register focus callback for W3C browser
-    if (window.addEventListener && !window.opera) {
-      window.addEventListener('focus', getFocus, true);
-      // Register focus callback for IE
-    } else if (window.addEventListener && window.opera) {
-      window.addEventListener('DOMFocusIn', getFocus, true);
-    } else {
-      document.onfocusin = getFocus;
-    }
+    window.addEventListener('focus', getFocus, true);
   },
   /**
    * Get the current focused element
@@ -5394,7 +5302,6 @@ LoopingUtility = {
       }
     }
 
-    //Try the computed style in a standard way
     if (window.getComputedStyle) {
       var style = window.getComputedStyle(obj, "");
       if (style.display === 'none') {
@@ -5405,16 +5312,6 @@ LoopingUtility = {
       }
     }
 
-    //Or get the computed style using IE's silly proprietary way
-    var styleobj = obj.currentStyle;
-    if (styleobj) {
-      if (styleobj['display'] === 'none') {
-        return false;
-      }
-      if (styleobj['visibility'] === 'hidden') {
-        return false;
-      }
-    }
     return LoopingUtility.isVisible(obj.parentNode);
   }
 }
@@ -5458,15 +5355,8 @@ LoopingKey = {
    * @return {int} keycode the key pressed
    */
   keyPressed: function (/*Event*/ e) {
-
     var charCode = [];
-    // For IE browser
-    if (window.event) {
-      charCode[0] = window.event.keyCode;
-      charCode[1] = 0;
-    }
-    // For W3C Browser
-    else if (e) {
+    if (e) {
       charCode[0] = e.keyCode;
       charCode[1] = e.which;
     }
@@ -5515,11 +5405,6 @@ var RemoteControlMode = function () {
    */
   var pad = null;
   /**
-   * Reposition the remote every repositionTimer in milliseconds (this is part of the 'special IE6' treat)
-   * @private
-   */
-  var repositionTimer = 50;
-  /**
    * Number of pixels to scroll at a time
    * @private
    */
@@ -5535,7 +5420,7 @@ var RemoteControlMode = function () {
    */
   var that = this;
 
-  // Public attributs 
+  // Public attributs
   /**
    * global timerID for setTimeout and clearTimeout
    */
@@ -5583,18 +5468,9 @@ var RemoteControlMode = function () {
     for (var cpt = 0; cpt < element.length; cpt++) {
       //On test si l'element est activable, si il est activable alors on detache les événements appliqués
       if (that.isActivable(element[cpt])) {
-        // For W3C Browser
-        if (element[cpt].addEventListener) {
-          element[cpt].removeEventListener('mouseover', that.mouseOverActivableTrigger, false);
-          element[cpt].removeEventListener('mouseout', that.mouseOutActivableTrigger, false);
-          element[cpt].removeEventListener('mouseover', that.mouseOverClickableTrigger, false);
-        }
-        //For IE browser
-        else if (element[cpt].attachEvent) {
-          element[cpt].detachEvent('onmouseover', that.mouseOverActivableTrigger);
-          element[cpt].detachEvent('onmouseout', that.mouseOutActivableTrigger);
-          element[cpt].detachEvent('onmouseout', that.mouseOverClickableTrigger);
-        }
+        element[cpt].removeEventListener('mouseover', that.mouseOverActivableTrigger, false);
+        element[cpt].removeEventListener('mouseout', that.mouseOutActivableTrigger, false);
+        element[cpt].removeEventListener('mouseover', that.mouseOverClickableTrigger, false);
       }
     }
     // clean selectd element if exist
@@ -5671,22 +5547,8 @@ var RemoteControlMode = function () {
 
     //Registering callback to elt
     if (!elt.onmouseover) { /* prevents a blunder if some DHTML is present */
-
-      // For W3C Browser
-      if (elt.addEventListener) {
-        elt.addEventListener('mouseover', that.mouseOverActivableTrigger, false);
-        elt.addEventListener('mouseout', that.mouseOutActivableTrigger, false);
-      }
-      //For IE browser
-      else if (elt.attachEvent) {
-        elt.attachEvent('onmouseover', that.mouseOverActivableTrigger);
-        elt.attachEvent('onmouseout', that.mouseOutActivableTrigger);
-      }
-      //For Rusty browser
-      else {
-        elt.onmouseover = that.mouseOverActivableTrigger;
-        elt.onmouseout = that.mouseOutActivableTrigger;
-      }
+      elt.addEventListener('mouseover', that.mouseOverActivableTrigger, false);
+      elt.addEventListener('mouseout', that.mouseOutActivableTrigger, false);
     }
   }
 
@@ -5724,20 +5586,7 @@ var RemoteControlMode = function () {
      * @param {Event} evt : event to be processed
      * @private
      */
-
-    // For W3C Browser
-    if (document.addEventListener) {
-      document.addEventListener('mouseover', that.mouseOverClickableTrigger, false);
-    }
-    //For IE browser
-    else if (document.attachEvent) {
-      document.attachEvent('onmouseover', that.mouseOverClickableTrigger);
-    }
-    //For Rusty browser
-    else {
-      document.onmouseover = mouseOverClickableTrigger;
-      document.onmouseout = mouseOutClickableTrigger;
-    }
+    document.addEventListener('mouseover', that.mouseOverClickableTrigger, false);
   }
 
   /**
@@ -5786,32 +5635,13 @@ var RemoteControlMode = function () {
     for (var i = 0; i < pad.getAreaTag().length; i++) {
       elt = pad.getAreaTag()[i];
       // For W3C Browser
-      if (elt.addEventListener) {
-        elt.addEventListener('mouseover', mouseOverScrollTrigger, false);
-        elt.addEventListener('mouseout', mouseOutScrollTrigger, false);
-      }
-      //For IE browser
-      else if (elt.attachEvent) {
-        elt.attachEvent('onmouseover', mouseOverScrollTrigger);
-        elt.attachEvent('onmouseout', mouseOutScrollTrigger);
-      }
-      //For Rusty browser
-      else {
-        elt.onmouseover = mouseOverScrollTrigger;
-        elt.onmouseout = mouseOutScrollTrigger;
-      }
+      elt.addEventListener('mouseover', mouseOverScrollTrigger, false);
+      elt.addEventListener('mouseout', mouseOutScrollTrigger, false);
+
       elt.onclick = function () {
         return false;
       }
     }
-  }
-
-  // Methodes publiques
-  /**
-   * Special IE6 positioning routine
-   */
-  this.setPosition = function () {
-    pad.setPosition();
   }
 
   /**
@@ -5836,13 +5666,7 @@ var RemoteControlMode = function () {
    * @return {Boolean} true if the {HTMLNode} is activable, false either
    */
   this.isActivable = function (elt) {
-    // Skip specific element (like pad area)
-    nav = accessibilitytoolbar.getNavigateur();
-    if ((nav.indexOf('MSIE') > 0) && (nav < 'MSIE 8')) {
-      className = elt.className;
-    } else {
-      className = elt.getAttribute("class");
-    }
+    className = elt.getAttribute("class");
     if ((className && className.match(/dontclick/))) {
       return false;
     } else {
@@ -5976,7 +5800,7 @@ var RemoteControlMode = function () {
             (that.selectedElt.type == "text" || that.selectedElt.type == "password")))) {
         that.selectedElt.focus();
       }
-      // Case of a form item ... we do a simple click 
+      // Case of a form item ... we do a simple click
       else if (that.selectedElt.nodeName.match(/^INPUT|BUTTON|OPTION$/i)) {
         that.selectedElt.click();
       }
@@ -5997,34 +5821,24 @@ var RemoteControlMode = function () {
       // By default, simulate a click
       else {
         var fakeClick = null;
-        /* Case of W3C Compliant Browser */
-        if (document.createEvent) {
-          fakeClick = document.createEvent("MouseEvent");
-          fakeClick.initMouseEvent(
-            "click"
-            , true
-            , true
-            , window
-            , 0
-            , /*event.screenX*/0
-            , /*event.screenY*/0
-            , /*event.clientX*/0
-            , /*event.clientY*/0
-            , /*event.ctrlKey*/false
-            , /*event.altKey*/false
-            , /*event.shiftKey*/false
-            , /*event.metaKey*/false
-            , 0
-            , null);
-          that.selectedElt.dispatchEvent(fakeClick);
-        } else {
-          /* Case of IE */
-          if (document.createEventObject) {
-            fakeClick = document.createEventObject();
-            fakeClick.button = 1;
-            that.selectedElt.fireEvent("onclick", fakeClick);
-          }
-        }
+        fakeClick = document.createEvent("MouseEvent");
+        fakeClick.initMouseEvent(
+          "click"
+          , true
+          , true
+          , window
+          , 0
+          , /*event.screenX*/0
+          , /*event.screenY*/0
+          , /*event.clientX*/0
+          , /*event.clientY*/0
+          , /*event.ctrlKey*/false
+          , /*event.altKey*/false
+          , /*event.shiftKey*/false
+          , /*event.metaKey*/false
+          , 0
+          , null);
+        that.selectedElt.dispatchEvent(fakeClick);
       }
     }
   }
@@ -6034,14 +5848,6 @@ var RemoteControlMode = function () {
    */
   this.init = function () {
     pad = new RemoteControlPad();
-
-    /* dealing with IE6's inability to do position:fixed */
-    var v = navigator.appVersion;
-    if (navigator.appName.match(/Internet Explorer/)) {
-      if (parseInt(v.substring(v.indexOf("MSIE") + 5)) > 0 && parseInt(v.substring(v.indexOf("MSIE") + 5)) <= 6) {
-        setInterval("accessibilitytoolbar.remotecontrol.setPosition()", repositionTimer);
-      }
-    }
     makeScrollControl();
     makeLinksHoverable();
   };
@@ -6055,7 +5861,7 @@ var RemoteControlMode = function () {
  * @class Graphical scroll remote control
  */
 function RemoteControlPad() {
-  // Privates attributes 
+  // Privates attributes
   /**
    * Remote control pad image
    * @private
@@ -6118,19 +5924,6 @@ function RemoteControlPad() {
     document.getElementsByTagName("body")[0].appendChild(pad);
   };
 
-  // Publics methods
-  /**
-   * Special IE6 positioning routine
-   */
-  this.setPosition = function () {
-    var h = document.documentElement.clientHeight;
-    var w = document.documentElement.clientWidth;
-    var st = document.documentElement.scrollTop;
-    var sl = document.documentElement.scrollLeft;
-    pad.style.pixelTop = st + h - imgFromBorder - imgHeight;
-    pad.style.pixelLeft = sl + w - imgFromBorder - imgWidth;
-  }
-
   /**
    * Define the pad image source location
    * @param {String} location, the URL of the image
@@ -6163,17 +5956,6 @@ function hasConfortdelecture() {
  * @class Entry point for the accessibility tool-bar
  */
 accessibilitytoolbar = {
-	/**
-     * {object}
-     */
-  uncompatibility: {
-    /**************************************Tableau des nom des navigateurs*****************************
-     ie X => MSIE X (exemple MSIE 7.0)
-     Firefox X => Firefox v (ex Firefox 31.0)
-    ***************************************************************************************************/
-    a11yDyslexyFontEnabled: ['MSIE 7.0', 'MSIE 8.0']
-  },
-
   /**
    * {ToolbarStrings} String localization Manager
    */
@@ -6242,7 +6024,7 @@ accessibilitytoolbar = {
    */
 
   loopingmode: null,
-                                                                                                                     
+
   /**
    * {RemoteControlMode} Remote control Manager
    */
@@ -6266,7 +6048,7 @@ accessibilitytoolbar = {
 
   // when the user change the lang of the interface, wee need to reload after save is done
   needToReload: false,
-  
+
   // predefined color conbinaisons
   predifinedCombinaisons: {
     'blackonwhite': { fontColor: '#000000', backGroundColor: '#FFFFFF' },
@@ -6279,7 +6061,7 @@ accessibilitytoolbar = {
     'whiteonblue': { fontColor: '#FFFFFF', backGroundColor: '#0000FF' }
   },
 
-  // addevent input params : 
+  // addevent input params :
   // 1- for addeventlistenername
   // 2- for attacheventlistener
   // 3- the object
@@ -6427,7 +6209,7 @@ accessibilitytoolbar = {
     // add the selected class
     elmt.className = elmt.className.replace(/uci_couleur_li{0,1}/, "uci_couleur_li uci_couleur_li_selected");
     elmt.className = elmt.className.replace(/uci_choix{0,1}/, "uci_choix active");
-    
+
     if (focus) elmt.focus();
 
     // on désactive ses frères
@@ -6772,12 +6554,7 @@ accessibilitytoolbar = {
       var newStyle = document.createElement("style");
       newStyle.setAttribute("type", "text/css");
       newStyle.id = "a11yCSSFontStyle";
-      if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-        newStyle.styleSheet.cssText = "@font-face{font-family: \"orangeconfortplus\";src: " + fontsPath['fonticone'] + ";font-style: normal;font-weight: normal;}";
-      }
-      else { // standards-oriented browsers
-        newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: " + fontsPath['fonticone'] + ";font-style: normal;font-weight: normal;}"));
-      }
+      newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: " + fontsPath['fonticone'] + ";font-style: normal;font-weight: normal;}"));
       document.getElementsByTagName('head')[0].appendChild(newStyle);
     }
   },
@@ -6802,11 +6579,8 @@ accessibilitytoolbar = {
     var style = ".cdu_hide {display:none} #cdu_close {display:none}";
     var newStyle = document.createElement("style");
     newStyle.setAttribute("type", "text/css");
-    if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-      newStyle.styleSheet.cssText = style;
-    } else { // standards-oriented browsers
-      newStyle.appendChild(document.createTextNode(style));
-    }
+    newStyle.appendChild(document.createTextNode(style));
+
     var _head = document.getElementsByTagName('head')[0];
     // newStyle
     _head.insertBefore(newStyle, _head.firstChild);
@@ -6952,7 +6726,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_moreconfort'), UciIhm.more_confort);
     accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_close_toolbar'), function () {
       if (document.getElementById('uci_activateOnglet').style.display === 'block') return false;
-      if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref()) 
+      if ((accessibilitytoolbar.userPref.encode() === accessibilitytoolbar.userPref.getCurrentPref())
       || confirm(accessibilitytoolbar.get('uci_modif_not_saved'))) {
         UciValidation.Annulation();
         UciIhm.ToolbarHide();
@@ -7020,7 +6794,7 @@ accessibilitytoolbar = {
     // add event to profile menu
     if (accessibilitytoolbar.profileEnabled) {
       UciProfile.create_menu_events();
-      // add behavior for profile save : 
+      // add behavior for profile save :
       accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_valider'), function (e) { accessibilitytoolbar.stopEvt(e); document.getElementById('uci_validation').className = "cdu_n"; UciProfile.showProfilePopin() });
 
       // fallback for focusin and focusout on firefox < 52 - close the menu's when elements take the focus
@@ -7215,7 +6989,7 @@ accessibilitytoolbar = {
     accessibilitytoolbar.userPref.set('a11yToolbarEnable', 'on');
     // if toolbar content not already create
     if (!document.getElementById("cdu_toolbar")) {
-      // create content 
+      // create content
       var contentToolbar = document.createElement("div");
       contentToolbar.setAttribute("id", 'cdu_toolbar');
       contentToolbar.className = 'cdu_displayN';
@@ -7237,7 +7011,7 @@ accessibilitytoolbar = {
 
   toolbarDisplayHelp: function (id_parent) {
     if (document.getElementById(id_parent)) {
-      // if help was hidden, then display it  
+      // if help was hidden, then display it
       if (document.getElementById(id_parent).className === 'uci_span_help_bulle cdu_n') {
         document.getElementById(id_parent).className = 'uci_span_help_bulle';
       } else { // otherwise, hide it
@@ -7299,13 +7073,6 @@ accessibilitytoolbar = {
       //Debug.log("addEventListener triggered");
       ignited = true;
     }
-
-    /* For IE not so rusty */
-    if (window.attachEvent && !ignited) {
-      window.attachEvent('onload', func);
-      ignited = true;
-    }
-    /* end */
 
     /* for Safari */
     if (/WebKit/i.test(navigator.userAgent) && !ignited) { // sniff
@@ -7387,7 +7154,7 @@ accessibilitytoolbar = {
         document.getElementById('uci_message_constraste').style.display = 'none';
         accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[curOptionValue].backGroundColor,accessibilitytoolbar.predifinedCombinaisons[curOptionValue].fontColor);
         document.getElementById('uci_custom_color_panel').style.display = "none";
-      }      
+      }
     }
 
     // for checkbox default value when unckecked = false
@@ -7397,7 +7164,7 @@ accessibilitytoolbar = {
     if (target.id && target.id.match(/a11yVisualSettings/)) {
       if(value !== "false") {
         document.getElementById("uci_quick_a11yVisualSettings").checked = true;
-        document.getElementById("a11yVisualSettings").checked = true;          
+        document.getElementById("a11yVisualSettings").checked = true;
       } else {
         document.getElementById("uci_quick_a11yVisualSettings").checked = false;
         document.getElementById("a11yVisualSettings").checked = false;
@@ -7408,7 +7175,7 @@ accessibilitytoolbar = {
       // if (target.id.match(/uci_quick/) && document.getElementById('uci_activateOnglet').style.display === 'block') return false;
       if(value !== "false") {
         // document.getElementById("uci_quick_a11yMaskEnabled").checked = true;
-        document.getElementById("a11yMaskEnabled").checked = true;          
+        document.getElementById("a11yMaskEnabled").checked = true;
       } else {
         // document.getElementById("uci_quick_a11yMaskEnabled").checked = false;
         document.getElementById("a11yMaskEnabled").checked = false;
@@ -7422,7 +7189,7 @@ accessibilitytoolbar = {
 
   /**
    * Update IHM element when updating setting value with profiles for example
-   * 
+   *
    */
   updateIhmFormsSettings: function () {
     var pref, prefarray, ariaRadioSettings = ["a11ySpacement", "a11yLineSpacement",
@@ -7467,8 +7234,8 @@ accessibilitytoolbar = {
         break;
       }
     }
-    
-    // update color select    
+
+    // update color select
     var sel = document.getElementById("uci_reponses_couleurpredefinie");
     var val = accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings");
     var opts = sel.options;
@@ -7485,7 +7252,7 @@ accessibilitytoolbar = {
       document.getElementById('uci_custom_color_panel').style.display = "none";
       accessibilitytoolbar.updateColorBox(accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor,accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor);
     }
-    
+
     document.getElementById("uci_quick_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_a11yBigger_more").removeAttribute("disabled");
     document.getElementById("uci_quick_a11yBigger_less").removeAttribute("disabled");
@@ -7559,7 +7326,7 @@ accessibilitytoolbar = {
 */
   startLoopingmode: function () {
     // Create a new looping mode manager
-    if (this.loopingmode == null) { 
+    if (this.loopingmode == null) {
       this.loopingmode = new LoopingMode();
     } else {
       this.loopingmode.registerTrigger();
@@ -7612,22 +7379,12 @@ accessibilitytoolbar = {
       demoFrame = document.getElementById("uci_discover_frame");
       try {
         demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
-        // just for IE11, check if we're on ie11
-        if (!!window.MSInputMethodContext && !!document.documentMode) {
-          try {
-            demoFrameDocument.createStyleSheet().cssText = "";
-          } catch (fa) {
-            if (demoFrameDocument.styleSheets[0])
-              demoFrameDocument.styleSheets[0].cssText = "";
-          }
-        } else {
-          if (demoFrameDocument.getElementsByTagName('head')[0]) {
-            demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
-          }
+        if (demoFrameDocument.getElementsByTagName('head')[0]) {
+          demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
         }
       } catch (e) { }
     } else {
-      // default mode, settings for the page 
+      // default mode, settings for the page
       if (localUserPref.get("a11yToolbarEnable") !== "off") {
         if (document.getElementById('cdu_close')) {
           document.getElementById('cdu_close').style.display == 'none';
@@ -7682,7 +7439,7 @@ accessibilitytoolbar = {
       // jump to content if needed
       accessibilitytoolbar.jumpToContent();
     }
-    // Remove linearization if it had been done : 
+    // Remove linearization if it had been done :
     // 1. linearize ? -- which is the same as: get rid of all CSS info first
     // if the user remove the option, we need to put back the stylesheets and styles attributes
 
@@ -7734,7 +7491,7 @@ accessibilitytoolbar = {
 
       // generate the CSS instructions
       // 1. do we want bigger fonts?
-      // make it proportional to the initial font          
+      // make it proportional to the initial font
       fontSizeDef = fontSizeBody = '16px';
       if (window.getComputedStyle) {
         // get the font-size from html tag
@@ -7889,7 +7646,7 @@ accessibilitytoolbar = {
           if (!init) {
             document.getElementById('uci_message_constraste').style.display = 'none';
             element = document.getElementById('uci_reponses_bigger_quick_set');
-          }          
+          }
 
           if (accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")]) {
             fontColor = accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].fontColor;
@@ -7929,8 +7686,8 @@ accessibilitytoolbar = {
       else {
         document.getElementById('cdu_zone').className = 'uci_a11yVisualPredefinedSettings_disabled';
       }
-      
-      // reading mask      
+
+      // reading mask
       if (localUserPref.get("a11yMaskEnabled") !== "false") {
         UciMask.settings.option = localUserPref.get("a11yMaskOption");
         UciMask.settings.thickness = localUserPref.get("a11yMaskOpacity");
@@ -7947,8 +7704,8 @@ accessibilitytoolbar = {
           break;
           case "hruler":
             s += ".hMouse {border-bottom: thick solid "+fontColor+" }";
-          break;          
-        }        
+          break;
+        }
       }
       // if mask was launch before deactivation kill!
       else if (UciMask.settings.launched) {
@@ -7964,29 +7721,16 @@ accessibilitytoolbar = {
         newStyle = document.createElement("style");
         newStyle.setAttribute("type", "text/css");
         newStyle.id = "a11yUserPrefStyle";
-        if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-          newStyle.styleSheet.cssText = s;
-        } else { // standards-oriented browsers
-          newStyle.appendChild(document.createTextNode(s));
-        }
+        newStyle.appendChild(document.createTextNode(s));
+
 
         // If demo mode add thestyle to the demo frame
         if (demo) {
           demoFrame = document.getElementById("uci_discover_frame");
           try {
             demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
-            // just for IE11, check if we're on ie11
-            if (!!window.MSInputMethodContext && !!document.documentMode) {
-              try {
-                demoFrameDocument.createStyleSheet().cssText = s;
-              } catch (fa) {
-                if (demoFrameDocument.styleSheets[0])
-                  demoFrameDocument.styleSheets[0].cssText = s;
-              }
-            } else {
-              if (demoFrameDocument.getElementsByTagName('head')[0]) {
-                demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-              }
+            if (demoFrameDocument.getElementsByTagName('head')[0]) {
+              demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
             }
           } catch (e) { }
         } else { // Not demo mode set the style to the page
@@ -8087,11 +7831,11 @@ accessibilitytoolbar = {
 
   /**
    * Check if color relative lum between font and BG is accessible, otherwise display a warning message
-   * 
+   *
    */
   checkLum: function(fontColor,bgcolor,init) {
-    /**                    
-    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef                                        
+    /**
+    http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
     */
     LuminositeFond = accessibilitytoolbar.relativeLum(bgcolor);
 
@@ -8194,19 +7938,19 @@ accessibilitytoolbar = {
    * convert rgb color for relative luminance
    *
    *     if RsRGB <= 0.03928 then R = RsRGB/12.92 else R = ((RsRGB+0.055)/1.055) ^ 2.4
-   *     
+   *
    *     if GsRGB <= 0.03928 then G = GsRGB/12.92 else G = ((GsRGB+0.055)/1.055) ^ 2.4
-   *     
+   *
    *     if BsRGB <= 0.03928 then B = BsRGB/12.92 else B = ((BsRGB+0.055)/1.055) ^ 2.4
-   *     
+   *
    *     and RsRGB, GsRGB, and BsRGB are defined as:
-   *     
+   *
    *         RsRGB = R8bit/255
-   *     
+   *
    *         GsRGB = G8bit/255
-   *     
-   *         BsRGB = B8bit/255     
-   *          
+   *
+   *         BsRGB = B8bit/255
+   *
    */
   conversionColor: function (color) {
     color = color / 255;
@@ -8299,11 +8043,8 @@ accessibilitytoolbar = {
     var style = "#accessibilitytoolbarGraphic {display:none}";
     var newStyle = document.createElement("style");
     newStyle.setAttribute("type", "text/css");
-    if (document.all && !window.opera) { // if IE then we can't rely on newStyle.appendChild(textnode)
-      newStyle.styleSheet.cssText = style;
-    } else { // standards-oriented browsers
-      newStyle.appendChild(document.createTextNode(style));
-    }
+    newStyle.appendChild(document.createTextNode(style));
+
     var _head = document.getElementsByTagName('head')[0];
     // newStyle
     _head.insertBefore(newStyle, _head.firstChild);
@@ -8395,13 +8136,13 @@ accessibilitytoolbar = {
   /**
    * src code : http://stackoverflow.com/questions/2946656/advantages-of-createelement-over-innerhtml#answer-2947012
    * make create an html tree
-   * desc is an array, 
+   * desc is an array,
    * first elmt is the name of the htmltag
    * second one is a object containing attributes/value for this tag
    * all NEXT one if exists are the TextNodeContent OR an array of children OR a nodeElement
-   * sample call : 
+   * sample call :
    *  accessibilitytoolbar.make(["p", {"class":"myPClassname"}, "Here is a ", ["a", { href:"http://www.google.com/" }, "link"], "."]);
-   * 
+   *
    */
   make: function (desc) {
     if (!this.isArray(desc)) {
@@ -8445,7 +8186,7 @@ accessibilitytoolbar = {
   makeHelpTpl: function (linkId, spanId, content) {
     return ["a", { href: "#", "class": "uci_link_help_bulle", role: "presentation", id: linkId },
       ["span", { "aria-hidden": "true", "class": "cdu-icon cdu-icon-help" }],
-      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId, role:"tooltip" },                 
+      ["span", { "class": "uci_span_help_bulle cdu_n", id: spanId, role:"tooltip" },
         ["p", content],
         ["span", { "aria-hidden": "true", "class": "uci_fleche_help_bulle" }]
       ]
@@ -8495,13 +8236,13 @@ accessibilitytoolbar = {
   updateColorBox: function(bgColor,fontColor) {
     document.getElementById('uci_reponses_couleurpredefinie').style="background-color:"+bgColor+"!important; color:"+fontColor+"!important;";
   },
-  
+
   makePredefinedCouleurSelect: function () {
     var predefColor, customColor, chooseCouleur, aCouleur, customColorStyle;
     var globalCouleur = ["div"]
     var aCouleurs = ["div", { "class": "padding-left-align margin-top uci_color_div"}]
-    var index = 0;   
-    
+    var index = 0;
+
     customColorStyle="display:none";
     if(accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal") {
       aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style: "background-color:"+accessibilitytoolbar.userPref.get("a11yBackgroundColor")+"!important; color:"+accessibilitytoolbar.userPref.get("a11yFontColor")+"!important;"}];
@@ -8510,11 +8251,11 @@ accessibilitytoolbar = {
     } else {
       aCouleur = ["select", { "class":"ucibtn ucibtn-sm uci_select_color", name:"a11yVisualPredefinedSettings", id: "uci_reponses_couleurpredefinie", "aria-labelledby": "a11yVisualSettings", style:"color: "+accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].fontColor+" !important;background-color:"+accessibilitytoolbar.predifinedCombinaisons[accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings")].backGroundColor+" !important;"}];
     }
-    
+
     for (var key in accessibilitytoolbar.predifinedCombinaisons) {
       predefColor = ["option", {
         id: "uci_a11yVisualPredefinedSettings_" + key,
-        value: key, 
+        value: key,
         selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === key ? true : false)
       },
         accessibilitytoolbar.get('uci_title_color_' + key)
@@ -8525,12 +8266,12 @@ accessibilitytoolbar = {
     // add custom color button
     customColor = ["option", {
       id: "uci_a11yVisualPredefinedSettings_personnal",
-      value: 'personnal', 
+      value: 'personnal',
       selected: (accessibilitytoolbar.userPref.get("a11yVisualPredefinedSettings") === "personnal" ? true : false)
     },
       accessibilitytoolbar.get('uci_title_color_personnal')
     ];
-    
+
     // add a link for custom color update
     chooseCouleur = ["div", {"class":"margin-top uci_custom_color", id:"uci_custom_color_panel", style:customColorStyle},
       ["div", { "class":"cdu_c"},
@@ -8552,16 +8293,16 @@ accessibilitytoolbar = {
         ]
       ]
     ];
-    
-    
-    aCouleur.push(customColor);    
+
+
+    aCouleur.push(customColor);
     aCouleurs.push(aCouleur);
     globalCouleur.push(aCouleurs);
     globalCouleur.push(chooseCouleur);
-        
+
     return globalCouleur;
   },
-  
+
   /**
    * Start the thing
    */
@@ -8577,7 +8318,7 @@ accessibilitytoolbar = {
       // doesn't work on ie<7 so we test before
       if (window.postMessage) {
         // when the data response was received, launch the init of the toolbar
-        // find the locale for correct language  
+        // find the locale for correct language
         this.strings.setLocale();
         this.userPref = new UciStorage();
         if (document.readyState !== 'loading') {
@@ -8590,6 +8331,7 @@ accessibilitytoolbar = {
     }
   }
 };
+
 // Source: app/js/start.server.js
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
