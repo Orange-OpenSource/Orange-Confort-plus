@@ -30,7 +30,7 @@
     "grunt-filerev": "^2.1.1",
     "grunt-html-build": "^0.7.1",
     "grunt-newer": "^1.3.0",
-    "grunt-replace": "^0.8.0",
+    "grunt-replace": "^2.0.2",
     "grunt-rev": "~0.1.0",
     "grunt-serve": "^0.1.6",
     "grunt-usemin": "^2.6.0",
