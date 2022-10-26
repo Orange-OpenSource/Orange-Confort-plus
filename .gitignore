@@ -22,7 +22,6 @@ Thumbs.db
 
 node_modules
 .tmp
-bower_components
 docs/COPYING.txt
 
 ## dist/
