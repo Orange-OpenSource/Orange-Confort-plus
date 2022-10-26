@@ -1,7 +1,7 @@
 /*  - version  - 26-10-2022
 
  Copyright (C) 2014 - 2022  */
-var hebergementDomaine = 'http://localhost:9010';
+var hebergementDomaine = 'https://confort-plus.orange.com';
 var hebergementFullPath = hebergementDomaine + '/';
 // Source: app/conf/hebergement.js
 /*
@@ -5644,6 +5644,14 @@ var RemoteControlMode = function () {
     }
   }
 
+  // Methodes publiques
+  /**
+   * Special IE6 positioning routine
+   */
+  this.setPosition = function () {
+    pad.setPosition();
+  }
+
   /**
    * Return the scrolling step of the page
    * @return {int} step the scroll step
@@ -5923,6 +5931,19 @@ function RemoteControlPad() {
     pad.appendChild(i);
     document.getElementsByTagName("body")[0].appendChild(pad);
   };
+
+  // Publics methods
+  /**
+   * Special IE6 positioning routine
+   */
+  this.setPosition = function () {
+    var h = document.documentElement.clientHeight;
+    var w = document.documentElement.clientWidth;
+    var st = document.documentElement.scrollTop;
+    var sl = document.documentElement.scrollLeft;
+    pad.style.pixelTop = st + h - imgFromBorder - imgHeight;
+    pad.style.pixelLeft = sl + w - imgFromBorder - imgWidth;
+  }
 
   /**
    * Define the pad image source location
@@ -6346,36 +6367,6 @@ accessibilitytoolbar = {
    */
   get: function (str) {
     return this.strings.get(str);
-  },
-
-  /**
-   * Retourne si le navigateur est compatible ou pas
-   * @param {string}
-   * @return {bool}
-   * @function
-   */
-  getCompatible: function (toolsToolbar) {
-    var testNavigateur = this.getNavigateur();
-    if (this.uncompatibility[toolsToolbar]) {
-      for (var i = 0; i < this.uncompatibility[toolsToolbar].length; i++) {
-        if (this.uncompatibility[toolsToolbar][i] == testNavigateur) {
-          return false;
-        }
-      }
-    }
-    return true;
-  },
-
-  getNavigateur: function () {
-    var ua = navigator.userAgent, tem,
-      M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
-    if (/trident/i.test(M[1])) {
-      tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
-      return 'IE ' + (tem[1] || '');
-    }
-    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-    if ((tem = ua.match(/version\/([\.\d]+)/i)) !== null) M[2] = tem[1];
-    return M.join(' ');
   },
 
   // freezeGif from Makaze (https://stackoverflow.com/users/1166904/makaze) on stackoverflow : https://stackoverflow.com/questions/3688460/stopping-gif-animation-programmatically#answer-24707088
