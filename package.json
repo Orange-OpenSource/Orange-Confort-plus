@@ -1,9 +1,20 @@
 {
   "name": "orange-confort-plus",
+  "description": "Enhance user experience on web sites",
   "version": "4.1.1",
-  "author": "Orange",
-  "repository": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git",
-  "description": "enhance user experience on web sites",
+  "homepage": "https://confort-plus.orange.com/",
+  "author": "Orange SA",
+  "contributors": [
+    "Orange SA"
+  ],
+  "license": "GPL-2.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
+  },
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
     "grunt": "grunt"
@@ -37,9 +48,5 @@
     "jshint-stylish": "~1.0.0",
     "load-grunt-tasks": "~1.0.0",
     "time-grunt": "^1.4.0"
-  },
-  "private": true,
-  "engines": {
-    "node": ">=0.10.0"
   }
 }
