@@ -282,8 +282,7 @@ module.exports = function(grunt) {
             'fonts/**',
             '*.txt',
             '*.htm',
-            '**/*.html',
-            '!Addin*/**'
+            '**/*.html'
           ]
         }]
       },
