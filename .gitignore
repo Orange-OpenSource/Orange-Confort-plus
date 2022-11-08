@@ -1,41 +1,49 @@
-# Numerous always-ignore extensions
-*.diff
-*.err
-*.orig
-*.log
-*.rej
-*.swo
-*.swp
-*.vi
-*~
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# OS folders
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# System Files
 .DS_Store
 ._*
 Thumbs.db
 
-# Folders to ignore
-.hg
-.svn
-.CVS
-.idea
-
-node_modules
-.tmp
-docs/COPYING.txt
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.log
+*.rej
 
 ## dist/
 dist/WebExtension/js/UciCookie.js
 
-## CSS
+## Docs
+docs/COPYING.txt
+### CSS
 docs/css/classic-toolbar.*.css
 docs/css/classic-toolbar.min.*.css
 docs/css/help.*.css
 docs/css/*.css
 docs/css/*.*.css
 docs/css/*.*.map
-
-## Fonts
+### Fonts
 docs/fonts/accessibleDFA/AccessibleDfA.*
 docs/fonts/accessibleDFA/AUTHORS
 docs/fonts/accessibleDFA/LICENSE
@@ -45,15 +53,13 @@ docs/fonts/open-dyslexic/**/*.*
 docs/fonts/*/LICENSE.txt
 docs/fonts/open-sans/*.ttf
 docs/fonts/orangeconfortplus.*.*
-
-## HTML
+### HTML
 docs/demo_*.html
 docs/gifpage.html
 docs/testpage.html
 docs/cookie.html
 docs/help/*.html
 docs/images/*.*
-
-## JS
+### JS
 docs/js/toolbar.js
 docs/js/toolbar-min.js
