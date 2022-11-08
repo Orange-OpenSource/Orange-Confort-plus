@@ -48,7 +48,7 @@
         "js/UciIhm.js",
         "js/toolbar.js",
         "js/mask.js",
-        "js/start.WebExtension.js"
+        "js/start.js"
       ],
       "run_at": "document_end"
     }
