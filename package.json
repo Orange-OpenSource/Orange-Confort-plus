@@ -23,12 +23,12 @@
     "docs": "",
     "copy": "concurrently \"npm:copy:*\"",
     "copy:serveur": "shx cp -r app/{images,css,fonts,help,./*.txt,./*.html} dist/serveur/",
-    "copy:extension": "shx cp -r app/{images,css,help,language,js} dist/WebExtension/ && shx cp app/conf/WebExtension/start.js dist/WebExtension/js/",
+    "copy:extension": "shx cp -r app/{images,css,help,js} dist/WebExtension/ && shx cp app/conf/WebExtension/start.js dist/WebExtension/js/",
     "copy:conf": "shx cp -r app/conf/WebExtension/ dist/WebExtension/conf/",
     "copy:data": "shx cp -r app/WebExtension/* dist/WebExtension/",
     "postcopy": "shx cp -r node_modules/boosted/dist/{css,fonts} dist/serveur/{css,fonts,images,./*.html} docs/",
     "prejs:serveur": "shx mkdir dist/serveur/js",
-    "js:serveur": "terser app/conf/serveur/hebergement.js app/language/*.js app/js/*.js app/conf/serveur/start.js -o dist/serveur/js/toolbar.js",
+    "js:serveur": "terser app/conf/serveur/hebergement.js app/js/*.js app/conf/serveur/start.js -o dist/serveur/js/toolbar.js",
     "postjs:serveur": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m"
   },
   "resolutions": {
