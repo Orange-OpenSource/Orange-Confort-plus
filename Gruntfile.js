@@ -108,28 +108,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // Empties folders to start fresh
-    clean: {
-      distserveur: {
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            '<%= yeoman.distserveur %>/*'
-          ]
-        }]
-      },
-      chromeext: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= yeoman.distchromeext %>/*'
-          ]
-        }]
-      },
-      server: '.tmp'
-    },
-
     // Add vendor prefixed styles
     autoprefixer: {
       options: {

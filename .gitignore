@@ -26,6 +26,13 @@ docs/COPYING.txt
 
 ## dist/
 dist/WebExtension/web-ext-artifacts
+dist/WebExtension/js/start.server.js
+dist/WebExtension/js/UciCookie.js
+## À virer quand on compilera correctement le JS
+dist/serveur/js/Uci*.js
+dist/serveur/js/start-*.js
+dist/serveur/js/mask.js
+dist/serveur/js/ToolbarStrings.js
 
 ## CSS
 docs/css/classic-toolbar.*.css
@@ -40,6 +47,7 @@ docs/fonts/accessibleDFA/AccessibleDfA.*
 docs/fonts/accessibleDFA/AUTHORS
 docs/fonts/accessibleDFA/LICENSE
 docs/fonts/Confort Plus.*.json
+docs/fonts/Confort Plus.json
 docs/fonts/open-dyslexic/**/*.*
 docs/fonts/*/LICENSE.txt
 docs/fonts/open-sans/*.ttf
