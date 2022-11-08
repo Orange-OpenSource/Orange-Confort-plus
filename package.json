@@ -19,24 +19,31 @@
     "start": "",
     "test": "",
     "prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
-    "build": "npm run copy && npm run js:serveur",
+    "build": "npm run copy && npm run js && npm run css",
     "docs": "",
     "copy": "concurrently \"npm:copy:*\"",
-    "copy:serveur": "shx cp -r app/{images,css,fonts,help,./*.txt,./*.html} dist/serveur/",
-    "copy:extension": "shx cp -r app/{images,css,help,js} dist/WebExtension/ && shx cp app/conf/WebExtension/start.js dist/WebExtension/js/",
+    "copy:serveur": "shx cp -r app/{images,fonts,help,./*.txt,./*.html} dist/serveur/",
+    "copy:extension": "shx cp -r app/{images,help,js} dist/WebExtension/ && shx cp app/conf/WebExtension/start.js dist/WebExtension/js/",
     "copy:conf": "shx cp -r app/conf/WebExtension/ dist/WebExtension/conf/",
     "copy:data": "shx cp -r app/WebExtension/* dist/WebExtension/",
     "postcopy": "shx cp -r node_modules/boosted/dist/{css,fonts} dist/serveur/{css,fonts,images,./*.html} docs/",
-    "prejs:serveur": "shx mkdir dist/serveur/js",
-    "js:serveur": "terser app/conf/serveur/hebergement.js app/js/*.js app/conf/serveur/start.js -o dist/serveur/js/toolbar.js",
-    "postjs:serveur": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m"
+    "prejs": "shx mkdir dist/serveur/js",
+    "js": "terser app/conf/serveur/hebergement.js app/js/*.js app/conf/serveur/start.js -o dist/serveur/js/toolbar.js",
+    "postjs": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m",
+    "precss": "shx mkdir dist/WebExtension/css",
+    "css": "postcss app/css/*.css --dir dist/serveur/css/ -u autoprefixer cssnano --no-map",
+    "postcss": "shx cp dist/serveur/css/*.css dist/WebExtension/css/"
   },
   "resolutions": {
     "graceful-fs": "^4.2.4"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.13",
     "boosted": "^5.0.2",
     "concurrently": "^7.5.0",
+    "cssnano": "^5.1.14",
+    "postcss": "^8.4.18",
+    "postcss-cli": "^10.0.0",
     "shx": "^0.3.4",
     "terser": "^5.15.1"
   }
