@@ -31,9 +31,6 @@ Thumbs.db
 *.log
 *.rej
 
-## dist/
-dist/WebExtension/js/UciCookie.js
-
 ## Docs
 docs/COPYING.txt
 ### CSS
