@@ -4,6 +4,10 @@
   "version": "4.1.1",
   "homepage": "https://confort-plus.orange.com/",
   "author": "Orange SA",
+  "config": {
+    "author": "Orange SA",
+    "description": "Enhance user experience on web sites"
+  },
   "contributors": [
     "Orange SA"
   ],
@@ -20,6 +24,7 @@
     "test": "",
     "prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
     "build": "npm run copy && concurrently \"npm:build:*\"",
+    "postbuild": "terser dist/WebExtension/js/mask.js -o dist/WebExtension/js/mask.js -f \"preamble='/* $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n $npm_package_config_description\\n © 2014 - `date +%Y` $npm_package_config_author */'\"",
     "docs": "",
     "copy": "concurrently \"npm:copy:*\"",
     "copy:serveur": "shx cp -r app/{images,fonts,help,./*.txt} dist/serveur/",
@@ -28,15 +33,12 @@
     "copy:data": "shx cp -r app/WebExtension/* dist/WebExtension/",
     "postcopy": "shx cp -r node_modules/boosted/dist/{css,fonts} dist/serveur/{css,fonts,images,./*.html} docs/",
     "prebuild:js": "shx mkdir dist/serveur/js",
-    "build:js": "terser app/conf/serveur/*.js app/js/*.js -o dist/serveur/js/toolbar.js",
-    "postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m",
+    "build:js": "terser app/conf/serveur/*.js app/js/*.js -o dist/serveur/js/toolbar.js -f \"preamble='/* $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n $npm_package_config_description\\n © 2014 - `date +%Y` $npm_package_config_author */'\"",
+    "postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m -f comments=true",
     "prebuild:css": "shx mkdir dist/WebExtension/css",
     "build:css": "postcss app/css/*.css --dir dist/serveur/css/ -u autoprefixer cssnano --no-map",
-    "postbuild:css": "shx cp dist/serveur/css/*.css dist/WebExtension/css/",
+    "postbuild:css": "dist/serveur/css/*.css && shx cp dist/serveur/css/*.css dist/WebExtension/css/",
     "build:html": "html-minifier-terser --file-ext html --input-dir app/ --output-dir dist/serveur --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name"
-  },
-  "resolutions": {
-    "graceful-fs": "^4.2.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

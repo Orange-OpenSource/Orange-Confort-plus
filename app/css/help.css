@@ -1,6 +1,6 @@
 /**
     This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
-    
+
     Copyright (C) 2014 - 2017  Orange SA
 
     Orange Confort+ is free software; you can redistribute it and/or
@@ -63,10 +63,10 @@ body, input, textarea, button, option {
 .uci-plus-orange-help {
     color: #F16E00;
     font-size: 130%;
-    line-height: 0;    
+    line-height: 0;
     font-weight: bold;
     padding-bottom: 0.125em;
-    vertical-align: middle;    
+    vertical-align: middle;
 }
 
 /*----------------------------------------------*/
@@ -88,10 +88,10 @@ body, input, textarea, button, option {
 ul {
     list-style-type:disc;
     padding:.5em 2em 2em;
-}   
+}
 .setting-bloc-help ol{
   list-style: circle inside none;
-} 
+}
 
 .setting-bloc-help .browser_list ol{
   margin: 0 0 1em 0;
