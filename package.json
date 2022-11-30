@@ -21,11 +21,12 @@
   },
   "scripts": {
     "start": "",
+    "preserve": "npm run build",
+    "serve": "servor dist/serveur/ testpage.html 9010 --browse --reload",
     "test": "",
     "prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
     "build": "npm run copy && concurrently \"npm:build:*\"",
     "postbuild": "terser dist/WebExtension/js/mask.js -o dist/WebExtension/js/mask.js -f \"preamble='/*\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n * $npm_package_config_description\\n * © 2014 - `date +%Y` $npm_package_config_author\\n*/'\"",
-    "docs": "",
     "copy": "concurrently \"npm:copy:*\"",
     "copy:serveur": "shx cp -r app/{images,fonts,help,./*.txt} dist/serveur/",
     "copy:extension": "shx cp -r app/{images,help,js} dist/WebExtension/ && shx cp app/WebExtension/js/UciSimpleStorage.js dist/WebExtension/js/",
@@ -38,8 +39,7 @@
     "prebuild:css": "shx mkdir dist/WebExtension/css",
     "build:css": "postcss app/css/*.css --dir dist/serveur/css/ --no-map",
     "postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
-    "build:html": "html-minifier-terser --file-ext html --input-dir app/ --output-dir dist/serveur --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
-    "replace": ""
+    "build:html": "html-minifier-terser --file-ext html --input-dir app/ --output-dir dist/serveur --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
@@ -50,6 +50,7 @@
     "postcss": "^8.4.18",
     "postcss-banner": "^4.0.1",
     "postcss-cli": "^10.0.0",
+    "servor": "^4.0.2",
     "shx": "^0.3.4",
     "terser": "^5.15.1"
   }
