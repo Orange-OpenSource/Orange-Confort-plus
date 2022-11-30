@@ -37,7 +37,7 @@
     "postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m -f comments=true",
     "prebuild:css": "shx mkdir dist/WebExtension/css",
     "build:css": "postcss app/css/*.css --dir dist/serveur/css/ --no-map",
-    "postbuild:css": "dist/serveur/css/*.css && shx cp dist/serveur/css/*.css dist/WebExtension/css/",
+    "postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
     "build:html": "html-minifier-terser --file-ext html --input-dir app/ --output-dir dist/serveur --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
     "replace": ""
   },
