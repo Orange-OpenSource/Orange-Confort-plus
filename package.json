@@ -20,9 +20,10 @@
     "url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
   },
   "scripts": {
-    "start": "",
-    "preserve": "npm run build",
-    "serve": "servor dist/serveur/ testpage.html 9010 --browse --reload",
+    "start": "concurrently --kill-others \"npm:watch\" \"npm:browser:dist\"",
+    "browser:dist": "servor dist/serveur/ testpage.html 9010 --browse --reload",
+    "start:docs": "concurrently --kill-others \"npm:watch\" \"npm:browser:docs\"",
+    "browser:docs": "servor docs/ index.html 9010 --browse --reload",
     "test": "",
     "prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
     "build": "npm run copy && concurrently \"npm:build:*\"",
@@ -33,13 +34,18 @@
     "copy:conf": "shx cp -r app/conf/WebExtension/ dist/WebExtension/conf/",
     "copy:data": "shx cp -r app/WebExtension/* dist/WebExtension/",
     "postcopy": "shx cp -r node_modules/boosted/dist/{css,fonts} dist/serveur/{css,fonts,images,./*.html} docs/",
-    "prebuild:js": "shx mkdir dist/serveur/js",
+    "prebuild:js": "shx mkdir -p dist/serveur/js",
     "build:js": "terser app/conf/serveur/*.js app/js/*.js -o dist/serveur/js/toolbar.js -f \"preamble='/*\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n * $npm_package_config_description\\n * © 2014 - `date +%Y` $npm_package_config_author\\n*/'\"",
     "postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m -f comments=true",
-    "prebuild:css": "shx mkdir dist/WebExtension/css",
+    "prebuild:css": "shx mkdir -p dist/WebExtension/css",
     "build:css": "postcss app/css/*.css --dir dist/serveur/css/ --no-map",
     "postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
-    "build:html": "html-minifier-terser --file-ext html --input-dir app/ --output-dir dist/serveur --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name"
+    "build:html": "html-minifier-terser --file-ext html --input-dir app/ --output-dir dist/serveur --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
+    "watch": "concurrently --kill-others \"npm:watch:*\"",
+    "watch:html": "nodemon --watch app --ext html --exec \"npm run build:html\"",
+    "watch:css": "nodemon --watch app/css --ext css --exec \"npm run build:css\"",
+    "watch:img": "nodemon --watch app/images --watch app/WebExtension/data --ext png,gif,jpg,webp,mp4 --exec \"npm run build:html\"",
+    "watch:js": "nodemon --watch app --ext js --exec \"npm run build:js\""
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
@@ -47,6 +53,7 @@
     "concurrently": "^7.5.0",
     "cssnano": "^5.1.14",
     "html-minifier-terser": "^7.0.0",
+    "nodemon": "^2.0.20",
     "postcss": "^8.4.18",
     "postcss-banner": "^4.0.1",
     "postcss-cli": "^10.0.0",
