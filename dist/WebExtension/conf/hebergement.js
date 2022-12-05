@@ -1,6 +1,6 @@
 var hebergementFullPath='';
 var imagesPath = {
-    arrows: chrome.extension.getURL('images/arrows_60.png')
+    arrows: chrome.extension.getURL('img/arrows_60.png')
 };
 var helpPath = {
     FR:  chrome.extension.getURL('help/help_fr.html'),

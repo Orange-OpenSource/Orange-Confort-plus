@@ -18,7 +18,7 @@ This file is part of Orange Confort+ | A centralized Javascript application to e
 var hebergementDomaine = window.location.origin;
 var hebergementFullPath = hebergementDomaine + '/';
 var imagesPath = {
-    arrows: hebergementFullPath + "images/arrows_60.png"
+    arrows: hebergementFullPath + "img/arrows_60.png"
 };
 var helpPath = {
      FR: hebergementFullPath + "help/help_fr.html",
