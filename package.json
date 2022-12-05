@@ -1,63 +1,63 @@
 {
-  "name": "orange-confort-plus",
-  "description": "Enhance user experience on web sites",
-  "version": "4.1.1",
-  "homepage": "https://confort-plus.orange.com/",
-  "author": "Orange SA",
-  "config": {
-    "author": "Orange SA",
-    "description": "Enhance user experience on web sites"
-  },
-  "contributors": [
-    "Orange SA"
-  ],
-  "license": "GPL-2.0-only",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
-  },
-  "scripts": {
-    "start": "concurrently --kill-others \"npm:watch\" \"npm:browser:test\"",
-    "browser:test": "servor docs/ testpage.html 9010 --browse --reload",
-    "start:docs": "concurrently --kill-others \"npm:watch\" \"npm:browser:docs\"",
-    "browser:docs": "servor docs/ index.html 9010 --browse --reload",
-    "test": "",
-    "prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
-    "build": "npm run copy && concurrently \"npm:build:*\"",
-    "postbuild": "shx cp -r dist/serveur/{css,img,js} docs && terser dist/WebExtension/js/mask.js -o dist/WebExtension/js/mask.js -f \"preamble='/*\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n * $npm_package_config_description\\n * © 2014 - `date +%Y` $npm_package_config_author\\n*/'\"",
-    "copy": "concurrently \"npm:copy:*\"",
-    "copy:serveur": "shx cp -r src/{img,./*.txt} dist/serveur/",
-    "copy:extension": "shx cp -r src/{img,help,js} dist/WebExtension/ && shx cp -r src/WebExtension/* dist/WebExtension",
-    "copy:boosted:css": "shx cp -r node_modules/boosted/dist/css/{boosted,orange-helvetica}.min.css docs/css/",
-    "copy:boosted:fonts": "shx cp -r node_modules/boosted/dist/fonts/HelvNeue{55,75}_W1G.woff2 docs/fonts/",
-    "prebuild:js": "shx mkdir -p dist/serveur/js",
-    "build:js": "terser src/serveur/hebergement.js src/js/variables.js src/js/ToolbarStrings.js src/js/UciUserPref.js src/serveur/UciCookie.js src/js/lang-en.js src/js/lang-es.js src/js/lang-fr.js src/js/lang-pl.js src/js/UciAideMotrice.js src/js/UciCouleur.js src/js/UciApparence.js src/js/UciSettings.js src/js/UciTypographie.js src/js/UciValidation.js src/js/UciProfile.js src/js/UciIhm.js src/js/UciHelp.js src/js/mask.js src/js/toolbar.js src/serveur/start.js -o dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar.js -f \\\"preamble='/*\\\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\\\n * $npm_package_config_description\\\\n * © 2014 - `date +%Y` $npm_package_config_author\\\\n*/'\\\"",
-    "postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m -f comments=true",
-    "prebuild:css": "shx mkdir -p dist/WebExtension/css",
-    "build:css": "postcss src/css/*.css --dir dist/serveur/css/ --no-map",
-    "postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
-    "build:html": "html-minifier-terser --file-ext html --input-dir src/ --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
-    "watch": "concurrently --kill-others \"npm:watch:*\"",
-    "watch:html": "nodemon --watch src --ext html --exec \"npm run build:html\"",
-    "watch:css": "nodemon --watch src/css --ext css --exec \"npm run build:css\"",
-    "watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg,webp,mp4 --exec \"npm run build:html\"",
-    "watch:js": "nodemon --watch src --ext js --exec \"npm run build:js\""
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.13",
-    "boosted": "^5.0.2",
-    "concurrently": "^7.5.0",
-    "cssnano": "^5.1.14",
-    "html-minifier-terser": "^7.0.0",
-    "nodemon": "^2.0.20",
-    "postcss": "^8.4.18",
-    "postcss-banner": "^4.0.1",
-    "postcss-cli": "^10.0.0",
-    "servor": "^4.0.2",
-    "shx": "^0.3.4",
-    "terser": "^5.16.0"
-  }
+	"name": "orange-confort-plus",
+	"description": "Enhance user experience on web sites",
+	"version": "4.1.1",
+	"homepage": "https://confort-plus.orange.com/",
+	"author": "Orange SA",
+	"config": {
+		"author": "Orange SA",
+		"description": "Enhance user experience on web sites"
+	},
+	"contributors": [
+		"Orange SA"
+	],
+	"license": "GPL-2.0-only",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Orange-OpenSource/Orange-Confort-plus.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
+	},
+	"scripts": {
+		"start": "concurrently --kill-others \"npm:watch\" \"npm:browser:test\"",
+		"browser:test": "servor docs/ testpage.html 9010 --browse --reload",
+		"start:docs": "concurrently --kill-others \"npm:watch\" \"npm:browser:docs\"",
+		"browser:docs": "servor docs/ index.html 9010 --browse --reload",
+		"test": "",
+		"prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
+		"build": "npm run copy && concurrently \"npm:build:*\"",
+		"postbuild": "shx cp -r dist/serveur/{css,img,js} docs && terser dist/WebExtension/js/mask.js -o dist/WebExtension/js/mask.js -f \"preamble='/*\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n * $npm_package_config_description\\n * © 2014 - `date +%Y` $npm_package_config_author\\n*/'\"",
+		"copy": "concurrently \"npm:copy:*\"",
+		"copy:serveur": "shx cp -r src/{img,./*.txt} dist/serveur/",
+		"copy:extension": "shx cp -r src/{img,help,js} dist/WebExtension/ && shx cp -r src/WebExtension/* dist/WebExtension",
+		"copy:boosted:css": "shx cp -r node_modules/boosted/dist/css/{boosted,orange-helvetica}.min.css docs/css/",
+		"copy:boosted:fonts": "shx cp -r node_modules/boosted/dist/fonts/HelvNeue{55,75}_W1G.woff2 docs/fonts/",
+		"prebuild:js": "shx mkdir -p dist/serveur/js",
+		"build:js": "terser src/serveur/hebergement.js src/js/variables.js src/js/ToolbarStrings.js src/js/UciUserPref.js src/serveur/UciCookie.js src/js/lang-en.js src/js/lang-es.js src/js/lang-fr.js src/js/lang-pl.js src/js/UciAideMotrice.js src/js/UciCouleur.js src/js/UciApparence.js src/js/UciSettings.js src/js/UciTypographie.js src/js/UciValidation.js src/js/UciProfile.js src/js/UciIhm.js src/js/UciHelp.js src/js/mask.js src/js/toolbar.js src/serveur/start.js -o dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar.js -f \"preamble='/*\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n * $npm_package_config_description\\n * © 2014 - `date +%Y` $npm_package_config_author\\n*/'\"",
+		"postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m -f comments=true",
+		"prebuild:css": "shx mkdir -p dist/WebExtension/css",
+		"build:css": "postcss src/css/*.css --dir dist/serveur/css/ --no-map",
+		"postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
+		"build:html": "html-minifier-terser --file-ext html --input-dir src/ --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
+		"watch": "concurrently --kill-others \"npm:watch:*\"",
+		"watch:html": "nodemon --watch src --ext html --exec \"npm run build:html\"",
+		"watch:css": "nodemon --watch src/css --ext css --exec \"npm run build:css\"",
+		"watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg,webp,mp4 --exec \"npm run build:html\"",
+		"watch:js": "nodemon --watch src --ext js --exec \"npm run build:js\""
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.13",
+		"boosted": "^5.0.2",
+		"concurrently": "^7.5.0",
+		"cssnano": "^5.1.14",
+		"html-minifier-terser": "^7.0.0",
+		"nodemon": "^2.0.20",
+		"postcss": "^8.4.18",
+		"postcss-banner": "^4.0.1",
+		"postcss-cli": "^10.0.0",
+		"servor": "^4.0.2",
+		"shx": "^0.3.4",
+		"terser": "^5.16.0"
+	}
 }
