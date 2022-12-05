@@ -33,7 +33,7 @@
     "copy:extension": "shx cp -r app/{images,help,js} dist/WebExtension/ && shx cp app/WebExtension/js/UciSimpleStorage.js dist/WebExtension/js/",
     "copy:conf": "shx cp -r app/conf/WebExtension/ dist/WebExtension/conf/",
     "copy:data": "shx cp -r app/WebExtension/* dist/WebExtension/",
-    "postcopy": "shx cp -r node_modules/boosted/dist/{css,fonts} dist/serveur/{css,fonts,images,./*.html} docs/",
+    "postcopy": "shx cp -r node_modules/boosted/dist/{css,fonts} dist/serveur/{css,fonts,images,help,./*.html} docs/",
     "prebuild:js": "shx mkdir -p dist/serveur/js",
     "build:js": "terser app/conf/serveur/hebergement.js app/js/variables.js app/js/ToolbarStrings.js app/js/UciUserPref.js app/conf/serveur/UciCookie.js app/js/lang-en.js app/js/lang-es.js app/js/lang-fr.js app/js/lang-pl.js app/js/UciAideMotrice.js app/js/UciCouleur.js app/js/UciApparence.js app/js/UciSettings.js app/js/UciTypographie.js app/js/UciValidation.js app/js/UciProfile.js app/js/UciIhm.js app/js/UciHelp.js app/js/mask.js app/js/toolbar.js app/conf/serveur/start.js -o dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar.js -f \"preamble='/*\\n * $npm_package_name - version $npm_package_version - `date +%d-%m-%Y`\\n * $npm_package_config_description\\n * © 2014 - `date +%Y` $npm_package_config_author\\n*/'\"",
     "postbuild:js": "terser dist/serveur/js/toolbar.js -o dist/serveur/js/toolbar-min.js -c -m -f comments=true",
