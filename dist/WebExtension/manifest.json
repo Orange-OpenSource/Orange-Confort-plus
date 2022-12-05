@@ -20,7 +20,7 @@
   },
   "web_accessible_resources": [
     "css/*.css",
-    "images/*.png",
+    "img/*.png",
     "help/*.html"
   ],
   "content_scripts": [

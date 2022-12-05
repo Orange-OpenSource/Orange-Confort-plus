@@ -518,7 +518,7 @@ div#remotecontrol img {
 	text-decoration: none !important;
 }
 div#loopingBar {
-	background: url("../images/bg_menu.gif") repeat-y scroll left top #FFFFFF;
+	background: url("../img/bg_menu.gif") repeat-y scroll left top #FFFFFF;
 	border: 2px solid #000;
 	color: #000;
 	font-family: arial, helvetica, sans-serif;
