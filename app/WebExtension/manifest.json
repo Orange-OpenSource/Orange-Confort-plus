@@ -6,8 +6,8 @@
   "browser_action": {
     "default_title": "Orange Confort+",
     "default_icon": {
-      "19": "data/icon-19.png",
-      "38": "data/icon-38.png"
+      "19": "img/icon-19.png",
+      "38": "img/icon-38.png"
     }
   },
   "author": "Orange SA",
@@ -55,8 +55,8 @@
     }
   ],
   "icons": {
-    "16": "data/icon-16.png",
-    "48": "data/icon-32.png",
-    "128": "data/icon-64.png"
+    "16": "img/icon-16.png",
+    "48": "img/icon-32.png",
+    "128": "img/icon-64.png"
   }
 }

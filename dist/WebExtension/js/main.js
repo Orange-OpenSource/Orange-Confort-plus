@@ -1,13 +1,13 @@
 var tabsList = {};
 // Set CDU disable by default
 if(localStorage.getItem('isCduEnabled') === null) {
-	localStorage.setItem('isCduEnabled', false);	
+	localStorage.setItem('isCduEnabled', false);
 }
 var value = (localStorage.getItem('isCduEnabled') == 'true') ? true : false;
 updateButtonIcon(value);
 // init blacklist websites
 if(localStorage.getItem('blacklist') === null) {
-	localStorage.setItem('blacklist', []);	
+	localStorage.setItem('blacklist', []);
 }
 
 function startCDU(tab) {
@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	switch(request.message) {
 		case 'orangeconfort+userprefget' :
 			if(localStorage.getItem('UCI41') === null) {
-          // Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile   
+          // Default cookie value first bit set toolbar enable, second one set default lang, third one set to no profile
 		      localStorage.setItem('UCI41', '1|0|0');
 		    }
 		    var index = localStorage.getItem('blacklist').indexOf(request.value);
@@ -54,9 +54,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 // Update CDU button icon
 function updateButtonIcon(isEnabled) {
 	if (isEnabled === true) {
-		chrome.browserAction.setIcon({path: "data/icon-19.png"});
+		chrome.browserAction.setIcon({path: "img/icon-19.png"});
 	} else {
-		chrome.browserAction.setIcon({path: "data/icon-disabled-19.png"});
+		chrome.browserAction.setIcon({path: "img/icon-disabled-19.png"});
 	}
 }
 
