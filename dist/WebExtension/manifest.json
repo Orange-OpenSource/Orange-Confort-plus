@@ -29,15 +29,15 @@
 				"<all_urls>"
 			],
 			"js": [
-				"conf/hebergement.js",
+				"js/hebergement.js",
 				"js/variables.js",
 				"js/ToolbarStrings.js",
 				"js/UciUserPref.js",
 				"js/UciSimpleStorage.js",
-				"language/en.js",
-				"language/es.js",
-				"language/fr.js",
-				"language/pl.js",
+				"js/en.js",
+				"js/es.js",
+				"js/fr.js",
+				"js/pl.js",
 				"js/UciAideMotrice.js",
 				"js/UciCouleur.js",
 				"js/UciApparence.js",
@@ -49,7 +49,7 @@
 				"js/UciIhm.js",
 				"js/toolbar.js",
 				"js/mask.js",
-				"js/conf/start.js"
+				"js/start.js"
 			],
 			"run_at": "document_end"
 		}
