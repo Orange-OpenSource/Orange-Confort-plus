@@ -33,3 +33,6 @@ Thumbs.db
 
 # Docs
 docs/js/toolbar.js
+
+# Build
+WebExtension.zip
