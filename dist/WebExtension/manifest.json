@@ -10,6 +10,11 @@
 			"38": "img/icon-38.png"
 		}
 	},
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "confortplus@orange"
+		}
+	},
 	"author": "Orange SA",
 	"homepage_url": "https://confort-plus.orange.com",
 	"background": {
