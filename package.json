@@ -46,10 +46,11 @@
 		"watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg,webp,mp4 --exec \"npm run build:html\"",
 		"watch:js": "nodemon --watch src/js --ext js --exec \"npm run build:js\"",
 		"prezip": "npm run build",
-		"zip": "cd dist/WebExtension/ && zip -r -FS ../../WebExtension.zip *"
+		"zip": "cd dist/WebExtension/ && bestzip ../../WebExtension.zip *"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.13",
+		"bestzip": "^2.2.1",
 		"boosted": "^5.0.2",
 		"concurrently": "^7.5.0",
 		"cssnano": "^5.1.14",
