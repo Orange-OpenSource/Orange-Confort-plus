@@ -14,7 +14,7 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 ## Table of contents
 
 - [Browser extension](#browser-extension)
-- [Deploy it on your website](#deploy-it-on-your-website)
+- [Deploying Orange Confort+ on your website](#deploying-orange-confort-on-your-website)
 - [Contribute](#contribute)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Copyright and license](#copyright-and-license)
