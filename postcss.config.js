@@ -1,7 +1,8 @@
 const pkg = require('./package.json');
 const date = new Date();
 
-module.exports = {
+module.exports = ctx => ({
+	map: ctx.options.map,
 	plugins: {
 		'autoprefixer': {},
 		'cssnano': {},
@@ -12,4 +13,4 @@ ${pkg.description}
 			important: true
 		}
 	}
-}
+})
