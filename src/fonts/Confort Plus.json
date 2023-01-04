@@ -1105,11 +1105,11 @@
 			"showMetadata": true,
 			"showVersion": true,
 			"resetPoint": 127912,
-			"ie7": true,
+			"ie7": false,
 			"selector": "",
 			"classSelector": ".icon",
 			"ligaReset": "tags",
-			"noie8": false
+			"noie8": true
 		},
 		"imagePref": {
 			"prefix": "icon-",
