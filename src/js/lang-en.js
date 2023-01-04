@@ -48,7 +48,7 @@ traduction['EN'] = {
 	uci_help_jumptocontent: "Allow an automatic positioning on main page content, in particular by skipping navigation bars.",
 	uci_help_links: "This feature allows to define the appearence of links. You can choose color, and formatting parameters.",
 	uci_help_listmode: "This feature replaces site font faces with your default font faces (those defined in your browser or computeur). Moreover, the content is linearised and displayed without columns.",
-	uci_help_quickmode: "(number of \253 ignored \273 elements between two selected elements)",
+	uci_help_quickmode: "(number of \"ignored\" elements between two selected elements)",
 	uci_help_telecomande: "Adds arrows to scroll vertically on mouse hover. Also allows clickable link activation on mouse hover after a defined delay.",
 	uci_iframe_cookie: "Technical Content Orange Confort+",
 	uci_label_10par10: "9",
