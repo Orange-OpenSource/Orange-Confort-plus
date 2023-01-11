@@ -35,7 +35,7 @@
 			],
 			"js": [
 				"js/hebergement.js",
-				"js/variables.js",
+				"js/fonts.js",
 				"js/ToolbarStrings.js",
 				"js/UciUserPref.js",
 				"js/UciSimpleStorage.js",

@@ -27,3 +27,6 @@ quote_type = single
 indent_style = space
 indent_size = unset
 end_of_line = unset
+
+[*.woff2]
+end_of_line = crlf
