@@ -51,6 +51,7 @@
 		"watch:css": "nodemon --watch src/css --ext css --exec \"npm run build:css\"",
 		"watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg --exec \"npm run build:img\"",
 		"watch:js": "nodemon --watch src/js --ext js --exec \"npm run build:js\"",
+		"watch:fonts": "nodemon --watch src/fonts --ext woff2 --exec \"npm run build:fonts\"",
 		"zip": "cd dist/WebExtension/ && bestzip ../../$npm_package_name-$npm_package_version.zip *"
 	},
 	"devDependencies": {
