@@ -3676,6 +3676,7 @@ accessibilitytoolbar = {
 			}
 
 			//gestion de la police d'écriture
+			// @todo améliorer les déclarations @font-face !!!
 			userFont = localUserPref.get("a11yDyslexyFont");
 			if (userFont !== 'keepit') {
 				switch (userFont) {
@@ -3689,7 +3690,10 @@ accessibilitytoolbar = {
 						break;
 					case 'opendyslexic':
 						if (fontsPath['opendyslexicregular']) {
-							s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+							s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}"
+								+	"@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}"
+								+ "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}"
+								+	"@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
 						}
 						break;
 					case 'opensans':

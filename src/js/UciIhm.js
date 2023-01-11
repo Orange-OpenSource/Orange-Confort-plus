@@ -154,7 +154,7 @@ UciIhm = {
 														"class": "uci_menu_ouverture_aide",
 														href: helpPath[accessibilitytoolbar.strings.getLocale()],
 														title: accessibilitytoolbar.get('uci_menu_help') + " (" + accessibilitytoolbar.get('uci_new_window') + ")",
-														target: helpPathTarget
+														target: '_blank'
 													},
 														["span", {"aria-hidden": "true", "class": "cdu-icon cdu-icon-help"}],
 														["span", accessibilitytoolbar.get('uci_menu_help')]

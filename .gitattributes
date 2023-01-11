@@ -3,3 +3,4 @@
 
 # Don't diff or textually merge source maps
 *.map binary
+*.woff2 binary
