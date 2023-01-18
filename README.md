@@ -1,14 +1,27 @@
 # Orange-Confort-plus
-The target of _Orange Confort+_ functionalities is to enhance user experience on web sites, which are already accessible, or still accessible.
+_Orange Confort+_ aims to enhance user experience on websites.It works best when said websites are fully accessible.
 
-_Orange Confort+_ provides these services:
+## Features
 
-* Typography - user may change: font size, space between words, characters and lines, font-face to Open Dyslexic
-* Layout: cancel layout, text align left, numbering list items, modify navigation links appearance, display a reading mask
-* Colors : Modify foreground/background colors
-* Behavior: direct access to main content on page load, automatic selection of page clickable elements with a user defined delay, page scrolling on simple user on hover.
+* **Typography**:
+  * font size,
+  * word-spacing,
+  * letter-spacing,
+  * line-height,
+  * font-face, among Arial, [Luciole](https://www.luciole-vision.com/), [Open Sans](https://fonts.google.com/specimen/Open+Sans), [Open Dyslexic](https://opendyslexic.org/) and [Accessible DfA](https://github.com/Orange-OpenSource/font-accessible-dfa).
+* **Layout**:
+  * cancel layout,
+  * force left-aligned text,
+  * number list items,
+  * customize links appearance,
+  * display a reading mask.
+* **Colors**: modify foreground and background colors.
+* **Behavior**:
+  * direct access to main content on page load,
+  * automatic selection of page clickable elements with a user defined delay,
+  * page scrolling on simple user on hover.
 
-Be careful, _Orange Confort+_ does not improve the accessibility level of a web site: blocking points still stay blocking points, with or without _Orange Confort+_.
+Be careful, _Orange Confort+_ does not improve website accessibility: blocking points still stay blocking points, with or without _Orange Confort+_.
 
 
 ## Table of contents
@@ -25,61 +38,79 @@ Be careful, _Orange Confort+_ does not improve the accessibility level of a web 
 - [Chrome](https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp)
 
 ## Deploying _Orange Confort+_ on your website
-To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: you just need to customize the values in `dist/serveur/js/toolbar.js`and `dist/serveur/toolbar-min.js`
 
-Edit the files, and change the following variables:
- 
+To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: simply add the `dist/serveur` folder to your website. Beware of naming the folder appropriately.
+
+To initialize Confort+, call it before the `body` closing tag, using the correct path to the files (e.g. your domain and the path to the folder you uploaded Confort+ to):
+
+```html
+<script type="text/javascript" src="http://example.com/myconfortplus/js/toolbar-min.js"></script>
 ```
-var hebergementDomaine = 'https://HEBERGEMENTDOMAIN'; // Here is your website protocol and url (end without /) eg: http://myexample.com
-var hebergementFullPath = hebergementDomaine + 'YOURPATHTOSOURCEFILES'; // YOURPATHTOSOURCEFILES is the deployment path (starting en ending with a /) eg: /myconfortplus/
-```
 
-NB: Pay attention to the protocol you are using, HTTPS or HTTP.
-
-Now you're ready to deploy it, just copy all the files and folders from `dist/serveur` to your website tree in `myconfortplus` folder if you used it for YOURPATHTOSOURCEFILES value.
-
-You can call it anywhere on your website, just by adding the Javascript link, before the closing body tag, `</body>`, in your pages like this (replace `example.com` with your domain): 
-
-`<script type="text/javascript" src="http://example.com/myconfortplus/js/toolbar-min.js"></script>`
-
-NB: The user settings are saved onto your domain and are never shared with other websites, or extension. 
+**NB**: User settings are saved onto your domain and are never shared with other websites, or extension.
 
 If the button doesn't comply with your graphics charter, you can create a link that will trigger Confort plus.
-To do so, just include those scripts along with the aforementionned: 
+To do so, just include those scripts along with the aforementioned:
 
-```
-`<script type="text/javascript">
-accessibilitytoolbar_custom = {
-// MANDATORY : ID of the target container which will include the link. If not null, activate the display in link mode. The link will be added as the last element of the target container. idLinkModeContainer : "id_target_container",
+```html
+<script type="text/javascript">
+	accessibilitytoolbar_custom = {
+		// MANDATORY
+		// ID of the target container which will include the link. If not null, activate the display in link mode. The link will be added as the last element of the target container.
+		idLinkModeContainer : "id_target_container",
 
-// OPTIONAL (put it as comments if useless) CSS class applied on the link to unify its appearance with the site.
-cssLinkModeClassName : "linkClass",
- 
-// OPTIONAL (put it as comments if useless) When the service is displayed as a link in the page, a skip link is automatically added at the top of the page. If you already have a group of skip links, you can specify the target container where the skip link will be added. The link will be added as the last element of the target container. 
-//idSkipLinkIdLinkMode : "", 
+		// OPTIONAL
+		// CSS class applied on the link to unify its appearance with the site.
+		cssLinkModeClassName : "linkClass",
 
-// OPTIONAL (put it as comments if useless) CSS class applied on the skip link
-//cssSkipLinkClassName : "" 
-};
-</script>`
+		// OPTIONAL
+		// When the service is displayed as a link in the page, a skip link is automatically added at the top of the page. If you already have a group of skip links, you can specify the target container where the skip link will be added. The link will be added as the last element of the target container.
+		idSkipLinkIdLinkMode : "",
+
+		// OPTIONAL
+		// CSS class applied on the skip link
+		cssSkipLinkClassName : ""
+	};
+</script>
 ```
 
 ## Contribute
 
-Clone the repo: `git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git`, then run:
+### Clone
 
+```shell
+git clone https://github.com/Orange-OpenSource/Orange-Confort-plus.git
+```
+
+### Install dependencies
 ```shell
 npm ci
 ```
 
-Watch it locally : 
+### Start local server
+```shell
+npm start
+```
+
+It should build all the things and open your browser to `http://localhost:9010`.
+
+You're ready to update files in `/src`: any changes will trigger a build and reload your browser.
+
+For mor specific needs, take a look at existing scripts in our `package.json`.
+
+### Work on Confort+ website
+
+If you need to work on Confort+ very own website, there's a specific script:
 
 ```shell
-npm run grunt serve
+npm run start:docs
 ```
-Go to [localhost:9010](http://localhost:9010/testpage.html).
 
-Now you're ready to update all files in `/app` and they will automatically reload after update.
+### Modify Confort+ icon-font
+
+A custom icon-font is used in Confort+ toolbar. If you need to modify it, you're encouraged to use [IcoMoon app](https://icomoon.io/app/) and import [existing IcoMoon settings](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/main/src/fonts/Confort%20Plus.json).
+
+You can find a detailed workflow in [Boosted v4.6 documentation for icons](https://boosted.orange.com/docs/4.6/extend/icons/).
 
 ## Bugs and feature requests
 
@@ -87,7 +118,7 @@ Have a bug or a feature request? Please first check the [issues](https://github.
 
 ## Copyright and license
 
-Code copyright 2014 - 2019 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
+Code copyright 2014 - 2023 Orange. Code released under [the GPLV2 license](https://github.com/Orange-OpenSource/Orange-Confort-plus/blob/master/LICENSE).
 
 ### Third party assets
 
