@@ -3705,11 +3705,10 @@ accessibilitytoolbar = {
 						}
 						break;
 					case 'accessibledfa':
-						if (fontsPath['accessibledfa']) {
-							s += "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: normal;font-weight: normal;}"
-								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-style: italic;font-weight: normal;}"
-								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: normal;}"
-								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfa'] + ";font-weight: bold;font-style: italic;} ";
+						if (fontsPath['accessibledfaregular']) {
+							s += "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfaregular'] + ";font-style: normal;font-weight: normal;}"
+								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfaitalic'] + ";font-style: italic;font-weight: normal;}"
+								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfabold'] + ";font-weight: bold;font-style: normal;}"
 						}
 						break;
 				}

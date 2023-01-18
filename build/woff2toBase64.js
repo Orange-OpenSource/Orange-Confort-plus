@@ -33,8 +33,7 @@ const files = [
 let encodedFonts = {};
 
 function encodeFont(file) {
-	const font = fs.readFileSync(file, 'utf8');
-	const encodedFont = new Buffer.from(font).toString('base64');
+	const encodedFont = fs.readFileSync(file, 'base64');
 	let fontIdentifier;
 
 	if (file.includes('orangeconfortplus')) {
@@ -59,6 +58,4 @@ files.forEach(file => {
 	Object.assign(encodedFonts, embeddableFont);
 })
 
-// @todo Rename this to encodedFonts or something
-// @note Maybe make it a dist file only?
 fs.writeFileSync('src/js/fonts.js', `const fontsPath = ${JSON.stringify(encodedFonts)}`);
