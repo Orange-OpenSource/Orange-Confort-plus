@@ -9,26 +9,11 @@
 
 const fs = require('node:fs')
 const path = require('node:path')
+const globby = require('globby')
 
-// @todo Try to get those dynamically: ./src/fonts/**/*.woff2 ?
-const files = [
-	'src/fonts/orangeconfortplus.woff2',
-	'src/fonts/accessibleDFA/AccessibleDfA-Bold.woff2',
-	'src/fonts/accessibleDFA/AccessibleDfA-Italic.woff2',
-	'src/fonts/accessibleDFA/AccessibleDfA-Regular.woff2',
-	'src/fonts/luciole/Luciole-Regular.woff2',
-	'src/fonts/luciole/Luciole-Regular-Italic.woff2',
-	'src/fonts/luciole/Luciole-Bold.woff2',
-	'src/fonts/luciole/Luciole-Bold-Italic.woff2',
-	'src/fonts/open-dyslexic/OpenDyslexic-Bold.woff2',
-	'src/fonts/open-dyslexic/OpenDyslexic-BoldItalic.woff2',
-	'src/fonts/open-dyslexic/OpenDyslexic-Italic.woff2',
-	'src/fonts/open-dyslexic/OpenDyslexic-Regular.woff2',
-	'src/fonts/open-sans/OpenSans-Regular.woff2',
-	'src/fonts/open-sans/OpenSans-Italic.woff2',
-	'src/fonts/open-sans/OpenSans-Bold.woff2',
-	'src/fonts/open-sans/OpenSans-BoldItalic.woff2'
-]
+
+const fontsPath = path.resolve(__dirname, '../src/fonts/').replace(/\\/g, '/')
+const fontsFiles = globby.sync(`${fontsPath}/**/*.woff2`)
 
 let encodedFonts = {};
 
@@ -53,7 +38,7 @@ function encodeFont(file) {
 	}
 }
 
-files.forEach(file => {
+fontsFiles.forEach(file => {
 	const embeddableFont = encodeFont(file);
 	Object.assign(encodedFonts, embeddableFont);
 })

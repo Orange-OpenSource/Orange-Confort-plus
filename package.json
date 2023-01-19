@@ -60,6 +60,7 @@
 		"boosted": "^5.0.2",
 		"concurrently": "^7.5.0",
 		"cssnano": "^5.1.14",
+		"globby": "^11.1.0",
 		"html-minifier-terser": "^7.0.0",
 		"imagemin-cli": "^7.0.0",
 		"imagemin-gifsicle": "^7.0.0",
