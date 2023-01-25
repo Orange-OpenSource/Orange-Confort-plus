@@ -54,9 +54,11 @@
 		"watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg --exec \"npm run build:img\"",
 		"watch:js": "nodemon --watch src/js --ext js --exec \"npm run build:js\"",
 		"watch:fonts": "nodemon --watch src/fonts --ext woff2 --exec \"npm run build:fonts\"",
-		"zip": "cd dist/WebExtension/ && bestzip ../../$npm_package_name-$npm_package_version.zip *"
+		"zip": "cd dist/WebExtension/ && bestzip ../../$npm_package_name-$npm_package_version.zip *",
+		"lint:ext": "addons-linter dist/WebExtension/ --min-manifest-version=3 --max-manifest-version=3 --enable-background-service-worker=true"
 	},
 	"devDependencies": {
+		"addons-linter": "^5.27.0",
 		"autoprefixer": "^10.4.13",
 		"bestzip": "^2.2.1",
 		"boosted": "^5.0.2",
