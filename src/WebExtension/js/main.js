@@ -1,4 +1,16 @@
 chrome.runtime.onInstalled.addListener(() => {
+	// Reload content scripts
+	const scripts = chrome.runtime.getManifest().content_scripts;
+	for (const script of scripts) {
+		chrome.tabs.query({url: script.matches}).then(tabs => {
+			for (const tab of tabs) {
+				chrome.scripting.executeScript({
+					target: {tabId: tab.id},
+					files: script.js,
+				});
+			}
+		});
+	}
 	// Set CDU disable by default
 	chrome.storage.local.get('isCduEnabled').then(result => {
 		if (result.isCduEnabled === undefined) {
@@ -92,7 +104,7 @@ chrome.action.onClicked.addListener(tab => {
 		chrome.storage.local.set({'isCduEnabled': !currentState});
 		updateButtonIcon(!currentState);
 		if (!currentState) {
-			chrome.tabs.query({"status": "complete"}).then(tabs => {
+			chrome.tabs.query({ active: true, lastFocusedWindow: true }).then(tabs => {
 				for (let i = 0; i < tabs.length; i++) {
 					const tab = tabs[i];
 					chrome.storage.local.get('isCduEnabled').then(result => {
@@ -107,7 +119,7 @@ chrome.action.onClicked.addListener(tab => {
 				}
 			});
 		} else {
-			chrome.tabs.query({"status": "complete"}).then(tabs => {
+			chrome.tabs.query({ active: true, lastFocusedWindow: true }).then(tabs => {
 				for (var i = 0; i < tabs.length; i++) {
 					chrome.tabs.sendMessage(tabs[i].id, {message: 'orangeconfort+closecdu'});
 				}
