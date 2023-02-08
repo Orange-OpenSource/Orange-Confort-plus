@@ -1,0 +1,84 @@
+{
+	"manifest_version": 3,
+	"name": "Orange Confort+",
+	"description": "Orange Confort+",
+	"version": "1.2.1.2",
+	"author": "Orange SA",
+	"homepage_url": "https://confort-plus.orange.com",
+	"background": {
+		"scripts": ["js/main.js"]
+	},
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "confortplus@orange.com"
+		}
+	},
+	"action": {
+		"default_title": "Orange Confort+",
+		"default_icon": {
+			"19": "img/icon-19.png",
+			"38": "img/icon-38.png"
+		}
+	},
+	"permissions": [
+		"tabs",
+		"storage",
+		"scripting"
+	],
+	"host_permissions": [
+		"<all_urls>"
+	],
+	"minimum_chrome_version": "93",
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"css/*.css",
+				"img/*.png",
+				"help/*.html"
+			],
+			"matches": [
+				"<all_urls>"
+			]
+		}
+	],
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"js/hebergement.js",
+				"js/variables.js",
+				"js/ToolbarStrings.js",
+				"js/UciUserPref.js",
+				"js/UciSimpleStorage.js",
+				"js/lang-en.js",
+				"js/lang-es.js",
+				"js/lang-fr.js",
+				"js/lang-pl.js",
+				"js/UciAideMotrice.js",
+				"js/UciCouleur.js",
+				"js/UciApparence.js",
+				"js/UciSettings.js",
+				"js/UciTypographie.js",
+				"js/UciHelp.js",
+				"js/UciProfile.js",
+				"js/UciValidation.js",
+				"js/UciIhm.js",
+				"js/toolbar.js",
+				"js/mask.js",
+				"js/start.js"
+			],
+			"run_at": "document_end"
+		}
+	],
+	"icons": {
+		"16": "img/icon-16.png",
+		"19": "img/icon-19.png",
+		"32": "img/icon-32.png",
+		"38": "img/icon-38.png",
+		"48": "img/icon-48.png",
+		"64": "img/icon-64.png",
+		"128": "img/icon-128.png"
+	}
+}
