@@ -1,25 +1,30 @@
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(({ reason }) => {
 	// Reload content scripts
-	const scripts = chrome.runtime.getManifest().content_scripts;
-	for (const script of scripts) {
-		chrome.tabs.query({url: script.matches}).then(tabs => {
-			for (const tab of tabs) {
-				if (['edge://', 'chrome://'].some(browser => tab.url?.startsWith(browser))) return undefined;
-				chrome.scripting.executeScript({
-					target: {tabId: tab.id},
-					files: script.js,
-				});
-			}
-		});
+	if (reason === chrome.runtime.OnInstalledReason.UPDATE) {
+		const scripts = chrome.runtime.getManifest().content_scripts;
+		for (const script of scripts) {
+			chrome.tabs.query({url: script.matches}).then(tabs => {
+				for (const tab of tabs) {
+					if (!['edge://', 'chrome://'].some(browser => tab.url?.startsWith(browser))) {
+						chrome.scripting.executeScript({
+							target: {tabId: tab.id},
+							files: script.js,
+						});
+					}
+				}
+			});
+		}
 	}
 	// Set CDU disable by default
 	chrome.storage.local.get('isCduEnabled').then(result => {
 		if (result.isCduEnabled === undefined) {
 			chrome.storage.local.set({'isCduEnabled': false});
+			updateButtonIcon(false);
+		} else {
+			updateButtonIcon(result.isCduEnabled);
 		}
-		updateButtonIcon(result.isCduEnabled);
 	})
-	// init blacklist websites
+	// Setup websites blacklist
 	chrome.storage.local.get('blacklist').then(result => {
 		if (result.blacklist === undefined) {
 			chrome.storage.local.set({'blacklist': []});
