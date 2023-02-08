@@ -3,6 +3,11 @@
 	"name": "Orange Confort+",
 	"description": "Orange Confort+",
 	"version": "1.2.1.2",
+	"author": "Orange SA",
+	"homepage_url": "https://confort-plus.orange.com",
+	"background": {
+		"service_worker": "js/main.js"
+	},
 	"action": {
 		"default_title": "Orange Confort+",
 		"default_icon": {
@@ -10,13 +15,13 @@
 			"38": "img/icon-38.png"
 		}
 	},
-	"author": "Orange SA",
-	"homepage_url": "https://confort-plus.orange.com",
-	"background": {
-		"service_worker": "js/main.js"
-	},
 	"permissions": [
-		"storage"
+		"tabs",
+		"storage",
+		"scripting"
+	],
+	"host_permissions": [
+		"<all_urls>"
 	],
 	"minimum_chrome_version": "93",
 	"web_accessible_resources": [

@@ -4,6 +4,7 @@ chrome.runtime.onInstalled.addListener(() => {
 	for (const script of scripts) {
 		chrome.tabs.query({url: script.matches}).then(tabs => {
 			for (const tab of tabs) {
+				if (['edge://', 'chrome://'].some(browser => tab.url?.startsWith(browser))) return undefined;
 				chrome.scripting.executeScript({
 					target: {tabId: tab.id},
 					files: script.js,
@@ -104,7 +105,7 @@ chrome.action.onClicked.addListener(tab => {
 		chrome.storage.local.set({'isCduEnabled': !currentState});
 		updateButtonIcon(!currentState);
 		if (!currentState) {
-			chrome.tabs.query({ active: true, lastFocusedWindow: true }).then(tabs => {
+			chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
 				for (let i = 0; i < tabs.length; i++) {
 					const tab = tabs[i];
 					chrome.storage.local.get('isCduEnabled').then(result => {
@@ -119,7 +120,7 @@ chrome.action.onClicked.addListener(tab => {
 				}
 			});
 		} else {
-			chrome.tabs.query({ active: true, lastFocusedWindow: true }).then(tabs => {
+			chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
 				for (var i = 0; i < tabs.length; i++) {
 					chrome.tabs.sendMessage(tabs[i].id, {message: 'orangeconfort+closecdu'});
 				}

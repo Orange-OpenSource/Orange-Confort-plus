@@ -31,7 +31,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	switch (request.message) {
 		case 'orangeconfort+closecdu':
 			if (!document.getElementById("uci-onoffswitch")) {
-				accessibilitytoolbar.userPref.setStoredValue();
+				if (accessibilitytoolbar.userPref) {
+					accessibilitytoolbar.userPref.setStoredValue();
+				}
 				accessibilitytoolbar.reloadToolbar();
 				accessibilitytoolbar.close();
 			}
@@ -42,7 +44,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 			}
 			break;
 		case 'orangeconfort+userprefgetresponse':
-			if (!document.getElementById("uci-onoffswitch")) {
+			if (!document.getElementById("uci-onoffswitch") && accessibilitytoolbar.userPref) {
 				accessibilitytoolbar.userPref.decodeUsageConfort(request.value);
 			}
 			break;
