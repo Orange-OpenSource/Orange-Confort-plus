@@ -19,6 +19,8 @@
 	"bugs": {
 		"url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
 	},
+	"type": "module",
+	"node": ">=14.16",
 	"scripts": {
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:browser:test\"",
 		"browser:test": "servor docs/ testpage.html 9010 --browse --reload",
