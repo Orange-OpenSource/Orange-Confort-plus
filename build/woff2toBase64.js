@@ -1,18 +1,12 @@
-#!/usr/bin/env node
-
 /*!
  * Script to convert woff2 font files to base64
  * and inline them as JavaScript variables
  */
 
 import * as fs from 'node:fs';
-import * as path from 'node:path';
 import { globbySync }  from 'globby';
 
-
-const fontsPath = path.resolve('../src/fonts/').replace(/\\/g, '/')
-const fontsFiles = globbySync(`${fontsPath}/**/*.woff2`)
-
+const fontsFiles = globbySync(`src/fonts/**/*.{woff,woff2}`)
 let encodedFonts = {};
 
 function encodeFont(file) {
