@@ -5,15 +5,13 @@
  * and inline them as JavaScript variables
  */
 
-'use strict'
-
-const fs = require('node:fs')
-const path = require('node:path')
-const globby = require('globby')
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { globbySync }  from 'globby';
 
 
-const fontsPath = path.resolve(__dirname, '../src/fonts/').replace(/\\/g, '/')
-const fontsFiles = globby.sync(`${fontsPath}/**/*.woff2`)
+const fontsPath = path.resolve('../src/fonts/').replace(/\\/g, '/')
+const fontsFiles = globbySync(`${fontsPath}/**/*.woff2`)
 
 let encodedFonts = {};
 

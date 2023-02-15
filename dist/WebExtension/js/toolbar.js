@@ -3682,33 +3682,33 @@ accessibilitytoolbar = {
 				switch (userFont) {
 					case 'luciole':
 						if (fontsPath['lucioleregular']) {
-							s += "@font-face{font-family: \"luciole\";src: " + fontsPath['lucioleregular'] + ";font-style: normal;font-weight: normal;}"
-								+ "@font-face{font-family: \"luciole\";src: " + fontsPath['lucioleitalic'] + ";font-style: italic;font-weight: normal;}"
-								+ "@font-face{font-family: \"luciole\";src: " + fontsPath['luciolebold'] + ";font-weight: bold;font-style: normal;}"
-								+ "@font-face{font-family: \"luciole\";src: " + fontsPath['luciolebolditalic'] + ";font-weight: bold;font-style: italic;} ";
+							s += "@font-face{font-family: \"luciole\";src: " + fontsPath['lucioleregular'] + ";font-style: normal;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"luciole\";src: " + fontsPath['lucioleitalic'] + ";font-style: italic;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"luciole\";src: " + fontsPath['luciolebold'] + ";font-weight: bold;font-style: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"luciole\";src: " + fontsPath['luciolebolditalic'] + ";font-weight: bold;font-style: italic;font-display: swap;} ";
 						}
 						break;
 					case 'opendyslexic':
 						if (fontsPath['opendyslexicregular']) {
-							s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;}"
-								+	"@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;}"
-								+ "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;}"
-								+	"@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+							s += "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicregular'] + ";font-style: normal;font-weight: normal;font-display: swap;}"
+								+	"@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicitalic'] + ";font-style: italic;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbold'] + ";font-weight: bold;font-style: normal;font-display: swap;}"
+								+	"@font-face{font-family: \"opendyslexic\";src: " + fontsPath['opendyslexicbolditalic'] + ";font-weight: bold;font-style: italic;font-display: swap;} ";
 						}
 						break;
 					case 'opensans':
 						if (fontsPath['opensansregular']) {
-							s += "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansregular'] + ";font-style: normal;font-weight: normal;}"
-								+ "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansitalic'] + ";font-style: italic;font-weight: normal;}"
-								+ "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbold'] + ";font-weight: bold;font-style: normal;}"
-								+ "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbolditalic'] + ";font-weight: bold;font-style: italic;} ";
+							s += "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansregular'] + ";font-style: normal;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansitalic'] + ";font-style: italic;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbold'] + ";font-weight: bold;font-style: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"opensans\";src: " + fontsPath['opensansbolditalic'] + ";font-weight: bold;font-style: italic;font-display: swap;} ";
 						}
 						break;
 					case 'accessibledfa':
 						if (fontsPath['accessibledfaregular']) {
-							s += "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfaregular'] + ";font-style: normal;font-weight: normal;}"
-								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfaitalic'] + ";font-style: italic;font-weight: normal;}"
-								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfabold'] + ";font-weight: bold;font-style: normal;}"
+							s += "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfaregular'] + ";font-style: normal;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfaitalic'] + ";font-style: italic;font-weight: normal;font-display: swap;}"
+								+ "@font-face{font-family: \"accessibledfa\";src: " + fontsPath['accessibledfabold'] + ";font-weight: bold;font-style: normal;font-display: swap;}"
 						}
 						break;
 				}
