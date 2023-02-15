@@ -33,7 +33,7 @@
 		"preversion": "npm run zip",
 		"copy": "concurrently \"npm:copy:*\"",
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/",
-		"copy:extension": "shx cp -r src/{help,js} dist/WebExtension/ && shx cp -r src/WebExtension/{manifest.json,js} dist/WebExtension",
+		"copy:extension": "shx cp -r src/{help,js} dist/WebExtension/ && shx cp -r src/WebExtension/js dist/WebExtension && shx cp -r src/WebExtension/manifest.*.json dist/",
 		"copy:boosted:css": "shx cp -r node_modules/boosted/dist/css/{boosted,orange-helvetica}.min.css docs/css/",
 		"copy:boosted:fonts": "shx cp -r node_modules/boosted/dist/fonts/HelvNeue{55,75}_W1G.woff2 docs/fonts/",
 		"prebuild:js": "shx mkdir -p dist/serveur/js",
@@ -54,8 +54,13 @@
 		"watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg --exec \"npm run build:img\"",
 		"watch:js": "nodemon --watch src/js --ext js --exec \"npm run build:js\"",
 		"watch:fonts": "nodemon --watch src/fonts --ext woff2 --exec \"npm run build:fonts\"",
-		"zip": "cd dist/WebExtension/ && bestzip ../../$npm_package_name-$npm_package_version.zip *",
-		"lint:ext": "addons-linter dist/WebExtension/ --min-manifest-version=3 --max-manifest-version=3 --enable-background-service-worker=true"
+		"prezip": "shx rm -rf $npm_package_name-$npm_package_version-*.zip",
+		"zip": "npm run zip:firefox && npm run zip:chrome",
+		"prezip:firefox": "shx cp dist/manifest.firefox.json dist/WebExtension/manifest.json",
+		"zip:firefox": "cd dist/WebExtension && bestzip ../../$npm_package_name-$npm_package_version-firefox.zip *",
+		"prezip:chrome": "shx cp dist/manifest.chrome.json dist/WebExtension/manifest.json",
+		"zip:chrome": "cd dist/WebExtension && bestzip ../../$npm_package_name-$npm_package_version-chrome.zip *",
+		"lint:ext": "addons-linter $npm_package_name-$npm_package_version-firefox.zip --min-manifest-version=3 --max-manifest-version=3 --enable-background-service-worker=true"
 	},
 	"devDependencies": {
 		"addons-linter": "^5.27.0",

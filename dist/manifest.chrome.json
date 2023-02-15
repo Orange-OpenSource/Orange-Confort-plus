@@ -5,13 +5,9 @@
 	"version": "1.2.1.2",
 	"author": "Orange SA",
 	"homepage_url": "https://confort-plus.orange.com",
+	"minimum_chrome_version": "93",
 	"background": {
-		"scripts": ["js/main.js"]
-	},
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "confortplus@orange.com"
-		}
+		"service_worker": "js/main.js"
 	},
 	"action": {
 		"default_title": "Orange Confort+",
@@ -21,7 +17,6 @@
 		}
 	},
 	"permissions": [
-		"activeTab",
 		"tabs",
 		"storage",
 		"scripting"
@@ -29,7 +24,6 @@
 	"host_permissions": [
 		"<all_urls>"
 	],
-	"minimum_chrome_version": "93",
 	"web_accessible_resources": [
 		{
 			"resources": [
@@ -49,7 +43,7 @@
 			],
 			"js": [
 				"js/hebergement.js",
-				"js/variables.js",
+				"js/fonts.js",
 				"js/ToolbarStrings.js",
 				"js/UciUserPref.js",
 				"js/UciSimpleStorage.js",

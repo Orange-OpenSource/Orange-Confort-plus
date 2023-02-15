@@ -37,3 +37,4 @@ docs/js/toolbar.js.map
 
 # Build
 orange-confort-plus-*.*.*.zip
+dist/WebExtension/manifest.json
