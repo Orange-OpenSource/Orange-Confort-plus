@@ -60,10 +60,10 @@
 		"zip:firefox": "cd dist/WebExtension && bestzip ../../$npm_package_name-$npm_package_version-firefox.zip *",
 		"prezip:chrome": "shx cp dist/manifest.chrome.json dist/WebExtension/manifest.json",
 		"zip:chrome": "cd dist/WebExtension && bestzip ../../$npm_package_name-$npm_package_version-chrome.zip *",
-		"lint:ext": "addons-linter $npm_package_name-$npm_package_version-firefox.zip --min-manifest-version=3 --max-manifest-version=3 --enable-background-service-worker=true"
+		"lint:ext": "web-ext lint --source-dir $npm_package_name-$npm_package_version-firefox.zip",
+		"start:firefox": "web-ext run --source-dir ./dist/WebExtension --browser-console"
 	},
 	"devDependencies": {
-		"addons-linter": "^5.27.0",
 		"autoprefixer": "^10.4.13",
 		"bestzip": "^2.2.1",
 		"boosted": "^5.0.2",
@@ -83,6 +83,7 @@
 		"postcss-cli": "^10.0.0",
 		"servor": "^4.0.2",
 		"shx": "^0.3.4",
-		"terser": "^5.16.0"
+		"terser": "^5.16.0",
+		"web-ext": "^7.5.0"
 	}
 }
