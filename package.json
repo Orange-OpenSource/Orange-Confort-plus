@@ -6,7 +6,8 @@
 	"author": "Orange SA",
 	"config": {
 		"author": "Orange SA",
-		"description": "Enhance user experience on web sites"
+		"description": "Enhance user experience on web sites",
+		"page": "https://www.orange.com/"
 	},
 	"contributors": [
 		"Orange SA"
@@ -54,13 +55,18 @@
 		"watch:img": "nodemon --watch src/img --watch src/WebExtension/img --ext png,gif,jpg --exec \"npm run build:img\"",
 		"watch:js": "nodemon --watch src/js --ext js --exec \"npm run build:js\"",
 		"watch:fonts": "nodemon --watch src/fonts --ext woff2 --exec \"npm run build:fonts\"",
+		"move:manifest:firefox": "shx cp dist/manifest.firefox.json dist/WebExtension/manifest.json",
+		"move:manifest:chrome": "shx cp dist/manifest.chrome.json dist/WebExtension/manifest.json",
 		"zip": "npm run zip:firefox && npm run zip:chrome",
-		"prezip:firefox": "shx cp dist/manifest.firefox.json dist/WebExtension/manifest.json",
+		"prezip:firefox": "npm run move:manifest:firefox",
 		"zip:firefox": "web-ext build -s dist/WebExtension -a ./ -n $npm_package_name-$npm_package_version-firefox.zip -o",
-		"prezip:chrome": "shx cp dist/manifest.chrome.json dist/WebExtension/manifest.json",
+		"prezip:chrome": "npm run move:manifest:chrome",
 		"zip:chrome": "web-ext build -s dist/WebExtension -a ./ -n $npm_package_name-$npm_package_version-chrome.zip -o",
 		"lint:ext": "web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
-		"start:firefox": "web-ext run --source-dir ./dist/WebExtension --browser-console"
+		"preload:firefox": "npm run move:manifest:firefox",
+		"load:firefox": "web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --firefox-preview mv3 --browser-console",
+		"preload:chrome": "npm run move:manifest:chrome",
+		"load:chrome": "web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --target chromium --devtools"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.13",
