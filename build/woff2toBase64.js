@@ -24,7 +24,6 @@ function encodeFont(file) {
 			.replace('-', '');
 	}
 
-	// @note Headers could be application/font-woff2;charset=utf-8;
 	return {
 		[fontIdentifier]: `url('data:font/woff2;base64,${encodedFont}') format('woff2')`
 	}
