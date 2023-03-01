@@ -1,20 +1,4 @@
-chrome.runtime.onInstalled.addListener(({ reason }) => {
-	// Reload content scripts
-	if (reason === chrome.runtime.OnInstalledReason.UPDATE) {
-		const scripts = chrome.runtime.getManifest().content_scripts;
-		for (const script of scripts) {
-			chrome.tabs.query({url: script.matches}).then(tabs => {
-				for (const tab of tabs) {
-					if (!['edge://', 'chrome://'].some(browser => tab.url?.startsWith(browser))) {
-						chrome.scripting.executeScript({
-							target: {tabId: tab.id},
-							files: script.js,
-						});
-					}
-				}
-			});
-		}
-	}
+chrome.runtime.onInstalled.addListener(() => {
 	// Set CDU disable by default
 	chrome.storage.local.get('isCduEnabled').then(result => {
 		if (result.isCduEnabled === undefined) {
@@ -104,18 +88,26 @@ function updateButtonIcon(isEnabled) {
 }
 
 // CDU button click event
-chrome.action.onClicked.addListener(tab => {
+chrome.action.onClicked.addListener(() => {
 	chrome.storage.local.get('isCduEnabled').then(result => {
+		// @note This is global
 		const currentState = result.isCduEnabled;
+		// @note Reversing the value
 		chrome.storage.local.set({'isCduEnabled': !currentState});
 		updateButtonIcon(!currentState);
 		if (!currentState) {
 			chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
 				for (let i = 0; i < tabs.length; i++) {
+					// @note But suddenly we loop on each tab
 					const tab = tabs[i];
 					chrome.storage.local.get('isCduEnabled').then(result => {
+						// @note Then we're getting the value we reversed above
+						// @note So we already have it, don't we?
+						// @note Then even the condition shouldn't exist
 						if (result.isCduEnabled) {
+							// Then we send message for each tab, but content script weren't loaded on each tab!
 							chrome.tabs.sendMessage(tab.id, {message: "orangeconfort+doyouexist"}).then(response => {
+								// @note So we don't have response but an error: "Receiving end does not exist".
 								if (response) {
 									chrome.tabs.sendMessage(tab.id, {message: 'orangeconfort+loadcdu'});
 								}
@@ -126,6 +118,7 @@ chrome.action.onClicked.addListener(tab => {
 			});
 		} else {
 			chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
+				// @note Closing CDU on all tabs?
 				for (var i = 0; i < tabs.length; i++) {
 					chrome.tabs.sendMessage(tabs[i].id, {message: 'orangeconfort+closecdu'});
 				}
