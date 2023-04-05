@@ -1,19 +1,24 @@
 chrome.runtime.onInstalled.addListener(() => {
-	// Set CDU disable by default
-	chrome.storage.local.get('isCduEnabled').then(result => {
-		if (result.isCduEnabled === undefined) {
-			chrome.storage.local.set({'isCduEnabled': false});
-			updateButtonIcon(false);
-		} else {
-			updateButtonIcon(result.isCduEnabled);
-		}
-	})
-	// Setup websites blacklist
-	chrome.storage.local.get('blacklist').then(result => {
-		if (result.blacklist === undefined) {
-			chrome.storage.local.set({'blacklist': []});
-		}
-	})
+	chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
+		const currentTabId = tabs[0].id;
+
+		// Set CDU disable by default
+		chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
+			console.log(result[`isCduEnabled-${currentTabId}`]);
+			if (result[`isCduEnabled-${currentTabId}`] === undefined) {
+				chrome.storage.local.set({[`isCduEnabled-${currentTabId}`]: false});
+				updateButtonIcon(false, currentTabId);
+			} else {
+				updateButtonIcon(result[`isCduEnabled-${currentTabId}`], currentTabId);
+			}
+		});
+		// Setup websites blacklist
+		chrome.storage.local.get('blacklist').then(result => {
+			if (result.blacklist === undefined) {
+				chrome.storage.local.set({'blacklist': []});
+			}
+		});
+	});
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -48,9 +53,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 				}
 				break;
 			case 'orangeconfort+getIsCduEnabled':
-				chrome.storage.local.get('isCduEnabled').then(result => {
-					sendResponse({value: result.isCduEnabled});
-				})
+				chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
+					const currentTabId = tabs[0].id;
+					chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
+						sendResponse({value: result[`isCduEnabled-${currentTabId}`]});
+					});
+				});
 				break;
 			default:
 				break;
@@ -59,9 +67,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 // Update CDU button icon
-function updateButtonIcon(isEnabled) {
+function updateButtonIcon(isEnabled, tabId) {
 	if (isEnabled) {
 		chrome.action.setIcon({
+			tabId: tabId,
 			path: {
 				"16": "../img/icon-16.png",
 				"19": "../img/icon-19.png",
@@ -74,6 +83,7 @@ function updateButtonIcon(isEnabled) {
 		});
 	} else {
 		chrome.action.setIcon({
+			tabId: tabId,
 			path: {
 				"16": "../img/icon-disabled-16.png",
 				"19": "../img/icon-disabled-19.png",
@@ -89,40 +99,26 @@ function updateButtonIcon(isEnabled) {
 
 // CDU button click event
 chrome.action.onClicked.addListener(() => {
-	chrome.storage.local.get('isCduEnabled').then(result => {
-		// @note This is global
-		const currentState = result.isCduEnabled;
-		// @note Reversing the value
-		chrome.storage.local.set({'isCduEnabled': !currentState});
-		updateButtonIcon(!currentState);
-		if (!currentState) {
-			chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
-				for (let i = 0; i < tabs.length; i++) {
-					// @note But suddenly we loop on each tab
-					const tab = tabs[i];
-					chrome.storage.local.get('isCduEnabled').then(result => {
-						// @note Then we're getting the value we reversed above
-						// @note So we already have it, don't we?
-						// @note Then even the condition shouldn't exist
-						if (result.isCduEnabled) {
-							// Then we send message for each tab, but content script weren't loaded on each tab!
-							chrome.tabs.sendMessage(tab.id, {message: "orangeconfort+doyouexist"}).then(response => {
-								// @note So we don't have response but an error: "Receiving end does not exist".
-								if (response) {
-									chrome.tabs.sendMessage(tab.id, {message: 'orangeconfort+loadcdu'});
-								}
-							});
-						}
-					});
-				}
-			});
-		} else {
-			chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
-				// @note Closing CDU on all tabs?
-				for (var i = 0; i < tabs.length; i++) {
-					chrome.tabs.sendMessage(tabs[i].id, {message: 'orangeconfort+closecdu'});
-				}
-			});
-		}
+	chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
+		const currentTabId = tabs[0].id;
+		chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
+			const currentState = result[`isCduEnabled-${currentTabId}`];
+			chrome.storage.local.set({[`isCduEnabled-${currentTabId}`]: !currentState});
+			updateButtonIcon(!currentState, currentTabId);
+			if (!currentState) {
+				chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
+					console.log(result[`isCduEnabled-${currentTabId}`])
+					if (result[`isCduEnabled-${currentTabId}`]) {
+						chrome.tabs.sendMessage(currentTabId, {message: "orangeconfort+doyouexist"}).then(response => {
+							if (response.message === 'yes') {
+								chrome.tabs.sendMessage(currentTabId, {message: 'orangeconfort+loadcdu'});
+							}
+						});
+					}
+				});
+			} else {
+				chrome.tabs.sendMessage(currentTabId, {message: 'orangeconfort+closecdu'});
+			}
+		});
 	});
 });
