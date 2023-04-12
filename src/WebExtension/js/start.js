@@ -14,7 +14,6 @@
     GNU General Public License for more details (LICENSE.txt file).
  **/
 function startCDU() {
-	// @note This seems to be meant to check server version activation, but crossdom isn't used for a while…
 	let toolbarServer = document.querySelector("script[src*='crossdom/js']");
 	let head = document.querySelector("head");
 	let body = document.querySelector("body");

@@ -32,14 +32,16 @@
 				"help/*.html"
 			],
 			"matches": [
-				"<all_urls>"
+				"http://*/*",
+				"https://*/*"
 			]
 		}
 	],
 	"content_scripts": [
 		{
 			"matches": [
-				"<all_urls>"
+				"http://*/*",
+				"https://*/*"
 			],
 			"js": [
 				"js/hebergement.js",

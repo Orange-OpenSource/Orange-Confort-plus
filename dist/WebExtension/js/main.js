@@ -1,23 +1,43 @@
-chrome.runtime.onInstalled.addListener(() => {
-	chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
-		const currentTabId = tabs[0].id;
-		// @todo How to make C+ icon inactive on page load?
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+	// Reload content scripts
+	if (reason === chrome.runtime.OnInstalledReason.UPDATE) {
+		const scripts = chrome.runtime.getManifest().content_scripts;
+		for (const script of scripts) {
+			chrome.tabs.query({url: script.matches}).then(tabs => {
+				for (const tab of tabs) {
+					chrome.scripting.executeScript({
+						target: {tabId: tab.id},
+						files: script.js,
+					});
+				}
+			});
+		}
+	}
 
-		// Set CDU disable by default
-		chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
-			if (result[`isCduEnabled-${currentTabId}`] === undefined) {
-				chrome.storage.local.set({[`isCduEnabled-${currentTabId}`]: false});
-				updateButtonIcon(false, currentTabId);
-			} else {
-				updateButtonIcon(result[`isCduEnabled-${currentTabId}`], currentTabId);
-			}
-		});
-		// Setup websites blacklist
-		chrome.storage.local.get('blacklist').then(result => {
-			if (result.blacklist === undefined) {
-				chrome.storage.local.set({'blacklist': []});
-			}
-		});
+	// Setup websites blacklist
+	chrome.storage.local.get('blacklist').then(result => {
+		if (result.blacklist === undefined) {
+			chrome.storage.local.set({'blacklist': []});
+		}
+	});
+
+	// Set CDU disable by default
+	chrome.tabs.query({}).then(tabs => {
+		console.table(tabs)
+		for (const tab of tabs) {
+			chrome.storage.local.get(`isCduEnabled-${tab.id}`).then(result => {
+				// Reload tabs that had CDU loaded and active
+				if (result[`isCduEnabled-${tab.id}`]) {
+					chrome.tabs.reload(tab.id).then(() => {
+						chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
+						updateButtonIcon(false, tab.id);
+					});
+				} else {
+					chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
+					updateButtonIcon(false, tab.id);
+				}
+			});
+		}
 	});
 });
 
@@ -57,6 +77,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 					const currentTabId = tabs[0].id;
 					chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
 						sendResponse({value: result[`isCduEnabled-${currentTabId}`]});
+						updateButtonIcon(result[`isCduEnabled-${currentTabId}`], currentTabId);
 					});
 				});
 				break;
@@ -68,6 +89,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 // Update CDU button icon
 function updateButtonIcon(isEnabled, tabId) {
+	console.log(`CDU is ${!isEnabled ? 'not': ''} enabled on ${tabId}`)
 	if (isEnabled) {
 		chrome.action.setIcon({
 			tabId: tabId,
@@ -98,27 +120,27 @@ function updateButtonIcon(isEnabled, tabId) {
 }
 
 // CDU button click event
-chrome.action.onClicked.addListener(() => {
-	chrome.tabs.query({ active: true, currentWindow: true }).then(tabs => {
-		const currentTabId = tabs[0].id;
-		chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
-			const currentState = result[`isCduEnabled-${currentTabId}`];
-			chrome.storage.local.set({[`isCduEnabled-${currentTabId}`]: !currentState});
-			updateButtonIcon(!currentState, currentTabId);
-			if (!currentState) {
-				chrome.storage.local.get(`isCduEnabled-${currentTabId}`).then(result => {
-					console.log(result[`isCduEnabled-${currentTabId}`])
-					if (result[`isCduEnabled-${currentTabId}`]) {
-						chrome.tabs.sendMessage(currentTabId, {message: "orangeconfort+doyouexist"}).then(response => {
-							if (response.message === 'yes') {
-								chrome.tabs.sendMessage(currentTabId, {message: 'orangeconfort+loadcdu'});
-							}
-						});
-					}
-				});
-			} else {
-				chrome.tabs.sendMessage(currentTabId, {message: 'orangeconfort+closecdu'});
-			}
-		});
+chrome.action.onClicked.addListener((tab) => {
+	// @todo Disable action in browsers internal pages
+	// @note Does not work…
+	/* if (!['edge://', 'chrome://', 'about://'].some(browser => tab.url?.startsWith(browser))) {
+		chrome.action.disable(tab.id);
+		updateButtonIcon(false, tab.id);
+		return false;
+	} */
+
+	chrome.storage.local.get(`isCduEnabled-${tab.id}`).then(result => {
+		const currentState = result[`isCduEnabled-${tab.id}`];
+		chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: !currentState});
+		updateButtonIcon(!currentState, tab.id);
+		if (!currentState) {
+			chrome.tabs.sendMessage(tab.id, {message: "orangeconfort+doyouexist"}).then(response => {
+				if (response.message === 'yes') {
+					chrome.tabs.sendMessage(tab.id, {message: 'orangeconfort+loadcdu'});
+				}
+			});
+		} else {
+			chrome.tabs.sendMessage(tab.id, {message: 'orangeconfort+closecdu'});
+		}
 	});
 });
