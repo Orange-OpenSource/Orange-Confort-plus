@@ -3,13 +3,11 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 	if (reason === chrome.runtime.OnInstalledReason.UPDATE) {
 		const scripts = chrome.runtime.getManifest().content_scripts;
 		for (const script of scripts) {
-			// To make logs clearer
 			let filenames = [];
 			script.js.forEach(filename => {
 				const path = filename.split('/');
 				filenames.push(path[path.length -1]);
 			});
-			// Let's do
 			chrome.tabs.query({url: script.matches, active: true, currentWindow: true}).then(tabs => {
 				for (const tab of tabs) {
 					if (!['edge://', 'chrome://', 'about://'].some(browser => tab.url?.startsWith(browser))) {
@@ -38,29 +36,33 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 			console.error(`No blacklist in storage. Error: ${error}`);
 		});
 
-	// Set CDU disable by default
-	chrome.tabs.query({active: true, currentWindow: true}).then(tabs => {
-		for (const tab of tabs) {
-			chrome.storage.local.get(`isCduEnabled-${tab.id}`).then(result => {
-				// Reload tabs that had CDU loaded and active
-				if (result[`isCduEnabled-${tab.id}`]) {
-					chrome.tabs.reload(tab.id)
-						.then(() => {
+	chrome.tabs.query({active: true, currentWindow: true})
+		.then(tabs => {
+			for (const tab of tabs) {
+				checkActionAvailability(tab);
+
+				// Set CDU disable by default
+				chrome.storage.local.get(`isCduEnabled-${tab.id}`)
+					.then(result => {
+						// Reload tabs that had CDU loaded and active
+						if (result[`isCduEnabled-${tab.id}`]) {
+							chrome.tabs.reload(tab.id)
+								.then(() => {
+									chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
+									updateButtonIcon(false, tab.id);
+								})
+								.catch(error => {
+									console.error(`Cannot reload tab ${tab.id}. Error: ${error}`)
+								});
+						} else {
 							chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
 							updateButtonIcon(false, tab.id);
-						})
-						.catch(error => {
-							console.error(`Cannot reload tab ${tab.id}. Error: ${error}`)
-						});
-				} else {
-					chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
-					updateButtonIcon(false, tab.id);
-				}
-			}).catch(error => {
-				console.error(`Cannot get isCduEnabled-${tab.id}. Error: ${error}`);
-			});
-		}
-	});
+						}
+					}).catch(error => {
+						console.error(`Cannot get isCduEnabled-${tab.id}. Error: ${error}`);
+					});
+			}
+		});
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -125,7 +127,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 // Update CDU button icon
-function updateButtonIcon(isEnabled, tabId) {
+const updateButtonIcon = (isEnabled, tabId) => {
 	if (isEnabled) {
 		chrome.action.setIcon({
 			tabId: tabId,
@@ -155,16 +157,19 @@ function updateButtonIcon(isEnabled, tabId) {
 	}
 }
 
-// CDU button click event
-chrome.action.onClicked.addListener((tab) => {
-	// @todo Disable action in browsers internal pages
-	// @note Does not work…
-	/* if (!['edge://', 'chrome://', 'about://'].some(browser => tab.url?.startsWith(browser))) {
+// Disable action on internal browser tabs
+const checkActionAvailability = (tab) => {
+	if (!['edge://', 'chrome://', 'about://'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.disable(tab.id);
 		updateButtonIcon(false, tab.id);
 		return false;
-	} */
+	} else {
+		chrome.action.enable(tab.id);
+	}
+}
 
+// CDU button click event
+chrome.action.onClicked.addListener(tab => {
 	chrome.storage.local.get(`isCduEnabled-${tab.id}`)
 		.then(result => {
 			const currentState = result[`isCduEnabled-${tab.id}`];
@@ -193,4 +198,12 @@ chrome.action.onClicked.addListener((tab) => {
 		.catch(error => {
 			console.error(`Cannot get isCduEnabled-${tab.id}. Error: ${error}`);
 		});
+});
+
+chrome.tabs.onCreated.addListener(tab => {
+	checkActionAvailability(tab);
+});
+
+chrome.tabs.onUpdated.addListener(tab => {
+	checkActionAvailability(tab);
 });
