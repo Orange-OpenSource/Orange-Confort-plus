@@ -61,3 +61,5 @@ chrome.runtime.sendMessage({message: "orangeconfort+getIsCduEnabled"}).then(resp
 		startCDU();
 	}
 });
+
+"starts.js EOF"

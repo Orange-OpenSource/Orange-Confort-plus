@@ -27,8 +27,7 @@
 		"scripting"
 	],
 	"host_permissions": [
-		"http://*/*",
-		"https://*/*"
+		"<all_urls>"
 	],
 	"web_accessible_resources": [
 		{
@@ -38,20 +37,18 @@
 				"help/*.html"
 			],
 			"matches": [
-				"http://*/*",
-				"https://*/*"
+				"<all_urls>"
 			]
 		}
 	],
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*/*",
-				"https://*/*"
+				"<all_urls>"
 			],
 			"js": [
 				"js/hebergement.js",
-				"js/variables.js",
+				"js/fonts.js",
 				"js/ToolbarStrings.js",
 				"js/UciUserPref.js",
 				"js/UciSimpleStorage.js",

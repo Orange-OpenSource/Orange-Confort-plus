@@ -56,8 +56,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	}
 });
 
-chrome.runtime.sendMessage({message: "orangeconfort+getIsCduEnabled"}).then(response => {
-	if (response && (response.value === true) && (!document.getElementById("uci-onoffswitch"))) {
-		startCDU();
-	}
-});
+chrome.runtime.sendMessage({message: "orangeconfort+getIsCduEnabled"})
+	.then(response => {
+		if (response && (response.value === true) && (!document.getElementById("uci-onoffswitch"))) {
+			startCDU();
+		}
+	})
+	.catch(error => {
+		console.error(`Couldn't send orangeconfort+closecdu message to tab with id ${tab.id}. Error: ${error}`);
+	});
+
+"starts.js EOF"
