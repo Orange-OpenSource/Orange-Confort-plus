@@ -98,6 +98,42 @@ You're ready to update files in `/src`: any changes will trigger a build and rel
 
 For mor specific needs, take a look at existing scripts in our `package.json`.
 
+### Build all the things
+
+To build HTML, CSS, JS and static assets for both the docs and the extension, run:
+```shell
+npm run build
+```
+
+### Extension-specific scripts
+
+We're using [Mozilla's web-ext](https://github.com/mozilla/web-ext) to ease our development workflow.
+
+#### Package extension
+
+A packaging script based on `web-ext build` exists for both Firefox and chromium, taking care of their specific `manifest.json` using npm `pre`-hook.
+```shell
+npm run zip
+```
+
+#### Lint extension
+
+Based on `web-ext lint` (using addons-linter under the hood), we're linting the Firefox package.
+```shell
+npm run lint:ext
+```
+
+#### Load extension
+
+`web-ext run` is used to load extension. There's a separate script for Firefox and Chrome.
+```shell
+npm run load:firefox
+npm run load:chrome
+```
+
+> **Warning**
+> As of today, those scripts are quite buggy on Ubuntu if you use Firefox through snap. See #108 for more context.
+
 ### Work on Confort+ website
 
 If you need to work on Confort+ very own website, there's a specific script:
