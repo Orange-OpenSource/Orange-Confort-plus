@@ -197,11 +197,11 @@ chrome.action.onClicked.addListener(tab => {
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 	updateButtonIcon(false, tabId);
-	if (['edge:', 'chrome:', 'about:'].some(browser => changeInfo.url?.startsWith(browser))) {
+	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.disable(tabId);
 	} else {
 		chrome.action.enable(tabId);
-		chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
+		chrome.storage.local.set({[`isCduEnabled-${tabId}`]: false});
 	}
 });
 
