@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 			});
 			chrome.tabs.query({url: script.matches, active: true, currentWindow: true}).then(tabs => {
 				for (const tab of tabs) {
-					if (!['edge://', 'chrome://', 'about://'].some(browser => tab.url?.startsWith(browser))) {
+					if (!['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 						chrome.scripting.executeScript({
 							target: {tabId: tab.id},
 							files: script.js,
@@ -43,7 +43,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 				// Set CDU disable by default
 				updateButtonIcon(false, tab.id);
 				// Disable action on internal browser pages
-				if (['edge://', 'chrome://', 'about:'].some(browser => tab.url?.startsWith(browser))) {
+				if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 					chrome.action.disable(tab.id);
 				} else {
 					chrome.action.enable(tab.id);
@@ -160,7 +160,7 @@ const updateButtonIcon = (isEnabled, tabId) => {
 // CDU button click event
 chrome.action.onClicked.addListener(tab => {
 	// Just in case we're on internal browser page and action couldn't be disabled before
-	if (['edge://', 'chrome://', 'about:'].some(browser => tab.url?.startsWith(browser))) {
+	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.disable(tab.id);
 		return false;
 	}
@@ -197,7 +197,7 @@ chrome.action.onClicked.addListener(tab => {
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 	updateButtonIcon(false, tabId);
-	if (['edge://', 'chrome://', 'about:'].some(browser => changeInfo.url?.startsWith(browser))) {
+	if (['edge:', 'chrome:', 'about:'].some(browser => changeInfo.url?.startsWith(browser))) {
 		chrome.action.disable(tabId);
 	} else {
 		chrome.action.enable(tabId);
@@ -208,7 +208,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 chrome.tabs.onCreated.addListener(tab => {
 	updateButtonIcon(false, tab.id);
 	chrome.action.disable(tab.id);
-	if (!['edge://', 'chrome://', 'about:'].some(browser => tab.url?.startsWith(browser))) {
+	if (!['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.enable(tab.id);
 	}
 });
