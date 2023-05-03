@@ -41,6 +41,7 @@
 		"prebuild:css": "shx mkdir -p dist/WebExtension/css",
 		"build:css": "postcss src/css/*.css --dir dist/serveur/css/ -m",
 		"postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
+		"build:css:docs": "postcss src/site/css/*.css --dir docs/css/ -m",
 		"build:html": "html-minifier-terser --file-ext html --input-dir src/site/ --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
 		"build:img:docs": "imagemin docs/img/*.{png,jpg,gif,svg} --out-dir=docs/img --plugin=pngquant --plugin=mozjpeg --plugin=zopfli --plugin=svgo",
 		"build:img:webext": "imagemin src/WebExtension/img/*.png --out-dir=dist/WebExtension/img --plugin=pngquant --plugin=zopfli",
