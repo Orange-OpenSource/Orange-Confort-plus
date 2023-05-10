@@ -148,7 +148,6 @@ UciIhm = {
 									["div",
 										["div", {id: "uci_help_menu", style: "display:none;", class: "uci_submenu"},
 											["ul",
-												UciHelp.createLinkGuide(),
 												["li",
 													["a", {
 														"class": "uci_menu_ouverture_aide",

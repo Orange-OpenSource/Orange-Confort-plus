@@ -2055,11 +2055,6 @@ accessibilitytoolbar = {
 	profileEnabled: true,
 
 	/**
-	 * Enale step by step guide management
-	 */
-	guideEnabled: false,
-
-	/**
 	 * Saving last mouse position
 	 */
 	mouseLastEvent: null,
@@ -2319,7 +2314,7 @@ accessibilitytoolbar = {
 		accessibilitytoolbar.setCSS();
 	},
 
-	uci_OuvrirMenuOnglet: function (elmt, showReading) {
+	uci_OuvrirMenuOnglet: function (elmt) {
 		elmt.setAttribute('aria-selected', 'true');
 		elmt.tabIndex = '0';
 		elmt.parentNode.tabIndex = '0';
@@ -2340,10 +2335,6 @@ accessibilitytoolbar = {
 				document.getElementById(spanIdOther[1]).parentElement.className = 'uci_inline uci_onglet_0';
 				document.getElementById(reponses.children[iterator].getAttribute('aria-controls')).style.display = "none";
 			}
-		}
-		if (document.getElementById("uci_reading") && showReading === undefined) {
-			var name = elmt.firstChild.id.split("_")[elmt.firstChild.id.split("_").length - 1];
-			UciHelp.show_reading(name, false);
 		}
 	},
 
@@ -2770,15 +2761,6 @@ accessibilitytoolbar = {
 		accessibilitytoolbar.uciAttachEvent('focusin', 'onfocusin', document.getElementById('uci_help_list'), UciIhm.setFocusHelpIn);
 		accessibilitytoolbar.uciAttachEvent('focusout', 'onfocusout', document.getElementById('uci_lang_list'), UciIhm.setFocusLangOut);
 		accessibilitytoolbar.uciAttachEvent('focusin', 'onfocusin', document.getElementById('uci_lang_list'), UciIhm.setFocusLangIn);
-
-		/********************************************** gestion de l'aide ***********************************************/
-		if (accessibilitytoolbar.guideEnabled) {
-			accessibilitytoolbar.uciAttachEvent('click', 'onclick', document.getElementById('uci_menu_ouverture_guide'), function (e) {
-				accessibilitytoolbar.stopEvt(e);
-				UciIhm.uci_close_menu('uci_help_menu');
-				UciHelp.show_popin()
-			});
-		}
 
 		/******************************************************************************************************/
 
