@@ -41,9 +41,8 @@
 		"prebuild:css": "shx mkdir -p dist/WebExtension/css",
 		"build:css": "postcss src/css/*.css --dir dist/serveur/css/ -m",
 		"postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
-		"build:css:docs": "postcss src/site/css/*.css --dir docs/css/ -m",
 		"build:html": "html-minifier-terser --file-ext html --input-dir src/site/ --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
-		"postbuild:html": "purgecss --css docs/css/boosted.min.css --content docs/*.html docs/help/*.html --output docs/css/boosted.min.css --variables --keyframes --font-face",
+		"postbuild:html": "purgecss --config purgecss.config.cjs",
 		"build:img:docs": "imagemin docs/img/*.{png,jpg,gif,svg} --out-dir=docs/img --plugin=pngquant --plugin=mozjpeg --plugin=zopfli --plugin=svgo",
 		"build:img:webext": "imagemin src/WebExtension/img/*.png --out-dir=dist/WebExtension/img --plugin=pngquant --plugin=zopfli",
 		"prebuild:img": "shx mkdir -p dist/serveur/img",
@@ -90,7 +89,7 @@
 		"purgecss": "^5.0.0",
 		"servor": "^4.0.2",
 		"shx": "^0.3.4",
-		"terser": "^5.17.3",
+		"terser": "^5.17.6",
 		"web-ext": "^7.5.0"
 	}
 }
