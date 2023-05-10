@@ -1,9 +1,9 @@
 /*!
- * Script to convert woff2 font files to base64
+ * Convert woff2 font files to base64
  * and inline them as JavaScript variables
  */
 
-import { writeFileSync, readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { globbySync }  from 'globby';
 
 const fontsFiles = globbySync(`src/fonts/**/*.{woff,woff2}`)

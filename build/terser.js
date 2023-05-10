@@ -36,7 +36,6 @@ const files = {
 			'src/js/UciValidation.js',
 			'src/js/UciProfile.js',
 			'src/js/UciIhm.js',
-			'src/js/UciHelp.js',
 			'src/js/mask.js',
 			'src/js/toolbar.js',
 			'src/serveur/start.js'
