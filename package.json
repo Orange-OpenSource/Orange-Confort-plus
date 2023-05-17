@@ -46,6 +46,7 @@
 		"build:html": "html-minifier-terser --file-ext html --input-dir src/ --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
 		"build:img:docs": "imagemin docs/img/*.{png,jpg,gif,svg} --out-dir=docs/img --plugin=pngquant --plugin=mozjpeg --plugin=zopfli --plugin=svgo",
 		"build:img:webext": "imagemin src/WebExtension/img/*.png --out-dir=dist/WebExtension/img --plugin=pngquant --plugin=zopfli",
+		"prebuild:img": "shx mkdir -p dist/serveur/img",
 		"build:img": "imagemin src/img/*.{png,jpg,gif} --out-dir=dist/serveur/img --plugin=pngquant --plugin=mozjpeg --plugin=zopfli --plugin=gifsicle",
 		"postbuild:img": "shx cp -r src/img/*.{webp,mp4} dist/serveur/img/ && shx cp -r dist/serveur/img/* dist/WebExtension/img/",
 		"build:fonts": "node build/woff2toBase64.js",
