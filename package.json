@@ -60,14 +60,14 @@
 		"move:manifest:chrome": "shx cp dist/manifest.chrome.json dist/WebExtension/manifest.json",
 		"zip": "npm run zip:firefox && npm run zip:chrome",
 		"prezip:firefox": "npm run move:manifest:firefox",
-		"zip:firefox": "cross-env web-ext build -s dist/WebExtension -a ./ -n $npm_package_name-$npm_package_version-firefox.zip -o",
+		"zip:firefox": "cross-env-shell web-ext build -s dist/WebExtension -a ./ -n $npm_package_name-$npm_package_version-firefox.zip -o",
 		"prezip:chrome": "npm run move:manifest:chrome",
-		"zip:chrome": "cross-env web-ext build -s dist/WebExtension -a ./ -n $npm_package_name-$npm_package_version-chrome.zip -o",
-		"lint:ext": "cross-env web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
+		"zip:chrome": "cross-env-shell web-ext build -s dist/WebExtension -a ./ -n $npm_package_name-$npm_package_version-chrome.zip -o",
+		"lint:ext": "cross-env-shell web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
 		"preload:firefox": "npm run move:manifest:firefox",
-		"load:firefox": "cross-env web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --firefox-preview mv3 --browser-console",
+		"load:firefox": "cross-env-shell web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --firefox-preview mv3 --browser-console",
 		"preload:chrome": "npm run move:manifest:chrome",
-		"load:chrome": "cross-env web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --target chromium --devtools"
+		"load:chrome": "cross-env-shell web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --target chromium --devtools"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.14",
