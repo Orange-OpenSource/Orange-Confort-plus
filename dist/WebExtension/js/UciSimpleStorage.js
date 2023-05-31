@@ -33,13 +33,13 @@ function UciStorage() {
 			this.setStoredValue(this.encode(), profilName);
 		}
 		var UsageConfortpref = this.encodeUsageConfort();
-		this.postMessage("orangeconfort+userprefsave", UsageConfortpref, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
+		this.postMessage("orangeconfort+userprefsave", UsageConfortpref);
 		if (accessibilitytoolbar.needToReload) {
 			accessibilitytoolbar.reloadToolbar();
 		}
 	};
 
-	this.postMessage = function (message, value, targetOrigin) {
+	this.postMessage = function (message, value) {
 		if (typeof chrome !== 'undefined') {
 			// WebExtension
 			if (value) {
@@ -56,10 +56,10 @@ function UciStorage() {
 	this.updateBlackList = function () {
 		// Update the cdu cookies with the stackv3 value
 		this.setStoredValue(this.encode());
-		this.postMessage("orangeconfort+blacklistsave", document.location.hostname, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
+		this.postMessage("orangeconfort+blacklistsave", document.location.hostname);
 	};
 
-	this.postMessage("orangeconfort+userprefget", null, document.location.protocol + '//' + document.location.hostname + document.location.pathname);
+	this.postMessage("orangeconfort+userprefget", null);
 }
 
 UciStorage.prototype = new UciUserPref();

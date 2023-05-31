@@ -1523,7 +1523,7 @@ var RemoteControlMode = function () {
 				if (accessibilitytoolbar.remotecontrol.timerId !== null)
 					clearTimeout(accessibilitytoolbar.remotecontrol.timerId);
 				/* fin modif */
-				accessibilitytoolbar.remotecontrol.timerId = setTimeout("accessibilitytoolbar.remotecontrol.doClick()", hoverTime);
+				accessibilitytoolbar.remotecontrol.timerId = setTimeout(accessibilitytoolbar.remotecontrol.doClick, hoverTime);
 			} // test
 		}
 		//DEBUG : part for self working
@@ -1531,7 +1531,7 @@ var RemoteControlMode = function () {
 			hoverTime = that.hoverTimer * 1000;
 			that.selectedElt = target;
 			that.selectEltStyle();
-			that.timerId = setTimeout("that.doClick()", hoverTime);
+			that.timerId = setTimeout(that.doClick, hoverTime);
 		}
 	};
 	// Trigger function called when the mouse is leaving an item
@@ -1576,7 +1576,7 @@ var RemoteControlMode = function () {
 				hoverTime = accessibilitytoolbar.remotecontrol.hoverTimer * 1000;
 				accessibilitytoolbar.remotecontrol.selectedElt = target;
 				accessibilitytoolbar.remotecontrol.selectEltStyle();
-				accessibilitytoolbar.remotecontrol.timerId = setTimeout("accessibilitytoolbar.remotecontrol.doClick()", hoverTime);
+				accessibilitytoolbar.remotecontrol.timerId = setTimeout(accessibilitytoolbar.remotecontrol.doClick, hoverTime);
 			} else {
 				if (!accessibilitytoolbar.remotecontrol.hasParent(target, accessibilitytoolbar.remotecontrol.selectedElt)) {
 					accessibilitytoolbar.remotecontrol.unselectEltStyle();
@@ -1621,13 +1621,13 @@ var RemoteControlMode = function () {
 			if (scrollDir !== 0 && accessibilitytoolbar.remotecontrol) {
 				var scrollBy = accessibilitytoolbar.remotecontrol.getScrollStep() * scrollDir;
 				var timeOut = accessibilitytoolbar.remotecontrol.getTimeOut();
-				accessibilitytoolbar.remotecontrol.timerId = setInterval("window.scrollBy(0," + scrollBy + ")", timeOut);
+				accessibilitytoolbar.remotecontrol.timerId = setInterval(function() { window.scrollBy(0,scrollBy) }, timeOut);
 			}
 			//DEBUG : part for self working
 			else if (scrollDir !== 0) {
 				var scrollBy = that.scrollSteps * scrollDir;
 				var timeOut = that.scrollTimer;
-				that.timerId = setInterval("window.scrollBy(0," + scrollBy + ")", timeOut);
+				that.timerId = setInterval(function() { window.scrollBy(0,scrollBy) }, timeOut);
 			}
 		};
 		//Trigger function called when mouse is leaving the pad's area

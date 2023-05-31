@@ -14,47 +14,56 @@
     GNU General Public License for more details (LICENSE.txt file).
  **/
 function startCDU() {
-	var toolbarServer = document.querySelector("script[src*='crossdom/js']");
-	var head = document.querySelector("head");
-	var body = document.querySelector("body");
-	var toolbarDiv = document.querySelector("accessibilitytoolbarGraphic");
-	var toolbarOnOff = document.getElementById("uci-onoffswitch");
-	if ((toolbarServer == null) && (head != null) && (body != null) && (window.location.href != 'about:blank')) {
-		if (toolbarDiv == null && !toolbarOnOff) {
+	let toolbarServer = document.querySelector("script[src*='crossdom/js']");
+	let head = document.querySelector("head");
+	let body = document.querySelector("body");
+	let toolbarDiv = document.querySelector("accessibilitytoolbarGraphic");
+	let toolbarOnOff = document.getElementById("uci-onoffswitch");
+	if ((toolbarServer === null) && (head !== null) && (body !== null) && (window.location.href !== 'about:blank')) {
+		if (toolbarDiv === null && !toolbarOnOff) {
 			accessibilitytoolbar.strings.setForceDefaultLocale(chrome.i18n.getUILanguage().toUpperCase());
 			accessibilitytoolbar.start();
 		}
 	}
 }
 
-chrome.runtime.onMessage.addListener(
-	function (request, sender, sendResponse) {
-		switch (request.message) {
-			case 'orangeconfort+closecdu' :
-				if (!document.getElementById("uci-onoffswitch")) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	switch (request.message) {
+		case 'orangeconfort+closecdu':
+			if (!document.getElementById("uci-onoffswitch")) {
+				if (accessibilitytoolbar.userPref) {
 					accessibilitytoolbar.userPref.setStoredValue();
-					accessibilitytoolbar.reloadToolbar();
-					accessibilitytoolbar.close();
 				}
-				break;
-			case 'orangeconfort+loadcdu' :
-				if (!document.getElementById("uci-onoffswitch")) {
-					startCDU();
-				}
-				break;
-			case 'orangeconfort+userprefgetresponse' :
-				if (!document.getElementById("uci-onoffswitch")) {
-					accessibilitytoolbar.userPref.decodeUsageConfort(request.value);
-				}
-				break;
-			case 'orangeconfort+doyouexist' :
-				sendResponse({message: "yes"});
-				break;
-
-		}
-	});
-chrome.runtime.sendMessage({message: "orangeconfort+getIsCduEnabled"}, function (response) {
-	if ((response.value == 'true') && (!document.getElementById("uci-onoffswitch"))) {
-		startCDU();
+				accessibilitytoolbar.reloadToolbar();
+				accessibilitytoolbar.close();
+			}
+			break;
+		case 'orangeconfort+loadcdu':
+			if (!document.getElementById("uci-onoffswitch")) {
+				startCDU();
+			}
+			break;
+		case 'orangeconfort+userprefgetresponse':
+			if (!document.getElementById("uci-onoffswitch") && accessibilitytoolbar.userPref) {
+				accessibilitytoolbar.userPref.decodeUsageConfort(request.value);
+			}
+			break;
+		case 'orangeconfort+doyouexist':
+			sendResponse({message: "yes"});
+			break;
+		default:
+			break;
 	}
 });
+
+chrome.runtime.sendMessage({message: "orangeconfort+getIsCduEnabled"})
+	.then(response => {
+		if (response && (response.value === true) && (!document.getElementById("uci-onoffswitch"))) {
+			startCDU();
+		}
+	})
+	.catch(error => {
+		console.error(`Couldn't send orangeconfort+closecdu message to tab with id ${tab.id}. Error: ${error}`);
+	});
+
+"starts.js EOF"
