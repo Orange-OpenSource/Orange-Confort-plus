@@ -1,4 +1,4 @@
-import * as pkg from './package.json' assert { type: "json" };
+import { default as pkg } from './package.json' assert { type: "json" };
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import banner from 'postcss-banner'
