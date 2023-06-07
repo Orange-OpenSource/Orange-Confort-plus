@@ -42,11 +42,14 @@ const files = {
 		],
 		dist: 'dist/serveur/js/toolbar.js',
 		options: {
-			sourceMap: true,
+			sourceMap: {
+				filename: 'toolbar.js',
+				url: 'toolbar.js.map'
+			},
 			compress: false,
 			mangle: false,
 			format: {
-				preamble: preamble,
+				preamble: preamble
 			}
 		}
 	},
@@ -54,16 +57,20 @@ const files = {
 		files: ['dist/serveur/js/toolbar.js'],
 		dist: 'dist/serveur/js/toolbar-min.js',
 		options: {
-			sourceMap: true,
+			sourceMap: {
+				filename: 'toolbar.min.js',
+				url: 'toolbar.min.js.map'
+			},
 			compress: {
 				passes: 2
 			},
 			mangle: {
 				keep_fnames: true,
-				keep_classnames: true,
+				keep_classnames: true
 			},
 			format: {
-				comments: true
+				comments: false,
+				preamble: preamble
 			}
 		}
 	},
@@ -74,7 +81,7 @@ const files = {
 			compress: false,
 			mangle: false,
 			format: {
-				preamble: preamble,
+				preamble: preamble
 			}
 		}
 	}
@@ -98,3 +105,6 @@ context.files.forEach(async file => {
 const minified = await minify(code, context.options);
 
 writeFileSync(context.dist, minified.code, 'utf-8');
+if (minified.map) {
+	writeFileSync(`${context.dist}.map`, minified.map, 'utf-8');
+}
