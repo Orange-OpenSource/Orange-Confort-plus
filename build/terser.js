@@ -73,17 +73,6 @@ const files = {
 				preamble: preamble
 			}
 		}
-	},
-	'extension': {
-		files: ['dist/WebExtension/js/mask.js'],
-		dist: 'dist/WebExtension/js/mask.js',
-		options: {
-			compress: false,
-			mangle: false,
-			format: {
-				preamble: preamble
-			}
-		}
 	}
 }
 
