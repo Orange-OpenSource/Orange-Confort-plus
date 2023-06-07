@@ -28,7 +28,7 @@
 		"test": "",
 		"prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
 		"build": "npm run copy && concurrently \"npm:build:*\"",
-		"postbuild": "shx cp -r dist/serveur/{css,img,js} docs && node build/terser.js --context=extension",
+		"postbuild": "shx cp -r dist/serveur/{css,img,js} docs",
 		"preversion": "npm run zip",
 		"copy": "concurrently \"npm:copy:*\"",
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/ && shx cp -r docs/help dist/serveur/ && shx cp -r docs/cookie.html dist/serveur",
