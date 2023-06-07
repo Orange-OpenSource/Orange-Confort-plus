@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,16 +15,53 @@
 		-->
 	<link rel="stylesheet" href="css/orange-helvetica.min.css"/>
 	<link rel="stylesheet" href="css/boosted.min.css">
-</head>
 
+	<link rel="alternate" hreflang="fr" href="index.html">
+	<link rel="alternate" hreflang="es" href="index_es.html">
+	<link rel="alternate" hreflang="pl" href="index_pl.html">
+</head>
 <body>
-<header class="container pt-5" role="banner">
-	<div class="row pt-3">
-		<div class="col-md-10 offset-md-1 d-flex align-items-baseline border-bottom border-light">
-			<img alt="Orange" src="img/orange_logo.svg" width="50" height="50">
-			<h1 class="display-1 ms-3">The Orange Confort+ service</h1>
+<header role="banner">
+	<a id="top"></a>
+	<nav class="navbar supra navbar-expand-lg navbar-dark bg-dark" aria-label="Alternate languages" role="navigation">
+		<div class="container">
+			<ul class="navbar-nav ms-auto me-5">
+				<li class="nav-item"><a href="index.html" class="nav-link" lang="fr" hreflang="fr">Français</a></li>
+				<li class="nav-item"><a href="index_en.html" class="nav-link active" aria-current="page">English</a></li>
+				<li class="nav-item"><a href="index_es.html" class="nav-link" lang="es" hreflang="es">Español</a></li>
+				<li class="nav-item me-5"><a href="index_pl.html" class="nav-link" lang="pl" hreflang="pl">Polski</a></li>
+			</ul>
 		</div>
-	</div>
+	</nav>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Useful links" role="navigation">
+		<div class="container">
+			<div class="navbar-brand me-auto me-lg-4 ms-5">
+				<img alt="Orange" src="img/orange_logo.svg" width="50" height="50" class="ms-5">
+				<h1 class="title">Confort<span class="text-primary">+</span></h1>
+			</div>
+			<ul class="navbar-nav flex-row me-5 ms-auto">
+				<li class="nav-item">
+					<a class="nav-link nav-icon gap-2" href="https://addons.mozilla.org/en-US/firefox/addon/orange-confort/" target="_blank" rel="noopener">
+						<img src="img/firefox.svg" height="30" width="30" alt="">
+						<span>Firefox Addon</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link nav-icon gap-2" href="https://chrome.google.com/webstore/detail/orange-confort%20/ddnpdohiipephjpdpohikkamhdikbldp?hl=en" target="_blank" rel="noopener">
+						<img src="img/chrome.svg" height="31" width="30" alt="">
+						<span>Chrome Addon</span>
+					</a>
+				</li>
+				<li class="nav-item me-5">
+					<a class="nav-link nav-icon gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" target="_blank" rel="noopener">
+						<img src="img/github.svg" height="30" width="30" alt="">
+						<span class="visually-hidden">Orange Confort+ on </span>
+						<span>GitHub</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 </header>
 <main class="container" role="main">
 	<div class="row my-5">
@@ -39,20 +75,20 @@
 			<p>
 				This service provides around twenty adjustments to adapt web sites to your needs: whether you have visual
 				impairments	or simple eyestrain, problems of word recognition because of dyslexia or others reasons, difficulty to use a
-				mouse or to setup your computer, Orange Confort + brings you solutions: a setting to be made once and all the
-				web sites will take your preferences into account.
+				mouse or to set up your computer, Orange Confort + brings you solutions: a setting to be made once and all the
+				websites will take your preferences into account.
 			</p>
 			<p>
 				Orange Confort+ is a browser extension, free to download, available for Firefox, and Chrome.
 			</p>
 			<ul>
 				<li class="mb-1">
-						<a href="https://addons.mozilla.org/fr/firefox/addon/orange-confort/">
+						<a href="https://addons.mozilla.org/en-US/firefox/addon/orange-confort/" target="_blank" rel="noopener">
 							Firefox Addon
 						</a>
 				</li>
 				<li class="mb-1">
-						<a href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp">
+						<a href="https://chrome.google.com/webstore/detail/orange-confort%20/ddnpdohiipephjpdpohikkamhdikbldp?hl=en" target="_blank" rel="noopener">
 							Chrome Addon
 						</a>
 				</li>
@@ -143,29 +179,57 @@
 				keep on navigating the page, switch to fast navigation mode (2 items by 2 or 5 by 5, etc.), or navigate backwards.
 			</p>
 			<p>
-				<a href="https://github.com/Orange-OpenSource/Orange-Confort-plus">
+				<a href="https://github.com/Orange-OpenSource/Orange-Confort-plus" target="_blank" rel="noopener">
 					Orange Confort+ on GitHub
 				</a>
 			</p>
 		</div>
 	</div>
 </main>
-<footer class="container" role="contentinfo">
-	<div class="row text-center">
-		<div class="col-md-10 offset-md-1">
-			<p>
-				Orange Confort+ uses the <a href="http://opendyslexic.org/get-it-free/">OpenDyslexic font</a>.
-			</p>
-			<p>
-				Orange Confort+ uses the <a href="http://www.luciole-vision.com/">Luciole font <small>© fLaurent Bourcellier &
-				Jonathan Perez</small></a> <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Licence CC-BY</a>.
-			</p>
+<footer class="footer bg-dark navbar-dark" role="contentinfo">
+	<div class="container d-flex footer-service">
+		<ul class="navbar-nav gap-3 gap-md-5 mx-auto">
+			<li class="ms-1">
+				<a class="nav-link gap-2" href="https://addons.mozilla.org/en-US/firefox/addon/orange-confort/" target="_blank" rel="noopener">
+					<img src="img/firefox.svg" height="30" width="30" alt="">
+					<span>Firefox Addon</span>
+				</a>
+			</li>
+			<li>
+				<a class="nav-link gap-2" href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=en" target="_blank" rel="noopener">
+					<img src="img/chrome.svg" height="31" width="30" alt="">
+					<span>Chrome Addon</span>
+				</a>
+			</li>
+			<li>
+				<a class="nav-link gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" target="_blank" rel="noopener">
+					<img src="img/github.svg" height="30" width="30" alt="">
+					<span class="visually-hidden">Orange Confort+ on </span>
+					<span>GitHub</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="border-bottom border-1 border-dark"></div>
+	<div class="container footer-terms">
+		<div class="row">
+			<div class="col-md-10 offset-md-1 d-flex">
+				<p class="mb-0 fw-bold">© Orange 2023</p>
+				<p class="mb-0 ms-auto">
+					Orange Confort+ uses the <a href="http://opendyslexic.org/get-it-free/" target="_blank" rel="noopener">OpenDyslexic font</a>,
+					<a href="https://github.com/Orange-OpenSource/font-accessible-dfa" target="_blank" rel="noopener">Accessible DfA</a>
+					and <a href="https://www.luciole-vision.com/luciole-en.html" target="_blank" rel="noopener">Luciole font</a> <small class="text-muted">(© Laurent Bourcellier &
+					Jonathan Perez <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">Licence CC-BY</a>)</small>.
+				</p>
+			</div>
 		</div>
 	</div>
 </footer>
-
-
+<div class="back-to-top">
+	<a href="#top" class="back-to-top-link btn btn-icon btn-secondary" data-bs-label="Back to top">
+		<span class="visually-hidden">Back to top</span>
+	</a>
+</div>
 <script type="text/javascript" src="js/toolbar.min.js"></script>
 </body>
-
 </html>

@@ -34,6 +34,7 @@ Thumbs.db
 # Docs
 docs/js/toolbar.js
 docs/js/toolbar.js.map
+src/boosted/*.css
 
 # Build
 *.zip
