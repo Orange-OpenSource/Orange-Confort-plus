@@ -55,7 +55,7 @@ const files = {
 	},
 	'minified': {
 		files: ['dist/serveur/js/toolbar.js'],
-		dist: 'dist/serveur/js/toolbar-min.js',
+		dist: 'dist/serveur/js/toolbar.min.js',
 		options: {
 			sourceMap: {
 				filename: 'toolbar.min.js',
