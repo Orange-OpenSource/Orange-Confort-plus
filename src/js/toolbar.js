@@ -3501,81 +3501,69 @@ accessibilitytoolbar = {
 	 * Set new CSS rules
 	 * If init mode = true, don't try to custom IHM
 	 * 1. linearize if need be by destroying all CSS informations
-	 * 2. add a new STYLE node with the user's preferences
 	 */
-	setCSS: function (init, demo) {
+	setCSS: function (init) {
 		var links, i, allElts, done, mask, doneMask, imageAlt, spanImage, element, image_uci, s = "", indexFrame, theFrame,
 			theFrameDocument, theFrames, fontSizeDef, toolbarContent, fontSizeBody, localUserPref, userFont, bgColorRGB;
 		localUserPref = accessibilitytoolbar.userPref;
-		// were in demo mode
-		if (demo) {
-			localUserPref = demo;
-			demoFrame = document.getElementById("uci_discover_frame");
-			try {
-				demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
-				if (demoFrameDocument.getElementsByTagName('head')[0]) {
-					demoFrameDocument.getElementsByTagName('head')[0].removeChild(demoFrameDocument.getElementById("a11yUserPrefStyle"));
-				}
-			} catch (e) {
-			}
-		} else {
-			// default mode, settings for the page
-			if (localUserPref.get("a11yToolbarEnable") !== "off") {
-				if (document.getElementById('cdu_close')) {
-					document.getElementById('cdu_close').style.display == 'none';
-				}
-				toolbarContent = document.getElementById("cdu_toolbar");
-				if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
-					accessibilitytoolbar.show();
-				}
-			}
 
-			indexIFrame = 0;
-			TheIFrames = document.getElementsByTagName("iframe");
-			if (TheIFrames.length > 0) {
-				while (theIFrame = TheIFrames[indexIFrame]) {
+		// default mode, settings for the page
+		if (localUserPref.get("a11yToolbarEnable") !== "off") {
+			if (document.getElementById('cdu_close')) {
+				document.getElementById('cdu_close').style.display == 'none';
+			}
+			toolbarContent = document.getElementById("cdu_toolbar");
+			if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
+				accessibilitytoolbar.show();
+			}
+		}
+
+		indexIFrame = 0;
+		TheIFrames = document.getElementsByTagName("iframe");
+		if (TheIFrames.length > 0) {
+			while (theIFrame = TheIFrames[indexIFrame]) {
+				try {
+					theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
+					if (theIFrameDocument.getElementsByTagName('head')[0]) {
+						theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+					}
+				} catch (e) {
+				}
+				indexIFrame++;
+			}
+		}
+		// Remove previous user style
+		if (document.getElementById("a11yUserPrefStyle")) {
+			document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
+
+
+			/*
+			* remove css to frames if possible
+			* Works only if frame src is onto the same domain
+			*
+			*/
+			indexFrame = 0;
+			theFrames = window.frames;
+			if (theFrames.length > 0) {
+				while (theFrame = theFrames[indexFrame]) {
 					try {
-						theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-						if (theIFrameDocument.getElementsByTagName('head')[0]) {
-							theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+						theFrameDocument = theFrame.contentDocument || theFrame.document;
+						if (theFrameDocument.getElementsByTagName('head')[0]) {
+							theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
 						}
 					} catch (e) {
 					}
-					indexIFrame++;
+					indexFrame++;
 				}
 			}
-			// Remove previous user style
-			if (document.getElementById("a11yUserPrefStyle")) {
-				document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
-
-
-				/*
-        * remove css to frames if possible
-        * Works only if frame src is onto the same domain
-        *
-        */
-				indexFrame = 0;
-				theFrames = window.frames;
-				if (theFrames.length > 0) {
-					while (theFrame = theFrames[indexFrame]) {
-						try {
-							theFrameDocument = theFrame.contentDocument || theFrame.document;
-							if (theFrameDocument.getElementsByTagName('head')[0]) {
-								theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
-							}
-						} catch (e) {
-						}
-						indexFrame++;
-					}
-				}
-			}
-
-			accessibilitytoolbar.removeOrStartRemote();
-			accessibilitytoolbar.removeOrStartLoopingMode();
-
-			// jump to content if needed
-			accessibilitytoolbar.jumpToContent();
 		}
+
+		accessibilitytoolbar.removeOrStartRemote();
+		accessibilitytoolbar.removeOrStartLoopingMode();
+
+		// jump to content if needed
+		accessibilitytoolbar.jumpToContent();
+
 		// Remove linearization if it had been done :
 		// 1. linearize ? -- which is the same as: get rid of all CSS info first
 		// if the user remove the option, we need to put back the stylesheets and styles attributes
@@ -3861,23 +3849,11 @@ accessibilitytoolbar = {
 				newStyle.id = "a11yUserPrefStyle";
 				newStyle.appendChild(document.createTextNode(s));
 
-
-				// If demo mode add thestyle to the demo frame
-				if (demo) {
-					demoFrame = document.getElementById("uci_discover_frame");
-					try {
-						demoFrameDocument = demoFrame.contentDocument || demoFrame.document;
-						if (demoFrameDocument.getElementsByTagName('head')[0]) {
-							demoFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
-						}
-					} catch (e) {
-					}
-				} else { // Not demo mode set the style to the page
-					document.getElementsByTagName('head')[0].appendChild(newStyle);
-					indexFrame = 0;
-					theFrames = window.frames;
-					//frames=document.getElementsByTagName("iframe");
-					if (theFrames.length > 0) {
+				document.getElementsByTagName('head')[0].appendChild(newStyle);
+				indexFrame = 0;
+				theFrames = window.frames;
+				//frames=document.getElementsByTagName("iframe");
+				if (theFrames.length > 0) {
 						while (theFrame = theFrames[indexFrame]) {
 							try {
 								theFrameDocument = theFrame.contentDocument || theFrame.document;
@@ -3885,11 +3861,11 @@ accessibilitytoolbar = {
 									theFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
 								}
 							} catch (e) {
+								console.error(e);
 							}
 							indexFrame++;
 						}
 					}
-				}
 			}
 		}
 	},
