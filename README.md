@@ -44,7 +44,7 @@ To deploy _Orange Confort+_ onto your domain, a prepackaged version is available
 To initialize Confort+, call it before the `body` closing tag, using the correct path to the files (e.g. your domain and the path to the folder you uploaded Confort+ to):
 
 ```html
-<script type="text/javascript" src="http://example.com/myconfortplus/js/toolbar-min.js"></script>
+<script type="text/javascript" src="http://example.com/myconfortplus/js/toolbar.min.js"></script>
 ```
 
 **NB**: User settings are saved onto your domain and are never shared with other websites, or extension.
