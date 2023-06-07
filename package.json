@@ -40,7 +40,7 @@
 		"postbuild:js": "node build/terser.js --context=minified",
 		"prebuild:css": "shx mkdir -p dist/WebExtension/css",
 		"build:css": "postcss src/css/*.css --dir dist/serveur/css/ -m",
-		"postbuild:css": "shx cp -r dist/serveur/css/*.css dist/WebExtension/css/",
+		"postbuild:css": "shx cp -r dist/serveur/css/*.{css,map} dist/WebExtension/css/",
 		"build:html": "html-minifier-terser --file-ext html --input-dir src/site --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
 		"postbuild:html": "purgecss --config purgecss.config.cjs",
 		"build:img:docs": "imagemin docs/img/*.{png,jpg,gif,svg} --out-dir=docs/img --plugin=pngquant --plugin=mozjpeg --plugin=zopfli --plugin=svgo",
