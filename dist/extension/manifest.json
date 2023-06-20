@@ -1,0 +1,56 @@
+{
+	"manifest_version": 3,
+	"name": "Orange Confort+",
+	"description": "Orange Confort+",
+	"version": "5.0.0",
+	"version_name": "5.0.0",
+	"default_locale": "fr",
+	"author": "Orange SA",
+	"homepage_url": "https://confort-plus.orange.com",
+	"minimum_chrome_version": "93",
+	"background": {
+		"service_worker": "js/main.js"
+	},
+	"action": {
+		"default_title": "Orange Confort+",
+		"default_icon": {
+			"19": "assets/img/icon-19.png",
+			"38": "assets/img/icon-38.png"
+		}
+	},
+	"permissions": [
+		"activeTab",
+		"tabs",
+		"storage",
+		"scripting",
+		"webNavigation"
+	],
+	"host_permissions": [
+		"<all_urls>"
+	],
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"js/*.js",
+				"css/*.css",
+				"css/*.css.map",
+				"assets/img/*.png",
+				"assets/icons/*.svg",
+				"assets/fonts/*.woff2",
+				"assets/json/*.json"
+			],
+			"matches": [
+				"<all_urls>"
+			]
+		}
+	],
+	"icons": {
+		"16": "assets/img/icon-16.png",
+		"19": "assets/img/icon-19.png",
+		"32": "assets/img/icon-32.png",
+		"38": "assets/img/icon-38.png",
+		"48": "assets/img/icon-48.png",
+		"64": "assets/img/icon-64.png",
+		"128": "assets/img/icon-128.png"
+	}
+}
