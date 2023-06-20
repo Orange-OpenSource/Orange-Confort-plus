@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"lib": [
+			"es6",
+			"dom"
+		],
+		"module": "es2020",
+		"moduleResolution": "node",
+		"rootDir": "src",
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"outDir": "build",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"./src/app"
+	]
+}
