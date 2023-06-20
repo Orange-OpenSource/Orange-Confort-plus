@@ -65,7 +65,6 @@
 				"js/UciApparence.js",
 				"js/UciSettings.js",
 				"js/UciTypographie.js",
-				"js/UciHelp.js",
 				"js/UciProfile.js",
 				"js/UciValidation.js",
 				"js/UciIhm.js",

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.1.1 - 14/06/2023
+ * orange-confort-plus - version 4.1.1 - 20/06/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
