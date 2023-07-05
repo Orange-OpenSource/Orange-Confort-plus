@@ -51,14 +51,15 @@ Thumbs.db
 *.rej
 
 # Docs
-docs/js/toolbar.js
-docs/js/toolbar.js.map
-src/assets/boosted/*.css
-src/assets/boosted/*.css.map
-img/
+docs/css/bases.css
+docs/css/bases.css.map
+src/site/css/*.css
+src/site/css/*.css.map
+./img/
 
 # Build
 *.zip
-dist/WebExtension/manifest.json
-/src/dist/
-/build/
+dist/extension/manifest.json
+/dist/js
+/dist/css
+/src/img/

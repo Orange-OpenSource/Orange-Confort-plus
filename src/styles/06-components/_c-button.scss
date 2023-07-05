@@ -1,0 +1,6 @@
+@use "../bases";
+@use "../01-variables/colors";
+
+.c-btn {
+  background: colors.$color-project-primary;
+}
