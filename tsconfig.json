@@ -10,7 +10,7 @@
 		"rootDir": "src",
 		"resolveJsonModule": true,
 		"allowJs": true,
-		"outDir": "build",
+		"outDir": "dist/js",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,

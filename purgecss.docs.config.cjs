@@ -1,6 +1,6 @@
 module.exports = {
 	content: ['docs/*.html'],
-	css: ['src/boosted/boosted.min.css'],
+	css: ['src/site/css/boosted.min.css'],
 	output: 'docs/css/boosted.min.css',
 	safelist: [],
 	variables: true,

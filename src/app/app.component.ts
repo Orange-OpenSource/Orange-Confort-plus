@@ -3,7 +3,7 @@ template.innerHTML = `
 <style>
     .sc-confort-plus {
         border: none;
-        background-color: red;
+        background-color: #ff7900;
         width: 3rem;
         height: 3rem;
         border-radius: 50%;
@@ -32,20 +32,6 @@ class AppComponent extends HTMLElement {
         super();
         this.shadow.appendChild(template.content.cloneNode(true));
         template.addEventListener('closeEvent', this.handleCustomEvent.bind(this));
-
-        const styles: CSSStyleSheet = new CSSStyleSheet();
-        // styles.replaceSync('button { color: red; }');
-        // styles.insertRule('button { color: red; }');
-        styles.replace('@import url(../dist/css/styles.css)').then((sheet) => {
-            console.log(sheet);
-            console.log('Styles loaded successfully');
-        }).catch((err) => {
-            console.error('Failed to load:', err);
-        });
-        console.log(styles);
-        this.shadow.adoptedStyleSheets = [styles];
-        console.log(this.shadow.styleSheets);
-        console.log(this.shadow.styleSheets.length);
     }
 
     connectedCallback(): void {
@@ -68,7 +54,12 @@ class AppComponent extends HTMLElement {
         });
     }
 
-    handleCustomEvent(event: any): void {
+    disconnectedCallback(): void {
+        this.confortPlusBtn?.removeEventListener('click', () => {});
+        this.confortPlusToolbar?.removeEventListener('click', () => {});
+    }
+
+    private handleCustomEvent(event: any): void {
         if (event.detail) {
             this.openConfortPlus = !this.openConfortPlus;
 
@@ -82,7 +73,6 @@ class AppComponent extends HTMLElement {
         }
     }
 }
-
 customElements.define('app-root', AppComponent);
 
 const appRootElt: HTMLElement = document.createElement('app-root');
