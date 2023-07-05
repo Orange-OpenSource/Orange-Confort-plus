@@ -1,2 +1,2 @@
-@import "01-variables/index";
-@import "02-mixins/index";
+@use "01-variables/index" as variables;
+@use "02-mixins/index" as mixins;

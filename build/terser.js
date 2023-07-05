@@ -19,26 +19,13 @@ const preamble = `/*
 const files = {
 	'serveur': {
 		files: [
-			'src/serveur/hebergement.js',
-			'src/js/fonts.js',
-			'src/js/ToolbarStrings.js',
-			'src/js/UciUserPref.js',
-			'src/serveur/UciCookie.js',
-			'src/js/lang-en.js',
-			'src/js/lang-es.js',
-			'src/js/lang-fr.js',
-			'src/js/lang-pl.js',
-			'src/js/UciAideMotrice.js',
-			'src/js/UciCouleur.js',
-			'src/js/UciApparence.js',
-			'src/js/UciSettings.js',
-			'src/js/UciTypographie.js',
-			'src/js/UciValidation.js',
-			'src/js/UciProfile.js',
-			'src/js/UciIhm.js',
-			'src/js/mask.js',
-			'src/js/toolbar.js',
-			'src/serveur/start.js'
+			'dist/js/app/features/font-family.component.js',
+			'dist/js/app/features/increase-text-size.component.js',
+			'dist/js/app/features/reading-guide.component.js',
+			'dist/js/app/features/reset-parameters.component.js',
+			'dist/js/app/features/text-transform.component.js',
+			'dist/js/app/features/toolbar.component.js',
+			'dist/js/app/app.component.js',
 		],
 		dist: 'dist/serveur/js/toolbar.js',
 		options: {

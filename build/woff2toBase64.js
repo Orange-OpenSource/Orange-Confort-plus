@@ -4,7 +4,7 @@
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
-import { globbySync }  from 'globby';
+import { globbySync } from 'globby';
 
 const fontsFiles = globbySync(`src/fonts/**/*.{woff,woff2}`)
 let encodedFonts = {};
@@ -34,4 +34,4 @@ fontsFiles.forEach(file => {
 	Object.assign(encodedFonts, embeddableFont);
 })
 
-writeFileSync('src/js/fonts.js', `const fontsPath = ${JSON.stringify(encodedFonts)}`);
+writeFileSync('src/assets/fonts/fonts.js', `const fontsPath = ${JSON.stringify(encodedFonts)}`);
