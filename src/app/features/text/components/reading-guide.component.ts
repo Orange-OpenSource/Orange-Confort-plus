@@ -42,80 +42,82 @@ tmplReadingGuide.innerHTML = `
 `;
 
 class ReadingGuideComponent extends HTMLElement {
-    open: boolean = false;
-    sizeGuide: number = 40;
+	open: boolean = false;
+	sizeGuide: number = 40;
 
-    shadow: ShadowRoot = this.attachShadow({mode: 'open'});
-    topGuideElt: HTMLElement | null = null;
-    bottomGuideElt: HTMLElement | null = null;
-    activeGuideBtn: HTMLElement | null = null;
-    closeBtn: HTMLElement | null = null;
+	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
+	topGuideElt: HTMLElement | null = null;
+	bottomGuideElt: HTMLElement | null = null;
+	activeGuideBtn: HTMLElement | null = null;
+	closeBtn: HTMLElement | null = null;
 
-    constructor() {
-        super();
+	constructor() {
+		super();
 
-        this.shadow.appendChild(tmplReadingGuide.content.cloneNode(true));
+		this.shadow.appendChild(tmplReadingGuide.content.cloneNode(true));
 
-        this.activeGuideBtn = this.shadow.getElementById('reading-guide-btn');
-        this.topGuideElt = this.shadow.getElementById('top-guide-elt');
-        this.bottomGuideElt = this.shadow.getElementById('bottom-guide-elt');
-        this.closeBtn = this.shadow.getElementById('close-btn');
+		this.activeGuideBtn = this.shadow.getElementById('reading-guide-btn');
+		this.topGuideElt = this.shadow.getElementById('top-guide-elt');
+		this.bottomGuideElt = this.shadow.getElementById('bottom-guide-elt');
+		this.closeBtn = this.shadow.getElementById('close-btn');
 
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = 'none';
-            this.bottomGuideElt.style.display = 'none';
-        }
-    }
+		if (this.topGuideElt && this.bottomGuideElt) {
+			this.topGuideElt.style.display = 'none';
+			this.bottomGuideElt.style.display = 'none';
+		}
+	}
 
-    connectedCallback(): void {
-        this.activeGuideBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-                return;
-            }
+	connectedCallback(): void {
+		this.activeGuideBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (!this.open) {
+				this.resetReadingGuide();
+				return;
+			}
 
-            if (this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.removeProperty('display');
-                this.bottomGuideElt.style.removeProperty('display');
-            }
-        });
+			if (this.topGuideElt && this.bottomGuideElt) {
+				this.topGuideElt.style.removeProperty('display');
+				this.bottomGuideElt.style.removeProperty('display');
+			}
+		});
 
-        this.closeBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-            }
-        });
+		this.closeBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (!this.open) {
+				this.resetReadingGuide();
+			}
+		});
 
-        document.onkeydown = (event) => {
-            if (event.code === 'Escape') {
-                this.open = !this.open;
-                this.resetReadingGuide();
-            }
-        }
+		document.onkeydown = (event) => {
+			if (event.code === 'Escape') {
+				this.open = !this.open;
+				this.resetReadingGuide();
+			}
+		}
 
-        document.addEventListener('mousemove', (event: MouseEvent) => {
-            if (this.open && this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.height = `${ event.y - this.sizeGuide }px`;
-                this.bottomGuideElt.style.height = `${ window.innerHeight - event.y - this.sizeGuide }px`;
-            }
-            event.stopPropagation();
-        });
-    }
+		document.addEventListener('mousemove', (event: MouseEvent) => {
+			if (this.open && this.topGuideElt && this.bottomGuideElt) {
+				this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
+				this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+			}
+			event.stopPropagation();
+		});
+	}
 
-    disconnectedCallback(): void {
-        this.closeBtn?.removeEventListener('click', () => {});
-    }
+	disconnectedCallback(): void {
+		this.closeBtn?.removeEventListener('click', () => {
+		});
+	}
 
-    private resetReadingGuide(): void {
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = 'none';
-            this.bottomGuideElt.style.display = 'none';
+	private resetReadingGuide(): void {
+		if (this.topGuideElt && this.bottomGuideElt) {
+			this.topGuideElt.style.display = 'none';
+			this.bottomGuideElt.style.display = 'none';
 
-            this.topGuideElt.style.removeProperty('height');
-            this.bottomGuideElt.style.removeProperty('height');
-        }
-    }
+			this.topGuideElt.style.removeProperty('height');
+			this.bottomGuideElt.style.removeProperty('height');
+		}
+	}
 }
+
 customElements.define('app-reading-guide', ReadingGuideComponent);
