@@ -48,13 +48,13 @@ tmplToolbar.innerHTML = `
         background: #ff7900;
         border: 1px solid #ff7900;
     }
-    
+
     .sc-toolbar__close {
         color: black;
         background: #ff7900;
         border: 1px solid #ff7900;
     }
-    
+
     .sc-toolbar__infos-picto {
         background: white;
         border-radius: 50%;
@@ -75,7 +75,7 @@ tmplToolbar.innerHTML = `
     .sc-toolbar__infos-tools {
         display: flex;
     }
-    
+
     .sc-toolbar__content {
         display: flex;
         flex-direction: column;
@@ -91,7 +91,7 @@ tmplToolbar.innerHTML = `
     <div class="sc-toolbar__infos-picto"></div>
     <div class="sc-toolbar__infos-libelles">
         <span>Mode d'usage</span>
-        <span class="sc-toolbar__infos-mode">Vision +</span>   
+        <span class="sc-toolbar__infos-mode">Vision +</span>
     </div>
     <div class="sc-toolbar__infos-tools">
         <button id="close-toolbar" class="sc-toolbar__btn"> O </button>
@@ -109,26 +109,28 @@ tmplToolbar.innerHTML = `
 `;
 
 class ToolbarComponent extends HTMLElement {
-    shadow: ShadowRoot = this.attachShadow({ mode: 'open' });
-    closeBtn: HTMLElement | null = null;
+	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
+	closeBtn: HTMLElement | null = null;
 
-    constructor() {
-        super();
-        this.shadow.appendChild(tmplToolbar.content.cloneNode(true));
-    }
+	constructor() {
+		super();
+		this.shadow.appendChild(tmplToolbar.content.cloneNode(true));
+	}
 
-    connectedCallback(): void {
-        this.closeBtn = this.shadow.getElementById('close-toolbar');
+	connectedCallback(): void {
+		this.closeBtn = this.shadow.getElementById('close-toolbar');
 
-        this.closeBtn?.addEventListener('click', () => {
-            let clickEvent = new CustomEvent('closeEvent', { detail: true });
-            // @ts-ignore
-            template.dispatchEvent(clickEvent);
-        });
-    }
+		this.closeBtn?.addEventListener('click', () => {
+			let clickEvent = new CustomEvent('closeEvent', {detail: true});
+			// @ts-ignore
+			template.dispatchEvent(clickEvent);
+		});
+	}
 
-    disconnectedCallback(): void {
-        this.closeBtn?.removeEventListener('click', () => {});
-    }
+	disconnectedCallback(): void {
+		this.closeBtn?.removeEventListener('click', () => {
+		});
+	}
 }
+
 customElements.define('app-toolbar', ToolbarComponent);

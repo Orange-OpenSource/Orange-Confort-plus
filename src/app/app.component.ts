@@ -23,54 +23,57 @@ template.innerHTML = `
 `
 
 class AppComponent extends HTMLElement {
-    shadow: ShadowRoot = this.attachShadow({ mode: 'open' });
-    private openConfortPlus: boolean = false;
-    confortPlusBtn: HTMLElement | null = null;
-    confortPlusToolbar: HTMLElement | null = null;
+	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
+	private openConfortPlus: boolean = false;
+	confortPlusBtn: HTMLElement | null = null;
+	confortPlusToolbar: HTMLElement | null = null;
 
-    constructor() {
-        super();
-        this.shadow.appendChild(template.content.cloneNode(true));
-        template.addEventListener('closeEvent', (event: any) => {
-					if (event.detail) {
-						this.openConfortPlus = !this.openConfortPlus;
+	constructor() {
+		super();
+		this.shadow.appendChild(template.content.cloneNode(true));
+		template.addEventListener('closeEvent', (event: any) => {
+			if (event.detail) {
+				this.openConfortPlus = !this.openConfortPlus;
 
-						this.openConfortPlus ?
-							this.confortPlusToolbar?.classList.remove('hidden') :
-							this.confortPlusToolbar?.classList.add('hidden');
+				this.openConfortPlus ?
+					this.confortPlusToolbar?.classList.remove('hidden') :
+					this.confortPlusToolbar?.classList.add('hidden');
 
-						this.openConfortPlus ?
-							this.confortPlusBtn?.classList.add('hidden') :
-							this.confortPlusBtn?.classList.remove('hidden');
-					}
-				});
-    }
+				this.openConfortPlus ?
+					this.confortPlusBtn?.classList.add('hidden') :
+					this.confortPlusBtn?.classList.remove('hidden');
+			}
+		});
+	}
 
-    connectedCallback(): void {
-        this.confortPlusBtn = this.shadow.getElementById('confort');
-        this.confortPlusToolbar = this.shadow.getElementById('toolbar');
+	connectedCallback(): void {
+		this.confortPlusBtn = this.shadow.getElementById('confort');
+		this.confortPlusToolbar = this.shadow.getElementById('toolbar');
 
-        if (!this.confortPlusBtn || !this.confortPlusToolbar) {
-            return;
-        }
-        this.confortPlusBtn.addEventListener('click', () => {
-            this.openConfortPlus = !this.openConfortPlus;
+		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
+			return;
+		}
+		this.confortPlusBtn.addEventListener('click', () => {
+			this.openConfortPlus = !this.openConfortPlus;
 
-            this.openConfortPlus ?
-                this.confortPlusToolbar?.classList.remove('hidden') :
-                this.confortPlusToolbar?.classList.add('hidden');
+			this.openConfortPlus ?
+				this.confortPlusToolbar?.classList.remove('hidden') :
+				this.confortPlusToolbar?.classList.add('hidden');
 
-            this.openConfortPlus ?
-                this.confortPlusBtn?.classList.add('hidden') :
-                this.confortPlusBtn?.classList.remove('hidden');
-        });
-    }
+			this.openConfortPlus ?
+				this.confortPlusBtn?.classList.add('hidden') :
+				this.confortPlusBtn?.classList.remove('hidden');
+		});
+	}
 
-    disconnectedCallback(): void {
-        this.confortPlusBtn?.removeEventListener('click', () => {});
-        this.confortPlusToolbar?.removeEventListener('click', () => {});
-    }
+	disconnectedCallback(): void {
+		this.confortPlusBtn?.removeEventListener('click', () => {
+		});
+		this.confortPlusToolbar?.removeEventListener('click', () => {
+		});
+	}
 }
+
 customElements.define('app-root', AppComponent);
 
 const appRootElt: HTMLElement = document.createElement('app-root');
