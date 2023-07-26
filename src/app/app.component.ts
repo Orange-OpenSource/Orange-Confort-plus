@@ -31,7 +31,19 @@ class AppComponent extends HTMLElement {
     constructor() {
         super();
         this.shadow.appendChild(template.content.cloneNode(true));
-        template.addEventListener('closeEvent', this.handleCustomEvent.bind(this));
+        template.addEventListener('closeEvent', (event: any) => {
+					if (event.detail) {
+						this.openConfortPlus = !this.openConfortPlus;
+
+						this.openConfortPlus ?
+							this.confortPlusToolbar?.classList.remove('hidden') :
+							this.confortPlusToolbar?.classList.add('hidden');
+
+						this.openConfortPlus ?
+							this.confortPlusBtn?.classList.add('hidden') :
+							this.confortPlusBtn?.classList.remove('hidden');
+					}
+				});
     }
 
     connectedCallback(): void {
@@ -57,20 +69,6 @@ class AppComponent extends HTMLElement {
     disconnectedCallback(): void {
         this.confortPlusBtn?.removeEventListener('click', () => {});
         this.confortPlusToolbar?.removeEventListener('click', () => {});
-    }
-
-    private handleCustomEvent(event: any): void {
-        if (event.detail) {
-            this.openConfortPlus = !this.openConfortPlus;
-
-            this.openConfortPlus ?
-                this.confortPlusToolbar?.classList.remove('hidden') :
-                this.confortPlusToolbar?.classList.add('hidden');
-
-            this.openConfortPlus ?
-                this.confortPlusBtn?.classList.add('hidden') :
-                this.confortPlusBtn?.classList.remove('hidden');
-        }
     }
 }
 customElements.define('app-root', AppComponent);
