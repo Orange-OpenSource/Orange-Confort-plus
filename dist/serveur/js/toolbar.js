@@ -30,7 +30,18 @@ class AppComponent extends HTMLElement {
         this.confortPlusBtn = null;
         this.confortPlusToolbar = null;
         this.shadow.appendChild(template.content.cloneNode(true));
-        template.addEventListener('closeEvent', this.handleCustomEvent.bind(this));
+        template.addEventListener('closeEvent', (event) => {
+            var _a, _b, _c, _d;
+            if (event.detail) {
+                this.openConfortPlus = !this.openConfortPlus;
+                this.openConfortPlus ?
+                    (_a = this.confortPlusToolbar) === null || _a === void 0 ? void 0 : _a.classList.remove('hidden') :
+                    (_b = this.confortPlusToolbar) === null || _b === void 0 ? void 0 : _b.classList.add('hidden');
+                this.openConfortPlus ?
+                    (_c = this.confortPlusBtn) === null || _c === void 0 ? void 0 : _c.classList.add('hidden') :
+                    (_d = this.confortPlusBtn) === null || _d === void 0 ? void 0 : _d.classList.remove('hidden');
+            }
+        });
     }
     connectedCallback() {
         this.confortPlusBtn = this.shadow.getElementById('confort');
@@ -53,18 +64,6 @@ class AppComponent extends HTMLElement {
         var _a, _b;
         (_a = this.confortPlusBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
         (_b = this.confortPlusToolbar) === null || _b === void 0 ? void 0 : _b.removeEventListener('click', () => { });
-    }
-    handleCustomEvent(event) {
-        var _a, _b, _c, _d;
-        if (event.detail) {
-            this.openConfortPlus = !this.openConfortPlus;
-            this.openConfortPlus ?
-                (_a = this.confortPlusToolbar) === null || _a === void 0 ? void 0 : _a.classList.remove('hidden') :
-                (_b = this.confortPlusToolbar) === null || _b === void 0 ? void 0 : _b.classList.add('hidden');
-            this.openConfortPlus ?
-                (_c = this.confortPlusBtn) === null || _c === void 0 ? void 0 : _c.classList.add('hidden') :
-                (_d = this.confortPlusBtn) === null || _d === void 0 ? void 0 : _d.classList.remove('hidden');
-        }
     }
 }
 customElements.define('app-root', AppComponent);
