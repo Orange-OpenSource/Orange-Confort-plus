@@ -12,48 +12,53 @@ tmplTextTransform.innerHTML = `
 `;
 
 class TextTransformComponent extends HTMLElement {
-    shadow: ShadowRoot = this.attachShadow({ mode: 'open' });
+	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
 
-    normalBtn: HTMLElement | null = null;
-    firstLetterBtn: HTMLElement | null = null;
-    lowercaseBtn: HTMLElement | null = null;
-    uppercaseBtn: HTMLElement | null = null;
+	normalBtn: HTMLElement | null = null;
+	firstLetterBtn: HTMLElement | null = null;
+	lowercaseBtn: HTMLElement | null = null;
+	uppercaseBtn: HTMLElement | null = null;
 
-    constructor() {
-        super();
-        this.shadow.appendChild(tmplTextTransform.content.cloneNode(true));
+	constructor() {
+		super();
+		this.shadow.appendChild(tmplTextTransform.content.cloneNode(true));
 
-        this.normalBtn = this.shadow.getElementById('normal-btn');
-        this.firstLetterBtn = this.shadow.getElementById('first-letter-btn');
-        this.lowercaseBtn = this.shadow.getElementById('lowercase-btn');
-        this.uppercaseBtn = this.shadow.getElementById('uppercase-btn');
-    }
+		this.normalBtn = this.shadow.getElementById('normal-btn');
+		this.firstLetterBtn = this.shadow.getElementById('first-letter-btn');
+		this.lowercaseBtn = this.shadow.getElementById('lowercase-btn');
+		this.uppercaseBtn = this.shadow.getElementById('uppercase-btn');
+	}
 
-    connectedCallback(): void {
-        const bodyElt = document.getElementsByTagName('body')[0];
+	connectedCallback(): void {
+		const bodyElt = document.getElementsByTagName('body')[0];
 
-        this.normalBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = ``;
-        });
+		this.normalBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = ``;
+		});
 
-        this.firstLetterBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = `capitalize`;
-        });
+		this.firstLetterBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = `capitalize`;
+		});
 
-        this.lowercaseBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = `lowercase`;
-        });
+		this.lowercaseBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = `lowercase`;
+		});
 
-        this.uppercaseBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = `uppercase`;
-        });
-    }
+		this.uppercaseBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = `uppercase`;
+		});
+	}
 
-    disconnectedCallback(): void {
-        this.normalBtn?.removeEventListener('click', () => {});
-        this.firstLetterBtn?.removeEventListener('click', () => {});
-        this.lowercaseBtn?.removeEventListener('click', () => {});
-        this.uppercaseBtn?.removeEventListener('click', () => {});
-    }
+	disconnectedCallback(): void {
+		this.normalBtn?.removeEventListener('click', () => {
+		});
+		this.firstLetterBtn?.removeEventListener('click', () => {
+		});
+		this.lowercaseBtn?.removeEventListener('click', () => {
+		});
+		this.uppercaseBtn?.removeEventListener('click', () => {
+		});
+	}
 }
+
 customElements.define('app-text-transform', TextTransformComponent);
