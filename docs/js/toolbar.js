@@ -23,23 +23,22 @@ template.innerHTML = `
 <app-toolbar class="hidden" id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
 `;
 class AppComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    openConfortPlus = false;
+    confortPlusBtn = null;
+    confortPlusToolbar = null;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.openConfortPlus = false;
-        this.confortPlusBtn = null;
-        this.confortPlusToolbar = null;
         this.shadow.appendChild(template.content.cloneNode(true));
         template.addEventListener('closeEvent', (event) => {
-            var _a, _b, _c, _d;
             if (event.detail) {
                 this.openConfortPlus = !this.openConfortPlus;
                 this.openConfortPlus ?
-                    (_a = this.confortPlusToolbar) === null || _a === void 0 ? void 0 : _a.classList.remove('hidden') :
-                    (_b = this.confortPlusToolbar) === null || _b === void 0 ? void 0 : _b.classList.add('hidden');
+                    this.confortPlusToolbar?.classList.remove('hidden') :
+                    this.confortPlusToolbar?.classList.add('hidden');
                 this.openConfortPlus ?
-                    (_c = this.confortPlusBtn) === null || _c === void 0 ? void 0 : _c.classList.add('hidden') :
-                    (_d = this.confortPlusBtn) === null || _d === void 0 ? void 0 : _d.classList.remove('hidden');
+                    this.confortPlusBtn?.classList.add('hidden') :
+                    this.confortPlusBtn?.classList.remove('hidden');
             }
         });
     }
@@ -50,20 +49,20 @@ class AppComponent extends HTMLElement {
             return;
         }
         this.confortPlusBtn.addEventListener('click', () => {
-            var _a, _b, _c, _d;
             this.openConfortPlus = !this.openConfortPlus;
             this.openConfortPlus ?
-                (_a = this.confortPlusToolbar) === null || _a === void 0 ? void 0 : _a.classList.remove('hidden') :
-                (_b = this.confortPlusToolbar) === null || _b === void 0 ? void 0 : _b.classList.add('hidden');
+                this.confortPlusToolbar?.classList.remove('hidden') :
+                this.confortPlusToolbar?.classList.add('hidden');
             this.openConfortPlus ?
-                (_c = this.confortPlusBtn) === null || _c === void 0 ? void 0 : _c.classList.add('hidden') :
-                (_d = this.confortPlusBtn) === null || _d === void 0 ? void 0 : _d.classList.remove('hidden');
+                this.confortPlusBtn?.classList.add('hidden') :
+                this.confortPlusBtn?.classList.remove('hidden');
         });
     }
     disconnectedCallback() {
-        var _a, _b;
-        (_a = this.confortPlusBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
-        (_b = this.confortPlusToolbar) === null || _b === void 0 ? void 0 : _b.removeEventListener('click', () => { });
+        this.confortPlusBtn?.removeEventListener('click', () => {
+        });
+        this.confortPlusToolbar?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-root', AppComponent);
@@ -102,7 +101,7 @@ tmplLayout.innerHTML = `
             text-align: left;
             flex: 1;
         }
-        
+
         .c-tool__content {
             display: flex;
             flex-direction: column;
@@ -110,7 +109,7 @@ tmplLayout.innerHTML = `
             align-items: center;
             padding: .5rem;
         }
-        
+
         button {
             border-radius: .5rem;
             border: none;
@@ -127,37 +126,36 @@ tmplLayout.innerHTML = `
     <button class="c-btn-tool" id="tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Agencement</span>
-        <div class="c-btn-tool__picto"></div>    
+        <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="tool-content">
         En cours ...
     </div>
 `;
 class LayoutComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    toolBtn = null;
+    open = false;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.toolBtn = null;
-        this.open = false;
         this.shadow.appendChild(tmplLayout.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         this.toolBtn = this.shadow.getElementById('tool-btn');
         const contentElt = this.shadow.getElementById('tool-content');
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.toolBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (this.open) {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.remove('hidden');
+                contentElt?.classList.remove('hidden');
             }
             else {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.add('hidden');
+                contentElt?.classList.add('hidden');
             }
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.toolBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-layout', LayoutComponent);
@@ -194,7 +192,7 @@ tmplPictureVideo.innerHTML = `
             text-align: left;
             flex: 1;
         }
-        
+
         .c-tool__content {
             display: flex;
             flex-direction: column;
@@ -202,7 +200,7 @@ tmplPictureVideo.innerHTML = `
             align-items: center;
             padding: .5rem;
         }
-        
+
         button {
             border-radius: .5rem;
             border: none;
@@ -219,37 +217,36 @@ tmplPictureVideo.innerHTML = `
     <button class="c-btn-tool" id="tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Image et Vidéo</span>
-        <div class="c-btn-tool__picto"></div>    
+        <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="tool-content">
         En cours ...
     </div>
 `;
 class PictureVideoComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    toolBtn = null;
+    open = false;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.toolBtn = null;
-        this.open = false;
         this.shadow.appendChild(tmplPictureVideo.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         this.toolBtn = this.shadow.getElementById('tool-btn');
         const contentElt = this.shadow.getElementById('tool-content');
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.toolBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (this.open) {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.remove('hidden');
+                contentElt?.classList.remove('hidden');
             }
             else {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.add('hidden');
+                contentElt?.classList.add('hidden');
             }
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.toolBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-picture-video', PictureVideoComponent);
@@ -286,7 +283,7 @@ tmplPointer.innerHTML = `
             text-align: left;
             flex: 1;
         }
-        
+
         .c-tool__content {
             display: flex;
             flex-direction: column;
@@ -294,7 +291,7 @@ tmplPointer.innerHTML = `
             align-items: center;
             padding: .5rem;
         }
-        
+
         button {
             border-radius: .5rem;
             border: none;
@@ -311,37 +308,36 @@ tmplPointer.innerHTML = `
     <button class="c-btn-tool" id="tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Pointeur</span>
-        <div class="c-btn-tool__picto"></div>    
+        <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="tool-content">
         En cours ...
     </div>
 `;
 class PointerComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    toolBtn = null;
+    open = false;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.toolBtn = null;
-        this.open = false;
         this.shadow.appendChild(tmplPointer.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         this.toolBtn = this.shadow.getElementById('tool-btn');
         const contentElt = this.shadow.getElementById('tool-content');
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.toolBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (this.open) {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.remove('hidden');
+                contentElt?.classList.remove('hidden');
             }
             else {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.add('hidden');
+                contentElt?.classList.add('hidden');
             }
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.toolBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-pointer', PointerComponent);
@@ -378,7 +374,7 @@ tmplSound.innerHTML = `
             text-align: left;
             flex: 1;
         }
-        
+
         .c-tool__content {
             display: flex;
             flex-direction: column;
@@ -386,7 +382,7 @@ tmplSound.innerHTML = `
             align-items: center;
             padding: .5rem;
         }
-        
+
         button {
             border-radius: .5rem;
             border: none;
@@ -403,37 +399,36 @@ tmplSound.innerHTML = `
     <button class="c-btn-tool" id="tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Audio</span>
-        <div class="c-btn-tool__picto"></div>    
+        <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="tool-content">
         En cours ...
     </div>
 `;
 class SoundComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    toolBtn = null;
+    open = false;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.toolBtn = null;
-        this.open = false;
         this.shadow.appendChild(tmplSound.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         this.toolBtn = this.shadow.getElementById('tool-btn');
         const contentElt = this.shadow.getElementById('tool-content');
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.toolBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (this.open) {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.remove('hidden');
+                contentElt?.classList.remove('hidden');
             }
             else {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.add('hidden');
+                contentElt?.classList.add('hidden');
             }
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.toolBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-sound', SoundComponent);
@@ -452,14 +447,14 @@ tmplFontFamily.innerHTML = `
 <button id="open-dyslexic-font">Open Dyslexic</button>
 `;
 class FontFamilyComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    normalBtn = null;
+    arialBtn = null;
+    openSansBtn = null;
+    accessibleDFABtn = null;
+    openDyslexicBtn = null;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.normalBtn = null;
-        this.arialBtn = null;
-        this.openSansBtn = null;
-        this.accessibleDFABtn = null;
-        this.openDyslexicBtn = null;
         this.shadow.appendChild(tmplFontFamily.content.cloneNode(true));
         let head = document.head || document.getElementsByTagName('head')[0];
         let styles = document.createElement('style');
@@ -472,31 +467,34 @@ class FontFamilyComponent extends HTMLElement {
         this.openDyslexicBtn = this.shadow.getElementById('open-dyslexic-font');
     }
     connectedCallback() {
-        var _a, _b, _c, _d, _e;
         const bodyElt = document.getElementsByTagName('body')[0];
-        (_a = this.normalBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.normalBtn?.addEventListener('click', () => {
             bodyElt.style.fontFamily = ``;
         });
-        (_b = this.arialBtn) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+        this.arialBtn?.addEventListener('click', () => {
             bodyElt.style.fontFamily = `arial`;
         });
-        (_c = this.openSansBtn) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
+        this.openSansBtn?.addEventListener('click', () => {
             bodyElt.style.fontFamily = `Open-Sans`;
         });
-        (_d = this.accessibleDFABtn) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
+        this.accessibleDFABtn?.addEventListener('click', () => {
             bodyElt.style.fontFamily = `Accessible-DFA`;
         });
-        (_e = this.openDyslexicBtn) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
+        this.openDyslexicBtn?.addEventListener('click', () => {
             bodyElt.style.fontFamily = `Open-Dyslexic`;
         });
     }
     disconnectedCallback() {
-        var _a, _b, _c, _d, _e;
-        (_a = this.normalBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
-        (_b = this.arialBtn) === null || _b === void 0 ? void 0 : _b.removeEventListener('click', () => { });
-        (_c = this.openSansBtn) === null || _c === void 0 ? void 0 : _c.removeEventListener('click', () => { });
-        (_d = this.accessibleDFABtn) === null || _d === void 0 ? void 0 : _d.removeEventListener('click', () => { });
-        (_e = this.openDyslexicBtn) === null || _e === void 0 ? void 0 : _e.removeEventListener('click', () => { });
+        this.normalBtn?.removeEventListener('click', () => {
+        });
+        this.arialBtn?.removeEventListener('click', () => {
+        });
+        this.openSansBtn?.removeEventListener('click', () => {
+        });
+        this.accessibleDFABtn?.removeEventListener('click', () => {
+        });
+        this.openDyslexicBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-font-family', FontFamilyComponent);
@@ -519,7 +517,7 @@ tmplIncreaseTextSize.innerHTML = `
             height: 5rem;
             margin-right: 1rem;
         }
-        
+
         .sc-increase-text-size__btn-slots {
             display: flex;
             margin-top: 1rem;
@@ -537,7 +535,7 @@ tmplIncreaseTextSize.innerHTML = `
         .selected {
             background: black;
         }
-        
+
         .sc-increase-text-size__size-info {
             font-weight: 700;
             background: #ff7900;
@@ -548,7 +546,7 @@ tmplIncreaseTextSize.innerHTML = `
             padding: 1rem 2rem 1rem 1rem;
             clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
         }
-        
+
         button {
             border-radius: .5rem;
             border: none;
@@ -562,17 +560,16 @@ tmplIncreaseTextSize.innerHTML = `
     <div class="sc-increase-text-size__size-info" id="content-size-info"></div>
 `;
 class IncreaseTextSizeComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    toolBtn = null;
+    sizeBtn = null;
+    index = 0;
+    fontSizes = [16, 18, 20, 22, 24];
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.toolBtn = null;
-        this.sizeBtn = null;
-        this.index = 0;
-        this.fontSizes = [16, 18, 20, 22, 24];
         this.shadow.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         const bodyElt = document.getElementsByTagName('body')[0];
         const sizeInfoElt = this.shadow.getElementById('content-size-info');
         this.sizeBtn = this.shadow.getElementById('btn-size');
@@ -591,7 +588,7 @@ class IncreaseTextSizeComponent extends HTMLElement {
         });
         btnContentSlots.innerHTML = slot;
         sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        (_a = this.sizeBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.sizeBtn?.addEventListener('click', () => {
             this.index++;
             if (this.index >= this.fontSizes.length) {
                 this.index = 0;
@@ -610,9 +607,10 @@ class IncreaseTextSizeComponent extends HTMLElement {
         });
     }
     disconnectedCallback() {
-        var _a, _b;
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
-        (_b = this.sizeBtn) === null || _b === void 0 ? void 0 : _b.removeEventListener('click', () => { });
+        this.toolBtn?.removeEventListener('click', () => {
+        });
+        this.sizeBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-increase-text-size', IncreaseTextSizeComponent);
@@ -660,15 +658,15 @@ tmplReadingGuide.innerHTML = `
 <div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>
 `;
 class ReadingGuideComponent extends HTMLElement {
+    open = false;
+    sizeGuide = 40;
+    shadow = this.attachShadow({ mode: 'open' });
+    topGuideElt = null;
+    bottomGuideElt = null;
+    activeGuideBtn = null;
+    closeBtn = null;
     constructor() {
         super();
-        this.open = false;
-        this.sizeGuide = 40;
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.topGuideElt = null;
-        this.bottomGuideElt = null;
-        this.activeGuideBtn = null;
-        this.closeBtn = null;
         this.shadow.appendChild(tmplReadingGuide.content.cloneNode(true));
         this.activeGuideBtn = this.shadow.getElementById('reading-guide-btn');
         this.topGuideElt = this.shadow.getElementById('top-guide-elt');
@@ -680,8 +678,7 @@ class ReadingGuideComponent extends HTMLElement {
         }
     }
     connectedCallback() {
-        var _a, _b;
-        (_a = this.activeGuideBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.activeGuideBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (!this.open) {
                 this.resetReadingGuide();
@@ -692,7 +689,7 @@ class ReadingGuideComponent extends HTMLElement {
                 this.bottomGuideElt.style.removeProperty('display');
             }
         });
-        (_b = this.closeBtn) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+        this.closeBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (!this.open) {
                 this.resetReadingGuide();
@@ -713,8 +710,8 @@ class ReadingGuideComponent extends HTMLElement {
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.closeBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.closeBtn?.removeEventListener('click', () => {
+        });
     }
     resetReadingGuide() {
         if (this.topGuideElt && this.bottomGuideElt) {
@@ -740,13 +737,13 @@ tmplTextTransform.innerHTML = `
 <button id="uppercase-btn">Majuscule</button>
 `;
 class TextTransformComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    normalBtn = null;
+    firstLetterBtn = null;
+    lowercaseBtn = null;
+    uppercaseBtn = null;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.normalBtn = null;
-        this.firstLetterBtn = null;
-        this.lowercaseBtn = null;
-        this.uppercaseBtn = null;
         this.shadow.appendChild(tmplTextTransform.content.cloneNode(true));
         this.normalBtn = this.shadow.getElementById('normal-btn');
         this.firstLetterBtn = this.shadow.getElementById('first-letter-btn');
@@ -754,27 +751,29 @@ class TextTransformComponent extends HTMLElement {
         this.uppercaseBtn = this.shadow.getElementById('uppercase-btn');
     }
     connectedCallback() {
-        var _a, _b, _c, _d;
         const bodyElt = document.getElementsByTagName('body')[0];
-        (_a = this.normalBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.normalBtn?.addEventListener('click', () => {
             bodyElt.style.textTransform = ``;
         });
-        (_b = this.firstLetterBtn) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+        this.firstLetterBtn?.addEventListener('click', () => {
             bodyElt.style.textTransform = `capitalize`;
         });
-        (_c = this.lowercaseBtn) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
+        this.lowercaseBtn?.addEventListener('click', () => {
             bodyElt.style.textTransform = `lowercase`;
         });
-        (_d = this.uppercaseBtn) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
+        this.uppercaseBtn?.addEventListener('click', () => {
             bodyElt.style.textTransform = `uppercase`;
         });
     }
     disconnectedCallback() {
-        var _a, _b, _c, _d;
-        (_a = this.normalBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
-        (_b = this.firstLetterBtn) === null || _b === void 0 ? void 0 : _b.removeEventListener('click', () => { });
-        (_c = this.lowercaseBtn) === null || _c === void 0 ? void 0 : _c.removeEventListener('click', () => { });
-        (_d = this.uppercaseBtn) === null || _d === void 0 ? void 0 : _d.removeEventListener('click', () => { });
+        this.normalBtn?.removeEventListener('click', () => {
+        });
+        this.firstLetterBtn?.removeEventListener('click', () => {
+        });
+        this.lowercaseBtn?.removeEventListener('click', () => {
+        });
+        this.uppercaseBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-text-transform', TextTransformComponent);
@@ -811,7 +810,7 @@ tmplText.innerHTML = `
             text-align: left;
             flex: 1;
         }
-        
+
         .c-tool__content {
             display: flex;
             flex-direction: column;
@@ -819,7 +818,7 @@ tmplText.innerHTML = `
             align-items: center;
             padding: .5rem;
         }
-        
+
         button {
             border-radius: .5rem;
             border: none;
@@ -836,7 +835,7 @@ tmplText.innerHTML = `
     <button class="c-btn-tool" id="tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Texte</span>
-        <div class="c-btn-tool__picto"></div>    
+        <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="tool-content">
         <app-increase-text-size></app-increase-text-size>
@@ -846,30 +845,29 @@ tmplText.innerHTML = `
     </div>
 `;
 class TextComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    toolBtn = null;
+    open = false;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.toolBtn = null;
-        this.open = false;
         this.shadow.appendChild(tmplText.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         this.toolBtn = this.shadow.getElementById('tool-btn');
         const contentElt = this.shadow.getElementById('tool-content');
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.toolBtn?.addEventListener('click', () => {
             this.open = !this.open;
             if (this.open) {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.remove('hidden');
+                contentElt?.classList.remove('hidden');
             }
             else {
-                contentElt === null || contentElt === void 0 ? void 0 : contentElt.classList.add('hidden');
+                contentElt?.classList.add('hidden');
             }
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.toolBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.toolBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-text', TextComponent);
@@ -924,13 +922,13 @@ tmplToolbar.innerHTML = `
         background: #ff7900;
         border: 1px solid #ff7900;
     }
-    
+
     .sc-toolbar__close {
         color: black;
         background: #ff7900;
         border: 1px solid #ff7900;
     }
-    
+
     .sc-toolbar__infos-picto {
         background: white;
         border-radius: 50%;
@@ -951,7 +949,7 @@ tmplToolbar.innerHTML = `
     .sc-toolbar__infos-tools {
         display: flex;
     }
-    
+
     .sc-toolbar__content {
         display: flex;
         flex-direction: column;
@@ -967,7 +965,7 @@ tmplToolbar.innerHTML = `
     <div class="sc-toolbar__infos-picto"></div>
     <div class="sc-toolbar__infos-libelles">
         <span>Mode d'usage</span>
-        <span class="sc-toolbar__infos-mode">Vision +</span>   
+        <span class="sc-toolbar__infos-mode">Vision +</span>
     </div>
     <div class="sc-toolbar__infos-tools">
         <button id="close-toolbar" class="sc-toolbar__btn"> O </button>
@@ -984,24 +982,23 @@ tmplToolbar.innerHTML = `
 </section>
 `;
 class ToolbarComponent extends HTMLElement {
+    shadow = this.attachShadow({ mode: 'open' });
+    closeBtn = null;
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.closeBtn = null;
         this.shadow.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
-        var _a;
         this.closeBtn = this.shadow.getElementById('close-toolbar');
-        (_a = this.closeBtn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        this.closeBtn?.addEventListener('click', () => {
             let clickEvent = new CustomEvent('closeEvent', { detail: true });
             // @ts-ignore
             template.dispatchEvent(clickEvent);
         });
     }
     disconnectedCallback() {
-        var _a;
-        (_a = this.closeBtn) === null || _a === void 0 ? void 0 : _a.removeEventListener('click', () => { });
+        this.closeBtn?.removeEventListener('click', () => {
+        });
     }
 }
 customElements.define('app-toolbar', ToolbarComponent);
