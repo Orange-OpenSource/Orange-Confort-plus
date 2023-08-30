@@ -1,4 +1,4 @@
-chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+chrome.runtime.onInstalled.addListener(async () => {
 	// Update action icon and state
 	const tabs = await chrome.tabs.query({});
 
@@ -62,18 +62,31 @@ chrome.action.onClicked.addListener(async (tab) => {
 		return false;
 	}
 
-	const states = await chrome.storage.local.get(`isCduEnabled-${tab.id}`);
-	const currentState = states[`isCduEnabled-${tab.id}`];
-	chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: !currentState});
-	updateButtonIcon(!currentState, tab.id);
-	if (!currentState) {
+	const activations = await chrome.storage.local.get(`isCduEnabled-${tab.id}`);
+	const isLoaded = activations[`isCduEnabled-${tab.id}`];
+	chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: !isLoaded});
+
+	const injections = await chrome.storage.local.get(`isCduInjected-${tab.id}`);
+	const isInjected = injections[`isCduInjected-${tab.id}`];
+
+	updateButtonIcon(!isLoaded, tab.id);
+
+	if (!isLoaded && !isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id },
 			files: ['js/inject.js']
 		});
-	} else {
-		// @todo: drop <app-root> but allow to restore it, too
-		// @link https://github.com/GoogleChromeLabs/ProjectVisBug/blob/main/extension/visbug.js
+		chrome.storage.local.set({[`isCduInjected-${tab.id}`]: true});
+	} else if (!isLoaded && isInjected) {
+		chrome.scripting.executeScript({
+			target: { tabId: tab.id },
+			files: ['js/restore.js']
+		});
+	} else if (isLoaded && isInjected) {
+		chrome.scripting.executeScript({
+			target: { tabId: tab.id },
+			files: ['js/eject.js']
+		});
 	}
 });
 
@@ -84,6 +97,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 	} else {
 		chrome.action.enable(tabId);
 		chrome.storage.local.set({[`isCduEnabled-${tabId}`]: false});
+		chrome.storage.local.set({[`isCduInjected-${tabId}`]: false});
 	}
 });
 
@@ -92,5 +106,16 @@ chrome.tabs.onCreated.addListener(tab => {
 	chrome.action.disable(tab.id);
 	if (!['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.enable(tab.id);
+	}
+});
+
+// @note Debugging storage
+// @see https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
+chrome.storage.onChanged.addListener((changes, namespace) => {
+	for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
+		console.log(
+			`Storage key "${key}" in namespace "${namespace}" changed.`,
+			`Old value was "${oldValue}", new value is "${newValue}".`
+		);
 	}
 });
