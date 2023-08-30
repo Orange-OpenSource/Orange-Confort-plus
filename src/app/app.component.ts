@@ -75,6 +75,3 @@ class AppComponent extends HTMLElement {
 }
 
 customElements.define('app-root', AppComponent);
-
-const appRootElt: HTMLElement = document.createElement('app-root');
-document.body.prepend(appRootElt);
