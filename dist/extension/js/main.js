@@ -69,10 +69,11 @@ chrome.action.onClicked.addListener(async (tab) => {
 	if (!currentState) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id },
-			files: ['js/toolbar.js']
+			files: ['js/inject.js']
 		});
 	} else {
-		// @todo Remove <app-root> and everything
+		// @todo: drop <app-root> but allow to restore it, too
+		// @link https://github.com/GoogleChromeLabs/ProjectVisBug/blob/main/extension/visbug.js
 	}
 });
 
