@@ -60,6 +60,7 @@
 		"move:manifest:firefox": "shx cp dist/manifest.firefox.json dist/extension/manifest.json",
 		"move:manifest:chrome": "shx cp dist/manifest.chrome.json dist/extension/manifest.json",
 		"lint:ext": "cross-env-shell web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
+		"prezip": "shx rm -rf ./*.zip",
 		"zip": "npm run zip:firefox && npm run zip:chrome",
 		"prezip:firefox": "npm run move:manifest:firefox",
 		"zip:firefox": "cross-env-shell web-ext build -s dist/extension -a ./ -n $npm_package_name-$npm_package_version-firefox.zip -o",
