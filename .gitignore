@@ -60,6 +60,7 @@ src/site/css/*.css.map
 # Build
 *.zip
 dist/extension/manifest.json
+/dist/temp
 /dist/js
 /dist/css
 /src/img/

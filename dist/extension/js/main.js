@@ -1,14 +1,4 @@
-const options = {
-	debug: false
-};
-
-chrome.runtime.onInstalled.addListener(async ({temporary}) => {
-	// Debug mode
-	if (temporary) {
-		options.debug = true;
-		chrome.storage.sync.set({options});
-	}
-
+chrome.runtime.onInstalled.addListener(async () => {
 	// Update action icon and state
 	const tabs = await chrome.tabs.query({});
 
@@ -121,16 +111,11 @@ chrome.tabs.onCreated.addListener(tab => {
 
 // @note Debugging storage
 // @see https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
-chrome.storage.onChanged.addListener(async (changes, namespace) => {
-	const data = await chrome.storage.sync.get('options');
-	console.log(data)
-	if (data.debug) {
-		console.log('debug')
-		for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
-			console.log(
-				`Storage key "${key}" in namespace "${namespace}" changed.`,
-				`Old value was "${oldValue}", new value is "${newValue}".`
-			);
-		}
+chrome.storage.onChanged.addListener((changes, namespace) => {
+	for (let [key, {oldValue, newValue}] of Object.entries(changes)) {
+		console.log(
+			`Storage key "${key}" in namespace "${namespace}" changed.`,
+			`Old value was "${oldValue}", new value is "${newValue}".`
+		);
 	}
 });
