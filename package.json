@@ -75,6 +75,7 @@
 	},
 	"devDependencies": {
 		"@types/alpinejs": "^3.7.1",
+		"@types/chrome": "^0.0.245",
 		"@types/node": "^20.3.1",
 		"alpinejs": "^3.12.2",
 		"autoprefixer": "^10.4.14",
