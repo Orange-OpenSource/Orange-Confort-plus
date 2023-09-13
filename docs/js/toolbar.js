@@ -48,6 +48,8 @@ class AppComponent extends HTMLElement {
         this.confortPlusBtn = this.shadowRoot.getElementById('confort');
         // @ts-ignore
         this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
+        // Yihaa, using dataset API to distinguish paths
+        console.log(this.dataset?.path);
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
@@ -1009,4 +1011,5 @@ class ToolbarComponent extends HTMLElement {
 }
 customElements.define('app-toolbar', ToolbarComponent);
 const appRootElt = document.createElement('app-root');
+appRootElt.dataset.path = window.location.origin + '/';
 document.body.prepend(appRootElt);
