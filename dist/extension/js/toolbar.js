@@ -48,6 +48,8 @@ class AppComponent extends HTMLElement {
         this.confortPlusBtn = this.shadowRoot.getElementById('confort');
         // @ts-ignore
         this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
+        // Yihaa, using dataset API to distinguish paths
+        console.log(this.dataset?.path);
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }

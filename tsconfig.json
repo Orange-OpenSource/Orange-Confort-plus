@@ -5,6 +5,7 @@
 			"es6",
 			"dom"
 		],
+		"typeRoots": ["node_modules/@types"],
 		"module": "es2020",
 		"moduleResolution": "node",
 		"rootDir": "src",
