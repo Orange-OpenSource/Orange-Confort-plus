@@ -52,30 +52,30 @@ tmplLayout.innerHTML = `
             padding: 0;
         }
     </style>
-    <button class="c-btn-tool" id="tool-btn">
+    <button class="c-btn-tool" id="sc-layout__tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Agencement</span>
         <div class="c-btn-tool__picto"></div>
     </button>
-    <div class="c-tool__content hidden" id="tool-content">
+    <div class="c-tool__content hidden" id="sc-layout__tool-content">
         En cours ...
     </div>
 `;
 
 class LayoutComponent extends HTMLElement {
-	shadow = this.attachShadow({mode: 'open'});
 	toolBtn: HTMLElement | null = null;
 
 	open: boolean = false;
 
 	constructor() {
 		super();
-		this.shadow.appendChild(tmplLayout.content.cloneNode(true));
+
+		this.appendChild(tmplLayout.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
-		this.toolBtn = this.shadow.getElementById('tool-btn');
-		const contentElt = this.shadow.getElementById('tool-content');
+		this.toolBtn = this.querySelector('#sc-layout__tool-btn');
+		const contentElt = this.querySelector('#sc-layout__tool-content');
 
 		this.toolBtn?.addEventListener('click', () => {
 			this.open = !this.open;

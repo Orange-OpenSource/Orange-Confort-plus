@@ -12,8 +12,6 @@ tmplTextTransform.innerHTML = `
 `;
 
 class TextTransformComponent extends HTMLElement {
-	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
-
 	normalBtn: HTMLElement | null = null;
 	firstLetterBtn: HTMLElement | null = null;
 	lowercaseBtn: HTMLElement | null = null;
@@ -21,12 +19,12 @@ class TextTransformComponent extends HTMLElement {
 
 	constructor() {
 		super();
-		this.shadow.appendChild(tmplTextTransform.content.cloneNode(true));
+		this.appendChild(tmplTextTransform.content.cloneNode(true));
 
-		this.normalBtn = this.shadow.getElementById('normal-btn');
-		this.firstLetterBtn = this.shadow.getElementById('first-letter-btn');
-		this.lowercaseBtn = this.shadow.getElementById('lowercase-btn');
-		this.uppercaseBtn = this.shadow.getElementById('uppercase-btn');
+		this.normalBtn = this.querySelector('#normal-btn');
+		this.firstLetterBtn = this.querySelector('#first-letter-btn');
+		this.lowercaseBtn = this.querySelector('#lowercase-btn');
+		this.uppercaseBtn = this.querySelector('#uppercase-btn');
 	}
 
 	connectedCallback(): void {

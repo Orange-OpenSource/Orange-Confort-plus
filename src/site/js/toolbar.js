@@ -23,50 +23,50 @@ template.innerHTML = `
 <app-toolbar class="hidden" id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
 `;
 class AppComponent extends HTMLElement {
-    openConfortPlus = false;
-    confortPlusBtn = null;
-    confortPlusToolbar = null;
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        // @ts-ignore
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-        template.addEventListener('closeEvent', (event) => {
-            if (event.detail) {
-                this.openConfortPlus = !this.openConfortPlus;
-                this.openConfortPlus ?
-                    this.confortPlusToolbar?.classList.remove('hidden') :
-                    this.confortPlusToolbar?.classList.add('hidden');
-                this.openConfortPlus ?
-                    this.confortPlusBtn?.classList.add('hidden') :
-                    this.confortPlusBtn?.classList.remove('hidden');
-            }
-        });
-    }
-    connectedCallback() {
-        // @ts-ignore
-        this.confortPlusBtn = this.shadowRoot.getElementById('confort');
-        // @ts-ignore
-        this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
-        if (!this.confortPlusBtn || !this.confortPlusToolbar) {
-            return;
-        }
-        this.confortPlusBtn.addEventListener('click', () => {
-            this.openConfortPlus = !this.openConfortPlus;
-            this.openConfortPlus ?
-                this.confortPlusToolbar?.classList.remove('hidden') :
-                this.confortPlusToolbar?.classList.add('hidden');
-            this.openConfortPlus ?
-                this.confortPlusBtn?.classList.add('hidden') :
-                this.confortPlusBtn?.classList.remove('hidden');
-        });
-    }
-    disconnectedCallback() {
-        this.confortPlusBtn?.removeEventListener('click', () => {
-        });
-        this.confortPlusToolbar?.removeEventListener('click', () => {
-        });
-    }
+	openConfortPlus = false;
+	confortPlusBtn = null;
+	confortPlusToolbar = null;
+	constructor() {
+		super();
+		this.attachShadow({ mode: 'open' });
+		// @ts-ignore
+		this.shadowRoot.appendChild(template.content.cloneNode(true));
+		template.addEventListener('closeEvent', (event) => {
+			if (event.detail) {
+				this.openConfortPlus = !this.openConfortPlus;
+				this.openConfortPlus ?
+					this.confortPlusToolbar?.classList.remove('hidden') :
+					this.confortPlusToolbar?.classList.add('hidden');
+				this.openConfortPlus ?
+					this.confortPlusBtn?.classList.add('hidden') :
+					this.confortPlusBtn?.classList.remove('hidden');
+			}
+		});
+	}
+	connectedCallback() {
+		// @ts-ignore
+		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
+		// @ts-ignore
+		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
+		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
+			return;
+		}
+		this.confortPlusBtn.addEventListener('click', () => {
+			this.openConfortPlus = !this.openConfortPlus;
+			this.openConfortPlus ?
+				this.confortPlusToolbar?.classList.remove('hidden') :
+				this.confortPlusToolbar?.classList.add('hidden');
+			this.openConfortPlus ?
+				this.confortPlusBtn?.classList.add('hidden') :
+				this.confortPlusBtn?.classList.remove('hidden');
+		});
+	}
+	disconnectedCallback() {
+		this.confortPlusBtn?.removeEventListener('click', () => {
+		});
+		this.confortPlusToolbar?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-root', AppComponent);
 const appRootElt = document.createElement('app-root');
@@ -136,29 +136,29 @@ tmplLayout.innerHTML = `
     </div>
 `;
 class LayoutComponent extends HTMLElement {
-    toolBtn = null;
-    open = false;
-    constructor() {
-        super();
-        this.appendChild(tmplLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector('#sc-layout__tool-btn');
-        const contentElt = this.querySelector('#sc-layout__tool-content');
-        this.toolBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove('hidden');
-            }
-            else {
-                contentElt?.classList.add('hidden');
-            }
-        });
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener('click', () => {
-        });
-    }
+	toolBtn = null;
+	open = false;
+	constructor() {
+		super();
+		this.appendChild(tmplLayout.content.cloneNode(true));
+	}
+	connectedCallback() {
+		this.toolBtn = this.querySelector('#sc-layout__tool-btn');
+		const contentElt = this.querySelector('#sc-layout__tool-content');
+		this.toolBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (this.open) {
+				contentElt?.classList.remove('hidden');
+			}
+			else {
+				contentElt?.classList.add('hidden');
+			}
+		});
+	}
+	disconnectedCallback() {
+		this.toolBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-layout', LayoutComponent);
 "use strict";
@@ -226,29 +226,29 @@ tmplPictureVideo.innerHTML = `
     </div>
 `;
 class PictureVideoComponent extends HTMLElement {
-    toolBtn = null;
-    open = false;
-    constructor() {
-        super();
-        this.appendChild(tmplPictureVideo.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector('#sc-picture-video__tool-btn');
-        const contentElt = this.querySelector('#sc-picture-video__tool-content');
-        this.toolBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove('hidden');
-            }
-            else {
-                contentElt?.classList.add('hidden');
-            }
-        });
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener('click', () => {
-        });
-    }
+	toolBtn = null;
+	open = false;
+	constructor() {
+		super();
+		this.appendChild(tmplPictureVideo.content.cloneNode(true));
+	}
+	connectedCallback() {
+		this.toolBtn = this.querySelector('#sc-picture-video__tool-btn');
+		const contentElt = this.querySelector('#sc-picture-video__tool-content');
+		this.toolBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (this.open) {
+				contentElt?.classList.remove('hidden');
+			}
+			else {
+				contentElt?.classList.add('hidden');
+			}
+		});
+	}
+	disconnectedCallback() {
+		this.toolBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-picture-video', PictureVideoComponent);
 "use strict";
@@ -316,29 +316,29 @@ tmplPointer.innerHTML = `
     </div>
 `;
 class PointerComponent extends HTMLElement {
-    toolBtn = null;
-    open = false;
-    constructor() {
-        super();
-        this.appendChild(tmplPointer.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector('#sc-pointer__tool-btn');
-        const contentElt = this.querySelector('#sc-pointer__tool-content');
-        this.toolBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove('hidden');
-            }
-            else {
-                contentElt?.classList.add('hidden');
-            }
-        });
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener('click', () => {
-        });
-    }
+	toolBtn = null;
+	open = false;
+	constructor() {
+		super();
+		this.appendChild(tmplPointer.content.cloneNode(true));
+	}
+	connectedCallback() {
+		this.toolBtn = this.querySelector('#sc-pointer__tool-btn');
+		const contentElt = this.querySelector('#sc-pointer__tool-content');
+		this.toolBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (this.open) {
+				contentElt?.classList.remove('hidden');
+			}
+			else {
+				contentElt?.classList.add('hidden');
+			}
+		});
+	}
+	disconnectedCallback() {
+		this.toolBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-pointer', PointerComponent);
 "use strict";
@@ -406,29 +406,29 @@ tmplSound.innerHTML = `
     </div>
 `;
 class SoundComponent extends HTMLElement {
-    toolBtn = null;
-    open = false;
-    constructor() {
-        super();
-        this.appendChild(tmplSound.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector('#sc-sound__tool-btn');
-        const contentElt = this.querySelector('#sc-sound__tool-content');
-        this.toolBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove('hidden');
-            }
-            else {
-                contentElt?.classList.add('hidden');
-            }
-        });
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener('click', () => {
-        });
-    }
+	toolBtn = null;
+	open = false;
+	constructor() {
+		super();
+		this.appendChild(tmplSound.content.cloneNode(true));
+	}
+	connectedCallback() {
+		this.toolBtn = this.querySelector('#sc-sound__tool-btn');
+		const contentElt = this.querySelector('#sc-sound__tool-content');
+		this.toolBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (this.open) {
+				contentElt?.classList.remove('hidden');
+			}
+			else {
+				contentElt?.classList.add('hidden');
+			}
+		});
+	}
+	disconnectedCallback() {
+		this.toolBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-sound', SoundComponent);
 "use strict";
@@ -446,54 +446,54 @@ tmplFontFamily.innerHTML = `
 <button id="open-dyslexic-font">Open Dyslexic</button>
 `;
 class FontFamilyComponent extends HTMLElement {
-    normalBtn = null;
-    arialBtn = null;
-    openSansBtn = null;
-    accessibleDFABtn = null;
-    openDyslexicBtn = null;
-    constructor() {
-        super();
-        this.appendChild(tmplFontFamily.content.cloneNode(true));
-        let head = document.head || document.getElementsByTagName('head')[0];
-        let styles = document.createElement('style');
-        head.appendChild(styles);
-        styles.innerHTML = '@font-face{font-family:"Accessible-DFA";src:url("./assets/fonts/AccessibleDfA-Regular.woff2");font-display:swap}@font-face{font-family:"Open-Dyslexic";src:url("./assets/fonts/OpenDyslexic-Regular.woff2");font-display:swap}@font-face{font-family:"Open-Sans";src:url("./assets/fonts/OpenSans-Regular.woff2");font-display:swap}';
-        this.normalBtn = this.querySelector('#normal-font');
-        this.arialBtn = this.querySelector('#arial-font');
-        this.openSansBtn = this.querySelector('#open-font-font');
-        this.accessibleDFABtn = this.querySelector('#accessible-dfa-font');
-        this.openDyslexicBtn = this.querySelector('#open-dyslexic-font');
-    }
-    connectedCallback() {
-        const bodyElt = document.getElementsByTagName('body')[0];
-        this.normalBtn?.addEventListener('click', () => {
-            bodyElt.style.fontFamily = ``;
-        });
-        this.arialBtn?.addEventListener('click', () => {
-            bodyElt.style.fontFamily = `arial`;
-        });
-        this.openSansBtn?.addEventListener('click', () => {
-            bodyElt.style.fontFamily = `Open-Sans`;
-        });
-        this.accessibleDFABtn?.addEventListener('click', () => {
-            bodyElt.style.fontFamily = `Accessible-DFA`;
-        });
-        this.openDyslexicBtn?.addEventListener('click', () => {
-            bodyElt.style.fontFamily = `Open-Dyslexic`;
-        });
-    }
-    disconnectedCallback() {
-        this.normalBtn?.removeEventListener('click', () => {
-        });
-        this.arialBtn?.removeEventListener('click', () => {
-        });
-        this.openSansBtn?.removeEventListener('click', () => {
-        });
-        this.accessibleDFABtn?.removeEventListener('click', () => {
-        });
-        this.openDyslexicBtn?.removeEventListener('click', () => {
-        });
-    }
+	normalBtn = null;
+	arialBtn = null;
+	openSansBtn = null;
+	accessibleDFABtn = null;
+	openDyslexicBtn = null;
+	constructor() {
+		super();
+		this.appendChild(tmplFontFamily.content.cloneNode(true));
+		let head = document.head || document.getElementsByTagName('head')[0];
+		let styles = document.createElement('style');
+		head.appendChild(styles);
+		styles.innerHTML = '@font-face{font-family:"Accessible-DFA";src:url("./assets/fonts/AccessibleDfA-Regular.woff2");font-display:swap}@font-face{font-family:"Open-Dyslexic";src:url("./assets/fonts/OpenDyslexic-Regular.woff2");font-display:swap}@font-face{font-family:"Open-Sans";src:url("./assets/fonts/OpenSans-Regular.woff2");font-display:swap}';
+		this.normalBtn = this.querySelector('#normal-font');
+		this.arialBtn = this.querySelector('#arial-font');
+		this.openSansBtn = this.querySelector('#open-font-font');
+		this.accessibleDFABtn = this.querySelector('#accessible-dfa-font');
+		this.openDyslexicBtn = this.querySelector('#open-dyslexic-font');
+	}
+	connectedCallback() {
+		const bodyElt = document.getElementsByTagName('body')[0];
+		this.normalBtn?.addEventListener('click', () => {
+			bodyElt.style.fontFamily = ``;
+		});
+		this.arialBtn?.addEventListener('click', () => {
+			bodyElt.style.fontFamily = `arial`;
+		});
+		this.openSansBtn?.addEventListener('click', () => {
+			bodyElt.style.fontFamily = `Open-Sans`;
+		});
+		this.accessibleDFABtn?.addEventListener('click', () => {
+			bodyElt.style.fontFamily = `Accessible-DFA`;
+		});
+		this.openDyslexicBtn?.addEventListener('click', () => {
+			bodyElt.style.fontFamily = `Open-Dyslexic`;
+		});
+	}
+	disconnectedCallback() {
+		this.normalBtn?.removeEventListener('click', () => {
+		});
+		this.arialBtn?.removeEventListener('click', () => {
+		});
+		this.openSansBtn?.removeEventListener('click', () => {
+		});
+		this.accessibleDFABtn?.removeEventListener('click', () => {
+		});
+		this.openDyslexicBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-font-family', FontFamilyComponent);
 "use strict";
@@ -564,57 +564,57 @@ tmplIncreaseTextSize.innerHTML = `
 		</div>
 `;
 class IncreaseTextSizeComponent extends HTMLElement {
-    toolBtn = null;
-    sizeBtn = null;
-    index = 0;
-    fontSizes = [16, 18, 20, 22, 24];
-    constructor() {
-        super();
-        this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
-    }
-    connectedCallback() {
-        const bodyElt = document.getElementsByTagName('body')[0];
-        const sizeInfoElt = this.querySelector('#content-size-info');
-        this.sizeBtn = this.querySelector('#btn-size');
-        if (!sizeInfoElt) {
-            return;
-        }
-        // @ts-ignore
-        const btnContentSlots = this.querySelector('#btn-content-slots');
-        let slot = '';
-        this.fontSizes.forEach((size, index) => {
-            let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-            if (index === this.index) {
-                div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-            }
-            slot = `${slot}${div}`;
-        });
-        btnContentSlots.innerHTML = slot;
-        sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        this.sizeBtn?.addEventListener('click', () => {
-            this.index++;
-            if (this.index >= this.fontSizes.length) {
-                this.index = 0;
-            }
-            slot = '';
-            this.fontSizes.forEach((size, index) => {
-                let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-                if (index === this.index) {
-                    div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-                }
-                slot = `${slot}${div}`;
-            });
-            btnContentSlots.innerHTML = slot;
-            bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
-            sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        });
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener('click', () => {
-        });
-        this.sizeBtn?.removeEventListener('click', () => {
-        });
-    }
+	toolBtn = null;
+	sizeBtn = null;
+	index = 0;
+	fontSizes = [16, 18, 20, 22, 24];
+	constructor() {
+		super();
+		this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
+	}
+	connectedCallback() {
+		const bodyElt = document.getElementsByTagName('body')[0];
+		const sizeInfoElt = this.querySelector('#content-size-info');
+		this.sizeBtn = this.querySelector('#btn-size');
+		if (!sizeInfoElt) {
+			return;
+		}
+		// @ts-ignore
+		const btnContentSlots = this.querySelector('#btn-content-slots');
+		let slot = '';
+		this.fontSizes.forEach((size, index) => {
+			let div = '<div class="sc-increase-text-size__btn-slot"></div>';
+			if (index === this.index) {
+				div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
+			}
+			slot = `${slot}${div}`;
+		});
+		btnContentSlots.innerHTML = slot;
+		sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+		this.sizeBtn?.addEventListener('click', () => {
+			this.index++;
+			if (this.index >= this.fontSizes.length) {
+				this.index = 0;
+			}
+			slot = '';
+			this.fontSizes.forEach((size, index) => {
+				let div = '<div class="sc-increase-text-size__btn-slot"></div>';
+				if (index === this.index) {
+					div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
+				}
+				slot = `${slot}${div}`;
+			});
+			btnContentSlots.innerHTML = slot;
+			bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
+			sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+		});
+	}
+	disconnectedCallback() {
+		this.toolBtn?.removeEventListener('click', () => {
+		});
+		this.sizeBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-increase-text-size', IncreaseTextSizeComponent);
 "use strict";
@@ -661,68 +661,68 @@ tmplReadingGuide.innerHTML = `
 <div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>
 `;
 class ReadingGuideComponent extends HTMLElement {
-    open = false;
-    sizeGuide = 40;
-    topGuideElt = null;
-    bottomGuideElt = null;
-    activeGuideBtn = null;
-    closeBtn = null;
-    constructor() {
-        super();
-        this.appendChild(tmplReadingGuide.content.cloneNode(true));
-        this.activeGuideBtn = this.querySelector('#reading-guide-btn');
-        this.topGuideElt = this.querySelector('#top-guide-elt');
-        this.bottomGuideElt = this.querySelector('#bottom-guide-elt');
-        this.closeBtn = this.querySelector('#close-btn');
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = 'none';
-            this.bottomGuideElt.style.display = 'none';
-        }
-    }
-    connectedCallback() {
-        this.activeGuideBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-                return;
-            }
-            if (this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.removeProperty('display');
-                this.bottomGuideElt.style.removeProperty('display');
-            }
-        });
-        this.closeBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-            }
-        });
-        document.onkeydown = (event) => {
-            if (event.code === 'Escape') {
-                this.open = !this.open;
-                this.resetReadingGuide();
-            }
-        };
-        document.addEventListener('mousemove', (event) => {
-            if (this.open && this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
-                this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
-            }
-            event.stopPropagation();
-        });
-    }
-    disconnectedCallback() {
-        this.closeBtn?.removeEventListener('click', () => {
-        });
-    }
-    resetReadingGuide() {
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = 'none';
-            this.bottomGuideElt.style.display = 'none';
-            this.topGuideElt.style.removeProperty('height');
-            this.bottomGuideElt.style.removeProperty('height');
-        }
-    }
+	open = false;
+	sizeGuide = 40;
+	topGuideElt = null;
+	bottomGuideElt = null;
+	activeGuideBtn = null;
+	closeBtn = null;
+	constructor() {
+		super();
+		this.appendChild(tmplReadingGuide.content.cloneNode(true));
+		this.activeGuideBtn = this.querySelector('#reading-guide-btn');
+		this.topGuideElt = this.querySelector('#top-guide-elt');
+		this.bottomGuideElt = this.querySelector('#bottom-guide-elt');
+		this.closeBtn = this.querySelector('#close-btn');
+		if (this.topGuideElt && this.bottomGuideElt) {
+			this.topGuideElt.style.display = 'none';
+			this.bottomGuideElt.style.display = 'none';
+		}
+	}
+	connectedCallback() {
+		this.activeGuideBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (!this.open) {
+				this.resetReadingGuide();
+				return;
+			}
+			if (this.topGuideElt && this.bottomGuideElt) {
+				this.topGuideElt.style.removeProperty('display');
+				this.bottomGuideElt.style.removeProperty('display');
+			}
+		});
+		this.closeBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (!this.open) {
+				this.resetReadingGuide();
+			}
+		});
+		document.onkeydown = (event) => {
+			if (event.code === 'Escape') {
+				this.open = !this.open;
+				this.resetReadingGuide();
+			}
+		};
+		document.addEventListener('mousemove', (event) => {
+			if (this.open && this.topGuideElt && this.bottomGuideElt) {
+				this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
+				this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+			}
+			event.stopPropagation();
+		});
+	}
+	disconnectedCallback() {
+		this.closeBtn?.removeEventListener('click', () => {
+		});
+	}
+	resetReadingGuide() {
+		if (this.topGuideElt && this.bottomGuideElt) {
+			this.topGuideElt.style.display = 'none';
+			this.bottomGuideElt.style.display = 'none';
+			this.topGuideElt.style.removeProperty('height');
+			this.bottomGuideElt.style.removeProperty('height');
+		}
+	}
 }
 customElements.define('app-reading-guide', ReadingGuideComponent);
 "use strict";
@@ -739,43 +739,43 @@ tmplTextTransform.innerHTML = `
 <button id="uppercase-btn">Majuscule</button>
 `;
 class TextTransformComponent extends HTMLElement {
-    normalBtn = null;
-    firstLetterBtn = null;
-    lowercaseBtn = null;
-    uppercaseBtn = null;
-    constructor() {
-        super();
-        this.appendChild(tmplTextTransform.content.cloneNode(true));
-        this.normalBtn = this.querySelector('#normal-btn');
-        this.firstLetterBtn = this.querySelector('#first-letter-btn');
-        this.lowercaseBtn = this.querySelector('#lowercase-btn');
-        this.uppercaseBtn = this.querySelector('#uppercase-btn');
-    }
-    connectedCallback() {
-        const bodyElt = document.getElementsByTagName('body')[0];
-        this.normalBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = ``;
-        });
-        this.firstLetterBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = `capitalize`;
-        });
-        this.lowercaseBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = `lowercase`;
-        });
-        this.uppercaseBtn?.addEventListener('click', () => {
-            bodyElt.style.textTransform = `uppercase`;
-        });
-    }
-    disconnectedCallback() {
-        this.normalBtn?.removeEventListener('click', () => {
-        });
-        this.firstLetterBtn?.removeEventListener('click', () => {
-        });
-        this.lowercaseBtn?.removeEventListener('click', () => {
-        });
-        this.uppercaseBtn?.removeEventListener('click', () => {
-        });
-    }
+	normalBtn = null;
+	firstLetterBtn = null;
+	lowercaseBtn = null;
+	uppercaseBtn = null;
+	constructor() {
+		super();
+		this.appendChild(tmplTextTransform.content.cloneNode(true));
+		this.normalBtn = this.querySelector('#normal-btn');
+		this.firstLetterBtn = this.querySelector('#first-letter-btn');
+		this.lowercaseBtn = this.querySelector('#lowercase-btn');
+		this.uppercaseBtn = this.querySelector('#uppercase-btn');
+	}
+	connectedCallback() {
+		const bodyElt = document.getElementsByTagName('body')[0];
+		this.normalBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = ``;
+		});
+		this.firstLetterBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = `capitalize`;
+		});
+		this.lowercaseBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = `lowercase`;
+		});
+		this.uppercaseBtn?.addEventListener('click', () => {
+			bodyElt.style.textTransform = `uppercase`;
+		});
+	}
+	disconnectedCallback() {
+		this.normalBtn?.removeEventListener('click', () => {
+		});
+		this.firstLetterBtn?.removeEventListener('click', () => {
+		});
+		this.lowercaseBtn?.removeEventListener('click', () => {
+		});
+		this.uppercaseBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-text-transform', TextTransformComponent);
 "use strict";
@@ -851,29 +851,29 @@ tmplText.innerHTML = `
     </div>
 `;
 class TextComponent extends HTMLElement {
-    toolBtn = null;
-    open = false;
-    constructor() {
-        super();
-        this.appendChild(tmplText.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector('#sc-text__tool-btn');
-        const contentElt = this.querySelector('#sc-text__tool-content');
-        this.toolBtn?.addEventListener('click', () => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove('hidden');
-            }
-            else {
-                contentElt?.classList.add('hidden');
-            }
-        });
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener('click', () => {
-        });
-    }
+	toolBtn = null;
+	open = false;
+	constructor() {
+		super();
+		this.appendChild(tmplText.content.cloneNode(true));
+	}
+	connectedCallback() {
+		this.toolBtn = this.querySelector('#sc-text__tool-btn');
+		const contentElt = this.querySelector('#sc-text__tool-content');
+		this.toolBtn?.addEventListener('click', () => {
+			this.open = !this.open;
+			if (this.open) {
+				contentElt?.classList.remove('hidden');
+			}
+			else {
+				contentElt?.classList.add('hidden');
+			}
+		});
+	}
+	disconnectedCallback() {
+		this.toolBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-text', TextComponent);
 "use strict";
@@ -992,21 +992,21 @@ tmplToolbar.innerHTML = `
 </section>
 `;
 class ToolbarComponent extends HTMLElement {
-    closeBtn = null;
-    constructor() {
-        super();
-        this.appendChild(tmplToolbar.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.closeBtn = this.querySelector('#close-toolbar');
-        this.closeBtn?.addEventListener('click', () => {
-            let clickEvent = new CustomEvent('closeEvent', { detail: true });
-            template.dispatchEvent(clickEvent);
-        });
-    }
-    disconnectedCallback() {
-        this.closeBtn?.removeEventListener('click', () => {
-        });
-    }
+	closeBtn = null;
+	constructor() {
+		super();
+		this.appendChild(tmplToolbar.content.cloneNode(true));
+	}
+	connectedCallback() {
+		this.closeBtn = this.querySelector('#close-toolbar');
+		this.closeBtn?.addEventListener('click', () => {
+			let clickEvent = new CustomEvent('closeEvent', { detail: true });
+			template.dispatchEvent(clickEvent);
+		});
+	}
+	disconnectedCallback() {
+		this.closeBtn?.removeEventListener('click', () => {
+		});
+	}
 }
 customElements.define('app-toolbar', ToolbarComponent);

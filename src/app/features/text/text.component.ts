@@ -11,6 +11,7 @@ tmplText.innerHTML = `
             display: flex;
             align-items: center;
             width: 100%;
+            margin-bottom: .5rem;
             padding: .5rem;
         }
         .c-btn-tool__picto {
@@ -37,6 +38,10 @@ tmplText.innerHTML = `
             justify-content: center;
             align-items: center;
             padding: .5rem;
+
+            > * {
+            	margin-bottom: 1rem;
+            }
         }
 
         button {
@@ -52,12 +57,12 @@ tmplText.innerHTML = `
             padding: 0;
         }
     </style>
-    <button class="c-btn-tool" id="tool-btn">
+    <button class="c-btn-tool" id="sc-text__tool-btn">
         <div class="c-btn-tool__picto"></div>
         <span class="c-btn-tool__label">Texte</span>
         <div class="c-btn-tool__picto"></div>
     </button>
-    <div class="c-tool__content hidden" id="tool-content">
+    <div class="c-tool__content hidden" id="sc-text__tool-content">
         <app-increase-text-size></app-increase-text-size>
         <app-text-transform></app-text-transform>
         <app-font-family></app-font-family>
@@ -66,19 +71,18 @@ tmplText.innerHTML = `
 `;
 
 class TextComponent extends HTMLElement {
-	shadow = this.attachShadow({mode: 'open'});
 	toolBtn: HTMLElement | null = null;
 
 	open: boolean = false;
 
 	constructor() {
 		super();
-		this.shadow.appendChild(tmplText.content.cloneNode(true));
+		this.appendChild(tmplText.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
-		this.toolBtn = this.shadow.getElementById('tool-btn');
-		const contentElt = this.shadow.getElementById('tool-content');
+		this.toolBtn = this.querySelector('#sc-text__tool-btn');
+		const contentElt = this.querySelector('#sc-text__tool-content');
 
 		this.toolBtn?.addEventListener('click', () => {
 			this.open = !this.open;

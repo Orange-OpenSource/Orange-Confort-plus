@@ -20,8 +20,12 @@ tmplToolbar.innerHTML = `
         background: black;
         display: flex;
         align-items: center;
-        padding: 0 1rem;
+        padding: 1rem;
     }
+    .sc-toolbar__header-infos {
+    	padding-top: 0;
+    }
+
     .sc-toolbar__logo {
         margin-right: 1rem;
     }
@@ -79,12 +83,13 @@ tmplToolbar.innerHTML = `
     .sc-toolbar__content {
         display: flex;
         flex-direction: column;
+        margin-bottom: .5rem;
         padding: 1rem;
     }
 </style>
 <section class="sc-toolbar__header">
     <span class="sc-toolbar__title">Confort+</span>
-    <button id="close-toolbar" class="sc-toolbar__btn"> -> </button>
+    <button class="sc-toolbar__btn"> -> </button>
     <button id="close-toolbar" class="sc-toolbar__btn sc-toolbar__close"> >> </button>
 </section>
 <section class="sc-toolbar__header-infos">
@@ -94,8 +99,8 @@ tmplToolbar.innerHTML = `
         <span class="sc-toolbar__infos-mode">Vision +</span>
     </div>
     <div class="sc-toolbar__infos-tools">
-        <button id="close-toolbar" class="sc-toolbar__btn"> O </button>
-        <button id="close-toolbar" class="sc-toolbar__btn"> [] </button>
+        <button class="sc-toolbar__btn"> O </button>
+        <button class="sc-toolbar__btn"> [] </button>
     </div>
 </section>
 
@@ -109,20 +114,19 @@ tmplToolbar.innerHTML = `
 `;
 
 class ToolbarComponent extends HTMLElement {
-	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
 	closeBtn: HTMLElement | null = null;
 
 	constructor() {
 		super();
-		this.shadow.appendChild(tmplToolbar.content.cloneNode(true));
+
+		this.appendChild(tmplToolbar.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
-		this.closeBtn = this.shadow.getElementById('close-toolbar');
+		this.closeBtn = this.querySelector('#close-toolbar');
 
 		this.closeBtn?.addEventListener('click', () => {
 			let clickEvent = new CustomEvent('closeEvent', {detail: true});
-			// @ts-ignore
 			template.dispatchEvent(clickEvent);
 		});
 	}

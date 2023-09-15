@@ -6,6 +6,10 @@ tmplIncreaseTextSize.innerHTML = `
             align-items: center;
             margin-bottom: 1rem;
         }
+        .sc-increase-text-size__content {
+        	display: flex;
+        }
+
         .sc-increase-text-size__btn-size {
             background: #ff7900;
             display: flex;
@@ -52,15 +56,16 @@ tmplIncreaseTextSize.innerHTML = `
             cursor: pointer;
         }
     </style>
-    <button class="sc-increase-text-size__btn-size" id="btn-size">
-        <span>Taille</span>
-        <div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>
-    </button>
-    <div class="sc-increase-text-size__size-info" id="content-size-info"></div>
+    <div class="sc-increase-text-size__content">
+			<button class="sc-increase-text-size__btn-size" id="btn-size">
+					<span>Taille</span>
+					<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>
+			</button>
+			<div class="sc-increase-text-size__size-info" id="content-size-info"></div>
+		</div>
 `;
 
 class IncreaseTextSizeComponent extends HTMLElement {
-	shadow = this.attachShadow({mode: 'open'});
 	toolBtn: HTMLElement | null = null;
 	sizeBtn: HTMLElement | null = null;
 
@@ -69,20 +74,20 @@ class IncreaseTextSizeComponent extends HTMLElement {
 
 	constructor() {
 		super();
-		this.shadow.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
+		this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		const bodyElt = document.getElementsByTagName('body')[0];
-		const sizeInfoElt = this.shadow.getElementById('content-size-info');
-		this.sizeBtn = this.shadow.getElementById('btn-size');
+		const sizeInfoElt = this.querySelector('#content-size-info');
+		this.sizeBtn = this.querySelector('#btn-size');
 
 		if (!sizeInfoElt) {
 			return;
 		}
 
 		// @ts-ignore
-		const btnContentSlots: HTMLElement = this.shadow.getElementById('btn-content-slots');
+		const btnContentSlots: HTMLElement = this.querySelector('#btn-content-slots');
 		let slot = '';
 		this.fontSizes.forEach((size, index) => {
 			let div = '<div class="sc-increase-text-size__btn-slot"></div>';
