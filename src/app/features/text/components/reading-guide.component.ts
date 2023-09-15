@@ -45,7 +45,6 @@ class ReadingGuideComponent extends HTMLElement {
 	open: boolean = false;
 	sizeGuide: number = 40;
 
-	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
 	topGuideElt: HTMLElement | null = null;
 	bottomGuideElt: HTMLElement | null = null;
 	activeGuideBtn: HTMLElement | null = null;
@@ -54,12 +53,12 @@ class ReadingGuideComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		this.shadow.appendChild(tmplReadingGuide.content.cloneNode(true));
+		this.appendChild(tmplReadingGuide.content.cloneNode(true));
 
-		this.activeGuideBtn = this.shadow.getElementById('reading-guide-btn');
-		this.topGuideElt = this.shadow.getElementById('top-guide-elt');
-		this.bottomGuideElt = this.shadow.getElementById('bottom-guide-elt');
-		this.closeBtn = this.shadow.getElementById('close-btn');
+		this.activeGuideBtn = this.querySelector('#reading-guide-btn');
+		this.topGuideElt = this.querySelector('#top-guide-elt');
+		this.bottomGuideElt = this.querySelector('#bottom-guide-elt');
+		this.closeBtn = this.querySelector('#close-btn');
 
 		if (this.topGuideElt && this.bottomGuideElt) {
 			this.topGuideElt.style.display = 'none';

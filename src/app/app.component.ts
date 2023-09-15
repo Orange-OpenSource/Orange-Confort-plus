@@ -23,14 +23,18 @@ template.innerHTML = `
 `
 
 class AppComponent extends HTMLElement {
-	shadow: ShadowRoot = this.attachShadow({mode: 'open'});
 	private openConfortPlus: boolean = false;
 	confortPlusBtn: HTMLElement | null = null;
 	confortPlusToolbar: HTMLElement | null = null;
 
 	constructor() {
 		super();
-		this.shadow.appendChild(template.content.cloneNode(true));
+
+		this.attachShadow({ mode: 'open' });
+
+		// @ts-ignore
+		this.shadowRoot.appendChild(template.content.cloneNode(true));
+
 		template.addEventListener('closeEvent', (event: any) => {
 			if (event.detail) {
 				this.openConfortPlus = !this.openConfortPlus;
@@ -47,12 +51,15 @@ class AppComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.confortPlusBtn = this.shadow.getElementById('confort');
-		this.confortPlusToolbar = this.shadow.getElementById('toolbar');
+		// @ts-ignore
+		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
+		// @ts-ignore
+		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
 
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
+
 		this.confortPlusBtn.addEventListener('click', () => {
 			this.openConfortPlus = !this.openConfortPlus;
 
@@ -75,3 +82,6 @@ class AppComponent extends HTMLElement {
 }
 
 customElements.define('app-root', AppComponent);
+
+const appRootElt: HTMLElement = document.createElement('app-root');
+document.body.prepend(appRootElt);

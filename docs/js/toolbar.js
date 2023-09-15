@@ -18,6 +18,10 @@ template.innerHTML = `
         display: none;
         visibility: hidden;
     }
+    app-toolbar:defined {
+    	display: none;
+        visibility: hidden;
+    }
 </style>
 <button class="sc-confort-plus" id="confort"></button>
 <app-toolbar class="hidden" id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
@@ -48,6 +52,7 @@ class AppComponent extends HTMLElement {
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
+        console.log('TEST');
         this.confortPlusBtn.addEventListener('click', () => {
             this.openConfortPlus = !this.openConfortPlus;
             this.openConfortPlus ?
@@ -886,6 +891,10 @@ tmplToolbar.innerHTML = `
         right: 0;
         z-index: 999;
     }
+    :host(.hidden) {
+    	display: none;
+        visibility: hidden;
+    }
     .sc-toolbar__header,
     .sc-toolbar__header-infos {
         color: white;
@@ -980,14 +989,15 @@ tmplToolbar.innerHTML = `
 </section>
 `;
 class ToolbarComponent extends HTMLElement {
-    shadow = this.attachShadow({ mode: 'open' });
+    // shadow: ShadowRoot = this.attachShadow({mode: 'open'});
     closeBtn = null;
     constructor() {
         super();
-        this.shadow.appendChild(tmplToolbar.content.cloneNode(true));
+        // this.shadow.appendChild(tmplToolbar.content.cloneNode(true));
+        this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
-        this.closeBtn = this.shadow.getElementById('close-toolbar');
+        // this.closeBtn = this.shadow.getElementById('close-toolbar');
         this.closeBtn?.addEventListener('click', () => {
             let clickEvent = new CustomEvent('closeEvent', { detail: true });
             // @ts-ignore
