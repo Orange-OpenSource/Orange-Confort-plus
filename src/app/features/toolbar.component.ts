@@ -95,7 +95,7 @@ tmplToolbar.innerHTML = `
 <section class="sc-toolbar__header-infos">
     <div class="sc-toolbar__infos-picto"></div>
     <div class="sc-toolbar__infos-libelles">
-        <span>Mode d'usage</span>
+        <span>Mode d’usage</span>
         <span class="sc-toolbar__infos-mode">Vision +</span>
     </div>
     <div class="sc-toolbar__infos-tools">
