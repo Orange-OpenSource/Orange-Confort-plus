@@ -58,7 +58,7 @@ tmplPointer.innerHTML = `
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-pointer__tool-content">
-        En cours ...
+        En cours…
     </div>
 `;
 

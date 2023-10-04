@@ -220,7 +220,7 @@ tmplPictureVideo.innerHTML = `
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-picture-video__tool-content">
-        En cours ...
+        En cours…
     </div>
 `;
 class PictureVideoComponent extends HTMLElement {
@@ -310,7 +310,7 @@ tmplPointer.innerHTML = `
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-pointer__tool-content">
-        En cours ...
+        En cours…
     </div>
 `;
 class PointerComponent extends HTMLElement {
@@ -400,7 +400,7 @@ tmplSound.innerHTML = `
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-sound__tool-content">
-        En cours ...
+        En cours…
     </div>
 `;
 class SoundComponent extends HTMLElement {
