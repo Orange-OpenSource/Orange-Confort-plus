@@ -19,6 +19,7 @@ template.innerHTML = `
     }
 </style>
 <button class="sc-confort-plus" id="confort"></button>
+<!-- @todo rename mycustomevent -->
 <app-toolbar class="hidden" id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
 `
 
