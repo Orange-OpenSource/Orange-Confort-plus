@@ -1,7 +1,7 @@
 const tmplPictureVideo: HTMLTemplateElement = document.createElement('template');
 tmplPictureVideo.innerHTML = `
     <style>
-        :host {
+        app-picture-video {
             font-size: 1rem;
             display: flex;
             flex-direction: column;

@@ -1,7 +1,7 @@
 const tmplLayout: HTMLTemplateElement = document.createElement('template');
 tmplLayout.innerHTML = `
     <style>
-        :host {
+        app-layout {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
@@ -58,7 +58,7 @@ tmplLayout.innerHTML = `
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-layout__tool-content">
-        En cours ...
+        En cours…
     </div>
 `;
 

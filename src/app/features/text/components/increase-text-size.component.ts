@@ -1,7 +1,7 @@
 const tmplIncreaseTextSize: HTMLTemplateElement = document.createElement('template');
 tmplIncreaseTextSize.innerHTML = `
     <style>
-        :host {
+        app-increase-text-size {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;

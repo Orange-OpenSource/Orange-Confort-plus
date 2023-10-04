@@ -1,7 +1,7 @@
 const tmplReadingGuide: HTMLTemplateElement = document.createElement('template');
 tmplReadingGuide.innerHTML = `
 <style>
-    :host {
+    app-reading-guide {
         margin-bottom: 1rem;
     }
     .c-reading-guide {

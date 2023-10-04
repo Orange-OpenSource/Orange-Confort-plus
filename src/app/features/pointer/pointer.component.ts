@@ -1,7 +1,7 @@
 const tmplPointer: HTMLTemplateElement = document.createElement('template');
 tmplPointer.innerHTML = `
     <style>
-        :host {
+        app-pointer {
             font-size: 1rem;
             display: flex;
             flex-direction: column;

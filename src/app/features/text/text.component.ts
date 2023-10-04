@@ -1,7 +1,7 @@
 const tmplText: HTMLTemplateElement = document.createElement('template');
 tmplText.innerHTML = `
     <style>
-        :host {
+        app-text {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
