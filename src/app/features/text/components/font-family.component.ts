@@ -1,7 +1,7 @@
 const tmplFontFamily: HTMLTemplateElement = document.createElement('template');
 tmplFontFamily.innerHTML = `
 <style>
-    :host {
+    app-font-family {
         margin-bottom: 1rem;
     }
 </style>
