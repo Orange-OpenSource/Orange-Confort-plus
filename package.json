@@ -48,6 +48,7 @@
 		"build:img:docs": "imagemin docs/img/*.{png,gif} --out-dir=docs/img --plugin=pngquant --plugin=gifsicle --plugin=zopfli",
 		"build:img:webext": "imagemin src/extension/img/*.png --out-dir=dist/extension/img --plugin=pngquant --plugin=zopfli",
 		"build:fonts": "shx cp -r src/assets/fonts dist/serveur/ && shx cp -r src/assets/fonts dist/extension/",
+		"build:i18n": "shx cp -r src/_locales dist/serveur && shx cp -r src/_locales dist/extension",
 		"prewatch": "npm run mkdir",
 		"watch": "concurrently --kill-others \"npm:watch:*\"",
 		"watch:html": "nodemon --watch src/site --ext html --exec \"npm run build:html\"",
