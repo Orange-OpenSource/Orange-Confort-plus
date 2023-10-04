@@ -37,6 +37,7 @@
 				"js/*.js",
 				"css/*.css",
 				"img/*.png",
+				"fonts/*.woff2",
 				"help/*.html"
 			],
 			"matches": [
