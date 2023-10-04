@@ -69,13 +69,11 @@ class AppComponent extends HTMLElement {
     }
 }
 customElements.define('app-root', AppComponent);
-const appRootElt = document.createElement('app-root');
-document.body.prepend(appRootElt);
 "use strict";
 const tmplLayout = document.createElement('template');
 tmplLayout.innerHTML = `
     <style>
-        :host {
+        app-layout {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
@@ -132,7 +130,7 @@ tmplLayout.innerHTML = `
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-layout__tool-content">
-        En cours ...
+        En cours…
     </div>
 `;
 class LayoutComponent extends HTMLElement {
@@ -165,7 +163,7 @@ customElements.define('app-layout', LayoutComponent);
 const tmplPictureVideo = document.createElement('template');
 tmplPictureVideo.innerHTML = `
     <style>
-        :host {
+        app-picture-video {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
@@ -255,7 +253,7 @@ customElements.define('app-picture-video', PictureVideoComponent);
 const tmplPointer = document.createElement('template');
 tmplPointer.innerHTML = `
     <style>
-        :host {
+        app-pointer {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
@@ -345,7 +343,7 @@ customElements.define('app-pointer', PointerComponent);
 const tmplSound = document.createElement('template');
 tmplSound.innerHTML = `
     <style>
-        :host {
+        app-sound {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
@@ -435,7 +433,7 @@ customElements.define('app-sound', SoundComponent);
 const tmplFontFamily = document.createElement('template');
 tmplFontFamily.innerHTML = `
 <style>
-    :host {
+    app-font-family {
         margin-bottom: 1rem;
     }
 </style>
@@ -500,7 +498,7 @@ customElements.define('app-font-family', FontFamilyComponent);
 const tmplIncreaseTextSize = document.createElement('template');
 tmplIncreaseTextSize.innerHTML = `
     <style>
-        :host {
+        app-increase-text-size {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
@@ -621,7 +619,7 @@ customElements.define('app-increase-text-size', IncreaseTextSizeComponent);
 const tmplReadingGuide = document.createElement('template');
 tmplReadingGuide.innerHTML = `
 <style>
-    :host {
+    app-reading-guide {
         margin-bottom: 1rem;
     }
     .c-reading-guide {
@@ -729,7 +727,7 @@ customElements.define('app-reading-guide', ReadingGuideComponent);
 const tmplTextTransform = document.createElement('template');
 tmplTextTransform.innerHTML = `
 <style>
-    :host {
+    app-text-transform {
         margin-bottom: 1rem;
     }
 </style>
@@ -782,7 +780,7 @@ customElements.define('app-text-transform', TextTransformComponent);
 const tmplText = document.createElement('template');
 tmplText.innerHTML = `
     <style>
-        :host {
+        app-text {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
@@ -880,7 +878,7 @@ customElements.define('app-text', TextComponent);
 const tmplToolbar = document.createElement('template');
 tmplToolbar.innerHTML = `
 <style>
-    :host {
+    #toolbar {
         color: black;
         background: white;
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;

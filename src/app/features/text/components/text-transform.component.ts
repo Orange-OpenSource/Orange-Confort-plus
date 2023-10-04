@@ -1,7 +1,7 @@
 const tmplTextTransform: HTMLTemplateElement = document.createElement('template');
 tmplTextTransform.innerHTML = `
 <style>
-    :host {
+    app-text-transform {
         margin-bottom: 1rem;
     }
 </style>

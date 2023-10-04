@@ -1,7 +1,7 @@
 const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <style>
-    :host {
+    #toolbar {
         color: black;
         background: white;
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;

@@ -1,7 +1,7 @@
 const tmplSound: HTMLTemplateElement = document.createElement('template');
 tmplSound.innerHTML = `
     <style>
-        :host {
+        app-sound {
             font-size: 1rem;
             display: flex;
             flex-direction: column;
