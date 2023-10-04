@@ -1,5 +1,5 @@
-@use "bases";
-
+@use "01-variables/index" as variables;
+@use "02-mixins/index" as mixins;
 @use "03-reset/index" as reset;
 @use "04-tags/index" as tags;
 @use "05-layout/index" as layout;
