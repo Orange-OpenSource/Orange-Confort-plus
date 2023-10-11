@@ -2,13 +2,14 @@
 	"manifest_version": 3,
 	"name": "Orange Confort+",
 	"description": "Orange Confort+",
-	"version": "4.3.5.0",
+	"version": "1.2.1.2",
+	"default_locale": "en",
 	"author": "Orange SA",
 	"homepage_url": "https://confort-plus.orange.com",
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "confortplus@orange.com",
-			"strict_min_version": "109.0"
+			"strict_min_version": "106.0"
 		}
 	},
 	"background": {
@@ -37,21 +38,7 @@
 				"js/*.js",
 				"css/*.css",
 				"img/*.png",
-				"fonts/accessibleDFA/AccessibleDfA-Bold.woff2",
-				"fonts/accessibleDFA/AccessibleDfA-Italic.woff2",
-				"fonts/accessibleDFA/AccessibleDfA-Regular.woff2",
-				"fonts/luciole/Luciole-Bold.woff2",
-				"fonts/luciole/Luciole-Bold-Italic.woff2",
-				"fonts/luciole/Luciole-Regular.woff2",
-				"fonts/luciole/Luciole-Regular-Italic.woff2",
-				"fonts/open-dyslexic/OpenDyslexic-Bold.woff2",
-				"fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2",
-				"fonts/open-dyslexic/OpenDyslexic-Italic.woff2",
-				"fonts/open-dyslexic/OpenDyslexic-Regular.woff2",
-				"fonts/open-sans/OpenSans-Regular.woff2",
-				"fonts/open-sans/OpenSans-Italic.woff2",
-				"fonts/open-sans/OpenSans-BoldItalic.woff2",
-				"fonts/open-sans/OpenSans-Bold.woff2",
+				"fonts/*.woff2",
 				"help/*.html"
 			],
 			"matches": [
