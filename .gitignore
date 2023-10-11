@@ -52,8 +52,6 @@ Thumbs.db
 *.rej
 
 # Docs
-docs/css/bases.css
-docs/css/bases.css.map
 src/site/css/*.css
 src/site/css/*.css.map
 ./img/
