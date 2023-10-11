@@ -27,9 +27,14 @@ class AppComponent extends HTMLElement {
 	private openConfortPlus: boolean = false;
 	confortPlusBtn: HTMLElement | null = null;
 	confortPlusToolbar: HTMLElement | null = null;
+	i18nService: any;
 
 	constructor() {
 		super();
+
+		// @ts-ignore
+		this.i18nService = new i18nService();
+		this.i18nService.getMessage();
 
 		this.attachShadow({ mode: 'open' });
 

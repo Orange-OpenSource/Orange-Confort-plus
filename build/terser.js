@@ -17,22 +17,22 @@ const preamble = `/*
  * © 2014 - ${date.getFullYear()} ${pkg.author}
  */`;
 const files = {
-	'serveur': {
+	'toolbar': {
 		files: [
-			'dist/js/app/features/font-family.component.js',
-			'dist/js/app/features/increase-text-size.component.js',
-			'dist/js/app/features/reading-guide.component.js',
-			'dist/js/app/features/reset-parameters.component.js',
-			'dist/js/app/features/text-transform.component.js',
-			'dist/js/app/features/toolbar.component.js',
 			'dist/js/app/app.component.js',
+			'dist/js/app/features/layout/layout.component.js',
+			'dist/js/app/features/picture-video/picture-video.component.js',
+			'dist/js/app/features/pointer/pointer.component.js',
+			'dist/js/app/features/sound/sound.component.js',
+			'dist/js/app/features/text/text.component.js',
+			'dist/js/app/features/text/components/font-family.component.js',
+			'dist/js/app/features/text/components/increase-text-size.component.js',
+			'dist/js/app/features/text/components/reading-guide.component.js',
+			'dist/js/app/features/text/components/text-transform.component.js',
+			'dist/js/app/features/toolbar.component.js',
 		],
-		dist: 'dist/serveur/js/toolbar.js',
+		dist: 'dist/js/toolbar.js',
 		options: {
-			sourceMap: {
-				filename: 'toolbar.js',
-				url: 'toolbar.js.map'
-			},
 			compress: false,
 			mangle: false,
 			format: {
@@ -40,14 +40,56 @@ const files = {
 			}
 		}
 	},
-	'minified': {
+	'server': {
+		files: [
+			'src/serveur/js/service-i18n.js',
+			'dist/js/toolbar.js',
+			'src/serveur/js/toolbar-serveur.js'
+		],
+		dist: 'dist/serveur/js/toolbar.js',
+		options: {
+			compress: false,
+			mangle: false,
+			format: {
+				preamble: preamble
+			}
+		}
+	},
+	'extension': {
+		files: [
+			'src/extension/services/service-i18n.js',
+			'dist/js/toolbar.js'
+		],
+		dist: 'dist/extension/js/toolbar.js',
+		options: {
+			compress: false,
+			mangle: false,
+			format: {
+				preamble: preamble
+			}
+		}
+	},
+	'min-server': {
 		files: ['dist/serveur/js/toolbar.js'],
 		dist: 'dist/serveur/js/toolbar.min.js',
 		options: {
-			sourceMap: {
-				filename: 'toolbar.min.js',
-				url: 'toolbar.min.js.map'
+			compress: {
+				passes: 2
 			},
+			mangle: {
+				keep_fnames: true,
+				keep_classnames: true
+			},
+			format: {
+				comments: false,
+				preamble: preamble
+			}
+		}
+	},
+	'min-extension': {
+		files: ['dist/extension/js/toolbar.js'],
+		dist: 'dist/extension/js/toolbar.min.js',
+		options: {
 			compress: {
 				passes: 2
 			},
