@@ -28,13 +28,10 @@ class AppComponent extends HTMLElement {
 	confortPlusBtn: HTMLElement | null = null;
 	confortPlusToolbar: HTMLElement | null = null;
 	i18nService: any;
+	path: string | undefined;
 
 	constructor() {
 		super();
-
-		// @ts-ignore
-		this.i18nService = new i18nService();
-		this.i18nService.getMessage();
 
 		this.attachShadow({ mode: 'open' });
 
@@ -61,8 +58,13 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
 		// @ts-ignore
 		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
+
 		// Yihaa, using dataset API to distinguish paths
-		console.log(this.dataset?.path);
+		this.path = this.dataset?.path;
+
+		// @ts-ignore
+		this.i18nService = new i18nService(this.path);
+		this.i18nService.getMessage('mainTitle');
 
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
