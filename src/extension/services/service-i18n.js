@@ -1,9 +1,7 @@
 class i18nService {
-	constructor() {
-		console.log("Hello world!");
-	}
+	constructor() {}
 
-	getMessage = () => {
-		console.log('Hello ext!');
+	getMessage = (message) => {
+		return chrome.i18n.getMessage(message);
 	}
 }
