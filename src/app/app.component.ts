@@ -1,24 +1,26 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
 <style>
-    .sc-confort-plus {
-        border: none;
-        background-color: #ff7900;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        position: fixed;
-        top: 50%;
-        right: 1rem;
-        transform: translate(-50%, -50%);
-        cursor: pointer;
-    }
+		.sc-confort-plus {
+				border: none;
+				background-color: #ff7900;
+				width: 3rem;
+				height: 3rem;
+				border-radius: 50%;
+				position: fixed;
+				top: 50%;
+				right: 1rem;
+				transform: translate(-50%, -50%);
+				cursor: pointer;
+		}
 
 		[hidden] {
 			display: none !important;
 		}
 </style>
-<button class="sc-confort-plus" id="confort" data-i18n="mainTitle"></button>
+<button class="sc-confort-plus" id="confort">
+	<span class="sr-only" data-i18n="mainButton"></span>
+</button>
 <!-- @todo rename mycustomevent -->
 <app-toolbar hidden id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
 `

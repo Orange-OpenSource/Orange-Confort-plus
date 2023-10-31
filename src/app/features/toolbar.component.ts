@@ -88,15 +88,16 @@ tmplToolbar.innerHTML = `
     }
 </style>
 <section class="sc-toolbar__header">
-    <span class="sc-toolbar__title">Confort+</span>
+    <span class="sc-toolbar__title" data-i18n="mainTitle"></span>
     <button class="sc-toolbar__btn"> -> </button>
     <button id="close-toolbar" class="sc-toolbar__btn sc-toolbar__close"> >> </button>
 </section>
 <section class="sc-toolbar__header-infos">
     <div class="sc-toolbar__infos-picto"></div>
     <div class="sc-toolbar__infos-libelles">
-        <span>Mode d’usage</span>
-        <span class="sc-toolbar__infos-mode">Vision +</span>
+        <span data-i18n="profile"></span>
+        <!-- @todo Mise à jour / traudction de cette donnée ? -->
+        <span class="sc-toolbar__infos-mode">Vision+</span>
     </div>
     <div class="sc-toolbar__infos-tools">
         <button class="sc-toolbar__btn"> O </button>

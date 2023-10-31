@@ -1,5 +1,53 @@
 {
+	"mainButton": {
+		"message": "Start Confort+"
+	},
 	"mainTitle": {
-		"message": "Presets"
+		"message": "Confort+"
+	},
+	"profile": {
+		"message": "Mode d’usage"
+	},
+	"wip": {
+		"message": "In progress…"
+	},
+	"layout": {
+		"message": "Layout"
+	},
+	"medias": {
+		"message": "Image and video"
+	},
+	"pointer": {
+		"message": "Pointer"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Text"
+	},
+	"textSize": {
+		"message": "Size"
+	},
+	"readingMask": {
+		"message": "Reading mask"
+	},
+	"readingMaskClose": {
+		"message": "Mask closing: use <kbd>Échap</kbd>"
+	},
+	"close": {
+		"message": "Close"
+	},
+	"firstLetter": {
+		"message": "First letter"
+	},
+	"lowercase": {
+		"message": "Lowercase"
+	},
+	"uppercase": {
+		"message": "Uppercase"
+	},
+	"default": {
+		"message": "Normal"
 	}
 }
