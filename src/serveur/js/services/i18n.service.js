@@ -8,22 +8,35 @@ class i18nService {
 		if(['en', 'fr'].some(language => navigator.language.startsWith(language))) {
 			this.locale = navigator.language.slice(0,2);
 		}
+
+		const xhr = new XMLHttpRequest();
+		xhr.open('GET', `${this.path}_locales/${this.locale}/messages.json`, false);
+		xhr.addEventListener('error', () => {
+			throw new Error(`Couldn’t find ${this.locale}.`);
+		});
+		xhr.send();
+
+		localStorage.setItem('orange-i18n', xhr.responseText);
 	}
 
 	get locale() {
 		return this.locale;
 	}
 
-	// @fixme fetch() is shitty since it's Promise-based
-	// @todo Need to append locales as a massive json file in Server build…
-	async getMessage(message) {
-	 try {
-		 const response = await fetch(`${this.path}_locales/${this.locale}/messages.json`);
-		 const data = await response.json();
+	getMessages() {
+		return localStorage.getItem('orange-i18n');
+	}
 
-		 return data[message]?.message;
-	 } catch (error) {
-		 throw new Error(`Couldn’t find ${message} in ${this.locale}`);
-	 }
+	getMessage(message) {
+		const translations = JSON.parse(this.getMessages());
+
+		return translations[message]?.message;
+	}
+
+	translate(root) {
+		const elements = root.querySelectorAll('[data-i18n]');
+		for (const element of elements) {
+			element.innerText = this.getMessage(element.dataset?.i18n);
+		}
 	}
 }

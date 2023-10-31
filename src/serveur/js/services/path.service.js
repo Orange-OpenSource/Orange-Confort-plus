@@ -1,1 +1,12 @@
-appRootElt.dataset.path = window.location.origin + '/';
+class pathService {
+	path = '';
+
+	constructor() {
+		this.path = window.location.origin + '/';
+	}
+
+	get path() {
+		return this.path;
+	}
+}
+

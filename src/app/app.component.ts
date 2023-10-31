@@ -13,14 +13,14 @@ template.innerHTML = `
         transform: translate(-50%, -50%);
         cursor: pointer;
     }
-    .hidden {
-        display: none;
-        visibility: hidden;
-    }
+
+		[hidden] {
+			display: none !important;
+		}
 </style>
-<button class="sc-confort-plus" id="confort"></button>
+<button class="sc-confort-plus" id="confort" data-i18n="mainTitle"></button>
 <!-- @todo rename mycustomevent -->
-<app-toolbar class="hidden" id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
+<app-toolbar hidden id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
 `
 
 class AppComponent extends HTMLElement {
@@ -28,10 +28,18 @@ class AppComponent extends HTMLElement {
 	confortPlusBtn: HTMLElement | null = null;
 	confortPlusToolbar: HTMLElement | null = null;
 	i18nService: any;
+	pathService: any;
 	path: string | undefined;
 
 	constructor() {
 		super();
+
+		// @ts-ignore
+		this.pathService = new pathService();
+		this.path = this.pathService.path;
+
+		// @ts-ignore
+		this.i18nService = new i18nService(this.path);
 
 		this.attachShadow({ mode: 'open' });
 
@@ -40,46 +48,30 @@ class AppComponent extends HTMLElement {
 
 		template.addEventListener('closeEvent', (event: any) => {
 			if (event.detail) {
-				this.openConfortPlus = !this.openConfortPlus;
-
-				this.openConfortPlus ?
-					this.confortPlusToolbar?.classList.remove('hidden') :
-					this.confortPlusToolbar?.classList.add('hidden');
-
-				this.openConfortPlus ?
-					this.confortPlusBtn?.classList.add('hidden') :
-					this.confortPlusBtn?.classList.remove('hidden');
+				this.toggleToolbar();
 			}
 		});
 	}
 
 	connectedCallback(): void {
+		customElements.upgrade(this);
+
+		// @note Tick until everything loaded
+		setTimeout(() => {
+			this.i18nService.translate(this.shadowRoot);
+		});
+
 		// @ts-ignore
 		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
 		// @ts-ignore
 		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
-
-		// Yihaa, using dataset API to distinguish paths
-		this.path = this.dataset?.path;
-
-		// @ts-ignore
-		this.i18nService = new i18nService(this.path);
-		this.i18nService.getMessage('mainTitle');
 
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
 
 		this.confortPlusBtn.addEventListener('click', () => {
-			this.openConfortPlus = !this.openConfortPlus;
-
-			this.openConfortPlus ?
-				this.confortPlusToolbar?.classList.remove('hidden') :
-				this.confortPlusToolbar?.classList.add('hidden');
-
-			this.openConfortPlus ?
-				this.confortPlusBtn?.classList.add('hidden') :
-				this.confortPlusBtn?.classList.remove('hidden');
+			this.toggleToolbar();
 		});
 	}
 
@@ -88,6 +80,14 @@ class AppComponent extends HTMLElement {
 		});
 		this.confortPlusToolbar?.removeEventListener('click', () => {
 		});
+	}
+
+	toggleToolbar(): void {
+		this.openConfortPlus = !this.openConfortPlus;
+		// @ts-ignore
+		this.confortPlusToolbar.hidden = !this.openConfortPlus;
+		// @ts-ignore
+		this.confortPlusBtn.hidden = this.openConfortPlus;
 	}
 }
 
