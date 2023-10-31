@@ -23,6 +23,7 @@
 	"type": "module",
 	"node": ">=16",
 	"scripts": {
+		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/js/vendors",
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
 		"serve": "servor docs/ index.html 9010 --browse --reload",
 		"test": "",
@@ -99,5 +100,8 @@
 		"ts-node": "^10.9.1",
 		"typescript": "^5.1.3",
 		"web-ext": "^7.5.0"
+	},
+	"dependencies": {
+		"@webcomponents/custom-elements": "^1.6.0"
 	}
 }
