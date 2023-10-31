@@ -43,8 +43,8 @@ const files = {
 	'server': {
 		files: [
 			'src/serveur/js/services/i18n.service.js',
-			'dist/js/toolbar.js',
-			'src/serveur/js/services/path.service.js'
+			'src/serveur/js/services/path.service.js',
+			'dist/js/toolbar.js'
 		],
 		dist: 'dist/serveur/js/toolbar.js',
 		options: {
@@ -58,8 +58,8 @@ const files = {
 	'extension': {
 		files: [
 			'src/extension/services/i18n.service.js',
-			'dist/js/toolbar.js',
-			'src/extension/services/path.service.js'
+			'src/extension/services/path.service.js',
+			'dist/js/toolbar.js'
 		],
 		dist: 'dist/extension/js/toolbar.js',
 		options: {
@@ -79,8 +79,7 @@ const files = {
 			},
 			mangle: {
 				keep_fnames: true,
-				keep_classnames: true,
-				reserved: ['appRootElt']
+				keep_classnames: true
 			},
 			format: {
 				comments: false,
@@ -97,8 +96,7 @@ const files = {
 			},
 			mangle: {
 				keep_fnames: true,
-				keep_classnames: true,
-				reserved: ['appRootElt']
+				keep_classnames: true
 			},
 			format: {
 				comments: false,
