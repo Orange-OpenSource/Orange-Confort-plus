@@ -1,1 +1,12 @@
-appRootElt.dataset.path = chrome.runtime.getURL('/');
+class pathService {
+	path = '';
+
+	constructor() {
+		this.path = chrome.runtime.getURL('/');
+	}
+
+	get path() {
+		return this.path;
+	}
+}
+
