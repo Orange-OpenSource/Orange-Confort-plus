@@ -59,7 +59,7 @@ tmplText.innerHTML = `
     </style>
     <button class="c-btn-tool" id="sc-text__tool-btn">
         <div class="c-btn-tool__picto"></div>
-        <span class="c-btn-tool__label">Texte</span>
+        <span class="c-btn-tool__label" data-i18n="text"></span>
         <div class="c-btn-tool__picto"></div>
     </button>
     <div class="c-tool__content hidden" id="sc-text__tool-content">

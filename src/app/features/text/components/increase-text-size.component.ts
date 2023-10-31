@@ -58,7 +58,7 @@ tmplIncreaseTextSize.innerHTML = `
     </style>
     <div class="sc-increase-text-size__content">
 			<button class="sc-increase-text-size__btn-size" id="btn-size">
-					<span>Taille</span>
+					<span data-i18n="textSize"></span>
 					<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>
 			</button>
 			<div class="sc-increase-text-size__size-info" id="content-size-info"></div>

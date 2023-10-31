@@ -33,10 +33,10 @@ tmplReadingGuide.innerHTML = `
         bottom: -80px;
     }
 </style>
-<button id="reading-guide-btn">Guide de lecture</button>
+<button id="reading-guide-btn" data-i18n="readingMask"></button>
 <div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">
-    <span class="c-reading-guide__close-msg">Fermeture du masque: touche Echape</span>
-    <button id="close-btn" class="c-reading-guide__close-btn">Close</button>
+    <span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>
+    <button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>
 </div>
 <div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>
 `;

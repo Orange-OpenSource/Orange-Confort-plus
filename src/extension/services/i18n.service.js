@@ -14,7 +14,7 @@ class i18nService {
 	translate(root) {
 		const elements = root.querySelectorAll('[data-i18n]');
 		for (const element of elements) {
-			element.innerText = this.getMessage(element.dataset?.i18n);
+			element.innerHTML = this.getMessage(element.dataset?.i18n);
 		}
 	}
 }

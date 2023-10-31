@@ -54,12 +54,10 @@ tmplPictureVideo.innerHTML = `
     </style>
     <button class="c-btn-tool" id="sc-picture-video__tool-btn">
         <div class="c-btn-tool__picto"></div>
-        <span class="c-btn-tool__label">Image et Vidéo</span>
+        <span class="c-btn-tool__label" data-i18n="medias"></span>
         <div class="c-btn-tool__picto"></div>
     </button>
-    <div class="c-tool__content hidden" id="sc-picture-video__tool-content">
-        En cours…
-    </div>
+    <div class="c-tool__content hidden" id="sc-picture-video__tool-content" data-i18n="wip"></div>
 `;
 
 class PictureVideoComponent extends HTMLElement {

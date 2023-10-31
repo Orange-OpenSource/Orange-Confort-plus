@@ -6,7 +6,8 @@ tmplFontFamily.innerHTML = `
     }
 </style>
 <!-- @todo Loop through predefined values -->
-<button id="normal-font">Normal</button>
+<!-- @note To translate, or not? -->
+<button id="normal-font" data-i18n="default"></button>
 <button id="arial-font">Arial</button>
 <button id="open-font-font">Open Sans</button>
 <button id="accessible-dfa-font">Accessible-DFA</button>
