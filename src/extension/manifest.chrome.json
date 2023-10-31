@@ -27,6 +27,15 @@
 		"http://*/*",
 		"https://*/*"
 	],
+	"content_scripts": [{
+		"matches": [
+			"http://*/*",
+			"https://*/*"
+		],
+		"js": [
+			"js/vendors/custom-elements.min.js"
+		]
+	}],
 	"web_accessible_resources": [
 		{
 			"resources": [

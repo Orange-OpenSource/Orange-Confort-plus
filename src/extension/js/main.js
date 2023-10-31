@@ -74,7 +74,7 @@ chrome.action.onClicked.addListener(async (tab) => {
 	if (!isLoaded && !isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id },
-			files: ['js/inject.js']
+			files: ['js/toolbar.js']
 		});
 		chrome.storage.local.set({[`isCduInjected-${tab.id}`]: true});
 	} else if (!isLoaded && isInjected) {
