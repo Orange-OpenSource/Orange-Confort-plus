@@ -1,5 +1,53 @@
 {
+	"mainButton": {
+		"message": "Démarrer Confort+"
+	},
 	"mainTitle": {
+		"message": "Confort+"
+	},
+	"profile": {
 		"message": "Mode d’usage"
+	},
+	"wip": {
+		"message": "En cours…"
+	},
+	"layout": {
+		"message": "Agencement"
+	},
+	"medias": {
+		"message": "Image et vidéo"
+	},
+	"pointer": {
+		"message": "Pointeur"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Texte"
+	},
+	"textSize": {
+		"message": "Taille"
+	},
+	"readingMask": {
+		"message": "Guide de lecture"
+	},
+	"readingMaskClose": {
+		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
+	},
+	"close": {
+		"message": "Fermer"
+	},
+	"firstLetter": {
+		"message": "Première lettre"
+	},
+	"lowercase": {
+		"message": "Minuscule"
+	},
+	"uppercase": {
+		"message": "Majuscule"
+	},
+	"default": {
+		"message": "Normal"
 	}
 }

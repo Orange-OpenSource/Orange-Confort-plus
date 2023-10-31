@@ -54,11 +54,10 @@ tmplLayout.innerHTML = `
     </style>
     <button class="c-btn-tool" id="sc-layout__tool-btn">
         <div class="c-btn-tool__picto"></div>
-        <span class="c-btn-tool__label">Agencement</span>
+        <span class="c-btn-tool__label" data-i18n="layout"></span>
         <div class="c-btn-tool__picto"></div>
     </button>
-    <div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="mainTitle">
-        En cours…
+    <div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">
     </div>
 `;
 
