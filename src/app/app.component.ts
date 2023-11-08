@@ -39,20 +39,12 @@ class AppComponent extends HTMLElement {
 		// @ts-ignore
 		this.pathService = new pathService();
 		this.path = this.pathService.path;
-
 		// @ts-ignore
 		this.i18nService = new i18nService(this.path);
 
 		this.attachShadow({ mode: 'open' });
-
 		// @ts-ignore
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-		template.addEventListener('closeEvent', (event: any) => {
-			if (event.detail) {
-				this.toggleToolbar();
-			}
-		});
 	}
 
 	connectedCallback(): void {
@@ -67,24 +59,19 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
 		// @ts-ignore
 		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
-
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
 
-		this.confortPlusBtn.addEventListener('click', () => {
-			this.toggleToolbar();
-		});
+		template.addEventListener('closeEvent', this.toggleToolbar);
+		this.confortPlusBtn.addEventListener('click', this.toggleToolbar);
 	}
 
 	disconnectedCallback(): void {
-		this.confortPlusBtn?.removeEventListener('click', () => {
-		});
-		this.confortPlusToolbar?.removeEventListener('click', () => {
-		});
+		this.confortPlusBtn?.removeEventListener('click', this.toggleToolbar);
 	}
 
-	toggleToolbar(): void {
+	toggleToolbar = () => {
 		this.openConfortPlus = !this.openConfortPlus;
 		// @ts-ignore
 		this.confortPlusToolbar.hidden = !this.openConfortPlus;
@@ -94,7 +81,3 @@ class AppComponent extends HTMLElement {
 }
 
 customElements.define('app-root', AppComponent);
-
-const appRootElt = document.createElement('app-root');
-document.body.prepend(appRootElt);
-
