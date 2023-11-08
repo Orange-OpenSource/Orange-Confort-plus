@@ -1,28 +1,23 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
-<style>
-		.sc-confort-plus {
-				border: none;
-				background-color: #ff7900;
-				width: 3rem;
-				height: 3rem;
-				border-radius: 50%;
-				position: fixed;
-				top: 50%;
-				right: 1rem;
-				transform: translate(-50%, -50%);
-				cursor: pointer;
-		}
+<!-- @fixme Charger dans le constructor() pour avoir le bon chemin -->
+<link rel="stylesheet" href="../css/styles.min.css">
 
-		[hidden] {
-			display: none !important;
-		}
+<style>
+	.sc-confort-plus {
+			border-radius: 50%;
+			position: fixed;
+			top: 50%;
+			right: 1rem;
+			transform: translate(-50%, -50%);
+	}
 </style>
-<button class="sc-confort-plus" id="confort">
-	<span class="sr-only" data-i18n="mainButton"></span>
+<!-- @todo Récupérer la traduction dans le title -->
+<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" title="Ouvrir Confort+">
+	<span class="visually-hidden" data-i18n="mainButton"></span>
+	<app-icon data-name="Lightbulb"></app-icon>
 </button>
-<!-- @todo rename mycustomevent -->
-<app-toolbar hidden id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
+<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
 `
 
 class AppComponent extends HTMLElement {
@@ -74,9 +69,9 @@ class AppComponent extends HTMLElement {
 	toggleToolbar = () => {
 		this.openConfortPlus = !this.openConfortPlus;
 		// @ts-ignore
-		this.confortPlusToolbar.hidden = !this.openConfortPlus;
+		this.confortPlusToolbar.classList.toggle('d-none');
 		// @ts-ignore
-		this.confortPlusBtn.hidden = this.openConfortPlus;
+		this.confortPlusBtn.classList.toggle('d-none');
 	}
 }
 

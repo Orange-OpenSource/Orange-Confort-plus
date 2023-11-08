@@ -7,50 +7,6 @@ tmplSound.innerHTML = `
             flex-direction: column;
             margin-bottom: .75rem;
         }
-        .c-btn-tool {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: .5rem;
-        }
-        .c-btn-tool__picto {
-            background: #ff7900;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 1rem;
-            height: 1rem;
-            margin-right: .75rem;
-        }
-        .c-btn-tool:first-child {
-            margin-right: .75rem;
-        }
-        .c-btn-tool__label {
-            text-align: left;
-            flex: 1;
-        }
-
-        .c-tool__content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: .5rem;
-        }
-
-        button {
-            border-radius: .5rem;
-            border: none;
-            cursor: pointer;
-        }
-        .hidden {
-            display: flex;
-            visibility: hidden;
-            height: 0;
-            margin-right: 0;
-            padding: 0;
-        }
     </style>
     <button class="c-btn-tool" id="sc-sound__tool-btn">
         <div class="c-btn-tool__picto"></div>
