@@ -88,7 +88,11 @@ const files = {
 			format: {
 				comments: false,
 				preamble: preamble
-			}
+			},
+			sourceMap: {
+				filename: 'toolbar.min.js',
+				url: 'toolbar.min.js.map'
+			},
 		}
 	},
 	'min-extension': {
@@ -105,7 +109,11 @@ const files = {
 			format: {
 				comments: false,
 				preamble: preamble
-			}
+			},
+			sourceMap: {
+				filename: 'toolbar.min.js',
+				url: 'toolbar.min.js.map'
+			},
 		}
 	}
 }
