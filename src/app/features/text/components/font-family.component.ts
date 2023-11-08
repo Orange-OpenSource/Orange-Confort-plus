@@ -23,12 +23,14 @@ class FontFamilyComponent extends HTMLElement {
 	accessibleDFABtn: HTMLElement | null = null;
 	openDyslexicBtn: HTMLElement | null = null;
 	lucioleBtn: HTMLElement | null = null;
+	pathService: any;
 
 	constructor() {
 		super();
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 		// @ts-ignore
-		const path = this.getRootNode().host.dataset?.path;
+		this.pathService = new pathService();
+		const path = this.pathService.path;
 
 		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
 		let styles: HTMLStyleElement = document.createElement('style');
