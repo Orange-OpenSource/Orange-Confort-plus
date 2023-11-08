@@ -49,12 +49,6 @@ tmplIncreaseTextSize.innerHTML = `
             padding: 1rem 2rem 1rem 1rem;
             clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
         }
-
-        button {
-            border-radius: .5rem;
-            border: none;
-            cursor: pointer;
-        }
     </style>
     <div class="sc-increase-text-size__content">
 			<button class="sc-increase-text-size__btn-size" id="btn-size">
@@ -70,7 +64,7 @@ class IncreaseTextSizeComponent extends HTMLElement {
 	sizeBtn: HTMLElement | null = null;
 
 	index: number = 0;
-	fontSizes: number[] = [16, 18, 20, 22, 24];
+	fontSizes: number[] = [ 16, 18, 20, 22, 24 ];
 
 	constructor() {
 		super();
@@ -78,7 +72,7 @@ class IncreaseTextSizeComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		const bodyElt = document.getElementsByTagName('body')[0];
+		const bodyElt = document.getElementsByTagName('body')[ 0 ];
 		const sizeInfoElt = this.querySelector('#content-size-info');
 		this.sizeBtn = this.querySelector('#btn-size');
 
@@ -94,10 +88,10 @@ class IncreaseTextSizeComponent extends HTMLElement {
 			if (index === this.index) {
 				div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
 			}
-			slot = `${slot}${div}`;
+			slot = `${ slot }${ div }`;
 		});
 		btnContentSlots.innerHTML = slot;
-		sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+		sizeInfoElt.innerHTML = `${ this.fontSizes[ this.index ] }`;
 
 		this.sizeBtn?.addEventListener('click', () => {
 			this.index++;
@@ -111,12 +105,12 @@ class IncreaseTextSizeComponent extends HTMLElement {
 				if (index === this.index) {
 					div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
 				}
-				slot = `${slot}${div}`;
+				slot = `${ slot }${ div }`;
 			});
 			btnContentSlots.innerHTML = slot;
 
-			bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
-			sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+			bodyElt.style.fontSize = `${ this.fontSizes[ this.index ] }px`;
+			sizeInfoElt.innerHTML = `${ this.fontSizes[ this.index ] }`;
 		});
 	}
 

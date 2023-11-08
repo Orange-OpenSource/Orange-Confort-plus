@@ -2,8 +2,6 @@ const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <style>
     #toolbar {
-        color: black;
-        background: white;
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
         display: grid;
         grid-template-rows: 4rem 7rem 1fr;
@@ -14,98 +12,55 @@ tmplToolbar.innerHTML = `
         right: 0;
         z-index: 999;
     }
-    .sc-toolbar__header,
-    .sc-toolbar__header-infos {
-        color: white;
-        background: black;
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-    }
-    .sc-toolbar__header-infos {
-    	padding-top: 0;
-    }
-
-    .sc-toolbar__logo {
-        margin-right: 1rem;
-    }
-    .sc-toolbar__title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        flex: 1;
-    }
-    .sc-toolbar__btn {
-        color: white;
-        font-weight: 700;
-        background: black;
-        border: 1px solid white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2rem;
-        height: 2rem;
-        margin-left: 1rem;
-        cursor: pointer;
-    }
-    .sc-toolbar__btn:hover {
-        color: black;
-        background: #ff7900;
-        border: 1px solid #ff7900;
-    }
-
-    .sc-toolbar__close {
-        color: black;
-        background: #ff7900;
-        border: 1px solid #ff7900;
-    }
-
-    .sc-toolbar__infos-picto {
-        background: white;
-        border-radius: 50%;
-        width: 5rem;
-        height: 5rem;
-        margin-right: 1rem;
-    }
-    .sc-toolbar__infos-libelles {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-    .sc-toolbar__infos-mode {
-        color: #ff7900;
-        font-weight: 700;
-        font-size: 1.25rem;
-    }
-    .sc-toolbar__infos-tools {
-        display: flex;
-    }
-
-    .sc-toolbar__content {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: .5rem;
-        padding: 1rem;
-    }
 </style>
-<section class="sc-toolbar__header">
-    <span class="sc-toolbar__title" data-i18n="mainTitle"></span>
-    <button class="sc-toolbar__btn"> -> </button>
-    <button id="close-toolbar" class="sc-toolbar__btn sc-toolbar__close"> >> </button>
+<section class="bg-dark p-3 d-flex align-items-center justify-content-between">
+	<span class="fs-3 fw-bold">
+		<svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+		<!-- @todo Réparer les chemins -->
+			<use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Form_Chevron_right"/>
+		</svg>
+		<span data-i18n="mainTitle">Confort</span>
+		<span class="text-primary">+</span>
+	</span>
+	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" aria-label="Fermer Confort+" title="Fermer Confort+">
+			<svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+					<use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Form_Chevron_right"/>
+			</svg>
+			<span class="visually-hidden" data-i18n="close"></span>
+	</button>
 </section>
-<section class="sc-toolbar__header-infos">
-    <div class="sc-toolbar__infos-picto"></div>
-    <div class="sc-toolbar__infos-libelles">
-        <span data-i18n="profile"></span>
-        <!-- @todo Mise à jour / traudction de cette donnée ? -->
-        <span class="sc-toolbar__infos-mode">Vision+</span>
+<section class="bg-dark p-3 d-flex align-items-center justify-content-between">
+    <div class="d-flex gap-3">
+        <div class="bg-body rounded-circle">
+            <svg width="5rem" height="5rem" fill="currentColor" aria-hidden="true" focusable="false">
+                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Settings"/>
+            </svg>
+        </div>
+        <div class="d-flex justify-content-center flex-column">
+            <span data-i18n="profile"></span>
+            <span class="fs-4 fw-bold text-primary">Vision +</span>
+        </div>
     </div>
-    <div class="sc-toolbar__infos-tools">
-        <button class="sc-toolbar__btn"> O </button>
-        <button class="sc-toolbar__btn"> [] </button>
+    <div class="d-grid gap-3 d-md-block">
+    		<!-- @todo Pousser la trad dans title ? -->
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary">
+            <svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Settings"/>
+            </svg>
+            <!-- @todo traduire -->
+            <span class="visually-hidden">Ouvrir réglages du mode</span>
+        </button>
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary">
+            <svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
+                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Pause"/>
+            </svg>
+            <!-- @todo traduire -->
+            <span class="visually-hidden">Mettre en pause</span>
+        </button>
     </div>
 </section>
 
-<section class="sc-toolbar__content">
+<section class="d-flex flex-column p-3 mb-2">
     <app-text></app-text>
     <app-layout></app-layout>
     <app-picture-video></app-picture-video>

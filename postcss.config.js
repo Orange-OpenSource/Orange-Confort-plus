@@ -9,7 +9,14 @@ export default function (ctx) {
 		map: ctx.options.map,
 		plugins: [
 			autoprefixer(),
-			cssnano(),
+			cssnano({
+				"preset": [
+					"default",
+					{
+						"calc": false
+					}
+				]
+			}),
 			banner({
 				banner: `${pkg.name} — version ${pkg.version} — ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}
 	${pkg.description}

@@ -96,8 +96,8 @@ class ReadingGuideComponent extends HTMLElement {
 
 		document.addEventListener('mousemove', (event: MouseEvent) => {
 			if (this.open && this.topGuideElt && this.bottomGuideElt) {
-				this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
-				this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+				this.topGuideElt.style.height = `${ event.y - this.sizeGuide }px`;
+				this.bottomGuideElt.style.height = `${ window.innerHeight - event.y - this.sizeGuide }px`;
 			}
 			event.stopPropagation();
 		});
