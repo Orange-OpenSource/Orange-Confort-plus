@@ -127,7 +127,7 @@ class ToolbarComponent extends HTMLElement {
 		this.closeBtn = this.querySelector('#close-toolbar');
 
 		this.closeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('closeEvent', {detail: true});
+			let clickEvent = new CustomEvent('closeEvent');
 			template.dispatchEvent(clickEvent);
 		});
 	}

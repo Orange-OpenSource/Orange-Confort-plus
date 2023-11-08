@@ -30,13 +30,15 @@ const files = {
 			'dist/js/app/features/text/components/reading-guide.component.js',
 			'dist/js/app/features/text/components/text-transform.component.js',
 			'dist/js/app/features/toolbar.component.js',
+			'dist/js/app/core/injector.core.js',
 		],
 		dist: 'dist/js/toolbar.js',
 		options: {
 			compress: false,
 			mangle: false,
 			format: {
-				preamble: preamble
+				preamble: preamble,
+				beautify: true
 			}
 		}
 	},
@@ -51,7 +53,8 @@ const files = {
 			compress: false,
 			mangle: false,
 			format: {
-				preamble: preamble
+				preamble: preamble,
+				beautify: true
 			}
 		}
 	},
@@ -66,7 +69,8 @@ const files = {
 			compress: false,
 			mangle: false,
 			format: {
-				preamble: preamble
+				preamble: preamble,
+				beautify: true
 			}
 		}
 	},
