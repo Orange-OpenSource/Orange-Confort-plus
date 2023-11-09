@@ -38,5 +38,10 @@ class i18nService {
 		for (const element of elements) {
 			element.innerHTML = this.getMessage(element.dataset?.i18n);
 		}
+
+		const elementsTitle = root.querySelectorAll('[data-title-i18n]');
+		for (const element of elementsTitle) {
+			element.title = this.getMessage(element.dataset?.titleI18n);
+		}
 	}
 }

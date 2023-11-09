@@ -13,28 +13,20 @@ tmplToolbar.innerHTML = `
         z-index: 999;
     }
 </style>
-<section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-	<span class="fs-3 fw-bold">
-		<svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-		<!-- @todo Réparer les chemins -->
-			<use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Form_Chevron_right"/>
-		</svg>
-		<span data-i18n="mainTitle">Confort</span>
+<section class="bg-secondary p-3 d-flex align-items-center justify-content-between">
+	<span class="fs-3 fw-bold text-white">
+		<span data-i18n="mainTitle"></span>
 		<span class="text-primary">+</span>
 	</span>
-	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" aria-label="Fermer Confort+" title="Fermer Confort+">
-			<svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-					<use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Form_Chevron_right"/>
-			</svg>
+	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">
 			<span class="visually-hidden" data-i18n="close"></span>
+			<app-icon data-name="Form_Chevron_right"></app-icon>
 	</button>
 </section>
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
     <div class="d-flex gap-3">
         <div class="bg-body rounded-circle">
-            <svg width="5rem" height="5rem" fill="currentColor" aria-hidden="true" focusable="false">
-                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Settings"/>
-            </svg>
+						<app-icon data-size="5rem" data-name="Eye"></app-icon>
         </div>
         <div class="d-flex justify-content-center flex-column">
             <span data-i18n="profile"></span>
@@ -42,20 +34,13 @@ tmplToolbar.innerHTML = `
         </div>
     </div>
     <div class="d-grid gap-3 d-md-block">
-    		<!-- @todo Pousser la trad dans title ? -->
-        <button type="button" class="btn btn-icon btn-inverse btn-secondary">
-            <svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Settings"/>
-            </svg>
-            <!-- @todo traduire -->
-            <span class="visually-hidden">Ouvrir réglages du mode</span>
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="openSettingsMode">
+            <span class="visually-hidden" data-i18n="openSettingsMode"></span>
+						<app-icon data-name="Settings"></app-icon>
         </button>
-        <button type="button" class="btn btn-icon btn-inverse btn-secondary">
-            <svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">
-                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Pause"/>
-            </svg>
-            <!-- @todo traduire -->
-            <span class="visually-hidden">Mettre en pause</span>
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="pause">
+            <span class="visually-hidden" data-i18n="pause"></span>
+						<app-icon data-name="Pause"></app-icon>
         </button>
     </div>
 </section>

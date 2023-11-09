@@ -3,7 +3,7 @@
 		"message": "Démarrer Confort+"
 	},
 	"mainTitle": {
-		"message": "Confort+"
+		"message": "Confort"
 	},
 	"profile": {
 		"message": "Mode d’usage"
@@ -49,5 +49,11 @@
 	},
 	"default": {
 		"message": "Normal"
+	},
+	"openSettingsMode": {
+		"message": "Ouvrir réglages du mode"
+	},
+	"pause": {
+		"message": "Mettre en pause"
 	}
 }

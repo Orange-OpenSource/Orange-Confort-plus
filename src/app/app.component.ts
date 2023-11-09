@@ -1,21 +1,18 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
-<!-- @fixme Charger dans le constructor() pour avoir le bon chemin -->
-<link rel="stylesheet" href="../css/styles.min.css">
-
 <style>
 	.sc-confort-plus {
 			border-radius: 50%;
 			position: fixed;
 			top: 50%;
 			right: 1rem;
+			padding: 0 !important;
 			transform: translate(-50%, -50%);
 	}
 </style>
-<!-- @todo Récupérer la traduction dans le title -->
-<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" title="Ouvrir Confort+">
+<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-title-i18n="mainButton">
 	<span class="visually-hidden" data-i18n="mainButton"></span>
-	<app-icon data-name="Lightbulb"></app-icon>
+	<app-icon data-size="3rem" data-name="Accessibility"></app-icon>
 </button>
 <app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
 `
@@ -27,6 +24,7 @@ class AppComponent extends HTMLElement {
 	i18nService: any;
 	pathService: any;
 	path: string | undefined;
+	link: any;
 
 	constructor() {
 		super();
@@ -40,6 +38,8 @@ class AppComponent extends HTMLElement {
 		this.attachShadow({ mode: 'open' });
 		// @ts-ignore
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+		this.addStylesheet();
 	}
 
 	connectedCallback(): void {
@@ -72,6 +72,13 @@ class AppComponent extends HTMLElement {
 		this.confortPlusToolbar.classList.toggle('d-none');
 		// @ts-ignore
 		this.confortPlusBtn.classList.toggle('d-none');
+	}
+
+	addStylesheet = () => {
+		this.link = document.createElement('link');
+		this.link.rel = 'stylesheet';
+		this.link.href = `${this.path}css/styles.min.css`;
+		this.shadowRoot?.appendChild(this.link);
 	}
 }
 

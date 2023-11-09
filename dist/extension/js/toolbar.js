@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 08/11/2023
+ * orange-confort-plus - version 4.3.0 - 09/11/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -13,6 +13,10 @@ class i18nService {
         const elements = root.querySelectorAll("[data-i18n]");
         for (const element of elements) {
             element.innerHTML = this.getMessage(element.dataset?.i18n);
+        }
+        const elementsTitle = root.querySelectorAll("[data-title-i18n]");
+        for (const element of elementsTitle) {
+            element.title = this.getMessage(element.dataset?.titleI18n);
         }
     }
 }
@@ -31,7 +35,7 @@ class pathService {
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n\x3c!-- @fixme Charger dans le constructor() pour avoir le bon chemin --\x3e\n<link rel="stylesheet" href="../css/styles.min.css">\n\n<style>\n\t.sc-confort-plus {\n\t\t\tborder-radius: 50%;\n\t\t\tposition: fixed;\n\t\t\ttop: 50%;\n\t\t\tright: 1rem;\n\t\t\ttransform: translate(-50%, -50%);\n\t}\n</style>\n\x3c!-- @todo Récupérer la traduction dans le title --\x3e\n<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" title="Ouvrir Confort+">\n\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t<app-icon data-name="Lightbulb"></app-icon>\n</button>\n<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n`;
+template.innerHTML = `\n<style>\n\t.sc-confort-plus {\n\t\t\tborder-radius: 50%;\n\t\t\tposition: fixed;\n\t\t\ttop: 50%;\n\t\t\tright: 1rem;\n\t\t\tpadding: 0 !important;\n\t\t\ttransform: translate(-50%, -50%);\n\t}\n</style>\n<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-title-i18n="mainButton">\n\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n</button>\n<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n`;
 
 class AppComponent extends HTMLElement {
     openConfortPlus=false;
@@ -40,6 +44,7 @@ class AppComponent extends HTMLElement {
     i18nService;
     pathService;
     path;
+    link;
     constructor() {
         super();
         this.pathService = new pathService;
@@ -49,6 +54,7 @@ class AppComponent extends HTMLElement {
             mode: "open"
         });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.addStylesheet();
     }
     connectedCallback() {
         customElements.upgrade(this);
@@ -71,6 +77,12 @@ class AppComponent extends HTMLElement {
         this.confortPlusToolbar.classList.toggle("d-none");
         this.confortPlusBtn.classList.toggle("d-none");
     };
+    addStylesheet=() => {
+        this.link = document.createElement("link");
+        this.link.rel = "stylesheet";
+        this.link.href = `${this.path}css/styles.min.css`;
+        this.shadowRoot?.appendChild(this.link);
+    };
 }
 
 customElements.define("app-root", AppComponent);
@@ -79,7 +91,7 @@ customElements.define("app-root", AppComponent);
 
 const iconLayout = document.createElement("template");
 
-iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true"><use/></svg>`;
+iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
 
 class IconComponent extends HTMLElement {
     sprite="assets/icons/orange-icons-sprite.svg";
@@ -508,7 +520,7 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<style>\n    #toolbar {\n        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;\n        display: grid;\n        grid-template-rows: 4rem 7rem 1fr;\n        width: 19.5vw;\n        height: 100vh;\n        position: fixed;\n        top: 0;\n        right: 0;\n        z-index: 999;\n    }\n</style>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<span class="fs-3 fw-bold">\n\t\t<svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">\n\t\t\x3c!-- @todo Réparer les chemins --\x3e\n\t\t\t<use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Form_Chevron_right"/>\n\t\t</svg>\n\t\t<span data-i18n="mainTitle">Confort</span>\n\t\t<span class="text-primary">+</span>\n\t</span>\n\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" aria-label="Fermer Confort+" title="Fermer Confort+">\n\t\t\t<svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">\n\t\t\t\t\t<use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Form_Chevron_right"/>\n\t\t\t</svg>\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t</button>\n</section>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n            <svg width="5rem" height="5rem" fill="currentColor" aria-hidden="true" focusable="false">\n                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Settings"/>\n            </svg>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n    \t\t\x3c!-- @todo Pousser la trad dans title ? --\x3e\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary">\n            <svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">\n                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Settings"/>\n            </svg>\n            \x3c!-- @todo traduire --\x3e\n            <span class="visually-hidden">Ouvrir réglages du mode</span>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary">\n            <svg width="1.25rem" height="1.25rem" fill="currentColor" aria-hidden="true" focusable="false">\n                <use xlink:href="../assets/icons/orange-icons-sprite.svg#ic_Pause"/>\n            </svg>\n            \x3c!-- @todo traduire --\x3e\n            <span class="visually-hidden">Mettre en pause</span>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n    <app-text></app-text>\n    <app-layout></app-layout>\n    <app-picture-video></app-picture-video>\n    <app-sound></app-sound>\n    <app-pointer></app-pointer>\n</section>\n`;
+tmplToolbar.innerHTML = `\n<style>\n    #toolbar {\n        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;\n        display: grid;\n        grid-template-rows: 4rem 7rem 1fr;\n        width: 19.5vw;\n        height: 100vh;\n        position: fixed;\n        top: 0;\n        right: 0;\n        z-index: 999;\n    }\n</style>\n<section class="bg-secondary p-3 d-flex align-items-center justify-content-between">\n\t<span class="fs-3 fw-bold text-white">\n\t\t<span data-i18n="mainTitle"></span>\n\t\t<span class="text-primary">+</span>\n\t</span>\n\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t</button>\n</section>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n    <app-text></app-text>\n    <app-layout></app-layout>\n    <app-picture-video></app-picture-video>\n    <app-sound></app-sound>\n    <app-pointer></app-pointer>\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
     closeBtn=null;
