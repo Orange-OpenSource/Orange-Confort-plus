@@ -1,7 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>icons/functional_UI/A-E/mdpi/ic_Contrast</title>
-    <g id="icons/functional_UI/A-E/ic_Contrast" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M12,1.79999996 C6.36669598,1.79999996 1.79999996,6.37199998 1.79999996,12.012 C1.79999996,17.652 6.36669598,22.224 12,22.224 C17.633304,22.224 22.2,17.652 22.2,12.012 C22.2,6.37199998 17.633304,1.79999996 12,1.79999996 Z M12,20.4 L12,3.59999996 C16.621608,3.62061597 20.4,7.38011998 20.4,12.012 C20.4,16.64388 16.621608,20.379384 12,20.4 Z" fill="#000000"></path>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 14.571V5.411c3.625.015 6.588 2.96 6.588 6.589 0 3.629-2.963 6.555-6.588 6.571Z"/></svg>

@@ -28,7 +28,7 @@ class TextTransformComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		const bodyElt = document.getElementsByTagName('body')[ 0 ];
+		const bodyElt = document.getElementsByTagName('body')[0];
 
 		this.normalBtn?.addEventListener('click', () => {
 			bodyElt.style.textTransform = ``;

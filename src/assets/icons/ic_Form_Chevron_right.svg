@@ -1,7 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>icons/functional_UI/E-M/mdpi/ic_Form_Chevron_right</title>
-    <g id="icons/functional_UI/E-M/ic_Form_Chevron_right" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="chevron_right" fill="#000000" points="10 19 15 14 17 12 15 10 10 5 8 7 13 12 8 17"></polygon>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" d="m10 19 5-5 2-2-2-2-5-5-2 2 5 5-5 5 2 2Z" clip-rule="evenodd"/></svg>

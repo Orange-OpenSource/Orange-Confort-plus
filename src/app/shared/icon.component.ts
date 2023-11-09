@@ -1,5 +1,5 @@
 const iconLayout: HTMLTemplateElement = document.createElement('template');
-iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true"><use/></svg>`;
+iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
 
 class IconComponent extends HTMLElement {
 	private sprite = 'assets/icons/orange-icons-sprite.svg';

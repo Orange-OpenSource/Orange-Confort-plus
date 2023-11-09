@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>icons/functional_UI/A-E/mdpi/ic_Battery_status_empty</title>
-    <g id="icons/functional_UI/A-E/ic_Battery_status_empty" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M22.2,8.99999999 L21,8.99999999 L21,6.59999998 C21,5.93725827 20.4627417,5.39999997 19.8,5.39999997 L2.39999996,5.39999997 C1.73725826,5.39999997 1.19999995,5.93725827 1.19999995,6.59999998 L1.19999995,17.4 C1.19999995,18.0627417 1.73725826,18.6 2.39999996,18.6 L19.8,18.6 C20.4627417,18.6 21,18.0627417 21,17.4 L21,15 L22.2,15 C22.5313709,15 22.8,14.7313709 22.8,14.4 L22.8,9.59999999 C22.8,9.26862914 22.5313709,8.99999999 22.2,8.99999999 Z M19.2,16.8 L2.99999996,16.8 L2.99999996,7.19999998 L19.2,7.19999998 L19.2,16.8 Z" fill="#000000"></path>
-    </g>
-</svg>
