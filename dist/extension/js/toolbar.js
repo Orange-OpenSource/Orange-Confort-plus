@@ -141,6 +141,39 @@ customElements.define("app-icon", IconComponent);
 
 "use strict";
 
+const selectModeLayout = document.createElement("template");
+
+selectModeLayout.innerHTML = `\n\t<style>\n\t\tlabel {\n\t\t\twidth: 100%;\n\t\t\tcursor: pointer;\n\t\t}\n\n\t\tinput {\n\t\t\tappearance: none;\n    \t-webkit-appearance: none;\n    \t-moz-appearance: none;\n\t\t\tposition: absolute;\n\t\t}\n\n\t\tinput:checked + div {\n\t\t\tbox-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);\n\t\t}\n\n\t\tinput:not(:checked) + div > p {\n\t\t\tdisplay: none;\n\t\t}\n\t</style>\n\n\t<label>\n\t\t<input type="radio">\n\t\t<div class="d-flex flex-column gap-1 p-1">\n\t\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t\t<app-icon data-size="2rem" data-name="Audio"></app-icon>\n\t\t\t\t<span class="fs-5 text"></span>\n\t\t\t</div>\n\t\t\t<p class="fs-6 fw-normal text"></p>\n\t\t</div>\n\t</label>\n`;
+
+class SelectModeComponent extends HTMLElement {
+    inputIsChecked=false;
+    id="";
+    name="";
+    label="";
+    description="";
+    constructor() {
+        super();
+        this.id = this.dataset?.id || this.id;
+        this.name = this.dataset?.name || this.name;
+        this.label = this.dataset?.label || this.label;
+        this.description = this.dataset?.description || this.description;
+        this.appendChild(selectModeLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        const inputElement = this.querySelector("input");
+        const labelElement = this.querySelector("span");
+        const descriptionElement = this.querySelector("p");
+        inputElement?.setAttribute("id", this.id);
+        inputElement?.setAttribute("name", this.name);
+        labelElement.innerHTML = this.label;
+        descriptionElement.innerHTML = this.description;
+    }
+}
+
+customElements.define("app-select-mode", SelectModeComponent);
+
+"use strict";
+
 const tmplLayout = document.createElement("template");
 
 tmplLayout.innerHTML = `\n    <style>\n        app-layout {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-layout__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="layout"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n    </div>\n`;

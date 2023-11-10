@@ -46,6 +46,18 @@ tmplToolbar.innerHTML = `
 </section>
 
 <section class="d-flex flex-column p-3 mb-2">
+
+		<form>
+			<app-select-mode data-id="id1" data-name="name" data-label="Label 1" data-description="Ceci est une description">
+			</app-select-mode>
+			<app-select-mode data-id="id2" data-name="name" data-label="Label 2" data-description="Ceci est une description 2">
+			</app-select-mode>
+			<app-select-mode data-id="id3" data-name="name" data-label="Label 3" data-description="Ceci est une description 3">
+			</app-select-mode>
+
+			<button type="submit" class="btn btn-primary">Valider</button>
+		</form>
+
     <app-text></app-text>
     <app-layout></app-layout>
     <app-picture-video></app-picture-video>
