@@ -119,6 +119,112 @@ customElements.define("app-root", AppComponent);
 
 "use strict";
 
+const btnModalLayout = document.createElement("template");
+
+btnModalLayout.innerHTML = `\n\t<style>\n\t</style>\n`;
+
+class BtnModalComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(btnModalLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-btn-modal", BtnModalComponent);
+
+"use strict";
+
+const btnSettingLayout = document.createElement("template");
+
+btnSettingLayout.innerHTML = `\n\t<style>\n\t\t.sc-btn-setting__btn-slots {\n\t\t\tmargin-top: .5rem;\n\t\t}\n\n\t\t.sc-btn-setting__btn-slot {\n\t\t\tbackground: white;\n\t\t\tborder-radius: 50%;\n\t\t\twidth: .25rem;\n\t\t\theight: .25rem;\n\t\t}\n\t\t.sc-btn-setting__btn-slot.selected {\n\t\t\tbackground: black;\n\t\t\tborder: 2px solid black;\n\t\t\tbox-sizing: content-box;\n\t\t}\n\t</style>\n\n\t<button class="btn btn-primary flex-column">\n\t\t<span>Label</span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<div class="d-flex gap-1 align-items-center sc-btn-setting__btn-slots"></div>\n\t</button>\n`;
+
+class BtnSettingComponent extends HTMLElement {
+    settingBtn=null;
+    index=0;
+    settingsList="";
+    separator=",";
+    constructor() {
+        super();
+        this.settingsList = this.dataset?.settingsList || this.settingsList;
+        this.appendChild(btnSettingLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.settingBtn = this.querySelector("button");
+        const btnContentSlots = this.querySelector("div");
+        const settingsArray = this.settingsList.split(this.separator);
+        let slot = "";
+        settingsArray.forEach(((value, index) => {
+            let div = '<div class="sc-btn-setting__btn-slot"></div>';
+            if (index === this.index) {
+                div = '<div class="sc-btn-setting__btn-slot selected"></div>';
+            }
+            slot = `${slot}${div}`;
+        }));
+        btnContentSlots.innerHTML = slot;
+        this.settingBtn?.addEventListener("click", (() => {
+            this.index++;
+            if (this.index >= settingsArray.length) {
+                this.index = 0;
+            }
+            slot = "";
+            settingsArray.forEach(((value, index) => {
+                let div = '<div class="sc-btn-setting__btn-slot"></div>';
+                if (index === this.index) {
+                    div = '<div class="sc-btn-setting__btn-slot selected"></div>';
+                    let clickEvent = new CustomEvent("changeSettingEvent", {
+                        detail: {
+                            value: value
+                        }
+                    });
+                    template.dispatchEvent(clickEvent);
+                }
+                slot = `${slot}${div}`;
+            }));
+            btnContentSlots.innerHTML = slot;
+        }));
+    }
+    disconnectedCallback() {
+        this.settingBtn?.removeEventListener("click", (() => {}));
+    }
+}
+
+customElements.define("app-btn-setting", BtnSettingComponent);
+
+"use strict";
+
+const collapseLayout = document.createElement("template");
+
+collapseLayout.innerHTML = `\n\t<style>\n\t</style>\n`;
+
+class CollapseComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(collapseLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-collapse", CollapseComponent);
+
+"use strict";
+
+const headerLayout = document.createElement("template");
+
+headerLayout.innerHTML = `\n\t<style>\n\t</style>\n`;
+
+class HeaderComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(headerLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-header", HeaderComponent);
+
+"use strict";
+
 const iconLayout = document.createElement("template");
 
 iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
@@ -150,12 +256,6 @@ class IconComponent extends HTMLElement {
             use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
         }
     }
-    attributeChangeCallback(name, oldValue, newValue) {
-        if (name === "name" && oldValue !== newValue) {
-            console.log(oldValue, newValue);
-            this.icon = newValue;
-        }
-    }
 }
 
 customElements.define("app-icon", IconComponent);
@@ -164,17 +264,19 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<style>\n\t\tlabel {\n\t\t\twidth: 100%;\n\t\t\tcursor: pointer;\n\t\t}\n\n\t\tinput {\n\t\t\tappearance: none;\n    \t-webkit-appearance: none;\n    \t-moz-appearance: none;\n\t\t\tposition: absolute;\n\t\t}\n\n\t\tinput:checked + div {\n\t\t\tbox-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);\n\t\t}\n\n\t\tinput:not(:checked) + div > p {\n\t\t\tdisplay: none;\n\t\t}\n\t</style>\n\n\t<label>\n\t\t<input type="radio">\n\t\t<div class="d-flex flex-column gap-1 p-1">\n\t\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t\t<app-icon data-size="2rem" data-name="Audio"></app-icon>\n\t\t\t\t<span class="fs-5 text"></span>\n\t\t\t</div>\n\t\t\t<p class="fs-6 fw-normal text"></p>\n\t\t</div>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<style>\n\t\tlabel {\n\t\t\twidth: 100%;\n\t\t\tcursor: pointer;\n\t\t}\n\n\t\tinput {\n\t\t\tappearance: none;\n    \t-webkit-appearance: none;\n    \t-moz-appearance: none;\n\t\t\tposition: absolute;\n\t\t}\n\n\t\tinput:checked + div {\n\t\t\tbox-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);\n\t\t}\n\n\t\tinput:not(:checked) + div > p {\n\t\t\tdisplay: none;\n\t\t}\n\t</style>\n\n\t<label>\n\t\t<input type="radio">\n\t\t<div class="d-flex flex-column gap-1 p-1">\n\t\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span class="fs-5 text"></span>\n\t\t\t</div>\n\t\t\t<p class="fs-6 fw-normal m-0"></p>\n\t\t</div>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputIsChecked=false;
     id="";
+    icon="";
     name="";
     label="";
     description="";
     constructor() {
         super();
         this.id = this.dataset?.id || this.id;
+        this.icon = this.dataset?.icon || this.icon;
         this.name = this.dataset?.name || this.name;
         this.label = this.dataset?.label || this.label;
         this.description = this.dataset?.description || this.description;
@@ -182,10 +284,12 @@ class SelectModeComponent extends HTMLElement {
     }
     connectedCallback() {
         const inputElement = this.querySelector("input");
+        const iconElement = this.querySelector("app-icon");
         const labelElement = this.querySelector("span");
         const descriptionElement = this.querySelector("p");
         inputElement?.setAttribute("id", this.id);
         inputElement?.setAttribute("name", this.name);
+        iconElement.dataset.name = this.icon;
         labelElement.innerHTML = this.label;
         descriptionElement.innerHTML = this.description;
     }
@@ -438,7 +542,7 @@ class IncreaseTextSizeComponent extends HTMLElement {
         if (!sizeInfoElt) {
             return;
         }
-        const btnContentSlots = this.querySelector("button");
+        const btnContentSlots = this.querySelector("#btn-content-slots");
         let slot = "";
         this.fontSizes.forEach(((size, index) => {
             let div = '<div class="sc-increase-text-size__btn-slot"></div>';
@@ -609,6 +713,12 @@ class ToolbarComponent extends HTMLElement {
             let clickEvent = new CustomEvent("closeEvent");
             template.dispatchEvent(clickEvent);
         }));
+        template.addEventListener("changeSettingEvent", (event => {
+            this.getSettingsValue(event);
+        }));
+    }
+    getSettingsValue(event) {
+        console.log(event.detail.value);
     }
     disconnectedCallback() {
         this.closeBtn?.removeEventListener("click", (() => {}));

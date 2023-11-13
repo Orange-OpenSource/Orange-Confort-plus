@@ -46,16 +46,15 @@ tmplToolbar.innerHTML = `
 </section>
 
 <section class="d-flex flex-column p-3 mb-2">
+		<app-btn-setting data-settings-list="18,20,24,32"></app-btn-setting>
 
 		<form>
-			<app-select-mode data-id="id1" data-name="name" data-label="Label 1" data-description="Ceci est une description">
+			<app-select-mode data-id="id1" data-name="name" data-label="Label 1" data-description="Ceci est une description" data-icon="Eye">
 			</app-select-mode>
-			<app-select-mode data-id="id2" data-name="name" data-label="Label 2" data-description="Ceci est une description 2">
+			<app-select-mode data-id="id2" data-name="name" data-label="Label 2" data-description="Ceci est une description 2" data-icon="Loupe">
 			</app-select-mode>
-			<app-select-mode data-id="id3" data-name="name" data-label="Label 3" data-description="Ceci est une description 3">
+			<app-select-mode data-id="id3" data-name="name" data-label="Label 3" data-description="Ceci est une description 3" data-icon="Audio">
 			</app-select-mode>
-
-			<button type="submit" class="btn btn-primary">Valider</button>
 		</form>
 
     <app-text></app-text>
@@ -82,6 +81,15 @@ class ToolbarComponent extends HTMLElement {
 			let clickEvent = new CustomEvent('closeEvent');
 			template.dispatchEvent(clickEvent);
 		});
+
+		/* Exemple pour récupérer la valeur du btn-settings */
+		template.addEventListener('changeSettingEvent', (event) => {
+			this.getSettingsValue(event as CustomEvent)
+		});
+	}
+
+	getSettingsValue(event: CustomEvent): void {
+		console.log(event.detail.value);
 	}
 
 	disconnectedCallback(): void {
