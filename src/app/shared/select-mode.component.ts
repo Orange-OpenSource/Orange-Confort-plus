@@ -26,10 +26,10 @@ selectModeLayout.innerHTML = `
 		<input type="radio">
 		<div class="d-flex flex-column gap-1 p-1">
 			<div class="d-flex align-items-center gap-2">
-				<app-icon data-size="2rem" data-name="Audio"></app-icon>
+				<app-icon data-size="2rem"></app-icon>
 				<span class="fs-5 text"></span>
 			</div>
-			<p class="fs-6 fw-normal text"></p>
+			<p class="fs-6 fw-normal m-0"></p>
 		</div>
 	</label>
 `;
@@ -37,6 +37,7 @@ selectModeLayout.innerHTML = `
 class SelectModeComponent extends HTMLElement {
 	private inputIsChecked: boolean = false;
 	id = '';
+	icon = '';
 	name = '';
 	label = '';
 	description = '';
@@ -45,6 +46,7 @@ class SelectModeComponent extends HTMLElement {
 		super();
 
 		this.id = this.dataset?.id || this.id;
+		this.icon = this.dataset?.icon || this.icon;
 		this.name = this.dataset?.name || this.name;
 		this.label = this.dataset?.label || this.label;
 		this.description = this.dataset?.description || this.description;
@@ -56,12 +58,15 @@ class SelectModeComponent extends HTMLElement {
 		// @ts-ignore
 		const inputElement: HTMLInputElement = this.querySelector('input');
 		// @ts-ignore
+		const iconElement: HTMLElement = this.querySelector('app-icon');
+		// @ts-ignore
 		const labelElement: HTMLElement = this.querySelector('span');
 		// @ts-ignore
 		const descriptionElement: HTMLParagraphElement = this.querySelector('p');
 
 		inputElement?.setAttribute('id', this.id);
 		inputElement?.setAttribute('name', this.name);
+		iconElement.dataset.name = this.icon;
 		labelElement.innerHTML = this.label;
 		descriptionElement.innerHTML = this.description;
 	}
