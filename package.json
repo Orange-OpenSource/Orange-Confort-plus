@@ -42,7 +42,7 @@
 		"copy:locales": "shx cp -r src/_locales docs/",
 		"prebuild:toolbar": "tsc && shx mkdir -p dist/serveur/js",
 		"build:toolbar": "node build/terser.js --context=toolbar",
-		"postbuild:toolbar": "npm run toolbar:server && npm run toolbar:ext",
+		"postbuild:toolbar": "npm run toolbar:server && npm run toolbar:ext && shx cp -r dist/serveur/js docs",
 		"toolbar:server": "node build/terser.js --context=server",
 		"posttoolbar:server": "node build/terser.js --context=min-server",
 		"toolbar:ext": "node build/terser.js --context=extension",
