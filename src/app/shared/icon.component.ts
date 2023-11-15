@@ -3,17 +3,16 @@ iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="f
 
 class IconComponent extends HTMLElement {
 	static observedAttributes = ['data-name'];
-	private sprite = 'assets/icons/orange-icons-sprite.svg';
+	sprite = '';
+	iconService: any;
 	icon = '';
 	size = '1.25rem';
-	pathService: any;
-	path: string;
 
 	constructor() {
 		super();
 
-		this.pathService = new pathService();
-		this.path = this.pathService.path;
+		this.iconService = new iconsService();
+		this.sprite = this.iconService.path;
 
 		this.icon = this.dataset?.name || this.icon;
 		this.size = this.dataset?.size || this.size;
@@ -27,13 +26,13 @@ class IconComponent extends HTMLElement {
 		svg?.setAttribute('height', this.size);
 
 		let use = this.querySelector('use');
-		use?.setAttribute('href', `${this.path}${this.sprite}#ic_${this.icon}`);
+		use?.setAttribute('href', `${this.sprite}#ic_${this.icon}`);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		let use = this.querySelector('use');
 		if ('data-name' === name) {
-			use?.setAttribute('href', `${this.path}${this.sprite}#ic_${newValue}`);
+			use?.setAttribute('href', `${this.sprite}#ic_${newValue}`);
 		}
 	}
 }

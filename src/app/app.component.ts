@@ -23,6 +23,7 @@ class AppComponent extends HTMLElement {
 	confortPlusToolbar: HTMLElement | null | undefined = null;
 	i18nService: any;
 	pathService: any;
+	iconsService: any;
 	path: string | undefined;
 	link: HTMLLinkElement;
 
@@ -32,6 +33,7 @@ class AppComponent extends HTMLElement {
 		this.pathService = new pathService();
 		this.path = this.pathService.path;
 		this.i18nService = new i18nService(this.path);
+		this.iconsService = new iconsService();
 
 		this.attachShadow({ mode: 'open' });
 		this?.shadowRoot?.appendChild(template.content.cloneNode(true));
@@ -45,6 +47,7 @@ class AppComponent extends HTMLElement {
 	connectedCallback(): void {
 		customElements.upgrade(this);
 
+		this.iconsService.loadSprite(this.shadowRoot);
 		// @note Tick until everything loaded
 		setTimeout(() => {
 			this.i18nService.translate(this.shadowRoot);

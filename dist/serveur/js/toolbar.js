@@ -51,6 +51,16 @@ class pathService {
     }
 }
 
+class iconsService {
+    constructor() {}
+    get path() {
+        return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
+    }
+    loadSprite(root) {
+        return;
+    }
+}
+
 "use strict";
 
 const template = document.createElement("template");
@@ -63,6 +73,7 @@ class AppComponent extends HTMLElement {
     confortPlusToolbar=null;
     i18nService;
     pathService;
+    iconsService;
     path;
     link;
     constructor() {
@@ -70,6 +81,7 @@ class AppComponent extends HTMLElement {
         this.pathService = new pathService;
         this.path = this.pathService.path;
         this.i18nService = new i18nService(this.path);
+        this.iconsService = new iconsService;
         this.attachShadow({
             mode: "open"
         });
@@ -81,6 +93,7 @@ class AppComponent extends HTMLElement {
     }
     connectedCallback() {
         customElements.upgrade(this);
+        this.iconsService.loadSprite(this.shadowRoot);
         setTimeout((() => {
             this.i18nService.translate(this.shadowRoot);
         }));
@@ -112,15 +125,14 @@ iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="f
 
 class IconComponent extends HTMLElement {
     static observedAttributes=[ "data-name" ];
-    sprite="assets/icons/orange-icons-sprite.svg";
+    sprite="";
+    iconService;
     icon="";
     size="1.25rem";
-    pathService;
-    path;
     constructor() {
         super();
-        this.pathService = new pathService;
-        this.path = this.pathService.path;
+        this.iconService = new iconsService;
+        this.sprite = this.iconService.path;
         this.icon = this.dataset?.name || this.icon;
         this.size = this.dataset?.size || this.size;
         this.appendChild(iconLayout.content.cloneNode(true));
@@ -130,12 +142,12 @@ class IconComponent extends HTMLElement {
         svg?.setAttribute("width", this.size);
         svg?.setAttribute("height", this.size);
         let use = this.querySelector("use");
-        use?.setAttribute("href", `${this.path}${this.sprite}#ic_${this.icon}`);
+        use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         let use = this.querySelector("use");
         if ("data-name" === name) {
-            use?.setAttribute("href", `${this.path}${this.sprite}#ic_${newValue}`);
+            use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
         }
     }
 }
@@ -324,7 +336,7 @@ class FontFamilyComponent extends HTMLElement {
         let head = document.head || document.getElementsByTagName("head")[0];
         let styles = document.createElement("style");
         head.appendChild(styles);
-        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
+        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
         this.normalBtn = this.querySelector("#normal-font");
         this.arialBtn = this.querySelector("#arial-font");
         this.openSansBtn = this.querySelector("#open-font-font");
