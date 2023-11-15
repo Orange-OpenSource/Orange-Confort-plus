@@ -62,3 +62,7 @@ dist/extension/manifest.json
 /dist/js
 /dist/css
 /src/img/
+
+# Docs
+/docs/css/boosted.css
+/docs/css/orange-helvetica.css
