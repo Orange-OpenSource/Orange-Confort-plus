@@ -35,7 +35,6 @@ selectModeLayout.innerHTML = `
 `;
 
 class SelectModeComponent extends HTMLElement {
-	private inputIsChecked: boolean = false;
 	id = '';
 	icon = '';
 	name = '';
