@@ -18,7 +18,7 @@ tmplToolbar.innerHTML = `
 		<span data-i18n="mainTitle"></span>
 		<span class="text-primary">+</span>
 	</span>
-	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">
+	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">
 			<span class="visually-hidden" data-i18n="close"></span>
 			<app-icon data-name="Form_Chevron_right"></app-icon>
 	</button>
@@ -34,11 +34,11 @@ tmplToolbar.innerHTML = `
         </div>
     </div>
     <div class="d-grid gap-3 d-md-block">
-        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="openSettingsMode">
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
             <span class="visually-hidden" data-i18n="openSettingsMode"></span>
 						<app-icon data-name="Settings"></app-icon>
         </button>
-        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="pause">
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
             <span class="visually-hidden" data-i18n="pause"></span>
 						<app-icon data-name="Pause"></app-icon>
         </button>
