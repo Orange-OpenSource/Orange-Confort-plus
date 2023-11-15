@@ -195,7 +195,7 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const collapseLayout = document.createElement("template");
 
-collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n    <div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed d-flex gap-1 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n    </div>\n    <div class="accordion-collapse collapse">\n      <div class="accordion-body"></div>\n    </div>\n  </div>\n`;
+collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n    <div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n    </div>\n    <div class="accordion-collapse collapse">\n      <div class="accordion-body"></div>\n    </div>\n  </div>\n`;
 
 class CollapseComponent extends HTMLElement {
     button=null;
@@ -266,14 +266,47 @@ customElements.define("app-collapse", CollapseComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<style>\n\t</style>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="close">\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
+    prevBtn=null;
+    closeBtn=null;
+    titleApp=null;
+    mode="primary";
     constructor() {
         super();
+        this.mode = this.dataset.mode || this.mode;
+        this.closeBtn = this.querySelector("#close-toolbar");
+        this.prevBtn = this.querySelector("#prev-toolbar");
         this.appendChild(headerLayout.content.cloneNode(true));
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.displayMode();
+        this.closeBtn?.addEventListener("click", (() => {
+            let clickCloseEvent = new CustomEvent("closeEvent");
+            template.dispatchEvent(clickCloseEvent);
+        }));
+        this.prevBtn?.addEventListener("click", (() => {
+            let clickPrevEvent = new CustomEvent("prevEvent");
+            template.dispatchEvent(clickPrevEvent);
+        }));
+    }
+    disconnectedCallback() {
+        this.closeBtn?.removeEventListener("click", (() => {}));
+        this.prevBtn?.removeEventListener("click", (() => {}));
+    }
+    displayMode() {
+        this.prevBtn = this.querySelector("#prev-toolbar");
+        this.titleApp = this.querySelector("#title-app");
+        if (this.mode === "primary") {
+            this.prevBtn?.classList.remove("d-none");
+            this.titleApp?.classList.add("d-none");
+            console.log(this.titleApp);
+        } else {
+            this.prevBtn?.classList.add("d-none");
+            this.titleApp?.classList.remove("d-none");
+        }
+    }
 }
 
 customElements.define("app-header", HeaderComponent);
@@ -762,26 +795,17 @@ const tmplToolbar = document.createElement("template");
 tmplToolbar.innerHTML = `\n<style>\n    #toolbar {\n        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;\n        display: grid;\n        grid-template-rows: 4rem 7rem 1fr;\n        width: 19.5vw;\n        height: 100vh;\n        position: fixed;\n        top: 0;\n        right: 0;\n        z-index: 999;\n    }\n</style>\n<section class="bg-secondary p-3 d-flex align-items-center justify-content-between">\n\t<span class="fs-3 fw-bold text-white">\n\t\t<span data-i18n="mainTitle"></span>\n\t\t<span class="text-primary">+</span>\n\t</span>\n\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t</button>\n</section>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n    <app-text></app-text>\n    <app-layout></app-layout>\n    <app-picture-video></app-picture-video>\n    <app-sound></app-sound>\n    <app-pointer></app-pointer>\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
-    closeBtn=null;
     constructor() {
         super();
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
-        this.closeBtn = this.querySelector("#close-toolbar");
-        this.closeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("closeEvent");
-            template.dispatchEvent(clickEvent);
-        }));
         template.addEventListener("changeSettingEvent", (event => {
             this.getSettingsValue(event);
         }));
     }
     getSettingsValue(event) {
         console.log(event.detail.value);
-    }
-    disconnectedCallback() {
-        this.closeBtn?.removeEventListener("click", (() => {}));
     }
 }
 

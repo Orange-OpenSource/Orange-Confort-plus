@@ -4,7 +4,7 @@ tmplToolbar.innerHTML = `
     #toolbar {
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
         display: grid;
-        grid-template-rows: 4rem 7rem 1fr;
+        grid-template-rows: auto 7rem 1fr;
         width: 19.5vw;
         height: 100vh;
         position: fixed;
@@ -13,23 +13,14 @@ tmplToolbar.innerHTML = `
         z-index: 999;
     }
 </style>
-<section class="bg-secondary p-3 d-flex align-items-center justify-content-between">
-	<span class="fs-3 fw-bold text-white">
-		<span data-i18n="mainTitle"></span>
-		<span class="text-primary">+</span>
-	</span>
-	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">
-			<span class="visually-hidden" data-i18n="close"></span>
-			<app-icon data-name="Form_Chevron_right"></app-icon>
-	</button>
-</section>
+<app-header></app-header>
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
     <div class="d-flex gap-3">
         <div class="bg-body rounded-circle">
 						<app-icon data-size="5rem" data-name="Eye"></app-icon>
         </div>
         <div class="d-flex justify-content-center flex-column">
-            <span data-i18n="profile"></span>
+            <span class="text-white" data-i18n="profile"></span>
             <span class="fs-4 fw-bold text-primary">Vision +</span>
         </div>
     </div>
@@ -85,7 +76,6 @@ tmplToolbar.innerHTML = `
 `;
 
 class ToolbarComponent extends HTMLElement {
-	closeBtn: HTMLElement | null = null;
 
 	constructor() {
 		super();
@@ -94,13 +84,6 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.closeBtn = this.querySelector('#close-toolbar');
-
-		this.closeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('closeEvent');
-			template.dispatchEvent(clickEvent);
-		});
-
 		/* Exemple pour récupérer la valeur du btn-settings */
 		template.addEventListener('changeSettingEvent', (event) => {
 			this.getSettingsValue(event as CustomEvent)
@@ -109,11 +92,6 @@ class ToolbarComponent extends HTMLElement {
 
 	getSettingsValue(event: CustomEvent): void {
 		console.log(event.detail.value);
-	}
-
-	disconnectedCallback(): void {
-		this.closeBtn?.removeEventListener('click', () => {
-		});
 	}
 }
 
