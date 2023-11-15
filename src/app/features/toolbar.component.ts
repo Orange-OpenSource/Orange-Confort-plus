@@ -45,23 +45,42 @@ tmplToolbar.innerHTML = `
     </div>
 </section>
 
-<section class="d-flex flex-column p-3 mb-2">
-		<app-btn-setting data-settings-list="18,20,24,32"></app-btn-setting>
+<section class="d-flex gap-3 flex-column p-3 mb-2">
+		<section>
+			Componsant accordion avec collapse :
+			<div class="accordion" id="settingsAccordion">
+				<app-collapse data-id="settingOne" data-accordion="settingsAccordion" data-icon="Text" data-title="Texte">
+				</app-collapse>
 
-		<form>
-			<app-select-mode data-id="id1" data-name="name" data-label="Label 1" data-description="Ceci est une description" data-icon="Eye">
-			</app-select-mode>
-			<app-select-mode data-id="id2" data-name="name" data-label="Label 2" data-description="Ceci est une description 2" data-icon="Loupe">
-			</app-select-mode>
-			<app-select-mode data-id="id3" data-name="name" data-label="Label 3" data-description="Ceci est une description 3" data-icon="Audio">
-			</app-select-mode>
-		</form>
+				<app-collapse data-id="settingTwo" data-accordion="settingsAccordion" data-icon="Agencement" data-title="Affichage de la page">
+				</app-collapse>
+			</div>
+		</section>
 
-    <app-text></app-text>
-    <app-layout></app-layout>
-    <app-picture-video></app-picture-video>
-    <app-sound></app-sound>
-    <app-pointer></app-pointer>
+		<section>
+			Componsant bouton réglage :
+			<app-btn-setting data-settings-list="18,20,24,32"></app-btn-setting>
+		</section>
+
+		<section>
+			Componsant sélection du mode :
+			<form>
+				<app-select-mode data-id="id1" data-name="name" data-label="Label 1" data-description="Ceci est une description" data-icon="Eye">
+				</app-select-mode>
+				<app-select-mode data-id="id2" data-name="name" data-label="Label 2" data-description="Ceci est une description 2" data-icon="Loupe">
+				</app-select-mode>
+				<app-select-mode data-id="id3" data-name="name" data-label="Label 3" data-description="Ceci est une description 3" data-icon="Audio">
+				</app-select-mode>
+			</form>
+		</section>
+
+		<section>
+			<app-text></app-text>
+			<app-layout></app-layout>
+			<app-picture-video></app-picture-video>
+			<app-sound></app-sound>
+			<app-pointer></app-pointer
+		</section>
 </section>
 `;
 

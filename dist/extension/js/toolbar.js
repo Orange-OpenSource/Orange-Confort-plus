@@ -180,14 +180,69 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const collapseLayout = document.createElement("template");
 
-collapseLayout.innerHTML = `\n\t<style>\n\t</style>\n`;
+collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n    <div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n    </div>\n    <div class="accordion-collapse collapse">\n      <div class="accordion-body"></div>\n    </div>\n  </div>\n`;
 
 class CollapseComponent extends HTMLElement {
+    button=null;
+    container=null;
+    id="";
+    accordion="";
+    icon="";
+    title="";
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
     constructor() {
         super();
+        this.id = this.dataset?.id || this.id;
+        this.accordion = this.dataset?.idAccordion || this.accordion;
+        this.icon = this.dataset?.icon || this.icon;
+        this.title = this.dataset?.title || this.title;
         this.appendChild(collapseLayout.content.cloneNode(true));
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this._triggerArray.push(this.button);
+        const iconElement = this.querySelector("app-icon");
+        iconElement.dataset.name = this.icon;
+        const titleElement = this.button.querySelector("span");
+        titleElement.innerHTML = this.title;
+        this.button?.setAttribute("aria-controls", this.id);
+        this.button?.setAttribute("data-bs-target", `#${this.id}`);
+        this.container?.setAttribute("id", this.id);
+        this.container?.setAttribute("data-bs-parent", `#${this.accordion}`);
+        this.button?.addEventListener("click", (() => {
+            this.toggle();
+        }));
+    }
+    toggle() {
+        if (this._isShown()) {
+            this.hide();
+        } else {
+            this.show();
+        }
+    }
+    show() {
+        this.container?.classList.add(this.CLASS_NAME_SHOW);
+        this._addAriaAndCollapsedClass(this._triggerArray, true);
+    }
+    hide() {
+        this.container?.classList.remove(this.CLASS_NAME_SHOW);
+        this._addAriaAndCollapsedClass(this._triggerArray, false);
+    }
+    _isShown(element = this.container) {
+        return element.classList.contains(this.CLASS_NAME_SHOW);
+    }
+    _addAriaAndCollapsedClass(triggerArray, isOpen) {
+        if (!triggerArray.length) {
+            return;
+        }
+        for (const element of triggerArray) {
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", isOpen);
+        }
+    }
 }
 
 customElements.define("app-collapse", CollapseComponent);
@@ -241,6 +296,12 @@ class IconComponent extends HTMLElement {
             use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
         }
     }
+    attributeChangedCallback(name, oldValue, newValue) {
+        let use = this.querySelector("use");
+        if ("data-name" === name) {
+            use?.setAttribute("href", `${this.path}${this.sprite}#ic_${newValue}`);
+        }
+    }
 }
 
 customElements.define("app-icon", IconComponent);
@@ -252,7 +313,6 @@ const selectModeLayout = document.createElement("template");
 selectModeLayout.innerHTML = `\n\t<style>\n\t\tlabel {\n\t\t\twidth: 100%;\n\t\t\tcursor: pointer;\n\t\t}\n\n\t\tinput {\n\t\t\tappearance: none;\n    \t-webkit-appearance: none;\n    \t-moz-appearance: none;\n\t\t\tposition: absolute;\n\t\t}\n\n\t\tinput:checked + div {\n\t\t\tbox-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);\n\t\t}\n\n\t\tinput:not(:checked) + div > p {\n\t\t\tdisplay: none;\n\t\t}\n\t</style>\n\n\t<label>\n\t\t<input type="radio">\n\t\t<div class="d-flex flex-column gap-1 p-1">\n\t\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span class="fs-5 text"></span>\n\t\t\t</div>\n\t\t\t<p class="fs-6 fw-normal m-0"></p>\n\t\t</div>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
-    inputIsChecked=false;
     id="";
     icon="";
     name="";
