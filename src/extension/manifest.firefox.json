@@ -18,8 +18,8 @@
 	"action": {
 		"default_title": "Orange Confort+",
 		"default_icon": {
-			"19": "img/icon-19.png",
-			"38": "img/icon-38.png"
+			"19": "assets/img/icon-19.png",
+			"38": "assets/img/icon-38.png"
 		}
 	},
 	"permissions": [
@@ -46,8 +46,10 @@
 			"resources": [
 				"js/*.js",
 				"css/*.css",
-				"img/*.png",
-				"fonts/*.woff2",
+				"css/*.css.map",
+				"assets/img/*.png",
+				"assets/icons/*.svg",
+				"assets/fonts/*.woff2",
 				"help/*.html"
 			],
 			"matches": [
@@ -56,12 +58,12 @@
 		}
 	],
 	"icons": {
-		"16": "img/icon-16.png",
-		"19": "img/icon-19.png",
-		"32": "img/icon-32.png",
-		"38": "img/icon-38.png",
-		"48": "img/icon-48.png",
-		"64": "img/icon-64.png",
-		"128": "img/icon-128.png"
+		"16": "assets/img/icon-16.png",
+		"19": "assets/img/icon-19.png",
+		"32": "assets/img/icon-32.png",
+		"38": "assets/img/icon-38.png",
+		"48": "assets/img/icon-48.png",
+		"64": "assets/img/icon-64.png",
+		"128": "assets/img/icon-128.png"
 	}
 }

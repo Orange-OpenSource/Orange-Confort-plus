@@ -20,6 +20,7 @@ const files = {
 	'toolbar': {
 		files: [
 			'dist/js/app/app.component.js',
+			'dist/js/app/shared/icon.component.js',
 			'dist/js/app/features/layout/layout.component.js',
 			'dist/js/app/features/picture-video/picture-video.component.js',
 			'dist/js/app/features/pointer/pointer.component.js',
@@ -46,6 +47,7 @@ const files = {
 		files: [
 			'src/serveur/js/services/i18n.service.js',
 			'src/serveur/js/services/path.service.js',
+			'src/serveur/js/services/icons.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/serveur/js/toolbar.js',
@@ -62,6 +64,7 @@ const files = {
 		files: [
 			'src/extension/services/i18n.service.js',
 			'src/extension/services/path.service.js',
+			'src/extension/services/icons.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/extension/js/toolbar.js',

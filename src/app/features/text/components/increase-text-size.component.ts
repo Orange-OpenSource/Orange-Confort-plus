@@ -49,12 +49,6 @@ tmplIncreaseTextSize.innerHTML = `
             padding: 1rem 2rem 1rem 1rem;
             clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
         }
-
-        button {
-            border-radius: .5rem;
-            border: none;
-            cursor: pointer;
-        }
     </style>
     <div class="sc-increase-text-size__content">
 			<button class="sc-increase-text-size__btn-size" id="btn-size">

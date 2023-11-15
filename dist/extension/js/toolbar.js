@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 08/11/2023
+ * orange-confort-plus - version 4.3.0 - 15/11/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -14,6 +14,10 @@ class i18nService {
         for (const element of elements) {
             element.innerHTML = this.getMessage(element.dataset?.i18n);
         }
+        const elementsTitle = root.querySelectorAll("[data-i18n-title]");
+        for (const element of elementsTitle) {
+            element.title = this.getMessage(element.dataset?.i18nTitle);
+        }
     }
 }
 
@@ -27,11 +31,26 @@ class pathService {
     }
 }
 
+class iconsService {
+    constructor() {}
+    get path() {
+        return "";
+    }
+    loadSprite(root) {
+        fetch(chrome.runtime.getURL("assets/icons/orange-icons-sprite.svg")).then((response => response.text())).then((svg => {
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = svg;
+            wrapper.hidden = true;
+            root.insertBefore(wrapper, root.firstChild);
+        }));
+    }
+}
+
 "use strict";
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<style>\n\t\t.sc-confort-plus {\n\t\t\t\tborder: none;\n\t\t\t\tbackground-color: #ff7900;\n\t\t\t\twidth: 3rem;\n\t\t\t\theight: 3rem;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tposition: fixed;\n\t\t\t\ttop: 50%;\n\t\t\t\tright: 1rem;\n\t\t\t\ttransform: translate(-50%, -50%);\n\t\t\t\tcursor: pointer;\n\t\t}\n\n\t\t[hidden] {\n\t\t\tdisplay: none !important;\n\t\t}\n</style>\n<button class="sc-confort-plus" id="confort">\n\t<span class="sr-only" data-i18n="mainButton"></span>\n</button>\n\x3c!-- @todo rename mycustomevent --\x3e\n<app-toolbar hidden id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>\n`;
+template.innerHTML = `\n<style>\n\t.sc-confort-plus {\n\t\t\tborder-radius: 50%;\n\t\t\tposition: fixed;\n\t\t\ttop: 50%;\n\t\t\tright: 1rem;\n\t\t\tpadding: 0 !important;\n\t\t\ttransform: translate(-50%, -50%);\n\t}\n</style>\n<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n</button>\n<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n`;
 
 class AppComponent extends HTMLElement {
     openConfortPlus=false;
@@ -39,24 +58,32 @@ class AppComponent extends HTMLElement {
     confortPlusToolbar=null;
     i18nService;
     pathService;
+    iconsService;
     path;
+    link;
     constructor() {
         super();
         this.pathService = new pathService;
         this.path = this.pathService.path;
         this.i18nService = new i18nService(this.path);
+        this.iconsService = new iconsService;
         this.attachShadow({
             mode: "open"
         });
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this?.shadowRoot?.appendChild(template.content.cloneNode(true));
+        this.link = document.createElement("link");
+        this.link.rel = "stylesheet";
+        this.link.href = `${this.path}css/styles.min.css`;
+        this.shadowRoot?.appendChild(this.link);
     }
     connectedCallback() {
         customElements.upgrade(this);
+        this.iconsService.loadSprite(this.shadowRoot);
         setTimeout((() => {
             this.i18nService.translate(this.shadowRoot);
         }));
-        this.confortPlusBtn = this.shadowRoot.getElementById("confort");
-        this.confortPlusToolbar = this.shadowRoot.getElementById("toolbar");
+        this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
+        this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
@@ -68,8 +95,8 @@ class AppComponent extends HTMLElement {
     }
     toggleToolbar=() => {
         this.openConfortPlus = !this.openConfortPlus;
-        this.confortPlusToolbar.hidden = !this.openConfortPlus;
-        this.confortPlusBtn.hidden = this.openConfortPlus;
+        this?.confortPlusToolbar?.classList.toggle("d-none");
+        this?.confortPlusBtn?.classList.toggle("d-none");
     };
 }
 
@@ -77,9 +104,46 @@ customElements.define("app-root", AppComponent);
 
 "use strict";
 
+const iconLayout = document.createElement("template");
+
+iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
+
+class IconComponent extends HTMLElement {
+    static observedAttributes=[ "data-name" ];
+    sprite="";
+    iconService;
+    icon="";
+    size="1.25rem";
+    constructor() {
+        super();
+        this.iconService = new iconsService;
+        this.sprite = this.iconService.path;
+        this.icon = this.dataset?.name || this.icon;
+        this.size = this.dataset?.size || this.size;
+        this.appendChild(iconLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        let svg = this.querySelector("svg");
+        svg?.setAttribute("width", this.size);
+        svg?.setAttribute("height", this.size);
+        let use = this.querySelector("use");
+        use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        let use = this.querySelector("use");
+        if ("data-name" === name) {
+            use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
+        }
+    }
+}
+
+customElements.define("app-icon", IconComponent);
+
+"use strict";
+
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n    <style>\n        app-layout {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n        .c-btn-tool {\n            display: flex;\n            align-items: center;\n            width: 100%;\n            padding: .5rem;\n        }\n        .c-btn-tool__picto {\n            background: #ff7900;\n            border-radius: 50%;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 1rem;\n            height: 1rem;\n            margin-right: .75rem;\n        }\n        .c-btn-tool:first-child {\n            margin-right: .75rem;\n        }\n        .c-btn-tool__label {\n            text-align: left;\n            flex: 1;\n        }\n\n        .c-tool__content {\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            padding: .5rem;\n        }\n\n        button {\n            border-radius: .5rem;\n            border: none;\n            cursor: pointer;\n        }\n        .hidden {\n            display: flex;\n            visibility: hidden;\n            height: 0;\n            margin-right: 0;\n            padding: 0;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-layout__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="layout"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n    </div>\n`;
+tmplLayout.innerHTML = `\n    <style>\n        app-layout {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-layout__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="layout"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n    </div>\n`;
 
 class LayoutComponent extends HTMLElement {
     toolBtn=null;
@@ -111,7 +175,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n    <style>\n        app-picture-video {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n        .c-btn-tool {\n            display: flex;\n            align-items: center;\n            width: 100%;\n            padding: .5rem;\n        }\n        .c-btn-tool__picto {\n            background: #ff7900;\n            border-radius: 50%;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 1rem;\n            height: 1rem;\n            margin-right: .75rem;\n        }\n        .c-btn-tool:first-child {\n            margin-right: .75rem;\n        }\n        .c-btn-tool__label {\n            text-align: left;\n            flex: 1;\n        }\n\n        .c-tool__content {\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            padding: .5rem;\n        }\n\n        button {\n            border-radius: .5rem;\n            border: none;\n            cursor: pointer;\n        }\n        .hidden {\n            display: flex;\n            visibility: hidden;\n            height: 0;\n            margin-right: 0;\n            padding: 0;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-picture-video__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="medias"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-picture-video__tool-content" data-i18n="wip"></div>\n`;
+tmplPictureVideo.innerHTML = `\n    <style>\n        app-picture-video {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-picture-video__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="medias"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-picture-video__tool-content" data-i18n="wip"></div>\n`;
 
 class PictureVideoComponent extends HTMLElement {
     toolBtn=null;
@@ -143,7 +207,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n    <style>\n        app-pointer {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n        .c-btn-tool {\n            display: flex;\n            align-items: center;\n            width: 100%;\n            padding: .5rem;\n        }\n        .c-btn-tool__picto {\n            background: #ff7900;\n            border-radius: 50%;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 1rem;\n            height: 1rem;\n            margin-right: .75rem;\n        }\n        .c-btn-tool:first-child {\n            margin-right: .75rem;\n        }\n        .c-btn-tool__label {\n            text-align: left;\n            flex: 1;\n        }\n\n        .c-tool__content {\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            padding: .5rem;\n        }\n\n        button {\n            border-radius: .5rem;\n            border: none;\n            cursor: pointer;\n        }\n        .hidden {\n            display: flex;\n            visibility: hidden;\n            height: 0;\n            margin-right: 0;\n            padding: 0;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-pointer__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="pointer"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>\n`;
+tmplPointer.innerHTML = `\n    <style>\n        app-pointer {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-pointer__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="pointer"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>\n`;
 
 class PointerComponent extends HTMLElement {
     toolBtn=null;
@@ -175,7 +239,7 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-tmplSound.innerHTML = `\n    <style>\n        app-sound {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n        .c-btn-tool {\n            display: flex;\n            align-items: center;\n            width: 100%;\n            padding: .5rem;\n        }\n        .c-btn-tool__picto {\n            background: #ff7900;\n            border-radius: 50%;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 1rem;\n            height: 1rem;\n            margin-right: .75rem;\n        }\n        .c-btn-tool:first-child {\n            margin-right: .75rem;\n        }\n        .c-btn-tool__label {\n            text-align: left;\n            flex: 1;\n        }\n\n        .c-tool__content {\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            padding: .5rem;\n        }\n\n        button {\n            border-radius: .5rem;\n            border: none;\n            cursor: pointer;\n        }\n        .hidden {\n            display: flex;\n            visibility: hidden;\n            height: 0;\n            margin-right: 0;\n            padding: 0;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-sound__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="audio"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-sound__tool-content" data-i18n="wip"></div>\n`;
+tmplSound.innerHTML = `\n    <style>\n        app-sound {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-sound__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="audio"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-sound__tool-content" data-i18n="wip"></div>\n`;
 
 class SoundComponent extends HTMLElement {
     toolBtn=null;
@@ -207,7 +271,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n    <style>\n        app-text {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n        .c-btn-tool {\n            display: flex;\n            align-items: center;\n            width: 100%;\n            margin-bottom: .5rem;\n            padding: .5rem;\n        }\n        .c-btn-tool__picto {\n            background: #ff7900;\n            border-radius: 50%;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 1rem;\n            height: 1rem;\n            margin-right: .75rem;\n        }\n        .c-btn-tool:first-child {\n            margin-right: .75rem;\n        }\n        .c-btn-tool__label {\n            text-align: left;\n            flex: 1;\n        }\n\n        .c-tool__content {\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            padding: .5rem;\n\n            > * {\n            \tmargin-bottom: 1rem;\n            }\n        }\n\n        button {\n            border-radius: .5rem;\n            border: none;\n            cursor: pointer;\n        }\n        .hidden {\n            display: flex;\n            visibility: hidden;\n            height: 0;\n            margin-right: 0;\n            padding: 0;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-text__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="text"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-text__tool-content">\n        <app-increase-text-size></app-increase-text-size>\n        <app-text-transform></app-text-transform>\n        <app-font-family></app-font-family>\n        <app-reading-guide></app-reading-guide>\n    </div>\n`;
+tmplText.innerHTML = `\n    <style>\n        app-text {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-text__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="text"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-text__tool-content">\n        <app-increase-text-size></app-increase-text-size>\n        <app-text-transform></app-text-transform>\n        <app-font-family></app-font-family>\n        <app-reading-guide></app-reading-guide>\n    </div>\n`;
 
 class TextComponent extends HTMLElement {
     toolBtn=null;
@@ -257,7 +321,7 @@ class FontFamilyComponent extends HTMLElement {
         let head = document.head || document.getElementsByTagName("head")[0];
         let styles = document.createElement("style");
         head.appendChild(styles);
-        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
+        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
         this.normalBtn = this.querySelector("#normal-font");
         this.arialBtn = this.querySelector("#arial-font");
         this.openSansBtn = this.querySelector("#open-font-font");
@@ -302,7 +366,7 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n    <style>\n        app-increase-text-size {\n            display: flex;\n            align-items: center;\n            margin-bottom: 1rem;\n        }\n        .sc-increase-text-size__content {\n        \tdisplay: flex;\n        }\n\n        .sc-increase-text-size__btn-size {\n            background: #ff7900;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            height: 5rem;\n            margin-right: 1rem;\n        }\n\n        .sc-increase-text-size__btn-slots {\n            display: flex;\n            margin-top: 1rem;\n        }\n        .sc-increase-text-size__btn-slot {\n            background: #FFBE85;\n            border-radius: 50%;\n            width: .5rem;\n            height: .5rem;\n            margin-right: .25rem;\n        }\n        .sc-increase-text-size__btn-slot:last-child {\n            margin-right: 0;\n        }\n        .selected {\n            background: black;\n        }\n\n        .sc-increase-text-size__size-info {\n            font-weight: 700;\n            background: #ff7900;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            padding: 1rem 2rem 1rem 1rem;\n            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n        }\n\n        button {\n            border-radius: .5rem;\n            border: none;\n            cursor: pointer;\n        }\n    </style>\n    <div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n    <style>\n        app-increase-text-size {\n            display: flex;\n            align-items: center;\n            margin-bottom: 1rem;\n        }\n        .sc-increase-text-size__content {\n        \tdisplay: flex;\n        }\n\n        .sc-increase-text-size__btn-size {\n            background: #ff7900;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            height: 5rem;\n            margin-right: 1rem;\n        }\n\n        .sc-increase-text-size__btn-slots {\n            display: flex;\n            margin-top: 1rem;\n        }\n        .sc-increase-text-size__btn-slot {\n            background: #FFBE85;\n            border-radius: 50%;\n            width: .5rem;\n            height: .5rem;\n            margin-right: .25rem;\n        }\n        .sc-increase-text-size__btn-slot:last-child {\n            margin-right: 0;\n        }\n        .selected {\n            background: black;\n        }\n\n        .sc-increase-text-size__size-info {\n            font-weight: 700;\n            background: #ff7900;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            padding: 1rem 2rem 1rem 1rem;\n            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n        }\n    </style>\n    <div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
 
 class IncreaseTextSizeComponent extends HTMLElement {
     toolBtn=null;
@@ -477,7 +541,7 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<style>\n    #toolbar {\n        color: black;\n        background: white;\n        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;\n        display: grid;\n        grid-template-rows: 4rem 7rem 1fr;\n        width: 19.5vw;\n        height: 100vh;\n        position: fixed;\n        top: 0;\n        right: 0;\n        z-index: 999;\n    }\n    .sc-toolbar__header,\n    .sc-toolbar__header-infos {\n        color: white;\n        background: black;\n        display: flex;\n        align-items: center;\n        padding: 1rem;\n    }\n    .sc-toolbar__header-infos {\n    \tpadding-top: 0;\n    }\n\n    .sc-toolbar__logo {\n        margin-right: 1rem;\n    }\n    .sc-toolbar__title {\n        font-size: 1.5rem;\n        font-weight: 700;\n        flex: 1;\n    }\n    .sc-toolbar__btn {\n        color: white;\n        font-weight: 700;\n        background: black;\n        border: 1px solid white;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        width: 2rem;\n        height: 2rem;\n        margin-left: 1rem;\n        cursor: pointer;\n    }\n    .sc-toolbar__btn:hover {\n        color: black;\n        background: #ff7900;\n        border: 1px solid #ff7900;\n    }\n\n    .sc-toolbar__close {\n        color: black;\n        background: #ff7900;\n        border: 1px solid #ff7900;\n    }\n\n    .sc-toolbar__infos-picto {\n        background: white;\n        border-radius: 50%;\n        width: 5rem;\n        height: 5rem;\n        margin-right: 1rem;\n    }\n    .sc-toolbar__infos-libelles {\n        display: flex;\n        flex-direction: column;\n        flex: 1;\n    }\n    .sc-toolbar__infos-mode {\n        color: #ff7900;\n        font-weight: 700;\n        font-size: 1.25rem;\n    }\n    .sc-toolbar__infos-tools {\n        display: flex;\n    }\n\n    .sc-toolbar__content {\n        display: flex;\n        flex-direction: column;\n        margin-bottom: .5rem;\n        padding: 1rem;\n    }\n</style>\n<section class="sc-toolbar__header">\n    <span class="sc-toolbar__title" data-i18n="mainTitle"></span>\n    <button class="sc-toolbar__btn"> -> </button>\n    <button id="close-toolbar" class="sc-toolbar__btn sc-toolbar__close"> >> </button>\n</section>\n<section class="sc-toolbar__header-infos">\n    <div class="sc-toolbar__infos-picto"></div>\n    <div class="sc-toolbar__infos-libelles">\n        <span data-i18n="profile"></span>\n        \x3c!-- @todo Mise à jour / traudction de cette donnée ? --\x3e\n        <span class="sc-toolbar__infos-mode">Vision+</span>\n    </div>\n    <div class="sc-toolbar__infos-tools">\n        <button class="sc-toolbar__btn"> O </button>\n        <button class="sc-toolbar__btn"> [] </button>\n    </div>\n</section>\n\n<section class="sc-toolbar__content">\n    <app-text></app-text>\n    <app-layout></app-layout>\n    <app-picture-video></app-picture-video>\n    <app-sound></app-sound>\n    <app-pointer></app-pointer>\n</section>\n`;
+tmplToolbar.innerHTML = `\n<style>\n    #toolbar {\n        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;\n        display: grid;\n        grid-template-rows: 4rem 7rem 1fr;\n        width: 19.5vw;\n        height: 100vh;\n        position: fixed;\n        top: 0;\n        right: 0;\n        z-index: 999;\n    }\n</style>\n<section class="bg-secondary p-3 d-flex align-items-center justify-content-between">\n\t<span class="fs-3 fw-bold text-white">\n\t\t<span data-i18n="mainTitle"></span>\n\t\t<span class="text-primary">+</span>\n\t</span>\n\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t</button>\n</section>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n    <app-text></app-text>\n    <app-layout></app-layout>\n    <app-picture-video></app-picture-video>\n    <app-sound></app-sound>\n    <app-pointer></app-pointer>\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
     closeBtn=null;

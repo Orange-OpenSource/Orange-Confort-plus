@@ -2,8 +2,6 @@ const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <style>
     #toolbar {
-        color: black;
-        background: white;
         box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
         display: grid;
         grid-template-rows: 4rem 7rem 1fr;
@@ -14,98 +12,40 @@ tmplToolbar.innerHTML = `
         right: 0;
         z-index: 999;
     }
-    .sc-toolbar__header,
-    .sc-toolbar__header-infos {
-        color: white;
-        background: black;
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-    }
-    .sc-toolbar__header-infos {
-    	padding-top: 0;
-    }
-
-    .sc-toolbar__logo {
-        margin-right: 1rem;
-    }
-    .sc-toolbar__title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        flex: 1;
-    }
-    .sc-toolbar__btn {
-        color: white;
-        font-weight: 700;
-        background: black;
-        border: 1px solid white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2rem;
-        height: 2rem;
-        margin-left: 1rem;
-        cursor: pointer;
-    }
-    .sc-toolbar__btn:hover {
-        color: black;
-        background: #ff7900;
-        border: 1px solid #ff7900;
-    }
-
-    .sc-toolbar__close {
-        color: black;
-        background: #ff7900;
-        border: 1px solid #ff7900;
-    }
-
-    .sc-toolbar__infos-picto {
-        background: white;
-        border-radius: 50%;
-        width: 5rem;
-        height: 5rem;
-        margin-right: 1rem;
-    }
-    .sc-toolbar__infos-libelles {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-    .sc-toolbar__infos-mode {
-        color: #ff7900;
-        font-weight: 700;
-        font-size: 1.25rem;
-    }
-    .sc-toolbar__infos-tools {
-        display: flex;
-    }
-
-    .sc-toolbar__content {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: .5rem;
-        padding: 1rem;
-    }
 </style>
-<section class="sc-toolbar__header">
-    <span class="sc-toolbar__title" data-i18n="mainTitle"></span>
-    <button class="sc-toolbar__btn"> -> </button>
-    <button id="close-toolbar" class="sc-toolbar__btn sc-toolbar__close"> >> </button>
+<section class="bg-secondary p-3 d-flex align-items-center justify-content-between">
+	<span class="fs-3 fw-bold text-white">
+		<span data-i18n="mainTitle"></span>
+		<span class="text-primary">+</span>
+	</span>
+	<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">
+			<span class="visually-hidden" data-i18n="close"></span>
+			<app-icon data-name="Form_Chevron_right"></app-icon>
+	</button>
 </section>
-<section class="sc-toolbar__header-infos">
-    <div class="sc-toolbar__infos-picto"></div>
-    <div class="sc-toolbar__infos-libelles">
-        <span data-i18n="profile"></span>
-        <!-- @todo Mise à jour / traudction de cette donnée ? -->
-        <span class="sc-toolbar__infos-mode">Vision+</span>
+<section class="bg-dark p-3 d-flex align-items-center justify-content-between">
+    <div class="d-flex gap-3">
+        <div class="bg-body rounded-circle">
+						<app-icon data-size="5rem" data-name="Eye"></app-icon>
+        </div>
+        <div class="d-flex justify-content-center flex-column">
+            <span data-i18n="profile"></span>
+            <span class="fs-4 fw-bold text-primary">Vision +</span>
+        </div>
     </div>
-    <div class="sc-toolbar__infos-tools">
-        <button class="sc-toolbar__btn"> O </button>
-        <button class="sc-toolbar__btn"> [] </button>
+    <div class="d-grid gap-3 d-md-block">
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
+            <span class="visually-hidden" data-i18n="openSettingsMode"></span>
+						<app-icon data-name="Settings"></app-icon>
+        </button>
+        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
+            <span class="visually-hidden" data-i18n="pause"></span>
+						<app-icon data-name="Pause"></app-icon>
+        </button>
     </div>
 </section>
 
-<section class="sc-toolbar__content">
+<section class="d-flex flex-column p-3 mb-2">
     <app-text></app-text>
     <app-layout></app-layout>
     <app-picture-video></app-picture-video>

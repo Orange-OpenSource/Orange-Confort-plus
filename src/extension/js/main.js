@@ -29,26 +29,26 @@ const updateButtonIcon = (isEnabled, tabId) => {
 		chrome.action.setIcon({
 			tabId: tabId,
 			path: {
-				"16": "../img/icon-16.png",
-				"19": "../img/icon-19.png",
-				"32": "../img/icon-32.png",
-				"38": "../img/icon-38.png",
-				"48": "../img/icon-48.png",
-				"64": "../img/icon-64.png",
-				"128": "../img/icon-128.png"
+				"16": "../assets/img/icon-16.png",
+				"19": "../assets/img/icon-19.png",
+				"32": "../assets/img/icon-32.png",
+				"38": "../assets/img/icon-38.png",
+				"48": "../assets/img/icon-48.png",
+				"64": "../assets/img/icon-64.png",
+				"128": "../assets/img/icon-128.png"
 			}
 		});
 	} else {
 		chrome.action.setIcon({
 			tabId: tabId,
 			path: {
-				"16": "../img/icon-disabled-16.png",
-				"19": "../img/icon-disabled-19.png",
-				"32": "../img/icon-disabled-32.png",
-				"38": "../img/icon-disabled-38.png",
-				"48": "../img/icon-disabled-48.png",
-				"64": "../img/icon-disabled-64.png",
-				"128": "../img/icon-disabled-128.png"
+				"16": "../assets/img/icon-disabled-16.png",
+				"19": "../assets/img/icon-disabled-19.png",
+				"32": "../assets/img/icon-disabled-32.png",
+				"38": "../assets/img/icon-disabled-38.png",
+				"48": "../assets/img/icon-disabled-48.png",
+				"64": "../assets/img/icon-disabled-64.png",
+				"128": "../assets/img/icon-disabled-128.png"
 			}
 		});
 	}

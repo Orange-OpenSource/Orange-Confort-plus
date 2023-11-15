@@ -1,64 +1,60 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
 <style>
-		.sc-confort-plus {
-				border: none;
-				background-color: #ff7900;
-				width: 3rem;
-				height: 3rem;
-				border-radius: 50%;
-				position: fixed;
-				top: 50%;
-				right: 1rem;
-				transform: translate(-50%, -50%);
-				cursor: pointer;
-		}
-
-		[hidden] {
-			display: none !important;
-		}
+	.sc-confort-plus {
+			border-radius: 50%;
+			position: fixed;
+			top: 50%;
+			right: 1rem;
+			padding: 0 !important;
+			transform: translate(-50%, -50%);
+	}
 </style>
-<button class="sc-confort-plus" id="confort">
-	<span class="sr-only" data-i18n="mainButton"></span>
+<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
+	<span class="visually-hidden" data-i18n="mainButton"></span>
+	<app-icon data-size="3rem" data-name="Accessibility"></app-icon>
 </button>
-<!-- @todo rename mycustomevent -->
-<app-toolbar hidden id="toolbar" onmycustomevent="{handleCustomEvent}"></app-toolbar>
+<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
 `
 
 class AppComponent extends HTMLElement {
 	private openConfortPlus: boolean = false;
-	confortPlusBtn: HTMLElement | null = null;
-	confortPlusToolbar: HTMLElement | null = null;
+	confortPlusBtn: HTMLElement | null | undefined = null;
+	confortPlusToolbar: HTMLElement | null | undefined = null;
 	i18nService: any;
 	pathService: any;
+	iconsService: any;
 	path: string | undefined;
+	link: HTMLLinkElement;
 
 	constructor() {
 		super();
 
-		// @ts-ignore
 		this.pathService = new pathService();
 		this.path = this.pathService.path;
-		// @ts-ignore
 		this.i18nService = new i18nService(this.path);
+		this.iconsService = new iconsService();
 
 		this.attachShadow({ mode: 'open' });
-		// @ts-ignore
-		this.shadowRoot.appendChild(template.content.cloneNode(true));
+		this?.shadowRoot?.appendChild(template.content.cloneNode(true));
+
+		this.link = document.createElement('link');
+		this.link.rel = 'stylesheet';
+		this.link.href = `${this.path}css/styles.min.css`;
+		this.shadowRoot?.appendChild(this.link);
 	}
 
 	connectedCallback(): void {
 		customElements.upgrade(this);
 
+		this.iconsService.loadSprite(this.shadowRoot);
 		// @note Tick until everything loaded
 		setTimeout(() => {
 			this.i18nService.translate(this.shadowRoot);
 		});
 
-		// @ts-ignore
-		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
-		// @ts-ignore
-		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
+		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
+		this.confortPlusToolbar = this?.shadowRoot?.getElementById('toolbar');
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
@@ -71,12 +67,10 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn?.removeEventListener('click', this.toggleToolbar);
 	}
 
-	toggleToolbar = () => {
+	toggleToolbar = (): void => {
 		this.openConfortPlus = !this.openConfortPlus;
-		// @ts-ignore
-		this.confortPlusToolbar.hidden = !this.openConfortPlus;
-		// @ts-ignore
-		this.confortPlusBtn.hidden = this.openConfortPlus;
+		this?.confortPlusToolbar?.classList.toggle('d-none');
+		this?.confortPlusBtn?.classList.toggle('d-none');
 	}
 }
 
