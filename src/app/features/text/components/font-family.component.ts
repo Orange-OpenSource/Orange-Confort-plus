@@ -28,7 +28,6 @@ class FontFamilyComponent extends HTMLElement {
 	constructor() {
 		super();
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
-		// @ts-ignore
 		this.pathService = new pathService();
 		const path = this.pathService.path;
 

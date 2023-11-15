@@ -19,27 +19,27 @@ template.innerHTML = `
 
 class AppComponent extends HTMLElement {
 	private openConfortPlus: boolean = false;
-	confortPlusBtn: HTMLElement | null = null;
-	confortPlusToolbar: HTMLElement | null = null;
+	confortPlusBtn: HTMLElement | null | undefined = null;
+	confortPlusToolbar: HTMLElement | null | undefined = null;
 	i18nService: any;
 	pathService: any;
 	path: string | undefined;
-	link: any;
+	link: HTMLLinkElement;
 
 	constructor() {
 		super();
 
-		// @ts-ignore
 		this.pathService = new pathService();
 		this.path = this.pathService.path;
-		// @ts-ignore
 		this.i18nService = new i18nService(this.path);
 
 		this.attachShadow({ mode: 'open' });
-		// @ts-ignore
-		this.shadowRoot.appendChild(template.content.cloneNode(true));
+		this?.shadowRoot?.appendChild(template.content.cloneNode(true));
 
-		this.addStylesheet();
+		this.link = document.createElement('link');
+		this.link.rel = 'stylesheet';
+		this.link.href = `${this.path}css/styles.min.css`;
+		this.shadowRoot?.appendChild(this.link);
 	}
 
 	connectedCallback(): void {
@@ -50,10 +50,8 @@ class AppComponent extends HTMLElement {
 			this.i18nService.translate(this.shadowRoot);
 		});
 
-		// @ts-ignore
-		this.confortPlusBtn = this.shadowRoot.getElementById('confort');
-		// @ts-ignore
-		this.confortPlusToolbar = this.shadowRoot.getElementById('toolbar');
+		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
+		this.confortPlusToolbar = this?.shadowRoot?.getElementById('toolbar');
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
@@ -66,19 +64,10 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn?.removeEventListener('click', this.toggleToolbar);
 	}
 
-	toggleToolbar = () => {
+	toggleToolbar = (): void => {
 		this.openConfortPlus = !this.openConfortPlus;
-		// @ts-ignore
-		this.confortPlusToolbar.classList.toggle('d-none');
-		// @ts-ignore
-		this.confortPlusBtn.classList.toggle('d-none');
-	}
-
-	addStylesheet = () => {
-		this.link = document.createElement('link');
-		this.link.rel = 'stylesheet';
-		this.link.href = `${this.path}css/styles.min.css`;
-		this.shadowRoot?.appendChild(this.link);
+		this?.confortPlusToolbar?.classList.toggle('d-none');
+		this?.confortPlusBtn?.classList.toggle('d-none');
 	}
 }
 
