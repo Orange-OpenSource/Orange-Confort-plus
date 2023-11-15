@@ -41,7 +41,9 @@
 			"resources": [
 				"js/*.js",
 				"css/*.css",
+				"css/*.css.map",
 				"assets/img/*.png",
+				"assets/icons/*.svg",
 				"assets/fonts/*.woff2",
 				"help/*.html"
 			],
