@@ -10,7 +10,7 @@ template.innerHTML = `
 			transform: translate(-50%, -50%);
 	}
 </style>
-<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-title-i18n="mainButton">
+<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
 	<span class="visually-hidden" data-i18n="mainButton"></span>
 	<app-icon data-size="3rem" data-name="Accessibility"></app-icon>
 </button>
