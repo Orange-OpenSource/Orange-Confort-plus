@@ -19,6 +19,7 @@
 		"skipLibCheck": true
 	},
 	"include": [
-		"./src/app"
+		"./src/app",
+		"./src/serveur/js"
 	]
 }

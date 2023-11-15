@@ -53,16 +53,19 @@ class AppComponent extends HTMLElement {
         this.attachShadow({
             mode: "open"
         });
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-        this.addStylesheet();
+        this?.shadowRoot?.appendChild(template.content.cloneNode(true));
+        this.link = document.createElement("link");
+        this.link.rel = "stylesheet";
+        this.link.href = `${this.path}css/styles.min.css`;
+        this.shadowRoot?.appendChild(this.link);
     }
     connectedCallback() {
         customElements.upgrade(this);
         setTimeout((() => {
             this.i18nService.translate(this.shadowRoot);
         }));
-        this.confortPlusBtn = this.shadowRoot.getElementById("confort");
-        this.confortPlusToolbar = this.shadowRoot.getElementById("toolbar");
+        this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
+        this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
@@ -74,14 +77,8 @@ class AppComponent extends HTMLElement {
     }
     toggleToolbar=() => {
         this.openConfortPlus = !this.openConfortPlus;
-        this.confortPlusToolbar.classList.toggle("d-none");
-        this.confortPlusBtn.classList.toggle("d-none");
-    };
-    addStylesheet=() => {
-        this.link = document.createElement("link");
-        this.link.rel = "stylesheet";
-        this.link.href = `${this.path}css/styles.min.css`;
-        this.shadowRoot?.appendChild(this.link);
+        this?.confortPlusToolbar?.classList.toggle("d-none");
+        this?.confortPlusBtn?.classList.toggle("d-none");
     };
 }
 
