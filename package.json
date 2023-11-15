@@ -64,6 +64,7 @@
 		"watch:css": "nodemon --watch src/styles --ext scss --exec \"npm run build:css\"",
 		"watch:ts": "nodemon --watch src/app --ext ts --exec \"npm run build:toolbar\"",
 		"watch:fonts": "nodemon --watch src/assets/fonts --ext woff2 --exec \"npm run build:fonts\"",
+		"watch:icons": "nodemon --watch src/assets/icons --ext svg --exec \"npm run build:icons\"",
 		"move:manifest:firefox": "shx cp dist/manifest.firefox.json dist/extension/manifest.json",
 		"move:manifest:chrome": "shx cp dist/manifest.chrome.json dist/extension/manifest.json",
 		"lint:ext": "cross-env-shell web-ext lint -s $npm_package_name-$npm_package_version-firefox.zip",
