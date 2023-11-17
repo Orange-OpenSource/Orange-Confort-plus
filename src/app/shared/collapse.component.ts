@@ -14,8 +14,10 @@ collapseLayout.innerHTML = `
 `;
 
 class CollapseComponent extends HTMLElement {
-	button: HTMLButtonElement | null = null;
+	button: HTMLElement | null = null;
 	container: HTMLElement | null = null;
+	iconElement: HTMLElement | null = null;
+	titleElement: HTMLElement | null | undefined = null;
 
 	id = '';
 	accordion = '';
@@ -41,14 +43,12 @@ class CollapseComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.button = this.querySelector('button.accordion-button');
 		this.container = this.querySelector('div.accordion-collapse');
-		this._triggerArray.push(this.button);
+		this.iconElement = this.querySelector('app-icon');
+		this.titleElement = this.button?.querySelector('span');
 
-		// @ts-ignore
-		const iconElement: HTMLElement = this.querySelector('app-icon');
-		iconElement.dataset.name = this.icon;
-		// @ts-ignore
-		const titleElement: HTMLElement = this.button.querySelector('span');
-		titleElement.innerHTML = this.title;
+		this.iconElement!.dataset.name = this.icon;
+		this.titleElement!.innerHTML = this.title;
+		this._triggerArray.push(this.button);
 
 		this.button?.setAttribute('aria-controls', this.id);
 		this.button?.setAttribute('data-bs-target', `#${this.id}`);
@@ -57,6 +57,11 @@ class CollapseComponent extends HTMLElement {
 
 		this.button?.addEventListener('click', () => {
 			this.toggle();
+		});
+	}
+
+	disconnectedCallback(): void {
+		this.button?.removeEventListener('click', () => {
 		});
 	}
 

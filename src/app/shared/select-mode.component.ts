@@ -35,6 +35,10 @@ selectModeLayout.innerHTML = `
 `;
 
 class SelectModeComponent extends HTMLElement {
+	inputElement: HTMLElement | null = null;
+	iconElement: HTMLElement | null = null;
+	labelElement: HTMLElement | null = null;
+	descriptionElement: HTMLElement | null = null;
 	id = '';
 	icon = '';
 	name = '';
@@ -54,20 +58,16 @@ class SelectModeComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		// @ts-ignore
-		const inputElement: HTMLInputElement = this.querySelector('input');
-		// @ts-ignore
-		const iconElement: HTMLElement = this.querySelector('app-icon');
-		// @ts-ignore
-		const labelElement: HTMLElement = this.querySelector('span');
-		// @ts-ignore
-		const descriptionElement: HTMLParagraphElement = this.querySelector('p');
+		this.inputElement = this.querySelector('input');
+		this.iconElement = this.querySelector('app-icon');
+		this.labelElement = this.querySelector('span');
+		this.descriptionElement = this.querySelector('p');
 
-		inputElement?.setAttribute('id', this.id);
-		inputElement?.setAttribute('name', this.name);
-		iconElement.dataset.name = this.icon;
-		labelElement.innerHTML = this.label;
-		descriptionElement.innerHTML = this.description;
+		this.inputElement?.setAttribute('id', this.id);
+		this.inputElement?.setAttribute('name', this.name);
+		this.iconElement!.dataset.name = this.icon;
+		this.labelElement!.innerHTML = this.label;
+		this.descriptionElement!.innerHTML = this.description;
 	}
 }
 
