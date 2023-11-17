@@ -50,7 +50,11 @@ tmplToolbar.innerHTML = `
 
 		<section>
 			Componsant bouton réglage :
-			<app-btn-setting data-settings-list="18,20,24,32"></app-btn-setting>
+			<div class="d-flex gap-2 align-items-center">
+				<app-btn-setting id="btnSettingOne" data-label="Taille du texte">
+				</app-btn-setting>
+				<app-btn-modal id="btnModal-btnSettingOne" data-id="btnModalOne" data-value="16" data-label="Valeur taille du texte"></app-btn-modal>
+			</div>
 		</section>
 
 		<section>
@@ -76,6 +80,9 @@ tmplToolbar.innerHTML = `
 `;
 
 class ToolbarComponent extends HTMLElement {
+	btnModal: HTMLElement | null = null;
+	settings = '18,20,24,32';
+	settingValue: any = null;
 
 	constructor() {
 		super();
@@ -84,14 +91,26 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		/* Exemple pour récupérer la valeur du btn-settings */
-		template.addEventListener('changeSettingEvent', (event) => {
-			this.getSettingsValue(event as CustomEvent)
+		const btnSettingOne: HTMLElement | null = this.querySelector('#btnSettingOne');
+
+		btnSettingOne!.dataset.settingsList = this.settings;
+
+		this.settingValue =
+			/* Exemple pour récupérer la valeur du btn-settings */
+			template.addEventListener('changeSettingEvent', (event) => {
+				this.setSettingsValue(event as CustomEvent);
+			});
+
+		/* Exemple pour récupérer la valeur du btn-modal */
+		template.addEventListener(`clickModalEventbtnModalOne`, (event) => {
+			/* Code pour ouvrir la page des rélages du app-btn-modal ici */
+			console.log(event)
 		});
 	}
 
-	getSettingsValue(event: CustomEvent): void {
-		console.log(event.detail.value);
+	setSettingsValue(event: CustomEvent): void {
+		this.btnModal = this.querySelector(`#btnModal-${event.detail.id}`);
+		this.btnModal!.dataset.value = event.detail.value;
 	}
 }
 

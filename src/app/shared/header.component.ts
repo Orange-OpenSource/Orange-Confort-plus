@@ -2,7 +2,8 @@ const headerLayout: HTMLTemplateElement = document.createElement('template');
 headerLayout.innerHTML = `
 	<header class="d-flex justify-content-between bg-secondary px-3 py-2">
 		<div class="d-flex align-items-center">
-			<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="close">
+			<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="previous">
+				<span class="visually-hidden" data-i18n="previous"></span>
 				<app-icon data-name="Form_Chevron_left"></app-icon>
 			</button>
 			<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">
@@ -19,10 +20,9 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	prevBtn: HTMLButtonElement | null = null;
-	closeBtn: HTMLButtonElement | null = null;
+	closeBtn: HTMLElement | null = null;
+	prevBtn: HTMLElement | null = null;
 	titleApp: HTMLElement | null = null;
-
 	mode = 'primary';
 
 	constructor() {
@@ -30,13 +30,14 @@ class HeaderComponent extends HTMLElement {
 
 		this.mode = this.dataset.mode || this.mode;
 
-		this.closeBtn = this.querySelector('#close-toolbar');
-		this.prevBtn = this.querySelector('#prev-toolbar');
-
 		this.appendChild(headerLayout.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
+		this.closeBtn = this.querySelector('#close-toolbar');
+		this.prevBtn = this.querySelector('#prev-toolbar');
+		this.titleApp = this.querySelector('#title-app');
+
 		this.displayMode();
 
 		this.closeBtn?.addEventListener('click', () => {
@@ -58,13 +59,9 @@ class HeaderComponent extends HTMLElement {
 	}
 
 	displayMode(): void {
-		this.prevBtn = this.querySelector('#prev-toolbar');
-		this.titleApp = this.querySelector('#title-app');
-
 		if (this.mode === 'primary') {
 			this.prevBtn?.classList.remove('d-none');
 			this.titleApp?.classList.add('d-none');
-			console.log(this.titleApp);
 		} else {
 			this.prevBtn?.classList.add('d-none');
 			this.titleApp?.classList.remove('d-none');
