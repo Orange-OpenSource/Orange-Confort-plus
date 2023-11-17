@@ -1,42 +1,95 @@
 const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <app-header></app-header>
-<section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-		<div class="d-flex gap-3">
-				<div class="bg-body rounded-circle">
-						<app-icon data-size="5rem" data-name="Eye"></app-icon>
-				</div>
-				<div class="d-flex justify-content-center flex-column">
-						<span class="text-white" data-i18n="profile"></span>
-						<span class="fs-4 fw-bold text-primary">Vision +</span>
-				</div>
-		</div>
-		<div class="d-grid gap-3 d-md-block">
-				<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
-						<span class="visually-hidden" data-i18n="openSettingsMode"></span>
-						<app-icon data-name="Settings"></app-icon>
-				</button>
-				<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
-						<span class="visually-hidden" data-i18n="pause"></span>
-						<app-icon data-name="Pause"></app-icon>
-				</button>
-		</div>
-</section>
 
-<section class="d-flex flex-column p-3 mb-2">
-	<app-text></app-text>
-	<app-layout></app-layout>
-	<app-picture-video></app-picture-video>
-	<app-sound></app-sound>
-	<app-pointer></app-pointer>
-</section>
+<app-home class="d-none"></app-home>
+<app-modes class="d-none"></app-modes>
+<app-settings class="d-none"></app-settings>
+<app-edit-setting class="d-none"></app-edit-setting>
 `;
 
 class ToolbarComponent extends HTMLElement {
+	closeBtn: HTMLElement;
+	pageHome: HTMLElement;
+	pageModes: HTMLElement;
+	pageSettings: HTMLElement;
+	pageEditSetting: HTMLElement;
+
+	PAGE_HOME = 'home';
+	PAGE_MODES = 'modes';
+	PAGE_SETTINGS = 'settings';
+	PAGE_EDIT_SETTING = 'edit-setting';
+	currentPage = this.PAGE_HOME;
+
 	constructor() {
 		super();
 
 		this.appendChild(tmplToolbar.content.cloneNode(true));
+	}
+
+	connectedCallback(): void {
+		this.pageHome = this.querySelector('app-home');
+		this.pageModes = this.querySelector('app-modes');
+		this.pageSettings = this.querySelector('app-settings');
+		this.pageEditSetting = this.querySelector('app-edit-setting');
+
+		const listPage = [this.PAGE_HOME, this.PAGE_MODES, this.PAGE_SETTINGS, this.PAGE_EDIT_SETTING];
+		listPage.forEach((page: string) => {
+			if (this.currentPage === page) {
+				this.querySelector(`app-${page}`)?.classList.remove('d-none');
+			}
+		});
+
+		template.addEventListener('prevEvent', (event) => {
+			this.prevPage();
+		});
+		template.addEventListener('changeModeEvent', (event) => {
+			this.openPage(this.PAGE_MODES);
+		});
+		template.addEventListener('settingsEvent', (event) => {
+			this.openPage(this.PAGE_SETTINGS);
+		});
+		//template.addEventListener('editSettingEvent', this.prevPage);
+	}
+
+	openPage(direction: string): void {
+		switch (direction) {
+			case this.PAGE_MODES: {
+				this.pageHome?.classList.add('d-none');
+				this.pageModes?.classList.remove('d-none');
+				this.currentPage = this.PAGE_MODES;
+				break;
+			}
+			case this.PAGE_SETTINGS: {
+				this.pageHome?.classList.add('d-none');
+				this.pageSettings?.classList.remove('d-none');
+				this.currentPage = this.PAGE_SETTINGS;
+				break;
+			}
+		}
+	}
+
+	prevPage(): void {
+		switch (this.currentPage) {
+			case this.PAGE_MODES: {
+				this.pageHome?.classList.remove('d-none');
+				this.pageModes?.classList.add('d-none');
+				this.currentPage = this.PAGE_HOME;
+				break;
+			}
+			case this.PAGE_SETTINGS: {
+				this.pageHome?.classList.remove('d-none');
+				this.pageSettings?.classList.add('d-none');
+				this.currentPage = this.PAGE_HOME;
+				break;
+			}
+			case this.PAGE_EDIT_SETTING: {
+				this.pageSettings?.classList.remove('d-none');
+				this.pageEditSetting?.classList.add('d-none');
+				this.currentPage = this.PAGE_SETTINGS;
+				break;
+			}
+		}
 	}
 }
 
