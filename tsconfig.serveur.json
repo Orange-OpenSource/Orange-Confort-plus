@@ -1,0 +1,10 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"rootDir": "src/serveur",
+		"outDir": "dist/js/serveur/",
+	},
+	"include": [
+		"./src/serveur/services/*.ts"
+	]
+}

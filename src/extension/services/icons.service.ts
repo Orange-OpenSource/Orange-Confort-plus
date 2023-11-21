@@ -1,11 +1,11 @@
 class iconsService {
 	constructor() {}
 
-	get path() {
+	get path(): string {
 		return '';
 	}
 
-	loadSprite(root) {
+	loadSprite(root: ShadowRoot): void {
 		fetch(chrome.runtime.getURL('assets/icons/orange-icons-sprite.svg'))
 			.then(response => response.text())
 			.then(svg => {

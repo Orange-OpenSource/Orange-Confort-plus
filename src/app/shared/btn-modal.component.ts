@@ -20,8 +20,8 @@ class BtnModalComponent extends HTMLElement {
 		this.modalBtn = this.querySelector('button');
 
 		this.modalBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent(`clickModalEvent${this.id}`);
-			template.dispatchEvent(clickEvent);
+			let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, { bubbles: true });
+			this.modalBtn?.dispatchEvent(clickEvent);
 		});
 	}
 

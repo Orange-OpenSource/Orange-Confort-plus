@@ -1,44 +1,44 @@
 const tmplReadingGuide: HTMLTemplateElement = document.createElement('template');
 tmplReadingGuide.innerHTML = `
-<style>
-    app-reading-guide {
-        margin-bottom: 1rem;
-    }
-    .c-reading-guide {
-        background: rgba(0, 0, 0, .5);
-        position: fixed;
-        left: 0;
-        right: 0;
-        z-index: 99999;
-    }
-    .c-reading-guide--top {
-        top: 0;
-    }
-    .c-reading-guide--bottom {
-        bottom: 0;
-    }
-    .c-reading-guide__close-msg {
-        color: white;
-        font-weight: 700;
-        padding: 1rem;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-    }
-    .c-reading-guide__close-btn {
-        width: 80px;
-        height: 80px;
-        position: absolute;
-        right: 0;
-        bottom: -80px;
-    }
-</style>
-<button id="reading-guide-btn" data-i18n="readingMask"></button>
-<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">
-    <span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>
-    <button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>
-</div>
-<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>
+	<style>
+		app-reading-guide {
+				margin-bottom: 1rem;
+		}
+		.c-reading-guide {
+				background: rgba(0, 0, 0, .5);
+				position: fixed;
+				left: 0;
+				right: 0;
+				z-index: 99999;
+		}
+		.c-reading-guide--top {
+				top: 0;
+		}
+		.c-reading-guide--bottom {
+				bottom: 0;
+		}
+		.c-reading-guide__close-msg {
+				color: white;
+				font-weight: 700;
+				padding: 1rem;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+		}
+		.c-reading-guide__close-btn {
+				width: 80px;
+				height: 80px;
+				position: absolute;
+				right: 0;
+				bottom: -80px;
+		}
+	</style>
+	<button id="reading-guide-btn" data-i18n="readingMask"></button>
+	<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">
+			<span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>
+			<button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>
+	</div>
+	<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>
 `;
 
 class ReadingGuideComponent extends HTMLElement {

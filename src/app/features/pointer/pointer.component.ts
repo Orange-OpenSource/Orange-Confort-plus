@@ -1,19 +1,19 @@
 const tmplPointer: HTMLTemplateElement = document.createElement('template');
 tmplPointer.innerHTML = `
-    <style>
-        app-pointer {
-            font-size: 1rem;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: .75rem;
-        }
-    </style>
-    <button class="c-btn-tool" id="sc-pointer__tool-btn">
-        <div class="c-btn-tool__picto"></div>
-        <span class="c-btn-tool__label" data-i18n="pointer"></span>
-        <div class="c-btn-tool__picto"></div>
-    </button>
-    <div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>
+		<style>
+				app-pointer {
+						font-size: 1rem;
+						display: flex;
+						flex-direction: column;
+						margin-bottom: .75rem;
+				}
+		</style>
+		<button class="c-btn-tool" id="sc-pointer__tool-btn">
+				<div class="c-btn-tool__picto"></div>
+				<span class="c-btn-tool__label" data-i18n="pointer"></span>
+				<div class="c-btn-tool__picto"></div>
+		</button>
+		<div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>
 `;
 
 class PointerComponent extends HTMLElement {
