@@ -1,25 +1,21 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
+		"target": "es2022",
 		"lib": [
-			"es6",
-			"dom"
+			"es2022",
+			"dom",
+			"dom.iterable"
 		],
 		"typeRoots": ["node_modules/@types"],
-		"module": "es2020",
-		"moduleResolution": "node",
 		"rootDir": "src",
+		"module": "es2022",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"allowJs": true,
-		"outDir": "dist/js",
-		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"noImplicitAny": true,
 		"skipLibCheck": true
-	},
-	"include": [
-		"./src/app",
-		"./src/serveur/js"
-	]
+	}
 }

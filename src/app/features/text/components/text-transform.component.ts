@@ -1,9 +1,9 @@
 const tmplTextTransform: HTMLTemplateElement = document.createElement('template');
 tmplTextTransform.innerHTML = `
 <style>
-    app-text-transform {
-        margin-bottom: 1rem;
-    }
+		app-text-transform {
+				margin-bottom: 1rem;
+		}
 </style>
 <button id="normal-btn" data-i18n="default"></button>
 <button id="first-letter-btn" data-i18n="firstLetter"></button>

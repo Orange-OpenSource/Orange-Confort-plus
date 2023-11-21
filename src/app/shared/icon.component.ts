@@ -11,6 +11,7 @@ class IconComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @ts-ignore
 		this.iconService = new iconsService();
 		this.sprite = this.iconService.path;
 
