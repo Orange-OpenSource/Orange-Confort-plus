@@ -1,9 +1,9 @@
 class iconsService {
 	constructor() {}
 
-	get path() {
+	get path(): string {
 		return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
 	}
 
-	loadSprite(root) { return; }
+	loadSprite(root: ShadowRoot): void { return; }
 }

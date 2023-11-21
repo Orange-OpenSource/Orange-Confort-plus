@@ -80,5 +80,5 @@ class CollapseComponent extends HTMLElement {
 		}
 	}
 }
-
 customElements.define('app-collapse', CollapseComponent);
+

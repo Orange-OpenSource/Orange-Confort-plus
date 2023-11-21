@@ -41,13 +41,14 @@ class HeaderComponent extends HTMLElement {
 		this.displayMode();
 
 		this.closeBtn?.addEventListener('click', () => {
-			let clickCloseEvent = new CustomEvent('closeEvent');
-			template.dispatchEvent(clickCloseEvent);
+			console.log('click')
+			let clickCloseEvent = new CustomEvent('closeEvent', { bubbles: true });
+			this.closeBtn?.dispatchEvent(clickCloseEvent);
 		});
 
 		this.prevBtn?.addEventListener('click', () => {
-			let clickPrevEvent = new CustomEvent('prevEvent');
-			template.dispatchEvent(clickPrevEvent);
+			let clickPrevEvent = new CustomEvent('prevEvent', { bubbles: true });
+			this.prevBtn?.dispatchEvent(clickPrevEvent);
 		});
 	}
 

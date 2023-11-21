@@ -20,9 +20,12 @@ class AppComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @ts-ignore
 		this.pathService = new pathService();
 		this.path = this.pathService.path;
-		this.i18nService = new i18nService(this.path);
+		// @ts-ignore
+		this.i18nService = new i18nService(this.path || '');
+		// @ts-ignore
 		this.iconsService = new iconsService();
 
 		this.attachShadow({ mode: 'open' });
@@ -49,7 +52,7 @@ class AppComponent extends HTMLElement {
 			return;
 		}
 
-		template.addEventListener('closeEvent', this.toggleToolbar);
+		this.confortPlusToolbar.addEventListener('closeEvent', this.toggleToolbar);
 		this.confortPlusBtn.addEventListener('click', this.toggleToolbar);
 	}
 

@@ -33,7 +33,6 @@ tmplToolbar.innerHTML = `
 `;
 
 class ToolbarComponent extends HTMLElement {
-
 	constructor() {
 		super();
 

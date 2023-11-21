@@ -1,8 +1,10 @@
 /*
- * orange-confort-plus - version 4.3.0 - 29/11/2023
+ * orange-confort-plus - version 4.3.0 - 06/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
+"use strict";
+
 class i18nService {
     locale="en";
     path="";
@@ -18,9 +20,6 @@ class i18nService {
         }));
         xhr.send();
         localStorage.setItem("orange-i18n", xhr.responseText);
-    }
-    get locale() {
-        return this.locale;
     }
     getMessages() {
         return localStorage.getItem("orange-i18n");
@@ -41,15 +40,16 @@ class i18nService {
     }
 }
 
+"use strict";
+
 class pathService {
     path="";
     constructor() {
         this.path = window.location.origin + "/";
     }
-    get path() {
-        return this.path;
-    }
 }
+
+"use strict";
 
 class iconsService {
     constructor() {}
@@ -80,7 +80,7 @@ class AppComponent extends HTMLElement {
         super();
         this.pathService = new pathService;
         this.path = this.pathService.path;
-        this.i18nService = new i18nService(this.path);
+        this.i18nService = new i18nService(this.path || "");
         this.iconsService = new iconsService;
         this.attachShadow({
             mode: "open"
@@ -102,7 +102,7 @@ class AppComponent extends HTMLElement {
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
-        template.addEventListener("closeEvent", this.toggleToolbar);
+        this.confortPlusToolbar.addEventListener("closeEvent", this.toggleToolbar);
         this.confortPlusBtn.addEventListener("click", this.toggleToolbar);
     }
     disconnectedCallback() {
@@ -121,7 +121,7 @@ customElements.define("app-root", AppComponent);
 
 const btnModalLayout = document.createElement("template");
 
-btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t</button>\n`;
+btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
 
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-value", "data-label" ];
@@ -137,8 +137,10 @@ class BtnModalComponent extends HTMLElement {
     connectedCallback() {
         this.modalBtn = this.querySelector("button");
         this.modalBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`);
-            template.dispatchEvent(clickEvent);
+            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
+                bubbles: true
+            });
+            this.modalBtn?.dispatchEvent(clickEvent);
         }));
     }
     disconnectedCallback() {
@@ -217,9 +219,10 @@ class BtnSettingComponent extends HTMLElement {
                     detail: {
                         id: this.id,
                         value: value
-                    }
+                    },
+                    bubbles: true
                 });
-                template.dispatchEvent(clickEvent);
+                this.settingBtn?.dispatchEvent(clickEvent);
             }
             this.slot = `${this.slot}${point}`;
         }));
@@ -233,7 +236,7 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const collapseLayout = document.createElement("template");
 
-collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n    <div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n    </div>\n    <div class="accordion-collapse collapse">\n      <div class="accordion-body"></div>\n    </div>\n  </div>\n`;
+collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse">\n\t\t\t<div class="accordion-body"></div>\n\t\t</div>\n\t</div>\n`;
 
 class CollapseComponent extends HTMLElement {
     button=null;
@@ -312,12 +315,17 @@ class HeaderComponent extends HTMLElement {
         this.titleApp = this.querySelector("#title-app");
         this.displayMode();
         this.closeBtn?.addEventListener("click", (() => {
-            let clickCloseEvent = new CustomEvent("closeEvent");
-            template.dispatchEvent(clickCloseEvent);
+            console.log("click");
+            let clickCloseEvent = new CustomEvent("closeEvent", {
+                bubbles: true
+            });
+            this.closeBtn?.dispatchEvent(clickCloseEvent);
         }));
         this.prevBtn?.addEventListener("click", (() => {
-            let clickPrevEvent = new CustomEvent("prevEvent");
-            template.dispatchEvent(clickPrevEvent);
+            let clickPrevEvent = new CustomEvent("prevEvent", {
+                bubbles: true
+            });
+            this.prevBtn?.dispatchEvent(clickPrevEvent);
         }));
     }
     disconnectedCallback() {
@@ -412,7 +420,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n    <style>\n        app-layout {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-layout__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="layout"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n    </div>\n`;
+tmplLayout.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-layout {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-layout__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="layout"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n\t\t</div>\n`;
 
 class LayoutComponent extends HTMLElement {
     toolBtn=null;
@@ -444,7 +452,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n    <style>\n        app-picture-video {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-picture-video__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="medias"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-picture-video__tool-content" data-i18n="wip"></div>\n`;
+tmplPictureVideo.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-picture-video {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-picture-video__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="medias"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-picture-video__tool-content" data-i18n="wip"></div>\n`;
 
 class PictureVideoComponent extends HTMLElement {
     toolBtn=null;
@@ -476,7 +484,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n    <style>\n        app-pointer {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-pointer__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="pointer"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>\n`;
+tmplPointer.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-pointer {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-pointer__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="pointer"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>\n`;
 
 class PointerComponent extends HTMLElement {
     toolBtn=null;
@@ -508,7 +516,7 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-tmplSound.innerHTML = `\n    <style>\n        app-sound {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-sound__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="audio"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-sound__tool-content" data-i18n="wip"></div>\n`;
+tmplSound.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-sound {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-sound__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="audio"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-sound__tool-content" data-i18n="wip"></div>\n`;
 
 class SoundComponent extends HTMLElement {
     toolBtn=null;
@@ -540,7 +548,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n    <style>\n        app-text {\n            font-size: 1rem;\n            display: flex;\n            flex-direction: column;\n            margin-bottom: .75rem;\n        }\n    </style>\n    <button class="c-btn-tool" id="sc-text__tool-btn">\n        <div class="c-btn-tool__picto"></div>\n        <span class="c-btn-tool__label" data-i18n="text"></span>\n        <div class="c-btn-tool__picto"></div>\n    </button>\n    <div class="c-tool__content hidden" id="sc-text__tool-content">\n        <app-increase-text-size></app-increase-text-size>\n        <app-text-transform></app-text-transform>\n        <app-font-family></app-font-family>\n        <app-reading-guide></app-reading-guide>\n    </div>\n`;
+tmplText.innerHTML = `\n\t<style>\n\t\t\tapp-text {\n\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t}\n\t</style>\n\t<button class="c-btn-tool" id="sc-text__tool-btn">\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t<span class="c-btn-tool__label" data-i18n="text"></span>\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t</button>\n\t<div class="c-tool__content hidden" id="sc-text__tool-content">\n\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t<app-text-transform></app-text-transform>\n\t\t\t<app-font-family></app-font-family>\n\t\t\t<app-reading-guide></app-reading-guide>\n\t</div>\n`;
 
 class TextComponent extends HTMLElement {
     toolBtn=null;
@@ -572,7 +580,7 @@ customElements.define("app-text", TextComponent);
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<style>\n    app-font-family {\n        margin-bottom: 1rem;\n    }\n</style>\n\x3c!-- @todo Loop through predefined values --\x3e\n\x3c!-- @note To translate, or not? --\x3e\n<button id="normal-font" data-i18n="default"></button>\n<button id="arial-font">Arial</button>\n<button id="open-font-font">Open Sans</button>\n<button id="accessible-dfa-font">Accessible-DFA</button>\n<button id="open-dyslexic-font">Open Dyslexic</button>\n<button id="luciole-font">Luciole</button>\n`;
+tmplFontFamily.innerHTML = `\n<style>\n\tapp-font-family {\n\t\t\tmargin-bottom: 1rem;\n\t}\n</style>\n\x3c!-- @todo Loop through predefined values --\x3e\n\x3c!-- @note To translate, or not? --\x3e\n<button id="normal-font" data-i18n="default"></button>\n<button id="arial-font">Arial</button>\n<button id="open-font-font">Open Sans</button>\n<button id="accessible-dfa-font">Accessible-DFA</button>\n<button id="open-dyslexic-font">Open Dyslexic</button>\n<button id="luciole-font">Luciole</button>\n`;
 
 class FontFamilyComponent extends HTMLElement {
     normalBtn=null;
@@ -635,7 +643,7 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n    <style>\n        app-increase-text-size {\n            display: flex;\n            align-items: center;\n            margin-bottom: 1rem;\n        }\n        .sc-increase-text-size__content {\n        \tdisplay: flex;\n        }\n\n        .sc-increase-text-size__btn-size {\n            background: #ff7900;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            height: 5rem;\n            margin-right: 1rem;\n        }\n\n        .sc-increase-text-size__btn-slots {\n            display: flex;\n            margin-top: 1rem;\n        }\n        .sc-increase-text-size__btn-slot {\n            background: #FFBE85;\n            border-radius: 50%;\n            width: .5rem;\n            height: .5rem;\n            margin-right: .25rem;\n        }\n        .sc-increase-text-size__btn-slot:last-child {\n            margin-right: 0;\n        }\n        .selected {\n            background: black;\n        }\n\n        .sc-increase-text-size__size-info {\n            font-weight: 700;\n            background: #ff7900;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            padding: 1rem 2rem 1rem 1rem;\n            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n        }\n    </style>\n    <div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-increase-text-size {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\tmargin-bottom: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__content {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-size {\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\theight: 5rem;\n\t\t\t\t\t\tmargin-right: 1rem;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-slots {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tmargin-top: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot {\n\t\t\t\t\t\tbackground: #FFBE85;\n\t\t\t\t\t\tborder-radius: 50%;\n\t\t\t\t\t\twidth: .5rem;\n\t\t\t\t\t\theight: .5rem;\n\t\t\t\t\t\tmargin-right: .25rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot:last-child {\n\t\t\t\t\t\tmargin-right: 0;\n\t\t\t\t}\n\t\t\t\t.selected {\n\t\t\t\t\t\tbackground: black;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__size-info {\n\t\t\t\t\t\tfont-weight: 700;\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\tpadding: 1rem 2rem 1rem 1rem;\n\t\t\t\t\t\tclip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n\t\t\t\t}\n\t\t</style>\n\t\t<div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
 
 class IncreaseTextSizeComponent extends HTMLElement {
     toolBtn=null;
@@ -694,7 +702,7 @@ customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<style>\n    app-reading-guide {\n        margin-bottom: 1rem;\n    }\n    .c-reading-guide {\n        background: rgba(0, 0, 0, .5);\n        position: fixed;\n        left: 0;\n        right: 0;\n        z-index: 99999;\n    }\n    .c-reading-guide--top {\n        top: 0;\n    }\n    .c-reading-guide--bottom {\n        bottom: 0;\n    }\n    .c-reading-guide__close-msg {\n        color: white;\n        font-weight: 700;\n        padding: 1rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n    .c-reading-guide__close-btn {\n        width: 80px;\n        height: 80px;\n        position: absolute;\n        right: 0;\n        bottom: -80px;\n    }\n</style>\n<button id="reading-guide-btn" data-i18n="readingMask"></button>\n<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">\n    <span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>\n    <button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>\n</div>\n<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>\n`;
+tmplReadingGuide.innerHTML = `\n\t<style>\n\t\tapp-reading-guide {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n\t\t.c-reading-guide {\n\t\t\t\tbackground: rgba(0, 0, 0, .5);\n\t\t\t\tposition: fixed;\n\t\t\t\tleft: 0;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: 99999;\n\t\t}\n\t\t.c-reading-guide--top {\n\t\t\t\ttop: 0;\n\t\t}\n\t\t.c-reading-guide--bottom {\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-msg {\n\t\t\t\tcolor: white;\n\t\t\t\tfont-weight: 700;\n\t\t\t\tpadding: 1rem;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-btn {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 80px;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: -80px;\n\t\t}\n\t</style>\n\t<button id="reading-guide-btn" data-i18n="readingMask"></button>\n\t<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">\n\t\t\t<span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>\n\t\t\t<button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>\n\t</div>\n\t<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>\n`;
 
 class ReadingGuideComponent extends HTMLElement {
     open=false;
@@ -766,7 +774,7 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 const tmplTextTransform = document.createElement("template");
 
-tmplTextTransform.innerHTML = `\n<style>\n    app-text-transform {\n        margin-bottom: 1rem;\n    }\n</style>\n<button id="normal-btn" data-i18n="default"></button>\n<button id="first-letter-btn" data-i18n="firstLetter"></button>\n<button id="lowercase-btn" data-i18n="lowercase"></button>\n<button id="uppercase-btn" data-i18n="uppercase"></button>\n`;
+tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button id="normal-btn" data-i18n="default"></button>\n<button id="first-letter-btn" data-i18n="firstLetter"></button>\n<button id="lowercase-btn" data-i18n="lowercase"></button>\n<button id="uppercase-btn" data-i18n="uppercase"></button>\n`;
 
 class TextTransformComponent extends HTMLElement {
     normalBtn=null;

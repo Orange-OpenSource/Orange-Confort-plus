@@ -1,9 +1,9 @@
 const tmplFontFamily: HTMLTemplateElement = document.createElement('template');
 tmplFontFamily.innerHTML = `
 <style>
-    app-font-family {
-        margin-bottom: 1rem;
-    }
+	app-font-family {
+			margin-bottom: 1rem;
+	}
 </style>
 <!-- @todo Loop through predefined values -->
 <!-- @note To translate, or not? -->
@@ -28,6 +28,7 @@ class FontFamilyComponent extends HTMLElement {
 	constructor() {
 		super();
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
+		// @ts-ignore
 		this.pathService = new pathService();
 		const path = this.pathService.path;
 

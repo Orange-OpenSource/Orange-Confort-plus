@@ -70,8 +70,9 @@ class BtnSettingComponent extends HTMLElement {
 							id: this.id,
 							value: value,
 						},
+						bubbles: true
 					});
-				template.dispatchEvent(clickEvent);
+				this.settingBtn?.dispatchEvent(clickEvent);
 			}
 			this.slot = `${this.slot}${point}`;
 		});
