@@ -20,7 +20,6 @@ class CollapseComponent extends HTMLElement {
 	titleElement: HTMLElement | null | undefined = null;
 
 	id = '';
-	accordion = '';
 	icon = '';
 	title = '';
 
@@ -33,7 +32,6 @@ class CollapseComponent extends HTMLElement {
 		super();
 
 		this.id = this.dataset?.id || this.id;
-		this.accordion = this.dataset?.idAccordion || this.accordion;
 		this.icon = this.dataset?.icon || this.icon;
 		this.title = this.dataset?.title || this.title;
 
@@ -47,13 +45,11 @@ class CollapseComponent extends HTMLElement {
 		this.titleElement = this.button?.querySelector('span');
 
 		this.iconElement!.dataset.name = this.icon;
-		this.titleElement!.innerHTML = this.title;
+		this.titleElement!.innerText = this.title;
 		this._triggerArray.push(this.button);
 
 		this.button?.setAttribute('aria-controls', this.id);
-		this.button?.setAttribute('data-bs-target', `#${this.id}`);
 		this.container?.setAttribute('id', this.id);
-		this.container?.setAttribute('data-bs-parent', `#${this.accordion}`);
 
 		this.button?.addEventListener('click', () => {
 			this.toggle();
@@ -66,20 +62,7 @@ class CollapseComponent extends HTMLElement {
 	}
 
 	toggle(): void {
-		if (this._isShown()) {
-			this.hide();
-		} else {
-			this.show();
-		}
-	}
-	show(): void {
-		this.container?.classList.add(this.CLASS_NAME_SHOW);
-		this._addAriaAndCollapsedClass(this._triggerArray, true);
-	}
-
-	hide(): void {
-		this.container?.classList.remove(this.CLASS_NAME_SHOW);
-		this._addAriaAndCollapsedClass(this._triggerArray, false);
+		this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
 	}
 
 	_isShown(element = this.container): boolean {
@@ -90,10 +73,10 @@ class CollapseComponent extends HTMLElement {
 		if (!triggerArray.length) {
 			return;
 		}
-
 		for (const element of triggerArray) {
+			this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
 			element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-			element.setAttribute('aria-expanded', isOpen);
+			element.setAttribute('aria-expanded', String(isOpen));
 		}
 	}
 }

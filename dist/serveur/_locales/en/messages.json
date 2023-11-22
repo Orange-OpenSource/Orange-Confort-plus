@@ -49,5 +49,14 @@
 	},
 	"default": {
 		"message": "Normal"
+	},
+	"openSettingsMode": {
+		"message": "Open mode's settings"
+	},
+	"pause": {
+		"message": "Pause"
+	},
+	"previous": {
+		"message": "Previous"
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 17/11/2023
+ * orange-confort-plus - version 4.3.0 - 27/11/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -65,7 +65,7 @@ class iconsService {
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<style>\n\t.sc-confort-plus {\n\t\t\tborder-radius: 50%;\n\t\t\tposition: fixed;\n\t\t\ttop: 50%;\n\t\t\tright: 1rem;\n\t\t\tpadding: 0 !important;\n\t\t\ttransform: translate(-50%, -50%);\n\t}\n</style>\n<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n</button>\n<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n`;
+template.innerHTML = `\n<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n</button>\n<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n`;
 
 class AppComponent extends HTMLElement {
     openConfortPlus=false;
@@ -121,24 +121,21 @@ customElements.define("app-root", AppComponent);
 
 const btnModalLayout = document.createElement("template");
 
-btnModalLayout.innerHTML = `\n\t<style>\n\t\t.sc-btn-modal {\n\t\t\tclip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n\t\t\tmin-width: 6rem;\n\t\t}\n\t</style>\n\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t</button>\n`;
+btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t</button>\n`;
 
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-value", "data-label" ];
     modalBtn=null;
     id="";
-    label="";
     value=null;
     constructor() {
         super();
         this.id = this.dataset?.id || this.id;
-        this.label = this.dataset?.label || this.label;
         this.value = this.dataset?.value || this.value;
         this.appendChild(btnModalLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.modalBtn = this.querySelector("button");
-        this.setA11yName();
         this.modalBtn?.addEventListener("click", (() => {
             let clickEvent = new CustomEvent(`clickModalEvent${this.id}`);
             template.dispatchEvent(clickEvent);
@@ -149,18 +146,18 @@ class BtnModalComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-value" === name && this.modalBtn !== null) {
-            this.modalBtn.innerHTML = newValue;
+            this.modalBtn.innerText = newValue;
         }
         if ("data-label" === name && this.modalBtn !== null) {
-            this.setA11yName();
+            this.setA11yName(newValue);
         }
     }
-    setA11yName() {
+    setA11yName(label) {
         let span = document.createElement("span");
         span.classList.add("visually-hidden");
-        span.innerHTML = this.label;
+        span.innerText = label;
         this.modalBtn?.appendChild(span);
-        this.modalBtn?.setAttribute("title", this.label);
+        this.modalBtn?.setAttribute("title", label);
     }
 }
 
@@ -170,13 +167,13 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<style>\n\t\t.sc-btn-setting__btn-slots {\n\t\t\tmargin-top: .5rem;\n\t\t}\n\t\t.sc-btn-setting__btn-slot {\n\t\t\tbackground: white;\n\t\t\tborder-radius: 50%;\n\t\t\twidth: .25rem;\n\t\t\theight: .25rem;\n\t\t}\n\t\t.sc-btn-setting__btn-slot.selected {\n\t\t\tbackground: black;\n\t\t\tborder: 2px solid black;\n\t\t\tbox-sizing: content-box;\n\t\t}\n\t</style>\n\n\t<button class="btn btn-primary flex-column">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<div class="d-flex gap-1 align-items-center sc-btn-setting__btn-slots"></div>\n\t</button>\n\t<slot name="bidouille"></slot>\n`;
+btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-settings-list", "data-label" ];
     settingBtn=null;
     btnContentSlots=null;
-    index=0;
+    index=1;
     settingsList="";
     label="";
     slot="";
@@ -189,9 +186,9 @@ class BtnSettingComponent extends HTMLElement {
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
-        this.btnContentSlots = this.querySelector("div");
+        this.btnContentSlots = this.querySelector("ul");
         const span = this.querySelector("span");
-        span.innerHTML = this.label;
+        span.innerText = this.label;
         this.settingBtn?.addEventListener("click", (() => {
             this.index++;
             if (this.index >= this.settingsArray.length) {
@@ -213,9 +210,9 @@ class BtnSettingComponent extends HTMLElement {
     calculateList() {
         this.slot = "";
         this.settingsArray.forEach(((value, index) => {
-            let div = '<div class="sc-btn-setting__btn-slot"></div>';
+            let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
             if (index === this.index) {
-                div = '<div class="sc-btn-setting__btn-slot selected"></div>';
+                point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
                 let clickEvent = new CustomEvent("changeSettingEvent", {
                     detail: {
                         id: this.id,
@@ -224,7 +221,7 @@ class BtnSettingComponent extends HTMLElement {
                 });
                 template.dispatchEvent(clickEvent);
             }
-            this.slot = `${this.slot}${div}`;
+            this.slot = `${this.slot}${point}`;
         }));
         this.btnContentSlots.innerHTML = this.slot;
     }
@@ -244,7 +241,6 @@ class CollapseComponent extends HTMLElement {
     iconElement=null;
     titleElement=null;
     id="";
-    accordion="";
     icon="";
     title="";
     CLASS_NAME_SHOW="show";
@@ -253,7 +249,6 @@ class CollapseComponent extends HTMLElement {
     constructor() {
         super();
         this.id = this.dataset?.id || this.id;
-        this.accordion = this.dataset?.idAccordion || this.accordion;
         this.icon = this.dataset?.icon || this.icon;
         this.title = this.dataset?.title || this.title;
         this.appendChild(collapseLayout.content.cloneNode(true));
@@ -264,12 +259,10 @@ class CollapseComponent extends HTMLElement {
         this.iconElement = this.querySelector("app-icon");
         this.titleElement = this.button?.querySelector("span");
         this.iconElement.dataset.name = this.icon;
-        this.titleElement.innerHTML = this.title;
+        this.titleElement.innerText = this.title;
         this._triggerArray.push(this.button);
         this.button?.setAttribute("aria-controls", this.id);
-        this.button?.setAttribute("data-bs-target", `#${this.id}`);
         this.container?.setAttribute("id", this.id);
-        this.container?.setAttribute("data-bs-parent", `#${this.accordion}`);
         this.button?.addEventListener("click", (() => {
             this.toggle();
         }));
@@ -278,19 +271,7 @@ class CollapseComponent extends HTMLElement {
         this.button?.removeEventListener("click", (() => {}));
     }
     toggle() {
-        if (this._isShown()) {
-            this.hide();
-        } else {
-            this.show();
-        }
-    }
-    show() {
-        this.container?.classList.add(this.CLASS_NAME_SHOW);
-        this._addAriaAndCollapsedClass(this._triggerArray, true);
-    }
-    hide() {
-        this.container?.classList.remove(this.CLASS_NAME_SHOW);
-        this._addAriaAndCollapsedClass(this._triggerArray, false);
+        this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
     }
     _isShown(element = this.container) {
         return element.classList.contains(this.CLASS_NAME_SHOW);
@@ -300,8 +281,9 @@ class CollapseComponent extends HTMLElement {
             return;
         }
         for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
             element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
         }
     }
 }
@@ -343,13 +325,8 @@ class HeaderComponent extends HTMLElement {
         this.prevBtn?.removeEventListener("click", (() => {}));
     }
     displayMode() {
-        if (this.mode === "primary") {
-            this.prevBtn?.classList.remove("d-none");
-            this.titleApp?.classList.add("d-none");
-        } else {
-            this.prevBtn?.classList.add("d-none");
-            this.titleApp?.classList.remove("d-none");
-        }
+        this.prevBtn?.classList.toggle("d-none", this.mode === "primary");
+        this.titleApp?.classList.toggle("d-none", this.mode === "secondary");
     }
 }
 
@@ -396,37 +373,36 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<style>\n\t\tlabel {\n\t\t\twidth: 100%;\n\t\t\tcursor: pointer;\n\t\t}\n\n\t\tinput {\n\t\t\tappearance: none;\n    \t-webkit-appearance: none;\n    \t-moz-appearance: none;\n\t\t\tposition: absolute;\n\t\t}\n\n\t\tinput:checked + div {\n\t\t\tbox-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);\n\t\t}\n\n\t\tinput:not(:checked) + div > p {\n\t\t\tdisplay: none;\n\t\t}\n\t</style>\n\n\t<label>\n\t\t<input type="radio">\n\t\t<div class="d-flex flex-column gap-1 p-1">\n\t\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span class="fs-5 text"></span>\n\t\t\t</div>\n\t\t\t<p class="fs-6 fw-normal m-0"></p>\n\t\t</div>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<p class="fs-6 fw-normal m-0"></p>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
     iconElement=null;
     labelElement=null;
+    textElement=null;
     descriptionElement=null;
-    id="";
     icon="";
-    name="";
     label="";
     description="";
     constructor() {
         super();
-        this.id = this.dataset?.id || this.id;
         this.icon = this.dataset?.icon || this.icon;
-        this.name = this.dataset?.name || this.name;
         this.label = this.dataset?.label || this.label;
         this.description = this.dataset?.description || this.description;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.inputElement = this.querySelector("input");
+        this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
-        this.labelElement = this.querySelector("span");
+        this.textElement = this.querySelector("span");
         this.descriptionElement = this.querySelector("p");
-        this.inputElement?.setAttribute("id", this.id);
-        this.inputElement?.setAttribute("name", this.name);
+        this.inputElement.id = this.dataset?.id || "";
+        this.inputElement.name = this.dataset?.name || "";
+        this.labelElement.setAttribute("for", this.dataset?.id || "");
         this.iconElement.dataset.name = this.icon;
-        this.labelElement.innerHTML = this.label;
-        this.descriptionElement.innerHTML = this.description;
+        this.textElement.innerText = this.label;
+        this.descriptionElement.innerText = this.description;
     }
 }
 
@@ -834,29 +810,12 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<style>\n    #toolbar {\n        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;\n        display: grid;\n        grid-template-rows: auto 7rem 1fr;\n        width: 19.5vw;\n        height: 100vh;\n        position: fixed;\n        top: 0;\n        right: 0;\n        z-index: 999;\n    }\n</style>\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex gap-3 flex-column p-3 mb-2">\n\t\t<section>\n\t\t\tComponsant accordion avec collapse :\n\t\t\t<div class="accordion" id="settingsAccordion">\n\t\t\t\t<app-collapse data-id="settingOne" data-accordion="settingsAccordion" data-icon="Text" data-title="Texte">\n\t\t\t\t</app-collapse>\n\n\t\t\t\t<app-collapse data-id="settingTwo" data-accordion="settingsAccordion" data-icon="Agencement" data-title="Affichage de la page">\n\t\t\t\t</app-collapse>\n\t\t\t</div>\n\t\t</section>\n\n\t\t<section>\n\t\t\tComponsant bouton réglage :\n\t\t\t<div class="d-flex gap-2 align-items-center">\n\t\t\t\t<app-btn-setting id="btnSettingOne" data-label="Taille du texte">\n\t\t\t\t</app-btn-setting>\n\t\t\t\t<app-btn-modal id="btnModal-btnSettingOne" data-id="btnModalOne" data-value="16" data-label="Valeur taille du texte"></app-btn-modal>\n\t\t\t</div>\n\t\t</section>\n\n\t\t<section>\n\t\t\tComponsant sélection du mode :\n\t\t\t<form>\n\t\t\t\t<app-select-mode data-id="id1" data-name="name" data-label="Label 1" data-description="Ceci est une description" data-icon="Eye">\n\t\t\t\t</app-select-mode>\n\t\t\t\t<app-select-mode data-id="id2" data-name="name" data-label="Label 2" data-description="Ceci est une description 2" data-icon="Loupe">\n\t\t\t\t</app-select-mode>\n\t\t\t\t<app-select-mode data-id="id3" data-name="name" data-label="Label 3" data-description="Ceci est une description 3" data-icon="Audio">\n\t\t\t\t</app-select-mode>\n\t\t\t</form>\n\t\t</section>\n\n\t\t<section>\n\t\t\t<app-text></app-text>\n\t\t\t<app-layout></app-layout>\n\t\t\t<app-picture-video></app-picture-video>\n\t\t\t<app-sound></app-sound>\n\t\t\t<app-pointer></app-pointer\n\t\t</section>\n</section>\n`;
+tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t\t<app-text></app-text>\n\t\t<app-layout></app-layout>\n\t\t<app-picture-video></app-picture-video>\n\t\t<app-sound></app-sound>\n\t\t<app-pointer></app-pointer\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
-    btnModal=null;
-    settings="18,20,24,32";
-    settingValue=null;
     constructor() {
         super();
         this.appendChild(tmplToolbar.content.cloneNode(true));
-    }
-    connectedCallback() {
-        const btnSettingOne = this.querySelector("#btnSettingOne");
-        btnSettingOne.dataset.settingsList = this.settings;
-        this.settingValue = template.addEventListener("changeSettingEvent", (event => {
-            this.setSettingsValue(event);
-        }));
-        template.addEventListener(`clickModalEventbtnModalOne`, (event => {
-            console.log(event);
-        }));
-    }
-    setSettingsValue(event) {
-        this.btnModal = this.querySelector(`#btnModal-${event.detail.id}`);
-        this.btnModal.dataset.value = event.detail.value;
     }
 }
 
