@@ -56,8 +56,20 @@ class iconsService {
     get path() {
         return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
     }
-    loadSprite(root) {
-        return;
+    navigate(newRoute) {
+        this.currentRoute = newRoute;
+        this.toggle(newRoute);
+    }
+    previous(route, object) {
+        route = route ? route : this.currentRoute;
+        object = object ? object : this.routes;
+        if (object?.children === undefined || object?.children?.lenght === 0 || object?.path === route) return null;
+        if (object?.children?.some((child => child?.path === route))) {
+            this.currentRoute = object.path;
+            this.toggle(object.path);
+            return;
+        }
+        return object.children.map((child => this.previous(route, child))).reduce(((a, b) => a || b));
     }
 }
 
@@ -145,6 +157,13 @@ class LayoutComponent extends HTMLElement {
     }
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
+    }
+    connectedCallback() {
+        this.validateBtn = this.querySelector("#validate-setting");
+        this.validateBtn?.addEventListener("click", (() => {
+            let clickValidateEvent = new CustomEvent("validateSettingEvent");
+            template.dispatchEvent(clickValidateEvent);
+        }));
     }
 }
 
