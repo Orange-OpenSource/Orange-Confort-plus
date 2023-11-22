@@ -1,35 +1,17 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 btnSettingLayout.innerHTML = `
-	<style>
-		.sc-btn-setting__btn-slots {
-			margin-top: .5rem;
-		}
-		.sc-btn-setting__btn-slot {
-			background: white;
-			border-radius: 50%;
-			width: .25rem;
-			height: .25rem;
-		}
-		.sc-btn-setting__btn-slot.selected {
-			background: black;
-			border: 2px solid black;
-			box-sizing: content-box;
-		}
-	</style>
-
 	<button class="btn btn-primary flex-column">
 		<span></span>
 		<app-icon data-name="Text_Size"></app-icon>
-		<div class="d-flex gap-1 align-items-center sc-btn-setting__btn-slots"></div>
+		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
 	</button>
-	<slot name="bidouille"></slot>
 `;
 
 class BtnSettingComponent extends HTMLElement {
 	static observedAttributes = ['data-settings-list', 'data-label'];
 	settingBtn: HTMLElement | null = null;
 	btnContentSlots: HTMLElement | null = null;
-	index: number = 0;
+	index: number = 1;
 	settingsList = '';
 	label = '';
 	slot = '';
@@ -46,10 +28,10 @@ class BtnSettingComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
-		this.btnContentSlots = this.querySelector('div');
+		this.btnContentSlots = this.querySelector('ul');
 
 		const span = this.querySelector('span');
-		span!.innerHTML = this.label;
+		span!.innerText = this.label;
 
 		this.settingBtn?.addEventListener('click', () => {
 			this.index++;
@@ -76,9 +58,9 @@ class BtnSettingComponent extends HTMLElement {
 	calculateList(): void {
 		this.slot = '';
 		this.settingsArray.forEach((value, index) => {
-			let div = '<div class="sc-btn-setting__btn-slot"></div>';
+			let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
 			if (index === this.index) {
-				div = '<div class="sc-btn-setting__btn-slot selected"></div>';
+				point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
 
 				let clickEvent = new CustomEvent(
 					'changeSettingEvent',
@@ -90,7 +72,7 @@ class BtnSettingComponent extends HTMLElement {
 					});
 				template.dispatchEvent(clickEvent);
 			}
-			this.slot = `${this.slot}${div}`;
+			this.slot = `${this.slot}${point}`;
 		});
 		this.btnContentSlots!.innerHTML = this.slot;
 	}

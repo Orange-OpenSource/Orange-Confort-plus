@@ -59,13 +59,8 @@ class HeaderComponent extends HTMLElement {
 	}
 
 	displayMode(): void {
-		if (this.mode === 'primary') {
-			this.prevBtn?.classList.remove('d-none');
-			this.titleApp?.classList.add('d-none');
-		} else {
-			this.prevBtn?.classList.add('d-none');
-			this.titleApp?.classList.remove('d-none');
-		}
+		this.prevBtn?.classList.toggle('d-none', this.mode === 'primary');
+		this.titleApp?.classList.toggle('d-none', this.mode === 'secondary');
 	}
 }
 

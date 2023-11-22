@@ -55,5 +55,8 @@
 	},
 	"pause": {
 		"message": "Mettre en pause"
+	},
+	"previous": {
+		"message": "Précédent"
 	}
 }

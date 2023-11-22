@@ -1,0 +1,16 @@
+.sc-select-mode__input {
+	appearance: none;
+	position: absolute;
+
+	&:checked + label {
+		box-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+	}
+
+	&:not(:checked) + label > p {
+		display: none;
+	}
+}
+
+.sc-select-mode__label {
+	cursor: pointer;
+}
