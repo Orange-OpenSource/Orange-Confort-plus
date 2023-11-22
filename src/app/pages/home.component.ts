@@ -1,17 +1,17 @@
 const homeLayout: HTMLTemplateElement = document.createElement('template');
 homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-    <div class="d-flex gap-3">
+    <div class="d-flex gap-2">
         <div class="bg-body rounded-circle">
 						<app-icon data-size="5rem" data-name="Eye"></app-icon>
         </div>
         <div class="d-flex justify-content-center flex-column">
-            <span data-i18n="profile"></span>
+            <span class="text-white" data-i18n="profile"></span>
             <span class="fs-4 fw-bold text-primary">Vision +</span>
         </div>
     </div>
     <div class="d-grid gap-3 d-md-block">
-        <button id="settingsBtn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
+        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
             <span class="visually-hidden" data-i18n="openSettingsMode"></span>
 						<app-icon data-name="Settings"></app-icon>
         </button>
@@ -24,7 +24,7 @@ homeLayout.innerHTML = `
 
 <p>Accueil</p>
 
-<button id="changeModeBtn" class="btn btn-primary" type="button">Changer de mode</button>`;
+<button id="change-mode-btn" class="btn btn-primary" type="button">Autres modes d'usage</button>`;
 
 class HomeComponent extends HTMLElement {
 	changeModeBtn: HTMLElement | null = null;
@@ -37,8 +37,8 @@ class HomeComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.changeModeBtn = this.querySelector('#changeModeBtn');
-		this.settingsBtn = this.querySelector('#settingsBtn');
+		this.changeModeBtn = this.querySelector('#change-mode-btn');
+		this.settingsBtn = this.querySelector('#settings-btn');
 
 		this.changeModeBtn?.addEventListener('click', () => {
 			let clickEvent = new CustomEvent('changeModeEvent');
