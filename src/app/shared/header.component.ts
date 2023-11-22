@@ -6,6 +6,13 @@ headerLayout.innerHTML = `
 				<span class="visually-hidden" data-i18n="previous"></span>
 				<app-icon data-name="Form_Chevron_left"></app-icon>
 			</button>
+
+			<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
+				<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>
+				<app-icon data-size="1.5rem" data-name="Settings"></app-icon>
+				<span id="title-page"></span>
+			</span>
+
 			<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">
 				<app-icon data-size="2rem" data-name="Accessibility"></app-icon>
 				<span data-i18n="mainTitle"></span>
@@ -20,14 +27,18 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	closeBtn: HTMLElement = null;
-	prevBtn: HTMLElement = null;
-	titleApp: HTMLElement = null;
+	static observedAttributes = ['data-mode', 'data-title-page'];
+	closeBtn: HTMLElement | null = null;
+	prevBtn: HTMLElement | null = null;
+	titleApp: HTMLElement | null = null;
+	titlePageBlock: HTMLElement | null = null;
+	titlePage: HTMLElement | null = null;
 	mode = 'primary';
 
 	constructor() {
 		super();
 
+		//this.titlePage = this.dataset.titlePage || this.titlePage;
 		this.mode = this.dataset.mode || this.mode;
 
 		this.appendChild(headerLayout.content.cloneNode(true));
@@ -37,8 +48,10 @@ class HeaderComponent extends HTMLElement {
 		this.closeBtn = this.querySelector('#close-toolbar');
 		this.prevBtn = this.querySelector('#prev-toolbar');
 		this.titleApp = this.querySelector('#title-app');
+		this.titlePageBlock = this.querySelector('#title-page-block');
+		this.titlePage = this.querySelector('#title-page');
 
-		this.displayMode();
+		this.displayMode(this.mode);
 
 		this.closeBtn?.addEventListener('click', () => {
 			console.log('click')
@@ -59,9 +72,19 @@ class HeaderComponent extends HTMLElement {
 		});
 	}
 
-	displayMode(): void {
-		this.prevBtn?.classList.toggle('d-none', this.mode === 'primary');
-		this.titleApp?.classList.toggle('d-none', this.mode === 'secondary');
+	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+		if ('data-mode' === name) {
+			this.displayMode(newValue)
+		}
+		if ('data-title-page' === name) {
+			this.titlePage!.innerText = newValue;
+		}
+	}
+
+	displayMode(mode: string): void {
+		this.prevBtn?.classList.toggle('d-none', mode === 'primary');
+		this.titlePageBlock?.classList.toggle('d-none', mode === 'primary');
+		this.titleApp?.classList.toggle('d-none', mode === 'secondary');
 	}
 }
 
