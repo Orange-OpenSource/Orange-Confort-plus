@@ -149,6 +149,13 @@ class BtnModalComponent extends HTMLElement {
         this.modalBtn?.appendChild(span);
         this.modalBtn?.setAttribute("title", label);
     }
+    connectedCallback() {
+        this.validateBtn = this.querySelector("#validate-setting");
+        this.validateBtn?.addEventListener("click", (() => {
+            let clickValidateEvent = new CustomEvent("validateSettingEvent");
+            template.dispatchEvent(clickValidateEvent);
+        }));
+    }
 }
 
 customElements.define("app-btn-modal", BtnModalComponent);
@@ -285,12 +292,15 @@ customElements.define("app-collapse", CollapseComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
+    static observedAttributes=[ "data-mode", "data-title-page" ];
     closeBtn=null;
     prevBtn=null;
     titleApp=null;
+    titlePageBlock=null;
+    titlePage=null;
     mode="primary";
     constructor() {
         super();
@@ -301,7 +311,9 @@ class HeaderComponent extends HTMLElement {
         this.closeBtn = this.querySelector("#close-toolbar");
         this.prevBtn = this.querySelector("#prev-toolbar");
         this.titleApp = this.querySelector("#title-app");
-        this.displayMode();
+        this.titlePageBlock = this.querySelector("#title-page-block");
+        this.titlePage = this.querySelector("#title-page");
+        this.displayMode(this.mode);
         this.closeBtn?.addEventListener("click", (() => {
             console.log("click");
             let clickCloseEvent = new CustomEvent("closeEvent", {
@@ -323,6 +335,11 @@ class HeaderComponent extends HTMLElement {
     displayMode() {
         this.prevBtn?.classList.toggle("d-none", this.mode === "primary");
         this.titleApp?.classList.toggle("d-none", this.mode === "secondary");
+    }
+    displayMode(mode) {
+        this.prevBtn?.classList.toggle("d-none", mode === "primary");
+        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
+        this.titleApp?.classList.toggle("d-none", mode === "secondary");
     }
 }
 
@@ -812,6 +829,7 @@ tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-
 class ToolbarComponent extends HTMLElement {
     constructor() {
         super();
+        this.routeService = new routeService;
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
 }
