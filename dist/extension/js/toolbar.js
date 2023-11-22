@@ -134,6 +134,13 @@ class LayoutComponent extends HTMLElement {
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
     }
+    connectedCallback() {
+        this.validateBtn = this.querySelector("#validate-setting");
+        this.validateBtn?.addEventListener("click", (() => {
+            let clickValidateEvent = new CustomEvent("validateSettingEvent");
+            template.dispatchEvent(clickValidateEvent);
+        }));
+    }
 }
 
 customElements.define("app-layout", LayoutComponent);
@@ -229,6 +236,11 @@ class SoundComponent extends HTMLElement {
     }
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
+    }
+    displayMode(mode) {
+        this.prevBtn?.classList.toggle("d-none", mode === "primary");
+        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
+        this.titleApp?.classList.toggle("d-none", mode === "secondary");
     }
 }
 
