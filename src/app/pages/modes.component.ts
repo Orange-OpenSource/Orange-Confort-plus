@@ -1,8 +1,13 @@
 const modesLayout: HTMLTemplateElement = document.createElement('template');
 modesLayout.innerHTML = `
-<p>Choisissez un mode d'usage et validez :</p>
+<section class="p-3">
+	<p data-i18n="chooseModeAndValidate"></p>
 
-<button id="select-mode-btn" class="btn btn-primary" type="button">Valider ce mode</button>`;
+	<div class="d-grid">
+		<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>
+	</div>
+</section>
+`;
 
 class ModesComponent extends HTMLElement {
 	selectModeBtn: HTMLElement | null = null;

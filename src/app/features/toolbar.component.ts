@@ -36,9 +36,6 @@ class ToolbarComponent extends HTMLElement {
 		template.addEventListener('settingsEvent', (event) => {
 			this.routeService.navigate(this.routeService.PAGE_SETTINGS);
 		});
-		template.addEventListener('validateSettingEvent', (event) => {
-			this.routeService.navigate(this.routeService.PAGE_HOME);
-		});
 		template.addEventListener('prevEvent', (event) => {
 			this.routeService.previous();
 		});
@@ -53,17 +50,17 @@ class ToolbarComponent extends HTMLElement {
 			}
 			case this.routeService.PAGE_MODES: {
 				this.header!.dataset.mode = 'secondary';
-				this.header!.dataset.titlePage = `Mode d'usages`;
+				this.header!.dataset.titlePage = `pageTitleModes`;
 				break;
 			}
 			case this.routeService.PAGE_SETTINGS: {
 				this.header!.dataset.mode = 'secondary';
-				this.header!.dataset.titlePage = `Rélgages`;
+				this.header!.dataset.titlePage = `pageTitleSettings`;
 				break;
 			}
 			case this.routeService.PAGE_EDIT_SETTING: {
 				this.header!.dataset.mode = 'secondary';
-				this.header!.dataset.titlePage = `Réglage du paramètre`;
+				this.header!.dataset.titlePage = `pageTitleEditSetting`;
 				break;
 			}
 		}
