@@ -57,19 +57,46 @@ class iconsService {
         return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
     }
     navigate(newRoute) {
-        this.currentRoute = newRoute;
-        this.toggle(newRoute);
+        this.toggle(this.currentRoute, newRoute);
     }
     previous(route, object) {
         route = route ? route : this.currentRoute;
         object = object ? object : this.routes;
-        if (object?.children === undefined || object?.children?.lenght === 0 || object?.path === route) return null;
+        if (!object?.children || object?.children.length === 0 || object?.path === route) {
+            return null;
+        }
         if (object?.children?.some((child => child?.path === route))) {
-            this.currentRoute = object.path;
-            this.toggle(object.path);
+            this.toggle(this.currentRoute, object.path);
             return;
         }
         return object.children.map((child => this.previous(route, child))).reduce(((a, b) => a || b));
+    }
+}
+
+class Route {
+    constructor(path, component, pageElement, children = []) {
+        this._path = path;
+        this._component = component;
+        this._pageElement = pageElement;
+        this._children = children;
+    }
+    get path() {
+        return this._path;
+    }
+    get component() {
+        return this._component;
+    }
+    get element() {
+        return this._pageElement;
+    }
+    set element(newElement) {
+        this._pageElement = newElement;
+    }
+    get children() {
+        return this._children;
+    }
+    set children(newChildren) {
+        this._children = newChildren;
     }
 }
 
@@ -157,13 +184,6 @@ class LayoutComponent extends HTMLElement {
     }
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-    connectedCallback() {
-        this.validateBtn = this.querySelector("#validate-setting");
-        this.validateBtn?.addEventListener("click", (() => {
-            let clickValidateEvent = new CustomEvent("validateSettingEvent");
-            template.dispatchEvent(clickValidateEvent);
-        }));
     }
 }
 
