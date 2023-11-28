@@ -56,7 +56,19 @@
 	"pause": {
 		"message": "Mettre en pause"
 	},
+	"otherModes": {
+		"message": "Autres modes d'usage"
+	},
 	"previous": {
 		"message": "Précédent"
+	},
+	"pageTitleModes": {
+		"message": "Modes d'usage"
+	},
+	"pageTitleSettings": {
+		"message": "Réglages"
+	},
+	"pageTitleEditSetting": {
+		"message": "Réglage du paramètre"
 	}
 }
