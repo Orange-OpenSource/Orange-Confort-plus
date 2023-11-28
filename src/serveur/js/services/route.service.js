@@ -11,31 +11,41 @@ class routeService {
 	pageSettings = null;
 	pageEditSetting = null;
 
-	routes =
-	{
-		path: this.PAGE_HOME,
-		component: 'app-home',
-		element: this.pageHome,
-		children: [
-			{
-				path: this.PAGE_MODES,
-				component: 'app-modes',
-				element: this.pageModes,
-			},
-			{
-				path: this.PAGE_SETTINGS,
-				component: 'app-settings',
-				element: this.pageSettings,
-				children: [
-					{
-						path: this.PAGE_EDIT_SETTING,
-						component: 'app-edit-setting',
-						element: this.pageEditSetting
-					}
-				]
-			}
-		]
-	};
+	routes = new Route(
+  this.PAGE_HOME,
+  'app-home',
+  this.pageHome,
+  [
+    new Route(this.PAGE_MODES, 'app-modes', this.pageModes),
+    new Route(
+      this.PAGE_SETTINGS,
+      'app-settings',
+      this.pageSettings,
+      [
+        new Route(
+          this.PAGE_EDIT_SETTING,
+          'app-edit-setting',
+          this.pageEditSetting,
+          [
+            new Route(this.PAGE_MODES, 'app-modes', this.pageModes),
+            new Route(
+              this.PAGE_SETTINGS,
+              'app-settings',
+              this.pageSettings,
+              [
+                new Route(
+                  this.PAGE_EDIT_SETTING,
+                  'app-edit-setting',
+                  this.pageEditSetting
+                )
+              ]
+            )
+          ]
+        )
+      ]
+    )
+  ]
+);
 
 	constructor() {
 		this._currentRoute = this.PAGE_HOME;
@@ -50,72 +60,106 @@ class routeService {
     this.emitChangeEvent(value);
   }
 
-	emitChangeEventvalue(value) {
+	emitChangeEvent(value) {
     return value;
   }
 
+	/* Initialize components */
 	initPages(root) {
-		/* @todo utiliser l'objet routes pour initier les components des pages. */
-		this.pageHome = root.querySelector('app-home');
-		this.pageModes = root.querySelector('app-modes');
-		this.pageSettings = root.querySelector('app-settings');
-		this.pageEditSetting = root.querySelector('app-edit-settings');
-		this.toggle(this.currentRoute);
-	}
+    const initializePage = (route) => {
+      route['element'] = root.querySelector(route.component);
+    };
+
+		const initializeChildPages = (parentRoute) => {
+      if (parentRoute?.children && parentRoute?.children.length > 0) {
+        parentRoute?.children.forEach((childRoute) => {
+          initializePage(childRoute);
+          initializeChildPages(childRoute);
+        });
+      }
+    };
+
+    initializePage(this.routes);
+    initializeChildPages(this.routes);
+    this.toggle(null, this.currentRoute);
+  }
 
 	/* Show the current component and hide other components */
-	toggle(route) {
-		/* @todo utiliser l'objet routes pour gérer le toggle. */
-		switch (route) {
-			case this.PAGE_HOME: {
-				this.pageHome?.classList.remove('d-none');
-				this.pageModes?.classList.add('d-none');
-				this.pageSettings?.classList.add('d-none');
-				this.pageEditSetting?.classList.add('d-none');
-				break;
-			}
-			case this.PAGE_MODES: {
-				this.pageModes?.classList.remove('d-none');
-				this.pageHome?.classList.add('d-none');
-				this.pageSettings?.classList.add('d-none');
-				this.pageEditSetting?.classList.add('d-none');
-				break;
-			}
-			case this.PAGE_SETTINGS: {
-				this.pageSettings?.classList.remove('d-none');
-				this.pageHome?.classList.add('d-none');
-				this.pageModes?.classList.add('d-none');
-				this.pageEditSetting?.classList.add('d-none');
-				break;
-			}
-			case this.PAGE_EDIT_SETTING: {
-				this.pageEditSetting?.classList.remove('d-none');
-				this.pageHome?.classList.add('d-none');
-				this.pageModes?.classList.add('d-none');
-				this.pageSettings?.classList.add('d-none');
-				break;
-			}
-		}
-	}
+	toggle(oldRoute, newRoute) {
+		oldRoute = oldRoute ? oldRoute : '';
+		newRoute = newRoute ? newRoute : this.currentRoute;
 
-	/* Navigate to the defined route in param */
-	navigate(newRoute) {
+    const displayPage = (route) => {
+			if (route.path === newRoute) {
+				route['element'].classList.remove('d-none');
+			} else if (route.path === oldRoute) {
+				route['element'].classList.add('d-none');
+			}
+    };
+
+		const displayChildPages = (parentRoute) => {
+      if (parentRoute?.children && parentRoute?.children.length > 0) {
+        parentRoute?.children.forEach((childRoute) => {
+          displayPage(childRoute);
+          displayChildPages(childRoute);
+        });
+      }
+    };
+
+    displayPage(this.routes);
+    displayChildPages(this.routes);
 		this.currentRoute = newRoute;
-		this.toggle(newRoute);
 	}
 
-	/* Return the previous route of the current route */
+	/* Navigate to the defined route in parameter */
+	navigate(newRoute) {
+		this.toggle(this.currentRoute, newRoute);
+	}
+
+	/* Navigate to the parent route of the current route */
 	previous(route, object) {
 		route = route ? route : this.currentRoute;
 		object = object ? object : this.routes;
 
-    if (object?.children === undefined || object?.children?.lenght === 0 || object?.path === route) return null;
+		if (!object?.children || object?.children.length === 0 || object?.path === route) { return null;}
 		if (object?.children?.some((child) => child?.path === route)) {
-			this.currentRoute = object.path;
-      this.toggle(object.path);
+			this.toggle(this.currentRoute, object.path);
 			return;
 		}
 
     return object.children.map((child) => this.previous(route, child)).reduce((a, b) => a || b);
+  }
+}
+
+class Route {
+		constructor(path, component, pageElement, children = []) {
+    this._path = path;
+    this._component = component;
+    this._pageElement = pageElement;
+    this._children = children;
+  }
+
+	get path() {
+    return this._path;
+  }
+
+  get component() {
+    return this._component;
+  }
+
+  get element() {
+    return this._pageElement;
+  }
+
+  set element(newElement) {
+    this._pageElement = newElement;
+  }
+
+  get children() {
+    return this._children;
+  }
+
+  set children(newChildren) {
+    this._children = newChildren;
   }
 }

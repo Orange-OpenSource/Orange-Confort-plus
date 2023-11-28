@@ -134,13 +134,6 @@ class LayoutComponent extends HTMLElement {
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
     }
-    connectedCallback() {
-        this.validateBtn = this.querySelector("#validate-setting");
-        this.validateBtn?.addEventListener("click", (() => {
-            let clickValidateEvent = new CustomEvent("validateSettingEvent");
-            template.dispatchEvent(clickValidateEvent);
-        }));
-    }
 }
 
 customElements.define("app-layout", LayoutComponent);

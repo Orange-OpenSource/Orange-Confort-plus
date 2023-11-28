@@ -4,21 +4,11 @@ editSettingLayout.innerHTML = `
 `;
 
 class EditSettingComponent extends HTMLElement {
-	validateBtn: HTMLElement | null = null;
 
 	constructor() {
 		super();
 
 		this.appendChild(editSettingLayout.content.cloneNode(true));
-	}
-
-	connectedCallback(): void {
-		this.validateBtn = this.querySelector('#validate-setting');
-
-		this.validateBtn?.addEventListener('click', () => {
-			let clickValidateEvent = new CustomEvent('validateSettingEvent');
-			template.dispatchEvent(clickValidateEvent);
-		});
 	}
 }
 
