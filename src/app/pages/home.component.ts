@@ -22,9 +22,14 @@ homeLayout.innerHTML = `
     </div>
 </section>
 
-<p>Accueil</p>
+<section class="p-3">
+	<p>Zone d'affichage des réglages du mode en cours</p>
 
-<button id="change-mode-btn" class="btn btn-primary" type="button">Autres modes d'usage</button>`;
+	<div class="d-grid">
+		<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>
+	</div>
+</section>
+`;
 
 class HomeComponent extends HTMLElement {
 	changeModeBtn: HTMLElement | null = null;

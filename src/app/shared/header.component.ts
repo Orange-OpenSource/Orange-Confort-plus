@@ -2,7 +2,7 @@ const headerLayout: HTMLTemplateElement = document.createElement('template');
 headerLayout.innerHTML = `
 	<header class="d-flex justify-content-between bg-secondary px-3 py-2">
 		<div class="d-flex align-items-center">
-			<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="previous">
+			<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">
 				<span class="visually-hidden" data-i18n="previous"></span>
 				<app-icon data-name="Form_Chevron_left"></app-icon>
 			</button>
@@ -19,7 +19,7 @@ headerLayout.innerHTML = `
 				<span class="text-primary">+</span>
 			</span>
 		</div>
-		<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">
+		<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">
 				<span class="visually-hidden" data-i18n="close"></span>
 				<app-icon data-name="Form_Chevron_right"></app-icon>
 		</button>
@@ -38,7 +38,6 @@ class HeaderComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		//this.titlePage = this.dataset.titlePage || this.titlePage;
 		this.mode = this.dataset.mode || this.mode;
 
 		this.appendChild(headerLayout.content.cloneNode(true));
@@ -77,7 +76,7 @@ class HeaderComponent extends HTMLElement {
 			this.displayMode(newValue)
 		}
 		if ('data-title-page' === name) {
-			this.titlePage!.innerText = newValue;
+			this.titlePage!.dataset.i18n = newValue;
 		}
 	}
 
