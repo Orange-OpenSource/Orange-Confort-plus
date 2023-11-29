@@ -1,8 +1,5 @@
 const btnModalLayout: HTMLTemplateElement = document.createElement('template');
-btnModalLayout.innerHTML = `
-	<button type="button" class="btn btn-primary pe-4 sc-btn-modal">
-	</button>
-`;
+btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
 
 class BtnModalComponent extends HTMLElement {
 	static observedAttributes = ['data-value', 'data-label'];

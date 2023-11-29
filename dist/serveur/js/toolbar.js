@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 27/11/2023
+ * orange-confort-plus - version 4.3.0 - 29/11/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -373,7 +373,7 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<p class="fs-6 fw-normal m-0"></p>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -395,8 +395,8 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement = this.querySelector("input");
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
-        this.textElement = this.querySelector("span");
-        this.descriptionElement = this.querySelector("p");
+        this.textElement = this.querySelector("div span");
+        this.descriptionElement = this.querySelector("label > span");
         this.inputElement.id = this.dataset?.id || "";
         this.inputElement.name = this.dataset?.name || "";
         this.labelElement.setAttribute("for", this.dataset?.id || "");
@@ -810,7 +810,7 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t\t<app-text></app-text>\n\t\t<app-layout></app-layout>\n\t\t<app-picture-video></app-picture-video>\n\t\t<app-sound></app-sound>\n\t\t<app-pointer></app-pointer\n</section>\n`;
+tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-3">\n\t\t\t\t<div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span class="fs-4 fw-bold text-primary">Vision +</span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
     constructor() {

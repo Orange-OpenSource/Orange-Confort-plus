@@ -1,4 +1,5 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
+// @fixme button > ul seems really weird
 btnSettingLayout.innerHTML = `
 	<button class="btn btn-primary flex-column">
 		<span></span>
