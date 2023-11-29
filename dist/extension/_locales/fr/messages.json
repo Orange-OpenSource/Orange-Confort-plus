@@ -70,5 +70,11 @@
 	},
 	"pageTitleEditSetting": {
 		"message": "Réglage du paramètre"
+	},
+	"chooseModeAndValidate": {
+		"message": "Choisissez un mode d'usage et validez :"
+	},
+	"validateThisMode": {
+		"message" : "Valider ce mode"
 	}
 }
