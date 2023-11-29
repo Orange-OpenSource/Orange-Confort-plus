@@ -1,16 +1,16 @@
 const collapseLayout: HTMLTemplateElement = document.createElement('template');
 collapseLayout.innerHTML = `
 	<div class="accordion-item">
-    <div class="accordion-header">
+		<div class="accordion-header">
 			<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">
 				<app-icon data-size="2rem"></app-icon>
 				<span></span>
 			</button>
-    </div>
-    <div class="accordion-collapse collapse">
-      <div class="accordion-body"></div>
-    </div>
-  </div>
+		</div>
+		<div class="accordion-collapse collapse">
+			<div class="accordion-body"></div>
+		</div>
+	</div>
 `;
 
 class CollapseComponent extends HTMLElement {

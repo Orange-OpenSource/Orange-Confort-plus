@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 27/11/2023
+ * orange-confort-plus - version 4.3.0 - 04/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -106,7 +106,7 @@ customElements.define("app-root", AppComponent);
 
 const btnModalLayout = document.createElement("template");
 
-btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t</button>\n`;
+btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
 
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-value", "data-label" ];
@@ -142,7 +142,7 @@ class BtnModalComponent extends HTMLElement {
         span.classList.add("visually-hidden");
         span.innerText = label;
         this.modalBtn?.appendChild(span);
-        this.modalBtn?.setAttribute("title", label);
+        this.modalBtn.title = label;
     }
 }
 
@@ -204,7 +204,7 @@ class BtnSettingComponent extends HTMLElement {
                         value: value
                     }
                 });
-                template.dispatchEvent(clickEvent);
+                btnSettingLayout.dispatchEvent(clickEvent);
             }
             this.slot = `${this.slot}${point}`;
         }));
@@ -218,7 +218,7 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const collapseLayout = document.createElement("template");
 
-collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n    <div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n    </div>\n    <div class="accordion-collapse collapse">\n      <div class="accordion-body"></div>\n    </div>\n  </div>\n`;
+collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse">\n\t\t\t<div class="accordion-body"></div>\n\t\t</div>\n\t</div>\n`;
 
 class CollapseComponent extends HTMLElement {
     button=null;
@@ -358,7 +358,7 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<p class="fs-6 fw-normal m-0"></p>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -380,8 +380,8 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement = this.querySelector("input");
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
-        this.textElement = this.querySelector("span");
-        this.descriptionElement = this.querySelector("p");
+        this.textElement = this.querySelector("div span");
+        this.descriptionElement = this.querySelector("label > span");
         this.inputElement.id = this.dataset?.id || "";
         this.inputElement.name = this.dataset?.name || "";
         this.labelElement.setAttribute("for", this.dataset?.id || "");
@@ -620,56 +620,35 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n    <style>\n        app-increase-text-size {\n            display: flex;\n            align-items: center;\n            margin-bottom: 1rem;\n        }\n        .sc-increase-text-size__content {\n        \tdisplay: flex;\n        }\n\n        .sc-increase-text-size__btn-size {\n            background: #ff7900;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            height: 5rem;\n            margin-right: 1rem;\n        }\n\n        .sc-increase-text-size__btn-slots {\n            display: flex;\n            margin-top: 1rem;\n        }\n        .sc-increase-text-size__btn-slot {\n            background: #FFBE85;\n            border-radius: 50%;\n            width: .5rem;\n            height: .5rem;\n            margin-right: .25rem;\n        }\n        .sc-increase-text-size__btn-slot:last-child {\n            margin-right: 0;\n        }\n        .selected {\n            background: black;\n        }\n\n        .sc-increase-text-size__size-info {\n            font-weight: 700;\n            background: #ff7900;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 5rem;\n            padding: 1rem 2rem 1rem 1rem;\n            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n        }\n    </style>\n    <div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n    <div>\n\t\t\t<app-btn-setting id="btn-size" data-label="Taille de texte"></app-btn-setting>\n\t\t\t<app-btn-modal id="content-size-info"></app-btn-modal>\n\t\t</div>\n`;
 
 class IncreaseTextSizeComponent extends HTMLElement {
-    toolBtn=null;
-    sizeBtn=null;
+    settingBtn=null;
+    modalBtn=null;
     index=0;
-    fontSizes=[ 16, 18, 20, 22, 24 ];
+    fontSizes="16,18,20,22,24";
+    defaultSize="18";
     constructor() {
         super();
         this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
     }
     connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        const sizeInfoElt = this.querySelector("#content-size-info");
-        this.sizeBtn = this.querySelector("#btn-size");
-        if (!sizeInfoElt) {
-            return;
-        }
-        const btnContentSlots = this.querySelector("#btn-content-slots");
-        let slot = "";
-        this.fontSizes.forEach(((size, index) => {
-            let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-            if (index === this.index) {
-                div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-            }
-            slot = `${slot}${div}`;
-        }));
-        btnContentSlots.innerHTML = slot;
-        sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        this.sizeBtn?.addEventListener("click", (() => {
-            this.index++;
-            if (this.index >= this.fontSizes.length) {
-                this.index = 0;
-            }
-            slot = "";
-            this.fontSizes.forEach(((size, index) => {
-                let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-                if (index === this.index) {
-                    div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-                }
-                slot = `${slot}${div}`;
-            }));
-            btnContentSlots.innerHTML = slot;
-            bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
-            sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+        this.modalBtn = this.querySelector("#content-size-info");
+        this.modalBtn.dataset.value = this.defaultSize;
+        this.settingBtn = this.querySelector("#btn-size");
+        this.settingBtn.dataset.settingsList = this.fontSizes;
+        btnSettingLayout.addEventListener("changeSettingEvent", (event => {
+            this.setFontSize(event);
         }));
     }
     disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-        this.sizeBtn?.removeEventListener("click", (() => {}));
+        btnSettingLayout.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setFontSize(event) {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        bodyElt.style.fontSize = `${event.detail.value}px`;
+        this.modalBtn.dataset.value = `${event.detail.value}`;
+        this.modalBtn.dataset.label = `Taille du texte : ${event.detail.value}`;
     }
 }
 
@@ -795,7 +774,7 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-3">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t\t<app-text></app-text>\n\t\t<app-layout></app-layout>\n\t\t<app-picture-video></app-picture-video>\n\t\t<app-sound></app-sound>\n\t\t<app-pointer></app-pointer\n</section>\n`;
+tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-3">\n\t\t\t\t<div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span class="fs-4 fw-bold text-primary">Vision +</span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
     constructor() {
