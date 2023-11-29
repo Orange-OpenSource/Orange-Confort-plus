@@ -6,7 +6,7 @@ selectModeLayout.innerHTML = `
 			<app-icon data-size="2rem"></app-icon>
 			<span class="fs-5 text"></span>
 		</div>
-		<p class="fs-6 fw-normal m-0"></p>
+		<span class="fs-6 fw-normal m-0"></span>
 	</label>
 `;
 
@@ -34,8 +34,8 @@ class SelectModeComponent extends HTMLElement {
 		this.inputElement = this.querySelector('input');
 		this.labelElement = this.querySelector('label');
 		this.iconElement = this.querySelector('app-icon');
-		this.textElement = this.querySelector('span');
-		this.descriptionElement = this.querySelector('p');
+		this.textElement = this.querySelector('div span');
+		this.descriptionElement = this.querySelector('label > span');
 
 		this.inputElement!.id = this.dataset?.id || '';
 		this.inputElement!.name = this.dataset?.name || '';
