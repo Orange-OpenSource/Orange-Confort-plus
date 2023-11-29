@@ -1,10 +1,12 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
-<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
-	<span class="visually-hidden" data-i18n="mainButton"></span>
-	<app-icon data-size="3rem" data-name="Accessibility"></app-icon>
-</button>
-<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
+<div data-bs-theme="light">
+	<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
+		<span class="visually-hidden" data-i18n="mainButton"></span>
+		<app-icon data-size="3rem" data-name="Accessibility"></app-icon>
+	</button>
+	<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
+</div>
 `
 
 class AppComponent extends HTMLElement {
