@@ -61,5 +61,20 @@
 	},
 	"previous": {
 		"message": "Previous"
+	},
+	"pageTitleModes": {
+		"message": "Modes d'usage"
+	},
+	"pageTitleSettings": {
+		"message": "Settings"
+	},
+	"pageTitleEditSetting": {
+		"message": "Parameter's setting"
+	},
+	"chooseModeAndValidate": {
+		"message": "Choose a usage mode and confirm :"
+	},
+	"validateThisMode": {
+		"message" : "Confirm this mode"
 	}
 }

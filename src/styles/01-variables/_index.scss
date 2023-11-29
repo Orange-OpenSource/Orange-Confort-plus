@@ -1,2 +1,2 @@
 /* Import Boosted */
-@import 'boosted/scss/boosted.scss';
+@forward 'boosted/scss/boosted.scss' with ($prefix: 'cplus-');
