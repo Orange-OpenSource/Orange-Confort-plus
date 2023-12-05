@@ -2,6 +2,8 @@ const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <app-header id="header"></app-header>
 
+<app-mode></app-mode>
+
 <app-home class="d-none"></app-home>
 <app-modes class="d-none"></app-modes>
 <app-settings class="d-none"></app-settings>

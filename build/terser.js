@@ -42,6 +42,7 @@ const files = {
 			'dist/js/app/shared/select-mode.component.js',
 			'dist/js/app/services/route.service.js',
 			'dist/js/app/core/injector.core.js',
+			'dist/js/app/modes/mode.component.js'
 		],
 		dist: 'dist/js/toolbar.js',
 		options: {
