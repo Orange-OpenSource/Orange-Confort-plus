@@ -7,7 +7,7 @@ template.innerHTML = `
 	</button>
 	<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
 </div>
-`
+`;
 
 class AppComponent extends HTMLElement {
 	private openConfortPlus: boolean = false;
@@ -26,7 +26,7 @@ class AppComponent extends HTMLElement {
 		this.pathService = new pathService();
 		this.path = this.pathService.path;
 		// @ts-ignore
-		this.i18nService = new i18nService(this.path || '');
+		this.i18nService = new i18nService();
 		// @ts-ignore
 		this.iconsService = new iconsService();
 

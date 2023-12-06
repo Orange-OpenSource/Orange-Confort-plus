@@ -20,7 +20,6 @@ const files = {
 	'toolbar': {
 		files: [
 			'dist/js/app/app.component.js',
-			'dist/js/app/core/injector.core.js',
 			'dist/js/app/features/layout/layout.component.js',
 			'dist/js/app/features/picture-video/picture-video.component.js',
 			'dist/js/app/features/pointer/pointer.component.js',
@@ -41,6 +40,7 @@ const files = {
 			'dist/js/app/shared/header.component.js',
 			'dist/js/app/shared/icon.component.js',
 			'dist/js/app/shared/select-mode.component.js',
+			'dist/js/app/core/injector.core.js',
 		],
 		dist: 'dist/js/toolbar.js',
 		options: {
