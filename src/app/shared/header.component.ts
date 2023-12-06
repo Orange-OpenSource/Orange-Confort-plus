@@ -34,11 +34,13 @@ class HeaderComponent extends HTMLElement {
 	titlePageBlock: HTMLElement | null = null;
 	titlePage: HTMLElement | null = null;
 	mode = 'primary';
+	i18nService: any;
 
 	constructor() {
 		super();
 
 		this.mode = this.dataset.mode || this.mode;
+		this.i18nService = new i18nService();
 
 		this.appendChild(headerLayout.content.cloneNode(true));
 	}
@@ -76,7 +78,7 @@ class HeaderComponent extends HTMLElement {
 			this.displayMode(newValue)
 		}
 		if ('data-title-page' === name) {
-			this.titlePage!.dataset.i18n = newValue;
+			this.titlePage!.innerText = this.i18nService.getMessage(newValue);
 		}
 	}
 

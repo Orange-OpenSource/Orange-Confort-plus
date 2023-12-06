@@ -25,6 +25,7 @@ class ToolbarComponent extends HTMLElement {
 		this.routeService.initPages(this);
 		this.routeService.emitChangeEvent = (value: string) => {
 			this.setHeaderDisplay(value);
+			this.header?.focus();
 		}
 
 		template.addEventListener('changeModeEvent', (event) => {
