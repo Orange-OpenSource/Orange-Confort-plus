@@ -1192,37 +1192,32 @@ tmplMode.innerHTML = `\n<section class="d-grid">\n\t<div id="mode-content" class
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-parameters" ];
     modeContent=null;
-    parameters=[ {
-        name: "Taille de texte",
-        values: "16, 18, 20, 22, 24"
-    }, {
-        name: "Graisse",
-        values: "light, regular, bold"
-    }, {
-        name: "Font",
-        values: "Nom font 1, Nom font 2, Nom font 3"
-    } ];
     constructor() {
         super();
         this.appendChild(tmplMode.content.cloneNode(true));
     }
-    connectedCallback() {
+    setParameters(mode) {
         this.modeContent = this.querySelector("#mode-content");
-        this.setParameters();
-    }
-    setParameters() {
         let btnSettingList = "";
-        this.parameters?.forEach((parameter => {
-            const label = parameter?.name;
-            const settingsList = parameter?.values;
-            let btnSetting = `<app-btn-setting data-label="${label}" data-settings-list="${settingsList}"></app-btn-setting>`;
-            btnSettingList = btnSettingList + btnSetting;
-        }));
-        this.modeContent.innerHTML = btnSettingList;
+        let label = "";
+        if (this.modeContent) {
+            Object.entries(mode.parameters).forEach((([key, value]) => {
+                let listValue = "";
+                label = value["name"];
+                Object.entries(value).forEach((([key, value]) => {
+                    if (key.indexOf("value") > -1) {
+                        listValue ? listValue = `${listValue},${value}` : listValue = `${value}`;
+                    }
+                }));
+                let btnSetting = `<app-btn-setting data-label="${label}" data-settings-list="${listValue}"></app-btn-setting>`;
+                btnSettingList = btnSettingList + btnSetting;
+            }));
+            this.modeContent.innerHTML = btnSettingList;
+        }
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-parameters" === name) {
-            this.setParameters();
+            this.setParameters(JSON.parse(newValue));
         }
     }
 }
