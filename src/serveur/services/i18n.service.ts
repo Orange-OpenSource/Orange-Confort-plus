@@ -5,8 +5,8 @@ class i18nService {
 	constructor() {
 		this.path = window.location.origin + '/';
 
-		if(['en', 'fr'].some(language => navigator.language.startsWith(language))) {
-			this.locale = navigator.language.slice(0,2);
+		if (['en', 'fr'].some(language => navigator.language.startsWith(language))) {
+			this.locale = navigator.language.slice(0, 2);
 		}
 
 		const xhr = new XMLHttpRequest();

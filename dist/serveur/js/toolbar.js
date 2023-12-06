@@ -1133,6 +1133,7 @@ class ToolbarComponent extends HTMLElement {
         this.routeService.initPages(this);
         this.routeService.emitChangeEvent = value => {
             this.setHeaderDisplay(value);
+            this.header?.focus();
         };
         template.addEventListener("changeModeEvent", (event => {
             this.routeService.navigate(this.routeService.PAGE_MODES);
@@ -1451,9 +1452,11 @@ class HeaderComponent extends HTMLElement {
     titlePageBlock=null;
     titlePage=null;
     mode="primary";
+    i18nService;
     constructor() {
         super();
         this.mode = this.dataset.mode || this.mode;
+        this.i18nService = new i18nService;
         this.appendChild(headerLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1481,7 +1484,7 @@ class HeaderComponent extends HTMLElement {
             this.displayMode(newValue);
         }
         if ("data-title-page" === name) {
-            this.titlePage.dataset.i18n = newValue;
+            this.titlePage.innerText = this.i18nService.getMessage(newValue);
         }
     }
     displayMode(mode) {
