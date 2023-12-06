@@ -19,6 +19,55 @@ class ToolbarComponent extends HTMLElement {
 	localStorageService: any;
 	historyRoute: string[] = [];
 	json: any = '';
+	currentMode: HTMLElement | null = null;
+	test = `{
+		"selectedtMode": "visionPlus",
+		"modes": {
+			"visionPlus": {
+				"name": "Vision+",
+				"parameters": {
+					"parameter1": {
+						"name": "Taille de texte",
+						"value1": "16",
+						"value2": "18",
+						"value3": "20",
+						"value4": "22",
+						"value5": "24"
+					},
+					"parameter2": {
+						"name": "Police",
+						"value1": "null",
+						"value2": "Arial",
+						"value3": "Open Sans",
+						"value4": "Accessible-DFA",
+						"value5": "Open Dyslexic",
+						"value6": "Luciole"
+					}
+				}
+			},
+			"facilePlus": {
+				"name": "Facile+",
+				"parameters": {
+					"parameter1": {
+						"name": "Taille de texte",
+						"value1": "20",
+						"value2": "21",
+						"value3": "22",
+						"value4": "23"
+					},
+					"parameter2": {
+						"name": "Police",
+						"value1": "null",
+						"value2": "Arial",
+						"value3": "Open Sans",
+						"value4": "Accessible-DFA",
+						"value5": "Open Dyslexic",
+						"value6": "Luciole"
+					}
+				}
+			}
+		}
+	}`;
 
 	constructor() {
 		super();
@@ -72,6 +121,23 @@ class ToolbarComponent extends HTMLElement {
 			this.header?.focus();
 			this.header.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
 		});
+
+
+
+		this.currentMode = this.querySelector('app-mode');
+		let json = JSON.parse(this.test);
+
+		if (json.selectedtMode) {
+			/**
+			 * Afficher la page app-home avec app-mode
+			 */
+			let parameters = json.modes[json.selectedtMode];
+			this.currentMode!.dataset.parameters = JSON.stringify(parameters);
+		} else {
+			/**
+			 * Rediriger vers la page de sélection de mode
+			 */
+		}
 	}
 
 	setHeaderDisplay = (page: string): void => {
