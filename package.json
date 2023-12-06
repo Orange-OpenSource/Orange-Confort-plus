@@ -21,7 +21,7 @@
 		"url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
 	},
 	"type": "module",
-	"node": ">=16",
+	"node": ">=18",
 	"scripts": {
 		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/js/vendors",
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
