@@ -5,6 +5,7 @@
 		"outDir": "dist/js/extension/"
 	},
 	"include": [
-		"./src/extension/services/*.ts"
+		"./src/extension/services/*.ts",
+		"./src/extension/scripts/*.ts"
 	],
 }

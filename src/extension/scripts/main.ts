@@ -4,7 +4,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 	for (const tab of tabs) {
 		// Set CDU disable by default
-		updateButtonIcon(false, tab.id);
+		updateButtonIcon(false, tab.id as number);
 		// Disable action on internal browser pages
 		if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 			chrome.action.disable(tab.id);
@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 			chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
 			// Reload tabs that had CDU loaded and active
 			if (states[`isCduEnabled-${tab.id}`]) {
-				chrome.tabs.reload(tab.id)
+				chrome.tabs.reload(tab.id as number)
 					.catch(error => {
 						console.error(`Cannot reload tab ${tab.id}. Error: ${error}`)
 					});
@@ -24,7 +24,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 // Update CDU button icon
-const updateButtonIcon = (isEnabled, tabId) => {
+const updateButtonIcon = (isEnabled: boolean, tabId: number) => {
 	if (isEnabled) {
 		chrome.action.setIcon({
 			tabId: tabId,
@@ -69,22 +69,22 @@ chrome.action.onClicked.addListener(async (tab) => {
 	const injections = await chrome.storage.local.get(`isCduInjected-${tab.id}`);
 	const isInjected = injections[`isCduInjected-${tab.id}`];
 
-	updateButtonIcon(!isLoaded, tab.id);
+	updateButtonIcon(!isLoaded, tab.id as number);
 
 	if (!isLoaded && !isInjected) {
 		chrome.scripting.executeScript({
-			target: { tabId: tab.id },
+			target: { tabId: tab.id as number },
 			files: ['js/toolbar.js']
 		});
 		chrome.storage.local.set({[`isCduInjected-${tab.id}`]: true});
 	} else if (!isLoaded && isInjected) {
 		chrome.scripting.executeScript({
-			target: { tabId: tab.id },
+			target: { tabId: tab.id as number },
 			files: ['js/restore.js']
 		});
 	} else if (isLoaded && isInjected) {
 		chrome.scripting.executeScript({
-			target: { tabId: tab.id },
+			target: { tabId: tab.id as number },
 			files: ['js/eject.js']
 		});
 	}
@@ -102,7 +102,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 
 chrome.tabs.onCreated.addListener(tab => {
-	updateButtonIcon(false, tab.id);
+	updateButtonIcon(false, tab.id as number);
 	chrome.action.disable(tab.id);
 	if (!['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.enable(tab.id);
