@@ -21,7 +21,7 @@ headerLayout.innerHTML = `
 		</div>
 		<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">
 				<span class="visually-hidden" data-i18n="close"></span>
-				<app-icon data-name="Form_Chevron_right"></app-icon>
+				<app-icon data-name="ReduireC+"></app-icon>
 		</button>
 	</header>
 `;

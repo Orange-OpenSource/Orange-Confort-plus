@@ -1,13 +1,18 @@
 .sc-select-mode__input {
 	appearance: none;
 	position: absolute;
+	opacity: 0;
 
 	&:checked + label {
-		box-shadow: var(--bs-focus-ring-x,0) var(--bs-focus-ring-y,0) var(--bs-focus-ring-blur,0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+		box-shadow: var(--cplus-focus-ring-x,0) var(--cplus-focus-ring-y,0) var(--cplus-focus-ring-blur,0) var(--cplus-focus-ring-width) var(--cplus-primary);
 	}
 
 	&:not(:checked) + label > p {
 		display: none;
+	}
+
+	&:focus + label {
+		box-shadow: var(--cplus-focus-ring-x,0) var(--cplus-focus-ring-y,0) var(--cplus-focus-ring-blur,0) var(--cplus-focus-ring-width) var(--cplus-focus-visible-outer-color);
 	}
 }
 

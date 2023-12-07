@@ -1,5 +1,13 @@
 /*
+<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 18/12/2023
+=======
+<<<<<<< HEAD
+ * orange-confort-plus - version 4.3.0 - 12/12/2023
+=======
+ * orange-confort-plus - version 4.3.0 - 07/12/2023
+>>>>>>> Ajout de la sélection de mode d'usage.
+>>>>>>> Ajout de la sélection de mode d'usage.
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -626,15 +634,67 @@ tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home></
 
 class ToolbarComponent extends HTMLElement {
     header=null;
+    home=null;
+    modes=null;
     routeService;
+<<<<<<< HEAD
     historyRoute=[];
+=======
+    json={
+        selectedMode: "",
+        modes: [ {
+            visionPlus: [ {
+                "Taille de texte": {
+                    value1: "16",
+                    value2: "18",
+                    value3: "20",
+                    value4: "22",
+                    value5: "24"
+                },
+                Police: {
+                    value1: "null",
+                    value2: "Arial",
+                    value3: "Open Sans",
+                    value4: "Accessible-DFA",
+                    value5: "Open Dyslexic",
+                    value6: "Luciole"
+                }
+            } ]
+        }, {
+            facilePlus: [ {
+                "Taille de texte": {
+                    value1: "20",
+                    value2: "21",
+                    value3: "22",
+                    value4: "23"
+                }
+            }, {
+                Police: {
+                    value1: "null",
+                    value2: "Arial",
+                    value3: "Open Sans",
+                    value4: "Accessible-DFA",
+                    value5: "Open Dyslexic",
+                    value6: "Luciole"
+                }
+            } ]
+        } ]
+    };
+>>>>>>> Ajout de la sélection de mode d'usage.
     constructor() {
         super();
         this.routeService = new routeService;
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
+<<<<<<< HEAD
         this.header = this.querySelector("#header");
+=======
+        this.home = this.querySelector("app-home");
+        this.modes = this.querySelector("app-modes");
+        this.modes.dataset.listMode = JSON.stringify(this.json.modes);
+        this.header = this.querySelector("app-header");
+>>>>>>> Ajout de la sélection de mode d'usage.
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
             if (event.detail.isPrev) {
@@ -645,7 +705,32 @@ class ToolbarComponent extends HTMLElement {
             this.routeService.navigate(event.detail.route);
             this.setHeaderDisplay(event.detail.route);
             this.header?.focus();
+<<<<<<< HEAD
             this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
+=======
+        };
+<<<<<<< HEAD
+        this.addEventListener("changeModeEvent", (event => {
+            this.routeService.navigate(this.routeService.PAGE_MODES);
+        }));
+        this.addEventListener("selectModeEvent", (event => {
+=======
+        this.setCurrentMode();
+        template.addEventListener("changeModeEvent", (event => {
+            this.routeService.navigate(this.routeService.PAGE_MODES);
+        }));
+        template.addEventListener("selectModeEvent", (event => {
+            this.setConfig(event);
+            this.setCurrentMode();
+>>>>>>> Ajout de la sélection de mode d'usage.
+            this.routeService.navigate(this.routeService.PAGE_HOME);
+        }));
+        this.addEventListener("settingsEvent", (event => {
+            this.routeService.navigate(this.routeService.PAGE_SETTINGS);
+        }));
+        this.addEventListener("prevEvent", (event => {
+            this.routeService.previous();
+>>>>>>> Ajout de la sélection de mode d'usage.
         }));
     }
     setHeaderDisplay=page => {
@@ -678,7 +763,26 @@ class ToolbarComponent extends HTMLElement {
                 break;
             }
         }
+<<<<<<< HEAD
     };
+=======
+    }
+    setCurrentMode() {
+        if (this.json.selectedMode) {
+            this.json.modes.forEach((mode => {
+                if (Object.entries(mode)[0][0] === this.json.selectedMode) {
+                    let currentMode = Object.entries(mode)[0];
+                    this.home.dataset.mode = JSON.stringify(currentMode);
+                }
+            }));
+        } else {
+            this.routeService.navigate(this.routeService.PAGE_MODES);
+        }
+    }
+    setConfig(event) {
+        this.json.selectedMode = event?.detail.mode;
+    }
+>>>>>>> Ajout de la sélection de mode d'usage.
 }
 
 customElements.define("app-toolbar", ToolbarComponent);
@@ -702,20 +806,32 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<p>Zone d'affichage des réglages du mode en cours</p>\n\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<p>Zone d'affichage des réglages du mode en cours</p>\n\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
+    static observedAttributes=[ "data-mode" ];
     changeModeBtn=null;
     settingsBtn=null;
+<<<<<<< HEAD
     routeService;
     constructor() {
         super();
         this.routeService = new routeService;
+=======
+    modeName=null;
+    modeIcon=null;
+    i18nService;
+    constructor() {
+        super();
+        this.i18nService = new i18nService;
+>>>>>>> Ajout de la sélection de mode d'usage.
         this.appendChild(homeLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
+        this.modeName = this.querySelector("#mode-name");
+        this.modeIcon = this.querySelector("app-icon");
         this.changeModeBtn?.addEventListener("click", (() => {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
@@ -735,9 +851,17 @@ class HomeComponent extends HTMLElement {
             this.settingsBtn?.dispatchEvent(clickEvent);
         }));
     }
+<<<<<<< HEAD
     disconnectedCallback() {
         this.changeModeBtn?.removeEventListener("click", (() => {}));
         this.settingsBtn?.removeEventListener("click", (() => {}));
+=======
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-mode" === name) {
+            this.modeName.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
+            this.modeIcon.dataset.name = JSON.parse(newValue)[0];
+        }
+>>>>>>> Ajout de la sélection de mode d'usage.
     }
 }
 
@@ -747,11 +871,16 @@ customElements.define("app-home", HomeComponent);
 
 const modesLayout = document.createElement("template");
 
-modesLayout.innerHTML = `\n<section class="p-3">\n\t<p data-i18n="chooseModeAndValidate"></p>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>\n\t</div>\n</section>\n`;
+modesLayout.innerHTML = `\n<section class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>\n\t</div>\n</section>\n`;
 
 class ModesComponent extends HTMLElement {
+    static observedAttributes=[ "data-list-mode" ];
     selectModeBtn=null;
+<<<<<<< HEAD
     routeService;
+=======
+    selectModeZone=null;
+>>>>>>> Ajout de la sélection de mode d'usage.
     constructor() {
         super();
         this.routeService = new routeService;
@@ -759,19 +888,58 @@ class ModesComponent extends HTMLElement {
     }
     connectedCallback() {
         this.selectModeBtn = this.querySelector("#select-mode-btn");
+        this.selectModeZone = this.querySelector("#select-mode-zone");
         this.selectModeBtn?.addEventListener("click", (() => {
+<<<<<<< HEAD
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
                 detail: {
                     route: this.routeService.PAGE_HOME,
                     isPrev: true
                 }
+=======
+            let clickEvent = new CustomEvent("selectModeEvent", {
+<<<<<<< HEAD
+                bubbles: true
+>>>>>>> Ajout de la sélection de mode d'usage.
             });
             this.selectModeBtn?.dispatchEvent(clickEvent);
+=======
+                detail: {
+                    mode: this.getSelectedMode()
+                }
+            });
+            template.dispatchEvent(clickEvent);
+>>>>>>> Ajout de la sélection de mode d'usage.
         }));
     }
+<<<<<<< HEAD
     disconnectedCallback() {
         this.selectModeBtn?.removeEventListener("click", (() => {}));
+=======
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-list-mode" === name) {
+            this.displayListMode(JSON.parse(newValue));
+        }
+    }
+    displayListMode(list) {
+        let radioModeList = "";
+        list.forEach((mode => {
+            let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-settings-list="Description blabla"></app-select-mode>`;
+            radioModeList = radioModeList + radioMode;
+        }));
+        this.selectModeZone.innerHTML = radioModeList;
+    }
+    getSelectedMode() {
+        let selectedMode = "";
+        let inputs = this.querySelectorAll('input[name="modes"]');
+        inputs.forEach((input => {
+            if (input.checked) {
+                selectedMode = input.value;
+            }
+        }));
+        return selectedMode;
+>>>>>>> Ajout de la sélection de mode d'usage.
     }
 }
 
@@ -970,7 +1138,7 @@ customElements.define("app-collapse", CollapseComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="ReduireC+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
     static observedAttributes=[ "data-mode", "data-title-page", "data-prev-route" ];
@@ -1078,7 +1246,7 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<p class="fs-6 fw-normal m-0"></p>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -1086,14 +1254,12 @@ class SelectModeComponent extends HTMLElement {
     labelElement=null;
     textElement=null;
     descriptionElement=null;
-    icon="";
     label="";
-    description="";
+    i18nService;
     constructor() {
         super();
-        this.icon = this.dataset?.icon || this.icon;
         this.label = this.dataset?.label || this.label;
-        this.description = this.dataset?.description || this.description;
+        this.i18nService = new i18nService;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1101,6 +1267,7 @@ class SelectModeComponent extends HTMLElement {
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
         this.textElement = this.querySelector("div span");
+<<<<<<< HEAD
         this.descriptionElement = this.querySelector("label > span");
         this.inputElement.id = this.dataset?.id || "";
         this.inputElement.name = this.dataset?.name || "";
@@ -1108,6 +1275,15 @@ class SelectModeComponent extends HTMLElement {
         this.iconElement?.setAttribute("data-name", this.icon);
         this.textElement.innerText = this.label;
         this.descriptionElement.innerText = this.description;
+=======
+        this.descriptionElement = this.querySelector("label > p");
+        this.inputElement.id = this.label;
+        this.inputElement.value = this.label;
+        this.labelElement.setAttribute("for", this.label);
+        this.iconElement.dataset.name = this.label;
+        this.textElement.innerText = this.i18nService.getMessage(`${this.label}Name`);
+        this.descriptionElement.innerText = this.i18nService.getMessage(`${this.label}Description`);
+>>>>>>> Ajout de la sélection de mode d'usage.
     }
 }
 
