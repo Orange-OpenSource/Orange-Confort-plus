@@ -10,8 +10,59 @@ tmplToolbar.innerHTML = `
 
 class ToolbarComponent extends HTMLElement {
 	header: HTMLElement | null = null;
+	home: HTMLElement | null = null;
+	modes: HTMLElement | null = null;
 	routeService: any;
 	historyRoute: Array<string> = [];
+	json = {
+		"selectedMode": "",
+		"modes": [
+			{
+				"visionPlus": [
+					{
+						"Taille de texte":
+						{
+							"value1": "16",
+							"value2": "18",
+							"value3": "20",
+							"value4": "22",
+							"value5": "24"
+						},
+						"Police": {
+							"value1": "null",
+							"value2": "Arial",
+							"value3": "Open Sans",
+							"value4": "Accessible-DFA",
+							"value5": "Open Dyslexic",
+							"value6": "Luciole"
+						}
+					}
+				]
+			},
+			{
+				"facilePlus": [
+					{
+						"Taille de texte": {
+							"value1": "20",
+							"value2": "21",
+							"value3": "22",
+							"value4": "23"
+						}
+					},
+					{
+						"Police": {
+							"value1": "null",
+							"value2": "Arial",
+							"value3": "Open Sans",
+							"value4": "Accessible-DFA",
+							"value5": "Open Dyslexic",
+							"value6": "Luciole"
+						}
+					}
+				]
+			}
+		]
+	};
 
 	constructor() {
 		super();
@@ -24,6 +75,9 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
+		this.home = this.querySelector('app-home');
+		this.modes = this.querySelector('app-modes');
+		this.modes!.dataset.listMode = JSON.stringify(this.json.modes);
 		this.header = this.querySelector('#header');
 		this.routeService.initPages(this);
 
@@ -65,6 +119,24 @@ class ToolbarComponent extends HTMLElement {
 				break;
 			}
 		}
+	}
+
+	setCurrentMode(): void {
+		if (this.json.selectedMode) {
+			this.json.modes.forEach(mode => {
+				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
+					let currentMode = Object.entries(mode)[0];
+					this.home!.dataset.mode = JSON.stringify(currentMode);
+				}
+			});
+		} else {
+			this.routeService.navigate(this.routeService.PAGE_MODES);
+		}
+	}
+
+	setConfig(event?: CustomEvent): void {
+		// Méthode à utiliser pour impacter le fichier json
+		this.json.selectedMode = event?.detail.mode;
 	}
 }
 

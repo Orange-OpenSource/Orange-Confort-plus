@@ -76,5 +76,17 @@
 	},
 	"validateThisMode": {
 		"message" : "Valider ce mode"
+	},
+	"visionPlusName": {
+		"message": "Vision+"
+	},
+	"visionPlusDescription": {
+		"message": "Description du mode Vision+"
+	},
+	"facilePlusName": {
+		"message": "Facile+"
+	},
+	"facilePlusDescription": {
+		"message": "Description du mode Facile+"
 	}
 }
