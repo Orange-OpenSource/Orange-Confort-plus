@@ -1129,56 +1129,56 @@ class ToolbarComponent extends HTMLElement {
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
-        this.header = this.querySelector("app-header");
+        this.header = this.querySelector("#header");
         this.routeService.initPages(this);
         this.routeService.emitChangeEvent = value => {
             this.setHeaderDisplay(value);
             this.header?.focus();
         };
-        template.addEventListener("changeModeEvent", (event => {
+        this.addEventListener("changeModeEvent", (event => {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }));
-        template.addEventListener("selectModeEvent", (event => {
+        this.addEventListener("selectModeEvent", (event => {
             this.routeService.navigate(this.routeService.PAGE_HOME);
         }));
-        template.addEventListener("settingsEvent", (event => {
+        this.addEventListener("settingsEvent", (event => {
             this.routeService.navigate(this.routeService.PAGE_SETTINGS);
         }));
-        template.addEventListener("prevEvent", (event => {
+        this.addEventListener("prevEvent", (event => {
             this.routeService.previous();
         }));
     }
-    setHeaderDisplay(page) {
+    setHeaderDisplay=page => {
         switch (page) {
           case this.routeService.PAGE_HOME:
             {
-                this.header.dataset.mode = "primary";
-                this.header.dataset.titlePage = ``;
+                this.header?.setAttribute("data-mode", "primary");
+                this.header?.setAttribute("data-title-page", "");
                 break;
             }
 
           case this.routeService.PAGE_MODES:
             {
-                this.header.dataset.mode = "secondary";
-                this.header.dataset.titlePage = `pageTitleModes`;
+                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleModes");
                 break;
             }
 
           case this.routeService.PAGE_SETTINGS:
             {
-                this.header.dataset.mode = "secondary";
-                this.header.dataset.titlePage = `pageTitleSettings`;
+                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleSettings");
                 break;
             }
 
           case this.routeService.PAGE_EDIT_SETTING:
             {
-                this.header.dataset.mode = "secondary";
-                this.header.dataset.titlePage = `pageTitleEditSetting`;
+                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
                 break;
             }
         }
-    }
+    };
 }
 
 customElements.define("app-toolbar", ToolbarComponent);
@@ -1215,12 +1215,16 @@ class HomeComponent extends HTMLElement {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
         this.changeModeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeModeEvent");
-            template.dispatchEvent(clickEvent);
+            let clickEvent = new CustomEvent("changeModeEvent", {
+                bubbles: true
+            });
+            this.changeModeBtn?.dispatchEvent(clickEvent);
         }));
         this.settingsBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("settingsEvent");
-            template.dispatchEvent(clickEvent);
+            let clickEvent = new CustomEvent("settingsEvent", {
+                bubbles: true
+            });
+            this.settingsBtn?.dispatchEvent(clickEvent);
         }));
     }
 }
@@ -1242,8 +1246,10 @@ class ModesComponent extends HTMLElement {
     connectedCallback() {
         this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("selectModeEvent");
-            template.dispatchEvent(clickEvent);
+            let clickEvent = new CustomEvent("selectModeEvent", {
+                bubbles: true
+            });
+            this.selectModeBtn?.dispatchEvent(clickEvent);
         }));
     }
 }
@@ -1285,8 +1291,10 @@ class BtnModalComponent extends HTMLElement {
     connectedCallback() {
         this.modalBtn = this.querySelector("button");
         this.modalBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`);
-            template.dispatchEvent(clickEvent);
+            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
+                bubbles: true
+            });
+            this.modalBtn?.dispatchEvent(clickEvent);
         }));
     }
     disconnectedCallback() {
@@ -1300,13 +1308,13 @@ class BtnModalComponent extends HTMLElement {
             this.setA11yName(newValue);
         }
     }
-    setA11yName(label) {
+    setA11yName=label => {
         let span = document.createElement("span");
         span.classList.add("visually-hidden");
         span.innerText = label;
         this.modalBtn?.appendChild(span);
         this.modalBtn?.setAttribute("title", label);
-    }
+    };
 }
 
 customElements.define("app-btn-modal", BtnModalComponent);
@@ -1355,24 +1363,25 @@ class BtnSettingComponent extends HTMLElement {
             this.calculateList();
         }
     }
-    calculateList() {
+    calculateList=() => {
         this.slot = "";
         this.settingsArray.forEach(((value, index) => {
             let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
             if (index === this.index) {
                 point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
                 let clickEvent = new CustomEvent("changeSettingEvent", {
+                    bubbles: true,
                     detail: {
                         id: this.id,
                         value: value
                     }
                 });
-                template.dispatchEvent(clickEvent);
+                this.settingBtn?.dispatchEvent(clickEvent);
             }
             this.slot = `${this.slot}${point}`;
         }));
         this.btnContentSlots.innerHTML = this.slot;
-    }
+    };
 }
 
 customElements.define("app-btn-setting", BtnSettingComponent);
@@ -1406,7 +1415,7 @@ class CollapseComponent extends HTMLElement {
         this.container = this.querySelector("div.accordion-collapse");
         this.iconElement = this.querySelector("app-icon");
         this.titleElement = this.button?.querySelector("span");
-        this.iconElement.dataset.name = this.icon;
+        this.iconElement?.setAttribute("data-name", this.icon);
         this.titleElement.innerText = this.title;
         this._triggerArray.push(this.button);
         this.button?.setAttribute("aria-controls", this.id);
@@ -1418,13 +1427,11 @@ class CollapseComponent extends HTMLElement {
     disconnectedCallback() {
         this.button?.removeEventListener("click", (() => {}));
     }
-    toggle() {
+    toggle=() => {
         this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
-    }
-    _isShown(element = this.container) {
-        return element.classList.contains(this.CLASS_NAME_SHOW);
-    }
-    _addAriaAndCollapsedClass(triggerArray, isOpen) {
+    };
+    _isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    _addAriaAndCollapsedClass=(triggerArray, isOpen) => {
         if (!triggerArray.length) {
             return;
         }
@@ -1433,7 +1440,7 @@ class CollapseComponent extends HTMLElement {
             element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
             element.setAttribute("aria-expanded", String(isOpen));
         }
-    }
+    };
 }
 
 customElements.define("app-collapse", CollapseComponent);
@@ -1455,7 +1462,6 @@ class HeaderComponent extends HTMLElement {
     i18nService;
     constructor() {
         super();
-        this.mode = this.dataset.mode || this.mode;
         this.i18nService = new i18nService;
         this.appendChild(headerLayout.content.cloneNode(true));
     }
@@ -1467,12 +1473,16 @@ class HeaderComponent extends HTMLElement {
         this.titlePage = this.querySelector("#title-page");
         this.displayMode(this.mode);
         this.closeBtn?.addEventListener("click", (() => {
-            let clickCloseEvent = new CustomEvent("closeEvent");
-            template.dispatchEvent(clickCloseEvent);
+            let clickCloseEvent = new CustomEvent("closeEvent", {
+                bubbles: true
+            });
+            this.closeBtn?.dispatchEvent(clickCloseEvent);
         }));
         this.prevBtn?.addEventListener("click", (() => {
-            let clickPrevEvent = new CustomEvent("prevEvent");
-            template.dispatchEvent(clickPrevEvent);
+            let clickPrevEvent = new CustomEvent("prevEvent", {
+                bubbles: true
+            });
+            this.prevBtn?.dispatchEvent(clickPrevEvent);
         }));
     }
     disconnectedCallback() {
@@ -1487,11 +1497,11 @@ class HeaderComponent extends HTMLElement {
             this.titlePage.innerText = this.i18nService.getMessage(newValue);
         }
     }
-    displayMode(mode) {
+    displayMode=mode => {
         this.prevBtn?.classList.toggle("d-none", mode === "primary");
         this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
         this.titleApp?.classList.toggle("d-none", mode === "secondary");
-    }
+    };
 }
 
 customElements.define("app-header", HeaderComponent);
@@ -1564,7 +1574,7 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement.id = this.dataset?.id || "";
         this.inputElement.name = this.dataset?.name || "";
         this.labelElement.setAttribute("for", this.dataset?.id || "");
-        this.iconElement.dataset.name = this.icon;
+        this.iconElement?.setAttribute("data-name", this.icon);
         this.textElement.innerText = this.label;
         this.descriptionElement.innerText = this.description;
     }
