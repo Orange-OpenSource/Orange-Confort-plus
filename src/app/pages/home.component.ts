@@ -46,13 +46,13 @@ class HomeComponent extends HTMLElement {
 		this.settingsBtn = this.querySelector('#settings-btn');
 
 		this.changeModeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('changeModeEvent');
-			template.dispatchEvent(clickEvent);
+			let clickEvent = new CustomEvent('changeModeEvent', { bubbles: true });
+			this.changeModeBtn?.dispatchEvent(clickEvent);
 		});
 
 		this.settingsBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('settingsEvent');
-			template.dispatchEvent(clickEvent);
+			let clickEvent = new CustomEvent('settingsEvent', { bubbles: true });
+			this.settingsBtn?.dispatchEvent(clickEvent);
 		});
 	}
 }

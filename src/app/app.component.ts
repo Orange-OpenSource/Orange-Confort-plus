@@ -59,6 +59,7 @@ class AppComponent extends HTMLElement {
 	}
 
 	disconnectedCallback(): void {
+		this.confortPlusToolbar?.removeEventListener('click', this.toggleToolbar);
 		this.confortPlusBtn?.removeEventListener('click', this.toggleToolbar);
 	}
 

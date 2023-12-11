@@ -40,7 +40,7 @@ class SelectModeComponent extends HTMLElement {
 		this.inputElement!.id = this.dataset?.id || '';
 		this.inputElement!.name = this.dataset?.name || '';
 		this.labelElement!.setAttribute('for', this.dataset?.id || '');
-		this.iconElement!.dataset.name = this.icon;
+		this.iconElement?.setAttribute('data-name', this.icon);
 		this.textElement!.innerText = this.label;
 		this.descriptionElement!.innerText = this.description;
 	}

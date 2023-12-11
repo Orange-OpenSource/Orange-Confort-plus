@@ -39,7 +39,7 @@ class BtnModalComponent extends HTMLElement {
 		}
 	}
 
-	setA11yName(label: string): void {
+	setA11yName = (label: string): void => {
 		let span = document.createElement('span');
 		span.classList.add('visually-hidden');
 		span.innerText = label;
