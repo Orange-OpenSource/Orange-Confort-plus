@@ -12,40 +12,40 @@ class routeService {
 	pageEditSetting = null;
 
 	routes = new Route(
-  this.PAGE_HOME,
-  'app-home',
-  this.pageHome,
-  [
-    new Route(this.PAGE_MODES, 'app-modes', this.pageModes),
-    new Route(
-      this.PAGE_SETTINGS,
-      'app-settings',
-      this.pageSettings,
-      [
-        new Route(
-          this.PAGE_EDIT_SETTING,
-          'app-edit-setting',
-          this.pageEditSetting,
-          [
-            new Route(this.PAGE_MODES, 'app-modes', this.pageModes),
-            new Route(
-              this.PAGE_SETTINGS,
-              'app-settings',
-              this.pageSettings,
-              [
-                new Route(
-                  this.PAGE_EDIT_SETTING,
-                  'app-edit-setting',
-                  this.pageEditSetting
-                )
-              ]
-            )
-          ]
-        )
-      ]
-    )
-  ]
-);
+		this.PAGE_HOME,
+		'app-home',
+		this.pageHome,
+		[
+			new Route(this.PAGE_MODES, 'app-modes', this.pageModes),
+			new Route(
+				this.PAGE_SETTINGS,
+				'app-settings',
+				this.pageSettings,
+				[
+					new Route(
+						this.PAGE_EDIT_SETTING,
+						'app-edit-setting',
+						this.pageEditSetting,
+						[
+							new Route(this.PAGE_MODES, 'app-modes', this.pageModes),
+							new Route(
+								this.PAGE_SETTINGS,
+								'app-settings',
+								this.pageSettings,
+								[
+									new Route(
+										this.PAGE_EDIT_SETTING,
+										'app-edit-setting',
+										this.pageEditSetting
+									)
+								]
+							)
+						]
+					)
+				]
+			)
+		]
+	);
 
 	constructor() {
 		this._currentRoute = this.PAGE_HOME;
@@ -56,8 +56,10 @@ class routeService {
 	}
 
 	set currentRoute(value) {
-    this._currentRoute = value;
-    this.emitChangeEvent(value);
+		if (value !== this.currentRoute) {
+			this._currentRoute = value;
+			this.emitChangeEvent(value);
+		}
   }
 
 	emitChangeEvent(value) {

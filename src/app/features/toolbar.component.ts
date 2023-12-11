@@ -62,9 +62,9 @@ class ToolbarComponent extends HTMLElement {
 			case this.routeService.PAGE_EDIT_SETTING: {
 				this.header?.setAttribute('data-mode', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleEditSetting');
+				break;
 			}
 		}
-
 	}
 }
 
