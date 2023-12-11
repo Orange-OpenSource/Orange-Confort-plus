@@ -67,8 +67,10 @@ class routeService {
         return this._currentRoute;
     }
     set currentRoute(value) {
-        this._currentRoute = value;
-        this.emitChangeEvent(value);
+        if (value !== this.currentRoute) {
+            this._currentRoute = value;
+            this.emitChangeEvent(value);
+        }
     }
     emitChangeEvent(value) {
         return value;
