@@ -1,6 +1,6 @@
 const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
-<app-header></app-header>
+<app-header id="header"></app-header>
 
 <app-home class="d-none"></app-home>
 <app-modes class="d-none"></app-modes>
@@ -21,47 +21,47 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.header = this.querySelector('app-header');
+		this.header = this.querySelector('#header');
 		this.routeService.initPages(this);
 		this.routeService.emitChangeEvent = (value: string) => {
 			this.setHeaderDisplay(value);
 			this.header?.focus();
 		}
 
-		template.addEventListener('changeModeEvent', (event) => {
+		this.addEventListener('changeModeEvent', (event) => {
 			this.routeService.navigate(this.routeService.PAGE_MODES);
 		});
-		template.addEventListener('selectModeEvent', (event) => {
+		this.addEventListener('selectModeEvent', (event) => {
 			this.routeService.navigate(this.routeService.PAGE_HOME);
 		});
-		template.addEventListener('settingsEvent', (event) => {
+		this.addEventListener('settingsEvent', (event) => {
 			this.routeService.navigate(this.routeService.PAGE_SETTINGS);
 		});
-		template.addEventListener('prevEvent', (event) => {
+		this.addEventListener('prevEvent', (event) => {
 			this.routeService.previous();
 		});
 	}
 
-	setHeaderDisplay(page: string): void {
+	setHeaderDisplay = (page: string): void => {
 		switch (page) {
 			case this.routeService.PAGE_HOME: {
-				this.header!.dataset.mode = 'primary';
-				this.header!.dataset.titlePage = ``;
+				this.header?.setAttribute('data-mode', 'primary');
+				this.header?.setAttribute('data-title-page', '');
 				break;
 			}
 			case this.routeService.PAGE_MODES: {
-				this.header!.dataset.mode = 'secondary';
-				this.header!.dataset.titlePage = `pageTitleModes`;
+				this.header?.setAttribute('data-mode', 'secondary');
+				this.header?.setAttribute('data-title-page', 'pageTitleModes');
 				break;
 			}
 			case this.routeService.PAGE_SETTINGS: {
-				this.header!.dataset.mode = 'secondary';
-				this.header!.dataset.titlePage = `pageTitleSettings`;
+				this.header?.setAttribute('data-mode', 'secondary');
+				this.header?.setAttribute('data-title-page', 'pageTitleSettings');
 				break;
 			}
 			case this.routeService.PAGE_EDIT_SETTING: {
-				this.header!.dataset.mode = 'secondary';
-				this.header!.dataset.titlePage = `pageTitleEditSetting`;
+				this.header?.setAttribute('data-mode', 'secondary');
+				this.header?.setAttribute('data-title-page', 'pageTitleEditSetting');
 				break;
 			}
 		}

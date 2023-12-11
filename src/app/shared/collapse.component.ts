@@ -44,7 +44,7 @@ class CollapseComponent extends HTMLElement {
 		this.iconElement = this.querySelector('app-icon');
 		this.titleElement = this.button?.querySelector('span');
 
-		this.iconElement!.dataset.name = this.icon;
+		this.iconElement?.setAttribute('data-name', this.icon);
 		this.titleElement!.innerText = this.title;
 		this._triggerArray.push(this.button);
 
@@ -61,15 +61,15 @@ class CollapseComponent extends HTMLElement {
 		});
 	}
 
-	toggle(): void {
+	toggle = (): void => {
 		this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
 	}
 
-	_isShown(element = this.container): boolean {
+	_isShown = (element = this.container): boolean => {
 		return element!.classList.contains(this.CLASS_NAME_SHOW);
 	}
 
-	_addAriaAndCollapsedClass(triggerArray: any, isOpen: boolean): void {
+	_addAriaAndCollapsedClass = (triggerArray: any, isOpen: boolean): void => {
 		if (!triggerArray.length) {
 			return;
 		}

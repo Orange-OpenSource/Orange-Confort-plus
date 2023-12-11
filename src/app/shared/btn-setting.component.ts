@@ -56,7 +56,7 @@ class BtnSettingComponent extends HTMLElement {
 		}
 	}
 
-	calculateList(): void {
+	calculateList = (): void => {
 		this.slot = '';
 		this.settingsArray.forEach((value, index) => {
 			let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
@@ -66,6 +66,7 @@ class BtnSettingComponent extends HTMLElement {
 				let clickEvent = new CustomEvent(
 					'changeSettingEvent',
 					{
+						bubbles: true,
 						detail: {
 							id: this.id,
 							value: value,
