@@ -39,7 +39,6 @@ class HeaderComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		this.mode = this.dataset.mode || this.mode;
 		this.i18nService = new i18nService();
 
 		this.appendChild(headerLayout.content.cloneNode(true));
@@ -55,7 +54,6 @@ class HeaderComponent extends HTMLElement {
 		this.displayMode(this.mode);
 
 		this.closeBtn?.addEventListener('click', () => {
-			console.log('click')
 			let clickCloseEvent = new CustomEvent('closeEvent', { bubbles: true });
 			this.closeBtn?.dispatchEvent(clickCloseEvent);
 		});
@@ -75,14 +73,14 @@ class HeaderComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
-			this.displayMode(newValue)
+			this.displayMode(newValue);
 		}
 		if ('data-title-page' === name) {
 			this.titlePage!.innerText = this.i18nService.getMessage(newValue);
 		}
 	}
 
-	displayMode(mode: string): void {
+	displayMode = (mode: string): void => {
 		this.prevBtn?.classList.toggle('d-none', mode === 'primary');
 		this.titlePageBlock?.classList.toggle('d-none', mode === 'primary');
 		this.titleApp?.classList.toggle('d-none', mode === 'secondary');

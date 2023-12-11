@@ -108,7 +108,7 @@ class ReadingGuideComponent extends HTMLElement {
 		});
 	}
 
-	private resetReadingGuide(): void {
+	resetReadingGuide = (): void => {
 		if (this.topGuideElt && this.bottomGuideElt) {
 			this.topGuideElt.style.display = 'none';
 			this.bottomGuideElt.style.display = 'none';

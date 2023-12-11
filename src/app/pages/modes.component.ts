@@ -22,8 +22,8 @@ class ModesComponent extends HTMLElement {
 		this.selectModeBtn = this.querySelector('#select-mode-btn');
 
 		this.selectModeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('selectModeEvent');
-			template.dispatchEvent(clickEvent);
+			let clickEvent = new CustomEvent('selectModeEvent', { bubbles: true });
+			this.selectModeBtn?.dispatchEvent(clickEvent);
 		});
 	}
 }
