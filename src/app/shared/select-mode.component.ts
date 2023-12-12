@@ -37,8 +37,8 @@ class SelectModeComponent extends HTMLElement {
 
 		this.inputElement!.id = this.label;
 		this.inputElement!.value = this.label;
-		this.labelElement!.setAttribute('for', this.label);
-		this.iconElement!.setAttribute('name', this.label);
+		this.labelElement?.setAttribute('for', this.label);
+		this.iconElement?.setAttribute('data-name', this.label);
 		this.textElement!.innerText = this.i18nService.getMessage(`${this.label}Name`);
 		this.descriptionElement!.innerText = this.i18nService.getMessage(`${this.label}Description`);
 	}

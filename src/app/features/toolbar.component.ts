@@ -77,7 +77,7 @@ class ToolbarComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.home = this.querySelector('app-home');
 		this.modes = this.querySelector('app-modes');
-		this.modes!.dataset.listMode = JSON.stringify(this.json.modes);
+		this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json.modes));
 		this.header = this.querySelector('#header');
 		this.routeService.initPages(this);
 
@@ -121,12 +121,12 @@ class ToolbarComponent extends HTMLElement {
 		}
 	}
 
-	setCurrentMode(): void {
+	setCurrentMode = (): void => {
 		if (this.json.selectedMode) {
 			this.json.modes.forEach(mode => {
 				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
 					let currentMode = Object.entries(mode)[0];
-					this.home!.dataset.mode = JSON.stringify(currentMode);
+					this.home?.setAttribute('data-mode', JSON.stringify(currentMode));
 				}
 			});
 		} else {
@@ -134,7 +134,7 @@ class ToolbarComponent extends HTMLElement {
 		}
 	}
 
-	setConfig(event?: CustomEvent): void {
+	setConfig = (event?: CustomEvent): void => {
 		// Méthode à utiliser pour impacter le fichier json
 		this.json.selectedMode = event?.detail.mode;
 	}

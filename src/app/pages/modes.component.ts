@@ -58,7 +58,7 @@ class ModesComponent extends HTMLElement {
 		}
 	}
 
-	displayListMode(list: []): void {
+	displayListMode = (list: []): void => {
 		let radioModeList = '';
 		list.forEach(mode => {
 			let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-settings-list="Description blabla"></app-select-mode>`;
@@ -67,7 +67,7 @@ class ModesComponent extends HTMLElement {
 		this.selectModeZone!.innerHTML = radioModeList;
 	}
 
-	getSelectedMode(): string {
+	getSelectedMode = (): string => {
 		let selectedMode = '';
 		let inputs = this.querySelectorAll<HTMLInputElement>('input[name="modes"]');
 		inputs.forEach((input: HTMLInputElement) => {
