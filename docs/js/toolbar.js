@@ -1,5 +1,6 @@
 /*
 <<<<<<< HEAD
+<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 18/12/2023
 =======
 <<<<<<< HEAD
@@ -8,6 +9,9 @@
  * orange-confort-plus - version 4.3.0 - 07/12/2023
 >>>>>>> Ajout de la sélection de mode d'usage.
 >>>>>>> Ajout de la sélection de mode d'usage.
+=======
+ * orange-confort-plus - version 4.3.0 - 12/12/2023
+>>>>>>> Premier rebase après ajustement des setAttribute sur feature/navigation
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -639,14 +643,10 @@ class ToolbarComponent extends HTMLElement {
         this.toolBtn?.removeEventListener("click", (() => {}));
     }
     connectedCallback() {
-<<<<<<< HEAD
-        this.header = this.querySelector("#header");
-=======
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
-        this.modes.dataset.listMode = JSON.stringify(this.json.modes);
-        this.header = this.querySelector("app-header");
->>>>>>> Ajout de la sélection de mode d'usage.
+        this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json.modes));
+        this.header = this.querySelector("#header");
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
             if (event.detail.isPrev) {
@@ -661,20 +661,13 @@ class ToolbarComponent extends HTMLElement {
             this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
 =======
         };
-<<<<<<< HEAD
+        this.setCurrentMode();
         this.addEventListener("changeModeEvent", (event => {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }));
         this.addEventListener("selectModeEvent", (event => {
-=======
-        this.setCurrentMode();
-        template.addEventListener("changeModeEvent", (event => {
-            this.routeService.navigate(this.routeService.PAGE_MODES);
-        }));
-        template.addEventListener("selectModeEvent", (event => {
             this.setConfig(event);
             this.setCurrentMode();
->>>>>>> Ajout de la sélection de mode d'usage.
             this.routeService.navigate(this.routeService.PAGE_HOME);
         }));
         this.addEventListener("settingsEvent", (event => {
@@ -715,26 +708,22 @@ class ToolbarComponent extends HTMLElement {
                 break;
             }
         }
-<<<<<<< HEAD
     };
-=======
-    }
-    setCurrentMode() {
+    setCurrentMode=() => {
         if (this.json.selectedMode) {
             this.json.modes.forEach((mode => {
                 if (Object.entries(mode)[0][0] === this.json.selectedMode) {
                     let currentMode = Object.entries(mode)[0];
-                    this.home.dataset.mode = JSON.stringify(currentMode);
+                    this.home?.setAttribute("data-mode", JSON.stringify(currentMode));
                 }
             }));
         } else {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }
-    }
-    setConfig(event) {
+    };
+    setConfig=event => {
         this.json.selectedMode = event?.detail.mode;
-    }
->>>>>>> Ajout de la sélection de mode d'usage.
+    };
 }
 
 customElements.define("app-toolbar", ToolbarComponent);
@@ -811,7 +800,7 @@ class HomeComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             this.modeName.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
-            this.modeIcon.dataset.name = JSON.parse(newValue)[0];
+            this.modeIcon?.setAttribute("data-name", JSON.parse(newValue)[0]);
         }
 >>>>>>> Ajout de la sélection de mode d'usage.
     }
@@ -852,17 +841,20 @@ class ModesComponent extends HTMLElement {
 =======
             let clickEvent = new CustomEvent("selectModeEvent", {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 bubbles: true
 >>>>>>> Ajout de la sélection de mode d'usage.
             });
             this.selectModeBtn?.dispatchEvent(clickEvent);
 =======
+=======
+                bubbles: true,
+>>>>>>> Premier rebase après ajustement des setAttribute sur feature/navigation
                 detail: {
                     mode: this.getSelectedMode()
                 }
             });
-            template.dispatchEvent(clickEvent);
->>>>>>> Ajout de la sélection de mode d'usage.
+            this.selectModeBtn?.dispatchEvent(clickEvent);
         }));
     }
 <<<<<<< HEAD
@@ -874,15 +866,15 @@ class ModesComponent extends HTMLElement {
             this.displayListMode(JSON.parse(newValue));
         }
     }
-    displayListMode(list) {
+    displayListMode=list => {
         let radioModeList = "";
         list.forEach((mode => {
             let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-settings-list="Description blabla"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;
-    }
-    getSelectedMode() {
+    };
+    getSelectedMode=() => {
         let selectedMode = "";
         let inputs = this.querySelectorAll('input[name="modes"]');
         inputs.forEach((input => {
@@ -891,8 +883,12 @@ class ModesComponent extends HTMLElement {
             }
         }));
         return selectedMode;
+<<<<<<< HEAD
 >>>>>>> Ajout de la sélection de mode d'usage.
     }
+=======
+    };
+>>>>>>> Premier rebase après ajustement des setAttribute sur feature/navigation
 }
 
 customElements.define("app-modes", ModesComponent);
@@ -1090,7 +1086,7 @@ customElements.define("app-collapse", CollapseComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="ReduireC+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
     static observedAttributes=[ "data-mode", "data-title-page", "data-prev-route" ];
@@ -1219,23 +1215,13 @@ class SelectModeComponent extends HTMLElement {
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
         this.textElement = this.querySelector("div span");
-<<<<<<< HEAD
-        this.descriptionElement = this.querySelector("label > span");
-        this.inputElement.id = this.dataset?.id || "";
-        this.inputElement.name = this.dataset?.name || "";
-        this.labelElement.setAttribute("for", this.dataset?.id || "");
-        this.iconElement?.setAttribute("data-name", this.icon);
-        this.textElement.innerText = this.label;
-        this.descriptionElement.innerText = this.description;
-=======
         this.descriptionElement = this.querySelector("label > p");
         this.inputElement.id = this.label;
         this.inputElement.value = this.label;
-        this.labelElement.setAttribute("for", this.label);
-        this.iconElement.dataset.name = this.label;
+        this.labelElement?.setAttribute("for", this.label);
+        this.iconElement?.setAttribute("data-name", this.label);
         this.textElement.innerText = this.i18nService.getMessage(`${this.label}Name`);
         this.descriptionElement.innerText = this.i18nService.getMessage(`${this.label}Description`);
->>>>>>> Ajout de la sélection de mode d'usage.
     }
 }
 
