@@ -15,6 +15,7 @@ class ToolbarComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @ts-ignore
 		this.routeService = new routeService;
 
 		this.appendChild(tmplToolbar.content.cloneNode(true));
@@ -23,7 +24,10 @@ class ToolbarComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.header = this.querySelector('#header');
 		this.routeService.initPages(this);
+		// @note J’ai l’impression que ça ne fait pas ce qui est prévu dans le routeur
+		// Ici, on surcharge la méthode interne du routerService…
 		this.routeService.emitChangeEvent = (value: string) => {
+			// Et aucun rapport avec un Event il me semble, donc le nommage est trompeur
 			this.setHeaderDisplay(value);
 			this.header?.focus();
 		}

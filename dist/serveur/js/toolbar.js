@@ -8,8 +8,8 @@
 class i18nService {
     locale="en";
     path="";
-    constructor(path) {
-        this.path = path;
+    constructor() {
+        this.path = window.location.origin + "/";
         if ([ "en", "fr" ].some((language => navigator.language.startsWith(language)))) {
             this.locale = navigator.language.slice(0, 2);
         }
@@ -63,9 +63,96 @@ class iconsService {
 
 "use strict";
 
+class routeService {
+    _currentRoute="";
+    PAGE_HOME="home";
+    PAGE_MODES="modes";
+    PAGE_SETTINGS="settings";
+    PAGE_EDIT_SETTING="edit-setting";
+    routes=new Route(this.PAGE_HOME, "app-home", [ new Route(this.PAGE_MODES, "app-modes"), new Route(this.PAGE_SETTINGS, "app-settings", [ new Route(this.PAGE_EDIT_SETTING, "app-edit-setting", [ new Route(this.PAGE_MODES, "app-modes"), new Route(this.PAGE_SETTINGS, "app-settings", [ new Route(this.PAGE_EDIT_SETTING, "app-edit-setting") ]) ]) ]) ]);
+    constructor() {
+        this._currentRoute = this.PAGE_HOME;
+    }
+    get currentRoute() {
+        return this._currentRoute;
+    }
+    set currentRoute(value) {
+        if (value !== this.currentRoute) {
+            this._currentRoute = value;
+            this.emitChangeEvent(value);
+        }
+    }
+    emitChangeEvent(value) {
+        return value;
+    }
+    initPages(root) {
+        const initializePage = route => {
+            route.element = root.querySelector(route.component);
+        };
+        const initializeChildPages = parentRoute => {
+            if (parentRoute?.children && parentRoute?.children.length > 0) {
+                parentRoute?.children.forEach((childRoute => {
+                    initializePage(childRoute);
+                    initializeChildPages(childRoute);
+                }));
+            }
+        };
+        initializePage(this.routes);
+        initializeChildPages(this.routes);
+        this.toggle(null, this.currentRoute);
+    }
+    toggle(oldRoute = "", newRoute = this.currentRoute) {
+        const displayPage = route => {
+            if (route.path === newRoute) {
+                route.element.classList.remove("d-none");
+            } else if (route.path === oldRoute) {
+                route.element.classList.add("d-none");
+            }
+        };
+        const displayChildPages = parentRoute => {
+            if (parentRoute?.children && parentRoute?.children.length > 0) {
+                parentRoute?.children.forEach((childRoute => {
+                    displayPage(childRoute);
+                    displayChildPages(childRoute);
+                }));
+            }
+        };
+        displayPage(this.routes);
+        displayChildPages(this.routes);
+        this.currentRoute = newRoute;
+    }
+    navigate(newRoute) {
+        this.toggle(this.currentRoute, newRoute);
+    }
+    previous(route = this.currentRoute, object = this.routes) {
+        if (!object?.children || object?.children.length === 0 || object?.path === route) {
+            return null;
+        }
+        if (object?.children?.some((child => child?.path === route))) {
+            this.toggle(this.currentRoute, object.path);
+            return;
+        }
+        return object.children.map((child => this.previous(route, child))).reduce(((a, b) => a || b));
+    }
+}
+
+class Route {
+    path;
+    component;
+    children;
+    element;
+    constructor(path, component, children = []) {
+        this.path = path;
+        this.component = component;
+        this.children = children;
+    }
+}
+
+"use strict";
+
 const template = document.createElement("template");
 
-template.innerHTML = `\n<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n</button>\n<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n`;
+template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     openConfortPlus=false;
@@ -80,7 +167,7 @@ class AppComponent extends HTMLElement {
         super();
         this.pathService = new pathService;
         this.path = this.pathService.path;
-        this.i18nService = new i18nService(this.path || "");
+        this.i18nService = new i18nService;
         this.iconsService = new iconsService;
         this.attachShadow({
             mode: "open"
@@ -106,6 +193,7 @@ class AppComponent extends HTMLElement {
         this.confortPlusBtn.addEventListener("click", this.toggleToolbar);
     }
     disconnectedCallback() {
+        this.confortPlusToolbar?.removeEventListener("click", this.toggleToolbar);
         this.confortPlusBtn?.removeEventListener("click", this.toggleToolbar);
     }
     toggleToolbar=() => {
@@ -116,305 +204,6 @@ class AppComponent extends HTMLElement {
 }
 
 customElements.define("app-root", AppComponent);
-
-"use strict";
-
-const btnModalLayout = document.createElement("template");
-
-btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
-
-class BtnModalComponent extends HTMLElement {
-    static observedAttributes=[ "data-value", "data-label" ];
-    modalBtn=null;
-    id="";
-    value=null;
-    constructor() {
-        super();
-        this.id = this.dataset?.id || this.id;
-        this.value = this.dataset?.value || this.value;
-        this.appendChild(btnModalLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.modalBtn = this.querySelector("button");
-        this.modalBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
-                bubbles: true
-            });
-            this.modalBtn?.dispatchEvent(clickEvent);
-        }));
-    }
-    disconnectedCallback() {
-        this.modalBtn?.removeEventListener("click", (() => {}));
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-value" === name && this.modalBtn !== null) {
-            this.modalBtn.innerText = newValue;
-        }
-        if ("data-label" === name && this.modalBtn !== null) {
-            this.setA11yName(newValue);
-        }
-    }
-    setA11yName(label) {
-        let span = document.createElement("span");
-        span.classList.add("visually-hidden");
-        span.innerText = label;
-        this.modalBtn?.appendChild(span);
-        this.modalBtn?.setAttribute("title", label);
-    }
-}
-
-customElements.define("app-btn-modal", BtnModalComponent);
-
-"use strict";
-
-const btnSettingLayout = document.createElement("template");
-
-btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
-
-class BtnSettingComponent extends HTMLElement {
-    static observedAttributes=[ "data-settings-list", "data-label" ];
-    settingBtn=null;
-    btnContentSlots=null;
-    index=1;
-    settingsList="";
-    label="";
-    slot="";
-    separator=",";
-    settingsArray=[];
-    constructor() {
-        super();
-        this.label = this.dataset?.label || this.label;
-        this.appendChild(btnSettingLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.settingBtn = this.querySelector("button");
-        this.btnContentSlots = this.querySelector("ul");
-        const span = this.querySelector("span");
-        span.innerText = this.label;
-        this.settingBtn?.addEventListener("click", (() => {
-            this.index++;
-            if (this.index >= this.settingsArray.length) {
-                this.index = 0;
-            }
-            this.calculateList();
-        }));
-    }
-    disconnectedCallback() {
-        this.settingBtn?.removeEventListener("click", (() => {}));
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-settings-list" === name) {
-            this.settingsList = newValue;
-            this.settingsArray = this.settingsList.split(this.separator);
-            this.calculateList();
-        }
-    }
-    calculateList() {
-        this.slot = "";
-        this.settingsArray.forEach(((value, index) => {
-            let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
-            if (index === this.index) {
-                point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
-                let clickEvent = new CustomEvent("changeSettingEvent", {
-                    detail: {
-                        id: this.id,
-                        value: value
-                    },
-                    bubbles: true
-                });
-                this.settingBtn?.dispatchEvent(clickEvent);
-            }
-            this.slot = `${this.slot}${point}`;
-        }));
-        this.btnContentSlots.innerHTML = this.slot;
-    }
-}
-
-customElements.define("app-btn-setting", BtnSettingComponent);
-
-"use strict";
-
-const collapseLayout = document.createElement("template");
-
-collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse">\n\t\t\t<div class="accordion-body"></div>\n\t\t</div>\n\t</div>\n`;
-
-class CollapseComponent extends HTMLElement {
-    button=null;
-    container=null;
-    iconElement=null;
-    titleElement=null;
-    id="";
-    icon="";
-    title="";
-    CLASS_NAME_SHOW="show";
-    CLASS_NAME_COLLAPSED="collapsed";
-    _triggerArray=[];
-    constructor() {
-        super();
-        this.id = this.dataset?.id || this.id;
-        this.icon = this.dataset?.icon || this.icon;
-        this.title = this.dataset?.title || this.title;
-        this.appendChild(collapseLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
-        this.iconElement = this.querySelector("app-icon");
-        this.titleElement = this.button?.querySelector("span");
-        this.iconElement.dataset.name = this.icon;
-        this.titleElement.innerText = this.title;
-        this._triggerArray.push(this.button);
-        this.button?.setAttribute("aria-controls", this.id);
-        this.container?.setAttribute("id", this.id);
-        this.button?.addEventListener("click", (() => {
-            this.toggle();
-        }));
-    }
-    disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
-    }
-    toggle() {
-        this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
-    }
-    _isShown(element = this.container) {
-        return element.classList.contains(this.CLASS_NAME_SHOW);
-    }
-    _addAriaAndCollapsedClass(triggerArray, isOpen) {
-        if (!triggerArray.length) {
-            return;
-        }
-        for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
-        }
-    }
-}
-
-customElements.define("app-collapse", CollapseComponent);
-
-"use strict";
-
-const headerLayout = document.createElement("template");
-
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-title-i18n="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-title-i18n="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
-
-class HeaderComponent extends HTMLElement {
-    closeBtn=null;
-    prevBtn=null;
-    titleApp=null;
-    mode="primary";
-    constructor() {
-        super();
-        this.mode = this.dataset.mode || this.mode;
-        this.appendChild(headerLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.closeBtn = this.querySelector("#close-toolbar");
-        this.prevBtn = this.querySelector("#prev-toolbar");
-        this.titleApp = this.querySelector("#title-app");
-        this.displayMode();
-        this.closeBtn?.addEventListener("click", (() => {
-            console.log("click");
-            let clickCloseEvent = new CustomEvent("closeEvent", {
-                bubbles: true
-            });
-            this.closeBtn?.dispatchEvent(clickCloseEvent);
-        }));
-        this.prevBtn?.addEventListener("click", (() => {
-            let clickPrevEvent = new CustomEvent("prevEvent", {
-                bubbles: true
-            });
-            this.prevBtn?.dispatchEvent(clickPrevEvent);
-        }));
-    }
-    disconnectedCallback() {
-        this.closeBtn?.removeEventListener("click", (() => {}));
-        this.prevBtn?.removeEventListener("click", (() => {}));
-    }
-    displayMode() {
-        this.prevBtn?.classList.toggle("d-none", this.mode === "primary");
-        this.titleApp?.classList.toggle("d-none", this.mode === "secondary");
-    }
-}
-
-customElements.define("app-header", HeaderComponent);
-
-"use strict";
-
-const iconLayout = document.createElement("template");
-
-iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
-
-class IconComponent extends HTMLElement {
-    static observedAttributes=[ "data-name" ];
-    sprite="";
-    iconService;
-    icon="";
-    size="1.25rem";
-    constructor() {
-        super();
-        this.iconService = new iconsService;
-        this.sprite = this.iconService.path;
-        this.icon = this.dataset?.name || this.icon;
-        this.size = this.dataset?.size || this.size;
-        this.appendChild(iconLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        let svg = this.querySelector("svg");
-        svg?.setAttribute("width", this.size);
-        svg?.setAttribute("height", this.size);
-        let use = this.querySelector("use");
-        use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        let use = this.querySelector("use");
-        if ("data-name" === name) {
-            use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
-        }
-    }
-}
-
-customElements.define("app-icon", IconComponent);
-
-"use strict";
-
-const selectModeLayout = document.createElement("template");
-
-selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
-
-class SelectModeComponent extends HTMLElement {
-    inputElement=null;
-    iconElement=null;
-    labelElement=null;
-    textElement=null;
-    descriptionElement=null;
-    icon="";
-    label="";
-    description="";
-    constructor() {
-        super();
-        this.icon = this.dataset?.icon || this.icon;
-        this.label = this.dataset?.label || this.label;
-        this.description = this.dataset?.description || this.description;
-        this.appendChild(selectModeLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.inputElement = this.querySelector("input");
-        this.labelElement = this.querySelector("label");
-        this.iconElement = this.querySelector("app-icon");
-        this.textElement = this.querySelector("div span");
-        this.descriptionElement = this.querySelector("label > span");
-        this.inputElement.id = this.dataset?.id || "";
-        this.inputElement.name = this.dataset?.name || "";
-        this.labelElement.setAttribute("for", this.dataset?.id || "");
-        this.iconElement.dataset.name = this.icon;
-        this.textElement.innerText = this.label;
-        this.descriptionElement.innerText = this.description;
-    }
-}
-
-customElements.define("app-select-mode", SelectModeComponent);
 
 "use strict";
 
@@ -543,38 +332,6 @@ class SoundComponent extends HTMLElement {
 }
 
 customElements.define("app-sound", SoundComponent);
-
-"use strict";
-
-const tmplText = document.createElement("template");
-
-tmplText.innerHTML = `\n\t<style>\n\t\t\tapp-text {\n\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t}\n\t</style>\n\t<button class="c-btn-tool" id="sc-text__tool-btn">\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t<span class="c-btn-tool__label" data-i18n="text"></span>\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t</button>\n\t<div class="c-tool__content hidden" id="sc-text__tool-content">\n\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t<app-text-transform></app-text-transform>\n\t\t\t<app-font-family></app-font-family>\n\t\t\t<app-reading-guide></app-reading-guide>\n\t</div>\n`;
-
-class TextComponent extends HTMLElement {
-    toolBtn=null;
-    open=false;
-    constructor() {
-        super();
-        this.appendChild(tmplText.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector("#sc-text__tool-btn");
-        const contentElt = this.querySelector("#sc-text__tool-content");
-        this.toolBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove("hidden");
-            } else {
-                contentElt?.classList.add("hidden");
-            }
-        }));
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-text", TextComponent);
 
 "use strict";
 
@@ -759,14 +516,14 @@ class ReadingGuideComponent extends HTMLElement {
     disconnectedCallback() {
         this.closeBtn?.removeEventListener("click", (() => {}));
     }
-    resetReadingGuide() {
+    resetReadingGuide=() => {
         if (this.topGuideElt && this.bottomGuideElt) {
             this.topGuideElt.style.display = "none";
             this.bottomGuideElt.style.display = "none";
             this.topGuideElt.style.removeProperty("height");
             this.bottomGuideElt.style.removeProperty("height");
         }
-    }
+    };
 }
 
 customElements.define("app-reading-guide", ReadingGuideComponent);
@@ -817,18 +574,503 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 "use strict";
 
-const tmplToolbar = document.createElement("template");
+const tmplText = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-3">\n\t\t\t\t<div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span class="fs-4 fw-bold text-primary">Vision +</span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n</section>\n`;
+tmplText.innerHTML = `\n\t<style>\n\t\t\tapp-text {\n\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t}\n\t</style>\n\t<button class="c-btn-tool" id="sc-text__tool-btn">\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t<span class="c-btn-tool__label" data-i18n="text"></span>\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t</button>\n\t<div class="c-tool__content hidden" id="sc-text__tool-content">\n\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t<app-text-transform></app-text-transform>\n\t\t\t<app-font-family></app-font-family>\n\t\t\t<app-reading-guide></app-reading-guide>\n\t</div>\n`;
 
-class ToolbarComponent extends HTMLElement {
+class TextComponent extends HTMLElement {
+    toolBtn=null;
+    open=false;
     constructor() {
         super();
-        this.appendChild(tmplToolbar.content.cloneNode(true));
+        this.appendChild(tmplText.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.toolBtn = this.querySelector("#sc-text__tool-btn");
+        const contentElt = this.querySelector("#sc-text__tool-content");
+        this.toolBtn?.addEventListener("click", (() => {
+            this.open = !this.open;
+            if (this.open) {
+                contentElt?.classList.remove("hidden");
+            } else {
+                contentElt?.classList.add("hidden");
+            }
+        }));
+    }
+    disconnectedCallback() {
+        this.toolBtn?.removeEventListener("click", (() => {}));
     }
 }
 
+customElements.define("app-text", TextComponent);
+
+"use strict";
+
+const tmplToolbar = document.createElement("template");
+
+tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
+
+class ToolbarComponent extends HTMLElement {
+    header=null;
+    routeService;
+    constructor() {
+        super();
+        this.routeService = new routeService;
+        this.appendChild(tmplToolbar.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.header = this.querySelector("#header");
+        this.routeService.initPages(this);
+        this.routeService.emitChangeEvent = value => {
+            this.setHeaderDisplay(value);
+            this.header?.focus();
+        };
+        this.addEventListener("changeModeEvent", (event => {
+            this.routeService.navigate(this.routeService.PAGE_MODES);
+        }));
+        this.addEventListener("selectModeEvent", (event => {
+            this.routeService.navigate(this.routeService.PAGE_HOME);
+        }));
+        this.addEventListener("settingsEvent", (event => {
+            this.routeService.navigate(this.routeService.PAGE_SETTINGS);
+        }));
+        this.addEventListener("prevEvent", (event => {
+            this.routeService.previous();
+        }));
+    }
+    setHeaderDisplay=page => {
+        switch (page) {
+          case this.routeService.PAGE_HOME:
+            {
+                this.header?.setAttribute("data-mode", "primary");
+                this.header?.setAttribute("data-title-page", "");
+                break;
+            }
+
+          case this.routeService.PAGE_MODES:
+            {
+                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleModes");
+                break;
+            }
+
+          case this.routeService.PAGE_SETTINGS:
+            {
+                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleSettings");
+                break;
+            }
+
+          case this.routeService.PAGE_EDIT_SETTING:
+            {
+                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
+                break;
+            }
+        }
+    };
+}
+
 customElements.define("app-toolbar", ToolbarComponent);
+
+"use strict";
+
+const editSettingLayout = document.createElement("template");
+
+editSettingLayout.innerHTML = `\n\t<p>Zone d'affichage du réglage</p>\n`;
+
+class EditSettingComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editSettingLayout.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-edit-setting", EditSettingComponent);
+
+"use strict";
+
+const homeLayout = document.createElement("template");
+
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span class="fs-4 fw-bold text-primary">Vision +</span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<p>Zone d'affichage des réglages du mode en cours</p>\n\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+
+class HomeComponent extends HTMLElement {
+    changeModeBtn=null;
+    settingsBtn=null;
+    constructor() {
+        super();
+        this.appendChild(homeLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.changeModeBtn = this.querySelector("#change-mode-btn");
+        this.settingsBtn = this.querySelector("#settings-btn");
+        this.changeModeBtn?.addEventListener("click", (() => {
+            let clickEvent = new CustomEvent("changeModeEvent", {
+                bubbles: true
+            });
+            this.changeModeBtn?.dispatchEvent(clickEvent);
+        }));
+        this.settingsBtn?.addEventListener("click", (() => {
+            let clickEvent = new CustomEvent("settingsEvent", {
+                bubbles: true
+            });
+            this.settingsBtn?.dispatchEvent(clickEvent);
+        }));
+    }
+}
+
+customElements.define("app-home", HomeComponent);
+
+"use strict";
+
+const modesLayout = document.createElement("template");
+
+modesLayout.innerHTML = `\n<section class="p-3">\n\t<p data-i18n="chooseModeAndValidate"></p>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>\n\t</div>\n</section>\n`;
+
+class ModesComponent extends HTMLElement {
+    selectModeBtn=null;
+    constructor() {
+        super();
+        this.appendChild(modesLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.selectModeBtn = this.querySelector("#select-mode-btn");
+        this.selectModeBtn?.addEventListener("click", (() => {
+            let clickEvent = new CustomEvent("selectModeEvent", {
+                bubbles: true
+            });
+            this.selectModeBtn?.dispatchEvent(clickEvent);
+        }));
+    }
+}
+
+customElements.define("app-modes", ModesComponent);
+
+"use strict";
+
+const settingsLayout = document.createElement("template");
+
+settingsLayout.innerHTML = `\n<section class="d-flex flex-column p-3 mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n</section>\n`;
+
+class SettingsComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(settingsLayout.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-settings", SettingsComponent);
+
+"use strict";
+
+const btnModalLayout = document.createElement("template");
+
+btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
+
+class BtnModalComponent extends HTMLElement {
+    static observedAttributes=[ "data-value", "data-label" ];
+    modalBtn=null;
+    id="";
+    value=null;
+    constructor() {
+        super();
+        this.id = this.dataset?.id || this.id;
+        this.value = this.dataset?.value || this.value;
+        this.appendChild(btnModalLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.modalBtn = this.querySelector("button");
+        this.modalBtn?.addEventListener("click", (() => {
+            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
+                bubbles: true
+            });
+            this.modalBtn?.dispatchEvent(clickEvent);
+        }));
+    }
+    disconnectedCallback() {
+        this.modalBtn?.removeEventListener("click", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-value" === name && this.modalBtn !== null) {
+            this.modalBtn.innerText = newValue;
+        }
+        if ("data-label" === name && this.modalBtn !== null) {
+            this.setA11yName(newValue);
+        }
+    }
+    setA11yName=label => {
+        let span = document.createElement("span");
+        span.classList.add("visually-hidden");
+        span.innerText = label;
+        this.modalBtn?.appendChild(span);
+        this.modalBtn?.setAttribute("title", label);
+    };
+}
+
+customElements.define("app-btn-modal", BtnModalComponent);
+
+"use strict";
+
+const btnSettingLayout = document.createElement("template");
+
+btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+
+class BtnSettingComponent extends HTMLElement {
+    static observedAttributes=[ "data-settings-list", "data-label" ];
+    settingBtn=null;
+    btnContentSlots=null;
+    index=1;
+    settingsList="";
+    label="";
+    slot="";
+    separator=",";
+    settingsArray=[];
+    constructor() {
+        super();
+        this.label = this.dataset?.label || this.label;
+        this.appendChild(btnSettingLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.settingBtn = this.querySelector("button");
+        this.btnContentSlots = this.querySelector("ul");
+        const span = this.querySelector("span");
+        span.innerText = this.label;
+        this.settingBtn?.addEventListener("click", (() => {
+            this.index++;
+            if (this.index >= this.settingsArray.length) {
+                this.index = 0;
+            }
+            this.calculateList();
+        }));
+    }
+    disconnectedCallback() {
+        this.settingBtn?.removeEventListener("click", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-settings-list" === name) {
+            this.settingsList = newValue;
+            this.settingsArray = this.settingsList.split(this.separator);
+            this.calculateList();
+        }
+    }
+    calculateList=() => {
+        this.slot = "";
+        this.settingsArray.forEach(((value, index) => {
+            let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
+            if (index === this.index) {
+                point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
+                let clickEvent = new CustomEvent("changeSettingEvent", {
+                    bubbles: true,
+                    detail: {
+                        id: this.id,
+                        value: value
+                    }
+                });
+                this.settingBtn?.dispatchEvent(clickEvent);
+            }
+            this.slot = `${this.slot}${point}`;
+        }));
+        this.btnContentSlots.innerHTML = this.slot;
+    };
+}
+
+customElements.define("app-btn-setting", BtnSettingComponent);
+
+"use strict";
+
+const collapseLayout = document.createElement("template");
+
+collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse">\n\t\t\t<div class="accordion-body"></div>\n\t\t</div>\n\t</div>\n`;
+
+class CollapseComponent extends HTMLElement {
+    button=null;
+    container=null;
+    iconElement=null;
+    titleElement=null;
+    id="";
+    icon="";
+    title="";
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
+    constructor() {
+        super();
+        this.id = this.dataset?.id || this.id;
+        this.icon = this.dataset?.icon || this.icon;
+        this.title = this.dataset?.title || this.title;
+        this.appendChild(collapseLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this.iconElement = this.querySelector("app-icon");
+        this.titleElement = this.button?.querySelector("span");
+        this.iconElement?.setAttribute("data-name", this.icon);
+        this.titleElement.innerText = this.title;
+        this._triggerArray.push(this.button);
+        this.button?.setAttribute("aria-controls", this.id);
+        this.container?.setAttribute("id", this.id);
+        this.button?.addEventListener("click", (() => {
+            this.toggle();
+        }));
+    }
+    disconnectedCallback() {
+        this.button?.removeEventListener("click", (() => {}));
+    }
+    toggle=() => {
+        this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
+    };
+    _isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    _addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+        if (!triggerArray.length) {
+            return;
+        }
+        for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
+        }
+    };
+}
+
+customElements.define("app-collapse", CollapseComponent);
+
+"use strict";
+
+const headerLayout = document.createElement("template");
+
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
+
+class HeaderComponent extends HTMLElement {
+    static observedAttributes=[ "data-mode", "data-title-page" ];
+    closeBtn=null;
+    prevBtn=null;
+    titleApp=null;
+    titlePageBlock=null;
+    titlePage=null;
+    mode="primary";
+    i18nService;
+    constructor() {
+        super();
+        this.i18nService = new i18nService;
+        this.appendChild(headerLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.closeBtn = this.querySelector("#close-toolbar");
+        this.prevBtn = this.querySelector("#prev-toolbar");
+        this.titleApp = this.querySelector("#title-app");
+        this.titlePageBlock = this.querySelector("#title-page-block");
+        this.titlePage = this.querySelector("#title-page");
+        this.displayMode(this.mode);
+        this.closeBtn?.addEventListener("click", (() => {
+            let clickCloseEvent = new CustomEvent("closeEvent", {
+                bubbles: true
+            });
+            this.closeBtn?.dispatchEvent(clickCloseEvent);
+        }));
+        this.prevBtn?.addEventListener("click", (() => {
+            let clickPrevEvent = new CustomEvent("prevEvent", {
+                bubbles: true
+            });
+            this.prevBtn?.dispatchEvent(clickPrevEvent);
+        }));
+    }
+    disconnectedCallback() {
+        this.closeBtn?.removeEventListener("click", (() => {}));
+        this.prevBtn?.removeEventListener("click", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-mode" === name) {
+            this.displayMode(newValue);
+        }
+        if ("data-title-page" === name) {
+            this.titlePage.innerText = this.i18nService.getMessage(newValue);
+        }
+    }
+    displayMode=mode => {
+        this.prevBtn?.classList.toggle("d-none", mode === "primary");
+        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
+        this.titleApp?.classList.toggle("d-none", mode === "secondary");
+    };
+}
+
+customElements.define("app-header", HeaderComponent);
+
+"use strict";
+
+const iconLayout = document.createElement("template");
+
+iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
+
+class IconComponent extends HTMLElement {
+    static observedAttributes=[ "data-name" ];
+    sprite="";
+    iconService;
+    icon="";
+    size="1.25rem";
+    constructor() {
+        super();
+        this.iconService = new iconsService;
+        this.sprite = this.iconService.path;
+        this.icon = this.dataset?.name || this.icon;
+        this.size = this.dataset?.size || this.size;
+        this.appendChild(iconLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        let svg = this.querySelector("svg");
+        svg?.setAttribute("width", this.size);
+        svg?.setAttribute("height", this.size);
+        let use = this.querySelector("use");
+        use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        let use = this.querySelector("use");
+        if ("data-name" === name) {
+            use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
+        }
+    }
+}
+
+customElements.define("app-icon", IconComponent);
+
+"use strict";
+
+const selectModeLayout = document.createElement("template");
+
+selectModeLayout.innerHTML = `\n\t<input type="radio" class="sc-select-mode__input">\n\t<label class="d-flex flex-column gap-1 p-1 sc-select-mode__label">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
+
+class SelectModeComponent extends HTMLElement {
+    inputElement=null;
+    iconElement=null;
+    labelElement=null;
+    textElement=null;
+    descriptionElement=null;
+    icon="";
+    label="";
+    description="";
+    constructor() {
+        super();
+        this.icon = this.dataset?.icon || this.icon;
+        this.label = this.dataset?.label || this.label;
+        this.description = this.dataset?.description || this.description;
+        this.appendChild(selectModeLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.inputElement = this.querySelector("input");
+        this.labelElement = this.querySelector("label");
+        this.iconElement = this.querySelector("app-icon");
+        this.textElement = this.querySelector("div span");
+        this.descriptionElement = this.querySelector("label > span");
+        this.inputElement.id = this.dataset?.id || "";
+        this.inputElement.name = this.dataset?.name || "";
+        this.labelElement.setAttribute("for", this.dataset?.id || "");
+        this.iconElement?.setAttribute("data-name", this.icon);
+        this.textElement.innerText = this.label;
+        this.descriptionElement.innerText = this.description;
+    }
+}
+
+customElements.define("app-select-mode", SelectModeComponent);
 
 "use strict";
 

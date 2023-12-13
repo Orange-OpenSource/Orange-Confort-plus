@@ -2,8 +2,8 @@ class i18nService {
 	locale: string = 'en';
 	path: string = '';
 
-	constructor(path: string) {
-		this.path = path;
+	constructor() {
+		this.path = window.location.origin + '/';
 
 		if(['en', 'fr'].some(language => navigator.language.startsWith(language))) {
 			this.locale = navigator.language.slice(0,2);
