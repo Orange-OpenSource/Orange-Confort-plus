@@ -80,6 +80,25 @@ class iconsService {
 
 "use strict";
 
+class LocalStorageService {
+    prefix="cplus-";
+    constructor() {}
+    setItem(key, value) {
+        localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(value));
+    }
+    getItem(key) {
+        return new Promise(((resolve, reject) => {
+            resolve(JSON.parse(localStorage.getItem(`${this.prefix}${key}`)));
+            reject(new Error("KO"));
+        }));
+    }
+    removeItem(key) {
+        localStorage.removeItem(`${this.prefix}${key}`);
+    }
+}
+
+"use strict";
+
 const template = document.createElement("template");
 
 template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n</div>\n`;
@@ -546,22 +565,29 @@ class ToolbarComponent extends HTMLElement {
     modes=null;
     routeService;
     filesService;
+    localStorageService;
     historyRoute=[];
     json="";
     constructor() {
         super();
         this.routeService = new routeService;
         this.filesService = new filesService;
+        this.localStorageService = new LocalStorageService;
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
-        this.filesService.getModesOfUse().then((result => {
-            this.json = result;
-            this.setCurrentMode();
-            this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
+        this.localStorageService.getItem("modeOfUse").then((result => {
+            if (!result) {
+                this.filesService.getModesOfUse().then((result => {
+                    this.setModeOfUse(result);
+                    this.localStorageService.setItem("modeOfUse", result);
+                }));
+            } else {
+                this.setModeOfUse(result);
+            }
         }));
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
@@ -624,6 +650,11 @@ class ToolbarComponent extends HTMLElement {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }
     };
+    setModeOfUse(datas) {
+        this.json = datas;
+        this.setCurrentMode();
+        this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
+    }
 }
 
 customElements.define("app-toolbar", ToolbarComponent);

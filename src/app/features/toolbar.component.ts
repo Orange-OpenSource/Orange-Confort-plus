@@ -14,6 +14,7 @@ class ToolbarComponent extends HTMLElement {
 	modes: HTMLElement | null = null;
 	routeService: any;
 	filesService: any;
+	localStorageService: any;
 	historyRoute: string[] = [];
 	json: any = '';
 
@@ -25,6 +26,8 @@ class ToolbarComponent extends HTMLElement {
 		this.routeService = new routeService();
 		// @ts-ignore
 		this.filesService = new filesService();
+		// @ts-ignore
+		this.localStorageService = new LocalStorageService();
 
 		this.appendChild(tmplToolbar.content.cloneNode(true));
 	}
@@ -34,10 +37,16 @@ class ToolbarComponent extends HTMLElement {
 		this.home = this.querySelector('app-home');
 		this.modes = this.querySelector('app-modes');
 
-		this.filesService.getModesOfUse().then((result: any) => {
+		this.localStorageService.getItem('modeOfUse').then((result: any) => {
 			this.json = result;
+
+			if (!result) {
+				this.filesService.getModesOfUse().then((result: any) => {
+					this.localStorageService.setItem('modeOfUse', result);
+				});
+			}
+
 			this.setCurrentMode();
-			this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json));
 		});
 
 		this.routeService.initPages(this);
@@ -95,6 +104,7 @@ class ToolbarComponent extends HTMLElement {
 					let currentMode = Object.entries(mode)[0];
 					this.home?.setAttribute('data-mode', JSON.stringify(currentMode));
 					this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
+					this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json));
 				}
 			});
 		} else {
