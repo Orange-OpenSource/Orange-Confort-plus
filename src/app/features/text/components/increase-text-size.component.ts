@@ -60,8 +60,8 @@ tmplIncreaseTextSize.innerHTML = `
 `;
 
 class IncreaseTextSizeComponent extends HTMLElement {
-	toolBtn: HTMLElement | null = null;
-	sizeBtn: HTMLElement | null = null;
+	toolBtn: HTMLElement = null;
+	sizeBtn: HTMLElement = null;
 
 	index: number = 0;
 	fontSizes: number[] = [16, 18, 20, 22, 24];

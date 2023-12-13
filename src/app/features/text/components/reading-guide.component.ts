@@ -45,10 +45,10 @@ class ReadingGuideComponent extends HTMLElement {
 	open: boolean = false;
 	sizeGuide: number = 40;
 
-	topGuideElt: HTMLElement | null = null;
-	bottomGuideElt: HTMLElement | null = null;
-	activeGuideBtn: HTMLElement | null = null;
-	closeBtn: HTMLElement | null = null;
+	topGuideElt: HTMLElement = null;
+	bottomGuideElt: HTMLElement = null;
+	activeGuideBtn: HTMLElement = null;
+	closeBtn: HTMLElement = null;
 
 	constructor() {
 		super();

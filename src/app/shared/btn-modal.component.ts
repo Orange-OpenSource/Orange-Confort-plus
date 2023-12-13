@@ -3,7 +3,7 @@ btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc
 
 class BtnModalComponent extends HTMLElement {
 	static observedAttributes = ['data-value', 'data-label'];
-	modalBtn: HTMLElement | null = null;
+	modalBtn: HTMLElement = null;
 	id = '';
 	value: any = null;
 

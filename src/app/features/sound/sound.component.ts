@@ -17,7 +17,7 @@ tmplSound.innerHTML = `
 `;
 
 class SoundComponent extends HTMLElement {
-	toolBtn: HTMLElement | null = null;
+	toolBtn: HTMLElement = null;
 
 	open: boolean = false;
 
