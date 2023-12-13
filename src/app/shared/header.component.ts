@@ -39,6 +39,7 @@ class HeaderComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @ts-ignore
 		this.i18nService = new i18nService();
 
 		this.appendChild(headerLayout.content.cloneNode(true));

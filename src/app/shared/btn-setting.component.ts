@@ -70,8 +70,7 @@ class BtnSettingComponent extends HTMLElement {
 						detail: {
 							id: this.id,
 							value: value,
-						},
-						bubbles: true
+						}
 					});
 				this.settingBtn?.dispatchEvent(clickEvent);
 			}
