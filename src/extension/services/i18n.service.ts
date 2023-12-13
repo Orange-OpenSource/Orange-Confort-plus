@@ -1,8 +1,7 @@
 class i18nService {
 	locale: string = 'en';
 
-	// path is only needed server-side.
-	constructor(path: string) {
+	constructor() {
 		this.locale = chrome.i18n.getUILanguage();
 	}
 
