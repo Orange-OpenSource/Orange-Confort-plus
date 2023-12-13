@@ -53,6 +53,7 @@ const files = {
 			'dist/js/serveur/services/i18n.service.js',
 			'dist/js/serveur/services/path.service.js',
 			'dist/js/serveur/services/icons.service.js',
+			'dist/js/serveur/services/local-storage.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/serveur/js/toolbar.js',
@@ -70,6 +71,7 @@ const files = {
 			'dist/js/extension/services/i18n.service.js',
 			'dist/js/extension/services/path.service.js',
 			'dist/js/extension/services/icons.service.js',
+			'dist/js/extension/services/local-storage.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/extension/js/toolbar.js',

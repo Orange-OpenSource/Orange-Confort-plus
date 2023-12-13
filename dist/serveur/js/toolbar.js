@@ -61,6 +61,20 @@ class iconsService {
     }
 }
 
+class LocalStorageService {
+    prefix="cplus-";
+    constructor() {}
+    setItem(key, value) {
+        localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(value));
+    }
+    getItem(key) {
+        return JSON.parse(localStorage.getItem(`${this.prefix}${key}`));
+    }
+    removeItem(key) {
+        localStorage.removeItem(`${this.prefix}${key}`);
+    }
+}
+
 "use strict";
 
 const template = document.createElement("template");
@@ -822,8 +836,10 @@ const tmplToolbar = document.createElement("template");
 tmplToolbar.innerHTML = `\n<app-header></app-header>\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-3">\n\t\t\t\t<div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem" data-name="Eye"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span class="fs-4 fw-bold text-primary">Vision +</span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t\t\t<button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="d-flex flex-column p-3 mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n</section>\n`;
 
 class ToolbarComponent extends HTMLElement {
+    localStorageService;
     constructor() {
         super();
+        this.localStorageService = new LocalStorageService;
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
 }
