@@ -58,6 +58,7 @@
 		"build:icons": "svg-sprite --symbol --symbol-dest dist/serveur/assets/icons --symbol-sprite orange-icons-sprite.svg --svg-xmldecl false --svg-doctype  false src/assets/icons/*.svg",
 		"postbuild:icons": "shx cp -r dist/serveur/assets/icons dist/extension/assets/",
 		"build:i18n": "shx cp -r src/_locales dist/serveur && shx cp -r src/_locales dist/extension",
+		"build:json": "shx cp -r src/assets/json dist/serveur/assets && shx cp -r src/assets/json dist/extension/assets",
 		"build:helvetica": "sass src/site/scss/orange-helvetica.scss:docs/css/orange-helvetica.min.css -s compressed --load-path=node_modules --source-map --no-error-css",
 		"compress:img": "concurrently \"npm:compress:img:*\"",
 		"compress:img:icons": "svgo -f src/assets/icons -o src/assets/icons",
