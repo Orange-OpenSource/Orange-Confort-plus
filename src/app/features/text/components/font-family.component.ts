@@ -17,20 +17,21 @@ tmplFontFamily.innerHTML = `
 
 class FontFamilyComponent extends HTMLElement {
 	// @todo Loop through predefined values
-	normalBtn: HTMLElement | null = null;
-	arialBtn: HTMLElement | null = null;
-	openSansBtn: HTMLElement | null = null;
-	accessibleDFABtn: HTMLElement | null = null;
-	openDyslexicBtn: HTMLElement | null = null;
-	lucioleBtn: HTMLElement | null = null;
+	normalBtn: HTMLElement = null;
+	arialBtn: HTMLElement = null;
+	openSansBtn: HTMLElement = null;
+	accessibleDFABtn: HTMLElement = null;
+	openDyslexicBtn: HTMLElement = null;
+	lucioleBtn: HTMLElement = null;
 	pathService: any;
+	path: string;
 
 	constructor() {
 		super();
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 		// @ts-ignore
 		this.pathService = new pathService();
-		const path = this.pathService.path;
+		this.path = this.pathService.path;
 
 		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
 		let styles: HTMLStyleElement = document.createElement('style');
@@ -38,24 +39,24 @@ class FontFamilyComponent extends HTMLElement {
 		// @todo Loop through predefined values
 		// @todo Try to handle font-size-adjust to reduce CLS?
 		styles.innerHTML = `
-			@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Accessible-DFA"; src: url("${path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
+			@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
 
-			@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
-			@font-face { font-family:"Open-Dyslexic"; src: url("${path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }
+			@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
+			@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }
 
-			@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
-			@font-face { font-family:"Luciole"; src: url("${path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }
+			@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
+			@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }
 
-			@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
-			@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
-			@font-face { font-family:"Open-Sans"; src: url("${path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
+			@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }
+			@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }
+			@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
 
 		// @todo Loop through predefined values, could be radio buttons
 		this.normalBtn = this.querySelector('#normal-font');

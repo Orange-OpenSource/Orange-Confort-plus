@@ -9,8 +9,8 @@ template.innerHTML = `
 
 class AppComponent extends HTMLElement {
 	private openConfortPlus: boolean = false;
-	confortPlusBtn: HTMLElement | null | undefined = null;
-	confortPlusToolbar: HTMLElement | null | undefined = null;
+	confortPlusBtn: HTMLElement | undefined = null;
+	confortPlusToolbar: HTMLElement | undefined = null;
 	i18nService: any;
 	pathService: any;
 	iconsService: any;
