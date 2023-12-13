@@ -17,7 +17,7 @@ tmplPictureVideo.innerHTML = `
 `;
 
 class PictureVideoComponent extends HTMLElement {
-	toolBtn: HTMLElement | null = null;
+	toolBtn: HTMLElement = null;
 
 	open: boolean = false;
 

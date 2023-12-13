@@ -11,11 +11,11 @@ selectModeLayout.innerHTML = `
 `;
 
 class SelectModeComponent extends HTMLElement {
-	inputElement: HTMLInputElement | null = null;
-	iconElement: HTMLElement | null = null;
-	labelElement: HTMLLabelElement | null = null;
-	textElement: HTMLElement | null = null;
-	descriptionElement: HTMLParagraphElement | null = null;
+	inputElement: HTMLInputElement = null;
+	iconElement: HTMLElement = null;
+	labelElement: HTMLLabelElement = null;
+	textElement: HTMLElement = null;
+	descriptionElement: HTMLParagraphElement = null;
 	icon = '';
 	label = '';
 	description = '';

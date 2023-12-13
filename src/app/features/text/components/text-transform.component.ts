@@ -12,10 +12,10 @@ tmplTextTransform.innerHTML = `
 `;
 
 class TextTransformComponent extends HTMLElement {
-	normalBtn: HTMLElement | null = null;
-	firstLetterBtn: HTMLElement | null = null;
-	lowercaseBtn: HTMLElement | null = null;
-	uppercaseBtn: HTMLElement | null = null;
+	normalBtn: HTMLElement = null;
+	firstLetterBtn: HTMLElement = null;
+	lowercaseBtn: HTMLElement = null;
+	uppercaseBtn: HTMLElement = null;
 
 	constructor() {
 		super();

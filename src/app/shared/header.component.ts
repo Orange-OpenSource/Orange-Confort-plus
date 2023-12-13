@@ -20,9 +20,9 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	closeBtn: HTMLElement | null = null;
-	prevBtn: HTMLElement | null = null;
-	titleApp: HTMLElement | null = null;
+	closeBtn: HTMLElement = null;
+	prevBtn: HTMLElement = null;
+	titleApp: HTMLElement = null;
 	mode = 'primary';
 
 	constructor() {

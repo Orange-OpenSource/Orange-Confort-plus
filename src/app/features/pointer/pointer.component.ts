@@ -17,7 +17,7 @@ tmplPointer.innerHTML = `
 `;
 
 class PointerComponent extends HTMLElement {
-	toolBtn: HTMLElement | null = null;
+	toolBtn: HTMLElement = null;
 
 	open: boolean = false;
 

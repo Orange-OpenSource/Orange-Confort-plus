@@ -14,10 +14,10 @@ collapseLayout.innerHTML = `
 `;
 
 class CollapseComponent extends HTMLElement {
-	button: HTMLElement | null = null;
-	container: HTMLElement | null = null;
-	iconElement: HTMLElement | null = null;
-	titleElement: HTMLElement | null | undefined = null;
+	button: HTMLElement = null;
+	container: HTMLElement = null;
+	iconElement: HTMLElement = null;
+	titleElement: HTMLElement | undefined = null;
 
 	id = '';
 	icon = '';

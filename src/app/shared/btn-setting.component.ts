@@ -10,8 +10,8 @@ btnSettingLayout.innerHTML = `
 
 class BtnSettingComponent extends HTMLElement {
 	static observedAttributes = ['data-settings-list', 'data-label'];
-	settingBtn: HTMLElement | null = null;
-	btnContentSlots: HTMLElement | null = null;
+	settingBtn: HTMLElement = null;
+	btnContentSlots: HTMLElement = null;
 	index: number = 1;
 	settingsList = '';
 	label = '';
