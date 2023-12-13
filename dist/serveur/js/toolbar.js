@@ -1,6 +1,7 @@
 /*
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 18/12/2023
 =======
 <<<<<<< HEAD
@@ -16,6 +17,26 @@
  * © 2014 - 2023 Orange SA
  */
 "use strict";
+=======
+ * orange-confort-plus - version 4.3.0 - 13/12/2023
+ * Enhance user experience on web sites
+ * © 2014 - 2023 Orange SA
+ */
+class filesService {
+    path="";
+    pathService;
+    constructor() {
+        this.pathService = new pathService;
+        this.path = this.pathService.path;
+    }
+    getModesOfUse() {
+        return fetch(`./assets/json/modes-of-use.json`).then((response => response.json())).then((data => data)).catch((error => {
+            console.error("Erreur lors de la récupération du fichier JSON :", error);
+            return error;
+        }));
+    }
+}
+>>>>>>> Ajout du service de chargement du fichier json.
 
 class i18nService {
     locale="en";
@@ -580,6 +601,7 @@ class ToolbarComponent extends HTMLElement {
     modes=null;
     routeService;
 <<<<<<< HEAD
+<<<<<<< HEAD
     historyRoute=[];
 =======
     json={
@@ -641,12 +663,25 @@ class ToolbarComponent extends HTMLElement {
     }
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
+=======
+    filesService;
+    json="";
+    constructor() {
+        super();
+        this.routeService = new routeService;
+        this.filesService = new filesService;
+        this.appendChild(tmplToolbar.content.cloneNode(true));
+>>>>>>> Ajout du service de chargement du fichier json.
     }
     connectedCallback() {
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
-        this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json.modes));
         this.header = this.querySelector("#header");
+        this.filesService.getModesOfUse().then((result => {
+            this.json = result;
+            this.setCurrentMode();
+            this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json.modes));
+        }));
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
             if (event.detail.isPrev) {
@@ -661,7 +696,6 @@ class ToolbarComponent extends HTMLElement {
             this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
 =======
         };
-        this.setCurrentMode();
         this.addEventListener("changeModeEvent", (event => {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }));

@@ -13,56 +13,9 @@ class ToolbarComponent extends HTMLElement {
 	home: HTMLElement | null = null;
 	modes: HTMLElement | null = null;
 	routeService: any;
+	filesService: any;
 	historyRoute: Array<string> = [];
-	json = {
-		"selectedMode": "",
-		"modes": [
-			{
-				"visionPlus": [
-					{
-						"Taille de texte":
-						{
-							"value1": "16",
-							"value2": "18",
-							"value3": "20",
-							"value4": "22",
-							"value5": "24"
-						},
-						"Police": {
-							"value1": "null",
-							"value2": "Arial",
-							"value3": "Open Sans",
-							"value4": "Accessible-DFA",
-							"value5": "Open Dyslexic",
-							"value6": "Luciole"
-						}
-					}
-				]
-			},
-			{
-				"facilePlus": [
-					{
-						"Taille de texte": {
-							"value1": "20",
-							"value2": "21",
-							"value3": "22",
-							"value4": "23"
-						}
-					},
-					{
-						"Police": {
-							"value1": "null",
-							"value2": "Arial",
-							"value3": "Open Sans",
-							"value4": "Accessible-DFA",
-							"value5": "Open Dyslexic",
-							"value6": "Luciole"
-						}
-					}
-				]
-			}
-		]
-	};
+	json: any = '';
 
 	constructor() {
 		super();
@@ -70,6 +23,8 @@ class ToolbarComponent extends HTMLElement {
 		// @todo Utiliser singleton pour routeService pour éviter plusieurs instances
 		// @ts-ignore
 		this.routeService = new routeService();
+		// @ts-ignore
+		this.filesService = new filesService();
 
 		this.appendChild(tmplToolbar.content.cloneNode(true));
 	}
@@ -77,8 +32,14 @@ class ToolbarComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.home = this.querySelector('app-home');
 		this.modes = this.querySelector('app-modes');
-		this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json.modes));
 		this.header = this.querySelector('#header');
+
+		this.filesService.getModesOfUse().then((result: any) => {
+			this.json = result;
+			this.setCurrentMode();
+			this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json.modes));
+		});
+
 		this.routeService.initPages(this);
 
 		this.addEventListener('changeRoute', (event) => {
@@ -93,6 +54,12 @@ class ToolbarComponent extends HTMLElement {
 			this.setHeaderDisplay((event as CustomEvent).detail.route);
 			this.header?.focus();
 			this.header.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
+
+			// Si mode change
+			if (false) {
+				this.setConfig(event as CustomEvent);
+				this.setCurrentMode();
+			}
 		});
 	}
 
@@ -123,7 +90,7 @@ class ToolbarComponent extends HTMLElement {
 
 	setCurrentMode = (): void => {
 		if (this.json.selectedMode) {
-			this.json.modes.forEach(mode => {
+			this.json.modes.forEach((mode: any) => {
 				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
 					let currentMode = Object.entries(mode)[0];
 					this.home?.setAttribute('data-mode', JSON.stringify(currentMode));

@@ -45,6 +45,7 @@
 				"assets/img/*.png",
 				"assets/icons/*.svg",
 				"assets/fonts/*.woff2",
+				"assets/json/*.json",
 				"help/*.html"
 			],
 			"matches": [
