@@ -27,7 +27,7 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	static observedAttributes = ['data-mode', 'data-title-page'];
+	static observedAttributes = ['data-mode', 'data-title-page', 'data-prev-route'];
 	closeBtn: HTMLElement | null = null;
 	prevBtn: HTMLElement | null = null;
 	titleApp: HTMLElement | null = null;
@@ -35,12 +35,16 @@ class HeaderComponent extends HTMLElement {
 	titlePage: HTMLElement | null = null;
 	mode = 'primary';
 	i18nService: any;
+	routeService: any;
+	prevRoute: string = '';
 
 	constructor() {
 		super();
 
 		// @ts-ignore
 		this.i18nService = new i18nService();
+		// @ts-ignore
+		this.routeService = new routeService();
 
 		this.appendChild(headerLayout.content.cloneNode(true));
 	}
@@ -60,8 +64,15 @@ class HeaderComponent extends HTMLElement {
 		});
 
 		this.prevBtn?.addEventListener('click', () => {
-			let clickPrevEvent = new CustomEvent('prevEvent', { bubbles: true });
-			this.prevBtn?.dispatchEvent(clickPrevEvent);
+			let clickEvent = new CustomEvent('changeRoute',
+				{
+					bubbles: true,
+					detail: {
+						route: this.prevRoute,
+						isPrev: true
+					}
+				});
+			this.prevBtn?.dispatchEvent(clickEvent);
 		});
 	}
 
@@ -78,6 +89,9 @@ class HeaderComponent extends HTMLElement {
 		}
 		if ('data-title-page' === name) {
 			this.titlePage!.innerText = this.i18nService.getMessage(newValue);
+		}
+		if ('data-prev-route' === name) {
+			this.prevRoute = newValue;
 		}
 	}
 

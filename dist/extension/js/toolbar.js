@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 13/12/2023
+ * orange-confort-plus - version 4.3.0 - 18/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -52,87 +52,49 @@ class iconsService {
 "use strict";
 
 class routeService {
-    _currentRoute="";
+    currentRoute;
     PAGE_HOME="home";
     PAGE_MODES="modes";
     PAGE_SETTINGS="settings";
     PAGE_EDIT_SETTING="edit-setting";
-    routes=new Route(this.PAGE_HOME, "app-home", [ new Route(this.PAGE_MODES, "app-modes"), new Route(this.PAGE_SETTINGS, "app-settings", [ new Route(this.PAGE_EDIT_SETTING, "app-edit-setting", [ new Route(this.PAGE_MODES, "app-modes"), new Route(this.PAGE_SETTINGS, "app-settings", [ new Route(this.PAGE_EDIT_SETTING, "app-edit-setting") ]) ]) ]) ]);
+    homeElement=null;
+    modeElement=null;
+    settingsElement=null;
+    editSettingElement=null;
+    routes=[ {
+        path: this.PAGE_HOME,
+        selector: "app-home",
+        element: this.homeElement
+    }, {
+        path: this.PAGE_MODES,
+        selector: "app-modes",
+        element: this.modeElement
+    }, {
+        path: this.PAGE_SETTINGS,
+        selector: "app-settings",
+        element: this.settingsElement
+    }, {
+        path: this.PAGE_EDIT_SETTING,
+        selector: "app-edit-setting",
+        element: this.editSettingElement
+    } ];
     constructor() {
-        this._currentRoute = this.PAGE_HOME;
-    }
-    get currentRoute() {
-        return this._currentRoute;
-    }
-    set currentRoute(value) {
-        if (value !== this.currentRoute) {
-            this._currentRoute = value;
-            this.emitChangeEvent(value);
-        }
-    }
-    emitChangeEvent(value) {
-        return value;
+        this.currentRoute = this.PAGE_HOME;
     }
     initPages(root) {
-        const initializePage = route => {
-            route.element = root.querySelector(route.component);
-        };
-        const initializeChildPages = parentRoute => {
-            if (parentRoute?.children && parentRoute?.children.length > 0) {
-                parentRoute?.children.forEach((childRoute => {
-                    initializePage(childRoute);
-                    initializeChildPages(childRoute);
-                }));
-            }
-        };
-        initializePage(this.routes);
-        initializeChildPages(this.routes);
-        this.toggle(null, this.currentRoute);
-    }
-    toggle(oldRoute = "", newRoute = this.currentRoute) {
-        const displayPage = route => {
-            if (route.path === newRoute) {
-                route.element.classList.remove("d-none");
-            } else if (route.path === oldRoute) {
-                route.element.classList.add("d-none");
-            }
-        };
-        const displayChildPages = parentRoute => {
-            if (parentRoute?.children && parentRoute?.children.length > 0) {
-                parentRoute?.children.forEach((childRoute => {
-                    displayPage(childRoute);
-                    displayChildPages(childRoute);
-                }));
-            }
-        };
-        displayPage(this.routes);
-        displayChildPages(this.routes);
-        this.currentRoute = newRoute;
+        this.routes.forEach((route => {
+            route.element = root.querySelector(route.selector);
+        }));
     }
     navigate(newRoute) {
-        this.toggle(this.currentRoute, newRoute);
-    }
-    previous(route = this.currentRoute, object = this.routes) {
-        if (!object?.children || object?.children.length === 0 || object?.path === route) {
-            return null;
-        }
-        if (object?.children?.some((child => child?.path === route))) {
-            this.toggle(this.currentRoute, object.path);
-            return;
-        }
-        return object.children.map((child => this.previous(route, child))).reduce(((a, b) => a || b));
-    }
-}
-
-class Route {
-    path;
-    component;
-    children;
-    element;
-    constructor(path, component, children = []) {
-        this.path = path;
-        this.component = component;
-        this.children = children;
+        this.routes.forEach((route => {
+            if (route.path === this.currentRoute) {
+                route.element.classList.add("d-none");
+            } else if (route.path === newRoute) {
+                route.element.classList.remove("d-none");
+            }
+        }));
+        this.currentRoute = newRoute;
     }
 }
 
@@ -596,11 +558,12 @@ customElements.define("app-text", TextComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
+tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
 
 class ToolbarComponent extends HTMLElement {
     header=null;
     routeService;
+    historyRoute=[];
     constructor() {
         super();
         this.routeService = new routeService;
@@ -609,21 +572,16 @@ class ToolbarComponent extends HTMLElement {
     connectedCallback() {
         this.header = this.querySelector("#header");
         this.routeService.initPages(this);
-        this.routeService.emitChangeEvent = value => {
-            this.setHeaderDisplay(value);
+        this.addEventListener("changeRoute", (event => {
+            if (event.detail.isPrev) {
+                this.historyRoute.pop();
+            } else {
+                this.historyRoute.push(this.routeService.currentRoute);
+            }
+            this.routeService.navigate(event.detail.route);
+            this.setHeaderDisplay(event.detail.route);
             this.header?.focus();
-        };
-        this.addEventListener("changeModeEvent", (event => {
-            this.routeService.navigate(this.routeService.PAGE_MODES);
-        }));
-        this.addEventListener("selectModeEvent", (event => {
-            this.routeService.navigate(this.routeService.PAGE_HOME);
-        }));
-        this.addEventListener("settingsEvent", (event => {
-            this.routeService.navigate(this.routeService.PAGE_SETTINGS);
-        }));
-        this.addEventListener("prevEvent", (event => {
-            this.routeService.previous();
+            this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
         }));
     }
     setHeaderDisplay=page => {
@@ -685,25 +643,37 @@ homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center 
 class HomeComponent extends HTMLElement {
     changeModeBtn=null;
     settingsBtn=null;
+    routeService;
     constructor() {
         super();
+        this.routeService = new routeService;
         this.appendChild(homeLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
         this.changeModeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeModeEvent", {
-                bubbles: true
+            let clickEvent = new CustomEvent("changeRoute", {
+                bubbles: true,
+                detail: {
+                    route: this.routeService.PAGE_MODES
+                }
             });
             this.changeModeBtn?.dispatchEvent(clickEvent);
         }));
         this.settingsBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("settingsEvent", {
-                bubbles: true
+            let clickEvent = new CustomEvent("changeRoute", {
+                bubbles: true,
+                detail: {
+                    route: this.routeService.PAGE_SETTINGS
+                }
             });
             this.settingsBtn?.dispatchEvent(clickEvent);
         }));
+    }
+    disconnectedCallback() {
+        this.changeModeBtn?.removeEventListener("click", (() => {}));
+        this.settingsBtn?.removeEventListener("click", (() => {}));
     }
 }
 
@@ -717,18 +687,27 @@ modesLayout.innerHTML = `\n<section class="p-3">\n\t<p data-i18n="chooseModeAndV
 
 class ModesComponent extends HTMLElement {
     selectModeBtn=null;
+    routeService;
     constructor() {
         super();
+        this.routeService = new routeService;
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("selectModeEvent", {
-                bubbles: true
+            let clickEvent = new CustomEvent("changeRoute", {
+                bubbles: true,
+                detail: {
+                    route: this.routeService.PAGE_HOME,
+                    isPrev: true
+                }
             });
             this.selectModeBtn?.dispatchEvent(clickEvent);
         }));
+    }
+    disconnectedCallback() {
+        this.selectModeBtn?.removeEventListener("click", (() => {}));
     }
 }
 
@@ -930,7 +909,7 @@ const headerLayout = document.createElement("template");
 headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-mode", "data-title-page" ];
+    static observedAttributes=[ "data-mode", "data-title-page", "data-prev-route" ];
     closeBtn=null;
     prevBtn=null;
     titleApp=null;
@@ -938,9 +917,12 @@ class HeaderComponent extends HTMLElement {
     titlePage=null;
     mode="primary";
     i18nService;
+    routeService;
+    prevRoute="";
     constructor() {
         super();
         this.i18nService = new i18nService;
+        this.routeService = new routeService;
         this.appendChild(headerLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -957,10 +939,14 @@ class HeaderComponent extends HTMLElement {
             this.closeBtn?.dispatchEvent(clickCloseEvent);
         }));
         this.prevBtn?.addEventListener("click", (() => {
-            let clickPrevEvent = new CustomEvent("prevEvent", {
-                bubbles: true
+            let clickEvent = new CustomEvent("changeRoute", {
+                bubbles: true,
+                detail: {
+                    route: this.prevRoute,
+                    isPrev: true
+                }
             });
-            this.prevBtn?.dispatchEvent(clickPrevEvent);
+            this.prevBtn?.dispatchEvent(clickEvent);
         }));
     }
     disconnectedCallback() {
@@ -973,6 +959,9 @@ class HeaderComponent extends HTMLElement {
         }
         if ("data-title-page" === name) {
             this.titlePage.innerText = this.i18nService.getMessage(newValue);
+        }
+        if ("data-prev-route" === name) {
+            this.prevRoute = newValue;
         }
     }
     displayMode=mode => {
