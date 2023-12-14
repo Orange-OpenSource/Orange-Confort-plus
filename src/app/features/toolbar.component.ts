@@ -2,7 +2,7 @@ const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <app-header id="header"></app-header>
 
-<app-home class="d-none"></app-home>
+<app-home></app-home>
 <app-modes class="d-none"></app-modes>
 <app-settings class="d-none"></app-settings>
 <app-edit-setting class="d-none"></app-edit-setting>
@@ -11,12 +11,13 @@ tmplToolbar.innerHTML = `
 class ToolbarComponent extends HTMLElement {
 	header: HTMLElement | null = null;
 	routeService: any;
+	historyRoute: Array<string> = [];
 
 	constructor() {
 		super();
 
 		// @ts-ignore
-		this.routeService = new routeService;
+		this.routeService = new routeService();
 
 		this.appendChild(tmplToolbar.content.cloneNode(true));
 	}
@@ -24,25 +25,19 @@ class ToolbarComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.header = this.querySelector('#header');
 		this.routeService.initPages(this);
-		// @note J’ai l’impression que ça ne fait pas ce qui est prévu dans le routeur
-		// Ici, on surcharge la méthode interne du routerService…
-		this.routeService.emitChangeEvent = (value: string) => {
-			// Et aucun rapport avec un Event il me semble, donc le nommage est trompeur
-			this.setHeaderDisplay(value);
-			this.header?.focus();
-		}
 
-		this.addEventListener('changeModeEvent', (event) => {
-			this.routeService.navigate(this.routeService.PAGE_MODES);
-		});
-		this.addEventListener('selectModeEvent', (event) => {
-			this.routeService.navigate(this.routeService.PAGE_HOME);
-		});
-		this.addEventListener('settingsEvent', (event) => {
-			this.routeService.navigate(this.routeService.PAGE_SETTINGS);
-		});
-		this.addEventListener('prevEvent', (event) => {
-			this.routeService.previous();
+		this.addEventListener('changeRoute', (event) => {
+			/* Creating a tree structure to get the previous route */
+			if ((event as CustomEvent).detail.isPrev) {
+				this.historyRoute.pop();
+			} else {
+				this.historyRoute.push(this.routeService.currentRoute);
+			}
+
+			this.routeService.navigate((event as CustomEvent).detail.route);
+			this.setHeaderDisplay((event as CustomEvent).detail.route);
+			this.header?.focus();
+			this.header.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
 		});
 	}
 
