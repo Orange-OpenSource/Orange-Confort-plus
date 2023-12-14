@@ -34,9 +34,13 @@ homeLayout.innerHTML = `
 class HomeComponent extends HTMLElement {
 	changeModeBtn: HTMLElement | null = null;
 	settingsBtn: HTMLElement | null = null;
+	routeService: any;
 
 	constructor() {
 		super();
+
+		// @ts-ignore
+		this.routeService = new routeService();
 
 		this.appendChild(homeLayout.content.cloneNode(true));
 	}
@@ -46,13 +50,32 @@ class HomeComponent extends HTMLElement {
 		this.settingsBtn = this.querySelector('#settings-btn');
 
 		this.changeModeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('changeModeEvent', { bubbles: true });
+			let clickEvent = new CustomEvent('changeRoute',
+				{
+					bubbles: true,
+					detail: {
+						route: this.routeService.PAGE_MODES
+					}
+				});
 			this.changeModeBtn?.dispatchEvent(clickEvent);
 		});
 
 		this.settingsBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('settingsEvent', { bubbles: true });
+			let clickEvent = new CustomEvent('changeRoute',
+				{
+					bubbles: true,
+					detail: {
+						route: this.routeService.PAGE_SETTINGS
+					}
+				});
 			this.settingsBtn?.dispatchEvent(clickEvent);
+		});
+	}
+
+	disconnectedCallback(): void {
+		this.changeModeBtn?.removeEventListener('click', () => {
+		});
+		this.settingsBtn?.removeEventListener('click', () => {
 		});
 	}
 }

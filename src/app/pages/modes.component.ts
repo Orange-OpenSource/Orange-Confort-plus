@@ -11,9 +11,13 @@ modesLayout.innerHTML = `
 
 class ModesComponent extends HTMLElement {
 	selectModeBtn: HTMLElement | null = null;
+	routeService: any;
 
 	constructor() {
 		super();
+
+		// @ts-ignore
+		this.routeService = new routeService();
 
 		this.appendChild(modesLayout.content.cloneNode(true));
 	}
@@ -22,8 +26,20 @@ class ModesComponent extends HTMLElement {
 		this.selectModeBtn = this.querySelector('#select-mode-btn');
 
 		this.selectModeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('selectModeEvent', { bubbles: true });
+			let clickEvent = new CustomEvent('changeRoute',
+				{
+					bubbles: true,
+					detail: {
+						route: this.routeService.PAGE_HOME,
+						isPrev: true
+					}
+				});
 			this.selectModeBtn?.dispatchEvent(clickEvent);
+		});
+	}
+
+	disconnectedCallback(): void {
+		this.selectModeBtn?.removeEventListener('click', () => {
 		});
 	}
 }
