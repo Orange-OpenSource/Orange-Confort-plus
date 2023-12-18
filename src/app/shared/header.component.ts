@@ -43,6 +43,7 @@ class HeaderComponent extends HTMLElement {
 
 		// @ts-ignore
 		this.i18nService = new i18nService();
+		// @todo Utiliser singleton pour routeService pour éviter plusieurs instances
 		// @ts-ignore
 		this.routeService = new routeService();
 

@@ -63,55 +63,6 @@ class iconsService {
 
 "use strict";
 
-class routeService {
-    currentRoute;
-    PAGE_HOME="home";
-    PAGE_MODES="modes";
-    PAGE_SETTINGS="settings";
-    PAGE_EDIT_SETTING="edit-setting";
-    homeElement=null;
-    modeElement=null;
-    settingsElement=null;
-    editSettingElement=null;
-    routes=[ {
-        path: this.PAGE_HOME,
-        selector: "app-home",
-        element: this.homeElement
-    }, {
-        path: this.PAGE_MODES,
-        selector: "app-modes",
-        element: this.modeElement
-    }, {
-        path: this.PAGE_SETTINGS,
-        selector: "app-settings",
-        element: this.settingsElement
-    }, {
-        path: this.PAGE_EDIT_SETTING,
-        selector: "app-edit-setting",
-        element: this.editSettingElement
-    } ];
-    constructor() {
-        this.currentRoute = this.PAGE_HOME;
-    }
-    initPages(root) {
-        this.routes.forEach((route => {
-            route.element = root.querySelector(route.selector);
-        }));
-    }
-    navigate(newRoute) {
-        this.routes.forEach((route => {
-            if (route.path === this.currentRoute) {
-                route.element.classList.add("d-none");
-            } else if (route.path === newRoute) {
-                route.element.classList.remove("d-none");
-            }
-        }));
-        this.currentRoute = newRoute;
-    }
-}
-
-"use strict";
-
 const template = document.createElement("template");
 
 template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n</div>\n`;
@@ -1060,6 +1011,55 @@ class SelectModeComponent extends HTMLElement {
 }
 
 customElements.define("app-select-mode", SelectModeComponent);
+
+"use strict";
+
+class routeService {
+    currentRoute;
+    PAGE_HOME="home";
+    PAGE_MODES="modes";
+    PAGE_SETTINGS="settings";
+    PAGE_EDIT_SETTING="edit-setting";
+    homeElement=null;
+    modeElement=null;
+    settingsElement=null;
+    editSettingElement=null;
+    routes=[ {
+        path: this.PAGE_HOME,
+        selector: "app-home",
+        element: this.homeElement
+    }, {
+        path: this.PAGE_MODES,
+        selector: "app-modes",
+        element: this.modeElement
+    }, {
+        path: this.PAGE_SETTINGS,
+        selector: "app-settings",
+        element: this.settingsElement
+    }, {
+        path: this.PAGE_EDIT_SETTING,
+        selector: "app-edit-setting",
+        element: this.editSettingElement
+    } ];
+    constructor() {
+        this.currentRoute = this.PAGE_HOME;
+    }
+    initPages(root) {
+        this.routes.forEach((route => {
+            route.element = root.querySelector(route.selector);
+        }));
+    }
+    navigate(newRoute) {
+        this.routes.forEach((route => {
+            if (route.path === this.currentRoute) {
+                route.element.classList.add("d-none");
+            } else if (route.path === newRoute) {
+                route.element.classList.remove("d-none");
+            }
+        }));
+        this.currentRoute = newRoute;
+    }
+}
 
 "use strict";
 
