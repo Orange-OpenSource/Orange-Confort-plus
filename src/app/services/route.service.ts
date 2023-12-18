@@ -1,5 +1,3 @@
-// @todo Si le service est identique des deux côtés, on pourrait le laisser dans `app/`
-// @note et donc le placer dans le build de base de la toolbar, dans la conf Terser
 class routeService {
 	currentRoute: string;
 

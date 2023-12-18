@@ -39,6 +39,7 @@ class HomeComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @todo Utiliser singleton pour routeService pour éviter plusieurs instances
 		// @ts-ignore
 		this.routeService = new routeService();
 
