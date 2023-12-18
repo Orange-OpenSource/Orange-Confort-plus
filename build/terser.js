@@ -55,10 +55,10 @@ const files = {
 	},
 	'server': {
 		files: [
-			'src/serveur/js/services/files.service.js',
-			'src/serveur/js/services/i18n.service.js',
-			'src/serveur/js/services/icons.service.js',
-			'src/serveur/js/services/path.service.js',
+			'dist/js/serveur/services/files.service.js',
+			'dist/js/serveur/services/i18n.service.js',
+			'dist/js/serveur/services/path.service.js',
+			'dist/js/serveur/services/icons.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/serveur/js/toolbar.js',
@@ -73,10 +73,10 @@ const files = {
 	},
 	'extension': {
 		files: [
-			'src/extension/services/files.service.js',
-			'src/extension/services/i18n.service.js',
-			'src/extension/services/path.service.js',
-			'src/extension/services/icons.service.js',
+			'dist/js/extension/services/files.service.js',
+			'dist/js/extension/services/i18n.service.js',
+			'dist/js/extension/services/path.service.js',
+			'dist/js/extension/services/icons.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/extension/js/toolbar.js',

@@ -22,8 +22,10 @@ class SelectModeComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		this.label = this.dataset?.label || this.label;
+		// @ts-ignore
 		this.i18nService = new i18nService();
+
+		this.label = this.dataset?.label || this.label;
 
 		this.appendChild(selectModeLayout.content.cloneNode(true));
 	}
