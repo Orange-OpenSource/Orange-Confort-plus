@@ -8,7 +8,7 @@ headerLayout.innerHTML = `
 			</button>
 
 			<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
-				<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>
+				<app-icon id="title-page-icon" data-size="1.5rem" data-name="Eye" class="border-end border-white pe-1"></app-icon>
 				<app-icon data-size="1.5rem" data-name="Settings"></app-icon>
 				<span id="title-page"></span>
 			</span>
@@ -27,13 +27,14 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	static observedAttributes = ['data-mode', 'data-title-page', 'data-prev-route'];
+	static observedAttributes = ['data-display', 'data-title-page', 'data-prev-route', 'data-selected-mode'];
 	closeBtn: HTMLElement | null = null;
 	prevBtn: HTMLElement | null = null;
 	titleApp: HTMLElement | null = null;
 	titlePageBlock: HTMLElement | null = null;
 	titlePage: HTMLElement | null = null;
-	mode = 'primary';
+	titlePageIcon: HTMLElement | null = null;
+	display = 'primary';
 	i18nService: any;
 	routeService: any;
 	prevRoute: string = '';
@@ -56,8 +57,9 @@ class HeaderComponent extends HTMLElement {
 		this.titleApp = this.querySelector('#title-app');
 		this.titlePageBlock = this.querySelector('#title-page-block');
 		this.titlePage = this.querySelector('#title-page');
+		this.titlePageIcon = this.querySelector('#title-page-icon');
 
-		this.displayMode(this.mode);
+		this.displayMode(this.display);
 
 		this.closeBtn?.addEventListener('click', () => {
 			let clickCloseEvent = new CustomEvent('closeEvent', { bubbles: true });
@@ -85,7 +87,7 @@ class HeaderComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-mode' === name) {
+		if ('data-display' === name) {
 			this.displayMode(newValue);
 		}
 		if ('data-title-page' === name) {
@@ -93,6 +95,9 @@ class HeaderComponent extends HTMLElement {
 		}
 		if ('data-prev-route' === name) {
 			this.prevRoute = newValue;
+		}
+		if ('data-selected-mode' === name) {
+			this.titlePageIcon?.setAttribute('data-name', newValue);
 		}
 	}
 

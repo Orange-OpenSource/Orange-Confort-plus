@@ -1,6 +1,6 @@
 class filesService {
-	getModesOfUse() {
-		return fetch(chrome.runtime.getURL('assets/json/modes-of-use.json'))
+	getModesOfUse(): Promise<any> {
+		return fetch(`./assets/json/modes-of-use.json`)
 			.then(response => response.json())
 			.then(data => {
 				// Faites quelque chose avec les données JSON, par exemple :
@@ -12,3 +12,4 @@ class filesService {
 			});
 	}
 }
+

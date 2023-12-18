@@ -1,27 +1,10 @@
 /*
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 18/12/2023
-=======
-<<<<<<< HEAD
- * orange-confort-plus - version 4.3.0 - 12/12/2023
-=======
- * orange-confort-plus - version 4.3.0 - 07/12/2023
->>>>>>> Ajout de la sélection de mode d'usage.
->>>>>>> Ajout de la sélection de mode d'usage.
-=======
- * orange-confort-plus - version 4.3.0 - 12/12/2023
->>>>>>> Premier rebase après ajustement des setAttribute sur feature/navigation
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
 "use strict";
-=======
- * orange-confort-plus - version 4.3.0 - 13/12/2023
- * Enhance user experience on web sites
- * © 2014 - 2023 Orange SA
- */
+
 class filesService {
     getModesOfUse() {
         return fetch(chrome.runtime.getURL("assets/json/modes-of-use.json")).then((response => response.json())).then((data => data)).catch((error => {
@@ -30,7 +13,8 @@ class filesService {
         }));
     }
 }
->>>>>>> Ajout du service de chargement du fichier json.
+
+"use strict";
 
 class i18nService {
     locale="en";
@@ -73,114 +57,6 @@ class iconsService {
             wrapper.hidden = true;
             root.insertBefore(wrapper, root.firstChild);
         }));
-    }
-}
-
-class routeService {
-    _currentRoute="";
-    PAGE_HOME="home";
-    PAGE_MODES="modes";
-    PAGE_SETTINGS="settings";
-    PAGE_EDIT_SETTING="edit-setting";
-    pageHome=null;
-    pageModes=null;
-    pageSettings=null;
-    pageEditSetting=null;
-    routes=new Route(this.PAGE_HOME, "app-home", this.pageHome, [ new Route(this.PAGE_MODES, "app-modes", this.pageModes), new Route(this.PAGE_SETTINGS, "app-settings", this.pageSettings, [ new Route(this.PAGE_EDIT_SETTING, "app-edit-setting", this.pageEditSetting, [ new Route(this.PAGE_MODES, "app-modes", this.pageModes), new Route(this.PAGE_SETTINGS, "app-settings", this.pageSettings, [ new Route(this.PAGE_EDIT_SETTING, "app-edit-setting", this.pageEditSetting) ]) ]) ]) ]);
-    constructor() {
-        this._currentRoute = this.PAGE_HOME;
-    }
-    get currentRoute() {
-        return this._currentRoute;
-    }
-    set currentRoute(value) {
-        if (value !== this.currentRoute) {
-            this._currentRoute = value;
-            this.emitChangeEvent(value);
-        }
-    }
-    emitChangeEvent(value) {
-        return value;
-    }
-    initPages(root) {
-        const initializePage = route => {
-            route["element"] = root.querySelector(route.component);
-        };
-        const initializeChildPages = parentRoute => {
-            if (parentRoute?.children && parentRoute?.children.length > 0) {
-                parentRoute?.children.forEach((childRoute => {
-                    initializePage(childRoute);
-                    initializeChildPages(childRoute);
-                }));
-            }
-        };
-        initializePage(this.routes);
-        initializeChildPages(this.routes);
-        this.toggle(null, this.currentRoute);
-    }
-    toggle(oldRoute, newRoute) {
-        oldRoute = oldRoute ? oldRoute : "";
-        newRoute = newRoute ? newRoute : this.currentRoute;
-        const displayPage = route => {
-            if (route.path === newRoute) {
-                route["element"].classList.remove("d-none");
-            } else if (route.path === oldRoute) {
-                route["element"].classList.add("d-none");
-            }
-        };
-        const displayChildPages = parentRoute => {
-            if (parentRoute?.children && parentRoute?.children.length > 0) {
-                parentRoute?.children.forEach((childRoute => {
-                    displayPage(childRoute);
-                    displayChildPages(childRoute);
-                }));
-            }
-        };
-        displayPage(this.routes);
-        displayChildPages(this.routes);
-        this.currentRoute = newRoute;
-    }
-    navigate(newRoute) {
-        this.toggle(this.currentRoute, newRoute);
-    }
-    previous(route, object) {
-        route = route ? route : this.currentRoute;
-        object = object ? object : this.routes;
-        if (!object?.children || object?.children.length === 0 || object?.path === route) {
-            return null;
-        }
-        if (object?.children?.some((child => child?.path === route))) {
-            this.toggle(this.currentRoute, object.path);
-            return;
-        }
-        return object.children.map((child => this.previous(route, child))).reduce(((a, b) => a || b));
-    }
-}
-
-class Route {
-    constructor(path, component, pageElement, children = []) {
-        this._path = path;
-        this._component = component;
-        this._pageElement = pageElement;
-        this._children = children;
-    }
-    get path() {
-        return this._path;
-    }
-    get component() {
-        return this._component;
-    }
-    get element() {
-        return this._pageElement;
-    }
-    set element(newElement) {
-        this._pageElement = newElement;
-    }
-    get children() {
-        return this._children;
-    }
-    set children(newChildren) {
-        this._children = newChildren;
     }
 }
 
@@ -364,11 +240,6 @@ class SoundComponent extends HTMLElement {
     }
     disconnectedCallback() {
         this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-    displayMode(mode) {
-        this.prevBtn?.classList.toggle("d-none", mode === "primary");
-        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
-        this.titleApp?.classList.toggle("d-none", mode === "secondary");
     }
 }
 
@@ -649,62 +520,16 @@ customElements.define("app-text", TextComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
+tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
 
 class ToolbarComponent extends HTMLElement {
     header=null;
     home=null;
     modes=null;
     routeService;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    historyRoute=[];
-=======
-    json={
-        selectedMode: "",
-        modes: [ {
-            visionPlus: [ {
-                "Taille de texte": {
-                    value1: "16",
-                    value2: "18",
-                    value3: "20",
-                    value4: "22",
-                    value5: "24"
-                },
-                Police: {
-                    value1: "null",
-                    value2: "Arial",
-                    value3: "Open Sans",
-                    value4: "Accessible-DFA",
-                    value5: "Open Dyslexic",
-                    value6: "Luciole"
-                }
-            } ]
-        }, {
-            facilePlus: [ {
-                "Taille de texte": {
-                    value1: "20",
-                    value2: "21",
-                    value3: "22",
-                    value4: "23"
-                }
-            }, {
-                Police: {
-                    value1: "null",
-                    value2: "Arial",
-                    value3: "Open Sans",
-                    value4: "Accessible-DFA",
-                    value5: "Open Dyslexic",
-                    value6: "Luciole"
-                }
-            } ]
-        } ]
-    };
->>>>>>> Ajout de la sélection de mode d'usage.
-=======
     filesService;
+    historyRoute=[];
     json="";
->>>>>>> Ajout du service de chargement du fichier json.
     constructor() {
         super();
         this.routeService = new routeService;
@@ -718,7 +543,7 @@ class ToolbarComponent extends HTMLElement {
         this.filesService.getModesOfUse().then((result => {
             this.json = result;
             this.setCurrentMode();
-            this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json.modes));
+            this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
         }));
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
@@ -727,55 +552,42 @@ class ToolbarComponent extends HTMLElement {
             } else {
                 this.historyRoute.push(this.routeService.currentRoute);
             }
+            if (event.detail.mode) {
+                this.setConfig(event.detail.mode);
+                this.setCurrentMode();
+            }
             this.routeService.navigate(event.detail.route);
             this.setHeaderDisplay(event.detail.route);
             this.header?.focus();
-<<<<<<< HEAD
             this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
-=======
-        };
-        this.addEventListener("changeModeEvent", (event => {
-            this.routeService.navigate(this.routeService.PAGE_MODES);
-        }));
-        this.addEventListener("selectModeEvent", (event => {
-            this.setConfig(event);
-            this.setCurrentMode();
-            this.routeService.navigate(this.routeService.PAGE_HOME);
-        }));
-        this.addEventListener("settingsEvent", (event => {
-            this.routeService.navigate(this.routeService.PAGE_SETTINGS);
-        }));
-        this.addEventListener("prevEvent", (event => {
-            this.routeService.previous();
->>>>>>> Ajout de la sélection de mode d'usage.
         }));
     }
     setHeaderDisplay=page => {
         switch (page) {
           case this.routeService.PAGE_HOME:
             {
-                this.header?.setAttribute("data-mode", "primary");
+                this.header?.setAttribute("data-display", "primary");
                 this.header?.setAttribute("data-title-page", "");
                 break;
             }
 
           case this.routeService.PAGE_MODES:
             {
-                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-title-page", "pageTitleModes");
                 break;
             }
 
           case this.routeService.PAGE_SETTINGS:
             {
-                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-title-page", "pageTitleSettings");
                 break;
             }
 
           case this.routeService.PAGE_EDIT_SETTING:
             {
-                this.header?.setAttribute("data-mode", "secondary");
+                this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
                 break;
             }
@@ -787,14 +599,15 @@ class ToolbarComponent extends HTMLElement {
                 if (Object.entries(mode)[0][0] === this.json.selectedMode) {
                     let currentMode = Object.entries(mode)[0];
                     this.home?.setAttribute("data-mode", JSON.stringify(currentMode));
+                    this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
                 }
             }));
         } else {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }
     };
-    setConfig=event => {
-        this.json.selectedMode = event?.detail.mode;
+    setConfig=mode => {
+        this.json.selectedMode = mode;
     };
 }
 
@@ -825,19 +638,14 @@ class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode" ];
     changeModeBtn=null;
     settingsBtn=null;
-<<<<<<< HEAD
     routeService;
-    constructor() {
-        super();
-        this.routeService = new routeService;
-=======
     modeName=null;
     modeIcon=null;
     i18nService;
     constructor() {
         super();
         this.i18nService = new i18nService;
->>>>>>> Ajout de la sélection de mode d'usage.
+        this.routeService = new routeService;
         this.appendChild(homeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -864,17 +672,15 @@ class HomeComponent extends HTMLElement {
             this.settingsBtn?.dispatchEvent(clickEvent);
         }));
     }
-<<<<<<< HEAD
     disconnectedCallback() {
         this.changeModeBtn?.removeEventListener("click", (() => {}));
         this.settingsBtn?.removeEventListener("click", (() => {}));
-=======
+    }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             this.modeName.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
             this.modeIcon?.setAttribute("data-name", JSON.parse(newValue)[0]);
         }
->>>>>>> Ajout de la sélection de mode d'usage.
     }
 }
 
@@ -889,11 +695,8 @@ modesLayout.innerHTML = `\n<section class="p-3">\n\t<fieldset class="d-grid gap-
 class ModesComponent extends HTMLElement {
     static observedAttributes=[ "data-list-mode" ];
     selectModeBtn=null;
-<<<<<<< HEAD
     routeService;
-=======
     selectModeZone=null;
->>>>>>> Ajout de la sélection de mode d'usage.
     constructor() {
         super();
         this.routeService = new routeService;
@@ -903,48 +706,42 @@ class ModesComponent extends HTMLElement {
         this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeZone = this.querySelector("#select-mode-zone");
         this.selectModeBtn?.addEventListener("click", (() => {
-<<<<<<< HEAD
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
                 detail: {
+                    mode: this.getSelectedMode(),
                     route: this.routeService.PAGE_HOME,
                     isPrev: true
-                }
-=======
-            let clickEvent = new CustomEvent("selectModeEvent", {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                bubbles: true
->>>>>>> Ajout de la sélection de mode d'usage.
-            });
-            this.selectModeBtn?.dispatchEvent(clickEvent);
-=======
-=======
-                bubbles: true,
->>>>>>> Premier rebase après ajustement des setAttribute sur feature/navigation
-                detail: {
-                    mode: this.getSelectedMode()
                 }
             });
             this.selectModeBtn?.dispatchEvent(clickEvent);
         }));
     }
-<<<<<<< HEAD
     disconnectedCallback() {
         this.selectModeBtn?.removeEventListener("click", (() => {}));
-=======
+    }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-list-mode" === name) {
             this.displayListMode(JSON.parse(newValue));
         }
     }
-    displayListMode=list => {
+    displayListMode=json => {
+        const listMode = json.modes;
+        const selectedMode = json.selectedMode;
         let radioModeList = "";
-        list.forEach((mode => {
-            let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-settings-list="Description blabla"></app-select-mode>`;
+        listMode.forEach((mode => {
+            let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;
+        this.selectModeZone.querySelectorAll("app-select-mode").forEach((selectMode => {
+            let element = selectMode;
+            if (element.dataset.label === selectedMode) {
+                selectMode.querySelector("input").checked = true;
+            } else {
+                selectMode.querySelector("input").checked = false;
+            }
+        }));
     };
     getSelectedMode=() => {
         let selectedMode = "";
@@ -955,12 +752,7 @@ class ModesComponent extends HTMLElement {
             }
         }));
         return selectedMode;
-<<<<<<< HEAD
->>>>>>> Ajout de la sélection de mode d'usage.
-    }
-=======
     };
->>>>>>> Premier rebase après ajustement des setAttribute sur feature/navigation
 }
 
 customElements.define("app-modes", ModesComponent);
@@ -1158,16 +950,17 @@ customElements.define("app-collapse", CollapseComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Eye" class="border-end border-white"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="title-page-icon" data-size="1.5rem" data-name="Eye" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-mode", "data-title-page", "data-prev-route" ];
+    static observedAttributes=[ "data-display", "data-title-page", "data-prev-route", "data-selected-mode" ];
     closeBtn=null;
     prevBtn=null;
     titleApp=null;
     titlePageBlock=null;
     titlePage=null;
-    mode="primary";
+    titlePageIcon=null;
+    display="primary";
     i18nService;
     routeService;
     prevRoute="";
@@ -1183,7 +976,8 @@ class HeaderComponent extends HTMLElement {
         this.titleApp = this.querySelector("#title-app");
         this.titlePageBlock = this.querySelector("#title-page-block");
         this.titlePage = this.querySelector("#title-page");
-        this.displayMode(this.mode);
+        this.titlePageIcon = this.querySelector("#title-page-icon");
+        this.displayMode(this.display);
         this.closeBtn?.addEventListener("click", (() => {
             let clickCloseEvent = new CustomEvent("closeEvent", {
                 bubbles: true
@@ -1206,7 +1000,7 @@ class HeaderComponent extends HTMLElement {
         this.prevBtn?.removeEventListener("click", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-mode" === name) {
+        if ("data-display" === name) {
             this.displayMode(newValue);
         }
         if ("data-title-page" === name) {
@@ -1214,6 +1008,9 @@ class HeaderComponent extends HTMLElement {
         }
         if ("data-prev-route" === name) {
             this.prevRoute = newValue;
+        }
+        if ("data-selected-mode" === name) {
+            this.titlePageIcon?.setAttribute("data-name", newValue);
         }
     }
     displayMode=mode => {
@@ -1278,8 +1075,8 @@ class SelectModeComponent extends HTMLElement {
     i18nService;
     constructor() {
         super();
-        this.label = this.dataset?.label || this.label;
         this.i18nService = new i18nService;
+        this.label = this.dataset?.label || this.label;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1328,13 +1125,11 @@ class routeService {
         selector: "app-edit-setting",
         element: this.editSettingElement
     } ];
-    constructor() {
-        this.currentRoute = this.PAGE_HOME;
-    }
     initPages(root) {
         this.routes.forEach((route => {
             route.element = root.querySelector(route.selector);
         }));
+        this.navigate(this.PAGE_HOME);
     }
     navigate(newRoute) {
         this.routes.forEach((route => {
