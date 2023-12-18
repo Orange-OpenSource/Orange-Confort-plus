@@ -1,14 +1,6 @@
 class filesService {
-	path = '';
-	pathService;
-
-	constructor() {
-		this.pathService = new pathService();
-		this.path = this.pathService.path;
-	}
-
-	getModesOfUse() {
-		return fetch(`./assets/json/modes-of-use.json`)
+	getModesOfUse(): Promise<any> {
+		return fetch(chrome.runtime.getURL('assets/json/modes-of-use.json'))
 			.then(response => response.json())
 			.then(data => {
 				// Faites quelque chose avec les données JSON, par exemple :
@@ -20,4 +12,3 @@ class filesService {
 			});
 	}
 }
-

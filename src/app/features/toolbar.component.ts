@@ -2,7 +2,7 @@ const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <app-header id="header"></app-header>
 
-<app-home></app-home>
+<app-home class="d-none"></app-home>
 <app-modes class="d-none"></app-modes>
 <app-settings class="d-none"></app-settings>
 <app-edit-setting class="d-none"></app-edit-setting>
@@ -37,7 +37,7 @@ class ToolbarComponent extends HTMLElement {
 		this.filesService.getModesOfUse().then((result: any) => {
 			this.json = result;
 			this.setCurrentMode();
-			this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json.modes));
+			this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json));
 		});
 
 		this.routeService.initPages(this);
@@ -50,38 +50,38 @@ class ToolbarComponent extends HTMLElement {
 				this.historyRoute.push(this.routeService.currentRoute);
 			}
 
+			/* If the current mode changed */
+			if ((event as CustomEvent).detail.mode) {
+				this.setConfig((event as CustomEvent).detail.mode);
+				this.setCurrentMode();
+			}
+
 			this.routeService.navigate((event as CustomEvent).detail.route);
 			this.setHeaderDisplay((event as CustomEvent).detail.route);
 			this.header?.focus();
 			this.header.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
-
-			// Si mode change
-			if (false) {
-				this.setConfig(event as CustomEvent);
-				this.setCurrentMode();
-			}
 		});
 	}
 
 	setHeaderDisplay = (page: string): void => {
 		switch (page) {
 			case this.routeService.PAGE_HOME: {
-				this.header?.setAttribute('data-mode', 'primary');
+				this.header?.setAttribute('data-display', 'primary');
 				this.header?.setAttribute('data-title-page', '');
 				break;
 			}
 			case this.routeService.PAGE_MODES: {
-				this.header?.setAttribute('data-mode', 'secondary');
+				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleModes');
 				break;
 			}
 			case this.routeService.PAGE_SETTINGS: {
-				this.header?.setAttribute('data-mode', 'secondary');
+				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleSettings');
 				break;
 			}
 			case this.routeService.PAGE_EDIT_SETTING: {
-				this.header?.setAttribute('data-mode', 'secondary');
+				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleEditSetting');
 				break;
 			}
@@ -94,6 +94,7 @@ class ToolbarComponent extends HTMLElement {
 				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
 					let currentMode = Object.entries(mode)[0];
 					this.home?.setAttribute('data-mode', JSON.stringify(currentMode));
+					this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
 				}
 			});
 		} else {
@@ -101,9 +102,9 @@ class ToolbarComponent extends HTMLElement {
 		}
 	}
 
-	setConfig = (event?: CustomEvent): void => {
+	setConfig = (mode: string): void => {
 		// Méthode à utiliser pour impacter le fichier json
-		this.json.selectedMode = event?.detail.mode;
+		this.json.selectedMode = mode;
 	}
 }
 

@@ -18,15 +18,13 @@ class routeService {
 		{ path: this.PAGE_EDIT_SETTING, selector: 'app-edit-setting', element: this.editSettingElement },
 	];
 
-	constructor() {
-		this.currentRoute = this.PAGE_HOME;
-	}
-
 	/* Initialize components */
 	initPages(root: ShadowRoot): void {
 		this.routes.forEach((route: any) => {
 			route.element = root.querySelector(route.selector);
 		});
+
+		this.navigate(this.PAGE_HOME);
 	}
 
 	/* Navigate to the defined route in parameter */
