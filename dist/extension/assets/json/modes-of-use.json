@@ -4,7 +4,7 @@
 		{
 			"visionPlus": [
 				{
-					"Taille de texte":
+					"fontSize":
 					{
 						"value1": "16",
 						"value2": "18",
@@ -12,8 +12,8 @@
 						"value4": "22",
 						"value5": "24"
 					},
-					"Police": {
-						"value1": "null",
+					"textFont": {
+						"value1": "default",
 						"value2": "Arial",
 						"value3": "Open Sans",
 						"value4": "Accessible-DFA",
@@ -26,7 +26,7 @@
 		{
 			"facilePlus": [
 				{
-					"Taille de texte": {
+					"fontSize": {
 						"value1": "20",
 						"value2": "21",
 						"value3": "22",
@@ -34,8 +34,8 @@
 					}
 				},
 				{
-					"Police": {
-						"value1": "null",
+					"textFont": {
+						"value1": "default",
 						"value2": "Arial",
 						"value3": "Open Sans",
 						"value4": "Accessible-DFA",

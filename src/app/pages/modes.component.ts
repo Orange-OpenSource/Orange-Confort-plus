@@ -63,30 +63,15 @@ class ModesComponent extends HTMLElement {
 		const selectedMode = json.selectedMode;
 		let radioModeList = '';
 		listMode.forEach((mode: any) => {
-			let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}"></app-select-mode>`;
+			let isChecked = Object.entries(mode)[0][0] === selectedMode ? true : false;
+			let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-checked="${isChecked}"></app-select-mode>`;
 			radioModeList = radioModeList + radioMode;
 		});
 		this.selectModeZone!.innerHTML = radioModeList;
-
-		this.selectModeZone.querySelectorAll('app-select-mode').forEach((selectMode) => {
-			let element = selectMode as HTMLElement;
-			if (element.dataset.label === selectedMode) {
-				selectMode.querySelector('input').checked = true;
-			} else {
-				selectMode.querySelector('input').checked = false;
-			}
-		});
 	}
 
 	getSelectedMode = (): string => {
-		let selectedMode = '';
-		let inputs = this.querySelectorAll<HTMLInputElement>('input[name="modes"]');
-		inputs.forEach((input: HTMLInputElement) => {
-			if (input.checked) {
-				selectedMode = input.value;
-			}
-		});
-		return selectedMode;
+		return (this.querySelector('input:checked') as HTMLInputElement).value;
 	}
 }
 

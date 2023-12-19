@@ -2,7 +2,7 @@ class pathService {
 	path = '';
 
 	constructor() {
-		this.path = window.location.origin + '/';
+		this.path = `${window.location.origin}/`;
 	}
 }
 

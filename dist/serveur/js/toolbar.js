@@ -1,14 +1,18 @@
 /*
- * orange-confort-plus - version 4.3.0 - 18/12/2023
+ * orange-confort-plus - version 4.3.0 - 19/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
 "use strict";
 
 class filesService {
+    path="";
+    constructor() {
+        this.path = `${window.location.origin}/`;
+    }
     getModesOfUse() {
-        return fetch(`./assets/json/modes-of-use.json`).then((response => response.json())).then((data => data)).catch((error => {
-            console.error("Erreur lors de la récupération du fichier JSON :", error);
+        return fetch(`${this.path}assets/json/modes-of-use.json`).then((response => response.json())).catch((error => {
+            console.error(`Error when retrieving JSON file : ${error}.`);
             return error;
         }));
     }
@@ -20,17 +24,19 @@ class i18nService {
     locale="en";
     path="";
     constructor() {
-        this.path = window.location.origin + "/";
+        this.path = `${window.location.origin}/`;
         if ([ "en", "fr" ].some((language => navigator.language.startsWith(language)))) {
             this.locale = navigator.language.slice(0, 2);
         }
-        const xhr = new XMLHttpRequest;
-        xhr.open("GET", `${this.path}_locales/${this.locale}/messages.json`, false);
-        xhr.addEventListener("error", (() => {
-            throw new Error(`Couldn’t find ${this.locale}.`);
+        this.getJSON().then((result => {
+            localStorage.setItem("orange-i18n", JSON.stringify(result));
         }));
-        xhr.send();
-        localStorage.setItem("orange-i18n", xhr.responseText);
+    }
+    getJSON() {
+        return fetch(`${this.path}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
+            console.error(`Error when retrieving JSON file : ${error}.`);
+            return error;
+        }));
     }
     getMessages() {
         return localStorage.getItem("orange-i18n");
@@ -56,7 +62,7 @@ class i18nService {
 class pathService {
     path="";
     constructor() {
-        this.path = window.location.origin + "/";
+        this.path = `${window.location.origin}/`;
     }
 }
 
@@ -549,9 +555,9 @@ class ToolbarComponent extends HTMLElement {
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
+        this.header = this.querySelector("#header");
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
-        this.header = this.querySelector("#header");
         this.filesService.getModesOfUse().then((result => {
             this.json = result;
             this.setCurrentMode();
@@ -565,7 +571,7 @@ class ToolbarComponent extends HTMLElement {
                 this.historyRoute.push(this.routeService.currentRoute);
             }
             if (event.detail.mode) {
-                this.setConfig(event.detail.mode);
+                this.json.selectedMode = event.detail.mode;
                 this.setCurrentMode();
             }
             this.routeService.navigate(event.detail.route);
@@ -617,9 +623,6 @@ class ToolbarComponent extends HTMLElement {
         } else {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }
-    };
-    setConfig=mode => {
-        this.json.selectedMode = mode;
     };
 }
 
@@ -742,29 +745,13 @@ class ModesComponent extends HTMLElement {
         const selectedMode = json.selectedMode;
         let radioModeList = "";
         listMode.forEach((mode => {
-            let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}"></app-select-mode>`;
+            let isChecked = Object.entries(mode)[0][0] === selectedMode ? true : false;
+            let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-checked="${isChecked}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;
-        this.selectModeZone.querySelectorAll("app-select-mode").forEach((selectMode => {
-            let element = selectMode;
-            if (element.dataset.label === selectedMode) {
-                selectMode.querySelector("input").checked = true;
-            } else {
-                selectMode.querySelector("input").checked = false;
-            }
-        }));
     };
-    getSelectedMode=() => {
-        let selectedMode = "";
-        let inputs = this.querySelectorAll('input[name="modes"]');
-        inputs.forEach((input => {
-            if (input.checked) {
-                selectedMode = input.value;
-            }
-        }));
-        return selectedMode;
-    };
+    getSelectedMode=() => this.querySelector("input:checked").value;
 }
 
 customElements.define("app-modes", ModesComponent);
@@ -1075,7 +1062,7 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<p class="fs-6 fw-normal m-0"></p>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -1084,11 +1071,13 @@ class SelectModeComponent extends HTMLElement {
     textElement=null;
     descriptionElement=null;
     label="";
+    checked=false;
     i18nService;
     constructor() {
         super();
         this.i18nService = new i18nService;
         this.label = this.dataset?.label || this.label;
+        this.checked = this.dataset?.checked === "true" || this.checked;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1096,14 +1085,16 @@ class SelectModeComponent extends HTMLElement {
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
         this.textElement = this.querySelector("div span");
-        this.descriptionElement = this.querySelector("label > p");
-        this.inputElement.id = this.label;
+        this.descriptionElement = this.querySelector("label > span");
+        this.inputElement.id = this.normalizeString(this.label);
         this.inputElement.value = this.label;
-        this.labelElement?.setAttribute("for", this.label);
+        this.inputElement.checked = this.checked;
+        this.labelElement?.setAttribute("for", this.normalizeString(this.label));
         this.iconElement?.setAttribute("data-name", this.label);
         this.textElement.innerText = this.i18nService.getMessage(`${this.label}Name`);
         this.descriptionElement.innerText = this.i18nService.getMessage(`${this.label}Description`);
     }
+    normalizeString=string => string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
 }
 
 customElements.define("app-select-mode", SelectModeComponent);
