@@ -1,13 +1,11 @@
 class filesService {
-	getModesOfUse(): Promise<any> {
+	getModesOfUse(): Promise<string> {
 		return fetch(chrome.runtime.getURL('assets/json/modes-of-use.json'))
-			.then(response => response.json())
-			.then(data => {
-				// Faites quelque chose avec les données JSON, par exemple :
-				return data;
+			.then(response => {
+				return response.json();
 			})
 			.catch(error => {
-				console.error('Erreur lors de la récupération du fichier JSON :', error);
+				console.error(`Error when retrieving JSON file : ${error}.`);
 				return error;
 			});
 	}

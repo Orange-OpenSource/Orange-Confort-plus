@@ -27,7 +27,10 @@
 		"message": "Text"
 	},
 	"textSize": {
-		"message": "Size"
+		"message": "Text size"
+	},
+	"textFont": {
+		"message": "Text font"
 	},
 	"readingMask": {
 		"message": "Reading mask"

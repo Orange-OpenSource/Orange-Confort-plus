@@ -6,7 +6,7 @@ selectModeLayout.innerHTML = `
 			<app-icon data-size="2rem"></app-icon>
 			<span class="fs-5 text"></span>
 		</div>
-		<p class="fs-6 fw-normal m-0"></p>
+		<span class="fs-6 fw-normal m-0"></span>
 	</label>
 `;
 
@@ -17,6 +17,7 @@ class SelectModeComponent extends HTMLElement {
 	textElement: HTMLElement = null;
 	descriptionElement: HTMLParagraphElement = null;
 	label = '';
+	checked = false;
 	i18nService: any;
 
 	constructor() {
@@ -26,6 +27,7 @@ class SelectModeComponent extends HTMLElement {
 		this.i18nService = new i18nService();
 
 		this.label = this.dataset?.label || this.label;
+		this.checked = (this.dataset?.checked === 'true') || this.checked;
 
 		this.appendChild(selectModeLayout.content.cloneNode(true));
 	}
@@ -35,14 +37,24 @@ class SelectModeComponent extends HTMLElement {
 		this.labelElement = this.querySelector('label');
 		this.iconElement = this.querySelector('app-icon');
 		this.textElement = this.querySelector('div span');
-		this.descriptionElement = this.querySelector('label > p');
+		this.descriptionElement = this.querySelector('label > span');
 
-		this.inputElement!.id = this.label;
+		this.inputElement!.id = this.normalizeString(this.label);
 		this.inputElement!.value = this.label;
-		this.labelElement?.setAttribute('for', this.label);
+		this.inputElement!.checked = this.checked;
+		this.labelElement?.setAttribute('for', this.normalizeString(this.label));
 		this.iconElement?.setAttribute('data-name', this.label);
 		this.textElement!.innerText = this.i18nService.getMessage(`${this.label}Name`);
 		this.descriptionElement!.innerText = this.i18nService.getMessage(`${this.label}Description`);
+	}
+
+	normalizeString = (string: string): string => {
+		return string
+			?.toLowerCase()
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f\s]/g, "")
+			.split("-")
+			.join("");
 	}
 }
 
