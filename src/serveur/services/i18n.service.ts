@@ -3,20 +3,26 @@ class i18nService {
 	path: string = '';
 
 	constructor() {
-		this.path = window.location.origin + '/';
+		this.path = `${window.location.origin}/`;
 
 		if (['en', 'fr'].some(language => navigator.language.startsWith(language))) {
 			this.locale = navigator.language.slice(0, 2);
 		}
 
-		const xhr = new XMLHttpRequest();
-		xhr.open('GET', `${this.path}_locales/${this.locale}/messages.json`, false);
-		xhr.addEventListener('error', () => {
-			throw new Error(`Couldn’t find ${this.locale}.`);
+		this.getJSON().then((result: string) => {
+			localStorage.setItem('orange-i18n', JSON.stringify(result));
 		});
-		xhr.send();
+	}
 
-		localStorage.setItem('orange-i18n', xhr.responseText);
+	getJSON(): Promise<string> {
+		return fetch(`${this.path}_locales/${this.locale}/messages.json`)
+			.then(response => {
+				return response.json();
+			})
+			.catch(error => {
+				console.error(`Error when retrieving JSON file : ${error}.`);
+				return error;
+			});
 	}
 
 	getMessages(): string {

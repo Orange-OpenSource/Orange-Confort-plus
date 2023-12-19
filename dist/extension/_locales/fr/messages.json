@@ -27,7 +27,10 @@
 		"message": "Texte"
 	},
 	"textSize": {
-		"message": "Taille"
+		"message": "Taille de texte"
+	},
+	"textFont": {
+		"message": "Police de texte"
 	},
 	"readingMask": {
 		"message": "Guide de lecture"

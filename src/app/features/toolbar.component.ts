@@ -14,7 +14,7 @@ class ToolbarComponent extends HTMLElement {
 	modes: HTMLElement | null = null;
 	routeService: any;
 	filesService: any;
-	historyRoute: Array<string> = [];
+	historyRoute: string[] = [];
 	json: any = '';
 
 	constructor() {
@@ -30,9 +30,9 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
+		this.header = this.querySelector('#header');
 		this.home = this.querySelector('app-home');
 		this.modes = this.querySelector('app-modes');
-		this.header = this.querySelector('#header');
 
 		this.filesService.getModesOfUse().then((result: any) => {
 			this.json = result;
@@ -52,7 +52,7 @@ class ToolbarComponent extends HTMLElement {
 
 			/* If the current mode changed */
 			if ((event as CustomEvent).detail.mode) {
-				this.setConfig((event as CustomEvent).detail.mode);
+				this.json.selectedMode = (event as CustomEvent).detail.mode;
 				this.setCurrentMode();
 			}
 
@@ -100,11 +100,6 @@ class ToolbarComponent extends HTMLElement {
 		} else {
 			this.routeService.navigate(this.routeService.PAGE_MODES);
 		}
-	}
-
-	setConfig = (mode: string): void => {
-		// Méthode à utiliser pour impacter le fichier json
-		this.json.selectedMode = mode;
 	}
 }
 
