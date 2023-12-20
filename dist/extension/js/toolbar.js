@@ -662,16 +662,18 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<p>Zone d'affichage des réglages du mode en cours</p>\n\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode" ];
     changeModeBtn=null;
     settingsBtn=null;
-    routeService;
     modeName=null;
     modeIcon=null;
+    currentMode=null;
     i18nService;
+    routeService;
+    settings=[];
     constructor() {
         super();
         this.i18nService = new i18nService;
@@ -683,6 +685,7 @@ class HomeComponent extends HTMLElement {
         this.settingsBtn = this.querySelector("#settings-btn");
         this.modeName = this.querySelector("#mode-name");
         this.modeIcon = this.querySelector("app-icon");
+        this.currentMode = this.querySelector("app-mode");
         this.changeModeBtn?.addEventListener("click", (() => {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
@@ -709,6 +712,7 @@ class HomeComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             this.modeName.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
+            this.currentMode.setAttribute("data-parameters", newValue[1]);
             this.modeIcon?.setAttribute("data-name", JSON.parse(newValue)[0]);
         }
     }
@@ -838,7 +842,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-settings-list", "data-label" ];
@@ -1202,6 +1206,7 @@ class ModeComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-parameters" === name) {
             this.setParameters(JSON.parse(newValue));
+            console.log(JSON.parse(newValue));
         }
     }
 }
