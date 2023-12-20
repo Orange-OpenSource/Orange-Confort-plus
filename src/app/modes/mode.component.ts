@@ -47,6 +47,7 @@ class ModeComponent extends HTMLElement {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-parameters' === name) {
 			this.setParameters(JSON.parse(newValue));
+			console.log(JSON.parse(newValue))
 		}
 	}
 }
