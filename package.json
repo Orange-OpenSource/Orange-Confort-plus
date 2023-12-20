@@ -21,7 +21,7 @@
 		"url": "https://github.com/Orange-OpenSource/Orange-Confort-plus/issues"
 	},
 	"type": "module",
-	"node": ">=16",
+	"node": ">=18",
 	"scripts": {
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
 		"serve": "servor docs/ index.html 9010 --browse --reload",
@@ -70,12 +70,12 @@
 		"load:chrome": "cross-env-shell web-ext run --source-dir ./dist/WebExtension --start-url=$npm_package_config_page --target chromium --devtools"
 	},
 	"devDependencies": {
-		"autoprefixer": "^10.4.14",
+		"autoprefixer": "^10.4.16",
 		"boosted": "^5.2.3",
-		"concurrently": "^8.0.1",
+		"concurrently": "^8.2.2",
 		"cross-env": "^7.0.3",
-		"cssnano": "^6.0.1",
-		"globby": "^13.1.4",
+		"cssnano": "^6.0.2",
+		"globby": "^14.0.0",
 		"html-minifier-terser": "^7.2.0",
 		"imagemin-cli": "^7.0.0",
 		"imagemin-gifsicle": "^7.0.0",
@@ -83,14 +83,14 @@
 		"imagemin-pngquant": "^9.0.2",
 		"imagemin-svgo": "^10.0.1",
 		"imagemin-zopfli": "^7.0.0",
-		"nodemon": "^2.0.22",
-		"postcss": "^8.4.31",
+		"nodemon": "^3.0.2",
+		"postcss": "^8.4.32",
 		"postcss-banner": "^4.0.1",
-		"postcss-cli": "^10.1.0",
+		"postcss-cli": "^11.0.0",
 		"purgecss": "^5.0.0",
 		"servor": "^4.0.2",
 		"shx": "^0.3.4",
-		"terser": "^5.17.6",
-		"web-ext": "^7.5.0"
+		"terser": "^5.26.0",
+		"web-ext": "^7.9.0"
 	}
 }
