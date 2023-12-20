@@ -118,7 +118,7 @@
 	var UsageConfort = getParameterByName('UsageConfort');
 	var hostname = getParameterByName('hostname');
 	if (hostname && origin && window && window.parent && window.parent.postMessage) {
-		window.parent.postMessage(readCookies(), origin);
+		window.parent.postMessage(['UCI42', readCookies()], origin);
 	} else if ((UsageConfort || UsageConfort === "") && origin) {
 		saveCookie(namePref, UsageConfort, date);
 	} else if (hostname) {

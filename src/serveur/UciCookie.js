@@ -50,8 +50,6 @@ function UciStorage() {
 		} else {
 			document.getElementById('id_frame_cookie').src = hebergementFullPath + "cookie.html?UsageConfort=" + UsageConfortpref + "&origin=" + document.location.protocol + "//" + document.location.hostname + document.location.pathname;
 		}
-
-
 	};
 
 	/**
@@ -67,19 +65,17 @@ function UciStorage() {
 	 */
 	this.receiveMessage = function (event) {
 		// Do we trust the sender of this message?
-		if (event.origin.replace('https:', '') !== hebergementDomaine.replace('https:', '') && event.origin.replace('http:', '') !== hebergementDomaine.replace('http:', '') || typeof event.data === 'object')
+		if (event.origin !== hebergementDomaine && evenet.data[0] !== 'UCI42')
 			return;
 
 		// back from cookie Save
-		if (event.data == "saveDone") {
-			if (accessibilitytoolbar.needToReload) {
-				accessibilitytoolbar.reloadToolbar();
-			}
+		if (event.data[1] == "saveDone" && accessibilitytoolbar.needToReload) {
+			accessibilitytoolbar.reloadToolbar();
 		}
 		//cookieData
-		else {
+		else if (event.data[1].split('|').length >= 4) {
 			// new version with profiles
-			accessibilitytoolbar.userPref.decodeUsageConfort(event.data);
+			accessibilitytoolbar.userPref.decodeUsageConfort(event.data[1]);
 		}
 	};
 
