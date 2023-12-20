@@ -23,8 +23,7 @@ homeLayout.innerHTML = `
 </section>
 
 <section class="p-3">
-	<p>Zone d'affichage des réglages du mode en cours</p>
-
+	<app-mode></app-mode>
 	<div class="d-grid">
 		<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>
 	</div>
@@ -35,10 +34,12 @@ class HomeComponent extends HTMLElement {
 	static observedAttributes = ['data-mode'];
 	changeModeBtn: HTMLElement | null = null;
 	settingsBtn: HTMLElement | null = null;
-	routeService: any;
 	modeName: HTMLElement | null = null;
 	modeIcon: HTMLElement | null = null;
+	currentMode: HTMLElement | null = null;
 	i18nService: any;
+	routeService: any;
+	settings: any[] = [];
 
 	constructor() {
 		super();
@@ -57,6 +58,7 @@ class HomeComponent extends HTMLElement {
 		this.settingsBtn = this.querySelector('#settings-btn');
 		this.modeName = this.querySelector('#mode-name');
 		this.modeIcon = this.querySelector('app-icon');
+		this.currentMode = this.querySelector('app-mode');
 
 		this.changeModeBtn?.addEventListener('click', () => {
 			let clickEvent = new CustomEvent('changeRoute',
@@ -91,6 +93,7 @@ class HomeComponent extends HTMLElement {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
 			this.modeName!.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
+			this.currentMode.setAttribute('data-parameters', newValue[1]);
 			this.modeIcon?.setAttribute('data-name', JSON.parse(newValue)[0]);
 		}
 	}
