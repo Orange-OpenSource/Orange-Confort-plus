@@ -1,16 +1,23 @@
 const tmplMode: HTMLTemplateElement = document.createElement('template');
 tmplMode.innerHTML = `
-<section class="d-grid">
-	<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">
-	</div>
-
-	<button class="btn btn-secondary">Plus de réglage</button>
-</section>
+<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">
+	<app-font-family class="d-none"></app-font-family>
+	<app-increase-text-size class="d-none"></app-increase-text-size>
+	<app-text-transform class="d-none"></app-text-transform>
+	<app-reading-guide class="d-none"></app-reading-guide>
+</div>
 `;
 
 class ModeComponent extends HTMLElement {
 	static observedAttributes = ['data-parameters'];
 	modeContent: HTMLElement | null = null;
+
+	settingsDictionnary: any[] = [
+		{ name: 'fontSize', element: 'app-font-family' },
+		{ name: 'textFont', element: 'app-increase-text-size' },
+		{ name: 'textTransform', element: 'app-text-transform' },
+		{ name: 'readingGuide', element: 'app-reading-guide' },
+	];
 
 	constructor() {
 		super();
@@ -18,37 +25,24 @@ class ModeComponent extends HTMLElement {
 		this.appendChild(tmplMode.content.cloneNode(true));
 	}
 
-	setParameters(mode: JSON): void {
+	connectedCallback(): void {
 		this.modeContent = this.querySelector('#mode-content');
-		let btnSettingList = '';
-		let label = '';
-
-		if (this.modeContent) {
-			// @ts-ignore
-			Object.entries(mode.parameters).forEach(([key, value]) => {
-				let listValue = '';
-				// @ts-ignore
-				label = value['name'];
-				// @ts-ignore
-				Object.entries(value).forEach(([key, value]) => {
-					// @ts-ignore
-					if (key.indexOf('value') > -1) {
-						listValue ? listValue = `${listValue},${value}` : listValue = `${value}`;
-					}
-				});
-				let btnSetting = `<app-btn-setting data-label="${label}" data-settings-list="${listValue}"></app-btn-setting>`;
-				btnSettingList = btnSettingList + btnSetting;
-			});
-
-			this.modeContent.innerHTML = btnSettingList;
-		}
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-parameters' === name) {
-			this.setParameters(JSON.parse(newValue));
-			console.log(JSON.parse(newValue))
+			this.setSettings(JSON.parse(newValue));
 		}
+	}
+
+	setSettings(mode: []): void {
+		mode.forEach((setting) => {
+			let settingObj = this.settingsDictionnary.find(o => o.name === Object.entries(setting)[0][0]);
+			let settingElement: HTMLElement = this.querySelector(settingObj.element);
+
+			settingElement.classList.remove('d-none');
+			settingElement.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
+		});
 	}
 }
 

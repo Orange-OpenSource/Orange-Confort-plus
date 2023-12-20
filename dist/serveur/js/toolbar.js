@@ -156,6 +156,129 @@ customElements.define("app-root", AppComponent);
 
 "use strict";
 
+const tmplFontFamily = document.createElement("template");
+
+tmplFontFamily.innerHTML = `\n<style>\n\tapp-font-family {\n\t\t\tmargin-bottom: 1rem;\n\t}\n</style>\n\x3c!-- @todo Loop through predefined values --\x3e\n\x3c!-- @note To translate, or not? --\x3e\n<button id="normal-font" data-i18n="default"></button>\n<button id="arial-font">Arial</button>\n<button id="open-font-font">Open Sans</button>\n<button id="accessible-dfa-font">Accessible-DFA</button>\n<button id="open-dyslexic-font">Open Dyslexic</button>\n<button id="luciole-font">Luciole</button>\n`;
+
+class FontFamilyComponent extends HTMLElement {
+    normalBtn=null;
+    arialBtn=null;
+    openSansBtn=null;
+    accessibleDFABtn=null;
+    openDyslexicBtn=null;
+    lucioleBtn=null;
+    pathService;
+    path;
+    constructor() {
+        super();
+        this.appendChild(tmplFontFamily.content.cloneNode(true));
+        this.pathService = new pathService;
+        this.path = this.pathService.path;
+        let head = document.head || document.getElementsByTagName("head")[0];
+        let styles = document.createElement("style");
+        head.appendChild(styles);
+        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
+        this.normalBtn = this.querySelector("#normal-font");
+        this.arialBtn = this.querySelector("#arial-font");
+        this.openSansBtn = this.querySelector("#open-font-font");
+        this.accessibleDFABtn = this.querySelector("#accessible-dfa-font");
+        this.openDyslexicBtn = this.querySelector("#open-dyslexic-font");
+        this.lucioleBtn = this.querySelector("#luciole-font");
+    }
+    connectedCallback() {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        this.normalBtn?.addEventListener("click", (() => {
+            bodyElt.style.fontFamily = ``;
+        }));
+        this.arialBtn?.addEventListener("click", (() => {
+            bodyElt.style.fontFamily = `"Liberation Sans", Arial, sans-serif`;
+        }));
+        this.openSansBtn?.addEventListener("click", (() => {
+            bodyElt.style.fontFamily = `Open-Sans`;
+        }));
+        this.accessibleDFABtn?.addEventListener("click", (() => {
+            bodyElt.style.fontFamily = `Accessible-DFA`;
+        }));
+        this.openDyslexicBtn?.addEventListener("click", (() => {
+            bodyElt.style.fontFamily = `Open-Dyslexic`;
+        }));
+        this.lucioleBtn?.addEventListener("click", (() => {
+            bodyElt.style.fontFamily = `Luciole`;
+        }));
+    }
+    disconnectedCallback() {
+        this.normalBtn?.removeEventListener("click", (() => {}));
+        this.arialBtn?.removeEventListener("click", (() => {}));
+        this.openSansBtn?.removeEventListener("click", (() => {}));
+        this.accessibleDFABtn?.removeEventListener("click", (() => {}));
+        this.openDyslexicBtn?.removeEventListener("click", (() => {}));
+        this.lucioleBtn?.removeEventListener("click", (() => {}));
+    }
+}
+
+customElements.define("app-font-family", FontFamilyComponent);
+
+"use strict";
+
+const tmplIncreaseTextSize = document.createElement("template");
+
+tmplIncreaseTextSize.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-increase-text-size {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\tmargin-bottom: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__content {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-size {\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\theight: 5rem;\n\t\t\t\t\t\tmargin-right: 1rem;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-slots {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tmargin-top: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot {\n\t\t\t\t\t\tbackground: #FFBE85;\n\t\t\t\t\t\tborder-radius: 50%;\n\t\t\t\t\t\twidth: .5rem;\n\t\t\t\t\t\theight: .5rem;\n\t\t\t\t\t\tmargin-right: .25rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot:last-child {\n\t\t\t\t\t\tmargin-right: 0;\n\t\t\t\t}\n\t\t\t\t.selected {\n\t\t\t\t\t\tbackground: black;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__size-info {\n\t\t\t\t\t\tfont-weight: 700;\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\tpadding: 1rem 2rem 1rem 1rem;\n\t\t\t\t\t\tclip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n\t\t\t\t}\n\t\t</style>\n\t\t<div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
+
+class IncreaseTextSizeComponent extends HTMLElement {
+    toolBtn=null;
+    sizeBtn=null;
+    index=0;
+    fontSizes=[ 16, 18, 20, 22, 24 ];
+    constructor() {
+        super();
+        this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
+    }
+    connectedCallback() {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        const sizeInfoElt = this.querySelector("#content-size-info");
+        this.sizeBtn = this.querySelector("#btn-size");
+        if (!sizeInfoElt) {
+            return;
+        }
+        const btnContentSlots = this.querySelector("#btn-content-slots");
+        let slot = "";
+        this.fontSizes.forEach(((size, index) => {
+            let div = '<div class="sc-increase-text-size__btn-slot"></div>';
+            if (index === this.index) {
+                div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
+            }
+            slot = `${slot}${div}`;
+        }));
+        btnContentSlots.innerHTML = slot;
+        sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+        this.sizeBtn?.addEventListener("click", (() => {
+            this.index++;
+            if (this.index >= this.fontSizes.length) {
+                this.index = 0;
+            }
+            slot = "";
+            this.fontSizes.forEach(((size, index) => {
+                let div = '<div class="sc-increase-text-size__btn-slot"></div>';
+                if (index === this.index) {
+                    div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
+                }
+                slot = `${slot}${div}`;
+            }));
+            btnContentSlots.innerHTML = slot;
+            bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
+            sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+        }));
+    }
+    disconnectedCallback() {
+        this.toolBtn?.removeEventListener("click", (() => {}));
+        this.sizeBtn?.removeEventListener("click", (() => {}));
+    }
+}
+
+customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
+
+"use strict";
+
 const tmplLayout = document.createElement("template");
 
 tmplLayout.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-layout {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-layout__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="layout"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n\t\t</div>\n`;
@@ -281,129 +404,6 @@ class SoundComponent extends HTMLElement {
 }
 
 customElements.define("app-sound", SoundComponent);
-
-"use strict";
-
-const tmplFontFamily = document.createElement("template");
-
-tmplFontFamily.innerHTML = `\n<style>\n\tapp-font-family {\n\t\t\tmargin-bottom: 1rem;\n\t}\n</style>\n\x3c!-- @todo Loop through predefined values --\x3e\n\x3c!-- @note To translate, or not? --\x3e\n<button id="normal-font" data-i18n="default"></button>\n<button id="arial-font">Arial</button>\n<button id="open-font-font">Open Sans</button>\n<button id="accessible-dfa-font">Accessible-DFA</button>\n<button id="open-dyslexic-font">Open Dyslexic</button>\n<button id="luciole-font">Luciole</button>\n`;
-
-class FontFamilyComponent extends HTMLElement {
-    normalBtn=null;
-    arialBtn=null;
-    openSansBtn=null;
-    accessibleDFABtn=null;
-    openDyslexicBtn=null;
-    lucioleBtn=null;
-    pathService;
-    path;
-    constructor() {
-        super();
-        this.appendChild(tmplFontFamily.content.cloneNode(true));
-        this.pathService = new pathService;
-        this.path = this.pathService.path;
-        let head = document.head || document.getElementsByTagName("head")[0];
-        let styles = document.createElement("style");
-        head.appendChild(styles);
-        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
-        this.normalBtn = this.querySelector("#normal-font");
-        this.arialBtn = this.querySelector("#arial-font");
-        this.openSansBtn = this.querySelector("#open-font-font");
-        this.accessibleDFABtn = this.querySelector("#accessible-dfa-font");
-        this.openDyslexicBtn = this.querySelector("#open-dyslexic-font");
-        this.lucioleBtn = this.querySelector("#luciole-font");
-    }
-    connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        this.normalBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = ``;
-        }));
-        this.arialBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `"Liberation Sans", Arial, sans-serif`;
-        }));
-        this.openSansBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Open-Sans`;
-        }));
-        this.accessibleDFABtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Accessible-DFA`;
-        }));
-        this.openDyslexicBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Open-Dyslexic`;
-        }));
-        this.lucioleBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Luciole`;
-        }));
-    }
-    disconnectedCallback() {
-        this.normalBtn?.removeEventListener("click", (() => {}));
-        this.arialBtn?.removeEventListener("click", (() => {}));
-        this.openSansBtn?.removeEventListener("click", (() => {}));
-        this.accessibleDFABtn?.removeEventListener("click", (() => {}));
-        this.openDyslexicBtn?.removeEventListener("click", (() => {}));
-        this.lucioleBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-font-family", FontFamilyComponent);
-
-"use strict";
-
-const tmplIncreaseTextSize = document.createElement("template");
-
-tmplIncreaseTextSize.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-increase-text-size {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\tmargin-bottom: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__content {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-size {\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\theight: 5rem;\n\t\t\t\t\t\tmargin-right: 1rem;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-slots {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tmargin-top: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot {\n\t\t\t\t\t\tbackground: #FFBE85;\n\t\t\t\t\t\tborder-radius: 50%;\n\t\t\t\t\t\twidth: .5rem;\n\t\t\t\t\t\theight: .5rem;\n\t\t\t\t\t\tmargin-right: .25rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot:last-child {\n\t\t\t\t\t\tmargin-right: 0;\n\t\t\t\t}\n\t\t\t\t.selected {\n\t\t\t\t\t\tbackground: black;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__size-info {\n\t\t\t\t\t\tfont-weight: 700;\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\tpadding: 1rem 2rem 1rem 1rem;\n\t\t\t\t\t\tclip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n\t\t\t\t}\n\t\t</style>\n\t\t<div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
-
-class IncreaseTextSizeComponent extends HTMLElement {
-    toolBtn=null;
-    sizeBtn=null;
-    index=0;
-    fontSizes=[ 16, 18, 20, 22, 24 ];
-    constructor() {
-        super();
-        this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
-    }
-    connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        const sizeInfoElt = this.querySelector("#content-size-info");
-        this.sizeBtn = this.querySelector("#btn-size");
-        if (!sizeInfoElt) {
-            return;
-        }
-        const btnContentSlots = this.querySelector("#btn-content-slots");
-        let slot = "";
-        this.fontSizes.forEach(((size, index) => {
-            let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-            if (index === this.index) {
-                div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-            }
-            slot = `${slot}${div}`;
-        }));
-        btnContentSlots.innerHTML = slot;
-        sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        this.sizeBtn?.addEventListener("click", (() => {
-            this.index++;
-            if (this.index >= this.fontSizes.length) {
-                this.index = 0;
-            }
-            slot = "";
-            this.fontSizes.forEach(((size, index) => {
-                let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-                if (index === this.index) {
-                    div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-                }
-                slot = `${slot}${div}`;
-            }));
-            btnContentSlots.innerHTML = slot;
-            bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
-            sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        }));
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-        this.sizeBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
 
 "use strict";
 
@@ -641,7 +641,7 @@ class ToolbarComponent extends HTMLElement {
         if (this.json.selectedMode) {
             this.json.modes.forEach((mode => {
                 if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-                    let currentMode = Object.entries(mode)[0];
+                    let currentMode = mode;
                     this.home?.setAttribute("data-mode", JSON.stringify(currentMode));
                     this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
                 }
@@ -727,9 +727,9 @@ class HomeComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
-            this.modeName.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
-            this.currentMode.setAttribute("data-parameters", newValue[1]);
-            this.modeIcon?.setAttribute("data-name", JSON.parse(newValue)[0]);
+            this.modeName.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
+            this.currentMode.setAttribute("data-parameters", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
+            this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
         }
     }
 }
@@ -1191,39 +1191,43 @@ document.body.prepend(appRootElt);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<section class="d-grid">\n\t<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t</div>\n\n\t<button class="btn btn-secondary">Plus de réglage</button>\n</section>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family class="d-none"></app-font-family>\n\t<app-increase-text-size class="d-none"></app-increase-text-size>\n\t<app-text-transform class="d-none"></app-text-transform>\n\t<app-reading-guide class="d-none"></app-reading-guide>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-parameters" ];
     modeContent=null;
+    dictionnary=[ {
+        name: "fontSize",
+        element: "app-font-family"
+    }, {
+        name: "textFont",
+        element: "app-increase-text-size"
+    }, {
+        name: "textTransform",
+        element: "app-text-transform"
+    }, {
+        name: "readingGuide",
+        element: "app-reading-guide"
+    } ];
     constructor() {
         super();
         this.appendChild(tmplMode.content.cloneNode(true));
     }
-    setParameters(mode) {
+    connectedCallback() {
         this.modeContent = this.querySelector("#mode-content");
-        let btnSettingList = "";
-        let label = "";
-        if (this.modeContent) {
-            Object.entries(mode.parameters).forEach((([key, value]) => {
-                let listValue = "";
-                label = value["name"];
-                Object.entries(value).forEach((([key, value]) => {
-                    if (key.indexOf("value") > -1) {
-                        listValue ? listValue = `${listValue},${value}` : listValue = `${value}`;
-                    }
-                }));
-                let btnSetting = `<app-btn-setting data-label="${label}" data-settings-list="${listValue}"></app-btn-setting>`;
-                btnSettingList = btnSettingList + btnSetting;
-            }));
-            this.modeContent.innerHTML = btnSettingList;
-        }
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-parameters" === name) {
             this.setParameters(JSON.parse(newValue));
-            console.log(JSON.parse(newValue));
         }
+    }
+    setParameters(mode) {
+        mode.forEach((setting => {
+            let obj = this.dictionnary.find((o => o.name === Object.entries(setting)[0][0]));
+            this.querySelector(obj.element).classList.remove("d-none");
+            console.log(Object.entries(setting)[0][1]);
+            this.querySelector(obj.element).setAttribute("data-values", "blabla");
+        }));
     }
 }
 
