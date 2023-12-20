@@ -20,14 +20,14 @@ const files = {
 	'toolbar': {
 		files: [
 			'dist/js/app/app.component.js',
+			'dist/js/app/settings/font-family.component.js',
+			'dist/js/app/settings/increase-text-size.component.js',
+			'dist/js/app/settings/reading-guide.component.js',
+			'dist/js/app/settings/text-transform.component.js',
 			'dist/js/app/features/layout/layout.component.js',
 			'dist/js/app/features/picture-video/picture-video.component.js',
 			'dist/js/app/features/pointer/pointer.component.js',
 			'dist/js/app/features/sound/sound.component.js',
-			'dist/js/app/features/text/components/font-family.component.js',
-			'dist/js/app/features/text/components/increase-text-size.component.js',
-			'dist/js/app/features/text/components/reading-guide.component.js',
-			'dist/js/app/features/text/components/text-transform.component.js',
 			'dist/js/app/features/text/text.component.js',
 			'dist/js/app/features/toolbar.component.js',
 			'dist/js/app/pages/edit-setting.component.js',

@@ -92,9 +92,9 @@ class HomeComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
-			this.modeName!.innerText = this.i18nService.getMessage(`${JSON.parse(newValue)[0]}Name`);
-			this.currentMode.setAttribute('data-parameters', newValue[1]);
-			this.modeIcon?.setAttribute('data-name', JSON.parse(newValue)[0]);
+			this.modeName!.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
+			this.currentMode.setAttribute('data-parameters', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
+			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(newValue))[0][0]);
 		}
 	}
 }
