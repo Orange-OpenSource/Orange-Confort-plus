@@ -1,4 +1,4 @@
-abstract class Category extends HTMLElement {
+abstract class AbstractCategory extends HTMLElement {
 	button: HTMLElement = null;
 	container: HTMLElement = null;
 

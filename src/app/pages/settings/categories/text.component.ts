@@ -10,21 +10,17 @@ tmplText.innerHTML = `
 		<div id="category-text" class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
 				<div id="category-text-settings" class="d-flex flex-column">
-					<app-font-family></app-font-family>
-					<app-increase-text-size></app-increase-text-size>
-					<app-text-transform></app-text-transform>
-					<app-reading-guide></app-reading-guide>
 				</div>
-
 				<button id="category-text-more" class="btn btn-tertiary" data-i18n="moreSettings"></button>
 			</div>
 		</div>
 	</div>
 `;
 
-class TextComponent extends Category {
+class TextComponent extends AbstractCategory {
 	static observedAttributes = ['data-settings'];
 	btnMoreSettings: HTMLElement = null;
+	settingsContainer: HTMLElement = null;
 	settings: any[] = [];
 
 	settingsDictionnary: any[] = [
@@ -36,18 +32,22 @@ class TextComponent extends Category {
 
 	constructor() {
 		super();
+
 		this.appendChild(tmplText.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
+		super.connectedCallback();
 		this.btnMoreSettings = this.querySelector('#category-text-more');
+		this.settingsContainer = this.querySelector('#category-text-settings');
 
 		this.btnMoreSettings?.addEventListener('click', () => {
-			this.displaySettings(true);
+			this.displayAllSettings();
 		});
 	}
 
 	disconnectedCallback(): void {
+		super.disconnectedCallback();
 		this.btnMoreSettings?.removeEventListener('click', () => {
 		});
 	}
@@ -55,30 +55,39 @@ class TextComponent extends Category {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-settings' === name) {
 			this.settings = JSON.parse(newValue);
-			this.displaySettings(false);
+			this.displaySettings();
 		}
 	}
 
-	displaySettings = (full: boolean): void => {
-		let elements = this.querySelectorAll("#category-text-settings > *");
+	displaySettings = (): void => {
+		let settingsElements = '';
+		let tmpDictionnary = this.settingsDictionnary;
 
-		if (full) {
-			elements.forEach((element) => {
-				element.classList.remove('d-none');
-			});
-		} else {
-			elements.forEach((element) => {
-				element.classList.add('d-none');
-			});
+		/* First, add and display the active mode settings first */
+		this.settings?.forEach((setting) => {
+			let settingObj = this.settingsDictionnary.find(o => o.name === Object.entries(setting)[0][0]);
+			let index = this.settingsDictionnary.findIndex(o => o.name === Object.entries(setting)[0][0]);
+			tmpDictionnary.splice(index, 1);
 
-			this.settings.forEach((setting) => {
-				let settingObj = this.settingsDictionnary.find(o => o.name === Object.entries(setting)[0][0]);
-				let settingElement: HTMLElement = this.querySelector(settingObj.element);
+			let settingElement = `<${settingObj.element} data-values="${JSON.stringify(Object.entries(setting)[0][1])}"></${settingObj.element}>`;
+			settingsElements = settingsElements + settingElement;
+		});
 
-				settingElement.classList.remove('d-none');
-				settingElement.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
-			});
-		}
+		/* Secondly, add and hide other inactives settings */
+		tmpDictionnary.forEach((setting) => {
+			let settingElement = `<${setting.element} class="d-none"></${setting.element}>`;
+			settingsElements = settingsElements + settingElement;
+		});
+
+		this.settingsContainer.innerHTML = settingsElements;
+	}
+
+	displayAllSettings = (): void => {
+		let settingsElements = this.querySelectorAll('#category-text-settings > *');
+		settingsElements.forEach((element) => {
+			element.classList.remove('d-none');
+		});
+		this.btnMoreSettings.classList.add('d-none');
 	}
 }
 

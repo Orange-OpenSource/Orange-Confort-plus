@@ -14,7 +14,7 @@ tmplLayout.innerHTML = `
 	</div>
 `;
 
-class LayoutComponent extends Category {
+class LayoutComponent extends AbstractCategory {
 
 	constructor() {
 		super();
