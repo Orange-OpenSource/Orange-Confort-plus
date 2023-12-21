@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 20/12/2023
+ * orange-confort-plus - version 4.3.0 - 21/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -263,6 +263,122 @@ customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
 
 "use strict";
 
+const tmplReadingGuide = document.createElement("template");
+
+tmplReadingGuide.innerHTML = `\n\t<style>\n\t\tapp-reading-guide {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n\t\t.c-reading-guide {\n\t\t\t\tbackground: rgba(0, 0, 0, .5);\n\t\t\t\tposition: fixed;\n\t\t\t\tleft: 0;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: 99999;\n\t\t}\n\t\t.c-reading-guide--top {\n\t\t\t\ttop: 0;\n\t\t}\n\t\t.c-reading-guide--bottom {\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-msg {\n\t\t\t\tcolor: white;\n\t\t\t\tfont-weight: 700;\n\t\t\t\tpadding: 1rem;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-btn {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 80px;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: -80px;\n\t\t}\n\t</style>\n\t<button id="reading-guide-btn" data-i18n="readingMask"></button>\n\t<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">\n\t\t\t<span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>\n\t\t\t<button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>\n\t</div>\n\t<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>\n`;
+
+class ReadingGuideComponent extends HTMLElement {
+    open=false;
+    sizeGuide=40;
+    topGuideElt=null;
+    bottomGuideElt=null;
+    activeGuideBtn=null;
+    closeBtn=null;
+    constructor() {
+        super();
+        this.appendChild(tmplReadingGuide.content.cloneNode(true));
+        this.activeGuideBtn = this.querySelector("#reading-guide-btn");
+        this.topGuideElt = this.querySelector("#top-guide-elt");
+        this.bottomGuideElt = this.querySelector("#bottom-guide-elt");
+        this.closeBtn = this.querySelector("#close-btn");
+        if (this.topGuideElt && this.bottomGuideElt) {
+            this.topGuideElt.style.display = "none";
+            this.bottomGuideElt.style.display = "none";
+        }
+    }
+    connectedCallback() {
+        this.activeGuideBtn?.addEventListener("click", (() => {
+            this.open = !this.open;
+            if (!this.open) {
+                this.resetReadingGuide();
+                return;
+            }
+            if (this.topGuideElt && this.bottomGuideElt) {
+                this.topGuideElt.style.removeProperty("display");
+                this.bottomGuideElt.style.removeProperty("display");
+            }
+        }));
+        this.closeBtn?.addEventListener("click", (() => {
+            this.open = !this.open;
+            if (!this.open) {
+                this.resetReadingGuide();
+            }
+        }));
+        document.onkeydown = event => {
+            if (event.code === "Escape") {
+                this.open = !this.open;
+                this.resetReadingGuide();
+            }
+        };
+        document.addEventListener("mousemove", (event => {
+            if (this.open && this.topGuideElt && this.bottomGuideElt) {
+                this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
+                this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+            }
+            event.stopPropagation();
+        }));
+    }
+    disconnectedCallback() {
+        this.closeBtn?.removeEventListener("click", (() => {}));
+    }
+    resetReadingGuide=() => {
+        if (this.topGuideElt && this.bottomGuideElt) {
+            this.topGuideElt.style.display = "none";
+            this.bottomGuideElt.style.display = "none";
+            this.topGuideElt.style.removeProperty("height");
+            this.bottomGuideElt.style.removeProperty("height");
+        }
+    };
+}
+
+customElements.define("app-reading-guide", ReadingGuideComponent);
+
+"use strict";
+
+const tmplTextTransform = document.createElement("template");
+
+tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button id="normal-btn" data-i18n="default"></button>\n<button id="first-letter-btn" data-i18n="firstLetter"></button>\n<button id="lowercase-btn" data-i18n="lowercase"></button>\n<button id="uppercase-btn" data-i18n="uppercase"></button>\n`;
+
+class TextTransformComponent extends HTMLElement {
+    normalBtn=null;
+    firstLetterBtn=null;
+    lowercaseBtn=null;
+    uppercaseBtn=null;
+    constructor() {
+        super();
+        this.appendChild(tmplTextTransform.content.cloneNode(true));
+        this.normalBtn = this.querySelector("#normal-btn");
+        this.firstLetterBtn = this.querySelector("#first-letter-btn");
+        this.lowercaseBtn = this.querySelector("#lowercase-btn");
+        this.uppercaseBtn = this.querySelector("#uppercase-btn");
+    }
+    connectedCallback() {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        this.normalBtn?.addEventListener("click", (() => {
+            bodyElt.style.textTransform = ``;
+        }));
+        this.firstLetterBtn?.addEventListener("click", (() => {
+            bodyElt.style.textTransform = `capitalize`;
+        }));
+        this.lowercaseBtn?.addEventListener("click", (() => {
+            bodyElt.style.textTransform = `lowercase`;
+        }));
+        this.uppercaseBtn?.addEventListener("click", (() => {
+            bodyElt.style.textTransform = `uppercase`;
+        }));
+    }
+    disconnectedCallback() {
+        this.normalBtn?.removeEventListener("click", (() => {}));
+        this.firstLetterBtn?.removeEventListener("click", (() => {}));
+        this.lowercaseBtn?.removeEventListener("click", (() => {}));
+        this.uppercaseBtn?.removeEventListener("click", (() => {}));
+    }
+}
+
+customElements.define("app-text-transform", TextTransformComponent);
+
+"use strict";
+
 const tmplLayout = document.createElement("template");
 
 tmplLayout.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-layout {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-layout__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="layout"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n\t\t</div>\n`;
@@ -391,122 +507,6 @@ customElements.define("app-sound", SoundComponent);
 
 "use strict";
 
-const tmplReadingGuide = document.createElement("template");
-
-tmplReadingGuide.innerHTML = `\n\t<style>\n\t\tapp-reading-guide {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n\t\t.c-reading-guide {\n\t\t\t\tbackground: rgba(0, 0, 0, .5);\n\t\t\t\tposition: fixed;\n\t\t\t\tleft: 0;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: 99999;\n\t\t}\n\t\t.c-reading-guide--top {\n\t\t\t\ttop: 0;\n\t\t}\n\t\t.c-reading-guide--bottom {\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-msg {\n\t\t\t\tcolor: white;\n\t\t\t\tfont-weight: 700;\n\t\t\t\tpadding: 1rem;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-btn {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 80px;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: -80px;\n\t\t}\n\t</style>\n\t<button id="reading-guide-btn" data-i18n="readingMask"></button>\n\t<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">\n\t\t\t<span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>\n\t\t\t<button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>\n\t</div>\n\t<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>\n`;
-
-class ReadingGuideComponent extends HTMLElement {
-    open=false;
-    sizeGuide=40;
-    topGuideElt=null;
-    bottomGuideElt=null;
-    activeGuideBtn=null;
-    closeBtn=null;
-    constructor() {
-        super();
-        this.appendChild(tmplReadingGuide.content.cloneNode(true));
-        this.activeGuideBtn = this.querySelector("#reading-guide-btn");
-        this.topGuideElt = this.querySelector("#top-guide-elt");
-        this.bottomGuideElt = this.querySelector("#bottom-guide-elt");
-        this.closeBtn = this.querySelector("#close-btn");
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = "none";
-            this.bottomGuideElt.style.display = "none";
-        }
-    }
-    connectedCallback() {
-        this.activeGuideBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-                return;
-            }
-            if (this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.removeProperty("display");
-                this.bottomGuideElt.style.removeProperty("display");
-            }
-        }));
-        this.closeBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-            }
-        }));
-        document.onkeydown = event => {
-            if (event.code === "Escape") {
-                this.open = !this.open;
-                this.resetReadingGuide();
-            }
-        };
-        document.addEventListener("mousemove", (event => {
-            if (this.open && this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
-                this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
-            }
-            event.stopPropagation();
-        }));
-    }
-    disconnectedCallback() {
-        this.closeBtn?.removeEventListener("click", (() => {}));
-    }
-    resetReadingGuide=() => {
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = "none";
-            this.bottomGuideElt.style.display = "none";
-            this.topGuideElt.style.removeProperty("height");
-            this.bottomGuideElt.style.removeProperty("height");
-        }
-    };
-}
-
-customElements.define("app-reading-guide", ReadingGuideComponent);
-
-"use strict";
-
-const tmplTextTransform = document.createElement("template");
-
-tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button id="normal-btn" data-i18n="default"></button>\n<button id="first-letter-btn" data-i18n="firstLetter"></button>\n<button id="lowercase-btn" data-i18n="lowercase"></button>\n<button id="uppercase-btn" data-i18n="uppercase"></button>\n`;
-
-class TextTransformComponent extends HTMLElement {
-    normalBtn=null;
-    firstLetterBtn=null;
-    lowercaseBtn=null;
-    uppercaseBtn=null;
-    constructor() {
-        super();
-        this.appendChild(tmplTextTransform.content.cloneNode(true));
-        this.normalBtn = this.querySelector("#normal-btn");
-        this.firstLetterBtn = this.querySelector("#first-letter-btn");
-        this.lowercaseBtn = this.querySelector("#lowercase-btn");
-        this.uppercaseBtn = this.querySelector("#uppercase-btn");
-    }
-    connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        this.normalBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = ``;
-        }));
-        this.firstLetterBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = `capitalize`;
-        }));
-        this.lowercaseBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = `lowercase`;
-        }));
-        this.uppercaseBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = `uppercase`;
-        }));
-    }
-    disconnectedCallback() {
-        this.normalBtn?.removeEventListener("click", (() => {}));
-        this.firstLetterBtn?.removeEventListener("click", (() => {}));
-        this.lowercaseBtn?.removeEventListener("click", (() => {}));
-        this.uppercaseBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-text-transform", TextTransformComponent);
-
-"use strict";
-
 const tmplText = document.createElement("template");
 
 tmplText.innerHTML = `\n\t<style>\n\t\t\tapp-text {\n\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t}\n\t</style>\n\t<button class="c-btn-tool" id="sc-text__tool-btn">\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t<span class="c-btn-tool__label" data-i18n="text"></span>\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t</button>\n\t<div class="c-tool__content hidden" id="sc-text__tool-content">\n\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t<app-text-transform></app-text-transform>\n\t\t\t<app-font-family></app-font-family>\n\t\t\t<app-reading-guide></app-reading-guide>\n\t</div>\n`;
@@ -564,14 +564,13 @@ class ToolbarComponent extends HTMLElement {
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
         this.localStorageService.getItem("modeOfUse").then((result => {
+            this.json = result;
             if (!result) {
                 this.filesService.getModesOfUse().then((result => {
-                    this.setModeOfUse(result);
                     this.localStorageService.setItem("modeOfUse", result);
                 }));
-            } else {
-                this.setModeOfUse(result);
             }
+            this.setCurrentMode();
         }));
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
@@ -625,20 +624,15 @@ class ToolbarComponent extends HTMLElement {
         if (this.json.selectedMode) {
             this.json.modes.forEach((mode => {
                 if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-                    let currentMode = mode;
-                    this.home?.setAttribute("data-mode", JSON.stringify(currentMode));
+                    this.home?.setAttribute("data-mode", JSON.stringify(mode));
                     this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
+                    this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
                 }
             }));
         } else {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }
     };
-    setModeOfUse(datas) {
-        this.json = datas;
-        this.setCurrentMode();
-        this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
-    }
 }
 
 customElements.define("app-toolbar", ToolbarComponent);
@@ -712,7 +706,7 @@ class HomeComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             this.modeName.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
-            this.currentMode.setAttribute("data-parameters", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
+            this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
             this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
         }
     }
@@ -1079,6 +1073,56 @@ customElements.define("app-icon", IconComponent);
 
 "use strict";
 
+const tmplMode = document.createElement("template");
+
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family></app-font-family>\n\t<app-increase-text-size></app-increase-text-size>\n\t<app-text-transform></app-text-transform>\n\t<app-reading-guide></app-reading-guide>\n</div>\n`;
+
+class ModeComponent extends HTMLElement {
+    static observedAttributes=[ "data-settings" ];
+    modeContent=null;
+    settingsDictionnary=[ {
+        name: "fontSize",
+        element: "app-font-family"
+    }, {
+        name: "textFont",
+        element: "app-increase-text-size"
+    }, {
+        name: "textTransform",
+        element: "app-text-transform"
+    }, {
+        name: "readingGuide",
+        element: "app-reading-guide"
+    } ];
+    constructor() {
+        super();
+        this.appendChild(tmplMode.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.modeContent = this.querySelector("#mode-content");
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-settings" === name) {
+            this.setSettings(JSON.parse(newValue));
+        }
+    }
+    setSettings=mode => {
+        let allElement = this.querySelectorAll("#mode-content > *");
+        allElement.forEach((element => {
+            element.classList.add("d-none");
+        }));
+        mode.forEach((setting => {
+            let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
+            let settingElement = this.querySelector(settingObj.element);
+            settingElement.classList.remove("d-none");
+            settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+        }));
+    };
+}
+
+customElements.define("app-mode", ModeComponent);
+
+"use strict";
+
 const selectModeLayout = document.createElement("template");
 
 selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
@@ -1170,49 +1214,3 @@ class routeService {
 const appRootElt = document.createElement("app-root");
 
 document.body.prepend(appRootElt);
-
-"use strict";
-
-const tmplMode = document.createElement("template");
-
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family class="d-none"></app-font-family>\n\t<app-increase-text-size class="d-none"></app-increase-text-size>\n\t<app-text-transform class="d-none"></app-text-transform>\n\t<app-reading-guide class="d-none"></app-reading-guide>\n</div>\n`;
-
-class ModeComponent extends HTMLElement {
-    static observedAttributes=[ "data-parameters" ];
-    modeContent=null;
-    dictionnary=[ {
-        name: "fontSize",
-        element: "app-font-family"
-    }, {
-        name: "textFont",
-        element: "app-increase-text-size"
-    }, {
-        name: "textTransform",
-        element: "app-text-transform"
-    }, {
-        name: "readingGuide",
-        element: "app-reading-guide"
-    } ];
-    constructor() {
-        super();
-        this.appendChild(tmplMode.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.modeContent = this.querySelector("#mode-content");
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-parameters" === name) {
-            this.setParameters(JSON.parse(newValue));
-        }
-    }
-    setParameters(mode) {
-        mode.forEach((setting => {
-            let obj = this.dictionnary.find((o => o.name === Object.entries(setting)[0][0]));
-            this.querySelector(obj.element).classList.remove("d-none");
-            console.log(Object.entries(setting)[0][1]);
-            this.querySelector(obj.element).setAttribute("data-values", "blabla");
-        }));
-    }
-}
-
-customElements.define("app-mode", ModeComponent);

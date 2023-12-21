@@ -11,7 +11,9 @@
 						"value3": "20",
 						"value4": "22",
 						"value5": "24"
-					},
+					}
+				},
+				{
 					"textFont": {
 						"value1": "default",
 						"value2": "Arial",
@@ -41,6 +43,12 @@
 						"value4": "Accessible-DFA",
 						"value5": "Open Dyslexic",
 						"value6": "Luciole"
+					}
+				},
+				{
+					"readingGuide": {
+						"value1": "false",
+						"value2": "true"
 					}
 				}
 			]
