@@ -509,55 +509,70 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<style>\n\t\t\tapp-text {\n\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t}\n\t</style>\n\t<button class="c-btn-tool" id="sc-text__tool-btn">\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t<span class="c-btn-tool__label" data-i18n="text"></span>\n\t\t\t<div class="c-btn-tool__picto"></div>\n\t</button>\n\t<div class="c-tool__content hidden" id="sc-text__tool-content">\n\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t<app-text-transform></app-text-transform>\n\t\t\t<app-font-family></app-font-family>\n\t\t\t<app-reading-guide></app-reading-guide>\n\t</div>\n`;
+btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
 
-class TextComponent extends HTMLElement {
-    toolBtn=null;
-    open=false;
+class BtnModalComponent extends HTMLElement {
+    static observedAttributes=[ "data-value", "data-label" ];
+    modalBtn=null;
+    id="";
+    value=null;
     constructor() {
         super();
-        this.appendChild(tmplText.content.cloneNode(true));
+        this.id = this.dataset?.id || this.id;
+        this.value = this.dataset?.value || this.value;
+        this.appendChild(btnModalLayout.content.cloneNode(true));
     }
     connectedCallback() {
-        this.toolBtn = this.querySelector("#sc-text__tool-btn");
-        const contentElt = this.querySelector("#sc-text__tool-content");
-        this.toolBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove("hidden");
-            } else {
-                contentElt?.classList.add("hidden");
-            }
+        this.modalBtn = this.querySelector("button");
+        this.modalBtn?.addEventListener("click", (() => {
+            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
+                bubbles: true
+            });
+            this.modalBtn?.dispatchEvent(clickEvent);
         }));
     }
     disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
+        this.modalBtn?.removeEventListener("click", (() => {}));
     }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-value" === name && this.modalBtn !== null) {
+            this.modalBtn.innerText = newValue;
+        }
+        if ("data-label" === name && this.modalBtn !== null) {
+            this.setA11yName(newValue);
+        }
+    }
+    setA11yName=label => {
+        let span = document.createElement("span");
+        span.classList.add("visually-hidden");
+        span.innerText = label;
+        this.modalBtn?.appendChild(span);
+        this.modalBtn?.setAttribute("title", label);
+    };
 }
 
-customElements.define("app-text", TextComponent);
+customElements.define("app-btn-modal", BtnModalComponent);
 
 "use strict";
 
-const tmplToolbar = document.createElement("template");
+const btnSettingLayout = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
+btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
-class ToolbarComponent extends HTMLElement {
-    header=null;
-    home=null;
-    modes=null;
-    routeService;
-    filesService;
-    localStorageService;
-    historyRoute=[];
-    json="";
+class BtnSettingComponent extends HTMLElement {
+    static observedAttributes=[ "data-settings-list", "data-label" ];
+    settingBtn=null;
+    btnContentSlots=null;
+    index=1;
+    settingsList="";
+    label="";
+    slot="";
+    separator=",";
+    settingsArray=[];
     constructor() {
         super();
-        this.routeService = new routeService;
-        this.filesService = new filesService;
-        this.localStorageService = new LocalStorageService;
-        this.appendChild(tmplToolbar.content.cloneNode(true));
+        this.label = this.dataset?.label || this.label;
+        this.appendChild(btnSettingLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
@@ -583,34 +598,43 @@ class ToolbarComponent extends HTMLElement {
                 this.json.selectedMode = event.detail.mode;
                 this.setCurrentMode();
             }
-            this.routeService.navigate(event.detail.route);
-            this.setHeaderDisplay(event.detail.route);
-            this.header?.focus();
-            this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
+            this.calculateList();
         }));
     }
-    setHeaderDisplay=page => {
-        switch (page) {
-          case this.routeService.PAGE_HOME:
-            {
-                this.header?.setAttribute("data-display", "primary");
-                this.header?.setAttribute("data-title-page", "");
-                break;
+    disconnectedCallback() {
+        this.settingBtn?.removeEventListener("click", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-settings-list" === name) {
+            this.settingsList = newValue;
+            this.settingsArray = this.settingsList.split(this.separator);
+            this.calculateList();
+        }
+    }
+    calculateList=() => {
+        this.slot = "";
+        this.settingsArray.forEach(((value, index) => {
+            let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
+            if (index === this.index) {
+                point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
+                let clickEvent = new CustomEvent("changeSettingEvent", {
+                    bubbles: true,
+                    detail: {
+                        id: this.id,
+                        value: value
+                    }
+                });
+                this.settingBtn?.dispatchEvent(clickEvent);
             }
+            this.slot = `${this.slot}${point}`;
+        }));
+        this.btnContentSlots.innerHTML = this.slot;
+    };
+}
 
-          case this.routeService.PAGE_MODES:
-            {
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-title-page", "pageTitleModes");
-                break;
-            }
+customElements.define("app-btn-setting", BtnSettingComponent);
 
-          case this.routeService.PAGE_SETTINGS:
-            {
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-title-page", "pageTitleSettings");
-                break;
-            }
+"use strict";
 
           case this.routeService.PAGE_EDIT_SETTING:
             {
@@ -628,14 +652,77 @@ class ToolbarComponent extends HTMLElement {
                     this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
                     this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
                 }
-            }));
-        } else {
-            this.routeService.navigate(this.routeService.PAGE_MODES);
+            });
+            this.prevBtn?.dispatchEvent(clickEvent);
+        }));
+    }
+    disconnectedCallback() {
+        this.closeBtn?.removeEventListener("click", (() => {}));
+        this.prevBtn?.removeEventListener("click", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-display" === name) {
+            this.displayMode(newValue);
         }
+        if ("data-title-page" === name) {
+            this.titlePage.innerText = this.i18nService.getMessage(newValue);
+        }
+        if ("data-prev-route" === name) {
+            this.prevRoute = newValue;
+        }
+        if ("data-selected-mode" === name) {
+            this.titlePageIcon?.setAttribute("data-name", newValue);
+        }
+    }
+    displayMode=mode => {
+        this.prevBtn?.classList.toggle("d-none", mode === "primary");
+        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
+        this.titleApp?.classList.toggle("d-none", mode === "secondary");
     };
 }
 
-customElements.define("app-toolbar", ToolbarComponent);
+customElements.define("app-icon", IconComponent);
+
+"use strict";
+
+const selectModeLayout = document.createElement("template");
+
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
+
+class SelectModeComponent extends HTMLElement {
+    inputElement=null;
+    iconElement=null;
+    labelElement=null;
+    textElement=null;
+    descriptionElement=null;
+    label="";
+    checked=false;
+    i18nService;
+    constructor() {
+        super();
+        this.i18nService = new i18nService;
+        this.label = this.dataset?.label || this.label;
+        this.checked = this.dataset?.checked === "true" || this.checked;
+        this.appendChild(selectModeLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.inputElement = this.querySelector("input");
+        this.labelElement = this.querySelector("label");
+        this.iconElement = this.querySelector("app-icon");
+        this.textElement = this.querySelector("div span");
+        this.descriptionElement = this.querySelector("label > span");
+        this.inputElement.id = this.normalizeString(this.label);
+        this.inputElement.value = this.label;
+        this.inputElement.checked = this.checked;
+        this.labelElement?.setAttribute("for", this.normalizeString(this.label));
+        this.iconElement?.setAttribute("data-name", this.label);
+        this.textElement.innerText = this.i18nService.getMessage(`${this.label}Name`);
+        this.descriptionElement.innerText = this.i18nService.getMessage(`${this.label}Description`);
+    }
+    normalizeString=string => string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
+}
+
+customElements.define("app-select-mode", SelectModeComponent);
 
 "use strict";
 
@@ -716,6 +803,56 @@ customElements.define("app-home", HomeComponent);
 
 "use strict";
 
+const tmplMode = document.createElement("template");
+
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family></app-font-family>\n\t<app-increase-text-size></app-increase-text-size>\n\t<app-text-transform></app-text-transform>\n\t<app-reading-guide></app-reading-guide>\n</div>\n`;
+
+class ModeComponent extends HTMLElement {
+    static observedAttributes=[ "data-settings" ];
+    modeContent=null;
+    settingsDictionnary=[ {
+        name: "fontSize",
+        element: "app-font-family"
+    }, {
+        name: "textFont",
+        element: "app-increase-text-size"
+    }, {
+        name: "textTransform",
+        element: "app-text-transform"
+    }, {
+        name: "readingGuide",
+        element: "app-reading-guide"
+    } ];
+    constructor() {
+        super();
+        this.appendChild(tmplMode.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.modeContent = this.querySelector("#mode-content");
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-settings" === name) {
+            this.setSettings(JSON.parse(newValue));
+        }
+    }
+    setSettings=mode => {
+        let elements = this.querySelectorAll("#mode-content > *");
+        elements.forEach((element => {
+            element.classList.add("d-none");
+        }));
+        mode.forEach((setting => {
+            let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
+            let settingElement = this.querySelector(settingObj.element);
+            settingElement.classList.remove("d-none");
+            settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+        }));
+    };
+}
+
+customElements.define("app-mode", ModeComponent);
+
+"use strict";
+
 const modesLayout = document.createElement("template");
 
 modesLayout.innerHTML = `\n<section class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>\n\t</div>\n</section>\n`;
@@ -773,12 +910,21 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section class="d-flex flex-column p-3 mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n</section>\n`;
+settingsLayout.innerHTML = `\n<section id="categories" class="accordion mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n\t<app-navigation></app-navigation>\n</section>\n`;
 
 class SettingsComponent extends HTMLElement {
+    static observedAttributes=[ "data-mode" ];
     constructor() {
         super();
         this.appendChild(settingsLayout.content.cloneNode(true));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-mode" === name) {
+            let elements = this.querySelectorAll("#categories > *");
+            elements.forEach((element => {
+                element.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
+            }));
+        }
     }
 }
 
@@ -786,165 +932,28 @@ customElements.define("app-settings", SettingsComponent);
 
 "use strict";
 
-const btnModalLayout = document.createElement("template");
-
-btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
-
-class BtnModalComponent extends HTMLElement {
-    static observedAttributes=[ "data-value", "data-label" ];
-    modalBtn=null;
-    id="";
-    value=null;
-    constructor() {
-        super();
-        this.id = this.dataset?.id || this.id;
-        this.value = this.dataset?.value || this.value;
-        this.appendChild(btnModalLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.modalBtn = this.querySelector("button");
-        this.modalBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
-                bubbles: true
-            });
-            this.modalBtn?.dispatchEvent(clickEvent);
-        }));
-    }
-    disconnectedCallback() {
-        this.modalBtn?.removeEventListener("click", (() => {}));
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-value" === name && this.modalBtn !== null) {
-            this.modalBtn.innerText = newValue;
-        }
-        if ("data-label" === name && this.modalBtn !== null) {
-            this.setA11yName(newValue);
-        }
-    }
-    setA11yName=label => {
-        let span = document.createElement("span");
-        span.classList.add("visually-hidden");
-        span.innerText = label;
-        this.modalBtn?.appendChild(span);
-        this.modalBtn?.setAttribute("title", label);
-    };
-}
-
-customElements.define("app-btn-modal", BtnModalComponent);
-
-"use strict";
-
-const btnSettingLayout = document.createElement("template");
-
-btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
-
-class BtnSettingComponent extends HTMLElement {
-    static observedAttributes=[ "data-settings-list", "data-label" ];
-    settingBtn=null;
-    btnContentSlots=null;
-    index=1;
-    settingsList="";
-    label="";
-    slot="";
-    separator=",";
-    settingsArray=[];
-    constructor() {
-        super();
-        this.label = this.dataset?.label || this.label;
-        this.appendChild(btnSettingLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.settingBtn = this.querySelector("button");
-        this.btnContentSlots = this.querySelector("ul");
-        const span = this.querySelector("span");
-        span.innerText = this.label;
-        this.settingBtn?.addEventListener("click", (() => {
-            this.index++;
-            if (this.index >= this.settingsArray.length) {
-                this.index = 0;
-            }
-            this.calculateList();
-        }));
-    }
-    disconnectedCallback() {
-        this.settingBtn?.removeEventListener("click", (() => {}));
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-settings-list" === name) {
-            this.settingsList = newValue;
-            this.settingsArray = this.settingsList.split(this.separator);
-            this.calculateList();
-        }
-    }
-    calculateList=() => {
-        this.slot = "";
-        this.settingsArray.forEach(((value, index) => {
-            let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
-            if (index === this.index) {
-                point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
-                let clickEvent = new CustomEvent("changeSettingEvent", {
-                    bubbles: true,
-                    detail: {
-                        id: this.id,
-                        value: value
-                    }
-                });
-                this.settingBtn?.dispatchEvent(clickEvent);
-            }
-            this.slot = `${this.slot}${point}`;
-        }));
-        this.btnContentSlots.innerHTML = this.slot;
-    };
-}
-
-customElements.define("app-btn-setting", BtnSettingComponent);
-
-"use strict";
-
-const collapseLayout = document.createElement("template");
-
-collapseLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button collapsed gap-2 fs-4" type="button" data-bs-toggle="collapse" aria-expanded="false">\n\t\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t\t<span></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse">\n\t\t\t<div class="accordion-body"></div>\n\t\t</div>\n\t</div>\n`;
-
-class CollapseComponent extends HTMLElement {
+class Category extends HTMLElement {
     button=null;
     container=null;
-    iconElement=null;
-    titleElement=null;
-    id="";
-    icon="";
-    title="";
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
     constructor() {
         super();
-        this.id = this.dataset?.id || this.id;
-        this.icon = this.dataset?.icon || this.icon;
-        this.title = this.dataset?.title || this.title;
-        this.appendChild(collapseLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.button = this.querySelector("button.accordion-button");
         this.container = this.querySelector("div.accordion-collapse");
-        this.iconElement = this.querySelector("app-icon");
-        this.titleElement = this.button?.querySelector("span");
-        this.iconElement?.setAttribute("data-name", this.icon);
-        this.titleElement.innerText = this.title;
         this._triggerArray.push(this.button);
-        this.button?.setAttribute("aria-controls", this.id);
-        this.container?.setAttribute("id", this.id);
         this.button?.addEventListener("click", (() => {
-            this.toggle();
+            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
         }));
     }
     disconnectedCallback() {
         this.button?.removeEventListener("click", (() => {}));
     }
-    toggle=() => {
-        this._addAriaAndCollapsedClass(this._triggerArray, this._isShown());
-    };
-    _isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
-    _addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
         if (!triggerArray.length) {
             return;
         }
@@ -956,120 +965,275 @@ class CollapseComponent extends HTMLElement {
     };
 }
 
-customElements.define("app-collapse", CollapseComponent);
+"use strict";
+
+const tmplLayout = document.createElement("template");
+
+btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+
+class LayoutComponent extends Category {
+    constructor() {
+        super();
+        this.appendChild(tmplLayout.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-layout", LayoutComponent);
 
 "use strict";
 
-const headerLayout = document.createElement("template");
+const tmplNavigation = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="title-page-icon" data-size="1.5rem" data-name="Eye" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-navigation" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-display", "data-title-page", "data-prev-route", "data-selected-mode" ];
-    closeBtn=null;
-    prevBtn=null;
-    titleApp=null;
-    titlePageBlock=null;
-    titlePage=null;
-    titlePageIcon=null;
-    display="primary";
-    i18nService;
-    routeService;
-    prevRoute="";
+class NavigationComponent extends HTMLElement {
+    button=null;
+    container=null;
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
     constructor() {
         super();
-        this.i18nService = new i18nService;
-        this.routeService = new routeService;
-        this.appendChild(headerLayout.content.cloneNode(true));
+        this.appendChild(tmplNavigation.content.cloneNode(true));
     }
     connectedCallback() {
-        this.closeBtn = this.querySelector("#close-toolbar");
-        this.prevBtn = this.querySelector("#prev-toolbar");
-        this.titleApp = this.querySelector("#title-app");
-        this.titlePageBlock = this.querySelector("#title-page-block");
-        this.titlePage = this.querySelector("#title-page");
-        this.titlePageIcon = this.querySelector("#title-page-icon");
-        this.displayMode(this.display);
-        this.closeBtn?.addEventListener("click", (() => {
-            let clickCloseEvent = new CustomEvent("closeEvent", {
-                bubbles: true
-            });
-            this.closeBtn?.dispatchEvent(clickCloseEvent);
-        }));
-        this.prevBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeRoute", {
-                bubbles: true,
-                detail: {
-                    route: this.prevRoute,
-                    isPrev: true
-                }
-            });
-            this.prevBtn?.dispatchEvent(clickEvent);
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this._triggerArray.push(this.button);
+        this.button?.addEventListener("click", (() => {
+            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
         }));
     }
     disconnectedCallback() {
-        this.closeBtn?.removeEventListener("click", (() => {}));
-        this.prevBtn?.removeEventListener("click", (() => {}));
+        this.button?.removeEventListener("click", (() => {}));
     }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-display" === name) {
-            this.displayMode(newValue);
+    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+        if (!triggerArray.length) {
+            return;
         }
-        if ("data-title-page" === name) {
-            this.titlePage.innerText = this.i18nService.getMessage(newValue);
+        for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
         }
-        if ("data-prev-route" === name) {
-            this.prevRoute = newValue;
-        }
-        if ("data-selected-mode" === name) {
-            this.titlePageIcon?.setAttribute("data-name", newValue);
-        }
-    }
-    displayMode=mode => {
-        this.prevBtn?.classList.toggle("d-none", mode === "primary");
-        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
-        this.titleApp?.classList.toggle("d-none", mode === "secondary");
     };
 }
 
-customElements.define("app-header", HeaderComponent);
+customElements.define("app-navigation", NavigationComponent);
 
 "use strict";
 
-const iconLayout = document.createElement("template");
+const tmplPictureVideo = document.createElement("template");
 
-iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-picture-video" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class IconComponent extends HTMLElement {
-    static observedAttributes=[ "data-name" ];
-    sprite="";
-    iconService;
-    icon="";
-    size="1.25rem";
+class PictureVideoComponent extends HTMLElement {
+    button=null;
+    container=null;
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
     constructor() {
         super();
-        this.iconService = new iconsService;
-        this.sprite = this.iconService.path;
-        this.icon = this.dataset?.name || this.icon;
-        this.size = this.dataset?.size || this.size;
-        this.appendChild(iconLayout.content.cloneNode(true));
+        this.appendChild(tmplPictureVideo.content.cloneNode(true));
     }
     connectedCallback() {
-        let svg = this.querySelector("svg");
-        svg?.setAttribute("width", this.size);
-        svg?.setAttribute("height", this.size);
-        let use = this.querySelector("use");
-        use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this._triggerArray.push(this.button);
+        this.button?.addEventListener("click", (() => {
+            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+        }));
     }
-    attributeChangedCallback(name, oldValue, newValue) {
-        let use = this.querySelector("use");
-        if ("data-name" === name) {
-            use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
+    disconnectedCallback() {
+        this.button?.removeEventListener("click", (() => {}));
+    }
+    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+        if (!triggerArray.length) {
+            return;
         }
-    }
+        for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
+        }
+    };
 }
 
-customElements.define("app-icon", IconComponent);
+customElements.define("app-picture-video", PictureVideoComponent);
+
+"use strict";
+
+const tmplPointer = document.createElement("template");
+
+tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-pointer" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+
+class PointerComponent extends HTMLElement {
+    button=null;
+    container=null;
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
+    constructor() {
+        super();
+        this.appendChild(tmplPointer.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this._triggerArray.push(this.button);
+        this.button?.addEventListener("click", (() => {
+            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+        }));
+    }
+    disconnectedCallback() {
+        this.button?.removeEventListener("click", (() => {}));
+    }
+    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+        if (!triggerArray.length) {
+            return;
+        }
+        for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
+        }
+    };
+}
+
+customElements.define("app-pointer", PointerComponent);
+
+"use strict";
+
+const tmplSound = document.createElement("template");
+
+tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-sound" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+
+class SoundComponent extends HTMLElement {
+    button=null;
+    container=null;
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
+    constructor() {
+        super();
+        this.appendChild(tmplSound.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this._triggerArray.push(this.button);
+        this.button?.addEventListener("click", (() => {
+            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+        }));
+    }
+    disconnectedCallback() {
+        this.button?.removeEventListener("click", (() => {}));
+    }
+    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+        if (!triggerArray.length) {
+            return;
+        }
+        for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
+        }
+    };
+}
+
+customElements.define("app-sound", SoundComponent);
+
+"use strict";
+
+const tmplText = document.createElement("template");
+
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-text" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div id="category-text-settings" class="d-flex flex-column">\n\t\t\t\t\t<app-font-family></app-font-family>\n\t\t\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t\t\t<app-text-transform></app-text-transform>\n\t\t\t\t\t<app-reading-guide></app-reading-guide>\n\t\t\t\t</div>\n\n\t\t\t\t<button id="category-text-more" class="btn btn-tertiary" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+
+class TextComponent extends HTMLElement {
+    static observedAttributes=[ "data-settings" ];
+    button=null;
+    btnMoreSettings=null;
+    container=null;
+    settings=[];
+    settingsDictionnary=[ {
+        name: "fontSize",
+        element: "app-font-family"
+    }, {
+        name: "textFont",
+        element: "app-increase-text-size"
+    }, {
+        name: "textTransform",
+        element: "app-text-transform"
+    }, {
+        name: "readingGuide",
+        element: "app-reading-guide"
+    } ];
+    CLASS_NAME_SHOW="show";
+    CLASS_NAME_COLLAPSED="collapsed";
+    _triggerArray=[];
+    constructor() {
+        super();
+        this.appendChild(tmplText.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.button = this.querySelector("button.accordion-button");
+        this.container = this.querySelector("div.accordion-collapse");
+        this.btnMoreSettings = this.querySelector("#category-text-more");
+        this._triggerArray.push(this.button);
+        this.button?.addEventListener("click", (() => {
+            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+        }));
+        this.btnMoreSettings?.addEventListener("click", (() => {
+            this.displaySettings(true);
+        }));
+    }
+    disconnectedCallback() {
+        this.button?.removeEventListener("click", (() => {}));
+        this.btnMoreSettings?.removeEventListener("click", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-settings" === name) {
+            this.settings = JSON.parse(newValue);
+            this.displaySettings(false);
+        }
+    }
+    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
+        if (!triggerArray.length) {
+            return;
+        }
+        for (const element of triggerArray) {
+            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element.setAttribute("aria-expanded", String(isOpen));
+        }
+    };
+    displaySettings=full => {
+        let elements = this.querySelectorAll("#category-text-settings > *");
+        if (full) {
+            elements.forEach((element => {
+                element.classList.remove("d-none");
+            }));
+        } else {
+            elements.forEach((element => {
+                element.classList.add("d-none");
+            }));
+            this.settings.forEach((setting => {
+                let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
+                let settingElement = this.querySelector(settingObj.element);
+                settingElement.classList.remove("d-none");
+                settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+            }));
+        }
+    };
+}
+
+customElements.define("app-text", TextComponent);
 
 "use strict";
 
@@ -1125,42 +1289,104 @@ customElements.define("app-mode", ModeComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2rem"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
+tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
 
-class SelectModeComponent extends HTMLElement {
-    inputElement=null;
-    iconElement=null;
-    labelElement=null;
-    textElement=null;
-    descriptionElement=null;
-    label="";
-    checked=false;
-    i18nService;
+class ToolbarComponent extends HTMLElement {
+    header=null;
+    home=null;
+    modes=null;
+    settings=null;
+    routeService;
+    filesService;
+    localStorageService;
+    historyRoute=[];
+    json="";
     constructor() {
         super();
-        this.i18nService = new i18nService;
-        this.label = this.dataset?.label || this.label;
-        this.checked = this.dataset?.checked === "true" || this.checked;
-        this.appendChild(selectModeLayout.content.cloneNode(true));
+        this.routeService = new routeService;
+        this.filesService = new filesService;
+        this.localStorageService = new LocalStorageService;
+        this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
-        this.inputElement = this.querySelector("input");
-        this.labelElement = this.querySelector("label");
-        this.iconElement = this.querySelector("app-icon");
-        this.textElement = this.querySelector("div span");
-        this.descriptionElement = this.querySelector("label > span");
-        this.inputElement.id = this.normalizeString(this.label);
-        this.inputElement.value = this.label;
-        this.inputElement.checked = this.checked;
-        this.labelElement?.setAttribute("for", this.normalizeString(this.label));
-        this.iconElement?.setAttribute("data-name", this.label);
-        this.textElement.innerText = this.i18nService.getMessage(`${this.label}Name`);
-        this.descriptionElement.innerText = this.i18nService.getMessage(`${this.label}Description`);
+        this.header = this.querySelector("#header");
+        this.home = this.querySelector("app-home");
+        this.modes = this.querySelector("app-modes");
+        this.settings = this.querySelector("app-settings");
+        this.localStorageService.getItem("modeOfUse").then((result => {
+            this.json = result;
+            if (!result) {
+                this.filesService.getModesOfUse().then((result => {
+                    this.localStorageService.setItem("modeOfUse", result);
+                }));
+            }
+            this.setCurrentMode();
+        }));
+        this.routeService.initPages(this);
+        this.addEventListener("changeRoute", (event => {
+            if (event.detail.isPrev) {
+                this.historyRoute.pop();
+            } else {
+                this.historyRoute.push(this.routeService.currentRoute);
+            }
+            if (event.detail.mode) {
+                this.json.selectedMode = event.detail.mode;
+                this.setCurrentMode();
+            }
+            this.routeService.navigate(event.detail.route);
+            this.setHeaderDisplay(event.detail.route);
+            this.header?.focus();
+            this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
+        }));
     }
-    normalizeString=string => string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
+    setHeaderDisplay=page => {
+        switch (page) {
+          case this.routeService.PAGE_HOME:
+            {
+                this.header?.setAttribute("data-display", "primary");
+                this.header?.setAttribute("data-title-page", "");
+                break;
+            }
+
+          case this.routeService.PAGE_MODES:
+            {
+                this.header?.setAttribute("data-display", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleModes");
+                break;
+            }
+
+          case this.routeService.PAGE_SETTINGS:
+            {
+                this.header?.setAttribute("data-display", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleSettings");
+                break;
+            }
+
+          case this.routeService.PAGE_EDIT_SETTING:
+            {
+                this.header?.setAttribute("data-display", "secondary");
+                this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
+                break;
+            }
+        }
+    };
+    setCurrentMode=() => {
+        if (this.json.selectedMode) {
+            this.json.modes.forEach((mode => {
+                if (Object.entries(mode)[0][0] === this.json.selectedMode) {
+                    this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
+                    this.home?.setAttribute("data-mode", JSON.stringify(mode));
+                    this.settings?.setAttribute("data-mode", JSON.stringify(mode));
+                    this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
+                }
+            }));
+        } else {
+            this.routeService.navigate(this.routeService.PAGE_MODES);
+        }
+    };
 }
 
-customElements.define("app-select-mode", SelectModeComponent);
+customElements.define("app-toolbar", ToolbarComponent);
 
 "use strict";
 
