@@ -26,6 +26,9 @@
 	"text": {
 		"message": "Text"
 	},
+	"navigation": {
+		"message": "Navigation"
+	},
 	"textSize": {
 		"message": "Text size"
 	},
@@ -55,6 +58,9 @@
 	},
 	"openSettingsMode": {
 		"message": "Open mode's settings"
+	},
+	"moreSettings": {
+		"message": "More settings"
 	},
 	"pause": {
 		"message": "Pause"
