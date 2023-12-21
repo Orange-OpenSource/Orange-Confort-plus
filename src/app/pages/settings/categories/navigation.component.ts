@@ -14,7 +14,7 @@ tmplNavigation.innerHTML = `
 	</div>
 `;
 
-class NavigationComponent extends Category {
+class NavigationComponent extends AbstractCategory {
 
 	constructor() {
 		super();

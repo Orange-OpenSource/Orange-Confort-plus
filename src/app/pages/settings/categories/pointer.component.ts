@@ -14,7 +14,7 @@ tmplPointer.innerHTML = `
 	</div>
 `;
 
-class PointerComponent extends Category {
+class PointerComponent extends AbstractCategory {
 
 	constructor() {
 		super();

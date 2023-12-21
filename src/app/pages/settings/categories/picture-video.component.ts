@@ -14,7 +14,7 @@ tmplPictureVideo.innerHTML = `
 	</div>
 `;
 
-class PictureVideoComponent extends Category {
+class PictureVideoComponent extends AbstractCategory {
 
 	constructor() {
 		super();
