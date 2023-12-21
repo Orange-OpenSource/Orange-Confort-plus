@@ -379,135 +379,7 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 "use strict";
 
-const tmplLayout = document.createElement("template");
-
-tmplLayout.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-layout {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-layout__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="layout"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-layout__tool-content" data-i18n="wip">\n\t\t</div>\n`;
-
-class LayoutComponent extends HTMLElement {
-    toolBtn=null;
-    open=false;
-    constructor() {
-        super();
-        this.appendChild(tmplLayout.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector("#sc-layout__tool-btn");
-        const contentElt = this.querySelector("#sc-layout__tool-content");
-        this.toolBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove("hidden");
-            } else {
-                contentElt?.classList.add("hidden");
-            }
-        }));
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-layout", LayoutComponent);
-
-"use strict";
-
-const tmplPictureVideo = document.createElement("template");
-
-tmplPictureVideo.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-picture-video {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-picture-video__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="medias"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-picture-video__tool-content" data-i18n="wip"></div>\n`;
-
-class PictureVideoComponent extends HTMLElement {
-    toolBtn=null;
-    open=false;
-    constructor() {
-        super();
-        this.appendChild(tmplPictureVideo.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector("#sc-picture-video__tool-btn");
-        const contentElt = this.querySelector("#sc-picture-video__tool-content");
-        this.toolBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove("hidden");
-            } else {
-                contentElt?.classList.add("hidden");
-            }
-        }));
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-picture-video", PictureVideoComponent);
-
-"use strict";
-
-const tmplPointer = document.createElement("template");
-
-tmplPointer.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-pointer {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-pointer__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="pointer"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-pointer__tool-content" data-i18n="wip"></div>\n`;
-
-class PointerComponent extends HTMLElement {
-    toolBtn=null;
-    open=false;
-    constructor() {
-        super();
-        this.appendChild(tmplPointer.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector("#sc-pointer__tool-btn");
-        const contentElt = this.querySelector("#sc-pointer__tool-content");
-        this.toolBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove("hidden");
-            } else {
-                contentElt?.classList.add("hidden");
-            }
-        }));
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-pointer", PointerComponent);
-
-"use strict";
-
-const tmplSound = document.createElement("template");
-
-tmplSound.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-sound {\n\t\t\t\t\t\tfont-size: 1rem;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tmargin-bottom: .75rem;\n\t\t\t\t}\n\t\t</style>\n\t\t<button class="c-btn-tool" id="sc-sound__tool-btn">\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t\t\t<span class="c-btn-tool__label" data-i18n="audio"></span>\n\t\t\t\t<div class="c-btn-tool__picto"></div>\n\t\t</button>\n\t\t<div class="c-tool__content hidden" id="sc-sound__tool-content" data-i18n="wip"></div>\n`;
-
-class SoundComponent extends HTMLElement {
-    toolBtn=null;
-    open=false;
-    constructor() {
-        super();
-        this.appendChild(tmplSound.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.toolBtn = this.querySelector("#sc-sound__tool-btn");
-        const contentElt = this.querySelector("#sc-sound__tool-content");
-        this.toolBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (this.open) {
-                contentElt?.classList.remove("hidden");
-            } else {
-                contentElt?.classList.add("hidden");
-            }
-        }));
-    }
-    disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-    }
-}
-
-customElements.define("app-sound", SoundComponent);
-
-"use strict";
-
-const tmplText = document.createElement("template");
+const btnModalLayout = document.createElement("template");
 
 btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
 
@@ -575,28 +447,14 @@ class BtnSettingComponent extends HTMLElement {
         this.appendChild(btnSettingLayout.content.cloneNode(true));
     }
     connectedCallback() {
-        this.header = this.querySelector("#header");
-        this.home = this.querySelector("app-home");
-        this.modes = this.querySelector("app-modes");
-        this.localStorageService.getItem("modeOfUse").then((result => {
-            this.json = result;
-            if (!result) {
-                this.filesService.getModesOfUse().then((result => {
-                    this.localStorageService.setItem("modeOfUse", result);
-                }));
-            }
-            this.setCurrentMode();
-        }));
-        this.routeService.initPages(this);
-        this.addEventListener("changeRoute", (event => {
-            if (event.detail.isPrev) {
-                this.historyRoute.pop();
-            } else {
-                this.historyRoute.push(this.routeService.currentRoute);
-            }
-            if (event.detail.mode) {
-                this.json.selectedMode = event.detail.mode;
-                this.setCurrentMode();
+        this.settingBtn = this.querySelector("button");
+        this.btnContentSlots = this.querySelector("ul");
+        const span = this.querySelector("span");
+        span.innerText = this.label;
+        this.settingBtn?.addEventListener("click", (() => {
+            this.index++;
+            if (this.index >= this.settingsArray.length) {
+                this.index = 0;
             }
             this.calculateList();
         }));
@@ -636,21 +494,48 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 "use strict";
 
-          case this.routeService.PAGE_EDIT_SETTING:
-            {
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
-                break;
-            }
-        }
-    };
-    setCurrentMode=() => {
-        if (this.json.selectedMode) {
-            this.json.modes.forEach((mode => {
-                if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-                    this.home?.setAttribute("data-mode", JSON.stringify(mode));
-                    this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
-                    this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
+const headerLayout = document.createElement("template");
+
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="title-page-icon" data-size="1.5rem" data-name="Eye" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon data-size="1.5rem" data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-size="2rem" data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+
+class HeaderComponent extends HTMLElement {
+    static observedAttributes=[ "data-display", "data-title-page", "data-prev-route", "data-selected-mode" ];
+    closeBtn=null;
+    prevBtn=null;
+    titleApp=null;
+    titlePageBlock=null;
+    titlePage=null;
+    titlePageIcon=null;
+    display="primary";
+    i18nService;
+    routeService;
+    prevRoute="";
+    constructor() {
+        super();
+        this.i18nService = new i18nService;
+        this.routeService = new routeService;
+        this.appendChild(headerLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.closeBtn = this.querySelector("#close-toolbar");
+        this.prevBtn = this.querySelector("#prev-toolbar");
+        this.titleApp = this.querySelector("#title-app");
+        this.titlePageBlock = this.querySelector("#title-page-block");
+        this.titlePage = this.querySelector("#title-page");
+        this.titlePageIcon = this.querySelector("#title-page-icon");
+        this.displayMode(this.display);
+        this.closeBtn?.addEventListener("click", (() => {
+            let clickCloseEvent = new CustomEvent("closeEvent", {
+                bubbles: true
+            });
+            this.closeBtn?.dispatchEvent(clickCloseEvent);
+        }));
+        this.prevBtn?.addEventListener("click", (() => {
+            let clickEvent = new CustomEvent("changeRoute", {
+                bubbles: true,
+                detail: {
+                    route: this.prevRoute,
+                    isPrev: true
                 }
             });
             this.prevBtn?.dispatchEvent(clickEvent);
@@ -679,6 +564,43 @@ customElements.define("app-btn-setting", BtnSettingComponent);
         this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
         this.titleApp?.classList.toggle("d-none", mode === "secondary");
     };
+}
+
+customElements.define("app-header", HeaderComponent);
+
+"use strict";
+
+const iconLayout = document.createElement("template");
+
+iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="false"><use/></svg>`;
+
+class IconComponent extends HTMLElement {
+    static observedAttributes=[ "data-name" ];
+    sprite="";
+    iconService;
+    icon="";
+    size="1.25rem";
+    constructor() {
+        super();
+        this.iconService = new iconsService;
+        this.sprite = this.iconService.path;
+        this.icon = this.dataset?.name || this.icon;
+        this.size = this.dataset?.size || this.size;
+        this.appendChild(iconLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        let svg = this.querySelector("svg");
+        svg?.setAttribute("width", this.size);
+        svg?.setAttribute("height", this.size);
+        let use = this.querySelector("use");
+        use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        let use = this.querySelector("use");
+        if ("data-name" === name) {
+            use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
+        }
+    }
 }
 
 customElements.define("app-icon", IconComponent);
@@ -932,7 +854,7 @@ customElements.define("app-settings", SettingsComponent);
 
 "use strict";
 
-class Category extends HTMLElement {
+class AbstractCategory extends HTMLElement {
     button=null;
     container=null;
     CLASS_NAME_SHOW="show";
@@ -969,9 +891,9 @@ class Category extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-layout" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class LayoutComponent extends Category {
+class LayoutComponent extends AbstractCategory {
     constructor() {
         super();
         this.appendChild(tmplLayout.content.cloneNode(true));
@@ -986,38 +908,11 @@ const tmplNavigation = document.createElement("template");
 
 tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-navigation" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class NavigationComponent extends HTMLElement {
-    button=null;
-    container=null;
-    CLASS_NAME_SHOW="show";
-    CLASS_NAME_COLLAPSED="collapsed";
-    _triggerArray=[];
+class NavigationComponent extends AbstractCategory {
     constructor() {
         super();
         this.appendChild(tmplNavigation.content.cloneNode(true));
     }
-    connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
-        this._triggerArray.push(this.button);
-        this.button?.addEventListener("click", (() => {
-            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-        }));
-    }
-    disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
-    }
-    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
-    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
-        if (!triggerArray.length) {
-            return;
-        }
-        for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
-        }
-    };
 }
 
 customElements.define("app-navigation", NavigationComponent);
@@ -1028,38 +923,11 @@ const tmplPictureVideo = document.createElement("template");
 
 tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-picture-video" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class PictureVideoComponent extends HTMLElement {
-    button=null;
-    container=null;
-    CLASS_NAME_SHOW="show";
-    CLASS_NAME_COLLAPSED="collapsed";
-    _triggerArray=[];
+class PictureVideoComponent extends AbstractCategory {
     constructor() {
         super();
         this.appendChild(tmplPictureVideo.content.cloneNode(true));
     }
-    connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
-        this._triggerArray.push(this.button);
-        this.button?.addEventListener("click", (() => {
-            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-        }));
-    }
-    disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
-    }
-    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
-    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
-        if (!triggerArray.length) {
-            return;
-        }
-        for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
-        }
-    };
 }
 
 customElements.define("app-picture-video", PictureVideoComponent);
@@ -1070,38 +938,11 @@ const tmplPointer = document.createElement("template");
 
 tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-pointer" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class PointerComponent extends HTMLElement {
-    button=null;
-    container=null;
-    CLASS_NAME_SHOW="show";
-    CLASS_NAME_COLLAPSED="collapsed";
-    _triggerArray=[];
+class PointerComponent extends AbstractCategory {
     constructor() {
         super();
         this.appendChild(tmplPointer.content.cloneNode(true));
     }
-    connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
-        this._triggerArray.push(this.button);
-        this.button?.addEventListener("click", (() => {
-            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-        }));
-    }
-    disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
-    }
-    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
-    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
-        if (!triggerArray.length) {
-            return;
-        }
-        for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
-        }
-    };
 }
 
 customElements.define("app-pointer", PointerComponent);
@@ -1112,38 +953,11 @@ const tmplSound = document.createElement("template");
 
 tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-sound" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class SoundComponent extends HTMLElement {
-    button=null;
-    container=null;
-    CLASS_NAME_SHOW="show";
-    CLASS_NAME_COLLAPSED="collapsed";
-    _triggerArray=[];
+class SoundComponent extends AbstractCategory {
     constructor() {
         super();
         this.appendChild(tmplSound.content.cloneNode(true));
     }
-    connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
-        this._triggerArray.push(this.button);
-        this.button?.addEventListener("click", (() => {
-            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-        }));
-    }
-    disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
-    }
-    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
-    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
-        if (!triggerArray.length) {
-            return;
-        }
-        for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
-        }
-    };
 }
 
 customElements.define("app-sound", SoundComponent);
@@ -1152,13 +966,12 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-text" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div id="category-text-settings" class="d-flex flex-column">\n\t\t\t\t\t<app-font-family></app-font-family>\n\t\t\t\t\t<app-increase-text-size></app-increase-text-size>\n\t\t\t\t\t<app-text-transform></app-text-transform>\n\t\t\t\t\t<app-reading-guide></app-reading-guide>\n\t\t\t\t</div>\n\n\t\t\t\t<button id="category-text-more" class="btn btn-tertiary" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-text" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div id="category-text-settings" class="d-flex flex-column">\n\t\t\t\t</div>\n\t\t\t\t<button id="category-text-more" class="btn btn-tertiary" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
-class TextComponent extends HTMLElement {
+class TextComponent extends AbstractCategory {
     static observedAttributes=[ "data-settings" ];
-    button=null;
     btnMoreSettings=null;
-    container=null;
+    settingsContainer=null;
     settings=[];
     settingsDictionnary=[ {
         name: "fontSize",
@@ -1173,63 +986,50 @@ class TextComponent extends HTMLElement {
         name: "readingGuide",
         element: "app-reading-guide"
     } ];
-    CLASS_NAME_SHOW="show";
-    CLASS_NAME_COLLAPSED="collapsed";
-    _triggerArray=[];
     constructor() {
         super();
         this.appendChild(tmplText.content.cloneNode(true));
     }
     connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
+        super.connectedCallback();
         this.btnMoreSettings = this.querySelector("#category-text-more");
-        this._triggerArray.push(this.button);
-        this.button?.addEventListener("click", (() => {
-            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-        }));
+        this.settingsContainer = this.querySelector("#category-text-settings");
         this.btnMoreSettings?.addEventListener("click", (() => {
-            this.displaySettings(true);
+            this.displayAllSettings();
         }));
     }
     disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
+        super.disconnectedCallback();
         this.btnMoreSettings?.removeEventListener("click", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
             this.settings = JSON.parse(newValue);
-            this.displaySettings(false);
+            this.displaySettings();
         }
     }
-    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
-    addAriaAndCollapsedClass=(triggerArray, isOpen) => {
-        if (!triggerArray.length) {
-            return;
-        }
-        for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
-        }
+    displaySettings=() => {
+        let settingsElements = "";
+        let tmpDictionnary = this.settingsDictionnary;
+        this.settings?.forEach((setting => {
+            let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
+            let index = this.settingsDictionnary.findIndex((o => o.name === Object.entries(setting)[0][0]));
+            tmpDictionnary.splice(index, 1);
+            let settingElement = `<${settingObj.element} data-values="${JSON.stringify(Object.entries(setting)[0][1])}"></${settingObj.element}>`;
+            settingsElements = settingsElements + settingElement;
+        }));
+        tmpDictionnary.forEach((setting => {
+            let settingElement = `<${setting.element} class="d-none"></${setting.element}>`;
+            settingsElements = settingsElements + settingElement;
+        }));
+        this.settingsContainer.innerHTML = settingsElements;
     };
-    displaySettings=full => {
-        let elements = this.querySelectorAll("#category-text-settings > *");
-        if (full) {
-            elements.forEach((element => {
-                element.classList.remove("d-none");
-            }));
-        } else {
-            elements.forEach((element => {
-                element.classList.add("d-none");
-            }));
-            this.settings.forEach((setting => {
-                let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
-                let settingElement = this.querySelector(settingObj.element);
-                settingElement.classList.remove("d-none");
-                settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
-            }));
-        }
+    displayAllSettings=() => {
+        let settingsElements = this.querySelectorAll("#category-text-settings > *");
+        settingsElements.forEach((element => {
+            element.classList.remove("d-none");
+        }));
+        this.btnMoreSettings.classList.add("d-none");
     };
 }
 
@@ -1237,57 +1037,7 @@ customElements.define("app-text", TextComponent);
 
 "use strict";
 
-const tmplMode = document.createElement("template");
-
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family></app-font-family>\n\t<app-increase-text-size></app-increase-text-size>\n\t<app-text-transform></app-text-transform>\n\t<app-reading-guide></app-reading-guide>\n</div>\n`;
-
-class ModeComponent extends HTMLElement {
-    static observedAttributes=[ "data-settings" ];
-    modeContent=null;
-    settingsDictionnary=[ {
-        name: "fontSize",
-        element: "app-font-family"
-    }, {
-        name: "textFont",
-        element: "app-increase-text-size"
-    }, {
-        name: "textTransform",
-        element: "app-text-transform"
-    }, {
-        name: "readingGuide",
-        element: "app-reading-guide"
-    } ];
-    constructor() {
-        super();
-        this.appendChild(tmplMode.content.cloneNode(true));
-    }
-    connectedCallback() {
-        this.modeContent = this.querySelector("#mode-content");
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-settings" === name) {
-            this.setSettings(JSON.parse(newValue));
-        }
-    }
-    setSettings=mode => {
-        let allElement = this.querySelectorAll("#mode-content > *");
-        allElement.forEach((element => {
-            element.classList.add("d-none");
-        }));
-        mode.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
-            let settingElement = this.querySelector(settingObj.element);
-            settingElement.classList.remove("d-none");
-            settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
-        }));
-    };
-}
-
-customElements.define("app-mode", ModeComponent);
-
-"use strict";
-
-const selectModeLayout = document.createElement("template");
+const tmplToolbar = document.createElement("template");
 
 tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
 

@@ -14,7 +14,7 @@ tmplSound.innerHTML = `
 	</div>
 `;
 
-class SoundComponent extends Category {
+class SoundComponent extends AbstractCategory {
 
 	constructor() {
 		super();
