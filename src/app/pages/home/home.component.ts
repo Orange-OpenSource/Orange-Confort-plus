@@ -23,7 +23,7 @@ homeLayout.innerHTML = `
 </section>
 
 <section class="p-3">
-	<app-mode></app-mode>
+	<app-mode></app-mode>s
 	<div class="d-grid">
 		<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>
 	</div>

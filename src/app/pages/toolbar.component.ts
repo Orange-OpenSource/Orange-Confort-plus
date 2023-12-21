@@ -12,6 +12,7 @@ class ToolbarComponent extends HTMLElement {
 	header: HTMLElement | null = null;
 	home: HTMLElement | null = null;
 	modes: HTMLElement | null = null;
+	settings: HTMLElement | null = null;
 	routeService: any;
 	filesService: any;
 	localStorageService: any;
@@ -36,6 +37,7 @@ class ToolbarComponent extends HTMLElement {
 		this.header = this.querySelector('#header');
 		this.home = this.querySelector('app-home');
 		this.modes = this.querySelector('app-modes');
+		this.settings = this.querySelector('app-settings');
 
 		this.localStorageService.getItem('modeOfUse').then((result: any) => {
 			this.json = result;
@@ -101,8 +103,9 @@ class ToolbarComponent extends HTMLElement {
 		if (this.json.selectedMode) {
 			this.json.modes.forEach((mode: any) => {
 				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-					this.home?.setAttribute('data-mode', JSON.stringify(mode));
 					this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
+					this.home?.setAttribute('data-mode', JSON.stringify(mode));
+					this.settings?.setAttribute('data-mode', JSON.stringify(mode));
 					this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json));
 				}
 			});
