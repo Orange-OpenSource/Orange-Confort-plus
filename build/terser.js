@@ -39,10 +39,10 @@ const files = {
 			'dist/js/app/shared/collapse.component.js',
 			'dist/js/app/shared/header.component.js',
 			'dist/js/app/shared/icon.component.js',
+			'dist/js/app/shared/mode.component.js',
 			'dist/js/app/shared/select-mode.component.js',
 			'dist/js/app/services/route.service.js',
-			'dist/js/app/core/injector.core.js',
-			'dist/js/app/modes/mode.component.js'
+			'dist/js/app/core/injector.core.js'
 		],
 		dist: 'dist/js/toolbar.js',
 		options: {
