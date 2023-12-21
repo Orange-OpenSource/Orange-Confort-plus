@@ -101,8 +101,7 @@ class ToolbarComponent extends HTMLElement {
 		if (this.json.selectedMode) {
 			this.json.modes.forEach((mode: any) => {
 				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-					let currentMode = mode;
-					this.home?.setAttribute('data-mode', JSON.stringify(currentMode));
+					this.home?.setAttribute('data-mode', JSON.stringify(mode));
 					this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
 					this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json));
 				}
