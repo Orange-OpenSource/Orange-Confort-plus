@@ -6,21 +6,14 @@
 				{
 					"fontSize":
 					{
-						"value1": "16",
-						"value2": "18",
-						"value3": "20",
-						"value4": "22",
-						"value5": "24"
+						"values": "default,110%,130%,160%,200%,350%,500%",
+						"activeValue": "1"
 					}
 				},
 				{
 					"textFont": {
-						"value1": "default",
-						"value2": "Arial",
-						"value3": "Open Sans",
-						"value4": "Accessible-DFA",
-						"value5": "Open Dyslexic",
-						"value6": "Luciole"
+						"values": "default,Arial,Open Sans,Accessible-DFA,Open Dyslexic,Luciole",
+						"activeValue": "1"
 					}
 				}
 			]
@@ -29,26 +22,20 @@
 			"facilePlus": [
 				{
 					"fontSize": {
-						"value1": "20",
-						"value2": "21",
-						"value3": "22",
-						"value4": "23"
+						"values": "default,110%,130%,160%,200%,350%,500%",
+						"activeValue": "1"
 					}
 				},
 				{
 					"textFont": {
-						"value1": "default",
-						"value2": "Arial",
-						"value3": "Open Sans",
-						"value4": "Accessible-DFA",
-						"value5": "Open Dyslexic",
-						"value6": "Luciole"
+						"values": "default,Arial,Open Sans,Accessible-DFA,Open Dyslexic,Luciole",
+						"activeValue": "1"
 					}
 				},
 				{
 					"readingGuide": {
-						"value1": "false",
-						"value2": "true"
+						"values": "false,true",
+						"activeValue": "1"
 					}
 				}
 			]

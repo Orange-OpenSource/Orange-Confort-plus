@@ -13,8 +13,8 @@ class ModeComponent extends HTMLElement {
 	modeContent: HTMLElement | null = null;
 
 	settingsDictionnary: any[] = [
-		{ name: 'fontSize', element: 'app-font-family' },
-		{ name: 'textFont', element: 'app-increase-text-size' },
+		{ name: 'fontSize', element: 'app-increase-text-size' },
+		{ name: 'textFont', element: 'app-font-family' },
 		{ name: 'textTransform', element: 'app-text-transform' },
 		{ name: 'readingGuide', element: 'app-reading-guide' },
 	];
@@ -41,12 +41,12 @@ class ModeComponent extends HTMLElement {
 			element.classList.add('d-none');
 		});
 
-		mode.forEach((setting) => {
+		mode.forEach((setting: JSON) => {
 			let settingObj = this.settingsDictionnary.find(o => o.name === Object.entries(setting)[0][0]);
 			let settingElement: HTMLElement = this.querySelector(settingObj.element);
 
 			settingElement.classList.remove('d-none');
-			settingElement.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
+			settingElement.setAttribute('data-setting', JSON.stringify(Object.entries(setting)[0][1]));
 		});
 	}
 }

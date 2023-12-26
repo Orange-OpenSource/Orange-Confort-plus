@@ -97,5 +97,8 @@
 	},
 	"facilePlusDescription": {
 		"message": "Description of Facile+ mode"
+	},
+	"noModifications": {
+		"message": "No changes"
 	}
 }
