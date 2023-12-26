@@ -1,3 +1,18 @@
+.sc-btn-setting {
+	&:hover > ul > li.border.border-4 {
+		border-color: var(--cplus-primary) !important;
+	}
+
+	&:active > ul > li.bg-white {
+		background-color: var(--cplus-body-color) !important;
+	}
+}
+
+.sc-btn-setting--default {
+	background-color: var(--cplus-light);
+	border-color: var(--cplus-light);
+}
+
 .sc-btn-setting__btn-slot {
 	width: .25rem;
 	height: .25rem;

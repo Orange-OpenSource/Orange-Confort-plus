@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 26/12/2023
+ * orange-confort-plus - version 4.3.0 - 28/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -140,6 +140,28 @@ customElements.define("app-root", AppComponent);
 
 "use strict";
 
+class AbstractSetting extends HTMLElement {
+    settingBtn=null;
+    modalBtn=null;
+    canEdit=false;
+    constructor() {
+        super();
+        this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
+    }
+    connectedCallback() {
+        this.settingBtn = this.querySelector("app-btn-setting");
+        this.modalBtn = this.querySelector("app-btn-modal");
+        if (this.canEdit) {
+            this.modalBtn.classList.remove("d-none");
+        }
+    }
+    disconnectedCallback() {
+        this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
+    }
+}
+
+"use strict";
+
 const tmplFontFamily = document.createElement("template");
 
 tmplFontFamily.innerHTML = `\n<style>\n\tapp-font-family {\n\t\t\tmargin-bottom: 1rem;\n\t}\n</style>\n\x3c!-- @todo Loop through predefined values --\x3e\n\x3c!-- @note To translate, or not? --\x3e\n<button id="normal-font" data-i18n="default"></button>\n<button id="arial-font">Arial</button>\n<button id="open-font-font">Open Sans</button>\n<button id="accessible-dfa-font">Accessible-DFA</button>\n<button id="open-dyslexic-font">Open Dyslexic</button>\n<button id="luciole-font">Luciole</button>\n`;
@@ -206,57 +228,41 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n\t\t<style>\n\t\t\t\tapp-increase-text-size {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\tmargin-bottom: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__content {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-size {\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\theight: 5rem;\n\t\t\t\t\t\tmargin-right: 1rem;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__btn-slots {\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tmargin-top: 1rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot {\n\t\t\t\t\t\tbackground: #FFBE85;\n\t\t\t\t\t\tborder-radius: 50%;\n\t\t\t\t\t\twidth: .5rem;\n\t\t\t\t\t\theight: .5rem;\n\t\t\t\t\t\tmargin-right: .25rem;\n\t\t\t\t}\n\t\t\t\t.sc-increase-text-size__btn-slot:last-child {\n\t\t\t\t\t\tmargin-right: 0;\n\t\t\t\t}\n\t\t\t\t.selected {\n\t\t\t\t\t\tbackground: black;\n\t\t\t\t}\n\n\t\t\t\t.sc-increase-text-size__size-info {\n\t\t\t\t\t\tfont-weight: 700;\n\t\t\t\t\t\tbackground: #ff7900;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tjustify-content: center;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t\t\twidth: 5rem;\n\t\t\t\t\t\tpadding: 1rem 2rem 1rem 1rem;\n\t\t\t\t\t\tclip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);\n\t\t\t\t}\n\t\t</style>\n\t\t<div class="sc-increase-text-size__content">\n\t\t\t<button class="sc-increase-text-size__btn-size" id="btn-size">\n\t\t\t\t\t<span data-i18n="textSize"></span>\n\t\t\t\t\t<div class="sc-increase-text-size__btn-slots" id="btn-content-slots"></div>\n\t\t\t</button>\n\t\t\t<div class="sc-increase-text-size__size-info" id="content-size-info"></div>\n\t\t</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
-class IncreaseTextSizeComponent extends HTMLElement {
-    toolBtn=null;
-    sizeBtn=null;
-    index=0;
-    fontSizes=[ 16, 18, 20, 22, 24 ];
+class IncreaseTextSizeComponent extends AbstractSetting {
+    static observedAttributes=[ "data-setting" ];
     constructor() {
         super();
         this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
     }
     connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        const sizeInfoElt = this.querySelector("#content-size-info");
-        this.sizeBtn = this.querySelector("#btn-size");
-        if (!sizeInfoElt) {
-            return;
-        }
-        const btnContentSlots = this.querySelector("#btn-content-slots");
-        let slot = "";
-        this.fontSizes.forEach(((size, index) => {
-            let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-            if (index === this.index) {
-                div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-            }
-            slot = `${slot}${div}`;
-        }));
-        btnContentSlots.innerHTML = slot;
-        sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
-        this.sizeBtn?.addEventListener("click", (() => {
-            this.index++;
-            if (this.index >= this.fontSizes.length) {
-                this.index = 0;
-            }
-            slot = "";
-            this.fontSizes.forEach(((size, index) => {
-                let div = '<div class="sc-increase-text-size__btn-slot"></div>';
-                if (index === this.index) {
-                    div = '<div class="sc-increase-text-size__btn-slot selected"></div>';
-                }
-                slot = `${slot}${div}`;
-            }));
-            btnContentSlots.innerHTML = slot;
-            bodyElt.style.fontSize = `${this.fontSizes[this.index]}px`;
-            sizeInfoElt.innerHTML = `${this.fontSizes[this.index]}`;
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setFontSize(event.detail.value);
         }));
     }
     disconnectedCallback() {
-        this.toolBtn?.removeEventListener("click", (() => {}));
-        this.sizeBtn?.removeEventListener("click", (() => {}));
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-setting" === name) {
+            let jsonSetting = JSON.parse(newValue);
+            this.settingBtn.setAttribute("data-values", jsonSetting.values);
+            this.settingBtn.setAttribute("data-active-value", jsonSetting.activeValue);
+            this.modalBtn.setAttribute("data-value", newValue[0]);
+        }
+    }
+    setFontSize=value => {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        if (value === "default") {
+            bodyElt.style.fontSize = null;
+        } else {
+            bodyElt.style.fontSize = value;
+        }
+        this.modalBtn.setAttribute("data-value", value);
+    };
 }
 
 customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
@@ -386,18 +392,18 @@ btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-value", "data-label" ];
     modalBtn=null;
-    id="";
     value=null;
+    i18nService;
     constructor() {
         super();
-        this.id = this.dataset?.id || this.id;
+        this.i18nService = new I18nService;
         this.value = this.dataset?.value || this.value;
         this.appendChild(btnModalLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.modalBtn = this.querySelector("button");
         this.modalBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, {
+            let clickEvent = new CustomEvent("clickModalEvent", {
                 bubbles: true
             });
             this.modalBtn?.dispatchEvent(clickEvent);
@@ -407,10 +413,11 @@ class BtnModalComponent extends HTMLElement {
         this.modalBtn?.removeEventListener("click", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-value" === name && this.modalBtn !== null) {
-            this.modalBtn.innerText = newValue;
+        if ("data-value" === name) {
+            const displayedValue = newValue === "default" ? this.i18nService.getMessage("noModifications") : newValue;
+            this.modalBtn.innerText = displayedValue;
         }
-        if ("data-label" === name && this.modalBtn !== null) {
+        if ("data-label" === name) {
             this.setA11yName(newValue);
         }
     }
@@ -419,7 +426,7 @@ class BtnModalComponent extends HTMLElement {
         span.classList.add("visually-hidden");
         span.innerText = label;
         this.modalBtn?.appendChild(span);
-        this.modalBtn?.setAttribute("title", label);
+        this.modalBtn.setAttribute("title", label);
     };
 }
 
@@ -429,56 +436,74 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button class="btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button class="sc-btn-setting btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
-    static observedAttributes=[ "data-settings-list", "data-label" ];
+    static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon" ];
     settingBtn=null;
     btnContentSlots=null;
-    index=1;
-    settingsList="";
+    icon=null;
+    index;
     label="";
     slot="";
     separator=",";
-    settingsArray=[];
+    settingsList=[];
+    i18nService;
     constructor() {
         super();
-        this.label = this.dataset?.label || this.label;
+        this.i18nService = new I18nService;
         this.appendChild(btnSettingLayout.content.cloneNode(true));
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
         this.btnContentSlots = this.querySelector("ul");
-        const span = this.querySelector("span");
-        span.innerText = this.label;
+        this.icon = this.querySelector("app-icon");
         this.settingBtn?.addEventListener("click", (() => {
-            this.index++;
-            if (this.index >= this.settingsArray.length) {
-                this.index = 0;
-            }
-            this.calculateList();
+            this.setIndex();
         }));
     }
     disconnectedCallback() {
         this.settingBtn?.removeEventListener("click", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-settings-list" === name) {
-            this.settingsList = newValue;
-            this.settingsArray = this.settingsList.split(this.separator);
-            this.calculateList();
+        if ("data-values" === name) {
+            this.settingsList = newValue.split(this.separator);
+        }
+        if ("data-active-value" === name) {
+            this.setIndex(Number(newValue));
+        }
+        if ("data-label" === name) {
+            this.label = newValue;
+            const span = this.querySelector("span");
+            span.innerText = this.i18nService.getMessage(newValue);
+        }
+        if ("data-icon" === name) {
+            this.icon?.setAttribute("data-name", newValue);
         }
     }
+    setIndex=index => {
+        if (index) {
+            this.index = index;
+        } else {
+            let i = this.index + 1;
+            this.index = i >= this.settingsList.length ? 0 : i;
+        }
+        if (this.index === 0) {
+            this.settingBtn.classList.add("sc-btn-setting--default");
+        } else {
+            this.settingBtn.classList.remove("sc-btn-setting--default");
+        }
+        this.calculateList();
+    };
     calculateList=() => {
         this.slot = "";
-        this.settingsArray.forEach(((value, index) => {
+        this.settingsList.forEach(((value, index) => {
             let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
             if (index === this.index) {
-                point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
+                point = '<li class="border border-4 border-black rounded-circle"></li>';
                 let clickEvent = new CustomEvent("changeSettingEvent", {
                     bubbles: true,
                     detail: {
-                        id: this.id,
                         value: value
                     }
                 });
@@ -650,9 +675,13 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<p>Zone d'affichage du réglage</p>\n`;
+editSettingLayout.innerHTML = `\n<div class="p-3">\n\t<app-edit-text-size></app-edit-text-size>\n</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
+    editSettingDictionnary=[ {
+        name: "textFont",
+        element: "app-edit-text-size"
+    } ];
     constructor() {
         super();
         this.appendChild(editSettingLayout.content.cloneNode(true));
@@ -734,10 +763,10 @@ class ModeComponent extends HTMLElement {
     modeContent=null;
     settingsDictionnary=[ {
         name: "fontSize",
-        element: "app-font-family"
+        element: "app-increase-text-size"
     }, {
         name: "textFont",
-        element: "app-increase-text-size"
+        element: "app-font-family"
     }, {
         name: "textTransform",
         element: "app-text-transform"
@@ -766,7 +795,7 @@ class ModeComponent extends HTMLElement {
             let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
             let settingElement = this.querySelector(settingObj.element);
             settingElement.classList.remove("d-none");
-            settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+            settingElement.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
         }));
     };
 }
@@ -909,13 +938,10 @@ class AbstractCategory extends HTMLElement {
             let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
             tmpDictionnary?.splice(index, 1);
             let element = this.querySelector(settingObj?.element);
-            element?.setAttribute("data-value", JSON.stringify(Object.entries(setting)[0][1]));
+            element?.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
         }));
-        console.log(tmpDictionnary);
         tmpDictionnary?.forEach((key => {
-            console.log(key);
             let element = this.querySelector(key?.element);
-            console.log(element);
             element?.classList.add("d-none");
         }));
         this.btnMoreSettings?.classList.remove("d-none");
@@ -1012,16 +1038,16 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
         const settingsDictionnary = [ {
             name: "fontSize",
-            element: "app-font-family"
+            element: "app-increase-text-size"
         }, {
             name: "textFont",
-            element: "app-increase-text-size"
+            element: "app-font-family"
         }, {
             name: "textTransform",
             element: "app-text-transform"
@@ -1068,8 +1094,13 @@ class ToolbarComponent extends HTMLElement {
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
         this.settings = this.querySelector("app-settings");
-        this.filesService.getModesOfUse().then((result => {
+        this.localStorageService.getItem("modeOfUse").then((result => {
             this.json = result;
+            if (!result) {
+                this.filesService.getModesOfUse().then((result => {
+                    this.localStorageService.setItem("modeOfUse", result);
+                }));
+            }
             this.setCurrentMode();
         }));
         this.routeService.initPages(this);
@@ -1080,6 +1111,10 @@ class ToolbarComponent extends HTMLElement {
                 this.historyRoute.push(this.routeService.currentRoute);
             }
             if (event.detail.mode) {
+                this.json.selectedMode = event.detail.mode;
+                this.setCurrentMode();
+            }
+            if (event.detail.setting) {
                 this.json.selectedMode = event.detail.mode;
                 this.setCurrentMode();
             }

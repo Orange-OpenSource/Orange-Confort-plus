@@ -1,9 +1,15 @@
 const editSettingLayout: HTMLTemplateElement = document.createElement('template');
 editSettingLayout.innerHTML = `
-	<p>Zone d'affichage du réglage</p>
+<div class="p-3">
+	<app-edit-text-size></app-edit-text-size>
+</div>
 `;
 
 class EditSettingComponent extends HTMLElement {
+
+	editSettingDictionnary: any[] = [
+		{ name: 'textFont', element: 'app-edit-text-size' },
+	];
 
 	constructor() {
 		super();

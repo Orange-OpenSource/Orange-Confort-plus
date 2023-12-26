@@ -66,13 +66,13 @@ abstract class AbstractCategory extends HTMLElement {
 		tmpDictionnary = [...settingsDictionnary];
 
 		/* First, add and display the active mode settings */
-		settings?.forEach((setting) => {
+		settings?.forEach((setting: JSON) => {
 			let settingObj = tmpDictionnary?.find(o => o.name === Object.entries(setting)[0][0]);
 			let index = tmpDictionnary?.findIndex(o => o.name === Object.entries(setting)[0][0]);
 			tmpDictionnary?.splice(index, 1);
 
 			let element = this.querySelector(settingObj?.element);
-			element?.setAttribute('data-value', JSON.stringify(Object.entries(setting)[0][1]));
+			element?.setAttribute('data-setting', JSON.stringify(Object.entries(setting)[0][1]));
 		});
 
 		/* Secondly, add and hide other inactives settings */
