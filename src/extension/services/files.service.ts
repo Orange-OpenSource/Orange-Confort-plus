@@ -1,4 +1,4 @@
-class filesService {
+class FilesService {
 	getModesOfUse(): Promise<string> {
 		return fetch(chrome.runtime.getURL('assets/json/modes-of-use.json'))
 			.then(response => {

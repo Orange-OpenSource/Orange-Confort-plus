@@ -24,7 +24,7 @@ class SelectModeComponent extends HTMLElement {
 		super();
 
 		// @ts-ignore
-		this.i18nService = new i18nService();
+		this.i18nService = new I18nService();
 
 		this.label = this.dataset?.label || this.label;
 		this.checked = (this.dataset?.checked === 'true') || this.checked;

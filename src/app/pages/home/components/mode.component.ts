@@ -1,10 +1,10 @@
 const tmplMode: HTMLTemplateElement = document.createElement('template');
 tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">
-	<app-font-family></app-font-family>
-	<app-increase-text-size></app-increase-text-size>
-	<app-text-transform></app-text-transform>
-	<app-reading-guide></app-reading-guide>
+	<app-font-family class="c-mode__setting"></app-font-family>
+	<app-increase-text-size class="c-mode__setting"></app-increase-text-size>
+	<app-text-transform class="c-mode__setting"></app-text-transform>
+	<app-reading-guide class="c-mode__setting"></app-reading-guide>
 </div>
 `;
 
@@ -36,7 +36,7 @@ class ModeComponent extends HTMLElement {
 	}
 
 	setSettings = (mode: []): void => {
-		let elements = this.querySelectorAll("#mode-content > *");
+		let elements = this.querySelectorAll(".c-mode__setting");
 		elements.forEach((element) => {
 			element.classList.add('d-none');
 		});

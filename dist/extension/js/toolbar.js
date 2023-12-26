@@ -1,11 +1,11 @@
 /*
- * orange-confort-plus - version 4.3.0 - 21/12/2023
+ * orange-confort-plus - version 4.3.0 - 26/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
 "use strict";
 
-class filesService {
+class FilesService {
     getModesOfUse() {
         return fetch(chrome.runtime.getURL("assets/json/modes-of-use.json")).then((response => response.json())).catch((error => {
             console.error(`Error when retrieving JSON file : ${error}.`);
@@ -16,7 +16,7 @@ class filesService {
 
 "use strict";
 
-class i18nService {
+class I18nService {
     locale="en";
     constructor() {
         this.locale = chrome.i18n.getUILanguage();
@@ -36,7 +36,7 @@ class i18nService {
 
 "use strict";
 
-class pathService {
+class PathService {
     path="";
     constructor() {
         this.path = chrome.runtime.getURL("/");
@@ -98,9 +98,9 @@ class AppComponent extends HTMLElement {
     link;
     constructor() {
         super();
-        this.pathService = new pathService;
+        this.pathService = new PathService;
         this.path = this.pathService.path;
-        this.i18nService = new i18nService;
+        this.i18nService = new I18nService;
         this.iconsService = new iconsService;
         this.attachShadow({
             mode: "open"
@@ -156,7 +156,7 @@ class FontFamilyComponent extends HTMLElement {
     constructor() {
         super();
         this.appendChild(tmplFontFamily.content.cloneNode(true));
-        this.pathService = new pathService;
+        this.pathService = new PathService;
         this.path = this.pathService.path;
         let head = document.head || document.getElementsByTagName("head")[0];
         let styles = document.createElement("style");
@@ -512,8 +512,8 @@ class HeaderComponent extends HTMLElement {
     prevRoute="";
     constructor() {
         super();
-        this.i18nService = new i18nService;
-        this.routeService = new routeService;
+        this.i18nService = new I18nService;
+        this.routeService = new RouteService;
         this.appendChild(headerLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -622,7 +622,7 @@ class SelectModeComponent extends HTMLElement {
     i18nService;
     constructor() {
         super();
-        this.i18nService = new i18nService;
+        this.i18nService = new I18nService;
         this.label = this.dataset?.label || this.label;
         this.checked = this.dataset?.checked === "true" || this.checked;
         this.appendChild(selectModeLayout.content.cloneNode(true));
@@ -679,8 +679,8 @@ class HomeComponent extends HTMLElement {
     settings=[];
     constructor() {
         super();
-        this.i18nService = new i18nService;
-        this.routeService = new routeService;
+        this.i18nService = new I18nService;
+        this.routeService = new RouteService;
         this.appendChild(homeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -727,7 +727,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family></app-font-family>\n\t<app-increase-text-size></app-increase-text-size>\n\t<app-text-transform></app-text-transform>\n\t<app-reading-guide></app-reading-guide>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -758,7 +758,7 @@ class ModeComponent extends HTMLElement {
         }
     }
     setSettings=mode => {
-        let elements = this.querySelectorAll("#mode-content > *");
+        let elements = this.querySelectorAll(".c-mode__setting");
         elements.forEach((element => {
             element.classList.add("d-none");
         }));
@@ -786,7 +786,7 @@ class ModesComponent extends HTMLElement {
     selectModeZone=null;
     constructor() {
         super();
-        this.routeService = new routeService;
+        this.routeService = new RouteService;
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -832,7 +832,7 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section id="categories" class="accordion mb-2">\n\t<app-text></app-text>\n\t<app-layout></app-layout>\n\t<app-picture-video></app-picture-video>\n\t<app-sound></app-sound>\n\t<app-pointer></app-pointer>\n\t<app-navigation></app-navigation>\n</section>\n`;
+settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category"></app-text>\n\t<app-layout class="c-settings__category"></app-layout>\n\t<app-picture-video class="c-settings__category"></app-picture-video>\n\t<app-sound class="c-settings__category"></app-sound>\n\t<app-pointer class="c-settings__category"></app-pointer>\n\t<app-navigation class="c-settings__category"></app-navigation>\n</section>\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-mode" ];
@@ -842,7 +842,7 @@ class SettingsComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
-            let elements = this.querySelectorAll("#categories > *");
+            let elements = this.querySelectorAll(".c-settings__category");
             elements.forEach((element => {
                 element.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
             }));
@@ -855,35 +855,76 @@ customElements.define("app-settings", SettingsComponent);
 "use strict";
 
 class AbstractCategory extends HTMLElement {
-    button=null;
-    container=null;
+    static observedAttributes=[ "data-settings" ];
+    btnAccordion=null;
+    accordionContainer=null;
+    settingsContainer=null;
+    btnMoreSettings=null;
+    settingsDictionnary=[];
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
-    constructor() {
+    constructor(dictionnary) {
         super();
+        this.settingsDictionnary = dictionnary;
     }
-    connectedCallback() {
-        this.button = this.querySelector("button.accordion-button");
-        this.container = this.querySelector("div.accordion-collapse");
-        this._triggerArray.push(this.button);
-        this.button?.addEventListener("click", (() => {
+    connectedCallback(settingsElements) {
+        this.btnAccordion = this.querySelector("button.accordion-button");
+        this.accordionContainer = this.querySelector("div.accordion-collapse");
+        this.settingsContainer = this.querySelector(".c-category__settings-container");
+        this.btnMoreSettings = this.querySelector(".c-category__btn-more");
+        this._triggerArray.push(this.btnAccordion);
+        this.btnAccordion?.addEventListener("click", (() => {
             this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+        }));
+        this.btnMoreSettings?.addEventListener("click", (() => {
+            this.displayAllSettings(settingsElements);
         }));
     }
     disconnectedCallback() {
-        this.button?.removeEventListener("click", (() => {}));
+        this.btnAccordion?.removeEventListener("click", (() => {}));
+        this.btnMoreSettings?.removeEventListener("click", (() => {}));
     }
-    isShown=(element = this.container) => element.classList.contains(this.CLASS_NAME_SHOW);
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-settings" === name) {
+            this.displaySettings(this.settingsDictionnary, JSON.parse(newValue));
+        }
+    }
+    isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
     addAriaAndCollapsedClass=(triggerArray, isOpen) => {
         if (!triggerArray.length) {
             return;
         }
         for (const element of triggerArray) {
-            this.container?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-            element.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
-            element.setAttribute("aria-expanded", String(isOpen));
+            this.accordionContainer?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
+            element?.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+            element?.setAttribute("aria-expanded", String(isOpen));
         }
+    };
+    displaySettings=(settingsDictionnary, settings) => {
+        let tmpDictionnary = [];
+        tmpDictionnary = [ ...settingsDictionnary ];
+        settings?.forEach((setting => {
+            let settingObj = tmpDictionnary?.find((o => o.name === Object.entries(setting)[0][0]));
+            let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
+            tmpDictionnary?.splice(index, 1);
+            let element = this.querySelector(settingObj?.element);
+            element?.setAttribute("data-value", JSON.stringify(Object.entries(setting)[0][1]));
+        }));
+        console.log(tmpDictionnary);
+        tmpDictionnary?.forEach((key => {
+            console.log(key);
+            let element = this.querySelector(key?.element);
+            console.log(element);
+            element?.classList.add("d-none");
+        }));
+        this.btnMoreSettings?.classList.remove("d-none");
+    };
+    displayAllSettings=settingsElements => {
+        settingsElements.forEach((element => {
+            element.classList.remove("d-none");
+        }));
+        this.btnMoreSettings.classList.add("d-none");
     };
 }
 
@@ -891,11 +932,12 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-layout" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
-        super();
+        let settingsDictionnary = [];
+        super(settingsDictionnary);
         this.appendChild(tmplLayout.content.cloneNode(true));
     }
 }
@@ -906,11 +948,12 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-navigation" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
-        super();
+        let settingsDictionnary = [];
+        super(settingsDictionnary);
         this.appendChild(tmplNavigation.content.cloneNode(true));
     }
 }
@@ -921,11 +964,12 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-picture-video" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
-        super();
+        let settingsDictionnary = [];
+        super(settingsDictionnary);
         this.appendChild(tmplPictureVideo.content.cloneNode(true));
     }
 }
@@ -936,11 +980,12 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-pointer" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class PointerComponent extends AbstractCategory {
     constructor() {
-        super();
+        let settingsDictionnary = [];
+        super(settingsDictionnary);
         this.appendChild(tmplPointer.content.cloneNode(true));
     }
 }
@@ -951,11 +996,12 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-sound" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class SoundComponent extends AbstractCategory {
     constructor() {
-        super();
+        let settingsDictionnary = [];
+        super(settingsDictionnary);
         this.appendChild(tmplSound.content.cloneNode(true));
     }
 }
@@ -966,71 +1012,30 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div id="category-text" class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div id="category-text-settings" class="d-flex flex-column">\n\t\t\t\t</div>\n\t\t\t\t<button id="category-text-more" class="btn btn-tertiary" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
-    static observedAttributes=[ "data-settings" ];
-    btnMoreSettings=null;
-    settingsContainer=null;
-    settings=[];
-    settingsDictionnary=[ {
-        name: "fontSize",
-        element: "app-font-family"
-    }, {
-        name: "textFont",
-        element: "app-increase-text-size"
-    }, {
-        name: "textTransform",
-        element: "app-text-transform"
-    }, {
-        name: "readingGuide",
-        element: "app-reading-guide"
-    } ];
     constructor() {
-        super();
+        const settingsDictionnary = [ {
+            name: "fontSize",
+            element: "app-font-family"
+        }, {
+            name: "textFont",
+            element: "app-increase-text-size"
+        }, {
+            name: "textTransform",
+            element: "app-text-transform"
+        }, {
+            name: "readingGuide",
+            element: "app-reading-guide"
+        } ];
+        super(settingsDictionnary);
         this.appendChild(tmplText.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
-        this.btnMoreSettings = this.querySelector("#category-text-more");
-        this.settingsContainer = this.querySelector("#category-text-settings");
-        this.btnMoreSettings?.addEventListener("click", (() => {
-            this.displayAllSettings();
-        }));
+        let settingsElements = [ ...this.querySelectorAll(".c-text__setting") ];
+        super.connectedCallback(settingsElements);
     }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.btnMoreSettings?.removeEventListener("click", (() => {}));
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-settings" === name) {
-            this.settings = JSON.parse(newValue);
-            this.displaySettings();
-        }
-    }
-    displaySettings=() => {
-        let settingsElements = "";
-        let tmpDictionnary = this.settingsDictionnary;
-        this.settings?.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
-            let index = this.settingsDictionnary.findIndex((o => o.name === Object.entries(setting)[0][0]));
-            tmpDictionnary.splice(index, 1);
-            let settingElement = `<${settingObj.element} data-values="${JSON.stringify(Object.entries(setting)[0][1])}"></${settingObj.element}>`;
-            settingsElements = settingsElements + settingElement;
-        }));
-        tmpDictionnary.forEach((setting => {
-            let settingElement = `<${setting.element} class="d-none"></${setting.element}>`;
-            settingsElements = settingsElements + settingElement;
-        }));
-        this.settingsContainer.innerHTML = settingsElements;
-    };
-    displayAllSettings=() => {
-        let settingsElements = this.querySelectorAll("#category-text-settings > *");
-        settingsElements.forEach((element => {
-            element.classList.remove("d-none");
-        }));
-        this.btnMoreSettings.classList.add("d-none");
-    };
 }
 
 customElements.define("app-text", TextComponent);
@@ -1053,8 +1058,8 @@ class ToolbarComponent extends HTMLElement {
     json="";
     constructor() {
         super();
-        this.routeService = new routeService;
-        this.filesService = new filesService;
+        this.routeService = new RouteService;
+        this.filesService = new FilesService;
         this.localStorageService = new LocalStorageService;
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
@@ -1063,13 +1068,8 @@ class ToolbarComponent extends HTMLElement {
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
         this.settings = this.querySelector("app-settings");
-        this.localStorageService.getItem("modeOfUse").then((result => {
+        this.filesService.getModesOfUse().then((result => {
             this.json = result;
-            if (!result) {
-                this.filesService.getModesOfUse().then((result => {
-                    this.localStorageService.setItem("modeOfUse", result);
-                }));
-            }
             this.setCurrentMode();
         }));
         this.routeService.initPages(this);
@@ -1140,7 +1140,7 @@ customElements.define("app-toolbar", ToolbarComponent);
 
 "use strict";
 
-class routeService {
+class RouteService {
     currentRoute;
     PAGE_HOME="home";
     PAGE_MODES="modes";
