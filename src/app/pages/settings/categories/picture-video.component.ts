@@ -7,7 +7,7 @@ tmplPictureVideo.innerHTML = `
 				<span data-i18n="medias"></span>
 			</button>
 		</div>
-		<div id="category-picture-video" class="accordion-collapse collapse" data-bs-parent="#categories">
+		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
 			</div>
 		</div>
@@ -17,7 +17,11 @@ tmplPictureVideo.innerHTML = `
 class PictureVideoComponent extends AbstractCategory {
 
 	constructor() {
-		super();
+		let settingsDictionnary: any[] = [
+		];
+
+		super(settingsDictionnary);
+
 		this.appendChild(tmplPictureVideo.content.cloneNode(true));
 	}
 }

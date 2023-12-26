@@ -1,4 +1,4 @@
-class pathService {
+class PathService {
 	path: string = '';
 
 	constructor() {
