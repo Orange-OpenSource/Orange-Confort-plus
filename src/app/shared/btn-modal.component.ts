@@ -4,13 +4,15 @@ btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc
 class BtnModalComponent extends HTMLElement {
 	static observedAttributes = ['data-value', 'data-label'];
 	modalBtn: HTMLElement = null;
-	id = '';
 	value: any = null;
+	i18nService: any;
 
 	constructor() {
 		super();
 
-		this.id = this.dataset?.id || this.id;
+		// @ts-ignore
+		this.i18nService = new I18nService();
+
 		this.value = this.dataset?.value || this.value;
 
 		this.appendChild(btnModalLayout.content.cloneNode(true));
@@ -20,7 +22,7 @@ class BtnModalComponent extends HTMLElement {
 		this.modalBtn = this.querySelector('button');
 
 		this.modalBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent(`clickModalEvent${this.id}`, { bubbles: true });
+			let clickEvent = new CustomEvent('clickModalEvent', { bubbles: true });
 			this.modalBtn?.dispatchEvent(clickEvent);
 		});
 	}
@@ -31,10 +33,11 @@ class BtnModalComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-value' === name && this.modalBtn !== null) {
-			this.modalBtn.innerText = newValue;
+		if ('data-value' === name) {
+			const displayedValue = newValue === 'default' ? this.i18nService.getMessage('noModifications') : newValue;
+			this.modalBtn.innerText = displayedValue;
 		}
-		if ('data-label' === name && this.modalBtn !== null) {
+		if ('data-label' === name) {
 			this.setA11yName(newValue);
 		}
 	}
@@ -44,7 +47,7 @@ class BtnModalComponent extends HTMLElement {
 		span.classList.add('visually-hidden');
 		span.innerText = label;
 		this.modalBtn?.appendChild(span);
-		this.modalBtn?.setAttribute('title', label);
+		this.modalBtn.setAttribute('title', label);
 	}
 }
 
