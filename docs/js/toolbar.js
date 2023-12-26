@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 12/01/2024
+=======
+ * orange-confort-plus - version 4.3.0 - 26/12/2023
+>>>>>>> Optimisation de la class Abstract.
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -837,7 +841,11 @@ class ModeComponent extends HTMLElement {
             this.displaySettings(JSON.parse(newValue));
         }
     }
+<<<<<<< HEAD
     displaySettings=settings => {
+=======
+    setSettings=mode => {
+>>>>>>> Optimisation de la class Abstract.
         let elements = this.querySelectorAll(".c-mode__setting");
         elements.forEach((element => {
             element.classList.add("d-none");
@@ -868,7 +876,10 @@ class ModesComponent extends HTMLElement {
     constructor() {
         super();
         this.routeService = new RouteService;
+<<<<<<< HEAD
         this.localStorageService = new LocalStorageService;
+=======
+>>>>>>> Optimisation de la class Abstract.
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -929,7 +940,10 @@ class SettingsComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             let elements = this.querySelectorAll(".c-settings__category");
+<<<<<<< HEAD
             const settings = Object.entries(JSON.parse(newValue))[0][1];
+=======
+>>>>>>> Optimisation de la class Abstract.
             elements.forEach((element => {
                 element.setAttribute("data-settings", JSON.stringify(settings));
             }));
@@ -948,17 +962,26 @@ class AbstractCategory extends HTMLElement {
     settingsContainer=null;
     btnMoreSettings=null;
     settingsDictionnary=[];
+<<<<<<< HEAD
     settingsElements=[];
     i18nService;
+=======
+>>>>>>> Optimisation de la class Abstract.
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
     constructor(dictionnary) {
         super();
+<<<<<<< HEAD
         this.i18nService = new I18nService;
         this.settingsDictionnary = dictionnary;
     }
     connectedCallback() {
+=======
+        this.settingsDictionnary = dictionnary;
+    }
+    connectedCallback(settingsElements) {
+>>>>>>> Optimisation de la class Abstract.
         this.btnAccordion = this.querySelector("button.accordion-button");
         this.accordionContainer = this.querySelector("div.accordion-collapse");
         this.settingsContainer = this.querySelector(".c-category__settings-container");
@@ -968,7 +991,11 @@ class AbstractCategory extends HTMLElement {
             this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
         }));
         this.btnMoreSettings?.addEventListener("click", (() => {
+<<<<<<< HEAD
             this.displayOrHideOthersSettings();
+=======
+            this.displayAllSettings(settingsElements);
+>>>>>>> Optimisation de la class Abstract.
         }));
     }
     disconnectedCallback() {
@@ -977,7 +1004,11 @@ class AbstractCategory extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
+<<<<<<< HEAD
             this.displaySettings(JSON.parse(newValue));
+=======
+            this.displaySettings(this.settingsDictionnary, JSON.parse(newValue));
+>>>>>>> Optimisation de la class Abstract.
         }
     }
     isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
@@ -991,6 +1022,7 @@ class AbstractCategory extends HTMLElement {
             element?.setAttribute("aria-expanded", String(isOpen));
         }
     };
+<<<<<<< HEAD
     displaySettings=settings => {
         this.settingsElements.forEach((element => {
             element.classList.add("d-none");
@@ -1014,6 +1046,32 @@ class AbstractCategory extends HTMLElement {
                 element.classList.toggle("d-none");
             }
         }));
+=======
+    displaySettings=(settingsDictionnary, settings) => {
+        let tmpDictionnary = [];
+        tmpDictionnary = [ ...settingsDictionnary ];
+        settings?.forEach((setting => {
+            let settingObj = tmpDictionnary?.find((o => o.name === Object.entries(setting)[0][0]));
+            let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
+            tmpDictionnary?.splice(index, 1);
+            let element = this.querySelector(settingObj?.element);
+            element?.setAttribute("data-value", JSON.stringify(Object.entries(setting)[0][1]));
+        }));
+        console.log(tmpDictionnary);
+        tmpDictionnary?.forEach((key => {
+            console.log(key);
+            let element = this.querySelector(key?.element);
+            console.log(element);
+            element?.classList.add("d-none");
+        }));
+        this.btnMoreSettings?.classList.remove("d-none");
+    };
+    displayAllSettings=settingsElements => {
+        settingsElements.forEach((element => {
+            element.classList.remove("d-none");
+        }));
+        this.btnMoreSettings.classList.add("d-none");
+>>>>>>> Optimisation de la class Abstract.
     };
 }
 
@@ -1021,7 +1079,11 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
+<<<<<<< HEAD
 tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Optimisation de la class Abstract.
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -1037,7 +1099,11 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
+<<<<<<< HEAD
 tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Optimisation de la class Abstract.
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -1053,7 +1119,11 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
+<<<<<<< HEAD
 tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Optimisation de la class Abstract.
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -1069,7 +1139,11 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
+<<<<<<< HEAD
 tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Optimisation de la class Abstract.
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -1085,7 +1159,11 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
+<<<<<<< HEAD
 tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Optimisation de la class Abstract.
 
 class SoundComponent extends AbstractCategory {
     constructor() {
@@ -1101,6 +1179,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
+<<<<<<< HEAD
 tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
@@ -1112,6 +1191,18 @@ class TextComponent extends AbstractCategory {
         }, {
             name: "textFont",
             element: "app-font-family"
+=======
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+
+class TextComponent extends AbstractCategory {
+    constructor() {
+        const settingsDictionnary = [ {
+            name: "fontSize",
+            element: "app-font-family"
+        }, {
+            name: "textFont",
+            element: "app-increase-text-size"
+>>>>>>> Optimisation de la class Abstract.
         }, {
             name: "textTransform",
             element: "app-text-transform"
@@ -1123,8 +1214,13 @@ class TextComponent extends AbstractCategory {
         this.appendChild(tmplText.content.cloneNode(true));
     }
     connectedCallback() {
+<<<<<<< HEAD
         this.settingsElements = [ ...this.querySelectorAll(".c-text__setting") ];
         super.connectedCallback();
+=======
+        let settingsElements = [ ...this.querySelectorAll(".c-text__setting") ];
+        super.connectedCallback(settingsElements);
+>>>>>>> Optimisation de la class Abstract.
     }
 }
 
@@ -1160,6 +1256,7 @@ class ToolbarComponent extends HTMLElement {
         this.modes = this.querySelector("app-modes");
         this.settings = this.querySelector("app-settings");
         this.filesService.getModesOfUse().then((result => {
+<<<<<<< HEAD
             this.defaultJson = result;
             this.localStorageService.getItem("modeOfUse").then((result => {
                 this.json = result;
@@ -1174,6 +1271,10 @@ class ToolbarComponent extends HTMLElement {
                 this.json = result;
                 this.setCurrentMode();
             }));
+=======
+            this.json = result;
+            this.setCurrentMode();
+>>>>>>> Optimisation de la class Abstract.
         }));
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
