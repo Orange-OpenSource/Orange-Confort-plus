@@ -11,7 +11,7 @@ tmplText.innerHTML = `
 			<div class="accordion-body px-3">
 				<div class="c-category__settings-container d-flex flex-column">
 					<app-font-family class="c-text__setting"></app-font-family>
-					<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>
+					<app-increase-text-size class="c-text__setting"></app-increase-text-size>
 					<app-text-transform class="c-text__setting"></app-text-transform>
 					<app-reading-guide class="c-text__setting"></app-reading-guide>
 				</div>
