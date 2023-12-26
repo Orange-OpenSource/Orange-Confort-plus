@@ -67,6 +67,12 @@ class ToolbarComponent extends HTMLElement {
 				this.setCurrentMode();
 			}
 
+			/* If editing setting */
+			if ((event as CustomEvent).detail.setting) {
+				this.json.selectedMode = (event as CustomEvent).detail.mode;
+				this.setCurrentMode();
+			}
+
 			this.routeService.navigate((event as CustomEvent).detail.route);
 			this.setHeaderDisplay((event as CustomEvent).detail.route);
 			this.header?.focus();

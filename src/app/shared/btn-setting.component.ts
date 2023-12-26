@@ -1,7 +1,7 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 // @fixme button > ul seems really weird
 btnSettingLayout.innerHTML = `
-	<button class="btn btn-primary flex-column w-100">
+	<button class="sc-btn-setting btn btn-primary flex-column w-100">
 		<span></span>
 		<app-icon data-name="Text_Size"></app-icon>
 		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
@@ -9,20 +9,22 @@ btnSettingLayout.innerHTML = `
 `;
 
 class BtnSettingComponent extends HTMLElement {
-	static observedAttributes = ['data-settings-list', 'data-label'];
+	static observedAttributes = ['data-values', 'data-active-value', 'data-label', 'data-icon'];
 	settingBtn: HTMLElement = null;
 	btnContentSlots: HTMLElement = null;
-	index: number = 1;
-	settingsList = '';
+	icon: HTMLElement = null;
+	index: number;
 	label = '';
 	slot = '';
 	separator = ',';
-	settingsArray: string[] = [];
+	settingsList: string[] = [];
+	i18nService: any;
 
 	constructor() {
 		super();
 
-		this.label = this.dataset?.label || this.label;
+		// @ts-ignore
+		this.i18nService = new I18nService();
 
 		this.appendChild(btnSettingLayout.content.cloneNode(true));
 	}
@@ -30,45 +32,62 @@ class BtnSettingComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
 		this.btnContentSlots = this.querySelector('ul');
-
-		const span = this.querySelector('span');
-		span!.innerText = this.label;
+		this.icon = this.querySelector('app-icon');
 
 		this.settingBtn?.addEventListener('click', () => {
-			this.index++;
-			if (this.index >= this.settingsArray.length) {
-				this.index = 0;
-			}
-			this.calculateList();
+			this.setIndex();
 		});
 	}
 
 	disconnectedCallback(): void {
-		this.settingBtn?.removeEventListener('click', () => {
-		});
+		this.settingBtn?.removeEventListener('click', () => { });
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-settings-list' === name) {
-			this.settingsList = newValue;
-			this.settingsArray = this.settingsList.split(this.separator);
-			this.calculateList();
+		if ('data-values' === name) {
+			this.settingsList = newValue.split(this.separator);
 		}
+		if ('data-active-value' === name) {
+			this.setIndex(Number(newValue));
+		}
+		if ('data-label' === name) {
+			this.label = newValue;
+			const span = this.querySelector('span');
+			span.innerText = this.i18nService.getMessage(newValue);
+		}
+		if ('data-icon' === name) {
+			this.icon?.setAttribute('data-name', newValue);
+		}
+	}
+
+	setIndex = (index?: number): void => {
+		if (index) {
+			this.index = index;
+		} else {
+			let i = this.index + 1;
+			this.index = i >= this.settingsList.length ? 0 : i;
+		}
+
+		if (this.index === 0) {
+			this.settingBtn.classList.add('sc-btn-setting--default');
+		} else {
+			this.settingBtn.classList.remove('sc-btn-setting--default');
+		}
+		this.calculateList();
 	}
 
 	calculateList = (): void => {
 		this.slot = '';
-		this.settingsArray.forEach((value, index) => {
+		this.settingsList.forEach((value, index) => {
 			let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
 			if (index === this.index) {
-				point = '<li class="bg-black border border-4 border-black rounded-circle"></li>';
+				point = '<li class="border border-4 border-black rounded-circle"></li>';
 
 				let clickEvent = new CustomEvent(
 					'changeSettingEvent',
 					{
 						bubbles: true,
 						detail: {
-							id: this.id,
 							value: value,
 						}
 					});
