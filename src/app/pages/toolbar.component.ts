@@ -22,11 +22,11 @@ class ToolbarComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		// @todo Utiliser singleton pour routeService pour éviter plusieurs instances
+		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
 		// @ts-ignore
-		this.routeService = new routeService();
+		this.routeService = new RouteService();
 		// @ts-ignore
-		this.filesService = new filesService();
+		this.filesService = new FilesService();
 		// @ts-ignore
 		this.localStorageService = new LocalStorageService();
 

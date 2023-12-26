@@ -30,7 +30,7 @@ class FontFamilyComponent extends HTMLElement {
 		super();
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 		// @ts-ignore
-		this.pathService = new pathService();
+		this.pathService = new PathService();
 		this.path = this.pathService.path;
 
 		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];

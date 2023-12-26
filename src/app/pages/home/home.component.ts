@@ -45,10 +45,10 @@ class HomeComponent extends HTMLElement {
 		super();
 
 		// @ts-ignore
-		this.i18nService = new i18nService();
-		// @todo Utiliser singleton pour routeService pour éviter plusieurs instances
+		this.i18nService = new I18nService();
+		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
 		// @ts-ignore
-		this.routeService = new routeService();
+		this.routeService = new RouteService();
 
 		this.appendChild(homeLayout.content.cloneNode(true));
 	}

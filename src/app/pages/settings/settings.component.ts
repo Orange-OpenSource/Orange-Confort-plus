@@ -1,12 +1,12 @@
 const settingsLayout: HTMLTemplateElement = document.createElement('template');
 settingsLayout.innerHTML = `
-<section id="categories" class="accordion mb-2">
-	<app-text></app-text>
-	<app-layout></app-layout>
-	<app-picture-video></app-picture-video>
-	<app-sound></app-sound>
-	<app-pointer></app-pointer>
-	<app-navigation></app-navigation>
+<section class="accordion mb-2">
+	<app-text class="c-settings__category"></app-text>
+	<app-layout class="c-settings__category"></app-layout>
+	<app-picture-video class="c-settings__category"></app-picture-video>
+	<app-sound class="c-settings__category"></app-sound>
+	<app-pointer class="c-settings__category"></app-pointer>
+	<app-navigation class="c-settings__category"></app-navigation>
 </section>
 `;
 
@@ -21,7 +21,7 @@ class SettingsComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
-			let elements = this.querySelectorAll("#categories > *");
+			let elements = this.querySelectorAll(".c-settings__category");
 			elements.forEach((element) => {
 				element.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
 			});

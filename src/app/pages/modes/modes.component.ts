@@ -22,9 +22,9 @@ class ModesComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		// @todo Utiliser singleton pour routeService pour éviter plusieurs instances
+		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
 		// @ts-ignore
-		this.routeService = new routeService();
+		this.routeService = new RouteService();
 
 		this.appendChild(modesLayout.content.cloneNode(true));
 	}

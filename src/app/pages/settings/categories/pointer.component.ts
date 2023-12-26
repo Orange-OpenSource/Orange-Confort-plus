@@ -7,7 +7,7 @@ tmplPointer.innerHTML = `
 				<span data-i18n="pointer"></span>
 			</button>
 		</div>
-		<div id="category-pointer" class="accordion-collapse collapse" data-bs-parent="#categories">
+		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
 			</div>
 		</div>
@@ -17,7 +17,11 @@ tmplPointer.innerHTML = `
 class PointerComponent extends AbstractCategory {
 
 	constructor() {
-		super();
+		let settingsDictionnary: any[] = [
+		];
+
+		super(settingsDictionnary);
+
 		this.appendChild(tmplPointer.content.cloneNode(true));
 	}
 }
