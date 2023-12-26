@@ -7,7 +7,7 @@ tmplLayout.innerHTML = `
 				<span data-i18n="layout"></span>
 			</button>
 		</div>
-		<div id="category-layout" class="accordion-collapse collapse" data-bs-parent="#categories">
+		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
 			</div>
 		</div>
@@ -17,7 +17,10 @@ tmplLayout.innerHTML = `
 class LayoutComponent extends AbstractCategory {
 
 	constructor() {
-		super();
+		let settingsDictionnary: any[] = [
+		];
+
+		super(settingsDictionnary);
 
 		this.appendChild(tmplLayout.content.cloneNode(true));
 	}

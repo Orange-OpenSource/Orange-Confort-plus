@@ -1,4 +1,4 @@
-class routeService {
+class RouteService {
 	currentRoute: string;
 
 	PAGE_HOME = 'home';

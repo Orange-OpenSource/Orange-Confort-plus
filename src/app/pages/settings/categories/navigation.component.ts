@@ -7,7 +7,7 @@ tmplNavigation.innerHTML = `
 				<span data-i18n="navigation"></span>
 			</button>
 		</div>
-		<div id="category-navigation" class="accordion-collapse collapse" data-bs-parent="#categories">
+		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
 			</div>
 		</div>
@@ -17,7 +17,11 @@ tmplNavigation.innerHTML = `
 class NavigationComponent extends AbstractCategory {
 
 	constructor() {
-		super();
+		let settingsDictionnary: any[] = [
+		];
+
+		super(settingsDictionnary);
+
 		this.appendChild(tmplNavigation.content.cloneNode(true));
 	}
 }

@@ -1,4 +1,4 @@
-class filesService {
+class FilesService {
 	path: string = '';
 
 	constructor() {

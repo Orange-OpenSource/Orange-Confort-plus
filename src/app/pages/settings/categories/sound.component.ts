@@ -7,7 +7,7 @@ tmplSound.innerHTML = `
 				<span data-i18n="audio"></span>
 			</button>
 		</div>
-		<div id="category-sound" class="accordion-collapse collapse" data-bs-parent="#categories">
+		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
 			</div>
 		</div>
@@ -17,7 +17,11 @@ tmplSound.innerHTML = `
 class SoundComponent extends AbstractCategory {
 
 	constructor() {
-		super();
+		let settingsDictionnary: any[] = [
+		];
+
+		super(settingsDictionnary);
+
 		this.appendChild(tmplSound.content.cloneNode(true));
 	}
 }

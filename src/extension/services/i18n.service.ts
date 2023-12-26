@@ -1,4 +1,4 @@
-class i18nService {
+class I18nService {
 	locale: string = 'en';
 
 	constructor() {

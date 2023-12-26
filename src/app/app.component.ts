@@ -23,10 +23,10 @@ class AppComponent extends HTMLElement {
 		super();
 
 		// @ts-ignore
-		this.pathService = new pathService();
+		this.pathService = new PathService();
 		this.path = this.pathService.path;
 		// @ts-ignore
-		this.i18nService = new i18nService();
+		this.i18nService = new I18nService();
 		// @ts-ignore
 		this.iconsService = new iconsService();
 
