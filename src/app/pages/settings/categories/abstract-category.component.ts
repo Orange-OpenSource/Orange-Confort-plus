@@ -72,6 +72,7 @@ abstract class AbstractCategory extends HTMLElement {
 			tmpDictionnary?.splice(index, 1);
 
 			let element = this.querySelector(settingObj?.element);
+			element?.classList.remove('d-none');
 			element?.setAttribute('data-setting', JSON.stringify(Object.entries(setting)[0][1]));
 		});
 

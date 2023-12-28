@@ -1,11 +1,13 @@
 #toolbar {
 	box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 	display: grid;
-	grid-template-rows: auto 7rem 1fr;
+	grid-template-rows: auto 1fr;
 	width: 19.5vw;
+	min-width: 18rem;
 	height: 100vh;
 	position: fixed;
 	top: 0;
 	right: 0;
+	overflow: auto;
 	z-index: 2147483647;
 }

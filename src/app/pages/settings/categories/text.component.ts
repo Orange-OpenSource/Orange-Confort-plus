@@ -9,11 +9,10 @@ tmplText.innerHTML = `
 		</div>
 		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
-				<div class="c-category__settings-container d-flex flex-column">
+				<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
 					<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>
 					<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>
-					<app-text-transform class="c-text__setting"></app-text-transform>
-					<app-reading-guide class="c-text__setting"></app-reading-guide>
+					<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>
 				</div>
 				<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 			</div>
@@ -26,7 +25,6 @@ class TextComponent extends AbstractCategory {
 		const settingsDictionnary: any[] = [
 			{ name: 'fontSize', element: 'app-increase-text-size' },
 			{ name: 'textFont', element: 'app-font-family' },
-			{ name: 'textTransform', element: 'app-text-transform' },
 			{ name: 'readingGuide', element: 'app-reading-guide' },
 		];
 

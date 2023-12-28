@@ -154,6 +154,7 @@ class AbstractSetting extends HTMLElement {
         this.modalBtn = this.querySelector("app-btn-modal");
         if (this.canEdit) {
             this.modalBtn.classList.remove("d-none");
+            this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
         }
     }
     disconnectedCallback() {
@@ -173,7 +174,7 @@ class AbstractSetting extends HTMLElement {
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
     pathService;
@@ -410,7 +411,7 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     constructor() {
@@ -444,69 +445,55 @@ customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n\t<style>\n\t\tapp-reading-guide {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n\t\t.c-reading-guide {\n\t\t\t\tbackground: rgba(0, 0, 0, .5);\n\t\t\t\tposition: fixed;\n\t\t\t\tleft: 0;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: 99999;\n\t\t}\n\t\t.c-reading-guide--top {\n\t\t\t\ttop: 0;\n\t\t}\n\t\t.c-reading-guide--bottom {\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-msg {\n\t\t\t\tcolor: white;\n\t\t\t\tfont-weight: 700;\n\t\t\t\tpadding: 1rem;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: 0;\n\t\t}\n\t\t.c-reading-guide__close-btn {\n\t\t\t\twidth: 80px;\n\t\t\t\theight: 80px;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\tbottom: -80px;\n\t\t}\n\t</style>\n\t<button id="reading-guide-btn" data-i18n="readingMask"></button>\n\t<div id="top-guide-elt" class="c-reading-guide c-reading-guide--top">\n\t\t\t<span class="c-reading-guide__close-msg" data-i18n="readingMaskClose"></span>\n\t\t\t<button id="close-btn" class="c-reading-guide__close-btn" data-i18n="close"></button>\n\t</div>\n\t<div id="bottom-guide-elt" class="c-reading-guide c-reading-guide--bottom"></div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>\n<div id="bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>\n`;
 
-class ReadingGuideComponent extends HTMLElement {
-    open=false;
+class ReadingGuideComponent extends AbstractSetting {
     sizeGuide=40;
     topGuideElt=null;
     bottomGuideElt=null;
-    activeGuideBtn=null;
-    closeBtn=null;
     constructor() {
         super();
         this.appendChild(tmplReadingGuide.content.cloneNode(true));
-        this.activeGuideBtn = this.querySelector("#reading-guide-btn");
         this.topGuideElt = this.querySelector("#top-guide-elt");
         this.bottomGuideElt = this.querySelector("#bottom-guide-elt");
-        this.closeBtn = this.querySelector("#close-btn");
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = "none";
-            this.bottomGuideElt.style.display = "none";
-        }
+        this.topGuideElt.style.display = "none";
+        this.bottomGuideElt.style.display = "none";
     }
     connectedCallback() {
-        this.activeGuideBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-                return;
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            switch (event.detail.value) {
+              case "readingGuide":
+                {
+                    this.setReadingGuide();
+                    break;
+                }
+
+              default:
+                {
+                    this.resetReadingGuide();
+                }
             }
-            if (this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.removeProperty("display");
-                this.bottomGuideElt.style.removeProperty("display");
-            }
-        }));
-        this.closeBtn?.addEventListener("click", (() => {
-            this.open = !this.open;
-            if (!this.open) {
-                this.resetReadingGuide();
-            }
-        }));
-        document.onkeydown = event => {
-            if (event.code === "Escape") {
-                this.open = !this.open;
-                this.resetReadingGuide();
-            }
-        };
-        document.addEventListener("mousemove", (event => {
-            if (this.open && this.topGuideElt && this.bottomGuideElt) {
-                this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
-                this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
-            }
-            event.stopPropagation();
         }));
     }
     disconnectedCallback() {
-        this.closeBtn?.removeEventListener("click", (() => {}));
+        super.disconnectedCallback();
+        this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
+    setReadingGuide=() => {
+        this.topGuideElt.style.removeProperty("display");
+        this.bottomGuideElt.style.removeProperty("display");
+        document.addEventListener("mousemove", (event => {
+            this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
+            this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+            event.stopPropagation();
+        }));
+    };
     resetReadingGuide=() => {
-        if (this.topGuideElt && this.bottomGuideElt) {
-            this.topGuideElt.style.display = "none";
-            this.bottomGuideElt.style.display = "none";
-            this.topGuideElt.style.removeProperty("height");
-            this.bottomGuideElt.style.removeProperty("height");
-        }
+        this.topGuideElt.style.display = "none";
+        this.bottomGuideElt.style.display = "none";
+        this.topGuideElt.style.removeProperty("height");
+        this.bottomGuideElt.style.removeProperty("height");
     };
 }
 
@@ -655,7 +642,7 @@ class BtnSettingComponent extends HTMLElement {
         }
     }
     setIndex=index => {
-        if (index) {
+        if (index?.toString()) {
             this.index = index;
         } else {
             let i = this.index + 1;
@@ -867,7 +854,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode" ];
@@ -929,7 +916,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -1111,6 +1098,7 @@ class AbstractCategory extends HTMLElement {
             let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
             tmpDictionnary?.splice(index, 1);
             let element = this.querySelector(settingObj?.element);
+            element?.classList.remove("d-none");
             element?.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
         }));
         tmpDictionnary?.forEach((key => {
@@ -1211,7 +1199,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
@@ -1221,9 +1209,6 @@ class TextComponent extends AbstractCategory {
         }, {
             name: "textFont",
             element: "app-font-family"
-        }, {
-            name: "textTransform",
-            element: "app-text-transform"
         }, {
             name: "readingGuide",
             element: "app-reading-guide"

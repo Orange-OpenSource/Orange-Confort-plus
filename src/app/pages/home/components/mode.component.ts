@@ -1,6 +1,6 @@
 const tmplMode: HTMLTemplateElement = document.createElement('template');
 tmplMode.innerHTML = `
-<div id="mode-content" class="sc-mode__setting-grid gap-2 mb-2">
+<div id="mode-content" class="sc-mode__setting-grid gap-2">
 	<app-font-family class="c-mode__setting"></app-font-family>
 	<app-increase-text-size class="c-mode__setting"></app-increase-text-size>
 	<app-text-transform class="c-mode__setting"></app-text-transform>

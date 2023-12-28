@@ -22,7 +22,7 @@ homeLayout.innerHTML = `
     </div>
 </section>
 
-<section class="p-3">
+<section class="sc-home__settings gap-3 p-3">
 	<app-mode></app-mode>
 	<div class="d-grid">
 		<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>

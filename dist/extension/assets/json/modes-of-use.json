@@ -14,6 +14,12 @@
 						"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
 						"activeValue": "0"
 					}
+				},
+				{
+					"readingGuide": {
+						"values": "default,readingGuide",
+						"activeValue": "0"
+					}
 				}
 			]
 		},
@@ -29,12 +35,6 @@
 					"textFont": {
 						"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
 						"activeValue": "0"
-					}
-				},
-				{
-					"readingGuide": {
-						"values": "false,true",
-						"activeValue": "1"
 					}
 				}
 			]

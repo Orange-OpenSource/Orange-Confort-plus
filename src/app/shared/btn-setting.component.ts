@@ -61,7 +61,7 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	setIndex = (index?: number): void => {
-		if (index) {
+		if (index?.toString()) {
 			this.index = index;
 		} else {
 			let i = this.index + 1;

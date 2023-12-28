@@ -15,6 +15,7 @@ abstract class AbstractSetting extends HTMLElement {
 		this.modalBtn = this.querySelector('app-btn-modal');
 		if (this.canEdit) {
 			this.modalBtn.classList.remove('d-none');
+			this.settingBtn.classList.add('sc-btn-setting--with-btn-modal')
 		}
 	}
 
