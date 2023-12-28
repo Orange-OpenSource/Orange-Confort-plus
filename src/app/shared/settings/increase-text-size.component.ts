@@ -7,7 +7,6 @@ tmplIncreaseTextSize.innerHTML = `
 `;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
-	static observedAttributes = ['data-setting'];
 
 	constructor() {
 		super();
@@ -25,15 +24,6 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	disconnectedCallback(): void {
 		super.disconnectedCallback();
 		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
-	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-setting' === name) {
-			let jsonSetting = JSON.parse(newValue);
-			this.settingBtn.setAttribute('data-values', jsonSetting.values);
-			this.settingBtn.setAttribute('data-active-value', jsonSetting.activeValue);
-			this.modalBtn.setAttribute('data-value', newValue[0]);
-		}
 	}
 
 	setFontSize = (value: string): void => {

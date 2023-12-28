@@ -3,7 +3,7 @@ const btnSettingLayout: HTMLTemplateElement = document.createElement('template')
 btnSettingLayout.innerHTML = `
 	<button class="sc-btn-setting btn btn-primary flex-column w-100">
 		<span></span>
-		<app-icon data-name="Text_Size"></app-icon>
+		<app-icon></app-icon>
 		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
 	</button>
 `;
@@ -32,7 +32,6 @@ class BtnSettingComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
 		this.btnContentSlots = this.querySelector('ul');
-		this.icon = this.querySelector('app-icon');
 
 		this.settingBtn?.addEventListener('click', () => {
 			this.setIndex();
@@ -56,7 +55,8 @@ class BtnSettingComponent extends HTMLElement {
 			span.innerText = this.i18nService.getMessage(newValue);
 		}
 		if ('data-icon' === name) {
-			this.icon?.setAttribute('data-name', newValue);
+			this.icon = this.querySelector('app-icon');
+			this.icon.setAttribute('data-name', newValue);
 		}
 	}
 

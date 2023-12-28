@@ -4,16 +4,15 @@
 		{
 			"visionPlus": [
 				{
-					"fontSize":
-					{
+					"fontSize": {
 						"values": "default,110%,130%,160%,200%,350%,500%",
 						"activeValue": "1"
 					}
 				},
 				{
 					"textFont": {
-						"values": "default,Arial,Open Sans,Accessible-DFA,Open Dyslexic,Luciole",
-						"activeValue": "1"
+						"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
+						"activeValue": "0"
 					}
 				}
 			]
@@ -28,8 +27,8 @@
 				},
 				{
 					"textFont": {
-						"values": "default,Arial,Open Sans,Accessible-DFA,Open Dyslexic,Luciole",
-						"activeValue": "1"
+						"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
+						"activeValue": "0"
 					}
 				},
 				{
