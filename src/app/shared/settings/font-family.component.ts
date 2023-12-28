@@ -1,6 +1,6 @@
 const tmplFontFamily: HTMLTemplateElement = document.createElement('template');
 tmplFontFamily.innerHTML = `
-<div class="d-flex">
+<div class="d-flex align-items-center gap-3">
 	<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>
 	<app-btn-modal class="d-none"></app-btn-modal>
 </div>

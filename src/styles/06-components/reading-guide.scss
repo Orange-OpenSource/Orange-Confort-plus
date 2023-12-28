@@ -1,0 +1,13 @@
+.sc-reading-guide {
+	background: rgba(0, 0, 0, .5);
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+}
+.sc-reading-guide--top {
+	top: 0;
+}
+.sc-reading-guide--bottom {
+	bottom: 0;
+}
