@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 12/01/2024
-=======
- * orange-confort-plus - version 4.3.0 - 26/12/2023
->>>>>>> Optimisation de la class Abstract.
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -220,62 +216,235 @@ class AbstractSetting extends HTMLElement {
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<style>\n\tapp-font-family {\n\t\t\tmargin-bottom: 1rem;\n\t}\n</style>\n\x3c!-- @todo Loop through predefined values --\x3e\n\x3c!-- @note To translate, or not? --\x3e\n<button id="normal-font" data-i18n="default"></button>\n<button id="arial-font">Arial</button>\n<button id="open-font-font">Open Sans</button>\n<button id="accessible-dfa-font">Accessible-DFA</button>\n<button id="open-dyslexic-font">Open Dyslexic</button>\n<button id="luciole-font">Luciole</button>\n`;
+tmplFontFamily.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
-class FontFamilyComponent extends HTMLElement {
-    normalBtn=null;
-    arialBtn=null;
-    openSansBtn=null;
-    accessibleDFABtn=null;
-    openDyslexicBtn=null;
-    lucioleBtn=null;
+class FontFamilyComponent extends AbstractSetting {
     pathService;
     path;
+    fontDictionnary=[ {
+        name: "Accessible-DFA",
+        folder: "accessibleDFA",
+        files: [ {
+            name: "AccessibleDFA-Bold.woff2",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "AccessibleDFA-Italic.woff2",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "AccessibleDFA-Regular.woff2",
+            style: "normal",
+            weight: "400"
+        } ]
+    }, {
+        name: "B612 Mono",
+        folder: "B612",
+        files: [ {
+            name: "B612Mono-Bold.ttf",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "B612Mono-BoldItalic.ttf",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "B612Mono-Italic.ttf",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "B612Mono-Regular.ttf",
+            style: "normal",
+            weight: "400"
+        } ]
+    }, {
+        name: "Comic Sans",
+        folder: "comic",
+        files: [ {
+            name: "comic-sans.woff",
+            style: "normal",
+            weight: "400"
+        } ]
+    }, {
+        name: "Lexand Deca",
+        folder: "lexendDeca",
+        files: [ {
+            name: "LexendDeca-Black.ttf",
+            style: "normal",
+            weight: "900"
+        }, {
+            name: "LexendDeca-Bold.ttf",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "LexendDeca-ExtraBold.ttf",
+            style: "normal",
+            weight: "800"
+        }, {
+            name: "LexendDeca-ExtraLight.ttf",
+            style: "normal",
+            weight: "200"
+        }, {
+            name: "LexendDeca-Light.ttf",
+            style: "normal",
+            weight: "300"
+        }, {
+            name: "LexendDeca-Medium.ttf",
+            style: "normal",
+            weight: "500"
+        }, {
+            name: "LexendDeca-Regular.ttf",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "LexendDeca-SemiBold.ttf",
+            style: "normal",
+            weight: "600"
+        }, {
+            name: "LexendDeca-Thin.ttf",
+            style: "normal",
+            weight: "100"
+        } ]
+    }, {
+        name: "Luciole",
+        folder: "luciole",
+        files: [ {
+            name: "Luciole-Bold-Italic.woff2",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "Luciole-Bold.woff2",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "Luciole-Regular-Italic.woff2",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "Luciole-Regular.woff2",
+            style: "normal",
+            weight: "400"
+        } ]
+    }, {
+        name: "Sylexiad Sans",
+        folder: "sylexiadSans",
+        files: [ {
+            name: "SylexiadSansMedium-BoldItalic.woff",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "SylexiadSansMedium-Bold.woff",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "SylexiadSansMedium-Italic.woff",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "SylexiadSansMedium.woff",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "SylexiadSansSpacedMed-BoldItalic.woff",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "SylexiadSansSpacedMed-Bold.woff",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "SylexiadSansSpacedMed-Italic.woff",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "SylexiadSansSpacedMed.woff",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "SylexiadSansSpacedThin-BoldItalic.woff",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "SylexiadSansSpacedThin-Bold.woff",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "SylexiadSansSpacedThin-Italic.woff",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "SylexiadSansSpacedThin.woff",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "SylexiadSansThin-BoldItalic.woff",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "SylexiadSansThin-Bold.woff",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "SylexiadSansThin-Italic.woff",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "SylexiadSansThin.woff.woffff2",
+            style: "normal",
+            weight: "400"
+        } ]
+    }, {
+        name: "Verdana",
+        folder: "verdana",
+        files: [ {
+            name: "Verdana-Bold-Italic.woff2",
+            style: "italic",
+            weight: "700"
+        }, {
+            name: "Verdana-Bold.woff2",
+            style: "normal",
+            weight: "700"
+        }, {
+            name: "Verdana-Italic.woff2",
+            style: "italic",
+            weight: "400"
+        }, {
+            name: "Verdana.woff2",
+            style: "normal",
+            weight: "400"
+        } ]
+    } ];
     constructor() {
         super();
-        this.appendChild(tmplFontFamily.content.cloneNode(true));
         this.pathService = new PathService;
         this.path = this.pathService.path;
+        this.appendChild(tmplFontFamily.content.cloneNode(true));
         let head = document.head || document.getElementsByTagName("head")[0];
         let styles = document.createElement("style");
         head.appendChild(styles);
-        styles.innerHTML = `\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Accessible-DFA"; src: url("${this.path}assets/fonts/accessibleDFA/AccessibleDfA-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Dyslexic"; src: url("${this.path}assets/fonts/open-dyslexic/OpenDyslexic-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Regular-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Luciole"; src: url("${this.path}assets/fonts/luciole/Luciole-Bold-Italic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }\n\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Regular.woff2"); font-style: normal; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Italic.woff2"); font-style: italic; font-weight: 400; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-Bold.woff2"); font-style: normal; font-weight: 700; font-display:swap; }\n\t\t\t@font-face { font-family:"Open-Sans"; src: url("${this.path}assets/fonts/open-sans/OpenSans-BoldItalic.woff2"); font-style: italic; font-weight: 700; font-display:swap; }`;
-        this.normalBtn = this.querySelector("#normal-font");
-        this.arialBtn = this.querySelector("#arial-font");
-        this.openSansBtn = this.querySelector("#open-font-font");
-        this.accessibleDFABtn = this.querySelector("#accessible-dfa-font");
-        this.openDyslexicBtn = this.querySelector("#open-dyslexic-font");
-        this.lucioleBtn = this.querySelector("#luciole-font");
+        const fontFaceList = [];
+        this.fontDictionnary.forEach((font => {
+            for (const file of font.files) {
+                fontFaceList.push(`@font-face { font-family:"${font.name}"; src: url("${this.path}assets/fonts/${font.folder}/${file.name}"); font-style: ${file.style}; font-weight: ${file.weight}; font-display: swap; }`);
+            }
+        }));
+        styles.innerHTML = fontFaceList.join("");
     }
     connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        this.normalBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = ``;
-        }));
-        this.arialBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `"Liberation Sans", Arial, sans-serif`;
-        }));
-        this.openSansBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Open-Sans`;
-        }));
-        this.accessibleDFABtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Accessible-DFA`;
-        }));
-        this.openDyslexicBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Open-Dyslexic`;
-        }));
-        this.lucioleBtn?.addEventListener("click", (() => {
-            bodyElt.style.fontFamily = `Luciole`;
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setFontFamily(event.detail.value);
         }));
     }
     disconnectedCallback() {
-        this.normalBtn?.removeEventListener("click", (() => {}));
-        this.arialBtn?.removeEventListener("click", (() => {}));
-        this.openSansBtn?.removeEventListener("click", (() => {}));
-        this.accessibleDFABtn?.removeEventListener("click", (() => {}));
-        this.openDyslexicBtn?.removeEventListener("click", (() => {}));
-        this.lucioleBtn?.removeEventListener("click", (() => {}));
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
+    setFontFamily=value => {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        bodyElt.style.fontFamily = value;
+        this.modalBtn.setAttribute("data-value", value);
+    };
 }
 
 customElements.define("app-font-family", FontFamilyComponent);
@@ -487,7 +656,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button class="sc-btn-setting btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon data-name="Text_Size"></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button class="sc-btn-setting btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon" ];
@@ -841,11 +1010,7 @@ class ModeComponent extends HTMLElement {
             this.displaySettings(JSON.parse(newValue));
         }
     }
-<<<<<<< HEAD
     displaySettings=settings => {
-=======
-    setSettings=mode => {
->>>>>>> Optimisation de la class Abstract.
         let elements = this.querySelectorAll(".c-mode__setting");
         elements.forEach((element => {
             element.classList.add("d-none");
@@ -876,10 +1041,7 @@ class ModesComponent extends HTMLElement {
     constructor() {
         super();
         this.routeService = new RouteService;
-<<<<<<< HEAD
         this.localStorageService = new LocalStorageService;
-=======
->>>>>>> Optimisation de la class Abstract.
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -940,10 +1102,7 @@ class SettingsComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             let elements = this.querySelectorAll(".c-settings__category");
-<<<<<<< HEAD
             const settings = Object.entries(JSON.parse(newValue))[0][1];
-=======
->>>>>>> Optimisation de la class Abstract.
             elements.forEach((element => {
                 element.setAttribute("data-settings", JSON.stringify(settings));
             }));
@@ -962,26 +1121,17 @@ class AbstractCategory extends HTMLElement {
     settingsContainer=null;
     btnMoreSettings=null;
     settingsDictionnary=[];
-<<<<<<< HEAD
     settingsElements=[];
     i18nService;
-=======
->>>>>>> Optimisation de la class Abstract.
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
     constructor(dictionnary) {
         super();
-<<<<<<< HEAD
         this.i18nService = new I18nService;
         this.settingsDictionnary = dictionnary;
     }
     connectedCallback() {
-=======
-        this.settingsDictionnary = dictionnary;
-    }
-    connectedCallback(settingsElements) {
->>>>>>> Optimisation de la class Abstract.
         this.btnAccordion = this.querySelector("button.accordion-button");
         this.accordionContainer = this.querySelector("div.accordion-collapse");
         this.settingsContainer = this.querySelector(".c-category__settings-container");
@@ -991,11 +1141,7 @@ class AbstractCategory extends HTMLElement {
             this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
         }));
         this.btnMoreSettings?.addEventListener("click", (() => {
-<<<<<<< HEAD
             this.displayOrHideOthersSettings();
-=======
-            this.displayAllSettings(settingsElements);
->>>>>>> Optimisation de la class Abstract.
         }));
     }
     disconnectedCallback() {
@@ -1004,11 +1150,7 @@ class AbstractCategory extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
-<<<<<<< HEAD
             this.displaySettings(JSON.parse(newValue));
-=======
-            this.displaySettings(this.settingsDictionnary, JSON.parse(newValue));
->>>>>>> Optimisation de la class Abstract.
         }
     }
     isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
@@ -1022,7 +1164,6 @@ class AbstractCategory extends HTMLElement {
             element?.setAttribute("aria-expanded", String(isOpen));
         }
     };
-<<<<<<< HEAD
     displaySettings=settings => {
         this.settingsElements.forEach((element => {
             element.classList.add("d-none");
@@ -1046,32 +1187,6 @@ class AbstractCategory extends HTMLElement {
                 element.classList.toggle("d-none");
             }
         }));
-=======
-    displaySettings=(settingsDictionnary, settings) => {
-        let tmpDictionnary = [];
-        tmpDictionnary = [ ...settingsDictionnary ];
-        settings?.forEach((setting => {
-            let settingObj = tmpDictionnary?.find((o => o.name === Object.entries(setting)[0][0]));
-            let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
-            tmpDictionnary?.splice(index, 1);
-            let element = this.querySelector(settingObj?.element);
-            element?.setAttribute("data-value", JSON.stringify(Object.entries(setting)[0][1]));
-        }));
-        console.log(tmpDictionnary);
-        tmpDictionnary?.forEach((key => {
-            console.log(key);
-            let element = this.querySelector(key?.element);
-            console.log(element);
-            element?.classList.add("d-none");
-        }));
-        this.btnMoreSettings?.classList.remove("d-none");
-    };
-    displayAllSettings=settingsElements => {
-        settingsElements.forEach((element => {
-            element.classList.remove("d-none");
-        }));
-        this.btnMoreSettings.classList.add("d-none");
->>>>>>> Optimisation de la class Abstract.
     };
 }
 
@@ -1079,11 +1194,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-<<<<<<< HEAD
 tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
-=======
-tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
->>>>>>> Optimisation de la class Abstract.
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -1099,11 +1210,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-<<<<<<< HEAD
 tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
-=======
-tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
->>>>>>> Optimisation de la class Abstract.
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -1119,11 +1226,7 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-<<<<<<< HEAD
 tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
-=======
-tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
->>>>>>> Optimisation de la class Abstract.
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -1139,11 +1242,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-<<<<<<< HEAD
 tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
-=======
-tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
->>>>>>> Optimisation de la class Abstract.
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -1159,11 +1258,7 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-<<<<<<< HEAD
 tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
-=======
-tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
->>>>>>> Optimisation de la class Abstract.
 
 class SoundComponent extends AbstractCategory {
     constructor() {
@@ -1180,7 +1275,11 @@ customElements.define("app-sound", SoundComponent);
 const tmplText = document.createElement("template");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Revu de la fonctionnalité de modification de police de texte.
 
 class TextComponent extends AbstractCategory {
     settingsElements=[];

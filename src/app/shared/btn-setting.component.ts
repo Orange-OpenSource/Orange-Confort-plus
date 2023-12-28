@@ -3,7 +3,7 @@ const btnSettingLayout: HTMLTemplateElement = document.createElement('template')
 btnSettingLayout.innerHTML = `
 	<button class="sc-btn-setting btn btn-primary flex-column w-100">
 		<span></span>
-		<app-icon data-name="Text_Size"></app-icon>
+		<app-icon></app-icon>
 		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
 	</button>
 `;
