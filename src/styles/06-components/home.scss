@@ -1,0 +1,9 @@
+app-home {
+	display: grid;
+	grid-template-rows: 7rem 1fr;
+}
+
+.sc-home__settings {
+	display: grid;
+	grid-template-rows: 1fr auto;
+}
