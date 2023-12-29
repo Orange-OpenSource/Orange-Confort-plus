@@ -13,6 +13,7 @@ tmplText.innerHTML = `
 					<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>
 					<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>
 					<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>
+					<app-spacing-text class="c-text__setting" data-can-edit="true"></app-spacing-text>
 				</div>
 				<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 			</div>
@@ -26,6 +27,7 @@ class TextComponent extends AbstractCategory {
 			{ name: 'fontSize', element: 'app-increase-text-size' },
 			{ name: 'textFont', element: 'app-font-family' },
 			{ name: 'readingGuide', element: 'app-reading-guide' },
+			{ name: 'spacingText', element: 'app-spacing-text' },
 		];
 
 		super(settingsDictionnary);

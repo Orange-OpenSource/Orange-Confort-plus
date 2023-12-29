@@ -3,7 +3,7 @@ tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2">
 	<app-font-family class="c-mode__setting"></app-font-family>
 	<app-increase-text-size class="c-mode__setting"></app-increase-text-size>
-	<app-text-transform class="c-mode__setting"></app-text-transform>
+	<app-spacing-text class="c-mode__setting"></app-spacing-text>
 	<app-reading-guide class="c-mode__setting"></app-reading-guide>
 	<app-margin-align class="c-mode__setting"></app-margin-align>
 	<app-focus-aspect class="c-mode__setting"></app-focus-aspect>
@@ -17,7 +17,7 @@ class ModeComponent extends HTMLElement {
 	settingsDictionnary: any[] = [
 		{ name: 'fontSize', element: 'app-increase-text-size' },
 		{ name: 'textFont', element: 'app-font-family' },
-		{ name: 'textTransform', element: 'app-text-transform' },
+		{ name: 'spacingText', element: 'app-spacing-text' },
 		{ name: 'readingGuide', element: 'app-reading-guide' },
 		{ name: 'marginAlign', element: 'app-margin-align' },
 		{ name: 'focusAspect', element: 'app-focus-aspect' },

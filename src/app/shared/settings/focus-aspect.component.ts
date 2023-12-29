@@ -53,8 +53,8 @@ class FocusAspectComponent extends AbstractSetting {
 			}
 
 			bodyElt.classList.add('cplus-focus-aspect');
-			this.modalBtn.setAttribute('data-value', label);
 		}
+		this.modalBtn.setAttribute('data-value', label);
 	}
 }
 

@@ -44,6 +44,9 @@
 	"focusAspect": {
 		"message": "Focus aspect"
 	},
+	"spacingText": {
+		"message": "Spacing text"
+	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},
@@ -106,5 +109,14 @@
 	},
 	"noModifications": {
 		"message": "No changes"
+	},
+	"spacingTextLabelsmall": {
+		"message": "Little spacing"
+	},
+	"spacingTextLabelbig": {
+		"message": "Big spacing"
+	},
+	"spacingTextLabelhuge": {
+		"message": "Huge spacing"
 	}
 }

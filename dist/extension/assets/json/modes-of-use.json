@@ -28,6 +28,12 @@
 					}
 				},
 				{
+					"spacingText": {
+						"values": "default,small,big,huge",
+						"activeValue": "0"
+					}
+				},
+				{
 					"focusAspect": {
 						"values": "default,big+white,big+blue,big+red,big+yellow,big+green,big+black,veryBig+white,veryBig+blue,veryBig+red,veryBig+yellow,veryBig+green,veryBig+black",
 						"activeValue": "0"
@@ -46,6 +52,12 @@
 				{
 					"textFont": {
 						"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
+						"activeValue": "0"
+					}
+				},
+				{
+					"spacingText": {
+						"values": "default,small,big,huge",
 						"activeValue": "0"
 					}
 				},
