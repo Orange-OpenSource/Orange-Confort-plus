@@ -7,3 +7,8 @@ app-home {
 	display: grid;
 	grid-template-rows: 1fr auto;
 }
+
+.sc-home__icon-mode {
+	width: fit-content;
+	height: fit-content;
+}
