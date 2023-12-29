@@ -41,6 +41,9 @@
 	"margin": {
 		"message": "Marge"
 	},
+	"focusAspect": {
+		"message": "Aspect du focus"
+	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},

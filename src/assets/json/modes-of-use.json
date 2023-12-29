@@ -20,6 +20,12 @@
 						"values": "default,align,margin,list",
 						"activeValue": "0"
 					}
+				},
+				{
+					"focusAspect": {
+						"values": "default,big+white,big+blue,big+red,big+yellow,big+green,big+black,veryBig+white,veryBig+blue,veryBig+red,veryBig+yellow,veryBig+green,veryBig+black",
+						"activeValue": "0"
+					}
 				}
 			]
 		},
@@ -41,6 +47,12 @@
 					"readingGuide": {
 						"values": "default,readingGuide",
 						"activeValue": 0
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "default,big+white,big+blue,big+red,big+yellow,big+green,big+black,veryBig+white,veryBig+blue,veryBig+red,veryBig+yellow,veryBig+green,veryBig+black",
+						"activeValue": "0"
 					}
 				}
 			]
