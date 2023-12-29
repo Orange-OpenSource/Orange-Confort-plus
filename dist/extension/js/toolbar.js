@@ -473,6 +473,53 @@ customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
 
 "use strict";
 
+const tmplMarginAlign = document.createElement("template");
+
+tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="margin" data-icon="Text_Marge"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class MarginAlignComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.appendChild(tmplMarginAlign.content.cloneNode(true));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setMargin(event.detail.value);
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setMargin=value => {
+        const elements = value === "list" ? document.querySelectorAll("ul, ol") : document.getElementsByTagName("body")[0].querySelectorAll("*");
+        elements.forEach((elt => {
+            const element = elt;
+            if (value === "align") {
+                element.style.textAlign = "left";
+            } else if (value === "margin") {
+                element.style.textAlign = "left";
+                element.style.marginLeft = "40px";
+            } else if (value === "list") {
+                element.style.listStylePosition = "initial";
+                element.style.listStyleImage = "none";
+                element.style.listStyleType = "decimal";
+            } else {
+                element.style.textAlign = null;
+                element.style.marginLeft = null;
+                element.style.listStylePosition = null;
+                element.style.listStyleImage = null;
+                element.style.listStyleType = null;
+            }
+        }));
+    };
+}
+
+customElements.define("app-margin-align", MarginAlignComponent);
+
+"use strict";
+
 const tmplReadingGuide = document.createElement("template");
 
 tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>\n<div id="bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>\n`;
@@ -950,7 +997,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -967,6 +1014,9 @@ class ModeComponent extends HTMLElement {
     }, {
         name: "readingGuide",
         element: "app-reading-guide"
+    }, {
+        name: "marginAlign",
+        element: "app-margin-align"
     } ];
     constructor() {
         super();
@@ -1168,9 +1218,16 @@ tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accord
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
-        let settingsDictionnary = [];
+        const settingsDictionnary = [ {
+            name: "marginAlign",
+            element: "app-margin-align"
+        } ];
         super(settingsDictionnary);
         this.appendChild(tmplLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        let settingsElements = [ ...this.querySelectorAll(".c-layout__setting") ];
+        super.connectedCallback(settingsElements);
     }
 }
 
