@@ -41,6 +41,9 @@
 	"margin": {
 		"message": "Margin"
 	},
+	"focusAspect": {
+		"message": "Focus aspect"
+	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},
