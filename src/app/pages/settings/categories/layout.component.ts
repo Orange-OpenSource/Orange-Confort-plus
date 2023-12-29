@@ -9,20 +9,29 @@ tmplLayout.innerHTML = `
 		</div>
 		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
+				<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
+					<app-margin-align class="c-layout__setting" data-can-edit="true"></app-margin-align>
+				</div>
+				<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 			</div>
 		</div>
 	</div>
 `;
 
 class LayoutComponent extends AbstractCategory {
-
 	constructor() {
-		let settingsDictionnary: any[] = [
+		const settingsDictionnary: any[] = [
+			{ name: 'marginAlign', element: 'app-margin-align' },
 		];
 
 		super(settingsDictionnary);
 
 		this.appendChild(tmplLayout.content.cloneNode(true));
+	}
+
+	connectedCallback(): void {
+		let settingsElements = [...this.querySelectorAll('.c-layout__setting')];
+		super.connectedCallback(settingsElements);
 	}
 }
 

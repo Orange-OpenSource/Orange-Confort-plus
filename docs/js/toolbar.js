@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 28/12/2023
+ * orange-confort-plus - version 4.3.0 - 29/12/2023
  * Enhance user experience on web sites
  * © 2014 - 2023 Orange SA
  */
@@ -456,6 +456,53 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 }
 
 customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
+
+"use strict";
+
+const tmplMarginAlign = document.createElement("template");
+
+tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="margin" data-icon="Text_Marge"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class MarginAlignComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.appendChild(tmplMarginAlign.content.cloneNode(true));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setMargin(event.detail.value);
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setMargin=value => {
+        const elements = value === "list" ? document.querySelectorAll("ul, ol") : document.getElementsByTagName("body")[0].querySelectorAll("*");
+        elements.forEach((elt => {
+            const element = elt;
+            if (value === "align") {
+                element.style.textAlign = "left";
+            } else if (value === "margin") {
+                element.style.textAlign = "left";
+                element.style.marginLeft = "40px";
+            } else if (value === "list") {
+                element.style.listStylePosition = "initial";
+                element.style.listStyleImage = "none";
+                element.style.listStyleType = "decimal";
+            } else {
+                element.style.textAlign = null;
+                element.style.marginLeft = null;
+                element.style.listStylePosition = null;
+                element.style.listStyleImage = null;
+                element.style.listStyleType = null;
+            }
+        }));
+    };
+}
+
+customElements.define("app-margin-align", MarginAlignComponent);
 
 "use strict";
 
@@ -932,7 +979,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -949,6 +996,9 @@ class ModeComponent extends HTMLElement {
     }, {
         name: "readingGuide",
         element: "app-reading-guide"
+    }, {
+        name: "marginAlign",
+        element: "app-margin-align"
     } ];
     constructor() {
         super();
@@ -1112,7 +1162,9 @@ class AbstractCategory extends HTMLElement {
         settings?.forEach((setting => {
             let settingObj = tmpDictionnary?.find((o => o.name === Object.entries(setting)[0][0]));
             let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
-            tmpDictionnary?.splice(index, 1);
+            if (index >= 0) {
+                tmpDictionnary?.splice(index, 1);
+            }
             let element = this.querySelector(settingObj?.element);
             element?.classList.remove("d-none");
             element?.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
@@ -1135,13 +1187,20 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-margin-align class="c-layout__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
-        let settingsDictionnary = [];
+        const settingsDictionnary = [ {
+            name: "marginAlign",
+            element: "app-margin-align"
+        } ];
         super(settingsDictionnary);
         this.appendChild(tmplLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        let settingsElements = [ ...this.querySelectorAll(".c-layout__setting") ];
+        super.connectedCallback(settingsElements);
     }
 }
 

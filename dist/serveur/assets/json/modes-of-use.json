@@ -4,20 +4,26 @@
 		{
 			"visionPlus": [
 				{
-					"fontSize": {
-						"values": "default,110%,130%,160%,200%,350%,500%",
-						"activeValue": "1"
-					}
-				},
-				{
 					"textFont": {
 						"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
 						"activeValue": "0"
 					}
 				},
 				{
+					"fontSize": {
+						"values": "default,110%,130%,160%,200%,350%,500%",
+						"activeValue": "1"
+					}
+				},
+				{
 					"readingGuide": {
 						"values": "default,readingGuide",
+						"activeValue": "0"
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "default,align,margin,list",
 						"activeValue": "0"
 					}
 				}

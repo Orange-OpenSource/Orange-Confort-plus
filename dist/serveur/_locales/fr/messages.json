@@ -38,6 +38,9 @@
 	"readingMask": {
 		"message": "Guide de lecture"
 	},
+	"margin": {
+		"message": "Marge"
+	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},
