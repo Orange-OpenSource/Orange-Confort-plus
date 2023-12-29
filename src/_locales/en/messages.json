@@ -38,6 +38,9 @@
 	"readingMask": {
 		"message": "Reading mask"
 	},
+	"margin": {
+		"message": "Margin"
+	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},

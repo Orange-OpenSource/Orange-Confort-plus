@@ -5,6 +5,7 @@ tmplMode.innerHTML = `
 	<app-increase-text-size class="c-mode__setting"></app-increase-text-size>
 	<app-text-transform class="c-mode__setting"></app-text-transform>
 	<app-reading-guide class="c-mode__setting"></app-reading-guide>
+	<app-margin-align class="c-mode__setting"></app-margin-align>
 </div>
 `;
 
@@ -17,6 +18,7 @@ class ModeComponent extends HTMLElement {
 		{ name: 'textFont', element: 'app-font-family' },
 		{ name: 'textTransform', element: 'app-text-transform' },
 		{ name: 'readingGuide', element: 'app-reading-guide' },
+		{ name: 'marginAlign', element: 'app-margin-align' },
 	];
 
 	constructor() {
