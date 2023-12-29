@@ -44,6 +44,9 @@
 	"focusAspect": {
 		"message": "Aspect du focus"
 	},
+	"spacingText": {
+		"message": "Aérer le texte"
+	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},
@@ -109,5 +112,14 @@
 	},
 	"noModifications": {
 		"message": "Pas de modification"
+	},
+	"spacingTextLabelsmall": {
+		"message": "Aère un peu"
+	},
+	"spacingTextLabelbig": {
+		"message": "Aère beaucoup"
+	},
+	"spacingTextLabelhuge": {
+		"message": "Aère énormément"
 	}
 }

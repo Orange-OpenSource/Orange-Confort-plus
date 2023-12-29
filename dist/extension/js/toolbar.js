@@ -237,8 +237,8 @@ class FocusAspectComponent extends AbstractSetting {
                 document.querySelector("#cplus-styles-focus").innerHTML = classFocus;
             }
             bodyElt.classList.add("cplus-focus-aspect");
-            this.modalBtn.setAttribute("data-value", label);
         }
+        this.modalBtn.setAttribute("data-value", label);
     };
 }
 
@@ -629,6 +629,71 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 "use strict";
 
+const tmplSpacingText = document.createElement("template");
+
+tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="spacingText" data-icon="Text_Espacement_Ligne"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class TextSpacingComponent extends AbstractSetting {
+    i18nService;
+    constructor() {
+        super();
+        this.i18nService = new I18nService;
+        this.appendChild(tmplSpacingText.content.cloneNode(true));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setSpacingText(event.detail.value);
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setSpacingText=value => {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        const spacingTextValues = [ {
+            name: "small",
+            wordSpacing: ".10em",
+            lineHeight: "2em",
+            letterSpacing: ".0625em"
+        }, {
+            name: "big",
+            wordSpacing: ".25em",
+            lineHeight: "3em",
+            letterSpacing: ".25em"
+        }, {
+            name: "huge",
+            wordSpacing: ".5em",
+            lineHeight: "4em",
+            letterSpacing: ".5em"
+        } ];
+        let label = value;
+        if (value === "default") {
+            bodyElt.classList.remove("cplus-spacing-text");
+        } else {
+            label = this.i18nService.getMessage(`spacingTextLabel${value}`);
+            let objSpacingText = spacingTextValues?.find((o => o.name === value));
+            let classSpacingText = `\n\t\t\t\t.cplus-spacing-text * {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
+            if (document.querySelectorAll("#cplus-styles-spacing-text").length === 0) {
+                let head = document.head || document.getElementsByTagName("head")[0];
+                let stylesSpacingText = document.createElement("style");
+                stylesSpacingText.setAttribute("id", "cplus-styles-spacing-text");
+                stylesSpacingText.innerHTML = classSpacingText;
+                head.appendChild(stylesSpacingText);
+            } else {
+                document.querySelector("#cplus-styles-spacing-text").innerHTML = classSpacingText;
+            }
+            bodyElt.classList.add("cplus-spacing-text");
+        }
+        this.modalBtn.setAttribute("data-value", label);
+    };
+}
+
+customElements.define("app-spacing-text", TextSpacingComponent);
+
+"use strict";
+
 const tmplTextTransform = document.createElement("template");
 
 tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button id="normal-btn" data-i18n="default"></button>\n<button id="first-letter-btn" data-i18n="firstLetter"></button>\n<button id="lowercase-btn" data-i18n="lowercase"></button>\n<button id="uppercase-btn" data-i18n="uppercase"></button>\n`;
@@ -981,7 +1046,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode", "data-custom" ];
@@ -1048,7 +1113,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="c-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -1060,8 +1125,8 @@ class ModeComponent extends HTMLElement {
         name: "textFont",
         element: "app-font-family"
     }, {
-        name: "textTransform",
-        element: "app-text-transform"
+        name: "spacingText",
+        element: "app-spacing-text"
     }, {
         name: "readingGuide",
         element: "app-reading-guide"
@@ -1376,6 +1441,9 @@ class TextComponent extends AbstractCategory {
         }, {
             name: "readingGuide",
             element: "app-reading-guide"
+        }, {
+            name: "spacingText",
+            element: "app-spacing-text"
         } ];
         super(settingsDictionnary);
         this.appendChild(tmplText.content.cloneNode(true));
