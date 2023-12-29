@@ -188,6 +188,54 @@ class AbstractSetting extends HTMLElement {
 
 "use strict";
 
+const tmplFocusAspect = document.createElement("template");
+
+tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="focusAspect" data-icon="Focus"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class FocusAspectComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.appendChild(tmplFocusAspect.content.cloneNode(true));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setFocus(event.detail.value);
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setFocus=value => {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        let label = value;
+        if (value === "default") {
+            bodyElt.classList.remove("cplus-focus-aspect");
+        } else {
+            let size = value.split("+")[0] === "big" ? "4px" : "10px";
+            let color = value.split("+")[1];
+            label = `${size} / ${color}`;
+            let classFocus = `\n\t\t\t\t.cplus-focus-aspect *:focus, .cplus-focus-aspect *:focus-visible {\n\t\t\t\t\toutline: none !important;\n\t\t\t\t\tborder: ${size} solid ${color} !important;\n\t\t\t\t}\n\t\t\t`;
+            if (document.querySelectorAll("#cplus-styles-focus").length === 0) {
+                let head = document.head || document.getElementsByTagName("head")[0];
+                let stylesFocus = document.createElement("style");
+                stylesFocus.setAttribute("id", "cplus-styles-focus");
+                stylesFocus.innerHTML = classFocus;
+                head.appendChild(stylesFocus);
+            } else {
+                document.querySelector("#cplus-styles-focus").innerHTML = classFocus;
+            }
+            bodyElt.classList.add("cplus-focus-aspect");
+            this.modalBtn.setAttribute("data-value", label);
+        }
+    };
+}
+
+customElements.define("app-focus-aspect", FocusAspectComponent);
+
+"use strict";
+
 const tmplFontFamily = document.createElement("template");
 
 tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -394,15 +442,18 @@ class FontFamilyComponent extends AbstractSetting {
         this.path = this.pathService.path;
         this.appendChild(tmplFontFamily.content.cloneNode(true));
         let head = document.head || document.getElementsByTagName("head")[0];
-        let styles = document.createElement("style");
-        head.appendChild(styles);
-        const fontFaceList = [];
-        this.fontDictionnary.forEach((font => {
-            for (const file of font.files) {
-                fontFaceList.push(`@font-face { font-family:"${font.name}"; src: url("${this.path}assets/fonts/${font.folder}/${file.name}"); font-style: ${file.style}; font-weight: ${file.weight}; font-display: swap; }`);
-            }
-        }));
-        styles.innerHTML = fontFaceList.join("");
+        if (document.querySelectorAll("#cplus-styles-fonts").length === 0) {
+            let stylesFonts = document.createElement("style");
+            stylesFonts.setAttribute("id", "cplus-styles-fonts");
+            head.appendChild(stylesFonts);
+            const fontFaceList = [];
+            this.fontDictionnary.forEach((font => {
+                for (const file of font.files) {
+                    fontFaceList.push(`@font-face { font-family:"${font.name}"; src: url("${this.path}assets/fonts/${font.folder}/${file.name}"); font-style: ${file.style}; font-weight: ${file.weight}; font-display: swap; }`);
+                }
+            }));
+            stylesFonts.innerHTML = fontFaceList.join("");
+        }
     }
     connectedCallback() {
         super.connectedCallback();
@@ -979,7 +1030,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-text-transform class="c-mode__setting"></app-text-transform>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -999,6 +1050,9 @@ class ModeComponent extends HTMLElement {
     }, {
         name: "marginAlign",
         element: "app-margin-align"
+    }, {
+        name: "focusAspect",
+        element: "app-focus-aspect"
     } ];
     constructor() {
         super();
@@ -1210,13 +1264,20 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-focus-aspect class="c-navigation__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
-        let settingsDictionnary = [];
+        const settingsDictionnary = [ {
+            name: "focusAspect",
+            element: "app-focus-aspect"
+        } ];
         super(settingsDictionnary);
         this.appendChild(tmplNavigation.content.cloneNode(true));
+    }
+    connectedCallback() {
+        let settingsElements = [ ...this.querySelectorAll(".c-navigation__setting") ];
+        super.connectedCallback(settingsElements);
     }
 }
 
