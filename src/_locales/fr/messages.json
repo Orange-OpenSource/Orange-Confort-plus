@@ -44,6 +44,9 @@
 	"focusAspect": {
 		"message": "Aspect du focus"
 	},
+	"cursorAspect": {
+		"message": "Aspect de la souris"
+	},
 	"spacingText": {
 		"message": "Aérer le texte"
 	},
