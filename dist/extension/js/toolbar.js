@@ -198,6 +198,64 @@ class AbstractSetting extends HTMLElement {
 
 "use strict";
 
+const tmplColorContrast = document.createElement("template");
+
+tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="colorsContrasts" data-icon="Contrast"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class ColorContrastComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.appendChild(tmplColorContrast.content.cloneNode(true));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setColorsContrasts(event.detail.value);
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setColorsContrasts=value => {
+        let label = value;
+        if (value === "default") {
+            document.querySelector("#cplus-styles-contrast").remove();
+        } else {
+            let color = "";
+            let backgroundColor = "";
+            if (value === "renforced") {
+                color = "#000";
+                backgroundColor = "#fff";
+                label = `Contrasts renforcés`;
+            } else if (value === "daltonism") {
+                color = "#000";
+                backgroundColor = "#fff";
+                label = `Mode daltonien`;
+            } else {
+                color = value.split("+")[0];
+                backgroundColor = value.split("+")[1];
+                label = `${color} / ${backgroundColor}`;
+            }
+            let classContrast = `\n\t\t\t\t\t\t\t.cplus-color-contrast *,\n\t\t\t\t\t\t\t.cplus-color-contrast li a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t.cplus-color-contrast fieldset,\n\t\t\t\t\t\t\t.cplus-color-contrast button,\n\t\t\t\t\t\t\t.cplus-color-contrast input {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t.cplus-color-contrast input {\n\t\t\t\t\t\t\t\tborder-width: 2px !important;\n\t\t\t\t\t\t\t\tborder-style: solid !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t.cplus-color-contrast td, .cplus-color-contrast th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t.cplus-color-contrast table {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t.cplus-color-contrast *:link,\n\t\t\t\t\t\t\t.cplus-color-contrast *:visited,\n\t\t\t\t\t\t\t.cplus-color-contrast *:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton,\n\t\t\t\t\t\t  input {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput {\n\t\t\t\t\t\t\t\tborder-width: 2px !important;\n\t\t\t\t\t\t\t\tborder-style: solid !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
+            if (document.querySelectorAll("#cplus-styles-contrast").length === 0) {
+                let head = document.head || document.getElementsByTagName("head")[0];
+                let stylesContrast = document.createElement("style");
+                stylesContrast.setAttribute("id", "cplus-styles-contrast");
+                stylesContrast.innerHTML = classContrast;
+                head.appendChild(stylesContrast);
+            } else {
+                document.querySelector("#cplus-styles-contrast").innerHTML = classContrast;
+            }
+        }
+        this.modalBtn.setAttribute("data-value", label);
+    };
+}
+
+customElements.define("app-color-contrast", ColorContrastComponent);
+
+"use strict";
+
 const tmplFocusAspect = document.createElement("template");
 
 tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="focusAspect" data-icon="Focus"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -1113,7 +1171,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="c-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="c-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="c-mode__setting"></app-color-contrast>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -1136,6 +1194,9 @@ class ModeComponent extends HTMLElement {
     }, {
         name: "focusAspect",
         element: "app-focus-aspect"
+    }, {
+        name: "colorContrast",
+        element: "app-color-contrast"
     } ];
     constructor() {
         super();
@@ -1438,6 +1499,9 @@ class TextComponent extends AbstractCategory {
         }, {
             name: "textFont",
             element: "app-font-family"
+        }, {
+            name: "colorContrast",
+            element: "app-color-contrast"
         }, {
             name: "readingGuide",
             element: "app-reading-guide"
