@@ -12,6 +12,7 @@ tmplText.innerHTML = `
 				<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
 					<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>
 					<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>
+					<app-color-contrast class="c-text__setting" data-can-edit="true"></app-color-contrast>
 					<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>
 					<app-spacing-text class="c-text__setting" data-can-edit="true"></app-spacing-text>
 				</div>
@@ -26,6 +27,7 @@ class TextComponent extends AbstractCategory {
 		const settingsDictionnary: any[] = [
 			{ name: 'fontSize', element: 'app-increase-text-size' },
 			{ name: 'textFont', element: 'app-font-family' },
+			{ name: 'colorContrast', element: 'app-color-contrast' },
 			{ name: 'readingGuide', element: 'app-reading-guide' },
 			{ name: 'spacingText', element: 'app-spacing-text' },
 		];

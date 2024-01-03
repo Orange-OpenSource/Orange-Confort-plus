@@ -47,6 +47,15 @@
 	"spacingText": {
 		"message": "Spacing text"
 	},
+	"colorsContrasts": {
+		"message": "Couleurs contrastes"
+	},
+	"reinforcedContrasts": {
+		"message": "Reinforced contrasts"
+	},
+	"daltonism": {
+		"message": "Daltonism"
+	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},

@@ -47,6 +47,9 @@
 	"spacingText": {
 		"message": "Aérer le texte"
 	},
+	"colorsContrasts": {
+		"message": "Couleurs contrastes"
+	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},

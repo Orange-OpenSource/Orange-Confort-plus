@@ -47,6 +47,9 @@
 	"spacingText": {
 		"message": "Spacing text"
 	},
+	"colorsContrasts": {
+		"message": "Couleurs contrastes"
+	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},
