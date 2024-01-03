@@ -28,6 +28,12 @@
 					}
 				},
 				{
+					"cursorAspect": {
+						"values": "default,big+black,huge+black",
+						"activeValue": "0"
+					}
+				},
+				{
 					"focusAspect": {
 						"values": "default,big+white,big+blue,big+red,big+yellow,big+green,big+black,veryBig+white,veryBig+blue,veryBig+red,veryBig+yellow,veryBig+green,veryBig+black",
 						"activeValue": "0"
@@ -64,6 +70,12 @@
 				{
 					"spacingText": {
 						"values": "default,small,big,huge",
+						"activeValue": "0"
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "default,big+black,huge+green",
 						"activeValue": "0"
 					}
 				},
