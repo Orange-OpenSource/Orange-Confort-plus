@@ -44,6 +44,9 @@
 	"focusAspect": {
 		"message": "Focus aspect"
 	},
+	"cursorAspect": {
+		"message": "Cursor aspect"
+	},
 	"spacingText": {
 		"message": "Spacing text"
 	},

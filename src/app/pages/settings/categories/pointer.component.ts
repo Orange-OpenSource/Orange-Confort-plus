@@ -9,20 +9,28 @@ tmplPointer.innerHTML = `
 		</div>
 		<div class="accordion-collapse collapse" data-bs-parent="#categories">
 			<div class="accordion-body px-3">
+				<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
+					<app-cursor-aspect class="c-pointer__setting" data-can-edit="true"></app-cursor-aspect>
+				</div>
 			</div>
 		</div>
 	</div>
 `;
 
 class PointerComponent extends AbstractCategory {
-
 	constructor() {
-		let settingsDictionnary: any[] = [
+		const settingsDictionnary: any[] = [
+			{ name: 'cursorAspect', element: 'app-cursor-aspect' },
 		];
 
 		super(settingsDictionnary);
 
 		this.appendChild(tmplPointer.content.cloneNode(true));
+	}
+
+	connectedCallback(): void {
+		let settingsElements = [...this.querySelectorAll('.c-pointer__setting')];
+		super.connectedCallback(settingsElements);
 	}
 }
 

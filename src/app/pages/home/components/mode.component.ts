@@ -8,6 +8,7 @@ tmplMode.innerHTML = `
 	<app-margin-align class="c-mode__setting"></app-margin-align>
 	<app-focus-aspect class="c-mode__setting"></app-focus-aspect>
 	<app-color-contrast class="c-mode__setting"></app-color-contrast>
+	<app-cursor-aspect class="c-mode__setting"></app-cursor-aspect>
 </div>
 `;
 
@@ -23,6 +24,7 @@ class ModeComponent extends HTMLElement {
 		{ name: 'marginAlign', element: 'app-margin-align' },
 		{ name: 'focusAspect', element: 'app-focus-aspect' },
 		{ name: 'colorContrast', element: 'app-color-contrast' },
+		{ name: 'cursorAspect', element: 'app-cursor-aspect' },
 	];
 
 	constructor() {
