@@ -44,11 +44,20 @@
 	"focusAspect": {
 		"message": "Aspect du focus"
 	},
+	"cursorAspect": {
+		"message": "Aspect de la souris"
+	},
 	"spacingText": {
 		"message": "Aérer le texte"
 	},
 	"colorsContrasts": {
 		"message": "Couleurs contrastes"
+	},
+	"reinforcedContrasts": {
+		"message": "Contrastes renforcés"
+	},
+	"daltonism": {
+		"message": "Daltonisme"
 	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"

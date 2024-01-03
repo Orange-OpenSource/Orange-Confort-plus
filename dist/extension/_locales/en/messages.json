@@ -44,11 +44,20 @@
 	"focusAspect": {
 		"message": "Focus aspect"
 	},
+	"cursorAspect": {
+		"message": "Cursor aspect"
+	},
 	"spacingText": {
 		"message": "Spacing text"
 	},
 	"colorsContrasts": {
 		"message": "Couleurs contrastes"
+	},
+	"reinforcedContrasts": {
+		"message": "Reinforced contrasts"
+	},
+	"daltonism": {
+		"message": "Daltonism"
 	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
