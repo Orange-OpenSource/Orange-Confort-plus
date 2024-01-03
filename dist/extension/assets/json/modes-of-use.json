@@ -32,6 +32,12 @@
 						"values": "default,big+white,big+blue,big+red,big+yellow,big+green,big+black,veryBig+white,veryBig+blue,veryBig+red,veryBig+yellow,veryBig+green,veryBig+black",
 						"activeValue": "0"
 					}
+				},
+				{
+					"colorContrast": {
+						"values": "default,renforced,white+black,black+ivory,white+red,black+yellow,white+blue,yellow+blue,black+green,daltonism",
+						"activeValue": "0"
+					}
 				}
 			]
 		},
@@ -64,6 +70,12 @@
 				{
 					"focusAspect": {
 						"values": "default,big+white,big+blue,big+red,big+yellow,big+green,big+black,veryBig+white,veryBig+blue,veryBig+red,veryBig+yellow,veryBig+green,veryBig+black",
+						"activeValue": "0"
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "default,renforced,white+black,black+ivory,white+red,black+yellow,white+blue,yellow+blue,black+green,daltonism",
 						"activeValue": "0"
 					}
 				}
