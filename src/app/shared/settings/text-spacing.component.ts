@@ -31,7 +31,7 @@ class TextSpacingComponent extends AbstractSetting {
 	}
 
 	setSpacingText = (value: string): void => {
-		const bodyElt = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
 		const spacingTextValues = [
 			{ name: 'small', wordSpacing: '.10em', lineHeight: '2em', letterSpacing: '.0625em' },
 			{ name: 'big', wordSpacing: '.25em', lineHeight: '3em', letterSpacing: '.25em' },

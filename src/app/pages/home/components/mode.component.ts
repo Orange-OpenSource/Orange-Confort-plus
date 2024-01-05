@@ -9,6 +9,7 @@ tmplMode.innerHTML = `
 	<app-focus-aspect class="c-mode__setting"></app-focus-aspect>
 	<app-color-contrast class="c-mode__setting"></app-color-contrast>
 	<app-cursor-aspect class="c-mode__setting"></app-cursor-aspect>
+	<app-scroll class="c-mode__setting"></app-scroll>
 </div>
 `;
 
@@ -25,6 +26,7 @@ class ModeComponent extends HTMLElement {
 		{ name: 'focusAspect', element: 'app-focus-aspect' },
 		{ name: 'colorContrast', element: 'app-color-contrast' },
 		{ name: 'cursorAspect', element: 'app-cursor-aspect' },
+		{ name: 'scroll', element: 'app-scroll' },
 	];
 
 	constructor() {

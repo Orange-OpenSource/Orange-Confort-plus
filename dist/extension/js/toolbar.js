@@ -222,7 +222,7 @@ class ColorContrastComponent extends AbstractSetting {
     setColorsContrasts=value => {
         let label = value;
         if (value === "default") {
-            document.querySelector("#cplus-styles-contrast").remove();
+            document.querySelector("#cplus-styles-contrast")?.remove();
         } else {
             let color = "";
             let backgroundColor = "";
@@ -678,7 +678,7 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>\n<div id="bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="cplus-top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>\n<div id="cplus-bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     sizeGuide=40;
@@ -687,8 +687,8 @@ class ReadingGuideComponent extends AbstractSetting {
     constructor() {
         super();
         this.appendChild(tmplReadingGuide.content.cloneNode(true));
-        this.topGuideElt = this.querySelector("#top-guide-elt");
-        this.bottomGuideElt = this.querySelector("#bottom-guide-elt");
+        this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
+        this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
         this.topGuideElt.style.display = "none";
         this.bottomGuideElt.style.display = "none";
     }
@@ -731,6 +731,119 @@ class ReadingGuideComponent extends AbstractSetting {
 }
 
 customElements.define("app-reading-guide", ReadingGuideComponent);
+
+"use strict";
+
+const tmplScroll = document.createElement("template");
+
+tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="lift" data-icon="Scroll"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class ScrollComponent extends AbstractSetting {
+    btnScrollUp=null;
+    btnScrollDown=null;
+    bodyElt=null;
+    btnState="";
+    scrollSteps=100;
+    constructor() {
+        super();
+        this.appendChild(tmplScroll.content.cloneNode(true));
+        this.bodyElt = document.getElementsByTagName("body")[0];
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.setScrollClass();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            switch (event.detail.value) {
+              case "bigScroll":
+                {
+                    this.resetScroll();
+                    this.setBigScroll();
+                    this.modalBtn.setAttribute("data-value", "Gros ascenceur");
+                    break;
+                }
+
+              case "btnScroll+click":
+                {
+                    this.resetScroll();
+                    this.btnState = "click";
+                    this.setBtnScroll();
+                    this.modalBtn.setAttribute("data-value", "Boutons ascenseurs au click");
+                    break;
+                }
+
+              case "btnScroll+mouseover":
+                {
+                    this.resetScroll();
+                    this.btnState = "mouseover";
+                    this.setBtnScroll();
+                    this.modalBtn.setAttribute("data-value", "Boutons ascenseurs au survol");
+                    break;
+                }
+
+              default:
+                {
+                    this.resetScroll();
+                    this.modalBtn.setAttribute("data-value", "default");
+                }
+            }
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
+        this.btnScrollUp?.removeEventListener("click", (() => {}));
+        this.btnScrollUp?.removeEventListener("mouseover", (() => {}));
+        this.btnScrollDown?.removeEventListener("click", (() => {}));
+        this.btnScrollDown?.removeEventListener("mouseover", (() => {}));
+    }
+    setScrollClass=() => {
+        let classScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t}\n\t\t`;
+        let head = document.head || document.getElementsByTagName("head")[0];
+        let stylesScroll = document.createElement("style");
+        stylesScroll.setAttribute("id", "cplus-scroll");
+        stylesScroll.innerHTML = classScroll;
+        head.appendChild(stylesScroll);
+    };
+    setBigScroll=() => {
+        this.bodyElt.classList.add("cplus-big-scroll");
+    };
+    setBtnScroll=() => {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        const container = document.createElement("div");
+        container.setAttribute("id", "cplus-container-scroll-buttons");
+        container.classList.add("d-flex", "gap-2");
+        let btnArray = [];
+        let btnUp = `<button id="cplus-scroll-up" class="btn btn-primary">Monter</button>`;
+        let btnDown = `<button id="cplus-scroll-down" class="btn btn-primary">Descendre</button>`;
+        btnArray.push(btnUp, btnDown);
+        container.innerHTML = btnArray.join("");
+        bodyElt.appendChild(container);
+        this.btnScrollUp = document.querySelector("#cplus-scroll-up");
+        this.btnScrollDown = document.querySelector("#cplus-scroll-down");
+        if (this.btnState === "click") {
+            this.btnScrollUp.addEventListener("click", (event => {
+                window.scrollBy(0, -this.scrollSteps);
+            }));
+            this.btnScrollDown.addEventListener("click", (event => {
+                window.scrollBy(0, this.scrollSteps);
+            }));
+        } else if (this.btnState === "mouseover") {
+            this.btnScrollUp.addEventListener("mouseover", (event => {
+                window.scrollBy(0, -this.scrollSteps);
+            }));
+            this.btnScrollDown.addEventListener("mouseover", (event => {
+                window.scrollBy(0, this.scrollSteps);
+            }));
+        }
+    };
+    resetScroll=() => {
+        this.btnState = "";
+        this.bodyElt.classList.remove("cplus-big-scroll");
+        document.querySelector("#cplus-container-scroll-buttons")?.remove();
+    };
+}
+
+customElements.define("app-scroll", ScrollComponent);
 
 "use strict";
 
@@ -1218,7 +1331,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="c-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="c-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="c-mode__setting"></app-cursor-aspect>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="c-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="c-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="c-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="c-mode__setting"></app-scroll>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -1247,6 +1360,9 @@ class ModeComponent extends HTMLElement {
     }, {
         name: "cursorAspect",
         element: "app-cursor-aspect"
+    }, {
+        name: "scroll",
+        element: "app-scroll"
     } ];
     constructor() {
         super();
@@ -1474,6 +1590,9 @@ class NavigationComponent extends AbstractCategory {
         const settingsDictionnary = [ {
             name: "focusAspect",
             element: "app-focus-aspect"
+        }, {
+            name: "scroll",
+            element: "app-scroll"
         } ];
         super(settingsDictionnary);
         this.appendChild(tmplNavigation.content.cloneNode(true));

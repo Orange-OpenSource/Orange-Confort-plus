@@ -90,6 +90,12 @@
 						"values": "default,reinforced,white+black,black+ivory,white+red,black+yellow,white+blue,yellow+blue,black+green,daltonism",
 						"activeValue": "0"
 					}
+				},
+				{
+					"scroll": {
+						"values": "default,bigScroll,btnScroll+click,btnScroll+mouseover",
+						"activeValue": "0"
+					}
 				}
 			]
 		}
