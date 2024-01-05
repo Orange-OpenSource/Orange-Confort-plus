@@ -65,6 +65,9 @@
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},
+	"linksStyle": {
+		"message": "Apparence des liens de navigation"
+	},
 	"close": {
 		"message": "Fermer"
 	},

@@ -1,15 +1,16 @@
 const tmplMode: HTMLTemplateElement = document.createElement('template');
 tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2">
-	<app-font-family class="c-mode__setting"></app-font-family>
-	<app-increase-text-size class="c-mode__setting"></app-increase-text-size>
-	<app-spacing-text class="c-mode__setting"></app-spacing-text>
-	<app-reading-guide class="c-mode__setting"></app-reading-guide>
-	<app-margin-align class="c-mode__setting"></app-margin-align>
-	<app-focus-aspect class="c-mode__setting"></app-focus-aspect>
-	<app-color-contrast class="c-mode__setting"></app-color-contrast>
-	<app-cursor-aspect class="c-mode__setting"></app-cursor-aspect>
-	<app-scroll class="c-mode__setting"></app-scroll>
+	<app-font-family class="sc-mode__setting"></app-font-family>
+	<app-increase-text-size class="sc-mode__setting"></app-increase-text-size>
+	<app-spacing-text class="sc-mode__setting"></app-spacing-text>
+	<app-reading-guide class="sc-mode__setting"></app-reading-guide>
+	<app-margin-align class="sc-mode__setting"></app-margin-align>
+	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
+	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
+	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
+	<app-scroll class="sc-mode__setting"></app-scroll>
+	<app-link-style class="sc-mode__setting"></app-link-style>
 </div>
 `;
 
@@ -27,6 +28,7 @@ class ModeComponent extends HTMLElement {
 		{ name: 'colorContrast', element: 'app-color-contrast' },
 		{ name: 'cursorAspect', element: 'app-cursor-aspect' },
 		{ name: 'scroll', element: 'app-scroll' },
+		{ name: 'linkStyle', element: 'app-link-style' },
 	];
 
 	constructor() {
@@ -46,7 +48,7 @@ class ModeComponent extends HTMLElement {
 	}
 
 	displaySettings = (settings: any[]): void => {
-		let elements = this.querySelectorAll(".c-mode__setting");
+		let elements = this.querySelectorAll(".sc-mode__setting");
 		elements.forEach((element) => {
 			element.classList.add('d-none');
 		});
