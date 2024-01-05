@@ -44,6 +44,18 @@
 						"values": "default,reinforced,white+black,black+ivory,white+red,black+yellow,white+blue,yellow+blue,black+green,daltonism",
 						"activeValue": "0"
 					}
+				},
+				{
+					"linkStyle": {
+						"values": "default,lightblue+orange+lightgreen,yellow+orange+lightgreen",
+						"activeValue": "0"
+					}
+				},
+				{
+					"scroll": {
+						"values": "default,bigScroll,btnScroll+click,btnScroll+mouseover",
+						"activeValue": "0"
+					}
 				}
 			]
 		},

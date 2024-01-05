@@ -26,6 +26,7 @@ const files = {
 			'dist/js/app/shared/settings/focus-aspect.component.js',
 			'dist/js/app/shared/settings/font-family.component.js',
 			'dist/js/app/shared/settings/increase-text-size.component.js',
+			'dist/js/app/shared/settings/link-style.component.js',
 			'dist/js/app/shared/settings/margin-align.component.js',
 			'dist/js/app/shared/settings/reading-guide.component.js',
 			'dist/js/app/shared/settings/scroll.component.js',

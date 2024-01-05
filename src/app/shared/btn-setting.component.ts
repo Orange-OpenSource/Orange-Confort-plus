@@ -1,9 +1,11 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 // @fixme button > ul seems really weird
 btnSettingLayout.innerHTML = `
-	<button class="sc-btn-setting btn btn-primary flex-column w-100">
-		<span></span>
-		<app-icon></app-icon>
+	<button class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
+		<div class="d-flex flex-column">
+			<span></span>
+			<app-icon></app-icon>
+		</div>
 		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
 	</button>
 `;
