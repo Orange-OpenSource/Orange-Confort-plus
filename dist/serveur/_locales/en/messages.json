@@ -65,6 +65,9 @@
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},
+	"linksStyle": {
+		"message": "Links style"
+	},
 	"close": {
 		"message": "Close"
 	},

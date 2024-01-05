@@ -629,6 +629,53 @@ customElements.define("app-increase-text-size", IncreaseTextSizeComponent);
 
 "use strict";
 
+const tmplLinkStyle = document.createElement("template");
+
+tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="linksStyle" data-icon="Links"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class LinkStyleComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.appendChild(tmplLinkStyle.content.cloneNode(true));
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.setLinkStyle(event.detail.value);
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
+    }
+    setLinkStyle=value => {
+        const bodyElt = document.getElementsByTagName("body")[0];
+        let label = value;
+        if (value === "default") {
+            document.querySelector("#cplus-styles-links")?.remove();
+        } else {
+            let linkColor = value.split("+")[0];
+            let linkPointedColor = value.split("+")[1];
+            let linkVisitedColor = value.split("+")[2];
+            let classLinkStyle = `\n\t\t\t\ta {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
+            if (document.querySelectorAll("#cplus-styles-links").length === 0) {
+                let head = document.head || document.getElementsByTagName("head")[0];
+                let stylesLinks = document.createElement("style");
+                stylesLinks.setAttribute("id", "cplus-styles-links");
+                stylesLinks.innerHTML = classLinkStyle;
+                head.appendChild(stylesLinks);
+            } else {
+                document.querySelector("#cplus-styles-links").innerHTML = classLinkStyle;
+            }
+        }
+        this.modalBtn.setAttribute("data-value", label);
+    };
+}
+
+customElements.define("app-link-style", LinkStyleComponent);
+
+"use strict";
+
 const tmplMarginAlign = document.createElement("template");
 
 tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="margin" data-icon="Text_Marge"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -797,7 +844,7 @@ class ScrollComponent extends AbstractSetting {
         this.btnScrollDown?.removeEventListener("mouseover", (() => {}));
     }
     setScrollClass=() => {
-        let classScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t}\n\t\t`;
+        let classScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\t\t`;
         let head = document.head || document.getElementsByTagName("head")[0];
         let stylesScroll = document.createElement("style");
         stylesScroll.setAttribute("id", "cplus-scroll");
@@ -811,7 +858,6 @@ class ScrollComponent extends AbstractSetting {
         const bodyElt = document.getElementsByTagName("body")[0];
         const container = document.createElement("div");
         container.setAttribute("id", "cplus-container-scroll-buttons");
-        container.classList.add("d-flex", "gap-2");
         let btnArray = [];
         let btnUp = `<button id="cplus-scroll-up" class="btn btn-primary">Monter</button>`;
         let btnDown = `<button id="cplus-scroll-down" class="btn btn-primary">Descendre</button>`;
@@ -1007,7 +1053,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button class="sc-btn-setting btn btn-primary flex-column w-100">\n\t\t<span></span>\n\t\t<app-icon></app-icon>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<div class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon></app-icon>\n\t\t</div>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon" ];
@@ -1331,7 +1377,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="c-mode__setting"></app-font-family>\n\t<app-increase-text-size class="c-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="c-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="c-mode__setting"></app-reading-guide>\n\t<app-margin-align class="c-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="c-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="c-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="c-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="c-mode__setting"></app-scroll>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-increase-text-size class="sc-mode__setting"></app-increase-text-size>\n\t<app-spacing-text class="sc-mode__setting"></app-spacing-text>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -1363,6 +1409,9 @@ class ModeComponent extends HTMLElement {
     }, {
         name: "scroll",
         element: "app-scroll"
+    }, {
+        name: "linkStyle",
+        element: "app-link-style"
     } ];
     constructor() {
         super();
@@ -1593,6 +1642,9 @@ class NavigationComponent extends AbstractCategory {
         }, {
             name: "scroll",
             element: "app-scroll"
+        }, {
+            name: "linkStyle",
+            element: "app-link-style"
         } ];
         super(settingsDictionnary);
         this.appendChild(tmplNavigation.content.cloneNode(true));
