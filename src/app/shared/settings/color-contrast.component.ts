@@ -33,7 +33,7 @@ class ColorContrastComponent extends AbstractSetting {
 	setColorsContrasts = (value: string): void => {
 		let label = value;
 		if (value === 'default') {
-			document.querySelector('#cplus-styles-contrast').remove();
+			document.querySelector('#cplus-styles-contrast')?.remove();
 		} else {
 			let color = '';
 			let backgroundColor = '';

@@ -59,6 +59,9 @@
 	"daltonism": {
 		"message": "Daltonisme"
 	},
+	"lift": {
+		"message": "Ascenseur"
+	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},

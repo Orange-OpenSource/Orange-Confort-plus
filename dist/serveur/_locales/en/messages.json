@@ -59,6 +59,9 @@
 	"daltonism": {
 		"message": "Daltonism"
 	},
+	"lift": {
+		"message": "Lift"
+	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"
 	},

@@ -26,7 +26,7 @@ class FocusAspectComponent extends AbstractSetting {
 	}
 
 	setFocus = (value: string): void => {
-		const bodyElt = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
 		let label = value;
 		if (value === 'default') {
 			bodyElt.classList.remove('cplus-focus-aspect');

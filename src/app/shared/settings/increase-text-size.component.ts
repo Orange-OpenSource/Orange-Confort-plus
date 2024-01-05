@@ -26,7 +26,7 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	}
 
 	setFontSize = (value: string): void => {
-		const bodyElt = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
 		if (value === 'default') {
 			bodyElt.style.fontSize = null;
 		} else {

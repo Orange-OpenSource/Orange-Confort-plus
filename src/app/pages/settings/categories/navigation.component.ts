@@ -11,6 +11,7 @@ tmplNavigation.innerHTML = `
 			<div class="accordion-body px-3">
 				<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
 					<app-focus-aspect class="c-navigation__setting" data-can-edit="true"></app-focus-aspect>
+					<app-scroll class="c-navigation__setting" data-can-edit="true"></app-scroll>
 				</div>
 				<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 			</div>
@@ -22,6 +23,8 @@ class NavigationComponent extends AbstractCategory {
 	constructor() {
 		const settingsDictionnary: any[] = [
 			{ name: 'focusAspect', element: 'app-focus-aspect' },
+			{ name: 'scroll', element: 'app-scroll' },
+
 		];
 
 		super(settingsDictionnary);
