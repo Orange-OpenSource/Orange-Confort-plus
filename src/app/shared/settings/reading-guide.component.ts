@@ -5,8 +5,8 @@ tmplReadingGuide.innerHTML = `
 	<app-btn-modal class="d-none"></app-btn-modal>
 </div>
 
-<div id="top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>
-<div id="bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>
+<div id="cplus-top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>
+<div id="cplus-bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>
 `;
 
 class ReadingGuideComponent extends AbstractSetting {
@@ -19,8 +19,8 @@ class ReadingGuideComponent extends AbstractSetting {
 
 		this.appendChild(tmplReadingGuide.content.cloneNode(true));
 
-		this.topGuideElt = this.querySelector('#top-guide-elt');
-		this.bottomGuideElt = this.querySelector('#bottom-guide-elt');
+		this.topGuideElt = this.querySelector('#cplus-top-guide-elt');
+		this.bottomGuideElt = this.querySelector('#cplus-bottom-guide-elt');
 
 		this.topGuideElt.style.display = 'none';
 		this.bottomGuideElt.style.display = 'none';
