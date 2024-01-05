@@ -122,7 +122,7 @@ class FontFamilyComponent extends AbstractSetting {
 	}
 
 	setFontFamily = (value: string): void => {
-		const bodyElt = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
 		bodyElt.style.fontFamily = value;
 
 		this.modalBtn.setAttribute('data-value', value);

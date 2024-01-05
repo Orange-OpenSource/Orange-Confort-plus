@@ -28,6 +28,7 @@ const files = {
 			'dist/js/app/shared/settings/increase-text-size.component.js',
 			'dist/js/app/shared/settings/margin-align.component.js',
 			'dist/js/app/shared/settings/reading-guide.component.js',
+			'dist/js/app/shared/settings/scroll.component.js',
 			'dist/js/app/shared/settings/text-spacing.component.js',
 			'dist/js/app/shared/settings/text-transform.component.js',
 			'dist/js/app/shared/btn-modal.component.js',
