@@ -43,10 +43,10 @@ class ModeComponent extends HTMLElement {
 
 		mode.forEach((setting: JSON) => {
 			let settingObj = this.settingsDictionnary.find(o => o.name === Object.entries(setting)[0][0]);
-			let settingElement: HTMLElement = this.querySelector(settingObj.element);
+			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 
-			settingElement.classList.remove('d-none');
-			settingElement.setAttribute('data-setting', JSON.stringify(Object.entries(setting)[0][1]));
+			settingElement?.classList.remove('d-none');
+			settingElement?.setAttribute('data-setting', JSON.stringify(Object.entries(setting)[0][1]));
 		});
 	}
 }

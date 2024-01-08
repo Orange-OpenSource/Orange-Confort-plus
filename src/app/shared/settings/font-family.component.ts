@@ -4,11 +4,22 @@ tmplFontFamily.innerHTML = `
 	<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>
 	<app-btn-modal class="d-none"></app-btn-modal>
 </div>
+
+<button id="testBtn" class="btn btn-primary">Button</button>
 `;
 
 class FontFamilyComponent extends AbstractSetting {
 	pathService: any;
 	path: string;
+
+	valuesJson = {
+		"values": "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana",
+	};
+
+	activesValues = {
+		"values": "default,Accessible-DFA,Sylexiad Sans",
+		"activeValue": 0
+	};
 
 	fontDictionnary: any[] = [
 		{
@@ -106,7 +117,7 @@ class FontFamilyComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('textFont');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setFontFamily((event as CustomEvent).detail.value);
 		});
@@ -119,7 +130,12 @@ class FontFamilyComponent extends AbstractSetting {
 
 	setFontFamily = (value: string): void => {
 		const bodyElt = document.getElementsByTagName('body')[0];
-		bodyElt.style.fontFamily = value;
+		if (value === 'default') {
+			bodyElt.style.fontFamily = null;
+		} else {
+			bodyElt.style.fontFamily = value;
+		}
+
 
 		this.modalBtn.setAttribute('data-value', value);
 	}

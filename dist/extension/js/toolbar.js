@@ -1,7 +1,7 @@
 /*
- * orange-confort-plus - version 4.3.0 - 28/12/2023
+ * orange-confort-plus - version 4.3.0 - 08/01/2024
  * Enhance user experience on web sites
- * © 2014 - 2023 Orange SA
+ * © 2014 - 2024 Orange SA
  */
 "use strict";
 
@@ -145,39 +145,71 @@ class AbstractSetting extends HTMLElement {
     settingBtn=null;
     modalBtn=null;
     canEdit=false;
+    localStorageService;
+    activesValues;
+    testBtn=null;
     constructor() {
         super();
+        this.localStorageService = new LocalStorageService;
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
     }
-    connectedCallback() {
+    connectedCallback(key) {
         this.settingBtn = this.querySelector("app-btn-setting");
         this.modalBtn = this.querySelector("app-btn-modal");
         if (this.canEdit) {
             this.modalBtn.classList.remove("d-none");
         }
+        this.localStorageService.getItem(key).then((result => {
+            if (!result) {
+                this.localStorageService.setItem(key, this.activesValues);
+                this.setSettingBtn(this.activesValues);
+            } else {
+                this.setSettingBtn(result);
+            }
+        }));
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            this.activesValues.activeValue = event.detail.index;
+            this.localStorageService.setItem(key, this.activesValues);
+        }));
+        this.testBtn = this.querySelector("#testBtn");
+        this.testBtn?.addEventListener("click", (event => {
+            this.activesValues.activeValue = 0;
+            this.localStorageService.setItem(key, this.activesValues);
+        }));
+        window.addEventListener(`storage-${key}`, (event => {
+            this.localStorageService.getItem(key).then((result => {
+                this.setSettingBtn(result);
+            }));
+        }));
     }
     disconnectedCallback() {
         this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-setting" === name) {
-            let jsonSetting = JSON.parse(newValue);
-            this.settingBtn.setAttribute("data-values", jsonSetting.values);
-            this.settingBtn.setAttribute("data-active-value", jsonSetting.activeValue);
-            this.modalBtn.setAttribute("data-value", newValue[0]);
-        }
+        if ("data-setting" === name) {}
     }
+    setSettingBtn=activesValues => {
+        this.settingBtn.setAttribute("data-values", activesValues.values);
+        this.settingBtn.setAttribute("data-active-value", activesValues.activeValue);
+    };
 }
 
 "use strict";
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplFontFamily.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<button id="testBtn" class="btn btn-primary">Button</button>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
     pathService;
     path;
+    valuesJson={
+        values: "default,Accessible-DFA,B612 Mono,Comic Sans,Lexand Deca,Luciole,Sylexiad Sans,Verdana"
+    };
+    activesValues={
+        values: "default,Accessible-DFA,Sylexiad Sans",
+        activeValue: 0
+    };
     fontDictionnary=[ {
         name: "Accessible-DFA",
         folder: "accessibleDFA",
@@ -388,7 +420,7 @@ class FontFamilyComponent extends AbstractSetting {
         styles.innerHTML = fontFaceList.join("");
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("textFont");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setFontFamily(event.detail.value);
         }));
@@ -399,7 +431,11 @@ class FontFamilyComponent extends AbstractSetting {
     }
     setFontFamily=value => {
         const bodyElt = document.getElementsByTagName("body")[0];
-        bodyElt.style.fontFamily = value;
+        if (value === "default") {
+            bodyElt.style.fontFamily = null;
+        } else {
+            bodyElt.style.fontFamily = value;
+        }
         this.modalBtn.setAttribute("data-value", value);
     };
 }
@@ -413,12 +449,16 @@ const tmplIncreaseTextSize = document.createElement("template");
 tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
+    activesValues={
+        values: "default,110%,130%",
+        activeValue: 1
+    };
     constructor() {
         super();
         this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("fontSize");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setFontSize(event.detail.value);
         }));
@@ -655,7 +695,7 @@ class BtnSettingComponent extends HTMLElement {
         }
     }
     setIndex=index => {
-        if (index) {
+        if (index?.toString()) {
             this.index = index;
         } else {
             let i = this.index + 1;
@@ -677,7 +717,8 @@ class BtnSettingComponent extends HTMLElement {
                 let clickEvent = new CustomEvent("changeSettingEvent", {
                     bubbles: true,
                     detail: {
-                        value: value
+                        value: value,
+                        index: this.index
                     }
                 });
                 this.settingBtn?.dispatchEvent(clickEvent);
@@ -966,9 +1007,9 @@ class ModeComponent extends HTMLElement {
         }));
         mode.forEach((setting => {
             let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
-            let settingElement = this.querySelector(settingObj.element);
-            settingElement.classList.remove("d-none");
-            settingElement.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
+            let settingElement = this.querySelector(settingObj?.element);
+            settingElement?.classList.remove("d-none");
+            settingElement?.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
         }));
     };
 }

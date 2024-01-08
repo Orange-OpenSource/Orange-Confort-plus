@@ -8,6 +8,11 @@ tmplIncreaseTextSize.innerHTML = `
 
 class IncreaseTextSizeComponent extends AbstractSetting {
 
+	activesValues = {
+		"values": "default,110%,130%",
+		"activeValue": 1
+	};
+
 	constructor() {
 		super();
 
@@ -15,7 +20,7 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('fontSize');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setFontSize((event as CustomEvent).detail.value);
 		});
