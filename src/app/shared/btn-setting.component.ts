@@ -14,6 +14,7 @@ class BtnSettingComponent extends HTMLElement {
 	btnContentSlots: HTMLElement = null;
 	icon: HTMLElement = null;
 	index: number;
+	value: string;
 	label = '';
 	slot = '';
 	separator = ',';
@@ -32,10 +33,20 @@ class BtnSettingComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
 		this.btnContentSlots = this.querySelector('ul');
-		this.icon = this.querySelector('app-icon');
 
 		this.settingBtn?.addEventListener('click', () => {
 			this.setIndex();
+
+			let clickEvent = new CustomEvent(
+				'changeSettingEvent',
+				{
+					bubbles: true,
+					detail: {
+						value: this.value,
+						index: this.index
+					}
+				});
+			this.settingBtn?.dispatchEvent(clickEvent);
 		});
 	}
 
@@ -56,12 +67,13 @@ class BtnSettingComponent extends HTMLElement {
 			span.innerText = this.i18nService.getMessage(newValue);
 		}
 		if ('data-icon' === name) {
+			this.icon = this.querySelector('app-icon');
 			this.icon?.setAttribute('data-name', newValue);
 		}
 	}
 
 	setIndex = (index?: number): void => {
-		if (index) {
+		if (index?.toString()) {
 			this.index = index;
 		} else {
 			let i = this.index + 1;
@@ -69,9 +81,9 @@ class BtnSettingComponent extends HTMLElement {
 		}
 
 		if (this.index === 0) {
-			this.settingBtn.classList.add('sc-btn-setting--default');
+			this.settingBtn?.classList.add('sc-btn-setting--default');
 		} else {
-			this.settingBtn.classList.remove('sc-btn-setting--default');
+			this.settingBtn?.classList.remove('sc-btn-setting--default');
 		}
 		this.calculateList();
 	}
@@ -82,16 +94,7 @@ class BtnSettingComponent extends HTMLElement {
 			let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
 			if (index === this.index) {
 				point = '<li class="border border-4 border-black rounded-circle"></li>';
-
-				let clickEvent = new CustomEvent(
-					'changeSettingEvent',
-					{
-						bubbles: true,
-						detail: {
-							value: value,
-						}
-					});
-				this.settingBtn?.dispatchEvent(clickEvent);
+				this.value = value;
 			}
 			this.slot = `${this.slot}${point}`;
 		});

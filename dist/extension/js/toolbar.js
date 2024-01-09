@@ -1,7 +1,7 @@
 /*
- * orange-confort-plus - version 4.3.0 - 28/12/2023
+ * orange-confort-plus - version 4.3.0 - 10/01/2024
  * Enhance user experience on web sites
- * © 2014 - 2023 Orange SA
+ * © 2014 - 2024 Orange SA
  */
 "use strict";
 
@@ -144,20 +144,63 @@ class AbstractSetting extends HTMLElement {
     settingBtn=null;
     modalBtn=null;
     canEdit=false;
+    localStorageService;
+    activesValues;
+    separator=",";
     constructor() {
         super();
+        this.localStorageService = new LocalStorageService;
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
     }
-    connectedCallback() {
+    connectedCallback(key) {
         this.settingBtn = this.querySelector("app-btn-setting");
         this.modalBtn = this.querySelector("app-btn-modal");
         if (this.canEdit) {
             this.modalBtn.classList.remove("d-none");
+            this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
         }
+        this.localStorageService.getItem(key).then((result => {
+            if (!result) {
+                this.localStorageService.setItem(key, this.activesValues);
+                this.setSettingBtn(this.activesValues);
+            } else {
+                this.setSettingBtn(result);
+            }
+        }));
+        this.settingBtn.addEventListener("changeSettingEvent", (event => {
+            let newIndex = event.detail.index;
+            let newValue = event.detail.index;
+            this.activesValues.activeValue = newIndex;
+            this.localStorageService.setItem(key, this.activesValues);
+            this.localStorageService.getItem("modeOfUse").then((result => {
+                if (!result) {
+                    console.log("Error");
+                    return;
+                } else {
+                    let jsonToEdit = result;
+                    let valuesToEdit = this.activesValues;
+                    console.log(valuesToEdit);
+                    console.log(valuesToEdit.values);
+                    console.log(valuesToEdit.values[newIndex]);
+                    valuesToEdit.values[newIndex] = newValue;
+                    jsonToEdit.modes.facilePlus.fontSize = valuesToEdit;
+                    this.localStorageService.setItem("modeOfUse", jsonToEdit);
+                }
+            }));
+        }));
+        window.addEventListener(`storage-${key}`, (event => {
+            this.localStorageService.getItem(key).then((result => {
+                this.setSettingBtn(result);
+            }));
+        }));
     }
     disconnectedCallback() {
         this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
     }
+    setSettingBtn=activesValues => {
+        this.settingBtn.setAttribute("data-values", activesValues.values);
+        this.settingBtn.setAttribute("data-active-value", activesValues.activeValue);
+    };
 }
 
 "use strict";
@@ -228,16 +271,19 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
-    static observedAttributes=[ "data-setting" ];
+    activesValues={
+        values: "default,110%,130%",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("textSize");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setFontSize(event.detail.value);
         }));
@@ -245,14 +291,6 @@ class IncreaseTextSizeComponent extends AbstractSetting {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-setting" === name) {
-            let jsonSetting = JSON.parse(newValue);
-            this.settingBtn.setAttribute("data-values", jsonSetting.values);
-            this.settingBtn.setAttribute("data-active-value", jsonSetting.activeValue);
-            this.modalBtn.setAttribute("data-value", newValue[0]);
-        }
     }
     setFontSize=value => {
         const bodyElt = document.getElementsByTagName("body")[0];
@@ -444,6 +482,7 @@ class BtnSettingComponent extends HTMLElement {
     btnContentSlots=null;
     icon=null;
     index;
+    value;
     label="";
     slot="";
     separator=",";
@@ -457,9 +496,16 @@ class BtnSettingComponent extends HTMLElement {
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
         this.btnContentSlots = this.querySelector("ul");
-        this.icon = this.querySelector("app-icon");
         this.settingBtn?.addEventListener("click", (() => {
             this.setIndex();
+            let clickEvent = new CustomEvent("changeSettingEvent", {
+                bubbles: true,
+                detail: {
+                    value: this.value,
+                    index: this.index
+                }
+            });
+            this.settingBtn?.dispatchEvent(clickEvent);
         }));
     }
     disconnectedCallback() {
@@ -478,20 +524,21 @@ class BtnSettingComponent extends HTMLElement {
             span.innerText = this.i18nService.getMessage(newValue);
         }
         if ("data-icon" === name) {
+            this.icon = this.querySelector("app-icon");
             this.icon?.setAttribute("data-name", newValue);
         }
     }
     setIndex=index => {
-        if (index) {
+        if (index?.toString()) {
             this.index = index;
         } else {
             let i = this.index + 1;
             this.index = i >= this.settingsList.length ? 0 : i;
         }
         if (this.index === 0) {
-            this.settingBtn.classList.add("sc-btn-setting--default");
+            this.settingBtn?.classList.add("sc-btn-setting--default");
         } else {
-            this.settingBtn.classList.remove("sc-btn-setting--default");
+            this.settingBtn?.classList.remove("sc-btn-setting--default");
         }
         this.calculateList();
     };
@@ -501,13 +548,7 @@ class BtnSettingComponent extends HTMLElement {
             let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
             if (index === this.index) {
                 point = '<li class="border border-4 border-black rounded-circle"></li>';
-                let clickEvent = new CustomEvent("changeSettingEvent", {
-                    bubbles: true,
-                    detail: {
-                        value: value
-                    }
-                });
-                this.settingBtn?.dispatchEvent(clickEvent);
+                this.value = value;
             }
             this.slot = `${this.slot}${point}`;
         }));
@@ -675,13 +716,9 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n<div class="p-3">\n\t<app-edit-text-size></app-edit-text-size>\n</div>\n`;
+editSettingLayout.innerHTML = ``;
 
 class EditSettingComponent extends HTMLElement {
-    editSettingDictionnary=[ {
-        name: "textFont",
-        element: "app-edit-text-size"
-    } ];
     constructor() {
         super();
         this.appendChild(editSettingLayout.content.cloneNode(true));
@@ -786,16 +823,15 @@ class ModeComponent extends HTMLElement {
             this.setSettings(JSON.parse(newValue));
         }
     }
-    setSettings=mode => {
+    setSettings=settings => {
         let elements = this.querySelectorAll(".c-mode__setting");
         elements.forEach((element => {
             element.classList.add("d-none");
         }));
-        mode.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === Object.entries(setting)[0][0]));
-            let settingElement = this.querySelector(settingObj.element);
+        settings.forEach((setting => {
+            let settingObj = this.settingsDictionnary.find((o => o.name === setting));
+            let settingElement = this.querySelector(settingObj?.element);
             settingElement.classList.remove("d-none");
-            settingElement.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
         }));
     };
 }
@@ -872,8 +908,9 @@ class SettingsComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
             let elements = this.querySelectorAll(".c-settings__category");
+            const settings = Object.entries(JSON.parse(newValue))[0][1];
             elements.forEach((element => {
-                element.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
+                element.setAttribute("data-settings", JSON.stringify(settings));
             }));
         }
     }
@@ -889,6 +926,7 @@ class AbstractCategory extends HTMLElement {
     accordionContainer=null;
     settingsContainer=null;
     btnMoreSettings=null;
+    separator=",";
     settingsDictionnary=[];
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
@@ -916,7 +954,7 @@ class AbstractCategory extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
-            this.displaySettings(this.settingsDictionnary, JSON.parse(newValue));
+            this.displaySettings(JSON.parse(newValue).splice(this.separator));
         }
     }
     isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
@@ -930,19 +968,14 @@ class AbstractCategory extends HTMLElement {
             element?.setAttribute("aria-expanded", String(isOpen));
         }
     };
-    displaySettings=(settingsDictionnary, settings) => {
-        let tmpDictionnary = [];
-        tmpDictionnary = [ ...settingsDictionnary ];
-        settings?.forEach((setting => {
-            let settingObj = tmpDictionnary?.find((o => o.name === Object.entries(setting)[0][0]));
-            let index = tmpDictionnary?.findIndex((o => o.name === Object.entries(setting)[0][0]));
-            tmpDictionnary?.splice(index, 1);
-            let element = this.querySelector(settingObj?.element);
-            element?.setAttribute("data-setting", JSON.stringify(Object.entries(setting)[0][1]));
-        }));
-        tmpDictionnary?.forEach((key => {
-            let element = this.querySelector(key?.element);
-            element?.classList.add("d-none");
+    displaySettings=settings => {
+        this.settingsDictionnary?.forEach((setting => {
+            let element = this.querySelector(setting?.element);
+            if (!settings?.some((s => s === setting.name))) {
+                element?.classList.add("d-none");
+            } else {
+                element?.classList.remove("d-none");
+            }
         }));
         this.btnMoreSettings?.classList.remove("d-none");
     };

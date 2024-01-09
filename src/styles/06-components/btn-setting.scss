@@ -1,4 +1,17 @@
+app-btn-setting {
+	flex: 1;
+	max-width: 12rem;
+	height: 100%;
+}
+
+.sc-btn-setting--with-btn-modal {
+	min-width: 10rem;
+	max-width: 10rem;
+}
+
 .sc-btn-setting {
+	height: 100%;
+
 	&:hover > ul > li.border.border-4 {
 		border-color: var(--cplus-primary) !important;
 	}
