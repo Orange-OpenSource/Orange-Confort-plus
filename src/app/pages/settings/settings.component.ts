@@ -22,8 +22,9 @@ class SettingsComponent extends HTMLElement {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
 			let elements = this.querySelectorAll(".c-settings__category");
+			const settings: string[] = Object.entries(JSON.parse(newValue))[0][1] as string[];
 			elements.forEach((element) => {
-				element.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
+				element.setAttribute('data-settings', JSON.stringify(settings));
 			});
 		}
 	}
