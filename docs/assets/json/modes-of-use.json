@@ -4,16 +4,15 @@
 		{
 			"visionPlus": [
 				{
-					"fontSize":
-					{
-						"values": "default,110%,130%,160%,200%,350%,500%",
-						"activeValue": "1"
+					"fontSize": {
+						"values": "default,18,24",
+						"activeValue": 0
 					}
 				},
 				{
 					"textFont": {
-						"values": "default,Arial,Open Sans,Accessible-DFA,Open Dyslexic,Luciole",
-						"activeValue": "1"
+						"values": "default,Accessible-DFA,B612 Mono",
+						"activeValue": 0
 					}
 				}
 			]
@@ -22,20 +21,20 @@
 			"facilePlus": [
 				{
 					"fontSize": {
-						"values": "default,110%,130%,160%,200%,350%,500%",
-						"activeValue": "1"
+						"values": "default,18,24",
+						"activeValue": 0
 					}
 				},
 				{
 					"textFont": {
-						"values": "default,Arial,Open Sans,Accessible-DFA,Open Dyslexic,Luciole",
-						"activeValue": "1"
+						"values": "default,Accessible-DFA,B612 Mono",
+						"activeValue": 0
 					}
 				},
 				{
 					"readingGuide": {
-						"values": "false,true",
-						"activeValue": "1"
+						"values": "default,readingGuide",
+						"activeValue": 0
 					}
 				}
 			]

@@ -4,7 +4,7 @@ abstract class AbstractCategory extends HTMLElement {
 	accordionContainer: HTMLElement = null;
 	settingsContainer: HTMLElement = null;
 	btnMoreSettings: HTMLElement = null;
-
+	separator = ',';
 	settingsDictionnary: any[] = []
 
 	private CLASS_NAME_SHOW = 'show';
@@ -42,7 +42,7 @@ abstract class AbstractCategory extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-settings' === name) {
-			this.displaySettings(this.settingsDictionnary, JSON.parse(newValue));
+			this.displaySettings(JSON.parse(newValue).splice(this.separator));
 		}
 	}
 
@@ -61,26 +61,15 @@ abstract class AbstractCategory extends HTMLElement {
 		}
 	}
 
-	displaySettings = (settingsDictionnary: any[], settings: any[]): void => {
-		let tmpDictionnary: any[] = [];
-		tmpDictionnary = [...settingsDictionnary];
-
-		/* First, add and display the active mode settings */
-		settings?.forEach((setting: JSON) => {
-			let settingObj = tmpDictionnary?.find(o => o.name === Object.entries(setting)[0][0]);
-			let index = tmpDictionnary?.findIndex(o => o.name === Object.entries(setting)[0][0]);
-			tmpDictionnary?.splice(index, 1);
-
-			let element = this.querySelector(settingObj?.element);
-			element?.setAttribute('data-setting', JSON.stringify(Object.entries(setting)[0][1]));
+	displaySettings = (settings: any[]): void => {
+		this.settingsDictionnary?.forEach((setting: any) => {
+			let element = this.querySelector(setting?.element);
+			if (!settings?.some(s => s === setting.name)) {
+				element?.classList.add('d-none');
+			} else {
+				element?.classList.remove('d-none');
+			}
 		});
-
-		/* Secondly, add and hide other inactives settings */
-		tmpDictionnary?.forEach((key) => {
-			let element = this.querySelector(key?.element);
-			element?.classList.add('d-none');
-		});
-
 		this.btnMoreSettings?.classList.remove('d-none');
 	}
 
