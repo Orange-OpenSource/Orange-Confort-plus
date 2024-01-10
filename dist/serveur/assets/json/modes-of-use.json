@@ -4,8 +4,8 @@
 		{
 			"visionPlus": [
 				{
-					"fontSize": {
-						"values": "default,18,24",
+					"textSize": {
+						"values": "default,130%,150%",
 						"activeValue": 0
 					}
 				},
@@ -20,8 +20,8 @@
 		{
 			"facilePlus": [
 				{
-					"fontSize": {
-						"values": "default,18,24",
+					"textSize": {
+						"values": "default,120%,170%",
 						"activeValue": 0
 					}
 				},

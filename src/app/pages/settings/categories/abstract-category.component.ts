@@ -4,8 +4,8 @@ abstract class AbstractCategory extends HTMLElement {
 	accordionContainer: HTMLElement = null;
 	settingsContainer: HTMLElement = null;
 	btnMoreSettings: HTMLElement = null;
-	separator = ',';
 	settingsDictionnary: any[] = []
+	settingsElements: any[] = []
 
 	private CLASS_NAME_SHOW = 'show';
 	private CLASS_NAME_COLLAPSED = 'collapsed';
@@ -17,7 +17,7 @@ abstract class AbstractCategory extends HTMLElement {
 		this.settingsDictionnary = dictionnary;
 	}
 
-	connectedCallback(settingsElements: any): void {
+	connectedCallback(): void {
 		this.btnAccordion = this.querySelector('button.accordion-button');
 		this.accordionContainer = this.querySelector('div.accordion-collapse');
 		this.settingsContainer = this.querySelector('.c-category__settings-container');
@@ -29,7 +29,7 @@ abstract class AbstractCategory extends HTMLElement {
 		});
 
 		this.btnMoreSettings?.addEventListener('click', () => {
-			this.displayAllSettings(settingsElements);
+			this.displayAllSettings();
 		});
 	}
 
@@ -42,7 +42,7 @@ abstract class AbstractCategory extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-settings' === name) {
-			this.displaySettings(JSON.parse(newValue).splice(this.separator));
+			this.displaySettings(JSON.parse(newValue));
 		}
 	}
 
@@ -62,19 +62,23 @@ abstract class AbstractCategory extends HTMLElement {
 	}
 
 	displaySettings = (settings: any[]): void => {
-		this.settingsDictionnary?.forEach((setting: any) => {
-			let element = this.querySelector(setting?.element);
-			if (!settings?.some(s => s === setting.name)) {
-				element?.classList.add('d-none');
-			} else {
-				element?.classList.remove('d-none');
-			}
+		this.settingsElements.forEach((element) => {
+			element.classList.add('d-none');
 		});
+
+		settings.forEach((setting: string) => {
+			let settingObj = this.settingsDictionnary.find(o => o.name === Object.keys(setting)[0]);
+			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
+			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
+
+			settingElement?.classList.remove('d-none');
+		});
+
 		this.btnMoreSettings?.classList.remove('d-none');
 	}
 
-	displayAllSettings = (settingsElements: Element[]): void => {
-		settingsElements.forEach((element) => {
+	displayAllSettings = (): void => {
+		this.settingsElements.forEach((element) => {
 			element.classList.remove('d-none');
 		});
 		this.btnMoreSettings.classList.add('d-none');
