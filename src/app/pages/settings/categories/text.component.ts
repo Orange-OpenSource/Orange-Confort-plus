@@ -22,9 +22,11 @@ tmplText.innerHTML = `
 `;
 
 class TextComponent extends AbstractCategory {
+	settingsElements: any[] = []
+
 	constructor() {
 		const settingsDictionnary: any[] = [
-			{ name: 'fontSize', element: 'app-increase-text-size' },
+			{ name: 'textSize', element: 'app-increase-text-size' },
 			{ name: 'textFont', element: 'app-font-family' },
 			{ name: 'textTransform', element: 'app-text-transform' },
 			{ name: 'readingGuide', element: 'app-reading-guide' },
@@ -36,8 +38,8 @@ class TextComponent extends AbstractCategory {
 	}
 
 	connectedCallback(): void {
-		let settingsElements = [...this.querySelectorAll('.c-text__setting')];
-		super.connectedCallback(settingsElements);
+		this.settingsElements = [...this.querySelectorAll('.c-text__setting')];
+		super.connectedCallback();
 	}
 }
 

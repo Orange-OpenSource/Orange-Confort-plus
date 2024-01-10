@@ -141,6 +141,7 @@ customElements.define("app-root", AppComponent);
 "use strict";
 
 class AbstractSetting extends HTMLElement {
+    static observedAttributes=[ "data-values" ];
     settingBtn=null;
     modalBtn=null;
     canEdit=false;
@@ -159,43 +160,31 @@ class AbstractSetting extends HTMLElement {
             this.modalBtn.classList.remove("d-none");
             this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
         }
-        this.localStorageService.getItem(key).then((result => {
-            if (!result) {
-                this.localStorageService.setItem(key, this.activesValues);
-                this.setSettingBtn(this.activesValues);
-            } else {
-                this.setSettingBtn(result);
-            }
-        }));
+        this.setSettingBtn(this.activesValues);
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             let newIndex = event.detail.index;
-            let newValue = event.detail.index;
-            this.activesValues.activeValue = newIndex;
-            this.localStorageService.setItem(key, this.activesValues);
             this.localStorageService.getItem("modeOfUse").then((result => {
-                if (!result) {
-                    console.log("Error");
-                    return;
-                } else {
-                    let jsonToEdit = result;
-                    let valuesToEdit = this.activesValues;
-                    console.log(valuesToEdit);
-                    console.log(valuesToEdit.values);
-                    console.log(valuesToEdit.values[newIndex]);
-                    valuesToEdit.values[newIndex] = newValue;
-                    jsonToEdit.modes.facilePlus.fontSize = valuesToEdit;
-                    this.localStorageService.setItem("modeOfUse", jsonToEdit);
-                }
-            }));
-        }));
-        window.addEventListener(`storage-${key}`, (event => {
-            this.localStorageService.getItem(key).then((result => {
-                this.setSettingBtn(result);
+                let json = result;
+                json.modes.forEach((mode => {
+                    if (Object.keys(mode)[0] === json.selectedMode) {
+                        let modeSettings = Object.entries(mode)[0][1];
+                        let setting = modeSettings.find((o => Object.keys(o)[0] === key));
+                        let settingValues = Object.entries(setting)[0][1];
+                        settingValues.activeValue = newIndex;
+                    }
+                }));
+                this.localStorageService.setItem("modeOfUse", json);
             }));
         }));
     }
     disconnectedCallback() {
         this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-values" === name) {
+            this.activesValues = JSON.parse(newValue);
+            this.setSettingBtn(this.activesValues);
+        }
     }
     setSettingBtn=activesValues => {
         this.settingBtn.setAttribute("data-values", activesValues.values);
@@ -799,7 +788,7 @@ class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
     modeContent=null;
     settingsDictionnary=[ {
-        name: "fontSize",
+        name: "textSize",
         element: "app-increase-text-size"
     }, {
         name: "textFont",
@@ -820,18 +809,19 @@ class ModeComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
-            this.setSettings(JSON.parse(newValue));
+            this.displaySettings(JSON.parse(newValue));
         }
     }
-    setSettings=settings => {
+    displaySettings=settings => {
         let elements = this.querySelectorAll(".c-mode__setting");
         elements.forEach((element => {
             element.classList.add("d-none");
         }));
         settings.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === setting));
+            let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
             let settingElement = this.querySelector(settingObj?.element);
-            settingElement.classList.remove("d-none");
+            settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+            settingElement?.classList.remove("d-none");
         }));
     };
 }
@@ -848,10 +838,12 @@ class ModesComponent extends HTMLElement {
     static observedAttributes=[ "data-list-mode" ];
     selectModeBtn=null;
     routeService;
+    localStorageService;
     selectModeZone=null;
     constructor() {
         super();
         this.routeService = new RouteService;
+        this.localStorageService = new LocalStorageService;
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -861,11 +853,15 @@ class ModesComponent extends HTMLElement {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
                 detail: {
-                    mode: this.getSelectedMode(),
                     route: this.routeService.PAGE_HOME,
                     isPrev: true
                 }
             });
+            this.localStorageService.getItem("modeOfUse").then((result => {
+                let json = result;
+                json.selectedMode = this.getSelectedMode();
+                this.localStorageService.setItem("modeOfUse", json);
+            }));
             this.selectModeBtn?.dispatchEvent(clickEvent);
         }));
     }
@@ -926,8 +922,8 @@ class AbstractCategory extends HTMLElement {
     accordionContainer=null;
     settingsContainer=null;
     btnMoreSettings=null;
-    separator=",";
     settingsDictionnary=[];
+    settingsElements=[];
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
@@ -935,7 +931,7 @@ class AbstractCategory extends HTMLElement {
         super();
         this.settingsDictionnary = dictionnary;
     }
-    connectedCallback(settingsElements) {
+    connectedCallback() {
         this.btnAccordion = this.querySelector("button.accordion-button");
         this.accordionContainer = this.querySelector("div.accordion-collapse");
         this.settingsContainer = this.querySelector(".c-category__settings-container");
@@ -945,7 +941,7 @@ class AbstractCategory extends HTMLElement {
             this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
         }));
         this.btnMoreSettings?.addEventListener("click", (() => {
-            this.displayAllSettings(settingsElements);
+            this.displayAllSettings();
         }));
     }
     disconnectedCallback() {
@@ -954,7 +950,7 @@ class AbstractCategory extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
-            this.displaySettings(JSON.parse(newValue).splice(this.separator));
+            this.displaySettings(JSON.parse(newValue));
         }
     }
     isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
@@ -969,18 +965,19 @@ class AbstractCategory extends HTMLElement {
         }
     };
     displaySettings=settings => {
-        this.settingsDictionnary?.forEach((setting => {
-            let element = this.querySelector(setting?.element);
-            if (!settings?.some((s => s === setting.name))) {
-                element?.classList.add("d-none");
-            } else {
-                element?.classList.remove("d-none");
-            }
+        this.settingsElements.forEach((element => {
+            element.classList.add("d-none");
+        }));
+        settings.forEach((setting => {
+            let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
+            let settingElement = this.querySelector(settingObj?.element);
+            settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+            settingElement?.classList.remove("d-none");
         }));
         this.btnMoreSettings?.classList.remove("d-none");
     };
-    displayAllSettings=settingsElements => {
-        settingsElements.forEach((element => {
+    displayAllSettings=() => {
+        this.settingsElements.forEach((element => {
             element.classList.remove("d-none");
         }));
         this.btnMoreSettings.classList.add("d-none");
@@ -991,7 +988,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -1007,7 +1004,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -1023,7 +1020,7 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -1039,7 +1036,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -1055,7 +1052,7 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class SoundComponent extends AbstractCategory {
     constructor() {
@@ -1071,12 +1068,13 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
+    settingsElements=[];
     constructor() {
         const settingsDictionnary = [ {
-            name: "fontSize",
+            name: "textSize",
             element: "app-increase-text-size"
         }, {
             name: "textFont",
@@ -1092,8 +1090,8 @@ class TextComponent extends AbstractCategory {
         this.appendChild(tmplText.content.cloneNode(true));
     }
     connectedCallback() {
-        let settingsElements = [ ...this.querySelectorAll(".c-text__setting") ];
-        super.connectedCallback(settingsElements);
+        this.settingsElements = [ ...this.querySelectorAll(".c-text__setting") ];
+        super.connectedCallback();
     }
 }
 
@@ -1136,16 +1134,18 @@ class ToolbarComponent extends HTMLElement {
             }
             this.setCurrentMode();
         }));
+        window.addEventListener("storage-modeOfUse", (event => {
+            this.localStorageService.getItem("modeOfUse").then((result => {
+                this.json = result;
+                this.setCurrentMode();
+            }));
+        }));
         this.routeService.initPages(this);
         this.addEventListener("changeRoute", (event => {
             if (event.detail.isPrev) {
                 this.historyRoute.pop();
             } else {
                 this.historyRoute.push(this.routeService.currentRoute);
-            }
-            if (event.detail.mode) {
-                this.json.selectedMode = event.detail.mode;
-                this.setCurrentMode();
             }
             if (event.detail.setting) {
                 this.json.selectedMode = event.detail.mode;
