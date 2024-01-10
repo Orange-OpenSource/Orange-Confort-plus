@@ -17,6 +17,7 @@ class ModesComponent extends HTMLElement {
 	static observedAttributes = ['data-list-mode'];
 	selectModeBtn: HTMLElement | null = null;
 	routeService: any;
+	localStorageService: any;
 	selectModeZone: HTMLElement | null = null;
 
 	constructor() {
@@ -25,6 +26,8 @@ class ModesComponent extends HTMLElement {
 		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
 		// @ts-ignore
 		this.routeService = new RouteService();
+		// @ts-ignore
+		this.localStorageService = new LocalStorageService();
 
 		this.appendChild(modesLayout.content.cloneNode(true));
 	}
@@ -38,11 +41,16 @@ class ModesComponent extends HTMLElement {
 				{
 					bubbles: true,
 					detail: {
-						mode: this.getSelectedMode(),
 						route: this.routeService.PAGE_HOME,
 						isPrev: true
 					}
 				});
+
+			this.localStorageService.getItem('modeOfUse').then((result: any) => {
+				let json = result;
+				json.selectedMode = this.getSelectedMode();
+				this.localStorageService.setItem('modeOfUse', json);
+			});
 			this.selectModeBtn?.dispatchEvent(clickEvent);
 		});
 	}

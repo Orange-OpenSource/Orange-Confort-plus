@@ -1,4 +1,5 @@
 abstract class AbstractSetting extends HTMLElement {
+	static observedAttributes = ['data-values'];
 	settingBtn: HTMLElement | null = null;
 	modalBtn: HTMLElement | null = null;
 	canEdit = false;
@@ -23,47 +24,35 @@ abstract class AbstractSetting extends HTMLElement {
 			this.settingBtn.classList.add('sc-btn-setting--with-btn-modal');
 		}
 
-		this.localStorageService.getItem(key).then((result: any) => {
-			if (!result) {
-				this.localStorageService.setItem(key, this.activesValues);
-				this.setSettingBtn(this.activesValues);
-			} else {
-				this.setSettingBtn(result);
-			}
-		});
+		this.setSettingBtn(this.activesValues);
 
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			let newIndex = (event as CustomEvent).detail.index;
-			let newValue = (event as CustomEvent).detail.index;
-			this.activesValues.activeValue = newIndex;
-			this.localStorageService.setItem(key, this.activesValues);
 
 			this.localStorageService.getItem('modeOfUse').then((result: any) => {
-				if (!result) {
-					console.log('Error');
-					return;
-				} else {
-					let jsonToEdit = result;
-					let valuesToEdit = this.activesValues;
-					console.log(valuesToEdit);
-					console.log(valuesToEdit.values);
-					console.log(valuesToEdit.values[newIndex]);
-					valuesToEdit.values[newIndex] = newValue;
-					jsonToEdit.modes.facilePlus.fontSize = valuesToEdit;
-					this.localStorageService.setItem('modeOfUse', jsonToEdit);
-				}
-			});
-		});
-
-		window.addEventListener(`storage-${key}`, (event: any) => {
-			this.localStorageService.getItem(key).then((result: any) => {
-				this.setSettingBtn(result);
+				let json = result;
+				json.modes.forEach((mode: any) => {
+					if (Object.keys(mode)[0] === json.selectedMode) {
+						let modeSettings: any[] = Object.entries(mode)[0][1] as [];
+						let setting = modeSettings.find(o => Object.keys(o)[0] === key);
+						let settingValues: any = Object.entries(setting)[0][1];
+						settingValues.activeValue = newIndex;
+					}
+				});
+				this.localStorageService.setItem('modeOfUse', json);
 			});
 		});
 	}
 
 	disconnectedCallback(): void {
 		this.modalBtn.removeEventListener('clickModalEvent', () => { });
+	}
+
+	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+		if ('data-values' === name) {
+			this.activesValues = JSON.parse(newValue);
+			this.setSettingBtn(this.activesValues);
+		}
 	}
 
 	setSettingBtn = (activesValues: any) => {

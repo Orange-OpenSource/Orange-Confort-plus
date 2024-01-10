@@ -13,7 +13,7 @@ class ModeComponent extends HTMLElement {
 	modeContent: HTMLElement | null = null;
 
 	settingsDictionnary: any[] = [
-		{ name: 'fontSize', element: 'app-increase-text-size' },
+		{ name: 'textSize', element: 'app-increase-text-size' },
 		{ name: 'textFont', element: 'app-font-family' },
 		{ name: 'textTransform', element: 'app-text-transform' },
 		{ name: 'readingGuide', element: 'app-reading-guide' },
@@ -31,21 +31,22 @@ class ModeComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-settings' === name) {
-			this.setSettings(JSON.parse(newValue));
+			this.displaySettings(JSON.parse(newValue));
 		}
 	}
 
-	setSettings = (settings: []): void => {
+	displaySettings = (settings: any[]): void => {
 		let elements = this.querySelectorAll(".c-mode__setting");
 		elements.forEach((element) => {
 			element.classList.add('d-none');
 		});
 
-		settings.forEach((setting: string) => {
-			let settingObj = this.settingsDictionnary.find(o => o.name === setting);
+		settings.forEach((setting: any) => {
+			let settingObj = this.settingsDictionnary.find(o => o.name === Object.keys(setting)[0]);
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
+			settingElement.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
 
-			settingElement.classList.remove('d-none');
+			settingElement?.classList.remove('d-none');
 		});
 	}
 }
