@@ -62,6 +62,9 @@
 	"moreSettings": {
 		"message": "Plus de réglages"
 	},
+	"lessSettings": {
+		"message": "Moins de réglages"
+	},
 	"pause": {
 		"message": "Mettre en pause"
 	},

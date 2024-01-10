@@ -5,11 +5,16 @@ class LocalStorageService {
 	}
 
 	setItem<T>(key: string, value: T): void {
-		chrome.storage.local.set({ [`${ this.prefix }${ key }`]: value });
+		chrome.storage.local.set({ [`${this.prefix}${key}`]: value });
+		let clickEvent = new CustomEvent(`storage-${key}`,
+			{
+				bubbles: true
+			});
+		window.dispatchEvent(clickEvent);
 	}
 
 	getItem<T>(key: string): Promise<T> {
-		return chrome.storage.local.get([`${ this.prefix }${ key }`]).then(datas => {
+		return chrome.storage.local.get([`${this.prefix}${key}`]).then(datas => {
 			return new Promise<T>((resolve, reject) => {
 				// @ts-ignore
 				resolve(JSON.parse(datas));
@@ -19,6 +24,6 @@ class LocalStorageService {
 	}
 
 	removeItem(key: string): void {
-		chrome.storage.local.remove([`${ this.prefix }${ key }`]);
+		chrome.storage.local.remove([`${this.prefix}${key}`]);
 	}
 }
