@@ -68,13 +68,6 @@ class ToolbarComponent extends HTMLElement {
 				this.historyRoute.push(this.routeService.currentRoute);
 			}
 
-			/* If the current mode changed PLUS BESOIN */
-			/* 			if ((event as CustomEvent).detail.mode) {
-							this.json.selectedMode = (event as CustomEvent).detail.mode;
-
-							this.setCurrentMode();
-						} */
-
 			/* If editing setting */
 			if ((event as CustomEvent).detail.setting) {
 				this.json.selectedMode = (event as CustomEvent).detail.mode;

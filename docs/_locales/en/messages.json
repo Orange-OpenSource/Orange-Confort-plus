@@ -62,6 +62,9 @@
 	"moreSettings": {
 		"message": "More settings"
 	},
+	"lessSettings": {
+		"message": "Less settings"
+	},
 	"pause": {
 		"message": "Pause"
 	},

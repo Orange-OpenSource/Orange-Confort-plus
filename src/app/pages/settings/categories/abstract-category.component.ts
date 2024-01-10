@@ -6,6 +6,7 @@ abstract class AbstractCategory extends HTMLElement {
 	btnMoreSettings: HTMLElement = null;
 	settingsDictionnary: any[] = []
 	settingsElements: any[] = []
+	i18nService: any;
 
 	private CLASS_NAME_SHOW = 'show';
 	private CLASS_NAME_COLLAPSED = 'collapsed';
@@ -13,6 +14,9 @@ abstract class AbstractCategory extends HTMLElement {
 
 	constructor(dictionnary: any[]) {
 		super();
+
+		// @ts-ignore
+		this.i18nService = new I18nService();
 
 		this.settingsDictionnary = dictionnary;
 	}
@@ -29,7 +33,7 @@ abstract class AbstractCategory extends HTMLElement {
 		});
 
 		this.btnMoreSettings?.addEventListener('click', () => {
-			this.displayAllSettings();
+			this.displayOrHideOthersSettings();
 		});
 	}
 
@@ -70,17 +74,22 @@ abstract class AbstractCategory extends HTMLElement {
 			let settingObj = this.settingsDictionnary.find(o => o.name === Object.keys(setting)[0]);
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
+			settingElement?.setAttribute('data-default-setting', 'true');
 
 			settingElement?.classList.remove('d-none');
 		});
-
-		this.btnMoreSettings?.classList.remove('d-none');
 	}
 
-	displayAllSettings = (): void => {
+	displayOrHideOthersSettings = (): void => {
 		this.settingsElements.forEach((element) => {
-			element.classList.remove('d-none');
+			if (!element.hasAttribute('data-default-setting')) {
+				if (element.classList.contains('d-none')) {
+					this.btnMoreSettings.innerText = this.i18nService.getMessage('lessSettings');
+				} else {
+					this.btnMoreSettings.innerText = this.i18nService.getMessage('moreSettings');
+				}
+				element.classList.toggle('d-none');
+			}
 		});
-		this.btnMoreSettings.classList.add('d-none');
 	}
 }

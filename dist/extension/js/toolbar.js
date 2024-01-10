@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 10/01/2024
+ * orange-confort-plus - version 4.3.0 - 11/01/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -69,6 +69,10 @@ class LocalStorageService {
         chrome.storage.local.set({
             [`${this.prefix}${key}`]: value
         });
+        let clickEvent = new CustomEvent(`storage-${key}`, {
+            bubbles: true
+        });
+        window.dispatchEvent(clickEvent);
     }
     getItem(key) {
         return chrome.storage.local.get([ `${this.prefix}${key}` ]).then((datas => new Promise(((resolve, reject) => {
@@ -924,11 +928,13 @@ class AbstractCategory extends HTMLElement {
     btnMoreSettings=null;
     settingsDictionnary=[];
     settingsElements=[];
+    i18nService;
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
     constructor(dictionnary) {
         super();
+        this.i18nService = new I18nService;
         this.settingsDictionnary = dictionnary;
     }
     connectedCallback() {
@@ -941,7 +947,7 @@ class AbstractCategory extends HTMLElement {
             this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
         }));
         this.btnMoreSettings?.addEventListener("click", (() => {
-            this.displayAllSettings();
+            this.displayOrHideOthersSettings();
         }));
     }
     disconnectedCallback() {
@@ -972,15 +978,21 @@ class AbstractCategory extends HTMLElement {
             let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
             let settingElement = this.querySelector(settingObj?.element);
             settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+            settingElement?.setAttribute("data-default-setting", "true");
             settingElement?.classList.remove("d-none");
         }));
-        this.btnMoreSettings?.classList.remove("d-none");
     };
-    displayAllSettings=() => {
+    displayOrHideOthersSettings=() => {
         this.settingsElements.forEach((element => {
-            element.classList.remove("d-none");
+            if (!element.hasAttribute("data-default-setting")) {
+                if (element.classList.contains("d-none")) {
+                    this.btnMoreSettings.innerText = this.i18nService.getMessage("lessSettings");
+                } else {
+                    this.btnMoreSettings.innerText = this.i18nService.getMessage("moreSettings");
+                }
+                element.classList.toggle("d-none");
+            }
         }));
-        this.btnMoreSettings.classList.add("d-none");
     };
 }
 

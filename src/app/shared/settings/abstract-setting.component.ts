@@ -29,6 +29,7 @@ abstract class AbstractSetting extends HTMLElement {
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			let newIndex = (event as CustomEvent).detail.index;
 
+			// @todo - faire un service pour l'édition du JSON modeOfUse
 			this.localStorageService.getItem('modeOfUse').then((result: any) => {
 				let json = result;
 				json.modes.forEach((mode: any) => {
