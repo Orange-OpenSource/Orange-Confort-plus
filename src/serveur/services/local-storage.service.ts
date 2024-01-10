@@ -1,8 +1,7 @@
 class LocalStorageService {
 	prefix = 'cplus-';
 
-	constructor() {
-	}
+	constructor() { }
 
 	setItem<T>(key: string, value: T): void {
 		localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(value));
