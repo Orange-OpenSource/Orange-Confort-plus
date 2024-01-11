@@ -6,11 +6,11 @@ class LocalStorageService {
 
 	setItem<T>(key: string, value: T): void {
 		chrome.storage.local.set({ [`${this.prefix}${key}`]: value });
-		let clickEvent = new CustomEvent(`storage-${key}`,
+		let storeEvent = new CustomEvent(`storage-${key}`,
 			{
 				bubbles: true
 			});
-		window.dispatchEvent(clickEvent);
+		window.dispatchEvent(storeEvent);
 	}
 
 	getItem<T>(key: string): Promise<T> {
