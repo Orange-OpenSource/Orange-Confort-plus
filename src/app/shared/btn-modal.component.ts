@@ -10,6 +10,7 @@ class BtnModalComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
 		// @ts-ignore
 		this.i18nService = new I18nService();
 
@@ -34,8 +35,7 @@ class BtnModalComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-value' === name) {
-			const displayedValue = newValue === 'default' ? this.i18nService.getMessage('noModifications') : newValue;
-			this.modalBtn.innerText = displayedValue;
+			this.modalBtn.innerText = newValue === 'default' ? this.i18nService.getMessage('noModifications') : newValue;
 		}
 		if ('data-label' === name) {
 			this.setA11yName(newValue);

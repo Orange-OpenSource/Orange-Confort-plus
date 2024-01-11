@@ -4,6 +4,7 @@
 	grid-auto-rows: 6.5rem;
 
 	& .sc-mode__setting, & .sc-mode__setting > * {
+		// @todo cette height est-elle nécessaire ?
 		height: 100%;
 	}
 }

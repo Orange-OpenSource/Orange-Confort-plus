@@ -44,6 +44,7 @@ class HomeComponent extends HTMLElement {
 	constructor() {
 		super();
 
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
 		// @ts-ignore
 		this.i18nService = new I18nService();
 		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances

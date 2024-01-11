@@ -12,6 +12,7 @@ class TextSpacingComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
 		// @ts-ignore
 		this.i18nService = new I18nService();
 
@@ -31,7 +32,7 @@ class TextSpacingComponent extends AbstractSetting {
 	}
 
 	setSpacingText = (value: string): void => {
-		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLElement = document.body;
 		const spacingTextValues = [
 			{ name: 'small', wordSpacing: '.10em', lineHeight: '2em', letterSpacing: '.0625em' },
 			{ name: 'big', wordSpacing: '.25em', lineHeight: '3em', letterSpacing: '.25em' },
@@ -40,13 +41,13 @@ class TextSpacingComponent extends AbstractSetting {
 		let label = value;
 
 		if (value === 'default') {
-			bodyElt.classList.remove('cplus-spacing-text');
+			document.querySelector('#cplus-styles-spacing-text')?.remove();
 		} else {
 			label = this.i18nService.getMessage(`spacingTextLabel${value}`);
 
 			let objSpacingText = spacingTextValues?.find(o => o.name === value);
 			let classSpacingText = `
-				.cplus-spacing-text * {
+				* {
 					word-spacing: ${objSpacingText.wordSpacing} !important;
 					line-height: ${objSpacingText.lineHeight} !important;
 					letter-spacing: ${objSpacingText.letterSpacing} !important;
@@ -54,7 +55,9 @@ class TextSpacingComponent extends AbstractSetting {
 			`;
 
 			if (document.querySelectorAll('#cplus-styles-spacing-text').length === 0) {
+				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
 				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
+				// @todo - tester si on peut utiliser les adoptedStylesheet
 				let stylesSpacingText: HTMLStyleElement = document.createElement('style');
 				stylesSpacingText.setAttribute('id', 'cplus-styles-spacing-text');
 				stylesSpacingText.innerHTML = classSpacingText;
@@ -62,8 +65,6 @@ class TextSpacingComponent extends AbstractSetting {
 			} else {
 				document.querySelector('#cplus-styles-spacing-text').innerHTML = classSpacingText;
 			}
-
-			bodyElt.classList.add('cplus-spacing-text');
 		}
 		this.modalBtn.setAttribute('data-value', label);
 	}

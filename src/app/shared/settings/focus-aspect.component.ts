@@ -26,24 +26,25 @@ class FocusAspectComponent extends AbstractSetting {
 	}
 
 	setFocus = (value: string): void => {
-		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLElement = document.body;
 		let label = value;
 		if (value === 'default') {
-			bodyElt.classList.remove('cplus-focus-aspect');
+			document.querySelector('#cplus-styles-focus')?.remove();
 		} else {
 			let size = value.split('+')[0] === 'big' ? '4px' : '10px';
 			let color = value.split('+')[1];
 			label = `${size} / ${color}`;
 
 			let classFocus = `
-				.cplus-focus-aspect *:focus, .cplus-focus-aspect *:focus-visible {
-					outline: none !important;
-					border: ${size} solid ${color} !important;
+				*:focus, *:focus-visible {
+					outline: ${color} solid ${size} !important;
 				}
 			`;
 
 			if (document.querySelectorAll('#cplus-styles-focus').length === 0) {
+				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
 				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
+				// @todo - tester si on peut utiliser les adoptedStylesheet
 				let stylesFocus: HTMLStyleElement = document.createElement('style');
 				stylesFocus.setAttribute('id', 'cplus-styles-focus');
 				stylesFocus.innerHTML = classFocus;
@@ -51,8 +52,6 @@ class FocusAspectComponent extends AbstractSetting {
 			} else {
 				document.querySelector('#cplus-styles-focus').innerHTML = classFocus;
 			}
-
-			bodyElt.classList.add('cplus-focus-aspect');
 		}
 		this.modalBtn.setAttribute('data-value', label);
 	}

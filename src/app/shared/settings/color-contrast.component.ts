@@ -12,6 +12,7 @@ class ColorContrastComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
 		// @ts-ignore
 		this.i18nService = new I18nService();
 
@@ -64,18 +65,15 @@ class ColorContrastComponent extends AbstractSetting {
 							}
 
 							fieldset,
-							button,
-						  input {
+							button {
 								border-color: ${color} !important;
 							}
 
-							input {
-								border-width: 2px !important;
-								border-style: solid !important;
+							input, td, th {
+								border: 2px solid ${color} !important;
 							}
 
 							td, th {
-								border: 2px solid ${color} !important;
 								padding: .2em !important;
 							}
 
@@ -91,7 +89,9 @@ class ColorContrastComponent extends AbstractSetting {
 						`;
 
 			if (document.querySelectorAll('#cplus-styles-contrast').length === 0) {
+				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
 				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
+				// @todo - tester si on peut utiliser les adoptedStylesheet
 				let stylesContrast: HTMLStyleElement = document.createElement('style');
 				stylesContrast.setAttribute('id', 'cplus-styles-contrast');
 				stylesContrast.innerHTML = classContrast;

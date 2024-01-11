@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 12/01/2024
 =======
  * orange-confort-plus - version 4.3.0 - 02/01/2024
@@ -12,6 +13,9 @@
 =======
  * orange-confort-plus - version 4.3.0 - 05/01/2024
 >>>>>>> Ajout de la fonctionnalité ascenceur
+=======
+ * orange-confort-plus - version 4.3.0 - 12/01/2024
+>>>>>>> Prise en compte des commentaires.
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -117,7 +121,7 @@ class LocalStorageService {
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3rem" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     openConfortPlus=false;
@@ -151,6 +155,7 @@ class AppComponent extends HTMLElement {
         }));
         this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
         this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
+        this.confortPlusToolbar.style.transform = "translateX(100%)";
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
@@ -158,13 +163,16 @@ class AppComponent extends HTMLElement {
         this.confortPlusBtn.addEventListener("click", this.toggleToolbar);
     }
     disconnectedCallback() {
-        this.confortPlusToolbar?.removeEventListener("click", this.toggleToolbar);
+        this.confortPlusToolbar?.removeEventListener("closeEvent", this.toggleToolbar);
         this.confortPlusBtn?.removeEventListener("click", this.toggleToolbar);
     }
     toggleToolbar=() => {
         this.openConfortPlus = !this.openConfortPlus;
-        this?.confortPlusToolbar?.classList.toggle("d-none");
-        this?.confortPlusBtn?.classList.toggle("d-none");
+        if (this.openConfortPlus) {
+            this.confortPlusToolbar.style.removeProperty("transform");
+        } else {
+            this.confortPlusToolbar.style.transform = "translateX(100%)";
+        }
     };
 }
 
@@ -213,9 +221,16 @@ class AbstractSetting extends HTMLElement {
         this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
+<<<<<<< HEAD
         if ("data-values" === name) {
             this.activesValues = JSON.parse(newValue);
             this.setSettingBtn(this.activesValues);
+=======
+        if ("data-setting" === name) {
+            let jsonSetting = JSON.parse(newValue);
+            this.settingBtn.setAttribute("data-values", jsonSetting.values);
+            this.settingBtn.setAttribute("data-active-value", jsonSetting.activeValue);
+>>>>>>> Prise en compte des commentaires.
         }
     }
     setSettingBtn=activesValues => {
@@ -267,7 +282,7 @@ class ColorContrastComponent extends AbstractSetting {
                 backgroundColor = value.split("+")[1];
                 label = `${color} / ${backgroundColor}`;
             }
-            let classContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton,\n\t\t\t\t\t\t  input {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput {\n\t\t\t\t\t\t\t\tborder-width: 2px !important;\n\t\t\t\t\t\t\t\tborder-style: solid !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
+            let classContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-contrast").length === 0) {
                 let head = document.head || document.getElementsByTagName("head")[0];
                 let stylesContrast = document.createElement("style");
@@ -307,8 +322,8 @@ class CursorAspectComponent extends AbstractSetting {
     }
     setCursor=value => {
         let label = value;
-        if (value === "default" && document.querySelector("#cplus-styles-cursor")) {
-            document.querySelector("#cplus-styles-cursor").remove();
+        if (value === "default") {
+            document.querySelector("#cplus-styles-cursor")?.remove();
         } else {
             let color = value.split("+")[1];
             let svgFile = value.split("+")[0] === "big" ? `<svg width="56" height="56" viewbox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M2.1875 3.93386C2.1875 3.07793 3.19283 2.61758 3.84083 3.17679L35.3653 30.3817C36.039 30.9631 35.6748 32.0687 34.7875 32.1359L22.9084 33.0354C22.2046 33.0887 21.776 33.8346 22.0844 34.4695L29.2853 49.2945C29.5344 49.8073 29.3051 50.4242 28.7816 50.6498L22.336 53.4272C21.8383 53.6416 21.2604 53.4206 21.0328 52.9288L14.1035 37.9578C13.8313 37.3697 13.0802 37.1919 12.5732 37.5955L3.81035 44.572C3.15521 45.0936 2.1875 44.6271 2.1875 43.7897V3.93386Z" fill="${color}" stroke="black" stroke-width="5"/></svg>` : `<svg width="128" height="128" viewbox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.18386C5 5.32793 6.00533 4.86758 6.65333 5.42679L83.1778 71.4657C83.8515 72.0471 83.4873 73.1527 82.6 73.2199L50.4764 75.6523C49.7726 75.7056 49.344 76.4515 49.6524 77.0864L67.5257 113.883C67.7748 114.396 67.5455 115.013 67.0219 115.238L49.904 122.615C49.4063 122.829 48.8284 122.608 48.6008 122.116L31.5493 85.2757C31.2771 84.6875 30.5259 84.5097 30.0189 84.9134L6.62285 103.54C5.96772 104.062 5 103.595 5 102.758V6.18386Z" fill="${color}" stroke="black" stroke-width="10"/></svg>`;
@@ -351,15 +366,15 @@ class FocusAspectComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFocus=value => {
-        const bodyElt = document.getElementsByTagName("body")[0];
+        const bodyElt = document.body;
         let label = value;
         if (value === "default") {
-            bodyElt.classList.remove("cplus-focus-aspect");
+            document.querySelector("#cplus-styles-focus")?.remove();
         } else {
             let size = value.split("+")[0] === "big" ? "4px" : "10px";
             let color = value.split("+")[1];
             label = `${size} / ${color}`;
-            let classFocus = `\n\t\t\t\t.cplus-focus-aspect *:focus, .cplus-focus-aspect *:focus-visible {\n\t\t\t\t\toutline: none !important;\n\t\t\t\t\tborder: ${size} solid ${color} !important;\n\t\t\t\t}\n\t\t\t`;
+            let classFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-focus").length === 0) {
                 let head = document.head || document.getElementsByTagName("head")[0];
                 let stylesFocus = document.createElement("style");
@@ -369,7 +384,6 @@ class FocusAspectComponent extends AbstractSetting {
             } else {
                 document.querySelector("#cplus-styles-focus").innerHTML = classFocus;
             }
-            bodyElt.classList.add("cplus-focus-aspect");
         }
         this.modalBtn.setAttribute("data-value", label);
     };
@@ -406,27 +420,27 @@ class FontFamilyComponent extends AbstractSetting {
         name: "B612 Mono",
         folder: "B612",
         files: [ {
-            name: "B612Mono-Bold.ttf",
+            name: "B612Mono-Bold.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "B612Mono-BoldItalic.ttf",
+            name: "B612Mono-BoldItalic.woff2",
             style: "italic",
             weight: "700"
         }, {
-            name: "B612Mono-Italic.ttf",
+            name: "B612Mono-Italic.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "B612Mono-Regular.ttf",
+            name: "B612Mono-Regular.woff2",
             style: "normal",
             weight: "400"
         } ]
     }, {
-        name: "Comic Sans",
+        name: "Comic Sans MS",
         folder: "comic",
         files: [ {
-            name: "comic-sans.woff",
+            name: "comic-Sans-MS.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -434,39 +448,39 @@ class FontFamilyComponent extends AbstractSetting {
         name: "Lexand Deca",
         folder: "lexendDeca",
         files: [ {
-            name: "LexendDeca-Black.ttf",
+            name: "LexendDeca-Black.woff2",
             style: "normal",
             weight: "900"
         }, {
-            name: "LexendDeca-Bold.ttf",
+            name: "LexendDeca-Bold.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "LexendDeca-ExtraBold.ttf",
+            name: "LexendDeca-ExtraBold.woff2",
             style: "normal",
             weight: "800"
         }, {
-            name: "LexendDeca-ExtraLight.ttf",
+            name: "LexendDeca-ExtraLight.woff2",
             style: "normal",
             weight: "200"
         }, {
-            name: "LexendDeca-Light.ttf",
+            name: "LexendDeca-Light.woff2",
             style: "normal",
             weight: "300"
         }, {
-            name: "LexendDeca-Medium.ttf",
+            name: "LexendDeca-Medium.woff2",
             style: "normal",
             weight: "500"
         }, {
-            name: "LexendDeca-Regular.ttf",
+            name: "LexendDeca-Regular.woff2",
             style: "normal",
             weight: "400"
         }, {
-            name: "LexendDeca-SemiBold.ttf",
+            name: "LexendDeca-SemiBold.woff2",
             style: "normal",
             weight: "600"
         }, {
-            name: "LexendDeca-Thin.ttf",
+            name: "LexendDeca-Thin.woff2",
             style: "normal",
             weight: "100"
         } ]
@@ -494,67 +508,67 @@ class FontFamilyComponent extends AbstractSetting {
         name: "Sylexiad Sans",
         folder: "sylexiadSans",
         files: [ {
-            name: "SylexiadSansMedium-BoldItalic.woff",
+            name: "SylexiadSansMedium-BoldItalic.woff2",
             style: "italic",
             weight: "700"
         }, {
-            name: "SylexiadSansMedium-Bold.woff",
+            name: "SylexiadSansMedium-Bold.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "SylexiadSansMedium-Italic.woff",
+            name: "SylexiadSansMedium-Italic.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "SylexiadSansMedium.woff",
+            name: "SylexiadSansMedium.woff2",
             style: "normal",
             weight: "400"
         }, {
-            name: "SylexiadSansSpacedMed-BoldItalic.woff",
+            name: "SylexiadSansSpacedMed-BoldItalic.woff2",
             style: "italic",
             weight: "700"
         }, {
-            name: "SylexiadSansSpacedMed-Bold.woff",
+            name: "SylexiadSansSpacedMed-Bold.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "SylexiadSansSpacedMed-Italic.woff",
+            name: "SylexiadSansSpacedMed-Italic.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "SylexiadSansSpacedMed.woff",
+            name: "SylexiadSansSpacedMed.woff2",
             style: "normal",
             weight: "400"
         }, {
-            name: "SylexiadSansSpacedThin-BoldItalic.woff",
+            name: "SylexiadSansSpacedThin-BoldItalic.woff2",
             style: "italic",
             weight: "700"
         }, {
-            name: "SylexiadSansSpacedThin-Bold.woff",
+            name: "SylexiadSansSpacedThin-Bold.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "SylexiadSansSpacedThin-Italic.woff",
+            name: "SylexiadSansSpacedThin-Italic.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "SylexiadSansSpacedThin.woff",
+            name: "SylexiadSansSpacedThin.woff2",
             style: "normal",
             weight: "400"
         }, {
-            name: "SylexiadSansThin-BoldItalic.woff",
+            name: "SylexiadSansThin-BoldItalic.woff2",
             style: "italic",
             weight: "700"
         }, {
-            name: "SylexiadSansThin-Bold.woff",
+            name: "SylexiadSansThin-Bold.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "SylexiadSansThin-Italic.woff",
+            name: "SylexiadSansThin-Italic.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "SylexiadSansThin.woff.woffff2",
+            name: "SylexiadSansThin.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -592,7 +606,7 @@ class FontFamilyComponent extends AbstractSetting {
             const fontFaceList = [];
             this.fontDictionnary.forEach((font => {
                 for (const file of font.files) {
-                    fontFaceList.push(`@font-face { font-family:"${font.name}"; src: url("${this.path}assets/fonts/${font.folder}/${file.name}"); font-style: ${file.style}; font-weight: ${file.weight}; font-display: swap; }`);
+                    fontFaceList.push(`\n\t\t\t\t\t\t@font-face {\n\t\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\t\tsrc: local("${font.name}"), url("${this.path}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\t\tfont-style: ${file.style}; font-weight: ${file.weight};\n\t\t\t\t\t\t\tfont-display: swap; }`);
                 }
             }));
             stylesFonts.innerHTML = fontFaceList.join("");
@@ -609,8 +623,12 @@ class FontFamilyComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFontFamily=value => {
-        const bodyElt = document.getElementsByTagName("body")[0];
-        bodyElt.style.fontFamily = value;
+        const bodyElt = document.body;
+        if (value === "default") {
+            bodyElt.style.fontFamily = null;
+        } else {
+            bodyElt.style.fontFamily = value;
+        }
         this.modalBtn.setAttribute("data-value", value);
     };
 }
@@ -643,7 +661,7 @@ class IncreaseTextSizeComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFontSize=value => {
-        const bodyElt = document.getElementsByTagName("body")[0];
+        const bodyElt = document.body;
         if (value === "default") {
             bodyElt.style.fontSize = null;
         } else {
@@ -677,7 +695,6 @@ class LinkStyleComponent extends AbstractSetting {
         this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
     setLinkStyle=value => {
-        const bodyElt = document.getElementsByTagName("body")[0];
         let label = value;
         if (value === "default") {
             document.querySelector("#cplus-styles-links")?.remove();
@@ -685,7 +702,7 @@ class LinkStyleComponent extends AbstractSetting {
             let linkColor = value.split("+")[0];
             let linkPointedColor = value.split("+")[1];
             let linkVisitedColor = value.split("+")[2];
-            let classLinkStyle = `\n\t\t\t\ta {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
+            let classLinkStyle = `\n\t\t\t\ta:link {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-links").length === 0) {
                 let head = document.head || document.getElementsByTagName("head")[0];
                 let stylesLinks = document.createElement("style");
@@ -724,24 +741,40 @@ class MarginAlignComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setMargin=value => {
-        const elements = value === "list" ? document.querySelectorAll("ul, ol") : document.getElementsByTagName("body")[0].querySelectorAll("*");
+        const elements = value === "list" ? document.querySelectorAll("ul, ol") : document.body.querySelectorAll("*");
         elements.forEach((elt => {
             const element = elt;
-            if (value === "align") {
-                element.style.textAlign = "left";
-            } else if (value === "margin") {
-                element.style.textAlign = "left";
-                element.style.marginLeft = "40px";
-            } else if (value === "list") {
-                element.style.listStylePosition = "initial";
-                element.style.listStyleImage = "none";
-                element.style.listStyleType = "decimal";
-            } else {
-                element.style.textAlign = null;
-                element.style.marginLeft = null;
-                element.style.listStylePosition = null;
-                element.style.listStyleImage = null;
-                element.style.listStyleType = null;
+            switch (value) {
+              case "align":
+                {
+                    element.style.textAlign = "left";
+                    break;
+                }
+
+              case "margin":
+                {
+                    element.style.textAlign = "left";
+                    element.style.marginLeft = "40px";
+                    break;
+                }
+
+              case "list":
+                {
+                    element.style.listStylePosition = "initial";
+                    element.style.listStyleImage = "none";
+                    element.style.listStyleType = "decimal";
+                    break;
+                }
+
+              default:
+                {
+                    element.style.textAlign = null;
+                    element.style.marginLeft = null;
+                    element.style.listStylePosition = null;
+                    element.style.listStyleImage = null;
+                    element.style.listStyleType = null;
+                    break;
+                }
             }
         }));
     };
@@ -753,7 +786,7 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="cplus-top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>\n<div id="cplus-bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="cplus-top-guide-elt" class="bg-black position-fixed start-0 end-0 top-0 d-none" style="--cplus-bg-opacity: .5;"></div>\n<div id="cplus-bottom-guide-elt" class="bg-black position-fixed start-0 end-0 bottom-0 d-none" style="--cplus-bg-opacity: .5;"></div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     sizeGuide=40;
@@ -764,8 +797,6 @@ class ReadingGuideComponent extends AbstractSetting {
         this.appendChild(tmplReadingGuide.content.cloneNode(true));
         this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
         this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
-        this.topGuideElt.style.display = "none";
-        this.bottomGuideElt.style.display = "none";
     }
     connectedCallback() {
         super.connectedCallback();
@@ -789,8 +820,8 @@ class ReadingGuideComponent extends AbstractSetting {
         this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
     setReadingGuide=() => {
-        this.topGuideElt.style.removeProperty("display");
-        this.bottomGuideElt.style.removeProperty("display");
+        this.topGuideElt.classList.remove("d-none");
+        this.bottomGuideElt.classList.remove("d-none");
         document.addEventListener("mousemove", (event => {
             this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
             this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
@@ -798,8 +829,8 @@ class ReadingGuideComponent extends AbstractSetting {
         }));
     };
     resetReadingGuide=() => {
-        this.topGuideElt.style.display = "none";
-        this.bottomGuideElt.style.display = "none";
+        this.topGuideElt.classList.add("d-none");
+        this.bottomGuideElt.classList.add("d-none");
         this.topGuideElt.style.removeProperty("height");
         this.bottomGuideElt.style.removeProperty("height");
     };
@@ -822,7 +853,7 @@ class ScrollComponent extends AbstractSetting {
     constructor() {
         super();
         this.appendChild(tmplScroll.content.cloneNode(true));
-        this.bodyElt = document.getElementsByTagName("body")[0];
+        this.bodyElt = document.body;
     }
     connectedCallback() {
         super.connectedCallback();
@@ -873,17 +904,19 @@ class ScrollComponent extends AbstractSetting {
     }
     setScrollClass=() => {
         let classScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\t\t`;
-        let head = document.head || document.getElementsByTagName("head")[0];
-        let stylesScroll = document.createElement("style");
-        stylesScroll.setAttribute("id", "cplus-scroll");
-        stylesScroll.innerHTML = classScroll;
-        head.appendChild(stylesScroll);
+        if (document.querySelectorAll("#cplus-scroll").length === 0) {
+            let head = document.head || document.getElementsByTagName("head")[0];
+            let stylesScroll = document.createElement("style");
+            stylesScroll.setAttribute("id", "cplus-scroll");
+            stylesScroll.innerHTML = classScroll;
+            head.appendChild(stylesScroll);
+        }
     };
     setBigScroll=() => {
         this.bodyElt.classList.add("cplus-big-scroll");
     };
     setBtnScroll=() => {
-        const bodyElt = document.getElementsByTagName("body")[0];
+        const bodyElt = document.body;
         const container = document.createElement("div");
         container.setAttribute("id", "cplus-container-scroll-buttons");
         let btnArray = [];
@@ -894,21 +927,12 @@ class ScrollComponent extends AbstractSetting {
         bodyElt.appendChild(container);
         this.btnScrollUp = document.querySelector("#cplus-scroll-up");
         this.btnScrollDown = document.querySelector("#cplus-scroll-down");
-        if (this.btnState === "click") {
-            this.btnScrollUp.addEventListener("click", (event => {
-                window.scrollBy(0, -this.scrollSteps);
-            }));
-            this.btnScrollDown.addEventListener("click", (event => {
-                window.scrollBy(0, this.scrollSteps);
-            }));
-        } else if (this.btnState === "mouseover") {
-            this.btnScrollUp.addEventListener("mouseover", (event => {
-                window.scrollBy(0, -this.scrollSteps);
-            }));
-            this.btnScrollDown.addEventListener("mouseover", (event => {
-                window.scrollBy(0, this.scrollSteps);
-            }));
-        }
+        this.btnScrollUp.addEventListener(this.btnState, (event => {
+            window.scrollBy(0, -this.scrollSteps);
+        }));
+        this.btnScrollDown.addEventListener(this.btnState, (event => {
+            window.scrollBy(0, this.scrollSteps);
+        }));
     };
     resetScroll=() => {
         this.btnState = "";
@@ -943,7 +967,7 @@ class TextSpacingComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setSpacingText=value => {
-        const bodyElt = document.getElementsByTagName("body")[0];
+        const bodyElt = document.body;
         const spacingTextValues = [ {
             name: "small",
             wordSpacing: ".10em",
@@ -962,11 +986,11 @@ class TextSpacingComponent extends AbstractSetting {
         } ];
         let label = value;
         if (value === "default") {
-            bodyElt.classList.remove("cplus-spacing-text");
+            document.querySelector("#cplus-styles-spacing-text")?.remove();
         } else {
             label = this.i18nService.getMessage(`spacingTextLabel${value}`);
             let objSpacingText = spacingTextValues?.find((o => o.name === value));
-            let classSpacingText = `\n\t\t\t\t.cplus-spacing-text * {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
+            let classSpacingText = `\n\t\t\t\t* {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-spacing-text").length === 0) {
                 let head = document.head || document.getElementsByTagName("head")[0];
                 let stylesSpacingText = document.createElement("style");
@@ -976,7 +1000,6 @@ class TextSpacingComponent extends AbstractSetting {
             } else {
                 document.querySelector("#cplus-styles-spacing-text").innerHTML = classSpacingText;
             }
-            bodyElt.classList.add("cplus-spacing-text");
         }
         this.modalBtn.setAttribute("data-value", label);
     };
@@ -1004,7 +1027,7 @@ class TextTransformComponent extends HTMLElement {
         this.uppercaseBtn = this.querySelector("#uppercase-btn");
     }
     connectedCallback() {
-        const bodyElt = document.getElementsByTagName("body")[0];
+        const bodyElt = document.body;
         this.normalBtn?.addEventListener("click", (() => {
             bodyElt.style.textTransform = ``;
         }));
@@ -1059,8 +1082,7 @@ class BtnModalComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-value" === name) {
-            const displayedValue = newValue === "default" ? this.i18nService.getMessage("noModifications") : newValue;
-            this.modalBtn.innerText = displayedValue;
+            this.modalBtn.innerText = newValue === "default" ? this.i18nService.getMessage("noModifications") : newValue;
         }
         if ("data-label" === name) {
             this.setA11yName(newValue);
