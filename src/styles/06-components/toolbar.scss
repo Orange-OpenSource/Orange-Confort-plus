@@ -5,9 +5,7 @@
 	width: 19.5vw;
 	min-width: 18rem;
 	height: 100vh;
-	position: fixed;
-	top: 0;
-	right: 0;
 	overflow: auto;
+	transition: transform 0.2s;
 	z-index: 2147483647;
 }

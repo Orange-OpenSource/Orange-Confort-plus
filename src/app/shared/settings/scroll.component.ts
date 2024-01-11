@@ -9,7 +9,7 @@ tmplScroll.innerHTML = `
 class ScrollComponent extends AbstractSetting {
 	btnScrollUp: HTMLElement = null;
 	btnScrollDown: HTMLElement = null;
-	bodyElt: HTMLBodyElement = null;
+	bodyElt: HTMLElement = null;
 	btnState: 'click' | 'mouseover' | '' = '';
 	scrollSteps = 100;
 
@@ -18,7 +18,7 @@ class ScrollComponent extends AbstractSetting {
 
 		this.appendChild(tmplScroll.content.cloneNode(true));
 
-		this.bodyElt = document.getElementsByTagName('body')[0];
+		this.bodyElt = document.body;
 	}
 
 	connectedCallback(): void {
@@ -89,11 +89,15 @@ class ScrollComponent extends AbstractSetting {
 			}
 		`;
 
-		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-		let stylesScroll: HTMLStyleElement = document.createElement('style');
-		stylesScroll.setAttribute('id', 'cplus-scroll');
-		stylesScroll.innerHTML = classScroll;
-		head.appendChild(stylesScroll);
+		if (document.querySelectorAll('#cplus-scroll').length === 0) {
+			// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
+			let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
+			// @todo - tester si on peut utiliser les adoptedStylesheet
+			let stylesScroll: HTMLStyleElement = document.createElement('style');
+			stylesScroll.setAttribute('id', 'cplus-scroll');
+			stylesScroll.innerHTML = classScroll;
+			head.appendChild(stylesScroll);
+		}
 	}
 
 	setBigScroll = (): void => {
@@ -101,11 +105,12 @@ class ScrollComponent extends AbstractSetting {
 	}
 
 	setBtnScroll = (): void => {
-		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
+		const bodyElt: HTMLElement = document.body;
 		const container = document.createElement('div');
 		container.setAttribute('id', 'cplus-container-scroll-buttons')
 		let btnArray: any[] = [];
 
+		// @todo tester documentFragment pour ce cas
 		let btnUp = `<button id="cplus-scroll-up" class="btn btn-primary">Monter</button>`;
 		let btnDown = `<button id="cplus-scroll-down" class="btn btn-primary">Descendre</button>`;
 
@@ -116,21 +121,12 @@ class ScrollComponent extends AbstractSetting {
 		this.btnScrollUp = document.querySelector('#cplus-scroll-up');
 		this.btnScrollDown = document.querySelector('#cplus-scroll-down');
 
-		if (this.btnState === 'click') {
-			this.btnScrollUp.addEventListener('click', (event: any) => {
-				window.scrollBy(0, -this.scrollSteps);
-			});
-			this.btnScrollDown.addEventListener('click', (event: any) => {
-				window.scrollBy(0, this.scrollSteps);
-			});
-		} else if (this.btnState === 'mouseover') {
-			this.btnScrollUp.addEventListener('mouseover', (event: any) => {
-				window.scrollBy(0, -this.scrollSteps);
-			});
-			this.btnScrollDown.addEventListener('mouseover', (event: any) => {
-				window.scrollBy(0, this.scrollSteps);
-			});
-		}
+		this.btnScrollUp.addEventListener(this.btnState, (event: any) => {
+			window.scrollBy(0, -this.scrollSteps);
+		});
+		this.btnScrollDown.addEventListener(this.btnState, (event: any) => {
+			window.scrollBy(0, this.scrollSteps);
+		});
 	}
 
 	resetScroll = (): void => {
