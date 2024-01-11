@@ -5,8 +5,8 @@ tmplReadingGuide.innerHTML = `
 	<app-btn-modal class="d-none"></app-btn-modal>
 </div>
 
-<div id="cplus-top-guide-elt" class="sc-reading-guide sc-reading-guide--top"></div>
-<div id="cplus-bottom-guide-elt" class="sc-reading-guide sc-reading-guide--bottom"></div>
+<div id="cplus-top-guide-elt" class="bg-black position-fixed start-0 end-0 top-0 d-none" style="--cplus-bg-opacity: .5;"></div>
+<div id="cplus-bottom-guide-elt" class="bg-black position-fixed start-0 end-0 bottom-0 d-none" style="--cplus-bg-opacity: .5;"></div>
 `;
 
 class ReadingGuideComponent extends AbstractSetting {
@@ -21,10 +21,6 @@ class ReadingGuideComponent extends AbstractSetting {
 
 		this.topGuideElt = this.querySelector('#cplus-top-guide-elt');
 		this.bottomGuideElt = this.querySelector('#cplus-bottom-guide-elt');
-
-		this.topGuideElt.style.display = 'none';
-		this.bottomGuideElt.style.display = 'none';
-
 	}
 
 	connectedCallback(): void {
@@ -49,8 +45,8 @@ class ReadingGuideComponent extends AbstractSetting {
 	}
 
 	setReadingGuide = (): void => {
-		this.topGuideElt.style.removeProperty('display');
-		this.bottomGuideElt.style.removeProperty('display');
+		this.topGuideElt.classList.remove('d-none');
+		this.bottomGuideElt.classList.remove('d-none');
 
 		document.addEventListener('mousemove', (event: MouseEvent) => {
 			this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
@@ -60,8 +56,8 @@ class ReadingGuideComponent extends AbstractSetting {
 	}
 
 	resetReadingGuide = (): void => {
-		this.topGuideElt.style.display = 'none';
-		this.bottomGuideElt.style.display = 'none';
+		this.topGuideElt.classList.add('d-none');
+		this.bottomGuideElt.classList.add('d-none');
 
 		this.topGuideElt.style.removeProperty('height');
 		this.bottomGuideElt.style.removeProperty('height');

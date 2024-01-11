@@ -28,25 +28,34 @@ class MarginAlignComponent extends AbstractSetting {
 	setMargin = (value: string): void => {
 		const elements = value === 'list' ?
 			document.querySelectorAll('ul, ol') :
-			document.getElementsByTagName('body')[0].querySelectorAll('*');
+			document.body.querySelectorAll('*');
 
 		elements.forEach((elt) => {
 			const element = elt as HTMLElement;
-			if (value === 'align') {
-				element.style.textAlign = 'left';
-			} else if (value === 'margin') {
-				element.style.textAlign = 'left';
-				element.style.marginLeft = '40px';
-			} else if (value === 'list') {
-				element.style.listStylePosition = 'initial';
-				element.style.listStyleImage = 'none';
-				element.style.listStyleType = 'decimal';
-			} else {
-				element.style.textAlign = null;
-				element.style.marginLeft = null;
-				element.style.listStylePosition = null;
-				element.style.listStyleImage = null;
-				element.style.listStyleType = null;
+			switch (value) {
+				case 'align': {
+					element.style.textAlign = 'left';
+					break;
+				}
+				case 'margin': {
+					element.style.textAlign = 'left';
+					element.style.marginLeft = '40px';
+					break;
+				}
+				case 'list': {
+					element.style.listStylePosition = 'initial';
+					element.style.listStyleImage = 'none';
+					element.style.listStyleType = 'decimal';
+					break;
+				}
+				default: {
+					element.style.textAlign = null;
+					element.style.marginLeft = null;
+					element.style.listStylePosition = null;
+					element.style.listStyleImage = null;
+					element.style.listStyleType = null;
+					break;
+				}
 			}
 		});
 	}

@@ -5,7 +5,7 @@ template.innerHTML = `
 		<span class="visually-hidden" data-i18n="mainButton"></span>
 		<app-icon data-size="3rem" data-name="Accessibility"></app-icon>
 	</button>
-	<app-toolbar class="d-none bg-body" id="toolbar"></app-toolbar>
+	<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>
 </div>
 `;
 
@@ -25,6 +25,7 @@ class AppComponent extends HTMLElement {
 		// @ts-ignore
 		this.pathService = new PathService();
 		this.path = this.pathService.path;
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
 		// @ts-ignore
 		this.i18nService = new I18nService();
 		// @ts-ignore
@@ -50,6 +51,7 @@ class AppComponent extends HTMLElement {
 
 		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
 		this.confortPlusToolbar = this?.shadowRoot?.getElementById('toolbar');
+		this.confortPlusToolbar.style.transform = 'translateX(100%)';
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
@@ -59,14 +61,17 @@ class AppComponent extends HTMLElement {
 	}
 
 	disconnectedCallback(): void {
-		this.confortPlusToolbar?.removeEventListener('click', this.toggleToolbar);
+		this.confortPlusToolbar?.removeEventListener('closeEvent', this.toggleToolbar);
 		this.confortPlusBtn?.removeEventListener('click', this.toggleToolbar);
 	}
 
 	toggleToolbar = (): void => {
 		this.openConfortPlus = !this.openConfortPlus;
-		this?.confortPlusToolbar?.classList.toggle('d-none');
-		this?.confortPlusBtn?.classList.toggle('d-none');
+		if (this.openConfortPlus) {
+			this.confortPlusToolbar.style.removeProperty('transform');
+		} else {
+			this.confortPlusToolbar.style.transform = 'translateX(100%)';
+		}
 	}
 }
 

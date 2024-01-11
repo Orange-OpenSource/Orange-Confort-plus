@@ -27,20 +27,17 @@ class LinkStyleComponent extends AbstractSetting {
 	}
 
 	setLinkStyle = (value: string): void => {
-		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
-
 		let label = value;
 
 		if (value === 'default') {
 			document.querySelector('#cplus-styles-links')?.remove();
 		} else {
-			//label = this.i18nService.getMessage(`spacingTextLabel${value}`);
 			let linkColor = value.split('+')[0];
 			let linkPointedColor = value.split('+')[1];
 			let linkVisitedColor = value.split('+')[2];
 
 			let classLinkStyle = `
-				a {
+				a:link {
 					color: ${linkColor} !important;
 				}
 				a:visited {
@@ -52,7 +49,9 @@ class LinkStyleComponent extends AbstractSetting {
 			`;
 
 			if (document.querySelectorAll('#cplus-styles-links').length === 0) {
+				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
 				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
+				// @todo - tester si on peut utiliser les adoptedStylesheet
 				let stylesLinks: HTMLStyleElement = document.createElement('style');
 				stylesLinks.setAttribute('id', 'cplus-styles-links');
 				stylesLinks.innerHTML = classLinkStyle;

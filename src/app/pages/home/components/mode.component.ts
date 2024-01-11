@@ -18,6 +18,7 @@ class ModeComponent extends HTMLElement {
 	static observedAttributes = ['data-settings'];
 	modeContent: HTMLElement | null = null;
 
+	// @todo - le dictionnaire pourrait être généré dans le constructor d’après le contenu du template
 	settingsDictionnary: any[] = [
 		{ name: 'textSize', element: 'app-increase-text-size' },
 		{ name: 'textFont', element: 'app-font-family' },

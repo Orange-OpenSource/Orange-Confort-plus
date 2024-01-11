@@ -20,28 +20,28 @@ class FontFamilyComponent extends AbstractSetting {
 		},
 		{
 			name: 'B612 Mono', folder: 'B612', files: [
-				{ name: 'B612Mono-Bold.ttf', style: 'normal', weight: '700' },
-				{ name: 'B612Mono-BoldItalic.ttf', style: 'italic', weight: '700' },
-				{ name: 'B612Mono-Italic.ttf', style: 'italic', weight: '400' },
-				{ name: 'B612Mono-Regular.ttf', style: 'normal', weight: '400' }
+				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
+				{ name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
+				{ name: 'B612Mono-Regular.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'Comic Sans', folder: 'comic', files: [
-				{ name: 'comic-sans.woff', style: 'normal', weight: '400' }
+			name: 'Comic Sans MS', folder: 'comic', files: [
+				{ name: 'comic-Sans-MS.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
 			name: 'Lexand Deca', folder: 'lexendDeca', files: [
-				{ name: 'LexendDeca-Black.ttf', style: 'normal', weight: '900' },
-				{ name: 'LexendDeca-Bold.ttf', style: 'normal', weight: '700' },
-				{ name: 'LexendDeca-ExtraBold.ttf', style: 'normal', weight: '800' },
-				{ name: 'LexendDeca-ExtraLight.ttf', style: 'normal', weight: '200' },
-				{ name: 'LexendDeca-Light.ttf', style: 'normal', weight: '300' },
-				{ name: 'LexendDeca-Medium.ttf', style: 'normal', weight: '500' },
-				{ name: 'LexendDeca-Regular.ttf', style: 'normal', weight: '400' },
-				{ name: 'LexendDeca-SemiBold.ttf', style: 'normal', weight: '600' },
-				{ name: 'LexendDeca-Thin.ttf', style: 'normal', weight: '100' }
+				{ name: 'LexendDeca-Black.woff2', style: 'normal', weight: '900' },
+				{ name: 'LexendDeca-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'LexendDeca-ExtraBold.woff2', style: 'normal', weight: '800' },
+				{ name: 'LexendDeca-ExtraLight.woff2', style: 'normal', weight: '200' },
+				{ name: 'LexendDeca-Light.woff2', style: 'normal', weight: '300' },
+				{ name: 'LexendDeca-Medium.woff2', style: 'normal', weight: '500' },
+				{ name: 'LexendDeca-Regular.woff2', style: 'normal', weight: '400' },
+				{ name: 'LexendDeca-SemiBold.woff2', style: 'normal', weight: '600' },
+				{ name: 'LexendDeca-Thin.woff2', style: 'normal', weight: '100' }
 			]
 		},
 		{
@@ -54,22 +54,22 @@ class FontFamilyComponent extends AbstractSetting {
 		},
 		{
 			name: 'Sylexiad Sans', folder: 'sylexiadSans', files: [
-				{ name: 'SylexiadSansMedium-BoldItalic.woff', style: 'italic', weight: '700' },
-				{ name: 'SylexiadSansMedium-Bold.woff', style: 'normal', weight: '700' },
-				{ name: 'SylexiadSansMedium-Italic.woff', style: 'italic', weight: '400' },
-				{ name: 'SylexiadSansMedium.woff', style: 'normal', weight: '400' },
-				{ name: 'SylexiadSansSpacedMed-BoldItalic.woff', style: 'italic', weight: '700' },
-				{ name: 'SylexiadSansSpacedMed-Bold.woff', style: 'normal', weight: '700' },
-				{ name: 'SylexiadSansSpacedMed-Italic.woff', style: 'italic', weight: '400' },
-				{ name: 'SylexiadSansSpacedMed.woff', style: 'normal', weight: '400' },
-				{ name: 'SylexiadSansSpacedThin-BoldItalic.woff', style: 'italic', weight: '700' },
-				{ name: 'SylexiadSansSpacedThin-Bold.woff', style: 'normal', weight: '700' },
-				{ name: 'SylexiadSansSpacedThin-Italic.woff', style: 'italic', weight: '400' },
-				{ name: 'SylexiadSansSpacedThin.woff', style: 'normal', weight: '400' },
-				{ name: 'SylexiadSansThin-BoldItalic.woff', style: 'italic', weight: '700' },
-				{ name: 'SylexiadSansThin-Bold.woff', style: 'normal', weight: '700' },
-				{ name: 'SylexiadSansThin-Italic.woff', style: 'italic', weight: '400' },
-				{ name: 'SylexiadSansThin.woff.woffff2', style: 'normal', weight: '400' }
+				{ name: 'SylexiadSansMedium-BoldItalic.woff2', style: 'italic', weight: '700' },
+				{ name: 'SylexiadSansMedium-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'SylexiadSansMedium-Italic.woff2', style: 'italic', weight: '400' },
+				{ name: 'SylexiadSansMedium.woff2', style: 'normal', weight: '400' },
+				{ name: 'SylexiadSansSpacedMed-BoldItalic.woff2', style: 'italic', weight: '700' },
+				{ name: 'SylexiadSansSpacedMed-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'SylexiadSansSpacedMed-Italic.woff2', style: 'italic', weight: '400' },
+				{ name: 'SylexiadSansSpacedMed.woff2', style: 'normal', weight: '400' },
+				{ name: 'SylexiadSansSpacedThin-BoldItalic.woff2', style: 'italic', weight: '700' },
+				{ name: 'SylexiadSansSpacedThin-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'SylexiadSansSpacedThin-Italic.woff2', style: 'italic', weight: '400' },
+				{ name: 'SylexiadSansSpacedThin.woff2', style: 'normal', weight: '400' },
+				{ name: 'SylexiadSansThin-BoldItalic.woff2', style: 'italic', weight: '700' },
+				{ name: 'SylexiadSansThin-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'SylexiadSansThin-Italic.woff2', style: 'italic', weight: '400' },
+				{ name: 'SylexiadSansThin.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
@@ -94,6 +94,7 @@ class FontFamilyComponent extends AbstractSetting {
 		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
 
 		if (document.querySelectorAll('#cplus-styles-fonts').length === 0) {
+			// @todo - tester si on peut utiliser les adoptedStylesheet
 			let stylesFonts: HTMLStyleElement = document.createElement('style');
 			stylesFonts.setAttribute('id', 'cplus-styles-fonts');
 			head.appendChild(stylesFonts);
@@ -102,7 +103,13 @@ class FontFamilyComponent extends AbstractSetting {
 			const fontFaceList: string[] = [];
 			this.fontDictionnary.forEach((font) => {
 				for (const file of font.files) {
-					fontFaceList.push(`@font-face { font-family:"${font.name}"; src: url("${this.path}assets/fonts/${font.folder}/${file.name}"); font-style: ${file.style}; font-weight: ${file.weight}; font-display: swap; }`);
+					fontFaceList.push(`
+						@font-face {
+							font-family:"${font.name}";
+							src: local("${font.name}"), url("${this.path}assets/fonts/${font.folder}/${file.name}");
+							font-style: ${file.style}; font-weight: ${file.weight};
+							font-display: swap; }`
+					);
 				}
 			});
 			stylesFonts.innerHTML = fontFaceList.join('');
@@ -122,9 +129,12 @@ class FontFamilyComponent extends AbstractSetting {
 	}
 
 	setFontFamily = (value: string): void => {
-		const bodyElt: HTMLBodyElement = document.getElementsByTagName('body')[0];
-		bodyElt.style.fontFamily = value;
-
+		const bodyElt: HTMLElement = document.body;
+		if (value === 'default') {
+			bodyElt.style.fontFamily = null;
+		} else {
+			bodyElt.style.fontFamily = value;
+		}
 		this.modalBtn.setAttribute('data-value', value);
 	}
 }
