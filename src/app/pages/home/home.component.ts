@@ -31,7 +31,7 @@ homeLayout.innerHTML = `
 `;
 
 class HomeComponent extends HTMLElement {
-	static observedAttributes = ['data-mode'];
+	static observedAttributes = ['data-mode', 'data-custom'];
 	changeModeBtn: HTMLElement | null = null;
 	settingsBtn: HTMLElement | null = null;
 	modeName: HTMLElement | null = null;
@@ -92,9 +92,13 @@ class HomeComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
-			this.modeName!.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
+			this.modeName.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
 			this.currentMode.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
 			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(newValue))[0][0]);
+		}
+		if ('data-custom' === name) {
+			const modeName = this.modeName.innerText;
+			this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
 		}
 	}
 }
