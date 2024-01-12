@@ -38,6 +38,12 @@
 	"readingMask": {
 		"message": "Guide de lecture"
 	},
+	"readingGuide": {
+		"message": "Règle"
+	},
+	"maskGuide": {
+		"message": "Masque"
+	},
 	"margin": {
 		"message": "Marge"
 	},
@@ -61,6 +67,15 @@
 	},
 	"lift": {
 		"message": "Ascenseur"
+	},
+	"bigScroll": {
+		"message": "Gros ascenceur"
+	},
+	"scrollOnClick": {
+		"message": "Boutons ascenseurs au click"
+	},
+	"scrollOnMouseover": {
+		"message": "Boutons ascenseurs au survol"
 	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"

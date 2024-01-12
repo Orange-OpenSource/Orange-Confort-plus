@@ -12,9 +12,14 @@ class ScrollComponent extends AbstractSetting {
 	bodyElt: HTMLElement = null;
 	btnState: 'click' | 'mouseover' | '' = '';
 	scrollSteps = 100;
+	i18nService: any;
 
 	constructor() {
 		super();
+
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
+		// @ts-ignore
+		this.i18nService = new I18nService();
 
 		this.appendChild(tmplScroll.content.cloneNode(true));
 
@@ -30,21 +35,21 @@ class ScrollComponent extends AbstractSetting {
 				case 'bigScroll': {
 					this.resetScroll();
 					this.setBigScroll();
-					this.modalBtn.setAttribute('data-value', 'Gros ascenceur');
+					this.modalBtn.setAttribute('data-value', this.i18nService.getMessage('bigScroll'));
 					break;
 				}
 				case 'btnScroll+click': {
 					this.resetScroll();
 					this.btnState = 'click';
 					this.setBtnScroll();
-					this.modalBtn.setAttribute('data-value', 'Boutons ascenseurs au click');
+					this.modalBtn.setAttribute('data-value', this.i18nService.getMessage('scrollOnClick'));
 					break;
 				}
 				case 'btnScroll+mouseover': {
 					this.resetScroll();
 					this.btnState = 'mouseover';
 					this.setBtnScroll();
-					this.modalBtn.setAttribute('data-value', 'Boutons ascenseurs au survol');
+					this.modalBtn.setAttribute('data-value', this.i18nService.getMessage('scrollOnMouseover'));
 					break;
 				}
 				default: {
