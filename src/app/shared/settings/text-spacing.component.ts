@@ -35,8 +35,8 @@ class TextSpacingComponent extends AbstractSetting {
 		const bodyElt: HTMLElement = document.body;
 		const spacingTextValues = [
 			{ name: 'small', wordSpacing: '.10em', lineHeight: '2em', letterSpacing: '.0625em' },
-			{ name: 'big', wordSpacing: '.25em', lineHeight: '3em', letterSpacing: '.25em' },
-			{ name: 'huge', wordSpacing: '.5em', lineHeight: '4em', letterSpacing: '.5em' }
+			{ name: 'big', wordSpacing: '.25em', lineHeight: '2.5em', letterSpacing: '.25em' },
+			{ name: 'huge', wordSpacing: '.5em', lineHeight: '3em', letterSpacing: '.5em' }
 		];
 		let label = value;
 

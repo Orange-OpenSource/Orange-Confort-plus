@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * orange-confort-plus - version 4.3.0 - 12/01/2024
 =======
  * orange-confort-plus - version 4.3.0 - 02/01/2024
@@ -16,6 +17,9 @@
 =======
  * orange-confort-plus - version 4.3.0 - 12/01/2024
 >>>>>>> Prise en compte des commentaires.
+=======
+ * orange-confort-plus - version 4.3.0 - 15/01/2024
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -786,15 +790,19 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n\n<div id="cplus-top-guide-elt" class="bg-black position-fixed start-0 end-0 top-0 d-none" style="--cplus-bg-opacity: .5;"></div>\n<div id="cplus-bottom-guide-elt" class="bg-black position-fixed start-0 end-0 bottom-0 d-none" style="--cplus-bg-opacity: .5;"></div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     sizeGuide=40;
     topGuideElt=null;
     bottomGuideElt=null;
+    readingGuideElt=null;
+    i18nService;
     constructor() {
         super();
+        this.i18nService = new I18nService;
         this.appendChild(tmplReadingGuide.content.cloneNode(true));
+        this.readingGuideElt = this.querySelector("#cplus-vertical-guide-elt");
         this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
         this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
     }
@@ -804,13 +812,21 @@ class ReadingGuideComponent extends AbstractSetting {
             switch (event.detail.value) {
               case "readingGuide":
                 {
+                    this.resetGuide();
                     this.setReadingGuide();
+                    break;
+                }
+
+              case "maskGuide":
+                {
+                    this.resetGuide();
+                    this.setMaskGuide();
                     break;
                 }
 
               default:
                 {
-                    this.resetReadingGuide();
+                    this.resetGuide();
                 }
             }
         }));
@@ -820,19 +836,51 @@ class ReadingGuideComponent extends AbstractSetting {
         this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
     setReadingGuide=() => {
-        this.topGuideElt.classList.remove("d-none");
-        this.bottomGuideElt.classList.remove("d-none");
+        let classReadingGuide = `\n\t\t\t#cplus-vertical-guide-elt {\n\t\t\t\tborder-left: 1px solid black;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: fixed;\n\t\t\t\ttop: 0;\n\t\t\t}\n\t\t`;
+        if (document.querySelectorAll("#cplus-reading-guide").length === 0) {
+            let head = document.head || document.getElementsByTagName("head")[0];
+            let stylesReadingGuide = document.createElement("style");
+            stylesReadingGuide.setAttribute("id", "cplus-reading-guide");
+            stylesReadingGuide.innerHTML = classReadingGuide;
+            head.appendChild(stylesReadingGuide);
+        }
+        const readingElt = document.createElement("div");
+        readingElt.setAttribute("id", "cplus-vertical-guide-elt");
+        document.body.appendChild(readingElt);
+        this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("readingGuide"));
         document.addEventListener("mousemove", (event => {
-            this.topGuideElt.style.height = `${event.y - this.sizeGuide}px`;
-            this.bottomGuideElt.style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+            document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
             event.stopPropagation();
         }));
     };
-    resetReadingGuide=() => {
-        this.topGuideElt.classList.add("d-none");
-        this.bottomGuideElt.classList.add("d-none");
-        this.topGuideElt.style.removeProperty("height");
-        this.bottomGuideElt.style.removeProperty("height");
+    setMaskGuide=() => {
+        let classMaskGuide = `\n\t\t\t#cplus-mask-guide--top-elt,\n\t\t\t#cplus-mask-guide--bottom-elt {\n\t\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\t\tposition: fixed;\n\t\t\t\tleft: 0;\n\t\t\t\tright: 0;\n\t\t\t}\n\t\t\t#cplus-mask-guide--top-elt {\n\t\t\t\ttop: 0;\n\t\t\t}\n\t\t\t#cplus-mask-guide--bottom-elt {\n\t\t\t\tbottom: 0;\n\t\t\t}\n\t\t`;
+        if (document.querySelectorAll("#cplus-mask-guide").length === 0) {
+            let head = document.head || document.getElementsByTagName("head")[0];
+            let stylesReadingGuide = document.createElement("style");
+            stylesReadingGuide.setAttribute("id", "cplus-mask-guide");
+            stylesReadingGuide.innerHTML = classMaskGuide;
+            head.appendChild(stylesReadingGuide);
+        }
+        const maskTopElt = document.createElement("div");
+        const maskBottomElt = document.createElement("div");
+        maskTopElt.setAttribute("id", "cplus-mask-guide--top-elt");
+        maskBottomElt.setAttribute("id", "cplus-mask-guide--bottom-elt");
+        document.body.appendChild(maskTopElt);
+        document.body.appendChild(maskBottomElt);
+        this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("maskGuide"));
+        document.addEventListener("mousemove", (event => {
+            document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
+            document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+            event.stopPropagation();
+        }));
+    };
+    resetGuide=() => {
+        document.querySelector("#cplus-vertical-guide-elt")?.remove();
+        document.querySelector("#cplus-reading-guide")?.remove();
+        document.querySelector("#cplus-mask-guide--top-elt")?.remove();
+        document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
+        document.querySelector("#cplus-mask-guide")?.remove();
     };
 }
 
@@ -850,8 +898,10 @@ class ScrollComponent extends AbstractSetting {
     bodyElt=null;
     btnState="";
     scrollSteps=100;
+    i18nService;
     constructor() {
         super();
+        this.i18nService = new I18nService;
         this.appendChild(tmplScroll.content.cloneNode(true));
         this.bodyElt = document.body;
     }
@@ -864,7 +914,7 @@ class ScrollComponent extends AbstractSetting {
                 {
                     this.resetScroll();
                     this.setBigScroll();
-                    this.modalBtn.setAttribute("data-value", "Gros ascenceur");
+                    this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("bigScroll"));
                     break;
                 }
 
@@ -873,7 +923,7 @@ class ScrollComponent extends AbstractSetting {
                     this.resetScroll();
                     this.btnState = "click";
                     this.setBtnScroll();
-                    this.modalBtn.setAttribute("data-value", "Boutons ascenseurs au click");
+                    this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("scrollOnClick"));
                     break;
                 }
 
@@ -882,7 +932,7 @@ class ScrollComponent extends AbstractSetting {
                     this.resetScroll();
                     this.btnState = "mouseover";
                     this.setBtnScroll();
-                    this.modalBtn.setAttribute("data-value", "Boutons ascenseurs au survol");
+                    this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("scrollOnMouseover"));
                     break;
                 }
 
@@ -976,12 +1026,12 @@ class TextSpacingComponent extends AbstractSetting {
         }, {
             name: "big",
             wordSpacing: ".25em",
-            lineHeight: "3em",
+            lineHeight: "2.5em",
             letterSpacing: ".25em"
         }, {
             name: "huge",
             wordSpacing: ".5em",
-            lineHeight: "4em",
+            lineHeight: "3em",
             letterSpacing: ".5em"
         } ];
         let label = value;
@@ -1561,7 +1611,7 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category"></app-text>\n\t<app-layout class="c-settings__category"></app-layout>\n\t<app-picture-video class="c-settings__category"></app-picture-video>\n\t<app-sound class="c-settings__category"></app-sound>\n\t<app-pointer class="c-settings__category"></app-pointer>\n\t<app-navigation class="c-settings__category"></app-navigation>\n</section>\n`;
+settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-mode" ];
@@ -1664,7 +1714,11 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
+<<<<<<< HEAD
 tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-margin-align class="c-layout__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -1689,6 +1743,7 @@ const tmplNavigation = document.createElement("template");
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 =======
 tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-focus-aspect class="c-navigation__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t\t<app-scroll class="c-navigation__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
@@ -1696,6 +1751,9 @@ tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="ac
 =======
 tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-focus-aspect class="c-navigation__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t\t<app-scroll class="c-navigation__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t\t<app-link-style class="c-navigation__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 >>>>>>> Ajout de la fonctionnalité apparence des liens de navigations
+=======
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-focus-aspect class="c-navigation__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-scroll class="c-navigation__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-link-style class="c-navigation__setting" data-can-edit="true"></app-link-style>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -1724,7 +1782,11 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
+<<<<<<< HEAD
 tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="medias"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t<div class="accordion-body px-3">\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -1741,10 +1803,14 @@ customElements.define("app-picture-video", PictureVideoComponent);
 const tmplPointer = document.createElement("template");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 =======
 tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-cursor-aspect class="c-pointer__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 >>>>>>> Ajout de la fonctionnalité aspect de la souris
+=======
+tmplPointer.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="pointer"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-cursor-aspect class="c-pointer__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -1767,7 +1833,11 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
+<<<<<<< HEAD
 tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+=======
+tmplSound.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="audio"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t<div class="accordion-body px-3">\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
 
 class SoundComponent extends AbstractCategory {
     constructor() {
@@ -1788,6 +1858,7 @@ const tmplText = document.createElement("template");
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 =======
 tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
@@ -1801,6 +1872,9 @@ tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordio
 =======
 tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-color-contrast class="c-text__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t\t<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t\t<app-spacing-text class="c-text__setting" data-can-edit="true"></app-spacing-text>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 >>>>>>> Ajout de la fonctionnalité couleurs contrastes
+=======
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" data-bs-parent="#categories">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t<app-color-contrast class="c-text__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-spacing-text class="c-text__setting" data-can-edit="true"></app-spacing-text>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+>>>>>>> Ajout règle de lecture + fix du masque et règle qui disparaissent si toolbar caché.
 
 class TextComponent extends AbstractCategory {
     settingsElements=[];

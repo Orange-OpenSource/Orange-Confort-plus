@@ -16,6 +16,12 @@
 					}
 				},
 				{
+					"readingGuide": {
+						"values": "default,readingGuide,maskGuide",
+						"activeValue": "0"
+					}
+				},
+				{
 					"marginAlign": {
 						"values": "default,align,margin,list",
 						"activeValue": "0"
