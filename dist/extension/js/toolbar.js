@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 11/01/2024
+ * orange-confort-plus - version 4.3.0 - 12/01/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -69,10 +69,10 @@ class LocalStorageService {
         chrome.storage.local.set({
             [`${this.prefix}${key}`]: value
         });
-        let clickEvent = new CustomEvent(`storage-${key}`, {
+        let storeEvent = new CustomEvent(`storage-${key}`, {
             bubbles: true
         });
-        window.dispatchEvent(clickEvent);
+        window.dispatchEvent(storeEvent);
     }
     getItem(key) {
         return chrome.storage.local.get([ `${this.prefix}${key}` ]).then((datas => new Promise(((resolve, reject) => {
@@ -727,7 +727,7 @@ const homeLayout = document.createElement("template");
 homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
-    static observedAttributes=[ "data-mode" ];
+    static observedAttributes=[ "data-mode", "data-custom" ];
     changeModeBtn=null;
     settingsBtn=null;
     modeName=null;
@@ -776,6 +776,11 @@ class HomeComponent extends HTMLElement {
             this.modeName.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
             this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
             this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
+        }
+        if ("data-custom" === name) {
+            const modeName = this.modeName.innerText;
+            console.log(newValue);
+            newValue === "true" ? this.modeName.innerText = `${modeName}*` : this.modeName.innerText = `${modeName}`;
         }
     }
 }
@@ -1000,7 +1005,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -1016,7 +1021,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -1032,7 +1037,7 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -1048,7 +1053,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -1064,7 +1069,7 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class SoundComponent extends AbstractCategory {
     constructor() {
@@ -1080,7 +1085,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     settingsElements=[];
@@ -1125,6 +1130,7 @@ class ToolbarComponent extends HTMLElement {
     localStorageService;
     historyRoute=[];
     json="";
+    defaultJson="";
     constructor() {
         super();
         this.routeService = new RouteService;
@@ -1137,14 +1143,15 @@ class ToolbarComponent extends HTMLElement {
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
         this.settings = this.querySelector("app-settings");
-        this.localStorageService.getItem("modeOfUse").then((result => {
-            this.json = result;
-            if (!result) {
-                this.filesService.getModesOfUse().then((result => {
-                    this.localStorageService.setItem("modeOfUse", result);
-                }));
-            }
-            this.setCurrentMode();
+        this.filesService.getModesOfUse().then((result => {
+            this.defaultJson = result;
+            this.localStorageService.getItem("modeOfUse").then((result => {
+                this.json = result;
+                if (!result) {
+                    this.localStorageService.setItem("modeOfUse", this.defaultJson);
+                }
+                this.setCurrentMode();
+            }));
         }));
         window.addEventListener("storage-modeOfUse", (event => {
             this.localStorageService.getItem("modeOfUse").then((result => {
@@ -1213,6 +1220,23 @@ class ToolbarComponent extends HTMLElement {
         } else {
             this.routeService.navigate(this.routeService.PAGE_MODES);
         }
+        this.setCustomState();
+    };
+    setCustomState=() => {
+        let defaultMode;
+        let currentMode;
+        this.defaultJson.modes.forEach((mode => {
+            if (Object.keys(mode)[0] === this.json.selectedMode) {
+                defaultMode = JSON.stringify(mode);
+            }
+        }));
+        this.json.modes.forEach((mode => {
+            if (Object.keys(mode)[0] === this.json.selectedMode) {
+                currentMode = JSON.stringify(mode);
+            }
+        }));
+        const isCustomMode = !(currentMode === defaultMode);
+        this.home?.setAttribute("data-custom", isCustomMode.toString());
     };
 }
 

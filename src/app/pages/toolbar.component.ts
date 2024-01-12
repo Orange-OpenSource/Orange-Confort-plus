@@ -18,6 +18,7 @@ class ToolbarComponent extends HTMLElement {
 	localStorageService: any;
 	historyRoute: string[] = [];
 	json: any = '';
+	defaultJson: any = '';
 
 	constructor() {
 		super();
@@ -39,16 +40,16 @@ class ToolbarComponent extends HTMLElement {
 		this.modes = this.querySelector('app-modes');
 		this.settings = this.querySelector('app-settings');
 
-		this.localStorageService.getItem('modeOfUse').then((result: any) => {
-			this.json = result;
+		this.filesService.getModesOfUse().then((result: any) => {
+			this.defaultJson = result;
 
-			if (!result) {
-				this.filesService.getModesOfUse().then((result: any) => {
-					this.localStorageService.setItem('modeOfUse', result);
-				});
-			}
-
-			this.setCurrentMode();
+			this.localStorageService.getItem('modeOfUse').then((result: any) => {
+				this.json = result;
+				if (!result) {
+					this.localStorageService.setItem('modeOfUse', this.defaultJson);
+				}
+				this.setCurrentMode();
+			});
 		});
 
 		window.addEventListener('storage-modeOfUse', (event: any) => {
@@ -119,6 +120,25 @@ class ToolbarComponent extends HTMLElement {
 		} else {
 			this.routeService.navigate(this.routeService.PAGE_MODES);
 		}
+
+		this.setCustomState();
+	}
+
+	setCustomState = (): void => {
+		let defaultMode: any;
+		let currentMode: any;
+		this.defaultJson.modes.forEach((mode: any) => {
+			if (Object.keys(mode)[0] === this.json.selectedMode) {
+				defaultMode = JSON.stringify(mode);
+			}
+		});
+		this.json.modes.forEach((mode: any) => {
+			if (Object.keys(mode)[0] === this.json.selectedMode) {
+				currentMode = JSON.stringify(mode);
+			}
+		});
+		const isCustomMode = !(currentMode === defaultMode);
+		this.home?.setAttribute('data-custom', isCustomMode.toString());
 	}
 }
 
