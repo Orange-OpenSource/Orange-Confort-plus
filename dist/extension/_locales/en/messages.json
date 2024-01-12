@@ -38,6 +38,12 @@
 	"readingMask": {
 		"message": "Reading mask"
 	},
+	"readingGuide": {
+		"message": "Reading"
+	},
+	"maskGuide": {
+		"message": "Mask"
+	},
 	"margin": {
 		"message": "Margin"
 	},
@@ -61,6 +67,15 @@
 	},
 	"lift": {
 		"message": "Lift"
+	},
+	"bigScroll": {
+		"message": "Big lift"
+	},
+	"scrollOnClick": {
+		"message": "Buttons lift on click"
+	},
+	"scrollOnMouseover": {
+		"message": "Buttons lift on mouseover"
 	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Échap</kbd>"

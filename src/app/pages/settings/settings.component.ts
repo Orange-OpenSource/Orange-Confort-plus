@@ -1,12 +1,12 @@
 const settingsLayout: HTMLTemplateElement = document.createElement('template');
 settingsLayout.innerHTML = `
 <section class="accordion mb-2">
-	<app-text class="c-settings__category"></app-text>
-	<app-layout class="c-settings__category"></app-layout>
-	<app-picture-video class="c-settings__category"></app-picture-video>
-	<app-sound class="c-settings__category"></app-sound>
-	<app-pointer class="c-settings__category"></app-pointer>
-	<app-navigation class="c-settings__category"></app-navigation>
+	<app-text class="c-settings__category accordion-item"></app-text>
+	<app-layout class="c-settings__category accordion-item"></app-layout>
+	<app-picture-video class="c-settings__category accordion-item"></app-picture-video>
+	<app-sound class="c-settings__category accordion-item"></app-sound>
+	<app-pointer class="c-settings__category accordion-item"></app-pointer>
+	<app-navigation class="c-settings__category accordion-item"></app-navigation>
 </section>
 `;
 
