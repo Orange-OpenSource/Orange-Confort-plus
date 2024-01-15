@@ -15,14 +15,13 @@ class ColorContrastComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setColorsContrasts.bind(this));
+
 		this.appendChild(tmplColorContrast.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback('colorContrast');
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setColorsContrasts((event as CustomEvent).detail.value);
-		});
 	}
 
 	disconnectedCallback(): void {

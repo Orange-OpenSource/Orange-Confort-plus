@@ -15,14 +15,13 @@ class CursorAspectComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setCursor.bind(this));
+
 		this.appendChild(tmplCursorAspect.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback('cursorAspect');
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setCursor((event as CustomEvent).detail.value);
-		});
 	}
 
 	disconnectedCallback(): void {

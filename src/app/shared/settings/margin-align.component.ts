@@ -15,14 +15,13 @@ class MarginAlignComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setMargin.bind(this));
+
 		this.appendChild(tmplMarginAlign.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback('marginAlign');
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setMargin((event as CustomEvent).detail.value);
-		});
 	}
 
 	disconnectedCallback(): void {
