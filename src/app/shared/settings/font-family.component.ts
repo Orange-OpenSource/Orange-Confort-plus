@@ -90,6 +90,8 @@ class FontFamilyComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setFontFamily.bind(this));
+
 		// @ts-ignore
 		this.pathService = new PathService();
 		this.path = this.pathService.path;
@@ -123,9 +125,6 @@ class FontFamilyComponent extends AbstractSetting {
 
 	connectedCallback(): void {
 		super.connectedCallback('textFont');
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setFontFamily((event as CustomEvent).detail.value);
-		});
 	}
 
 	disconnectedCallback(): void {

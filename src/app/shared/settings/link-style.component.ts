@@ -15,15 +15,13 @@ class LinkStyleComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setLinkStyle.bind(this));
+
 		this.appendChild(tmplLinkStyle.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback('linkStyle');
-
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setLinkStyle((event as CustomEvent).detail.value);
-		});
 	}
 
 	disconnectedCallback(): void {

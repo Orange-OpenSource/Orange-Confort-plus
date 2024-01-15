@@ -20,37 +20,14 @@ class ScrollComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setScroll.bind(this));
+
 		this.appendChild(tmplScroll.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback('scroll');
 		this.setScrollClass();
-
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			switch ((event as CustomEvent).detail.value) {
-				case 'bigScroll': {
-					this.resetScroll();
-					this.setBigScroll();
-					break;
-				}
-				case 'scrollOnClick': {
-					this.resetScroll();
-					this.btnState = 'click';
-					this.setBtnScroll();
-					break;
-				}
-				case 'scrollOnMouseover': {
-					this.resetScroll();
-					this.btnState = 'mouseover';
-					this.setBtnScroll();
-					break;
-				}
-				default: {
-					this.resetScroll();
-				}
-			}
-		});
 	}
 
 	disconnectedCallback(): void {
@@ -60,6 +37,31 @@ class ScrollComponent extends AbstractSetting {
 		this.btnScrollUp?.removeEventListener('mouseover', () => { });
 		this.btnScrollDown?.removeEventListener('click', () => { });
 		this.btnScrollDown?.removeEventListener('mouseover', () => { });
+	}
+
+	setScroll = (value: string): void => {
+		switch (value) {
+			case 'bigScroll': {
+				this.resetScroll();
+				this.setBigScroll();
+				break;
+			}
+			case 'scrollOnClick': {
+				this.resetScroll();
+				this.btnState = 'click';
+				this.setBtnScroll();
+				break;
+			}
+			case 'scrollOnMouseover': {
+				this.resetScroll();
+				this.btnState = 'mouseover';
+				this.setBtnScroll();
+				break;
+			}
+			default: {
+				this.resetScroll();
+			}
+		}
 	}
 
 	setScrollClass = (): void => {
