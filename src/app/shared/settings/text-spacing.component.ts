@@ -15,14 +15,13 @@ class TextSpacingComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setSpacingText.bind(this));
+
 		this.appendChild(tmplSpacingText.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback('spacingText');
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setSpacingText((event as CustomEvent).detail.value);
-		});
 	}
 
 	disconnectedCallback(): void {

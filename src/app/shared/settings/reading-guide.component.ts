@@ -46,6 +46,8 @@ class ReadingGuideComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setReadingMaskGuide.bind(this));
+
 		this.appendChild(tmplReadingGuide.content.cloneNode(true));
 
 		this.readingGuideElt = this.querySelector('#cplus-vertical-guide-elt');
@@ -55,26 +57,6 @@ class ReadingGuideComponent extends AbstractSetting {
 
 	connectedCallback(): void {
 		super.connectedCallback('readingGuide');
-
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			switch ((event as CustomEvent).detail.value) {
-				case 'readingGuide': {
-					this.resetGuide();
-					this.guideType = 'reading';
-					this.setReadingMaskGuide();
-					break;
-				}
-				case 'maskGuide': {
-					this.resetGuide();
-					this.guideType = 'mask';
-					this.setReadingMaskGuide();
-					break;
-				}
-				default: {
-					this.resetGuide();
-				}
-			}
-		});
 	}
 
 	disconnectedCallback(): void {
@@ -82,7 +64,27 @@ class ReadingGuideComponent extends AbstractSetting {
 		this.settingBtn?.removeEventListener('changeSettingEvent', () => { });
 	}
 
-	setReadingMaskGuide = (): void => {
+	setReadingMaskGuide = (value: string): void => {
+		switch (value) {
+			case 'readingGuide': {
+				this.resetGuide();
+				this.guideType = 'reading';
+				this.setGuide();
+				break;
+			}
+			case 'maskGuide': {
+				this.resetGuide();
+				this.guideType = 'mask';
+				this.setGuide();
+				break;
+			}
+			default: {
+				this.resetGuide();
+			}
+		}
+	}
+
+	setGuide = (): void => {
 		let classGuide = '';
 		if (this.guideType === 'reading') {
 			classGuide = this.classReadingGuide;

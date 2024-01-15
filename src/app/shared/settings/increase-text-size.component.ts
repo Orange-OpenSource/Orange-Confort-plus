@@ -15,6 +15,8 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setFontSize.bind(this));
+
 		this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
 	}
 

@@ -15,6 +15,8 @@ class FocusAspectComponent extends AbstractSetting {
 	constructor() {
 		super();
 
+		this.setCallback(this.setFocus.bind(this));
+
 		this.appendChild(tmplFocusAspect.content.cloneNode(true));
 	}
 

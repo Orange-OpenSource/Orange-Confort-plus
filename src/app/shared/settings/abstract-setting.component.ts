@@ -8,6 +8,8 @@ abstract class AbstractSetting extends HTMLElement {
 	activesValues: any;
 	separator = ',';
 
+	private callback: (value: string) => void;
+
 	constructor() {
 		super();
 
@@ -57,6 +59,10 @@ abstract class AbstractSetting extends HTMLElement {
 		if ('data-values' === name) {
 			this.activesValues = JSON.parse(newValue);
 			this.setSettingBtn(this.activesValues);
+			if (this.callback) {
+				this.callback(this.activesValues.values.split(',')[this.activesValues.activeValue]);
+			}
+
 		}
 	}
 
@@ -64,5 +70,9 @@ abstract class AbstractSetting extends HTMLElement {
 		this.settingBtn.setAttribute('data-values', activesValues.values);
 		this.settingBtn.setAttribute('data-active-value', activesValues.activeValue);
 		this.modalBtn.setAttribute('data-value', this.i18nService.getMessage(activesValues.values.split(',')[activesValues.activeValue]));
+	}
+
+	setCallback(callback: (value: string) => void) {
+		this.callback = callback;
 	}
 }
