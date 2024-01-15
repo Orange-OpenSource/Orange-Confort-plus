@@ -7,6 +7,11 @@ tmplLinkStyle.innerHTML = `
 `;
 
 class LinkStyleComponent extends AbstractSetting {
+	activesValues = {
+		"values": "noModifications,lightblue+orange+lightgreen,yellow+orange+lightgreen",
+		"activeValue": 0
+	};
+
 	constructor() {
 		super();
 
@@ -14,7 +19,7 @@ class LinkStyleComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('linkStyle');
 
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setLinkStyle((event as CustomEvent).detail.value);
@@ -27,9 +32,7 @@ class LinkStyleComponent extends AbstractSetting {
 	}
 
 	setLinkStyle = (value: string): void => {
-		let label = value;
-
-		if (value === 'default') {
+		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-links')?.remove();
 		} else {
 			let linkColor = value.split('+')[0];
@@ -60,7 +63,6 @@ class LinkStyleComponent extends AbstractSetting {
 				document.querySelector('#cplus-styles-links').innerHTML = classLinkStyle;
 			}
 		}
-		this.modalBtn.setAttribute('data-value', label);
 	}
 }
 

@@ -9,25 +9,22 @@ tmplScroll.innerHTML = `
 class ScrollComponent extends AbstractSetting {
 	btnScrollUp: HTMLElement = null;
 	btnScrollDown: HTMLElement = null;
-	bodyElt: HTMLElement = null;
 	btnState: 'click' | 'mouseover' | '' = '';
 	scrollSteps = 100;
-	i18nService: any;
+
+	activesValues = {
+		"values": "noModifications,bigScroll,scrollOnMouseover",
+		"activeValue": 0
+	};
 
 	constructor() {
 		super();
 
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
-
 		this.appendChild(tmplScroll.content.cloneNode(true));
-
-		this.bodyElt = document.body;
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('scroll');
 		this.setScrollClass();
 
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
@@ -35,26 +32,22 @@ class ScrollComponent extends AbstractSetting {
 				case 'bigScroll': {
 					this.resetScroll();
 					this.setBigScroll();
-					this.modalBtn.setAttribute('data-value', this.i18nService.getMessage('bigScroll'));
 					break;
 				}
-				case 'btnScroll+click': {
+				case 'scrollOnClick': {
 					this.resetScroll();
 					this.btnState = 'click';
 					this.setBtnScroll();
-					this.modalBtn.setAttribute('data-value', this.i18nService.getMessage('scrollOnClick'));
 					break;
 				}
-				case 'btnScroll+mouseover': {
+				case 'scrollOnMouseover': {
 					this.resetScroll();
 					this.btnState = 'mouseover';
 					this.setBtnScroll();
-					this.modalBtn.setAttribute('data-value', this.i18nService.getMessage('scrollOnMouseover'));
 					break;
 				}
 				default: {
 					this.resetScroll();
-					this.modalBtn.setAttribute('data-value', 'default');
 				}
 			}
 		});
@@ -106,11 +99,10 @@ class ScrollComponent extends AbstractSetting {
 	}
 
 	setBigScroll = (): void => {
-		this.bodyElt.classList.add('cplus-big-scroll');
+		document.body.classList.add('cplus-big-scroll');
 	}
 
 	setBtnScroll = (): void => {
-		const bodyElt: HTMLElement = document.body;
 		const container = document.createElement('div');
 		container.setAttribute('id', 'cplus-container-scroll-buttons')
 		let btnArray: any[] = [];
@@ -121,7 +113,7 @@ class ScrollComponent extends AbstractSetting {
 
 		btnArray.push(btnUp, btnDown);
 		container.innerHTML = btnArray.join('');
-		bodyElt.appendChild(container);
+		document.body.appendChild(container);
 
 		this.btnScrollUp = document.querySelector('#cplus-scroll-up');
 		this.btnScrollDown = document.querySelector('#cplus-scroll-down');
@@ -136,7 +128,7 @@ class ScrollComponent extends AbstractSetting {
 
 	resetScroll = (): void => {
 		this.btnState = '';
-		this.bodyElt.classList.remove('cplus-big-scroll');
+		document.body.classList.remove('cplus-big-scroll');
 		document.querySelector('#cplus-container-scroll-buttons')?.remove();
 	}
 

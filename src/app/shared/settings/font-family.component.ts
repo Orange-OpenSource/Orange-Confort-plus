@@ -10,6 +10,11 @@ class FontFamilyComponent extends AbstractSetting {
 	pathService: any;
 	path: string;
 
+	activesValues = {
+		"values": "noModifications,Accessible-DFA,Luciole",
+		"activeValue": 0
+	};
+
 	fontDictionnary: any[] = [
 		{
 			name: 'Accessible-DFA', folder: 'accessibleDFA', files: [
@@ -117,7 +122,7 @@ class FontFamilyComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('textFont');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setFontFamily((event as CustomEvent).detail.value);
 		});
@@ -129,13 +134,11 @@ class FontFamilyComponent extends AbstractSetting {
 	}
 
 	setFontFamily = (value: string): void => {
-		const bodyElt: HTMLElement = document.body;
-		if (value === 'default') {
-			bodyElt.style.fontFamily = null;
+		if (value === 'noModifications') {
+			document.body.style.fontFamily = null;
 		} else {
-			bodyElt.style.fontFamily = value;
+			document.body.style.fontFamily = value;
 		}
-		this.modalBtn.setAttribute('data-value', value);
 	}
 }
 

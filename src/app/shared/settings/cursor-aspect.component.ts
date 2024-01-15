@@ -7,6 +7,11 @@ tmplCursorAspect.innerHTML = `
 `;
 
 class CursorAspectComponent extends AbstractSetting {
+	activesValues = {
+		"values": "noModifications,big+black,huge+green",
+		"activeValue": 0
+	};
+
 	constructor() {
 		super();
 
@@ -14,7 +19,7 @@ class CursorAspectComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('cursorAspect');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setCursor((event as CustomEvent).detail.value);
 		});
@@ -26,8 +31,7 @@ class CursorAspectComponent extends AbstractSetting {
 	}
 
 	setCursor = (value: string): void => {
-		let label = value;
-		if (value === 'default') {
+		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-cursor')?.remove();
 		} else {
 			let color = value.split('+')[1];
@@ -53,7 +57,6 @@ class CursorAspectComponent extends AbstractSetting {
 				document.querySelector('#cplus-styles-cursor').innerHTML = classCursor;
 			}
 		}
-		this.modalBtn.setAttribute('data-value', label);
 	}
 }
 

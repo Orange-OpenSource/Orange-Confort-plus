@@ -13,7 +13,6 @@ tmplLayout.innerHTML = `
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 		</div>
-		<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 	</div>
 `;
 
@@ -29,8 +28,8 @@ class LayoutComponent extends AbstractCategory {
 	}
 
 	connectedCallback(): void {
-		let settingsElements = [...this.querySelectorAll('.c-layout__setting')];
-		super.connectedCallback(settingsElements);
+		this.settingsElements = [...this.querySelectorAll('.c-layout__setting')];
+		super.connectedCallback();
 	}
 }
 

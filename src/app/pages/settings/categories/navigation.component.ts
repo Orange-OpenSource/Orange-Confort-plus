@@ -15,7 +15,6 @@ tmplNavigation.innerHTML = `
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 		</div>
-		<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 	</div>
 `;
 
@@ -33,8 +32,8 @@ class NavigationComponent extends AbstractCategory {
 	}
 
 	connectedCallback(): void {
-		let settingsElements = [...this.querySelectorAll('.c-navigation__setting')];
-		super.connectedCallback(settingsElements);
+		this.settingsElements = [...this.querySelectorAll('.c-navigation__setting')];
+		super.connectedCallback();
 	}
 }
 

@@ -8,7 +8,7 @@ tmplIncreaseTextSize.innerHTML = `
 
 class IncreaseTextSizeComponent extends AbstractSetting {
 	activesValues = {
-		"values": "default,110%,130%",
+		"values": "noModifications,110%,130%",
 		"activeValue": 0
 	};
 
@@ -31,14 +31,11 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	}
 
 	setFontSize = (value: string): void => {
-		const bodyElt: HTMLElement = document.body;
-		if (value === 'default') {
-			bodyElt.style.fontSize = null;
+		if (value === 'noModifications') {
+			document.body.style.fontSize = null;
 		} else {
-			bodyElt.style.fontSize = value;
+			document.body.style.fontSize = value;
 		}
-
-		this.modalBtn.setAttribute('data-value', value);
 	}
 }
 
