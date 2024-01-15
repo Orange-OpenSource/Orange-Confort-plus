@@ -11,6 +11,7 @@ tmplPointer.innerHTML = `
 			<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
 				<app-cursor-aspect class="c-pointer__setting" data-can-edit="true"></app-cursor-aspect>
 			</div>
+			<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 		</div>
 	</div>
 `;
@@ -27,8 +28,8 @@ class PointerComponent extends AbstractCategory {
 	}
 
 	connectedCallback(): void {
-		let settingsElements = [...this.querySelectorAll('.c-pointer__setting')];
-		super.connectedCallback(settingsElements);
+		this.settingsElements = [...this.querySelectorAll('.c-pointer__setting')];
+		super.connectedCallback();
 	}
 }
 

@@ -7,20 +7,19 @@ tmplColorContrast.innerHTML = `
 `;
 
 class ColorContrastComponent extends AbstractSetting {
-	i18nService: any;
+	activesValues = {
+		"values": "noModifications,reinforcedContrasts,white+black",
+		"activeValue": 0
+	};
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
 
 		this.appendChild(tmplColorContrast.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('colorContrast');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setColorsContrasts((event as CustomEvent).detail.value);
 		});
@@ -32,26 +31,22 @@ class ColorContrastComponent extends AbstractSetting {
 	}
 
 	setColorsContrasts = (value: string): void => {
-		let label = value;
-		if (value === 'default') {
+		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-contrast')?.remove();
 		} else {
 			let color = '';
 			let backgroundColor = '';
 
-			if (value === 'reinforced') {
+			if (value === 'reinforcedContrasts') {
 				color = '#000';
 				backgroundColor = '#fff';
-				label = this.i18nService.getMessage('reinforcedContrasts');
 			} else if (value === 'daltonism') {
 				// @todo Revoir les couleurs pour le daltonisme car pas clair
 				color = '#000';
 				backgroundColor = '#fff';
-				label = this.i18nService.getMessage('daltonism');
 			} else {
 				color = value.split('+')[0];
 				backgroundColor = value.split('+')[1];
-				label = `${color} / ${backgroundColor}`;
 			}
 
 			let classContrast = `
@@ -100,7 +95,6 @@ class ColorContrastComponent extends AbstractSetting {
 				document.querySelector('#cplus-styles-contrast').innerHTML = classContrast;
 			}
 		}
-		this.modalBtn.setAttribute('data-value', label);
 	}
 }
 

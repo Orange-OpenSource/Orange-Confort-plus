@@ -7,6 +7,11 @@ tmplFocusAspect.innerHTML = `
 `;
 
 class FocusAspectComponent extends AbstractSetting {
+	activesValues = {
+		"values": "noModifications,big+blue,veryBig+red",
+		"activeValue": 0
+	};
+
 	constructor() {
 		super();
 
@@ -14,7 +19,7 @@ class FocusAspectComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('focusAspect');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setFocus((event as CustomEvent).detail.value);
 		});
@@ -26,14 +31,11 @@ class FocusAspectComponent extends AbstractSetting {
 	}
 
 	setFocus = (value: string): void => {
-		const bodyElt: HTMLElement = document.body;
-		let label = value;
-		if (value === 'default') {
+		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-focus')?.remove();
 		} else {
 			let size = value.split('+')[0] === 'big' ? '4px' : '10px';
 			let color = value.split('+')[1];
-			label = `${size} / ${color}`;
 
 			let classFocus = `
 				*:focus, *:focus-visible {
@@ -53,7 +55,6 @@ class FocusAspectComponent extends AbstractSetting {
 				document.querySelector('#cplus-styles-focus').innerHTML = classFocus;
 			}
 		}
-		this.modalBtn.setAttribute('data-value', label);
 	}
 }
 

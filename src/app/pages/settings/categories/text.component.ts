@@ -17,7 +17,6 @@ tmplText.innerHTML = `
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 		</div>
-		<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
 	</div>
 `;
 

@@ -146,13 +146,109 @@
 	"noModifications": {
 		"message": "No changes"
 	},
-	"spacingTextLabelsmall": {
+	"spacingTextLabelSmall": {
 		"message": "Little spacing"
 	},
-	"spacingTextLabelbig": {
+	"spacingTextLabelBig": {
 		"message": "Big spacing"
 	},
-	"spacingTextLabelhuge": {
+	"spacingTextLabelHuge": {
 		"message": "Huge spacing"
+	},
+	"alignLeft": {
+		"message": "Left align text"
+	},
+	"marginLeft": {
+		"message": "Left marge"
+	},
+	"margeList": {
+		"message": "Marge and list"
+	},
+	"white+black": {
+		"message": "White and black"
+	},
+	"black+ivory": {
+		"message": "Black and ivory"
+	},
+	"white+red": {
+		"message": "White and red"
+	},
+	"black+yellow": {
+		"message": "Black and yellow"
+	},
+	"white+blue": {
+		"message": "White and blue"
+	},
+	"yellow+blue": {
+		"message": "Yellow and blue"
+	},
+	"black+vert": {
+		"message": "Black and green"
+	},
+	"lightblue+orange+lightvert": {
+		"message": "Lightblue / Orange / Lightgreen"
+	},
+	"yellow+orange+lightvert": {
+	"message": "Yellow / Orange / Lightgreen"
+	},
+	"big+white": {
+		"message": "Big and white"
+	},
+	"huge+white": {
+		"message": "Very big and white"
+	},
+	"big+black": {
+		"message": "Big and black"
+	},
+	"huge+black": {
+		"message": "Very big and black"
+	},
+	"big+blue": {
+		"message": "Big and blue"
+	},
+	"huge+blue": {
+		"message": "Very big and blue"
+	},
+	"big+red": {
+		"message": "Big and red"
+	},
+	"huge+red": {
+		"message": "Very big and red"
+	},
+	"big+yellow": {
+		"message": "Big and yellow"
+	},
+	"huge+yellow": {
+		"message": "Very big and yellow"
+	},
+	"big+vert": {
+		"message": "Big and green"
+	},
+	"huge+vert": {
+		"message": "Very big and green"
+	},
+	"Accessible-DFA": {
+		"message": "Accessible-DFA"
+	},
+	"B612 Mono": {
+		"message": "B612 Mono"
+	},
+	"110%": {
+		"message": "A little big 110%"
+	},
+	"130%": {
+		"message": "Big 130%"
+	},
+	"160%": {
+		"message": "More big 160%"
+	},
+	"200%": {
+		"message": "Very big 200%"
+	},
+	"350%": {
+		"message": "Huge 350%"
+	},
+	"500%": {
+		"message": "Max 500%"
 	}
 }
