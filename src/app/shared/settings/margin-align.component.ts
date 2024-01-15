@@ -7,6 +7,11 @@ tmplMarginAlign.innerHTML = `
 `;
 
 class MarginAlignComponent extends AbstractSetting {
+	activesValues = {
+		"values": "noModifications,alignLeft,margeList",
+		"activeValue": 0
+	};
+
 	constructor() {
 		super();
 
@@ -14,7 +19,7 @@ class MarginAlignComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback();
+		super.connectedCallback('marginAlign');
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setMargin((event as CustomEvent).detail.value);
 		});
@@ -26,23 +31,23 @@ class MarginAlignComponent extends AbstractSetting {
 	}
 
 	setMargin = (value: string): void => {
-		const elements = value === 'list' ?
+		const elements = value === 'margeList' ?
 			document.querySelectorAll('ul, ol') :
 			document.body.querySelectorAll('*');
 
 		elements.forEach((elt) => {
 			const element = elt as HTMLElement;
 			switch (value) {
-				case 'align': {
+				case 'alignLeft': {
 					element.style.textAlign = 'left';
 					break;
 				}
-				case 'margin': {
+				case 'marginLeft': {
 					element.style.textAlign = 'left';
 					element.style.marginLeft = '40px';
 					break;
 				}
-				case 'list': {
+				case 'margeList': {
 					element.style.listStylePosition = 'initial';
 					element.style.listStyleImage = 'none';
 					element.style.listStyleType = 'decimal';

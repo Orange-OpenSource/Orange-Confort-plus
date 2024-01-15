@@ -78,7 +78,7 @@ class ToolbarComponent extends HTMLElement {
 			this.routeService.navigate((event as CustomEvent).detail.route);
 			this.setHeaderDisplay((event as CustomEvent).detail.route);
 			this.header?.focus();
-			this.header.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
+			this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
 		});
 	}
 

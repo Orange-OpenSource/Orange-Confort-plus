@@ -72,7 +72,7 @@
 		"message": "Gros ascenceur"
 	},
 	"scrollOnClick": {
-		"message": "Boutons ascenseurs au click"
+		"message": "Boutons ascenseurs au clic"
 	},
 	"scrollOnMouseover": {
 		"message": "Boutons ascenseurs au survol"
@@ -146,13 +146,109 @@
 	"noModifications": {
 		"message": "Pas de modification"
 	},
-	"spacingTextLabelsmall": {
+	"spacingTextLabelSmall": {
 		"message": "Aère un peu"
 	},
-	"spacingTextLabelbig": {
+	"spacingTextLabelBig": {
 		"message": "Aère beaucoup"
 	},
-	"spacingTextLabelhuge": {
+	"spacingTextLabelHuge": {
 		"message": "Aère énormément"
+	},
+	"alignLeft": {
+		"message": "Texte aligné à gauche"
+	},
+	"marginLeft": {
+		"message": "Marge à gauche"
+	},
+	"margeList": {
+		"message": "Marge et listes numérotées"
+	},
+	"white+black": {
+		"message": "Blanc et noir"
+	},
+	"black+ivory": {
+		"message": "Noir et ivoir"
+	},
+	"white+red": {
+		"message": "Blanc et rouge"
+	},
+	"black+yellow": {
+		"message": "Noir et jaune"
+	},
+	"white+blue": {
+		"message": "Blanc et bleu"
+	},
+	"yellow+blue": {
+		"message": "Jaune et bleu"
+	},
+	"black+green": {
+		"message": "Noir et vert"
+	},
+	"lightblue+orange+lightgreen": {
+		"message": "Bleu clair / Orange / Vert clair"
+	},
+	"yellow+orange+lightgreen": {
+	"message": "Jaune / Orange / Vert clair"
+	},
+	"big+white": {
+		"message": "Gros et blanc"
+	},
+	"huge+white": {
+		"message": "Très gros et blanc"
+	},
+	"big+black": {
+		"message": "Gros et noir"
+	},
+	"huge+black": {
+		"message": "Très gros et noir"
+	},
+	"big+blue": {
+		"message": "Gros et bleu"
+	},
+	"huge+blue": {
+		"message": "Très gros et bleu"
+	},
+	"big+red": {
+		"message": "Gros et rouge"
+	},
+	"huge+red": {
+		"message": "Très gros et rouge"
+	},
+	"big+yellow": {
+		"message": "Gros et jaune"
+	},
+	"huge+yellow": {
+		"message": "Très gros et jaune"
+	},
+	"big+green": {
+		"message": "Gros et vert"
+	},
+	"huge+green": {
+		"message": "Très gros et vert"
+	},
+	"Accessible-DFA": {
+		"message": "Accessible-DFA"
+	},
+	"B612 Mono": {
+		"message": "B612 Mono"
+	},
+	"110%": {
+		"message": "Un peu grand 110%"
+	},
+	"130%": {
+		"message": "Plutôt grand 130%"
+	},
+	"160%": {
+		"message": "Bien grand 160%"
+	},
+	"200%": {
+		"message": "Très grand 200%"
+	},
+	"350%": {
+		"message": "Énorme 350%"
+	},
+	"500%": {
+		"message": "Max 500%"
 	}
 }

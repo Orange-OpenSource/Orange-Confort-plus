@@ -170,10 +170,12 @@ class AbstractSetting extends HTMLElement {
     modalBtn=null;
     canEdit=false;
     localStorageService;
+    i18nService;
     activesValues;
     separator=",";
     constructor() {
         super();
+        this.i18nService = new I18nService;
         this.localStorageService = new LocalStorageService;
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
     }
@@ -213,6 +215,7 @@ class AbstractSetting extends HTMLElement {
     setSettingBtn=activesValues => {
         this.settingBtn.setAttribute("data-values", activesValues.values);
         this.settingBtn.setAttribute("data-active-value", activesValues.activeValue);
+        this.modalBtn.setAttribute("data-value", this.i18nService.getMessage(activesValues.values.split(",")[activesValues.activeValue]));
     };
 }
 
@@ -223,14 +226,16 @@ const tmplColorContrast = document.createElement("template");
 tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="colorsContrasts" data-icon="Contrast"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColorContrastComponent extends AbstractSetting {
-    i18nService;
+    activesValues={
+        values: "noModifications,reinforcedContrasts,white+black",
+        activeValue: 0
+    };
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.appendChild(tmplColorContrast.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("colorContrast");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setColorsContrasts(event.detail.value);
         }));
@@ -240,24 +245,20 @@ class ColorContrastComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setColorsContrasts=value => {
-        let label = value;
-        if (value === "default") {
+        if (value === "noModifications") {
             document.querySelector("#cplus-styles-contrast")?.remove();
         } else {
             let color = "";
             let backgroundColor = "";
-            if (value === "reinforced") {
+            if (value === "reinforcedContrasts") {
                 color = "#000";
                 backgroundColor = "#fff";
-                label = this.i18nService.getMessage("reinforcedContrasts");
             } else if (value === "daltonism") {
                 color = "#000";
                 backgroundColor = "#fff";
-                label = this.i18nService.getMessage("daltonism");
             } else {
                 color = value.split("+")[0];
                 backgroundColor = value.split("+")[1];
-                label = `${color} / ${backgroundColor}`;
             }
             let classContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-contrast").length === 0) {
@@ -270,7 +271,6 @@ class ColorContrastComponent extends AbstractSetting {
                 document.querySelector("#cplus-styles-contrast").innerHTML = classContrast;
             }
         }
-        this.modalBtn.setAttribute("data-value", label);
     };
 }
 
@@ -283,12 +283,16 @@ const tmplCursorAspect = document.createElement("template");
 tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="cursorAspect" data-icon="CursorSetting"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CursorAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big+black,huge+green",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplCursorAspect.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("cursorAspect");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setCursor(event.detail.value);
         }));
@@ -298,8 +302,7 @@ class CursorAspectComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setCursor=value => {
-        let label = value;
-        if (value === "default") {
+        if (value === "noModifications") {
             document.querySelector("#cplus-styles-cursor")?.remove();
         } else {
             let color = value.split("+")[1];
@@ -315,7 +318,6 @@ class CursorAspectComponent extends AbstractSetting {
                 document.querySelector("#cplus-styles-cursor").innerHTML = classCursor;
             }
         }
-        this.modalBtn.setAttribute("data-value", label);
     };
 }
 
@@ -328,12 +330,16 @@ const tmplFocusAspect = document.createElement("template");
 tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="focusAspect" data-icon="Focus"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FocusAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big+blue,veryBig+red",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplFocusAspect.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("focusAspect");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setFocus(event.detail.value);
         }));
@@ -343,14 +349,11 @@ class FocusAspectComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFocus=value => {
-        const bodyElt = document.body;
-        let label = value;
-        if (value === "default") {
+        if (value === "noModifications") {
             document.querySelector("#cplus-styles-focus")?.remove();
         } else {
             let size = value.split("+")[0] === "big" ? "4px" : "10px";
             let color = value.split("+")[1];
-            label = `${size} / ${color}`;
             let classFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-focus").length === 0) {
                 let head = document.head || document.getElementsByTagName("head")[0];
@@ -362,7 +365,6 @@ class FocusAspectComponent extends AbstractSetting {
                 document.querySelector("#cplus-styles-focus").innerHTML = classFocus;
             }
         }
-        this.modalBtn.setAttribute("data-value", label);
     };
 }
 
@@ -377,6 +379,10 @@ tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<
 class FontFamilyComponent extends AbstractSetting {
     pathService;
     path;
+    activesValues={
+        values: "noModifications,Accessible-DFA,Luciole",
+        activeValue: 0
+    };
     fontDictionnary=[ {
         name: "Accessible-DFA",
         folder: "accessibleDFA",
@@ -590,7 +596,7 @@ class FontFamilyComponent extends AbstractSetting {
         }
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("textFont");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setFontFamily(event.detail.value);
         }));
@@ -600,13 +606,11 @@ class FontFamilyComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFontFamily=value => {
-        const bodyElt = document.body;
-        if (value === "default") {
-            bodyElt.style.fontFamily = null;
+        if (value === "noModifications") {
+            document.body.style.fontFamily = null;
         } else {
-            bodyElt.style.fontFamily = value;
+            document.body.style.fontFamily = value;
         }
-        this.modalBtn.setAttribute("data-value", value);
     };
 }
 
@@ -620,7 +624,7 @@ tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3"
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     activesValues={
-        values: "default,110%,130%",
+        values: "noModifications,110%,130%",
         activeValue: 0
     };
     constructor() {
@@ -638,13 +642,11 @@ class IncreaseTextSizeComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFontSize=value => {
-        const bodyElt = document.body;
-        if (value === "default") {
-            bodyElt.style.fontSize = null;
+        if (value === "noModifications") {
+            document.body.style.fontSize = null;
         } else {
-            bodyElt.style.fontSize = value;
+            document.body.style.fontSize = value;
         }
-        this.modalBtn.setAttribute("data-value", value);
     };
 }
 
@@ -657,12 +659,16 @@ const tmplLinkStyle = document.createElement("template");
 tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="linksStyle" data-icon="Links"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class LinkStyleComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,lightblue+orange+lightgreen,yellow+orange+lightgreen",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplLinkStyle.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("linkStyle");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setLinkStyle(event.detail.value);
         }));
@@ -672,8 +678,7 @@ class LinkStyleComponent extends AbstractSetting {
         this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
     setLinkStyle=value => {
-        let label = value;
-        if (value === "default") {
+        if (value === "noModifications") {
             document.querySelector("#cplus-styles-links")?.remove();
         } else {
             let linkColor = value.split("+")[0];
@@ -690,7 +695,6 @@ class LinkStyleComponent extends AbstractSetting {
                 document.querySelector("#cplus-styles-links").innerHTML = classLinkStyle;
             }
         }
-        this.modalBtn.setAttribute("data-value", label);
     };
 }
 
@@ -703,12 +707,16 @@ const tmplMarginAlign = document.createElement("template");
 tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="margin" data-icon="Text_Marge"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MarginAlignComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,alignLeft,margeList",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplMarginAlign.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("marginAlign");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setMargin(event.detail.value);
         }));
@@ -718,24 +726,24 @@ class MarginAlignComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setMargin=value => {
-        const elements = value === "list" ? document.querySelectorAll("ul, ol") : document.body.querySelectorAll("*");
+        const elements = value === "margeList" ? document.querySelectorAll("ul, ol") : document.body.querySelectorAll("*");
         elements.forEach((elt => {
             const element = elt;
             switch (value) {
-              case "align":
+              case "alignLeft":
                 {
                     element.style.textAlign = "left";
                     break;
                 }
 
-              case "margin":
+              case "marginLeft":
                 {
                     element.style.textAlign = "left";
                     element.style.marginLeft = "40px";
                     break;
                 }
 
-              case "list":
+              case "margeList":
                 {
                     element.style.listStylePosition = "initial";
                     element.style.listStyleImage = "none";
@@ -766,34 +774,41 @@ const tmplReadingGuide = document.createElement("template");
 tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
-    sizeGuide=40;
     topGuideElt=null;
     bottomGuideElt=null;
     readingGuideElt=null;
-    i18nService;
+    guideType="";
+    sizeGuide=40;
+    activesValues={
+        values: "noModifications,readingGuide,maskGuide",
+        activeValue: 0
+    };
+    classReadingGuide=`\n\t\t#cplus-vertical-guide-elt {\n\t\t\tborder-left: 1px solid black;\n\t\t\theight: 100%;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t}\n\t`;
+    classMaskGuide=`\n\t\t#cplus-mask-guide--top-elt,\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t}\n\t\t#cplus-mask-guide--top-elt {\n\t\t\ttop: 0;\n\t\t}\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbottom: 0;\n\t\t}\n\t`;
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.appendChild(tmplReadingGuide.content.cloneNode(true));
         this.readingGuideElt = this.querySelector("#cplus-vertical-guide-elt");
         this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
         this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("readingGuide");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             switch (event.detail.value) {
               case "readingGuide":
                 {
                     this.resetGuide();
-                    this.setReadingGuide();
+                    this.guideType = "reading";
+                    this.setReadingMaskGuide();
                     break;
                 }
 
               case "maskGuide":
                 {
                     this.resetGuide();
-                    this.setMaskGuide();
+                    this.guideType = "mask";
+                    this.setReadingMaskGuide();
                     break;
                 }
 
@@ -808,52 +823,48 @@ class ReadingGuideComponent extends AbstractSetting {
         super.disconnectedCallback();
         this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
-    setReadingGuide=() => {
-        let classReadingGuide = `\n\t\t\t#cplus-vertical-guide-elt {\n\t\t\t\tborder-left: 1px solid black;\n\t\t\t\theight: 100%;\n\t\t\t\tposition: fixed;\n\t\t\t\ttop: 0;\n\t\t\t}\n\t\t`;
+    setReadingMaskGuide=() => {
+        let classGuide = "";
+        if (this.guideType === "reading") {
+            classGuide = this.classReadingGuide;
+        } else if (this.guideType === "mask") {
+            classGuide = this.classMaskGuide;
+        }
         if (document.querySelectorAll("#cplus-reading-guide").length === 0) {
             let head = document.head || document.getElementsByTagName("head")[0];
             let stylesReadingGuide = document.createElement("style");
             stylesReadingGuide.setAttribute("id", "cplus-reading-guide");
-            stylesReadingGuide.innerHTML = classReadingGuide;
+            stylesReadingGuide.innerHTML = classGuide;
             head.appendChild(stylesReadingGuide);
         }
-        const readingElt = document.createElement("div");
-        readingElt.setAttribute("id", "cplus-vertical-guide-elt");
-        document.body.appendChild(readingElt);
-        this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("readingGuide"));
-        document.addEventListener("mousemove", (event => {
-            document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
-            event.stopPropagation();
-        }));
-    };
-    setMaskGuide=() => {
-        let classMaskGuide = `\n\t\t\t#cplus-mask-guide--top-elt,\n\t\t\t#cplus-mask-guide--bottom-elt {\n\t\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\t\tposition: fixed;\n\t\t\t\tleft: 0;\n\t\t\t\tright: 0;\n\t\t\t}\n\t\t\t#cplus-mask-guide--top-elt {\n\t\t\t\ttop: 0;\n\t\t\t}\n\t\t\t#cplus-mask-guide--bottom-elt {\n\t\t\t\tbottom: 0;\n\t\t\t}\n\t\t`;
-        if (document.querySelectorAll("#cplus-mask-guide").length === 0) {
-            let head = document.head || document.getElementsByTagName("head")[0];
-            let stylesReadingGuide = document.createElement("style");
-            stylesReadingGuide.setAttribute("id", "cplus-mask-guide");
-            stylesReadingGuide.innerHTML = classMaskGuide;
-            head.appendChild(stylesReadingGuide);
+        if (this.guideType === "reading") {
+            const readingElt = document.createElement("div");
+            readingElt.setAttribute("id", "cplus-vertical-guide-elt");
+            document.body.appendChild(readingElt);
+        } else if (this.guideType === "mask") {
+            const maskTopElt = document.createElement("div");
+            const maskBottomElt = document.createElement("div");
+            maskTopElt.setAttribute("id", "cplus-mask-guide--top-elt");
+            maskBottomElt.setAttribute("id", "cplus-mask-guide--bottom-elt");
+            document.body.appendChild(maskTopElt);
+            document.body.appendChild(maskBottomElt);
         }
-        const maskTopElt = document.createElement("div");
-        const maskBottomElt = document.createElement("div");
-        maskTopElt.setAttribute("id", "cplus-mask-guide--top-elt");
-        maskBottomElt.setAttribute("id", "cplus-mask-guide--bottom-elt");
-        document.body.appendChild(maskTopElt);
-        document.body.appendChild(maskBottomElt);
-        this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("maskGuide"));
         document.addEventListener("mousemove", (event => {
-            document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
-            document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+            if (this.guideType === "reading") {
+                document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
+            } else if (this.guideType === "mask") {
+                document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
+                document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+            }
             event.stopPropagation();
         }));
     };
     resetGuide=() => {
-        document.querySelector("#cplus-vertical-guide-elt")?.remove();
+        this.guideType = "";
         document.querySelector("#cplus-reading-guide")?.remove();
+        document.querySelector("#cplus-vertical-guide-elt")?.remove();
         document.querySelector("#cplus-mask-guide--top-elt")?.remove();
         document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
-        document.querySelector("#cplus-mask-guide")?.remove();
     };
 }
 
@@ -868,18 +879,18 @@ tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-
 class ScrollComponent extends AbstractSetting {
     btnScrollUp=null;
     btnScrollDown=null;
-    bodyElt=null;
     btnState="";
     scrollSteps=100;
-    i18nService;
+    activesValues={
+        values: "noModifications,bigScroll,scrollOnMouseover",
+        activeValue: 0
+    };
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.appendChild(tmplScroll.content.cloneNode(true));
-        this.bodyElt = document.body;
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("scroll");
         this.setScrollClass();
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             switch (event.detail.value) {
@@ -887,32 +898,28 @@ class ScrollComponent extends AbstractSetting {
                 {
                     this.resetScroll();
                     this.setBigScroll();
-                    this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("bigScroll"));
                     break;
                 }
 
-              case "btnScroll+click":
+              case "scrollOnClick":
                 {
                     this.resetScroll();
                     this.btnState = "click";
                     this.setBtnScroll();
-                    this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("scrollOnClick"));
                     break;
                 }
 
-              case "btnScroll+mouseover":
+              case "scrollOnMouseover":
                 {
                     this.resetScroll();
                     this.btnState = "mouseover";
                     this.setBtnScroll();
-                    this.modalBtn.setAttribute("data-value", this.i18nService.getMessage("scrollOnMouseover"));
                     break;
                 }
 
               default:
                 {
                     this.resetScroll();
-                    this.modalBtn.setAttribute("data-value", "default");
                 }
             }
         }));
@@ -936,10 +943,9 @@ class ScrollComponent extends AbstractSetting {
         }
     };
     setBigScroll=() => {
-        this.bodyElt.classList.add("cplus-big-scroll");
+        document.body.classList.add("cplus-big-scroll");
     };
     setBtnScroll=() => {
-        const bodyElt = document.body;
         const container = document.createElement("div");
         container.setAttribute("id", "cplus-container-scroll-buttons");
         let btnArray = [];
@@ -947,7 +953,7 @@ class ScrollComponent extends AbstractSetting {
         let btnDown = `<button id="cplus-scroll-down" class="btn btn-primary">Descendre</button>`;
         btnArray.push(btnUp, btnDown);
         container.innerHTML = btnArray.join("");
-        bodyElt.appendChild(container);
+        document.body.appendChild(container);
         this.btnScrollUp = document.querySelector("#cplus-scroll-up");
         this.btnScrollDown = document.querySelector("#cplus-scroll-down");
         this.btnScrollUp.addEventListener(this.btnState, (event => {
@@ -959,7 +965,7 @@ class ScrollComponent extends AbstractSetting {
     };
     resetScroll=() => {
         this.btnState = "";
-        this.bodyElt.classList.remove("cplus-big-scroll");
+        document.body.classList.remove("cplus-big-scroll");
         document.querySelector("#cplus-container-scroll-buttons")?.remove();
     };
 }
@@ -973,14 +979,16 @@ const tmplSpacingText = document.createElement("template");
 tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="spacingText" data-icon="Text_Espacement_Ligne"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class TextSpacingComponent extends AbstractSetting {
-    i18nService;
+    activesValues={
+        values: "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+        activeValue: 0
+    };
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.appendChild(tmplSpacingText.content.cloneNode(true));
     }
     connectedCallback() {
-        super.connectedCallback();
+        super.connectedCallback("spacingText");
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             this.setSpacingText(event.detail.value);
         }));
@@ -990,28 +998,25 @@ class TextSpacingComponent extends AbstractSetting {
         this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setSpacingText=value => {
-        const bodyElt = document.body;
         const spacingTextValues = [ {
-            name: "small",
+            name: "spacingTextLabelSmall",
             wordSpacing: ".10em",
             lineHeight: "2em",
             letterSpacing: ".0625em"
         }, {
-            name: "big",
+            name: "spacingTextLabelBig",
             wordSpacing: ".25em",
             lineHeight: "2.5em",
             letterSpacing: ".25em"
         }, {
-            name: "huge",
+            name: "spacingTextLabelHuge",
             wordSpacing: ".5em",
             lineHeight: "3em",
             letterSpacing: ".5em"
         } ];
-        let label = value;
-        if (value === "default") {
+        if (value === "noModifications") {
             document.querySelector("#cplus-styles-spacing-text")?.remove();
         } else {
-            label = this.i18nService.getMessage(`spacingTextLabel${value}`);
             let objSpacingText = spacingTextValues?.find((o => o.name === value));
             let classSpacingText = `\n\t\t\t\t* {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
             if (document.querySelectorAll("#cplus-styles-spacing-text").length === 0) {
@@ -1024,7 +1029,6 @@ class TextSpacingComponent extends AbstractSetting {
                 document.querySelector("#cplus-styles-spacing-text").innerHTML = classSpacingText;
             }
         }
-        this.modalBtn.setAttribute("data-value", label);
     };
 }
 
@@ -1084,10 +1088,8 @@ class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-value", "data-label" ];
     modalBtn=null;
     value=null;
-    i18nService;
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.value = this.dataset?.value || this.value;
         this.appendChild(btnModalLayout.content.cloneNode(true));
     }
@@ -1105,7 +1107,7 @@ class BtnModalComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-value" === name) {
-            this.modalBtn.innerText = newValue === "default" ? this.i18nService.getMessage("noModifications") : newValue;
+            this.modalBtn.innerText = newValue;
         }
         if ("data-label" === name) {
             this.setA11yName(newValue);
@@ -1438,8 +1440,7 @@ class HomeComponent extends HTMLElement {
         }
         if ("data-custom" === name) {
             const modeName = this.modeName.innerText;
-            console.log(newValue);
-            newValue === "true" ? this.modeName.innerText = `${modeName}*` : this.modeName.innerText = `${modeName}`;
+            this.modeName.innerText = newValue === "true" ? `${modeName}*` : `${modeName}`;
         }
     }
 }
@@ -1499,7 +1500,7 @@ class ModeComponent extends HTMLElement {
         }
     }
     displaySettings=settings => {
-        let elements = this.querySelectorAll(".c-mode__setting");
+        let elements = this.querySelectorAll(".sc-mode__setting");
         elements.forEach((element => {
             element.classList.add("d-none");
         }));
@@ -1653,16 +1654,25 @@ class AbstractCategory extends HTMLElement {
         }
     };
     displaySettings=settings => {
+        this.btnMoreSettings?.classList.add("d-none");
         this.settingsElements.forEach((element => {
             element.classList.add("d-none");
+            element.removeAttribute("data-default-setting");
         }));
+        let count = 0;
         settings.forEach((setting => {
             let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
             let settingElement = this.querySelector(settingObj?.element);
             settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
             settingElement?.setAttribute("data-default-setting", "true");
             settingElement?.classList.remove("d-none");
+            if (settingObj) {
+                count++;
+            }
         }));
+        if (count !== this.settingsDictionnary.length) {
+            this.btnMoreSettings?.classList.remove("d-none");
+        }
     };
     displayOrHideOthersSettings=() => {
         this.settingsElements.forEach((element => {
@@ -1682,7 +1692,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="layout"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-margin-align class="c-layout__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -1694,8 +1704,8 @@ class LayoutComponent extends AbstractCategory {
         this.appendChild(tmplLayout.content.cloneNode(true));
     }
     connectedCallback() {
-        let settingsElements = [ ...this.querySelectorAll(".c-layout__setting") ];
-        super.connectedCallback(settingsElements);
+        this.settingsElements = [ ...this.querySelectorAll(".c-layout__setting") ];
+        super.connectedCallback();
     }
 }
 
@@ -1705,7 +1715,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="navigation"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-focus-aspect class="c-navigation__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-scroll class="c-navigation__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-link-style class="c-navigation__setting" data-can-edit="true"></app-link-style>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -1723,8 +1733,8 @@ class NavigationComponent extends AbstractCategory {
         this.appendChild(tmplNavigation.content.cloneNode(true));
     }
     connectedCallback() {
-        let settingsElements = [ ...this.querySelectorAll(".c-navigation__setting") ];
-        super.connectedCallback(settingsElements);
+        this.settingsElements = [ ...this.querySelectorAll(".c-navigation__setting") ];
+        super.connectedCallback();
     }
 }
 
@@ -1734,7 +1744,7 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="medias"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="medias"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t<div class="accordion-body px-3">\n\t\t</div>\n\t</div>\n`;
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -1750,7 +1760,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="pointer"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplPointer.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t<app-icon data-name="Pointeur" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="pointer"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-cursor-aspect class="c-pointer__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -1762,8 +1772,8 @@ class PointerComponent extends AbstractCategory {
         this.appendChild(tmplPointer.content.cloneNode(true));
     }
     connectedCallback() {
-        let settingsElements = [ ...this.querySelectorAll(".c-pointer__setting") ];
-        super.connectedCallback(settingsElements);
+        this.settingsElements = [ ...this.querySelectorAll(".c-pointer__setting") ];
+        super.connectedCallback();
     }
 }
 
@@ -1773,7 +1783,7 @@ customElements.define("app-pointer", PointerComponent);
 
 const tmplSound = document.createElement("template");
 
-tmplSound.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-sound">\n\t\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="audio"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplSound.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-sound">\n\t\t\t<app-icon data-name="Audio" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="audio"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-sound">\n\t\t<div class="accordion-body px-3">\n\t\t</div>\n\t</div>\n`;
 
 class SoundComponent extends AbstractCategory {
     constructor() {
@@ -1789,7 +1799,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-item">\n\t\t<div class="accordion-header">\n\t\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t\t<span data-i18n="text"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class="accordion-collapse collapse" id="category-text">\n\t\t\t<div class="accordion-body px-3">\n\t\t\t\t<div class="c-category__settings-container d-flex flex-column">\n\t\t\t\t\t<app-font-family class="c-text__setting"></app-font-family>\n\t\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t\t<app-text-transform class="c-text__setting"></app-text-transform>\n\t\t\t\t\t<app-reading-guide class="c-text__setting"></app-reading-guide>\n\t\t\t\t</div>\n\t\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2rem"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">\n\t\t\t\t<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>\n\t\t\t\t<app-color-contrast class="c-text__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-spacing-text class="c-text__setting" data-can-edit="true"></app-spacing-text>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     settingsElements=[];
@@ -1880,7 +1890,7 @@ class ToolbarComponent extends HTMLElement {
             this.routeService.navigate(event.detail.route);
             this.setHeaderDisplay(event.detail.route);
             this.header?.focus();
-            this.header.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
+            this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
         }));
     }
     setHeaderDisplay=page => {

@@ -66,18 +66,29 @@ abstract class AbstractCategory extends HTMLElement {
 	}
 
 	displaySettings = (settings: any[]): void => {
+		this.btnMoreSettings?.classList.add('d-none');
 		this.settingsElements.forEach((element) => {
 			element.classList.add('d-none');
+			element.removeAttribute('data-default-setting');
 		});
 
+
+		let nbActifSetting = 0;
 		settings.forEach((setting: string) => {
 			let settingObj = this.settingsDictionnary.find(o => o.name === Object.keys(setting)[0]);
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
 			settingElement?.setAttribute('data-default-setting', 'true');
-
 			settingElement?.classList.remove('d-none');
+
+			if (settingObj) {
+				nbActifSetting++;
+			}
 		});
+
+		if (nbActifSetting !== this.settingsDictionnary.length) {
+			this.btnMoreSettings?.classList.remove('d-none');
+		}
 	}
 
 	displayOrHideOthersSettings = (): void => {

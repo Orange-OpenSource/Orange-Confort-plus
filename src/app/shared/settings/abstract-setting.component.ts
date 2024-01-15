@@ -4,12 +4,16 @@ abstract class AbstractSetting extends HTMLElement {
 	modalBtn: HTMLElement | null = null;
 	canEdit = false;
 	localStorageService: any;
+	i18nService: any;
 	activesValues: any;
 	separator = ',';
 
 	constructor() {
 		super();
 
+		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
+		// @ts-ignore
+		this.i18nService = new I18nService();
 		// @ts-ignore
 		this.localStorageService = new LocalStorageService();
 
@@ -59,5 +63,6 @@ abstract class AbstractSetting extends HTMLElement {
 	setSettingBtn = (activesValues: any) => {
 		this.settingBtn.setAttribute('data-values', activesValues.values);
 		this.settingBtn.setAttribute('data-active-value', activesValues.activeValue);
+		this.modalBtn.setAttribute('data-value', this.i18nService.getMessage(activesValues.values.split(',')[activesValues.activeValue]));
 	}
 }
