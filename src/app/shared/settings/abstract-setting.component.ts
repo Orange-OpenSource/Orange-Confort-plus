@@ -72,7 +72,7 @@ abstract class AbstractSetting extends HTMLElement {
 		this.modalBtn.setAttribute('data-value', this.i18nService.getMessage(activesValues.values.split(',')[activesValues.activeValue]));
 	}
 
-	setCallback(callback: (value: string) => void) {
+	setCallback = (callback: (value: string) => void) => {
 		this.callback = callback;
 	}
 }

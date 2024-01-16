@@ -44,9 +44,11 @@ class ToolbarComponent extends HTMLElement {
 			this.defaultJson = result;
 
 			this.localStorageService.getItem('modeOfUse').then((result: any) => {
-				this.json = result;
-				if (!result) {
+				if (result && Object.keys(result).length !== 0) {
+					this.json = result;
+				} else {
 					this.localStorageService.setItem('modeOfUse', this.defaultJson);
+					this.json = this.defaultJson;
 				}
 				this.setCurrentMode();
 			});

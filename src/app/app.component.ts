@@ -67,6 +67,7 @@ class AppComponent extends HTMLElement {
 
 	toggleToolbar = (): void => {
 		this.openConfortPlus = !this.openConfortPlus;
+		// @todo Voir pour utiliser Web Animation API avec la méthode animate()
 		if (this.openConfortPlus) {
 			this.confortPlusToolbar.style.removeProperty('transform');
 		} else {

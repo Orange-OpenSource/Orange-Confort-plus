@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 15/01/2024
+ * orange-confort-plus - version 4.3.0 - 16/01/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -221,9 +221,9 @@ class AbstractSetting extends HTMLElement {
         this.settingBtn.setAttribute("data-active-value", activesValues.activeValue);
         this.modalBtn.setAttribute("data-value", this.i18nService.getMessage(activesValues.values.split(",")[activesValues.activeValue]));
     };
-    setCallback(callback) {
+    setCallback=callback => {
         this.callback = callback;
-    }
+    };
 }
 
 "use strict";
@@ -1862,9 +1862,11 @@ class ToolbarComponent extends HTMLElement {
         this.filesService.getModesOfUse().then((result => {
             this.defaultJson = result;
             this.localStorageService.getItem("modeOfUse").then((result => {
-                this.json = result;
-                if (!result) {
+                if (result && Object.keys(result).length !== 0) {
+                    this.json = result;
+                } else {
                     this.localStorageService.setItem("modeOfUse", this.defaultJson);
+                    this.json = this.defaultJson;
                 }
                 this.setCurrentMode();
             }));
