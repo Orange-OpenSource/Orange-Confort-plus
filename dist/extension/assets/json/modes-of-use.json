@@ -4,63 +4,63 @@
 		{
 			"visionPlus": [
 				{
-					"textSize": {
-						"values": "noModifications,110%,130%",
+					"textFont": {
+						"values": "noModifications,Accessible-DFA,Luciole",
 						"activeValue": 0
 					}
 				},
 				{
-					"textFont": {
-						"values": "noModifications,Accessible-DFA,B612 Mono",
+					"textSize": {
+						"values": "noModifications,130%,200%",
 						"activeValue": 0
 					}
 				},
 				{
 					"readingGuide": {
 						"values": "noModifications,readingGuide,maskGuide",
-						"activeValue": "0"
+						"activeValue": 0
 					}
 				},
 				{
 					"marginAlign": {
-						"values": "noModifications,alignLeft,marginLeft,margeList",
-						"activeValue": "0"
+						"values": "noModifications,alignLeft,margeList",
+						"activeValue": 0
 					}
 				},
 				{
 					"spacingText": {
-						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig,spacingTextLabelHuge",
-						"activeValue": "0"
+						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+						"activeValue": 0
 					}
 				},
 				{
 					"cursorAspect": {
-						"values": "noModifications,big+black,huge+black",
-						"activeValue": "0"
+						"values": "noModifications,big+white,huge+green",
+						"activeValue": 0
 					}
 				},
 				{
 					"focusAspect": {
-						"values": "noModifications,big+white,big+blue,big+red,big+yellow,big+green,big+black,huge+white,huge+blue,huge+red,huge+yellow,huge+green,huge+black",
-						"activeValue": "0"
+						"values": "noModifications,big+white,huge+white",
+						"activeValue": 0
 					}
 				},
 				{
 					"colorContrast": {
-						"values": "noModifications,reinforced,white+black,black+ivory,white+red,black+yellow,white+blue,yellow+blue,black+green,daltonism",
-						"activeValue": "0"
+						"values": "noModifications,white+black,white+blue",
+						"activeValue": 0
 					}
 				},
 				{
 					"linkStyle": {
 						"values": "noModifications,lightblue+orange+lightgreen,yellow+orange+lightgreen",
-						"activeValue": "0"
+						"activeValue": 0
 					}
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll,scrollOnClick,scrollOnMouseover",
-						"activeValue": "0"
+						"values": "noModifications,bigScroll,scrollOnMouseover",
+						"activeValue": 0
 					}
 				}
 			]
@@ -68,51 +68,45 @@
 		{
 			"facilePlus": [
 				{
+					"textFont": {
+						"values": "noModifications,Accessible-DFA,Verdana",
+						"activeValue": 0
+					}
+				},
+				{
 					"textSize": {
 						"values": "noModifications,110%,130%",
 						"activeValue": 0
 					}
 				},
 				{
-					"textFont": {
-						"values": "noModifications,Accessible-DFA,B612 Mono",
-						"activeValue": 0
-					}
-				},
-				{
-					"readingGuide": {
-						"values": "noModifications,readingGuide,maskGuide",
-						"activeValue": 0
-					}
-				},
-				{
 					"spacingText": {
-						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig,spacingTextLabelHuge",
-						"activeValue": "0"
+						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+						"activeValue": 0
 					}
 				},
 				{
 					"cursorAspect": {
-						"values": "noModifications,big+black,huge+green",
-						"activeValue": "0"
+						"values": "noModifications,big+black,huge+black",
+						"activeValue": 0
 					}
 				},
 				{
 					"focusAspect": {
-						"values": "noModifications,big+white,big+blue,big+red,big+yellow,big+green,big+black,huge+white,huge+blue,huge+red,huge+yellow,huge+green,huge+black",
-						"activeValue": "0"
+						"values": "noModifications,big+black,huge+black",
+						"activeValue": 0
 					}
 				},
 				{
 					"colorContrast": {
-						"values": "noModifications,reinforcedContrasts,white+black,black+ivory,white+red,black+yellow,white+blue,yellow+blue,black+green,daltonism",
-						"activeValue": "0"
+						"values": "noModifications,reinforcedContrasts,white+black",
+						"activeValue": 0
 					}
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll,scrollOnClick,scrollOnMouseover",
-						"activeValue": "0"
+						"values": "noModifications,bigScroll,scrollOnMouseover",
+						"activeValue": 0
 					}
 				}
 			]

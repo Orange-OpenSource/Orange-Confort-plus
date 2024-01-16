@@ -15,10 +15,10 @@ homeLayout.innerHTML = `
             <span class="visually-hidden" data-i18n="openSettingsMode"></span>
 						<app-icon data-name="Settings"></app-icon>
         </button>
-        <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
+        <!-- <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
             <span class="visually-hidden" data-i18n="pause"></span>
 						<app-icon data-name="Pause"></app-icon>
-        </button>
+        </button> -->
     </div>
 </section>
 

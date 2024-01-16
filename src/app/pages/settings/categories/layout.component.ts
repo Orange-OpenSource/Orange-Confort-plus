@@ -8,10 +8,10 @@ tmplLayout.innerHTML = `
 	</div>
 	<div class="accordion-collapse collapse" id="category-layout">
 		<div class="accordion-body px-3">
-			<div class="c-category__settings-container d-flex flex-column gap-2 mb-3">
+			<div class="c-category__settings-container d-flex flex-column gap-2">
 				<app-margin-align class="c-layout__setting" data-can-edit="true"></app-margin-align>
 			</div>
-			<button class="c-category__btn-more btn btn-tertiary" type="button" data-i18n="moreSettings"></button>
+			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
 	</div>
 `;
