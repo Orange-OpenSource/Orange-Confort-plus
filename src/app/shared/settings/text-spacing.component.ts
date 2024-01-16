@@ -12,11 +12,6 @@ class TextSpacingComponent extends AbstractSetting {
 		"activeValue": 0
 	};
 
-	activesValues = {
-		"values": "default,small,big",
-		"activeValue": 0
-	};
-
 	constructor() {
 		super();
 
