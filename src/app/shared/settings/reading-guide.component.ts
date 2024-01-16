@@ -43,11 +43,6 @@ class ReadingGuideComponent extends AbstractSetting {
 		}
 	`;
 
-	activesValues = {
-		"values": "default,readingGuide",
-		"activeValue": 0
-	};
-
 	constructor() {
 		super();
 

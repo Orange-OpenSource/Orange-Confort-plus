@@ -12,11 +12,6 @@ class ColorContrastComponent extends AbstractSetting {
 		"activeValue": 0
 	};
 
-	activesValues = {
-		"values": "default,white+black,white+blue",
-		"activeValue": 0
-	};
-
 	constructor() {
 		super();
 
