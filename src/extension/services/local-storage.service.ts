@@ -17,7 +17,7 @@ class LocalStorageService {
 		return chrome.storage.local.get([`${this.prefix}${key}`]).then(datas => {
 			return new Promise<T>((resolve, reject) => {
 				// @ts-ignore
-				resolve(JSON.parse(datas));
+				resolve(datas[`${this.prefix}${key}`]);
 				reject(new Error('KO'));
 			});
 		});
