@@ -21,15 +21,9 @@ class BtnSettingComponent extends HTMLElement {
 	slot = '';
 	separator = ',';
 	settingsList: string[] = [];
-	i18nService: any;
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
-
 		this.appendChild(btnSettingLayout.content.cloneNode(true));
 	}
 
@@ -67,7 +61,7 @@ class BtnSettingComponent extends HTMLElement {
 		if ('data-label' === name) {
 			this.label = newValue;
 			const span = this.querySelector('span');
-			span.innerText = this.i18nService.getMessage(newValue);
+			span.innerText = i18nServiceInstance.getMessage(newValue);
 		}
 		if ('data-icon' === name) {
 			this.icon = this.querySelector('app-icon');

@@ -39,14 +39,6 @@ class HomeComponent extends HTMLElement {
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
-		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
-		// @ts-ignore
-		this.routeService = new RouteService();
-
 		this.appendChild(homeLayout.content.cloneNode(true));
 	}
 
@@ -62,7 +54,7 @@ class HomeComponent extends HTMLElement {
 				{
 					bubbles: true,
 					detail: {
-						route: this.routeService.PAGE_MODES
+						route: routeServiceInstance.PAGE_MODES
 					}
 				});
 			this.changeModeBtn?.dispatchEvent(clickEvent);
@@ -73,7 +65,7 @@ class HomeComponent extends HTMLElement {
 				{
 					bubbles: true,
 					detail: {
-						route: this.routeService.PAGE_SETTINGS
+						route: routeServiceInstance.PAGE_SETTINGS
 					}
 				});
 			this.settingsBtn?.dispatchEvent(clickEvent);
@@ -89,7 +81,7 @@ class HomeComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-mode' === name) {
-			this.modeName.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
+			this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
 			this.currentMode.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
 			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(newValue))[0][0]);
 		}

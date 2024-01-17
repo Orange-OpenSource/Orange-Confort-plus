@@ -5,9 +5,15 @@
  */
 "use strict";
 
+let filesServiceIsInstantiated;
+
 class FilesService {
     path="";
     constructor() {
+        if (filesServiceIsInstantiated) {
+            throw new Error("Le filesService est déjà instancié.");
+        }
+        filesServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
     }
     getModesOfUse() {
@@ -20,10 +26,16 @@ class FilesService {
 
 "use strict";
 
+let i18nServiceIsInstantiated;
+
 class I18nService {
     locale="en";
     path="";
     constructor() {
+        if (i18nServiceIsInstantiated) {
+            throw new Error("Le i18nService est déjà instancié.");
+        }
+        i18nServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
         if ([ "en", "fr" ].some((language => navigator.language.startsWith(language)))) {
             this.locale = navigator.language.slice(0, 2);
@@ -59,17 +71,30 @@ class I18nService {
 
 "use strict";
 
+let pathServiceIsInstantiated;
+
 class PathService {
     path="";
     constructor() {
+        if (pathServiceIsInstantiated) {
+            throw new Error("Le pathService est déjà instancié.");
+        }
+        pathServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
     }
 }
 
 "use strict";
 
+let iconsServiceIsInstantiated;
+
 class iconsService {
-    constructor() {}
+    constructor() {
+        if (iconsServiceIsInstantiated) {
+            throw new Error("Le iconsService est déjà instancié.");
+        }
+        iconsServiceIsInstantiated = true;
+    }
     get path() {
         return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
     }
@@ -80,9 +105,16 @@ class iconsService {
 
 "use strict";
 
+let localStorageServiceIsInstantiated;
+
 class LocalStorageService {
     prefix="cplus-";
-    constructor() {}
+    constructor() {
+        if (localStorageServiceIsInstantiated) {
+            throw new Error("Le localStorageService est déjà instancié.");
+        }
+        localStorageServiceIsInstantiated = true;
+    }
     setItem(key, value) {
         localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(value));
         let storeEvent = new CustomEvent(`storage-${key}`, {
@@ -103,6 +135,89 @@ class LocalStorageService {
 
 "use strict";
 
+let routeServiceIsInstantiated;
+
+class RouteService {
+    currentRoute;
+    PAGE_HOME="home";
+    PAGE_MODES="modes";
+    PAGE_SETTINGS="settings";
+    PAGE_EDIT_SETTING="edit-setting";
+    homeElement=null;
+    modeElement=null;
+    settingsElement=null;
+    editSettingElement=null;
+    routes=[ {
+        path: this.PAGE_HOME,
+        selector: "app-home",
+        element: this.homeElement
+    }, {
+        path: this.PAGE_MODES,
+        selector: "app-modes",
+        element: this.modeElement
+    }, {
+        path: this.PAGE_SETTINGS,
+        selector: "app-settings",
+        element: this.settingsElement
+    }, {
+        path: this.PAGE_EDIT_SETTING,
+        selector: "app-edit-setting",
+        element: this.editSettingElement
+    } ];
+    constructor() {
+        if (routeServiceIsInstantiated) {
+            throw new Error("Le routeur est déjà instancié.");
+        }
+        routeServiceIsInstantiated = true;
+    }
+    initPages(root) {
+        this.routes.forEach((route => {
+            route.element = root.querySelector(route.selector);
+        }));
+        this.navigate(this.PAGE_HOME);
+    }
+    navigate(newRoute) {
+        this.routes.forEach((route => {
+            if (route.path === this.currentRoute) {
+                route.element.classList.add("d-none");
+            } else if (route.path === newRoute) {
+                route.element.classList.remove("d-none");
+            }
+        }));
+        this.currentRoute = newRoute;
+    }
+}
+
+"use strict";
+
+const pathServiceInstance = new PathService;
+
+Object.freeze(pathServiceInstance);
+
+const i18nServiceInstance = new I18nService;
+
+Object.freeze(i18nServiceInstance);
+
+const iconsServiceInstance = new iconsService;
+
+Object.freeze(iconsServiceInstance);
+
+const filesServiceInstance = new FilesService;
+
+Object.freeze(filesServiceInstance);
+
+const localStorageServiceInstance = new LocalStorageService;
+
+Object.freeze(localStorageServiceInstance);
+
+const routeServiceInstance = new RouteService;
+
+Object.seal(routeServiceInstance);
+
+const appPath = pathServiceInstance.path;
+
+"use strict";
+
 const template = document.createElement("template");
 
 template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
@@ -112,30 +227,24 @@ class AppComponent extends HTMLElement {
     confortPlusBtn=null;
     confortPlusToolbar=null;
     i18nService;
-    pathService;
     iconsService;
-    path;
     link;
     constructor() {
         super();
-        this.pathService = new PathService;
-        this.path = this.pathService.path;
-        this.i18nService = new I18nService;
-        this.iconsService = new iconsService;
         this.attachShadow({
             mode: "open"
         });
         this?.shadowRoot?.appendChild(template.content.cloneNode(true));
         this.link = document.createElement("link");
         this.link.rel = "stylesheet";
-        this.link.href = `${this.path}css/styles.min.css`;
+        this.link.href = `${appPath}css/styles.min.css`;
         this.shadowRoot?.appendChild(this.link);
     }
     connectedCallback() {
         customElements.upgrade(this);
-        this.iconsService.loadSprite(this.shadowRoot);
+        iconsServiceInstance.loadSprite(this.shadowRoot);
         setTimeout((() => {
-            this.i18nService.translate(this.shadowRoot);
+            i18nServiceInstance.translate(this.shadowRoot);
         }));
         this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
         this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
@@ -169,15 +278,11 @@ class AbstractSetting extends HTMLElement {
     settingBtn=null;
     modalBtn=null;
     canEdit=false;
-    localStorageService;
-    i18nService;
     activesValues;
     separator=",";
     callback;
     constructor() {
         super();
-        this.i18nService = new I18nService;
-        this.localStorageService = new LocalStorageService;
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
     }
     connectedCallback(key) {
@@ -191,7 +296,7 @@ class AbstractSetting extends HTMLElement {
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             let newIndex = event.detail.index;
             let newValue = event.detail.value;
-            this.localStorageService.getItem("modeOfUse").then((result => {
+            localStorageServiceInstance.getItem("modeOfUse").then((result => {
                 let json = result;
                 json.modes.forEach((mode => {
                     if (Object.keys(mode)[0] === json.selectedMode) {
@@ -202,11 +307,11 @@ class AbstractSetting extends HTMLElement {
                             settingValues.activeValue = newIndex;
                         } else {
                             this.callback(newValue);
-                            this.modalBtn.setAttribute("data-value", this.i18nService.getMessage(newValue));
+                            this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
                         }
                     }
                 }));
-                this.localStorageService.setItem("modeOfUse", json);
+                localStorageServiceInstance.setItem("modeOfUse", json);
             }));
         }));
     }
@@ -225,7 +330,7 @@ class AbstractSetting extends HTMLElement {
     setSettingBtn=activesValues => {
         this.settingBtn.setAttribute("data-values", activesValues.values);
         this.settingBtn.setAttribute("data-active-value", activesValues.activeValue);
-        this.modalBtn.setAttribute("data-value", this.i18nService.getMessage(activesValues.values.split(",")[activesValues.activeValue]));
+        this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues.values.split(",")[activesValues.activeValue]));
     };
     setCallback=callback => {
         this.callback = callback;
@@ -387,8 +492,6 @@ const tmplFontFamily = document.createElement("template");
 tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
-    pathService;
-    path;
     activesValues={
         values: "noModifications,Accessible-DFA,Luciole",
         activeValue: 0
@@ -589,8 +692,6 @@ class FontFamilyComponent extends AbstractSetting {
     constructor() {
         super();
         this.setCallback(this.setFontFamily.bind(this));
-        this.pathService = new PathService;
-        this.path = this.pathService.path;
         this.appendChild(tmplFontFamily.content.cloneNode(true));
         let head = document.head || document.getElementsByTagName("head")[0];
         if (document.querySelectorAll("#cplus-styles-fonts").length === 0) {
@@ -600,7 +701,7 @@ class FontFamilyComponent extends AbstractSetting {
             const fontFaceList = [];
             this.fontDictionnary.forEach((font => {
                 for (const file of font.files) {
-                    fontFaceList.push(`\n\t\t\t\t\t\t@font-face {\n\t\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\t\tsrc: local("${font.name}"), url("${this.path}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\t\tfont-style: ${file.style}; font-weight: ${file.weight};\n\t\t\t\t\t\t\tfont-display: swap; }`);
+                    fontFaceList.push(`\n\t\t\t\t\t\t@font-face {\n\t\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\t\tfont-style: ${file.style}; font-weight: ${file.weight};\n\t\t\t\t\t\t\tfont-display: swap; }`);
                 }
             }));
             stylesFonts.innerHTML = fontFaceList.join("");
@@ -956,8 +1057,8 @@ class ScrollComponent extends AbstractSetting {
         const container = document.createElement("div");
         container.setAttribute("id", "cplus-container-scroll-buttons");
         let btnArray = [];
-        let btnUp = `<button id="cplus-scroll-up">${this.i18nService.getMessage("scrollUp")}</button>`;
-        let btnDown = `<button id="cplus-scroll-down">${this.i18nService.getMessage("scrollDown")}</button>`;
+        let btnUp = `<button id="cplus-scroll-up">${i18nServiceInstance.getMessage("scrollUp")}</button>`;
+        let btnDown = `<button id="cplus-scroll-down">${i18nServiceInstance.getMessage("scrollDown")}</button>`;
         btnArray.push(btnUp, btnDown);
         container.innerHTML = btnArray.join("");
         document.body.appendChild(container);
@@ -1146,10 +1247,8 @@ class BtnSettingComponent extends HTMLElement {
     slot="";
     separator=",";
     settingsList=[];
-    i18nService;
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.appendChild(btnSettingLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1180,7 +1279,7 @@ class BtnSettingComponent extends HTMLElement {
         if ("data-label" === name) {
             this.label = newValue;
             const span = this.querySelector("span");
-            span.innerText = this.i18nService.getMessage(newValue);
+            span.innerText = i18nServiceInstance.getMessage(newValue);
         }
         if ("data-icon" === name) {
             this.icon = this.querySelector("app-icon");
@@ -1232,13 +1331,9 @@ class HeaderComponent extends HTMLElement {
     titlePage=null;
     titlePageIcon=null;
     display="primary";
-    i18nService;
-    routeService;
     prevRoute="";
     constructor() {
         super();
-        this.i18nService = new I18nService;
-        this.routeService = new RouteService;
         this.appendChild(headerLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1275,7 +1370,7 @@ class HeaderComponent extends HTMLElement {
             this.displayMode(newValue);
         }
         if ("data-title-page" === name) {
-            this.titlePage.innerText = this.i18nService.getMessage(newValue);
+            this.titlePage.innerText = i18nServiceInstance.getMessage(newValue);
         }
         if ("data-prev-route" === name) {
             this.prevRoute = newValue;
@@ -1302,13 +1397,11 @@ iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="f
 class IconComponent extends HTMLElement {
     static observedAttributes=[ "data-name" ];
     sprite="";
-    iconService;
     icon="";
     size="1.25em";
     constructor() {
         super();
-        this.iconService = new iconsService;
-        this.sprite = this.iconService.path;
+        this.sprite = iconsServiceInstance.path;
         this.icon = this.dataset?.name || this.icon;
         this.size = this.dataset?.size || this.size;
         this.appendChild(iconLayout.content.cloneNode(true));
@@ -1344,10 +1437,8 @@ class SelectModeComponent extends HTMLElement {
     descriptionElement=null;
     label="";
     checked=false;
-    i18nService;
     constructor() {
         super();
-        this.i18nService = new I18nService;
         this.label = this.dataset?.label || this.label;
         this.checked = this.dataset?.checked === "true" || this.checked;
         this.appendChild(selectModeLayout.content.cloneNode(true));
@@ -1363,8 +1454,8 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement.checked = this.checked;
         this.labelElement?.setAttribute("for", this.normalizeString(this.label));
         this.iconElement?.setAttribute("data-name", this.label);
-        this.textElement.innerText = this.i18nService.getMessage(`${this.label}Name`);
-        this.descriptionElement.innerText = this.i18nService.getMessage(`${this.label}Description`);
+        this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
+        this.descriptionElement.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
     }
     normalizeString=string => string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
 }
@@ -1404,8 +1495,6 @@ class HomeComponent extends HTMLElement {
     settings=[];
     constructor() {
         super();
-        this.i18nService = new I18nService;
-        this.routeService = new RouteService;
         this.appendChild(homeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1418,7 +1507,7 @@ class HomeComponent extends HTMLElement {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
                 detail: {
-                    route: this.routeService.PAGE_MODES
+                    route: routeServiceInstance.PAGE_MODES
                 }
             });
             this.changeModeBtn?.dispatchEvent(clickEvent);
@@ -1427,7 +1516,7 @@ class HomeComponent extends HTMLElement {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
                 detail: {
-                    route: this.routeService.PAGE_SETTINGS
+                    route: routeServiceInstance.PAGE_SETTINGS
                 }
             });
             this.settingsBtn?.dispatchEvent(clickEvent);
@@ -1439,7 +1528,7 @@ class HomeComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
-            this.modeName.innerText = this.i18nService.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
+            this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
             this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
             this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
         }
@@ -1529,13 +1618,9 @@ modesLayout.innerHTML = `\n<section class="p-3">\n\t<fieldset class="d-grid gap-
 class ModesComponent extends HTMLElement {
     static observedAttributes=[ "data-list-mode" ];
     selectModeBtn=null;
-    routeService;
-    localStorageService;
     selectModeZone=null;
     constructor() {
         super();
-        this.routeService = new RouteService;
-        this.localStorageService = new LocalStorageService;
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1545,14 +1630,14 @@ class ModesComponent extends HTMLElement {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
                 detail: {
-                    route: this.routeService.PAGE_HOME,
+                    route: routeServiceInstance.PAGE_HOME,
                     isPrev: true
                 }
             });
-            this.localStorageService.getItem("modeOfUse").then((result => {
+            localStorageServiceInstance.getItem("modeOfUse").then((result => {
                 let json = result;
                 json.selectedMode = this.getSelectedMode();
-                this.localStorageService.setItem("modeOfUse", json);
+                localStorageServiceInstance.setItem("modeOfUse", json);
             }));
             this.selectModeBtn?.dispatchEvent(clickEvent);
         }));
@@ -1616,14 +1701,12 @@ class AbstractCategory extends HTMLElement {
     btnMoreSettings=null;
     settingsDictionnary=[];
     settingsElements=[];
-    i18nService;
     displayAllSettings=false;
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
     constructor(dictionnary) {
         super();
-        this.i18nService = new I18nService;
         this.settingsDictionnary = dictionnary;
     }
     connectedCallback() {
@@ -1687,9 +1770,9 @@ class AbstractCategory extends HTMLElement {
         this.settingsElements.forEach((element => {
             if (!element.hasAttribute("data-default-setting")) {
                 if (element.classList.contains("d-none")) {
-                    this.btnMoreSettings.innerText = this.i18nService.getMessage("lessSettings");
+                    this.btnMoreSettings.innerText = i18nServiceInstance.getMessage("lessSettings");
                 } else {
-                    this.btnMoreSettings.innerText = this.i18nService.getMessage("moreSettings");
+                    this.btnMoreSettings.innerText = i18nServiceInstance.getMessage("moreSettings");
                 }
                 element.classList.toggle("d-none");
             }
@@ -1851,17 +1934,11 @@ class ToolbarComponent extends HTMLElement {
     home=null;
     modes=null;
     settings=null;
-    routeService;
-    filesService;
-    localStorageService;
     historyRoute=[];
     json="";
     defaultJson="";
     constructor() {
         super();
-        this.routeService = new RouteService;
-        this.filesService = new FilesService;
-        this.localStorageService = new LocalStorageService;
         this.appendChild(tmplToolbar.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1869,36 +1946,36 @@ class ToolbarComponent extends HTMLElement {
         this.home = this.querySelector("app-home");
         this.modes = this.querySelector("app-modes");
         this.settings = this.querySelector("app-settings");
-        this.filesService.getModesOfUse().then((result => {
+        filesServiceInstance.getModesOfUse().then((result => {
             this.defaultJson = result;
-            this.localStorageService.getItem("modeOfUse").then((result => {
+            localStorageServiceInstance.getItem("modeOfUse").then((result => {
                 if (result && Object.keys(result).length !== 0) {
                     this.json = result;
                 } else {
-                    this.localStorageService.setItem("modeOfUse", this.defaultJson);
+                    localStorageServiceInstance.setItem("modeOfUse", this.defaultJson);
                     this.json = this.defaultJson;
                 }
                 this.setCurrentMode();
             }));
         }));
         window.addEventListener("storage-modeOfUse", (event => {
-            this.localStorageService.getItem("modeOfUse").then((result => {
+            localStorageServiceInstance.getItem("modeOfUse").then((result => {
                 this.json = result;
                 this.setCurrentMode();
             }));
         }));
-        this.routeService.initPages(this);
+        routeServiceInstance.initPages(this);
         this.addEventListener("changeRoute", (event => {
             if (event.detail.isPrev) {
                 this.historyRoute.pop();
             } else {
-                this.historyRoute.push(this.routeService.currentRoute);
+                this.historyRoute.push(routeServiceInstance.currentRoute);
             }
             if (event.detail.setting) {
                 this.json.selectedMode = event.detail.mode;
                 this.setCurrentMode();
             }
-            this.routeService.navigate(event.detail.route);
+            routeServiceInstance.navigate(event.detail.route);
             this.setHeaderDisplay(event.detail.route);
             this.header?.focus();
             this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
@@ -1906,28 +1983,28 @@ class ToolbarComponent extends HTMLElement {
     }
     setHeaderDisplay=page => {
         switch (page) {
-          case this.routeService.PAGE_HOME:
+          case routeServiceInstance.PAGE_HOME:
             {
                 this.header?.setAttribute("data-display", "primary");
                 this.header?.setAttribute("data-title-page", "");
                 break;
             }
 
-          case this.routeService.PAGE_MODES:
+          case routeServiceInstance.PAGE_MODES:
             {
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-title-page", "pageTitleModes");
                 break;
             }
 
-          case this.routeService.PAGE_SETTINGS:
+          case routeServiceInstance.PAGE_SETTINGS:
             {
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-title-page", "pageTitleSettings");
                 break;
             }
 
-          case this.routeService.PAGE_EDIT_SETTING:
+          case routeServiceInstance.PAGE_EDIT_SETTING:
             {
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
@@ -1946,7 +2023,7 @@ class ToolbarComponent extends HTMLElement {
                 }
             }));
         } else {
-            this.routeService.navigate(this.routeService.PAGE_MODES);
+            routeServiceInstance.navigate(routeServiceInstance.PAGE_MODES);
         }
         this.setCustomState();
     };
@@ -1969,53 +2046,6 @@ class ToolbarComponent extends HTMLElement {
 }
 
 customElements.define("app-toolbar", ToolbarComponent);
-
-"use strict";
-
-class RouteService {
-    currentRoute;
-    PAGE_HOME="home";
-    PAGE_MODES="modes";
-    PAGE_SETTINGS="settings";
-    PAGE_EDIT_SETTING="edit-setting";
-    homeElement=null;
-    modeElement=null;
-    settingsElement=null;
-    editSettingElement=null;
-    routes=[ {
-        path: this.PAGE_HOME,
-        selector: "app-home",
-        element: this.homeElement
-    }, {
-        path: this.PAGE_MODES,
-        selector: "app-modes",
-        element: this.modeElement
-    }, {
-        path: this.PAGE_SETTINGS,
-        selector: "app-settings",
-        element: this.settingsElement
-    }, {
-        path: this.PAGE_EDIT_SETTING,
-        selector: "app-edit-setting",
-        element: this.editSettingElement
-    } ];
-    initPages(root) {
-        this.routes.forEach((route => {
-            route.element = root.querySelector(route.selector);
-        }));
-        this.navigate(this.PAGE_HOME);
-    }
-    navigate(newRoute) {
-        this.routes.forEach((route => {
-            if (route.path === this.currentRoute) {
-                route.element.classList.add("d-none");
-            } else if (route.path === newRoute) {
-                route.element.classList.remove("d-none");
-            }
-        }));
-        this.currentRoute = newRoute;
-    }
-}
 
 "use strict";
 

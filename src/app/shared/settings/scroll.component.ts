@@ -118,8 +118,8 @@ class ScrollComponent extends AbstractSetting {
 		let btnArray: any[] = [];
 
 		// @todo tester documentFragment pour ce cas
-		let btnUp = `<button id="cplus-scroll-up">${this.i18nService.getMessage('scrollUp')}</button>`;
-		let btnDown = `<button id="cplus-scroll-down">${this.i18nService.getMessage('scrollDown')}</button>`;
+		let btnUp = `<button id="cplus-scroll-up">${i18nServiceInstance.getMessage('scrollUp')}</button>`;
+		let btnDown = `<button id="cplus-scroll-down">${i18nServiceInstance.getMessage('scrollDown')}</button>`;
 
 		btnArray.push(btnUp, btnDown);
 		container.innerHTML = btnArray.join('');
