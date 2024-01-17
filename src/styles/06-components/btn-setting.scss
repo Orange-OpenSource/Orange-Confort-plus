@@ -1,12 +1,12 @@
 app-btn-setting {
 	flex: 1;
-	max-width: 12rem;
+	max-width: 12em;
 	height: 100%;
 }
 
 .sc-btn-setting--with-btn-modal {
 	flex: inherit;
-	width: 10rem;
+	width: 10em;
 }
 
 .sc-btn-setting {
@@ -27,6 +27,6 @@ app-btn-setting {
 }
 
 .sc-btn-setting__btn-slot {
-	width: .25rem;
-	height: .25rem;
+	width: .25em;
+	height: .25em;
 }

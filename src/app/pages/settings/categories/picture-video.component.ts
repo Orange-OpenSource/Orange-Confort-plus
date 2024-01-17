@@ -2,7 +2,7 @@ const tmplPictureVideo: HTMLTemplateElement = document.createElement('template')
 tmplPictureVideo.innerHTML = `
 	<div class="accordion-header">
 		<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">
-			<app-icon data-name="Photo_Video" data-size="2rem"></app-icon>
+			<app-icon data-name="Photo_Video" data-size="2em"></app-icon>
 			<span data-i18n="medias"></span>
 		</button>
 	</div>

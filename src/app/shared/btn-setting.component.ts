@@ -4,7 +4,7 @@ btnSettingLayout.innerHTML = `
 	<button class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
 		<div class="d-flex flex-column">
 			<span></span>
-			<app-icon data-size="1.5rem"></app-icon>
+			<app-icon data-size="1.5em"></app-icon>
 		</div>
 		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
 	</button>
