@@ -34,6 +34,7 @@ abstract class AbstractSetting extends HTMLElement {
 
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			let newIndex = (event as CustomEvent).detail.index;
+			let newValue = (event as CustomEvent).detail.value;
 
 			// @todo - faire un service pour l'édition du JSON modeOfUse
 			this.localStorageService.getItem('modeOfUse').then((result: any) => {
@@ -42,8 +43,13 @@ abstract class AbstractSetting extends HTMLElement {
 					if (Object.keys(mode)[0] === json.selectedMode) {
 						let modeSettings: any[] = Object.entries(mode)[0][1] as [];
 						let setting = modeSettings.find(o => Object.keys(o)[0] === key);
-						let settingValues: any = Object.entries(setting)[0][1];
-						settingValues.activeValue = newIndex;
+						if (setting) {
+							let settingValues: any = Object.entries(setting)[0][1];
+							settingValues.activeValue = newIndex;
+						} else {
+							this.callback(newValue);
+							this.modalBtn.setAttribute('data-value', this.i18nService.getMessage(newValue));
+						}
 					}
 				});
 				this.localStorageService.setItem('modeOfUse', json);
