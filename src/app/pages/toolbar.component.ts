@@ -13,24 +13,12 @@ class ToolbarComponent extends HTMLElement {
 	home: HTMLElement | null = null;
 	modes: HTMLElement | null = null;
 	settings: HTMLElement | null = null;
-	routeService: any;
-	filesService: any;
-	localStorageService: any;
 	historyRoute: string[] = [];
 	json: any = '';
 	defaultJson: any = '';
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
-		// @ts-ignore
-		this.routeService = new RouteService();
-		// @ts-ignore
-		this.filesService = new FilesService();
-		// @ts-ignore
-		this.localStorageService = new LocalStorageService();
-
 		this.appendChild(tmplToolbar.content.cloneNode(true));
 	}
 
@@ -40,15 +28,15 @@ class ToolbarComponent extends HTMLElement {
 		this.modes = this.querySelector('app-modes');
 		this.settings = this.querySelector('app-settings');
 
-		this.filesService.getModesOfUse().then((result: any) => {
+		filesServiceInstance.getModesOfUse().then((result: any) => {
 			this.defaultJson = result;
 
 			// @todo Contrôler si le JSON du local correspond au JSON de la version de Confort+ via un numéro de version ?
-			this.localStorageService.getItem('modeOfUse').then((result: any) => {
+			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
 				if (result && Object.keys(result).length !== 0) {
 					this.json = result;
 				} else {
-					this.localStorageService.setItem('modeOfUse', this.defaultJson);
+					localStorageServiceInstance.setItem('modeOfUse', this.defaultJson);
 					this.json = this.defaultJson;
 				}
 				this.setCurrentMode();
@@ -56,20 +44,20 @@ class ToolbarComponent extends HTMLElement {
 		});
 
 		window.addEventListener('storage-modeOfUse', (event: any) => {
-			this.localStorageService.getItem('modeOfUse').then((result: any) => {
+			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
 				this.json = result;
 				this.setCurrentMode();
 			});
 		});
 
-		this.routeService.initPages(this);
+		routeServiceInstance.initPages(this);
 
 		this.addEventListener('changeRoute', (event) => {
 			/* Creating a tree structure to get the previous route */
 			if ((event as CustomEvent).detail.isPrev) {
 				this.historyRoute.pop();
 			} else {
-				this.historyRoute.push(this.routeService.currentRoute);
+				this.historyRoute.push(routeServiceInstance.currentRoute);
 			}
 
 			/* If editing setting */
@@ -78,7 +66,7 @@ class ToolbarComponent extends HTMLElement {
 				this.setCurrentMode();
 			}
 
-			this.routeService.navigate((event as CustomEvent).detail.route);
+			routeServiceInstance.navigate((event as CustomEvent).detail.route);
 			this.setHeaderDisplay((event as CustomEvent).detail.route);
 			this.header?.focus();
 			this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
@@ -87,22 +75,22 @@ class ToolbarComponent extends HTMLElement {
 
 	setHeaderDisplay = (page: string): void => {
 		switch (page) {
-			case this.routeService.PAGE_HOME: {
+			case routeServiceInstance.PAGE_HOME: {
 				this.header?.setAttribute('data-display', 'primary');
 				this.header?.setAttribute('data-title-page', '');
 				break;
 			}
-			case this.routeService.PAGE_MODES: {
+			case routeServiceInstance.PAGE_MODES: {
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleModes');
 				break;
 			}
-			case this.routeService.PAGE_SETTINGS: {
+			case routeServiceInstance.PAGE_SETTINGS: {
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleSettings');
 				break;
 			}
-			case this.routeService.PAGE_EDIT_SETTING: {
+			case routeServiceInstance.PAGE_EDIT_SETTING: {
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-title-page', 'pageTitleEditSetting');
 				break;
@@ -121,7 +109,7 @@ class ToolbarComponent extends HTMLElement {
 				}
 			});
 		} else {
-			this.routeService.navigate(this.routeService.PAGE_MODES);
+			routeServiceInstance.navigate(routeServiceInstance.PAGE_MODES);
 		}
 
 		this.setCustomState();

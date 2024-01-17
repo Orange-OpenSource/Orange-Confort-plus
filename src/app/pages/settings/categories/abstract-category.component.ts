@@ -6,7 +6,6 @@ abstract class AbstractCategory extends HTMLElement {
 	btnMoreSettings: HTMLElement = null;
 	settingsDictionnary: any[] = []
 	settingsElements: any[] = []
-	i18nService: any;
 	displayAllSettings = false;
 
 	private CLASS_NAME_SHOW = 'show';
@@ -15,10 +14,6 @@ abstract class AbstractCategory extends HTMLElement {
 
 	constructor(dictionnary: any[]) {
 		super();
-
-		// @ts-ignore
-		this.i18nService = new I18nService();
-
 		this.settingsDictionnary = dictionnary;
 	}
 
@@ -98,9 +93,9 @@ abstract class AbstractCategory extends HTMLElement {
 		this.settingsElements.forEach((element) => {
 			if (!element.hasAttribute('data-default-setting')) {
 				if (element.classList.contains('d-none')) {
-					this.btnMoreSettings.innerText = this.i18nService.getMessage('lessSettings');
+					this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('lessSettings');
 				} else {
-					this.btnMoreSettings.innerText = this.i18nService.getMessage('moreSettings');
+					this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('moreSettings');
 				}
 				element.classList.toggle('d-none');
 			}

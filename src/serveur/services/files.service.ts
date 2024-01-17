@@ -1,7 +1,14 @@
+let filesServiceIsInstantiated: boolean;
+
 class FilesService {
 	path: string = '';
 
 	constructor() {
+		if (filesServiceIsInstantiated) {
+			throw new Error('Le filesService est déjà instancié.');
+		}
+
+		filesServiceIsInstantiated = true;
 		this.path = `${window.location.origin}/`;
 	}
 

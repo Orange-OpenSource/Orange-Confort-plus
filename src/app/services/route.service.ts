@@ -1,3 +1,5 @@
+let routeServiceIsInstantiated: boolean;
+
 class RouteService {
 	currentRoute: string;
 
@@ -18,8 +20,16 @@ class RouteService {
 		{ path: this.PAGE_EDIT_SETTING, selector: 'app-edit-setting', element: this.editSettingElement },
 	];
 
+	constructor() {
+		if (routeServiceIsInstantiated) {
+			throw new Error('Le routeur est déjà instancié.');
+		}
+
+		routeServiceIsInstantiated = true;
+	}
+
 	/* Initialize components */
-	initPages(root: ShadowRoot): void {
+	initPages(root: HTMLElement): void {
 		this.routes.forEach((route: any) => {
 			route.element = root.querySelector(route.selector);
 		});

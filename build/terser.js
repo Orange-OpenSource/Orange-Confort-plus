@@ -19,6 +19,8 @@ const preamble = `/*
 const files = {
 	'toolbar': {
 		files: [
+			'dist/js/app/services/route.service.js',
+			'dist/js/app/core/services.core.js',
 			'dist/js/app/app.component.js',
 			'dist/js/app/shared/settings/abstract-setting.component.js',
 			'dist/js/app/shared/settings/color-contrast.component.js',
@@ -50,7 +52,6 @@ const files = {
 			'dist/js/app/pages/settings/categories/sound.component.js',
 			'dist/js/app/pages/settings/categories/text.component.js',
 			'dist/js/app/pages/toolbar.component.js',
-			'dist/js/app/services/route.service.js',
 			'dist/js/app/core/injector.core.js'
 		],
 		dist: 'dist/js/toolbar.js',

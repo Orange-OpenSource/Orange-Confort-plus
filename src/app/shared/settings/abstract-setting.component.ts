@@ -3,8 +3,6 @@ abstract class AbstractSetting extends HTMLElement {
 	settingBtn: HTMLElement | null = null;
 	modalBtn: HTMLElement | null = null;
 	canEdit = false;
-	localStorageService: any;
-	i18nService: any;
 	activesValues: any;
 	separator = ',';
 
@@ -12,13 +10,6 @@ abstract class AbstractSetting extends HTMLElement {
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
-		// @ts-ignore
-		this.localStorageService = new LocalStorageService();
-
 		this.canEdit = (this.dataset?.canEdit === 'true') || this.canEdit;
 	}
 
@@ -37,7 +28,7 @@ abstract class AbstractSetting extends HTMLElement {
 			let newValue = (event as CustomEvent).detail.value;
 
 			// @todo - faire un service pour l'édition du JSON modeOfUse
-			this.localStorageService.getItem('modeOfUse').then((result: any) => {
+			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
 				let json = result;
 				json.modes.forEach((mode: any) => {
 					if (Object.keys(mode)[0] === json.selectedMode) {
@@ -48,11 +39,11 @@ abstract class AbstractSetting extends HTMLElement {
 							settingValues.activeValue = newIndex;
 						} else {
 							this.callback(newValue);
-							this.modalBtn.setAttribute('data-value', this.i18nService.getMessage(newValue));
+							this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
 						}
 					}
 				});
-				this.localStorageService.setItem('modeOfUse', json);
+				localStorageServiceInstance.setItem('modeOfUse', json);
 			});
 		});
 	}
@@ -75,7 +66,7 @@ abstract class AbstractSetting extends HTMLElement {
 	setSettingBtn = (activesValues: any) => {
 		this.settingBtn.setAttribute('data-values', activesValues.values);
 		this.settingBtn.setAttribute('data-active-value', activesValues.activeValue);
-		this.modalBtn.setAttribute('data-value', this.i18nService.getMessage(activesValues.values.split(',')[activesValues.activeValue]));
+		this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(activesValues.values.split(',')[activesValues.activeValue]));
 	}
 
 	setCallback = (callback: (value: string) => void) => {

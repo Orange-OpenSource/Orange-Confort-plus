@@ -4,16 +4,13 @@ iconLayout.innerHTML = `<svg fill="currentColor" aria-hidden="true" focusable="f
 class IconComponent extends HTMLElement {
 	static observedAttributes = ['data-name'];
 	sprite = '';
-	iconService: any;
 	icon = '';
 	size = '1.25em';
 
 	constructor() {
 		super();
 
-		// @ts-ignore
-		this.iconService = new iconsService();
-		this.sprite = this.iconService.path;
+		this.sprite = iconsServiceInstance.path;
 
 		this.icon = this.dataset?.name || this.icon;
 		this.size = this.dataset?.size || this.size;

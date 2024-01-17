@@ -1,8 +1,16 @@
+let i18nServiceIsInstantiated: boolean;
+
 class I18nService {
 	locale: string = 'en';
 	path: string = '';
 
 	constructor() {
+		if (i18nServiceIsInstantiated) {
+			throw new Error('Le i18nService est déjà instancié.');
+		}
+
+		i18nServiceIsInstantiated = true;
+
 		this.path = `${window.location.origin}/`;
 
 		if (['en', 'fr'].some(language => navigator.language.startsWith(language))) {
