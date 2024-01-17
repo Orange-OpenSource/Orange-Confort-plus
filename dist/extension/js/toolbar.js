@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 4.3.0 - 16/01/2024
+ * orange-confort-plus - version 4.3.0 - 17/01/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -174,14 +174,20 @@ class AbstractSetting extends HTMLElement {
         this.setSettingBtn(this.activesValues);
         this.settingBtn.addEventListener("changeSettingEvent", (event => {
             let newIndex = event.detail.index;
+            let newValue = event.detail.value;
             this.localStorageService.getItem("modeOfUse").then((result => {
                 let json = result;
                 json.modes.forEach((mode => {
                     if (Object.keys(mode)[0] === json.selectedMode) {
                         let modeSettings = Object.entries(mode)[0][1];
                         let setting = modeSettings.find((o => Object.keys(o)[0] === key));
-                        let settingValues = Object.entries(setting)[0][1];
-                        settingValues.activeValue = newIndex;
+                        if (setting) {
+                            let settingValues = Object.entries(setting)[0][1];
+                            settingValues.activeValue = newIndex;
+                        } else {
+                            this.callback(newValue);
+                            this.modalBtn.setAttribute("data-value", this.i18nService.getMessage(newValue));
+                        }
                     }
                 }));
                 this.localStorageService.setItem("modeOfUse", json);
@@ -1368,7 +1374,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n        \x3c!-- <button type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon data-name="Pause"></app-icon>\n        </button> --\x3e\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5rem"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode", "data-custom" ];
@@ -1563,7 +1569,7 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t\x3c!-- <app-picture-video class="c-settings__category accordion-item"></app-picture-video> --\x3e\n\t\x3c!-- <app-sound class="c-settings__category accordion-item"></app-sound> --\x3e\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
+settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-mode" ];
@@ -1595,6 +1601,7 @@ class AbstractCategory extends HTMLElement {
     settingsDictionnary=[];
     settingsElements=[];
     i18nService;
+    displayAllSettings=false;
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
@@ -1638,10 +1645,12 @@ class AbstractCategory extends HTMLElement {
     };
     displaySettings=settings => {
         this.btnMoreSettings?.classList.add("d-none");
-        this.settingsElements.forEach((element => {
-            element.classList.add("d-none");
-            element.removeAttribute("data-default-setting");
-        }));
+        if (!this.displayAllSettings) {
+            this.settingsElements.forEach((element => {
+                element.removeAttribute("data-default-setting");
+                element.classList.add("d-none");
+            }));
+        }
         let nbActifSetting = 0;
         settings.forEach((setting => {
             let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
@@ -1658,6 +1667,7 @@ class AbstractCategory extends HTMLElement {
         }
     };
     displayOrHideOthersSettings=() => {
+        this.displayAllSettings = !this.displayAllSettings;
         this.settingsElements.forEach((element => {
             if (!element.hasAttribute("data-default-setting")) {
                 if (element.classList.contains("d-none")) {
