@@ -7,6 +7,7 @@ abstract class AbstractCategory extends HTMLElement {
 	settingsDictionnary: any[] = []
 	settingsElements: any[] = []
 	i18nService: any;
+	displayAllSettings = false;
 
 	private CLASS_NAME_SHOW = 'show';
 	private CLASS_NAME_COLLAPSED = 'collapsed';
@@ -67,11 +68,12 @@ abstract class AbstractCategory extends HTMLElement {
 
 	displaySettings = (settings: any[]): void => {
 		this.btnMoreSettings?.classList.add('d-none');
-		this.settingsElements.forEach((element) => {
-			element.classList.add('d-none');
-			element.removeAttribute('data-default-setting');
-		});
-
+		if (!this.displayAllSettings) {
+			this.settingsElements.forEach((element) => {
+				element.removeAttribute('data-default-setting');
+				element.classList.add('d-none');
+			});
+		}
 
 		let nbActifSetting = 0;
 		settings.forEach((setting: string) => {
@@ -92,6 +94,7 @@ abstract class AbstractCategory extends HTMLElement {
 	}
 
 	displayOrHideOthersSettings = (): void => {
+		this.displayAllSettings = !this.displayAllSettings;
 		this.settingsElements.forEach((element) => {
 			if (!element.hasAttribute('data-default-setting')) {
 				if (element.classList.contains('d-none')) {
