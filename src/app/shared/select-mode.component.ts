@@ -3,7 +3,7 @@ selectModeLayout.innerHTML = `
 	<input type="radio" name="modes" class="sc-select-mode__input">
 	<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">
 		<div class="d-flex align-items-center gap-2">
-			<app-icon data-size="2rem"></app-icon>
+			<app-icon data-size="2em"></app-icon>
 			<span class="fs-5 text"></span>
 		</div>
 		<span class="fs-6 fw-normal m-0"></span>

@@ -3,7 +3,7 @@ homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
     <div class="d-flex gap-2">
         <div class="sc-home__icon-mode bg-body rounded-circle">
-						<app-icon data-size="5rem"></app-icon>
+						<app-icon data-size="5em"></app-icon>
         </div>
         <div class="d-flex justify-content-center flex-column">
             <span class="text-white" data-i18n="profile"></span>

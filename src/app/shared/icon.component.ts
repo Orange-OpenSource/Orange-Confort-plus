@@ -6,7 +6,7 @@ class IconComponent extends HTMLElement {
 	sprite = '';
 	iconService: any;
 	icon = '';
-	size = '1.25rem';
+	size = '1.25em';
 
 	constructor() {
 		super();

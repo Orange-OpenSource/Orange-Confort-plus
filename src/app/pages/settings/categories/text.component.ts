@@ -2,7 +2,7 @@ const tmplText: HTMLTemplateElement = document.createElement('template');
 tmplText.innerHTML = `
 	<div class="accordion-header">
 		<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">
-			<app-icon data-name="Text" data-size="2rem"></app-icon>
+			<app-icon data-name="Text" data-size="2em"></app-icon>
 			<span data-i18n="text"></span>
 		</button>
 	</div>
