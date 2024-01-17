@@ -8,13 +8,13 @@ headerLayout.innerHTML = `
 			</button>
 
 			<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
-				<app-icon id="title-page-icon" data-size="1.5rem" data-name="Eye" class="border-end border-white pe-1"></app-icon>
-				<app-icon data-size="1.5rem" data-name="Settings"></app-icon>
+				<app-icon id="title-page-icon" data-size="1.5em" data-name="Eye" class="border-end border-white pe-1"></app-icon>
+				<app-icon data-size="1.5em" data-name="Settings"></app-icon>
 				<span id="title-page"></span>
 			</span>
 
 			<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">
-				<app-icon data-size="2rem" data-name="Accessibility"></app-icon>
+				<app-icon data-size="2em" data-name="Accessibility"></app-icon>
 				<span data-i18n="mainTitle"></span>
 				<span class="text-primary">+</span>
 			</span>
