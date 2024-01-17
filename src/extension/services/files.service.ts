@@ -1,4 +1,14 @@
+let filesServiceIsInstantiated: boolean;
+
 class FilesService {
+	constructor() {
+		if (filesServiceIsInstantiated) {
+			throw new Error('Le filesService est déjà instancié.');
+		}
+
+		filesServiceIsInstantiated = true;
+	}
+
 	getModesOfUse(): Promise<string> {
 		return fetch(chrome.runtime.getURL('assets/json/modes-of-use.json'))
 			.then(response => {

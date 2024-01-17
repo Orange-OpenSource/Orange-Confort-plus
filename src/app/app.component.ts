@@ -14,39 +14,28 @@ class AppComponent extends HTMLElement {
 	confortPlusBtn: HTMLElement | undefined = null;
 	confortPlusToolbar: HTMLElement | undefined = null;
 	i18nService: any;
-	pathService: any;
 	iconsService: any;
-	path: string | undefined;
 	link: HTMLLinkElement;
 
 	constructor() {
 		super();
-
-		// @ts-ignore
-		this.pathService = new PathService();
-		this.path = this.pathService.path;
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
-		// @ts-ignore
-		this.iconsService = new iconsService();
 
 		this.attachShadow({ mode: 'open' });
 		this?.shadowRoot?.appendChild(template.content.cloneNode(true));
 
 		this.link = document.createElement('link');
 		this.link.rel = 'stylesheet';
-		this.link.href = `${this.path}css/styles.min.css`;
+		this.link.href = `${appPath}css/styles.min.css`;
 		this.shadowRoot?.appendChild(this.link);
 	}
 
 	connectedCallback(): void {
 		customElements.upgrade(this);
 
-		this.iconsService.loadSprite(this.shadowRoot);
+		iconsServiceInstance.loadSprite(this.shadowRoot);
 		// @note Tick until everything loaded
 		setTimeout(() => {
-			this.i18nService.translate(this.shadowRoot);
+			i18nServiceInstance.translate(this.shadowRoot);
 		});
 
 		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');

@@ -7,9 +7,6 @@ tmplFontFamily.innerHTML = `
 `;
 
 class FontFamilyComponent extends AbstractSetting {
-	pathService: any;
-	path: string;
-
 	activesValues = {
 		"values": "noModifications,Accessible-DFA,Luciole",
 		"activeValue": 0
@@ -92,10 +89,6 @@ class FontFamilyComponent extends AbstractSetting {
 
 		this.setCallback(this.setFontFamily.bind(this));
 
-		// @ts-ignore
-		this.pathService = new PathService();
-		this.path = this.pathService.path;
-
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 
 		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
@@ -113,7 +106,7 @@ class FontFamilyComponent extends AbstractSetting {
 					fontFaceList.push(`
 						@font-face {
 							font-family:"${font.name}";
-							src: local("${font.name}"), url("${this.path}assets/fonts/${font.folder}/${file.name}");
+							src: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");
 							font-style: ${file.style}; font-weight: ${file.weight};
 							font-display: swap; }`
 					);

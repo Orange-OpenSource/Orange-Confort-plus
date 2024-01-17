@@ -35,20 +35,10 @@ class HeaderComponent extends HTMLElement {
 	titlePage: HTMLElement | null = null;
 	titlePageIcon: HTMLElement | null = null;
 	display = 'primary';
-	i18nService: any;
-	routeService: any;
 	prevRoute: string = '';
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
-		// @todo Utiliser singleton pour RouteService pour éviter plusieurs instances
-		// @ts-ignore
-		this.routeService = new RouteService();
-
 		this.appendChild(headerLayout.content.cloneNode(true));
 	}
 
@@ -92,7 +82,7 @@ class HeaderComponent extends HTMLElement {
 			this.displayMode(newValue);
 		}
 		if ('data-title-page' === name) {
-			this.titlePage!.innerText = this.i18nService.getMessage(newValue);
+			this.titlePage!.innerText = i18nServiceInstance.getMessage(newValue);
 		}
 		if ('data-prev-route' === name) {
 			this.prevRoute = newValue;

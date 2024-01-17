@@ -1,7 +1,14 @@
+let localStorageServiceIsInstantiated: boolean;
+
 class LocalStorageService {
 	prefix = 'cplus-';
 
 	constructor() {
+		if (localStorageServiceIsInstantiated) {
+			throw new Error('Le localStorageService est déjà instancié.');
+		}
+
+		localStorageServiceIsInstantiated = true;
 	}
 
 	setItem<T>(key: string, value: T): void {

@@ -1,7 +1,15 @@
+let i18nServiceIsInstantiated: boolean;
+
 class I18nService {
 	locale: string = 'en';
 
 	constructor() {
+		if (i18nServiceIsInstantiated) {
+			throw new Error('Le i18nService est déjà instancié.');
+		}
+
+		i18nServiceIsInstantiated = true;
+
 		this.locale = chrome.i18n.getUILanguage();
 	}
 

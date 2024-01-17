@@ -18,14 +18,9 @@ class SelectModeComponent extends HTMLElement {
 	descriptionElement: HTMLParagraphElement = null;
 	label = '';
 	checked = false;
-	i18nService: any;
 
 	constructor() {
 		super();
-
-		// @todo Utiliser singleton pour I18nService pour éviter plusieurs instances
-		// @ts-ignore
-		this.i18nService = new I18nService();
 
 		this.label = this.dataset?.label || this.label;
 		this.checked = (this.dataset?.checked === 'true') || this.checked;
@@ -45,8 +40,8 @@ class SelectModeComponent extends HTMLElement {
 		this.inputElement!.checked = this.checked;
 		this.labelElement?.setAttribute('for', this.normalizeString(this.label));
 		this.iconElement?.setAttribute('data-name', this.label);
-		this.textElement!.innerText = this.i18nService.getMessage(`${this.label}Name`);
-		this.descriptionElement!.innerText = this.i18nService.getMessage(`${this.label}Description`);
+		this.textElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
+		this.descriptionElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
 	}
 
 	normalizeString = (string: string): string => {
