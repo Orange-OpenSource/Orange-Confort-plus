@@ -87,6 +87,14 @@ class ScrollComponent extends AbstractSetting {
 				right: 1rem;
 				z-index: 2147483647;
 			}
+
+			#cplus-container-scroll-buttons button {
+				background: #f16e00;
+				color: #000;
+				border: none;
+				font-weight: bold;
+				padding: 1rem 2rem;
+			}
 		`;
 
 		if (document.querySelectorAll('#cplus-scroll').length === 0) {
@@ -110,8 +118,8 @@ class ScrollComponent extends AbstractSetting {
 		let btnArray: any[] = [];
 
 		// @todo tester documentFragment pour ce cas
-		let btnUp = `<button id="cplus-scroll-up" class="btn btn-primary">Monter</button>`;
-		let btnDown = `<button id="cplus-scroll-down" class="btn btn-primary">Descendre</button>`;
+		let btnUp = `<button id="cplus-scroll-up">${this.i18nService.getMessage('scrollUp')}</button>`;
+		let btnDown = `<button id="cplus-scroll-down">${this.i18nService.getMessage('scrollDown')}</button>`;
 
 		btnArray.push(btnUp, btnDown);
 		container.innerHTML = btnArray.join('');

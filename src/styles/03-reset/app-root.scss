@@ -1,4 +1,8 @@
-app-root {
+:host {
 	all: initial;
 	contain: strict;
+}
+
+* {
+	font-family: var(--cplus-body-font-family);
 }

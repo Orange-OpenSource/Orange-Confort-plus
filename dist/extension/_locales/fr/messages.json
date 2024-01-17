@@ -68,6 +68,12 @@
 	"lift": {
 		"message": "Ascenseur"
 	},
+	"scrollUp": {
+		"message": "Monter"
+	},
+	"scrollDown": {
+		"message": "Descendre"
+	},
 	"bigScroll": {
 		"message": "Gros ascenceur"
 	},

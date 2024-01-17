@@ -68,6 +68,12 @@
 	"lift": {
 		"message": "Lift"
 	},
+	"scrollUp": {
+		"message": "Up"
+	},
+	"scrollDown": {
+		"message": "Down"
+	},
 	"bigScroll": {
 		"message": "Big lift"
 	},
