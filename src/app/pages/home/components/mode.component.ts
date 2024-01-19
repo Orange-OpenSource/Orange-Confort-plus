@@ -1,41 +1,32 @@
 const tmplMode: HTMLTemplateElement = document.createElement('template');
 tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2">
-	<app-font-family class="sc-mode__setting"></app-font-family>
-	<app-increase-text-size class="sc-mode__setting"></app-increase-text-size>
-	<app-spacing-text class="sc-mode__setting"></app-spacing-text>
-	<app-reading-guide class="sc-mode__setting"></app-reading-guide>
-	<app-margin-align class="sc-mode__setting"></app-margin-align>
-	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
-	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
-	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
-	<app-scroll class="sc-mode__setting"></app-scroll>
-	<app-link-style class="sc-mode__setting"></app-link-style>
+	<app-font-family class="sc-mode__setting" data-name="textFont"></app-font-family>
+	<app-increase-text-size class="sc-mode__setting" data-name="textSize"></app-increase-text-size>
+	<app-spacing-text class="sc-mode__setting" data-name="spacingText"></app-spacing-text>
+	<app-reading-guide class="sc-mode__setting" data-name="readingGuide"></app-reading-guide>
+	<app-margin-align class="sc-mode__setting" data-name="marginAlign"></app-margin-align>
+	<app-focus-aspect class="sc-mode__setting" data-name="focusAspect"></app-focus-aspect>
+	<app-color-contrast class="sc-mode__setting" data-name="colorContrast"></app-color-contrast>
+	<app-cursor-aspect class="sc-mode__setting" data-name="cursorAspect"></app-cursor-aspect>
+	<app-scroll class="sc-mode__setting" data-name="scroll"></app-scroll>
+	<app-link-style class="sc-mode__setting" data-name="linkStyle"></app-link-style>
 </div>
 `;
 
 class ModeComponent extends HTMLElement {
 	static observedAttributes = ['data-settings'];
 	modeContent: HTMLElement | null = null;
-
-	// @todo - le dictionnaire pourrait être généré dans le constructor d’après le contenu du template
-	settingsDictionnary: any[] = [
-		{ name: 'textSize', element: 'app-increase-text-size' },
-		{ name: 'textFont', element: 'app-font-family' },
-		{ name: 'spacingText', element: 'app-spacing-text' },
-		{ name: 'readingGuide', element: 'app-reading-guide' },
-		{ name: 'marginAlign', element: 'app-margin-align' },
-		{ name: 'focusAspect', element: 'app-focus-aspect' },
-		{ name: 'colorContrast', element: 'app-color-contrast' },
-		{ name: 'cursorAspect', element: 'app-cursor-aspect' },
-		{ name: 'scroll', element: 'app-scroll' },
-		{ name: 'linkStyle', element: 'app-link-style' },
-	];
+	settingsDictionnary: any[] = [];
 
 	constructor() {
 		super();
 
 		this.appendChild(tmplMode.content.cloneNode(true));
+
+		this.querySelectorAll(".sc-mode__setting").forEach((element: Element) => {
+			this.settingsDictionnary.push({ name: element.getAttribute('data-name'), element: element.tagName });
+		});
 	}
 
 	connectedCallback(): void {

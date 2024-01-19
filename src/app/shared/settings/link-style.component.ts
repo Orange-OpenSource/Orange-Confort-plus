@@ -21,7 +21,7 @@ class LinkStyleComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('linkStyle');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {

@@ -21,7 +21,7 @@ class MarginAlignComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('marginAlign');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {

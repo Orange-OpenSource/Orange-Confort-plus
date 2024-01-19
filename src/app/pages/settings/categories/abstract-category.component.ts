@@ -12,9 +12,8 @@ abstract class AbstractCategory extends HTMLElement {
 	private CLASS_NAME_COLLAPSED = 'collapsed';
 	private _triggerArray: any[] = [];
 
-	constructor(dictionnary: any[]) {
+	constructor() {
 		super();
-		this.settingsDictionnary = dictionnary;
 	}
 
 	connectedCallback(): void {
@@ -22,6 +21,11 @@ abstract class AbstractCategory extends HTMLElement {
 		this.accordionContainer = this.querySelector('div.accordion-collapse');
 		this.settingsContainer = this.querySelector('.c-category__settings-container');
 		this.btnMoreSettings = this.querySelector('.c-category__btn-more');
+
+		this.querySelectorAll(".c-category__setting").forEach((element: Element) => {
+			this.settingsDictionnary.push({ name: element.getAttribute('data-name'), element: element.tagName });
+			this.settingsElements.push(this.querySelector(element.tagName));
+		});
 
 		this._triggerArray.push(this.btnAccordion);
 		this.btnAccordion?.addEventListener('click', () => {

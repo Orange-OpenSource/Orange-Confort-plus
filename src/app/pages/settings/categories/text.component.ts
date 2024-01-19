@@ -9,11 +9,11 @@ tmplText.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-text">
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container d-flex flex-column gap-2">
-				<app-font-family class="c-text__setting" data-can-edit="true"></app-font-family>
-				<app-increase-text-size class="c-text__setting" data-can-edit="true"></app-increase-text-size>
-				<app-color-contrast class="c-text__setting" data-can-edit="true"></app-color-contrast>
-				<app-reading-guide class="c-text__setting" data-can-edit="true"></app-reading-guide>
-				<app-spacing-text class="c-text__setting" data-can-edit="true"></app-spacing-text>
+				<app-font-family class="c-category__setting" data-name="textFont" data-can-edit="true"></app-font-family>
+				<app-increase-text-size class="c-category__setting" data-name="textSize" data-can-edit="true"></app-increase-text-size>
+				<app-color-contrast class="c-category__setting" data-name="colorContrast" data-can-edit="true"></app-color-contrast>
+				<app-reading-guide class="c-category__setting" data-name="readingGuide" data-can-edit="true"></app-reading-guide>
+				<app-spacing-text class="c-category__setting" data-name="spacingText" data-can-edit="true"></app-spacing-text>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
@@ -21,24 +21,13 @@ tmplText.innerHTML = `
 `;
 
 class TextComponent extends AbstractCategory {
-	settingsElements: any[] = []
-
 	constructor() {
-		const settingsDictionnary: any[] = [
-			{ name: 'textSize', element: 'app-increase-text-size' },
-			{ name: 'textFont', element: 'app-font-family' },
-			{ name: 'colorContrast', element: 'app-color-contrast' },
-			{ name: 'readingGuide', element: 'app-reading-guide' },
-			{ name: 'spacingText', element: 'app-spacing-text' },
-		];
-
-		super(settingsDictionnary);
+		super();
 
 		this.appendChild(tmplText.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
-		this.settingsElements = [...this.querySelectorAll('.c-text__setting')];
 		super.connectedCallback();
 	}
 }

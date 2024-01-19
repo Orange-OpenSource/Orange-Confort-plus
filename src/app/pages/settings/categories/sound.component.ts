@@ -13,12 +13,8 @@ tmplSound.innerHTML = `
 `;
 
 class SoundComponent extends AbstractCategory {
-
 	constructor() {
-		let settingsDictionnary: any[] = [
-		];
-
-		super(settingsDictionnary);
+		super();
 
 		this.appendChild(tmplSound.content.cloneNode(true));
 	}

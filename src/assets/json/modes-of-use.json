@@ -5,7 +5,7 @@
 			"visionPlus": [
 				{
 					"textFont": {
-						"values": "noModifications,Accessible-DFA,Luciole",
+						"values": "noModifications,Accessible-DfA,Luciole",
 						"activeValue": 0
 					}
 				},
@@ -69,7 +69,7 @@
 			"facilePlus": [
 				{
 					"textFont": {
-						"values": "noModifications,Accessible-DFA,Verdana",
+						"values": "noModifications,Accessible-DfA,Verdana",
 						"activeValue": 0
 					}
 				},

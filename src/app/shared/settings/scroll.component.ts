@@ -26,7 +26,7 @@ class ScrollComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('scroll');
+		super.connectedCallback();
 		this.setScrollClass();
 	}
 

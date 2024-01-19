@@ -37,12 +37,7 @@ class ModesComponent extends HTMLElement {
 					}
 				});
 
-			// @todo - faire un service pour l'édition du JSON modeOfUse
-			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
-				let json = result;
-				json.selectedMode = this.getSelectedMode();
-				localStorageServiceInstance.setItem('modeOfUse', json);
-			});
+			modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
 			this.selectModeBtn?.dispatchEvent(clickEvent);
 		});
 	}

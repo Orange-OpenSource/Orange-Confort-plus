@@ -8,16 +8,16 @@ tmplFontFamily.innerHTML = `
 
 class FontFamilyComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,Accessible-DFA,Luciole",
+		"values": "noModifications,Accessible-DfA,Luciole",
 		"activeValue": 0
 	};
 
 	fontDictionnary: any[] = [
 		{
-			name: 'Accessible-DFA', folder: 'accessibleDFA', files: [
-				{ name: 'AccessibleDFA-Bold.woff2', style: 'normal', weight: '700' },
-				{ name: 'AccessibleDFA-Italic.woff2', style: 'italic', weight: '400' },
-				{ name: 'AccessibleDFA-Regular.woff2', style: 'normal', weight: '400' }
+			name: 'Accessible-DfA', folder: 'accessibleDfA', files: [
+				{ name: 'AccessibleDfA-Bold.woff2', style: 'normal', weight: '700' },
+				{ name: 'AccessibleDfA-Italic.woff2', style: 'italic', weight: '400' },
+				{ name: 'AccessibleDfA-Regular.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
@@ -117,7 +117,7 @@ class FontFamilyComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('textFont');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {
