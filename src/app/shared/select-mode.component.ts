@@ -35,22 +35,13 @@ class SelectModeComponent extends HTMLElement {
 		this.textElement = this.querySelector('div span');
 		this.descriptionElement = this.querySelector('label > span');
 
-		this.inputElement!.id = this.normalizeString(this.label);
+		this.inputElement!.id = stringServiceInstance.normalizeID(this.label);
 		this.inputElement!.value = this.label;
 		this.inputElement!.checked = this.checked;
-		this.labelElement?.setAttribute('for', this.normalizeString(this.label));
+		this.labelElement?.setAttribute('for', stringServiceInstance.normalizeID(this.label));
 		this.iconElement?.setAttribute('data-name', this.label);
 		this.textElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
 		this.descriptionElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
-	}
-
-	normalizeString = (string: string): string => {
-		return string
-			?.toLowerCase()
-			.normalize("NFD")
-			.replace(/[\u0300-\u036f\s]/g, "")
-			.split("-")
-			.join("");
 	}
 }
 

@@ -9,7 +9,7 @@ tmplPointer.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-pointer">
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container d-flex flex-column gap-2">
-				<app-cursor-aspect class="c-category__setting" data-name="cursorAspect" data-can-edit="true"></app-cursor-aspect>
+				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
@@ -21,10 +21,6 @@ class PointerComponent extends AbstractCategory {
 		super();
 
 		this.appendChild(tmplPointer.content.cloneNode(true));
-	}
-
-	connectedCallback(): void {
-		super.connectedCallback();
 	}
 }
 

@@ -22,10 +22,6 @@ class LayoutComponent extends AbstractCategory {
 
 		this.appendChild(tmplLayout.content.cloneNode(true));
 	}
-
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
 }
 
 customElements.define('app-layout', LayoutComponent);

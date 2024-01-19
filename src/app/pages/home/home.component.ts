@@ -35,7 +35,6 @@ class HomeComponent extends HTMLElement {
 	currentMode: HTMLElement | null = null;
 	i18nService: any;
 	routeService: any;
-	settings: any[] = [];
 
 	constructor() {
 		super();

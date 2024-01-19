@@ -3,7 +3,7 @@ abstract class AbstractSetting extends HTMLElement {
 	settingBtn: HTMLElement | null = null;
 	modalBtn: HTMLElement | null = null;
 	canEdit = false;
-	activesValues: any;
+	activesValues: SettingModel;
 	separator = ',';
 	name = '';
 
@@ -13,6 +13,7 @@ abstract class AbstractSetting extends HTMLElement {
 		super();
 		this.name = this.dataset?.name || this.name;
 		this.canEdit = (this.dataset?.canEdit === 'true') || this.canEdit;
+		this.name = stringServiceInstance.normalizeSettingName(this.tagName);
 	}
 
 	connectedCallback(): void {
@@ -54,9 +55,9 @@ abstract class AbstractSetting extends HTMLElement {
 		}
 	}
 
-	setSettingBtn = (activesValues: any) => {
+	setSettingBtn = (activesValues: SettingModel) => {
 		this.settingBtn.setAttribute('data-values', activesValues.values);
-		this.settingBtn.setAttribute('data-active-value', activesValues.activeValue);
+		this.settingBtn.setAttribute('data-active-value', activesValues.activeValue.toString());
 		this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(activesValues.values.split(',')[activesValues.activeValue]));
 	}
 

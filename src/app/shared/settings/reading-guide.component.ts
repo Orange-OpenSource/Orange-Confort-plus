@@ -76,22 +76,14 @@ class ReadingGuideComponent extends AbstractSetting {
 	}
 
 	setGuide = (): void => {
-		let classGuide = '';
+		let styleGuide = '';
 		if (this.guideType === 'reading') {
-			classGuide = this.classReadingGuide;
+			styleGuide = this.classReadingGuide;
 		} else if (this.guideType === 'mask') {
-			classGuide = this.classMaskGuide;
+			styleGuide = this.classMaskGuide;
 		}
 
-		if (document.querySelectorAll('#cplus-reading-guide').length === 0) {
-			// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
-			let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-			// @todo - tester si on peut utiliser les adoptedStylesheet
-			let stylesReadingGuide: HTMLStyleElement = document.createElement('style');
-			stylesReadingGuide.setAttribute('id', 'cplus-reading-guide');
-			stylesReadingGuide.innerHTML = classGuide;
-			head.appendChild(stylesReadingGuide);
-		}
+		stylesServiceInstance.setStyle(this.name, styleGuide);
 
 		if (this.guideType === 'reading') {
 			const readingElt = document.createElement('div');
@@ -119,7 +111,7 @@ class ReadingGuideComponent extends AbstractSetting {
 
 	resetGuide = (): void => {
 		this.guideType = '';
-		document.querySelector('#cplus-reading-guide')?.remove();
+		stylesServiceInstance.removeStyle(this.name);
 		document.querySelector('#cplus-vertical-guide-elt')?.remove();
 		document.querySelector('#cplus-mask-guide--top-elt')?.remove();
 		document.querySelector('#cplus-mask-guide--bottom-elt')?.remove();

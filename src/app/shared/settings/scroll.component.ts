@@ -27,11 +27,11 @@ class ScrollComponent extends AbstractSetting {
 
 	disconnectedCallback(): void {
 		super.disconnectedCallback();
-		this.settingBtn?.removeEventListener('changeSettingEvent', () => { });
 		this.btnScrollUp?.removeEventListener('click', () => { });
 		this.btnScrollUp?.removeEventListener('mouseover', () => { });
 		this.btnScrollDown?.removeEventListener('click', () => { });
 		this.btnScrollDown?.removeEventListener('mouseover', () => { });
+		stylesServiceInstance.removeStyle(this.name);
 	}
 
 	setScroll = (value: string): void => {
@@ -60,7 +60,7 @@ class ScrollComponent extends AbstractSetting {
 	}
 
 	setScrollClass = (): void => {
-		let classScroll = `
+		let styleScroll = `
 			.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {
 					width: 2rem;
 			}
@@ -92,15 +92,7 @@ class ScrollComponent extends AbstractSetting {
 			}
 		`;
 
-		if (document.querySelectorAll('#cplus-scroll').length === 0) {
-			// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
-			let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-			// @todo - tester si on peut utiliser les adoptedStylesheet
-			let stylesScroll: HTMLStyleElement = document.createElement('style');
-			stylesScroll.setAttribute('id', 'cplus-scroll');
-			stylesScroll.innerHTML = classScroll;
-			head.appendChild(stylesScroll);
-		}
+		stylesServiceInstance.setStyle(this.name, styleScroll);
 	}
 
 	setBigScroll = (): void => {
