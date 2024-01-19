@@ -21,7 +21,7 @@ class FocusAspectComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('focusAspect');
+		super.connectedCallback();
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setFocus((event as CustomEvent).detail.value);
 		});

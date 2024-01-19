@@ -5,15 +5,17 @@ abstract class AbstractSetting extends HTMLElement {
 	canEdit = false;
 	activesValues: any;
 	separator = ',';
+	name = '';
 
 	private callback: (value: string) => void;
 
 	constructor() {
 		super();
+		this.name = this.dataset?.name || this.name;
 		this.canEdit = (this.dataset?.canEdit === 'true') || this.canEdit;
 	}
 
-	connectedCallback(key: string): void {
+	connectedCallback(): void {
 		this.settingBtn = this.querySelector('app-btn-setting');
 		this.modalBtn = this.querySelector('app-btn-modal');
 		if (this.canEdit) {
@@ -27,23 +29,11 @@ abstract class AbstractSetting extends HTMLElement {
 			let newIndex = (event as CustomEvent).detail.index;
 			let newValue = (event as CustomEvent).detail.value;
 
-			// @todo - faire un service pour l'édition du JSON modeOfUse
-			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
-				let json = result;
-				json.modes.forEach((mode: any) => {
-					if (Object.keys(mode)[0] === json.selectedMode) {
-						let modeSettings: any[] = Object.entries(mode)[0][1] as [];
-						let setting = modeSettings.find(o => Object.keys(o)[0] === key);
-						if (setting) {
-							let settingValues: any = Object.entries(setting)[0][1];
-							settingValues.activeValue = newIndex;
-						} else {
-							this.callback(newValue);
-							this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
-						}
-					}
-				});
-				localStorageServiceInstance.setItem('modeOfUse', json);
+			modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success: boolean) => {
+				if (!success) {
+					this.callback(newValue);
+					this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
+				}
 			});
 		});
 	}

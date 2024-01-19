@@ -13,12 +13,8 @@ tmplPictureVideo.innerHTML = `
 `;
 
 class PictureVideoComponent extends AbstractCategory {
-
 	constructor() {
-		let settingsDictionnary: any[] = [
-		];
-
-		super(settingsDictionnary);
+		super();
 
 		this.appendChild(tmplPictureVideo.content.cloneNode(true));
 	}

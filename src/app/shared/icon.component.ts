@@ -5,7 +5,7 @@ class IconComponent extends HTMLElement {
 	static observedAttributes = ['data-name'];
 	sprite = '';
 	icon = '';
-	size = '1.25em';
+	size = '1.5em';
 
 	constructor() {
 		super();

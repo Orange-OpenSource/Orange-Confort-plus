@@ -141,13 +141,13 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Description of Vision+ mode"
+		"message": "Vision+ mode helps you to improve the legibility of the information displayed. It allows you to change the font size, the font itself, the contrasts, the colours, etc."
 	},
 	"facilePlusName": {
 		"message": "Facile+"
 	},
 	"facilePlusDescription": {
-		"message": "Description of Facile+ mode"
+		"message": "The Facile+ mode simplifies the digital world for you. It simplifies the overall presentation of the digital world."
 	},
 	"noModifications": {
 		"message": "No changes"
@@ -233,8 +233,8 @@
 	"huge+vert": {
 		"message": "Very big and green"
 	},
-	"Accessible-DFA": {
-		"message": "Accessible-DFA"
+	"Accessible-DfA": {
+		"message": "Accessible-DfA"
 	},
 	"B612 Mono": {
 		"message": "B612 Mono"

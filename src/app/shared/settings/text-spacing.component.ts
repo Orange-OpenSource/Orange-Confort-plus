@@ -21,7 +21,7 @@ class TextSpacingComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('spacingText');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {

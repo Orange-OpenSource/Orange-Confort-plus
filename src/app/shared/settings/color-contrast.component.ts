@@ -21,7 +21,7 @@ class ColorContrastComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('colorContrast');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {
