@@ -14,8 +14,8 @@ class ToolbarComponent extends HTMLElement {
 	modes: HTMLElement | null = null;
 	settings: HTMLElement | null = null;
 	historyRoute: string[] = [];
-	json: any = '';
-	defaultJson: any = '';
+	json: ModeOfUseModel;
+	defaultJson: ModeOfUseModel;
 
 	constructor() {
 		super();
@@ -32,19 +32,19 @@ class ToolbarComponent extends HTMLElement {
 			this.defaultJson = result;
 
 			// @todo Contrôler si le JSON du local correspond au JSON de la version de Confort+ via un numéro de version ?
-			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
+			localStorageServiceInstance.getItem(jsonName).then((result: any) => {
 				if (result && Object.keys(result).length !== 0) {
 					this.json = result;
 				} else {
-					localStorageServiceInstance.setItem('modeOfUse', this.defaultJson);
 					this.json = this.defaultJson;
+					localStorageServiceInstance.setItem(jsonName, this.defaultJson);
 				}
 				this.setCurrentMode();
 			});
 		});
 
-		window.addEventListener('storage-modeOfUse', (event: any) => {
-			localStorageServiceInstance.getItem('modeOfUse').then((result: any) => {
+		window.addEventListener(`storage-${jsonName}`, (event: any) => {
+			localStorageServiceInstance.getItem(jsonName).then((result: any) => {
 				this.json = result;
 				this.setCurrentMode();
 			});

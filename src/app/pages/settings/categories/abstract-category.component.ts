@@ -4,8 +4,8 @@ abstract class AbstractCategory extends HTMLElement {
 	accordionContainer: HTMLElement = null;
 	settingsContainer: HTMLElement = null;
 	btnMoreSettings: HTMLElement = null;
-	settingsDictionnary: any[] = []
-	settingsElements: any[] = []
+	settingsDictionnary: SettingsDictionnary[] = [];
+	settingsElements: any[] = [];
 	displayAllSettings = false;
 
 	private CLASS_NAME_SHOW = 'show';
@@ -23,7 +23,7 @@ abstract class AbstractCategory extends HTMLElement {
 		this.btnMoreSettings = this.querySelector('.c-category__btn-more');
 
 		this.querySelectorAll(".c-category__setting").forEach((element: Element) => {
-			this.settingsDictionnary.push({ name: element.getAttribute('data-name'), element: element.tagName });
+			this.settingsDictionnary.push({ name: stringServiceInstance.normalizeSettingName(element.tagName), element: element.tagName });
 			this.settingsElements.push(this.querySelector(element.tagName));
 		});
 
@@ -76,7 +76,7 @@ abstract class AbstractCategory extends HTMLElement {
 
 		let nbActifSetting = 0;
 		settings.forEach((setting: string) => {
-			let settingObj = this.settingsDictionnary.find(o => o.name === Object.keys(setting)[0]);
+			let settingObj = this.settingsDictionnary.find(o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
 			settingElement?.setAttribute('data-default-setting', 'true');

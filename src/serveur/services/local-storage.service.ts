@@ -1,8 +1,6 @@
 let localStorageServiceIsInstantiated: boolean;
 
 class LocalStorageService {
-	prefix = 'cplus-';
-
 	constructor() {
 		if (localStorageServiceIsInstantiated) {
 			throw new Error('Le localStorageService est déjà instancié.');
@@ -12,7 +10,8 @@ class LocalStorageService {
 	}
 
 	setItem<T>(key: string, value: T): void {
-		localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(value));
+		//@ts-ignore
+		localStorage.setItem(`${prefix}${key}`, JSON.stringify(value));
 		let storeEvent = new CustomEvent(`storage-${key}`,
 			{
 				bubbles: true
@@ -23,12 +22,13 @@ class LocalStorageService {
 	getItem<T>(key: string): Promise<T> {
 		return new Promise<T>((resolve, reject) => {
 			// @ts-ignore
-			resolve(JSON.parse(localStorage.getItem(`${this.prefix}${key}`)));
+			resolve(JSON.parse(localStorage.getItem(`${prefix}${key}`)));
 			reject(new Error('KO'));
 		});
 	}
 
 	removeItem(key: string): void {
-		localStorage.removeItem(`${this.prefix}${key}`);
+		//@ts-ignore
+		localStorage.removeItem(`${prefix}${key}`);
 	}
 }

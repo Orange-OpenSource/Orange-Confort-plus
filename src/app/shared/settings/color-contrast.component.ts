@@ -22,7 +22,7 @@ class ColorContrastComponent extends AbstractSetting {
 
 	setColorsContrasts = (value: string): void => {
 		if (value === 'noModifications') {
-			document.querySelector('#cplus-styles-contrast')?.remove();
+			stylesServiceInstance.removeStyle(this.name);
 		} else {
 			let color = '';
 			let backgroundColor = '';
@@ -39,7 +39,7 @@ class ColorContrastComponent extends AbstractSetting {
 				backgroundColor = value.split('+')[1];
 			}
 
-			let classContrast = `
+			let styleColorContrast = `
 							* {
 								color: ${color} !important;
 								background-color: ${backgroundColor} !important;
@@ -73,17 +73,7 @@ class ColorContrastComponent extends AbstractSetting {
 							}
 						`;
 
-			if (document.querySelectorAll('#cplus-styles-contrast').length === 0) {
-				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
-				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-				// @todo - tester si on peut utiliser les adoptedStylesheet
-				let stylesContrast: HTMLStyleElement = document.createElement('style');
-				stylesContrast.setAttribute('id', 'cplus-styles-contrast');
-				stylesContrast.innerHTML = classContrast;
-				head.appendChild(stylesContrast);
-			} else {
-				document.querySelector('#cplus-styles-contrast').innerHTML = classContrast;
-			}
+			stylesServiceInstance.setStyle(this.name, styleColorContrast);
 		}
 	}
 }

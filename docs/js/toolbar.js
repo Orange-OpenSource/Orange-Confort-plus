@@ -5,6 +5,12 @@
  */
 "use strict";
 
+const prefix = "cplus-";
+
+const jsonName = "modeOfUse";
+
+"use strict";
+
 let filesServiceIsInstantiated;
 
 class FilesService {
@@ -71,21 +77,6 @@ class I18nService {
 
 "use strict";
 
-let pathServiceIsInstantiated;
-
-class PathService {
-    path="";
-    constructor() {
-        if (pathServiceIsInstantiated) {
-            throw new Error("Le pathService est déjà instancié.");
-        }
-        pathServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
-    }
-}
-
-"use strict";
-
 let iconsServiceIsInstantiated;
 
 class iconsService {
@@ -108,7 +99,6 @@ class iconsService {
 let localStorageServiceIsInstantiated;
 
 class LocalStorageService {
-    prefix="cplus-";
     constructor() {
         if (localStorageServiceIsInstantiated) {
             throw new Error("Le localStorageService est déjà instancié.");
@@ -116,7 +106,7 @@ class LocalStorageService {
         localStorageServiceIsInstantiated = true;
     }
     setItem(key, value) {
-        localStorage.setItem(`${this.prefix}${key}`, JSON.stringify(value));
+        localStorage.setItem(`${prefix}${key}`, JSON.stringify(value));
         let storeEvent = new CustomEvent(`storage-${key}`, {
             bubbles: true
         });
@@ -124,12 +114,54 @@ class LocalStorageService {
     }
     getItem(key) {
         return new Promise(((resolve, reject) => {
-            resolve(JSON.parse(localStorage.getItem(`${this.prefix}${key}`)));
+            resolve(JSON.parse(localStorage.getItem(`${prefix}${key}`)));
             reject(new Error("KO"));
         }));
     }
     removeItem(key) {
-        localStorage.removeItem(`${this.prefix}${key}`);
+        localStorage.removeItem(`${prefix}${key}`);
+    }
+}
+
+"use strict";
+
+let pathServiceIsInstantiated;
+
+class PathService {
+    path="";
+    constructor() {
+        if (pathServiceIsInstantiated) {
+            throw new Error("Le pathService est déjà instancié.");
+        }
+        pathServiceIsInstantiated = true;
+        this.path = `${window.location.origin}/`;
+    }
+}
+
+"use strict";
+
+let stylesServiceIsInstantiated;
+
+class StylesService {
+    prefixStyle=`${prefix}style-`;
+    constructor() {
+        if (stylesServiceIsInstantiated) {
+            throw new Error("Le domService est déjà instancié.");
+        }
+        stylesServiceIsInstantiated = true;
+    }
+    setStyle(name, style) {
+        if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
+            let stylesContrast = document.createElement("style");
+            stylesContrast.setAttribute("id", `${this.prefixStyle}${name}`);
+            stylesContrast.innerHTML = style;
+            document.head.appendChild(stylesContrast);
+        } else {
+            document.querySelector(`#${this.prefixStyle}${name}`).innerHTML = style;
+        }
+    }
+    removeStyle(name) {
+        document.querySelector(`#${this.prefixStyle}${name}`)?.remove();
     }
 }
 
@@ -229,6 +261,27 @@ class RouteService {
         this.currentRoute = newRoute;
     }
 }
+
+"use strict";
+
+let stringServiceIsInstantiated;
+
+class StringService {
+    constructor() {
+        if (stringServiceIsInstantiated) {
+            throw new Error("Le stringService est déjà instancié.");
+        }
+        stringServiceIsInstantiated = true;
+    }
+    normalizeID(string) {
+        return string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
+    }
+    normalizeSettingName(string) {
+        return string?.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase().replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "");
+    }
+}
+
+"use strict";
 
 "use strict";
 
@@ -334,6 +387,7 @@ class AbstractSetting extends HTMLElement {
         this.dataset.name = "coucou";
         console.log(this.name);
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
+        this.name = stringServiceInstance.normalizeSettingName(this.tagName);
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("app-btn-setting");
@@ -369,7 +423,7 @@ class AbstractSetting extends HTMLElement {
     }
     setSettingBtn=activesValues => {
         this.settingBtn.setAttribute("data-values", activesValues.values);
-        this.settingBtn.setAttribute("data-active-value", activesValues.activeValue);
+        this.settingBtn.setAttribute("data-active-value", activesValues.activeValue.toString());
         this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues.values.split(",")[activesValues.activeValue]));
     };
     setCallback=callback => {
@@ -395,7 +449,7 @@ class ColorContrastComponent extends AbstractSetting {
     }
     setColorsContrasts=value => {
         if (value === "noModifications") {
-            document.querySelector("#cplus-styles-contrast")?.remove();
+            stylesServiceInstance.removeStyle(this.name);
         } else {
             let color = "";
             let backgroundColor = "";
@@ -409,16 +463,8 @@ class ColorContrastComponent extends AbstractSetting {
                 color = value.split("+")[0];
                 backgroundColor = value.split("+")[1];
             }
-            let classContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
-            if (document.querySelectorAll("#cplus-styles-contrast").length === 0) {
-                let head = document.head || document.getElementsByTagName("head")[0];
-                let stylesContrast = document.createElement("style");
-                stylesContrast.setAttribute("id", "cplus-styles-contrast");
-                stylesContrast.innerHTML = classContrast;
-                head.appendChild(stylesContrast);
-            } else {
-                document.querySelector("#cplus-styles-contrast").innerHTML = classContrast;
-            }
+            let styleColorContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
+            stylesServiceInstance.setStyle(this.name, styleColorContrast);
         }
     };
 }
@@ -443,20 +489,12 @@ class CursorAspectComponent extends AbstractSetting {
     }
     setCursor=value => {
         if (value === "noModifications") {
-            document.querySelector("#cplus-styles-cursor")?.remove();
+            stylesServiceInstance.removeStyle(this.name);
         } else {
             let color = value.split("+")[1];
             let svgFile = value.split("+")[0] === "big" ? `<svg width="56" height="56" viewbox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M2.1875 3.93386C2.1875 3.07793 3.19283 2.61758 3.84083 3.17679L35.3653 30.3817C36.039 30.9631 35.6748 32.0687 34.7875 32.1359L22.9084 33.0354C22.2046 33.0887 21.776 33.8346 22.0844 34.4695L29.2853 49.2945C29.5344 49.8073 29.3051 50.4242 28.7816 50.6498L22.336 53.4272C21.8383 53.6416 21.2604 53.4206 21.0328 52.9288L14.1035 37.9578C13.8313 37.3697 13.0802 37.1919 12.5732 37.5955L3.81035 44.572C3.15521 45.0936 2.1875 44.6271 2.1875 43.7897V3.93386Z" fill="${color}" stroke="black" stroke-width="5"/></svg>` : `<svg width="128" height="128" viewbox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.18386C5 5.32793 6.00533 4.86758 6.65333 5.42679L83.1778 71.4657C83.8515 72.0471 83.4873 73.1527 82.6 73.2199L50.4764 75.6523C49.7726 75.7056 49.344 76.4515 49.6524 77.0864L67.5257 113.883C67.7748 114.396 67.5455 115.013 67.0219 115.238L49.904 122.615C49.4063 122.829 48.8284 122.608 48.6008 122.116L31.5493 85.2757C31.2771 84.6875 30.5259 84.5097 30.0189 84.9134L6.62285 103.54C5.96772 104.062 5 103.595 5 102.758V6.18386Z" fill="${color}" stroke="black" stroke-width="10"/></svg>`;
-            let classCursor = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${svgFile}') 0 0, auto !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
-            if (document.querySelectorAll("#cplus-styles-cursor").length === 0) {
-                let head = document.head || document.getElementsByTagName("head")[0];
-                let stylesCursor = document.createElement("style");
-                stylesCursor.setAttribute("id", "cplus-styles-cursor");
-                stylesCursor.innerHTML = classCursor;
-                head.appendChild(stylesCursor);
-            } else {
-                document.querySelector("#cplus-styles-cursor").innerHTML = classCursor;
-            }
+            let styleCursor = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${svgFile}') 0 0, auto !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
+            stylesServiceInstance.setStyle(this.name, styleCursor);
         }
     };
 }
@@ -481,20 +519,12 @@ class FocusAspectComponent extends AbstractSetting {
     }
     setFocus=value => {
         if (value === "noModifications") {
-            document.querySelector("#cplus-styles-focus")?.remove();
+            stylesServiceInstance.removeStyle(this.name);
         } else {
             let size = value.split("+")[0] === "big" ? "4px" : "10px";
             let color = value.split("+")[1];
-            let classFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
-            if (document.querySelectorAll("#cplus-styles-focus").length === 0) {
-                let head = document.head || document.getElementsByTagName("head")[0];
-                let stylesFocus = document.createElement("style");
-                stylesFocus.setAttribute("id", "cplus-styles-focus");
-                stylesFocus.innerHTML = classFocus;
-                head.appendChild(stylesFocus);
-            } else {
-                document.querySelector("#cplus-styles-focus").innerHTML = classFocus;
-            }
+            let styleFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle(this.name, styleFocus);
         }
     };
 }
@@ -779,21 +809,13 @@ class LinkStyleComponent extends AbstractSetting {
     }
     setLinkStyle=value => {
         if (value === "noModifications") {
-            document.querySelector("#cplus-styles-links")?.remove();
+            stylesServiceInstance.removeStyle(this.name);
         } else {
             let linkColor = value.split("+")[0];
             let linkPointedColor = value.split("+")[1];
             let linkVisitedColor = value.split("+")[2];
-            let classLinkStyle = `\n\t\t\t\ta:link {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
-            if (document.querySelectorAll("#cplus-styles-links").length === 0) {
-                let head = document.head || document.getElementsByTagName("head")[0];
-                let stylesLinks = document.createElement("style");
-                stylesLinks.setAttribute("id", "cplus-styles-links");
-                stylesLinks.innerHTML = classLinkStyle;
-                head.appendChild(stylesLinks);
-            } else {
-                document.querySelector("#cplus-styles-links").innerHTML = classLinkStyle;
-            }
+            let styleLink = `\n\t\t\t\ta:link {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle(this.name, styleLink);
         }
     };
 }
@@ -909,19 +931,13 @@ class ReadingGuideComponent extends AbstractSetting {
         }
     };
     setGuide=() => {
-        let classGuide = "";
+        let styleGuide = "";
         if (this.guideType === "reading") {
-            classGuide = this.classReadingGuide;
+            styleGuide = this.classReadingGuide;
         } else if (this.guideType === "mask") {
-            classGuide = this.classMaskGuide;
+            styleGuide = this.classMaskGuide;
         }
-        if (document.querySelectorAll("#cplus-reading-guide").length === 0) {
-            let head = document.head || document.getElementsByTagName("head")[0];
-            let stylesReadingGuide = document.createElement("style");
-            stylesReadingGuide.setAttribute("id", "cplus-reading-guide");
-            stylesReadingGuide.innerHTML = classGuide;
-            head.appendChild(stylesReadingGuide);
-        }
+        stylesServiceInstance.setStyle(this.name, styleGuide);
         if (this.guideType === "reading") {
             const readingElt = document.createElement("div");
             readingElt.setAttribute("id", "cplus-vertical-guide-elt");
@@ -946,7 +962,7 @@ class ReadingGuideComponent extends AbstractSetting {
     };
     resetGuide=() => {
         this.guideType = "";
-        document.querySelector("#cplus-reading-guide")?.remove();
+        stylesServiceInstance.removeStyle(this.name);
         document.querySelector("#cplus-vertical-guide-elt")?.remove();
         document.querySelector("#cplus-mask-guide--top-elt")?.remove();
         document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
@@ -977,11 +993,11 @@ class ScrollComponent extends AbstractSetting {
     }
     disconnectedCallback() {
         super.disconnectedCallback();
-        this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
         this.btnScrollUp?.removeEventListener("click", (() => {}));
         this.btnScrollUp?.removeEventListener("mouseover", (() => {}));
         this.btnScrollDown?.removeEventListener("click", (() => {}));
         this.btnScrollDown?.removeEventListener("mouseover", (() => {}));
+        stylesServiceInstance.removeStyle(this.name);
     }
     setScroll=value => {
         switch (value) {
@@ -1015,14 +1031,8 @@ class ScrollComponent extends AbstractSetting {
         }
     };
     setScrollClass=() => {
-        let classScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t`;
-        if (document.querySelectorAll("#cplus-scroll").length === 0) {
-            let head = document.head || document.getElementsByTagName("head")[0];
-            let stylesScroll = document.createElement("style");
-            stylesScroll.setAttribute("id", "cplus-scroll");
-            stylesScroll.innerHTML = classScroll;
-            head.appendChild(stylesScroll);
-        }
+        let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t`;
+        stylesServiceInstance.setStyle(this.name, styleScroll);
     };
     setBigScroll=() => {
         document.body.classList.add("cplus-big-scroll");
@@ -1088,19 +1098,11 @@ class TextSpacingComponent extends AbstractSetting {
             letterSpacing: ".5em"
         } ];
         if (value === "noModifications") {
-            document.querySelector("#cplus-styles-spacing-text")?.remove();
+            stylesServiceInstance.removeStyle(this.name);
         } else {
             let objSpacingText = spacingTextValues?.find((o => o.name === value));
-            let classSpacingText = `\n\t\t\t\t* {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
-            if (document.querySelectorAll("#cplus-styles-spacing-text").length === 0) {
-                let head = document.head || document.getElementsByTagName("head")[0];
-                let stylesSpacingText = document.createElement("style");
-                stylesSpacingText.setAttribute("id", "cplus-styles-spacing-text");
-                stylesSpacingText.innerHTML = classSpacingText;
-                head.appendChild(stylesSpacingText);
-            } else {
-                document.querySelector("#cplus-styles-spacing-text").innerHTML = classSpacingText;
-            }
+            let styleSpacingText = `\n\t\t\t\t* {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle(this.name, styleSpacingText);
         }
     };
 }
@@ -1416,15 +1418,14 @@ class SelectModeComponent extends HTMLElement {
         this.iconElement = this.querySelector("app-icon");
         this.textElement = this.querySelector("div span");
         this.descriptionElement = this.querySelector("label > span");
-        this.inputElement.id = this.normalizeString(this.label);
+        this.inputElement.id = stringServiceInstance.normalizeID(this.label);
         this.inputElement.value = this.label;
         this.inputElement.checked = this.checked;
-        this.labelElement?.setAttribute("for", this.normalizeString(this.label));
+        this.labelElement?.setAttribute("for", stringServiceInstance.normalizeID(this.label));
         this.iconElement?.setAttribute("data-name", this.label);
         this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
         this.descriptionElement.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
     }
-    normalizeString=string => string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
 }
 
 customElements.define("app-select-mode", SelectModeComponent);
@@ -1459,7 +1460,6 @@ class HomeComponent extends HTMLElement {
     currentMode=null;
     i18nService;
     routeService;
-    settings=[];
     constructor() {
         super();
         this.appendChild(homeLayout.content.cloneNode(true));
@@ -1542,9 +1542,9 @@ class ModeComponent extends HTMLElement {
             element.classList.add("d-none");
         }));
         settings.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
+            let settingObj = this.settingsDictionnary.find((o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0])));
             let settingElement = this.querySelector(settingObj?.element);
-            settingElement.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+            settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
             settingElement?.classList.remove("d-none");
         }));
     };
@@ -1594,8 +1594,8 @@ class ModesComponent extends HTMLElement {
         const selectedMode = json.selectedMode;
         let radioModeList = "";
         listMode.forEach((mode => {
-            let isChecked = Object.entries(mode)[0][0] === selectedMode ? true : false;
-            let radioMode = `<app-select-mode data-label="${Object.entries(mode)[0][0]}" data-checked="${isChecked}"></app-select-mode>`;
+            let isChecked = Object.keys(mode)[0] === selectedMode ? true : false;
+            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;
@@ -1697,7 +1697,7 @@ class AbstractCategory extends HTMLElement {
         }
         let nbActifSetting = 0;
         settings.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === Object.keys(setting)[0]));
+            let settingObj = this.settingsDictionnary.find((o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0])));
             let settingElement = this.querySelector(settingObj?.element);
             settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
             settingElement?.setAttribute("data-default-setting", "true");
@@ -1839,8 +1839,8 @@ class ToolbarComponent extends HTMLElement {
     modes=null;
     settings=null;
     historyRoute=[];
-    json="";
-    defaultJson="";
+    json;
+    defaultJson;
     constructor() {
         super();
         this.appendChild(tmplToolbar.content.cloneNode(true));
@@ -1852,18 +1852,18 @@ class ToolbarComponent extends HTMLElement {
         this.settings = this.querySelector("app-settings");
         filesServiceInstance.getModesOfUse().then((result => {
             this.defaultJson = result;
-            localStorageServiceInstance.getItem("modeOfUse").then((result => {
+            localStorageServiceInstance.getItem(jsonName).then((result => {
                 if (result && Object.keys(result).length !== 0) {
                     this.json = result;
                 } else {
-                    localStorageServiceInstance.setItem("modeOfUse", this.defaultJson);
                     this.json = this.defaultJson;
+                    localStorageServiceInstance.setItem(jsonName, this.defaultJson);
                 }
                 this.setCurrentMode();
             }));
         }));
-        window.addEventListener("storage-modeOfUse", (event => {
-            localStorageServiceInstance.getItem("modeOfUse").then((result => {
+        window.addEventListener(`storage-${jsonName}`, (event => {
+            localStorageServiceInstance.getItem(jsonName).then((result => {
                 this.json = result;
                 this.setCurrentMode();
             }));

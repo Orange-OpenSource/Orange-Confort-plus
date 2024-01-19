@@ -22,13 +22,13 @@ class LinkStyleComponent extends AbstractSetting {
 
 	setLinkStyle = (value: string): void => {
 		if (value === 'noModifications') {
-			document.querySelector('#cplus-styles-links')?.remove();
+			stylesServiceInstance.removeStyle(this.name);
 		} else {
 			let linkColor = value.split('+')[0];
 			let linkPointedColor = value.split('+')[1];
 			let linkVisitedColor = value.split('+')[2];
 
-			let classLinkStyle = `
+			let styleLink = `
 				a:link {
 					color: ${linkColor} !important;
 				}
@@ -40,17 +40,7 @@ class LinkStyleComponent extends AbstractSetting {
 				}
 			`;
 
-			if (document.querySelectorAll('#cplus-styles-links').length === 0) {
-				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
-				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-				// @todo - tester si on peut utiliser les adoptedStylesheet
-				let stylesLinks: HTMLStyleElement = document.createElement('style');
-				stylesLinks.setAttribute('id', 'cplus-styles-links');
-				stylesLinks.innerHTML = classLinkStyle;
-				head.appendChild(stylesLinks);
-			} else {
-				document.querySelector('#cplus-styles-links').innerHTML = classLinkStyle;
-			}
+			stylesServiceInstance.setStyle(this.name, styleLink);
 		}
 	}
 }

@@ -28,11 +28,10 @@ class TextSpacingComponent extends AbstractSetting {
 		];
 
 		if (value === 'noModifications') {
-			document.querySelector('#cplus-styles-spacing-text')?.remove();
+			stylesServiceInstance.removeStyle(this.name);
 		} else {
-
 			let objSpacingText = spacingTextValues?.find(o => o.name === value);
-			let classSpacingText = `
+			let styleSpacingText = `
 				* {
 					word-spacing: ${objSpacingText.wordSpacing} !important;
 					line-height: ${objSpacingText.lineHeight} !important;
@@ -40,17 +39,7 @@ class TextSpacingComponent extends AbstractSetting {
 				}
 			`;
 
-			if (document.querySelectorAll('#cplus-styles-spacing-text').length === 0) {
-				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
-				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-				// @todo - tester si on peut utiliser les adoptedStylesheet
-				let stylesSpacingText: HTMLStyleElement = document.createElement('style');
-				stylesSpacingText.setAttribute('id', 'cplus-styles-spacing-text');
-				stylesSpacingText.innerHTML = classSpacingText;
-				head.appendChild(stylesSpacingText);
-			} else {
-				document.querySelector('#cplus-styles-spacing-text').innerHTML = classSpacingText;
-			}
+			stylesServiceInstance.setStyle(this.name, styleSpacingText);
 		}
 	}
 }

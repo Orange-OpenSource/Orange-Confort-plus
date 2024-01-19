@@ -22,28 +22,18 @@ class FocusAspectComponent extends AbstractSetting {
 
 	setFocus = (value: string): void => {
 		if (value === 'noModifications') {
-			document.querySelector('#cplus-styles-focus')?.remove();
+			stylesServiceInstance.removeStyle(this.name);
 		} else {
 			let size = value.split('+')[0] === 'big' ? '4px' : '10px';
 			let color = value.split('+')[1];
 
-			let classFocus = `
+			let styleFocus = `
 				*:focus, *:focus-visible {
 					outline: ${color} solid ${size} !important;
 				}
 			`;
 
-			if (document.querySelectorAll('#cplus-styles-focus').length === 0) {
-				// @todo - trouver un moyen de ne pas dupliquer l'ajout de style dans le head dans chaque réglage
-				let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
-				// @todo - tester si on peut utiliser les adoptedStylesheet
-				let stylesFocus: HTMLStyleElement = document.createElement('style');
-				stylesFocus.setAttribute('id', 'cplus-styles-focus');
-				stylesFocus.innerHTML = classFocus;
-				head.appendChild(stylesFocus);
-			} else {
-				document.querySelector('#cplus-styles-focus').innerHTML = classFocus;
-			}
+			stylesServiceInstance.setStyle(this.name, styleFocus);
 		}
 	}
 }

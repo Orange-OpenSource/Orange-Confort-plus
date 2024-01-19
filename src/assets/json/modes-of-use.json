@@ -4,7 +4,7 @@
 		{
 			"visionPlus": [
 				{
-					"textFont": {
+					"fontFamily": {
 						"values": "noModifications,Accessible-DfA,Luciole",
 						"activeValue": 0
 					}
@@ -28,7 +28,7 @@
 					}
 				},
 				{
-					"spacingText": {
+					"textSpacing": {
 						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
 						"activeValue": 0
 					}
@@ -68,7 +68,7 @@
 		{
 			"facilePlus": [
 				{
-					"textFont": {
+					"fontFamily": {
 						"values": "noModifications,Accessible-DfA,Verdana",
 						"activeValue": 0
 					}
@@ -80,7 +80,7 @@
 					}
 				},
 				{
-					"spacingText": {
+					"textSpacing": {
 						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
 						"activeValue": 0
 					}

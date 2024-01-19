@@ -19,8 +19,11 @@ const preamble = `/*
 const files = {
 	'toolbar': {
 		files: [
+			'dist/js/app/services/dom.service.js',
 			'dist/js/app/services/mode-of-use.service.js',
 			'dist/js/app/services/route.service.js',
+			'dist/js/app/services/string.service.js',
+			'dist/js/app/core/models.core.js',
 			'dist/js/app/core/services.core.js',
 			'dist/js/app/app.component.js',
 			'dist/js/app/shared/settings/abstract-setting.component.js',
@@ -28,7 +31,7 @@ const files = {
 			'dist/js/app/shared/settings/cursor-aspect.component.js',
 			'dist/js/app/shared/settings/focus-aspect.component.js',
 			'dist/js/app/shared/settings/font-family.component.js',
-			'dist/js/app/shared/settings/increase-text-size.component.js',
+			'dist/js/app/shared/settings/text-size.component.js',
 			'dist/js/app/shared/settings/link-style.component.js',
 			'dist/js/app/shared/settings/margin-align.component.js',
 			'dist/js/app/shared/settings/reading-guide.component.js',
@@ -67,11 +70,12 @@ const files = {
 	},
 	'server': {
 		files: [
+			'dist/js/app/core/constantes.core.js',
 			'dist/js/serveur/services/files.service.js',
 			'dist/js/serveur/services/i18n.service.js',
-			'dist/js/serveur/services/path.service.js',
 			'dist/js/serveur/services/icons.service.js',
 			'dist/js/serveur/services/local-storage.service.js',
+			'dist/js/serveur/services/path.service.js',
 			'dist/js/toolbar.js'
 		],
 		dist: 'dist/serveur/js/toolbar.js',
@@ -86,6 +90,7 @@ const files = {
 	},
 	'extension': {
 		files: [
+			'dist/js/app/core/constantes.core.js',
 			'dist/js/extension/services/files.service.js',
 			'dist/js/extension/services/i18n.service.js',
 			'dist/js/extension/services/path.service.js',
