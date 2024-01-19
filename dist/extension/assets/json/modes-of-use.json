@@ -28,7 +28,7 @@
 					}
 				},
 				{
-					"spacingText": {
+					"textSpacing": {
 						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
 						"activeValue": 0
 					}
@@ -80,7 +80,7 @@
 					}
 				},
 				{
-					"spacingText": {
+					"textSpacing": {
 						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
 						"activeValue": 0
 					}

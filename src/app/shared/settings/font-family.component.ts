@@ -91,29 +91,26 @@ class FontFamilyComponent extends AbstractSetting {
 
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 
-		let head: HTMLHeadElement = document.head || document.getElementsByTagName('head')[0];
+		// @todo Try to handle font-size-adjust to reduce CLS?
+		const fontFaceList: string[] = [];
+		this.fontDictionnary.forEach((font) => {
+			for (const file of font.files) {
+				fontFaceList.push(`
+					@font-face {
+						font-family:"${font.name}";
+						src: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");
+						font-style: ${file.style}; font-weight: ${file.weight};
+						font-display: swap; }`
+				);
+			}
+		});
 
-		if (document.querySelectorAll('#cplus-styles-fonts').length === 0) {
-			// @todo - tester si on peut utiliser les adoptedStylesheet
-			let stylesFonts: HTMLStyleElement = document.createElement('style');
-			stylesFonts.setAttribute('id', 'cplus-styles-fonts');
-			head.appendChild(stylesFonts);
+		stylesServiceInstance.setStyle(this.name, fontFaceList.join(''));
+	}
 
-			// @todo Try to handle font-size-adjust to reduce CLS?
-			const fontFaceList: string[] = [];
-			this.fontDictionnary.forEach((font) => {
-				for (const file of font.files) {
-					fontFaceList.push(`
-						@font-face {
-							font-family:"${font.name}";
-							src: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");
-							font-style: ${file.style}; font-weight: ${file.weight};
-							font-display: swap; }`
-					);
-				}
-			});
-			stylesFonts.innerHTML = fontFaceList.join('');
-		}
+	disconnectedCallback(): void {
+		super.disconnectedCallback();
+		stylesServiceInstance.removeStyle(this.name);
 	}
 
 	setFontFamily = (value: string): void => {

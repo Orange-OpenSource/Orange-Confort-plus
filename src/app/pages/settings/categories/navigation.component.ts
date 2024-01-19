@@ -24,10 +24,6 @@ class NavigationComponent extends AbstractCategory {
 
 		this.appendChild(tmplNavigation.content.cloneNode(true));
 	}
-
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
 }
 
 customElements.define('app-navigation', NavigationComponent);
