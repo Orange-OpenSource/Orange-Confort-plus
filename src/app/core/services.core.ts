@@ -9,6 +9,8 @@ const filesServiceInstance = new FilesService();
 Object.freeze(filesServiceInstance);
 const localStorageServiceInstance = new LocalStorageService();
 Object.freeze(localStorageServiceInstance);
+const modeOfUseServiceInstance = new ModeOfUseService();
+Object.freeze(modeOfUseServiceInstance);
 // @note On ne freeze par le routeur, sinon impossible de redéfinir `currentRoute`
 const routeServiceInstance = new RouteService();
 Object.seal(routeServiceInstance);

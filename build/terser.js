@@ -19,6 +19,7 @@ const preamble = `/*
 const files = {
 	'toolbar': {
 		files: [
+			'dist/js/app/services/mode-of-use.service.js',
 			'dist/js/app/services/route.service.js',
 			'dist/js/app/core/services.core.js',
 			'dist/js/app/app.component.js',

@@ -56,7 +56,7 @@ class ReadingGuideComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('readingGuide');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {

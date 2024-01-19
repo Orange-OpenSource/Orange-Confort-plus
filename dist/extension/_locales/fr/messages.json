@@ -141,13 +141,13 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Description du mode Vision+"
+		"message": "Le mode Vision+ vous assiste pour améliorer la lisibilité des informations affichées. Il permettra de changer la taille de la police, la police elle-même, les contrastes, les couleurs, ..."
 	},
 	"facilePlusName": {
 		"message": "Facile+"
 	},
 	"facilePlusDescription": {
-		"message": "Description du mode Facile+"
+		"message": "Le mode Facile+ vous propose une simplification du monde numérique. Il propose une simplification générale de la présentation du monde numérique."
 	},
 	"noModifications": {
 		"message": "Pas de modification"
@@ -233,8 +233,8 @@
 	"huge+green": {
 		"message": "Très gros et vert"
 	},
-	"Accessible-DFA": {
-		"message": "Accessible-DFA"
+	"Accessible-DfA": {
+		"message": "Accessible-DfA"
 	},
 	"B612 Mono": {
 		"message": "B612 Mono"

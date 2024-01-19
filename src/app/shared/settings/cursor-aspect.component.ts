@@ -21,7 +21,7 @@ class CursorAspectComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('cursorAspect');
+		super.connectedCallback();
 	}
 
 	disconnectedCallback(): void {

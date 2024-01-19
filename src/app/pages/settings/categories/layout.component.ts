@@ -9,7 +9,7 @@ tmplLayout.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-layout">
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container d-flex flex-column gap-2">
-				<app-margin-align class="c-layout__setting" data-can-edit="true"></app-margin-align>
+				<app-margin-align class="c-category__setting" data-name="marginAlign" data-can-edit="true"></app-margin-align>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
@@ -18,17 +18,12 @@ tmplLayout.innerHTML = `
 
 class LayoutComponent extends AbstractCategory {
 	constructor() {
-		const settingsDictionnary: any[] = [
-			{ name: 'marginAlign', element: 'app-margin-align' },
-		];
-
-		super(settingsDictionnary);
+		super();
 
 		this.appendChild(tmplLayout.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
-		this.settingsElements = [...this.querySelectorAll('.c-layout__setting')];
 		super.connectedCallback();
 	}
 }

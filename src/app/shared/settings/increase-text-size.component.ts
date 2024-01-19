@@ -21,7 +21,7 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	}
 
 	connectedCallback(): void {
-		super.connectedCallback('textSize');
+		super.connectedCallback();
 		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
 			this.setFontSize((event as CustomEvent).detail.value);
 		});
