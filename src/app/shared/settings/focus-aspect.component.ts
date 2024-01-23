@@ -20,18 +20,6 @@ class FocusAspectComponent extends AbstractSetting {
 		this.appendChild(tmplFocusAspect.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setFocus((event as CustomEvent).detail.value);
-		});
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setFocus = (value: string): void => {
 		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-focus')?.remove();

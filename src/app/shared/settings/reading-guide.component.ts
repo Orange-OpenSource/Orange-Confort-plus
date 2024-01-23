@@ -55,15 +55,6 @@ class ReadingGuideComponent extends AbstractSetting {
 		this.bottomGuideElt = this.querySelector('#cplus-bottom-guide-elt');
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn?.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setReadingMaskGuide = (value: string): void => {
 		switch (value) {
 			case 'readingGuide': {

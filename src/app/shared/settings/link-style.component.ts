@@ -20,15 +20,6 @@ class LinkStyleComponent extends AbstractSetting {
 		this.appendChild(tmplLinkStyle.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn?.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setLinkStyle = (value: string): void => {
 		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-links')?.remove();

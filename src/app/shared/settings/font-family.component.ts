@@ -116,15 +116,6 @@ class FontFamilyComponent extends AbstractSetting {
 		}
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setFontFamily = (value: string): void => {
 		if (value === 'noModifications') {
 			document.body.style.fontFamily = null;
