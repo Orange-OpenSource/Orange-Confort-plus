@@ -20,15 +20,6 @@ class MarginAlignComponent extends AbstractSetting {
 		this.appendChild(tmplMarginAlign.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setMargin = (value: string): void => {
 		const elements = value === 'margeList' ?
 			document.querySelectorAll('ul, ol') :

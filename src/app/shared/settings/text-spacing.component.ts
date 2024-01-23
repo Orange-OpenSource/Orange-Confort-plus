@@ -20,15 +20,6 @@ class TextSpacingComponent extends AbstractSetting {
 		this.appendChild(tmplSpacingText.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setSpacingText = (value: string): void => {
 		const spacingTextValues = [
 			{ name: 'spacingTextLabelSmall', wordSpacing: '.10em', lineHeight: '2em', letterSpacing: '.0625em' },

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.0 - 22/01/2024
+ * orange-confort-plus - version 5.0.0-alpha.0 - 23/01/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -331,6 +331,8 @@ class AbstractSetting extends HTMLElement {
     constructor() {
         super();
         this.name = this.dataset?.name || this.name;
+        this.dataset.name = "coucou";
+        console.log(this.name);
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
     }
     connectedCallback() {
@@ -354,6 +356,7 @@ class AbstractSetting extends HTMLElement {
     }
     disconnectedCallback() {
         this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
+        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
@@ -389,13 +392,6 @@ class ColorContrastComponent extends AbstractSetting {
         super();
         this.setCallback(this.setColorsContrasts.bind(this));
         this.appendChild(tmplColorContrast.content.cloneNode(true));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setColorsContrasts=value => {
         if (value === "noModifications") {
@@ -445,13 +441,6 @@ class CursorAspectComponent extends AbstractSetting {
         this.setCallback(this.setCursor.bind(this));
         this.appendChild(tmplCursorAspect.content.cloneNode(true));
     }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
-    }
     setCursor=value => {
         if (value === "noModifications") {
             document.querySelector("#cplus-styles-cursor")?.remove();
@@ -489,16 +478,6 @@ class FocusAspectComponent extends AbstractSetting {
         super();
         this.setCallback(this.setFocus.bind(this));
         this.appendChild(tmplFocusAspect.content.cloneNode(true));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.settingBtn.addEventListener("changeSettingEvent", (event => {
-            this.setFocus(event.detail.value);
-        }));
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setFocus=value => {
         if (value === "noModifications") {
@@ -744,13 +723,6 @@ class FontFamilyComponent extends AbstractSetting {
             stylesFonts.innerHTML = fontFaceList.join("");
         }
     }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
-    }
     setFontFamily=value => {
         if (value === "noModifications") {
             document.body.style.fontFamily = null;
@@ -778,16 +750,6 @@ class IncreaseTextSizeComponent extends AbstractSetting {
         this.setCallback(this.setFontSize.bind(this));
         this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
     }
-    connectedCallback() {
-        super.connectedCallback();
-        this.settingBtn.addEventListener("changeSettingEvent", (event => {
-            this.setFontSize(event.detail.value);
-        }));
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
-    }
     setFontSize=value => {
         if (value === "noModifications") {
             document.documentElement.style.fontSize = null;
@@ -814,13 +776,6 @@ class LinkStyleComponent extends AbstractSetting {
         super();
         this.setCallback(this.setLinkStyle.bind(this));
         this.appendChild(tmplLinkStyle.content.cloneNode(true));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
     setLinkStyle=value => {
         if (value === "noModifications") {
@@ -860,13 +815,6 @@ class MarginAlignComponent extends AbstractSetting {
         super();
         this.setCallback(this.setMargin.bind(this));
         this.appendChild(tmplMarginAlign.content.cloneNode(true));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setMargin=value => {
         const elements = value === "margeList" ? document.querySelectorAll("ul, ol") : document.body.querySelectorAll("*");
@@ -935,13 +883,6 @@ class ReadingGuideComponent extends AbstractSetting {
         this.readingGuideElt = this.querySelector("#cplus-vertical-guide-elt");
         this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
         this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
-    }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn?.removeEventListener("changeSettingEvent", (() => {}));
     }
     setReadingMaskGuide=value => {
         switch (value) {
@@ -1033,10 +974,6 @@ class ScrollComponent extends AbstractSetting {
         super();
         this.setCallback(this.setScroll.bind(this));
         this.appendChild(tmplScroll.content.cloneNode(true));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        this.setScrollClass();
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -1132,13 +1069,6 @@ class TextSpacingComponent extends AbstractSetting {
         super();
         this.setCallback(this.setSpacingText.bind(this));
         this.appendChild(tmplSpacingText.content.cloneNode(true));
-    }
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
     }
     setSpacingText=value => {
         const spacingTextValues = [ {

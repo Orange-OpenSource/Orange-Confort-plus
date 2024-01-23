@@ -20,18 +20,6 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 		this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			this.setFontSize((event as CustomEvent).detail.value);
-		});
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setFontSize = (value: string): void => {
 		if (value === 'noModifications') {
 			document.documentElement.style.fontSize = null;

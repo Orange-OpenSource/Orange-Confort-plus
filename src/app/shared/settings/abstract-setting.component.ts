@@ -40,6 +40,7 @@ abstract class AbstractSetting extends HTMLElement {
 
 	disconnectedCallback(): void {
 		this.modalBtn.removeEventListener('clickModalEvent', () => { });
+		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
