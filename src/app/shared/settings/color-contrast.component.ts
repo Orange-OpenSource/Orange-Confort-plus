@@ -20,15 +20,6 @@ class ColorContrastComponent extends AbstractSetting {
 		this.appendChild(tmplColorContrast.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setColorsContrasts = (value: string): void => {
 		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-contrast')?.remove();

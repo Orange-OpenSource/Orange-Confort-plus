@@ -20,15 +20,6 @@ class CursorAspectComponent extends AbstractSetting {
 		this.appendChild(tmplCursorAspect.content.cloneNode(true));
 	}
 
-	connectedCallback(): void {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback(): void {
-		super.disconnectedCallback();
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
-	}
-
 	setCursor = (value: string): void => {
 		if (value === 'noModifications') {
 			document.querySelector('#cplus-styles-cursor')?.remove();
