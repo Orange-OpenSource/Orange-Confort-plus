@@ -71,6 +71,10 @@ class ToolbarComponent extends HTMLElement {
 			this.header?.focus();
 			this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
 		});
+
+		this.addEventListener('pause', (event) => {
+			this.setPauseAndPlay((event as CustomEvent).detail.pause);
+		});
 	}
 
 	setHeaderDisplay = (page: string): void => {
@@ -130,6 +134,15 @@ class ToolbarComponent extends HTMLElement {
 		});
 		const isCustomMode = !(currentMode === defaultMode);
 		this.home?.setAttribute('data-custom', isCustomMode.toString());
+	}
+
+	setPauseAndPlay = (state: boolean): void => {
+		console.log(state);
+		if (state) {
+			localStorageServiceInstance.setItem('modeOfUse', this.defaultJson);
+		} else {
+			localStorageServiceInstance.setItem('modeOfUse', this.json);
+		}
 	}
 }
 

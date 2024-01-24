@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.0 - 23/01/2024
+ * orange-confort-plus - version 5.0.0-alpha.0 - 24/01/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -317,8 +317,6 @@ class AbstractSetting extends HTMLElement {
     constructor() {
         super();
         this.name = this.dataset?.name || this.name;
-        this.dataset.name = "coucou";
-        console.log(this.name);
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
     }
     connectedCallback() {
@@ -1434,18 +1432,20 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n\t\t\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode", "data-custom" ];
     changeModeBtn=null;
     settingsBtn=null;
+    pauseBtn=null;
     modeName=null;
     modeIcon=null;
     currentMode=null;
     i18nService;
     routeService;
     settings=[];
+    pauseState=false;
     constructor() {
         super();
         this.appendChild(homeLayout.content.cloneNode(true));
@@ -1453,6 +1453,7 @@ class HomeComponent extends HTMLElement {
     connectedCallback() {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
+        this.pauseBtn = this.querySelector("#pause-btn");
         this.modeName = this.querySelector("#mode-name");
         this.modeIcon = this.querySelector("app-icon");
         this.currentMode = this.querySelector("app-mode");
@@ -1474,10 +1475,25 @@ class HomeComponent extends HTMLElement {
             });
             this.settingsBtn?.dispatchEvent(clickEvent);
         }));
+        this.pauseBtn?.addEventListener("click", (() => {
+            this.pauseState = !this.pauseState;
+            let stateName = this.pauseState ? "Pause" : "Play";
+            this.pauseBtn.setAttribute("data-i18n-title", stateName.toLowerCase());
+            this.querySelector("#pause-label").setAttribute("data-i18n", stateName.toLowerCase());
+            this.querySelector("#pause-icon").setAttribute("data-icon", stateName);
+            let clickEvent = new CustomEvent("pause", {
+                bubbles: true,
+                detail: {
+                    pause: this.pauseState
+                }
+            });
+            this.pauseBtn?.dispatchEvent(clickEvent);
+        }));
     }
     disconnectedCallback() {
         this.changeModeBtn?.removeEventListener("click", (() => {}));
         this.settingsBtn?.removeEventListener("click", (() => {}));
+        this.pauseBtn?.removeEventListener("click", (() => {}));
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
@@ -1870,6 +1886,9 @@ class ToolbarComponent extends HTMLElement {
             this.header?.focus();
             this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
         }));
+        this.addEventListener("pause", (event => {
+            this.setPauseAndPlay(event.detail.pause);
+        }));
     }
     setHeaderDisplay=page => {
         switch (page) {
@@ -1932,6 +1951,14 @@ class ToolbarComponent extends HTMLElement {
         }));
         const isCustomMode = !(currentMode === defaultMode);
         this.home?.setAttribute("data-custom", isCustomMode.toString());
+    };
+    setPauseAndPlay=state => {
+        console.log(state);
+        if (state) {
+            localStorageServiceInstance.setItem("modeOfUse", this.defaultJson);
+        } else {
+            localStorageServiceInstance.setItem("modeOfUse", this.json);
+        }
     };
 }
 

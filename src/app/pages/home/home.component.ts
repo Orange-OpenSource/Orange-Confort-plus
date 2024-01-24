@@ -15,6 +15,10 @@ homeLayout.innerHTML = `
             <span class="visually-hidden" data-i18n="openSettingsMode"></span>
 						<app-icon data-name="Settings"></app-icon>
         </button>
+				<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
+            <span id="pause-label" class="visually-hidden" data-i18n="pause"></span>
+						<app-icon id="pause-icon" data-name="Pause"></app-icon>
+        </button>
     </div>
 </section>
 
@@ -30,12 +34,14 @@ class HomeComponent extends HTMLElement {
 	static observedAttributes = ['data-mode', 'data-custom'];
 	changeModeBtn: HTMLElement | null = null;
 	settingsBtn: HTMLElement | null = null;
+	pauseBtn: HTMLElement | null = null;
 	modeName: HTMLElement | null = null;
 	modeIcon: HTMLElement | null = null;
 	currentMode: HTMLElement | null = null;
 	i18nService: any;
 	routeService: any;
 	settings: any[] = [];
+	pauseState = false;
 
 	constructor() {
 		super();
@@ -45,6 +51,7 @@ class HomeComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.changeModeBtn = this.querySelector('#change-mode-btn');
 		this.settingsBtn = this.querySelector('#settings-btn');
+		this.pauseBtn = this.querySelector('#pause-btn');
 		this.modeName = this.querySelector('#mode-name');
 		this.modeIcon = this.querySelector('app-icon');
 		this.currentMode = this.querySelector('app-mode');
@@ -70,12 +77,42 @@ class HomeComponent extends HTMLElement {
 				});
 			this.settingsBtn?.dispatchEvent(clickEvent);
 		});
+
+		this.pauseBtn?.addEventListener('click', () => {
+			this.pauseState = !this.pauseState;
+			let stateName = this.pauseState ? 'Pause' : 'Play';
+			this.pauseBtn.setAttribute('data-i18n-title', stateName.toLowerCase());
+			this.querySelector('#pause-label').setAttribute('data-i18n', stateName.toLowerCase());
+			this.querySelector('#pause-icon').setAttribute('data-icon', stateName);
+
+			let clickEvent = new CustomEvent('pause',
+				{
+					bubbles: true,
+					detail: {
+						pause: this.pauseState
+					}
+				});
+			this.pauseBtn?.dispatchEvent(clickEvent);
+
+			// PAUSE
+			// Récupère l'actuel JSON et le garde bien au chaud
+			// Remplace le JSON actuel pour tout mettre en valeur par défaut
+			// Mettre en disabled tous les réglages
+
+			// PLAY
+			// Remet en place l'ancien JSON
+			// Enlève l'état disabled des réglages
+
+			// Si changement de mode, faire un play
+		});
 	}
 
 	disconnectedCallback(): void {
 		this.changeModeBtn?.removeEventListener('click', () => {
 		});
 		this.settingsBtn?.removeEventListener('click', () => {
+		});
+		this.pauseBtn?.removeEventListener('click', () => {
 		});
 	}
 
