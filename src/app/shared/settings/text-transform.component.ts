@@ -5,10 +5,10 @@ tmplTextTransform.innerHTML = `
 				margin-bottom: 1rem;
 		}
 </style>
-<button id="normal-btn" data-i18n="default"></button>
-<button id="first-letter-btn" data-i18n="firstLetter"></button>
-<button id="lowercase-btn" data-i18n="lowercase"></button>
-<button id="uppercase-btn" data-i18n="uppercase"></button>
+<button type="button" id="normal-btn" data-i18n="default"></button>
+<button type="button" id="first-letter-btn" data-i18n="firstLetter"></button>
+<button type="button" id="lowercase-btn" data-i18n="lowercase"></button>
+<button type="button" id="uppercase-btn" data-i18n="uppercase"></button>
 `;
 
 class TextTransformComponent extends HTMLElement {
