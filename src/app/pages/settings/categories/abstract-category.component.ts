@@ -76,7 +76,7 @@ abstract class AbstractCategory extends HTMLElement {
 
 		let nbActifSetting = 0;
 		settings.forEach((setting: string) => {
-			let settingObj = this.settingsDictionnary.find(o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
+			let settingObj = this.settingsDictionnary.find((o: SettingsDictionnary) => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
 			settingElement?.setAttribute('data-default-setting', 'true');

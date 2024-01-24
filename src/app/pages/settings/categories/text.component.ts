@@ -13,7 +13,7 @@ tmplText.innerHTML = `
 				<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
 				<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>
-				<app-spacing-text class="c-category__setting" data-can-edit="true"></app-spacing-text>
+				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
