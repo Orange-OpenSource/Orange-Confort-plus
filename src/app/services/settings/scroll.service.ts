@@ -1,6 +1,6 @@
 let scrollServiceIsInstantiated: boolean;
 
-type BtnScrollStateType = 'click' | 'mouseover' | '';
+type BtnScrollStateType = 'scrollOnClick' | 'scrollOnMouseover' | '';
 
 interface ScrollSettingValues {
 	name: string;
@@ -68,8 +68,25 @@ class ScrollService {
 		stylesServiceInstance.setStyle('scroll', styleScroll);
 	}
 
+	setScroll = (value: any): void => {
+		let bigScroll: boolean;
+		let btnState: BtnScrollStateType;
+		if (value === 'noModifications') {
+			bigScroll = false;
+			btnState = '';
+		} else if (value === 'bigScroll') {
+			bigScroll = true;
+			btnState = '';
+		} else {
+			bigScroll = false;
+			btnState = value;
+		}
+		const scrollSettingValues: ScrollSettingValues = { name: 'scroll', btnState: btnState, bigScrollActivated: bigScroll };
+		this.setScrollParams(scrollSettingValues);
+	}
+
 	/* Allows a setting to enable or disable scroll functionality by listing the values for each setting */
-	setScroll = (values: ScrollSettingValues): void => {
+	setScrollParams = (values: ScrollSettingValues): void => {
 		const existingIndex = this.settingsValues.findIndex(item => item.name === values.name);
 		if (existingIndex >= 0) {
 			this.settingsValues[existingIndex] = values;
@@ -135,7 +152,7 @@ class ScrollService {
 				let scrollDir = button.id.includes('up') ? -1 : button.id.includes('down') ? 1 : 0;
 				let scrollBy = scrollDir * this.scrollSteps;
 
-				if (this.btnState === 'mouseover') {
+				if (this.btnState === 'scrollOnMouseover') {
 					button.element?.addEventListener('mouseover', (event: any) => {
 						button.interval = setInterval(function () { window.scrollBy(0, scrollBy) }, this.scrollTimer)
 					});

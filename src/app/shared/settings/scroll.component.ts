@@ -15,29 +15,9 @@ class ScrollComponent extends AbstractSetting {
 	constructor() {
 		super();
 
-		this.setCallback(this.setScroll.bind(this));
+		this.setCallback(scrollServiceInstance.setScroll.bind(this));
 
 		this.appendChild(tmplScroll.content.cloneNode(true));
-	}
-
-	setScroll = (value: string): void => {
-		switch (value) {
-			case 'bigScroll': {
-				scrollServiceInstance.setScroll({ name: 'scroll', btnState: '', bigScrollActivated: true });
-				break;
-			}
-			case 'scrollOnClick': {
-				scrollServiceInstance.setScroll({ name: 'scroll', btnState: 'click', bigScrollActivated: false });
-				break;
-			}
-			case 'scrollOnMouseover': {
-				scrollServiceInstance.setScroll({ name: 'scroll', btnState: 'mouseover', bigScrollActivated: false });
-				break;
-			}
-			default: {
-				scrollServiceInstance.setScroll({ name: 'scroll', btnState: '', bigScrollActivated: false });
-			}
-		}
 	}
 }
 

@@ -27,7 +27,7 @@ tmplMode.innerHTML = `
 `;
 
 class ModeComponent extends HTMLElement {
-	static observedAttributes = ['data-settings'];
+	static observedAttributes = ['data-settings', 'data-pause'];
 	modeContent: HTMLElement | null = null;
 	settingsDictionnary: SettingsDictionnary[] = [];
 
@@ -49,6 +49,9 @@ class ModeComponent extends HTMLElement {
 		if ('data-settings' === name) {
 			this.displaySettings(JSON.parse(newValue));
 		}
+		if ('data-pause' === name) {
+			this.disableSettings(newValue === 'true');
+		}
 	}
 
 	displaySettings = (settings: any[]): void => {
@@ -64,6 +67,13 @@ class ModeComponent extends HTMLElement {
 			if ((Object.entries(setting)[0][1] as SettingModel).isTool) {
 				settingElement?.classList.remove('d-none');
 			}
+		});
+	}
+
+	disableSettings = (disabled: boolean): void => {
+		let elements = this.querySelectorAll(".sc-mode__setting");
+		elements.forEach((element) => {
+			element.querySelector('app-btn-setting').setAttribute('data-disabled', String(disabled));
 		});
 	}
 }
