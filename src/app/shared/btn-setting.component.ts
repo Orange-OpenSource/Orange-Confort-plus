@@ -1,7 +1,7 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 // @fixme button > ul seems really weird
 btnSettingLayout.innerHTML = `
-	<button class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
+	<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
 		<div class="d-flex flex-column">
 			<span></span>
 			<app-icon data-size="1.5em"></app-icon>
