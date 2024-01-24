@@ -1034,8 +1034,8 @@ class ScrollComponent extends AbstractSetting {
         const container = document.createElement("div");
         container.setAttribute("id", "cplus-container-scroll-buttons");
         let btnArray = [];
-        let btnUp = `<button id="cplus-scroll-up">${i18nServiceInstance.getMessage("scrollUp")}</button>`;
-        let btnDown = `<button id="cplus-scroll-down">${i18nServiceInstance.getMessage("scrollDown")}</button>`;
+        let btnUp = `<button type="button" id="cplus-scroll-up">${i18nServiceInstance.getMessage("scrollUp")}</button>`;
+        let btnDown = `<button type="button" id="cplus-scroll-down">${i18nServiceInstance.getMessage("scrollDown")}</button>`;
         btnArray.push(btnUp, btnDown);
         container.innerHTML = btnArray.join("");
         document.body.appendChild(container);
@@ -1106,7 +1106,7 @@ customElements.define("app-text-spacing", TextSpacingComponent);
 
 const tmplTextTransform = document.createElement("template");
 
-tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button id="normal-btn" data-i18n="default"></button>\n<button id="first-letter-btn" data-i18n="firstLetter"></button>\n<button id="lowercase-btn" data-i18n="lowercase"></button>\n<button id="uppercase-btn" data-i18n="uppercase"></button>\n`;
+tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button type="button" id="normal-btn" data-i18n="default"></button>\n<button type="button" id="first-letter-btn" data-i18n="firstLetter"></button>\n<button type="button" id="lowercase-btn" data-i18n="lowercase"></button>\n<button type="button" id="uppercase-btn" data-i18n="uppercase"></button>\n`;
 
 class TextTransformComponent extends HTMLElement {
     normalBtn=null;
@@ -1196,7 +1196,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<div class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</div>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<div class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</div>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon" ];
@@ -1549,10 +1549,11 @@ customElements.define("app-mode", ModeComponent);
 
 const modesLayout = document.createElement("template");
 
-modesLayout.innerHTML = `\n<section class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>\n\t</div>\n</section>\n`;
+modesLayout.innerHTML = `\n<form class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>\n\t</div>\n</form>\n`;
 
 class ModesComponent extends HTMLElement {
     static observedAttributes=[ "data-list-mode" ];
+    selectModeForm=null;
     selectModeBtn=null;
     selectModeZone=null;
     constructor() {
@@ -1560,8 +1561,13 @@ class ModesComponent extends HTMLElement {
         this.appendChild(modesLayout.content.cloneNode(true));
     }
     connectedCallback() {
+        this.selectModeForm = this.querySelector("form");
         this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeZone = this.querySelector("#select-mode-zone");
+        this.selectModeForm?.addEventListener("submit", (event => {
+            event.preventDefault();
+            (this.shadowRoot?.querySelector("app-home")).focus();
+        }));
         this.selectModeBtn?.addEventListener("click", (() => {
             let clickEvent = new CustomEvent("changeRoute", {
                 bubbles: true,
