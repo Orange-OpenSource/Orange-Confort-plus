@@ -316,7 +316,6 @@ const template = document.createElement("template");
 template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
-    openConfortPlus=false;
     confortPlusBtn=null;
     confortPlusToolbar=null;
     i18nService;
@@ -341,24 +340,23 @@ class AppComponent extends HTMLElement {
         }));
         this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
         this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
-        this.confortPlusToolbar.style.transform = "translateX(100%)";
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
-        this.confortPlusToolbar.addEventListener("closeEvent", this.toggleToolbar);
-        this.confortPlusBtn.addEventListener("click", this.toggleToolbar);
+        this.hideToolbar();
+        this.confortPlusToolbar.addEventListener("closeEvent", this.hideToolbar);
+        this.confortPlusBtn.addEventListener("click", this.showToolbar);
     }
     disconnectedCallback() {
-        this.confortPlusToolbar?.removeEventListener("closeEvent", this.toggleToolbar);
-        this.confortPlusBtn?.removeEventListener("click", this.toggleToolbar);
+        this.confortPlusToolbar?.removeEventListener("closeEvent", this.hideToolbar);
+        this.confortPlusBtn?.removeEventListener("click", this.showToolbar);
     }
-    toggleToolbar=() => {
-        this.openConfortPlus = !this.openConfortPlus;
-        if (this.openConfortPlus) {
-            this.confortPlusToolbar.style.removeProperty("transform");
-        } else {
-            this.confortPlusToolbar.style.transform = "translateX(100%)";
-        }
+    showToolbar=() => {
+        this.confortPlusToolbar.removeAttribute("style");
+    };
+    hideToolbar=() => {
+        this.confortPlusToolbar.style.transform = "translateX(100%)";
+        this.confortPlusToolbar.style.visibility = "hidden";
     };
 }
 

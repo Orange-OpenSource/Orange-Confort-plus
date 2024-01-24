@@ -10,7 +10,6 @@ template.innerHTML = `
 `;
 
 class AppComponent extends HTMLElement {
-	private openConfortPlus: boolean = false;
 	confortPlusBtn: HTMLElement | undefined = null;
 	confortPlusToolbar: HTMLElement | undefined = null;
 	i18nService: any;
@@ -40,28 +39,28 @@ class AppComponent extends HTMLElement {
 
 		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
 		this.confortPlusToolbar = this?.shadowRoot?.getElementById('toolbar');
-		this.confortPlusToolbar.style.transform = 'translateX(100%)';
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
 
-		this.confortPlusToolbar.addEventListener('closeEvent', this.toggleToolbar);
-		this.confortPlusBtn.addEventListener('click', this.toggleToolbar);
+		this.hideToolbar();
+
+		this.confortPlusToolbar.addEventListener('closeEvent', this.hideToolbar);
+		this.confortPlusBtn.addEventListener('click', this.showToolbar);
 	}
 
 	disconnectedCallback(): void {
-		this.confortPlusToolbar?.removeEventListener('closeEvent', this.toggleToolbar);
-		this.confortPlusBtn?.removeEventListener('click', this.toggleToolbar);
+		this.confortPlusToolbar?.removeEventListener('closeEvent', this.hideToolbar);
+		this.confortPlusBtn?.removeEventListener('click', this.showToolbar);
 	}
 
-	toggleToolbar = (): void => {
-		this.openConfortPlus = !this.openConfortPlus;
-		// @todo Voir pour utiliser Web Animation API avec la méthode animate()
-		if (this.openConfortPlus) {
-			this.confortPlusToolbar.style.removeProperty('transform');
-		} else {
-			this.confortPlusToolbar.style.transform = 'translateX(100%)';
-		}
+	showToolbar = (): void => {
+		this.confortPlusToolbar.removeAttribute('style');
+	}
+
+	hideToolbar = (): void => {
+		this.confortPlusToolbar.style.transform = 'translateX(100%)';
+		this.confortPlusToolbar.style.visibility = 'hidden';
 	}
 }
 
