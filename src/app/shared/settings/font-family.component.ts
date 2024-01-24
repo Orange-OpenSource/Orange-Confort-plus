@@ -91,7 +91,9 @@ class FontFamilyComponent extends AbstractSetting {
 
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 
-		// @todo Try to handle font-size-adjust to reduce CLS?
+		// @todo Utiliser size-adjust pour limiter le CLS?
+		// @link https://web.dev/articles/css-size-adjust
+		// @note On devrait se caler sur la Helvetica d’Orange, mais on ne l’embarque pas…
 		const fontFaceList: string[] = [];
 		this.fontDictionnary.forEach((font) => {
 			for (const file of font.files) {
@@ -99,8 +101,10 @@ class FontFamilyComponent extends AbstractSetting {
 					@font-face {
 						font-family:"${font.name}";
 						src: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");
-						font-style: ${file.style}; font-weight: ${file.weight};
-						font-display: swap; }`
+						font-style: ${file.style};
+						font-weight: ${file.weight};
+						font-display: swap;
+					}`
 				);
 			}
 		});
