@@ -11,7 +11,6 @@ abstract class AbstractSetting extends HTMLElement {
 
 	constructor() {
 		super();
-		this.name = this.dataset?.name || this.name;
 		this.canEdit = (this.dataset?.canEdit === 'true') || this.canEdit;
 		this.name = stringServiceInstance.normalizeSettingName(this.tagName);
 	}

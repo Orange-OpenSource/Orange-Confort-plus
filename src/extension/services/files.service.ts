@@ -3,7 +3,7 @@ let filesServiceIsInstantiated: boolean;
 class FilesService {
 	constructor() {
 		if (filesServiceIsInstantiated) {
-			throw new Error('Le filesService est déjà instancié.');
+			throw new Error('Le FilesService est déjà instancié.');
 		}
 
 		filesServiceIsInstantiated = true;

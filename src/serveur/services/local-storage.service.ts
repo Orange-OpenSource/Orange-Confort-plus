@@ -3,7 +3,7 @@ let localStorageServiceIsInstantiated: boolean;
 class LocalStorageService {
 	constructor() {
 		if (localStorageServiceIsInstantiated) {
-			throw new Error('Le localStorageService est déjà instancié.');
+			throw new Error('Le LocalStorageService est déjà instancié.');
 		}
 
 		localStorageServiceIsInstantiated = true;

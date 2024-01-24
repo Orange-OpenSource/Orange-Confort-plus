@@ -6,7 +6,7 @@ class StylesService {
 
 	constructor() {
 		if (stylesServiceIsInstantiated) {
-			throw new Error('Le domService est déjà instancié.');
+			throw new Error('Le StylesService est déjà instancié.');
 		}
 
 		stylesServiceIsInstantiated = true;
@@ -14,10 +14,10 @@ class StylesService {
 
 	setStyle(name: string, style: string): void {
 		if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
-			let stylesContrast: HTMLStyleElement = document.createElement('style');
-			stylesContrast.setAttribute('id', `${this.prefixStyle}${name}`);
-			stylesContrast.innerHTML = style;
-			document.head.appendChild(stylesContrast);
+			let styleElement: HTMLStyleElement = document.createElement('style');
+			styleElement.setAttribute('id', `${this.prefixStyle}${name}`);
+			styleElement.innerHTML = style;
+			document.head.appendChild(styleElement);
 		} else {
 			document.querySelector(`#${this.prefixStyle}${name}`).innerHTML = style;
 		}

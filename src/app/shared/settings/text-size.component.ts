@@ -29,4 +29,4 @@ class IncreaseTextSizeComponent extends AbstractSetting {
 	}
 }
 
-customElements.define('app-increase-text-size', IncreaseTextSizeComponent);
+customElements.define('app-text-size', IncreaseTextSizeComponent);

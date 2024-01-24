@@ -44,4 +44,4 @@ class TextSpacingComponent extends AbstractSetting {
 	}
 }
 
-customElements.define('app-spacing-text', TextSpacingComponent);
+customElements.define('app-text-spacing', TextSpacingComponent);

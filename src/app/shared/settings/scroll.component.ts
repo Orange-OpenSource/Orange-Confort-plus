@@ -25,6 +25,11 @@ class ScrollComponent extends AbstractSetting {
 		this.appendChild(tmplScroll.content.cloneNode(true));
 	}
 
+	connectedCallback(): void {
+		super.connectedCallback();
+		this.setScrollClass();
+	}
+
 	disconnectedCallback(): void {
 		super.disconnectedCallback();
 		this.btnScrollUp?.removeEventListener('click', () => { });
