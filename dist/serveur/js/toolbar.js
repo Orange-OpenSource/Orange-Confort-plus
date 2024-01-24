@@ -367,10 +367,14 @@ class AppComponent extends HTMLElement {
     }
     showToolbar=() => {
         this.confortPlusToolbar.removeAttribute("style");
+        this.querySelector("#close-toolbar").focus();
+        this.confortPlusBtn.classList.add("d-none");
     };
     hideToolbar=() => {
         this.confortPlusToolbar.style.transform = "translateX(100%)";
         this.confortPlusToolbar.style.visibility = "hidden";
+        this.confortPlusBtn.classList.remove("d-none");
+        this.confortPlusBtn.focus();
     };
 }
 
