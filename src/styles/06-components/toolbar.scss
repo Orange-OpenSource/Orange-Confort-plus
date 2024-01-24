@@ -6,6 +6,9 @@
 	min-width: 18em;
 	height: 100vh;
 	overflow: auto;
-	transition: transform 0.2s;
+	transition:
+		transform .3s ease-in-out,
+		visibility .3s ease-in-out;
+	will-change: transform, visibility;
 	z-index: 2147483647;
 }
