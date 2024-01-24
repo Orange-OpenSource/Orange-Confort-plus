@@ -36,9 +36,8 @@ class BtnSettingComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
 		this.btnContentSlots = this.querySelector('ul');
-
-		this.settingBtn!.disabled = this.disabled;
 		this.settingBtn.addEventListener('click', this.handler);
+		this.setDisabledState();
 	}
 
 	disconnectedCallback(): void {
@@ -60,6 +59,10 @@ class BtnSettingComponent extends HTMLElement {
 			span.innerText = i18nServiceInstance.getMessage(settingName);
 			icon?.setAttribute('data-name', settingName);
 		}
+		if ('data-disabled' === name) {
+			this.disabled = newValue === 'true';
+			this.setDisabledState();
+		}
 	}
 
 	setIndex = (index?: number): void => {
@@ -76,6 +79,10 @@ class BtnSettingComponent extends HTMLElement {
 			this.settingBtn?.classList.remove('sc-btn-setting--default');
 		}
 		this.calculateList();
+	}
+
+	setDisabledState = (): void => {
+		this.settingBtn!.disabled = this.disabled;
 	}
 
 	calculateList = (): void => {

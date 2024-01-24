@@ -64,4 +64,5 @@ const textSizeServiceInstance = new TextSizeService();
 Object.seal(textSizeServiceInstance);
 const textSpacingServiceInstance = new TextSpacingService();
 Object.seal(textSpacingServiceInstance);
-
+const pauseServiceInstance = new PauseService();
+Object.freeze(pauseServiceInstance);
