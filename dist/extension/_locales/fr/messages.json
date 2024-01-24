@@ -185,8 +185,14 @@
 	"lessSettings": {
 		"message": "Moins de réglages"
 	},
+	"play": {
+		"message": "Redémarrer"
+	},
 	"pause": {
 		"message": "Mettre en pause"
+	},
+	"pauseInfo": {
+		"message": "Confort+ est en pause, pour le réactiver appuyer sur le bouton « redémarrer »."
 	},
 	"otherModes": {
 		"message": "Autres modes d'usage"
