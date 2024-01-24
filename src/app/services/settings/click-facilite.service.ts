@@ -25,24 +25,24 @@ class ClickFaciliteService {
 		switch (paramName) {
 			case 'bigZone': {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll({ name: 'clickFacilite', btnState: '', bigScrollActivated: true });
+				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: '', bigScrollActivated: true });
 				break;
 			}
 			case 'longClick': {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll({ name: 'clickFacilite', btnState: 'click', bigScrollActivated: true });
+				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: 'scrollOnClick', bigScrollActivated: true });
 				this.longClick();
 				break;
 			}
 			case 'autoClick': {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll({ name: 'clickFacilite', btnState: 'click', bigScrollActivated: true });
+				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: 'scrollOnClick', bigScrollActivated: true });
 				this.autoClick();
 				break;
 			}
 			default: {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll({ name: 'clickFacilite', btnState: '', bigScrollActivated: false });
+				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: '', bigScrollActivated: false });
 				break;
 			}
 		}

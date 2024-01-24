@@ -261,6 +261,83 @@ class ModeOfUseService {
 
 "use strict";
 
+let pauseServiceIsInstantiated;
+
+class PauseService {
+    settingsServices=[];
+    constructor() {
+        if (pauseServiceIsInstantiated) {
+            throw new Error("PauseService is already instantiated.");
+        }
+        pauseServiceIsInstantiated = true;
+        this.settingsServices = [ {
+            name: "clickFacilite",
+            instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(this),
+            value: ""
+        }, {
+            name: "colorContrast",
+            instanceService: colorContrastServiceInstance.setColorsContrasts.bind(this),
+            value: ""
+        }, {
+            name: "cursorAspect",
+            instanceService: cursorAspectServiceInstance.setCursor.bind(this),
+            value: ""
+        }, {
+            name: "focusAspect",
+            instanceService: focusAspectServiceInstance.setFocus.bind(this),
+            value: ""
+        }, {
+            name: "fontFamily",
+            instanceService: fontFamilyServiceInstance.setFontFamily.bind(this),
+            value: ""
+        }, {
+            name: "linkStyle",
+            instanceService: linkStyleServiceInstance.setLinkStyle.bind(this),
+            value: ""
+        }, {
+            name: "marginAlign",
+            instanceService: marginAlignServiceInstance.setMargin.bind(this),
+            value: ""
+        }, {
+            name: "readingGuide",
+            instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this),
+            value: ""
+        }, {
+            name: "scroll",
+            instanceService: scrollServiceInstance.setScroll.bind(this),
+            value: ""
+        }, {
+            name: "textSize",
+            instanceService: textSizeServiceInstance.setFontSize.bind(this),
+            value: ""
+        }, {
+            name: "textSpacing",
+            instanceService: textSpacingServiceInstance.setSpacingText.bind(this),
+            value: ""
+        } ];
+    }
+    pauseSettings=currentSettings => {
+        const settings = JSON.parse(currentSettings);
+        settings.forEach((setting => {
+            let settingValues = Object.values(setting)[0];
+            this.settingsServices.forEach((settingsService => {
+                if (settingsService.name === Object.keys(setting)[0]) {
+                    settingsService.value = this.getSelectedValue(settingValues);
+                }
+                settingsService.instanceService("noModifications");
+            }));
+        }));
+    };
+    getSelectedValue=setting => setting.values.split(",")[setting.valueSelected];
+    playSettings=() => {
+        this.settingsServices.forEach((settingsService => {
+            settingsService.instanceService(settingsService.value);
+        }));
+    };
+}
+
+"use strict";
+
 let routeServiceIsInstantiated;
 
 class RouteService {
@@ -395,7 +472,7 @@ class ClickFaciliteService {
           case "bigZone":
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll({
+                scrollServiceInstance.setScrollParams({
                     name: "clickFacilite",
                     btnState: "",
                     bigScrollActivated: true
@@ -406,9 +483,9 @@ class ClickFaciliteService {
           case "longClick":
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll({
+                scrollServiceInstance.setScrollParams({
                     name: "clickFacilite",
-                    btnState: "click",
+                    btnState: "scrollOnClick",
                     bigScrollActivated: true
                 });
                 this.longClick();
@@ -418,9 +495,9 @@ class ClickFaciliteService {
           case "autoClick":
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll({
+                scrollServiceInstance.setScrollParams({
                     name: "clickFacilite",
-                    btnState: "click",
+                    btnState: "scrollOnClick",
                     bigScrollActivated: true
                 });
                 this.autoClick();
@@ -430,7 +507,7 @@ class ClickFaciliteService {
           default:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll({
+                scrollServiceInstance.setScrollParams({
                     name: "clickFacilite",
                     btnState: "",
                     bigScrollActivated: false
@@ -1141,7 +1218,27 @@ class ScrollService {
         let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
-    setScroll=values => {
+    setScroll=value => {
+        let bigScroll;
+        let btnState;
+        if (value === "noModifications") {
+            bigScroll = false;
+            btnState = "";
+        } else if (value === "bigScroll") {
+            bigScroll = true;
+            btnState = "";
+        } else {
+            bigScroll = false;
+            btnState = value;
+        }
+        const scrollSettingValues = {
+            name: "scroll",
+            btnState: btnState,
+            bigScrollActivated: bigScroll
+        };
+        this.setScrollParams(scrollSettingValues);
+    };
+    setScrollParams=values => {
         const existingIndex = this.settingsValues.findIndex((item => item.name === values.name));
         if (existingIndex >= 0) {
             this.settingsValues[existingIndex] = values;
@@ -1199,7 +1296,7 @@ class ScrollService {
                 button.element = document.querySelector(`#${button.id}`);
                 let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
                 let scrollBy = scrollDir * this.scrollSteps;
-                if (this.btnState === "mouseover") {
+                if (this.btnState === "scrollOnMouseover") {
                     button.element?.addEventListener("mouseover", (event => {
                         button.interval = setInterval((function() {
                             window.scrollBy(0, scrollBy);
@@ -1480,6 +1577,10 @@ Object.seal(textSizeServiceInstance);
 const textSpacingServiceInstance = new TextSpacingService;
 
 Object.seal(textSpacingServiceInstance);
+
+const pauseServiceInstance = new PauseService;
+
+Object.freeze(pauseServiceInstance);
 
 "use strict";
 
@@ -1957,51 +2058,9 @@ class ScrollComponent extends AbstractSetting {
     };
     constructor() {
         super();
-        this.setCallback(this.setScroll.bind(this));
+        this.setCallback(scrollServiceInstance.setScroll.bind(this));
         this.appendChild(tmplScroll.content.cloneNode(true));
     }
-    setScroll=value => {
-        switch (value) {
-          case "bigScroll":
-            {
-                scrollServiceInstance.setScroll({
-                    name: "scroll",
-                    btnState: "",
-                    bigScrollActivated: true
-                });
-                break;
-            }
-
-          case "scrollOnClick":
-            {
-                scrollServiceInstance.setScroll({
-                    name: "scroll",
-                    btnState: "click",
-                    bigScrollActivated: false
-                });
-                break;
-            }
-
-          case "scrollOnMouseover":
-            {
-                scrollServiceInstance.setScroll({
-                    name: "scroll",
-                    btnState: "mouseover",
-                    bigScrollActivated: false
-                });
-                break;
-            }
-
-          default:
-            {
-                scrollServiceInstance.setScroll({
-                    name: "scroll",
-                    btnState: "",
-                    bigScrollActivated: false
-                });
-            }
-        }
-    };
 }
 
 customElements.define("app-scroll", ScrollComponent);
@@ -2230,8 +2289,8 @@ class BtnSettingComponent extends HTMLElement {
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
         this.btnContentSlots = this.querySelector("ul");
-        this.settingBtn.disabled = this.disabled;
         this.settingBtn.addEventListener("click", this.handler);
+        this.setDisabledState();
     }
     disconnectedCallback() {
         this.settingBtn?.removeEventListener("click", this.handler);
@@ -2251,6 +2310,10 @@ class BtnSettingComponent extends HTMLElement {
             span.innerText = i18nServiceInstance.getMessage(settingName);
             icon?.setAttribute("data-name", settingName);
         }
+        if ("data-disabled" === name) {
+            this.disabled = newValue === "true";
+            this.setDisabledState();
+        }
     }
     setIndex=index => {
         if (index?.toString()) {
@@ -2265,6 +2328,10 @@ class BtnSettingComponent extends HTMLElement {
             this.settingBtn?.classList.remove("sc-btn-setting--default");
         }
         this.calculateList();
+    };
+    setDisabledState=() => {
+        console.log(this.settingBtn);
+        this.settingBtn.disabled = this.disabled;
     };
     calculateList=() => {
         this.slot = "";
@@ -2789,15 +2856,18 @@ customElements.define("app-edit-text-spacing", EditTextSpacingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-2">\n\t\t\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-2">\n\t\t\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n\t\t\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<div class="d-flex">\n\t\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t\t</div>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-modes", "data-custom" ];
     changeModeBtn=null;
     settingsBtn=null;
+    pauseBtn=null;
     modeName=null;
     modeIcon=null;
     currentMode=null;
+    currentModeSettings;
+    pauseState=false;
     handler;
     constructor() {
         super();
@@ -2807,15 +2877,18 @@ class HomeComponent extends HTMLElement {
     connectedCallback() {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
+        this.pauseBtn = this.querySelector("#pause-btn");
         this.modeName = this.querySelector("#mode-name");
         this.modeIcon = this.querySelector("app-icon");
         this.currentMode = this.querySelector("app-mode");
         this.changeModeBtn?.addEventListener("click", this.handler);
         this.settingsBtn?.addEventListener("click", this.handler);
+        this.pauseBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
         this.changeModeBtn?.removeEventListener("click", this.handler);
         this.settingsBtn?.removeEventListener("click", this.handler);
+        this.pauseBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
@@ -2823,7 +2896,8 @@ class HomeComponent extends HTMLElement {
             let selectedModeName = Object.entries(JSON.parse(selectedMode))[0][0];
             this.modeName.innerText = i18nServiceInstance.getMessage(`${selectedModeName}Name`);
             this.modeIcon?.setAttribute("data-name", selectedModeName);
-            this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]));
+            this.currentModeSettings = JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]);
+            this.currentMode.setAttribute("data-settings", this.currentModeSettings);
         }
     }
     createHandler=() => event => {
@@ -2835,6 +2909,10 @@ class HomeComponent extends HTMLElement {
 
               case this.settingsBtn:
                 this.settingsButtonEvent();
+                break;
+
+              case this.pauseBtn:
+                this.setPauseState();
                 break;
             }
         }
@@ -2857,6 +2935,27 @@ class HomeComponent extends HTMLElement {
         });
         this.settingsBtn?.dispatchEvent(clickEvent);
     };
+    setPauseState=() => {
+        this.pauseState = !this.pauseState;
+        this.querySelector("#pause-icon").setAttribute("data-name", this.pauseState ? "Play" : "Pause");
+        if (this.pauseState) {
+            pauseServiceInstance.pauseSettings(this.currentModeSettings);
+            this.settingsBtn.disabled = true;
+            this.changeModeBtn.disabled = true;
+            this.pauseBtn.setAttribute("title", i18nServiceInstance.getMessage("play"));
+            this.pauseBtn.querySelector("#pause-label").innerText = i18nServiceInstance.getMessage("play");
+            this.querySelector("#pause-info").classList.remove("d-none");
+            this.currentMode.setAttribute("data-pause", "true");
+        } else {
+            pauseServiceInstance.playSettings();
+            this.settingsBtn.disabled = false;
+            this.changeModeBtn.disabled = false;
+            this.pauseBtn.setAttribute("title", i18nServiceInstance.getMessage("pause"));
+            this.pauseBtn.querySelector("#pause-label").innerText = i18nServiceInstance.getMessage("pause");
+            this.querySelector("#pause-info").classList.add("d-none");
+            this.currentMode.setAttribute("data-pause", "false");
+        }
+    };
 }
 
 customElements.define("app-home", HomeComponent);
@@ -2868,7 +2967,7 @@ const tmplMode = document.createElement("template");
 tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capitals class="sc-mode__setting"></app-capitals>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-loupe class="sc-mode__setting"></app-loupe>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
-    static observedAttributes=[ "data-settings" ];
+    static observedAttributes=[ "data-settings", "data-pause" ];
     modeContent=null;
     settingsDictionnary=[];
     constructor() {
@@ -2888,6 +2987,9 @@ class ModeComponent extends HTMLElement {
         if ("data-settings" === name) {
             this.displaySettings(JSON.parse(newValue));
         }
+        if ("data-pause" === name) {
+            this.disableSettings(newValue === "true");
+        }
     }
     displaySettings=settings => {
         let elements = this.querySelectorAll(".sc-mode__setting");
@@ -2901,6 +3003,12 @@ class ModeComponent extends HTMLElement {
             if (Object.entries(setting)[0][1].isTool) {
                 settingElement?.classList.remove("d-none");
             }
+        }));
+    };
+    disableSettings=disabled => {
+        let elements = this.querySelectorAll(".sc-mode__setting");
+        elements.forEach((element => {
+            element.querySelector("app-btn-setting").setAttribute("data-disabled", String(disabled));
         }));
     };
 }
