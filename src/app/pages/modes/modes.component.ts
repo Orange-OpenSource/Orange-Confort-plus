@@ -1,6 +1,6 @@
 const modesLayout: HTMLTemplateElement = document.createElement('template');
 modesLayout.innerHTML = `
-<section class="p-3">
+<form class="p-3">
 	<fieldset class="d-grid gap-2 mb-4">
 		<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>
 		<div id="select-mode-zone" class="d-grid gap-1">
@@ -8,13 +8,14 @@ modesLayout.innerHTML = `
 	</fieldset>
 
 	<div class="d-grid">
-		<button id="select-mode-btn" class="btn btn-primary" type="button" data-i18n="validateThisMode"></button>
+		<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>
 	</div>
-</section>
+</form>
 `;
 
 class ModesComponent extends HTMLElement {
 	static observedAttributes = ['data-list-mode'];
+	selectModeForm: HTMLFormElement | null = null;
 	selectModeBtn: HTMLElement | null = null;
 	selectModeZone: HTMLElement | null = null;
 
@@ -24,8 +25,14 @@ class ModesComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
+		this.selectModeForm = this.querySelector('form');
 		this.selectModeBtn = this.querySelector('#select-mode-btn');
 		this.selectModeZone = this.querySelector('#select-mode-zone');
+
+		this.selectModeForm?.addEventListener('submit', (event) => {
+			event.preventDefault();
+			(this.shadowRoot?.querySelector('app-home') as HTMLElement).focus();
+		});
 
 		this.selectModeBtn?.addEventListener('click', () => {
 			let clickEvent = new CustomEvent('changeRoute',
