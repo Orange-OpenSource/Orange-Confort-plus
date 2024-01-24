@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> <!--
+		This file is part of Orange Confort+ | A centralized Javascript application to enable users to customize display and behaviour of websites to suit their advanced accessibility needs
+
+		Copyright (C) 2014 - 2023  Orange SA
+
+		Orange Confort+ is free software; you can redistribute it and/or
+		modify it under the terms of the GNU General Public License
+		as published by the Free Software Foundation; either version 2
+		of the License, or (at your option) any later version.
+
+		Orange Confort+ is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details (LICENSE.txt file).
+--> <html lang="en"> <head> <meta charset="utf-8"> <meta content="width=device-width,initial-scale=1" name="viewport"> <title>Standalone cookie toolbar</title> </head> <body> <script type="text/javascript">var namePref="UCI42",nameBlacklist="uci-bl",valueBlacklist="0",date="5020",defaultValuePref="0|0|0";
+/*!
+	 * src : http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript#answer-901144
+	 *
+	 */
+function getParameterByName(e,a){a||(a=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var t=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(a);return t?t[2]?decodeURIComponent(t[2].replace(/\+/g," ")):"":null}function saveCookie(e,a,t){if(t){var n=new Date;n.setTime(n.getTime()+24*t*60*60*1e3);var o=n.toGMTString()}else o="";document.cookie=e+"="+a+"; expires="+o+";domain="+document.location.hostname+"; path=/"}function readCookies(){for(var e=namePref+"=",a=null,t=nameBlacklist+"=",n=document.cookie.split(";"),o=0;o<n.length;o++){for(var i=n[o];" "==i.charAt(0);)i=i.substring(1,i.length);if(0==i.indexOf(e)&&(a=i.substring(e.length,i.length)),0==i.indexOf(t))i.substring(t.length,i.length).split("|").indexOf(hostname)>=0&&(valueBlacklist="1")}return null===a&&(a=defaultValuePref,saveCookie(namePref,defaultValuePref,date)),valueBlacklist+"|"+a}function updateBlackList(e){var a=nameBlacklist+"=";document.cookie.match(nameBlacklist)||saveCookie(a,"");for(var t=document.cookie.split(";"),n=0;n<t.length;n++){for(var o=t[n];" "==o.charAt(0);)o=o.substring(1,o.length);if(0==o.indexOf(a)){var i=o.substring(a.length,o.length).split("|");i.indexOf(e)>=0?i.splice(i.indexOf(e),1):i.push(e),saveCookie(nameBlacklist,i.join("|"))}}}var origin=getParameterByName("origin"),UsageConfort=getParameterByName("UsageConfort"),hostname=getParameterByName("hostname");hostname&&origin&&window&&window.parent&&window.parent.postMessage?window.parent.postMessage(readCookies(),origin):(UsageConfort||""===UsageConfort)&&origin?saveCookie(namePref,UsageConfort,date):hostname&&updateBlackList(hostname)</script> 

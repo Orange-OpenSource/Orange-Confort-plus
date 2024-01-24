@@ -3,7 +3,7 @@ const pathServiceInstance = new PathService();
 Object.freeze(pathServiceInstance);
 const i18nServiceInstance = new I18nService();
 Object.freeze(i18nServiceInstance);
-const iconsServiceInstance = new iconsService();
+const iconsServiceInstance = new IconsService();
 Object.freeze(iconsServiceInstance);
 const filesServiceInstance = new FilesService();
 Object.freeze(filesServiceInstance);

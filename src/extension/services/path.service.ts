@@ -5,7 +5,7 @@ class PathService {
 
 	constructor() {
 		if (pathServiceIsInstantiated) {
-			throw new Error('Le pathService est déjà instancié.');
+			throw new Error('Le PathService est déjà instancié.');
 		}
 
 		pathServiceIsInstantiated = true;

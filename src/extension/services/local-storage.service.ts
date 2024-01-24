@@ -3,7 +3,7 @@ let localStorageServiceIsInstantiated: boolean;
 class LocalStorageService {
 	constructor() {
 		if (localStorageServiceIsInstantiated) {
-			throw new Error('Le localStorageService est déjà instancié.');
+			throw new Error('Le LocalStorageService est déjà instancié.');
 		}
 
 		localStorageServiceIsInstantiated = true;
@@ -24,7 +24,7 @@ class LocalStorageService {
 		return chrome.storage.local.get([`${prefix}${key}`]).then(datas => {
 			return new Promise<T>((resolve, reject) => {
 				// @ts-ignore
-				resolve(datas[`${this.prefix}${key}`]);
+				resolve(datas[`${prefix}${key}`]);
 				reject(new Error('KO'));
 			});
 		});
