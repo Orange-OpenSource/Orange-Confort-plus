@@ -6,7 +6,7 @@
 		"message": "Confort+"
 	},
 	"profile": {
-		"message": "Mode d’usage"
+		"message": "Mode of use"
 	},
 	"wip": {
 		"message": "In progress…"
@@ -57,7 +57,7 @@
 		"message": "Spacing text"
 	},
 	"colorsContrasts": {
-		"message": "Couleurs contrastes"
+		"message": "Color contrastss"
 	},
 	"reinforcedContrasts": {
 		"message": "Reinforced contrasts"
@@ -84,13 +84,13 @@
 		"message": "Buttons lift on mouseover"
 	},
 	"readingMaskClose": {
-		"message": "Mask closing: use <kbd>Échap</kbd>"
+		"message": "Mask closing: use <kbd>Esc</kbd>"
 	},
 	"linksStyle": {
 		"message": "Links style"
 	},
 	"close": {
-		"message": "Close"
+		"message": "Close Confort+"
 	},
 	"firstLetter": {
 		"message": "First letter"
@@ -246,16 +246,16 @@
 		"message": "Verdana"
 	},
 	"110%": {
-		"message": "A little big 110%"
+		"message": "A bit bigger 110%"
 	},
 	"130%": {
 		"message": "Big 130%"
 	},
 	"160%": {
-		"message": "More big 160%"
+		"message": "Bigger 160%"
 	},
 	"200%": {
-		"message": "Very big 200%"
+		"message": "Even bigger 200%"
 	},
 	"350%": {
 		"message": "Huge 350%"
