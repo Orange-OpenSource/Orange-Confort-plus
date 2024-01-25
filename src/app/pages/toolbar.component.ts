@@ -1,18 +1,10 @@
 const tmplToolbar: HTMLTemplateElement = document.createElement('template');
 tmplToolbar.innerHTML = `
 <app-header id="header"></app-header>
-
-<app-home class="d-none"></app-home>
-<app-modes class="d-none"></app-modes>
-<app-settings class="d-none"></app-settings>
-<app-edit-setting class="d-none"></app-edit-setting>
 `;
 
 class ToolbarComponent extends HTMLElement {
 	header: HTMLElement | null = null;
-	home: HTMLElement | null = null;
-	modes: HTMLElement | null = null;
-	settings: HTMLElement | null = null;
 	historyRoute: string[] = [];
 	json: ModeOfUseModel;
 	defaultJson: ModeOfUseModel;
@@ -28,10 +20,8 @@ class ToolbarComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.header = this.querySelector('#header');
-		this.home = this.querySelector('app-home');
-		this.modes = this.querySelector('app-modes');
-		this.settings = this.querySelector('app-settings');
 
+		/* JSON retrieval and initialisation */
 		filesServiceInstance.getModesOfUse().then((result: any) => {
 			this.defaultJson = result;
 
@@ -42,7 +32,8 @@ class ToolbarComponent extends HTMLElement {
 					this.json = this.defaultJson;
 					localStorageServiceInstance.setItem(jsonName, this.defaultJson);
 				}
-				this.setCurrentMode();
+
+				this.initCurrentMode();
 			});
 		});
 
@@ -51,51 +42,80 @@ class ToolbarComponent extends HTMLElement {
 		routeServiceInstance.initPages(this);
 
 		this.addEventListener('changeRoute', this.handler);
+
+
+
+
+		/* Event when page is changed */
+		this.addEventListener('changeRoute', (event) => {
+			let newRoute = (event as CustomEvent).detail.route;
+
+			/* Creating a tree structure to get the previous route */
+			if ((event as CustomEvent).detail.isPrev) {
+				this.historyRoute.pop();
+			} else {
+				this.historyRoute.push(routeServiceInstance.currentRoute);
+			}
+			this.header?.focus();
+			this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
+
+			/* If mode is changed */
+			if ((event as CustomEvent).detail.setting) {
+				this.json.selectedMode = (event as CustomEvent).detail.mode;
+				(this.querySelector(`app-${PAGE_HOME}`) as HTMLElement)?.focus();
+			}
+
+			routeServiceInstance.navigate(newRoute);
+			this.setNewPage(newRoute);
+		});
 	}
 
-	setHeaderDisplay = (page: string): void => {
+	initCurrentMode = (): void => {
+		if (this.json.selectedMode) {
+			routeServiceInstance.initPages(this);
+			this.setNewPage(PAGE_HOME);
+			this.setCustomState();
+		} else {
+			routeServiceInstance.navigate(PAGE_MODES);
+			this.setNewPage(PAGE_MODES);
+		}
+	}
+
+	setCurrentPage = (page: string): void => {
+		let currentPage = this.querySelector(`app-${page}`);
+		currentPage?.setAttribute('data-modes', JSON.stringify(this.json));
+		i18nServiceInstance.translate(currentPage);
+	}
+
+	setNewPage = (page: string): void => {
 		switch (page) {
-			case routeServiceInstance.PAGE_HOME: {
+			case PAGE_HOME: {
+				this.setCurrentPage(PAGE_HOME);
 				this.header?.setAttribute('data-display', 'primary');
 				this.header?.setAttribute('data-page-title', '');
 				break;
 			}
-			case routeServiceInstance.PAGE_MODES: {
+			case PAGE_MODES: {
+				this.setCurrentPage(PAGE_MODES);
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-page-title', 'pageTitleModes');
 				this.header?.setAttribute('data-page-icon', '');
 				break;
 			}
-			case routeServiceInstance.PAGE_SETTINGS: {
+			case PAGE_SETTINGS: {
+				this.setCurrentPage(PAGE_SETTINGS);
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-page-title', 'pageTitleSettings');
 				this.header?.setAttribute('data-page-icon', 'Settings');
 				break;
 			}
-			case routeServiceInstance.PAGE_EDIT_SETTING: {
+			case PAGE_EDIT_SETTING: {
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-page-title', 'pageTitleEditSetting');
 				this.header?.setAttribute('data-page-icon', 'Settings');
 				break;
 			}
 		}
-	}
-
-	setCurrentMode = (): void => {
-		if (this.json.selectedMode) {
-			this.json.modes.forEach((mode: any) => {
-				if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-					this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
-					this.home?.setAttribute('data-mode', JSON.stringify(mode));
-					this.settings?.setAttribute('data-mode', JSON.stringify(mode));
-					this.modes?.setAttribute('data-list-mode', JSON.stringify(this.json));
-				}
-			});
-		} else {
-			routeServiceInstance.navigate(routeServiceInstance.PAGE_MODES);
-		}
-
-		this.setCustomState();
 	}
 
 	setCustomState = (): void => {
@@ -112,7 +132,7 @@ class ToolbarComponent extends HTMLElement {
 			}
 		});
 		const isCustomMode = !(currentMode === defaultMode);
-		this.home?.setAttribute('data-custom', isCustomMode.toString());
+		this.querySelector(`app-${PAGE_HOME}`)?.setAttribute('data-custom', isCustomMode.toString());
 	}
 
 	private createHandler = () => {
@@ -129,28 +149,32 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	private changeRouteEvent = (event: Event): void => {
+		let newRoute = (event as CustomEvent).detail.route;
+
+		/* Creating a tree structure to get the previous route */
 		if ((event as CustomEvent).detail.isPrev) {
 			this.historyRoute.pop();
 		} else {
 			this.historyRoute.push(routeServiceInstance.currentRoute);
 		}
-
-		/* If editing setting */
-		if ((event as CustomEvent).detail.setting) {
-			this.json.selectedMode = (event as CustomEvent).detail.mode;
-			this.setCurrentMode();
-		}
-
-		routeServiceInstance.navigate((event as CustomEvent).detail.route);
-		this.setHeaderDisplay((event as CustomEvent).detail.route);
 		this.header?.focus();
 		this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
+
+		/* If mode is changed */
+		if ((event as CustomEvent).detail.setting) {
+			this.json.selectedMode = (event as CustomEvent).detail.mode;
+			(this.querySelector(`app-${PAGE_HOME}`) as HTMLElement)?.focus();
+		}
+
+		routeServiceInstance.navigate(newRoute);
+		this.setNewPage(newRoute);
 	}
 
 	private storageEvent = (): void => {
 		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
 			this.json = result;
-			this.setCurrentMode();
+			this.setCurrentPage(routeServiceInstance.currentRoute);
+			this.setCustomState();
 		});
 	}
 }

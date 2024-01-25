@@ -9,6 +9,14 @@ const prefix = "cplus-";
 
 const jsonName = "modeOfUse";
 
+const PAGE_HOME = "home";
+
+const PAGE_MODES = "modes";
+
+const PAGE_SETTINGS = "settings";
+
+const PAGE_EDIT_SETTING = "edit-setting";
+
 "use strict";
 
 let filesServiceIsInstantiated;
@@ -186,31 +194,8 @@ let routeServiceIsInstantiated;
 
 class RouteService {
     currentRoute;
-    PAGE_HOME="home";
-    PAGE_MODES="modes";
-    PAGE_SETTINGS="settings";
-    PAGE_EDIT_SETTING="edit-setting";
-    homeElement=null;
-    modeElement=null;
-    settingsElement=null;
-    editSettingElement=null;
-    routes=[ {
-        path: this.PAGE_HOME,
-        selector: "app-home",
-        element: this.homeElement
-    }, {
-        path: this.PAGE_MODES,
-        selector: "app-modes",
-        element: this.modeElement
-    }, {
-        path: this.PAGE_SETTINGS,
-        selector: "app-settings",
-        element: this.settingsElement
-    }, {
-        path: this.PAGE_EDIT_SETTING,
-        selector: "app-edit-setting",
-        element: this.editSettingElement
-    } ];
+    toolbar=null;
+    routes=[ PAGE_HOME, PAGE_MODES, PAGE_SETTINGS, PAGE_EDIT_SETTING ];
     constructor() {
         if (routeServiceIsInstantiated) {
             throw new Error("RouteService is already instantiated.");
@@ -232,6 +217,116 @@ class RouteService {
             }
         }));
         this.currentRoute = newRoute;
+    };
+}
+
+"use strict";
+
+let scrollServiceIsInstantiated;
+
+class ScrollService {
+    btnScrollUp=null;
+    btnScrollDown=null;
+    btnState="";
+    bigScrollActivated=false;
+    scrollSteps=10;
+    scrollTimer=50;
+    settingsValues=[];
+    constructor() {
+        if (scrollServiceIsInstantiated) {
+            throw new Error("Le ScrollService est déjà instancié.");
+        }
+        scrollServiceIsInstantiated = true;
+        this.setScrollClass();
+    }
+    setScrollClass=() => {
+        let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t`;
+        stylesServiceInstance.setStyle("scroll", styleScroll);
+    };
+    setScroll=values => {
+        let addNewSetting = false;
+        if (this.settingsValues.length > 0) {
+            for (let setting of this.settingsValues) {
+                if (setting.name === values.name) {
+                    setting.btnState = values.btnState;
+                    setting.bigScrollActivated = values.bigScrollActivated;
+                    addNewSetting = false;
+                    break;
+                } else {
+                    addNewSetting = true;
+                }
+            }
+        }
+        if (this.settingsValues.length === 0 || addNewSetting) {
+            this.settingsValues.push(values);
+        }
+        this.calculatePriority(values);
+        this.setBigScroll();
+        this.setBtnScroll();
+    };
+    calculatePriority=values => {
+        let tmpBigScroll = false;
+        let tmpBtnState = "";
+        for (let setting of this.settingsValues) {
+            tmpBigScroll = Boolean(tmpBigScroll || setting.bigScrollActivated);
+            tmpBtnState = setting.btnState ? setting.btnState : tmpBtnState;
+        }
+        this.bigScrollActivated = tmpBigScroll;
+        this.btnState = tmpBtnState;
+    };
+    setBigScroll=() => {
+        if (this.bigScrollActivated) {
+            document.body.classList.add("cplus-big-scroll");
+        } else {
+            document.body.classList.remove("cplus-big-scroll");
+        }
+    };
+    setBtnScroll=() => {
+        document.querySelector("#cplus-container-scroll-buttons")?.remove();
+        if (this.btnState) {
+            let intervalUp;
+            let intervalDown;
+            const btnArray = [ {
+                id: "cplus-scroll-up",
+                label: i18nServiceInstance.getMessage("scrollUp"),
+                element: this.btnScrollUp,
+                interval: intervalUp
+            }, {
+                id: "cplus-scroll-down",
+                label: i18nServiceInstance.getMessage("scrollDown"),
+                element: this.btnScrollDown,
+                interval: intervalDown
+            } ];
+            const container = document.createElement("div");
+            container.setAttribute("id", "cplus-container-scroll-buttons");
+            let fragment = document.createDocumentFragment();
+            btnArray.forEach((button => {
+                let btn = document.createElement("button");
+                btn.setAttribute("id", button.id);
+                btn.type = "button";
+                btn.innerHTML = button.label;
+                fragment.appendChild(btn);
+                container.appendChild(fragment);
+                document.body.appendChild(container);
+                button.element = document.querySelector(`#${button.id}`);
+                let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
+                let scrollBy = scrollDir * this.scrollSteps;
+                if (this.btnState === "mouseover") {
+                    button.element?.addEventListener("mouseover", (event => {
+                        button.interval = setInterval((function() {
+                            window.scrollBy(0, scrollBy);
+                        }), this.scrollTimer);
+                    }));
+                    button.element?.addEventListener("mouseleave", (event => {
+                        clearInterval(button.interval);
+                    }));
+                } else {
+                    button.element?.addEventListener("click", (event => {
+                        window.scrollBy(0, scrollBy);
+                    }));
+                }
+            }));
+        }
     };
 }
 
@@ -320,6 +415,10 @@ Object.freeze(stringServiceInstance);
 const routeServiceInstance = new RouteService;
 
 Object.seal(routeServiceInstance);
+
+const scrollServiceInstance = new ScrollService;
+
+Object.seal(scrollServiceInstance);
 
 const appPath = pathServiceInstance.path;
 
@@ -467,31 +566,182 @@ class AbstractSetting extends HTMLElement {
 
 "use strict";
 
-const tmplClicFacilte = document.createElement("template");
+const tmplClickFacilite = document.createElement("template");
 
-tmplClicFacilte.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="clicFacilte" data-icon="ClicFacile"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="clicFacilte" data-icon="ClicFacile"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
-class ClicFaciliteComponent extends AbstractSetting {
+class ClickFaciliteComponent extends AbstractSetting {
+    selectedElt;
+    delay;
+    isClicking=false;
+    clickableElements=[ "A", "INPUT", "SELECT", "OPTION", "TEXTAREA", "LABEL", "BUTTON" ];
     activesValues={
-        values: "noModifications,reinforcedContrasts,white+black",
+        values: "noModifications,longClick+2,autoClick+2",
         activeValue: 0
     };
     constructor() {
         super();
-        this.setCallback(this.setClicFacilite.bind(this));
-        this.appendChild(tmplClicFacilte.content.cloneNode(true));
+        this.setCallback(this.setClickFacilite.bind(this));
+        this.appendChild(tmplClickFacilite.content.cloneNode(true));
     }
-    setClicFacilite=value => {
-        if (value === "noModifications") {
-            stylesServiceInstance.removeStyle(this.name);
+    setClickFacilite=value => {
+        let paramName = value.split("+")[0];
+        this.delay = Number(value.split("+")[1]) * 1e3;
+        switch (paramName) {
+          case "bigZone":
+            {
+                this.resetEventClick();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "",
+                    bigScrollActivated: true
+                });
+                break;
+            }
+
+          case "longClick":
+            {
+                this.resetEventClick();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "click",
+                    bigScrollActivated: true
+                });
+                this.longClick();
+                break;
+            }
+
+          case "autoClick":
+            {
+                this.resetEventClick();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "click",
+                    bigScrollActivated: true
+                });
+                this.autoClick();
+                break;
+            }
+
+          default:
+            {
+                this.resetEventClick();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "",
+                    bigScrollActivated: false
+                });
+                break;
+            }
+        }
+    };
+    getClickableElt=event => {
+        let pointedElt = event.target;
+        let closestPointedElt = pointedElt.closest(this.clickableElements.join(","));
+        return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt : closestPointedElt ? closestPointedElt : pointedElt;
+    };
+    longClick=() => {
+        document.addEventListener("click", (event => {
+            event.preventDefault();
+        }));
+        document.addEventListener("mousedown", (event => {
+            this.isClicking = true;
+            setTimeout((() => {
+                if (this.isClicking) {
+                    this.doClick(this.getClickableElt(event));
+                }
+            }), this.delay);
+        }));
+        document.addEventListener("mouseup", (() => {
+            this.isClicking = false;
+        }));
+    };
+    autoClick=() => {
+        let timer = null;
+        document.addEventListener("mouseover", (event => {
+            timer = setTimeout((() => {
+                this.doClick(this.getClickableElt(event));
+            }), this.delay);
+        }));
+        document.addEventListener("mouseout", (() => {
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
+        }));
+    };
+    resetEventClick=() => {
+        document.removeEventListener("click", (() => {}));
+        document.removeEventListener("mouseover", (() => {}));
+        document.removeEventListener("mouseout", (() => {}));
+        document.removeEventListener("mousedown", (() => {}));
+        document.removeEventListener("mouseup", (() => {}));
+    };
+    doClick=elt => {
+        if (this.clickableElements.includes(elt.nodeName)) {
+            switch (elt.nodeName) {
+              case "A":
+              case "AREA":
+                this.clickLink(elt);
+                break;
+
+              case "INPUT":
+                this.clickInput(elt);
+                break;
+
+              case "SELECT":
+              case "TEXTAREA":
+                elt.focus();
+                break;
+
+              case "OPTION":
+                this.selectOption(elt);
+                break;
+
+              case "LABEL":
+                document.getElementById(elt.htmlFor).click();
+                break;
+
+              default:
+                elt.click();
+                break;
+            }
+        } else if (elt.onclick && elt.onclick !== null) {
+            elt.onclick();
         } else {
-            let style;
-            stylesServiceInstance.setStyle(this.name, style);
+            elt.click();
+        }
+    };
+    clickLink=elt => {
+        if (elt.href && elt.href !== "") {
+            window.location = elt.href;
+        }
+    };
+    clickInput=elt => {
+        elt.focus();
+        switch (elt.type) {
+          case "radio":
+            elt.checked = true;
+            break;
+
+          case "checkbox":
+            elt.checked = !elt.checked;
+            break;
+        }
+    };
+    selectOption=elt => {
+        let options = elt.closest("SELECT")?.options;
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].text === elt.text) {
+                options[i].selected = true;
+                elt.focus();
+            } else {
+                options[i].selected = false;
+            }
         }
     };
 }
 
-customElements.define("app-clic-facilite", ClicFaciliteComponent);
+customElements.define("app-click-facilite", ClickFaciliteComponent);
 
 "use strict";
 
@@ -1070,11 +1320,6 @@ const tmplScroll = document.createElement("template");
 tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="lift" data-icon="Scroll"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ScrollComponent extends AbstractSetting {
-    btnScrollUp=null;
-    btnScrollDown=null;
-    btnState="";
-    scrollSteps=10;
-    scrollTimer=50;
     activesValues={
         values: "noModifications,bigScroll,scrollOnMouseover",
         activeValue: 0
@@ -1084,48 +1329,45 @@ class ScrollComponent extends AbstractSetting {
         this.setCallback(this.setScroll.bind(this));
         this.appendChild(tmplScroll.content.cloneNode(true));
     }
-    connectedCallback() {
-        super.connectedCallback();
-        this.setScrollClass();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.btnScrollUp?.removeEventListener("click", (() => {}));
-        this.btnScrollUp?.removeEventListener("mouseover", (() => {}));
-        this.btnScrollUp?.removeEventListener("mouseleave", (() => {}));
-        this.btnScrollDown?.removeEventListener("click", (() => {}));
-        this.btnScrollDown?.removeEventListener("mouseover", (() => {}));
-        this.btnScrollDown?.removeEventListener("mouseleave", (() => {}));
-        stylesServiceInstance.removeStyle(this.name);
-    }
     setScroll=value => {
         switch (value) {
           case "bigScroll":
             {
-                this.resetScroll();
-                this.setBigScroll();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "",
+                    bigScrollActivated: true
+                });
                 break;
             }
 
           case "scrollOnClick":
             {
-                this.resetScroll();
-                this.btnState = "click";
-                this.setBtnScroll();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "click",
+                    bigScrollActivated: false
+                });
                 break;
             }
 
           case "scrollOnMouseover":
             {
-                this.resetScroll();
-                this.btnState = "mouseover";
-                this.setBtnScroll();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "mouseover",
+                    bigScrollActivated: false
+                });
                 break;
             }
 
           default:
             {
-                this.resetScroll();
+                scrollServiceInstance.setScroll({
+                    name: this.name,
+                    btnState: "",
+                    bigScrollActivated: false
+                });
             }
         }
     };
@@ -1637,7 +1879,7 @@ const homeLayout = document.createElement("template");
 homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
-    static observedAttributes=[ "data-mode", "data-custom" ];
+    static observedAttributes=[ "data-modes", "data-custom" ];
     changeModeBtn=null;
     settingsBtn=null;
     modeName=null;
@@ -1665,10 +1907,11 @@ class HomeComponent extends HTMLElement {
         this.settingsBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-mode" === name) {
-            this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
-            this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
-            this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
+        if ("data-modes" === name) {
+            let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
+            this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(selectedMode))[0][0]}Name`);
+            this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]));
+            this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(selectedMode))[0][0]);
         }
     }
     createHandler=() => event => {
@@ -1710,7 +1953,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clic-facilite class="sc-mode__setting"></app-clic-facilite>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -1757,7 +2000,7 @@ const modesLayout = document.createElement("template");
 modesLayout.innerHTML = `\n<form class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>\n\t</div>\n</form>\n`;
 
 class ModesComponent extends HTMLElement {
-    static observedAttributes=[ "data-list-mode" ];
+    static observedAttributes=[ "data-modes" ];
     selectModeForm=null;
     selectModeBtn=null;
     selectModeZone=null;
@@ -1778,7 +2021,7 @@ class ModesComponent extends HTMLElement {
         this.selectModeBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-list-mode" === name) {
+        if ("data-modes" === name) {
             this.displayListMode(JSON.parse(newValue));
         }
     }
@@ -1833,15 +2076,16 @@ const settingsLayout = document.createElement("template");
 settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
 
 class SettingsComponent extends HTMLElement {
-    static observedAttributes=[ "data-mode" ];
+    static observedAttributes=[ "data-modes" ];
     constructor() {
         super();
         this.appendChild(settingsLayout.content.cloneNode(true));
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-mode" === name) {
+        if ("data-modes" === name) {
+            let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
             let elements = this.querySelectorAll(".c-settings__category");
-            const settings = Object.entries(JSON.parse(newValue))[0][1];
+            const settings = Object.entries(JSON.parse(selectedMode))[0][1];
             elements.forEach((element => {
                 element.setAttribute("data-settings", JSON.stringify(settings));
             }));
@@ -2051,13 +2295,10 @@ customElements.define("app-text", TextComponent);
 
 const tmplToolbar = document.createElement("template");
 
-tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n\n<app-home class="d-none"></app-home>\n<app-modes class="d-none"></app-modes>\n<app-settings class="d-none"></app-settings>\n<app-edit-setting class="d-none"></app-edit-setting>\n`;
+tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n`;
 
 class ToolbarComponent extends HTMLElement {
     header=null;
-    home=null;
-    modes=null;
-    settings=null;
     historyRoute=[];
     json;
     defaultJson;
@@ -2069,9 +2310,6 @@ class ToolbarComponent extends HTMLElement {
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
-        this.home = this.querySelector("app-home");
-        this.modes = this.querySelector("app-modes");
-        this.settings = this.querySelector("app-settings");
         filesServiceInstance.getModesOfUse().then((result => {
             this.defaultJson = result;
             localStorageServiceInstance.getItem(jsonName).then((result => {
@@ -2081,39 +2319,57 @@ class ToolbarComponent extends HTMLElement {
                     this.json = this.defaultJson;
                     localStorageServiceInstance.setItem(jsonName, this.defaultJson);
                 }
-                this.setCurrentMode();
+                this.initCurrentMode();
             }));
         }));
         window.addEventListener(`storage-${jsonName}`, this.handler);
         routeServiceInstance.initPages(this);
         this.addEventListener("changeRoute", this.handler);
     }
-    setHeaderDisplay=page => {
+    initCurrentMode=() => {
+        if (this.json.selectedMode) {
+            routeServiceInstance.initPages(this);
+            this.setNewPage(PAGE_HOME);
+            this.setCustomState();
+        } else {
+            routeServiceInstance.navigate(PAGE_MODES);
+            this.setNewPage(PAGE_MODES);
+        }
+    };
+    setCurrentPage=page => {
+        let currentPage = this.querySelector(`app-${page}`);
+        currentPage?.setAttribute("data-modes", JSON.stringify(this.json));
+        i18nServiceInstance.translate(currentPage);
+    };
+    setNewPage=page => {
         switch (page) {
-          case routeServiceInstance.PAGE_HOME:
+          case PAGE_HOME:
             {
+                this.setCurrentPage(PAGE_HOME);
                 this.header?.setAttribute("data-display", "primary");
                 this.header?.setAttribute("data-page-title", "");
                 break;
             }
 
-          case routeServiceInstance.PAGE_MODES:
+          case PAGE_MODES:
             {
+                this.setCurrentPage(PAGE_MODES);
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-page-title", "pageTitleModes");
                 this.header?.setAttribute("data-page-icon", "");
                 break;
             }
 
-          case routeServiceInstance.PAGE_SETTINGS:
+          case PAGE_SETTINGS:
             {
+                this.setCurrentPage(PAGE_SETTINGS);
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-page-title", "pageTitleSettings");
                 this.header?.setAttribute("data-page-icon", "Settings");
                 break;
             }
 
-          case routeServiceInstance.PAGE_EDIT_SETTING:
+          case PAGE_EDIT_SETTING:
             {
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-page-title", "pageTitleEditSetting");
@@ -2121,21 +2377,6 @@ class ToolbarComponent extends HTMLElement {
                 break;
             }
         }
-    };
-    setCurrentMode=() => {
-        if (this.json.selectedMode) {
-            this.json.modes.forEach((mode => {
-                if (Object.entries(mode)[0][0] === this.json.selectedMode) {
-                    this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
-                    this.home?.setAttribute("data-mode", JSON.stringify(mode));
-                    this.settings?.setAttribute("data-mode", JSON.stringify(mode));
-                    this.modes?.setAttribute("data-list-mode", JSON.stringify(this.json));
-                }
-            }));
-        } else {
-            routeServiceInstance.navigate(routeServiceInstance.PAGE_MODES);
-        }
-        this.setCustomState();
     };
     setCustomState=() => {
         let defaultMode;
@@ -2151,7 +2392,7 @@ class ToolbarComponent extends HTMLElement {
             }
         }));
         const isCustomMode = !(currentMode === defaultMode);
-        this.home?.setAttribute("data-custom", isCustomMode.toString());
+        this.querySelector(`app-${PAGE_HOME}`)?.setAttribute("data-custom", isCustomMode.toString());
     };
     createHandler=() => event => {
         switch (event.type) {

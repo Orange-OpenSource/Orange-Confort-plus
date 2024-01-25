@@ -35,6 +35,12 @@
 					}
 				},
 				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick+2",
+						"activeValue": 0
+					}
+				},
+				{
 					"cursorAspect": {
 						"values": "noModifications,big+white,huge+green",
 						"activeValue": 0
@@ -86,6 +92,12 @@
 				{
 					"textSpacing": {
 						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+						"activeValue": 0
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick+2,autoClick+2",
 						"activeValue": 0
 					}
 				},

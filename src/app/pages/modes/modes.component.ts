@@ -14,7 +14,7 @@ modesLayout.innerHTML = `
 `;
 
 class ModesComponent extends HTMLElement {
-	static observedAttributes = ['data-list-mode'];
+	static observedAttributes = ['data-modes'];
 	selectModeForm: HTMLFormElement | null = null;
 	selectModeBtn: HTMLElement | null = null;
 	selectModeZone: HTMLElement | null = null;
@@ -42,7 +42,7 @@ class ModesComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-list-mode' === name) {
+		if ('data-modes' === name) {
 			this.displayListMode(JSON.parse(newValue));
 		}
 	}
@@ -71,24 +71,17 @@ class ModesComponent extends HTMLElement {
 				case 'submit':
 					this.selectModeFormEvent(event);
 					break;
-				case 'click':
-					this.selectModeBtnEvent();
-					break;
 			}
 		}
 	}
 
 	private selectModeFormEvent = (event: Event): void => {
 		event.preventDefault();
-		(this.shadowRoot?.querySelector('app-home') as HTMLElement).focus();
-	}
-
-	private selectModeBtnEvent = (): void => {
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,
 				detail: {
-					route: routeServiceInstance.PAGE_HOME,
+					route: PAGE_HOME,
 					isPrev: true
 				}
 			});

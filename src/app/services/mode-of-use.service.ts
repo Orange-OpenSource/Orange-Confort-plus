@@ -18,6 +18,16 @@ class ModeOfUseService {
 		});
 	}
 
+	getSelectedMode(json: ModeOfUseModel): string {
+		let selectedMode: string;
+		json.modes.forEach((mode: any) => {
+			if (Object.entries(mode)[0][0] === json.selectedMode) {
+				selectedMode = mode;
+			}
+		});
+		return JSON.stringify(selectedMode);
+	}
+
 	setSettingValue(key: string, newIndex: number): Promise<boolean> {
 		let jsonIsEdited = false;
 		return localStorageServiceInstance.getItem(jsonName)
