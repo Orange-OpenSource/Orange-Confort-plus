@@ -120,6 +120,7 @@ class ScrollComponent extends AbstractSetting {
 
 		btnArray.forEach((button) => {
 			let btn = document.createElement('button');
+			btn.type = 'button';
 			btn.setAttribute('id', button.id);
 			btn.type = "button";
 			btn.innerHTML = button.label;
