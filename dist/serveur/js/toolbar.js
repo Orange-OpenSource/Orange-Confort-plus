@@ -467,6 +467,34 @@ class AbstractSetting extends HTMLElement {
 
 "use strict";
 
+const tmplClicFacilte = document.createElement("template");
+
+tmplClicFacilte.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="clicFacilte" data-icon="ClicFacile"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class ClicFaciliteComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,reinforcedContrasts,white+black",
+        activeValue: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(this.setClicFacilite.bind(this));
+        this.appendChild(tmplClicFacilte.content.cloneNode(true));
+    }
+    setClicFacilite=value => {
+        if (value === "noModifications") {
+            stylesServiceInstance.removeStyle(this.name);
+        } else {
+            let style;
+            stylesServiceInstance.setStyle(this.name, style);
+        }
+    };
+}
+
+customElements.define("app-clic-facilite", ClicFaciliteComponent);
+
+"use strict";
+
 const tmplColorContrast = document.createElement("template");
 
 tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="colorsContrasts" data-icon="Contrast"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -1682,7 +1710,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clic-facilite class="sc-mode__setting"></app-clic-facilite>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
