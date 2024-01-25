@@ -27,7 +27,7 @@ homeLayout.innerHTML = `
 `;
 
 class HomeComponent extends HTMLElement {
-	static observedAttributes = ['data-mode', 'data-custom'];
+	static observedAttributes = ['data-modes', 'data-custom'];
 	changeModeBtn: HTMLElement | null = null;
 	settingsBtn: HTMLElement | null = null;
 	modeName: HTMLElement | null = null;
@@ -62,10 +62,11 @@ class HomeComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-mode' === name) {
-			this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
-			this.currentMode.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
-			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(newValue))[0][0]);
+		if ('data-modes' === name) {
+			let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
+			this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(selectedMode))[0][0]}Name`);
+			this.currentMode.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]));
+			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(selectedMode))[0][0]);
 		}
 
 		/* @todo MVP: ne pas afficher l'astérix si un mode d'usage est personnalisé
@@ -98,7 +99,7 @@ class HomeComponent extends HTMLElement {
 			{
 				bubbles: true,
 				detail: {
-					route: routeServiceInstance.PAGE_MODES
+					route: PAGE_MODES
 				}
 			});
 		this.changeModeBtn?.dispatchEvent(clickEvent);
@@ -109,7 +110,7 @@ class HomeComponent extends HTMLElement {
 			{
 				bubbles: true,
 				detail: {
-					route: routeServiceInstance.PAGE_SETTINGS
+					route: PAGE_SETTINGS
 				}
 			});
 		this.settingsBtn?.dispatchEvent(clickEvent);

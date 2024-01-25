@@ -9,7 +9,7 @@ settingsLayout.innerHTML = `
 `;
 
 class SettingsComponent extends HTMLElement {
-	static observedAttributes = ['data-mode'];
+	static observedAttributes = ['data-modes'];
 
 	constructor() {
 		super();
@@ -18,9 +18,10 @@ class SettingsComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-mode' === name) {
+		if ('data-modes' === name) {
+			let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
 			let elements = this.querySelectorAll(".c-settings__category");
-			const settings: string[] = Object.entries(JSON.parse(newValue))[0][1] as string[];
+			const settings: string[] = Object.entries(JSON.parse(selectedMode))[0][1] as string[];
 			elements.forEach((element) => {
 				element.setAttribute('data-settings', JSON.stringify(settings));
 			});
