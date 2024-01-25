@@ -13,7 +13,6 @@ class AppComponent extends HTMLElement {
 	confortPlusBtn: HTMLElement | undefined = null;
 	confortPlusToolbar: HTMLElement | undefined = null;
 	closeBtn: HTMLElement | undefined = null;
-	i18nService: any;
 	link: HTMLLinkElement;
 
 	handler: any;

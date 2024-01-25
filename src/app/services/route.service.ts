@@ -2,22 +2,13 @@ let routeServiceIsInstantiated: boolean;
 
 class RouteService {
 	currentRoute: string;
-
-	PAGE_HOME = 'home';
-	PAGE_MODES = 'modes';
-	PAGE_SETTINGS = 'settings';
-	PAGE_EDIT_SETTING = 'edit-setting';
-
-	homeElement: HTMLElement = null;
-	modeElement: HTMLElement = null;
-	settingsElement: HTMLElement = null;
-	editSettingElement: HTMLElement = null;
+	toolbar: HTMLElement = null;
 
 	routes = [
-		{ path: this.PAGE_HOME, selector: 'app-home', element: this.homeElement },
-		{ path: this.PAGE_MODES, selector: 'app-modes', element: this.modeElement },
-		{ path: this.PAGE_SETTINGS, selector: 'app-settings', element: this.settingsElement },
-		{ path: this.PAGE_EDIT_SETTING, selector: 'app-edit-setting', element: this.editSettingElement },
+		PAGE_HOME,
+		PAGE_MODES,
+		PAGE_SETTINGS,
+		PAGE_EDIT_SETTING
 	];
 
 	constructor() {
@@ -29,21 +20,19 @@ class RouteService {
 	}
 
 	/* Initialize components */
-	initPages = (root: HTMLElement): void => {
-		this.routes.forEach((route: any) => {
-			route.element = root.querySelector(route.selector);
-		});
-
-		this.navigate(this.PAGE_HOME);
+	initPages(root: HTMLElement): void {
+		this.toolbar = root;
+		this.navigate(PAGE_HOME);
 	}
 
 	/* Navigate to the defined route in parameter */
-	navigate = (newRoute: string): void => {
-		this.routes.forEach((route: any) => {
-			if (route.path === newRoute) {
-				route.element.classList.remove('d-none');
-			} else if (route.path === this.currentRoute) {
-				route.element.classList.add('d-none');
+	navigate(newRoute: string): void {
+		this.routes.forEach((route: string) => {
+			if (route === this.currentRoute) {
+				this.toolbar.querySelector(`app-${route}`)?.remove();
+			} else if (route === newRoute) {
+				const element = `<app-${route}></app-${route}>`;
+				this.toolbar.insertAdjacentHTML("beforeend", element);
 			}
 		});
 

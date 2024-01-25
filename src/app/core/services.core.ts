@@ -15,8 +15,10 @@ const stylesServiceInstance = new StylesService();
 Object.freeze(stylesServiceInstance);
 const stringServiceInstance = new StringService();
 Object.freeze(stringServiceInstance);
-// @note We don't freeze the router, otherwise it would be impossible to redefine `currentRoute`.
+// @note We don't freeze these services to be able to redefine certain variables
 const routeServiceInstance = new RouteService();
 Object.seal(routeServiceInstance);
+const scrollServiceInstance = new ScrollService();
+Object.seal(scrollServiceInstance);
 
 const appPath = pathServiceInstance.path;
