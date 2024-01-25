@@ -11,6 +11,7 @@ tmplMode.innerHTML = `
 	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
 	<app-scroll class="sc-mode__setting"></app-scroll>
 	<app-link-style class="sc-mode__setting"></app-link-style>
+	<app-clic-facilite class="sc-mode__setting"></app-clic-facilite>
 </div>
 `;
 

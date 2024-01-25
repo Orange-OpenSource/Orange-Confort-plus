@@ -27,6 +27,7 @@ const files = {
 			'dist/js/app/core/services.core.js',
 			'dist/js/app/app.component.js',
 			'dist/js/app/shared/settings/abstract-setting.component.js',
+			'dist/js/app/shared/settings/clic-facilite.component.js',
 			'dist/js/app/shared/settings/color-contrast.component.js',
 			'dist/js/app/shared/settings/cursor-aspect.component.js',
 			'dist/js/app/shared/settings/focus-aspect.component.js',
