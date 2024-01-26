@@ -20,10 +20,13 @@ class ReadingGuideComponent extends AbstractSetting {
 
 	classReadingGuide = `
 		#cplus-vertical-guide-elt {
-			border-left: 1px solid black;
+			border-left: 4px solid black;
+			background: white;
 			height: 100%;
+			width: 6px;
 			position: fixed;
 			top: 0;
+			z-index: 2147483645;
 		}
 	`;
 
@@ -34,6 +37,7 @@ class ReadingGuideComponent extends AbstractSetting {
 			position: fixed;
 			left: 0;
 			right: 0;
+			z-index: 2147483645;
 		}
 		#cplus-mask-guide--top-elt {
 			top: 0;
