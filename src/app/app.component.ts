@@ -56,7 +56,7 @@ class AppComponent extends HTMLElement {
 
 	showToolbar = (): void => {
 		this.confortPlusToolbar.removeAttribute('style');
-		(this.querySelector('#close-toolbar') as HTMLElement).focus();
+		(this.querySelector('#close-toolbar') as HTMLElement)?.focus();
 		this.confortPlusBtn.classList.add('d-none');
 	}
 
@@ -64,7 +64,7 @@ class AppComponent extends HTMLElement {
 		this.confortPlusToolbar.style.transform = 'translateX(100%)';
 		this.confortPlusToolbar.style.visibility = 'hidden';
 		this.confortPlusBtn.classList.remove('d-none');
-		this.confortPlusBtn.focus();
+		this.confortPlusBtn?.focus();
 	}
 }
 
