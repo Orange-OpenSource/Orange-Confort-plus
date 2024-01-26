@@ -10,7 +10,8 @@ class ScrollComponent extends AbstractSetting {
 	btnScrollUp: HTMLElement = null;
 	btnScrollDown: HTMLElement = null;
 	btnState: 'click' | 'mouseover' | '' = '';
-	scrollSteps = 100;
+	scrollSteps = 10;
+	scrollTimer = 50;
 
 	activesValues = {
 		"values": "noModifications,bigScroll,scrollOnMouseover",
@@ -34,8 +35,10 @@ class ScrollComponent extends AbstractSetting {
 		super.disconnectedCallback();
 		this.btnScrollUp?.removeEventListener('click', () => { });
 		this.btnScrollUp?.removeEventListener('mouseover', () => { });
+		this.btnScrollUp?.removeEventListener('mouseleave', () => { });
 		this.btnScrollDown?.removeEventListener('click', () => { });
 		this.btnScrollDown?.removeEventListener('mouseover', () => { });
+		this.btnScrollDown?.removeEventListener('mouseleave', () => { });
 		stylesServiceInstance.removeStyle(this.name);
 	}
 
@@ -105,26 +108,45 @@ class ScrollComponent extends AbstractSetting {
 	}
 
 	setBtnScroll = (): void => {
+		let intervalUp: any;
+		let intervalDown: any;
+		const btnArray = [
+			{ id: 'cplus-scroll-up', label: i18nServiceInstance.getMessage('scrollUp'), element: this.btnScrollUp, interval: intervalUp },
+			{ id: 'cplus-scroll-down', label: i18nServiceInstance.getMessage('scrollDown'), element: this.btnScrollDown, interval: intervalDown }
+		];
 		const container = document.createElement('div');
-		container.setAttribute('id', 'cplus-container-scroll-buttons')
-		let btnArray: any[] = [];
+		container.setAttribute('id', 'cplus-container-scroll-buttons');
+		let fragment = document.createDocumentFragment();
 
-		// @todo tester documentFragment pour ce cas
-		let btnUp = `<button type="button" id="cplus-scroll-up">${i18nServiceInstance.getMessage('scrollUp')}</button>`;
-		let btnDown = `<button type="button" id="cplus-scroll-down">${i18nServiceInstance.getMessage('scrollDown')}</button>`;
+		btnArray.forEach((button) => {
+			let btn = document.createElement('button');
+			btn.setAttribute('id', button.id);
+			btn.type = "button";
+			btn.innerHTML = button.label;
+			fragment.appendChild(btn);
 
-		btnArray.push(btnUp, btnDown);
-		container.innerHTML = btnArray.join('');
-		document.body.appendChild(container);
+			container.appendChild(fragment);
+			document.body.appendChild(container);
+			button.element = document.querySelector(`#${button.id}`);
 
-		this.btnScrollUp = document.querySelector('#cplus-scroll-up');
-		this.btnScrollDown = document.querySelector('#cplus-scroll-down');
+			let scrollDir = button.id.includes('up') ? -1 : button.id.includes('down') ? 1 : 0;
+			let scrollBy = scrollDir * this.scrollSteps;
+			button.element?.addEventListener(this.btnState, (event: any) => {
+				button.interval = setInterval(function () { window.scrollBy(0, scrollBy) }, this.scrollTimer)
+			});
 
-		this.btnScrollUp.addEventListener(this.btnState, (event: any) => {
-			window.scrollBy(0, -this.scrollSteps);
-		});
-		this.btnScrollDown.addEventListener(this.btnState, (event: any) => {
-			window.scrollBy(0, this.scrollSteps);
+			if (this.btnState === 'mouseover') {
+				button.element?.addEventListener('mouseover', (event: any) => {
+					button.interval = setInterval(function () { window.scrollBy(0, scrollBy) }, this.scrollTimer)
+				});
+				button.element?.addEventListener('mouseleave', (event: any) => {
+					clearInterval(button.interval);
+				});
+			} else {
+				button.element?.addEventListener('click', (event: any) => {
+					window.scrollBy(0, scrollBy);
+				});
+			}
 		});
 	}
 
