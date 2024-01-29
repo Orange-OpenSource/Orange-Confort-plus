@@ -1547,7 +1547,7 @@ class HomeComponent extends HTMLElement {
             this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
         }
         if ("data-custom" === name) {
-            const modeName = this.modeName.innerText;
+            const modeName = this.modeName.textContent;
             this.modeName.innerText = newValue === "true" ? `${modeName}*` : `${modeName}`;
         }
     }
@@ -1894,7 +1894,7 @@ class ToolbarComponent extends HTMLElement {
         filesServiceInstance.getModesOfUse().then((result => {
             this.defaultJson = result;
             localStorageServiceInstance.getItem(jsonName).then((result => {
-                if (result && Object.keys(result).length !== 0) {
+                if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
                     this.json = result;
                 } else {
                     this.json = this.defaultJson;
