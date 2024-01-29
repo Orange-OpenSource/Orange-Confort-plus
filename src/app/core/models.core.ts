@@ -1,4 +1,5 @@
 interface ModeOfUseModel {
+	version: string,
 	selectedMode: string;
 	modes: any[];
 }

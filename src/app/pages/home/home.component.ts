@@ -85,7 +85,7 @@ class HomeComponent extends HTMLElement {
 			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(newValue))[0][0]);
 		}
 		if ('data-custom' === name) {
-			const modeName = this.modeName.innerText;
+			const modeName = this.modeName.textContent;
 			this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
 		}
 	}
