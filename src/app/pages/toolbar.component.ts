@@ -31,9 +31,8 @@ class ToolbarComponent extends HTMLElement {
 		filesServiceInstance.getModesOfUse().then((result: any) => {
 			this.defaultJson = result;
 
-			// @todo Contrôler si le JSON du local correspond au JSON de la version de Confort+ via un numéro de version ?
 			localStorageServiceInstance.getItem(jsonName).then((result: any) => {
-				if (result && Object.keys(result).length !== 0) {
+				if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
 					this.json = result;
 				} else {
 					this.json = this.defaultJson;
