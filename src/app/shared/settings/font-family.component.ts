@@ -14,14 +14,14 @@ class FontFamilyComponent extends AbstractSetting {
 
 	fontDictionnary: any[] = [
 		{
-			name: 'Accessible_DfA', folder: 'accessibleDfA', files: [
+			name: 'Accessible_DfA', size: '91.125%', folder: 'accessibleDfA', files: [
 				{ name: 'AccessibleDfA-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'AccessibleDfA-Italic.woff2', style: 'italic', weight: '400' },
 				{ name: 'AccessibleDfA-Regular.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'B612_Mono', folder: 'B612', files: [
+			name: 'B612_Mono', size: '75%', folder: 'B612', files: [
 				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
@@ -29,12 +29,12 @@ class FontFamilyComponent extends AbstractSetting {
 			]
 		},
 		{
-			name: 'Comic Sans MS', folder: 'comic', files: [
+			name: 'Comic Sans MS', size: '100%', folder: 'comic', files: [
 				{ name: 'comic-Sans-MS.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'Lexand Deca', folder: 'lexendDeca', files: [
+			name: 'Lexand Deca', size: '92%', folder: 'lexendDeca', files: [
 				{ name: 'LexendDeca-Black.woff2', style: 'normal', weight: '900' },
 				{ name: 'LexendDeca-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'LexendDeca-ExtraBold.woff2', style: 'normal', weight: '800' },
@@ -47,7 +47,7 @@ class FontFamilyComponent extends AbstractSetting {
 			]
 		},
 		{
-			name: 'Luciole', folder: 'luciole', files: [
+			name: 'Luciole', size: '87.5%', folder: 'luciole', files: [
 				{ name: 'Luciole-Bold-Italic.woff2', style: 'italic', weight: '700' },
 				{ name: 'Luciole-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'Luciole-Regular-Italic.woff2', style: 'italic', weight: '400' },
@@ -55,7 +55,7 @@ class FontFamilyComponent extends AbstractSetting {
 			]
 		},
 		{
-			name: 'Sylexiad Sans', folder: 'sylexiadSans', files: [
+			name: 'Sylexiad Sans', size: '125%', folder: 'sylexiadSans', files: [
 				{ name: 'SylexiadSansMedium-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'SylexiadSansMedium-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'SylexiadSansMedium-Italic.woff2', style: 'italic', weight: '400' },
@@ -75,7 +75,7 @@ class FontFamilyComponent extends AbstractSetting {
 			]
 		},
 		{
-			name: 'Verdana', folder: 'verdana', files: [
+			name: 'Verdana', size: '87.5%', folder: 'verdana', files: [
 				{ name: 'Verdana-Bold-Italic.woff2', style: 'italic', weight: '700' },
 				{ name: 'Verdana-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'Verdana-Italic.woff2', style: 'italic', weight: '400' },
@@ -104,6 +104,7 @@ class FontFamilyComponent extends AbstractSetting {
 						font-style: ${file.style};
 						font-weight: ${file.weight};
 						font-display: swap;
+						size-adjust: ${font.size};
 					}`
 				);
 			}
