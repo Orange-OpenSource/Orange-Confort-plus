@@ -170,73 +170,73 @@
 	"margeList": {
 		"message": "Marge and list"
 	},
-	"white+black": {
+	"white_black": {
 		"message": "White and black"
 	},
-	"black+ivory": {
+	"black_ivory": {
 		"message": "Black and ivory"
 	},
-	"white+red": {
+	"white_red": {
 		"message": "White and red"
 	},
-	"black+yellow": {
+	"black_yellow": {
 		"message": "Black and yellow"
 	},
-	"white+blue": {
+	"white_blue": {
 		"message": "White and blue"
 	},
-	"yellow+blue": {
+	"yellow_blue": {
 		"message": "Yellow and blue"
 	},
-	"black+vert": {
+	"black_vert": {
 		"message": "Black and green"
 	},
-	"lightblue+orange+lightvert": {
+	"lightblue_orange_lightvert": {
 		"message": "Lightblue / Orange / Lightgreen"
 	},
-	"yellow+orange+lightvert": {
+	"yellow_orange_lightvert": {
 	"message": "Yellow / Orange / Lightgreen"
 	},
-	"big+white": {
+	"big_white": {
 		"message": "Big and white"
 	},
-	"huge+white": {
+	"huge_white": {
 		"message": "Very big and white"
 	},
-	"big+black": {
+	"big_black": {
 		"message": "Big and black"
 	},
-	"huge+black": {
+	"huge_black": {
 		"message": "Very big and black"
 	},
-	"big+blue": {
+	"big_blue": {
 		"message": "Big and blue"
 	},
-	"huge+blue": {
+	"huge_blue": {
 		"message": "Very big and blue"
 	},
-	"big+red": {
+	"big_red": {
 		"message": "Big and red"
 	},
-	"huge+red": {
+	"huge_red": {
 		"message": "Very big and red"
 	},
-	"big+yellow": {
+	"big_yellow": {
 		"message": "Big and yellow"
 	},
-	"huge+yellow": {
+	"huge_yellow": {
 		"message": "Very big and yellow"
 	},
-	"big+vert": {
+	"big_vert": {
 		"message": "Big and green"
 	},
-	"huge+vert": {
+	"huge_vert": {
 		"message": "Very big and green"
 	},
-	"Accessible-DfA": {
+	"Accessible_DfA": {
 		"message": "Accessible-DfA"
 	},
-	"B612 Mono": {
+	"B612_Mono": {
 		"message": "B612 Mono"
 	},
 	"Luciole": {
@@ -245,22 +245,22 @@
 	"Verdana": {
 		"message": "Verdana"
 	},
-	"110%": {
+	"110": {
 		"message": "A bit bigger 110%"
 	},
-	"130%": {
+	"130": {
 		"message": "Big 130%"
 	},
-	"160%": {
+	"160": {
 		"message": "Bigger 160%"
 	},
-	"200%": {
+	"200": {
 		"message": "Even bigger 200%"
 	},
-	"350%": {
+	"350": {
 		"message": "Huge 350%"
 	},
-	"500%": {
+	"500": {
 		"message": "Max 500%"
 	}
 }

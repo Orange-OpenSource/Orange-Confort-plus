@@ -8,7 +8,7 @@ tmplColorContrast.innerHTML = `
 
 class ColorContrastComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,reinforcedContrasts,white+black",
+		"values": "noModifications,reinforcedContrasts,white_black",
 		"activeValue": 0
 	};
 
@@ -35,8 +35,8 @@ class ColorContrastComponent extends AbstractSetting {
 				color = '#000';
 				backgroundColor = '#fff';
 			} else {
-				color = value.split('+')[0];
-				backgroundColor = value.split('+')[1];
+				color = value.split('_')[0];
+				backgroundColor = value.split('_')[1];
 			}
 
 			let styleColorContrast = `
