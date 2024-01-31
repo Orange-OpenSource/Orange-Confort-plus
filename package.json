@@ -36,7 +36,6 @@
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/ && shx cp -r docs/help dist/serveur/ && shx cp -r docs/cookie.html dist/serveur",
 		"copy:extension": "shx cp -r docs/help dist/extension/ && shx cp -r src/extension/vendors dist/extension/js && shx cp -r src/extension/manifest.*.json dist/ && shx cp -r src/extension/assets/img/ dist/extension/assets/img",
 		"copy:boosted:css": "shx cp -r node_modules/boosted/dist/css/boosted.min.css src/site/css",
-		"copy:boosted:fonts": "shx cp -r node_modules/boosted/dist/fonts/HelvNeue{55,75}_W1G.woff2 docs/assets/fonts",
 		"copy:locales": "shx cp -r src/_locales docs/",
 		"ts": "concurrently \"npm:ts:*\"",
 		"ts:toolbar": "tsc --project tsconfig.toolbar.json",
