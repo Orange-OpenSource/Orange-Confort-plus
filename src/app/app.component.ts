@@ -1,6 +1,6 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
-<div data-bs-theme="light">
+<div data-bs-theme="light" style="display:none">
 	<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
 		<span class="visually-hidden" data-i18n="mainButton"></span>
 		<app-icon data-size="3em" data-name="Accessibility"></app-icon>
@@ -25,6 +25,9 @@ class AppComponent extends HTMLElement {
 		this.link = document.createElement('link');
 		this.link.rel = 'stylesheet';
 		this.link.href = `${appPath}css/styles.min.css`;
+		this.link.onload = () => {
+			this?.shadowRoot?.querySelector('[data-bs-theme]').removeAttribute('style');
+		};
 		this.shadowRoot?.appendChild(this.link);
 	}
 
