@@ -8,7 +8,7 @@ tmplLinkStyle.innerHTML = `
 
 class LinkStyleComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,lightblue+orange+lightgreen,yellow+orange+lightgreen",
+		"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
 		"activeValue": 0
 	};
 
@@ -24,9 +24,9 @@ class LinkStyleComponent extends AbstractSetting {
 		if (value === 'noModifications') {
 			stylesServiceInstance.removeStyle(this.name);
 		} else {
-			let linkColor = value.split('+')[0];
-			let linkPointedColor = value.split('+')[1];
-			let linkVisitedColor = value.split('+')[2];
+			let linkColor = value.split('_')[0];
+			let linkPointedColor = value.split('_')[1];
+			let linkVisitedColor = value.split('_')[2];
 
 			let styleLink = `
 				a:link {

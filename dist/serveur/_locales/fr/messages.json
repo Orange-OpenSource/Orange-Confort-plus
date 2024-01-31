@@ -170,73 +170,73 @@
 	"margeList": {
 		"message": "Marge et listes numérotées"
 	},
-	"white+black": {
+	"white_black": {
 		"message": "Blanc et noir"
 	},
-	"black+ivory": {
+	"black_ivory": {
 		"message": "Noir et ivoir"
 	},
-	"white+red": {
+	"white_red": {
 		"message": "Blanc et rouge"
 	},
-	"black+yellow": {
+	"black_yellow": {
 		"message": "Noir et jaune"
 	},
-	"white+blue": {
+	"white_blue": {
 		"message": "Blanc et bleu"
 	},
-	"yellow+blue": {
+	"yellow_blue": {
 		"message": "Jaune et bleu"
 	},
-	"black+green": {
+	"black_green": {
 		"message": "Noir et vert"
 	},
-	"lightblue+orange+lightgreen": {
+	"lightblue_orange_lightgreen": {
 		"message": "Bleu clair / Orange / Vert clair"
 	},
-	"yellow+orange+lightgreen": {
+	"yellow_orange_lightgreen": {
 	"message": "Jaune / Orange / Vert clair"
 	},
-	"big+white": {
+	"big_white": {
 		"message": "Gros et blanc"
 	},
-	"huge+white": {
+	"huge_white": {
 		"message": "Très gros et blanc"
 	},
-	"big+black": {
+	"big_black": {
 		"message": "Gros et noir"
 	},
-	"huge+black": {
+	"huge_black": {
 		"message": "Très gros et noir"
 	},
-	"big+blue": {
+	"big_blue": {
 		"message": "Gros et bleu"
 	},
-	"huge+blue": {
+	"huge_blue": {
 		"message": "Très gros et bleu"
 	},
-	"big+red": {
+	"big_red": {
 		"message": "Gros et rouge"
 	},
-	"huge+red": {
+	"huge_red": {
 		"message": "Très gros et rouge"
 	},
-	"big+yellow": {
+	"big_yellow": {
 		"message": "Gros et jaune"
 	},
-	"huge+yellow": {
+	"huge_yellow": {
 		"message": "Très gros et jaune"
 	},
-	"big+green": {
+	"big_green": {
 		"message": "Gros et vert"
 	},
-	"huge+green": {
+	"huge_green": {
 		"message": "Très gros et vert"
 	},
-	"Accessible-DfA": {
+	"Accessible_DfA": {
 		"message": "Accessible-DfA"
 	},
-	"B612 Mono": {
+	"B612_Mono": {
 		"message": "B612 Mono"
 	},
 	"Luciole": {
@@ -245,22 +245,22 @@
 	"Verdana": {
 		"message": "Verdana"
 	},
-	"110%": {
+	"110": {
 		"message": "Un peu grand 110%"
 	},
-	"130%": {
+	"130": {
 		"message": "Plutôt grand 130%"
 	},
-	"160%": {
+	"160": {
 		"message": "Bien grand 160%"
 	},
-	"200%": {
+	"200": {
 		"message": "Très grand 200%"
 	},
-	"350%": {
+	"350": {
 		"message": "Énorme 350%"
 	},
-	"500%": {
+	"500": {
 		"message": "Max 500%"
 	}
 }

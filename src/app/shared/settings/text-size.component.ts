@@ -8,7 +8,7 @@ tmplIncreaseTextSize.innerHTML = `
 
 class IncreaseTextSizeComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,110%,130%",
+		"values": "noModifications,110,130",
 		"activeValue": 0
 	};
 

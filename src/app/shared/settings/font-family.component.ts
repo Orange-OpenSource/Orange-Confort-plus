@@ -8,20 +8,20 @@ tmplFontFamily.innerHTML = `
 
 class FontFamilyComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,Accessible-DfA,Luciole",
+		"values": "noModifications,Accessible_DfA,Luciole",
 		"activeValue": 0
 	};
 
 	fontDictionnary: any[] = [
 		{
-			name: 'Accessible-DfA', folder: 'accessibleDfA', files: [
+			name: 'Accessible_DfA', folder: 'accessibleDfA', files: [
 				{ name: 'AccessibleDfA-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'AccessibleDfA-Italic.woff2', style: 'italic', weight: '400' },
 				{ name: 'AccessibleDfA-Regular.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'B612 Mono', folder: 'B612', files: [
+			name: 'B612_Mono', folder: 'B612', files: [
 				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
