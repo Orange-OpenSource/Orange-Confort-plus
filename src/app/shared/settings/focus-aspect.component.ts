@@ -8,7 +8,7 @@ tmplFocusAspect.innerHTML = `
 
 class FocusAspectComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,big+blue,veryBig+red",
+		"values": "noModifications,big_blue,veryBig_red",
 		"activeValue": 0
 	};
 
@@ -24,8 +24,8 @@ class FocusAspectComponent extends AbstractSetting {
 		if (value === 'noModifications') {
 			stylesServiceInstance.removeStyle(this.name);
 		} else {
-			let size = value.split('+')[0] === 'big' ? '4px' : '10px';
-			let color = value.split('+')[1];
+			let size = value.split('_')[0] === 'big' ? '4px' : '10px';
+			let color = value.split('_')[1];
 
 			let styleFocus = `
 				*:focus, *:focus-visible {

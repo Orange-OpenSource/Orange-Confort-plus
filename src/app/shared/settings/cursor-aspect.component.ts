@@ -8,7 +8,7 @@ tmplCursorAspect.innerHTML = `
 
 class CursorAspectComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,big+black,huge+green",
+		"values": "noModifications,big_black,huge_green",
 		"activeValue": 0
 	};
 
@@ -42,8 +42,8 @@ class CursorAspectComponent extends AbstractSetting {
 		if (value === 'noModifications') {
 			stylesServiceInstance.removeStyle(this.name);
 		} else {
-			let color = value.split('+')[1];
-			let size = value.split('+')[0] === 'big' ? 56 : 128;
+			let color = value.split('_')[1];
+			let size = value.split('_')[0] === 'big' ? 56 : 128;
 			let styleCursor = `
 				* {
 					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('default', size, color, 10)}') 0 0, default !important;
