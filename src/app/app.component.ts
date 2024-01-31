@@ -12,8 +12,8 @@ template.innerHTML = `
 class AppComponent extends HTMLElement {
 	confortPlusBtn: HTMLElement | undefined = null;
 	confortPlusToolbar: HTMLElement | undefined = null;
+	closeBtn: HTMLElement | undefined = null;
 	i18nService: any;
-	iconsService: any;
 	link: HTMLLinkElement;
 
 	constructor() {
@@ -41,6 +41,7 @@ class AppComponent extends HTMLElement {
 		});
 
 		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
+		this.closeBtn = this?.shadowRoot?.getElementById('close-toolbar');
 		this.confortPlusToolbar = this?.shadowRoot?.getElementById('toolbar');
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
@@ -59,7 +60,7 @@ class AppComponent extends HTMLElement {
 
 	showToolbar = (): void => {
 		this.confortPlusToolbar.removeAttribute('style');
-		(this.querySelector('#close-toolbar') as HTMLElement)?.focus();
+		this.closeBtn?.focus();
 		this.confortPlusBtn.classList.add('d-none');
 	}
 
