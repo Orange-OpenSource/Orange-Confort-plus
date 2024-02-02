@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.0 - 26/01/2024
+ * orange-confort-plus - version 5.0.0-alpha.0 - 02/02/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -17,7 +17,7 @@ class FilesService {
     path="";
     constructor() {
         if (filesServiceIsInstantiated) {
-            throw new Error("Le FilesService est déjà instancié.");
+            throw new Error("FilesService is already instantiated.");
         }
         filesServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
@@ -39,7 +39,7 @@ class I18nService {
     path="";
     constructor() {
         if (i18nServiceIsInstantiated) {
-            throw new Error("Le I18nService est déjà instancié.");
+            throw new Error("I18nService is already instantiated.");
         }
         i18nServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
@@ -82,7 +82,7 @@ let iconsServiceIsInstantiated;
 class IconsService {
     constructor() {
         if (iconsServiceIsInstantiated) {
-            throw new Error("Le IconsService est déjà instancié.");
+            throw new Error("IconsService is already instantiated.");
         }
         iconsServiceIsInstantiated = true;
     }
@@ -101,7 +101,7 @@ let localStorageServiceIsInstantiated;
 class LocalStorageService {
     constructor() {
         if (localStorageServiceIsInstantiated) {
-            throw new Error("Le LocalStorageService est déjà instancié.");
+            throw new Error("LocalStorageService is already instantiated.");
         }
         localStorageServiceIsInstantiated = true;
     }
@@ -131,7 +131,7 @@ class PathService {
     path="";
     constructor() {
         if (pathServiceIsInstantiated) {
-            throw new Error("Le PathService est déjà instancié.");
+            throw new Error("PathService is already instantiated.");
         }
         pathServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
@@ -145,7 +145,7 @@ let modeOfUseServiceIsInstantiated;
 class ModeOfUseService {
     constructor() {
         if (modeOfUseServiceIsInstantiated) {
-            throw new Error("Le ModeOfUseService est déjà instancié.");
+            throw new Error("ModeOfUseService is already instantiated.");
         }
         modeOfUseServiceIsInstantiated = true;
     }
@@ -174,7 +174,7 @@ class ModeOfUseService {
             }));
             return jsonIsEdited;
         })).catch((error => {
-            console.error("Vos paramètres n'ont pas pu être sauvegardés.");
+            console.error("Your settings could not be saved.");
             return jsonIsEdited;
         }));
     }
@@ -213,7 +213,7 @@ class RouteService {
     } ];
     constructor() {
         if (routeServiceIsInstantiated) {
-            throw new Error("Le routeur est déjà instancié.");
+            throw new Error("RouteService is already instantiated.");
         }
         routeServiceIsInstantiated = true;
     }
@@ -242,7 +242,7 @@ let stringServiceIsInstantiated;
 class StringService {
     constructor() {
         if (stringServiceIsInstantiated) {
-            throw new Error("Le StringService est déjà instancié.");
+            throw new Error("StringService is already instantiated.");
         }
         stringServiceIsInstantiated = true;
     }
@@ -262,7 +262,7 @@ class StylesService {
     prefixStyle=`${prefix}style-`;
     constructor() {
         if (stylesServiceIsInstantiated) {
-            throw new Error("Le StylesService est déjà instancié.");
+            throw new Error("StylesService is already instantiated.");
         }
         stylesServiceIsInstantiated = true;
     }

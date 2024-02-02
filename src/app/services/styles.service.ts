@@ -6,7 +6,7 @@ class StylesService {
 
 	constructor() {
 		if (stylesServiceIsInstantiated) {
-			throw new Error('Le StylesService est déjà instancié.');
+			throw new Error('StylesService is already instantiated.');
 		}
 
 		stylesServiceIsInstantiated = true;

@@ -3,7 +3,7 @@ let iconsServiceIsInstantiated: boolean;
 class IconsService {
 	constructor() {
 		if (iconsServiceIsInstantiated) {
-			throw new Error('Le IconsService est déjà instancié.');
+			throw new Error('IconsService is already instantiated.');
 		}
 
 		iconsServiceIsInstantiated = true;

@@ -6,7 +6,7 @@ class I18nService {
 
 	constructor() {
 		if (i18nServiceIsInstantiated) {
-			throw new Error('Le I18nService est déjà instancié.');
+			throw new Error('I18nService is already instantiated.');
 		}
 
 		i18nServiceIsInstantiated = true;
