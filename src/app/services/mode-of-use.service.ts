@@ -4,7 +4,7 @@ class ModeOfUseService {
 
 	constructor() {
 		if (modeOfUseServiceIsInstantiated) {
-			throw new Error('Le ModeOfUseService est déjà instancié.');
+			throw new Error('ModeOfUseService is already instantiated.');
 		}
 
 		modeOfUseServiceIsInstantiated = true;
@@ -38,7 +38,7 @@ class ModeOfUseService {
 				return jsonIsEdited;
 			})
 			.catch((error: any) => {
-				console.error("Vos paramètres n'ont pas pu être sauvegardés.");
+				console.error("Your settings could not be saved.");
 				return jsonIsEdited;
 			});
 	}

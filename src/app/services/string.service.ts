@@ -3,7 +3,7 @@ let stringServiceIsInstantiated: boolean;
 class StringService {
 	constructor() {
 		if (stringServiceIsInstantiated) {
-			throw new Error('Le StringService est déjà instancié.');
+			throw new Error('StringService is already instantiated.');
 		}
 
 		stringServiceIsInstantiated = true;

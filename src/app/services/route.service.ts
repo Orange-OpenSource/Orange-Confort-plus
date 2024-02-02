@@ -22,7 +22,7 @@ class RouteService {
 
 	constructor() {
 		if (routeServiceIsInstantiated) {
-			throw new Error('Le routeur est déjà instancié.');
+			throw new Error('RouteService is already instantiated.');
 		}
 
 		routeServiceIsInstantiated = true;
