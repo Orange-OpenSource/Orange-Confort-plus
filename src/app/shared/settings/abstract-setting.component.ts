@@ -58,7 +58,7 @@ abstract class AbstractSetting extends HTMLElement {
 		this.callback = callback;
 	}
 
-	createHandler() {
+	private createHandler() {
 		return (event: Event) => {
 			switch (event.type) {
 				case 'changeSettingEvent':
