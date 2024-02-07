@@ -37,9 +37,13 @@ class HeaderComponent extends HTMLElement {
 	display = 'primary';
 	prevRoute: string = '';
 
+	handler: any;
+
 	constructor() {
 		super();
 		this.appendChild(headerLayout.content.cloneNode(true));
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
@@ -52,29 +56,28 @@ class HeaderComponent extends HTMLElement {
 
 		this.displayMode(this.display);
 
-		this.closeBtn?.addEventListener('click', () => {
-			let clickCloseEvent = new CustomEvent('closeEvent', { bubbles: true });
-			this.closeBtn?.dispatchEvent(clickCloseEvent);
-		});
-
-		this.prevBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('changeRoute',
-				{
-					bubbles: true,
-					detail: {
-						route: this.prevRoute,
-						isPrev: true
-					}
-				});
-			this.prevBtn?.dispatchEvent(clickEvent);
-		});
+		this.closeBtn.addEventListener('click', this.handler);
+		this.prevBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.closeBtn?.removeEventListener('click', () => {
-		});
-		this.prevBtn?.removeEventListener('click', () => {
-		});
+		this.closeBtn?.removeEventListener('click', this.handler);
+		this.prevBtn?.removeEventListener('click', this.handler);
+	}
+
+	private createHandler() {
+		return (event: any) => {
+			if (event.type === 'click') {
+				switch (event.target) {
+					case this.closeBtn:
+						this.closeButtonEvent();
+						break;
+					case this.prevBtn:
+						this.prevButtonEvent();
+						break;
+				}
+			}
+		}
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -96,6 +99,23 @@ class HeaderComponent extends HTMLElement {
 		this.prevBtn?.classList.toggle('d-none', mode === 'primary');
 		this.titlePageBlock?.classList.toggle('d-none', mode === 'primary');
 		this.titleApp?.classList.toggle('d-none', mode === 'secondary');
+	}
+
+	private closeButtonEvent(): void {
+		let clickCloseEvent = new CustomEvent('closeEvent', { bubbles: true });
+		this.closeBtn?.dispatchEvent(clickCloseEvent);
+	}
+
+	private prevButtonEvent(): void {
+		let clickEvent = new CustomEvent('changeRoute',
+			{
+				bubbles: true,
+				detail: {
+					route: this.prevRoute,
+					isPrev: true
+				}
+			});
+		this.prevBtn?.dispatchEvent(clickEvent);
 	}
 }
 

@@ -7,12 +7,16 @@ abstract class AbstractSetting extends HTMLElement {
 	separator = ',';
 	name = '';
 
+	handler: any;
+
 	private callback: (value: string) => void;
 
 	constructor() {
 		super();
 		this.canEdit = (this.dataset?.canEdit === 'true') || this.canEdit;
 		this.name = stringServiceInstance.normalizeSettingName(this.tagName);
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
@@ -25,22 +29,12 @@ abstract class AbstractSetting extends HTMLElement {
 
 		this.setSettingBtn(this.activesValues);
 
-		this.settingBtn.addEventListener('changeSettingEvent', (event: any) => {
-			let newIndex = (event as CustomEvent).detail.index;
-			let newValue = (event as CustomEvent).detail.value;
-
-			modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success: boolean) => {
-				if (!success) {
-					this.callback(newValue);
-					this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
-				}
-			});
-		});
+		this.settingBtn.addEventListener('changeSettingEvent', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.modalBtn.removeEventListener('clickModalEvent', () => { });
-		this.settingBtn.removeEventListener('changeSettingEvent', () => { });
+		this.modalBtn.removeEventListener('clickModalEvent', this.handler);
+		this.settingBtn.removeEventListener('changeSettingEvent', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -62,5 +56,27 @@ abstract class AbstractSetting extends HTMLElement {
 
 	setCallback = (callback: (value: string) => void) => {
 		this.callback = callback;
+	}
+
+	private createHandler() {
+		return (event: Event) => {
+			switch (event.type) {
+				case 'changeSettingEvent':
+					this.changeSettingEvent(event);
+					break;
+			}
+		}
+	}
+
+	private changeSettingEvent(event: Event): void {
+		let newIndex = (event as CustomEvent).detail.index;
+		let newValue = (event as CustomEvent).detail.value;
+
+		modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success: boolean) => {
+			if (!success) {
+				this.callback(newValue);
+				this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
+			}
+		});
 	}
 }

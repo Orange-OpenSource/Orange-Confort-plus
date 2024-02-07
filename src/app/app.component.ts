@@ -16,6 +16,8 @@ class AppComponent extends HTMLElement {
 	i18nService: any;
 	link: HTMLLinkElement;
 
+	handler: any;
+
 	constructor() {
 		super();
 
@@ -29,6 +31,8 @@ class AppComponent extends HTMLElement {
 			this?.shadowRoot?.querySelector('[data-bs-theme]').removeAttribute('style');
 		};
 		this.shadowRoot?.appendChild(this.link);
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
@@ -49,22 +53,36 @@ class AppComponent extends HTMLElement {
 
 		this.hideToolbar();
 
-		this.confortPlusToolbar.addEventListener('closeEvent', this.hideToolbar);
-		this.confortPlusBtn.addEventListener('click', this.showToolbar);
+		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
+		this.confortPlusBtn.addEventListener('click', this.handler);
+
 	}
 
 	disconnectedCallback(): void {
-		this.confortPlusToolbar?.removeEventListener('closeEvent', this.hideToolbar);
-		this.confortPlusBtn?.removeEventListener('click', this.showToolbar);
+		this.confortPlusToolbar?.removeEventListener('closeEvent', this.handler);
+		this.confortPlusBtn?.removeEventListener('click', this.handler);
 	}
 
-	showToolbar = (): void => {
+	private createHandler() {
+		return (event: any) => {
+			switch (event.type) {
+				case 'closeEvent':
+					this.hideToolbar();
+					break;
+				case 'click':
+					this.showToolbar();
+					break;
+			}
+		}
+	}
+
+	private showToolbar = (): void => {
 		this.confortPlusToolbar.removeAttribute('style');
 		this.closeBtn?.focus();
 		this.confortPlusBtn.classList.add('d-none');
 	}
 
-	hideToolbar = (): void => {
+	private hideToolbar = (): void => {
 		this.confortPlusToolbar.style.transform = 'translateX(100%)';
 		this.confortPlusToolbar.style.visibility = 'hidden';
 		this.confortPlusBtn.classList.remove('d-none');

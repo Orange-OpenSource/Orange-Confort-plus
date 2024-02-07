@@ -12,8 +12,12 @@ abstract class AbstractCategory extends HTMLElement {
 	private CLASS_NAME_COLLAPSED = 'collapsed';
 	private _triggerArray: any[] = [];
 
+	handler: any;
+
 	constructor() {
 		super();
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
@@ -28,20 +32,14 @@ abstract class AbstractCategory extends HTMLElement {
 		});
 
 		this._triggerArray.push(this.btnAccordion);
-		this.btnAccordion?.addEventListener('click', () => {
-			this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-		});
-
-		this.btnMoreSettings?.addEventListener('click', () => {
-			this.displayOrHideOthersSettings();
-		});
+		
+		this.btnAccordion?.addEventListener('click', this.handler);
+		this.btnMoreSettings?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.btnAccordion?.removeEventListener('click', () => {
-		});
-		this.btnMoreSettings?.removeEventListener('click', () => {
-		});
+		this.btnAccordion?.removeEventListener('click', this.handler);
+		this.btnMoreSettings?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -106,6 +104,21 @@ abstract class AbstractCategory extends HTMLElement {
 			this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('lessSettings');
 		} else {
 			this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('moreSettings');
+		}
+	}
+
+	private createHandler() {
+		return (event: Event) => {
+			if (event.type === 'click') {
+				switch (event.target) {
+					case this.btnAccordion:
+						this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+						break;
+					case this.btnMoreSettings:
+						this.displayOrHideOthersSettings();
+						break;
+				}
+			}
 		}
 	}
 }
