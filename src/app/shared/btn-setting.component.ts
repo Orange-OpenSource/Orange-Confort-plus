@@ -22,33 +22,24 @@ class BtnSettingComponent extends HTMLElement {
 	separator = ',';
 	settingsList: string[] = [];
 
+	handler: any;
+
 	constructor() {
 		super();
 		this.appendChild(btnSettingLayout.content.cloneNode(true));
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
 		this.btnContentSlots = this.querySelector('ul');
 
-		this.settingBtn?.addEventListener('click', () => {
-			this.setIndex();
-
-			let clickEvent = new CustomEvent(
-				'changeSettingEvent',
-				{
-					bubbles: true,
-					detail: {
-						value: this.value,
-						index: this.index
-					}
-				});
-			this.settingBtn?.dispatchEvent(clickEvent);
-		});
+		this.settingBtn.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.settingBtn?.removeEventListener('click', () => { });
+		this.settingBtn?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -96,6 +87,25 @@ class BtnSettingComponent extends HTMLElement {
 			this.slot = `${this.slot}${point}`;
 		});
 		this.btnContentSlots!.innerHTML = this.slot;
+	}
+
+	private createHandler() {
+		return (event: any) => {
+			if (event.type === 'click') {
+				this.setIndex();
+
+				let clickEvent = new CustomEvent(
+					'changeSettingEvent',
+					{
+						bubbles: true,
+						detail: {
+							value: this.value,
+							index: this.index
+						}
+					});
+				this.settingBtn?.dispatchEvent(clickEvent);
+			}
+		}
 	}
 }
 

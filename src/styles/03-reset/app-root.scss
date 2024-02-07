@@ -6,3 +6,8 @@
 * {
 	font-family: var(--cplus-body-font-family);
 }
+
+button svg,
+button app-icon {
+	pointer-events: none;
+}
