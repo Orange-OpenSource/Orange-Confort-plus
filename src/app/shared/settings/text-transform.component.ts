@@ -12,10 +12,14 @@ tmplTextTransform.innerHTML = `
 `;
 
 class TextTransformComponent extends HTMLElement {
+	bodyElt: HTMLElement | null = null;
+
 	normalBtn: HTMLElement = null;
 	firstLetterBtn: HTMLElement = null;
 	lowercaseBtn: HTMLElement = null;
 	uppercaseBtn: HTMLElement = null;
+
+	handler: any;
 
 	constructor() {
 		super();
@@ -25,37 +29,45 @@ class TextTransformComponent extends HTMLElement {
 		this.firstLetterBtn = this.querySelector('#first-letter-btn');
 		this.lowercaseBtn = this.querySelector('#lowercase-btn');
 		this.uppercaseBtn = this.querySelector('#uppercase-btn');
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
-		const bodyElt: HTMLElement = document.body;
+		this.bodyElt = document.body;
 
-		this.normalBtn?.addEventListener('click', () => {
-			bodyElt.style.textTransform = ``;
-		});
-
-		this.firstLetterBtn?.addEventListener('click', () => {
-			bodyElt.style.textTransform = `capitalize`;
-		});
-
-		this.lowercaseBtn?.addEventListener('click', () => {
-			bodyElt.style.textTransform = `lowercase`;
-		});
-
-		this.uppercaseBtn?.addEventListener('click', () => {
-			bodyElt.style.textTransform = `uppercase`;
-		});
+		this.normalBtn?.addEventListener('click', this.handler);
+		this.firstLetterBtn?.addEventListener('click', this.handler);
+		this.lowercaseBtn?.addEventListener('click', this.handler);
+		this.uppercaseBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.normalBtn?.removeEventListener('click', () => {
-		});
-		this.firstLetterBtn?.removeEventListener('click', () => {
-		});
-		this.lowercaseBtn?.removeEventListener('click', () => {
-		});
-		this.uppercaseBtn?.removeEventListener('click', () => {
-		});
+		this.normalBtn?.removeEventListener('click', this.handler);
+		this.firstLetterBtn?.removeEventListener('click', this.handler);
+		this.lowercaseBtn?.removeEventListener('click', this.handler);
+		this.uppercaseBtn?.removeEventListener('click', this.handler);
+	}
+
+	private createHandler() {
+		return (event: Event) => {
+			if (event.type === 'click') {
+				switch (event.target) {
+					case this.normalBtn:
+						this.bodyElt.style.textTransform = ``;
+						break;
+					case this.firstLetterBtn:
+						this.bodyElt.style.textTransform = `capitalize`;
+						break;
+					case this.lowercaseBtn:
+						this.bodyElt.style.textTransform = `lowercase`;
+						break;
+					case this.uppercaseBtn:
+						this.bodyElt.style.textTransform = `uppercase`;
+						break;
+				}
+			}
+		}
 	}
 }
 

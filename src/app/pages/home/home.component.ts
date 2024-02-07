@@ -36,9 +36,13 @@ class HomeComponent extends HTMLElement {
 	i18nService: any;
 	routeService: any;
 
+	handler: any;
+
 	constructor() {
 		super();
 		this.appendChild(homeLayout.content.cloneNode(true));
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
@@ -48,34 +52,13 @@ class HomeComponent extends HTMLElement {
 		this.modeIcon = this.querySelector('app-icon');
 		this.currentMode = this.querySelector('app-mode');
 
-		this.changeModeBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('changeRoute',
-				{
-					bubbles: true,
-					detail: {
-						route: routeServiceInstance.PAGE_MODES
-					}
-				});
-			this.changeModeBtn?.dispatchEvent(clickEvent);
-		});
-
-		this.settingsBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('changeRoute',
-				{
-					bubbles: true,
-					detail: {
-						route: routeServiceInstance.PAGE_SETTINGS
-					}
-				});
-			this.settingsBtn?.dispatchEvent(clickEvent);
-		});
+		this.changeModeBtn?.addEventListener('click', this.handler);
+		this.settingsBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.changeModeBtn?.removeEventListener('click', () => {
-		});
-		this.settingsBtn?.removeEventListener('click', () => {
-		});
+		this.changeModeBtn?.removeEventListener('click', this.handler);
+		this.settingsBtn?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -88,6 +71,43 @@ class HomeComponent extends HTMLElement {
 			const modeName = this.modeName.textContent;
 			this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
 		}
+	}
+
+	private createHandler() {
+		return (event: any) => {
+			if (event.type === 'click') {
+				switch(event.target) {
+					case this.changeModeBtn:
+						this.changeModeButtonEvent();
+						break;
+					case this.settingsBtn:
+						this.settingsButtonEvent();
+						break;
+				}
+			}
+		}
+	}
+
+	private changeModeButtonEvent(): void {
+		let clickEvent = new CustomEvent('changeRoute',
+			{
+				bubbles: true,
+				detail: {
+					route: routeServiceInstance.PAGE_MODES
+				}
+			});
+		this.changeModeBtn?.dispatchEvent(clickEvent);
+	}
+
+	private settingsButtonEvent(): void {
+		let clickEvent = new CustomEvent('changeRoute',
+			{
+				bubbles: true,
+				detail: {
+					route: routeServiceInstance.PAGE_SETTINGS
+				}
+			});
+		this.settingsBtn?.dispatchEvent(clickEvent);
 	}
 }
 
