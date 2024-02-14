@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.0 - 13/02/2024
+ * orange-confort-plus - version 5.0.0-alpha.0 - 14/02/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -313,13 +313,13 @@ const appPath = pathServiceInstance.path;
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     confortPlusBtn=null;
     confortPlusToolbar=null;
+    closeBtn=null;
     i18nService;
-    iconsService;
     link;
     constructor() {
         super();
@@ -330,6 +330,9 @@ class AppComponent extends HTMLElement {
         this.link = document.createElement("link");
         this.link.rel = "stylesheet";
         this.link.href = `${appPath}css/styles.min.css`;
+        this.link.onload = () => {
+            this?.shadowRoot?.querySelector("[data-bs-theme]").removeAttribute("style");
+        };
         this.shadowRoot?.appendChild(this.link);
     }
     connectedCallback() {
@@ -339,6 +342,7 @@ class AppComponent extends HTMLElement {
             i18nServiceInstance.translate(this.shadowRoot);
         }));
         this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
+        this.closeBtn = this?.shadowRoot?.getElementById("close-toolbar");
         this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
@@ -353,7 +357,7 @@ class AppComponent extends HTMLElement {
     }
     showToolbar=() => {
         this.confortPlusToolbar.removeAttribute("style");
-        this.querySelector("#close-toolbar")?.focus();
+        this.closeBtn?.focus();
         this.confortPlusBtn.classList.add("d-none");
     };
     hideToolbar=() => {
@@ -432,7 +436,7 @@ tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n
 
 class ColorContrastComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,reinforcedContrasts,white+black",
+        values: "noModifications,reinforcedContrasts,white_black",
         activeValue: 0
     };
     constructor() {
@@ -453,8 +457,8 @@ class ColorContrastComponent extends AbstractSetting {
                 color = "#000";
                 backgroundColor = "#fff";
             } else {
-                color = value.split("+")[0];
-                backgroundColor = value.split("+")[1];
+                color = value.split("_")[0];
+                backgroundColor = value.split("_")[1];
             }
             let styleColorContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
             stylesServiceInstance.setStyle(this.name, styleColorContrast);
@@ -472,7 +476,7 @@ tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\
 
 class CursorAspectComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,big+black,huge+green",
+        values: "noModifications,big_black,huge_green",
         activeValue: 0
     };
     constructor() {
@@ -502,8 +506,8 @@ class CursorAspectComponent extends AbstractSetting {
         if (value === "noModifications") {
             stylesServiceInstance.removeStyle(this.name);
         } else {
-            let color = value.split("+")[1];
-            let size = value.split("+")[0] === "big" ? 56 : 128;
+            let color = value.split("_")[1];
+            let size = value.split("_")[0] === "big" ? 56 : 128;
             let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 10)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 10)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle(this.name, styleCursor);
         }
@@ -520,7 +524,7 @@ tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t
 
 class FocusAspectComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,big+blue,veryBig+red",
+        values: "noModifications,big_blue,veryBig_red",
         activeValue: 0
     };
     constructor() {
@@ -532,8 +536,8 @@ class FocusAspectComponent extends AbstractSetting {
         if (value === "noModifications") {
             stylesServiceInstance.removeStyle(this.name);
         } else {
-            let size = value.split("+")[0] === "big" ? "4px" : "10px";
-            let color = value.split("+")[1];
+            let size = value.split("_")[0] === "big" ? "4px" : "10px";
+            let color = value.split("_")[1];
             let styleFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle(this.name, styleFocus);
         }
@@ -550,11 +554,12 @@ tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<
 
 class FontFamilyComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,Accessible-DfA,Luciole",
+        values: "noModifications,Accessible_DfA,Luciole",
         activeValue: 0
     };
     fontDictionnary=[ {
-        name: "Accessible-DfA",
+        name: "Accessible_DfA",
+        size: "91.125%",
         folder: "accessibleDfA",
         files: [ {
             name: "AccessibleDfA-Bold.woff2",
@@ -570,7 +575,8 @@ class FontFamilyComponent extends AbstractSetting {
             weight: "400"
         } ]
     }, {
-        name: "B612 Mono",
+        name: "B612_Mono",
+        size: "75%",
         folder: "B612",
         files: [ {
             name: "B612Mono-Bold.woff2",
@@ -591,6 +597,7 @@ class FontFamilyComponent extends AbstractSetting {
         } ]
     }, {
         name: "Comic Sans MS",
+        size: "100%",
         folder: "comic",
         files: [ {
             name: "comic-Sans-MS.woff2",
@@ -599,6 +606,7 @@ class FontFamilyComponent extends AbstractSetting {
         } ]
     }, {
         name: "Lexand Deca",
+        size: "92%",
         folder: "lexendDeca",
         files: [ {
             name: "LexendDeca-Black.woff2",
@@ -639,6 +647,7 @@ class FontFamilyComponent extends AbstractSetting {
         } ]
     }, {
         name: "Luciole",
+        size: "87.5%",
         folder: "luciole",
         files: [ {
             name: "Luciole-Bold-Italic.woff2",
@@ -659,6 +668,7 @@ class FontFamilyComponent extends AbstractSetting {
         } ]
     }, {
         name: "Sylexiad Sans",
+        size: "125%",
         folder: "sylexiadSans",
         files: [ {
             name: "SylexiadSansMedium-BoldItalic.woff2",
@@ -727,6 +737,7 @@ class FontFamilyComponent extends AbstractSetting {
         } ]
     }, {
         name: "Verdana",
+        size: "87.5%",
         folder: "verdana",
         files: [ {
             name: "Verdana-Bold-Italic.woff2",
@@ -753,7 +764,7 @@ class FontFamilyComponent extends AbstractSetting {
         const fontFaceList = [];
         this.fontDictionnary.forEach((font => {
             for (const file of font.files) {
-                fontFaceList.push(`\n\t\t\t\t\t@font-face {\n\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\tfont-style: ${file.style};\n\t\t\t\t\t\tfont-weight: ${file.weight};\n\t\t\t\t\t\tfont-display: swap;\n\t\t\t\t\t}`);
+                fontFaceList.push(`\n\t\t\t\t\t@font-face {\n\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\tfont-style: ${file.style};\n\t\t\t\t\t\tfont-weight: ${file.weight};\n\t\t\t\t\t\tfont-display: swap;\n\t\t\t\t\t\tsize-adjust: ${font.size};\n\t\t\t\t\t}`);
             }
         }));
         stylesServiceInstance.setStyle(this.name, fontFaceList.join(""));
@@ -781,7 +792,7 @@ tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3"
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,110%,130%",
+        values: "noModifications,110,130",
         activeValue: 0
     };
     constructor() {
@@ -808,7 +819,7 @@ tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<a
 
 class LinkStyleComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,lightblue+orange+lightgreen,yellow+orange+lightgreen",
+        values: "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
         activeValue: 0
     };
     constructor() {
@@ -820,9 +831,9 @@ class LinkStyleComponent extends AbstractSetting {
         if (value === "noModifications") {
             stylesServiceInstance.removeStyle(this.name);
         } else {
-            let linkColor = value.split("+")[0];
-            let linkPointedColor = value.split("+")[1];
-            let linkVisitedColor = value.split("+")[2];
+            let linkColor = value.split("_")[0];
+            let linkPointedColor = value.split("_")[1];
+            let linkVisitedColor = value.split("_")[2];
             let styleLink = `\n\t\t\t\ta:link {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle(this.name, styleLink);
         }
