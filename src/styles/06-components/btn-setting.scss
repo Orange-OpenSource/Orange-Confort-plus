@@ -1,17 +1,9 @@
 app-btn-setting {
 	flex: 1;
 	max-width: 12em;
-	height: 100%;
-	min-height: 7.5em;
-}
-
-.sc-btn-setting--with-btn-modal {
-	flex: inherit;
-	width: 10em;
 }
 
 .sc-btn-setting {
-	height: 100%;
 	min-height: 7.5em;
 
 	&:hover > ul > li.border.border-4 {
