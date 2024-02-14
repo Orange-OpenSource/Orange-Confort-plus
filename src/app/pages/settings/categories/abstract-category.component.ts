@@ -64,7 +64,6 @@ abstract class AbstractCategory extends HTMLElement {
 	}
 
 	displaySettings = (settings: any[]): void => {
-		this.btnMoreSettings?.classList.add('d-none');
 		if (!this.displayAllSettings) {
 			this.settingsElements.forEach((element) => {
 				element.removeAttribute('data-default-setting');
@@ -75,18 +74,21 @@ abstract class AbstractCategory extends HTMLElement {
 		let nbActifSetting = 0;
 		settings.forEach((setting: string) => {
 			let settingObj = this.settingsDictionnary.find((o: SettingsDictionnary) => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
-			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
-			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
-			settingElement?.setAttribute('data-default-setting', 'true');
-			settingElement?.classList.remove('d-none');
 
 			if (settingObj) {
 				nbActifSetting++;
+				let settingElement: HTMLElement = this.querySelector(settingObj?.element);
+				settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
+				settingElement?.setAttribute('data-default-setting', 'true');
+				settingElement?.classList.remove('d-none');
 			}
 		});
 
-		if (nbActifSetting !== this.settingsDictionnary.length) {
-			this.btnMoreSettings?.classList.remove('d-none');
+		if (nbActifSetting === 0 || nbActifSetting === this.settingsDictionnary.length) {
+			this.settingsElements.forEach((element) => {
+				element.classList.remove('d-none');
+			});
+			this.btnMoreSettings?.classList.add('d-none');
 		}
 	}
 
@@ -94,14 +96,15 @@ abstract class AbstractCategory extends HTMLElement {
 		this.displayAllSettings = !this.displayAllSettings;
 		this.settingsElements.forEach((element) => {
 			if (!element.hasAttribute('data-default-setting')) {
-				if (element.classList.contains('d-none')) {
-					this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('lessSettings');
-				} else {
-					this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('moreSettings');
-				}
 				element.classList.toggle('d-none');
 			}
 		});
+
+		if (this.displayAllSettings) {
+			this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('lessSettings');
+		} else {
+			this.btnMoreSettings.innerText = i18nServiceInstance.getMessage('moreSettings');
+		}
 	}
 
 	private createHandler() {
