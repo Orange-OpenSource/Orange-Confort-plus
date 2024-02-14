@@ -47,8 +47,6 @@ class ReadingGuideComponent extends AbstractSetting {
 		}
 	`;
 
-	handler: any;
-
 	constructor() {
 		super();
 
@@ -121,14 +119,14 @@ class ReadingGuideComponent extends AbstractSetting {
 		document.querySelector('#cplus-mask-guide--bottom-elt')?.remove();
 	}
 
-	private createHandler() {
+	createHandler() {
 		return (event: Event) => {
 			if (event.type === 'mousemove') {
 				if (this.guideType === 'reading') {
-					(document.querySelector('#cplus-vertical-guide-elt') as HTMLElement).style.left = `${event.x + 2}px`;
+					(document.querySelector('#cplus-vertical-guide-elt') as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
 				} else if (this.guideType === 'mask') {
-					(document.querySelector('#cplus-mask-guide--top-elt') as HTMLElement).style.height = `${event.y - this.sizeGuide}px`;
-					(document.querySelector('#cplus-mask-guide--bottom-elt') as HTMLElement).style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+					(document.querySelector('#cplus-mask-guide--top-elt') as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
+					(document.querySelector('#cplus-mask-guide--bottom-elt') as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;
 				}
 				event.stopPropagation();
 			}
