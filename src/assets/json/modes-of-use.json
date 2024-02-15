@@ -12,7 +12,7 @@
 				},
 				{
 					"textSize": {
-						"values": "noModifications,130%,200%",
+						"values": "noModifications,130,200",
 						"activeValue": 0
 					}
 				},
@@ -36,31 +36,31 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick+2",
+						"values": "noModifications,bigZone,longClick_2",
 						"activeValue": 0
 					}
 				},
 				{
 					"cursorAspect": {
-						"values": "noModifications,big+white,huge+green",
+						"values": "noModifications,big_white,huge_green",
 						"activeValue": 0
 					}
 				},
 				{
 					"focusAspect": {
-						"values": "noModifications,big+white,huge+white",
+						"values": "noModifications,big_white,huge_white",
 						"activeValue": 0
 					}
 				},
 				{
 					"colorContrast": {
-						"values": "noModifications,white+black,white+blue",
+						"values": "noModifications,white_black,white_blue",
 						"activeValue": 0
 					}
 				},
 				{
 					"linkStyle": {
-						"values": "noModifications,lightblue+orange+lightgreen,yellow+orange+lightgreen",
+						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
 						"activeValue": 0
 					}
 				},
@@ -85,7 +85,7 @@
 				},
 				{
 					"textSize": {
-						"values": "noModifications,110%,130%",
+						"values": "noModifications,110,130",
 						"activeValue": 0
 					}
 				},
@@ -97,25 +97,25 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick+2,autoClick+2",
+						"values": "noModifications,bigZone,longClick_2",
 						"activeValue": 0
 					}
 				},
 				{
 					"cursorAspect": {
-						"values": "noModifications,big+black,huge+black",
+						"values": "noModifications,big_black,huge_black",
 						"activeValue": 0
 					}
 				},
 				{
 					"focusAspect": {
-						"values": "noModifications,big+black,huge+black",
+						"values": "noModifications,big_black,huge_black",
 						"activeValue": 0
 					}
 				},
 				{
 					"colorContrast": {
-						"values": "noModifications,reinforcedContrasts,white+black",
+						"values": "noModifications,reinforcedContrasts,white_black",
 						"activeValue": 0
 					}
 				},

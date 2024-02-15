@@ -234,7 +234,7 @@ class ScrollService {
     settingsValues=[];
     constructor() {
         if (scrollServiceIsInstantiated) {
-            throw new Error("Le ScrollService est déjà instancié.");
+            throw new Error("ScrollService is already instantiated.");
         }
         scrollServiceIsInstantiated = true;
         this.setScrollClass();
@@ -275,11 +275,7 @@ class ScrollService {
         this.btnState = tmpBtnState;
     };
     setBigScroll=() => {
-        if (this.bigScrollActivated) {
-            document.body.classList.add("cplus-big-scroll");
-        } else {
-            document.body.classList.remove("cplus-big-scroll");
-        }
+        document.body.classList.toggle("cplus-big-scroll");
     };
     setBtnScroll=() => {
         document.querySelector("#cplus-container-scroll-buttons")?.remove();
@@ -297,17 +293,17 @@ class ScrollService {
                 element: this.btnScrollDown,
                 interval: intervalDown
             } ];
+            let fragment = document.createDocumentFragment();
             const container = document.createElement("div");
             container.setAttribute("id", "cplus-container-scroll-buttons");
-            let fragment = document.createDocumentFragment();
             btnArray.forEach((button => {
                 let btn = document.createElement("button");
                 btn.setAttribute("id", button.id);
                 btn.type = "button";
                 btn.innerHTML = button.label;
-                fragment.appendChild(btn);
-                container.appendChild(fragment);
-                document.body.appendChild(container);
+                container.appendChild(btn);
+                fragment.appendChild(container);
+                document.body.appendChild(fragment);
                 button.element = document.querySelector(`#${button.id}`);
                 let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
                 let scrollBy = scrollDir * this.scrollSteps;
@@ -432,7 +428,6 @@ class AppComponent extends HTMLElement {
     confortPlusBtn=null;
     confortPlusToolbar=null;
     closeBtn=null;
-    i18nService;
     link;
     handler;
     constructor() {
@@ -576,7 +571,7 @@ class ClickFaciliteComponent extends AbstractSetting {
     isClicking=false;
     clickableElements=[ "A", "INPUT", "SELECT", "OPTION", "TEXTAREA", "LABEL", "BUTTON" ];
     activesValues={
-        values: "noModifications,longClick+2,autoClick+2",
+        values: "noModifications,longClick_2,autoClick_2",
         activeValue: 0
     };
     constructor() {
@@ -585,8 +580,8 @@ class ClickFaciliteComponent extends AbstractSetting {
         this.appendChild(tmplClickFacilite.content.cloneNode(true));
     }
     setClickFacilite=value => {
-        let paramName = value.split("+")[0];
-        this.delay = Number(value.split("+")[1]) * 1e3;
+        let paramName = value.split("_")[0];
+        this.delay = Number(value.split("_")[1]) * 1e3;
         switch (paramName) {
           case "bigZone":
             {
@@ -641,19 +636,19 @@ class ClickFaciliteComponent extends AbstractSetting {
         return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt : closestPointedElt ? closestPointedElt : pointedElt;
     };
     longClick=() => {
+        let timer = null;
         document.addEventListener("click", (event => {
             event.preventDefault();
         }));
         document.addEventListener("mousedown", (event => {
-            this.isClicking = true;
-            setTimeout((() => {
-                if (this.isClicking) {
-                    this.doClick(this.getClickableElt(event));
-                }
+            timer = setTimeout((() => {
+                this.doClick(this.getClickableElt(event));
             }), this.delay);
         }));
         document.addEventListener("mouseup", (() => {
-            this.isClicking = false;
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
         }));
     };
     autoClick=() => {
