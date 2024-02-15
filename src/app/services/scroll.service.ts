@@ -20,7 +20,7 @@ class ScrollService {
 
 	constructor() {
 		if (scrollServiceIsInstantiated) {
-			throw new Error('Le ScrollService est déjà instancié.');
+			throw new Error('ScrollService is already instantiated.');
 		}
 
 		scrollServiceIsInstantiated = true;
@@ -110,11 +110,7 @@ class ScrollService {
 
 	/* Enable or disable the large scrollbar */
 	setBigScroll = (): void => {
-		if (this.bigScrollActivated) {
-			document.body.classList.add('cplus-big-scroll');
-		} else {
-			document.body.classList.remove('cplus-big-scroll');
-		}
+		document.body.classList.toggle('cplus-big-scroll');
 	}
 
 	/* Activate or deactivate the scroll up/down buttons */
@@ -128,19 +124,19 @@ class ScrollService {
 				{ id: 'cplus-scroll-down', label: i18nServiceInstance.getMessage('scrollDown'), element: this.btnScrollDown, interval: intervalDown }
 			];
 
+			let fragment = document.createDocumentFragment();
 			const container = document.createElement('div');
 			container.setAttribute('id', 'cplus-container-scroll-buttons');
-			let fragment = document.createDocumentFragment();
 
 			btnArray.forEach((button) => {
 				let btn = document.createElement('button');
 				btn.setAttribute('id', button.id);
 				btn.type = "button";
 				btn.innerHTML = button.label;
-				fragment.appendChild(btn);
+				container.appendChild(btn);
+				fragment.appendChild(container);
+				document.body.appendChild(fragment);
 
-				container.appendChild(fragment);
-				document.body.appendChild(container);
 				button.element = document.querySelector(`#${button.id}`);
 
 				let scrollDir = button.id.includes('up') ? -1 : button.id.includes('down') ? 1 : 0;
