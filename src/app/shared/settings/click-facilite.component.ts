@@ -13,7 +13,7 @@ class ClickFaciliteComponent extends AbstractSetting {
 	clickableElements = ['A', 'INPUT', 'SELECT', 'OPTION', 'TEXTAREA', 'LABEL', 'BUTTON'];
 
 	activesValues = {
-		"values": "noModifications,longClick+2,autoClick+2",
+		"values": "noModifications,longClick_2,autoClick_2",
 		"activeValue": 0
 	};
 
@@ -26,8 +26,8 @@ class ClickFaciliteComponent extends AbstractSetting {
 	}
 
 	setClickFacilite = (value: string): void => {
-		let paramName = value.split('+')[0];
-		this.delay = Number(value.split('+')[1]) * 1000;
+		let paramName = value.split('_')[0];
+		this.delay = Number(value.split('_')[1]) * 1000;
 
 		switch (paramName) {
 			case 'bigZone': {
@@ -63,22 +63,22 @@ class ClickFaciliteComponent extends AbstractSetting {
 	}
 
 	longClick = (): void => {
+		let timer: ReturnType<typeof setTimeout> | null = null;
+
 		document.addEventListener('click', (event: Event) => {
 			event.preventDefault();
 		});
 
 		document.addEventListener('mousedown', (event: MouseEvent) => {
-			this.isClicking = true;
-
-			setTimeout(() => {
-				if (this.isClicking) {
-					this.doClick(this.getClickableElt(event));
-				}
+			timer = setTimeout(() => {
+				this.doClick(this.getClickableElt(event));
 			}, this.delay);
 		});
 
 		document.addEventListener('mouseup', () => {
-			this.isClicking = false;
+			if (timer !== null) {
+				clearTimeout(timer);
+			}
 		});
 	}
 
