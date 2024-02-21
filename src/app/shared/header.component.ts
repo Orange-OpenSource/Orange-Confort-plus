@@ -91,7 +91,7 @@ class HeaderComponent extends HTMLElement {
 			this.prevRoute = newValue;
 		}
 		if ('data-selected-mode' === name) {
-			this.titlePageIcon?.setAttribute('data-name', newValue);
+			this.titlePageIcon?.setAttribute('data-name', `${newValue}_border`);
 		}
 	}
 

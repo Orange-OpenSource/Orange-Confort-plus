@@ -32,7 +32,7 @@ abstract class AbstractCategory extends HTMLElement {
 		});
 
 		this._triggerArray.push(this.btnAccordion);
-		
+
 		this.btnAccordion?.addEventListener('click', this.handler);
 		this.btnMoreSettings?.addEventListener('click', this.handler);
 	}

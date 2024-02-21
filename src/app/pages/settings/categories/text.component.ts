@@ -8,7 +8,7 @@ tmplText.innerHTML = `
 	</div>
 	<div class="accordion-collapse collapse" id="category-text">
 		<div class="accordion-body px-3">
-			<div class="c-category__settings-container d-flex flex-column gap-2">
+			<div class="c-category__settings-container gap-2">
 				<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>
 				<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>

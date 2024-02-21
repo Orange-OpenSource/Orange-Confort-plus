@@ -1,4 +1,8 @@
+app-btn-modal {
+	flex: 1;
+}
+
 .sc-btn-modal {
-	clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-	min-width: 6em;
+	clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%);
+	text-align: left;
 }
