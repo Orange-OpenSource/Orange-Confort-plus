@@ -74,7 +74,7 @@ const files = {
 			'dist/js/app/shared/settings/text-transform.component.js',
 			'dist/js/app/shared/btn-modal.component.js',
 			'dist/js/app/shared/btn-setting.component.js',
-			'dist/js/app/shared/header.component.js',
+			'dist/js/app/shared/header/header.component.js',
 			'dist/js/app/shared/icon.component.js',
 			'dist/js/app/shared/select-mode.component.js',
 			'dist/js/app/pages/edit-setting/edit-setting.component.js',

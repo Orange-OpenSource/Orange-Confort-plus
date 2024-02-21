@@ -26,7 +26,7 @@
 		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/vendors",
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
 		"serve": "servor docs/ index.html 9010 --browse --reload",
-		"test": "",
+		"test": "npx playwright test",
 		"mkdir": "shx mkdir -p dist/css dist/serveur/assets/fonts/ dist/extension/assets/fonts/ dist/extension/js/",
 		"prebuild": "shx rm -rf dist/* && npm run mkdir",
 		"build": "npm run copy && concurrently \"npm:build:*\"",
@@ -90,6 +90,7 @@
 		"load:chrome": "cross-env-shell web-ext run --source-dir ./dist/extension --start-url=$npm_package_config_page --target chromium --devtools"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.45.1",
 		"@types/chrome": "^0.0.268",
 		"@types/node": "^20.14.2",
 		"autoprefixer": "^10.4.19",
