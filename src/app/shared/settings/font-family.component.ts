@@ -91,9 +91,6 @@ class FontFamilyComponent extends AbstractSetting {
 
 		this.appendChild(tmplFontFamily.content.cloneNode(true));
 
-		// @todo Utiliser size-adjust pour limiter le CLS?
-		// @link https://web.dev/articles/css-size-adjust
-		// @note On devrait se caler sur la Helvetica d’Orange, mais on ne l’embarque pas…
 		const fontFaceList: string[] = [];
 		this.fontDictionnary.forEach((font) => {
 			for (const file of font.files) {
