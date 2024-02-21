@@ -29,7 +29,7 @@ class RouteService {
 	}
 
 	/* Initialize components */
-	initPages(root: HTMLElement): void {
+	initPages = (root: HTMLElement): void => {
 		this.routes.forEach((route: any) => {
 			route.element = root.querySelector(route.selector);
 		});
@@ -38,7 +38,7 @@ class RouteService {
 	}
 
 	/* Navigate to the defined route in parameter */
-	navigate(newRoute: string): void {
+	navigate = (newRoute: string): void => {
 		this.routes.forEach((route: any) => {
 			if (route.path === this.currentRoute) {
 				route.element.classList.add('d-none');

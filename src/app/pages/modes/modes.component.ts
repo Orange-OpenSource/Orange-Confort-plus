@@ -63,7 +63,7 @@ class ModesComponent extends HTMLElement {
 		return (this.querySelector('input:checked') as HTMLInputElement).value;
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'submit':
@@ -76,12 +76,12 @@ class ModesComponent extends HTMLElement {
 		}
 	}
 
-	private selectModeFormEvent(event: Event): void {
+	private selectModeFormEvent = (event: Event): void => {
 		event.preventDefault();
 		(this.shadowRoot?.querySelector('app-home') as HTMLElement).focus();
 	}
 
-	private selectModeBtnEvent(): void {
+	private selectModeBtnEvent = (): void => {
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,

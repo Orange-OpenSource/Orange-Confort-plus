@@ -55,7 +55,6 @@ class AppComponent extends HTMLElement {
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);
-
 	}
 
 	disconnectedCallback(): void {
@@ -63,7 +62,7 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn?.removeEventListener('click', this.handler);
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'closeEvent':

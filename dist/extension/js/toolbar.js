@@ -135,13 +135,13 @@ class ModeOfUseService {
         }
         modeOfUseServiceIsInstantiated = true;
     }
-    setSelectedMode(newSelectedMode) {
+    setSelectedMode=newSelectedMode => {
         localStorageServiceInstance.getItem(jsonName).then((result => {
             let json = result;
             json.selectedMode = newSelectedMode;
             localStorageServiceInstance.setItem(jsonName, json);
         }));
-    }
+    };
     setSettingValue(key, newIndex) {
         let jsonIsEdited = false;
         return localStorageServiceInstance.getItem(jsonName).then((result => {
@@ -203,13 +203,13 @@ class RouteService {
         }
         routeServiceIsInstantiated = true;
     }
-    initPages(root) {
+    initPages=root => {
         this.routes.forEach((route => {
             route.element = root.querySelector(route.selector);
         }));
         this.navigate(this.PAGE_HOME);
-    }
-    navigate(newRoute) {
+    };
+    navigate=newRoute => {
         this.routes.forEach((route => {
             if (route.path === this.currentRoute) {
                 route.element.classList.add("d-none");
@@ -218,7 +218,7 @@ class RouteService {
             }
         }));
         this.currentRoute = newRoute;
-    }
+    };
 }
 
 "use strict";
@@ -252,7 +252,7 @@ class StylesService {
         }
         stylesServiceIsInstantiated = true;
     }
-    setStyle(name, style) {
+    setStyle=(name, style) => {
         if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
             let styleElement = document.createElement("style");
             styleElement.setAttribute("id", `${this.prefixStyle}${name}`);
@@ -261,10 +261,10 @@ class StylesService {
         } else {
             document.querySelector(`#${this.prefixStyle}${name}`).innerHTML = style;
         }
-    }
-    removeStyle(name) {
+    };
+    removeStyle=name => {
         document.querySelector(`#${this.prefixStyle}${name}`)?.remove();
-    }
+    };
 }
 
 "use strict";
@@ -357,19 +357,17 @@ class AppComponent extends HTMLElement {
         this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
         this.confortPlusBtn?.removeEventListener("click", this.handler);
     }
-    createHandler() {
-        return event => {
-            switch (event.type) {
-              case "closeEvent":
-                this.hideToolbar();
-                break;
+    createHandler=() => event => {
+        switch (event.type) {
+          case "closeEvent":
+            this.hideToolbar();
+            break;
 
-              case "click":
-                this.showToolbar();
-                break;
-            }
-        };
-    }
+          case "click":
+            this.showToolbar();
+            break;
+        }
+    };
     showToolbar=() => {
         this.confortPlusToolbar.removeAttribute("style");
         this.closeBtn?.focus();
@@ -434,16 +432,14 @@ class AbstractSetting extends HTMLElement {
     setCallback=callback => {
         this.callback = callback;
     };
-    createHandler() {
-        return event => {
-            switch (event.type) {
-              case "changeSettingEvent":
-                this.changeSettingEvent(event);
-                break;
-            }
-        };
-    }
-    changeSettingEvent(event) {
+    createHandler=() => event => {
+        switch (event.type) {
+          case "changeSettingEvent":
+            this.changeSettingEvent(event);
+            break;
+        }
+    };
+    changeSettingEvent=event => {
         let newIndex = event.detail.index;
         let newValue = event.detail.value;
         modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
@@ -452,7 +448,7 @@ class AbstractSetting extends HTMLElement {
                 this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
             }
         }));
-    }
+    };
 }
 
 "use strict";
@@ -1010,19 +1006,17 @@ class ReadingGuideComponent extends AbstractSetting {
         document.querySelector("#cplus-mask-guide--top-elt")?.remove();
         document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
     };
-    createHandler() {
-        return event => {
-            if (event.type === "mousemove") {
-                if (this.guideType === "reading") {
-                    document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
-                } else if (this.guideType === "mask") {
-                    document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
-                    document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
-                }
-                event.stopPropagation();
+    createHandler=() => event => {
+        if (event.type === "mousemove") {
+            if (this.guideType === "reading") {
+                document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
+            } else if (this.guideType === "mask") {
+                document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
+                document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
             }
-        };
-    }
+            event.stopPropagation();
+        }
+    };
 }
 
 customElements.define("app-reading-guide", ReadingGuideComponent);
@@ -1129,13 +1123,13 @@ class ScrollComponent extends AbstractSetting {
             let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
             let scrollBy = scrollDir * this.scrollSteps;
             button.element?.addEventListener(this.btnState, (event => {
-                button.interval = setInterval((function() {
+                button.interval = setInterval((() => {
                     window.scrollBy(0, scrollBy);
                 }), this.scrollTimer);
             }));
             if (this.btnState === "mouseover") {
                 button.element?.addEventListener("mouseover", (event => {
-                    button.interval = setInterval((function() {
+                    button.interval = setInterval((() => {
                         window.scrollBy(0, scrollBy);
                     }), this.scrollTimer);
                 }));
@@ -1238,29 +1232,27 @@ class TextTransformComponent extends HTMLElement {
         this.lowercaseBtn?.removeEventListener("click", this.handler);
         this.uppercaseBtn?.removeEventListener("click", this.handler);
     }
-    createHandler() {
-        return event => {
-            if (event.type === "click") {
-                switch (event.target) {
-                  case this.normalBtn:
-                    this.bodyElt.style.textTransform = ``;
-                    break;
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.normalBtn:
+                this.bodyElt.style.textTransform = ``;
+                break;
 
-                  case this.firstLetterBtn:
-                    this.bodyElt.style.textTransform = `capitalize`;
-                    break;
+              case this.firstLetterBtn:
+                this.bodyElt.style.textTransform = `capitalize`;
+                break;
 
-                  case this.lowercaseBtn:
-                    this.bodyElt.style.textTransform = `lowercase`;
-                    break;
+              case this.lowercaseBtn:
+                this.bodyElt.style.textTransform = `lowercase`;
+                break;
 
-                  case this.uppercaseBtn:
-                    this.bodyElt.style.textTransform = `uppercase`;
-                    break;
-                }
+              case this.uppercaseBtn:
+                this.bodyElt.style.textTransform = `uppercase`;
+                break;
             }
-        };
-    }
+        }
+    };
 }
 
 customElements.define("app-text-transform", TextTransformComponent);
@@ -1304,20 +1296,18 @@ class BtnModalComponent extends HTMLElement {
         this.modalBtn?.appendChild(span);
         this.modalBtn.setAttribute("title", label);
     };
-    createHandler() {
-        return event => {
-            if (event.type === "click") {
-                switch (event.target) {
-                  case this.modalBtn:
-                    let clickEvent = new CustomEvent("clickModalEvent", {
-                        bubbles: true
-                    });
-                    this.modalBtn?.dispatchEvent(clickEvent);
-                    break;
-                }
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.modalBtn:
+                let clickEvent = new CustomEvent("clickModalEvent", {
+                    bubbles: true
+                });
+                this.modalBtn?.dispatchEvent(clickEvent);
+                break;
             }
-        };
-    }
+        }
+    };
 }
 
 customElements.define("app-btn-modal", BtnModalComponent);
@@ -1396,21 +1386,19 @@ class BtnSettingComponent extends HTMLElement {
         }));
         this.btnContentSlots.innerHTML = this.slot;
     };
-    createHandler() {
-        return event => {
-            if (event.type === "click") {
-                this.setIndex();
-                let clickEvent = new CustomEvent("changeSettingEvent", {
-                    bubbles: true,
-                    detail: {
-                        value: this.value,
-                        index: this.index
-                    }
-                });
-                this.settingBtn?.dispatchEvent(clickEvent);
-            }
-        };
-    }
+    createHandler=() => event => {
+        if (event.type === "click") {
+            this.setIndex();
+            let clickEvent = new CustomEvent("changeSettingEvent", {
+                bubbles: true,
+                detail: {
+                    value: this.value,
+                    index: this.index
+                }
+            });
+            this.settingBtn?.dispatchEvent(clickEvent);
+        }
+    };
 }
 
 customElements.define("app-btn-setting", BtnSettingComponent);
@@ -1452,21 +1440,19 @@ class HeaderComponent extends HTMLElement {
         this.closeBtn?.removeEventListener("click", this.handler);
         this.prevBtn?.removeEventListener("click", this.handler);
     }
-    createHandler() {
-        return event => {
-            if (event.type === "click") {
-                switch (event.target) {
-                  case this.closeBtn:
-                    this.closeButtonEvent();
-                    break;
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.closeBtn:
+                this.closeButtonEvent();
+                break;
 
-                  case this.prevBtn:
-                    this.prevButtonEvent();
-                    break;
-                }
+              case this.prevBtn:
+                this.prevButtonEvent();
+                break;
             }
-        };
-    }
+        }
+    };
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-display" === name) {
             this.displayMode(newValue);
@@ -1486,13 +1472,13 @@ class HeaderComponent extends HTMLElement {
         this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
         this.titleApp?.classList.toggle("d-none", mode === "secondary");
     };
-    closeButtonEvent() {
+    closeButtonEvent=() => {
         let clickCloseEvent = new CustomEvent("closeEvent", {
             bubbles: true
         });
         this.closeBtn?.dispatchEvent(clickCloseEvent);
-    }
-    prevButtonEvent() {
+    };
+    prevButtonEvent=() => {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
@@ -1501,7 +1487,7 @@ class HeaderComponent extends HTMLElement {
             }
         });
         this.prevBtn?.dispatchEvent(clickEvent);
-    }
+    };
 }
 
 customElements.define("app-header", HeaderComponent);
@@ -1639,22 +1625,20 @@ class HomeComponent extends HTMLElement {
             this.modeName.innerText = newValue === "true" ? `${modeName}*` : `${modeName}`;
         }
     }
-    createHandler() {
-        return event => {
-            if (event.type === "click") {
-                switch (event.target) {
-                  case this.changeModeBtn:
-                    this.changeModeButtonEvent();
-                    break;
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.changeModeBtn:
+                this.changeModeButtonEvent();
+                break;
 
-                  case this.settingsBtn:
-                    this.settingsButtonEvent();
-                    break;
-                }
+              case this.settingsBtn:
+                this.settingsButtonEvent();
+                break;
             }
-        };
-    }
-    changeModeButtonEvent() {
+        }
+    };
+    changeModeButtonEvent=() => {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
@@ -1662,8 +1646,8 @@ class HomeComponent extends HTMLElement {
             }
         });
         this.changeModeBtn?.dispatchEvent(clickEvent);
-    }
-    settingsButtonEvent() {
+    };
+    settingsButtonEvent=() => {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
@@ -1671,7 +1655,7 @@ class HomeComponent extends HTMLElement {
             }
         });
         this.settingsBtn?.dispatchEvent(clickEvent);
-    }
+    };
 }
 
 customElements.define("app-home", HomeComponent);
@@ -1764,24 +1748,22 @@ class ModesComponent extends HTMLElement {
         this.selectModeZone.innerHTML = radioModeList;
     };
     getSelectedMode=() => this.querySelector("input:checked").value;
-    createHandler() {
-        return event => {
-            switch (event.type) {
-              case "submit":
-                this.selectModeFormEvent(event);
-                break;
+    createHandler=() => event => {
+        switch (event.type) {
+          case "submit":
+            this.selectModeFormEvent(event);
+            break;
 
-              case "click":
-                this.selectModeBtnEvent();
-                break;
-            }
-        };
-    }
-    selectModeFormEvent(event) {
+          case "click":
+            this.selectModeBtnEvent();
+            break;
+        }
+    };
+    selectModeFormEvent=event => {
         event.preventDefault();
         (this.shadowRoot?.querySelector("app-home")).focus();
-    }
-    selectModeBtnEvent() {
+    };
+    selectModeBtnEvent=() => {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
@@ -1791,7 +1773,7 @@ class ModesComponent extends HTMLElement {
         });
         modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
         this.selectModeBtn?.dispatchEvent(clickEvent);
-    }
+    };
 }
 
 customElements.define("app-modes", ModesComponent);
@@ -1912,21 +1894,19 @@ class AbstractCategory extends HTMLElement {
             }
         }));
     };
-    createHandler() {
-        return event => {
-            if (event.type === "click") {
-                switch (event.target) {
-                  case this.btnAccordion:
-                    this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-                    break;
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.btnAccordion:
+                this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+                break;
 
-                  case this.btnMoreSettings:
-                    this.displayOrHideOthersSettings();
-                    break;
-                }
+              case this.btnMoreSettings:
+                this.displayOrHideOthersSettings();
+                break;
             }
-        };
-    }
+        }
+    };
 }
 
 "use strict";
@@ -2122,20 +2102,18 @@ class ToolbarComponent extends HTMLElement {
         const isCustomMode = !(currentMode === defaultMode);
         this.home?.setAttribute("data-custom", isCustomMode.toString());
     };
-    createHandler() {
-        return event => {
-            switch (event.type) {
-              case "changeRoute":
-                this.changeRouteEvent(event);
-                break;
+    createHandler=() => event => {
+        switch (event.type) {
+          case "changeRoute":
+            this.changeRouteEvent(event);
+            break;
 
-              case `storage-${jsonName}`:
-                this.storageEvent();
-                break;
-            }
-        };
-    }
-    changeRouteEvent(event) {
+          case `storage-${jsonName}`:
+            this.storageEvent();
+            break;
+        }
+    };
+    changeRouteEvent=event => {
         if (event.detail.isPrev) {
             this.historyRoute.pop();
         } else {
@@ -2149,13 +2127,13 @@ class ToolbarComponent extends HTMLElement {
         this.setHeaderDisplay(event.detail.route);
         this.header?.focus();
         this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
-    }
-    storageEvent() {
+    };
+    storageEvent=() => {
         localStorageServiceInstance.getItem(jsonName).then((result => {
             this.json = result;
             this.setCurrentMode();
         }));
-    }
+    };
 }
 
 customElements.define("app-toolbar", ToolbarComponent);

@@ -119,7 +119,7 @@ class ReadingGuideComponent extends AbstractSetting {
 		document.querySelector('#cplus-mask-guide--bottom-elt')?.remove();
 	}
 
-	createHandler() {
+	createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'mousemove') {
 				if (this.guideType === 'reading') {

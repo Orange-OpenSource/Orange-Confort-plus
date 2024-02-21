@@ -44,7 +44,7 @@ class BtnModalComponent extends HTMLElement {
 		this.modalBtn.setAttribute('title', label);
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
 				switch (event.target) {
