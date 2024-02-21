@@ -164,6 +164,15 @@ class ModeOfUseService {
             localStorageServiceInstance.setItem(jsonName, json);
         }));
     };
+    getSelectedMode(json) {
+        let selectedMode;
+        json.modes.forEach((mode => {
+            if (Object.entries(mode)[0][0] === json.selectedMode) {
+                selectedMode = mode;
+            }
+        }));
+        return JSON.stringify(selectedMode);
+    }
     setSettingValue(key, newIndex) {
         let jsonIsEdited = false;
         return localStorageServiceInstance.getItem(jsonName).then((result => {
@@ -202,22 +211,21 @@ class RouteService {
         }
         routeServiceIsInstantiated = true;
     }
-    initPages=root => {
+    initPages(root) {
+        this.toolbar = root;
+        this.navigate(PAGE_HOME);
+    }
+    navigate(newRoute) {
         this.routes.forEach((route => {
-            route.element = root.querySelector(route.selector);
-        }));
-        this.navigate(this.PAGE_HOME);
-    };
-    navigate=newRoute => {
-        this.routes.forEach((route => {
-            if (route.path === newRoute) {
-                route.element.classList.remove("d-none");
-            } else if (route.path === this.currentRoute) {
-                route.element.classList.add("d-none");
+            if (route === newRoute) {
+                const element = `<app-${route}></app-${route}>`;
+                this.toolbar.insertAdjacentHTML("beforeend", element);
+            } else if (route === this.currentRoute) {
+                this.toolbar.querySelector(`app-${route}`)?.remove();
             }
         }));
         this.currentRoute = newRoute;
-    };
+    }
 }
 
 "use strict";
@@ -244,20 +252,10 @@ class ScrollService {
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
     setScroll=values => {
-        let addNewSetting = false;
-        if (this.settingsValues.length > 0) {
-            for (let setting of this.settingsValues) {
-                if (setting.name === values.name) {
-                    setting.btnState = values.btnState;
-                    setting.bigScrollActivated = values.bigScrollActivated;
-                    addNewSetting = false;
-                    break;
-                } else {
-                    addNewSetting = true;
-                }
-            }
-        }
-        if (this.settingsValues.length === 0 || addNewSetting) {
+        const existingIndex = this.settingsValues.findIndex((item => item.name === values.name));
+        if (existingIndex >= 0) {
+            this.settingsValues[existingIndex] = values;
+        } else {
             this.settingsValues.push(values);
         }
         this.calculatePriority(values);
@@ -275,7 +273,11 @@ class ScrollService {
         this.btnState = tmpBtnState;
     };
     setBigScroll=() => {
-        document.body.classList.toggle("cplus-big-scroll");
+        if (this.bigScrollActivated) {
+            document.body.classList.add("cplus-big-scroll");
+        } else {
+            document.body.classList.remove("cplus-big-scroll");
+        }
     };
     setBtnScroll=() => {
         document.querySelector("#cplus-container-scroll-buttons")?.remove();
@@ -563,13 +565,15 @@ class AbstractSetting extends HTMLElement {
 
 const tmplClickFacilite = document.createElement("template");
 
-tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="clicFacilte" data-icon="ClicFacile"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="clickFacilite" data-icon="ClicFacile"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClickFaciliteComponent extends AbstractSetting {
     selectedElt;
     delay;
     isClicking=false;
     clickableElements=[ "A", "INPUT", "SELECT", "OPTION", "TEXTAREA", "LABEL", "BUTTON" ];
+    timer=null;
+    handlerClickFacilite;
     activesValues={
         values: "noModifications,longClick_2,autoClick_2",
         activeValue: 0
@@ -578,6 +582,7 @@ class ClickFaciliteComponent extends AbstractSetting {
         super();
         this.setCallback(this.setClickFacilite.bind(this));
         this.appendChild(tmplClickFacilite.content.cloneNode(true));
+        this.handlerClickFacilite = this.createHandlerClickFacilite();
     }
     setClickFacilite=value => {
         let paramName = value.split("_")[0];
@@ -636,40 +641,20 @@ class ClickFaciliteComponent extends AbstractSetting {
         return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt : closestPointedElt ? closestPointedElt : pointedElt;
     };
     longClick=() => {
-        let timer = null;
-        document.addEventListener("click", (event => {
-            event.preventDefault();
-        }));
-        document.addEventListener("mousedown", (event => {
-            timer = setTimeout((() => {
-                this.doClick(this.getClickableElt(event));
-            }), this.delay);
-        }));
-        document.addEventListener("mouseup", (() => {
-            if (timer !== null) {
-                clearTimeout(timer);
-            }
-        }));
+        document.addEventListener("click", this.handlerClickFacilite);
+        document.addEventListener("mousedown", this.handlerClickFacilite);
+        document.addEventListener("mouseup", this.handlerClickFacilite);
     };
     autoClick=() => {
-        let timer = null;
-        document.addEventListener("mouseover", (event => {
-            timer = setTimeout((() => {
-                this.doClick(this.getClickableElt(event));
-            }), this.delay);
-        }));
-        document.addEventListener("mouseout", (() => {
-            if (timer !== null) {
-                clearTimeout(timer);
-            }
-        }));
+        document.addEventListener("mouseover", this.handlerClickFacilite);
+        document.addEventListener("mouseout", this.handlerClickFacilite);
     };
     resetEventClick=() => {
-        document.removeEventListener("click", (() => {}));
-        document.removeEventListener("mouseover", (() => {}));
-        document.removeEventListener("mouseout", (() => {}));
-        document.removeEventListener("mousedown", (() => {}));
-        document.removeEventListener("mouseup", (() => {}));
+        document.removeEventListener("click", this.handlerClickFacilite);
+        document.removeEventListener("mouseover", this.handlerClickFacilite);
+        document.removeEventListener("mouseout", this.handlerClickFacilite);
+        document.removeEventListener("mousedown", this.handlerClickFacilite);
+        document.removeEventListener("mouseup", this.handlerClickFacilite);
     };
     doClick=elt => {
         if (this.clickableElements.includes(elt.nodeName)) {
@@ -732,6 +717,33 @@ class ClickFaciliteComponent extends AbstractSetting {
             } else {
                 options[i].selected = false;
             }
+        }
+    };
+    createHandlerClickFacilite=() => event => {
+        switch (event.type) {
+          case "click":
+            event.preventDefault();
+            break;
+
+          case "mousedown":
+          case "mouseover":
+            this.setTimeoutClick(event);
+            break;
+
+          case "mouseup":
+          case "mouseout":
+            this.clearTimeout();
+            break;
+        }
+    };
+    setTimeoutClick=event => {
+        this.timer = setTimeout((() => {
+            this.doClick(this.getClickableElt(event));
+        }), this.delay);
+    };
+    clearTimeout=() => {
+        if (this.timer !== null) {
+            clearTimeout(this.timer);
         }
     };
 }
@@ -1222,6 +1234,7 @@ class ReadingGuideComponent extends AbstractSetting {
     readingGuideElt=null;
     guideType="";
     sizeGuide=40;
+    handlerReadingGuide;
     activesValues={
         values: "noModifications,readingGuide,maskGuide",
         activeValue: 0
@@ -1235,7 +1248,11 @@ class ReadingGuideComponent extends AbstractSetting {
         this.readingGuideElt = this.querySelector("#cplus-vertical-guide-elt");
         this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
         this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
-        this.handler = this.createHandler();
+        this.handlerReadingGuide = this.createHandlerReadingGuide();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        document.removeEventListener("mousemove", this.handlerReadingGuide);
     }
     setReadingMaskGuide=value => {
         switch (value) {
@@ -1281,11 +1298,8 @@ class ReadingGuideComponent extends AbstractSetting {
             document.body.appendChild(maskTopElt);
             document.body.appendChild(maskBottomElt);
         }
-        document.addEventListener("mousemove", this.handler);
+        document.addEventListener("mousemove", this.handlerReadingGuide);
     };
-    disconnectedCallback() {
-        document.removeEventListener("mousemove", this.handler);
-    }
     resetGuide=() => {
         this.guideType = "";
         stylesServiceInstance.removeStyle(this.name);
@@ -1293,7 +1307,7 @@ class ReadingGuideComponent extends AbstractSetting {
         document.querySelector("#cplus-mask-guide--top-elt")?.remove();
         document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
     };
-    createHandler=() => event => {
+    createHandlerReadingGuide=() => event => {
         if (event.type === "mousemove") {
             if (this.guideType === "reading") {
                 document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
@@ -1365,67 +1379,6 @@ class ScrollComponent extends AbstractSetting {
                 });
             }
         }
-    };
-    setScrollClass=() => {
-        let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t`;
-        stylesServiceInstance.setStyle(this.name, styleScroll);
-    };
-    setBigScroll=() => {
-        document.body.classList.add("cplus-big-scroll");
-    };
-    setBtnScroll=() => {
-        let intervalUp;
-        let intervalDown;
-        const btnArray = [ {
-            id: "cplus-scroll-up",
-            label: i18nServiceInstance.getMessage("scrollUp"),
-            element: this.btnScrollUp,
-            interval: intervalUp
-        }, {
-            id: "cplus-scroll-down",
-            label: i18nServiceInstance.getMessage("scrollDown"),
-            element: this.btnScrollDown,
-            interval: intervalDown
-        } ];
-        const container = document.createElement("div");
-        container.setAttribute("id", "cplus-container-scroll-buttons");
-        let fragment = document.createDocumentFragment();
-        btnArray.forEach((button => {
-            let btn = document.createElement("button");
-            btn.setAttribute("id", button.id);
-            btn.type = "button";
-            btn.innerHTML = button.label;
-            fragment.appendChild(btn);
-            container.appendChild(fragment);
-            document.body.appendChild(container);
-            button.element = document.querySelector(`#${button.id}`);
-            let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
-            let scrollBy = scrollDir * this.scrollSteps;
-            button.element?.addEventListener(this.btnState, (event => {
-                button.interval = setInterval((() => {
-                    window.scrollBy(0, scrollBy);
-                }), this.scrollTimer);
-            }));
-            if (this.btnState === "mouseover") {
-                button.element?.addEventListener("mouseover", (event => {
-                    button.interval = setInterval((() => {
-                        window.scrollBy(0, scrollBy);
-                    }), this.scrollTimer);
-                }));
-                button.element?.addEventListener("mouseleave", (event => {
-                    clearInterval(button.interval);
-                }));
-            } else {
-                button.element?.addEventListener("click", (event => {
-                    window.scrollBy(0, scrollBy);
-                }));
-            }
-        }));
-    };
-    resetScroll=() => {
-        this.btnState = "";
-        document.body.classList.remove("cplus-big-scroll");
-        document.querySelector("#cplus-container-scroll-buttons")?.remove();
     };
 }
 
@@ -1721,19 +1674,6 @@ class HeaderComponent extends HTMLElement {
         this.closeBtn?.removeEventListener("click", this.handler);
         this.prevBtn?.removeEventListener("click", this.handler);
     }
-    createHandler=() => event => {
-        if (event.type === "click") {
-            switch (event.target) {
-              case this.closeBtn:
-                this.closeButtonEvent();
-                break;
-
-              case this.prevBtn:
-                this.prevButtonEvent();
-                break;
-            }
-        }
-    };
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-display" === name) {
             this.displayMode(newValue);
@@ -1755,6 +1695,19 @@ class HeaderComponent extends HTMLElement {
         this.prevBtn?.classList.toggle("d-none", mode === "primary");
         this.pageBlockTitle?.classList.toggle("d-none", mode === "primary");
         this.appTitle?.classList.toggle("d-none", mode === "secondary");
+    };
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.closeBtn:
+                this.closeButtonEvent();
+                break;
+
+              case this.prevBtn:
+                this.prevButtonEvent();
+                break;
+            }
+        }
     };
     closeButtonEvent=() => {
         let clickCloseEvent = new CustomEvent("closeEvent", {
@@ -1926,7 +1879,7 @@ class HomeComponent extends HTMLElement {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
-                route: routeServiceInstance.PAGE_MODES
+                route: PAGE_MODES
             }
         });
         this.changeModeBtn?.dispatchEvent(clickEvent);
@@ -1935,7 +1888,7 @@ class HomeComponent extends HTMLElement {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
-                route: routeServiceInstance.PAGE_SETTINGS
+                route: PAGE_SETTINGS
             }
         });
         this.settingsBtn?.dispatchEvent(clickEvent);
@@ -2010,10 +1963,9 @@ class ModesComponent extends HTMLElement {
         this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeZone = this.querySelector("#select-mode-zone");
         this.selectModeForm?.addEventListener("submit", this.handler);
-        this.selectModeBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.selectModeBtn?.removeEventListener("click", this.handler);
+        this.selectModeForm?.removeEventListener("submit", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
@@ -2039,21 +1991,14 @@ class ModesComponent extends HTMLElement {
           case "submit":
             this.selectModeFormEvent(event);
             break;
-
-          case "click":
-            this.selectModeBtnEvent();
-            break;
         }
     };
     selectModeFormEvent=event => {
         event.preventDefault();
-        (this.shadowRoot?.querySelector("app-home")).focus();
-    };
-    selectModeBtnEvent=() => {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
-                route: routeServiceInstance.PAGE_HOME,
+                route: PAGE_HOME,
                 isPrev: true
             }
         });
@@ -2245,7 +2190,7 @@ customElements.define("app-picture-video", PictureVideoComponent);
 
 const tmplPointer = document.createElement("template");
 
-tmplPointer.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t<app-icon data-name="Pointeur" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="pointer"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplPointer.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-pointer">\n\t\t\t<app-icon data-name="Pointeur" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="pointer"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-pointer">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class PointerComponent extends AbstractCategory {
     constructor() {
@@ -2318,7 +2263,6 @@ class ToolbarComponent extends HTMLElement {
             }));
         }));
         window.addEventListener(`storage-${jsonName}`, this.handler);
-        routeServiceInstance.initPages(this);
         this.addEventListener("changeRoute", this.handler);
     }
     initCurrentMode=() => {
@@ -2401,24 +2345,26 @@ class ToolbarComponent extends HTMLElement {
         }
     };
     changeRouteEvent=event => {
+        let newRoute = event.detail.route;
         if (event.detail.isPrev) {
             this.historyRoute.pop();
         } else {
             this.historyRoute.push(routeServiceInstance.currentRoute);
         }
-        if (event.detail.setting) {
-            this.json.selectedMode = event.detail.mode;
-            this.setCurrentMode();
-        }
-        routeServiceInstance.navigate(event.detail.route);
-        this.setHeaderDisplay(event.detail.route);
         this.header?.focus();
         this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
+        if (event.detail.setting) {
+            this.json.selectedMode = event.detail.mode;
+            this.querySelector(`app-${PAGE_HOME}`)?.focus();
+        }
+        routeServiceInstance.navigate(newRoute);
+        this.setNewPage(newRoute);
     };
     storageEvent=() => {
         localStorageServiceInstance.getItem(jsonName).then((result => {
             this.json = result;
-            this.setCurrentMode();
+            this.setCurrentPage(routeServiceInstance.currentRoute);
+            this.setCustomState();
         }));
     };
 }

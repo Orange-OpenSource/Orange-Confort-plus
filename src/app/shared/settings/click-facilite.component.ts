@@ -1,7 +1,7 @@
 const tmplClickFacilite: HTMLTemplateElement = document.createElement('template');
 tmplClickFacilite.innerHTML = `
 <div class="d-flex align-items-center gap-3">
-	<app-btn-setting data-label="clicFacilte" data-icon="ClicFacile"></app-btn-setting>
+	<app-btn-setting data-label="clickFacilite" data-icon="ClicFacile"></app-btn-setting>
 	<app-btn-modal class="d-none"></app-btn-modal>
 </div>
 `;
@@ -11,10 +11,12 @@ class ClickFaciliteComponent extends AbstractSetting {
 	delay: number;
 	isClicking = false;
 	clickableElements = ['A', 'INPUT', 'SELECT', 'OPTION', 'TEXTAREA', 'LABEL', 'BUTTON'];
+	timer: ReturnType<typeof setTimeout> | null = null;
+	handlerClickFacilite: any;
 
 	activesValues = {
-		"values": "noModifications,longClick_2,autoClick_2",
-		"activeValue": 0
+		'values': 'noModifications,longClick_2,autoClick_2',
+		'activeValue': 0
 	};
 
 	constructor() {
@@ -23,6 +25,8 @@ class ClickFaciliteComponent extends AbstractSetting {
 		this.setCallback(this.setClickFacilite.bind(this));
 
 		this.appendChild(tmplClickFacilite.content.cloneNode(true));
+
+		this.handlerClickFacilite = this.createHandlerClickFacilite();
 	}
 
 	setClickFacilite = (value: string): void => {
@@ -63,47 +67,22 @@ class ClickFaciliteComponent extends AbstractSetting {
 	}
 
 	longClick = (): void => {
-		let timer: ReturnType<typeof setTimeout> | null = null;
-
-		document.addEventListener('click', (event: Event) => {
-			event.preventDefault();
-		});
-
-		document.addEventListener('mousedown', (event: MouseEvent) => {
-			timer = setTimeout(() => {
-				this.doClick(this.getClickableElt(event));
-			}, this.delay);
-		});
-
-		document.addEventListener('mouseup', () => {
-			if (timer !== null) {
-				clearTimeout(timer);
-			}
-		});
+		document.addEventListener('click', this.handlerClickFacilite);
+		document.addEventListener('mousedown', this.handlerClickFacilite);
+		document.addEventListener('mouseup', this.handlerClickFacilite);
 	}
 
 	autoClick = (): void => {
-		let timer: ReturnType<typeof setTimeout> | null = null;
-
-		document.addEventListener('mouseover', (event: MouseEvent) => {
-			timer = setTimeout(() => {
-				this.doClick(this.getClickableElt(event));
-			}, this.delay);
-		});
-
-		document.addEventListener('mouseout', () => {
-			if (timer !== null) {
-				clearTimeout(timer);
-			}
-		});
+		document.addEventListener('mouseover', this.handlerClickFacilite);
+		document.addEventListener('mouseout', this.handlerClickFacilite);
 	}
 
 	resetEventClick = (): void => {
-		document.removeEventListener('click', () => { });
-		document.removeEventListener('mouseover', () => { });
-		document.removeEventListener('mouseout', () => { });
-		document.removeEventListener('mousedown', () => { });
-		document.removeEventListener('mouseup', () => { });
+		document.removeEventListener('click', this.handlerClickFacilite);
+		document.removeEventListener('mouseover', this.handlerClickFacilite);
+		document.removeEventListener('mouseout', this.handlerClickFacilite);
+		document.removeEventListener('mousedown', this.handlerClickFacilite);
+		document.removeEventListener('mouseup', this.handlerClickFacilite);
 	}
 
 	doClick = (elt: any): void => {
@@ -164,6 +143,36 @@ class ClickFaciliteComponent extends AbstractSetting {
 			} else {
 				options[i].selected = false;
 			}
+		}
+	}
+
+	createHandlerClickFacilite = () => {
+		return (event: any) => {
+			switch (event.type) {
+				case 'click':
+					event.preventDefault();
+					break;
+				case 'mousedown':
+				case 'mouseover':
+					this.setTimeoutClick(event);
+					break;
+				case 'mouseup':
+				case 'mouseout':
+					this.clearTimeout();
+					break;
+			}
+		}
+	}
+
+	private setTimeoutClick = (event: any): void => {
+		this.timer = setTimeout(() => {
+			this.doClick(this.getClickableElt(event));
+		}, this.delay);
+	}
+
+	private clearTimeout = (): void => {
+		if (this.timer !== null) {
+			clearTimeout(this.timer);
 		}
 	}
 }

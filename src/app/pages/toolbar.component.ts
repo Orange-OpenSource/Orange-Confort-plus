@@ -39,35 +39,7 @@ class ToolbarComponent extends HTMLElement {
 
 		window.addEventListener(`storage-${jsonName}`, this.handler);
 
-		routeServiceInstance.initPages(this);
-
 		this.addEventListener('changeRoute', this.handler);
-
-
-
-
-		/* Event when page is changed */
-		this.addEventListener('changeRoute', (event) => {
-			let newRoute = (event as CustomEvent).detail.route;
-
-			/* Creating a tree structure to get the previous route */
-			if ((event as CustomEvent).detail.isPrev) {
-				this.historyRoute.pop();
-			} else {
-				this.historyRoute.push(routeServiceInstance.currentRoute);
-			}
-			this.header?.focus();
-			this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
-
-			/* If mode is changed */
-			if ((event as CustomEvent).detail.setting) {
-				this.json.selectedMode = (event as CustomEvent).detail.mode;
-				(this.querySelector(`app-${PAGE_HOME}`) as HTMLElement)?.focus();
-			}
-
-			routeServiceInstance.navigate(newRoute);
-			this.setNewPage(newRoute);
-		});
 	}
 
 	initCurrentMode = (): void => {

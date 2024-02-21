@@ -97,7 +97,7 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_2,autoClick_2",
+						"values": "noModifications,bigZone,autoClick_2",
 						"activeValue": 0
 					}
 				},

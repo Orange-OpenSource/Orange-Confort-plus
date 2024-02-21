@@ -34,11 +34,10 @@ class ModesComponent extends HTMLElement {
 		this.selectModeZone = this.querySelector('#select-mode-zone');
 
 		this.selectModeForm?.addEventListener('submit', this.handler);
-		this.selectModeBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.selectModeBtn?.removeEventListener('click', this.handler);
+		this.selectModeForm?.removeEventListener('submit', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {

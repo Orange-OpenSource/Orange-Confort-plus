@@ -70,21 +70,10 @@ class ScrollService {
 
 	/* Allows a setting to enable or disable scroll functionality by listing the values for each setting */
 	setScroll = (values: ScrollSettingValues): void => {
-		let addNewSetting = false;
-		if (this.settingsValues.length > 0) {
-			for (let setting of this.settingsValues) {
-				if (setting.name === values.name) {
-					setting.btnState = values.btnState;
-					setting.bigScrollActivated = values.bigScrollActivated;
-					addNewSetting = false;
-					break;
-				} else {
-					addNewSetting = true;
-				}
-			}
-		}
-
-		if (this.settingsValues.length === 0 || addNewSetting) {
+		const existingIndex = this.settingsValues.findIndex(item => item.name === values.name);
+		if (existingIndex >= 0) {
+			this.settingsValues[existingIndex] = values;
+		} else {
 			this.settingsValues.push(values);
 		}
 
@@ -110,7 +99,11 @@ class ScrollService {
 
 	/* Enable or disable the large scrollbar */
 	setBigScroll = (): void => {
-		document.body.classList.toggle('cplus-big-scroll');
+		if (this.bigScrollActivated) {
+			document.body.classList.add('cplus-big-scroll');
+		} else {
+			document.body.classList.remove('cplus-big-scroll');
+		}
 	}
 
 	/* Activate or deactivate the scroll up/down buttons */
@@ -131,7 +124,7 @@ class ScrollService {
 			btnArray.forEach((button) => {
 				let btn = document.createElement('button');
 				btn.setAttribute('id', button.id);
-				btn.type = "button";
+				btn.type = 'button';
 				btn.innerHTML = button.label;
 				container.appendChild(btn);
 				fragment.appendChild(container);

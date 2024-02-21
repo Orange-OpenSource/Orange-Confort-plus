@@ -28,11 +28,11 @@ class RouteService {
 	/* Navigate to the defined route in parameter */
 	navigate(newRoute: string): void {
 		this.routes.forEach((route: string) => {
-			if (route === this.currentRoute) {
-				this.toolbar.querySelector(`app-${route}`)?.remove();
-			} else if (route === newRoute) {
+			if (route === newRoute) {
 				const element = `<app-${route}></app-${route}>`;
 				this.toolbar.insertAdjacentHTML("beforeend", element);
+			} else if (route === this.currentRoute) {
+				this.toolbar.querySelector(`app-${route}`)?.remove();
 			}
 		});
 
