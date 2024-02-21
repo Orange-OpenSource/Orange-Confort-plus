@@ -49,7 +49,7 @@ class TextTransformComponent extends HTMLElement {
 		this.uppercaseBtn?.removeEventListener('click', this.handler);
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
 				switch (event.target) {

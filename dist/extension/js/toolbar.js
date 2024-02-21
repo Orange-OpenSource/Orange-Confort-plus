@@ -135,13 +135,13 @@ class ModeOfUseService {
         }
         modeOfUseServiceIsInstantiated = true;
     }
-    setSelectedMode(newSelectedMode) {
+    setSelectedMode=newSelectedMode => {
         localStorageServiceInstance.getItem(jsonName).then((result => {
             let json = result;
             json.selectedMode = newSelectedMode;
             localStorageServiceInstance.setItem(jsonName, json);
         }));
-    }
+    };
     setSettingValue(key, newIndex) {
         let jsonIsEdited = false;
         return localStorageServiceInstance.getItem(jsonName).then((result => {
@@ -203,13 +203,13 @@ class RouteService {
         }
         routeServiceIsInstantiated = true;
     }
-    initPages(root) {
+    initPages=root => {
         this.routes.forEach((route => {
             route.element = root.querySelector(route.selector);
         }));
         this.navigate(this.PAGE_HOME);
-    }
-    navigate(newRoute) {
+    };
+    navigate=newRoute => {
         this.routes.forEach((route => {
             if (route.path === this.currentRoute) {
                 route.element.classList.add("d-none");
@@ -218,7 +218,7 @@ class RouteService {
             }
         }));
         this.currentRoute = newRoute;
-    }
+    };
 }
 
 "use strict";
@@ -252,7 +252,7 @@ class StylesService {
         }
         stylesServiceIsInstantiated = true;
     }
-    setStyle(name, style) {
+    setStyle=(name, style) => {
         if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
             let styleElement = document.createElement("style");
             styleElement.setAttribute("id", `${this.prefixStyle}${name}`);
@@ -261,10 +261,10 @@ class StylesService {
         } else {
             document.querySelector(`#${this.prefixStyle}${name}`).innerHTML = style;
         }
-    }
-    removeStyle(name) {
+    };
+    removeStyle=name => {
         document.querySelector(`#${this.prefixStyle}${name}`)?.remove();
-    }
+    };
 }
 
 "use strict";
@@ -321,6 +321,7 @@ class AppComponent extends HTMLElement {
     closeBtn=null;
     i18nService;
     link;
+    handler;
     constructor() {
         super();
         this.attachShadow({
@@ -334,6 +335,7 @@ class AppComponent extends HTMLElement {
             this?.shadowRoot?.querySelector("[data-bs-theme]").removeAttribute("style");
         };
         this.shadowRoot?.appendChild(this.link);
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         customElements.upgrade(this);
@@ -348,13 +350,24 @@ class AppComponent extends HTMLElement {
             return;
         }
         this.hideToolbar();
-        this.confortPlusToolbar.addEventListener("closeEvent", this.hideToolbar);
-        this.confortPlusBtn.addEventListener("click", this.showToolbar);
+        this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
+        this.confortPlusBtn.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.confortPlusToolbar?.removeEventListener("closeEvent", this.hideToolbar);
-        this.confortPlusBtn?.removeEventListener("click", this.showToolbar);
+        this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
+        this.confortPlusBtn?.removeEventListener("click", this.handler);
     }
+    createHandler=() => event => {
+        switch (event.type) {
+          case "closeEvent":
+            this.hideToolbar();
+            break;
+
+          case "click":
+            this.showToolbar();
+            break;
+        }
+    };
     showToolbar=() => {
         this.confortPlusToolbar.removeAttribute("style");
         this.closeBtn?.focus();
@@ -380,11 +393,13 @@ class AbstractSetting extends HTMLElement {
     activesValues;
     separator=",";
     name="";
+    handler;
     callback;
     constructor() {
         super();
         this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
         this.name = stringServiceInstance.normalizeSettingName(this.tagName);
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("app-btn-setting");
@@ -394,20 +409,11 @@ class AbstractSetting extends HTMLElement {
             this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
         }
         this.setSettingBtn(this.activesValues);
-        this.settingBtn.addEventListener("changeSettingEvent", (event => {
-            let newIndex = event.detail.index;
-            let newValue = event.detail.value;
-            modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
-                if (!success) {
-                    this.callback(newValue);
-                    this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
-                }
-            }));
-        }));
+        this.settingBtn.addEventListener("changeSettingEvent", this.handler);
     }
     disconnectedCallback() {
-        this.modalBtn.removeEventListener("clickModalEvent", (() => {}));
-        this.settingBtn.removeEventListener("changeSettingEvent", (() => {}));
+        this.modalBtn.removeEventListener("clickModalEvent", this.handler);
+        this.settingBtn.removeEventListener("changeSettingEvent", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
@@ -425,6 +431,23 @@ class AbstractSetting extends HTMLElement {
     };
     setCallback=callback => {
         this.callback = callback;
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "changeSettingEvent":
+            this.changeSettingEvent(event);
+            break;
+        }
+    };
+    changeSettingEvent=event => {
+        let newIndex = event.detail.index;
+        let newValue = event.detail.value;
+        modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
+            if (!success) {
+                this.callback(newValue);
+                this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
+            }
+        }));
     };
 }
 
@@ -925,6 +948,7 @@ class ReadingGuideComponent extends AbstractSetting {
         this.readingGuideElt = this.querySelector("#cplus-vertical-guide-elt");
         this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
         this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
+        this.handler = this.createHandler();
     }
     setReadingMaskGuide=value => {
         switch (value) {
@@ -970,7 +994,20 @@ class ReadingGuideComponent extends AbstractSetting {
             document.body.appendChild(maskTopElt);
             document.body.appendChild(maskBottomElt);
         }
-        document.addEventListener("mousemove", (event => {
+        document.addEventListener("mousemove", this.handler);
+    };
+    disconnectedCallback() {
+        document.removeEventListener("mousemove", this.handler);
+    }
+    resetGuide=() => {
+        this.guideType = "";
+        stylesServiceInstance.removeStyle(this.name);
+        document.querySelector("#cplus-vertical-guide-elt")?.remove();
+        document.querySelector("#cplus-mask-guide--top-elt")?.remove();
+        document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
+    };
+    createHandler=() => event => {
+        if (event.type === "mousemove") {
             if (this.guideType === "reading") {
                 document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
             } else if (this.guideType === "mask") {
@@ -978,14 +1015,7 @@ class ReadingGuideComponent extends AbstractSetting {
                 document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
             }
             event.stopPropagation();
-        }));
-    };
-    resetGuide=() => {
-        this.guideType = "";
-        stylesServiceInstance.removeStyle(this.name);
-        document.querySelector("#cplus-vertical-guide-elt")?.remove();
-        document.querySelector("#cplus-mask-guide--top-elt")?.remove();
-        document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
+        }
     };
 }
 
@@ -1093,13 +1123,13 @@ class ScrollComponent extends AbstractSetting {
             let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
             let scrollBy = scrollDir * this.scrollSteps;
             button.element?.addEventListener(this.btnState, (event => {
-                button.interval = setInterval((function() {
+                button.interval = setInterval((() => {
                     window.scrollBy(0, scrollBy);
                 }), this.scrollTimer);
             }));
             if (this.btnState === "mouseover") {
                 button.element?.addEventListener("mouseover", (event => {
-                    button.interval = setInterval((function() {
+                    button.interval = setInterval((() => {
                         window.scrollBy(0, scrollBy);
                     }), this.scrollTimer);
                 }));
@@ -1174,10 +1204,12 @@ const tmplTextTransform = document.createElement("template");
 tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button type="button" id="normal-btn" data-i18n="default"></button>\n<button type="button" id="first-letter-btn" data-i18n="firstLetter"></button>\n<button type="button" id="lowercase-btn" data-i18n="lowercase"></button>\n<button type="button" id="uppercase-btn" data-i18n="uppercase"></button>\n`;
 
 class TextTransformComponent extends HTMLElement {
+    bodyElt=null;
     normalBtn=null;
     firstLetterBtn=null;
     lowercaseBtn=null;
     uppercaseBtn=null;
+    handler;
     constructor() {
         super();
         this.appendChild(tmplTextTransform.content.cloneNode(true));
@@ -1185,28 +1217,42 @@ class TextTransformComponent extends HTMLElement {
         this.firstLetterBtn = this.querySelector("#first-letter-btn");
         this.lowercaseBtn = this.querySelector("#lowercase-btn");
         this.uppercaseBtn = this.querySelector("#uppercase-btn");
+        this.handler = this.createHandler();
     }
     connectedCallback() {
-        const bodyElt = document.body;
-        this.normalBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = ``;
-        }));
-        this.firstLetterBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = `capitalize`;
-        }));
-        this.lowercaseBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = `lowercase`;
-        }));
-        this.uppercaseBtn?.addEventListener("click", (() => {
-            bodyElt.style.textTransform = `uppercase`;
-        }));
+        this.bodyElt = document.body;
+        this.normalBtn?.addEventListener("click", this.handler);
+        this.firstLetterBtn?.addEventListener("click", this.handler);
+        this.lowercaseBtn?.addEventListener("click", this.handler);
+        this.uppercaseBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.normalBtn?.removeEventListener("click", (() => {}));
-        this.firstLetterBtn?.removeEventListener("click", (() => {}));
-        this.lowercaseBtn?.removeEventListener("click", (() => {}));
-        this.uppercaseBtn?.removeEventListener("click", (() => {}));
+        this.normalBtn?.removeEventListener("click", this.handler);
+        this.firstLetterBtn?.removeEventListener("click", this.handler);
+        this.lowercaseBtn?.removeEventListener("click", this.handler);
+        this.uppercaseBtn?.removeEventListener("click", this.handler);
     }
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.normalBtn:
+                this.bodyElt.style.textTransform = ``;
+                break;
+
+              case this.firstLetterBtn:
+                this.bodyElt.style.textTransform = `capitalize`;
+                break;
+
+              case this.lowercaseBtn:
+                this.bodyElt.style.textTransform = `lowercase`;
+                break;
+
+              case this.uppercaseBtn:
+                this.bodyElt.style.textTransform = `uppercase`;
+                break;
+            }
+        }
+    };
 }
 
 customElements.define("app-text-transform", TextTransformComponent);
@@ -1221,22 +1267,19 @@ class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-value", "data-label" ];
     modalBtn=null;
     value=null;
+    handler;
     constructor() {
         super();
         this.value = this.dataset?.value || this.value;
         this.appendChild(btnModalLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.modalBtn = this.querySelector("button");
-        this.modalBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("clickModalEvent", {
-                bubbles: true
-            });
-            this.modalBtn?.dispatchEvent(clickEvent);
-        }));
+        this.modalBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.modalBtn?.removeEventListener("click", (() => {}));
+        this.modalBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-value" === name) {
@@ -1252,6 +1295,18 @@ class BtnModalComponent extends HTMLElement {
         span.innerText = label;
         this.modalBtn?.appendChild(span);
         this.modalBtn.setAttribute("title", label);
+    };
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.modalBtn:
+                let clickEvent = new CustomEvent("clickModalEvent", {
+                    bubbles: true
+                });
+                this.modalBtn?.dispatchEvent(clickEvent);
+                break;
+            }
+        }
     };
 }
 
@@ -1274,27 +1329,19 @@ class BtnSettingComponent extends HTMLElement {
     slot="";
     separator=",";
     settingsList=[];
+    handler;
     constructor() {
         super();
         this.appendChild(btnSettingLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
         this.btnContentSlots = this.querySelector("ul");
-        this.settingBtn?.addEventListener("click", (() => {
-            this.setIndex();
-            let clickEvent = new CustomEvent("changeSettingEvent", {
-                bubbles: true,
-                detail: {
-                    value: this.value,
-                    index: this.index
-                }
-            });
-            this.settingBtn?.dispatchEvent(clickEvent);
-        }));
+        this.settingBtn.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.settingBtn?.removeEventListener("click", (() => {}));
+        this.settingBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
@@ -1339,6 +1386,19 @@ class BtnSettingComponent extends HTMLElement {
         }));
         this.btnContentSlots.innerHTML = this.slot;
     };
+    createHandler=() => event => {
+        if (event.type === "click") {
+            this.setIndex();
+            let clickEvent = new CustomEvent("changeSettingEvent", {
+                bubbles: true,
+                detail: {
+                    value: this.value,
+                    index: this.index
+                }
+            });
+            this.settingBtn?.dispatchEvent(clickEvent);
+        }
+    };
 }
 
 customElements.define("app-btn-setting", BtnSettingComponent);
@@ -1359,9 +1419,11 @@ class HeaderComponent extends HTMLElement {
     titlePageIcon=null;
     display="primary";
     prevRoute="";
+    handler;
     constructor() {
         super();
         this.appendChild(headerLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.closeBtn = this.querySelector("#close-toolbar");
@@ -1371,27 +1433,26 @@ class HeaderComponent extends HTMLElement {
         this.titlePage = this.querySelector("#title-page");
         this.titlePageIcon = this.querySelector("#title-page-icon");
         this.displayMode(this.display);
-        this.closeBtn?.addEventListener("click", (() => {
-            let clickCloseEvent = new CustomEvent("closeEvent", {
-                bubbles: true
-            });
-            this.closeBtn?.dispatchEvent(clickCloseEvent);
-        }));
-        this.prevBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeRoute", {
-                bubbles: true,
-                detail: {
-                    route: this.prevRoute,
-                    isPrev: true
-                }
-            });
-            this.prevBtn?.dispatchEvent(clickEvent);
-        }));
+        this.closeBtn.addEventListener("click", this.handler);
+        this.prevBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.closeBtn?.removeEventListener("click", (() => {}));
-        this.prevBtn?.removeEventListener("click", (() => {}));
+        this.closeBtn?.removeEventListener("click", this.handler);
+        this.prevBtn?.removeEventListener("click", this.handler);
     }
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.closeBtn:
+                this.closeButtonEvent();
+                break;
+
+              case this.prevBtn:
+                this.prevButtonEvent();
+                break;
+            }
+        }
+    };
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-display" === name) {
             this.displayMode(newValue);
@@ -1410,6 +1471,22 @@ class HeaderComponent extends HTMLElement {
         this.prevBtn?.classList.toggle("d-none", mode === "primary");
         this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
         this.titleApp?.classList.toggle("d-none", mode === "secondary");
+    };
+    closeButtonEvent=() => {
+        let clickCloseEvent = new CustomEvent("closeEvent", {
+            bubbles: true
+        });
+        this.closeBtn?.dispatchEvent(clickCloseEvent);
+    };
+    prevButtonEvent=() => {
+        let clickEvent = new CustomEvent("changeRoute", {
+            bubbles: true,
+            detail: {
+                route: this.prevRoute,
+                isPrev: true
+            }
+        });
+        this.prevBtn?.dispatchEvent(clickEvent);
     };
 }
 
@@ -1518,9 +1595,11 @@ class HomeComponent extends HTMLElement {
     currentMode=null;
     i18nService;
     routeService;
+    handler;
     constructor() {
         super();
         this.appendChild(homeLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
@@ -1528,28 +1607,12 @@ class HomeComponent extends HTMLElement {
         this.modeName = this.querySelector("#mode-name");
         this.modeIcon = this.querySelector("app-icon");
         this.currentMode = this.querySelector("app-mode");
-        this.changeModeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeRoute", {
-                bubbles: true,
-                detail: {
-                    route: routeServiceInstance.PAGE_MODES
-                }
-            });
-            this.changeModeBtn?.dispatchEvent(clickEvent);
-        }));
-        this.settingsBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeRoute", {
-                bubbles: true,
-                detail: {
-                    route: routeServiceInstance.PAGE_SETTINGS
-                }
-            });
-            this.settingsBtn?.dispatchEvent(clickEvent);
-        }));
+        this.changeModeBtn?.addEventListener("click", this.handler);
+        this.settingsBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.changeModeBtn?.removeEventListener("click", (() => {}));
-        this.settingsBtn?.removeEventListener("click", (() => {}));
+        this.changeModeBtn?.removeEventListener("click", this.handler);
+        this.settingsBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-mode" === name) {
@@ -1562,6 +1625,37 @@ class HomeComponent extends HTMLElement {
             this.modeName.innerText = newValue === "true" ? `${modeName}*` : `${modeName}`;
         }
     }
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.changeModeBtn:
+                this.changeModeButtonEvent();
+                break;
+
+              case this.settingsBtn:
+                this.settingsButtonEvent();
+                break;
+            }
+        }
+    };
+    changeModeButtonEvent=() => {
+        let clickEvent = new CustomEvent("changeRoute", {
+            bubbles: true,
+            detail: {
+                route: routeServiceInstance.PAGE_MODES
+            }
+        });
+        this.changeModeBtn?.dispatchEvent(clickEvent);
+    };
+    settingsButtonEvent=() => {
+        let clickEvent = new CustomEvent("changeRoute", {
+            bubbles: true,
+            detail: {
+                route: routeServiceInstance.PAGE_SETTINGS
+            }
+        });
+        this.settingsBtn?.dispatchEvent(clickEvent);
+    };
 }
 
 customElements.define("app-home", HomeComponent);
@@ -1621,32 +1715,21 @@ class ModesComponent extends HTMLElement {
     selectModeForm=null;
     selectModeBtn=null;
     selectModeZone=null;
+    handler;
     constructor() {
         super();
         this.appendChild(modesLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.selectModeForm = this.querySelector("form");
         this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeZone = this.querySelector("#select-mode-zone");
-        this.selectModeForm?.addEventListener("submit", (event => {
-            event.preventDefault();
-            (this.shadowRoot?.querySelector("app-home")).focus();
-        }));
-        this.selectModeBtn?.addEventListener("click", (() => {
-            let clickEvent = new CustomEvent("changeRoute", {
-                bubbles: true,
-                detail: {
-                    route: routeServiceInstance.PAGE_HOME,
-                    isPrev: true
-                }
-            });
-            modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
-            this.selectModeBtn?.dispatchEvent(clickEvent);
-        }));
+        this.selectModeForm?.addEventListener("submit", this.handler);
+        this.selectModeBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.selectModeBtn?.removeEventListener("click", (() => {}));
+        this.selectModeBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-list-mode" === name) {
@@ -1665,6 +1748,32 @@ class ModesComponent extends HTMLElement {
         this.selectModeZone.innerHTML = radioModeList;
     };
     getSelectedMode=() => this.querySelector("input:checked").value;
+    createHandler=() => event => {
+        switch (event.type) {
+          case "submit":
+            this.selectModeFormEvent(event);
+            break;
+
+          case "click":
+            this.selectModeBtnEvent();
+            break;
+        }
+    };
+    selectModeFormEvent=event => {
+        event.preventDefault();
+        (this.shadowRoot?.querySelector("app-home")).focus();
+    };
+    selectModeBtnEvent=() => {
+        let clickEvent = new CustomEvent("changeRoute", {
+            bubbles: true,
+            detail: {
+                route: routeServiceInstance.PAGE_HOME,
+                isPrev: true
+            }
+        });
+        modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
+        this.selectModeBtn?.dispatchEvent(clickEvent);
+    };
 }
 
 customElements.define("app-modes", ModesComponent);
@@ -1708,8 +1817,10 @@ class AbstractCategory extends HTMLElement {
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
+    handler;
     constructor() {
         super();
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.btnAccordion = this.querySelector("button.accordion-button");
@@ -1724,16 +1835,12 @@ class AbstractCategory extends HTMLElement {
             this.settingsElements.push(this.querySelector(element.tagName));
         }));
         this._triggerArray.push(this.btnAccordion);
-        this.btnAccordion?.addEventListener("click", (() => {
-            this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-        }));
-        this.btnMoreSettings?.addEventListener("click", (() => {
-            this.displayOrHideOthersSettings();
-        }));
+        this.btnAccordion?.addEventListener("click", this.handler);
+        this.btnMoreSettings?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.btnAccordion?.removeEventListener("click", (() => {}));
-        this.btnMoreSettings?.removeEventListener("click", (() => {}));
+        this.btnAccordion?.removeEventListener("click", this.handler);
+        this.btnMoreSettings?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-settings" === name) {
@@ -1786,6 +1893,19 @@ class AbstractCategory extends HTMLElement {
                 element.classList.toggle("d-none");
             }
         }));
+    };
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.btnAccordion:
+                this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
+                break;
+
+              case this.btnMoreSettings:
+                this.displayOrHideOthersSettings();
+                break;
+            }
+        }
     };
 }
 
@@ -1893,9 +2013,11 @@ class ToolbarComponent extends HTMLElement {
     historyRoute=[];
     json;
     defaultJson;
+    handler;
     constructor() {
         super();
         this.appendChild(tmplToolbar.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
@@ -1914,28 +2036,9 @@ class ToolbarComponent extends HTMLElement {
                 this.setCurrentMode();
             }));
         }));
-        window.addEventListener(`storage-${jsonName}`, (event => {
-            localStorageServiceInstance.getItem(jsonName).then((result => {
-                this.json = result;
-                this.setCurrentMode();
-            }));
-        }));
+        window.addEventListener(`storage-${jsonName}`, this.handler);
         routeServiceInstance.initPages(this);
-        this.addEventListener("changeRoute", (event => {
-            if (event.detail.isPrev) {
-                this.historyRoute.pop();
-            } else {
-                this.historyRoute.push(routeServiceInstance.currentRoute);
-            }
-            if (event.detail.setting) {
-                this.json.selectedMode = event.detail.mode;
-                this.setCurrentMode();
-            }
-            routeServiceInstance.navigate(event.detail.route);
-            this.setHeaderDisplay(event.detail.route);
-            this.header?.focus();
-            this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
-        }));
+        this.addEventListener("changeRoute", this.handler);
     }
     setHeaderDisplay=page => {
         switch (page) {
@@ -1998,6 +2101,38 @@ class ToolbarComponent extends HTMLElement {
         }));
         const isCustomMode = !(currentMode === defaultMode);
         this.home?.setAttribute("data-custom", isCustomMode.toString());
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "changeRoute":
+            this.changeRouteEvent(event);
+            break;
+
+          case `storage-${jsonName}`:
+            this.storageEvent();
+            break;
+        }
+    };
+    changeRouteEvent=event => {
+        if (event.detail.isPrev) {
+            this.historyRoute.pop();
+        } else {
+            this.historyRoute.push(routeServiceInstance.currentRoute);
+        }
+        if (event.detail.setting) {
+            this.json.selectedMode = event.detail.mode;
+            this.setCurrentMode();
+        }
+        routeServiceInstance.navigate(event.detail.route);
+        this.setHeaderDisplay(event.detail.route);
+        this.header?.focus();
+        this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
+    };
+    storageEvent=() => {
+        localStorageServiceInstance.getItem(jsonName).then((result => {
+            this.json = result;
+            this.setCurrentMode();
+        }));
     };
 }
 

@@ -132,12 +132,12 @@ class ScrollComponent extends AbstractSetting {
 			let scrollDir = button.id.includes('up') ? -1 : button.id.includes('down') ? 1 : 0;
 			let scrollBy = scrollDir * this.scrollSteps;
 			button.element?.addEventListener(this.btnState, (event: any) => {
-				button.interval = setInterval(function () { window.scrollBy(0, scrollBy) }, this.scrollTimer)
+				button.interval = setInterval(() => { window.scrollBy(0, scrollBy) }, this.scrollTimer)
 			});
 
 			if (this.btnState === 'mouseover') {
 				button.element?.addEventListener('mouseover', (event: any) => {
-					button.interval = setInterval(function () { window.scrollBy(0, scrollBy) }, this.scrollTimer)
+					button.interval = setInterval(() => { window.scrollBy(0, scrollBy) }, this.scrollTimer)
 				});
 				button.element?.addEventListener('mouseleave', (event: any) => {
 					clearInterval(button.interval);

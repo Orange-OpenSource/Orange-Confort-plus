@@ -89,7 +89,7 @@ class BtnSettingComponent extends HTMLElement {
 		this.btnContentSlots!.innerHTML = this.slot;
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: any) => {
 			if (event.type === 'click') {
 				this.setIndex();

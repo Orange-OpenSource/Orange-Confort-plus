@@ -12,7 +12,7 @@ class StylesService {
 		stylesServiceIsInstantiated = true;
 	}
 
-	setStyle(name: string, style: string): void {
+	setStyle = (name: string, style: string): void => {
 		if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
 			let styleElement: HTMLStyleElement = document.createElement('style');
 			styleElement.setAttribute('id', `${this.prefixStyle}${name}`);
@@ -23,7 +23,7 @@ class StylesService {
 		}
 	}
 
-	removeStyle(name: string): void {
+	removeStyle = (name: string): void => {
 		document.querySelector(`#${this.prefixStyle}${name}`)?.remove();
 	}
 }

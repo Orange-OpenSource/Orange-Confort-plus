@@ -107,7 +107,7 @@ abstract class AbstractCategory extends HTMLElement {
 		}
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
 				switch (event.target) {
