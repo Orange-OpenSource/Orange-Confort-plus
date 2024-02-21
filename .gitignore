@@ -66,3 +66,11 @@ dist/extension/manifest.json
 # Docs
 /docs/css/boosted.css
 /docs/css/orange-helvetica.css
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
