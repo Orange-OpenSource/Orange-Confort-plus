@@ -4,6 +4,7 @@ app-btn-setting {
 }
 
 .sc-btn-setting {
+	border-radius: 1em;
 	min-height: 7.5em;
 
 	&:hover > ul > li.border.border-4 {
@@ -16,17 +17,16 @@ app-btn-setting {
 }
 
 .sc-btn-setting--default {
-	background-color: var(--cplus-light);
-	border-color: var(--cplus-body-bg);
 	background-image:
 		linear-gradient(45deg, var(--cplus-body-bg) 0 .5rem, transparent .5rem),
 		linear-gradient(-45deg, var(--cplus-body-bg) 0 .5rem, transparent .5rem),
 		linear-gradient(135deg, var(--cplus-body-bg) 0 .5rem, transparent .5rem),
 		linear-gradient(-135deg, var(--cplus-body-bg) 0 .5rem, transparent .5rem);
 
-	&:hover,
-	&:focus,
-	&:active {
+	&.btn,
+	&.btn:hover,
+	&.btn:focus,
+	&.btn:active {
 		border-color: var(--cplus-body-bg);
 	}
 }
