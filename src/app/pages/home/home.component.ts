@@ -73,7 +73,7 @@ class HomeComponent extends HTMLElement {
 		}
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: any) => {
 			if (event.type === 'click') {
 				switch(event.target) {
@@ -88,7 +88,7 @@ class HomeComponent extends HTMLElement {
 		}
 	}
 
-	private changeModeButtonEvent(): void {
+	private changeModeButtonEvent = (): void => {
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,
@@ -99,7 +99,7 @@ class HomeComponent extends HTMLElement {
 		this.changeModeBtn?.dispatchEvent(clickEvent);
 	}
 
-	private settingsButtonEvent(): void {
+	private settingsButtonEvent = (): void => {
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,

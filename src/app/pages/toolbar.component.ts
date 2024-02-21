@@ -112,7 +112,7 @@ class ToolbarComponent extends HTMLElement {
 		this.home?.setAttribute('data-custom', isCustomMode.toString());
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'changeRoute':
@@ -125,7 +125,7 @@ class ToolbarComponent extends HTMLElement {
 		}
 	}
 
-	private changeRouteEvent(event: Event): void {
+	private changeRouteEvent = (event: Event): void => {
 		if ((event as CustomEvent).detail.isPrev) {
 			this.historyRoute.pop();
 		} else {
@@ -144,7 +144,7 @@ class ToolbarComponent extends HTMLElement {
 		this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
 	}
 
-	private storageEvent(): void {
+	private storageEvent = (): void => {
 		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
 			this.json = result;
 			this.setCurrentMode();

@@ -10,7 +10,7 @@ class ModeOfUseService {
 		modeOfUseServiceIsInstantiated = true;
 	}
 
-	setSelectedMode(newSelectedMode: string): void {
+	setSelectedMode = (newSelectedMode: string): void => {
 		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
 			let json = result;
 			json.selectedMode = newSelectedMode;

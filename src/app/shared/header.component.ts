@@ -65,7 +65,7 @@ class HeaderComponent extends HTMLElement {
 		this.prevBtn?.removeEventListener('click', this.handler);
 	}
 
-	private createHandler() {
+	private createHandler = () => {
 		return (event: any) => {
 			if (event.type === 'click') {
 				switch (event.target) {
@@ -101,12 +101,12 @@ class HeaderComponent extends HTMLElement {
 		this.titleApp?.classList.toggle('d-none', mode === 'secondary');
 	}
 
-	private closeButtonEvent(): void {
+	private closeButtonEvent = (): void => {
 		let clickCloseEvent = new CustomEvent('closeEvent', { bubbles: true });
 		this.closeBtn?.dispatchEvent(clickCloseEvent);
 	}
 
-	private prevButtonEvent(): void {
+	private prevButtonEvent = (): void => {
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,

@@ -58,7 +58,7 @@ abstract class AbstractSetting extends HTMLElement {
 		this.callback = callback;
 	}
 
-	createHandler() {
+	createHandler = () => {
 		return (event: Event) => {
 			switch (event.type) {
 				case 'changeSettingEvent':
@@ -68,7 +68,7 @@ abstract class AbstractSetting extends HTMLElement {
 		}
 	}
 
-	private changeSettingEvent(event: Event): void {
+	private changeSettingEvent = (event: Event): void => {
 		let newIndex = (event as CustomEvent).detail.index;
 		let newValue = (event as CustomEvent).detail.value;
 
