@@ -17,9 +17,13 @@ class ToolbarComponent extends HTMLElement {
 	json: ModeOfUseModel;
 	defaultJson: ModeOfUseModel;
 
+	handler: any;
+
 	constructor() {
 		super();
 		this.appendChild(tmplToolbar.content.cloneNode(true));
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
@@ -42,34 +46,11 @@ class ToolbarComponent extends HTMLElement {
 			});
 		});
 
-		window.addEventListener(`storage-${jsonName}`, (event: any) => {
-			localStorageServiceInstance.getItem(jsonName).then((result: any) => {
-				this.json = result;
-				this.setCurrentMode();
-			});
-		});
+		window.addEventListener(`storage-${jsonName}`, this.handler);
 
 		routeServiceInstance.initPages(this);
 
-		this.addEventListener('changeRoute', (event) => {
-			/* Creating a tree structure to get the previous route */
-			if ((event as CustomEvent).detail.isPrev) {
-				this.historyRoute.pop();
-			} else {
-				this.historyRoute.push(routeServiceInstance.currentRoute);
-			}
-
-			/* If editing setting */
-			if ((event as CustomEvent).detail.setting) {
-				this.json.selectedMode = (event as CustomEvent).detail.mode;
-				this.setCurrentMode();
-			}
-
-			routeServiceInstance.navigate((event as CustomEvent).detail.route);
-			this.setHeaderDisplay((event as CustomEvent).detail.route);
-			this.header?.focus();
-			this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
-		});
+		this.addEventListener('changeRoute', this.handler);
 	}
 
 	setHeaderDisplay = (page: string): void => {
@@ -129,6 +110,45 @@ class ToolbarComponent extends HTMLElement {
 		});
 		const isCustomMode = !(currentMode === defaultMode);
 		this.home?.setAttribute('data-custom', isCustomMode.toString());
+	}
+
+	private createHandler() {
+		return (event: any) => {
+			switch (event.type) {
+				case 'changeRoute':
+					this.changeRouteEvent(event);
+					break;
+				case `storage-${jsonName}`:
+					this.storageEvent();
+					break;
+			}
+		}
+	}
+
+	private changeRouteEvent(event: Event): void {
+		if ((event as CustomEvent).detail.isPrev) {
+			this.historyRoute.pop();
+		} else {
+			this.historyRoute.push(routeServiceInstance.currentRoute);
+		}
+
+		/* If editing setting */
+		if ((event as CustomEvent).detail.setting) {
+			this.json.selectedMode = (event as CustomEvent).detail.mode;
+			this.setCurrentMode();
+		}
+
+		routeServiceInstance.navigate((event as CustomEvent).detail.route);
+		this.setHeaderDisplay((event as CustomEvent).detail.route);
+		this.header?.focus();
+		this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
+	}
+
+	private storageEvent(): void {
+		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
+			this.json = result;
+			this.setCurrentMode();
+		});
 	}
 }
 

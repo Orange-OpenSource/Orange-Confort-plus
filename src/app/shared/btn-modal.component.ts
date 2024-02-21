@@ -6,26 +6,25 @@ class BtnModalComponent extends HTMLElement {
 	modalBtn: HTMLElement = null;
 	value: any = null;
 
+	handler: any;
+
 	constructor() {
 		super();
 
 		this.value = this.dataset?.value || this.value;
 
 		this.appendChild(btnModalLayout.content.cloneNode(true));
+
+		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
 		this.modalBtn = this.querySelector('button');
-
-		this.modalBtn?.addEventListener('click', () => {
-			let clickEvent = new CustomEvent('clickModalEvent', { bubbles: true });
-			this.modalBtn?.dispatchEvent(clickEvent);
-		});
+		this.modalBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.modalBtn?.removeEventListener('click', () => {
-		});
+		this.modalBtn?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -43,6 +42,19 @@ class BtnModalComponent extends HTMLElement {
 		span.innerText = label;
 		this.modalBtn?.appendChild(span);
 		this.modalBtn.setAttribute('title', label);
+	}
+
+	private createHandler() {
+		return (event: Event) => {
+			if (event.type === 'click') {
+				switch (event.target) {
+					case this.modalBtn:
+						let clickEvent = new CustomEvent('clickModalEvent', { bubbles: true });
+						this.modalBtn?.dispatchEvent(clickEvent);
+						break;
+				}
+			}
+		}
 	}
 }
 

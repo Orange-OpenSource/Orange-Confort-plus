@@ -57,6 +57,8 @@ class ReadingGuideComponent extends AbstractSetting {
 		this.readingGuideElt = this.querySelector('#cplus-vertical-guide-elt');
 		this.topGuideElt = this.querySelector('#cplus-top-guide-elt');
 		this.bottomGuideElt = this.querySelector('#cplus-bottom-guide-elt');
+
+		this.handler = this.createHandler();
 	}
 
 	setReadingMaskGuide = (value: string): void => {
@@ -102,15 +104,11 @@ class ReadingGuideComponent extends AbstractSetting {
 			document.body.appendChild(maskBottomElt);
 		}
 
-		document.addEventListener('mousemove', (event: MouseEvent) => {
-			if (this.guideType === 'reading') {
-				(document.querySelector('#cplus-vertical-guide-elt') as HTMLElement).style.left = `${event.x + 2}px`;
-			} else if (this.guideType === 'mask') {
-				(document.querySelector('#cplus-mask-guide--top-elt') as HTMLElement).style.height = `${event.y - this.sizeGuide}px`;
-				(document.querySelector('#cplus-mask-guide--bottom-elt') as HTMLElement).style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
-			}
-			event.stopPropagation();
-		});
+		document.addEventListener('mousemove', this.handler);
+	}
+
+	disconnectedCallback(): void {
+		document.removeEventListener('mousemove', this.handler);
 	}
 
 	resetGuide = (): void => {
@@ -119,6 +117,20 @@ class ReadingGuideComponent extends AbstractSetting {
 		document.querySelector('#cplus-vertical-guide-elt')?.remove();
 		document.querySelector('#cplus-mask-guide--top-elt')?.remove();
 		document.querySelector('#cplus-mask-guide--bottom-elt')?.remove();
+	}
+
+	createHandler() {
+		return (event: Event) => {
+			if (event.type === 'mousemove') {
+				if (this.guideType === 'reading') {
+					(document.querySelector('#cplus-vertical-guide-elt') as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
+				} else if (this.guideType === 'mask') {
+					(document.querySelector('#cplus-mask-guide--top-elt') as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
+					(document.querySelector('#cplus-mask-guide--bottom-elt') as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;
+				}
+				event.stopPropagation();
+			}
+		}
 	}
 }
 
