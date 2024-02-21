@@ -1,12 +1,12 @@
 {
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
 			"visionPlus": [
 				{
 					"fontFamily": {
-						"values": "noModifications,Accessible-DfA,Luciole",
+						"values": "noModifications,Accessible_DfA,Luciole",
 						"activeValue": 0
 					}
 				},
@@ -70,7 +70,7 @@
 			"facilePlus": [
 				{
 					"fontFamily": {
-						"values": "noModifications,Accessible-DfA,Verdana",
+						"values": "noModifications,Accessible_DfA,Verdana",
 						"activeValue": 0
 					}
 				},
