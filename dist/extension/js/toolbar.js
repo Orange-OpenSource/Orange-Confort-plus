@@ -211,10 +211,10 @@ class RouteService {
     };
     navigate=newRoute => {
         this.routes.forEach((route => {
-            if (route.path === this.currentRoute) {
-                route.element.classList.add("d-none");
-            } else if (route.path === newRoute) {
+            if (route.path === newRoute) {
                 route.element.classList.remove("d-none");
+            } else if (route.path === this.currentRoute) {
+                route.element.classList.add("d-none");
             }
         }));
         this.currentRoute = newRoute;
