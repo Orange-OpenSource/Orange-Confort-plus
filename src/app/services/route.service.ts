@@ -40,10 +40,10 @@ class RouteService {
 	/* Navigate to the defined route in parameter */
 	navigate = (newRoute: string): void => {
 		this.routes.forEach((route: any) => {
-			if (route.path === this.currentRoute) {
-				route.element.classList.add('d-none');
-			} else if (route.path === newRoute) {
+			if (route.path === newRoute) {
 				route.element.classList.remove('d-none');
+			} else if (route.path === this.currentRoute) {
+				route.element.classList.add('d-none');
 			}
 		});
 
