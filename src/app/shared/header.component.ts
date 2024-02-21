@@ -67,21 +67,6 @@ class HeaderComponent extends HTMLElement {
 		this.prevBtn?.removeEventListener('click', this.handler);
 	}
 
-	private createHandler = () => {
-		return (event: any) => {
-			if (event.type === 'click') {
-				switch (event.target) {
-					case this.closeBtn:
-						this.closeButtonEvent();
-						break;
-					case this.prevBtn:
-						this.prevButtonEvent();
-						break;
-				}
-			}
-		}
-	}
-
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-display' === name) {
 			this.displayMode(newValue);
@@ -104,6 +89,21 @@ class HeaderComponent extends HTMLElement {
 		this.prevBtn?.classList.toggle('d-none', mode === 'primary');
 		this.pageBlockTitle?.classList.toggle('d-none', mode === 'primary');
 		this.appTitle?.classList.toggle('d-none', mode === 'secondary');
+	}
+
+	private createHandler = () => {
+		return (event: any) => {
+			if (event.type === 'click') {
+				switch (event.target) {
+					case this.closeBtn:
+						this.closeButtonEvent();
+						break;
+					case this.prevBtn:
+						this.prevButtonEvent();
+						break;
+				}
+			}
+		}
 	}
 
 	private closeButtonEvent = (): void => {

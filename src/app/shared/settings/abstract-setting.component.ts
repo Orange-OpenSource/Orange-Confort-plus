@@ -44,7 +44,6 @@ abstract class AbstractSetting extends HTMLElement {
 			if (this.callback) {
 				this.callback(this.activesValues.values.split(',')[this.activesValues.activeValue]);
 			}
-
 		}
 	}
 
