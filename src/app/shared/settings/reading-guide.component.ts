@@ -12,6 +12,7 @@ class ReadingGuideComponent extends AbstractSetting {
 	readingGuideElt: HTMLElement = null;
 	guideType: 'reading' | 'mask' | '' = '';
 	sizeGuide: number = 40;
+	handlerReadingGuide: any;
 
 	activesValues = {
 		"values": "noModifications,readingGuide,maskGuide",
@@ -60,7 +61,12 @@ class ReadingGuideComponent extends AbstractSetting {
 		this.topGuideElt = this.querySelector('#cplus-top-guide-elt');
 		this.bottomGuideElt = this.querySelector('#cplus-bottom-guide-elt');
 
-		this.handler = this.createHandler();
+		this.handlerReadingGuide = this.createHandlerReadingGuide();
+	}
+
+	disconnectedCallback(): void {
+		super.disconnectedCallback();
+		document.removeEventListener('mousemove', this.handlerReadingGuide);
 	}
 
 	setReadingMaskGuide = (value: string): void => {
@@ -106,11 +112,7 @@ class ReadingGuideComponent extends AbstractSetting {
 			document.body.appendChild(maskBottomElt);
 		}
 
-		document.addEventListener('mousemove', this.handler);
-	}
-
-	disconnectedCallback(): void {
-		document.removeEventListener('mousemove', this.handler);
+		document.addEventListener('mousemove', this.handlerReadingGuide);
 	}
 
 	resetGuide = (): void => {
@@ -121,7 +123,7 @@ class ReadingGuideComponent extends AbstractSetting {
 		document.querySelector('#cplus-mask-guide--bottom-elt')?.remove();
 	}
 
-	createHandler = () => {
+	createHandlerReadingGuide = () => {
 		return (event: Event) => {
 			if (event.type === 'mousemove') {
 				if (this.guideType === 'reading') {
