@@ -12,13 +12,13 @@ class FilesService {
 		this.path = `${window.location.origin}/`;
 	}
 
-	getModesOfUse(): Promise<string> {
-		return fetch(`${this.path}assets/json/modes-of-use.json`)
+	getJSONFile(file: string): Promise<string> {
+		return fetch(`${this.path}assets/json/${file}.json`)
 			.then(response => {
 				return response.json();
 			})
 			.catch(error => {
-				console.error(`Error when retrieving JSON file : ${error}.`);
+				console.error(`Error when retrieving ${file}.json: ${error}.`);
 				return error;
 			});
 	}
