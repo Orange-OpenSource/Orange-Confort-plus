@@ -50,7 +50,15 @@ class AppComponent extends HTMLElement {
 			return;
 		}
 
-		this.hideToolbar();
+		localStorageServiceInstance.getItem('is-open')
+			.then((result: string) => {
+					if (result === 'true') {
+						this.showToolbar();
+					} else {
+						this.hideToolbar();
+					}
+				}
+			);
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);
@@ -78,6 +86,7 @@ class AppComponent extends HTMLElement {
 		this.confortPlusToolbar.removeAttribute('style');
 		this.closeBtn?.focus();
 		this.confortPlusBtn.classList.add('d-none');
+		localStorageServiceInstance.setItem('is-open', 'true');
 	}
 
 	private hideToolbar = (): void => {
@@ -85,6 +94,7 @@ class AppComponent extends HTMLElement {
 		this.confortPlusToolbar.style.visibility = 'hidden';
 		this.confortPlusBtn.classList.remove('d-none');
 		this.confortPlusBtn?.focus();
+		localStorageServiceInstance.setItem('is-open', 'false');
 	}
 }
 

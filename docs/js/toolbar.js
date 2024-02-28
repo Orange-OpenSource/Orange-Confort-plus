@@ -30,9 +30,9 @@ class FilesService {
         filesServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
     }
-    getModesOfUse() {
-        return fetch(`${this.path}assets/json/modes-of-use.json`).then((response => response.json())).catch((error => {
-            console.error(`Error when retrieving JSON file : ${error}.`);
+    getJSONFile(file) {
+        return fetch(`${this.path}assets/json/${file}.json`).then((response => response.json())).catch((error => {
+            console.error(`Error when retrieving ${file}.json: ${error}.`);
             return error;
         }));
     }
@@ -55,17 +55,17 @@ class I18nService {
             this.locale = navigator.language.slice(0, 2);
         }
         this.getJSON().then((result => {
-            localStorage.setItem("orange-i18n", JSON.stringify(result));
+            localStorage.setItem(`${prefix}-i18n`, JSON.stringify(result));
         }));
     }
     getJSON() {
         return fetch(`${this.path}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
-            console.error(`Error when retrieving JSON file : ${error}.`);
+            console.error(`Error when retrieving 'messages.json' file : ${error}.`);
             return error;
         }));
     }
     getMessages() {
-        return localStorage.getItem("orange-i18n");
+        return localStorage.getItem(`${prefix}-i18n`);
     }
     getMessage(message) {
         const translations = JSON.parse(this.getMessages());
@@ -459,7 +459,13 @@ class AppComponent extends HTMLElement {
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
-        this.hideToolbar();
+        localStorageServiceInstance.getItem("is-open").then((result => {
+            if (result === "true") {
+                this.showToolbar();
+            } else {
+                this.hideToolbar();
+            }
+        }));
         this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
         this.confortPlusBtn.addEventListener("click", this.handler);
     }
@@ -482,12 +488,14 @@ class AppComponent extends HTMLElement {
         this.confortPlusToolbar.removeAttribute("style");
         this.closeBtn?.focus();
         this.confortPlusBtn.classList.add("d-none");
+        localStorageServiceInstance.setItem("is-open", "true");
     };
     hideToolbar=() => {
         this.confortPlusToolbar.style.transform = "translateX(100%)";
         this.confortPlusToolbar.style.visibility = "hidden";
         this.confortPlusBtn.classList.remove("d-none");
         this.confortPlusBtn?.focus();
+        localStorageServiceInstance.setItem("is-open", "false");
     };
 }
 
@@ -2250,7 +2258,7 @@ class ToolbarComponent extends HTMLElement {
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
-        filesServiceInstance.getModesOfUse().then((result => {
+        filesServiceInstance.getJSONFile("modes-of-use").then((result => {
             this.defaultJson = result;
             localStorageServiceInstance.getItem(jsonName).then((result => {
                 if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
