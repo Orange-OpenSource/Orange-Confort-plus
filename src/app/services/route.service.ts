@@ -20,9 +20,15 @@ class RouteService {
 	}
 
 	/* Initialize components */
-	initPages(root: HTMLElement): void {
+	initPages = (root: HTMLElement): void => {
 		this.toolbar = root;
-		this.navigate(PAGE_HOME);
+		localStorageServiceInstance.getItem('current-route').then((result: string) => {
+			if (this.routes.some(route => result === route.path)) {
+				this.navigate(result);
+			} else {
+				this.navigate(PAGE_HOME);
+			}
+		});
 	}
 
 	/* Navigate to the defined route in parameter */
@@ -37,5 +43,6 @@ class RouteService {
 		});
 
 		this.currentRoute = newRoute;
+		localStorageServiceInstance.setItem('current-route', newRoute);
 	}
 }
