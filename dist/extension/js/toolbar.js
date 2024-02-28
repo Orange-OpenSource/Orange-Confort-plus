@@ -28,9 +28,9 @@ class FilesService {
         }
         filesServiceIsInstantiated = true;
     }
-    getModesOfUse() {
-        return fetch(chrome.runtime.getURL("assets/json/modes-of-use.json")).then((response => response.json())).catch((error => {
-            console.error(`Error when retrieving JSON file : ${error}.`);
+    getJSONFile(file) {
+        return fetch(chrome.runtime.getURL(`assets/json/${file}.json`)).then((response => response.json())).catch((error => {
+            console.error(`Error when retrieving ${file}.json: ${error}.`);
             return error;
         }));
     }
@@ -445,7 +445,13 @@ class AppComponent extends HTMLElement {
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
-        this.hideToolbar();
+        localStorageServiceInstance.getItem("is-open").then((result => {
+            if (result === "true") {
+                this.showToolbar();
+            } else {
+                this.hideToolbar();
+            }
+        }));
         this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
         this.confortPlusBtn.addEventListener("click", this.handler);
     }
@@ -468,12 +474,14 @@ class AppComponent extends HTMLElement {
         this.confortPlusToolbar.removeAttribute("style");
         this.closeBtn?.focus();
         this.confortPlusBtn.classList.add("d-none");
+        localStorageServiceInstance.setItem("is-open", "true");
     };
     hideToolbar=() => {
         this.confortPlusToolbar.style.transform = "translateX(100%)";
         this.confortPlusToolbar.style.visibility = "hidden";
         this.confortPlusBtn.classList.remove("d-none");
         this.confortPlusBtn?.focus();
+        localStorageServiceInstance.setItem("is-open", "false");
     };
 }
 
@@ -2236,7 +2244,7 @@ class ToolbarComponent extends HTMLElement {
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
-        filesServiceInstance.getModesOfUse().then((result => {
+        filesServiceInstance.getJSONFile("modes-of-use").then((result => {
             this.defaultJson = result;
             localStorageServiceInstance.getItem(jsonName).then((result => {
                 if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
