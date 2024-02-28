@@ -9,13 +9,13 @@ class FilesService {
 		filesServiceIsInstantiated = true;
 	}
 
-	getModesOfUse(): Promise<string> {
-		return fetch(chrome.runtime.getURL('assets/json/modes-of-use.json'))
+	getJSONFile(file: string): Promise<string> {
+		return fetch(chrome.runtime.getURL(`assets/json/${file}.json`))
 			.then(response => {
 				return response.json();
 			})
 			.catch(error => {
-				console.error(`Error when retrieving JSON file : ${error}.`);
+				console.error(`Error when retrieving ${file}.json: ${error}.`);
 				return error;
 			});
 	}
