@@ -18,7 +18,7 @@ class I18nService {
 		}
 
 		this.getJSON().then((result: string) => {
-			localStorage.setItem('orange-i18n', JSON.stringify(result));
+			localStorage.setItem(`${prefix}-i18n`, JSON.stringify(result));
 		});
 	}
 
@@ -28,13 +28,13 @@ class I18nService {
 				return response.json();
 			})
 			.catch(error => {
-				console.error(`Error when retrieving JSON file : ${error}.`);
+				console.error(`Error when retrieving 'messages.json' file : ${error}.`);
 				return error;
 			});
 	}
 
 	getMessages(): string {
-		return localStorage.getItem('orange-i18n') as string;
+		return localStorage.getItem(`${prefix}-i18n`) as string;
 	}
 
 	getMessage(message: string): string {
