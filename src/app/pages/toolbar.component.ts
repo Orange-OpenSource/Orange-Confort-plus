@@ -22,7 +22,7 @@ class ToolbarComponent extends HTMLElement {
 		this.header = this.querySelector('#header');
 
 		/* JSON retrieval and initialisation */
-		filesServiceInstance.getModesOfUse().then((result: any) => {
+		filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
 			this.defaultJson = result;
 
 			localStorageServiceInstance.getItem(jsonName).then((result: any) => {
