@@ -7,13 +7,13 @@ headerLayout.innerHTML = `
 				<app-icon data-name="Form_Chevron_left"></app-icon>
 			</button>
 
-			<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
-				<app-icon id="title-page-icon" data-name="Eye" class="border-end border-white pe-1"></app-icon>
-				<app-icon data-name="Settings"></app-icon>
-				<span id="title-page"></span>
+			<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
+				<app-icon id="mode-icon"  data-name="VisionPlus_border" class="border-end border-white pe-1"></app-icon>
+				<app-icon id="page-icon" data-name="Settings"></app-icon>
+				<span id="page-title"></span>
 			</span>
 
-			<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">
+			<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">
 				<app-icon data-name="Accessibility"></app-icon>
 				<span data-i18n="mainTitle"></span>
 				<span class="text-primary">+</span>
@@ -27,13 +27,14 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	static observedAttributes = ['data-display', 'data-title-page', 'data-prev-route', 'data-selected-mode'];
+	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-prev-route', 'data-selected-mode'];
 	closeBtn: HTMLElement | null = null;
 	prevBtn: HTMLElement | null = null;
-	titleApp: HTMLElement | null = null;
-	titlePageBlock: HTMLElement | null = null;
-	titlePage: HTMLElement | null = null;
-	titlePageIcon: HTMLElement | null = null;
+	appTitle: HTMLElement | null = null;
+	pageBlockTitle: HTMLElement | null = null;
+	pageTitle: HTMLElement | null = null;
+	modeIcon: HTMLElement | null = null;
+	pageIcon: HTMLElement | null = null;
 	display = 'primary';
 	prevRoute: string = '';
 
@@ -49,10 +50,11 @@ class HeaderComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.closeBtn = this.querySelector('#close-toolbar');
 		this.prevBtn = this.querySelector('#prev-toolbar');
-		this.titleApp = this.querySelector('#title-app');
-		this.titlePageBlock = this.querySelector('#title-page-block');
-		this.titlePage = this.querySelector('#title-page');
-		this.titlePageIcon = this.querySelector('#title-page-icon');
+		this.appTitle = this.querySelector('#app-title');
+		this.pageBlockTitle = this.querySelector('#page-block-title');
+		this.pageTitle = this.querySelector('#page-title');
+		this.modeIcon = this.querySelector('#mode-icon');
+		this.pageIcon = this.querySelector('#page-icon');
 
 		this.displayMode(this.display);
 
@@ -84,21 +86,24 @@ class HeaderComponent extends HTMLElement {
 		if ('data-display' === name) {
 			this.displayMode(newValue);
 		}
-		if ('data-title-page' === name) {
-			this.titlePage!.innerText = i18nServiceInstance.getMessage(newValue);
+		if ('data-page-title' === name) {
+			this.pageTitle!.innerText = i18nServiceInstance.getMessage(newValue);
+		}
+		if ('data-page-icon' === name) {
+			newValue.length === 0 ? this.pageIcon.classList.add('d-none') : this.pageIcon?.setAttribute('data-name', newValue);
 		}
 		if ('data-prev-route' === name) {
 			this.prevRoute = newValue;
 		}
 		if ('data-selected-mode' === name) {
-			this.titlePageIcon?.setAttribute('data-name', `${newValue}_border`);
+			this.modeIcon?.setAttribute('data-name', `${newValue}_border`);
 		}
 	}
 
 	displayMode = (mode: string): void => {
 		this.prevBtn?.classList.toggle('d-none', mode === 'primary');
-		this.titlePageBlock?.classList.toggle('d-none', mode === 'primary');
-		this.titleApp?.classList.toggle('d-none', mode === 'secondary');
+		this.pageBlockTitle?.classList.toggle('d-none', mode === 'primary');
+		this.appTitle?.classList.toggle('d-none', mode === 'secondary');
 	}
 
 	private closeButtonEvent = (): void => {

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.0 - 21/02/2024
+ * orange-confort-plus - version 5.0.0-alpha.1 - 06/03/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1407,16 +1407,17 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="title-page-block" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="title-page-icon" data-name="Eye" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t<span id="title-page"></span>\n\t\t\t</span>\n\n\t\t\t<span id="title-app" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="mode-icon"  data-name="VisionPlus_border" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-display", "data-title-page", "data-prev-route", "data-selected-mode" ];
+    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-prev-route", "data-selected-mode" ];
     closeBtn=null;
     prevBtn=null;
-    titleApp=null;
-    titlePageBlock=null;
-    titlePage=null;
-    titlePageIcon=null;
+    appTitle=null;
+    pageBlockTitle=null;
+    pageTitle=null;
+    modeIcon=null;
+    pageIcon=null;
     display="primary";
     prevRoute="";
     handler;
@@ -1428,10 +1429,11 @@ class HeaderComponent extends HTMLElement {
     connectedCallback() {
         this.closeBtn = this.querySelector("#close-toolbar");
         this.prevBtn = this.querySelector("#prev-toolbar");
-        this.titleApp = this.querySelector("#title-app");
-        this.titlePageBlock = this.querySelector("#title-page-block");
-        this.titlePage = this.querySelector("#title-page");
-        this.titlePageIcon = this.querySelector("#title-page-icon");
+        this.appTitle = this.querySelector("#app-title");
+        this.pageBlockTitle = this.querySelector("#page-block-title");
+        this.pageTitle = this.querySelector("#page-title");
+        this.modeIcon = this.querySelector("#mode-icon");
+        this.pageIcon = this.querySelector("#page-icon");
         this.displayMode(this.display);
         this.closeBtn.addEventListener("click", this.handler);
         this.prevBtn?.addEventListener("click", this.handler);
@@ -1457,20 +1459,23 @@ class HeaderComponent extends HTMLElement {
         if ("data-display" === name) {
             this.displayMode(newValue);
         }
-        if ("data-title-page" === name) {
-            this.titlePage.innerText = i18nServiceInstance.getMessage(newValue);
+        if ("data-page-title" === name) {
+            this.pageTitle.innerText = i18nServiceInstance.getMessage(newValue);
+        }
+        if ("data-page-icon" === name) {
+            newValue.length === 0 ? this.pageIcon.classList.add("d-none") : this.pageIcon?.setAttribute("data-name", newValue);
         }
         if ("data-prev-route" === name) {
             this.prevRoute = newValue;
         }
         if ("data-selected-mode" === name) {
-            this.titlePageIcon?.setAttribute("data-name", `${newValue}_border`);
+            this.modeIcon?.setAttribute("data-name", `${newValue}_border`);
         }
     }
     displayMode=mode => {
         this.prevBtn?.classList.toggle("d-none", mode === "primary");
-        this.titlePageBlock?.classList.toggle("d-none", mode === "primary");
-        this.titleApp?.classList.toggle("d-none", mode === "secondary");
+        this.pageBlockTitle?.classList.toggle("d-none", mode === "primary");
+        this.appTitle?.classList.toggle("d-none", mode === "secondary");
     };
     closeButtonEvent=() => {
         let clickCloseEvent = new CustomEvent("closeEvent", {
@@ -1541,10 +1546,12 @@ class SelectModeComponent extends HTMLElement {
     descriptionElement=null;
     label="";
     checked=false;
+    disabled=false;
     constructor() {
         super();
         this.label = this.dataset?.label || this.label;
         this.checked = this.dataset?.checked === "true" || this.checked;
+        this.disabled = this.dataset?.disabled === "true" || this.disabled;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -1556,6 +1563,7 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement.id = stringServiceInstance.normalizeID(this.label);
         this.inputElement.value = this.label;
         this.inputElement.checked = this.checked;
+        this.inputElement.disabled = this.disabled;
         this.labelElement?.setAttribute("for", stringServiceInstance.normalizeID(this.label));
         this.iconElement?.setAttribute("data-name", `${this.label}_border`);
         this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
@@ -1584,7 +1592,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-grid">\n\t\t<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-mode", "data-custom" ];
@@ -1619,10 +1627,6 @@ class HomeComponent extends HTMLElement {
             this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(newValue))[0][0]}Name`);
             this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
             this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(newValue))[0][0]);
-        }
-        if ("data-custom" === name) {
-            const modeName = this.modeName.textContent;
-            this.modeName.innerText = newValue === "true" ? `${modeName}*` : `${modeName}`;
         }
     }
     createHandler=() => event => {
@@ -1741,8 +1745,10 @@ class ModesComponent extends HTMLElement {
         const selectedMode = json.selectedMode;
         let radioModeList = "";
         listMode.forEach((mode => {
+            let settingsList = Object.entries(mode)[0][1];
+            let disabled = settingsList.length === 0;
             let isChecked = Object.keys(mode)[0] === selectedMode ? true : false;
-            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}"></app-select-mode>`;
+            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-disabled="${disabled}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;
@@ -2045,28 +2051,31 @@ class ToolbarComponent extends HTMLElement {
           case routeServiceInstance.PAGE_HOME:
             {
                 this.header?.setAttribute("data-display", "primary");
-                this.header?.setAttribute("data-title-page", "");
+                this.header?.setAttribute("data-page-title", "");
                 break;
             }
 
           case routeServiceInstance.PAGE_MODES:
             {
                 this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-title-page", "pageTitleModes");
+                this.header?.setAttribute("data-page-title", "pageTitleModes");
+                this.header?.setAttribute("data-page-icon", "");
                 break;
             }
 
           case routeServiceInstance.PAGE_SETTINGS:
             {
                 this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-title-page", "pageTitleSettings");
+                this.header?.setAttribute("data-page-title", "pageTitleSettings");
+                this.header?.setAttribute("data-page-icon", "Settings");
                 break;
             }
 
           case routeServiceInstance.PAGE_EDIT_SETTING:
             {
                 this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-title-page", "pageTitleEditSetting");
+                this.header?.setAttribute("data-page-title", "pageTitleEditSetting");
+                this.header?.setAttribute("data-page-icon", "Settings");
                 break;
             }
         }

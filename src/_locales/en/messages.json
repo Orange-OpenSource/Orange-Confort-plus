@@ -141,13 +141,55 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Vision+ mode helps you to improve the legibility of the information displayed. It allows you to change the font size, the font itself, the contrasts, the colours, etc."
+		"message": "Designed for people with impaired vision. The text and page colours are high contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
+	},
+	"visionPlusPlusName": {
+		"message": "Vision++"
+	},
+	"visionPlusPlusDescription": {
+		"message": "User mode designed for people with severe visual impairments. Text and page colours are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimised font, a ×5 magnifier and a reading ruler are available."
 	},
 	"facilePlusName": {
 		"message": "Facile+"
 	},
 	"facilePlusDescription": {
-		"message": "The Facile+ mode simplifies the digital world for you. It simplifies the overall presentation of the digital world."
+		"message": "User mode designed for people who are unfamiliar with the Internet. Text, buttons, links, mouse and focus are clearly visible and slightly larger, contrasts are adjusted and a magnifying glass is available.."
+	},
+	"dysPlusName": {
+		"message": "Dys+"
+	},
+	"dysPlusDescription": {
+		"message": "A user guide for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
+	},
+	"moteurPlusName": {
+		"message": "Moteur+"
+	},
+	"moteurPlusDescription": {
+		"message": "User mode designed for people with motor impairments. Easy keyboard navigation, a clearly visible focus, a palette of virtual buttons."
+	},
+	"pointagePlusName": {
+		"message": "Pointage+"
+	},
+	"pointagePlusDescription": {
+		"message": "Use mode designed for people who have difficulty pointing with the mouse. A mouse that is clearly visible and of a good size, enlarged click zones and the ability to click effortlessly on hover, a lift with large buttons."
+	},
+	"langueDesSignesName": {
+		"message": "Sign language"
+	},
+	"langueDesSignesDescription": {
+		"message": "User guide for people who express themselves mainly in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary and an interface with video instructions. A mouse that is clearly visible and of a good size, enlarged click zones and the ability to click effortlessly on hover, a lift with large buttons."
+	},
+	"audioPlusName": {
+		"message": "Audio+"
+	},
+	"audioPlusDescription": {
+		"message": "User guide for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
+	},
+	"calmeName": {
+		"message": "Calm"
+	},
+	"calmeDescription": {
+		"message": "User mode designed for hypersensitive people. Pleasant colours and transitions, no animations or interruptions."
 	},
 	"noModifications": {
 		"message": "No changes"
