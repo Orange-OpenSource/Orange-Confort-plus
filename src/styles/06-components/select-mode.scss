@@ -14,6 +14,11 @@
 	&:focus + label {
 		box-shadow: var(--cplus-focus-ring-x,0) var(--cplus-focus-ring-y,0) var(--cplus-focus-ring-blur,0) var(--cplus-focus-ring-width) var(--cplus-focus-visible-outer-color);
 	}
+
+	&:disabled + label {
+		color: var(--cplus-gray);
+		cursor: default;
+	}
 }
 
 .sc-select-mode__label {
