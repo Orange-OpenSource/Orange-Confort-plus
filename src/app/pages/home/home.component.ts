@@ -20,8 +20,8 @@ homeLayout.innerHTML = `
 
 <section class="sc-home__settings gap-3 p-3">
 	<app-mode></app-mode>
-	<div class="d-grid">
-		<button id="change-mode-btn" class="btn btn-secondary" type="button" data-i18n="otherModes"></button>
+	<div class="d-flex">
+		<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>
 	</div>
 </section>
 `;
@@ -67,16 +67,21 @@ class HomeComponent extends HTMLElement {
 			this.currentMode.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(newValue))[0][1]));
 			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(newValue))[0][0]);
 		}
-		if ('data-custom' === name) {
-			const modeName = this.modeName.textContent;
-			this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
-		}
+
+		/* @todo MVP: ne pas afficher l'astérix si un mode d'usage est personnalisé
+		 * À enlever lorsque les tests seront terminés.
+		 *
+		 * if ('data-custom' === name) {
+		 *		const modeName = this.modeName.textContent;
+		 * 	  this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
+		 * }
+		 */
 	}
 
 	private createHandler = () => {
 		return (event: any) => {
 			if (event.type === 'click') {
-				switch(event.target) {
+				switch (event.target) {
 					case this.changeModeBtn:
 						this.changeModeButtonEvent();
 						break;

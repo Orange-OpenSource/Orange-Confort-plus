@@ -18,12 +18,14 @@ class SelectModeComponent extends HTMLElement {
 	descriptionElement: HTMLParagraphElement = null;
 	label = '';
 	checked = false;
+	disabled = false;
 
 	constructor() {
 		super();
 
 		this.label = this.dataset?.label || this.label;
 		this.checked = (this.dataset?.checked === 'true') || this.checked;
+		this.disabled = (this.dataset?.disabled === 'true') || this.disabled;
 
 		this.appendChild(selectModeLayout.content.cloneNode(true));
 	}
@@ -38,6 +40,7 @@ class SelectModeComponent extends HTMLElement {
 		this.inputElement!.id = stringServiceInstance.normalizeID(this.label);
 		this.inputElement!.value = this.label;
 		this.inputElement!.checked = this.checked;
+		this.inputElement!.disabled = this.disabled;
 		this.labelElement?.setAttribute('for', stringServiceInstance.normalizeID(this.label));
 		this.iconElement?.setAttribute('data-name', `${this.label}_border`);
 		this.textElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);

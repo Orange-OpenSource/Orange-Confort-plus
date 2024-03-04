@@ -57,22 +57,25 @@ class ToolbarComponent extends HTMLElement {
 		switch (page) {
 			case routeServiceInstance.PAGE_HOME: {
 				this.header?.setAttribute('data-display', 'primary');
-				this.header?.setAttribute('data-title-page', '');
+				this.header?.setAttribute('data-page-title', '');
 				break;
 			}
 			case routeServiceInstance.PAGE_MODES: {
 				this.header?.setAttribute('data-display', 'secondary');
-				this.header?.setAttribute('data-title-page', 'pageTitleModes');
+				this.header?.setAttribute('data-page-title', 'pageTitleModes');
+				this.header?.setAttribute('data-page-icon', '');
 				break;
 			}
 			case routeServiceInstance.PAGE_SETTINGS: {
 				this.header?.setAttribute('data-display', 'secondary');
-				this.header?.setAttribute('data-title-page', 'pageTitleSettings');
+				this.header?.setAttribute('data-page-title', 'pageTitleSettings');
+				this.header?.setAttribute('data-page-icon', 'Settings');
 				break;
 			}
 			case routeServiceInstance.PAGE_EDIT_SETTING: {
 				this.header?.setAttribute('data-display', 'secondary');
-				this.header?.setAttribute('data-title-page', 'pageTitleEditSetting');
+				this.header?.setAttribute('data-page-title', 'pageTitleEditSetting');
+				this.header?.setAttribute('data-page-icon', 'Settings');
 				break;
 			}
 		}

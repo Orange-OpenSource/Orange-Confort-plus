@@ -141,13 +141,55 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Le mode Vision+ vous assiste pour améliorer la lisibilité des informations affichées. Il permettra de changer la taille de la police, la police elle-même, les contrastes, les couleurs, ..."
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes visuelles. Les couleurs du texte et de la page sont très contrastés, la souris et le focus sont bien visibles, une loupe et une règle de lecture sont disponibles."
+	},
+	"visionPlusPlusName": {
+		"message": "Vision++"
+	},
+	"visionPlusPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant de fortes contraintes visuelles. Les couleurs du texte et de la page sont modifiées, les éléments (focus, souris, texte, ascenseur) sont plus bien plus gros, une police optimisée, une loupe ×5 et une règle de lecture sont disponibles."
 	},
 	"facilePlusName": {
 		"message": "Facile+"
 	},
 	"facilePlusDescription": {
-		"message": "Le mode Facile+ vous propose une simplification du monde numérique. Il propose une simplification générale de la présentation du monde numérique."
+		"message": "Mode d’usage destiné aux personnes peu habituées à internet. Le texte, les boutons, les liens, la souris et le focus sont bien visibles et un peu plus grands, les contrastes sont ajustés et une loupe est disponible."
+	},
+	"dysPlusName": {
+		"message": "Dys+"
+	},
+	"dysPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
+	},
+	"moteurPlusName": {
+		"message": "Moteur+"
+	},
+	"moteurPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes motrices. Une navigation au clavier facilitée, un focus bien visible, une palette de boutons virtuels."
+	},
+	"pointagePlusName": {
+		"message": "Pointage+"
+	},
+	"pointagePlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de pointage à la souris. Une souris bien visible et de bonne taille, des zones de clics agrandies et la possibilité de cliquer au survol, sans effort, un ascenseur à gros boutons."
+	},
+	"langueDesSignesName": {
+		"message": "Langue des signes"
+	},
+	"langueDesSignesDescription": {
+		"message": "Mode d’usage destiné aux personnes s’exprimant surtout en langue des signes. Des vignettes de LSF sur les mots complexes, un lien au dictionnaire Signs@Work et une interface en vidéosignes."
+	},
+	"audioPlusName": {
+		"message": "Audio+"
+	},
+	"audioPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes auditives. Des équivalences visuelles au signaux sonores, du sous-titrage systématique."
+	},
+	"calmeName": {
+		"message": "Calme"
+	},
+	"calmeDescription": {
+		"message": "Mode d’usage destiné aux personnes hypersensibles. Des couleurs et des transitions agréables, absence d’animations et d’interruptions."
 	},
 	"noModifications": {
 		"message": "Pas de modification"

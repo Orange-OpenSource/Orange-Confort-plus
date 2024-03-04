@@ -67,6 +67,9 @@
 			]
 		},
 		{
+			"visionPlusPlus": []
+		},
+		{
 			"facilePlus": [
 				{
 					"fontFamily": {
@@ -111,6 +114,24 @@
 					}
 				}
 			]
+		},
+		{
+			"dysPlus": []
+		},
+		{
+			"moteurPlus": []
+		},
+		{
+			"pointagePlus": []
+		},
+		{
+			"langueDesSignes": []
+		},
+		{
+			"audioPlus": []
+		},
+		{
+			"calme": []
 		}
 	]
 }
