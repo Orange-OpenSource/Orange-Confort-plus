@@ -22,16 +22,14 @@ const PAGE_EDIT_SETTING = "edit-setting";
 let filesServiceIsInstantiated;
 
 class FilesService {
-    path="";
     constructor() {
         if (filesServiceIsInstantiated) {
             throw new Error("FilesService is already instantiated.");
         }
         filesServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
     }
     getJSONFile(file) {
-        return fetch(`${this.path}assets/json/${file}.json`).then((response => response.json())).catch((error => {
+        return fetch(chrome.runtime.getURL(`assets/json/${file}.json`)).then((response => response.json())).catch((error => {
             console.error(`Error when retrieving ${file}.json: ${error}.`);
             return error;
         }));
@@ -44,33 +42,14 @@ let i18nServiceIsInstantiated;
 
 class I18nService {
     locale="en";
-    path="";
     constructor() {
         if (i18nServiceIsInstantiated) {
             throw new Error("I18nService is already instantiated.");
         }
         i18nServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
-        if ([ "en", "fr" ].some((language => navigator.language.startsWith(language)))) {
-            this.locale = navigator.language.slice(0, 2);
-        }
-        this.getJSON().then((result => {
-            localStorage.setItem(`${prefix}-i18n`, JSON.stringify(result));
-        }));
+        this.locale = chrome.i18n.getUILanguage();
     }
-    getJSON() {
-        return fetch(`${this.path}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
-            console.error(`Error when retrieving 'messages.json' file : ${error}.`);
-            return error;
-        }));
-    }
-    getMessages() {
-        return localStorage.getItem(`${prefix}-i18n`);
-    }
-    getMessage(message) {
-        const translations = JSON.parse(this.getMessages());
-        return translations[message]?.message;
-    }
+    getMessage=message => chrome.i18n.getMessage(message);
     translate(root) {
         const elements = root.querySelectorAll("[data-i18n]");
         for (const element of elements) {
@@ -80,6 +59,21 @@ class I18nService {
         for (const element of elementsTitle) {
             element.title = this.getMessage(element.dataset?.i18nTitle);
         }
+    }
+}
+
+"use strict";
+
+let pathServiceIsInstantiated;
+
+class PathService {
+    path="";
+    constructor() {
+        if (pathServiceIsInstantiated) {
+            throw new Error("PathService is already instantiated.");
+        }
+        pathServiceIsInstantiated = true;
+        this.path = chrome.runtime.getURL("/");
     }
 }
 
@@ -95,10 +89,15 @@ class IconsService {
         iconsServiceIsInstantiated = true;
     }
     get path() {
-        return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
+        return "";
     }
     loadSprite(root) {
-        return;
+        fetch(chrome.runtime.getURL("assets/icons/orange-icons-sprite.svg")).then((response => response.text())).then((svg => {
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = svg;
+            wrapper.hidden = true;
+            root.insertBefore(wrapper, root.firstChild);
+        }));
     }
 }
 
@@ -114,35 +113,22 @@ class LocalStorageService {
         localStorageServiceIsInstantiated = true;
     }
     setItem(key, value) {
-        localStorage.setItem(`${prefix}${key}`, JSON.stringify(value));
+        chrome.storage.local.set({
+            [`${prefix}${key}`]: value
+        });
         let storeEvent = new CustomEvent(`storage-${key}`, {
             bubbles: true
         });
         window.dispatchEvent(storeEvent);
     }
     getItem(key) {
-        return new Promise(((resolve, reject) => {
-            resolve(JSON.parse(localStorage.getItem(`${prefix}${key}`)));
+        return chrome.storage.local.get([ `${prefix}${key}` ]).then((datas => new Promise(((resolve, reject) => {
+            resolve(datas[`${prefix}${key}`]);
             reject(new Error("KO"));
-        }));
+        }))));
     }
     removeItem(key) {
-        localStorage.removeItem(`${prefix}${key}`);
-    }
-}
-
-"use strict";
-
-let pathServiceIsInstantiated;
-
-class PathService {
-    path="";
-    constructor() {
-        if (pathServiceIsInstantiated) {
-            throw new Error("PathService is already instantiated.");
-        }
-        pathServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
+        chrome.storage.local.remove([ `${prefix}${key}` ]);
     }
 }
 
