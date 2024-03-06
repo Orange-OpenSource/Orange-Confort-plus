@@ -64,26 +64,25 @@ chrome.action.onClicked.addListener(async (tab) => {
         return false;
     }
     const activations = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
-    const isLoaded = activations[`${prefix}is-enabled-${tab.id}`];
-    chrome.storage.local.set({ [`${prefix}is-enabled-${tab.id}`]: !isLoaded });
+    const isEnabled = activations[`${prefix}is-enabled-${tab.id}`];
+    chrome.storage.local.set({ [`${prefix}is-enabled-${tab.id}`]: !isEnabled });
     const injections = await chrome.storage.local.get(`${prefix}is-injected-${tab.id}`);
     const isInjected = injections[`${prefix}is-injected-${tab.id}`];
-    updateButtonIcon(!isLoaded, tab.id);
-    // @note À déporter dans une méthode dédiée (?)
-    if (!isLoaded && !isInjected) {
+    updateButtonIcon(!isEnabled, tab.id);
+    if (!isEnabled && !isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/toolbar.js']
         });
         chrome.storage.local.set({ [`${prefix}is-injected-${tab.id}`]: true });
     }
-    else if (!isLoaded && isInjected) {
+    else if (!isEnabled && isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/restore.js']
         });
     }
-    else if (isLoaded && isInjected) {
+    else if (isEnabled && isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/eject.js']
@@ -97,12 +96,18 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     }
     else {
         chrome.action.enable(tabId);
-        // @todo Vérifier ici si 'is-opened' et ré-injecter les JS
-        const isOpened = await chrome.storage.local.get(`${prefix}is-opened`);
-        console.log(isOpened[`${prefix}is-opened`]);
-        // @note Les injections JS doivent être déportées dans une méthode dédiée (?)
-        chrome.storage.local.set({ [`${prefix}is-enabled-${tabId}`]: false });
-        chrome.storage.local.set({ [`${prefix}is-injected-${tabId}`]: false });
+        // @todo À tester
+        // @todo À scoper à l’onglet / domaine
+        const openings = await chrome.storage.local.get(`${prefix}is-opened`);
+        const isOpened = openings[`${prefix}is-opened`] === 'true';
+        if (isOpened) {
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                files: ['js/toolbar.js']
+            });
+        }
+        chrome.storage.local.set({ [`${prefix}is-enabled-${tabId}`]: isOpened });
+        chrome.storage.local.set({ [`${prefix}is-injected-${tabId}`]: isOpened });
     }
 });
 chrome.tabs.onCreated.addListener(tab => {

@@ -51,7 +51,7 @@ class AppComponent extends HTMLElement {
 		}
 
 		localStorageServiceInstance.getItem('is-opened')
-			.then((result: string) => {
+			.then((result: any) => {
 					if (result === 'true') {
 						this.showToolbar();
 					} else {
