@@ -22,8 +22,8 @@ class RouteService {
 	/* Initialize components */
 	initPages = (root: HTMLElement): void => {
 		this.toolbar = root;
-		localStorageServiceInstance.getItem('current-route').then((result: string) => {
-			if (this.routes.some(route => result === route.path)) {
+		localStorageServiceInstance.getItem('current-route').then((result: any) => {
+			if (this.routes.some(route => result === route)) {
 				this.navigate(result);
 			} else {
 				this.navigate(PAGE_HOME);

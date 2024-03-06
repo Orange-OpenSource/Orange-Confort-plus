@@ -10,6 +10,7 @@ class LocalStorageService {
 	}
 
 	setItem<T>(key: string, value: T): void {
+		// @todo Suffixer avec l’ID de l’onglet, ou le domaine ?
 		// @ts-ignore
 		chrome.storage.local.set({ [`${prefix}${key}`]: value });
 		let storeEvent = new CustomEvent(`storage-${key}`,
