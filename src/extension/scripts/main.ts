@@ -1,3 +1,5 @@
+const prefix = 'cplus-';
+
 chrome.runtime.onInstalled.addListener(async () => {
 	// Update action icon and state
 	const tabs = await chrome.tabs.query({});
@@ -10,10 +12,10 @@ chrome.runtime.onInstalled.addListener(async () => {
 			chrome.action.disable(tab.id);
 		} else {
 			chrome.action.enable(tab.id);
-			const states = await chrome.storage.local.get(`isCduEnabled-${tab.id}`);
-			chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: false});
+			const states = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
+			chrome.storage.local.set({[`${prefix}is-enabled-${tab.id}`]: false});
 			// Reload tabs that had CDU loaded and active
-			if (states[`isCduEnabled-${tab.id}`]) {
+			if (states[`${prefix}is-enabled-${tab.id}`]) {
 				chrome.tabs.reload(tab.id as number)
 					.catch(error => {
 						console.error(`Cannot reload tab ${tab.id}. Error: ${error}`)
@@ -24,6 +26,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 // Update CDU button icon
+// @ts-ignore
 const updateButtonIcon = (isEnabled: boolean, tabId: number) => {
 	if (isEnabled) {
 		chrome.action.setIcon({
@@ -62,21 +65,22 @@ chrome.action.onClicked.addListener(async (tab) => {
 		return false;
 	}
 
-	const activations = await chrome.storage.local.get(`isCduEnabled-${tab.id}`);
-	const isLoaded = activations[`isCduEnabled-${tab.id}`];
-	chrome.storage.local.set({[`isCduEnabled-${tab.id}`]: !isLoaded});
+	const activations = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
+	const isLoaded = activations[`${prefix}is-enabled-${tab.id}`];
+	chrome.storage.local.set({[`${prefix}is-enabled-${tab.id}`]: !isLoaded});
 
-	const injections = await chrome.storage.local.get(`isCduInjected-${tab.id}`);
-	const isInjected = injections[`isCduInjected-${tab.id}`];
+	const injections = await chrome.storage.local.get(`${prefix}is-injected-${tab.id}`);
+	const isInjected = injections[`${prefix}is-injected-${tab.id}`];
 
 	updateButtonIcon(!isLoaded, tab.id as number);
 
+	// @note À déporter dans une méthode dédiée (?)
 	if (!isLoaded && !isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id as number },
 			files: ['js/toolbar.js']
 		});
-		chrome.storage.local.set({[`isCduInjected-${tab.id}`]: true});
+		chrome.storage.local.set({[`${prefix}is-injected-${tab.id}`]: true});
 	} else if (!isLoaded && isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id as number },
@@ -90,14 +94,18 @@ chrome.action.onClicked.addListener(async (tab) => {
 	}
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 	updateButtonIcon(false, tabId);
 	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.disable(tabId);
 	} else {
 		chrome.action.enable(tabId);
-		chrome.storage.local.set({[`isCduEnabled-${tabId}`]: false});
-		chrome.storage.local.set({[`isCduInjected-${tabId}`]: false});
+		// @todo Vérifier ici si 'is-opened' et ré-injecter les JS
+		const isOpened = await chrome.storage.local.get(`${prefix}is-opened`);
+		console.log(isOpened[`${prefix}is-opened`]);
+		// @note Les injections JS doivent être déportées dans une méthode dédiée (?)
+		chrome.storage.local.set({[`${prefix}is-enabled-${tabId}`]: false});
+		chrome.storage.local.set({[`${prefix}is-injected-${tabId}`]: false});
 	}
 });
 
