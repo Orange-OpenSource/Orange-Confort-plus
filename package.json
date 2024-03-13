@@ -31,7 +31,7 @@
 		"prebuild": "shx rm -rf dist/* && npm run mkdir",
 		"build": "npm run copy && concurrently \"npm:build:*\"",
 		"postbuild": "shx cp -r dist/serveur/{js,assets} docs",
-		"preversion": "npm run zip",
+		"postversion": "npm run zip",
 		"copy": "concurrently \"npm:copy:*\"",
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/ && shx cp -r docs/help dist/serveur/ && shx cp -r docs/cookie.html dist/serveur",
 		"copy:extension": "shx cp -r docs/help dist/extension/ && shx cp -r src/extension/vendors dist/extension/js && shx cp -r src/extension/manifest.*.json dist/ && shx cp -r src/extension/assets/img/ dist/extension/assets/img",
