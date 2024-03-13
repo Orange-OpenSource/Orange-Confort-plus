@@ -16,6 +16,7 @@
 	}
 
 	&:disabled + label {
+		border: 0;
 		color: var(--cplus-gray);
 		cursor: default;
 	}
