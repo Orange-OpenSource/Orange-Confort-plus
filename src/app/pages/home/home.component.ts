@@ -33,8 +33,6 @@ class HomeComponent extends HTMLElement {
 	modeName: HTMLElement | null = null;
 	modeIcon: HTMLElement | null = null;
 	currentMode: HTMLElement | null = null;
-	i18nService: any;
-	routeService: any;
 
 	handler: any;
 
