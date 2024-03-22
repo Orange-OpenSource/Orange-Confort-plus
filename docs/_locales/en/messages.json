@@ -12,13 +12,10 @@
 		"message": "In progress…"
 	},
 	"layout": {
-		"message": "Layout"
+		"message": "Displaying"
 	},
 	"medias": {
-		"message": "Image and video"
-	},
-	"pointer": {
-		"message": "Pointer"
+		"message": "Images"
 	},
 	"audio": {
 		"message": "Audio"
@@ -36,13 +33,22 @@
 		"message": "Text font"
 	},
 	"readingMask": {
-		"message": "Reading mask"
+		"message": "Reading rule"
 	},
 	"readingGuide": {
 		"message": "Reading"
 	},
 	"maskGuide": {
 		"message": "Mask"
+	},
+	"loupe": {
+		"message": "Loupe"
+	},
+	"readAloud": {
+		"message": "Read aloud"
+	},
+	"stopAnimations": {
+		"message": "Stop animations"
 	},
 	"margin": {
 		"message": "Margin"
@@ -56,8 +62,11 @@
 	"spacingText": {
 		"message": "Spacing text"
 	},
+	"clickFacilite": {
+		"message": "Easy click"
+	},
 	"colorsContrasts": {
-		"message": "Color contrasts"
+		"message": "Colors - contrasts"
 	},
 	"reinforcedContrasts": {
 		"message": "Reinforced contrasts"
@@ -87,7 +96,7 @@
 		"message": "Mask closing: use <kbd>Esc</kbd>"
 	},
 	"linksStyle": {
-		"message": "Links style"
+		"message": "Clearly visible links"
 	},
 	"close": {
 		"message": "Close Confort+"
@@ -304,8 +313,5 @@
 	},
 	"500": {
 		"message": "Max 500%"
-	},
-	"clickFacilite": {
-		"message": "Easy click"
 	}
 }

@@ -1,7 +1,7 @@
 const tmplLayout: HTMLTemplateElement = document.createElement('template');
 tmplLayout.innerHTML = `
 	<div class="accordion-header">
-		<button class="accordion-button gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">
+		<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">
 			<app-icon data-name="Agencement" data-size="2em"></app-icon>
 			<span data-i18n="layout"></span>
 		</button>
@@ -9,7 +9,9 @@ tmplLayout.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-layout">
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container gap-2">
-				<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>
+				<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>
+				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
+				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>

@@ -7,13 +7,13 @@
 				{
 					"fontFamily": {
 						"values": "noModifications,Accessible_DfA,Luciole",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"textSize": {
 						"values": "noModifications,130,200",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
@@ -25,49 +25,67 @@
 				{
 					"marginAlign": {
 						"values": "noModifications,alignLeft,margeList",
+						"activeValue": 1
+					}
+				},
+				{
+					"loupe": {
+						"values": "",
+						"activeValue": 0
+					}
+				},
+				{
+					"readAloud": {
+						"values": "",
 						"activeValue": 0
 					}
 				},
 				{
 					"textSpacing": {
-						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+						"values": "noModifications,spacingTextLabelBig",
 						"activeValue": 0
 					}
 				},
 				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_2",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"cursorAspect": {
 						"values": "noModifications,big_white,huge_green",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"focusAspect": {
 						"values": "noModifications,big_white,huge_white",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"colorContrast": {
 						"values": "noModifications,white_black,white_blue",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"linkStyle": {
 						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
+						"activeValue": 1
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "",
 						"activeValue": 0
 					}
 				},
 				{
 					"scroll": {
 						"values": "noModifications,bigScroll,scrollOnMouseover",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				}
 			]
@@ -80,12 +98,24 @@
 				{
 					"fontFamily": {
 						"values": "noModifications,Accessible_DfA,Verdana",
-						"activeValue": 0
+						"activeValue": 2
 					}
 				},
 				{
 					"textSize": {
 						"values": "noModifications,110,130",
+						"activeValue": 1
+					}
+				},
+				{
+					"loupe": {
+						"values": "",
+						"activeValue": 0
+					}
+				},
+				{
+					"readAloud": {
+						"values": "",
 						"activeValue": 0
 					}
 				},
@@ -97,32 +127,38 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,autoClick_2",
-						"activeValue": 0
+						"values": "noModifications,bigZone,longClick_2",
+						"activeValue": 1
 					}
 				},
 				{
 					"cursorAspect": {
 						"values": "noModifications,big_black,huge_black",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_black",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				},
 				{
 					"colorContrast": {
 						"values": "noModifications,reinforcedContrasts,white_black",
+						"activeValue": 1
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "",
 						"activeValue": 0
 					}
 				},
 				{
 					"scroll": {
 						"values": "noModifications,bigScroll,scrollOnMouseover",
-						"activeValue": 0
+						"activeValue": 1
 					}
 				}
 			]

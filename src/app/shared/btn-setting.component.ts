@@ -11,8 +11,8 @@ btnSettingLayout.innerHTML = `
 `;
 
 class BtnSettingComponent extends HTMLElement {
-	static observedAttributes = ['data-values', 'data-active-value', 'data-label', 'data-icon'];
-	settingBtn: HTMLElement = null;
+	static observedAttributes = ['data-values', 'data-active-value', 'data-label', 'data-icon', 'data-disabled'];
+	settingBtn: HTMLButtonElement = null;
 	btnContentSlots: HTMLElement = null;
 	icon: HTMLElement = null;
 	index: number;
@@ -21,11 +21,14 @@ class BtnSettingComponent extends HTMLElement {
 	slot = '';
 	separator = ',';
 	settingsList: string[] = [];
-
+	disabled = false;
 	handler: any;
 
 	constructor() {
 		super();
+
+		this.disabled = (this.dataset?.disabled === 'true') || this.disabled;
+
 		this.appendChild(btnSettingLayout.content.cloneNode(true));
 
 		this.handler = this.createHandler();
@@ -35,6 +38,7 @@ class BtnSettingComponent extends HTMLElement {
 		this.settingBtn = this.querySelector('button');
 		this.btnContentSlots = this.querySelector('ul');
 
+		this.settingBtn!.disabled = this.disabled;
 		this.settingBtn.addEventListener('click', this.handler);
 	}
 

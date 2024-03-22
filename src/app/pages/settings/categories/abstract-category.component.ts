@@ -58,7 +58,7 @@ abstract class AbstractCategory extends HTMLElement {
 		}
 		for (const element of triggerArray) {
 			this.accordionContainer?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
-			element?.classList.toggle(this.CLASS_NAME_COLLAPSED, !isOpen);
+			element?.classList.toggle(this.CLASS_NAME_COLLAPSED, isOpen);
 			element?.setAttribute('aria-expanded', String(isOpen));
 		}
 	}

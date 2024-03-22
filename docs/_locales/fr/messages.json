@@ -12,13 +12,10 @@
 		"message": "En cours…"
 	},
 	"layout": {
-		"message": "Agencement"
+		"message": "Affichage"
 	},
 	"medias": {
-		"message": "Image et vidéo"
-	},
-	"pointer": {
-		"message": "Pointeur"
+		"message": "Images"
 	},
 	"audio": {
 		"message": "Audio"
@@ -30,19 +27,28 @@
 		"message": "Navigation"
 	},
 	"textSize": {
-		"message": "Taille de texte"
+		"message": "Taille du texte"
 	},
 	"textFont": {
-		"message": "Police de texte"
+		"message": "Police"
 	},
 	"readingMask": {
-		"message": "Guide de lecture"
+		"message": "Règle de lecture"
 	},
 	"readingGuide": {
 		"message": "Règle"
 	},
 	"maskGuide": {
 		"message": "Masque"
+	},
+	"loupe": {
+		"message": "Loupe"
+	},
+	"readAloud": {
+		"message": "Lire à haute voix"
+	},
+	"stopAnimations": {
+		"message": "Stopper les animations"
 	},
 	"margin": {
 		"message": "Marge"
@@ -54,10 +60,13 @@
 		"message": "Aspect de la souris"
 	},
 	"spacingText": {
-		"message": "Aérer le texte"
+		"message": "Aére le texte"
+	},
+	"clickFacilite": {
+		"message": "Clics facilités"
 	},
 	"colorsContrasts": {
-		"message": "Couleurs contrastes"
+		"message": "Couleurs - contrastes"
 	},
 	"reinforcedContrasts": {
 		"message": "Contrastes renforcés"
@@ -87,7 +96,7 @@
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
 	},
 	"linksStyle": {
-		"message": "Apparence des liens de navigation"
+		"message": "Liens bien visibles"
 	},
 	"close": {
 		"message": "Fermer Confort+"
@@ -304,8 +313,5 @@
 	},
 	"500": {
 		"message": "Max 500%"
-	},
-	"clickFacilite": {
-		"message": "Clic facilité"
 	}
 }
