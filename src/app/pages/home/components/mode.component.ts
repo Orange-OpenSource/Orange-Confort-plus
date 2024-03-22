@@ -3,15 +3,18 @@ tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2">
 	<app-font-family class="sc-mode__setting"></app-font-family>
 	<app-text-size class="sc-mode__setting"></app-text-size>
-	<app-text-spacing class="sc-mode__setting"></app-text-spacing>
 	<app-reading-guide class="sc-mode__setting"></app-reading-guide>
 	<app-margin-align class="sc-mode__setting"></app-margin-align>
+	<app-loupe class="sc-mode__setting"></app-loupe>
+	<app-read-aloud class="sc-mode__setting"></app-read-aloud>
+	<app-text-spacing class="sc-mode__setting"></app-text-spacing>
 	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
-	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
-	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
-	<app-scroll class="sc-mode__setting"></app-scroll>
-	<app-link-style class="sc-mode__setting"></app-link-style>
 	<app-click-facilite class="sc-mode__setting"></app-click-facilite>
+	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
+	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
+	<app-link-style class="sc-mode__setting"></app-link-style>
+	<app-stop-animations class="sc-mode__setting"></app-stop-animations>
+	<app-scroll class="sc-mode__setting"></app-scroll>
 </div>
 `;
 

@@ -1,8 +1,11 @@
 const btnModalLayout: HTMLTemplateElement = document.createElement('template');
-btnModalLayout.innerHTML = `<button type="button" class="btn btn-primary pe-4 sc-btn-modal"></button>`;
+btnModalLayout.innerHTML = `
+	<button type="button" class="btn btn-primary pe-4 sc-btn-modal">
+		<app-icon data-name="Plus_small"></app-icon>
+	</button>`;
 
 class BtnModalComponent extends HTMLElement {
-	static observedAttributes = ['data-value', 'data-label'];
+	static observedAttributes = ['data-label'];
 	modalBtn: HTMLElement = null;
 	value: any = null;
 
@@ -28,9 +31,6 @@ class BtnModalComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-value' === name) {
-			this.modalBtn.innerText = newValue;
-		}
 		if ('data-label' === name) {
 			this.setA11yName(newValue);
 		}

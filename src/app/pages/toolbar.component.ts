@@ -54,6 +54,7 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	setCurrentPage = (page: string): void => {
+		this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
 		setTimeout(() => {
 			let currentPage = this.querySelector(`app-${page}`);
 			if (currentPage) {
