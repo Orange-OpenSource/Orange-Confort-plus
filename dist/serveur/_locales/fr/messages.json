@@ -36,6 +36,12 @@
 		"message": "Règle de lecture"
 	},
 	"readingGuide": {
+		"message": "Guide de lecture"
+	},
+	"readingGuideInstruction": {
+		"message": "Pour être guidé lors de la lecture"
+	},
+	"ruleGuide": {
 		"message": "Règle"
 	},
 	"maskGuide": {
@@ -53,8 +59,32 @@
 	"margin": {
 		"message": "Marge"
 	},
-	"focusAspect": {
-		"message": "Aspect du focus"
+	"marginAlignInstruction": {
+		"message": "Pour ancrer la lecture à gauche"
+	},
+	"loupe": {
+		"message": "Loupe"
+	},
+	"loupeInstruction": {
+		"message": "Pour zoomer ponctuellement"
+	},
+	"readAloud": {
+		"message": "Lire à haute voix"
+	},
+	"readAloudInstruction": {
+		"message": "Pour se faire lire le texte sur demande"
+	},
+	"textSpacing": {
+		"message": "Aérer le texte"
+	},
+	"textSpacingInstruction": {
+		"message": "Pour bien séparer les caractères et les lignes"
+	},
+	"clickFacilite": {
+		"message": "Clic facilité"
+	},
+	"clickFaciliteInstruction": {
+		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"
 	},
 	"cursorAspect": {
 		"message": "Aspect de la souris"
@@ -68,14 +98,32 @@
 	"colorsContrasts": {
 		"message": "Couleurs - contrastes"
 	},
+	"colorContrastInstruction": {
+		"message": "Pour changer la couleur du fond et du texte"
+	},
 	"reinforcedContrasts": {
 		"message": "Contrastes renforcés"
 	},
 	"daltonism": {
 		"message": "Daltonisme"
 	},
-	"lift": {
+	"linksStyle": {
+		"message": "Apparence des liens de navigation"
+	},
+	"linksStyleInstruction": {
+		"message": "Pour modifier la couleur des liens de navigation"
+	},
+	"stopAnimations": {
+		"message": "Stopper les animations"
+	},
+	"stopAnimationsInstruction": {
+		"message": "Pour empêcher les animations au sein de la page"
+	},
+	"scroll": {
 		"message": "Ascenseur"
+	},
+	"scrollInstruction": {
+		"message": "Pour faciliter la montée et descente dans la page"
 	},
 	"scrollUp": {
 		"message": "Monter"

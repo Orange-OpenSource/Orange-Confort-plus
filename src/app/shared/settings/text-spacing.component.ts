@@ -1,8 +1,8 @@
 const tmplSpacingText: HTMLTemplateElement = document.createElement('template');
 tmplSpacingText.innerHTML = `
 <div class="d-flex align-items-center gap-3">
-	<app-btn-setting data-label="spacingText" data-icon="Text_Espacement_Ligne"></app-btn-setting>
-	<app-btn-modal class="d-none"></app-btn-modal>
+	<app-btn-setting></app-btn-setting>
+	<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>
 </div>
 `;
 
