@@ -11,10 +11,9 @@ btnSettingLayout.innerHTML = `
 `;
 
 class BtnSettingComponent extends HTMLElement {
-	static observedAttributes = ['data-values', 'data-active-value', 'data-label', 'data-icon', 'data-disabled'];
+	static observedAttributes = ['data-values', 'data-active-value', 'data-name', 'data-disabled'];
 	settingBtn: HTMLButtonElement = null;
 	btnContentSlots: HTMLElement = null;
-	icon: HTMLElement = null;
 	index: number;
 	value: string;
 	label = '';
@@ -53,14 +52,13 @@ class BtnSettingComponent extends HTMLElement {
 		if ('data-active-value' === name) {
 			this.setIndex(Number(newValue));
 		}
-		if ('data-label' === name) {
-			this.label = newValue;
+		if ('data-name' === name) {
+			const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
+			this.label = settingName;
 			const span = this.querySelector('span');
-			span.innerText = i18nServiceInstance.getMessage(newValue);
-		}
-		if ('data-icon' === name) {
-			this.icon = this.querySelector('app-icon');
-			this.icon?.setAttribute('data-name', newValue);
+			const icon = this.querySelector('app-icon');
+			span.innerText = i18nServiceInstance.getMessage(settingName);
+			icon?.setAttribute('data-name', settingName);
 		}
 	}
 

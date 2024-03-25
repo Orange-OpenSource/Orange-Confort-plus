@@ -173,16 +173,21 @@ class ModeOfUseService {
         }));
         return JSON.stringify(selectedMode);
     }
-    setSettingValue(key, newIndex) {
+    setSettingValue(key, newIndex, newValue) {
         let jsonIsEdited = false;
         return localStorageServiceInstance.getItem(jsonName).then((result => {
             let json = result;
             json.modes.forEach((mode => {
                 if (Object.keys(mode)[0] === json.selectedMode) {
                     let modeSettings = Object.entries(mode)[0][1];
-                    let setting = modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === key));
+                    let setting = modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(key)));
                     if (setting) {
                         let settingValues = Object.entries(setting)[0][1];
+                        if (newValue) {
+                            let newValues = settingValues.values.split(",");
+                            newValues.length === 4 ? newValues[3] = newValue : newValues.push(newValue);
+                            settingValues.values = newValues.toString();
+                        }
                         settingValues.activeValue = newIndex;
                         localStorageServiceInstance.setItem(jsonName, json);
                         jsonIsEdited = true;
@@ -353,6 +358,9 @@ class StringService {
     }
     normalizeSettingName(string) {
         return string?.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase().replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "");
+    }
+    normalizeSettingCamelCase(string) {
+        return string?.replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").replace(/-./g, (x => x[1].toUpperCase()));
     }
 }
 
@@ -531,6 +539,8 @@ class AbstractSetting extends HTMLElement {
     connectedCallback() {
         this.settingBtn = this.querySelector("app-btn-setting");
         this.modalBtn = this.querySelector("app-btn-modal");
+        this.settingBtn.setAttribute("data-name", this.name);
+        this.modalBtn.setAttribute("data-name", this.name);
         if (this.canEdit) {
             this.modalBtn.classList.remove("d-none");
             this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
@@ -582,7 +592,7 @@ class AbstractSetting extends HTMLElement {
 
 const tmplClickFacilite = document.createElement("template");
 
-tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="clickFacilite" data-icon="ClicFacile"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class ClickFaciliteComponent extends AbstractSetting {
     selectedElt;
@@ -771,7 +781,7 @@ customElements.define("app-click-facilite", ClickFaciliteComponent);
 
 const tmplColorContrast = document.createElement("template");
 
-tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="colorsContrasts" data-icon="Contrast"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class ColorContrastComponent extends AbstractSetting {
     activesValues={
@@ -811,7 +821,7 @@ customElements.define("app-color-contrast", ColorContrastComponent);
 
 const tmplCursorAspect = document.createElement("template");
 
-tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="cursorAspect" data-icon="CursorSetting"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class CursorAspectComponent extends AbstractSetting {
     activesValues={
@@ -859,7 +869,7 @@ customElements.define("app-cursor-aspect", CursorAspectComponent);
 
 const tmplFocusAspect = document.createElement("template");
 
-tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="focusAspect" data-icon="Focus"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class FocusAspectComponent extends AbstractSetting {
     activesValues={
@@ -889,7 +899,7 @@ customElements.define("app-focus-aspect", FocusAspectComponent);
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textFont" data-icon="Police"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
     activesValues={
@@ -1127,7 +1137,7 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplLinkStyle = document.createElement("template");
 
-tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="linksStyle" data-icon="Links"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class LinkStyleComponent extends AbstractSetting {
     activesValues={
@@ -1173,7 +1183,7 @@ customElements.define("app-loupe", LoupeComponent);
 
 const tmplMarginAlign = document.createElement("template");
 
-tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="margin" data-icon="Text_Marge"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class MarginAlignComponent extends AbstractSetting {
     activesValues={
@@ -1246,7 +1256,7 @@ customElements.define("app-read-aloud", ReadAloudComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     topGuideElt=null;
@@ -1256,10 +1266,10 @@ class ReadingGuideComponent extends AbstractSetting {
     sizeGuide=40;
     handlerReadingGuide;
     activesValues={
-        values: "noModifications,readingGuide,maskGuide",
+        values: "noModifications,ruleGuide,maskGuide",
         activeValue: 0
     };
-    classReadingGuide=`\n\t\t#cplus-vertical-guide-elt {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t`;
+    classRuleGuide=`\n\t\t#cplus-vertical-guide-elt {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t`;
     classMaskGuide=`\n\t\t#cplus-mask-guide--top-elt,\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t\t#cplus-mask-guide--top-elt {\n\t\t\ttop: 0;\n\t\t}\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbottom: 0;\n\t\t}\n\t`;
     constructor() {
         super();
@@ -1276,10 +1286,10 @@ class ReadingGuideComponent extends AbstractSetting {
     }
     setReadingMaskGuide=value => {
         switch (value) {
-          case "readingGuide":
+          case "ruleGuide":
             {
                 this.resetGuide();
-                this.guideType = "reading";
+                this.guideType = "rule";
                 this.setGuide();
                 break;
             }
@@ -1300,13 +1310,13 @@ class ReadingGuideComponent extends AbstractSetting {
     };
     setGuide=() => {
         let styleGuide = "";
-        if (this.guideType === "reading") {
-            styleGuide = this.classReadingGuide;
+        if (this.guideType === "rule") {
+            styleGuide = this.classRuleGuide;
         } else if (this.guideType === "mask") {
             styleGuide = this.classMaskGuide;
         }
         stylesServiceInstance.setStyle(this.name, styleGuide);
-        if (this.guideType === "reading") {
+        if (this.guideType === "rule") {
             const readingElt = document.createElement("div");
             readingElt.setAttribute("id", "cplus-vertical-guide-elt");
             document.body.appendChild(readingElt);
@@ -1329,7 +1339,7 @@ class ReadingGuideComponent extends AbstractSetting {
     };
     createHandlerReadingGuide=() => event => {
         if (event.type === "mousemove") {
-            if (this.guideType === "reading") {
+            if (this.guideType === "rule") {
                 document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
             } else if (this.guideType === "mask") {
                 document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
@@ -1346,7 +1356,7 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 const tmplScroll = document.createElement("template");
 
-tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="lift" data-icon="Scroll"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class ScrollComponent extends AbstractSetting {
     activesValues={
@@ -1450,7 +1460,7 @@ customElements.define("app-text-size", IncreaseTextSizeComponent);
 
 const tmplSpacingText = document.createElement("template");
 
-tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="spacingText" data-icon="Text_Espacement_Ligne"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class TextSpacingComponent extends AbstractSetting {
     activesValues={
@@ -1560,17 +1570,22 @@ btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-label" ];
     modalBtn=null;
+    settingName=null;
     value=null;
+    indexValue=null;
+    disabled=false;
     handler;
     constructor() {
         super();
         this.value = this.dataset?.value || this.value;
+        this.disabled = this.dataset?.disabled === "true" || this.disabled;
         this.appendChild(btnModalLayout.content.cloneNode(true));
         this.handler = this.createHandler();
     }
     connectedCallback() {
         this.modalBtn = this.querySelector("button");
         this.modalBtn?.addEventListener("click", this.handler);
+        this.modalBtn.disabled = this.disabled;
     }
     disconnectedCallback() {
         this.modalBtn?.removeEventListener("click", this.handler);
@@ -1591,8 +1606,12 @@ class BtnModalComponent extends HTMLElement {
         if (event.type === "click") {
             switch (event.target) {
               case this.modalBtn:
-                let clickEvent = new CustomEvent("clickModalEvent", {
-                    bubbles: true
+                let clickEvent = new CustomEvent("changeRoute", {
+                    bubbles: true,
+                    detail: {
+                        route: PAGE_EDIT_SETTING,
+                        setting: this.settingName
+                    }
                 });
                 this.modalBtn?.dispatchEvent(clickEvent);
                 break;
@@ -1613,7 +1632,6 @@ class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon", "data-disabled" ];
     settingBtn=null;
     btnContentSlots=null;
-    icon=null;
     index;
     value;
     label="";
@@ -1644,14 +1662,13 @@ class BtnSettingComponent extends HTMLElement {
         if ("data-active-value" === name) {
             this.setIndex(Number(newValue));
         }
-        if ("data-label" === name) {
-            this.label = newValue;
+        if ("data-name" === name) {
+            const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
+            this.label = settingName;
             const span = this.querySelector("span");
-            span.innerText = i18nServiceInstance.getMessage(newValue);
-        }
-        if ("data-icon" === name) {
-            this.icon = this.querySelector("app-icon");
-            this.icon?.setAttribute("data-name", newValue);
+            const icon = this.querySelector("app-icon");
+            span.innerText = i18nServiceInstance.getMessage(settingName);
+            icon?.setAttribute("data-name", settingName);
         }
     }
     setIndex=index => {
@@ -1701,7 +1718,7 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="mode-icon"  data-name="VisionPlus_border" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="mode-icon" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
     static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-prev-route", "data-selected-mode" ];
@@ -1871,13 +1888,75 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = ``;
+editSettingLayout.innerHTML = `\n\t<div class="gap-2">\n\t\t<app-icon id="edit-setting-icon"></app-icon>\n\t\t<span id="edit-setting-title"></span>\n\t\t<span id="edit-setting-instruction"></span>\n\t</div>\n\n\t<form id="edit-setting-content" class="gap-2">\n\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t</button>\n\t\t<span id="selected-value">Valeur sélectionnée</span>\n\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t</button>\n\t</form>\n`;
 
 class EditSettingComponent extends HTMLElement {
+    static observedAttributes=[ "data-setting" ];
+    settingIcon=null;
+    settingTitle=null;
+    settingInstruction=null;
+    selectedValue=null;
+    btnPrevValue=null;
+    btnNextValue=null;
+    settingName=null;
+    currentIndex=0;
+    currentValue=null;
+    textSizeValues=[ "110", "130", "160", "200", "350", "500" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editSettingLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
+    connectedCallback() {
+        this.settingIcon = this.querySelector("#edit-setting-icon");
+        this.settingTitle = this.querySelector("#edit-setting-title");
+        this.settingInstruction = this.querySelector("#edit-setting-instruction");
+        this.selectedValue = this.querySelector("#selected-value");
+        this.btnPrevValue = this.querySelector("#edit-btn-prev");
+        this.btnNextValue = this.querySelector("#edit-btn-next");
+        this.btnPrevValue?.addEventListener("click", this.handler);
+        this.btnNextValue?.addEventListener("click", this.handler);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-setting" === name) {
+            this.settingName = newValue;
+            this.settingIcon?.setAttribute("data-name", newValue);
+            this.settingTitle.innerText = i18nServiceInstance.getMessage(newValue);
+            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${newValue}Instruction`);
+        }
+    }
+    moveTextSize=step => {
+        this.currentIndex = this.textSizeValues.findIndex((i => i === this.currentValue));
+        this.currentIndex += step;
+        this.btnPrevValue.disabled = false;
+        this.btnNextValue.disabled = false;
+        if (this.currentIndex <= 0) {
+            this.currentIndex = 0;
+            this.btnPrevValue.disabled = true;
+            this.btnNextValue.disabled = false;
+        } else if (this.currentIndex >= this.textSizeValues.length - 1) {
+            this.currentIndex = this.textSizeValues.length - 1;
+            this.btnPrevValue.disabled = false;
+            this.btnNextValue.disabled = true;
+        }
+        this.currentValue = this.textSizeValues[this.currentIndex];
+        this.selectedValue.innerText = this.currentValue;
+        modeOfUseServiceInstance.setSettingValue(this.settingName, 3, this.currentValue);
+    };
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.target) {
+              case this.btnPrevValue:
+                this.moveTextSize(-1);
+                break;
+
+              case this.btnNextValue:
+                this.moveTextSize(1);
+                break;
+            }
+        }
+    };
 }
 
 customElements.define("app-edit-setting", EditSettingComponent);
@@ -2288,6 +2367,7 @@ class ToolbarComponent extends HTMLElement {
     historyRoute=[];
     json;
     defaultJson;
+    currentSetting=null;
     handler;
     constructor() {
         super();
@@ -2352,6 +2432,8 @@ class ToolbarComponent extends HTMLElement {
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-page-title", "pageTitleEditSetting");
                 this.header?.setAttribute("data-page-icon", "Settings");
+                const editSettingElement = this.querySelector(`app-${PAGE_EDIT_SETTING}`);
+                editSettingElement?.setAttribute("data-setting", this.currentSetting);
                 break;
             }
 
@@ -2385,9 +2467,12 @@ class ToolbarComponent extends HTMLElement {
         }
         this.header?.focus();
         this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
-        if (event.detail.setting) {
+        if (event.detail.mode) {
             this.json.selectedMode = event.detail.mode;
             this.querySelector(`app-${PAGE_HOME}`)?.focus();
+        }
+        if (event.detail.setting) {
+            this.currentSetting = event.detail.setting;
         }
         routeServiceInstance.navigate(newRoute);
         this.switchHeader(newRoute);

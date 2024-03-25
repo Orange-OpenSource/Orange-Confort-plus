@@ -8,7 +8,7 @@ headerLayout.innerHTML = `
 			</button>
 
 			<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
-				<app-icon id="mode-icon"  data-name="VisionPlus_border" class="border-end border-white pe-1"></app-icon>
+				<app-icon id="mode-icon" class="border-end border-white pe-1"></app-icon>
 				<app-icon id="page-icon" data-name="Settings"></app-icon>
 				<span id="page-title"></span>
 			</span>
