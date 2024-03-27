@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 13/03/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 27/03/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -226,6 +226,8 @@ class RouteService {
             if (route === newRoute) {
                 const element = `<app-${route}></app-${route}>`;
                 this.toolbar.insertAdjacentHTML("beforeend", element);
+                const page = this.toolbar.querySelector(`app-${route}`);
+                i18nServiceInstance.translate(page);
             } else if (route === this.currentRoute) {
                 this.toolbar.querySelector(`app-${route}`)?.remove();
             }
@@ -1839,7 +1841,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n    <div class="d-flex gap-2">\n        <div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n        </div>\n        <div class="d-flex justify-content-center flex-column">\n            <span class="text-white" data-i18n="profile"></span>\n            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n        </div>\n    </div>\n    <div class="d-grid gap-3 d-md-block">\n        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n            <span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-2">\n\t\t\t\t<div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-modes", "data-custom" ];
@@ -1848,8 +1850,6 @@ class HomeComponent extends HTMLElement {
     modeName=null;
     modeIcon=null;
     currentMode=null;
-    i18nService;
-    routeService;
     handler;
     constructor() {
         super();
@@ -1872,9 +1872,10 @@ class HomeComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
             let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
-            this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(selectedMode))[0][0]}Name`);
+            let selectedModeName = Object.entries(JSON.parse(selectedMode))[0][0];
+            this.modeName.innerText = i18nServiceInstance.getMessage(`${selectedModeName}Name`);
+            this.modeIcon?.setAttribute("data-name", selectedModeName);
             this.currentMode.setAttribute("data-settings", JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]));
-            this.modeIcon?.setAttribute("data-name", Object.entries(JSON.parse(selectedMode))[0][0]);
         }
     }
     createHandler=() => event => {
@@ -2283,40 +2284,32 @@ class ToolbarComponent extends HTMLElement {
     initCurrentMode=() => {
         if (this.json.selectedMode) {
             routeServiceInstance.initPages(this);
-            this.setNewPage(PAGE_HOME);
-            this.setCustomState();
+            this.switchHeader(PAGE_HOME);
         } else {
             routeServiceInstance.navigate(PAGE_MODES);
-            this.setNewPage(PAGE_MODES);
+            this.switchHeader(PAGE_MODES);
         }
     };
     setCurrentPage=page => {
-        let currentPage = this.querySelector(`app-${page}`);
-        currentPage?.setAttribute("data-modes", JSON.stringify(this.json));
-        i18nServiceInstance.translate(currentPage);
+        setTimeout((() => {
+            let currentPage = this.querySelector(`app-${page}`);
+            if (currentPage) {
+                currentPage?.setAttribute("data-modes", JSON.stringify(this.json));
+            }
+        }));
     };
-    setNewPage=page => {
+    switchHeader=page => {
+        this.setCurrentPage(page);
         switch (page) {
           case PAGE_HOME:
             {
-                this.setCurrentPage(PAGE_HOME);
                 this.header?.setAttribute("data-display", "primary");
                 this.header?.setAttribute("data-page-title", "");
                 break;
             }
 
-          case PAGE_MODES:
-            {
-                this.setCurrentPage(PAGE_MODES);
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-page-title", "pageTitleModes");
-                this.header?.setAttribute("data-page-icon", "");
-                break;
-            }
-
           case PAGE_SETTINGS:
             {
-                this.setCurrentPage(PAGE_SETTINGS);
                 this.header?.setAttribute("data-display", "secondary");
                 this.header?.setAttribute("data-page-title", "pageTitleSettings");
                 this.header?.setAttribute("data-page-icon", "Settings");
@@ -2330,23 +2323,16 @@ class ToolbarComponent extends HTMLElement {
                 this.header?.setAttribute("data-page-icon", "Settings");
                 break;
             }
+
+          case PAGE_MODES:
+          default:
+            {
+                this.header?.setAttribute("data-display", "secondary");
+                this.header?.setAttribute("data-page-title", "pageTitleModes");
+                this.header?.setAttribute("data-page-icon", "");
+                break;
+            }
         }
-    };
-    setCustomState=() => {
-        let defaultMode;
-        let currentMode;
-        this.defaultJson.modes.forEach((mode => {
-            if (Object.keys(mode)[0] === this.json.selectedMode) {
-                defaultMode = JSON.stringify(mode);
-            }
-        }));
-        this.json.modes.forEach((mode => {
-            if (Object.keys(mode)[0] === this.json.selectedMode) {
-                currentMode = JSON.stringify(mode);
-            }
-        }));
-        const isCustomMode = !(currentMode === defaultMode);
-        this.querySelector(`app-${PAGE_HOME}`)?.setAttribute("data-custom", isCustomMode.toString());
     };
     createHandler=() => event => {
         switch (event.type) {
@@ -2373,13 +2359,12 @@ class ToolbarComponent extends HTMLElement {
             this.querySelector(`app-${PAGE_HOME}`)?.focus();
         }
         routeServiceInstance.navigate(newRoute);
-        this.setNewPage(newRoute);
+        this.switchHeader(newRoute);
     };
     storageEvent=() => {
         localStorageServiceInstance.getItem(jsonName).then((result => {
             this.json = result;
             this.setCurrentPage(routeServiceInstance.currentRoute);
-            this.setCustomState();
         }));
     };
 }
