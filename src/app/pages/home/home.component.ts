@@ -1,21 +1,21 @@
 const homeLayout: HTMLTemplateElement = document.createElement('template');
 homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-    <div class="d-flex gap-2">
-        <div class="sc-home__icon-mode bg-body rounded-circle">
+		<div class="d-flex gap-2">
+				<div class="sc-home__icon-mode bg-body rounded-circle">
 						<app-icon data-size="5em"></app-icon>
-        </div>
-        <div class="d-flex justify-content-center flex-column">
-            <span class="text-white" data-i18n="profile"></span>
-            <span id="mode-name" class="fs-4 fw-bold text-primary"></span>
-        </div>
-    </div>
-    <div class="d-grid gap-3 d-md-block">
-        <button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
-            <span class="visually-hidden" data-i18n="openSettingsMode"></span>
+				</div>
+				<div class="d-flex justify-content-center flex-column">
+						<span class="text-white" data-i18n="profile"></span>
+						<span id="mode-name" class="fs-4 fw-bold text-primary"></span>
+				</div>
+		</div>
+		<div class="d-grid gap-3 d-md-block">
+				<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
+						<span class="visually-hidden" data-i18n="openSettingsMode"></span>
 						<app-icon data-name="Settings"></app-icon>
-        </button>
-    </div>
+				</button>
+		</div>
 </section>
 
 <section class="sc-home__settings gap-3 p-3">
@@ -62,19 +62,18 @@ class HomeComponent extends HTMLElement {
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-modes' === name) {
 			let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
-			this.modeName.innerText = i18nServiceInstance.getMessage(`${Object.entries(JSON.parse(selectedMode))[0][0]}Name`);
+			let selectedModeName = Object.entries(JSON.parse(selectedMode))[0][0];
+			this.modeName.innerText = i18nServiceInstance.getMessage(`${selectedModeName}Name`);
+			this.modeIcon?.setAttribute('data-name', selectedModeName);
 			this.currentMode.setAttribute('data-settings', JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]));
-			this.modeIcon?.setAttribute('data-name', Object.entries(JSON.parse(selectedMode))[0][0]);
 		}
 
-		/* @todo MVP: ne pas afficher l'astérix si un mode d'usage est personnalisé
-		 * À enlever lorsque les tests seront terminés.
-		 *
-		 * if ('data-custom' === name) {
-		 *		const modeName = this.modeName.textContent;
-		 * 	  this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
-		 * }
-		 */
+		// @todo MVP: ne pas afficher l’astérisque si un mode d’usage est personnalisé
+		// @note À enlever lorsque les tests seront terminés.
+		// if ('data-custom' === name) {
+		// 	const modeName = this.modeName.textContent;
+		// 	this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
+		// }
 	}
 
 	private createHandler = () => {

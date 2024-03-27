@@ -45,37 +45,33 @@ class ToolbarComponent extends HTMLElement {
 	initCurrentMode = (): void => {
 		if (this.json.selectedMode) {
 			routeServiceInstance.initPages(this);
-			this.setNewPage(PAGE_HOME);
-			this.setCustomState();
+			this.switchHeader(PAGE_HOME);
+			// this.setCustomState();
 		} else {
 			routeServiceInstance.navigate(PAGE_MODES);
-			this.setNewPage(PAGE_MODES);
+			this.switchHeader(PAGE_MODES);
 		}
 	}
 
 	setCurrentPage = (page: string): void => {
-		let currentPage = this.querySelector(`app-${page}`);
-		currentPage?.setAttribute('data-modes', JSON.stringify(this.json));
-		i18nServiceInstance.translate(currentPage);
+		setTimeout(() => {
+			let currentPage = this.querySelector(`app-${page}`);
+			if (currentPage) {
+				currentPage?.setAttribute('data-modes', JSON.stringify(this.json));
+			}
+		})
 	}
 
-	setNewPage = (page: string): void => {
+	switchHeader = (page: string): void => {
+		this.setCurrentPage(page);
+
 		switch (page) {
 			case PAGE_HOME: {
-				this.setCurrentPage(PAGE_HOME);
 				this.header?.setAttribute('data-display', 'primary');
 				this.header?.setAttribute('data-page-title', '');
 				break;
 			}
-			case PAGE_MODES: {
-				this.setCurrentPage(PAGE_MODES);
-				this.header?.setAttribute('data-display', 'secondary');
-				this.header?.setAttribute('data-page-title', 'pageTitleModes');
-				this.header?.setAttribute('data-page-icon', '');
-				break;
-			}
 			case PAGE_SETTINGS: {
-				this.setCurrentPage(PAGE_SETTINGS);
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-page-title', 'pageTitleSettings');
 				this.header?.setAttribute('data-page-icon', 'Settings');
@@ -87,10 +83,17 @@ class ToolbarComponent extends HTMLElement {
 				this.header?.setAttribute('data-page-icon', 'Settings');
 				break;
 			}
+			case PAGE_MODES:
+			default: {
+				this.header?.setAttribute('data-display', 'secondary');
+				this.header?.setAttribute('data-page-title', 'pageTitleModes');
+				this.header?.setAttribute('data-page-icon', '');
+				break;
+			}
 		}
 	}
 
-	setCustomState = (): void => {
+	/* setCustomState = (): void => {
 		let defaultMode: any;
 		let currentMode: any;
 		this.defaultJson.modes.forEach((mode: any) => {
@@ -105,7 +108,7 @@ class ToolbarComponent extends HTMLElement {
 		});
 		const isCustomMode = !(currentMode === defaultMode);
 		this.querySelector(`app-${PAGE_HOME}`)?.setAttribute('data-custom', isCustomMode.toString());
-	}
+	} */
 
 	private createHandler = () => {
 		return (event: any) => {
@@ -139,14 +142,14 @@ class ToolbarComponent extends HTMLElement {
 		}
 
 		routeServiceInstance.navigate(newRoute);
-		this.setNewPage(newRoute);
+		this.switchHeader(newRoute);
 	}
 
 	private storageEvent = (): void => {
 		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
 			this.json = result;
 			this.setCurrentPage(routeServiceInstance.currentRoute);
-			this.setCustomState();
+			// this.setCustomState();
 		});
 	}
 }
