@@ -2,8 +2,7 @@
 const PREFIX = 'cplus-';
 chrome.runtime.onInstalled.addListener(async () => {
     // Update action icon and state
-    // @fixme Restreindre à la fenêtre actuelle
-    const tabs = await chrome.tabs.query({});
+    const tabs = await chrome.tabs.query({ currentWindow: true });
     for (const tab of tabs) {
         // Set CDU disable by default
         updateButtonIcon(false, tab.id);
