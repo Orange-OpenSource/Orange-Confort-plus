@@ -170,7 +170,7 @@ traduction['ES'] = {
 	uci_txt_onglet_apparence: "Ayuda de lectura",//V4
 	uci_txt_onglet_color: "Colores",
 	uci_txt_onglet_motor_help: "Comportamiento",
-	uci_txt_onglet_settings: "Settings",
+	uci_txt_onglet_settings: "Ajustes avanzados",
 	uci_txt_onglet_typo: "Tipografía",
 	uci_txt_visited: "Enlaces consultados",
 	uci_typo_help_changecase: "Este comando permite modificar la presentación del texto según tus necesidades",
