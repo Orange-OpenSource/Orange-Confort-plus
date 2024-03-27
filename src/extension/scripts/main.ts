@@ -12,6 +12,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 			chrome.action.disable(tab.id);
 		} else {
 			chrome.action.enable(tab.id);
+			// @todo Utiliser tab.url pour récupérer le domaine et l’utiliser comme suffixe
 			const states = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
 			chrome.storage.local.set({[`${prefix}is-enabled-${tab.id}`]: false});
 			// Reload tabs that had CDU loaded and active
@@ -101,10 +102,11 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 		chrome.action.enable(tabId);
 
 		// @todo À tester
-		// @todo À scoper à l’onglet / domaine
+		// @todo À scoper à l’onglet / domaine (?)
 		const openings = await chrome.storage.local.get(`${prefix}is-opened`);
 		const isOpened = openings[`${prefix}is-opened`] === 'true';
 		if (isOpened) {
+			// @fixme Gérer aussi le restore / eject (?)
 			chrome.scripting.executeScript({
 				target: { tabId: tab.id as number },
 				files: ['js/toolbar.js']
