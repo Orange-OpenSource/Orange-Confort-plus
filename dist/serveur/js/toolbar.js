@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 13/03/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 20/03/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -2013,13 +2013,14 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
+settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n<div id="test">\n\n</div>\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
     constructor() {
         super();
         this.appendChild(settingsLayout.content.cloneNode(true));
+        this.colorizeTextNodesForDyslexia();
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
@@ -2030,6 +2031,61 @@ class SettingsComponent extends HTMLElement {
                 element.setAttribute("data-settings", JSON.stringify(settings));
             }));
         }
+    }
+    groupsToColorize=[ "an", "ou" ];
+    colorizeTextNodesForDyslexia() {
+        const bodyChildren = document.body.children;
+        for (let i = 0; i < bodyChildren.length; i++) {
+            const child = bodyChildren[i];
+            const textNodes = this.getTextNodes(child);
+            for (let j = 0; j < textNodes.length; j++) {
+                const node = textNodes[j];
+                const text = node.nodeValue.trim();
+                if (text !== "") {
+                    let colorizedText = "";
+                    let words = text.split(" ");
+                    for (let k = 0; k < words.length; k++) {
+                        const word = words[k];
+                        const syllables = this.segmentWordIntoSyllables(word, this.groupsToColorize);
+                        for (let l = 0; l < syllables.length; l++) {
+                            colorizedText += syllables[l];
+                        }
+                        colorizedText += " ";
+                    }
+                    const span = document.createElement("span");
+                    span.innerHTML = colorizedText.trim();
+                    node.parentNode.insertBefore(span, node);
+                    node.parentNode.removeChild(node);
+                }
+            }
+        }
+    }
+    getTextNodes(element) {
+        const textNodes = [];
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+        }
+        return textNodes;
+    }
+    segmentWordIntoSyllables(word, groups) {
+        const syllables = [];
+        let syllable = "";
+        for (let i = 0; i < word.length; i++) {
+            const char = word[i];
+            const isInGroups = groups.some((group => word.slice(i, i + group.length) === group));
+            if (isInGroups) {
+                syllable += `<span style="color: red;">${word.slice(i, i + groups[0].length).split("").map((char => `${char}`)).join("")}</span>`;
+                i += groups[0].length - 1;
+            } else {
+                syllable += char;
+            }
+            if (!isInGroups || i === word.length - 1) {
+                syllables.push(syllable);
+                syllable = "";
+            }
+        }
+        return syllables;
     }
 }
 
