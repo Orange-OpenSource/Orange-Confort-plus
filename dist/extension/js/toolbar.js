@@ -108,15 +108,20 @@ class IconsService {
 let localStorageServiceIsInstantiated;
 
 class LocalStorageService {
+    hostname="";
     constructor() {
         if (localStorageServiceIsInstantiated) {
             throw new Error("LocalStorageService is already instantiated.");
         }
         localStorageServiceIsInstantiated = true;
+        this.hostname = window.location.hostname;
     }
     setItem(key, value) {
         chrome.storage.local.set({
-            [`${PREFIX}${key}`]: value
+            [`${PREFIX}${key}-${this.hostname}`]: value
+        });
+        chrome.storage.local.set({
+            [`latest-${PREFIX}${key}`]: value
         });
         let storeEvent = new CustomEvent(`storage-${key}`, {
             bubbles: true
@@ -124,13 +129,22 @@ class LocalStorageService {
         window.dispatchEvent(storeEvent);
     }
     getItem(key) {
-        return chrome.storage.local.get([ `${PREFIX}${key}` ]).then((datas => new Promise(((resolve, reject) => {
-            resolve(datas[`${PREFIX}${key}`]);
-            reject(new Error("KO"));
-        }))));
+        return chrome.storage.local.get([ `${PREFIX}${key}-${this.hostname}` ]).then((datas => {
+            if (datas[`${PREFIX}${key}-${this.hostname}`]) {
+                return new Promise(((resolve, reject) => {
+                    resolve(datas[`${prefix}${key}-${this.hostname}`]);
+                    reject(new Error(`Could not get ${PREFIX}${key}-${this.hostname} in storage.`));
+                }));
+            } else {
+                return chrome.storage.local.get([ `latest-${PREFIX}${key}` ]).then((datas => new Promise(((resolve, reject) => {
+                    resolve(datas[`latest-${prefix}${key}`]);
+                    reject(new Error(`Could not get latest-${PREFIX}${key} in storage.`));
+                }))));
+            }
+        }));
     }
     removeItem(key) {
-        chrome.storage.local.remove([ `${PREFIX}${key}` ]);
+        chrome.storage.local.remove([ `${PREFIX}${key}-${this.hostname}` ]);
     }
 }
 
