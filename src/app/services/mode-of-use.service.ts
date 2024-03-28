@@ -57,4 +57,24 @@ class ModeOfUseService {
 				return jsonIsEdited;
 			});
 	}
+
+	getCustomValue(settingName: string): Promise<string> {
+		let customValue: string = '';
+		return localStorageServiceInstance.getItem(jsonName)
+			.then((result: any) => {
+				let json = result;
+				json.modes.forEach((mode: any) => {
+					if (Object.keys(mode)[0] === json.selectedMode) {
+						let modeSettings: Object[] = Object.entries(mode)[0][1] as [];
+						let setting = modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName));
+						customValue = (Object.entries(setting)[0][1] as SettingModel).values.split(',')[3];
+					}
+				});
+				return customValue;
+			})
+			.catch((error: any) => {
+				console.error("The custom value of this setting could not be return.");
+				return customValue;
+			});
+	}
 }

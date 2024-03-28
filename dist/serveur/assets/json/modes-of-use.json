@@ -1,5 +1,5 @@
 {
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -18,7 +18,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,readingGuide,maskGuide",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"activeValue": 0
 					}
 				},

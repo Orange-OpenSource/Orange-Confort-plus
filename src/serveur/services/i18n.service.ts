@@ -19,7 +19,7 @@ class I18nService {
 
 		this.getJSON().then((result: string) => {
 			// @ts-ignore
-			localStorage.setItem(`${prefix}-i18n`, JSON.stringify(result));
+			localStorage.setItem(`${prefix}i18n`, JSON.stringify(result));
 		});
 	}
 
@@ -36,7 +36,7 @@ class I18nService {
 
 	getMessages(): string {
 		// @ts-ignore
-		return localStorage.getItem(`${prefix}-i18n`) as string;
+		return localStorage.getItem(`${prefix}i18n`) as string;
 	}
 
 	getMessage(message: string): string {

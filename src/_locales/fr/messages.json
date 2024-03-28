@@ -69,7 +69,7 @@
 		"message": "Pour ancrer la lecture à gauche"
 	},
 	"textSpacing": {
-		"message": "Aérer le texte"
+		"message": "Aére le texte"
 	},
 	"textSpacingInstruction": {
 		"message": "Pour bien séparer les caractères et les lignes"
@@ -82,9 +82,6 @@
 	},
 	"cursorAspect": {
 		"message": "Aspect de la souris"
-	},
-	"spacingText": {
-		"message": "Aére le texte"
 	},
 	"cursorAspectInstruction": {
 		"message": "Pour modifier le rendu des curseurs"
@@ -358,5 +355,11 @@
 	},
 	"500": {
 		"message": "Max 500%"
+	},
+	"reduceTextSize": {
+		"message": "Réduire la taille du texte"
+	},
+	"increaseTextSize": {
+		"message": "Augmenter la taille du texte"
 	}
 }
