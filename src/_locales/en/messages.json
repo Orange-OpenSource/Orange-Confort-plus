@@ -29,14 +29,23 @@
 	"textSize": {
 		"message": "Text size"
 	},
-	"textFont": {
+	"textSizeInstruction": {
+		"message": "To enlarge the text"
+	},
+	"fontFamily": {
 		"message": "Text font"
 	},
-	"readingMask": {
-		"message": "Reading rule"
+	"fontFamilyInstruction": {
+		"message": "To change the text rendering"
 	},
 	"readingGuide": {
-		"message": "Reading"
+		"message": "Reading guide"
+	},
+	"readingGuideInstruction": {
+		"message": "For guidance on reading"
+	},
+	"ruleGuide": {
+		"message": "Rule"
 	},
 	"maskGuide": {
 		"message": "Mask"
@@ -44,29 +53,50 @@
 	"loupe": {
 		"message": "Loupe"
 	},
+	"loupeInstruction": {
+		"message": "To zoom in"
+	},
 	"readAloud": {
 		"message": "Read aloud"
 	},
-	"stopAnimations": {
-		"message": "Stop animations"
+	"readAloudInstruction": {
+		"message": "The text can be read on request"
 	},
-	"margin": {
-		"message": "Margin"
+	"marginAlign": {
+		"message": "Marge"
 	},
-	"focusAspect": {
-		"message": "Focus aspect"
+	"marginAlignInstruction": {
+		"message": "To dock playback to the left"
 	},
-	"cursorAspect": {
-		"message": "Cursor aspect"
+	"textSpacing": {
+		"message": "Air the text"
 	},
-	"spacingText": {
-		"message": "Spacing text"
+	"textSpacingInstruction": {
+		"message": "To separate characters and lines"
 	},
 	"clickFacilite": {
 		"message": "Easy click"
 	},
-	"colorsContrasts": {
+	"clickFaciliteInstruction": {
+		"message": "To avoid scoring errors and save effort"
+	},
+	"cursorAspect": {
+		"message": "Cursor aspect"
+	},
+	"cursorAspectInstruction": {
+		"message": "To change the rendering of cursors"
+	},
+	"focusAspect": {
+		"message": "Focus aspect"
+	},
+	"focusAspectInstruction": {
+		"message": "To change the way the focus is rendered on the page"
+	},
+	"colorContrast": {
 		"message": "Colors - contrasts"
+	},
+	"colorContrastInstruction": {
+		"message": "To change the background and text colours"
 	},
 	"reinforcedContrasts": {
 		"message": "Reinforced contrasts"
@@ -74,8 +104,23 @@
 	"daltonism": {
 		"message": "Daltonism"
 	},
-	"lift": {
+	"linksStyle": {
+		"message": "Clearly visible links"
+	},
+	"linksStyleInstruction": {
+		"message": "To change the colour of the navigation links"
+	},
+	"stopAnimations": {
+		"message": "Stop animations"
+	},
+	"stopAnimationsInstruction": {
+		"message": "To prevent animations within the page"
+	},
+	"scroll": {
 		"message": "Lift"
+	},
+	"scrollInstruction": {
+		"message": "To make it easier to move up and down the page"
 	},
 	"scrollUp": {
 		"message": "Up"
@@ -94,9 +139,6 @@
 	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Esc</kbd>"
-	},
-	"linksStyle": {
-		"message": "Clearly visible links"
 	},
 	"close": {
 		"message": "Close Confort+"
@@ -313,5 +355,11 @@
 	},
 	"500": {
 		"message": "Max 500%"
+	},
+	"reduceTextSize": {
+		"message": "Reduce text size"
+	},
+	"increaseTextSize": {
+		"message": "Increase text size"
 	}
 }

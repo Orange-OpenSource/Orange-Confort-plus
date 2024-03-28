@@ -29,11 +29,14 @@
 	"textSize": {
 		"message": "Taille du texte"
 	},
-	"textFont": {
+	"textSizeInstruction": {
+		"message": "Pour agrandir le texte"
+	},
+	"fontFamily": {
 		"message": "Police"
 	},
-	"readingMask": {
-		"message": "Règle de lecture"
+	"fontFamilyInstruction": {
+		"message": "Pour modifier le rendu du texte"
 	},
 	"readingGuide": {
 		"message": "Guide de lecture"
@@ -50,21 +53,6 @@
 	"loupe": {
 		"message": "Loupe"
 	},
-	"readAloud": {
-		"message": "Lire à haute voix"
-	},
-	"stopAnimations": {
-		"message": "Stopper les animations"
-	},
-	"margin": {
-		"message": "Marge"
-	},
-	"marginAlignInstruction": {
-		"message": "Pour ancrer la lecture à gauche"
-	},
-	"loupe": {
-		"message": "Loupe"
-	},
 	"loupeInstruction": {
 		"message": "Pour zoomer ponctuellement"
 	},
@@ -74,14 +62,20 @@
 	"readAloudInstruction": {
 		"message": "Pour se faire lire le texte sur demande"
 	},
+	"marginAlign": {
+		"message": "Marge"
+	},
+	"marginAlignInstruction": {
+		"message": "Pour ancrer la lecture à gauche"
+	},
 	"textSpacing": {
-		"message": "Aérer le texte"
+		"message": "Aére le texte"
 	},
 	"textSpacingInstruction": {
 		"message": "Pour bien séparer les caractères et les lignes"
 	},
 	"clickFacilite": {
-		"message": "Clic facilité"
+		"message": "Clics facilités"
 	},
 	"clickFaciliteInstruction": {
 		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"
@@ -89,13 +83,16 @@
 	"cursorAspect": {
 		"message": "Aspect de la souris"
 	},
-	"spacingText": {
-		"message": "Aére le texte"
+	"cursorAspectInstruction": {
+		"message": "Pour modifier le rendu des curseurs"
 	},
-	"clickFacilite": {
-		"message": "Clics facilités"
+	"focusAspect": {
+		"message": "Aspect du focus"
 	},
-	"colorsContrasts": {
+	"focusAspectInstruction": {
+		"message": "Pour modifier le rendu du focus sur la page"
+	},
+	"colorContrast": {
 		"message": "Couleurs - contrastes"
 	},
 	"colorContrastInstruction": {
@@ -108,7 +105,7 @@
 		"message": "Daltonisme"
 	},
 	"linksStyle": {
-		"message": "Apparence des liens de navigation"
+		"message": "Liens bien visibles"
 	},
 	"linksStyleInstruction": {
 		"message": "Pour modifier la couleur des liens de navigation"
@@ -142,9 +139,6 @@
 	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
-	},
-	"linksStyle": {
-		"message": "Liens bien visibles"
 	},
 	"close": {
 		"message": "Fermer Confort+"
@@ -361,5 +355,11 @@
 	},
 	"500": {
 		"message": "Max 500%"
+	},
+	"reduceTextSize": {
+		"message": "Réduire la taille du texte"
+	},
+	"increaseTextSize": {
+		"message": "Augmenter la taille du texte"
 	}
 }
