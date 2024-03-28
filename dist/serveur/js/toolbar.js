@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 27/03/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 28/03/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -220,7 +220,7 @@ class RouteService {
         this.toolbar = root;
         localStorageServiceInstance.getItem("current-route").then((result => {
             if (this.routes.some((route => result === route))) {
-                this.navigate(result);
+                this.navigate(PAGE_HOME);
             } else {
                 this.navigate(PAGE_HOME);
             }
@@ -1433,7 +1433,7 @@ customElements.define("app-stop-animations", StopAnimationsComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     activesValues={
@@ -1449,7 +1449,7 @@ class IncreaseTextSizeComponent extends AbstractSetting {
         if (value === "noModifications") {
             document.documentElement.style.fontSize = null;
         } else {
-            document.documentElement.style.fontSize = value;
+            document.documentElement.style.fontSize = `${value}%`;
         }
     };
 }
@@ -1568,7 +1568,7 @@ const btnModalLayout = document.createElement("template");
 btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t\t<app-icon data-name="Plus_small"></app-icon>\n\t</button>`;
 
 class BtnModalComponent extends HTMLElement {
-    static observedAttributes=[ "data-label" ];
+    static observedAttributes=[ "data-value", "data-name", "data-disabled" ];
     modalBtn=null;
     settingName=null;
     value=null;
@@ -1591,8 +1591,11 @@ class BtnModalComponent extends HTMLElement {
         this.modalBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-label" === name) {
-            this.setA11yName(newValue);
+        if ("data-value" === name) {
+            this.modalBtn.innerText = newValue;
+        }
+        if ("data-name" === name) {
+            this.settingName = newValue;
         }
     }
     setA11yName=label => {
@@ -1629,7 +1632,7 @@ const btnSettingLayout = document.createElement("template");
 btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<div class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</div>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
-    static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon", "data-disabled" ];
+    static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
     settingBtn=null;
     btnContentSlots=null;
     index;
@@ -1920,7 +1923,10 @@ class EditSettingComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-setting" === name) {
-            this.settingName = newValue;
+            this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
+            console.log(this.settingName);
+            console.log(i18nServiceInstance.getMessage(newValue));
+            console.log(i18nServiceInstance.getMessage(`${newValue}Instruction`));
             this.settingIcon?.setAttribute("data-name", newValue);
             this.settingTitle.innerText = i18nServiceInstance.getMessage(newValue);
             this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${newValue}Instruction`);

@@ -57,7 +57,7 @@ class EditSettingComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-setting' === name) {
-			this.settingName = newValue;
+			this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
 			this.settingIcon?.setAttribute('data-name', newValue);
 			this.settingTitle!.innerText = i18nServiceInstance.getMessage(newValue);
 			this.settingInstruction!.innerText = i18nServiceInstance.getMessage(`${newValue}Instruction`);
