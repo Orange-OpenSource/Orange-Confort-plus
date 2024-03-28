@@ -28,7 +28,7 @@ class ModeOfUseService {
 		return JSON.stringify(selectedMode);
 	}
 
-	setSettingValue(key: string, newIndex: number): Promise<boolean> {
+	setSettingValue(key: string, newIndex: number, newValue?: string): Promise<boolean> {
 		let jsonIsEdited = false;
 		return localStorageServiceInstance.getItem(jsonName)
 			.then((result: any) => {
@@ -36,9 +36,14 @@ class ModeOfUseService {
 				json.modes.forEach((mode: any) => {
 					if (Object.keys(mode)[0] === json.selectedMode) {
 						let modeSettings: Object[] = Object.entries(mode)[0][1] as [];
-						let setting = modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === key);
+						let setting = modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(key));
 						if (setting) {
-							let settingValues: any = Object.entries(setting)[0][1];
+							let settingValues: SettingModel = Object.entries(setting)[0][1];
+							if (newValue) {
+								let newValues: string[] = settingValues.values.split(',');
+								newValues.length === 4 ? newValues[3] = newValue : newValues.push(newValue);
+								settingValues.values = newValues.toString();
+							}
 							settingValues.activeValue = newIndex;
 							localStorageServiceInstance.setItem(jsonName, json);
 							jsonIsEdited = true;

@@ -1,8 +1,8 @@
 const tmplReadingGuide: HTMLTemplateElement = document.createElement('template');
 tmplReadingGuide.innerHTML = `
 <div class="d-flex align-items-center gap-3">
-	<app-btn-setting data-label="readingMask" data-icon="Reading_Ruler"></app-btn-setting>
-	<app-btn-modal class="d-none"></app-btn-modal>
+	<app-btn-setting></app-btn-setting>
+	<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>
 </div>
 `;
 
@@ -10,16 +10,16 @@ class ReadingGuideComponent extends AbstractSetting {
 	topGuideElt: HTMLElement = null;
 	bottomGuideElt: HTMLElement = null;
 	readingGuideElt: HTMLElement = null;
-	guideType: 'reading' | 'mask' | '' = '';
+	guideType: 'rule' | 'mask' | '' = '';
 	sizeGuide: number = 40;
 	handlerReadingGuide: any;
 
 	activesValues = {
-		"values": "noModifications,readingGuide,maskGuide",
+		"values": "noModifications,ruleGuide,maskGuide",
 		"activeValue": 0
 	};
 
-	classReadingGuide = `
+	classRuleGuide = `
 		#cplus-vertical-guide-elt {
 			border-left: 4px solid black;
 			background: white;
@@ -69,9 +69,9 @@ class ReadingGuideComponent extends AbstractSetting {
 
 	setReadingMaskGuide = (value: string): void => {
 		switch (value) {
-			case 'readingGuide': {
+			case 'ruleGuide': {
 				this.resetGuide();
-				this.guideType = 'reading';
+				this.guideType = 'rule';
 				this.setGuide();
 				break;
 			}
@@ -89,15 +89,15 @@ class ReadingGuideComponent extends AbstractSetting {
 
 	setGuide = (): void => {
 		let styleGuide = '';
-		if (this.guideType === 'reading') {
-			styleGuide = this.classReadingGuide;
+		if (this.guideType === 'rule') {
+			styleGuide = this.classRuleGuide;
 		} else if (this.guideType === 'mask') {
 			styleGuide = this.classMaskGuide;
 		}
 
 		stylesServiceInstance.setStyle(this.name, styleGuide);
 
-		if (this.guideType === 'reading') {
+		if (this.guideType === 'rule') {
 			const readingElt = document.createElement('div');
 			readingElt.setAttribute('id', 'cplus-vertical-guide-elt');
 			document.body.appendChild(readingElt);
@@ -124,7 +124,7 @@ class ReadingGuideComponent extends AbstractSetting {
 	createHandlerReadingGuide = () => {
 		return (event: Event) => {
 			if (event.type === 'mousemove') {
-				if (this.guideType === 'reading') {
+				if (this.guideType === 'rule') {
 					(document.querySelector('#cplus-vertical-guide-elt') as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
 				} else if (this.guideType === 'mask') {
 					(document.querySelector('#cplus-mask-guide--top-elt') as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;

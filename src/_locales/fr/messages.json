@@ -29,13 +29,22 @@
 	"textSize": {
 		"message": "Taille du texte"
 	},
-	"textFont": {
+	"textSizeInstruction": {
+		"message": "Pour agrandir le texte"
+	},
+	"fontFamily": {
 		"message": "Police"
 	},
-	"readingMask": {
-		"message": "Règle de lecture"
+	"fontFamilyInstruction": {
+		"message": "Pour modifier le rendu du texte"
 	},
 	"readingGuide": {
+		"message": "Guide de lecture"
+	},
+	"readingGuideInstruction": {
+		"message": "Pour être guidé lors de la lecture"
+	},
+	"ruleGuide": {
 		"message": "Règle"
 	},
 	"maskGuide": {
@@ -44,17 +53,32 @@
 	"loupe": {
 		"message": "Loupe"
 	},
+	"loupeInstruction": {
+		"message": "Pour zoomer ponctuellement"
+	},
 	"readAloud": {
 		"message": "Lire à haute voix"
 	},
-	"stopAnimations": {
-		"message": "Stopper les animations"
+	"readAloudInstruction": {
+		"message": "Pour se faire lire le texte sur demande"
 	},
-	"margin": {
+	"marginAlign": {
 		"message": "Marge"
 	},
-	"focusAspect": {
-		"message": "Aspect du focus"
+	"marginAlignInstruction": {
+		"message": "Pour ancrer la lecture à gauche"
+	},
+	"textSpacing": {
+		"message": "Aérer le texte"
+	},
+	"textSpacingInstruction": {
+		"message": "Pour bien séparer les caractères et les lignes"
+	},
+	"clickFacilite": {
+		"message": "Clics facilités"
+	},
+	"clickFaciliteInstruction": {
+		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"
 	},
 	"cursorAspect": {
 		"message": "Aspect de la souris"
@@ -62,11 +86,20 @@
 	"spacingText": {
 		"message": "Aére le texte"
 	},
-	"clickFacilite": {
-		"message": "Clics facilités"
+	"cursorAspectInstruction": {
+		"message": "Pour modifier le rendu des curseurs"
 	},
-	"colorsContrasts": {
+	"focusAspect": {
+		"message": "Aspect du focus"
+	},
+	"focusAspectInstruction": {
+		"message": "Pour modifier le rendu du focus sur la page"
+	},
+	"colorContrast": {
 		"message": "Couleurs - contrastes"
+	},
+	"colorContrastInstruction": {
+		"message": "Pour changer la couleur du fond et du texte"
 	},
 	"reinforcedContrasts": {
 		"message": "Contrastes renforcés"
@@ -74,8 +107,23 @@
 	"daltonism": {
 		"message": "Daltonisme"
 	},
-	"lift": {
+	"linksStyle": {
+		"message": "Liens bien visibles"
+	},
+	"linksStyleInstruction": {
+		"message": "Pour modifier la couleur des liens de navigation"
+	},
+	"stopAnimations": {
+		"message": "Stopper les animations"
+	},
+	"stopAnimationsInstruction": {
+		"message": "Pour empêcher les animations au sein de la page"
+	},
+	"scroll": {
 		"message": "Ascenseur"
+	},
+	"scrollInstruction": {
+		"message": "Pour faciliter la montée et descente dans la page"
 	},
 	"scrollUp": {
 		"message": "Monter"
@@ -94,9 +142,6 @@
 	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
-	},
-	"linksStyle": {
-		"message": "Liens bien visibles"
 	},
 	"close": {
 		"message": "Fermer Confort+"

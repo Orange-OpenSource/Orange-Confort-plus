@@ -26,5 +26,13 @@ class StringService {
 			.normalize("NFD")
 			.replace(/[\u0300-\u036f\s]/g, "");
 	}
+
+	normalizeSettingCamelCase(string: string): string {
+		return string
+			?.replace("app-", "")
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f\s]/g, "")
+			.replace(/-./g, x => x[1].toUpperCase());
+	}
 }
 

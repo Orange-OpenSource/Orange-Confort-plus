@@ -8,6 +8,7 @@ class ToolbarComponent extends HTMLElement {
 	historyRoute: string[] = [];
 	json: ModeOfUseModel;
 	defaultJson: ModeOfUseModel;
+	currentSetting: string = null;
 
 	handler: any;
 
@@ -82,6 +83,8 @@ class ToolbarComponent extends HTMLElement {
 				this.header?.setAttribute('data-display', 'secondary');
 				this.header?.setAttribute('data-page-title', 'pageTitleEditSetting');
 				this.header?.setAttribute('data-page-icon', 'Settings');
+				const editSettingElement: HTMLElement = (this.querySelector(`app-${PAGE_EDIT_SETTING}`) as HTMLElement);
+				editSettingElement?.setAttribute('data-setting', this.currentSetting);
 				break;
 			}
 			case PAGE_MODES:
@@ -137,9 +140,13 @@ class ToolbarComponent extends HTMLElement {
 		this.header?.setAttribute('data-prev-route', this.historyRoute[this.historyRoute.length - 1]);
 
 		/* If mode is changed */
-		if ((event as CustomEvent).detail.setting) {
+		if ((event as CustomEvent).detail.mode) {
 			this.json.selectedMode = (event as CustomEvent).detail.mode;
 			(this.querySelector(`app-${PAGE_HOME}`) as HTMLElement)?.focus();
+		}
+
+		if ((event as CustomEvent).detail.setting) {
+			this.currentSetting = (event as CustomEvent).detail.setting;
 		}
 
 		routeServiceInstance.navigate(newRoute);

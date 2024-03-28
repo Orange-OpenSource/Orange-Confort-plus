@@ -5,9 +5,12 @@ btnModalLayout.innerHTML = `
 	</button>`;
 
 class BtnModalComponent extends HTMLElement {
-	static observedAttributes = ['data-label'];
-	modalBtn: HTMLElement = null;
+	static observedAttributes = ['data-value', 'data-name', 'data-disabled'];
+	modalBtn: HTMLButtonElement = null;
+	settingName: string = null
 	value: any = null;
+	indexValue: string = null
+	disabled = false;
 
 	handler: any;
 
@@ -15,6 +18,7 @@ class BtnModalComponent extends HTMLElement {
 		super();
 
 		this.value = this.dataset?.value || this.value;
+		this.disabled = (this.dataset?.disabled === 'true') || this.disabled;
 
 		this.appendChild(btnModalLayout.content.cloneNode(true));
 
@@ -24,6 +28,7 @@ class BtnModalComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.modalBtn = this.querySelector('button');
 		this.modalBtn?.addEventListener('click', this.handler);
+		this.modalBtn!.disabled = this.disabled;
 	}
 
 	disconnectedCallback(): void {
@@ -31,8 +36,11 @@ class BtnModalComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-label' === name) {
-			this.setA11yName(newValue);
+		if ('data-value' === name) {
+			this.modalBtn.innerText = newValue;
+		}
+		if ('data-name' === name) {
+			this.settingName = newValue;
 		}
 	}
 
@@ -49,7 +57,13 @@ class BtnModalComponent extends HTMLElement {
 			if (event.type === 'click') {
 				switch (event.target) {
 					case this.modalBtn:
-						let clickEvent = new CustomEvent('clickModalEvent', { bubbles: true });
+						let clickEvent = new CustomEvent('changeRoute', {
+							bubbles: true,
+							detail: {
+								route: PAGE_EDIT_SETTING,
+								setting: this.settingName
+							}
+						});
 						this.modalBtn?.dispatchEvent(clickEvent);
 						break;
 				}

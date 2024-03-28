@@ -22,6 +22,10 @@ abstract class AbstractSetting extends HTMLElement {
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('app-btn-setting');
 		this.modalBtn = this.querySelector('app-btn-modal');
+
+		this.settingBtn.setAttribute('data-name', this.name);
+		this.modalBtn.setAttribute('data-name', this.name);
+
 		if (this.canEdit) {
 			this.modalBtn.classList.remove('d-none');
 			this.settingBtn.classList.add('sc-btn-setting--with-btn-modal');

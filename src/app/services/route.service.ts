@@ -24,7 +24,7 @@ class RouteService {
 		this.toolbar = root;
 		localStorageServiceInstance.getItem('current-route').then((result: any) => {
 			if (this.routes.some(route => result === route)) {
-				this.navigate(result);
+				this.navigate(PAGE_HOME);
 			} else {
 				this.navigate(PAGE_HOME);
 			}
