@@ -5,10 +5,9 @@ btnModalLayout.innerHTML = `
 	</button>`;
 
 class BtnModalComponent extends HTMLElement {
-	static observedAttributes = ['data-value', 'data-name', 'data-disabled'];
+	static observedAttributes = ['data-name', 'data-disabled'];
 	modalBtn: HTMLButtonElement = null;
 	settingName: string = null
-	value: any = null;
 	indexValue: string = null
 	disabled = false;
 
@@ -17,7 +16,6 @@ class BtnModalComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		this.value = this.dataset?.value || this.value;
 		this.disabled = (this.dataset?.disabled === 'true') || this.disabled;
 
 		this.appendChild(btnModalLayout.content.cloneNode(true));
@@ -36,9 +34,6 @@ class BtnModalComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if ('data-value' === name) {
-			this.modalBtn.innerText = newValue;
-		}
 		if ('data-name' === name) {
 			this.settingName = newValue;
 		}

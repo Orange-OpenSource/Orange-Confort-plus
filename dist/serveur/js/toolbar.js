@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 27/03/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 02/04/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -55,7 +55,7 @@ class I18nService {
             this.locale = navigator.language.slice(0, 2);
         }
         this.getJSON().then((result => {
-            localStorage.setItem(`${prefix}-i18n`, JSON.stringify(result));
+            localStorage.setItem(`${prefix}i18n`, JSON.stringify(result));
         }));
     }
     getJSON() {
@@ -65,7 +65,7 @@ class I18nService {
         }));
     }
     getMessages() {
-        return localStorage.getItem(`${prefix}-i18n`);
+        return localStorage.getItem(`${prefix}i18n`);
     }
     getMessage(message) {
         const translations = JSON.parse(this.getMessages());
@@ -198,6 +198,23 @@ class ModeOfUseService {
         })).catch((error => {
             console.error("Your settings could not be saved.");
             return jsonIsEdited;
+        }));
+    }
+    getCustomValue(settingName) {
+        let customValue = "";
+        return localStorageServiceInstance.getItem(jsonName).then((result => {
+            let json = result;
+            json.modes.forEach((mode => {
+                if (Object.keys(mode)[0] === json.selectedMode) {
+                    let modeSettings = Object.entries(mode)[0][1];
+                    let setting = modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)));
+                    customValue = Object.entries(setting)[0][1].values.split(",")[3];
+                }
+            }));
+            return customValue;
+        })).catch((error => {
+            console.error("The custom value of this setting could not be return.");
+            return customValue;
         }));
     }
 }
@@ -1168,9 +1185,13 @@ customElements.define("app-link-style", LinkStyleComponent);
 
 const tmplLoupe = document.createElement("template");
 
-tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class LoupeComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplLoupe.content.cloneNode(true));
@@ -1241,9 +1262,13 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 const tmplReadAloud = document.createElement("template");
 
-tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class ReadAloudComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplReadAloud.content.cloneNode(true));
@@ -1418,9 +1443,13 @@ customElements.define("app-scroll", ScrollComponent);
 
 const tmplStopAnimations = document.createElement("template");
 
-tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        activeValue: 0
+    };
     constructor() {
         super();
         this.appendChild(tmplStopAnimations.content.cloneNode(true));
@@ -1433,7 +1462,7 @@ customElements.define("app-stop-animations", StopAnimationsComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="textSize" data-icon="Text_Size"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     activesValues={
@@ -1449,7 +1478,7 @@ class IncreaseTextSizeComponent extends AbstractSetting {
         if (value === "noModifications") {
             document.documentElement.style.fontSize = null;
         } else {
-            document.documentElement.style.fontSize = value;
+            document.documentElement.style.fontSize = `${value}%`;
         }
     };
 }
@@ -1568,16 +1597,14 @@ const btnModalLayout = document.createElement("template");
 btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t\t<app-icon data-name="Plus_small"></app-icon>\n\t</button>`;
 
 class BtnModalComponent extends HTMLElement {
-    static observedAttributes=[ "data-label" ];
+    static observedAttributes=[ "data-name", "data-disabled" ];
     modalBtn=null;
     settingName=null;
-    value=null;
     indexValue=null;
     disabled=false;
     handler;
     constructor() {
         super();
-        this.value = this.dataset?.value || this.value;
         this.disabled = this.dataset?.disabled === "true" || this.disabled;
         this.appendChild(btnModalLayout.content.cloneNode(true));
         this.handler = this.createHandler();
@@ -1591,8 +1618,8 @@ class BtnModalComponent extends HTMLElement {
         this.modalBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-label" === name) {
-            this.setA11yName(newValue);
+        if ("data-name" === name) {
+            this.settingName = newValue;
         }
     }
     setA11yName=label => {
@@ -1629,7 +1656,7 @@ const btnSettingLayout = document.createElement("template");
 btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<div class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</div>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
-    static observedAttributes=[ "data-values", "data-active-value", "data-label", "data-icon", "data-disabled" ];
+    static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
     settingBtn=null;
     btnContentSlots=null;
     index;
@@ -1888,7 +1915,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-2">\n\t\t<app-icon id="edit-setting-icon"></app-icon>\n\t\t<span id="edit-setting-title"></span>\n\t\t<span id="edit-setting-instruction"></span>\n\t</div>\n\n\t<form id="edit-setting-content" class="gap-2">\n\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t</button>\n\t\t<span id="selected-value">Valeur sélectionnée</span>\n\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t</button>\n\t</form>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<form id="edit-setting-content" class="d-flex align-items-center justify-content-between gap-2">\n\t\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="increaseTextSize"></span>\n\t\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="selected-value"></span>\n\t\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="reduceTextSize"></span>\n\t\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t\t</button>\n\t\t</form>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -1899,7 +1926,7 @@ class EditSettingComponent extends HTMLElement {
     btnPrevValue=null;
     btnNextValue=null;
     settingName=null;
-    currentIndex=0;
+    currentIndex=null;
     currentValue=null;
     textSizeValues=[ "110", "130", "160", "200", "350", "500" ];
     handler;
@@ -1920,15 +1947,22 @@ class EditSettingComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-setting" === name) {
-            this.settingName = newValue;
-            this.settingIcon?.setAttribute("data-name", newValue);
-            this.settingTitle.innerText = i18nServiceInstance.getMessage(newValue);
-            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${newValue}Instruction`);
+            this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
+            this.settingIcon?.setAttribute("data-name", this.settingName);
+            this.settingTitle.innerText = i18nServiceInstance.getMessage(this.settingName);
+            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
+            modeOfUseServiceInstance.getCustomValue(this.settingName).then((result => {
+                if (result) {
+                    this.currentIndex = this.textSizeValues.findIndex((i => i === result));
+                    this.moveTextSize(this.currentIndex);
+                } else {
+                    this.moveTextSize(0);
+                }
+            }));
         }
     }
-    moveTextSize=step => {
-        this.currentIndex = this.textSizeValues.findIndex((i => i === this.currentValue));
-        this.currentIndex += step;
+    moveTextSize=index => {
+        this.currentIndex = index;
         this.btnPrevValue.disabled = false;
         this.btnNextValue.disabled = false;
         if (this.currentIndex <= 0) {
@@ -1948,11 +1982,11 @@ class EditSettingComponent extends HTMLElement {
         if (event.type === "click") {
             switch (event.target) {
               case this.btnPrevValue:
-                this.moveTextSize(-1);
+                this.moveTextSize(this.currentIndex - 1);
                 break;
 
               case this.btnNextValue:
-                this.moveTextSize(1);
+                this.moveTextSize(this.currentIndex + 1);
                 break;
             }
         }
