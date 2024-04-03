@@ -80,8 +80,7 @@ class ModesComponent extends HTMLElement {
 			{
 				bubbles: true,
 				detail: {
-					route: PAGE_HOME,
-					isPrev: true
+					route: PAGE_HOME
 				}
 			});
 
