@@ -104,10 +104,10 @@
 	"daltonism": {
 		"message": "Daltonisme"
 	},
-	"linksStyle": {
+	"linkStyle": {
 		"message": "Liens bien visibles"
 	},
-	"linksStyleInstruction": {
+	"linkStyleInstruction": {
 		"message": "Pour modifier la couleur des liens de navigation"
 	},
 	"stopAnimations": {

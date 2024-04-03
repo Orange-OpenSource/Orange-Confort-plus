@@ -27,7 +27,7 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-prev-route', 'data-selected-mode'];
+	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-selected-mode'];
 	closeBtn: HTMLElement | null = null;
 	prevBtn: HTMLElement | null = null;
 	appTitle: HTMLElement | null = null;
@@ -36,7 +36,6 @@ class HeaderComponent extends HTMLElement {
 	modeIcon: HTMLElement | null = null;
 	pageIcon: HTMLElement | null = null;
 	display = 'primary';
-	prevRoute: string = '';
 
 	handler: any;
 
@@ -77,9 +76,6 @@ class HeaderComponent extends HTMLElement {
 		if ('data-page-icon' === name) {
 			newValue.length === 0 ? this.pageIcon.classList.add('d-none') : this.pageIcon?.setAttribute('data-name', newValue);
 		}
-		if ('data-prev-route' === name) {
-			this.prevRoute = newValue;
-		}
 		if ('data-selected-mode' === name) {
 			this.modeIcon?.setAttribute('data-name', `${newValue}_border`);
 		}
@@ -116,8 +112,7 @@ class HeaderComponent extends HTMLElement {
 			{
 				bubbles: true,
 				detail: {
-					route: this.prevRoute,
-					isPrev: true
+					route: routeServiceInstance.historyRoute[routeServiceInstance.historyRoute.length - 1]
 				}
 			});
 		this.prevBtn?.dispatchEvent(clickEvent);

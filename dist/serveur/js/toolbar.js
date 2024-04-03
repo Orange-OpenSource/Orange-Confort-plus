@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 02/04/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 03/04/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -225,6 +225,7 @@ let routeServiceIsInstantiated;
 
 class RouteService {
     currentRoute;
+    historyRoute=[];
     toolbar=null;
     routes=[ PAGE_HOME, PAGE_MODES, PAGE_SETTINGS, PAGE_EDIT_SETTING ];
     constructor() {
@@ -235,15 +236,17 @@ class RouteService {
     }
     initPages=root => {
         this.toolbar = root;
-        localStorageServiceInstance.getItem("current-route").then((result => {
+        return localStorageServiceInstance.getItem("current-route").then((result => {
             if (this.routes.some((route => result === route))) {
                 this.navigate(result);
+                return result;
             } else {
                 this.navigate(PAGE_HOME);
+                return PAGE_HOME;
             }
         }));
     };
-    navigate(newRoute) {
+    navigate=newRoute => {
         this.routes.forEach((route => {
             if (route === newRoute) {
                 const element = `<app-${route}></app-${route}>`;
@@ -254,9 +257,49 @@ class RouteService {
                 this.toolbar.querySelector(`app-${route}`)?.remove();
             }
         }));
+        this.setHistoryAndHeader(newRoute);
         this.currentRoute = newRoute;
         localStorageServiceInstance.setItem("current-route", newRoute);
-    }
+    };
+    setHistoryAndHeader=newRoute => {
+        const header = this.toolbar.querySelector("#header");
+        switch (newRoute) {
+          case PAGE_HOME:
+            {
+                routeServiceInstance.historyRoute = [];
+                header?.setAttribute("data-display", "primary");
+                header?.setAttribute("data-page-title", "");
+                break;
+            }
+
+          case PAGE_SETTINGS:
+            {
+                routeServiceInstance.historyRoute = [ PAGE_HOME ];
+                header?.setAttribute("data-display", "secondary");
+                header?.setAttribute("data-page-title", "pageTitleSettings");
+                header?.setAttribute("data-page-icon", "Settings");
+                break;
+            }
+
+          case PAGE_EDIT_SETTING:
+            {
+                routeServiceInstance.historyRoute = [ PAGE_HOME, PAGE_SETTINGS ];
+                header?.setAttribute("data-display", "secondary");
+                header?.setAttribute("data-page-title", "pageTitleEditSetting");
+                header?.setAttribute("data-page-icon", "Settings");
+                break;
+            }
+
+          case PAGE_MODES:
+            {
+                routeServiceInstance.historyRoute = [ PAGE_HOME ];
+                header?.setAttribute("data-display", "secondary");
+                header?.setAttribute("data-page-title", "pageTitleModes");
+                header?.setAttribute("data-page-icon", "");
+                break;
+            }
+        }
+    };
 }
 
 "use strict";
@@ -1748,7 +1791,7 @@ const headerLayout = document.createElement("template");
 headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="mode-icon" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-prev-route", "data-selected-mode" ];
+    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-selected-mode" ];
     closeBtn=null;
     prevBtn=null;
     appTitle=null;
@@ -1757,7 +1800,6 @@ class HeaderComponent extends HTMLElement {
     modeIcon=null;
     pageIcon=null;
     display="primary";
-    prevRoute="";
     handler;
     constructor() {
         super();
@@ -1789,9 +1831,6 @@ class HeaderComponent extends HTMLElement {
         }
         if ("data-page-icon" === name) {
             newValue.length === 0 ? this.pageIcon.classList.add("d-none") : this.pageIcon?.setAttribute("data-name", newValue);
-        }
-        if ("data-prev-route" === name) {
-            this.prevRoute = newValue;
         }
         if ("data-selected-mode" === name) {
             this.modeIcon?.setAttribute("data-name", `${newValue}_border`);
@@ -1825,8 +1864,7 @@ class HeaderComponent extends HTMLElement {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
-                route: this.prevRoute,
-                isPrev: true
+                route: routeServiceInstance.historyRoute[routeServiceInstance.historyRoute.length - 1]
             }
         });
         this.prevBtn?.dispatchEvent(clickEvent);
@@ -2172,8 +2210,7 @@ class ModesComponent extends HTMLElement {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
-                route: PAGE_HOME,
-                isPrev: true
+                route: PAGE_HOME
             }
         });
         modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
@@ -2398,10 +2435,8 @@ tmplToolbar.innerHTML = `\n<app-header id="header"></app-header>\n`;
 
 class ToolbarComponent extends HTMLElement {
     header=null;
-    historyRoute=[];
     json;
     defaultJson;
-    currentSetting=null;
     handler;
     constructor() {
         super();
@@ -2427,11 +2462,13 @@ class ToolbarComponent extends HTMLElement {
     }
     initCurrentMode=() => {
         if (this.json.selectedMode) {
-            routeServiceInstance.initPages(this);
-            this.switchHeader(PAGE_HOME);
+            routeServiceInstance.initPages(this).then((result => {
+                if (result) {
+                    this.setCurrentPage(result);
+                }
+            }));
         } else {
             routeServiceInstance.navigate(PAGE_MODES);
-            this.switchHeader(PAGE_MODES);
         }
     };
     setCurrentPage=page => {
@@ -2442,44 +2479,6 @@ class ToolbarComponent extends HTMLElement {
                 currentPage?.setAttribute("data-modes", JSON.stringify(this.json));
             }
         }));
-    };
-    switchHeader=page => {
-        this.setCurrentPage(page);
-        switch (page) {
-          case PAGE_HOME:
-            {
-                this.header?.setAttribute("data-display", "primary");
-                this.header?.setAttribute("data-page-title", "");
-                break;
-            }
-
-          case PAGE_SETTINGS:
-            {
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-page-title", "pageTitleSettings");
-                this.header?.setAttribute("data-page-icon", "Settings");
-                break;
-            }
-
-          case PAGE_EDIT_SETTING:
-            {
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-page-title", "pageTitleEditSetting");
-                this.header?.setAttribute("data-page-icon", "Settings");
-                const editSettingElement = this.querySelector(`app-${PAGE_EDIT_SETTING}`);
-                editSettingElement?.setAttribute("data-setting", this.currentSetting);
-                break;
-            }
-
-          case PAGE_MODES:
-          default:
-            {
-                this.header?.setAttribute("data-display", "secondary");
-                this.header?.setAttribute("data-page-title", "pageTitleModes");
-                this.header?.setAttribute("data-page-icon", "");
-                break;
-            }
-        }
     };
     createHandler=() => event => {
         switch (event.type) {
@@ -2494,22 +2493,17 @@ class ToolbarComponent extends HTMLElement {
     };
     changeRouteEvent=event => {
         let newRoute = event.detail.route;
-        if (event.detail.isPrev) {
-            this.historyRoute.pop();
-        } else {
-            this.historyRoute.push(routeServiceInstance.currentRoute);
-        }
         this.header?.focus();
-        this.header?.setAttribute("data-prev-route", this.historyRoute[this.historyRoute.length - 1]);
         if (event.detail.mode) {
             this.json.selectedMode = event.detail.mode;
             this.querySelector(`app-${PAGE_HOME}`)?.focus();
         }
-        if (event.detail.setting) {
-            this.currentSetting = event.detail.setting;
-        }
         routeServiceInstance.navigate(newRoute);
-        this.switchHeader(newRoute);
+        this.setCurrentPage(newRoute);
+        if (event.detail.setting) {
+            const editSettingElement = this.querySelector(`app-${PAGE_EDIT_SETTING}`);
+            editSettingElement?.setAttribute("data-setting", event.detail.setting);
+        }
     };
     storageEvent=() => {
         localStorageServiceInstance.getItem(jsonName).then((result => {
