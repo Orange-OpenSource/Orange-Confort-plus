@@ -105,7 +105,7 @@
 		"message": "Daltonisme"
 	},
 	"linkStyle": {
-		"message": "Liens bien visibles"
+		"message": "Couleurs des hyperliens"
 	},
 	"linkStyleInstruction": {
 		"message": "Pour modifier la couleur des liens de navigation"

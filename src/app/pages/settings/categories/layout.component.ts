@@ -12,6 +12,8 @@ tmplLayout.innerHTML = `
 				<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>
 				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
 				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>
+				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
+				<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>

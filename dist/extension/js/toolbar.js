@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 03/04/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 10/04/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -174,7 +174,7 @@ class ModeOfUseService {
                             newValues.length === 4 ? newValues[3] = newValue : newValues.push(newValue);
                             settingValues.values = newValues.toString();
                         }
-                        settingValues.activeValue = newIndex;
+                        settingValues.valueSelected = newIndex;
                         localStorageServiceInstance.setItem(jsonName, json);
                         jsonIsEdited = true;
                     }
@@ -290,371 +290,20 @@ class RouteService {
 
 "use strict";
 
-let scrollServiceIsInstantiated;
+let clickFaciliteServiceIsInstantiated;
 
-class ScrollService {
-    btnScrollUp=null;
-    btnScrollDown=null;
-    btnState="";
-    bigScrollActivated=false;
-    scrollSteps=10;
-    scrollTimer=50;
-    settingsValues=[];
-    constructor() {
-        if (scrollServiceIsInstantiated) {
-            throw new Error("ScrollService is already instantiated.");
-        }
-        scrollServiceIsInstantiated = true;
-        this.setScrollClass();
-    }
-    setScrollClass=() => {
-        let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t`;
-        stylesServiceInstance.setStyle("scroll", styleScroll);
-    };
-    setScroll=values => {
-        const existingIndex = this.settingsValues.findIndex((item => item.name === values.name));
-        if (existingIndex >= 0) {
-            this.settingsValues[existingIndex] = values;
-        } else {
-            this.settingsValues.push(values);
-        }
-        this.calculatePriority(values);
-        this.setBigScroll();
-        this.setBtnScroll();
-    };
-    calculatePriority=values => {
-        let tmpBigScroll = false;
-        let tmpBtnState = "";
-        for (let setting of this.settingsValues) {
-            tmpBigScroll = Boolean(tmpBigScroll || setting.bigScrollActivated);
-            tmpBtnState = setting.btnState ? setting.btnState : tmpBtnState;
-        }
-        this.bigScrollActivated = tmpBigScroll;
-        this.btnState = tmpBtnState;
-    };
-    setBigScroll=() => {
-        if (this.bigScrollActivated) {
-            document.body.classList.add("cplus-big-scroll");
-        } else {
-            document.body.classList.remove("cplus-big-scroll");
-        }
-    };
-    setBtnScroll=() => {
-        document.querySelector("#cplus-container-scroll-buttons")?.remove();
-        if (this.btnState) {
-            let intervalUp;
-            let intervalDown;
-            const btnArray = [ {
-                id: "cplus-scroll-up",
-                label: i18nServiceInstance.getMessage("scrollUp"),
-                element: this.btnScrollUp,
-                interval: intervalUp
-            }, {
-                id: "cplus-scroll-down",
-                label: i18nServiceInstance.getMessage("scrollDown"),
-                element: this.btnScrollDown,
-                interval: intervalDown
-            } ];
-            let fragment = document.createDocumentFragment();
-            const container = document.createElement("div");
-            container.setAttribute("id", "cplus-container-scroll-buttons");
-            btnArray.forEach((button => {
-                let btn = document.createElement("button");
-                btn.setAttribute("id", button.id);
-                btn.type = "button";
-                btn.innerHTML = button.label;
-                container.appendChild(btn);
-                fragment.appendChild(container);
-                document.body.appendChild(fragment);
-                button.element = document.querySelector(`#${button.id}`);
-                let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
-                let scrollBy = scrollDir * this.scrollSteps;
-                if (this.btnState === "mouseover") {
-                    button.element?.addEventListener("mouseover", (event => {
-                        button.interval = setInterval((function() {
-                            window.scrollBy(0, scrollBy);
-                        }), this.scrollTimer);
-                    }));
-                    button.element?.addEventListener("mouseleave", (event => {
-                        clearInterval(button.interval);
-                    }));
-                } else {
-                    button.element?.addEventListener("click", (event => {
-                        window.scrollBy(0, scrollBy);
-                    }));
-                }
-            }));
-        }
-    };
-}
-
-"use strict";
-
-let stringServiceIsInstantiated;
-
-class StringService {
-    constructor() {
-        if (stringServiceIsInstantiated) {
-            throw new Error("StringService is already instantiated.");
-        }
-        stringServiceIsInstantiated = true;
-    }
-    normalizeID(string) {
-        return string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
-    }
-    normalizeSettingName(string) {
-        return string?.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase().replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "");
-    }
-    normalizeSettingCamelCase(string) {
-        return string?.replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").replace(/-./g, (x => x[1].toUpperCase()));
-    }
-}
-
-"use strict";
-
-let stylesServiceIsInstantiated;
-
-class StylesService {
-    prefixStyle=`${prefix}style-`;
-    constructor() {
-        if (stylesServiceIsInstantiated) {
-            throw new Error("StylesService is already instantiated.");
-        }
-        stylesServiceIsInstantiated = true;
-    }
-    setStyle=(name, style) => {
-        if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
-            let styleElement = document.createElement("style");
-            styleElement.setAttribute("id", `${this.prefixStyle}${name}`);
-            styleElement.innerHTML = style;
-            document.head.appendChild(styleElement);
-        } else {
-            document.querySelector(`#${this.prefixStyle}${name}`).innerHTML = style;
-        }
-    };
-    removeStyle=name => {
-        document.querySelector(`#${this.prefixStyle}${name}`)?.remove();
-    };
-}
-
-"use strict";
-
-"use strict";
-
-const pathServiceInstance = new PathService;
-
-Object.freeze(pathServiceInstance);
-
-const i18nServiceInstance = new I18nService;
-
-Object.freeze(i18nServiceInstance);
-
-const iconsServiceInstance = new IconsService;
-
-Object.freeze(iconsServiceInstance);
-
-const filesServiceInstance = new FilesService;
-
-Object.freeze(filesServiceInstance);
-
-const localStorageServiceInstance = new LocalStorageService;
-
-Object.freeze(localStorageServiceInstance);
-
-const modeOfUseServiceInstance = new ModeOfUseService;
-
-Object.freeze(modeOfUseServiceInstance);
-
-const stylesServiceInstance = new StylesService;
-
-Object.freeze(stylesServiceInstance);
-
-const stringServiceInstance = new StringService;
-
-Object.freeze(stringServiceInstance);
-
-const routeServiceInstance = new RouteService;
-
-Object.seal(routeServiceInstance);
-
-const scrollServiceInstance = new ScrollService;
-
-Object.seal(scrollServiceInstance);
-
-const appPath = pathServiceInstance.path;
-
-"use strict";
-
-const template = document.createElement("template");
-
-template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
-
-class AppComponent extends HTMLElement {
-    confortPlusBtn=null;
-    confortPlusToolbar=null;
-    closeBtn=null;
-    link;
-    handler;
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: "open"
-        });
-        this?.shadowRoot?.appendChild(template.content.cloneNode(true));
-        this.link = document.createElement("link");
-        this.link.rel = "stylesheet";
-        this.link.href = `${appPath}css/styles.min.css`;
-        this.link.onload = () => {
-            this?.shadowRoot?.querySelector("[data-bs-theme]").removeAttribute("style");
-        };
-        this.shadowRoot?.appendChild(this.link);
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        customElements.upgrade(this);
-        iconsServiceInstance.loadSprite(this.shadowRoot);
-        setTimeout((() => {
-            i18nServiceInstance.translate(this.shadowRoot);
-        }));
-        this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
-        this.closeBtn = this?.shadowRoot?.getElementById("close-toolbar");
-        this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
-        if (!this.confortPlusBtn || !this.confortPlusToolbar) {
-            return;
-        }
-        localStorageServiceInstance.getItem("is-opened").then((result => {
-            if (result === "true") {
-                this.showToolbar();
-            } else {
-                this.hideToolbar();
-            }
-        }));
-        this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
-        this.confortPlusBtn.addEventListener("click", this.handler);
-    }
-    disconnectedCallback() {
-        this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
-        this.confortPlusBtn?.removeEventListener("click", this.handler);
-    }
-    createHandler=() => event => {
-        switch (event.type) {
-          case "closeEvent":
-            this.hideToolbar();
-            break;
-
-          case "click":
-            this.showToolbar();
-            break;
-        }
-    };
-    showToolbar=() => {
-        this.confortPlusToolbar.removeAttribute("style");
-        this.closeBtn?.focus();
-        this.confortPlusBtn.classList.add("d-none");
-        localStorageServiceInstance.setItem("is-opened", "true");
-    };
-    hideToolbar=() => {
-        this.confortPlusToolbar.style.transform = "translateX(100%)";
-        this.confortPlusToolbar.style.visibility = "hidden";
-        this.confortPlusBtn.classList.remove("d-none");
-        this.confortPlusBtn?.focus();
-        localStorageServiceInstance.setItem("is-opened", "false");
-    };
-}
-
-customElements.define("app-root", AppComponent);
-
-"use strict";
-
-class AbstractSetting extends HTMLElement {
-    static observedAttributes=[ "data-values" ];
-    settingBtn=null;
-    modalBtn=null;
-    canEdit=false;
-    activesValues;
-    separator=",";
-    name="";
-    handler;
-    callback;
-    constructor() {
-        super();
-        this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
-        this.name = stringServiceInstance.normalizeSettingName(this.tagName);
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.settingBtn = this.querySelector("app-btn-setting");
-        this.modalBtn = this.querySelector("app-btn-modal");
-        this.settingBtn.setAttribute("data-name", this.name);
-        this.modalBtn.setAttribute("data-name", this.name);
-        if (this.canEdit) {
-            this.modalBtn.classList.remove("d-none");
-            this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
-        }
-        this.setSettingBtn(this.activesValues);
-        this.settingBtn.addEventListener("changeSettingEvent", this.handler);
-    }
-    disconnectedCallback() {
-        this.modalBtn.removeEventListener("clickModalEvent", this.handler);
-        this.settingBtn.removeEventListener("changeSettingEvent", this.handler);
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-values" === name) {
-            this.activesValues = JSON.parse(newValue);
-            this.setSettingBtn(this.activesValues);
-            if (this.callback) {
-                this.callback(this.activesValues.values.split(",")[this.activesValues.activeValue]);
-            }
-        }
-    }
-    setSettingBtn=activesValues => {
-        this.settingBtn.setAttribute("data-values", activesValues.values);
-        this.settingBtn.setAttribute("data-active-value", activesValues.activeValue.toString());
-        this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues.values.split(",")[activesValues.activeValue]));
-    };
-    setCallback=callback => {
-        this.callback = callback;
-    };
-    createHandler=() => event => {
-        switch (event.type) {
-          case "changeSettingEvent":
-            this.changeSettingEvent(event);
-            break;
-        }
-    };
-    changeSettingEvent=event => {
-        let newIndex = event.detail.index;
-        let newValue = event.detail.value;
-        modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
-            if (!success) {
-                this.callback(newValue);
-                this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
-            }
-        }));
-    };
-}
-
-"use strict";
-
-const tmplClickFacilite = document.createElement("template");
-
-tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class ClickFaciliteComponent extends AbstractSetting {
+class ClickFaciliteService {
     selectedElt;
     delay;
     isClicking=false;
     clickableElements=[ "A", "INPUT", "SELECT", "OPTION", "TEXTAREA", "LABEL", "BUTTON" ];
     timer=null;
     handlerClickFacilite;
-    activesValues={
-        values: "noModifications,longClick_2,autoClick_2",
-        activeValue: 0
-    };
     constructor() {
-        super();
-        this.setCallback(this.setClickFacilite.bind(this));
-        this.appendChild(tmplClickFacilite.content.cloneNode(true));
+        if (clickFaciliteServiceIsInstantiated) {
+            throw new Error("ClickFaciliteService is already instantiated.");
+        }
+        clickFaciliteServiceIsInstantiated = true;
         this.handlerClickFacilite = this.createHandlerClickFacilite();
     }
     setClickFacilite=value => {
@@ -665,7 +314,7 @@ class ClickFaciliteComponent extends AbstractSetting {
             {
                 this.resetEventClick();
                 scrollServiceInstance.setScroll({
-                    name: this.name,
+                    name: "clickFacilite",
                     btnState: "",
                     bigScrollActivated: true
                 });
@@ -676,7 +325,7 @@ class ClickFaciliteComponent extends AbstractSetting {
             {
                 this.resetEventClick();
                 scrollServiceInstance.setScroll({
-                    name: this.name,
+                    name: "clickFacilite",
                     btnState: "click",
                     bigScrollActivated: true
                 });
@@ -688,7 +337,7 @@ class ClickFaciliteComponent extends AbstractSetting {
             {
                 this.resetEventClick();
                 scrollServiceInstance.setScroll({
-                    name: this.name,
+                    name: "clickFacilite",
                     btnState: "click",
                     bigScrollActivated: true
                 });
@@ -700,7 +349,7 @@ class ClickFaciliteComponent extends AbstractSetting {
             {
                 this.resetEventClick();
                 scrollServiceInstance.setScroll({
-                    name: this.name,
+                    name: "clickFacilite",
                     btnState: "",
                     bigScrollActivated: false
                 });
@@ -821,27 +470,20 @@ class ClickFaciliteComponent extends AbstractSetting {
     };
 }
 
-customElements.define("app-click-facilite", ClickFaciliteComponent);
-
 "use strict";
 
-const tmplColorContrast = document.createElement("template");
+let colorContrastServiceIsInstantiated;
 
-tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class ColorContrastComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,reinforcedContrasts,white_black",
-        activeValue: 0
-    };
+class ColorContrastService {
     constructor() {
-        super();
-        this.setCallback(this.setColorsContrasts.bind(this));
-        this.appendChild(tmplColorContrast.content.cloneNode(true));
+        if (colorContrastServiceIsInstantiated) {
+            throw new Error("ColorContrastService is already instantiated.");
+        }
+        colorContrastServiceIsInstantiated = true;
     }
     setColorsContrasts=value => {
         if (value === "noModifications") {
-            stylesServiceInstance.removeStyle(this.name);
+            stylesServiceInstance.removeStyle("color-contrast");
         } else {
             let color = "";
             let backgroundColor = "";
@@ -856,28 +498,21 @@ class ColorContrastComponent extends AbstractSetting {
                 backgroundColor = value.split("_")[1];
             }
             let styleColorContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
-            stylesServiceInstance.setStyle(this.name, styleColorContrast);
+            stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
         }
     };
 }
 
-customElements.define("app-color-contrast", ColorContrastComponent);
-
 "use strict";
 
-const tmplCursorAspect = document.createElement("template");
+let cursorAspectServiceIsInstantiated;
 
-tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class CursorAspectComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,big_black,huge_green",
-        activeValue: 0
-    };
+class CursorAspectService {
     constructor() {
-        super();
-        this.setCallback(this.setCursor.bind(this));
-        this.appendChild(tmplCursorAspect.content.cloneNode(true));
+        if (cursorAspectServiceIsInstantiated) {
+            throw new Error("CursorAspectService is already instantiated.");
+        }
+        cursorAspectServiceIsInstantiated = true;
     }
     drawCursor=(type, size, color, strokeWidth) => {
         let path = "";
@@ -899,59 +534,44 @@ class CursorAspectComponent extends AbstractSetting {
     };
     setCursor=value => {
         if (value === "noModifications") {
-            stylesServiceInstance.removeStyle(this.name);
+            stylesServiceInstance.removeStyle("cursor-aspect");
         } else {
             let color = value.split("_")[1];
             let size = value.split("_")[0] === "big" ? 56 : 128;
             let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 10)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 10)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
-            stylesServiceInstance.setStyle(this.name, styleCursor);
+            stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
         }
     };
 }
 
-customElements.define("app-cursor-aspect", CursorAspectComponent);
-
 "use strict";
 
-const tmplFocusAspect = document.createElement("template");
+let focusAspectServiceIsInstantiated;
 
-tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class FocusAspectComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,big_blue,veryBig_red",
-        activeValue: 0
-    };
+class FocusAspectService {
     constructor() {
-        super();
-        this.setCallback(this.setFocus.bind(this));
-        this.appendChild(tmplFocusAspect.content.cloneNode(true));
+        if (focusAspectServiceIsInstantiated) {
+            throw new Error("FocusAspectService is already instantiated.");
+        }
+        focusAspectServiceIsInstantiated = true;
     }
     setFocus=value => {
         if (value === "noModifications") {
-            stylesServiceInstance.removeStyle(this.name);
+            stylesServiceInstance.removeStyle("focus-aspect");
         } else {
             let size = value.split("_")[0] === "big" ? "4px" : "10px";
             let color = value.split("_")[1];
             let styleFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
-            stylesServiceInstance.setStyle(this.name, styleFocus);
+            stylesServiceInstance.setStyle("focus-aspect", styleFocus);
         }
     };
 }
 
-customElements.define("app-focus-aspect", FocusAspectComponent);
-
 "use strict";
 
-const tmplFontFamily = document.createElement("template");
+let fontFamilyServiceIsInstantiated;
 
-tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class FontFamilyComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,Accessible_DfA,Luciole",
-        activeValue: 0
-    };
+class FontFamilyService {
     fontDictionnary=[ {
         name: "Accessible_DfA",
         size: "91.125%",
@@ -1153,20 +773,17 @@ class FontFamilyComponent extends AbstractSetting {
         } ]
     } ];
     constructor() {
-        super();
-        this.setCallback(this.setFontFamily.bind(this));
-        this.appendChild(tmplFontFamily.content.cloneNode(true));
+        if (fontFamilyServiceIsInstantiated) {
+            throw new Error("FontFamilyService is already instantiated.");
+        }
+        fontFamilyServiceIsInstantiated = true;
         const fontFaceList = [];
         this.fontDictionnary.forEach((font => {
             for (const file of font.files) {
                 fontFaceList.push(`\n\t\t\t\t\t@font-face {\n\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\tfont-style: ${file.style};\n\t\t\t\t\t\tfont-weight: ${file.weight};\n\t\t\t\t\t\tfont-display: swap;\n\t\t\t\t\t\tsize-adjust: ${font.size};\n\t\t\t\t\t}`);
             }
         }));
-        stylesServiceInstance.setStyle(this.name, fontFaceList.join(""));
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        stylesServiceInstance.removeStyle(this.name);
+        stylesServiceInstance.setStyle("font-family", fontFaceList.join(""));
     }
     setFontFamily=value => {
         if (value === "noModifications") {
@@ -1177,73 +794,53 @@ class FontFamilyComponent extends AbstractSetting {
     };
 }
 
-customElements.define("app-font-family", FontFamilyComponent);
-
 "use strict";
 
-const tmplLinkStyle = document.createElement("template");
+let linkStyleServiceIsInstantiated;
 
-tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class LinkStyleComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
-        activeValue: 0
-    };
+class LinkStyleService {
     constructor() {
-        super();
-        this.setCallback(this.setLinkStyle.bind(this));
-        this.appendChild(tmplLinkStyle.content.cloneNode(true));
+        if (linkStyleServiceIsInstantiated) {
+            throw new Error("LinkStyleService is already instantiated.");
+        }
+        linkStyleServiceIsInstantiated = true;
     }
     setLinkStyle=value => {
         if (value === "noModifications") {
-            stylesServiceInstance.removeStyle(this.name);
+            stylesServiceInstance.removeStyle("link");
         } else {
             let linkColor = value.split("_")[0];
             let linkPointedColor = value.split("_")[1];
             let linkVisitedColor = value.split("_")[2];
             let styleLink = `\n\t\t\t\ta:link {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
-            stylesServiceInstance.setStyle(this.name, styleLink);
+            stylesServiceInstance.setStyle("link", styleLink);
         }
     };
 }
 
-customElements.define("app-link-style", LinkStyleComponent);
-
 "use strict";
 
-const tmplLoupe = document.createElement("template");
+let loupeServiceIsInstantiated;
 
-tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class LoupeComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        activeValue: 0
-    };
+class LoupeService {
     constructor() {
-        super();
-        this.appendChild(tmplLoupe.content.cloneNode(true));
+        if (loupeServiceIsInstantiated) {
+            throw new Error("LoupeService is already instantiated.");
+        }
+        loupeServiceIsInstantiated = true;
     }
 }
 
-customElements.define("app-loupe", LoupeComponent);
-
 "use strict";
 
-const tmplMarginAlign = document.createElement("template");
+let marginAlignServiceIsInstantiated;
 
-tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class MarginAlignComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,alignLeft,margeList",
-        activeValue: 0
-    };
+class MarginAlignService {
     constructor() {
-        super();
-        this.setCallback(this.setMargin.bind(this));
-        this.appendChild(tmplMarginAlign.content.cloneNode(true));
+        if (marginAlignServiceIsInstantiated) {
+            throw new Error("MarginAlignService is already instantiated.");
+        }
+        marginAlignServiceIsInstantiated = true;
     }
     setMargin=value => {
         const elements = value === "margeList" ? document.querySelectorAll("ul, ol") : document.body.querySelectorAll("*");
@@ -1285,58 +882,41 @@ class MarginAlignComponent extends AbstractSetting {
     };
 }
 
-customElements.define("app-margin-align", MarginAlignComponent);
-
 "use strict";
 
-const tmplReadAloud = document.createElement("template");
+let readAloudServiceIsInstantiated;
 
-tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class ReadAloudComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        activeValue: 0
-    };
+class ReadAloudService {
     constructor() {
-        super();
-        this.appendChild(tmplReadAloud.content.cloneNode(true));
+        if (readAloudServiceIsInstantiated) {
+            throw new Error("ReadAloudService is already instantiated.");
+        }
+        readAloudServiceIsInstantiated = true;
     }
 }
 
-customElements.define("app-read-aloud", ReadAloudComponent);
-
 "use strict";
 
-const tmplReadingGuide = document.createElement("template");
+let readingGuideServiceIsInstantiated;
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class ReadingGuideComponent extends AbstractSetting {
+class ReadingGuideService {
     topGuideElt=null;
     bottomGuideElt=null;
     readingGuideElt=null;
     guideType="";
     sizeGuide=40;
     handlerReadingGuide;
-    activesValues={
-        values: "noModifications,ruleGuide,maskGuide",
-        activeValue: 0
-    };
     classRuleGuide=`\n\t\t#cplus-vertical-guide-elt {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t`;
     classMaskGuide=`\n\t\t#cplus-mask-guide--top-elt,\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t\t#cplus-mask-guide--top-elt {\n\t\t\ttop: 0;\n\t\t}\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbottom: 0;\n\t\t}\n\t`;
     constructor() {
-        super();
-        this.setCallback(this.setReadingMaskGuide.bind(this));
-        this.appendChild(tmplReadingGuide.content.cloneNode(true));
-        this.readingGuideElt = this.querySelector("#cplus-vertical-guide-elt");
-        this.topGuideElt = this.querySelector("#cplus-top-guide-elt");
-        this.bottomGuideElt = this.querySelector("#cplus-bottom-guide-elt");
+        if (readingGuideServiceIsInstantiated) {
+            throw new Error("ReadingGuideService is already instantiated.");
+        }
+        readingGuideServiceIsInstantiated = true;
+        this.readingGuideElt = document.querySelector("#cplus-vertical-guide-elt");
+        this.topGuideElt = document.querySelector("#cplus-top-guide-elt");
+        this.bottomGuideElt = document.querySelector("#cplus-bottom-guide-elt");
         this.handlerReadingGuide = this.createHandlerReadingGuide();
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        document.removeEventListener("mousemove", this.handlerReadingGuide);
     }
     setReadingMaskGuide=value => {
         switch (value) {
@@ -1369,7 +949,7 @@ class ReadingGuideComponent extends AbstractSetting {
         } else if (this.guideType === "mask") {
             styleGuide = this.classMaskGuide;
         }
-        stylesServiceInstance.setStyle(this.name, styleGuide);
+        stylesServiceInstance.setStyle("reading-guide", styleGuide);
         if (this.guideType === "rule") {
             const readingElt = document.createElement("div");
             readingElt.setAttribute("id", "cplus-vertical-guide-elt");
@@ -1386,7 +966,7 @@ class ReadingGuideComponent extends AbstractSetting {
     };
     resetGuide=() => {
         this.guideType = "";
-        stylesServiceInstance.removeStyle(this.name);
+        stylesServiceInstance.removeStyle("reading-guide");
         document.querySelector("#cplus-vertical-guide-elt")?.remove();
         document.querySelector("#cplus-mask-guide--top-elt")?.remove();
         document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
@@ -1404,104 +984,129 @@ class ReadingGuideComponent extends AbstractSetting {
     };
 }
 
-customElements.define("app-reading-guide", ReadingGuideComponent);
-
 "use strict";
 
-const tmplScroll = document.createElement("template");
+let scrollServiceIsInstantiated;
 
-tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class ScrollComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,bigScroll,scrollOnMouseover",
-        activeValue: 0
-    };
+class ScrollService {
+    btnScrollUp=null;
+    btnScrollDown=null;
+    btnState="";
+    bigScrollActivated=false;
+    scrollSteps=10;
+    scrollTimer=50;
+    settingsValues=[];
     constructor() {
-        super();
-        this.setCallback(this.setScroll.bind(this));
-        this.appendChild(tmplScroll.content.cloneNode(true));
+        if (scrollServiceIsInstantiated) {
+            throw new Error("ScrollService is already instantiated.");
+        }
+        scrollServiceIsInstantiated = true;
+        this.setScrollClass();
     }
-    setScroll=value => {
-        switch (value) {
-          case "bigScroll":
-            {
-                scrollServiceInstance.setScroll({
-                    name: this.name,
-                    btnState: "",
-                    bigScrollActivated: true
-                });
-                break;
-            }
-
-          case "scrollOnClick":
-            {
-                scrollServiceInstance.setScroll({
-                    name: this.name,
-                    btnState: "click",
-                    bigScrollActivated: false
-                });
-                break;
-            }
-
-          case "scrollOnMouseover":
-            {
-                scrollServiceInstance.setScroll({
-                    name: this.name,
-                    btnState: "mouseover",
-                    bigScrollActivated: false
-                });
-                break;
-            }
-
-          default:
-            {
-                scrollServiceInstance.setScroll({
-                    name: this.name,
-                    btnState: "",
-                    bigScrollActivated: false
-                });
-            }
+    setScrollClass=() => {
+        let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t`;
+        stylesServiceInstance.setStyle("scroll", styleScroll);
+    };
+    setScroll=values => {
+        const existingIndex = this.settingsValues.findIndex((item => item.name === values.name));
+        if (existingIndex >= 0) {
+            this.settingsValues[existingIndex] = values;
+        } else {
+            this.settingsValues.push(values);
+        }
+        this.calculatePriority(values);
+        this.setBigScroll();
+        this.setBtnScroll();
+    };
+    calculatePriority=values => {
+        let tmpBigScroll = false;
+        let tmpBtnState = "";
+        for (let setting of this.settingsValues) {
+            tmpBigScroll = Boolean(tmpBigScroll || setting.bigScrollActivated);
+            tmpBtnState = setting.btnState ? setting.btnState : tmpBtnState;
+        }
+        this.bigScrollActivated = tmpBigScroll;
+        this.btnState = tmpBtnState;
+    };
+    setBigScroll=() => {
+        if (this.bigScrollActivated) {
+            document.body.classList.add("cplus-big-scroll");
+        } else {
+            document.body.classList.remove("cplus-big-scroll");
+        }
+    };
+    setBtnScroll=() => {
+        document.querySelector("#cplus-container-scroll-buttons")?.remove();
+        if (this.btnState) {
+            let intervalUp;
+            let intervalDown;
+            const btnArray = [ {
+                id: "cplus-scroll-up",
+                label: i18nServiceInstance.getMessage("scrollUp"),
+                element: this.btnScrollUp,
+                interval: intervalUp
+            }, {
+                id: "cplus-scroll-down",
+                label: i18nServiceInstance.getMessage("scrollDown"),
+                element: this.btnScrollDown,
+                interval: intervalDown
+            } ];
+            let fragment = document.createDocumentFragment();
+            const container = document.createElement("div");
+            container.setAttribute("id", "cplus-container-scroll-buttons");
+            btnArray.forEach((button => {
+                let btn = document.createElement("button");
+                btn.setAttribute("id", button.id);
+                btn.type = "button";
+                btn.innerHTML = button.label;
+                container.appendChild(btn);
+                fragment.appendChild(container);
+                document.body.appendChild(fragment);
+                button.element = document.querySelector(`#${button.id}`);
+                let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
+                let scrollBy = scrollDir * this.scrollSteps;
+                if (this.btnState === "mouseover") {
+                    button.element?.addEventListener("mouseover", (event => {
+                        button.interval = setInterval((function() {
+                            window.scrollBy(0, scrollBy);
+                        }), this.scrollTimer);
+                    }));
+                    button.element?.addEventListener("mouseleave", (event => {
+                        clearInterval(button.interval);
+                    }));
+                } else {
+                    button.element?.addEventListener("click", (event => {
+                        window.scrollBy(0, scrollBy);
+                    }));
+                }
+            }));
         }
     };
 }
 
-customElements.define("app-scroll", ScrollComponent);
-
 "use strict";
 
-const tmplStopAnimations = document.createElement("template");
+let stopAnimationsServiceIsInstantiated;
 
-tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class StopAnimationsComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        activeValue: 0
-    };
+class StopAnimationsService {
     constructor() {
-        super();
-        this.appendChild(tmplStopAnimations.content.cloneNode(true));
+        if (stopAnimationsServiceIsInstantiated) {
+            throw new Error("StopAnimationsService is already instantiated.");
+        }
+        stopAnimationsServiceIsInstantiated = true;
     }
 }
 
-customElements.define("app-stop-animations", StopAnimationsComponent);
-
 "use strict";
 
-const tmplIncreaseTextSize = document.createElement("template");
+let textSizeServiceIsInstantiated;
 
-tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
-
-class IncreaseTextSizeComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,110,130",
-        activeValue: 0
-    };
+class TextSizeService {
     constructor() {
-        super();
-        this.setCallback(this.setFontSize.bind(this));
-        this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
+        if (textSizeServiceIsInstantiated) {
+            throw new Error("TextSizeService is already instantiated.");
+        }
+        textSizeServiceIsInstantiated = true;
     }
     setFontSize=value => {
         if (value === "noModifications") {
@@ -1512,23 +1117,16 @@ class IncreaseTextSizeComponent extends AbstractSetting {
     };
 }
 
-customElements.define("app-text-size", IncreaseTextSizeComponent);
-
 "use strict";
 
-const tmplSpacingText = document.createElement("template");
+let textSpacingServiceIsInstantiated;
 
-tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class TextSpacingComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
-        activeValue: 0
-    };
+class TextSpacingService {
     constructor() {
-        super();
-        this.setCallback(this.setSpacingText.bind(this));
-        this.appendChild(tmplSpacingText.content.cloneNode(true));
+        if (textSpacingServiceIsInstantiated) {
+            throw new Error("TextSpacingService is already instantiated.");
+        }
+        textSpacingServiceIsInstantiated = true;
     }
     setSpacingText=value => {
         const spacingTextValues = [ {
@@ -1548,13 +1146,628 @@ class TextSpacingComponent extends AbstractSetting {
             letterSpacing: ".5em"
         } ];
         if (value === "noModifications") {
-            stylesServiceInstance.removeStyle(this.name);
+            stylesServiceInstance.removeStyle("text-spacing");
         } else {
             let objSpacingText = spacingTextValues?.find((o => o.name === value));
             let styleSpacingText = `\n\t\t\t\t* {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
-            stylesServiceInstance.setStyle(this.name, styleSpacingText);
+            stylesServiceInstance.setStyle("text-spacing", styleSpacingText);
         }
     };
+}
+
+"use strict";
+
+let stringServiceIsInstantiated;
+
+class StringService {
+    constructor() {
+        if (stringServiceIsInstantiated) {
+            throw new Error("StringService is already instantiated.");
+        }
+        stringServiceIsInstantiated = true;
+    }
+    normalizeID(string) {
+        return string?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").split("-").join("");
+    }
+    normalizeSettingName(string) {
+        return string?.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase().replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "");
+    }
+    normalizeSettingCamelCase(string) {
+        return string?.replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").replace(/-./g, (x => x[1].toUpperCase()));
+    }
+}
+
+"use strict";
+
+let stylesServiceIsInstantiated;
+
+class StylesService {
+    prefixStyle=`${prefix}style-`;
+    constructor() {
+        if (stylesServiceIsInstantiated) {
+            throw new Error("StylesService is already instantiated.");
+        }
+        stylesServiceIsInstantiated = true;
+    }
+    setStyle=(name, style) => {
+        if (document.querySelectorAll(`#${this.prefixStyle}${name}`).length === 0) {
+            let styleElement = document.createElement("style");
+            styleElement.setAttribute("id", `${this.prefixStyle}${name}`);
+            styleElement.innerHTML = style;
+            document.head.appendChild(styleElement);
+        } else {
+            document.querySelector(`#${this.prefixStyle}${name}`).innerHTML = style;
+        }
+    };
+    removeStyle=name => {
+        document.querySelector(`#${this.prefixStyle}${name}`)?.remove();
+    };
+}
+
+"use strict";
+
+"use strict";
+
+const pathServiceInstance = new PathService;
+
+Object.freeze(pathServiceInstance);
+
+const appPath = pathServiceInstance.path;
+
+const i18nServiceInstance = new I18nService;
+
+Object.freeze(i18nServiceInstance);
+
+const iconsServiceInstance = new IconsService;
+
+Object.freeze(iconsServiceInstance);
+
+const filesServiceInstance = new FilesService;
+
+Object.freeze(filesServiceInstance);
+
+const localStorageServiceInstance = new LocalStorageService;
+
+Object.freeze(localStorageServiceInstance);
+
+const modeOfUseServiceInstance = new ModeOfUseService;
+
+Object.freeze(modeOfUseServiceInstance);
+
+const stylesServiceInstance = new StylesService;
+
+Object.freeze(stylesServiceInstance);
+
+const stringServiceInstance = new StringService;
+
+Object.freeze(stringServiceInstance);
+
+const routeServiceInstance = new RouteService;
+
+Object.seal(routeServiceInstance);
+
+const clickFaciliteServiceInstance = new ClickFaciliteService;
+
+Object.seal(clickFaciliteServiceInstance);
+
+const colorContrastServiceInstance = new ColorContrastService;
+
+Object.seal(colorContrastServiceInstance);
+
+const cursorAspectServiceInstance = new CursorAspectService;
+
+Object.seal(cursorAspectServiceInstance);
+
+const focusAspectServiceInstance = new FocusAspectService;
+
+Object.seal(focusAspectServiceInstance);
+
+const fontFamilyServiceInstance = new FontFamilyService;
+
+Object.seal(fontFamilyServiceInstance);
+
+const linkStyleServiceInstance = new LinkStyleService;
+
+Object.seal(linkStyleServiceInstance);
+
+const loupeServiceInstance = new LoupeService;
+
+Object.seal(loupeServiceInstance);
+
+const marginAlignServiceInstance = new MarginAlignService;
+
+Object.seal(marginAlignServiceInstance);
+
+const readAloudServiceInstance = new ReadAloudService;
+
+Object.seal(readAloudServiceInstance);
+
+const readingGuideServiceInstance = new ReadingGuideService;
+
+Object.seal(readingGuideServiceInstance);
+
+const scrollServiceInstance = new ScrollService;
+
+Object.seal(scrollServiceInstance);
+
+const stopAnimationsServiceInstance = new StopAnimationsService;
+
+Object.seal(stopAnimationsServiceInstance);
+
+const textSizeServiceInstance = new TextSizeService;
+
+Object.seal(textSizeServiceInstance);
+
+const textSpacingServiceInstance = new TextSpacingService;
+
+Object.seal(textSpacingServiceInstance);
+
+"use strict";
+
+const template = document.createElement("template");
+
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
+
+class AppComponent extends HTMLElement {
+    confortPlusBtn=null;
+    confortPlusToolbar=null;
+    closeBtn=null;
+    link;
+    handler;
+    constructor() {
+        super();
+        this.attachShadow({
+            mode: "open"
+        });
+        this?.shadowRoot?.appendChild(template.content.cloneNode(true));
+        this.link = document.createElement("link");
+        this.link.rel = "stylesheet";
+        this.link.href = `${appPath}css/styles.min.css`;
+        this.link.onload = () => {
+            this?.shadowRoot?.querySelector("[data-bs-theme]").removeAttribute("style");
+        };
+        this.shadowRoot?.appendChild(this.link);
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        customElements.upgrade(this);
+        iconsServiceInstance.loadSprite(this.shadowRoot);
+        setTimeout((() => {
+            i18nServiceInstance.translate(this.shadowRoot);
+        }));
+        this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
+        this.closeBtn = this?.shadowRoot?.getElementById("close-toolbar");
+        this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
+        if (!this.confortPlusBtn || !this.confortPlusToolbar) {
+            return;
+        }
+        localStorageServiceInstance.getItem("is-opened").then((result => {
+            if (result === "true") {
+                this.showToolbar();
+            } else {
+                this.hideToolbar();
+            }
+        }));
+        this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
+        this.confortPlusBtn.addEventListener("click", this.handler);
+    }
+    disconnectedCallback() {
+        this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
+        this.confortPlusBtn?.removeEventListener("click", this.handler);
+    }
+    createHandler=() => event => {
+        switch (event.type) {
+          case "closeEvent":
+            this.hideToolbar();
+            break;
+
+          case "click":
+            this.showToolbar();
+            break;
+        }
+    };
+    showToolbar=() => {
+        this.confortPlusToolbar.removeAttribute("style");
+        this.closeBtn?.focus();
+        this.confortPlusBtn.classList.add("d-none");
+        localStorageServiceInstance.setItem("is-opened", "true");
+    };
+    hideToolbar=() => {
+        this.confortPlusToolbar.style.transform = "translateX(100%)";
+        this.confortPlusToolbar.style.visibility = "hidden";
+        this.confortPlusBtn.classList.remove("d-none");
+        this.confortPlusBtn?.focus();
+        localStorageServiceInstance.setItem("is-opened", "false");
+    };
+}
+
+customElements.define("app-root", AppComponent);
+
+"use strict";
+
+class AbstractSetting extends HTMLElement {
+    static observedAttributes=[ "data-values" ];
+    settingBtn=null;
+    modalBtn=null;
+    canEdit=false;
+    activesValues;
+    separator=",";
+    name="";
+    handler;
+    callback;
+    constructor() {
+        super();
+        this.canEdit = this.dataset?.canEdit === "true" || this.canEdit;
+        this.name = stringServiceInstance.normalizeSettingName(this.tagName);
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.settingBtn = this.querySelector("app-btn-setting");
+        this.modalBtn = this.querySelector("app-btn-modal");
+        this.settingBtn.setAttribute("data-name", this.name);
+        this.modalBtn.setAttribute("data-name", this.name);
+        if (this.canEdit) {
+            this.modalBtn.classList.remove("d-none");
+            this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
+        }
+        this.setSettingBtn(this.activesValues);
+        this.settingBtn.addEventListener("changeSettingEvent", this.handler);
+    }
+    disconnectedCallback() {
+        this.modalBtn.removeEventListener("clickModalEvent", this.handler);
+        this.settingBtn.removeEventListener("changeSettingEvent", this.handler);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-values" === name) {
+            this.activesValues = JSON.parse(newValue);
+            this.setSettingBtn(this.activesValues);
+            if (this.callback) {
+                this.callback(this.activesValues.values.split(",")[this.activesValues.valueSelected]);
+            }
+        }
+    }
+    setSettingBtn=activesValues => {
+        this.settingBtn.setAttribute("data-values", activesValues.values);
+        this.settingBtn.setAttribute("data-active-value", activesValues.valueSelected.toString());
+        this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues.values.split(",")[activesValues.valueSelected]));
+    };
+    setCallback=callback => {
+        this.callback = callback;
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "changeSettingEvent":
+            this.changeSettingEvent(event);
+            break;
+        }
+    };
+    changeSettingEvent=event => {
+        let newIndex = event.detail.index;
+        let newValue = event.detail.value;
+        modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
+            if (!success) {
+                this.callback(newValue);
+                this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
+            }
+        }));
+    };
+}
+
+"use strict";
+
+const tmplClickFacilite = document.createElement("template");
+
+tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ClickFaciliteComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,longClick_2,autoClick_2",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(clickFaciliteServiceInstance.setClickFacilite.bind(this));
+        this.appendChild(tmplClickFacilite.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-click-facilite", ClickFaciliteComponent);
+
+"use strict";
+
+const tmplColorContrast = document.createElement("template");
+
+tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ColorContrastComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,reinforcedContrasts,white_black",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(colorContrastServiceInstance.setColorsContrasts.bind(this));
+        this.appendChild(tmplColorContrast.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-color-contrast", ColorContrastComponent);
+
+"use strict";
+
+const tmplCursorAspect = document.createElement("template");
+
+tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class CursorAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big_black,huge_green",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(cursorAspectServiceInstance.setCursor.bind(this));
+        this.appendChild(tmplCursorAspect.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-cursor-aspect", CursorAspectComponent);
+
+"use strict";
+
+const tmplFocusAspect = document.createElement("template");
+
+tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class FocusAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big_blue,veryBig_red",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(focusAspectServiceInstance.setFocus.bind(this));
+        this.appendChild(tmplFocusAspect.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-focus-aspect", FocusAspectComponent);
+
+"use strict";
+
+const tmplFontFamily = document.createElement("template");
+
+tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class FontFamilyComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,Accessible_DfA,Luciole",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(fontFamilyServiceInstance.setFontFamily.bind(this));
+        this.appendChild(tmplFontFamily.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-font-family", FontFamilyComponent);
+
+"use strict";
+
+const tmplLinkStyle = document.createElement("template");
+
+tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class LinkStyleComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(linkStyleServiceInstance.setLinkStyle.bind(this));
+        this.appendChild(tmplLinkStyle.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-link-style", LinkStyleComponent);
+
+"use strict";
+
+const tmplLoupe = document.createElement("template");
+
+tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class LoupeComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplLoupe.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-loupe", LoupeComponent);
+
+"use strict";
+
+const tmplMarginAlign = document.createElement("template");
+
+tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class MarginAlignComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,alignLeft,margeList",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(marginAlignServiceInstance.setMargin.bind(this));
+        this.appendChild(tmplMarginAlign.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-margin-align", MarginAlignComponent);
+
+"use strict";
+
+const tmplReadAloud = document.createElement("template");
+
+tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ReadAloudComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplReadAloud.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-read-aloud", ReadAloudComponent);
+
+"use strict";
+
+const tmplReadingGuide = document.createElement("template");
+
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ReadingGuideComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,ruleGuide,maskGuide",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(readingGuideServiceInstance.setReadingMaskGuide.bind(this));
+        this.appendChild(tmplReadingGuide.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-reading-guide", ReadingGuideComponent);
+
+"use strict";
+
+const tmplScroll = document.createElement("template");
+
+tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ScrollComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,bigScroll,scrollOnMouseover",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(this.setScroll.bind(this));
+        this.appendChild(tmplScroll.content.cloneNode(true));
+    }
+    setScroll=value => {
+        switch (value) {
+          case "bigScroll":
+            {
+                scrollServiceInstance.setScroll({
+                    name: "scroll",
+                    btnState: "",
+                    bigScrollActivated: true
+                });
+                break;
+            }
+
+          case "scrollOnClick":
+            {
+                scrollServiceInstance.setScroll({
+                    name: "scroll",
+                    btnState: "click",
+                    bigScrollActivated: false
+                });
+                break;
+            }
+
+          case "scrollOnMouseover":
+            {
+                scrollServiceInstance.setScroll({
+                    name: "scroll",
+                    btnState: "mouseover",
+                    bigScrollActivated: false
+                });
+                break;
+            }
+
+          default:
+            {
+                scrollServiceInstance.setScroll({
+                    name: "scroll",
+                    btnState: "",
+                    bigScrollActivated: false
+                });
+            }
+        }
+    };
+}
+
+customElements.define("app-scroll", ScrollComponent);
+
+"use strict";
+
+const tmplStopAnimations = document.createElement("template");
+
+tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class StopAnimationsComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplStopAnimations.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-stop-animations", StopAnimationsComponent);
+
+"use strict";
+
+const tmplIncreaseTextSize = document.createElement("template");
+
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class IncreaseTextSizeComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,110,130",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(textSizeServiceInstance.setFontSize.bind(this));
+        this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-text-size", IncreaseTextSizeComponent);
+
+"use strict";
+
+const tmplSpacingText = document.createElement("template");
+
+tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class TextSpacingComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(textSpacingServiceInstance.setSpacingText.bind(this));
+        this.appendChild(tmplSpacingText.content.cloneNode(true));
+    }
 }
 
 customElements.define("app-text-spacing", TextSpacingComponent);
@@ -1939,7 +2152,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<form id="edit-setting-content" class="d-flex align-items-center justify-content-between gap-2">\n\t\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="increaseTextSize"></span>\n\t\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="selected-value"></span>\n\t\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="reduceTextSize"></span>\n\t\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t\t</button>\n\t\t</form>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<form id="edit-setting-content" class="d-flex align-items-center justify-content-between gap-2">\n\t\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="increaseTextSize"></span>\n\t\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="selected-value"></span>\n\t\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="reduceTextSize"></span>\n\t\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t\t</button>\n\t\t</form>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -2001,6 +2214,7 @@ class EditSettingComponent extends HTMLElement {
         this.currentValue = this.textSizeValues[this.currentIndex];
         this.selectedValue.innerText = this.currentValue;
         modeOfUseServiceInstance.setSettingValue(this.settingName, 3, this.currentValue);
+        textSizeServiceInstance.setFontSize(this.currentValue);
     };
     createHandler=() => event => {
         if (event.type === "click") {
@@ -2023,7 +2237,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-2">\n\t\t\t\t<div class="sc-home__icon-mode bg-body rounded-circle">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-2">\n\t\t\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n\t\t\t\t</button>\n\t\t</div>\n</section>\n\n<section class="sc-home__settings gap-3 p-3">\n\t<app-mode></app-mode>\n\t<div class="d-flex">\n\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-modes", "data-custom" ];
@@ -2132,7 +2346,9 @@ class ModeComponent extends HTMLElement {
             let settingObj = this.settingsDictionnary.find((o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0])));
             let settingElement = this.querySelector(settingObj?.element);
             settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
-            settingElement?.classList.remove("d-none");
+            if (Object.entries(setting)[0][1].isTool) {
+                settingElement?.classList.remove("d-none");
+            }
         }));
     };
 }
@@ -2143,7 +2359,7 @@ customElements.define("app-mode", ModeComponent);
 
 const modesLayout = document.createElement("template");
 
-modesLayout.innerHTML = `\n<form class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>\n\t</div>\n</form>\n`;
+modesLayout.innerHTML = `\n<form class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4 text-body">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>\n\t</div>\n</form>\n`;
 
 class ModesComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
@@ -2342,7 +2558,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -2357,7 +2573,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -2402,7 +2618,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {

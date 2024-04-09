@@ -9,7 +9,7 @@ tmplScroll.innerHTML = `
 class ScrollComponent extends AbstractSetting {
 	activesValues = {
 		"values": "noModifications,bigScroll,scrollOnMouseover",
-		"activeValue": 0
+		"valueSelected": 0
 	};
 
 	constructor() {
@@ -23,19 +23,19 @@ class ScrollComponent extends AbstractSetting {
 	setScroll = (value: string): void => {
 		switch (value) {
 			case 'bigScroll': {
-				scrollServiceInstance.setScroll({ name: this.name, btnState: '', bigScrollActivated: true });
+				scrollServiceInstance.setScroll({ name: 'scroll', btnState: '', bigScrollActivated: true });
 				break;
 			}
 			case 'scrollOnClick': {
-				scrollServiceInstance.setScroll({ name: this.name, btnState: 'click', bigScrollActivated: false });
+				scrollServiceInstance.setScroll({ name: 'scroll', btnState: 'click', bigScrollActivated: false });
 				break;
 			}
 			case 'scrollOnMouseover': {
-				scrollServiceInstance.setScroll({ name: this.name, btnState: 'mouseover', bigScrollActivated: false });
+				scrollServiceInstance.setScroll({ name: 'scroll', btnState: 'mouseover', bigScrollActivated: false });
 				break;
 			}
 			default: {
-				scrollServiceInstance.setScroll({ name: this.name, btnState: '', bigScrollActivated: false });
+				scrollServiceInstance.setScroll({ name: 'scroll', btnState: '', bigScrollActivated: false });
 			}
 		}
 	}

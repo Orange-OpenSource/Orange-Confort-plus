@@ -9,72 +9,15 @@ tmplColorContrast.innerHTML = `
 class ColorContrastComponent extends AbstractSetting {
 	activesValues = {
 		"values": "noModifications,reinforcedContrasts,white_black",
-		"activeValue": 0
+		"valueSelected": 0
 	};
 
 	constructor() {
 		super();
 
-		this.setCallback(this.setColorsContrasts.bind(this));
+		this.setCallback(colorContrastServiceInstance.setColorsContrasts.bind(this));
 
 		this.appendChild(tmplColorContrast.content.cloneNode(true));
-	}
-
-	setColorsContrasts = (value: string): void => {
-		if (value === 'noModifications') {
-			stylesServiceInstance.removeStyle(this.name);
-		} else {
-			let color = '';
-			let backgroundColor = '';
-
-			if (value === 'reinforcedContrasts') {
-				color = '#000';
-				backgroundColor = '#fff';
-			} else if (value === 'daltonism') {
-				// @todo Revoir les couleurs pour le daltonisme car pas clair
-				color = '#000';
-				backgroundColor = '#fff';
-			} else {
-				color = value.split('_')[0];
-				backgroundColor = value.split('_')[1];
-			}
-
-			let styleColorContrast = `
-							* {
-								color: ${color} !important;
-								background-color: ${backgroundColor} !important;
-							}
-
-							li a {
-								color: ${color} !important;
-							}
-
-							fieldset,
-							button {
-								border-color: ${color} !important;
-							}
-
-							input, td, th {
-								border: 2px solid ${color} !important;
-							}
-
-							td, th {
-								padding: .2em !important;
-							}
-
-							table {
-								border-collapse: collapse !important;
-							}
-
-							*:link,
-							*:visited,
-							*:hover {
-								color: ${color} !important;
-							}
-						`;
-
-			stylesServiceInstance.setStyle(this.name, styleColorContrast);
-		}
 	}
 }
 

@@ -2,7 +2,7 @@ const homeLayout: HTMLTemplateElement = document.createElement('template');
 homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
 		<div class="d-flex gap-2">
-				<div class="sc-home__icon-mode bg-body rounded-circle">
+				<div class="sc-home__icon-mode bg-body rounded-circle text-body">
 						<app-icon data-size="5em"></app-icon>
 				</div>
 				<div class="d-flex justify-content-center flex-column">
