@@ -9,23 +9,15 @@ tmplIncreaseTextSize.innerHTML = `
 class IncreaseTextSizeComponent extends AbstractSetting {
 	activesValues = {
 		"values": "noModifications,110,130",
-		"activeValue": 0
+		"valueSelected": 0
 	};
 
 	constructor() {
 		super();
 
-		this.setCallback(this.setFontSize.bind(this));
+		this.setCallback(textSizeServiceInstance.setFontSize.bind(this));
 
 		this.appendChild(tmplIncreaseTextSize.content.cloneNode(true));
-	}
-
-	setFontSize = (value: string): void => {
-		if (value === 'noModifications') {
-			document.documentElement.style.fontSize = null;
-		} else {
-			document.documentElement.style.fontSize = `${value}%`;
-		}
 	}
 }
 

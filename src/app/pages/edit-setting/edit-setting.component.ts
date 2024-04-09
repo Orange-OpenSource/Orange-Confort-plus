@@ -1,6 +1,6 @@
 const editSettingLayout: HTMLTemplateElement = document.createElement('template');
 editSettingLayout.innerHTML = `
-	<div class="gap-1 p-3">
+	<div class="gap-1 p-3 text-body">
 		<div class="d-flex align-items-center gap-2 mb-2">
 			<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>
 			<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>
@@ -94,6 +94,7 @@ class EditSettingComponent extends HTMLElement {
 		this.currentValue = this.textSizeValues[this.currentIndex];
 		this.selectedValue!.innerText = this.currentValue;
 		modeOfUseServiceInstance.setSettingValue(this.settingName, 3, this.currentValue);
+		textSizeServiceInstance.setFontSize(this.currentValue);
 	}
 
 	private createHandler = () => {

@@ -12,7 +12,6 @@ tmplText.innerHTML = `
 				<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>
 				<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
-				<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>
 				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
 				<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>
 				<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>

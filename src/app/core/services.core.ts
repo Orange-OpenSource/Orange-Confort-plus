@@ -1,6 +1,8 @@
 // @ts-nocheck
 const pathServiceInstance = new PathService();
 Object.freeze(pathServiceInstance);
+const appPath = pathServiceInstance.path;
+
 const i18nServiceInstance = new I18nService();
 Object.freeze(i18nServiceInstance);
 const iconsServiceInstance = new IconsService();
@@ -18,7 +20,32 @@ Object.freeze(stringServiceInstance);
 // @note We don't freeze these services to be able to redefine certain variables
 const routeServiceInstance = new RouteService();
 Object.seal(routeServiceInstance);
+const clickFaciliteServiceInstance = new ClickFaciliteService();
+Object.seal(clickFaciliteServiceInstance);
+const colorContrastServiceInstance = new ColorContrastService();
+Object.seal(colorContrastServiceInstance);
+const cursorAspectServiceInstance = new CursorAspectService();
+Object.seal(cursorAspectServiceInstance);
+const focusAspectServiceInstance = new FocusAspectService();
+Object.seal(focusAspectServiceInstance);
+const fontFamilyServiceInstance = new FontFamilyService();
+Object.seal(fontFamilyServiceInstance);
+const linkStyleServiceInstance = new LinkStyleService();
+Object.seal(linkStyleServiceInstance);
+const loupeServiceInstance = new LoupeService();
+Object.seal(loupeServiceInstance);
+const marginAlignServiceInstance = new MarginAlignService();
+Object.seal(marginAlignServiceInstance);
+const readAloudServiceInstance = new ReadAloudService();
+Object.seal(readAloudServiceInstance);
+const readingGuideServiceInstance = new ReadingGuideService();
+Object.seal(readingGuideServiceInstance);
 const scrollServiceInstance = new ScrollService();
 Object.seal(scrollServiceInstance);
+const stopAnimationsServiceInstance = new StopAnimationsService();
+Object.seal(stopAnimationsServiceInstance);
+const textSizeServiceInstance = new TextSizeService();
+Object.seal(textSizeServiceInstance);
+const textSpacingServiceInstance = new TextSpacingService();
+Object.seal(textSpacingServiceInstance);
 
-const appPath = pathServiceInstance.path;

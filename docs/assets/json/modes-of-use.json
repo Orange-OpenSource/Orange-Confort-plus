@@ -1,5 +1,5 @@
 {
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -7,85 +7,99 @@
 				{
 					"fontFamily": {
 						"values": "noModifications,Accessible_DfA,Luciole",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": true
 					}
 				},
 				{
 					"textSize": {
 						"values": "noModifications,130,200",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": true
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"readingGuide": {
 						"values": "noModifications,ruleGuide,maskGuide",
-						"activeValue": 0
+						"valueSelected": 0,
+						"isTool": false
 					}
 				},
 				{
 					"marginAlign": {
 						"values": "noModifications,alignLeft,margeList",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"loupe": {
-						"values": "",
-						"activeValue": 0
+						"values": "noModifications,square_2,square_5",
+						"valueSelected": 0,
+						"isTool": true
 					}
 				},
 				{
 					"readAloud": {
-						"values": "",
-						"activeValue": 0
-					}
-				},
-				{
-					"textSpacing": {
-						"values": "noModifications,spacingTextLabelBig",
-						"activeValue": 0
-					}
-				},
-				{
-					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_2",
-						"activeValue": 1
+						"values": "noModifications,sentence",
+						"valueSelected": 0,
+						"isTool": true
 					}
 				},
 				{
 					"cursorAspect": {
 						"values": "noModifications,big_white,huge_green",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": true
 					}
 				},
 				{
 					"focusAspect": {
 						"values": "noModifications,big_white,huge_white",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"colorContrast": {
 						"values": "noModifications,white_black,white_blue",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"linkStyle": {
 						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"stopAnimations": {
-						"values": "",
-						"activeValue": 0
+						"values": "noModifications,stop",
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"scroll": {
 						"values": "noModifications,bigScroll,scrollOnMouseover",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_2",
+						"valueSelected": 1,
+						"isTool": false
 					}
 				}
 			]
@@ -98,67 +112,99 @@
 				{
 					"fontFamily": {
 						"values": "noModifications,Accessible_DfA,Verdana",
-						"activeValue": 2
+						"valueSelected": 2,
+						"isTool": true
 					}
 				},
 				{
 					"textSize": {
 						"values": "noModifications,110,130",
-						"activeValue": 1
-					}
-				},
-				{
-					"loupe": {
-						"values": "",
-						"activeValue": 0
-					}
-				},
-				{
-					"readAloud": {
-						"values": "",
-						"activeValue": 0
+						"valueSelected": 1,
+						"isTool": true
 					}
 				},
 				{
 					"textSpacing": {
 						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
-						"activeValue": 0
+						"valueSelected": 0,
+						"isTool": false
 					}
 				},
 				{
-					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_2",
-						"activeValue": 1
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginLeft",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
+					"loupe": {
+						"values": "noModifications,square_2,round_2",
+						"valueSelected": 0,
+						"isTool": true
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,sentence",
+						"valueSelected": 0,
+						"isTool": true
 					}
 				},
 				{
 					"cursorAspect": {
 						"values": "noModifications,big_black,huge_black",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_black",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"colorContrast": {
 						"values": "noModifications,reinforcedContrasts,white_black",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": true
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_red,lightblue_orange_lightgreen",
+						"valueSelected": 0,
+						"isTool": false
 					}
 				},
 				{
 					"stopAnimations": {
-						"values": "",
-						"activeValue": 0
+						"values": "noModifications,stop",
+						"valueSelected": 1,
+						"isTool": false
 					}
 				},
 				{
 					"scroll": {
 						"values": "noModifications,bigScroll,scrollOnMouseover",
-						"activeValue": 1
+						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_2",
+						"valueSelected": 1,
+						"isTool": true
 					}
 				}
 			]
