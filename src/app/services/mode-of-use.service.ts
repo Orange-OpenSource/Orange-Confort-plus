@@ -44,7 +44,7 @@ class ModeOfUseService {
 								newValues.length === 4 ? newValues[3] = newValue : newValues.push(newValue);
 								settingValues.values = newValues.toString();
 							}
-							settingValues.activeValue = newIndex;
+							settingValues.valueSelected = newIndex;
 							localStorageServiceInstance.setItem(jsonName, json);
 							jsonIsEdited = true;
 						}

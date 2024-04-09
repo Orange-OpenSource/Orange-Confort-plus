@@ -1,7 +1,7 @@
 const modesLayout: HTMLTemplateElement = document.createElement('template');
 modesLayout.innerHTML = `
 <form class="p-3">
-	<fieldset class="d-grid gap-2 mb-4">
+	<fieldset class="d-grid gap-2 mb-4 text-body">
 		<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>
 		<div id="select-mode-zone" class="d-grid gap-1">
 		</div>

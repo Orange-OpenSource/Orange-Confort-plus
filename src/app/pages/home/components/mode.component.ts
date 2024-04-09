@@ -53,8 +53,9 @@ class ModeComponent extends HTMLElement {
 			let settingObj = this.settingsDictionnary.find((o: SettingsDictionnary) => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
-
-			settingElement?.classList.remove('d-none');
+			if ((Object.entries(setting)[0][1] as SettingModel).isTool) {
+				settingElement?.classList.remove('d-none');
+			}
 		});
 	}
 }

@@ -9,7 +9,7 @@ tmplLoupe.innerHTML = `
 class LoupeComponent extends AbstractSetting {
 	activesValues = {
 		"values": "",
-		"activeValue": 0
+		"valueSelected": 0
 	};
 
 	constructor() {
