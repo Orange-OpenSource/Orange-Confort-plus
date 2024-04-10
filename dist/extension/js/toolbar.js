@@ -235,6 +235,7 @@ class RouteService {
     navigate=newRoute => {
         this.routes.forEach((route => {
             if (route === newRoute) {
+                console.log(`Navigating to ${newRoute}`);
                 const element = `<app-${route}></app-${route}>`;
                 this.toolbar.insertAdjacentHTML("beforeend", element);
                 const page = this.toolbar.querySelector(`app-${route}`);
