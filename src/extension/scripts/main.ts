@@ -2,6 +2,7 @@ const prefix = 'cplus-';
 
 chrome.runtime.onInstalled.addListener(async () => {
 	// Update action icon and state
+	// @fixme Restreindre à la fenêtre actuelle
 	const tabs = await chrome.tabs.query({});
 
 	for (const tab of tabs) {
@@ -15,6 +16,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 			const states = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
 			chrome.storage.local.set({[`${prefix}is-enabled-${tab.id}`]: false});
 			// Reload tabs that had CDU loaded and active
+			// @fixme Ça renvoie quoi ? A priori on recharge trop d’onglets…
 			if (states[`${prefix}is-enabled-${tab.id}`]) {
 				chrome.tabs.reload(tab.id as number)
 					.catch(error => {
