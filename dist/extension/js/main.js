@@ -96,18 +96,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     }
     else {
         chrome.action.enable(tabId);
-        // @todo À tester
-        // @todo À scoper à l’onglet / domaine
-        const openings = await chrome.storage.local.get(`${prefix}is-opened`);
-        const isOpened = openings[`${prefix}is-opened`] === 'true';
-        if (isOpened) {
-            chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                files: ['js/toolbar.js']
-            });
-        }
-        chrome.storage.local.set({ [`${prefix}is-enabled-${tabId}`]: isOpened });
-        chrome.storage.local.set({ [`${prefix}is-injected-${tabId}`]: isOpened });
     }
 });
 chrome.tabs.onCreated.addListener(tab => {
