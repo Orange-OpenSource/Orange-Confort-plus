@@ -17,6 +17,8 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
+		/* @todo Extension Chrome : La toolbar est chargée deux fois. */
+
 		this.header = this.querySelector('#header');
 
 		/* JSON retrieval and initialisation */
