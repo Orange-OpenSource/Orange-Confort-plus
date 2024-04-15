@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.2 - 11/04/2024
+ * orange-confort-plus - version 5.0.0-alpha.2 - 15/04/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -233,20 +233,21 @@ class RouteService {
         }));
     };
     navigate=newRoute => {
-        this.routes.forEach((route => {
-            if (route === newRoute) {
-                console.log(`Navigating to ${newRoute}`);
-                const element = `<app-${route}></app-${route}>`;
-                this.toolbar.insertAdjacentHTML("beforeend", element);
-                const page = this.toolbar.querySelector(`app-${route}`);
-                i18nServiceInstance.translate(page);
-            } else if (route === this.currentRoute) {
-                this.toolbar.querySelector(`app-${route}`)?.remove();
-            }
-        }));
-        this.setHistoryAndHeader(newRoute);
-        this.currentRoute = newRoute;
-        localStorageServiceInstance.setItem("current-route", newRoute);
+        if (newRoute !== this.currentRoute) {
+            this.routes.forEach((route => {
+                if (route === newRoute) {
+                    const element = `<app-${route}></app-${route}>`;
+                    this.toolbar.insertAdjacentHTML("beforeend", element);
+                    const page = this.toolbar.querySelector(`app-${route}`);
+                    i18nServiceInstance.translate(page);
+                } else if (route === this.currentRoute) {
+                    this.toolbar.querySelector(`app-${route}`)?.remove();
+                }
+            }));
+            this.setHistoryAndHeader(newRoute);
+            this.currentRoute = newRoute;
+            localStorageServiceInstance.setItem("current-route", newRoute);
+        }
     };
     setHistoryAndHeader=newRoute => {
         const header = this.toolbar.querySelector("#header");
