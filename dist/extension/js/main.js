@@ -15,7 +15,6 @@ chrome.runtime.onInstalled.addListener(async () => {
             const states = await chrome.storage.local.get(`${PREFIX}is-enabled-${tab.id}`);
             chrome.storage.local.set({ [`${PREFIX}is-enabled-${tab.id}`]: false });
             // Reload tabs that had CDU loaded and active
-            // @fixme Ça renvoie quoi ? A priori on recharge trop d’onglets…
             if (states[`${PREFIX}is-enabled-${tab.id}`]) {
                 chrome.tabs.reload(tab.id)
                     .catch(error => {
