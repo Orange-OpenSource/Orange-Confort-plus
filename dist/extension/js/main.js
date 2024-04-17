@@ -98,6 +98,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     }
     else {
         chrome.action.enable(tabId);
+        chrome.storage.local.set({ [`${prefix}is-enabled-${tabId}`]: false });
+        chrome.storage.local.set({ [`${prefix}is-injected-${tabId}`]: false });
     }
 });
 chrome.tabs.onCreated.addListener(tab => {
