@@ -94,13 +94,27 @@ chrome.action.onClicked.addListener(async (tab) => {
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-	updateButtonIcon(false, tabId);
 	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
 		chrome.action.disable(tabId);
+		updateButtonIcon(false, tabId);
 	} else {
 		chrome.action.enable(tabId);
-		chrome.storage.local.set({ [`${PREFIX}is-enabled-${tabId}`]: false });
-		chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: false });
+
+		const activations = await chrome.storage.local.get(`${PREFIX}is-enabled-${tabId}`);
+		const isEnabled = activations[`${PREFIX}is-enabled-${tabId}`];
+		chrome.storage.local.set({[`${PREFIX}is-enabled-${tabId}`]: isEnabled});
+
+		if (isEnabled) {
+			chrome.scripting.executeScript({
+				target: {tabId: tabId},
+				files: ['js/toolbar.js']
+			});
+			chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: true});
+		} else {
+			chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: false});
+		}
+
+		updateButtonIcon(isEnabled, tabId);
 	}
 });
 
