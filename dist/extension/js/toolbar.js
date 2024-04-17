@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.4 - 23/04/2024
+ * orange-confort-plus - version 5.0.0-alpha.4 - 25/04/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -183,7 +183,6 @@ class CategoriesService {
                 open: accordion.name === mainAccordion
             })));
         }
-        console.log("Main category, settingAccordions : ", this.settingAccordions);
     };
 }
 
@@ -1675,7 +1674,7 @@ customElements.define("app-clearly-links", ClearlyLinksComponent);
 
 const tmplClickFacilite = document.createElement("template");
 
-tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClickFaciliteComponent extends AbstractSetting {
     activesValues={
@@ -1695,7 +1694,7 @@ customElements.define("app-click-facilite", ClickFaciliteComponent);
 
 const tmplColorContrast = document.createElement("template");
 
-tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColorContrastComponent extends AbstractSetting {
     activesValues={
@@ -1734,7 +1733,7 @@ customElements.define("app-colour-theme", ColourThemeComponent);
 
 const tmplCursorAspect = document.createElement("template");
 
-tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CursorAspectComponent extends AbstractSetting {
     activesValues={
@@ -1773,7 +1772,7 @@ customElements.define("app-delete-background-images", DeleteBackgroundImagesComp
 
 const tmplFocusAspect = document.createElement("template");
 
-tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FocusAspectComponent extends AbstractSetting {
     activesValues={
@@ -1793,7 +1792,7 @@ customElements.define("app-focus-aspect", FocusAspectComponent);
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
     activesValues={
@@ -1813,7 +1812,7 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplLinkStyle = document.createElement("template");
 
-tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class LinkStyleComponent extends AbstractSetting {
     activesValues={
@@ -1833,7 +1832,7 @@ customElements.define("app-link-style", LinkStyleComponent);
 
 const tmplLoupe = document.createElement("template");
 
-tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class LoupeComponent extends AbstractSetting {
     activesValues={
@@ -1852,7 +1851,7 @@ customElements.define("app-loupe", LoupeComponent);
 
 const tmplMarginAlign = document.createElement("template");
 
-tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MarginAlignComponent extends AbstractSetting {
     activesValues={
@@ -1910,7 +1909,7 @@ customElements.define("app-navigation-buttons", NavigationButtonsComponent);
 
 const tmplReadAloud = document.createElement("template");
 
-tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadAloudComponent extends AbstractSetting {
     activesValues={
@@ -1929,7 +1928,7 @@ customElements.define("app-read-aloud", ReadAloudComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
@@ -1949,7 +1948,7 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 const tmplScroll = document.createElement("template");
 
-tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ScrollComponent extends AbstractSetting {
     activesValues={
@@ -2030,7 +2029,7 @@ customElements.define("app-skip-to-content", SkipToContentComponent);
 
 const tmplStopAnimations = document.createElement("template");
 
-tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
     activesValues={
@@ -2069,7 +2068,7 @@ customElements.define("app-text-size", IncreaseTextSizeComponent);
 
 const tmplSpacingText = document.createElement("template");
 
-tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class TextSpacingComponent extends AbstractSetting {
     activesValues={
@@ -2465,35 +2464,29 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<form id="edit-setting-content" class="d-flex align-items-center justify-content-between gap-2">\n\t\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="increaseTextSize"></span>\n\t\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t\t</button>\n\t\t\t<span id="selected-value"></span>\n\t\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="reduceTextSize"></span>\n\t\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t\t</button>\n\t\t</form>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-loupe class="sc-edit-setting__setting"></app-edit-loupe>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
     settingIcon=null;
     settingTitle=null;
     settingInstruction=null;
-    selectedValue=null;
-    btnPrevValue=null;
-    btnNextValue=null;
     settingName=null;
-    currentIndex=null;
-    currentValue=null;
-    textSizeValues=[ "110", "130", "160", "200", "350", "500" ];
-    handler;
+    settingsDictionnary=[];
     constructor() {
         super();
         this.appendChild(editSettingLayout.content.cloneNode(true));
-        this.handler = this.createHandler();
+        this.querySelectorAll(".sc-edit-setting__setting").forEach((element => {
+            this.settingsDictionnary.push({
+                name: stringServiceInstance.normalizeSettingName(element.tagName),
+                element: element.tagName
+            });
+        }));
     }
     connectedCallback() {
         this.settingIcon = this.querySelector("#edit-setting-icon");
         this.settingTitle = this.querySelector("#edit-setting-title");
         this.settingInstruction = this.querySelector("#edit-setting-instruction");
-        this.selectedValue = this.querySelector("#selected-value");
-        this.btnPrevValue = this.querySelector("#edit-btn-prev");
-        this.btnNextValue = this.querySelector("#edit-btn-next");
-        this.btnPrevValue?.addEventListener("click", this.handler);
-        this.btnNextValue?.addEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-setting" === name) {
@@ -2501,15 +2494,245 @@ class EditSettingComponent extends HTMLElement {
             this.settingIcon?.setAttribute("data-name", this.settingName);
             this.settingTitle.innerText = i18nServiceInstance.getMessage(this.settingName);
             this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
-            modeOfUseServiceInstance.getCustomValue(this.settingName).then((result => {
-                if (result) {
-                    this.currentIndex = this.textSizeValues.findIndex((i => i === result));
-                    this.moveTextSize(this.currentIndex);
-                } else {
-                    this.moveTextSize(0);
-                }
-            }));
+            this.displaySetting(`edit-${newValue}`);
         }
+    }
+    displaySetting=settingName => {
+        this.settingsDictionnary.forEach((setting => {
+            if (settingName !== setting.name) {
+                this.querySelector(setting.element).classList.add("d-none");
+            }
+        }));
+    };
+}
+
+customElements.define("app-edit-setting", EditSettingComponent);
+
+"use strict";
+
+const editClickFaciliteLayout = document.createElement("template");
+
+editClickFaciliteLayout.innerHTML = `\n\t<p>Edit click facilite works !</p>\n`;
+
+class EditClickFaciliteComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editClickFaciliteLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-click-facilite", EditClickFaciliteComponent);
+
+"use strict";
+
+const editColorContrastLayout = document.createElement("template");
+
+editColorContrastLayout.innerHTML = `\n\t<p>Edit color contrast works !</p>\n`;
+
+class EditColorContrastComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editColorContrastLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-color-contrast", EditColorContrastComponent);
+
+"use strict";
+
+const editCursorAspectLayout = document.createElement("template");
+
+editCursorAspectLayout.innerHTML = `\n\t<p>Edit cursor aspect works !</p>\n`;
+
+class EditCursorAspectComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editCursorAspectLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-cursor-aspect", EditCursorAspectComponent);
+
+"use strict";
+
+const editFocusAspectLayout = document.createElement("template");
+
+editFocusAspectLayout.innerHTML = `\n\t<p>Edit focus aspect works !</p>\n`;
+
+class EditFocusAspectComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editFocusAspectLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-focus-aspect", EditFocusAspectComponent);
+
+"use strict";
+
+const editFontFamilyLayout = document.createElement("template");
+
+editFontFamilyLayout.innerHTML = `\n\t<p>Edit font family works !</p>\n`;
+
+class EditFontFamilyComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editFontFamilyLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-font-family", EditFontFamilyComponent);
+
+"use strict";
+
+const editLinkStyleLayout = document.createElement("template");
+
+editLinkStyleLayout.innerHTML = `\n\t<p>Edit link style works !</p>\n`;
+
+class EditLinkStyleComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editLinkStyleLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-link-style", EditLinkStyleComponent);
+
+"use strict";
+
+const editLoupeLayout = document.createElement("template");
+
+editLoupeLayout.innerHTML = `\n\t<p>Edit loupe works !</p>\n`;
+
+class EditLoupeComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editLoupeLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-loupe", EditLoupeComponent);
+
+"use strict";
+
+const editMarginAlignLayout = document.createElement("template");
+
+editMarginAlignLayout.innerHTML = `\n\t<p>Edit margin align works !</p>\n`;
+
+class EditMarginAlignComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editMarginAlignLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-margin-align", EditMarginAlignComponent);
+
+"use strict";
+
+const editReadAloudLayout = document.createElement("template");
+
+editReadAloudLayout.innerHTML = `\n\t<p>Edit read aloud works !</p>\n`;
+
+class EditReadAloudComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editReadAloudLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-read-aloud", EditReadAloudComponent);
+
+"use strict";
+
+const editReadingGuideLayout = document.createElement("template");
+
+editReadingGuideLayout.innerHTML = `\n\t<p>Edit reading guide works !</p>\n`;
+
+class EditReadingGuideComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editReadingGuideLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-reading-guide", EditReadingGuideComponent);
+
+"use strict";
+
+const editScrollLayout = document.createElement("template");
+
+editScrollLayout.innerHTML = `\n\t<p>Edit scroll works !</p>\n`;
+
+class EditScrollComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editScrollLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-scroll", EditScrollComponent);
+
+"use strict";
+
+const editStopAnimationsLayout = document.createElement("template");
+
+editStopAnimationsLayout.innerHTML = `\n\t<p>Edit stop animations works !</p>\n`;
+
+class EditStopAnimationsComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editStopAnimationsLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-stop-animations", EditStopAnimationsComponent);
+
+"use strict";
+
+const editTextSizeLayout = document.createElement("template");
+
+editTextSizeLayout.innerHTML = `\n\t<form class="d-flex align-items-center justify-content-between gap-2">\n\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="increaseTextSize"></span>\n\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t</button>\n\t\t<output id="selected-value"></output>\n\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="reduceTextSize"></span>\n\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t</button>\n\t</form>\n`;
+
+class EditTextSizeComponent extends HTMLElement {
+    selectedValue=null;
+    btnPrevValue=null;
+    btnNextValue=null;
+    currentIndex=null;
+    currentValue=null;
+    textSizeValues=[ "110", "130", "160", "200", "350", "500" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editTextSizeLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectedValue = this.querySelector("#selected-value");
+        this.btnPrevValue = this.querySelector("#edit-btn-prev");
+        this.btnNextValue = this.querySelector("#edit-btn-next");
+        this.btnPrevValue?.addEventListener("click", this.handler);
+        this.btnNextValue?.addEventListener("click", this.handler);
+        modeOfUseServiceInstance.getCustomValue("textSize").then((result => {
+            if (result) {
+                this.currentIndex = this.textSizeValues.findIndex((i => i === result));
+                this.moveTextSize(this.currentIndex);
+            } else {
+                this.moveTextSize(0);
+            }
+        }));
     }
     moveTextSize=index => {
         this.currentIndex = index;
@@ -2526,7 +2749,7 @@ class EditSettingComponent extends HTMLElement {
         }
         this.currentValue = this.textSizeValues[this.currentIndex];
         this.selectedValue.innerText = this.currentValue;
-        modeOfUseServiceInstance.setSettingValue(this.settingName, 3, this.currentValue);
+        modeOfUseServiceInstance.setSettingValue("textSize", 3, this.currentValue);
         textSizeServiceInstance.setFontSize(this.currentValue);
     };
     createHandler=() => event => {
@@ -2544,7 +2767,23 @@ class EditSettingComponent extends HTMLElement {
     };
 }
 
-customElements.define("app-edit-setting", EditSettingComponent);
+customElements.define("app-edit-text-size", EditTextSizeComponent);
+
+"use strict";
+
+const editTextSpacingLayout = document.createElement("template");
+
+editTextSpacingLayout.innerHTML = `\n\t<p>Edit text spacing works !</p>\n`;
+
+class EditTextSpacingComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.appendChild(editTextSpacingLayout.content.cloneNode(true));
+    }
+    connectedCallback() {}
+}
+
+customElements.define("app-edit-text-spacing", EditTextSpacingComponent);
 
 "use strict";
 
