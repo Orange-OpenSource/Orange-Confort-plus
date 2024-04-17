@@ -8,17 +8,20 @@ editSettingLayout.innerHTML = `
 
 		<p id="edit-setting-instruction"></p>
 
-		<form id="edit-setting-content" class="d-flex align-items-center justify-content-between gap-2">
-			<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">
-				<span class="visually-hidden" data-i18n="increaseTextSize"></span>
-				<app-icon data-name="Minus_small"></app-icon>
-			</button>
-			<span id="selected-value"></span>
-			<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">
-				<span class="visually-hidden" data-i18n="reduceTextSize"></span>
-				<app-icon data-name="Plus_small"></app-icon>
-			</button>
-		</form>
+		<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>
+		<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>
+		<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>
+		<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>
+		<app-edit-loupe class="sc-edit-setting__setting"></app-edit-loupe>
+		<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>
+		<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>
+		<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>
+		<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>
+		<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>
+		<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>
+		<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>
+		<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>
+		<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>
 	</div>
 `;
 
@@ -27,35 +30,23 @@ class EditSettingComponent extends HTMLElement {
 	settingIcon: HTMLElement | null = null;
 	settingTitle: HTMLParagraphElement | null = null;
 	settingInstruction: HTMLParagraphElement | null = null;
-	selectedValue: HTMLParagraphElement | null = null;
-	btnPrevValue: HTMLButtonElement | null = null;
-	btnNextValue: HTMLButtonElement | null = null;
-
 	settingName: string = null;
-	currentIndex: number = null;
-	currentValue: string = null;
-	textSizeValues = ["110", "130", "160", "200", "350", "500"];
-
-	handler: any;
+	settingsDictionnary: SettingsDictionnary[] = [];
 
 	constructor() {
 		super();
 
 		this.appendChild(editSettingLayout.content.cloneNode(true));
 
-		this.handler = this.createHandler();
+		this.querySelectorAll(".sc-edit-setting__setting").forEach((element: Element) => {
+			this.settingsDictionnary.push({ name: stringServiceInstance.normalizeSettingName(element.tagName), element: element.tagName });
+		});
 	}
 
 	connectedCallback(): void {
 		this.settingIcon = this.querySelector('#edit-setting-icon');
 		this.settingTitle = this.querySelector('#edit-setting-title');
 		this.settingInstruction = this.querySelector('#edit-setting-instruction');
-		this.selectedValue = this.querySelector('#selected-value');
-		this.btnPrevValue = this.querySelector('#edit-btn-prev');
-		this.btnNextValue = this.querySelector('#edit-btn-next');
-
-		this.btnPrevValue?.addEventListener('click', this.handler);
-		this.btnNextValue?.addEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -64,52 +55,16 @@ class EditSettingComponent extends HTMLElement {
 			this.settingIcon?.setAttribute('data-name', this.settingName);
 			this.settingTitle!.innerText = i18nServiceInstance.getMessage(this.settingName);
 			this.settingInstruction!.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
-
-			modeOfUseServiceInstance.getCustomValue(this.settingName).then((result: string) => {
-				if (result) {
-					this.currentIndex = this.textSizeValues.findIndex(i => i === result);
-					this.moveTextSize(this.currentIndex);
-				} else {
-					this.moveTextSize(0);
-				}
-			});
+			this.displaySetting(`edit-${newValue}`);
 		}
 	}
 
-	moveTextSize = (index: number): void => {
-		this.currentIndex = index;
-		this.btnPrevValue!.disabled = false;
-		this.btnNextValue!.disabled = false;
-
-		if (this.currentIndex <= 0) {
-			this.currentIndex = 0;
-			this.btnPrevValue!.disabled = true;
-			this.btnNextValue!.disabled = false;
-		} else if (this.currentIndex >= this.textSizeValues.length - 1) {
-			this.currentIndex = this.textSizeValues.length - 1;
-			this.btnPrevValue!.disabled = false;
-			this.btnNextValue!.disabled = true;
-		}
-
-		this.currentValue = this.textSizeValues[this.currentIndex];
-		this.selectedValue!.innerText = this.currentValue;
-		modeOfUseServiceInstance.setSettingValue(this.settingName, 3, this.currentValue);
-		textSizeServiceInstance.setFontSize(this.currentValue);
-	}
-
-	private createHandler = () => {
-		return (event: any) => {
-			if (event.type === 'click') {
-				switch (event.target) {
-					case this.btnPrevValue:
-						this.moveTextSize(this.currentIndex - 1);
-						break;
-					case this.btnNextValue:
-						this.moveTextSize(this.currentIndex + 1);
-						break;
-				}
+	displaySetting = (settingName: string): void => {
+		this.settingsDictionnary.forEach((setting: SettingsDictionnary) => {
+			if (settingName !== setting.name) {
+				this.querySelector(setting.element).classList.add('d-none');
 			}
-		}
+		});
 	}
 }
 
