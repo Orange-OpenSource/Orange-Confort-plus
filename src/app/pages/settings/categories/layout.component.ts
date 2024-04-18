@@ -10,10 +10,12 @@ tmplLayout.innerHTML = `
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container gap-2">
 				<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>
+				<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>
 				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
 				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
 				<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>
+				<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
