@@ -5,7 +5,6 @@ settingsLayout.innerHTML = `
 	<app-layout class="c-settings__category accordion-item"></app-layout>
 	<app-picture-video class="c-settings__category accordion-item"></app-picture-video>
 	<app-sound class="c-settings__category accordion-item"></app-sound>
-	<app-pointer class="c-settings__category accordion-item"></app-pointer>
 	<app-navigation class="c-settings__category accordion-item"></app-navigation>
 </section>
 `;
@@ -21,6 +20,7 @@ class SettingsComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-modes' === name) {
+			this.openOrHideCategories(newValue);
 			let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
 			let elements = this.querySelectorAll(".c-settings__category");
 			const settings: string[] = Object.entries(JSON.parse(selectedMode))[0][1] as string[];
@@ -28,6 +28,13 @@ class SettingsComponent extends HTMLElement {
 				element.setAttribute('data-settings', JSON.stringify(settings));
 			});
 		}
+	}
+
+	openOrHideCategories = (mode: string): void => {
+		categoriesServiceInstance.openMainCategory(JSON.parse(mode).selectedMode);
+		categoriesServiceInstance.settingAccordions.forEach((accordion: AccordionState) => {
+			this.querySelector(accordion.name).setAttribute('data-open', (!accordion.open).toString());
+		});
 	}
 }
 

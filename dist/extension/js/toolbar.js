@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.3 - 17/04/2024
+ * orange-confort-plus - version 5.0.0-alpha.4 - 23/04/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -130,6 +130,61 @@ class LocalStorageService {
     removeItem(key) {
         chrome.storage.local.remove([ `${prefix}${key}` ]);
     }
+}
+
+"use strict";
+
+let categoriesServiceIsInstantiated;
+
+class CategoriesService {
+    selectedMode;
+    settingAccordions=[ {
+        name: "app-text",
+        open: false
+    }, {
+        name: "app-layout",
+        open: false
+    }, {
+        name: "app-picture-video",
+        open: false
+    }, {
+        name: "app-sound",
+        open: false
+    }, {
+        name: "app-navigation",
+        open: false
+    } ];
+    constructor() {
+        if (categoriesServiceIsInstantiated) {
+            throw new Error("CategoriesService is already instantiated.");
+        }
+        categoriesServiceIsInstantiated = true;
+    }
+    openCategory=(category, open) => {
+        const mainIndex = this.settingAccordions.findIndex((o => o.name === category.toLowerCase()));
+        this.settingAccordions[mainIndex].open = open;
+    };
+    openMainCategory=selectedMode => {
+        let mainAccordion;
+        if (this.selectedMode !== selectedMode) {
+            this.selectedMode = selectedMode;
+            switch (selectedMode) {
+              case "visionPlus":
+                mainAccordion = "app-layout";
+                break;
+
+              case "facilePlus":
+              default:
+                mainAccordion = "app-text";
+                break;
+            }
+            this.settingAccordions = this.settingAccordions.map((accordion => ({
+                ...accordion,
+                open: accordion.name === mainAccordion
+            })));
+        }
+        console.log("Main category, settingAccordions : ", this.settingAccordions);
+    };
 }
 
 "use strict";
@@ -288,6 +343,32 @@ class RouteService {
             }
         }
     };
+}
+
+"use strict";
+
+let capitalsServiceIsInstantiated;
+
+class CapitalsService {
+    constructor() {
+        if (capitalsServiceIsInstantiated) {
+            throw new Error("CapitalsService is already instantiated.");
+        }
+        capitalsServiceIsInstantiated = true;
+    }
+}
+
+"use strict";
+
+let clearlyLinksServiceIsInstantiated;
+
+class ClearlyLinksService {
+    constructor() {
+        if (clearlyLinksServiceIsInstantiated) {
+            throw new Error("ClearlyLinksService is already instantiated.");
+        }
+        clearlyLinksServiceIsInstantiated = true;
+    }
 }
 
 "use strict";
@@ -507,6 +588,19 @@ class ColorContrastService {
 
 "use strict";
 
+let colourThemeServiceIsInstantiated;
+
+class ColourThemeService {
+    constructor() {
+        if (colourThemeServiceIsInstantiated) {
+            throw new Error("ColourThemeService is already instantiated.");
+        }
+        colourThemeServiceIsInstantiated = true;
+    }
+}
+
+"use strict";
+
 let cursorAspectServiceIsInstantiated;
 
 class CursorAspectService {
@@ -544,6 +638,19 @@ class CursorAspectService {
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
         }
     };
+}
+
+"use strict";
+
+let deleteBackgroundImagesServiceIsInstantiated;
+
+class DeleteBackgroundImagesService {
+    constructor() {
+        if (deleteBackgroundImagesServiceIsInstantiated) {
+            throw new Error("DeleteBackgroundImagesService is already instantiated.");
+        }
+        deleteBackgroundImagesServiceIsInstantiated = true;
+    }
 }
 
 "use strict";
@@ -886,6 +993,32 @@ class MarginAlignService {
 
 "use strict";
 
+let navigationAutoServiceIsInstantiated;
+
+class NavigationAutoService {
+    constructor() {
+        if (navigationAutoServiceIsInstantiated) {
+            throw new Error("NavigationAutoService is already instantiated.");
+        }
+        navigationAutoServiceIsInstantiated = true;
+    }
+}
+
+"use strict";
+
+let navigationButtonsServiceIsInstantiated;
+
+class NavigationButtonsService {
+    constructor() {
+        if (navigationButtonsServiceIsInstantiated) {
+            throw new Error("NavigationButtonsService is already instantiated.");
+        }
+        navigationButtonsServiceIsInstantiated = true;
+    }
+}
+
+"use strict";
+
 let readAloudServiceIsInstantiated;
 
 class ReadAloudService {
@@ -1088,6 +1221,19 @@ class ScrollService {
 
 "use strict";
 
+let skipToContentServiceIsInstantiated;
+
+class SkipToContentService {
+    constructor() {
+        if (skipToContentServiceIsInstantiated) {
+            throw new Error("SkipToContentService is already instantiated.");
+        }
+        skipToContentServiceIsInstantiated = true;
+    }
+}
+
+"use strict";
+
 let stopAnimationsServiceIsInstantiated;
 
 class StopAnimationsService {
@@ -1244,9 +1390,21 @@ const stringServiceInstance = new StringService;
 
 Object.freeze(stringServiceInstance);
 
+const categoriesServiceInstance = new CategoriesService;
+
+Object.seal(categoriesServiceInstance);
+
 const routeServiceInstance = new RouteService;
 
 Object.seal(routeServiceInstance);
+
+const capitalsServiceInstance = new CapitalsService;
+
+Object.seal(capitalsServiceInstance);
+
+const clearlyLinksServiceInstance = new ClearlyLinksService;
+
+Object.seal(clearlyLinksServiceInstance);
 
 const clickFaciliteServiceInstance = new ClickFaciliteService;
 
@@ -1256,9 +1414,17 @@ const colorContrastServiceInstance = new ColorContrastService;
 
 Object.seal(colorContrastServiceInstance);
 
+const colourThemeServiceInstance = new ColourThemeService;
+
+Object.seal(colourThemeServiceInstance);
+
 const cursorAspectServiceInstance = new CursorAspectService;
 
 Object.seal(cursorAspectServiceInstance);
+
+const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService;
+
+Object.seal(deleteBackgroundImagesServiceInstance);
 
 const focusAspectServiceInstance = new FocusAspectService;
 
@@ -1280,6 +1446,14 @@ const marginAlignServiceInstance = new MarginAlignService;
 
 Object.seal(marginAlignServiceInstance);
 
+const navigationAutoServiceInstance = new NavigationAutoService;
+
+Object.seal(navigationAutoServiceInstance);
+
+const navigationButtonsServiceInstance = new NavigationButtonsService;
+
+Object.seal(navigationButtonsServiceInstance);
+
 const readAloudServiceInstance = new ReadAloudService;
 
 Object.seal(readAloudServiceInstance);
@@ -1291,6 +1465,10 @@ Object.seal(readingGuideServiceInstance);
 const scrollServiceInstance = new ScrollService;
 
 Object.seal(scrollServiceInstance);
+
+const skipToContentServiceInstance = new SkipToContentService;
+
+Object.seal(skipToContentServiceInstance);
 
 const stopAnimationsServiceInstance = new StopAnimationsService;
 
@@ -1457,6 +1635,44 @@ class AbstractSetting extends HTMLElement {
 
 "use strict";
 
+const tmplCapitals = document.createElement("template");
+
+tmplCapitals.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class CapitalsComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplCapitals.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-capitals", CapitalsComponent);
+
+"use strict";
+
+const tmplClearlyLinks = document.createElement("template");
+
+tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ClearlyLinksComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplClearlyLinks.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-clearly-links", ClearlyLinksComponent);
+
+"use strict";
+
 const tmplClickFacilite = document.createElement("template");
 
 tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
@@ -1497,6 +1713,25 @@ customElements.define("app-color-contrast", ColorContrastComponent);
 
 "use strict";
 
+const tmplColourTheme = document.createElement("template");
+
+tmplColourTheme.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class ColourThemeComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplColourTheme.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-colour-theme", ColourThemeComponent);
+
+"use strict";
+
 const tmplCursorAspect = document.createElement("template");
 
 tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
@@ -1514,6 +1749,25 @@ class CursorAspectComponent extends AbstractSetting {
 }
 
 customElements.define("app-cursor-aspect", CursorAspectComponent);
+
+"use strict";
+
+const tmplDeleteBackgroundImages = document.createElement("template");
+
+tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class DeleteBackgroundImagesComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplDeleteBackgroundImages.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-delete-background-images", DeleteBackgroundImagesComponent);
 
 "use strict";
 
@@ -1616,6 +1870,44 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 "use strict";
 
+const tmplNavigationAuto = document.createElement("template");
+
+tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class NavigationAutoComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplNavigationAuto.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-navigation-auto", NavigationAutoComponent);
+
+"use strict";
+
+const tmplNavigationButtons = document.createElement("template");
+
+tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class NavigationButtonsComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplNavigationButtons.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-navigation-buttons", NavigationButtonsComponent);
+
+"use strict";
+
 const tmplReadAloud = document.createElement("template");
 
 tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
@@ -1714,6 +2006,25 @@ class ScrollComponent extends AbstractSetting {
 }
 
 customElements.define("app-scroll", ScrollComponent);
+
+"use strict";
+
+const tmplSkipToContent = document.createElement("template");
+
+tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class SkipToContentComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplSkipToContent.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-skip-to-content", SkipToContentComponent);
 
 "use strict";
 
@@ -2315,7 +2626,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-loupe class="sc-mode__setting"></app-loupe>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capitals class="sc-mode__setting"></app-capitals>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-loupe class="sc-mode__setting"></app-loupe>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings" ];
@@ -2428,7 +2739,7 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t<app-pointer class="c-settings__category accordion-item"></app-pointer>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
+settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
@@ -2438,6 +2749,7 @@ class SettingsComponent extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
+            this.openOrHideCategories(newValue);
             let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
             let elements = this.querySelectorAll(".c-settings__category");
             const settings = Object.entries(JSON.parse(selectedMode))[0][1];
@@ -2446,6 +2758,12 @@ class SettingsComponent extends HTMLElement {
             }));
         }
     }
+    openOrHideCategories=mode => {
+        categoriesServiceInstance.openMainCategory(JSON.parse(mode).selectedMode);
+        categoriesServiceInstance.settingAccordions.forEach((accordion => {
+            this.querySelector(accordion.name).setAttribute("data-open", (!accordion.open).toString());
+        }));
+    };
 }
 
 customElements.define("app-settings", SettingsComponent);
@@ -2453,7 +2771,7 @@ customElements.define("app-settings", SettingsComponent);
 "use strict";
 
 class AbstractCategory extends HTMLElement {
-    static observedAttributes=[ "data-settings" ];
+    static observedAttributes=[ "data-settings", "data-open" ];
     btnAccordion=null;
     accordionContainer=null;
     settingsContainer=null;
@@ -2493,6 +2811,9 @@ class AbstractCategory extends HTMLElement {
         if ("data-settings" === name) {
             this.displaySettings(JSON.parse(newValue));
         }
+        if ("data-open" === name) {
+            this.addAriaAndCollapsedClass(this._triggerArray, JSON.parse(newValue));
+        }
     }
     isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
     addAriaAndCollapsedClass=(triggerArray, isOpen) => {
@@ -2503,6 +2824,7 @@ class AbstractCategory extends HTMLElement {
             this.accordionContainer?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
             element?.classList.toggle(this.CLASS_NAME_COLLAPSED, isOpen);
             element?.setAttribute("aria-expanded", String(isOpen));
+            categoriesServiceInstance.openCategory(this.tagName, !isOpen);
         }
     };
     displaySettings=settings => {
@@ -2560,7 +2882,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>\n\t\t\t\t<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
@@ -2575,7 +2897,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -2590,7 +2912,7 @@ customElements.define("app-navigation", NavigationComponent);
 
 const tmplPictureVideo = document.createElement("template");
 
-tmplPictureVideo.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t<app-icon data-name="Photo_Video" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="medias"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-stop-animations class="c-category__setting" data-can-edit="true"></app-stop-animations>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplPictureVideo.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-picture-video">\n\t\t\t<app-icon data-name="Photo_Video" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="medias"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-picture-video">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-stop-animations class="c-category__setting" data-can-edit="true"></app-stop-animations>\n\t\t\t\t<app-delete-background-images class="c-category__setting" data-can-edit="true"></app-delete-background-images>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class PictureVideoComponent extends AbstractCategory {
     constructor() {
@@ -2620,7 +2942,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capitals class="c-category__setting" data-can-edit="true"></app-capitals>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
