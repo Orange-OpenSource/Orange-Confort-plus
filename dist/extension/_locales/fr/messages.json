@@ -39,7 +39,7 @@
 		"message": "Pour modifier le rendu du texte"
 	},
 	"readingGuide": {
-		"message": "Guide de lecture"
+		"message": "Règle de lecture"
 	},
 	"readingGuideInstruction": {
 		"message": "Pour être guidé lors de la lecture"
@@ -115,6 +115,27 @@
 	},
 	"stopAnimationsInstruction": {
 		"message": "Pour empêcher les animations au sein de la page"
+	},
+	"capitals": {
+		"message": "Majuscules"
+	},
+	"clearlyLinks": {
+		"message": "Liens bien visibles"
+	},
+	"colourTheme": {
+		"message": "Thème-Couleurs"
+	},
+	"deleteBackgroundImages": {
+		"message": "Supprimer les images de fond"
+	},
+	"navigationAuto": {
+		"message": "Navigation par défilement"
+	},
+	"navigationButtons": {
+		"message": "Boutons de navigation"
+	},
+	"skipToContent": {
+		"message": "Aller au contenu"
 	},
 	"scroll": {
 		"message": "Ascenseur"

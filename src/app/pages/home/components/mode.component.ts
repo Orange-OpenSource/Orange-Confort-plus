@@ -3,18 +3,26 @@ tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2">
 	<app-font-family class="sc-mode__setting"></app-font-family>
 	<app-text-size class="sc-mode__setting"></app-text-size>
+	<app-capitals class="sc-mode__setting"></app-capitals>
+	<app-text-spacing class="sc-mode__setting"></app-text-spacing>
 	<app-reading-guide class="sc-mode__setting"></app-reading-guide>
 	<app-margin-align class="sc-mode__setting"></app-margin-align>
 	<app-loupe class="sc-mode__setting"></app-loupe>
 	<app-read-aloud class="sc-mode__setting"></app-read-aloud>
-	<app-text-spacing class="sc-mode__setting"></app-text-spacing>
-	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
-	<app-click-facilite class="sc-mode__setting"></app-click-facilite>
+	<app-colour-theme class="sc-mode__setting"></app-colour-theme>
 	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
+	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
 	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
 	<app-link-style class="sc-mode__setting"></app-link-style>
+	<app-clearly-links class="sc-mode__setting"></app-clearly-links>
 	<app-stop-animations class="sc-mode__setting"></app-stop-animations>
+	<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>
 	<app-scroll class="sc-mode__setting"></app-scroll>
+	<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>
+	<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>
+	<app-scroll class="sc-mode__setting"></app-scroll>
+	<app-click-facilite class="sc-mode__setting"></app-click-facilite>
+	<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>
 </div>
 `;
 
