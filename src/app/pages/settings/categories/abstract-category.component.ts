@@ -1,5 +1,5 @@
 abstract class AbstractCategory extends HTMLElement {
-	static observedAttributes = ['data-settings'];
+	static observedAttributes = ['data-settings', 'data-open'];
 	btnAccordion: HTMLElement = null;
 	accordionContainer: HTMLElement = null;
 	settingsContainer: HTMLElement = null;
@@ -46,6 +46,9 @@ abstract class AbstractCategory extends HTMLElement {
 		if ('data-settings' === name) {
 			this.displaySettings(JSON.parse(newValue));
 		}
+		if ('data-open' === name) {
+			this.addAriaAndCollapsedClass(this._triggerArray, JSON.parse(newValue));
+		}
 	}
 
 	isShown = (element = this.accordionContainer): boolean => {
@@ -60,6 +63,7 @@ abstract class AbstractCategory extends HTMLElement {
 			this.accordionContainer?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
 			element?.classList.toggle(this.CLASS_NAME_COLLAPSED, isOpen);
 			element?.setAttribute('aria-expanded', String(isOpen));
+			categoriesServiceInstance.openCategory(this.tagName, !isOpen);
 		}
 	}
 

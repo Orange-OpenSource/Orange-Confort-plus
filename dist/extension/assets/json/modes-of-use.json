@@ -1,5 +1,5 @@
 {
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -16,6 +16,13 @@
 						"values": "noModifications,130,200",
 						"valueSelected": 1,
 						"isTool": true
+					}
+				},
+				{
+					"capitals": {
+						"values": "noModifications,all,firstLetter",
+						"valueSelected": 0,
+						"isTool": false
 					}
 				},
 				{
@@ -54,6 +61,13 @@
 					}
 				},
 				{
+					"colourTheme": {
+						"values": "noModifications,white_black,white_blue",
+						"valueSelected": 1,
+						"isTool": true
+					}
+				},
+				{
 					"cursorAspect": {
 						"values": "noModifications,big_white,huge_green",
 						"valueSelected": 1,
@@ -82,9 +96,23 @@
 					}
 				},
 				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
 					"stopAnimations": {
 						"values": "noModifications,stop",
 						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,param1,param2",
+						"valueSelected": 0,
 						"isTool": false
 					}
 				},
@@ -96,9 +124,30 @@
 					}
 				},
 				{
+					"skipToContent": {
+						"values": "noModifications,skipToContent",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,buttons",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_2",
 						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_2",
+						"valueSelected": 0,
 						"isTool": false
 					}
 				}
@@ -121,6 +170,13 @@
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
 						"isTool": true
+					}
+				},
+				{
+					"capitals": {
+						"values": "noModifications,all,firstLetter",
+						"valueSelected": 0,
+						"isTool": false
 					}
 				},
 				{
@@ -159,6 +215,13 @@
 					}
 				},
 				{
+					"colourTheme": {
+						"values": "noModifications,reinforcedContrasts,white_black",
+						"valueSelected": 1,
+						"isTool": true
+					}
+				},
+				{
 					"cursorAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
@@ -187,9 +250,23 @@
 					}
 				},
 				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
 					"stopAnimations": {
 						"values": "noModifications,stop",
 						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,param1,param2",
+						"valueSelected": 0,
 						"isTool": false
 					}
 				},
@@ -201,10 +278,31 @@
 					}
 				},
 				{
+					"skipToContent": {
+						"values": "noModifications,skipToContent",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,buttons",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_2",
 						"valueSelected": 1,
 						"isTool": true
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_2",
+						"valueSelected": 0,
+						"isTool": false
 					}
 				}
 			]
