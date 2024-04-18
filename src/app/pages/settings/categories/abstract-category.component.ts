@@ -7,6 +7,7 @@ abstract class AbstractCategory extends HTMLElement {
 	settingsDictionnary: SettingsDictionnary[] = [];
 	settingsElements: any[] = [];
 	displayAllSettings = false;
+	isMainCategory = false;
 
 	private CLASS_NAME_SHOW = 'show';
 	private CLASS_NAME_COLLAPSED = 'collapsed';
