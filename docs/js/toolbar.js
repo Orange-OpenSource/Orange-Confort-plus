@@ -2100,6 +2100,25 @@ customElements.define("app-skip-to-content", SkipToContentComponent);
 
 "use strict";
 
+const tmplSkipToContent = document.createElement("template");
+
+tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+
+class SkipToContentComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.appendChild(tmplSkipToContent.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-skip-to-content", SkipToContentComponent);
+
+"use strict";
+
 const tmplStopAnimations = document.createElement("template");
 
 tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -3112,6 +3131,7 @@ class SettingsComponent extends HTMLElement {
         if ("data-modes" === name) {
             this.openOrHideCategories(newValue);
             let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
+            this.openMainCategory(JSON.parse(newValue));
             let elements = this.querySelectorAll(".c-settings__category");
             const settings = Object.entries(JSON.parse(selectedMode))[0][1];
             elements.forEach((element => {
@@ -3140,6 +3160,7 @@ class AbstractCategory extends HTMLElement {
     settingsDictionnary=[];
     settingsElements=[];
     displayAllSettings=false;
+    isMainCategory=false;
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
