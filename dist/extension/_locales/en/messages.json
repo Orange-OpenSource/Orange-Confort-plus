@@ -116,6 +116,27 @@
 	"stopAnimationsInstruction": {
 		"message": "To prevent animations within the page"
 	},
+	"capitals": {
+		"message": "Capitals"
+	},
+	"clearlyLinks": {
+		"message": "Clearly links"
+	},
+	"colourTheme": {
+		"message": "Colour-Theme"
+	},
+	"deleteBackgroundImages": {
+		"message": "Delete background images"
+	},
+	"navigationAuto": {
+		"message": "Auto scroll navigation"
+	},
+	"navigationButtons": {
+		"message": "Navigation buttons"
+	},
+	"skipToContent": {
+		"message": "Aller au contenu"
+	},
 	"scroll": {
 		"message": "Lift"
 	},
