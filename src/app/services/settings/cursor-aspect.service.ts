@@ -29,7 +29,7 @@ class CursorAspectService {
 	}
 
 	setCursor = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('cursor-aspect');
 		} else {
 			let color = value.split('_')[1];

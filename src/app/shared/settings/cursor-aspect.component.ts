@@ -8,7 +8,7 @@ tmplCursorAspect.innerHTML = `
 
 class CursorAspectComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,big_black,huge_green",
+		"values": `${DEFAULT_VALUE},big_black,huge_green`,
 		"valueSelected": 0
 	};
 

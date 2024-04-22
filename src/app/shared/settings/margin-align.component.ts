@@ -8,7 +8,7 @@ tmplMarginAlign.innerHTML = `
 
 class MarginAlignComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,alignLeft,margeList",
+		"values": `${DEFAULT_VALUE},alignLeft,margeList`,
 		"valueSelected": 0
 	};
 

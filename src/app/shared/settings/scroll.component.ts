@@ -8,7 +8,7 @@ tmplScroll.innerHTML = `
 
 class ScrollComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,bigScroll,scrollOnMouseover",
+		"values": `${DEFAULT_VALUE},bigScroll,scrollOnMouseover`,
 		"valueSelected": 0
 	};
 

@@ -17,7 +17,7 @@ class TextSpacingService {
 			{ name: 'spacingTextLabelHuge', wordSpacing: '.5em', lineHeight: '3em', letterSpacing: '.5em' }
 		];
 
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('text-spacing');
 		} else {
 			let objSpacingText = spacingTextValues?.find(o => o.name === value);
