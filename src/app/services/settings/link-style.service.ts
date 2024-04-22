@@ -11,7 +11,7 @@ class LinkStyleService {
 	}
 
 	setLinkStyle = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('link');
 		} else {
 			let linkColor = value.split('_')[0];

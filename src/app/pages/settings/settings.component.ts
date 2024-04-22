@@ -22,7 +22,6 @@ class SettingsComponent extends HTMLElement {
 		if ('data-modes' === name) {
 			this.openOrHideCategories(newValue);
 			let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
-			this.openMainCategory(JSON.parse(newValue));
 			let elements = this.querySelectorAll(".c-settings__category");
 			const settings: string[] = Object.entries(JSON.parse(selectedMode))[0][1] as string[];
 			elements.forEach((element) => {
