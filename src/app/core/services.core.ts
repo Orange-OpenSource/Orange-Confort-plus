@@ -17,11 +17,15 @@ const stylesServiceInstance = new StylesService();
 Object.freeze(stylesServiceInstance);
 const stringServiceInstance = new StringService();
 Object.freeze(stringServiceInstance);
+const messageServiceInstance = new MessageService();
+Object.freeze(messageServiceInstance);
 // @note We don't freeze these services to be able to redefine certain variables
 const categoriesServiceInstance = new CategoriesService();
 Object.seal(categoriesServiceInstance);
 const routeServiceInstance = new RouteService();
 Object.seal(routeServiceInstance);
+
+// Settings
 const capitalLettersServiceInstance = new CapitalLettersService();
 Object.seal(capitalLettersServiceInstance);
 const clearlyLinksServiceInstance = new ClearlyLinksService();
