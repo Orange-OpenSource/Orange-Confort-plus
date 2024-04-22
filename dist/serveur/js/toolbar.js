@@ -2055,6 +2055,10 @@ const stringServiceInstance = new StringService;
 
 Object.freeze(stringServiceInstance);
 
+const messageServiceInstance = new MessageService;
+
+Object.freeze(messageServiceInstance);
+
 const categoriesServiceInstance = new CategoriesService;
 
 Object.seal(categoriesServiceInstance);
