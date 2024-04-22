@@ -8,7 +8,7 @@ tmplLinkStyle.innerHTML = `
 
 class LinkStyleComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
+		"values": `${DEFAULT_VALUE},lightblue_orange_lightgreen,yellow_orange_lightgreen`,
 		"valueSelected": 0
 	};
 

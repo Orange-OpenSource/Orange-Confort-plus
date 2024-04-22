@@ -11,10 +11,10 @@ class ModeOfUseService {
 	}
 
 	setSelectedMode = (newSelectedMode: string): void => {
-		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
+		localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
 			let json = result;
 			json.selectedMode = newSelectedMode;
-			localStorageServiceInstance.setItem(jsonName, json);
+			localStorageServiceInstance.setItem(JSON_NAME, json);
 		});
 	}
 
@@ -30,7 +30,7 @@ class ModeOfUseService {
 
 	setSettingValue(key: string, newIndex: number, newValue?: string): Promise<boolean> {
 		let jsonIsEdited = false;
-		return localStorageServiceInstance.getItem(jsonName)
+		return localStorageServiceInstance.getItem(JSON_NAME)
 			.then((result: any) => {
 				let json = result;
 				json.modes.forEach((mode: any) => {
@@ -45,7 +45,7 @@ class ModeOfUseService {
 								settingValues.values = newValues.toString();
 							}
 							settingValues.valueSelected = newIndex;
-							localStorageServiceInstance.setItem(jsonName, json);
+							localStorageServiceInstance.setItem(JSON_NAME, json);
 							jsonIsEdited = true;
 						}
 					}
@@ -60,7 +60,7 @@ class ModeOfUseService {
 
 	getCustomValue(settingName: string): Promise<string> {
 		let customValue: string = '';
-		return localStorageServiceInstance.getItem(jsonName)
+		return localStorageServiceInstance.getItem(JSON_NAME)
 			.then((result: any) => {
 				let json = result;
 				json.modes.forEach((mode: any) => {

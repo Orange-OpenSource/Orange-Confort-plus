@@ -25,19 +25,19 @@ class ToolbarComponent extends HTMLElement {
 		filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
 			this.defaultJson = result;
 
-			localStorageServiceInstance.getItem(jsonName).then((result: any) => {
+			localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
 				if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
 					this.json = result;
 				} else {
 					this.json = this.defaultJson;
-					localStorageServiceInstance.setItem(jsonName, this.defaultJson);
+					localStorageServiceInstance.setItem(JSON_NAME, this.defaultJson);
 				}
 
 				this.initCurrentMode();
 			});
 		});
 
-		window.addEventListener(`storage-${jsonName}`, this.handler);
+		window.addEventListener(`storage-${JSON_NAME}`, this.handler);
 
 		this.addEventListener('changeRoute', this.handler);
 	}
@@ -88,7 +88,7 @@ class ToolbarComponent extends HTMLElement {
 				case 'changeRoute':
 					this.changeRouteEvent(event);
 					break;
-				case `storage-${jsonName}`:
+				case `storage-${JSON_NAME}`:
 					this.storageEvent();
 					break;
 			}
@@ -115,7 +115,7 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	private storageEvent = (): void => {
-		localStorageServiceInstance.getItem(jsonName).then((result: any) => {
+		localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
 			this.json = result;
 			this.setCurrentPage(routeServiceInstance.currentRoute);
 			// this.setCustomState();

@@ -8,7 +8,7 @@ tmplFocusAspect.innerHTML = `
 
 class FocusAspectComponent extends AbstractSetting {
 	activesValues = {
-		"values": "noModifications,big_blue,veryBig_red",
+		"values": `${DEFAULT_VALUE},big_blue,veryBig_red`,
 		"valueSelected": 0
 	};
 

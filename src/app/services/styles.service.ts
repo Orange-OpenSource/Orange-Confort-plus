@@ -2,7 +2,7 @@ let stylesServiceIsInstantiated: boolean;
 
 class StylesService {
 	//@ts-ignore
-	prefixStyle = `${prefix}style-`;
+	prefixStyle = `${PREFIX}style-`;
 
 	constructor() {
 		if (stylesServiceIsInstantiated) {

@@ -11,7 +11,7 @@ class LocalStorageService {
 
 	setItem<T>(key: string, value: T): void {
 		//@ts-ignore
-		localStorage.setItem(`${prefix}${key}`, JSON.stringify(value));
+		localStorage.setItem(`${PREFIX}${key}`, JSON.stringify(value));
 		let storeEvent = new CustomEvent(`storage-${key}`,
 			{
 				bubbles: true
@@ -22,13 +22,13 @@ class LocalStorageService {
 	getItem<T>(key: string): Promise<T> {
 		return new Promise<T>((resolve, reject) => {
 			// @ts-ignore
-			resolve(JSON.parse(localStorage.getItem(`${prefix}${key}`)));
+			resolve(JSON.parse(localStorage.getItem(`${PREFIX}${key}`)));
 			reject(new Error('KO'));
 		});
 	}
 
 	removeItem(key: string): void {
 		//@ts-ignore
-		localStorage.removeItem(`${prefix}${key}`);
+		localStorage.removeItem(`${PREFIX}${key}`);
 	}
 }

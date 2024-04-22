@@ -1,5 +1,5 @@
 {
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -111,7 +111,7 @@
 				},
 				{
 					"deleteBackgroundImages": {
-						"values": "noModifications,param1,param2",
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -265,7 +265,7 @@
 				},
 				{
 					"deleteBackgroundImages": {
-						"values": "noModifications,param1,param2",
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
 					}

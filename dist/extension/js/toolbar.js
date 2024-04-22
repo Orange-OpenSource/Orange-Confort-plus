@@ -1,13 +1,15 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.4 - 25/04/2024
+ * orange-confort-plus - version 5.0.0-alpha.4 - 16/05/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
 "use strict";
 
-const prefix = "cplus-";
+const PREFIX = "cplus-";
 
-const jsonName = "modeOfUse";
+const JSON_NAME = "modeOfUse";
+
+const DEFAULT_VALUE = "noModifications";
 
 const PAGE_HOME = "home";
 
@@ -114,7 +116,7 @@ class LocalStorageService {
     }
     setItem(key, value) {
         chrome.storage.local.set({
-            [`${prefix}${key}`]: value
+            [`${PREFIX}${key}`]: value
         });
         let storeEvent = new CustomEvent(`storage-${key}`, {
             bubbles: true
@@ -122,13 +124,13 @@ class LocalStorageService {
         window.dispatchEvent(storeEvent);
     }
     getItem(key) {
-        return chrome.storage.local.get([ `${prefix}${key}` ]).then((datas => new Promise(((resolve, reject) => {
-            resolve(datas[`${prefix}${key}`]);
+        return chrome.storage.local.get([ `${PREFIX}${key}` ]).then((datas => new Promise(((resolve, reject) => {
+            resolve(datas[`${PREFIX}${key}`]);
             reject(new Error("KO"));
         }))));
     }
     removeItem(key) {
-        chrome.storage.local.remove([ `${prefix}${key}` ]);
+        chrome.storage.local.remove([ `${PREFIX}${key}` ]);
     }
 }
 
@@ -198,10 +200,10 @@ class ModeOfUseService {
         modeOfUseServiceIsInstantiated = true;
     }
     setSelectedMode=newSelectedMode => {
-        localStorageServiceInstance.getItem(jsonName).then((result => {
+        localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
             json.selectedMode = newSelectedMode;
-            localStorageServiceInstance.setItem(jsonName, json);
+            localStorageServiceInstance.setItem(JSON_NAME, json);
         }));
     };
     getSelectedMode(json) {
@@ -215,7 +217,7 @@ class ModeOfUseService {
     }
     setSettingValue(key, newIndex, newValue) {
         let jsonIsEdited = false;
-        return localStorageServiceInstance.getItem(jsonName).then((result => {
+        return localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
             json.modes.forEach((mode => {
                 if (Object.keys(mode)[0] === json.selectedMode) {
@@ -229,7 +231,7 @@ class ModeOfUseService {
                             settingValues.values = newValues.toString();
                         }
                         settingValues.valueSelected = newIndex;
-                        localStorageServiceInstance.setItem(jsonName, json);
+                        localStorageServiceInstance.setItem(JSON_NAME, json);
                         jsonIsEdited = true;
                     }
                 }
@@ -242,7 +244,7 @@ class ModeOfUseService {
     }
     getCustomValue(settingName) {
         let customValue = "";
-        return localStorageServiceInstance.getItem(jsonName).then((result => {
+        return localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
             json.modes.forEach((mode => {
                 if (Object.keys(mode)[0] === json.selectedMode) {
@@ -641,7 +643,7 @@ class ColorContrastService {
         colorContrastServiceIsInstantiated = true;
     }
     setColorsContrasts=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("color-contrast");
         } else {
             let color = "";
@@ -705,7 +707,7 @@ class CursorAspectService {
         return `<svg width="${size}" height="${size}" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="${color}" d="${path}" stroke="black" stroke-width="${strokeWidth}"/></svg>`;
     };
     setCursor=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("cursor-aspect");
         } else {
             let color = value.split("_")[1];
@@ -727,6 +729,14 @@ class DeleteBackgroundImagesService {
         }
         deleteBackgroundImagesServiceIsInstantiated = true;
     }
+    setDeleteBackgroundImages=value => {
+        if (value === DEFAULT_VALUE) {
+            stylesServiceInstance.removeStyle("delete-background-images");
+        } else {
+            let styleDeleteBackgroundImages = `\n\t\t\t\t*, *::before, *::after {\n\t\t\t\t\tbackground-image: none !important;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle("delete-background-images", styleDeleteBackgroundImages);
+        }
+    };
 }
 
 "use strict";
@@ -741,7 +751,7 @@ class FocusAspectService {
         focusAspectServiceIsInstantiated = true;
     }
     setFocus=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("focus-aspect");
         } else {
             let size = value.split("_")[0] === "big" ? "4px" : "10px";
@@ -971,7 +981,7 @@ class FontFamilyService {
         stylesServiceInstance.setStyle("font-family", fontFaceList.join(""));
     }
     setFontFamily=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             document.body.style.fontFamily = null;
         } else {
             document.body.style.fontFamily = value;
@@ -991,7 +1001,7 @@ class LinkStyleService {
         linkStyleServiceIsInstantiated = true;
     }
     setLinkStyle=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("link");
         } else {
             let linkColor = value.split("_")[0];
@@ -1353,7 +1363,7 @@ class TextSizeService {
         textSizeServiceIsInstantiated = true;
     }
     setFontSize=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             document.documentElement.style.fontSize = null;
         } else {
             document.documentElement.style.fontSize = `${value}%`;
@@ -1389,7 +1399,7 @@ class TextSpacingService {
             lineHeight: "3em",
             letterSpacing: ".5em"
         } ];
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("text-spacing");
         } else {
             let objSpacingText = spacingTextValues?.find((o => o.name === value));
@@ -1426,7 +1436,7 @@ class StringService {
 let stylesServiceIsInstantiated;
 
 class StylesService {
-    prefixStyle=`${prefix}style-`;
+    prefixStyle=`${PREFIX}style-`;
     constructor() {
         if (stylesServiceIsInstantiated) {
             throw new Error("StylesService is already instantiated.");
@@ -1779,7 +1789,7 @@ tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n
 
 class ClickFaciliteComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,longClick_2,autoClick_2",
+        values: `${DEFAULT_VALUE},longClick_2,autoClick_2`,
         valueSelected: 0
     };
     constructor() {
@@ -1799,7 +1809,7 @@ tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n
 
 class ColorContrastComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,reinforcedContrasts,white_black",
+        values: `${DEFAULT_VALUE},reinforcedContrasts,white_black`,
         valueSelected: 0
     };
     constructor() {
@@ -1838,7 +1848,7 @@ tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\
 
 class CursorAspectComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,big_black,huge_green",
+        values: `${DEFAULT_VALUE},big_black,huge_green`,
         valueSelected: 0
     };
     constructor() {
@@ -1854,7 +1864,7 @@ customElements.define("app-cursor-aspect", CursorAspectComponent);
 
 const tmplDeleteBackgroundImages = document.createElement("template");
 
-tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
     activesValues={
@@ -1863,6 +1873,7 @@ class DeleteBackgroundImagesComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this));
         this.appendChild(tmplDeleteBackgroundImages.content.cloneNode(true));
     }
 }
@@ -1877,7 +1888,7 @@ tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t
 
 class FocusAspectComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,big_blue,veryBig_red",
+        values: `${DEFAULT_VALUE},big_blue,veryBig_red`,
         valueSelected: 0
     };
     constructor() {
@@ -1897,7 +1908,7 @@ tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<
 
 class FontFamilyComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,Accessible_DfA,Luciole",
+        values: `${DEFAULT_VALUE},Accessible_DfA,Luciole`,
         valueSelected: 0
     };
     constructor() {
@@ -1917,7 +1928,7 @@ tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<a
 
 class LinkStyleComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
+        values: `${DEFAULT_VALUE},lightblue_orange_lightgreen,yellow_orange_lightgreen`,
         valueSelected: 0
     };
     constructor() {
@@ -1956,7 +1967,7 @@ tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t
 
 class MarginAlignComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,alignLeft,margeList",
+        values: `${DEFAULT_VALUE},alignLeft,margeList`,
         valueSelected: 0
     };
     constructor() {
@@ -2033,7 +2044,7 @@ tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,ruleGuide,maskGuide",
+        values: `${DEFAULT_VALUE},ruleGuide,maskGuide`,
         valueSelected: 0
     };
     constructor() {
@@ -2053,7 +2064,7 @@ tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-
 
 class ScrollComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,bigScroll,scrollOnMouseover",
+        values: `${DEFAULT_VALUE},bigScroll,scrollOnMouseover`,
         valueSelected: 0
     };
     constructor() {
@@ -2064,25 +2075,6 @@ class ScrollComponent extends AbstractSetting {
 }
 
 customElements.define("app-scroll", ScrollComponent);
-
-"use strict";
-
-const tmplSkipToContent = document.createElement("template");
-
-tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
-
-class SkipToContentComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
-    constructor() {
-        super();
-        this.appendChild(tmplSkipToContent.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-skip-to-content", SkipToContentComponent);
 
 "use strict";
 
@@ -2130,7 +2122,7 @@ tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3"
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,110,130",
+        values: `${DEFAULT_VALUE},110,130`,
         valueSelected: 0
     };
     constructor() {
@@ -2150,7 +2142,7 @@ tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t
 
 class TextSpacingComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+        values: `${DEFAULT_VALUE},spacingTextLabelSmall,spacingTextLabelBig`,
         valueSelected: 0
     };
     constructor() {
@@ -2349,7 +2341,6 @@ class BtnSettingComponent extends HTMLElement {
         this.calculateList();
     };
     setDisabledState=() => {
-        console.log(this.settingBtn);
         this.settingBtn.disabled = this.disabled;
     };
     calculateList=() => {
@@ -3117,7 +3108,6 @@ class SettingsComponent extends HTMLElement {
         if ("data-modes" === name) {
             this.openOrHideCategories(newValue);
             let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
-            this.openMainCategory(JSON.parse(newValue));
             let elements = this.querySelectorAll(".c-settings__category");
             const settings = Object.entries(JSON.parse(selectedMode))[0][1];
             elements.forEach((element => {
@@ -3146,7 +3136,6 @@ class AbstractCategory extends HTMLElement {
     settingsDictionnary=[];
     settingsElements=[];
     displayAllSettings=false;
-    isMainCategory=false;
     CLASS_NAME_SHOW="show";
     CLASS_NAME_COLLAPSED="collapsed";
     _triggerArray=[];
@@ -3341,17 +3330,17 @@ class ToolbarComponent extends HTMLElement {
         this.header = this.querySelector("#header");
         filesServiceInstance.getJSONFile("modes-of-use").then((result => {
             this.defaultJson = result;
-            localStorageServiceInstance.getItem(jsonName).then((result => {
+            localStorageServiceInstance.getItem(JSON_NAME).then((result => {
                 if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
                     this.json = result;
                 } else {
                     this.json = this.defaultJson;
-                    localStorageServiceInstance.setItem(jsonName, this.defaultJson);
+                    localStorageServiceInstance.setItem(JSON_NAME, this.defaultJson);
                 }
                 this.initCurrentMode();
             }));
         }));
-        window.addEventListener(`storage-${jsonName}`, this.handler);
+        window.addEventListener(`storage-${JSON_NAME}`, this.handler);
         this.addEventListener("changeRoute", this.handler);
     }
     initCurrentMode=() => {
@@ -3380,7 +3369,7 @@ class ToolbarComponent extends HTMLElement {
             this.changeRouteEvent(event);
             break;
 
-          case `storage-${jsonName}`:
+          case `storage-${JSON_NAME}`:
             this.storageEvent();
             break;
         }
@@ -3400,7 +3389,7 @@ class ToolbarComponent extends HTMLElement {
         }
     };
     storageEvent=() => {
-        localStorageServiceInstance.getItem(jsonName).then((result => {
+        localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             this.json = result;
             this.setCurrentPage(routeServiceInstance.currentRoute);
         }));

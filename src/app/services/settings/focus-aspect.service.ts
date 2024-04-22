@@ -11,7 +11,7 @@ class FocusAspectService {
 	}
 
 	setFocus = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('focus-aspect');
 		} else {
 			let size = value.split('_')[0] === 'big' ? '4px' : '10px';
