@@ -11,7 +11,7 @@ class ColorContrastService {
 	}
 
 	setColorsContrasts = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('color-contrast');
 		} else {
 			let color = '';

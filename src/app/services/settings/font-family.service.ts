@@ -100,7 +100,7 @@ class FontFamilyService {
 	}
 
 	setFontFamily = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			document.body.style.fontFamily = null;
 		} else {
 			document.body.style.fontFamily = value;

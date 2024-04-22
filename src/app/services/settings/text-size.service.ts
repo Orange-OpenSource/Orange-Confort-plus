@@ -11,7 +11,7 @@ class TextSizeService {
 	}
 
 	setFontSize = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			document.documentElement.style.fontSize = null;
 		} else {
 			document.documentElement.style.fontSize = `${value}%`;

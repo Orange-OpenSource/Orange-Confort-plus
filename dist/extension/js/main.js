@@ -1,5 +1,5 @@
 "use strict";
-const prefix = 'cplus-';
+const PREFIX = 'cplus-';
 chrome.runtime.onInstalled.addListener(async () => {
     // Update action icon and state
     // @fixme Restreindre à la fenêtre actuelle
@@ -13,11 +13,11 @@ chrome.runtime.onInstalled.addListener(async () => {
         }
         else {
             chrome.action.enable(tab.id);
-            const states = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
-            chrome.storage.local.set({ [`${prefix}is-enabled-${tab.id}`]: false });
+            const states = await chrome.storage.local.get(`${PREFIX}is-enabled-${tab.id}`);
+            chrome.storage.local.set({ [`${PREFIX}is-enabled-${tab.id}`]: false });
             // Reload tabs that had CDU loaded and active
             // @fixme Ça renvoie quoi ? A priori on recharge trop d’onglets…
-            if (states[`${prefix}is-enabled-${tab.id}`]) {
+            if (states[`${PREFIX}is-enabled-${tab.id}`]) {
                 chrome.tabs.reload(tab.id)
                     .catch(error => {
                     console.error(`Cannot reload tab ${tab.id}. Error: ${error}`);
@@ -65,18 +65,18 @@ chrome.action.onClicked.addListener(async (tab) => {
         chrome.action.disable(tab.id);
         return false;
     }
-    const activations = await chrome.storage.local.get(`${prefix}is-enabled-${tab.id}`);
-    const isEnabled = activations[`${prefix}is-enabled-${tab.id}`];
-    chrome.storage.local.set({ [`${prefix}is-enabled-${tab.id}`]: !isEnabled });
-    const injections = await chrome.storage.local.get(`${prefix}is-injected-${tab.id}`);
-    const isInjected = injections[`${prefix}is-injected-${tab.id}`];
+    const activations = await chrome.storage.local.get(`${PREFIX}is-enabled-${tab.id}`);
+    const isEnabled = activations[`${PREFIX}is-enabled-${tab.id}`];
+    chrome.storage.local.set({ [`${PREFIX}is-enabled-${tab.id}`]: !isEnabled });
+    const injections = await chrome.storage.local.get(`${PREFIX}is-injected-${tab.id}`);
+    const isInjected = injections[`${PREFIX}is-injected-${tab.id}`];
     updateButtonIcon(!isEnabled, tab.id);
     if (!isEnabled && !isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/toolbar.js']
         });
-        chrome.storage.local.set({ [`${prefix}is-injected-${tab.id}`]: true });
+        chrome.storage.local.set({ [`${PREFIX}is-injected-${tab.id}`]: true });
     }
     else if (!isEnabled && isInjected) {
         chrome.scripting.executeScript({
@@ -98,8 +98,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     }
     else {
         chrome.action.enable(tabId);
-        chrome.storage.local.set({ [`${prefix}is-enabled-${tabId}`]: false });
-        chrome.storage.local.set({ [`${prefix}is-injected-${tabId}`]: false });
+        chrome.storage.local.set({ [`${PREFIX}is-enabled-${tabId}`]: false });
+        chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: false });
     }
 });
 chrome.tabs.onCreated.addListener(tab => {
