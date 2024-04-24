@@ -9,7 +9,7 @@ class ReadingGuideService {
 	handlerReadingGuide: any;
 
 	classRuleGuide = `
-		#cplus-vertical-guide-elt {
+		#${PREFIX}vertical-guide-elt {
 			border-left: 4px solid black;
 			background: white;
 			height: 100%;
@@ -21,18 +21,18 @@ class ReadingGuideService {
 	`;
 
 	classMaskGuide = `
-		#cplus-mask-guide--top-elt,
-		#cplus-mask-guide--bottom-elt {
+		#${PREFIX}mask-guide--top-elt,
+		#${PREFIX}mask-guide--bottom-elt {
 			background: rgba(0, 0, 0, 0.5);
 			position: fixed;
 			left: 0;
 			right: 0;
 			z-index: 2147483645;
 		}
-		#cplus-mask-guide--top-elt {
+		#${PREFIX}mask-guide--top-elt {
 			top: 0;
 		}
-		#cplus-mask-guide--bottom-elt {
+		#${PREFIX}mask-guide--bottom-elt {
 			bottom: 0;
 		}
 	`;
@@ -44,9 +44,9 @@ class ReadingGuideService {
 
 		readingGuideServiceIsInstantiated = true;
 
-		this.readingGuideElt = document.querySelector('#cplus-vertical-guide-elt');
-		this.topGuideElt = document.querySelector('#cplus-top-guide-elt');
-		this.bottomGuideElt = document.querySelector('#cplus-bottom-guide-elt');
+		this.readingGuideElt = document.querySelector(`#${PREFIX}vertical-guide-elt`);
+		this.topGuideElt = document.querySelector(`#${PREFIX}top-guide-elt`);
+		this.bottomGuideElt = document.querySelector(`#${PREFIX}bottom-guide-elt`);
 
 		this.handlerReadingGuide = this.createHandlerReadingGuide();
 	}
@@ -83,13 +83,13 @@ class ReadingGuideService {
 
 		if (this.guideType === 'rule') {
 			const readingElt = document.createElement('div');
-			readingElt.setAttribute('id', 'cplus-vertical-guide-elt');
+			readingElt.setAttribute('id', `${PREFIX}vertical-guide-elt`);
 			document.body.appendChild(readingElt);
 		} else if (this.guideType === 'mask') {
 			const maskTopElt = document.createElement('div');
 			const maskBottomElt = document.createElement('div');
-			maskTopElt.setAttribute('id', 'cplus-mask-guide--top-elt');
-			maskBottomElt.setAttribute('id', 'cplus-mask-guide--bottom-elt');
+			maskTopElt.setAttribute('id', `${PREFIX}mask-guide--top-elt`);
+			maskBottomElt.setAttribute('id', `${PREFIX}mask-guide--bottom-elt`);
 			document.body.appendChild(maskTopElt);
 			document.body.appendChild(maskBottomElt);
 		}
@@ -100,19 +100,19 @@ class ReadingGuideService {
 	resetGuide = (): void => {
 		this.guideType = '';
 		stylesServiceInstance.removeStyle('reading-guide');
-		document.querySelector('#cplus-vertical-guide-elt')?.remove();
-		document.querySelector('#cplus-mask-guide--top-elt')?.remove();
-		document.querySelector('#cplus-mask-guide--bottom-elt')?.remove();
+		document.querySelector(`#${PREFIX}vertical-guide-elt`)?.remove();
+		document.querySelector(`#${PREFIX}mask-guide--top-elt`)?.remove();
+		document.querySelector(`#${PREFIX}mask-guide--bottom-elt`)?.remove();
 	}
 
 	createHandlerReadingGuide = () => {
 		return (event: Event) => {
 			if (event.type === 'mousemove') {
 				if (this.guideType === 'rule') {
-					(document.querySelector('#cplus-vertical-guide-elt') as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
+					(document.querySelector(`#${PREFIX}vertical-guide-elt`) as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
 				} else if (this.guideType === 'mask') {
-					(document.querySelector('#cplus-mask-guide--top-elt') as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
-					(document.querySelector('#cplus-mask-guide--bottom-elt') as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;
+					(document.querySelector(`#${PREFIX}mask-guide--top-elt`) as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
+					(document.querySelector(`#${PREFIX}mask-guide--bottom-elt`) as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;
 				}
 				event.stopPropagation();
 			}

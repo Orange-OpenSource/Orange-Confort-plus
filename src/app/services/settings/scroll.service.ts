@@ -31,20 +31,7 @@ class ScrollService {
 	/* Adds the style required for scrolling functions */
 	setScrollClass = (): void => {
 		let styleScroll = `
-			.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {
-					width: 2rem;
-			}
-			.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {
-				background-color: lightgrey;
-				border-radius: 1.75rem
-				width: 2rem;
-				cursor: pointer;
-			}
-			.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {
-				background-color: grey;
-			}
-
-			#cplus-container-scroll-buttons {
+			#${PREFIX}container-scroll-buttons {
 				display: flex;
 				gap: 1rem;
 				position: fixed;
@@ -53,7 +40,7 @@ class ScrollService {
 				z-index: 2147483647;
 			}
 
-			#cplus-container-scroll-buttons button {
+			#${PREFIX}container-scroll-buttons button {
 				background: #f16e00;
 				color: #000;
 				border: none;
@@ -62,6 +49,34 @@ class ScrollService {
 			}
 			.d-none {
 				display: none;
+			}
+
+			/* WebKit (Chrome, Safari) */
+			.${PREFIX}big-scroll::-webkit-scrollbar,
+			.${PREFIX}big-scroll *::-webkit-scrollbar {
+					width: 2rem;
+			}
+			.${PREFIX}big-scroll::-webkit-scrollbar-thumb,
+			.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {
+				background-color: lightgrey;
+				border-radius: 1.75rem
+				width: 2rem;
+				cursor: pointer;
+			}
+			.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,
+			.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {
+				background-color: grey;
+			}
+
+			/* Firefox */
+			.${PREFIX}big-scroll,
+			.${PREFIX}big-scroll * {
+				scrollbar-width: auto;
+				scrollbar-color: lightgrey transparent;
+			}
+			.${PREFIX}big-scroll:hover,
+			.${PREFIX}big-scroll *:hover {
+				scrollbar-color: grey transparent;
 			}
 		`;
 
@@ -117,26 +132,26 @@ class ScrollService {
 	/* Enable or disable the large scrollbar */
 	setBigScroll = (): void => {
 		if (this.bigScrollActivated) {
-			document.body.classList.add('cplus-big-scroll');
+			document.body.classList.add(`${PREFIX}big-scroll`);
 		} else {
-			document.body.classList.remove('cplus-big-scroll');
+			document.body.classList.remove(`${PREFIX}big-scroll`);
 		}
 	}
 
 	/* Activate or deactivate the scroll up/down buttons */
 	setBtnScroll = (): void => {
-		document.querySelector('#cplus-container-scroll-buttons')?.remove();
+		document.querySelector(`#${PREFIX}container-scroll-buttons`)?.remove();
 		if (this.btnState) {
 			let intervalUp: any;
 			let intervalDown: any;
 			const btnArray = [
-				{ id: 'cplus-scroll-up', label: i18nServiceInstance.getMessage('scrollUp'), element: this.btnScrollUp, interval: intervalUp },
-				{ id: 'cplus-scroll-down', label: i18nServiceInstance.getMessage('scrollDown'), element: this.btnScrollDown, interval: intervalDown }
+				{ id: `${PREFIX}scroll-up`, label: i18nServiceInstance.getMessage('scrollUp'), element: this.btnScrollUp, interval: intervalUp },
+				{ id: `${PREFIX}scroll-down`, label: i18nServiceInstance.getMessage('scrollDown'), element: this.btnScrollDown, interval: intervalDown }
 			];
 
 			let fragment = document.createDocumentFragment();
 			const container = document.createElement('div');
-			container.setAttribute('id', 'cplus-container-scroll-buttons');
+			container.setAttribute('id', `${PREFIX}container-scroll-buttons`);
 
 			btnArray.forEach((button) => {
 				let btn = document.createElement('button');
