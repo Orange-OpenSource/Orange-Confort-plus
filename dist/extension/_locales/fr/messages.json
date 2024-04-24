@@ -134,6 +134,9 @@
 	"colourTheme": {
 		"message": "Thème-Couleurs"
 	},
+	"colourThemeInstruction": {
+		"message": "Pour modifier le rendu visuel de la page et de la souris"
+	},
 	"deleteBackgroundImages": {
 		"message": "Supprimer les images de fond"
 	},

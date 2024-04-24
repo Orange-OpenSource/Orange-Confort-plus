@@ -134,6 +134,9 @@
 	"colourTheme": {
 		"message": "Colour-Theme"
 	},
+	"colourThemeInstruction": {
+		"message": "To change the visual rendering of the page and mouse"
+	},
 	"deleteBackgroundImages": {
 		"message": "Delete background images"
 	},
