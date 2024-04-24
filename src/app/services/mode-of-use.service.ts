@@ -36,19 +36,21 @@ class ModeOfUseService {
 				json.modes.forEach((mode: any) => {
 					if (Object.keys(mode)[0] === json.selectedMode) {
 						let modeSettings: Object[] = Object.entries(mode)[0][1] as [];
-						let setting: SettingModel = Object.entries(modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)))[0][1];
-						let values = setting.values.split(',');
+						let setting = modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName));
+						let settingValues: SettingModel = Object.entries(setting)[0][1];
+						let values = settingValues.values.split(',');
+						let indexSetting = modeSettings.indexOf(setting);
+						modeSettings.splice(indexSetting, 1);
 
-						if (setting) {
-							if (removeCustom && values[3]) {
-								values.pop();
-								setting.values = values.toString();
-							}
-
-							setting.valueSelected = newIndex;
-							localStorageServiceInstance.setItem(JSON_NAME, json);
-							jsonIsEdited = true;
+						if (removeCustom && values[3]) {
+							values.pop();
+							settingValues.values = values.toString();
 						}
+						settingValues.valueSelected = newIndex;
+						/* Places the setting at the end to ensure that its parameters are applied */
+						modeSettings.push(setting);
+						localStorageServiceInstance.setItem(JSON_NAME, json);
+						jsonIsEdited = true;
 					}
 				});
 				return jsonIsEdited;

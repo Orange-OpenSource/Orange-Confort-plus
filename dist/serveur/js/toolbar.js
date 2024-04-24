@@ -237,17 +237,19 @@ class ModeOfUseService {
             json.modes.forEach((mode => {
                 if (Object.keys(mode)[0] === json.selectedMode) {
                     let modeSettings = Object.entries(mode)[0][1];
-                    let setting = Object.entries(modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName))))[0][1];
-                    let values = setting.values.split(",");
-                    if (setting) {
-                        if (removeCustom && values[3]) {
-                            values.pop();
-                            setting.values = values.toString();
-                        }
-                        setting.valueSelected = newIndex;
-                        localStorageServiceInstance.setItem(JSON_NAME, json);
-                        jsonIsEdited = true;
+                    let setting = modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)));
+                    let settingValues = Object.entries(setting)[0][1];
+                    let values = settingValues.values.split(",");
+                    let indexSetting = modeSettings.indexOf(setting);
+                    modeSettings.splice(indexSetting, 1);
+                    if (removeCustom && values[3]) {
+                        values.pop();
+                        settingValues.values = values.toString();
                     }
+                    settingValues.valueSelected = newIndex;
+                    modeSettings.push(setting);
+                    localStorageServiceInstance.setItem(JSON_NAME, json);
+                    jsonIsEdited = true;
                 }
             }));
             return jsonIsEdited;
@@ -818,12 +820,41 @@ class ColorContrastService {
 let colourThemeServiceIsInstantiated;
 
 class ColourThemeService {
+    colourThemeDictionnary=[ {
+        name: DEFAULT_VALUE,
+        cursor: DEFAULT_VALUE,
+        focus: DEFAULT_VALUE,
+        scroll: DEFAULT_VALUE,
+        link: DEFAULT_VALUE
+    }, {
+        name: "reinforcedContrasts",
+        cursor: "big_black",
+        focus: "big_black",
+        scroll: "big_black",
+        link: "darkblue_orange_darkgreen"
+    }, {
+        name: "white_black",
+        cursor: "big_white",
+        focus: "big_white",
+        scroll: "big_white",
+        link: "yellow_orange_lightgreen"
+    } ];
     constructor() {
         if (colourThemeServiceIsInstantiated) {
             throw new Error("ColourThemeService is already instantiated.");
         }
         colourThemeServiceIsInstantiated = true;
     }
+    setColourTheme=value => {
+        const colourThemeValues = this.colourThemeDictionnary.find((o => o.name === value));
+        this.setServices(colourThemeValues);
+    };
+    setServices=colourThemeValues => {
+        cursorAspectServiceInstance.setCursor(colourThemeValues.cursor);
+        focusAspectServiceInstance.setFocus(colourThemeValues.focus);
+        scrollServiceInstance.setScroll(colourThemeValues.scroll);
+        linkStyleServiceInstance.setLinkStyle(colourThemeValues.link);
+    };
 }
 
 "use strict";
@@ -1840,28 +1871,36 @@ class ScrollService {
     bigScrollActivated=false;
     scrollSteps=10;
     scrollTimer=50;
+    scrollColor="lightgrey";
+    scrollColorHover="grey";
+    scrollWidth="2rem";
     settingsValues=[];
     constructor() {
         if (scrollServiceIsInstantiated) {
             throw new Error("ScrollService is already instantiated.");
         }
         scrollServiceIsInstantiated = true;
-        this.setScrollClass();
     }
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: auto;\n\t\t\t\tscrollbar-color: lightgrey transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: grey transparent;\n\t\t\t}\n\t\t`;
+        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: auto;\n\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
     setScroll=value => {
+        stylesServiceInstance.removeStyle("scroll");
         let bigScroll;
         let btnState;
         if (value === DEFAULT_VALUE) {
             bigScroll = false;
             btnState = "";
-        } else if (value === "bigScroll") {
+        } else if (value.includes("bigScroll") || value.includes("veryBigScroll")) {
+            this.scrollWidth = value.split("_")[0] === "bigScroll" ? "2rem" : "3rem";
+            this.scrollColor = value.split("_")[1];
+            this.scrollColorHover = value.split("_")[2];
+            this.setScrollClass();
             bigScroll = true;
             btnState = "";
         } else {
+            this.setScrollClass();
             bigScroll = false;
             btnState = value;
         }
@@ -2498,7 +2537,7 @@ customElements.define("app-color-contrast", ColorContrastComponent);
 
 const tmplColourTheme = document.createElement("template");
 
-tmplColourTheme.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplColourTheme.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColourThemeComponent extends AbstractSetting {
     activesValues={
@@ -2507,6 +2546,7 @@ class ColourThemeComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(colourThemeServiceInstance.setColourTheme.bind(this));
         this.appendChild(tmplColourTheme.content.cloneNode(true));
     }
 }
