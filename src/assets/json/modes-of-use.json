@@ -1,5 +1,5 @@
 {
-	"version": "1.0.11",
+	"version": "1.0.12",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -62,7 +62,7 @@
 				},
 				{
 					"colourTheme": {
-						"values": "noModifications,white_black,white_blue",
+						"values": "noModifications,reinforcedContrasts,white_black",
 						"valueSelected": 1,
 						"isTool": true
 					}
@@ -118,7 +118,7 @@
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll,scrollOnMouseover",
+						"values": "noModifications,bigScroll_black_grey,scrollOnMouseover",
 						"valueSelected": 1,
 						"isTool": false
 					}
@@ -272,7 +272,7 @@
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll,scrollOnMouseover",
+						"values": "noModifications,bigScroll_black_grey,scrollOnMouseover",
 						"valueSelected": 1,
 						"isTool": false
 					}

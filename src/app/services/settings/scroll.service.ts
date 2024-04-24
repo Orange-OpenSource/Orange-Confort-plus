@@ -15,6 +15,9 @@ class ScrollService {
 	bigScrollActivated = false;
 	scrollSteps = 10;
 	scrollTimer = 50;
+	scrollColor = 'lightgrey';
+	scrollColorHover = 'grey';
+	scrollWidth = '2rem';
 
 	settingsValues: ScrollSettingValues[] = [];
 
@@ -24,8 +27,6 @@ class ScrollService {
 		}
 
 		scrollServiceIsInstantiated = true;
-
-		this.setScrollClass();
 	}
 
 	/* Adds the style required for scrolling functions */
@@ -54,29 +55,29 @@ class ScrollService {
 			/* WebKit (Chrome, Safari) */
 			.${PREFIX}big-scroll::-webkit-scrollbar,
 			.${PREFIX}big-scroll *::-webkit-scrollbar {
-					width: 2rem;
+					width: ${this.scrollWidth};
 			}
 			.${PREFIX}big-scroll::-webkit-scrollbar-thumb,
 			.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {
-				background-color: lightgrey;
+				background-color: ${this.scrollColor};
 				border-radius: 1.75rem
-				width: 2rem;
+				width: ${this.scrollWidth};
 				cursor: pointer;
 			}
 			.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,
 			.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {
-				background-color: grey;
+				background-color: ${this.scrollColorHover};
 			}
 
 			/* Firefox */
 			.${PREFIX}big-scroll,
 			.${PREFIX}big-scroll * {
 				scrollbar-width: auto;
-				scrollbar-color: lightgrey transparent;
+				scrollbar-color: ${this.scrollColor} transparent;
 			}
 			.${PREFIX}big-scroll:hover,
 			.${PREFIX}big-scroll *:hover {
-				scrollbar-color: grey transparent;
+				scrollbar-color: ${this.scrollColorHover} transparent;
 			}
 		`;
 
@@ -84,15 +85,21 @@ class ScrollService {
 	}
 
 	setScroll = (value: any): void => {
+		stylesServiceInstance.removeStyle('scroll');
 		let bigScroll: boolean;
 		let btnState: BtnScrollStateType;
 		if (value === DEFAULT_VALUE) {
 			bigScroll = false;
 			btnState = '';
-		} else if (value === 'bigScroll') {
+		} else if (value.includes('bigScroll') || value.includes('veryBigScroll')) {
+			this.scrollWidth = value.split('_')[0] === 'bigScroll' ? '2rem' : '3rem';
+			this.scrollColor = value.split('_')[1];
+			this.scrollColorHover = value.split('_')[2];
+			this.setScrollClass();
 			bigScroll = true;
 			btnState = '';
 		} else {
+			this.setScrollClass();
 			bigScroll = false;
 			btnState = value;
 		}
