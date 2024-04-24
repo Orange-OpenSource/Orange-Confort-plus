@@ -1,5 +1,5 @@
 {
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -47,7 +47,7 @@
 					}
 				},
 				{
-					"loupe": {
+					"magnifier": {
 						"values": "noModifications,square_2,square_5",
 						"valueSelected": 0,
 						"isTool": true
@@ -201,8 +201,8 @@
 					}
 				},
 				{
-					"loupe": {
-						"values": "noModifications,square_2,round_2",
+					"magnifier": {
+						"values": "noModifications,square_2,circle_2",
 						"valueSelected": 0,
 						"isTool": true
 					}

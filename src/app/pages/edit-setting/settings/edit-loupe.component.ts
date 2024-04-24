@@ -1,14 +1,14 @@
-const editLoupeLayout: HTMLTemplateElement = document.createElement('template');
-editLoupeLayout.innerHTML = `
-	<p>Edit loupe works !</p>
+const editMagnifierLayout: HTMLTemplateElement = document.createElement('template');
+editMagnifierLayout.innerHTML = `
+	<p>Edit magnifier works !</p>
 `;
 
-class EditLoupeComponent extends HTMLElement {
+class EditMagnifierComponent extends HTMLElement {
 
 	constructor() {
 		super();
 
-		this.appendChild(editLoupeLayout.content.cloneNode(true));
+		this.appendChild(editMagnifierLayout.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
@@ -16,4 +16,4 @@ class EditLoupeComponent extends HTMLElement {
 	}
 }
 
-customElements.define('app-edit-loupe', EditLoupeComponent);
+customElements.define('app-edit-magnifier', EditMagnifierComponent);
