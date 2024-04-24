@@ -9,7 +9,7 @@ tmplLayout.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-layout">
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container gap-2">
-				<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>
+				<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>
 				<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>
 				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
 				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>

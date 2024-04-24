@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.4 - 29/05/2024
+ * orange-confort-plus - version 5.0.0-alpha.4 - 05/06/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -285,6 +285,10 @@ class PauseService {
             instanceService: cursorAspectServiceInstance.setCursor.bind(this),
             value: ""
         }, {
+            name: "deleteBackgroundImages",
+            instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this),
+            value: ""
+        }, {
             name: "focusAspect",
             instanceService: focusAspectServiceInstance.setFocus.bind(this),
             value: ""
@@ -297,6 +301,10 @@ class PauseService {
             instanceService: linkStyleServiceInstance.setLinkStyle.bind(this),
             value: ""
         }, {
+            name: "magnifier",
+            instanceService: magnifierServiceInstance.setMagnifier.bind(this),
+            value: ""
+        }, {
             name: "marginAlign",
             instanceService: marginAlignServiceInstance.setMargin.bind(this),
             value: ""
@@ -307,6 +315,10 @@ class PauseService {
         }, {
             name: "scroll",
             instanceService: scrollServiceInstance.setScroll.bind(this),
+            value: ""
+        }, {
+            name: "stopAnimations",
+            instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(this),
             value: ""
         }, {
             name: "textSize",
@@ -1015,15 +1027,267 @@ class LinkStyleService {
 
 "use strict";
 
-let loupeServiceIsInstantiated;
+let magnifierServiceIsInstantiated;
 
-class LoupeService {
+class MagnifierService {
+    shape;
+    zoom;
+    handler;
+    magnifierWidth=300;
+    magnifierHeight=300;
+    ofs_x;
+    ofs_y;
+    pos_x;
+    pos_y;
+    magnifier;
+    magnifierContent;
+    magnifierBody;
+    observerObj;
+    syncTimeout;
+    styleMagnifier=`\n\t\t#${PREFIX}magnifier {\n\t\t\tbackground-color: white;\n\t\t\tborder: 1px solid black;\n\t\t\tborder-radius: 0.5rem;\n\t\t\twidth: ${this.magnifierWidth}px;\n\t\t\theight: ${this.magnifierHeight}px;\n\t\t\tposition: fixed;\n\t\t\toverflow: hidden;\n\t\t\tz-index: 2147483645;\n\t\t}\n\n\t\t#${PREFIX}magnifier-content {\n\t\t\tdisplay: block;\n\t\t\tmargin-left: 0;\n\t\t\tmargin-top: 0;\n\t\t\tpadding-top: 0;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\toverflow: visible;\n\t\t\ttransform-origin: left top;\n\t\t\tuser-select: none;\n\t\t}\n\n\t\t#${PREFIX}magnifier-glass {\n\t\t\tbackground-color: white;\n\t\t\topacity: 0;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tcursor: move;\n\t\t}\n\t`;
     constructor() {
-        if (loupeServiceIsInstantiated) {
-            throw new Error("LoupeService is already instantiated.");
+        if (magnifierServiceIsInstantiated) {
+            throw new Error("MagnifierService is already instantiated.");
         }
-        loupeServiceIsInstantiated = true;
+        magnifierServiceIsInstantiated = true;
+        this.handler = this.createHandler();
     }
+    setMagnifier=value => {
+        if (value === "noModifications") {
+            stylesServiceInstance.removeStyle("magnifier");
+            document.querySelector(`#${PREFIX}magnifier`)?.remove();
+            this.unBindDOMObserver();
+        } else {
+            stylesServiceInstance.setStyle("magnifier", this.styleMagnifier);
+            this.shape = value.split("_")[0];
+            this.zoom = Number(value.split("_")[1]);
+            this.initMagnifier();
+        }
+    };
+    initMagnifier=() => {
+        if (!document.querySelector(`#${PREFIX}magnifier`)) {
+            this.setMagnifierElements();
+        }
+        this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
+        this.magnifierContent = document.querySelector(`#${PREFIX}magnifier-content`);
+        window.addEventListener("resize", this.handler, false);
+        window.addEventListener("scroll", this.handler, true);
+        window.addEventListener("scrollend", this.handler, true);
+        this.setShapeAndZoom();
+        this.makeDraggable();
+        this.setPosition(this.magnifier, 250, 250);
+        this.syncContent();
+        this.bindDOMObserver();
+    };
+    setMagnifierElements=() => {
+        let fragment = document.createDocumentFragment();
+        const magnifier = document.createElement("div");
+        const magnifierContent = document.createElement("div");
+        const magnifierGlass = document.createElement("div");
+        magnifier.setAttribute("id", `${PREFIX}magnifier`);
+        magnifierContent.setAttribute("id", `${PREFIX}magnifier-content`);
+        magnifierGlass.setAttribute("id", `${PREFIX}magnifier-glass`);
+        magnifier.appendChild(magnifierContent);
+        magnifier.appendChild(magnifierGlass);
+        fragment.appendChild(magnifier);
+        document.body.appendChild(fragment);
+    };
+    setShapeAndZoom=() => {
+        switch (this.shape) {
+          case "square":
+            this.magnifier.style.borderRadius = null;
+            break;
+
+          case "circle":
+            this.magnifier.style.borderRadius = "50%";
+            break;
+        }
+        this.magnifierContent.style.transform = `scale(${this.zoom})`;
+    };
+    setPosition=(element, left, top) => {
+        element.style.left = `${left}px`;
+        element.style.top = `${top}px`;
+    };
+    syncContent=() => {
+        this.prepareContent();
+        this.syncViewport();
+        this.syncScrollBars();
+    };
+    prepareContent=() => {
+        this.magnifierContent.innerHTML = "";
+        const bodyOriginal = document.body;
+        const bodyCopy = bodyOriginal.cloneNode(true);
+        const color = bodyOriginal.style.backgroundColor;
+        if (color) {
+            this.magnifier.style.backgroundColor = color;
+        }
+        bodyCopy.style.cursor = "auto";
+        bodyCopy.style.paddingTop = "0px";
+        bodyCopy.style.position = "relative";
+        bodyCopy.setAttribute("unselectable", "on");
+        const canvasOriginal = bodyOriginal.querySelectorAll("canvas");
+        const canvasCopy = bodyCopy.querySelectorAll("canvas");
+        if (canvasOriginal.length > 0 && canvasOriginal.length === canvasCopy.length) {
+            for (let i = 0; i < canvasOriginal.length; i++) {
+                let ctx = canvasCopy[i].getContext("2d");
+                try {
+                    ctx?.drawImage(canvasOriginal[i], 0, 0);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        }
+        this.removeSelectors(bodyCopy, "script");
+        this.removeSelectors(bodyCopy, "audio");
+        this.removeSelectors(bodyCopy, "video");
+        this.removeSelectors(bodyCopy, `app-root`);
+        this.removeSelectors(bodyCopy, `#${PREFIX}magnifier`);
+        this.magnifierContent.appendChild(bodyCopy);
+        this.magnifierContent.style.width = `${document.body.clientWidth}px`;
+        this.magnifierContent.style.height = `${document.body.clientHeight}px`;
+        this.magnifierBody = this.magnifierContent.querySelector("body");
+        this.magnifier?.classList.add(`${PREFIX}magnifier-ignore-class`);
+        this.magnifierContent?.classList.add(`${PREFIX}magnifier-ignore-class`);
+        this.magnifierBody?.classList.add(`${PREFIX}magnifier-ignore-class`);
+        const bodyCopyElements = this.magnifierBody.querySelectorAll("*");
+        bodyCopyElements.forEach((element => {
+            element.classList.add(`${PREFIX}magnifier-ignore-class`);
+        }));
+    };
+    syncViewport=() => {
+        const x1 = this.magnifier?.offsetLeft;
+        const y1 = this.magnifier?.offsetTop;
+        const x2 = document.body.scrollLeft;
+        const y2 = document.body.scrollTop;
+        const left = -x1 * this.zoom - x2 * this.zoom - this.magnifierWidth / 2;
+        const top = -y1 * this.zoom - y2 * this.zoom - this.magnifierHeight / 2;
+        this.setPosition(this.magnifierContent, left, top);
+    };
+    syncScrollBars=() => {
+        if (this.magnifierBody !== null) {
+            const x2 = window.scrollX || document.documentElement.scrollLeft;
+            const y2 = window.scrollY || document.documentElement.scrollTop;
+            this.setPosition(this.magnifierBody, -x2, -y2);
+        }
+    };
+    stopSyncScrollBars=() => {
+        if (this.magnifierBody !== null) {
+            this.magnifierBody = null;
+        }
+        if (this.magnifier !== null) {
+            this.magnifier = null;
+        }
+    };
+    removeSelectors=(container, selector) => {
+        const elements = container.querySelectorAll(selector);
+        if (elements.length > 0) {
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].parentNode?.removeChild(elements[i]);
+            }
+        }
+    };
+    syncContentQueued=() => {
+        window.clearTimeout(this.syncTimeout);
+        this.syncTimeout = window.setTimeout(this.syncContent.bind(this), 100);
+    };
+    domChanged=() => {
+        this.syncContentQueued();
+    };
+    unBindDOMObserver=() => {
+        if (this.observerObj) {
+            this.observerObj.disconnect();
+            this.observerObj = null;
+        }
+    };
+    bindDOMObserver=() => {
+        this.observerObj = new MutationObserver((mutations => {
+            for (let i = 0; i < mutations.length; i++) {
+                this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
+                if (!mutations[i].target?.parentElement?.classList?.contains(`${PREFIX}magnifier-ignore-class`) && !mutations[i].target?.firstChild?.parentElement?.classList?.contains(`${PREFIX}magnifier-ignore-class`)) {
+                    this.domChanged();
+                }
+            }
+        }));
+        this.observerObj.observe(document, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: [ "class", "width", "height", "style" ],
+            attributeOldValue: true,
+            characterDataOldValue: true
+        });
+    };
+    makeDraggable=() => {
+        this.magnifier.style.cursor = "move";
+        this.magnifier.addEventListener("pointerdown", this.handler);
+        this.magnifier.addEventListener("pointermove", this.handler);
+        this.magnifier.addEventListener("pointerup", this.handler);
+    };
+    downHandler=event => {
+        this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
+        const pageX = event.pageX || event.touches && event.touches[0].pageX;
+        const pageY = event.pageY || event.touches && event.touches[0].pageY;
+        this.ofs_x = this.magnifier.getBoundingClientRect().left - this.magnifier.offsetLeft;
+        this.ofs_y = this.magnifier.getBoundingClientRect().top - this.magnifier.offsetTop;
+        this.pos_x = pageX - (this.magnifier.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
+        this.pos_y = pageY - (this.magnifier.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
+        event.preventDefault();
+    };
+    moveHandler=event => {
+        if (this.magnifier !== null) {
+            const pageX = event.pageX || event.touches && event.touches[0].pageX;
+            const pageY = event.pageY || event.touches && event.touches[0].pageY;
+            const left = pageX - this.pos_x - this.ofs_x - (window.scrollX || document.documentElement.scrollLeft);
+            const top = pageY - this.pos_y - this.ofs_y - (window.scrollY || document.documentElement.scrollTop);
+            this.setPosition(this.magnifier, left, top);
+            this.syncViewport();
+        }
+    };
+    upHandler=() => {
+        if (this.magnifier !== null) {
+            this.magnifier = null;
+        }
+    };
+    resizeWindow=() => {
+        let timer;
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout((() => {
+            this.stopSyncScrollBars();
+            return;
+        }), 100);
+        this.syncContent();
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "resize":
+            this.magnifierBody = this.magnifierContent.querySelector("body");
+            this.resizeWindow();
+            break;
+
+          case "scroll":
+            this.magnifierBody = this.magnifierContent.querySelector("body");
+            this.syncScrollBars();
+            break;
+
+          case "scrollend":
+            this.stopSyncScrollBars();
+            break;
+
+          case "pointerdown":
+            this.downHandler(event);
+            break;
+
+          case "pointermove":
+            this.moveHandler(event);
+            break;
+
+          case "pointerup":
+            this.upHandler();
+            break;
+        }
+    };
 }
 
 "use strict";
@@ -1127,16 +1391,16 @@ class ReadingGuideService {
     guideType="";
     sizeGuide=40;
     handlerReadingGuide;
-    classRuleGuide=`\n\t\t#cplus-vertical-guide-elt {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t`;
-    classMaskGuide=`\n\t\t#cplus-mask-guide--top-elt,\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t\t#cplus-mask-guide--top-elt {\n\t\t\ttop: 0;\n\t\t}\n\t\t#cplus-mask-guide--bottom-elt {\n\t\t\tbottom: 0;\n\t\t}\n\t`;
+    classRuleGuide=`\n\t\t#${PREFIX}vertical-guide-elt {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t`;
+    classMaskGuide=`\n\t\t#${PREFIX}mask-guide--top-elt,\n\t\t#${PREFIX}mask-guide--bottom-elt {\n\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t\t#${PREFIX}mask-guide--top-elt {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${PREFIX}mask-guide--bottom-elt {\n\t\t\tbottom: 0;\n\t\t}\n\t`;
     constructor() {
         if (readingGuideServiceIsInstantiated) {
             throw new Error("ReadingGuideService is already instantiated.");
         }
         readingGuideServiceIsInstantiated = true;
-        this.readingGuideElt = document.querySelector("#cplus-vertical-guide-elt");
-        this.topGuideElt = document.querySelector("#cplus-top-guide-elt");
-        this.bottomGuideElt = document.querySelector("#cplus-bottom-guide-elt");
+        this.readingGuideElt = document.querySelector(`#${PREFIX}vertical-guide-elt`);
+        this.topGuideElt = document.querySelector(`#${PREFIX}top-guide-elt`);
+        this.bottomGuideElt = document.querySelector(`#${PREFIX}bottom-guide-elt`);
         this.handlerReadingGuide = this.createHandlerReadingGuide();
     }
     setReadingMaskGuide=value => {
@@ -1173,13 +1437,13 @@ class ReadingGuideService {
         stylesServiceInstance.setStyle("reading-guide", styleGuide);
         if (this.guideType === "rule") {
             const readingElt = document.createElement("div");
-            readingElt.setAttribute("id", "cplus-vertical-guide-elt");
+            readingElt.setAttribute("id", `${PREFIX}vertical-guide-elt`);
             document.body.appendChild(readingElt);
         } else if (this.guideType === "mask") {
             const maskTopElt = document.createElement("div");
             const maskBottomElt = document.createElement("div");
-            maskTopElt.setAttribute("id", "cplus-mask-guide--top-elt");
-            maskBottomElt.setAttribute("id", "cplus-mask-guide--bottom-elt");
+            maskTopElt.setAttribute("id", `${PREFIX}mask-guide--top-elt`);
+            maskBottomElt.setAttribute("id", `${PREFIX}mask-guide--bottom-elt`);
             document.body.appendChild(maskTopElt);
             document.body.appendChild(maskBottomElt);
         }
@@ -1188,17 +1452,17 @@ class ReadingGuideService {
     resetGuide=() => {
         this.guideType = "";
         stylesServiceInstance.removeStyle("reading-guide");
-        document.querySelector("#cplus-vertical-guide-elt")?.remove();
-        document.querySelector("#cplus-mask-guide--top-elt")?.remove();
-        document.querySelector("#cplus-mask-guide--bottom-elt")?.remove();
+        document.querySelector(`#${PREFIX}vertical-guide-elt`)?.remove();
+        document.querySelector(`#${PREFIX}mask-guide--top-elt`)?.remove();
+        document.querySelector(`#${PREFIX}mask-guide--bottom-elt`)?.remove();
     };
     createHandlerReadingGuide=() => event => {
         if (event.type === "mousemove") {
             if (this.guideType === "rule") {
-                document.querySelector("#cplus-vertical-guide-elt").style.left = `${event.x + 2}px`;
+                document.querySelector(`#${PREFIX}vertical-guide-elt`).style.left = `${event.x + 2}px`;
             } else if (this.guideType === "mask") {
-                document.querySelector("#cplus-mask-guide--top-elt").style.height = `${event.y - this.sizeGuide}px`;
-                document.querySelector("#cplus-mask-guide--bottom-elt").style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+                document.querySelector(`#${PREFIX}mask-guide--top-elt`).style.height = `${event.y - this.sizeGuide}px`;
+                document.querySelector(`#${PREFIX}mask-guide--bottom-elt`).style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
             }
             event.stopPropagation();
         }
@@ -1225,7 +1489,7 @@ class ScrollService {
         this.setScrollClass();
     }
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t.cplus-big-scroll::-webkit-scrollbar, .cplus-big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb, .cplus-big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.cplus-big-scroll::-webkit-scrollbar-thumb:hover, .cplus-big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#cplus-container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t`;
+        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: 2rem;\n\t\t\t\tscrollbar-color: lightgrey transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: grey transparent;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
     setScroll=value => {
@@ -1271,30 +1535,30 @@ class ScrollService {
     };
     setBigScroll=() => {
         if (this.bigScrollActivated) {
-            document.body.classList.add("cplus-big-scroll");
+            document.body.classList.add(`${PREFIX}big-scroll`);
         } else {
-            document.body.classList.remove("cplus-big-scroll");
+            document.body.classList.remove(`${PREFIX}big-scroll`);
         }
     };
     setBtnScroll=() => {
-        document.querySelector("#cplus-container-scroll-buttons")?.remove();
+        document.querySelector(`#${PREFIX}container-scroll-buttons`)?.remove();
         if (this.btnState) {
             let intervalUp;
             let intervalDown;
             const btnArray = [ {
-                id: "cplus-scroll-up",
+                id: `${PREFIX}scroll-up`,
                 label: i18nServiceInstance.getMessage("scrollUp"),
                 element: this.btnScrollUp,
                 interval: intervalUp
             }, {
-                id: "cplus-scroll-down",
+                id: `${PREFIX}scroll-down`,
                 label: i18nServiceInstance.getMessage("scrollDown"),
                 element: this.btnScrollDown,
                 interval: intervalDown
             } ];
             let fragment = document.createDocumentFragment();
             const container = document.createElement("div");
-            container.setAttribute("id", "cplus-container-scroll-buttons");
+            container.setAttribute("id", `${PREFIX}container-scroll-buttons`);
             btnArray.forEach((button => {
                 let btn = document.createElement("button");
                 btn.setAttribute("id", button.id);
@@ -1590,9 +1854,9 @@ const linkStyleServiceInstance = new LinkStyleService;
 
 Object.seal(linkStyleServiceInstance);
 
-const loupeServiceInstance = new LoupeService;
+const magnifierServiceInstance = new MagnifierService;
 
-Object.seal(loupeServiceInstance);
+Object.seal(magnifierServiceInstance);
 
 const marginAlignServiceInstance = new MarginAlignService;
 
@@ -1988,22 +2252,23 @@ customElements.define("app-link-style", LinkStyleComponent);
 
 "use strict";
 
-const tmplLoupe = document.createElement("template");
+const tmplMagnifier = document.createElement("template");
 
-tmplLoupe.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Loupe" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplMagnifier.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
-class LoupeComponent extends AbstractSetting {
+class MagnifierComponent extends AbstractSetting {
     activesValues={
         values: "",
         valueSelected: 0
     };
     constructor() {
         super();
-        this.appendChild(tmplLoupe.content.cloneNode(true));
+        this.setCallback(magnifierServiceInstance.setMagnifier.bind(this));
+        this.appendChild(tmplMagnifier.content.cloneNode(true));
     }
 }
 
-customElements.define("app-loupe", LoupeComponent);
+customElements.define("app-magnifier", MagnifierComponent);
 
 "use strict";
 
@@ -2588,7 +2853,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-loupe class="sc-edit-setting__setting"></app-edit-loupe>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -2730,19 +2995,19 @@ customElements.define("app-edit-link-style", EditLinkStyleComponent);
 
 "use strict";
 
-const editLoupeLayout = document.createElement("template");
+const editMagnifierLayout = document.createElement("template");
 
-editLoupeLayout.innerHTML = `\n\t<p>Edit loupe works !</p>\n`;
+editMagnifierLayout.innerHTML = `\n\t<p>Edit magnifier works !</p>\n`;
 
-class EditLoupeComponent extends HTMLElement {
+class EditMagnifierComponent extends HTMLElement {
     constructor() {
         super();
-        this.appendChild(editLoupeLayout.content.cloneNode(true));
+        this.appendChild(editMagnifierLayout.content.cloneNode(true));
     }
     connectedCallback() {}
 }
 
-customElements.define("app-edit-loupe", EditLoupeComponent);
+customElements.define("app-edit-magnifier", EditMagnifierComponent);
 
 "use strict";
 
@@ -3021,7 +3286,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capitals class="sc-mode__setting"></app-capitals>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-loupe class="sc-mode__setting"></app-loupe>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capitals class="sc-mode__setting"></app-capitals>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -3286,7 +3551,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-loupe class="c-category__setting" data-can-edit="true"></app-loupe>\n\t\t\t\t<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {

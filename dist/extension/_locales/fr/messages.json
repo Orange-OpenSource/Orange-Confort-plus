@@ -50,10 +50,10 @@
 	"maskGuide": {
 		"message": "Masque"
 	},
-	"loupe": {
+	"magnifier": {
 		"message": "Loupe"
 	},
-	"loupeInstruction": {
+	"magnifierInstruction": {
 		"message": "Pour zoomer ponctuellement"
 	},
 	"readAloud": {
