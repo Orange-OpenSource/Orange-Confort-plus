@@ -1363,6 +1363,52 @@ class StopAnimationsService {
         }
         stopAnimationsServiceIsInstantiated = true;
     }
+    styleStopAnimations=`\n\t\t*, *::before, *::after {\n\t\t\tanimation: none !important;\n\t\t\tanimation-fill-mode: forwards !important;\n\t\t\ttransition: none !important;\n\t\t\ttransition-duration: 0.00001s !important;\n\t\t}\n\t`;
+    setStopAnimations=value => {
+        if (value === "noModifications") {
+            stylesServiceInstance.removeStyle("stop-animations");
+            this.unFreezeAllAnimations();
+        } else {
+            stylesServiceInstance.setStyle("stop-animations", this.styleStopAnimations);
+            this.freezeAllAnimations();
+        }
+    };
+    freezeAnimation=img => {
+        const width = img.width;
+        const height = img.height;
+        const alt = img.alt;
+        let canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.title = alt;
+        canvas.classList.add(`${PREFIX}freeze-animation--canvas`);
+        canvas.setAttribute("aria-hidden", "true");
+        img.classList.add(`${PREFIX}freeze-animation--img`);
+        let freeze = () => {
+            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+            canvas.style.position = "absolute";
+            img.parentNode.insertBefore(canvas, img);
+            img.style.opacity = 0;
+        };
+        if (img.complete) {
+            freeze();
+        } else {
+            img.addEventListener("load", freeze, true);
+        }
+    };
+    freezeAllAnimations=() => {
+        document.querySelectorAll('img:is([src$=".gif"], [src$=".png"], [src$=".webp"], [src$=".avif"])').forEach((img => {
+            this.freezeAnimation(img);
+        }));
+    };
+    unFreezeAllAnimations=() => {
+        document.querySelectorAll(`.${PREFIX}freeze-animation--canvas`).forEach((canvas => {
+            canvas.remove();
+        }));
+        document.querySelectorAll(`.${PREFIX}freeze-animation--img`).forEach((img => {
+            img.style.opacity = 1;
+        }));
+    };
 }
 
 "use strict";
@@ -2113,7 +2159,7 @@ customElements.define("app-skip-to-content", SkipToContentComponent);
 
 const tmplStopAnimations = document.createElement("template");
 
-tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="loupe" data-icon="Animation_Hide" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
     activesValues={
@@ -2122,6 +2168,7 @@ class StopAnimationsComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(stopAnimationsServiceInstance.setStopAnimations.bind(this));
         this.appendChild(tmplStopAnimations.content.cloneNode(true));
     }
 }
