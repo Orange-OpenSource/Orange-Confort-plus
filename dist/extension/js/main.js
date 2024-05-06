@@ -68,6 +68,8 @@ chrome.action.onClicked.addListener(async (tab) => {
     chrome.storage.local.set({ [`${PREFIX}is-enabled-${tab.id}`]: !isEnabled });
     const injections = await chrome.storage.local.get(`${PREFIX}is-injected-${tab.id}`);
     const isInjected = injections[`${PREFIX}is-injected-${tab.id}`];
+    const openings = await chrome.storage.local.get(`${PREFIX}is-opened-${tab.id}`);
+    const isOpened = openings[`${PREFIX}is-opened-${tab.id}`];
     updateButtonIcon(!isEnabled, tab.id);
     if (!isEnabled && !isInjected) {
         chrome.scripting.executeScript({
@@ -75,18 +77,38 @@ chrome.action.onClicked.addListener(async (tab) => {
             files: ['js/toolbar.js']
         });
         chrome.storage.local.set({ [`${PREFIX}is-injected-${tab.id}`]: true });
+        if (isOpened) {
+            console.log(`Action was clicked, toolbar injected and ${tab.id} is opened`);
+            // @fixme 'Receiving end does not exist' : La ré-injection ne suffit pas, je pense…
+            /* chrome.tabs.sendMessage(tab.id, { should_open: true })
+                .then(response => console.log(response.response))
+                .catch(error => console.error(error)); */
+        }
     }
     else if (!isEnabled && isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/restore.js']
         });
+        if (isOpened) {
+            console.log(`Action was clicked, toolbar restored and ${tab.id} is opened`);
+            // @fixme 'Receiving end does not exist' : La restauration ne suffit pas, je pense…
+            /* chrome.tabs.sendMessage(tab.id, { should_open: true })
+                .then(response => console.log(response.response))
+                .catch(error => console.error(error)); */
+        }
     }
     else if (isEnabled && isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/eject.js']
         });
+    }
+});
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.getTabId) {
+        console.log(`Send tabId ${sender.tab.id}`);
+        sendResponse({ tabId: sender.tab.id });
     }
 });
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -98,16 +120,27 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         chrome.action.enable(tabId);
         const activations = await chrome.storage.local.get(`${PREFIX}is-enabled-${tabId}`);
         const isEnabled = activations[`${PREFIX}is-enabled-${tabId}`];
-        chrome.storage.local.set({ [`${PREFIX}is-enabled-${tabId}`]: isEnabled });
-        if (isEnabled) {
-            chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                files: ['js/toolbar.js']
-            });
-            chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: true });
-        }
-        else {
-            chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: false });
+        if (changeInfo.url) {
+            const openings = await chrome.storage.local.get(`${PREFIX}is-opened-${tabId}`);
+            const isOpened = openings[`${PREFIX}is-opened-${tabId}`];
+            if (isEnabled) {
+                console.log(`${tabId} is enabled`);
+                chrome.scripting.executeScript({
+                    target: { tabId: tabId },
+                    files: ['js/toolbar.js']
+                });
+                chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: true });
+                if (isOpened) {
+                    console.log(`${tabId} is opened`);
+                    // @fixme This is what's erroring in Firefox
+                    chrome.tabs.sendMessage(tabId, { should_open: true })
+                        .then(response => console.log(response.response))
+                        .catch(error => console.error(error));
+                }
+            }
+            else {
+                chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: false });
+            }
         }
         updateButtonIcon(isEnabled, tabId);
     }
