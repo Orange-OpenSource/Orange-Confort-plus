@@ -2,6 +2,7 @@ let localStorageServiceIsInstantiated: boolean;
 
 class LocalStorageService {
 	hostname: string = '';
+	tabId: number;
 
 	constructor() {
 		if (localStorageServiceIsInstantiated) {
@@ -11,6 +12,12 @@ class LocalStorageService {
 		localStorageServiceIsInstantiated = true;
 
 		this.hostname = window.location.hostname;
+		chrome.runtime.sendMessage({ getTabId: true })
+			.then(response => {
+				console.log(`Got tabId ${response.tabId}`);
+				this.tabId = response.tabId;
+			})
+			.catch(error => console.error(error));
 	}
 
 	setItem<T>(key: string, value: T): void {
@@ -22,6 +29,11 @@ class LocalStorageService {
 				bubbles: true
 			});
 		window.dispatchEvent(storeEvent);
+
+		if(key === 'is-opened') {
+			console.log(`Set is-opened-${this.tabId}`);
+			chrome.storage.local.set({ [`${PREFIX}${key}-${this.tabId}`]: value });
+		}
 	}
 
 	getItem<T>(key: string): Promise<T> {

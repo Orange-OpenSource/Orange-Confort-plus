@@ -17,9 +17,11 @@ class MessageService {
 
 	listen = ():void => {
 		chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-			// @todo Play with message
-			// @todo Dispatch custom event (?)
-			// @todo Then send response (?)
+			if (message.should_open) {
+				let openEvent = new CustomEvent('openEvent', { bubbles: true });
+				document.querySelector('app-root')?.dispatchEvent(openEvent);
+				sendResponse({response: 'Dispatched openEvent'});
+			}
 		});
 	}
 

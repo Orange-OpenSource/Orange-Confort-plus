@@ -7,6 +7,7 @@ class MessageService {
 			throw new Error('MessageService is already instantiated.');
 		}
 
+		// @note This is a dead-end, only extension needs messaging.
 		messageServiceIsInstantiated = true;
 	}
 }
