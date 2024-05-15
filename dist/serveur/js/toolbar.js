@@ -1386,12 +1386,156 @@ class NavigationButtonsService {
 let readAloudServiceIsInstantiated;
 
 class ReadAloudService {
+    handler;
+    tooltipReadAloud;
+    scriptsElements;
+    confortPlusElement;
+    readAloudTooltipId=`${PREFIX}read-aloud-tooltip`;
+    readAloudSpan=`${PREFIX}read-aloud-span`;
+    readAloudPreventFlexbox=`${PREFIX}read-aloud-prevent-flexbox`;
+    regexWord=/\S+\s*[.,!?]*/g;
+    regexSentence=/[^\.!\?]+[\.!\?]+["']?|.+$/g;
+    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\ttransform: translate(0%, 75%);\n\t\tz-index: 2147483645;\n\t}\n\n\t.${this.readAloudPreventFlexbox} {\n\t\twhite-space: pre-wrap;\n\t}`;
     constructor() {
         if (readAloudServiceIsInstantiated) {
             throw new Error("ReadAloudService is already instantiated.");
         }
         readAloudServiceIsInstantiated = true;
+        this.handler = this.createHandler();
     }
+    setReadAloud=value => {
+        this.resetBody();
+        if (value === "noModifications") {
+            this.resetReadAloud();
+        } else {
+            switch (value) {
+              case "word":
+                this.setBodyToSpeech(this.regexWord);
+                break;
+
+              case "sentence":
+                this.setBodyToSpeech(this.regexSentence);
+                break;
+
+              default:
+                break;
+            }
+            this.setTooltip();
+            document.addEventListener("pointerdown", this.handler);
+            document.addEventListener("keydown", this.handler);
+            document.addEventListener("contextmenu", this.handler);
+        }
+    };
+    setTooltip=() => {
+        const fragment = document.createDocumentFragment();
+        const tooltip = document.createElement("div");
+        tooltip.setAttribute("id", this.readAloudTooltipId);
+        tooltip.textContent = i18nServiceInstance.getMessage("readAloudTooltip");
+        fragment.appendChild(tooltip);
+        document.body.insertBefore(fragment, document.body.firstChild);
+        stylesServiceInstance.setStyle("read-aloud", this.classReadAloud);
+        this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
+        document.addEventListener("pointermove", this.handler);
+    };
+    setBodyToSpeech=regex => {
+        const elements = document.body.querySelectorAll(":not(script):not(app-root)");
+        elements.forEach((element => {
+            let newNodes = [];
+            element.childNodes.forEach((node => {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim().length > 0) {
+                    const items = node.textContent.trim().match(regex);
+                    if (items?.length > 0) {
+                        const template = document.createElement("template");
+                        items?.forEach((item => {
+                            const span = document.createElement("span");
+                            span.classList.add(this.readAloudSpan);
+                            span.innerText = item.trim() + " ";
+                            template.content.appendChild(span);
+                        }));
+                        newNodes.push(...template.content.childNodes);
+                    } else {
+                        newNodes.push(node);
+                    }
+                } else if (node.nodeType !== Node.TEXT_NODE) {
+                    newNodes.push(node);
+                }
+            }));
+            element.innerHTML = "";
+            newNodes.forEach((node => {
+                element.appendChild(node);
+            }));
+            this.addClassForSpecificCase(element);
+        }));
+    };
+    addClassForSpecificCase=element => {
+        const style = window.getComputedStyle(element);
+        if (style.display === "flex" || style.display === "inline-flex") {
+            element.classList.add(this.readAloudPreventFlexbox);
+        }
+    };
+    resetBody=() => {
+        this.tooltipReadAloud?.remove();
+        const elements = Array.from(document.body.querySelectorAll(":not(script):not(app-root)"));
+        const parser = new DOMParser;
+        elements.forEach((element => {
+            element.classList.remove(this.readAloudPreventFlexbox);
+            let newChilds = document.createDocumentFragment();
+            let textChilds = "";
+            Array.from(element.childNodes).forEach((child => {
+                if (child.nodeType === Node.ELEMENT_NODE && child.classList.contains(this.readAloudSpan)) {
+                    textChilds += child.innerHTML.trim() + " ";
+                    if (!(child.nextSibling && child.nextSibling.nodeType === Node.ELEMENT_NODE && child.nextSibling.classList.contains(this.readAloudSpan))) {
+                        let decodedText = parser.parseFromString(textChilds, "text/html").documentElement.textContent;
+                        let textNode = document.createTextNode(decodedText);
+                        newChilds.appendChild(textNode);
+                        textChilds = "";
+                    }
+                } else if (!(child.nodeType === Node.TEXT_NODE && child.textContent.trim().length < 1)) {
+                    newChilds.appendChild(child);
+                }
+            }));
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            element.appendChild(newChilds);
+        }));
+    };
+    resetReadAloud=() => {
+        stylesServiceInstance.removeStyle("read-aloud");
+        document.removeEventListener("pointermove", this.handler);
+        document.removeEventListener("pointerdown", this.handler);
+        document.removeEventListener("keydown", this.handler);
+        document.removeEventListener("contextmenu", this.handler);
+    };
+    downHandler=event => {
+        let textToSpeech = new SpeechSynthesisUtterance(event.target.innerText);
+        speechSynthesis.speak(textToSpeech);
+    };
+    stopReadAloud=() => {
+        speechSynthesis.cancel();
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "pointermove":
+            this.tooltipReadAloud.style.left = `${event.pageX}px`;
+            this.tooltipReadAloud.style.top = `${event.pageY}px`;
+            break;
+
+          case "pointerdown":
+            this.downHandler(event);
+            break;
+
+          case "keydown":
+            if (event.key === "Escape" || event.key === "Esc") {
+                this.stopReadAloud();
+            }
+            break;
+
+          case "contextmenu":
+            this.stopReadAloud();
+            break;
+        }
+    };
 }
 
 "use strict";
@@ -2346,7 +2490,7 @@ customElements.define("app-navigation-buttons", NavigationButtonsComponent);
 
 const tmplReadAloud = document.createElement("template");
 
-tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-label="readAloud" data-icon="ReadAloud" data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadAloudComponent extends AbstractSetting {
     activesValues={
@@ -2355,6 +2499,7 @@ class ReadAloudComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(readAloudServiceInstance.setReadAloud.bind(this));
         this.appendChild(tmplReadAloud.content.cloneNode(true));
     }
 }
