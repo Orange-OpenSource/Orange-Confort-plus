@@ -62,6 +62,9 @@
 	"readAloudInstruction": {
 		"message": "Pour se faire lire le texte sur demande"
 	},
+	"readAloudTooltip": {
+		"message": "Cliquer pour vocaliser, appuyer sur échap ou cliquer droit pour arrêter la vocalisation."
+	},
 	"marginAlign": {
 		"message": "Marge"
 	},

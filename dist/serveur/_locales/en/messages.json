@@ -62,6 +62,9 @@
 	"readAloudInstruction": {
 		"message": "The text can be read on request"
 	},
+	"readAloudTooltip": {
+		"message": "Click to vocalise, press escape or right-click to stop vocalizing."
+	},
 	"marginAlign": {
 		"message": "Marge"
 	},
