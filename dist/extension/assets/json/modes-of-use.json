@@ -55,7 +55,7 @@
 				},
 				{
 					"readAloud": {
-						"values": "noModifications,sentence",
+						"values": "noModifications,word",
 						"valueSelected": 0,
 						"isTool": true
 					}
@@ -209,7 +209,7 @@
 				},
 				{
 					"readAloud": {
-						"values": "noModifications,sentence",
+						"values": "noModifications,word,sentence,paragraph",
 						"valueSelected": 0,
 						"isTool": true
 					}
