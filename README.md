@@ -1,5 +1,5 @@
 # Orange-Confort-plus
-_Orange Confort+_ aims to enhance user experience on websites.It works best when said websites are fully accessible.
+_Orange Confort+_ aims to enhance user experience on websites. It works best when said websites are fully accessible.
 
 ## Features
 
@@ -21,7 +21,8 @@ _Orange Confort+_ aims to enhance user experience on websites.It works best when
   * automatic selection of page clickable elements with a user defined delay,
   * page scrolling on simple user on hover.
 
-Be careful, _Orange Confort+_ does not improve website accessibility: blocking points still stay blocking points, with or without _Orange Confort+_.
+> [!CAUTION]
+> _Orange Confort+_ does not improve website accessibility: blocking points still stay blocking points, with or without _Orange Confort+_.
 
 
 ## Table of contents
@@ -39,17 +40,38 @@ Be careful, _Orange Confort+_ does not improve website accessibility: blocking p
 
 ## Deploying _Orange Confort+_ on your website
 
-To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: simply add the `dist/serveur` folder to your website. Beware of naming the folder appropriately.
+To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: simply add the `dist/serveur` folder to your website.
 
-To initialize Confort+, call it before the `body` closing tag, using the correct path to the files (e.g. your domain and the path to the folder you uploaded Confort+ to):
+### Customize path
 
-```html
-<script type="text/javascript" src="http://example.com/myconfortplus/js/toolbar.min.js"></script>
+> [!IMPORTANT]
+> If `dist/serveur/` content is placed at your website root, you do not need the following action.
+
+Edit JavaScript files to change the following variables:
+
+```javascript
+var hebergementDomaine = 'https://example.com'; // Your website origin
+var hebergementFullPath = hebergementDomaine + '/myconfortplus/'; // Path to Confort+ folder
 ```
 
-**NB**: User settings are saved onto your domain and are never shared with other websites, or extension.
+> [!TIP]
+> Pay attention to the protocol you are using, HTTPS or HTTP.
 
-If the button doesn't comply with your graphics charter, you can create a link that will trigger Confort plus.
+### Call Confort+
+
+To initialize Confort+, call it before the `body` closing tag using the correct path:
+
+```html
+<script type="text/javascript" src="https://example.com/myconfortplus/js/toolbar.min.js"></script>
+```
+
+> [!NOTE]
+> User settings are saved onto your domain and are never shared with other websites, or extension.
+
+
+### Branding
+
+If the button doesn't comply with your brand, you can create a link that will trigger Confort+.
 To do so, just include those scripts along with the aforementioned:
 
 ```html
@@ -131,7 +153,7 @@ npm run load:firefox
 npm run load:chrome
 ```
 
-> **Warning**
+> [!Warning]
 > As of today, those scripts are quite buggy on Ubuntu if you use Firefox through snap. See #108 for more context.
 
 ### Work on Confort+ website
