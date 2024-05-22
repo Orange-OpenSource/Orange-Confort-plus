@@ -24,18 +24,8 @@
 		"scripting"
 	],
 	"host_permissions": [
-		"http://*/*",
-		"https://*/*"
+		"<all_urls>"
 	],
-	"content_scripts": [{
-		"matches": [
-			"http://*/*",
-			"https://*/*"
-		],
-		"js": [
-			"js/vendors/custom-elements.min.js"
-		]
-	}],
 	"web_accessible_resources": [
 		{
 			"resources": [
@@ -49,8 +39,7 @@
 				"help/*.html"
 			],
 			"matches": [
-				"http://*/*",
-				"https://*/*"
+				"<all_urls>"
 			]
 		}
 	],

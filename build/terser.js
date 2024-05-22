@@ -138,6 +138,7 @@ const files = {
 	},
 	'extension': {
 		files: [
+			'src/extension/vendors/custom-elements.min.js',
 			'dist/js/app/core/constantes.core.js',
 			'dist/js/extension/services/message.service.js',
 			'dist/js/extension/services/files.service.js',

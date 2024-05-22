@@ -38,7 +38,7 @@
 		"move:assets": "shx cp -r dist/serveur/{js,assets} docs",
 		"copy": "concurrently \"npm:copy:*\"",
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/",
-		"copy:extension": "shx cp -r src/extension/vendors dist/extension/js && shx cp -r src/extension/manifest.*.json dist/ && shx cp -r src/extension/assets/img/ dist/extension/assets/img",
+		"copy:extension": "shx cp -r src/extension/manifest.*.json dist/ && shx cp -r src/extension/assets/img/ dist/extension/assets/img",
 		"copy:boosted:css": "shx cp -r node_modules/boosted/dist/css/boosted.min.css src/site/css",
 		"copy:locales": "shx cp -r src/_locales docs/",
 		"copy:fonts": "shx cp -r src/assets/fonts/ dist/serveur/assets/ && shx cp -r src/assets/fonts/ dist/extension/assets/",
