@@ -118,7 +118,6 @@ const files = {
 	'server': {
 		files: [
 			'dist/js/app/core/constantes.core.js',
-			'dist/js/serveur/services/message.service.js',
 			'dist/js/serveur/services/files.service.js',
 			'dist/js/serveur/services/i18n.service.js',
 			'dist/js/serveur/services/icons.service.js',
@@ -140,7 +139,6 @@ const files = {
 		files: [
 			'src/extension/vendors/custom-elements.min.js',
 			'dist/js/app/core/constantes.core.js',
-			'dist/js/extension/services/message.service.js',
 			'dist/js/extension/services/files.service.js',
 			'dist/js/extension/services/i18n.service.js',
 			'dist/js/extension/services/path.service.js',
