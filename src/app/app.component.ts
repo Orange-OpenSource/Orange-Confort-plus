@@ -60,13 +60,11 @@ class AppComponent extends HTMLElement {
 				}
 			);
 
-		this.shadowRoot.addEventListener('openEvent', this.handler);
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.shadowRoot.removeEventListener('openEvent', this.handler);
 		this.confortPlusToolbar?.removeEventListener('closeEvent', this.handler);
 		this.confortPlusBtn?.removeEventListener('click', this.handler);
 	}
@@ -77,11 +75,10 @@ class AppComponent extends HTMLElement {
 				case 'closeEvent':
 					this.hideToolbar();
 					break;
-				case 'openEvent':
 				case 'click':
-					// @todo Check if openEvent is triggered after should_open message
-					console.log(event.type);
 					this.showToolbar();
+					break;
+				default:
 					break;
 			}
 		}
