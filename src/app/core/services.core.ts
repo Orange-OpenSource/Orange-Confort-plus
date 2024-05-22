@@ -22,8 +22,6 @@ const localStorageServiceInstance = new LocalStorageService();
 Object.seal(localStorageServiceInstance);
 const routeServiceInstance = new RouteService();
 Object.seal(routeServiceInstance);
-const messageServiceInstance = new MessageService();
-Object.seal(messageServiceInstance);
 
 // Settings
 const capitalLettersServiceInstance = new CapitalLettersService();

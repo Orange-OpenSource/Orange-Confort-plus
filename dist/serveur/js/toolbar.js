@@ -21,19 +21,6 @@ const PAGE_EDIT_SETTING = "edit-setting";
 
 "use strict";
 
-let messageServiceIsInstantiated;
-
-class MessageService {
-    constructor() {
-        if (messageServiceIsInstantiated) {
-            throw new Error("MessageService is already instantiated.");
-        }
-        messageServiceIsInstantiated = true;
-    }
-}
-
-"use strict";
-
 let filesServiceIsInstantiated;
 
 class FilesService {
@@ -2076,10 +2063,6 @@ const routeServiceInstance = new RouteService;
 
 Object.seal(routeServiceInstance);
 
-const messageServiceInstance = new MessageService;
-
-Object.seal(messageServiceInstance);
-
 const capitalLettersServiceInstance = new CapitalLettersService;
 
 Object.seal(capitalLettersServiceInstance);
@@ -2214,12 +2197,10 @@ class AppComponent extends HTMLElement {
                 this.hideToolbar();
             }
         }));
-        this.shadowRoot.addEventListener("openEvent", this.handler);
         this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
         this.confortPlusBtn.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
-        this.shadowRoot.removeEventListener("openEvent", this.handler);
         this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
         this.confortPlusBtn?.removeEventListener("click", this.handler);
     }
@@ -2229,10 +2210,11 @@ class AppComponent extends HTMLElement {
             this.hideToolbar();
             break;
 
-          case "openEvent":
           case "click":
-            console.log(event.type);
             this.showToolbar();
+            break;
+
+          default:
             break;
         }
     };

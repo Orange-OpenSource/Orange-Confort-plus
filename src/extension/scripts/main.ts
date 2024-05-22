@@ -3,9 +3,8 @@ const PREFIX = 'cplus-';
 chrome.runtime.onInstalled.addListener(async () => {
 	// Update action icon and state
 	const tabs = await chrome.tabs.query({ currentWindow: true });
-
 	for (const tab of tabs) {
-		// Set CDU disable by default
+		// Set Confort+ disable by default
 		updateButtonIcon(false, tab.id as number);
 		// Disable action on internal browser pages
 		if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
@@ -13,8 +12,8 @@ chrome.runtime.onInstalled.addListener(async () => {
 		} else {
 			chrome.action.enable(tab.id);
 			const states = await chrome.storage.local.get(`${PREFIX}is-enabled-${tab.id}`);
-			chrome.storage.local.set({ [`${PREFIX}is-enabled-${tab.id}`]: false });
-			// Reload tabs that had CDU loaded and active
+			chrome.storage.local.set({[`${PREFIX}is-enabled-${tab.id}`]: false});
+			// Reload tabs that had Confort+ loaded and active
 			if (states[`${PREFIX}is-enabled-${tab.id}`]) {
 				chrome.tabs.reload(tab.id as number)
 					.catch(error => {
@@ -25,7 +24,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 	}
 });
 
-// Update CDU button icon
+// Update Confort+ button icon
 // @ts-ignore
 const updateButtonIcon = (isEnabled: boolean, tabId: number) => {
 	if (isEnabled) {
@@ -57,7 +56,7 @@ const updateButtonIcon = (isEnabled: boolean, tabId: number) => {
 	}
 }
 
-// CDU button click event
+// Confort+ button click event
 chrome.action.onClicked.addListener(async (tab) => {
 	// Just in case we're on internal browser page and action couldn't be disabled before
 	if (['edge:', 'chrome:', 'about:'].some(browser => tab.url?.startsWith(browser))) {
@@ -72,9 +71,6 @@ chrome.action.onClicked.addListener(async (tab) => {
 	const injections = await chrome.storage.local.get(`${PREFIX}is-injected-${tab.id}`);
 	const isInjected = injections[`${PREFIX}is-injected-${tab.id}`];
 
-	const openings = await chrome.storage.local.get(`${PREFIX}is-opened-${tab.id}`);
-	const isOpened = openings[`${PREFIX}is-opened-${tab.id}`];
-
 	updateButtonIcon(!isEnabled, tab.id as number);
 
 	if (!isEnabled && !isInjected) {
@@ -83,25 +79,11 @@ chrome.action.onClicked.addListener(async (tab) => {
 			files: ['js/toolbar.js']
 		});
 		chrome.storage.local.set({[`${PREFIX}is-injected-${tab.id}`]: true});
-		if (isOpened) {
-			console.log(`Action was clicked, toolbar injected and ${tab.id} is opened`);
-			// @fixme 'Receiving end does not exist' : La ré-injection ne suffit pas, je pense…
-			/* chrome.tabs.sendMessage(tab.id, { should_open: true })
-				.then(response => console.log(response.response))
-				.catch(error => console.error(error)); */
-		}
 	} else if (!isEnabled && isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id as number },
 			files: ['js/restore.js']
 		});
-		if (isOpened) {
-			console.log(`Action was clicked, toolbar restored and ${tab.id} is opened`);
-			// @fixme 'Receiving end does not exist' : La restauration ne suffit pas, je pense…
-			/* chrome.tabs.sendMessage(tab.id, { should_open: true })
-				.then(response => console.log(response.response))
-				.catch(error => console.error(error)); */
-		}
 	} else if (isEnabled && isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id as number },
@@ -112,7 +94,6 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	if (request.getTabId) {
-		console.log(`Send tabId ${sender.tab.id}`);
 		sendResponse({tabId: sender.tab.id});
 	}
 });
@@ -128,24 +109,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 		const isEnabled = activations[`${PREFIX}is-enabled-${tabId}`];
 
 		if (changeInfo.url) {
-			const openings = await chrome.storage.local.get(`${PREFIX}is-opened-${tabId}`);
-			const isOpened = openings[`${PREFIX}is-opened-${tabId}`];
-
 			if (isEnabled) {
-				console.log(`${tabId} is enabled`);
 				chrome.scripting.executeScript({
 					target: {tabId: tabId},
 					files: ['js/toolbar.js']
 				});
 				chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: true});
-
-				if (isOpened) {
-					console.log(`${tabId} is opened`);
-					// @fixme This is what's erroring in Firefox
-					chrome.tabs.sendMessage(tabId, {should_open: true})
-						.then(response => console.log(response.response))
-						.catch(error => console.error(error));
-				}
 			} else {
 				chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: false});
 			}

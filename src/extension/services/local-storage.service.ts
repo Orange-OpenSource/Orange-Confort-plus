@@ -14,7 +14,6 @@ class LocalStorageService {
 		this.hostname = window.location.hostname;
 		chrome.runtime.sendMessage({ getTabId: true })
 			.then(response => {
-				console.log(`Got tabId ${response.tabId}`);
 				this.tabId = response.tabId;
 			})
 			.catch(error => console.error(error));
@@ -30,31 +29,45 @@ class LocalStorageService {
 			});
 		window.dispatchEvent(storeEvent);
 
-		if(key === 'is-opened') {
-			console.log(`Set is-opened-${this.tabId}`);
+		// @note Special case to handle in-tab navigations
+		if (key === 'is-opened' && this.tabId) {
 			chrome.storage.local.set({ [`${PREFIX}${key}-${this.tabId}`]: value });
 		}
 	}
 
 	getItem<T>(key: string): Promise<T> {
-		//@ts-ignore
-		return chrome.storage.local.get([`${PREFIX}${key}-${this.hostname}`]).then(datas => {
-			if (datas[`${PREFIX}${key}-${this.hostname}`]) {
-				return new Promise<T>((resolve, reject) => {
-					// @ts-ignore
-					resolve(datas[`${prefix}${key}-${this.hostname}`]);
-					reject(new Error(`Could not get ${PREFIX}${key}-${this.hostname} in storage.`));
-				});
-			} else {
-				return chrome.storage.local.get([`latest-${PREFIX}${key}`]).then(datas => {
+		// @note Special case to handle in-tab navigations
+		if (key === 'is-opened' && this.tabId) {
+			//@ts-ignore
+			return chrome.storage.local.get([`${PREFIX}${key}-${this.tabId}`]).then(datas => {
+				if (datas[`${PREFIX}${key}-${this.tabId}`]) {
 					return new Promise<T>((resolve, reject) => {
 						// @ts-ignore
-						resolve(datas[`latest-${prefix}${key}`]);
-						reject(new Error(`Could not get latest-${PREFIX}${key} in storage.`));
+						resolve(datas[`${PREFIX}${key}-${this.tabId}`]);
+						reject(new Error(`Could not get ${PREFIX}${key}-${this.tabId} in storage.`));
 					});
-				});
-			}
-		});
+				}
+			});
+		} else {
+			//@ts-ignore
+			return chrome.storage.local.get([`${PREFIX}${key}-${this.hostname}`]).then(datas => {
+				if (datas[`${PREFIX}${key}-${this.hostname}`]) {
+					return new Promise<T>((resolve, reject) => {
+						// @ts-ignore
+						resolve(datas[`${PREFIX}${key}-${this.hostname}`]);
+						reject(new Error(`Could not get ${PREFIX}${key}-${this.hostname} in storage.`));
+					});
+				} else {
+					return chrome.storage.local.get([`latest-${PREFIX}${key}`]).then(datas => {
+						return new Promise<T>((resolve, reject) => {
+							// @ts-ignore
+							resolve(datas[`latest-${PREFIX}${key}`]);
+							reject(new Error(`Could not get latest-${PREFIX}${key} in storage.`));
+						});
+					});
+				}
+			});
+		}
 	}
 
 	removeItem(key: string): void {
