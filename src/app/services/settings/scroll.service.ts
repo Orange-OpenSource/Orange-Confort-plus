@@ -86,7 +86,7 @@ class ScrollService {
 	setScroll = (value: any): void => {
 		let bigScroll: boolean;
 		let btnState: BtnScrollStateType;
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			bigScroll = false;
 			btnState = '';
 		} else if (value === 'bigScroll') {

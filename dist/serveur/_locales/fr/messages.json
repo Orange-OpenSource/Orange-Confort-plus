@@ -119,8 +119,11 @@
 	"stopAnimationsInstruction": {
 		"message": "Pour empêcher les animations au sein de la page"
 	},
-	"capitals": {
+	"capitalLetters": {
 		"message": "Majuscules"
+	},
+	"capitalLettersInstruction": {
+		"message": "Pour utiliser des majuscules"
 	},
 	"clearlyLinks": {
 		"message": "Liens bien visibles"

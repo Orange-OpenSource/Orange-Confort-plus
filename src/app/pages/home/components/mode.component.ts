@@ -3,7 +3,7 @@ tmplMode.innerHTML = `
 <div id="mode-content" class="sc-mode__setting-grid gap-2">
 	<app-font-family class="sc-mode__setting"></app-font-family>
 	<app-text-size class="sc-mode__setting"></app-text-size>
-	<app-capitals class="sc-mode__setting"></app-capitals>
+	<app-capital-letters class="sc-mode__setting"></app-capital-letters>
 	<app-text-spacing class="sc-mode__setting"></app-text-spacing>
 	<app-reading-guide class="sc-mode__setting"></app-reading-guide>
 	<app-margin-align class="sc-mode__setting"></app-margin-align>
