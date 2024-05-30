@@ -287,6 +287,10 @@ class PauseService {
         }
         pauseServiceIsInstantiated = true;
         this.settingsServices = [ {
+            name: "capitalLetters",
+            instanceService: capitalLettersServiceInstance.setCapitalLetters.bind(this),
+            value: ""
+        }, {
             name: "clickFacilite",
             instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(this),
             value: ""
@@ -451,15 +455,33 @@ class RouteService {
 
 "use strict";
 
-let capitalsServiceIsInstantiated;
+let capitalLettersServiceIsInstantiated;
 
-class CapitalsService {
+class CapitalLettersService {
     constructor() {
-        if (capitalsServiceIsInstantiated) {
-            throw new Error("CapitalsService is already instantiated.");
+        if (capitalLettersServiceIsInstantiated) {
+            throw new Error("CapitalLettersService is already instantiated.");
         }
-        capitalsServiceIsInstantiated = true;
+        capitalLettersServiceIsInstantiated = true;
     }
+    setCapitalLetters=value => {
+        let styleCapitalLetters = "";
+        switch (value) {
+          case "uppercase":
+            styleCapitalLetters = `\n\t\t\t\t*, *::before, *::after {\n\t\t\t\t\ttext-transform: uppercase !important;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle("capital-letters", styleCapitalLetters);
+            break;
+
+          case "capitalize":
+            styleCapitalLetters = `\n\t\t\t\t*, *::before, *::after {\n\t\t\t\t\ttext-transform: capitalize !important;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle("capital-letters", styleCapitalLetters);
+            break;
+
+          default:
+            stylesServiceInstance.removeStyle("capital-letters");
+            break;
+        }
+    };
 }
 
 "use strict";
@@ -1653,7 +1675,7 @@ class ScrollService {
     setScroll=value => {
         let bigScroll;
         let btnState;
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             bigScroll = false;
             btnState = "";
         } else if (value === "bigScroll") {
@@ -1773,7 +1795,7 @@ class StopAnimationsService {
     }
     styleStopAnimations=`\n\t\t*, *::before, *::after {\n\t\t\tanimation: none !important;\n\t\t\tanimation-fill-mode: forwards !important;\n\t\t\ttransition: none !important;\n\t\t\ttransition-duration: 0.00001s !important;\n\t\t}\n\t`;
     setStopAnimations=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("stop-animations");
             this.unFreezeAllAnimations();
         } else {
@@ -1972,9 +1994,9 @@ const routeServiceInstance = new RouteService;
 
 Object.seal(routeServiceInstance);
 
-const capitalsServiceInstance = new CapitalsService;
+const capitalLettersServiceInstance = new CapitalLettersService;
 
-Object.seal(capitalsServiceInstance);
+Object.seal(capitalLettersServiceInstance);
 
 const clearlyLinksServiceInstance = new ClearlyLinksService;
 
@@ -2213,22 +2235,23 @@ class AbstractSetting extends HTMLElement {
 
 "use strict";
 
-const tmplCapitals = document.createElement("template");
+const tmplCapitalLetters = document.createElement("template");
 
-tmplCapitals.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
-class CapitalsComponent extends AbstractSetting {
+class CapitalLettersComponent extends AbstractSetting {
     activesValues={
         values: "",
         valueSelected: 0
     };
     constructor() {
         super();
-        this.appendChild(tmplCapitals.content.cloneNode(true));
+        this.setCallback(capitalLettersServiceInstance.setCapitalLetters.bind(this));
+        this.appendChild(tmplCapitalLetters.content.cloneNode(true));
     }
 }
 
-customElements.define("app-capitals", CapitalsComponent);
+customElements.define("app-capital-letters", CapitalLettersComponent);
 
 "use strict";
 
@@ -3770,7 +3793,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capitals class="c-category__setting" data-can-edit="true"></app-capitals>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {

@@ -11,7 +11,7 @@ tmplText.innerHTML = `
 			<div class="c-category__settings-container gap-2">
 				<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>
 				<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>
-				<app-capitals class="c-category__setting" data-can-edit="true"></app-capitals>
+				<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
 				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
 				<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>
