@@ -119,8 +119,11 @@
 	"stopAnimationsInstruction": {
 		"message": "To prevent animations within the page"
 	},
-	"capitals": {
-		"message": "Capitals"
+	"capitalLetters": {
+		"message": "Capital letters"
+	},
+	"capitalLettersInstruction": {
+		"message": "To use capital letters"
 	},
 	"clearlyLinks": {
 		"message": "Clearly links"

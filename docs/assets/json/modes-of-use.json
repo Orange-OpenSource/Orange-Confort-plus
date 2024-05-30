@@ -19,8 +19,8 @@
 					}
 				},
 				{
-					"capitals": {
-						"values": "noModifications,all,firstLetter",
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -173,8 +173,8 @@
 					}
 				},
 				{
-					"capitals": {
-						"values": "noModifications,all,firstLetter",
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
 						"isTool": false
 					}
