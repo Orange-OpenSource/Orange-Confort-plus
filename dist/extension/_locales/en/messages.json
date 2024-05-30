@@ -128,6 +128,9 @@
 	"clearlyLinks": {
 		"message": "Clearly links"
 	},
+	"clearlyLinksInstruction": {
+		"message": "To find navigation links more easily"
+	},
 	"colourTheme": {
 		"message": "Colour-Theme"
 	},
