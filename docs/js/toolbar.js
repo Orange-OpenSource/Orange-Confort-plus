@@ -291,6 +291,10 @@ class PauseService {
             instanceService: capitalLettersServiceInstance.setCapitalLetters.bind(this),
             value: ""
         }, {
+            name: "clearlyLinks",
+            instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(this),
+            value: ""
+        }, {
             name: "clickFacilite",
             instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(this),
             value: ""
@@ -495,6 +499,71 @@ class ClearlyLinksService {
         }
         clearlyLinksServiceIsInstantiated = true;
     }
+    setClearlyLinks=value => {
+        let styleClearlyLinks = "";
+        switch (value) {
+          case "bold_underline":
+            styleClearlyLinks = `\n\t\t\t\t\ta:any-link {\n\t\t\t\t\t\tfont-weight: bold !important;\n\t\t\t\t\t\ttext-decoration: underline !important;\n\t\t\t\t\t}`;
+            stylesServiceInstance.setStyle("clearly-links", styleClearlyLinks);
+            this.resetInverseBorder();
+            break;
+
+          case "bold_boxed":
+            styleClearlyLinks = `\n\t\t\t\t\ta:any-link {\n\t\t\t\t\t\tfont-weight: bold !important;\n\t\t\t\t\t\tborder: 2px solid black !important;\n\t\t\t\t\t}`;
+            stylesServiceInstance.setStyle("clearly-links", styleClearlyLinks);
+            this.applyInverseBorder();
+            break;
+
+          default:
+            stylesServiceInstance.removeStyle("clearly-links");
+            this.resetInverseBorder();
+            break;
+        }
+    };
+    applyInverseBorder=() => {
+        const elements = document.querySelectorAll("a");
+        elements.forEach((element => {
+            const bgColor = this.getEffectiveBackgroundColor(element);
+            const rgb = bgColor.match(/\d+/g);
+            if (rgb) {
+                const hex = rgb.map((x => ("0" + parseInt(x).toString(16)).slice(-2))).join("");
+                const invertedColor = this.invertedColor(hex);
+                element.style.setProperty("border-color", invertedColor, "important");
+            }
+        }));
+    };
+    getEffectiveBackgroundColor=element => {
+        let currentElement = element;
+        while (currentElement) {
+            const bgColor = window.getComputedStyle(currentElement).backgroundColor;
+            const rgba = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*(\d*\.?\d+)?\)/);
+            if (rgba) {
+                const alpha = rgba[4] ? parseFloat(rgba[4]) : 1;
+                if (alpha !== 0) {
+                    return bgColor;
+                }
+            }
+            currentElement = currentElement.parentElement;
+        }
+        return "rgb(255, 255, 255)";
+    };
+    invertedColor=hex => {
+        hex = hex.replace("#", "");
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        const invertedR = 255 - r;
+        const invertedG = 255 - g;
+        const invertedB = 255 - b;
+        const invertedHex = ((1 << 24) + (invertedR << 16) + (invertedG << 8) + invertedB).toString(16).slice(1).toUpperCase();
+        return `#${invertedHex}`;
+    };
+    resetInverseBorder=() => {
+        const elements = document.querySelectorAll("a");
+        elements.forEach((element => {
+            element.style.removeProperty("borderColor");
+        }));
+    };
 }
 
 "use strict";
@@ -1669,7 +1738,7 @@ class ScrollService {
         this.setScrollClass();
     }
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: 2rem;\n\t\t\t\tscrollbar-color: lightgrey transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: grey transparent;\n\t\t\t}\n\t\t`;
+        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: 2rem;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: lightgrey;\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: 2rem;\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: grey;\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: auto;\n\t\t\t\tscrollbar-color: lightgrey transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: grey transparent;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
     setScroll=value => {
@@ -2257,7 +2326,7 @@ customElements.define("app-capital-letters", CapitalLettersComponent);
 
 const tmplClearlyLinks = document.createElement("template");
 
-tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClearlyLinksComponent extends AbstractSetting {
     activesValues={
@@ -2266,6 +2335,7 @@ class ClearlyLinksComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(clearlyLinksServiceInstance.setClearlyLinks.bind(this));
         this.appendChild(tmplClearlyLinks.content.cloneNode(true));
     }
 }
@@ -3468,7 +3538,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capitals class="sc-mode__setting"></app-capitals>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
