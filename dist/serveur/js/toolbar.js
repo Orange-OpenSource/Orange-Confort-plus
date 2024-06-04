@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.5 - 25/06/2024
+ * orange-confort-plus - version 5.0.0-alpha.5 - 03/07/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -354,6 +354,10 @@ class PauseService {
         }, {
             name: "marginAlign",
             instanceService: marginAlignServiceInstance.setMargin.bind(this),
+            value: ""
+        }, {
+            name: "navigationButtons",
+            instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(this),
             value: ""
         }, {
             name: "readingGuide",
@@ -1670,12 +1674,118 @@ class NavigationAutoService {
 let navigationButtonsServiceIsInstantiated;
 
 class NavigationButtonsService {
+    navigationButtonsId=`${PREFIX}navigation-buttons`;
+    currentFocusElt;
+    handlerNavigationButtons;
     constructor() {
         if (navigationButtonsServiceIsInstantiated) {
             throw new Error("NavigationButtonsService is already instantiated.");
         }
         navigationButtonsServiceIsInstantiated = true;
+        this.handlerNavigationButtons = this.createHandlerNavigationButtons();
     }
+    styleNavigationsButtons=`\n\t\t#${this.navigationButtonsId} {\n\t\t\tdisplay: flex;\n\t\t\tgap: 1rem;\n\t\t\tposition: fixed;\n\t\t\tbottom: 1rem;\n\t\t\tright: 1rem;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\n\t\t#${this.navigationButtonsId} button {\n\t\t\tbackground: #f16e00;\n\t\t\tcolor: #000;\n\t\t\tborder: none;\n\t\t\tfont-weight: bold;\n\t\t\tpadding: 1rem 2rem;\n\t\t}\n\t`;
+    buttonsList=[ "tab", "shiftTab", "click", "escape" ];
+    setNavigationButtons=value => {
+        this.resetNavigationButtons();
+        if (value !== DEFAULT_VALUE) {
+            stylesServiceInstance.setStyle("navigation-buttons", this.styleNavigationsButtons);
+            this.getFocusedElement();
+            this.addNavigationButtons();
+        }
+    };
+    resetNavigationButtons=() => {
+        stylesServiceInstance.removeStyle("navigation-buttons");
+        document.querySelector(`#${this.navigationButtonsId}`)?.remove();
+        document.removeEventListener("click", this.handlerNavigationButtons);
+        document.removeEventListener("focusout", this.handlerNavigationButtons);
+    };
+    addNavigationButtons=() => {
+        let fragment = document.createDocumentFragment();
+        const container = document.createElement("div");
+        container.setAttribute("id", this.navigationButtonsId);
+        this.buttonsList.forEach((navigationButton => {
+            let btn = document.createElement("button");
+            btn.setAttribute("id", `${this.navigationButtonsId}__${navigationButton}`);
+            btn.type = "button";
+            btn.tabIndex = -1;
+            btn.innerHTML = i18nServiceInstance.getMessage(navigationButton);
+            container.appendChild(btn);
+            fragment.appendChild(container);
+            document.body.appendChild(fragment);
+            let btnNav = document.querySelector(`#${this.navigationButtonsId}__${navigationButton}`);
+            btnNav.addEventListener("mousedown", (event => {
+                event.preventDefault();
+                event.stopPropagation();
+                this.simulateKeyEvent(navigationButton);
+            }));
+        }));
+    };
+    simulateKeyEvent=name => {
+        switch (name) {
+          case "tab":
+            this.focusElement("next");
+            break;
+
+          case "shiftTab":
+            this.focusElement("previous");
+            break;
+
+          case "click":
+            this.currentFocusElt?.click();
+            break;
+
+          case "escape":
+            this.simulateKeydownEscape();
+            break;
+
+          default:
+            break;
+        }
+    };
+    focusElement=direction => {
+        const not = {
+            inert: ":not([inert]):not([inert] *)",
+            negTabIndex: ':not([tabindex^="-"])',
+            disabled: ":not(:disabled)"
+        };
+        const focusableElt = [ `a[href]${not.inert}${not.negTabIndex}`, `area[href]${not.inert}${not.negTabIndex}`, `input:not([type="hidden"]):not([type="radio"])${not.inert}${not.negTabIndex}${not.disabled}`, `input[type="radio"]${not.inert}${not.negTabIndex}${not.disabled}`, `select${not.inert}${not.negTabIndex}${not.disabled}`, `textarea${not.inert}${not.negTabIndex}${not.disabled}`, `button${not.inert}${not.negTabIndex}${not.disabled}`, `details${not.inert} > summary:first-of-type${not.negTabIndex}`, `iframe${not.inert}${not.negTabIndex}`, `audio[controls]${not.inert}${not.negTabIndex}`, `video[controls]${not.inert}${not.negTabIndex}`, `[contenteditable]${not.inert}${not.negTabIndex}`, `[tabindex]${not.inert}${not.negTabIndex}` ];
+        const focusableElements = Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+        let newIndex = 0;
+        if (this.currentFocusElt) {
+            const currentIndex = focusableElements.indexOf(this.currentFocusElt);
+            newIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
+            if (newIndex > focusableElements.length - 1) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = focusableElements.length - 1;
+            }
+            newIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
+            newIndex = newIndex > focusableElements.length - 1 ? 0 : newIndex < 0 ? focusableElements.length - 1 : newIndex;
+        }
+        const newFocusElt = focusableElements[newIndex];
+        newFocusElt?.focus();
+        this.currentFocusElt = newFocusElt;
+    };
+    getFocusedElement=() => {
+        document.addEventListener("focus", this.handlerNavigationButtons);
+    };
+    simulateKeydownEscape=() => {
+        var event = new KeyboardEvent("keydown", {
+            key: "Escape",
+            keyCode: 27,
+            code: "Escape",
+            which: 27,
+            bubbles: true,
+            cancelable: true
+        });
+        document.dispatchEvent(event);
+    };
+    createHandlerNavigationButtons=() => event => {
+        if (event.type === "focusout") {
+            this.currentFocusElt = event.target;
+        }
+    };
 }
 
 "use strict";
@@ -1946,7 +2056,7 @@ class ScrollService {
         scrollServiceIsInstantiated = true;
     }
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: 2147483647;\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: auto;\n\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t}\n\t\t`;
+        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: calc(infinity);\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: auto;\n\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
     setScroll=value => {
@@ -2780,7 +2890,7 @@ customElements.define("app-navigation-auto", NavigationAutoComponent);
 
 const tmplNavigationButtons = document.createElement("template");
 
-tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationButtonsComponent extends AbstractSetting {
     activesValues={
@@ -2789,6 +2899,7 @@ class NavigationButtonsComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(navigationButtonsServiceInstance.setNavigationButtons.bind(this));
         this.appendChild(tmplNavigationButtons.content.cloneNode(true));
     }
 }

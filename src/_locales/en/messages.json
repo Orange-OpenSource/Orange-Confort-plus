@@ -146,6 +146,9 @@
 	"navigationButtons": {
 		"message": "Navigation buttons"
 	},
+	"navigationButtonsInstruction": {
+		"message": "To move the focus with the mouse"
+	},
 	"skipToContent": {
 		"message": "Aller au contenu"
 	},
@@ -403,5 +406,17 @@
 	},
 	"textContentImageHidden": {
 		"message": "Hidden image text :"
+	},
+	"tab": {
+		"message": "Tabulation"
+	},
+	"shiftTab": {
+		"message": "Shift + Tabulation"
+	},
+	"click": {
+		"message": "Click"
+	},
+	"escape": {
+		"message": "Escape"
 	}
 }
