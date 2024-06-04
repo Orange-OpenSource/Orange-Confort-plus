@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.5 - 25/06/2024
+ * orange-confort-plus - version 5.0.0-alpha.5 - 26/06/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -328,6 +328,10 @@ class PauseService {
             instanceService: colorContrastServiceInstance.setColorsContrasts.bind(this),
             value: ""
         }, {
+            name: "colourTheme",
+            instanceService: colourThemeServiceInstance.setColourTheme.bind(this),
+            value: ""
+        }, {
             name: "cursorAspect",
             instanceService: cursorAspectServiceInstance.setCursor.bind(this),
             value: ""
@@ -356,12 +360,20 @@ class PauseService {
             instanceService: marginAlignServiceInstance.setMargin.bind(this),
             value: ""
         }, {
+            name: "readAloud",
+            instanceService: readAloudServiceInstance.setReadAloud.bind(this),
+            value: ""
+        }, {
             name: "readingGuide",
             instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this),
             value: ""
         }, {
             name: "scroll",
             instanceService: scrollServiceInstance.setScroll.bind(this),
+            value: ""
+        }, {
+            name: "skipToContent",
+            instanceService: skipToContentServiceInstance.setSkipToContent.bind(this),
             value: ""
         }, {
             name: "stopAnimations",
@@ -2057,12 +2069,30 @@ class ScrollService {
 let skipToContentServiceIsInstantiated;
 
 class SkipToContentService {
+    mainId=`${PREFIX}main-id`;
     constructor() {
         if (skipToContentServiceIsInstantiated) {
             throw new Error("SkipToContentService is already instantiated.");
         }
         skipToContentServiceIsInstantiated = true;
     }
+    setSkipToContent=value => {
+        if (value !== DEFAULT_VALUE) {
+            this.goToMain();
+        }
+    };
+    goToMain=() => {
+        let mainElement;
+        if (document.getElementsByTagName("main") && document.getElementsByTagName("main").length > 0) {
+            mainElement = document.getElementsByTagName("main")[0];
+        } else {
+            mainElement = document.querySelector('[role="main"]') || document.querySelector('[id="main"]') || document.querySelector('[class="main"]') || document.querySelector('[id="content"]') || document.querySelector('[class="content"]');
+        }
+        if (mainElement) {
+            mainElement.setAttribute("id", this.mainId);
+            document.location.href = "#" + this.mainId;
+        }
+    };
 }
 
 "use strict";
@@ -2859,7 +2889,7 @@ customElements.define("app-scroll", ScrollComponent);
 
 const tmplSkipToContent = document.createElement("template");
 
-tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class SkipToContentComponent extends AbstractSetting {
     activesValues={
@@ -2868,6 +2898,7 @@ class SkipToContentComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(skipToContentServiceInstance.setSkipToContent.bind(this));
         this.appendChild(tmplSkipToContent.content.cloneNode(true));
     }
 }
@@ -4061,7 +4092,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
