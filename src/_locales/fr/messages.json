@@ -152,6 +152,9 @@
 	"skipToContent": {
 		"message": "Aller au contenu"
 	},
+	"skipToContentInstruction": {
+		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+	},
 	"scroll": {
 		"message": "Ascenseur"
 	},

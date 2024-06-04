@@ -150,7 +150,10 @@
 		"message": "To move the focus with the mouse"
 	},
 	"skipToContent": {
-		"message": "Aller au contenu"
+		"message": "Skip to content"
+	},
+	"skipToContentInstruction": {
+		"message": "All you have to do is validate, and the focus moves by itself"
 	},
 	"scroll": {
 		"message": "Lift"
