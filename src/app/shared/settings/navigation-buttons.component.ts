@@ -1,8 +1,8 @@
 const tmplNavigationButtons: HTMLTemplateElement = document.createElement('template');
 tmplNavigationButtons.innerHTML = `
 <div class="d-flex align-items-center gap-3">
-	<app-btn-setting data-disabled="true"></app-btn-setting>
-	<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>
+	<app-btn-setting></app-btn-setting>
+	<app-btn-modal class="d-none"></app-btn-modal>
 </div>
 `;
 
@@ -14,6 +14,8 @@ class NavigationButtonsComponent extends AbstractSetting {
 
 	constructor() {
 		super();
+
+		this.setCallback(navigationButtonsServiceInstance.setNavigationButtons.bind(this));
 
 		this.appendChild(tmplNavigationButtons.content.cloneNode(true));
 	}

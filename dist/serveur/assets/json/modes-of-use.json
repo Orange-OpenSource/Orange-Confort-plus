@@ -1,5 +1,5 @@
 {
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -132,7 +132,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,buttons",
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -286,7 +286,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,buttons",
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
 					}
