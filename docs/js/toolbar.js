@@ -400,20 +400,22 @@ class RouteService {
         }));
     };
     navigate=(newRoute, shouldLoad = false) => {
-        if (newRoute !== this.currentRoute || shouldLoad) {
+        console.table({
+            newRoute: newRoute,
+            shouldLoad: shouldLoad
+        });
+        if (shouldLoad) {
+            this.loadRoute(newRoute);
+            this.setCurrentRoute(newRoute);
+        } else if (newRoute !== this.currentRoute) {
             this.routes.forEach((route => {
-                if (route === newRoute || shouldLoad) {
-                    const element = `<app-${route}></app-${route}>`;
-                    this.toolbar.insertAdjacentHTML("beforeend", element);
-                    const page = this.toolbar.querySelector(`app-${route}`);
-                    i18nServiceInstance.translate(page);
+                if (route === newRoute) {
+                    this.loadRoute(route);
                 } else if (route === this.currentRoute) {
                     this.toolbar.querySelector(`app-${route}`)?.remove();
                 }
             }));
-            this.setHistoryAndHeader(newRoute);
-            this.currentRoute = newRoute;
-            localStorageServiceInstance.setItem("current-route", newRoute);
+            this.setCurrentRoute(newRoute);
         }
     };
     setHistoryAndHeader=newRoute => {
@@ -454,6 +456,17 @@ class RouteService {
                 break;
             }
         }
+    };
+    loadRoute=route => {
+        const element = `<app-${route}></app-${route}>`;
+        this.toolbar.insertAdjacentHTML("beforeend", element);
+        const page = this.toolbar.querySelector(`app-${route}`);
+        i18nServiceInstance.translate(page);
+    };
+    setCurrentRoute=route => {
+        this.setHistoryAndHeader(route);
+        this.currentRoute = route;
+        localStorageServiceInstance.setItem("current-route", route);
     };
 }
 
@@ -2179,7 +2192,6 @@ class AppComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
-        customElements.upgrade(this);
         iconsServiceInstance.loadSprite(this.shadowRoot);
         setTimeout((() => {
             i18nServiceInstance.translate(this.shadowRoot);
