@@ -82,7 +82,9 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	setDisabledState = (): void => {
-		this.settingBtn!.disabled = this.disabled;
+		if (this.settingBtn) {
+			this.settingBtn!.disabled = this.disabled;
+		}
 	}
 
 	calculateList = (): void => {
