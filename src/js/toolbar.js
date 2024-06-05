@@ -3000,10 +3000,10 @@ accessibilitytoolbar = {
 		if (theFrames.length > 0) {
 			while (theFrame = theFrames[i]) {
 				try {
-					theFrameDocument = theFrame.contentDocument || theFrame.document;
 					// attach event to frame onload to reload the css...
 					accessibilitytoolbar.uciAttachEvent('load', 'onload', theFrame, accessibilitytoolbar.setCSS);
 				} catch (e) {
+					console.error(e);
 				}
 				i++;
 			}
@@ -3552,6 +3552,7 @@ accessibilitytoolbar = {
 							theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
 						}
 					} catch (e) {
+						console.error(e);
 					}
 					indexFrame++;
 				}
@@ -3852,7 +3853,6 @@ accessibilitytoolbar = {
 				document.getElementsByTagName('head')[0].appendChild(newStyle);
 				indexFrame = 0;
 				theFrames = window.frames;
-				//frames=document.getElementsByTagName("iframe");
 				if (theFrames.length > 0) {
 						while (theFrame = theFrames[indexFrame]) {
 							try {
