@@ -8,6 +8,7 @@ class ToolbarComponent extends HTMLElement {
 	json: ModeOfUseModel;
 	defaultJson: ModeOfUseModel;
 	handler: any;
+	state: string;
 
 	constructor() {
 		super();
@@ -20,6 +21,7 @@ class ToolbarComponent extends HTMLElement {
 		/* @todo Extension Chrome : La toolbar est chargée deux fois. */
 
 		this.header = this.querySelector('#header');
+		this.state = (this.parentNode.parentNode as ShadowRoot).host.getAttribute('data-state');
 
 		/* JSON retrieval and initialisation */
 		filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
@@ -33,7 +35,7 @@ class ToolbarComponent extends HTMLElement {
 					localStorageServiceInstance.setItem(JSON_NAME, this.defaultJson);
 				}
 
-				this.initCurrentMode();
+				this.initCurrentMode(this.state === 'restored');
 			});
 		});
 
@@ -42,9 +44,9 @@ class ToolbarComponent extends HTMLElement {
 		this.addEventListener('changeRoute', this.handler);
 	}
 
-	initCurrentMode = (): void => {
+	initCurrentMode = (shouldLoad = false): void => {
 		if (this.json.selectedMode) {
-			routeServiceInstance.initPages(this).then((result: string) => {
+			routeServiceInstance.initPages(this, shouldLoad).then((result: string) => {
 				if (result) {
 					this.setCurrentPage(result);
 				}

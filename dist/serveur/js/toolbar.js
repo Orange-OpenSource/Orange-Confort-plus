@@ -387,11 +387,11 @@ class RouteService {
         }
         routeServiceIsInstantiated = true;
     }
-    initPages=root => {
+    initPages=(root, shouldLoad = false) => {
         this.toolbar = root;
         return localStorageServiceInstance.getItem("current-route").then((result => {
             if (this.routes.some((route => result === route))) {
-                this.navigate(result);
+                this.navigate(result, shouldLoad);
                 return result;
             } else {
                 this.navigate(PAGE_HOME);
@@ -399,10 +399,10 @@ class RouteService {
             }
         }));
     };
-    navigate=newRoute => {
-        if (newRoute !== this.currentRoute) {
+    navigate=(newRoute, shouldLoad = false) => {
+        if (newRoute !== this.currentRoute || shouldLoad) {
             this.routes.forEach((route => {
-                if (route === newRoute) {
+                if (route === newRoute || shouldLoad) {
                     const element = `<app-${route}></app-${route}>`;
                     this.toolbar.insertAdjacentHTML("beforeend", element);
                     const page = this.toolbar.querySelector(`app-${route}`);
@@ -2908,7 +2908,9 @@ class BtnSettingComponent extends HTMLElement {
         this.calculateList();
     };
     setDisabledState=() => {
-        this.settingBtn.disabled = this.disabled;
+        if (this.settingBtn) {
+            this.settingBtn.disabled = this.disabled;
+        }
     };
     calculateList=() => {
         this.slot = "";
@@ -3888,6 +3890,7 @@ class ToolbarComponent extends HTMLElement {
     json;
     defaultJson;
     handler;
+    state;
     constructor() {
         super();
         this.appendChild(tmplToolbar.content.cloneNode(true));
@@ -3895,6 +3898,7 @@ class ToolbarComponent extends HTMLElement {
     }
     connectedCallback() {
         this.header = this.querySelector("#header");
+        this.state = this.parentNode.parentNode.host.getAttribute("data-state");
         filesServiceInstance.getJSONFile("modes-of-use").then((result => {
             this.defaultJson = result;
             localStorageServiceInstance.getItem(JSON_NAME).then((result => {
@@ -3904,15 +3908,15 @@ class ToolbarComponent extends HTMLElement {
                     this.json = this.defaultJson;
                     localStorageServiceInstance.setItem(JSON_NAME, this.defaultJson);
                 }
-                this.initCurrentMode();
+                this.initCurrentMode(this.state === "restored");
             }));
         }));
         window.addEventListener(`storage-${JSON_NAME}`, this.handler);
         this.addEventListener("changeRoute", this.handler);
     }
-    initCurrentMode=() => {
+    initCurrentMode=(shouldLoad = false) => {
         if (this.json.selectedMode) {
-            routeServiceInstance.initPages(this).then((result => {
+            routeServiceInstance.initPages(this, shouldLoad).then((result => {
                 if (result) {
                     this.setCurrentPage(result);
                 }
