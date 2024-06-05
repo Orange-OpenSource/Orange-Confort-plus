@@ -47,7 +47,7 @@ To deploy _Orange Confort+_ onto your domain, a prepackaged version is available
 > [!IMPORTANT]
 > If `dist/serveur/` content is placed at your website root, you do not need the following action.
 
-Edit JavaScript files to change the following variables:
+Edit JavaScript files to change the following variables, or define them in your own script before Confort+ scripts inclusion:
 
 ```javascript
 var hebergementDomaine = 'https://example.com'; // Your website origin

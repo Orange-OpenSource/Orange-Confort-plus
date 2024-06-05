@@ -13,8 +13,8 @@
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details (LICENSE.txt file).
  **/
-var hebergementDomaine = window.location.origin;
-var hebergementFullPath = hebergementDomaine + '/';
+var hebergementDomaine = hebergementDomaine || window.location.origin;
+var hebergementFullPath = hebergementFullPath || hebergementDomaine + '/';
 var imagesPath = {
 	arrows: hebergementFullPath + "img/arrows_60.png"
 };
