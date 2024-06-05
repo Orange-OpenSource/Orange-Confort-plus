@@ -1,4 +1,5 @@
 "use strict";
+// @ts-ignore
 const PREFIX = 'cplus-';
 chrome.runtime.onInstalled.addListener(async () => {
     // Update action icon and state

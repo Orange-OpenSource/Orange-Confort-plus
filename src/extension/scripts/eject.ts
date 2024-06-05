@@ -1,9 +1,9 @@
 // @ts-ignore
-const eject = () => {
+let eject = () => {
 	const appRootElt = document.querySelector('app-root');
 	if (appRootElt) {
 		// Pause settings if they're active
-		const pauseBtn = (appRootElt as HTMLElement)?.shadowRoot?.getElementById('pause-btn');
+		const pauseBtn = appRootElt?.shadowRoot?.getElementById('pause-btn');
 		if (pauseBtn) {
 			const isActive = pauseBtn.querySelector('[data-name="Pause"]') !== null;
 			// @todo Store if it wasn't paused?
