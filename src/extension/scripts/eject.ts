@@ -1,5 +1,5 @@
 // @ts-ignore
-let eject = () => {
+(() => {
 	const appRootElt = document.querySelector('app-root');
 	if (appRootElt) {
 		// Pause settings if they're active
@@ -12,9 +12,6 @@ let eject = () => {
 		// Remove toolbar
 		appRootElt.remove();
 	}
-}
-
-eject();
-
+})();
 
 "EOF"
