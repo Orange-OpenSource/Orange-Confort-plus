@@ -35,8 +35,6 @@ class AppComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		customElements.upgrade(this);
-
 		iconsServiceInstance.loadSprite(this.shadowRoot);
 		// @note Tick until everything loaded
 		setTimeout(() => {
