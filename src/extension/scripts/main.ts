@@ -1,3 +1,4 @@
+// @ts-ignore
 const PREFIX = 'cplus-';
 
 chrome.runtime.onInstalled.addListener(async () => {

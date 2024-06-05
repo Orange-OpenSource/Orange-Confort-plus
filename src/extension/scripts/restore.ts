@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-ignore
 const restore = () => {
 	const appRootElt = document.createElement('app-root');
 	document.body.prepend(appRootElt);
