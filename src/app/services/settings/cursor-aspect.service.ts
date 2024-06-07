@@ -1,6 +1,19 @@
 let cursorAspectServiceIsInstantiated: boolean;
 
+interface ColorCursorValues {
+	fill: string;
+	stroke: string;
+}
+
 class CursorAspectService {
+	colorCursorValues: ColorCursorValues[] = [
+		{ fill: 'white', stroke: 'black' },
+		{ fill: 'blue', stroke: 'white' },
+		{ fill: 'red', stroke: 'black' },
+		{ fill: 'yellow', stroke: 'black' },
+		{ fill: 'green', stroke: 'white' },
+		{ fill: 'black', stroke: 'white' },
+	];
 
 	constructor() {
 		if (cursorAspectServiceIsInstantiated) {
@@ -11,6 +24,7 @@ class CursorAspectService {
 	}
 
 	drawCursor = (type: string, size: number, color: string, strokeWidth: number): string => {
+		let stroke: string = (this.colorCursorValues.find((o: ColorCursorValues) => o.fill === color)).stroke;
 		let path = '';
 		switch (type) {
 			case 'pointer':
@@ -21,11 +35,10 @@ class CursorAspectService {
 				break;
 			case 'default':
 			default:
-				path = 'M5 6.2a1 1 0 0 1 1.7-.8l76.5 66a1 1 0 0 1-.6 1.8l-32.1 2.5a1 1 0 0 0-.8 1.4l17.8 36.8a1 1 0 0 1-.5 1.3l-17 7.4c-.5.2-1 0-1.3-.5l-17-36.8a1 1 0 0 0-1.6-.4L6.6 103.5a1 1 0 0 1-1.6-.7V6.2Z';
-				break;
+				path = 'M5 6.2a1 1 0 0 1 1.7-.8l76.5 66a1 1 0 0 1-.6 1.8l-32.1 2.5a1 1 0 0 0-.8 1.4l17.8 36.8a1 1 0 0 1-.5 1.3l-17 7.4c-.5.2-1 0-1.3-.5l-17-36.8a1 1 0 0 0-1.6-.4L6.6 103.5a1 1 0 0 1-1.6-.7V6.2Z'; break;
 		}
 
-		return `<svg width="${size}" height="${size}" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="${color}" d="${path}" stroke="black" stroke-width="${strokeWidth}"/></svg>`;
+		return `<svg width="${size}" height="${size}" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="${color}" d="${path}" stroke="${stroke}" stroke-width="${strokeWidth}"/></svg>`;
 	}
 
 	setCursor = (value: string): void => {
@@ -36,13 +49,13 @@ class CursorAspectService {
 			let size = value.split('_')[0] === 'big' ? 56 : 128;
 			let styleCursor = `
 				* {
-					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('default', size, color, 10)}') 0 0, default !important;
+					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('default', size, color, 6)}') 0 0, default !important;
 				}
 
 				a:link,
 				a:visited,
 				button {
-					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('pointer', size, color, 10)}') ${size / 3} 0, pointer !important;
+					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('pointer', size, color, 6)}') ${size / 3} 0, pointer !important;
 				}
 
 				h1, h2, h3, h4, h5, h6,

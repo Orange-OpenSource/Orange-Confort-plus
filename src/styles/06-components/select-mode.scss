@@ -7,7 +7,8 @@
 		box-shadow: var(--cplus-focus-ring-x,0) var(--cplus-focus-ring-y,0) var(--cplus-focus-ring-blur,0) var(--cplus-focus-ring-width) var(--cplus-primary);
 	}
 
-	&:not(:checked) + label > span {
+	&:not(:checked) + label > span,
+	&:not(:checked) + label > button {
 		display: none;
 	}
 
