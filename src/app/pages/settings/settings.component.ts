@@ -11,11 +11,22 @@ settingsLayout.innerHTML = `
 
 class SettingsComponent extends HTMLElement {
 	static observedAttributes = ['data-modes'];
+	handler: any;
 
 	constructor() {
 		super();
 
 		this.appendChild(settingsLayout.content.cloneNode(true));
+
+		this.handler = this.createHandler();
+	}
+
+	connectedCallback(): void {
+		this.addEventListener('collapsedCategory', this.handler);
+	}
+
+	disconnectedCallback(): void {
+		this.removeEventListener('collapsedCategory', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -35,6 +46,16 @@ class SettingsComponent extends HTMLElement {
 		categoriesServiceInstance.settingAccordions.forEach((accordion: AccordionState) => {
 			this.querySelector(accordion.name).setAttribute('data-open', (!accordion.open).toString());
 		});
+	}
+
+	private createHandler = () => {
+		return (event: Event) => {
+			if (event.type === 'collapsedCategory') {
+				categoriesServiceInstance.settingAccordions.forEach((accordion: AccordionState) => {
+					this.querySelector(accordion.name).setAttribute('data-open', (!accordion.open).toString());
+				});
+			}
+		}
 	}
 }
 

@@ -1,0 +1,401 @@
+{
+	"mainButton": {
+		"message": "Start Confort+"
+	},
+	"mainTitle": {
+		"message": "Confort+"
+	},
+	"profile": {
+		"message": "Mode of use"
+	},
+	"wip": {
+		"message": "In progress…"
+	},
+	"layout": {
+		"message": "Displaying"
+	},
+	"medias": {
+		"message": "Images"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Text"
+	},
+	"navigation": {
+		"message": "Navigation"
+	},
+	"textSize": {
+		"message": "Text size"
+	},
+	"textSizeInstruction": {
+		"message": "To enlarge the text"
+	},
+	"fontFamily": {
+		"message": "Text font"
+	},
+	"fontFamilyInstruction": {
+		"message": "To change the text rendering"
+	},
+	"readingGuide": {
+		"message": "Reading guide"
+	},
+	"readingGuideInstruction": {
+		"message": "For guidance on reading"
+	},
+	"ruleGuide": {
+		"message": "Rule"
+	},
+	"maskGuide": {
+		"message": "Mask"
+	},
+	"magnifier": {
+		"message": "Magnifier"
+	},
+	"magnifierInstruction": {
+		"message": "To zoom in"
+	},
+	"readAloud": {
+		"message": "Read aloud"
+	},
+	"readAloudInstruction": {
+		"message": "The text can be read on request"
+	},
+	"readAloudTooltip": {
+		"message": "Click to vocalise, press escape or right-click to stop vocalizing."
+	},
+	"marginAlign": {
+		"message": "Marge"
+	},
+	"marginAlignInstruction": {
+		"message": "To dock playback to the left"
+	},
+	"textSpacing": {
+		"message": "Air the text"
+	},
+	"textSpacingInstruction": {
+		"message": "To separate characters and lines"
+	},
+	"clickFacilite": {
+		"message": "Easy click"
+	},
+	"clickFaciliteInstruction": {
+		"message": "To avoid scoring errors and save effort"
+	},
+	"cursorAspect": {
+		"message": "Cursor aspect"
+	},
+	"cursorAspectInstruction": {
+		"message": "To change the rendering of cursors"
+	},
+	"focusAspect": {
+		"message": "Focus aspect"
+	},
+	"focusAspectInstruction": {
+		"message": "To change the way the focus is rendered on the page"
+	},
+	"colorContrast": {
+		"message": "Colors - contrasts"
+	},
+	"colorContrastInstruction": {
+		"message": "To change the background and text colours"
+	},
+	"reinforcedContrasts": {
+		"message": "Reinforced contrasts"
+	},
+	"daltonism": {
+		"message": "Daltonism"
+	},
+	"linksStyle": {
+		"message": "Hyperlink colours"
+	},
+	"linksStyleInstruction": {
+		"message": "To change the colour of the navigation links"
+	},
+	"stopAnimations": {
+		"message": "Stop animations"
+	},
+	"stopAnimationsInstruction": {
+		"message": "To prevent animations within the page"
+	},
+	"capitalLetters": {
+		"message": "Capital letters"
+	},
+	"capitalLettersInstruction": {
+		"message": "To use capital letters"
+	},
+	"clearlyLinks": {
+		"message": "Clearly links"
+	},
+	"clearlyLinksInstruction": {
+		"message": "To find navigation links more easily"
+	},
+	"colourTheme": {
+		"message": "Colour-Theme"
+	},
+	"deleteBackgroundImages": {
+		"message": "Delete background images"
+	},
+	"navigationAuto": {
+		"message": "Auto scroll navigation"
+	},
+	"navigationButtons": {
+		"message": "Navigation buttons"
+	},
+	"skipToContent": {
+		"message": "Aller au contenu"
+	},
+	"scroll": {
+		"message": "Lift"
+	},
+	"scrollInstruction": {
+		"message": "To make it easier to move up and down the page"
+	},
+	"scrollUp": {
+		"message": "Up"
+	},
+	"scrollDown": {
+		"message": "Down"
+	},
+	"bigScroll": {
+		"message": "Big lift"
+	},
+	"scrollOnClick": {
+		"message": "Buttons lift on click"
+	},
+	"scrollOnMouseover": {
+		"message": "Buttons lift on mouseover"
+	},
+	"readingMaskClose": {
+		"message": "Mask closing: use <kbd>Esc</kbd>"
+	},
+	"close": {
+		"message": "Close Confort+"
+	},
+	"firstLetter": {
+		"message": "First letter"
+	},
+	"lowercase": {
+		"message": "Lowercase"
+	},
+	"uppercase": {
+		"message": "Uppercase"
+	},
+	"default": {
+		"message": "Normal"
+	},
+	"openSettingsMode": {
+		"message": "Open mode's settings"
+	},
+	"moreSettings": {
+		"message": "More settings"
+	},
+	"lessSettings": {
+		"message": "Less settings"
+	},
+	"play": {
+		"message": "Restart"
+	},
+	"pause": {
+		"message": "Pause"
+	},
+	"pauseInfo": {
+		"message": "Confort+ is paused, to reactivate it press the « restart » button."
+	},
+	"otherModes": {
+		"message": "Other modes"
+	},
+	"previous": {
+		"message": "Previous"
+	},
+	"pageTitleModes": {
+		"message": "Modes d'usage"
+	},
+	"pageTitleSettings": {
+		"message": "Settings"
+	},
+	"pageTitleEditSetting": {
+		"message": "Parameter's setting"
+	},
+	"chooseModeAndValidate": {
+		"message": "Choose a usage mode and confirm :"
+	},
+	"validateThisMode": {
+		"message" : "Confirm this mode"
+	},
+	"visionPlusName": {
+		"message": "Vision+"
+	},
+	"visionPlusDescription": {
+		"message": "Designed for people with impaired vision. The text and page colours are high contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
+	},
+	"visionPlusPlusName": {
+		"message": "Vision++"
+	},
+	"visionPlusPlusDescription": {
+		"message": "User mode designed for people with severe visual impairments. Text and page colours are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimised font, a ×5 magnifier and a reading ruler are available."
+	},
+	"facilePlusName": {
+		"message": "Facile+"
+	},
+	"facilePlusDescription": {
+		"message": "User mode designed for people who are unfamiliar with the Internet. Text, buttons, links, mouse and focus are clearly visible and slightly larger, contrasts are adjusted and a magnifying glass is available.."
+	},
+	"dysPlusName": {
+		"message": "Dys+"
+	},
+	"dysPlusDescription": {
+		"message": "A user guide for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
+	},
+	"moteurPlusName": {
+		"message": "Moteur+"
+	},
+	"moteurPlusDescription": {
+		"message": "User mode designed for people with motor impairments. Easy keyboard navigation, a clearly visible focus, a palette of virtual buttons."
+	},
+	"pointagePlusName": {
+		"message": "Pointage+"
+	},
+	"pointagePlusDescription": {
+		"message": "Use mode designed for people who have difficulty pointing with the mouse. A mouse that is clearly visible and of a good size, enlarged click zones and the ability to click effortlessly on hover, a lift with large buttons."
+	},
+	"langueDesSignesName": {
+		"message": "Sign language"
+	},
+	"langueDesSignesDescription": {
+		"message": "User guide for people who express themselves mainly in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary and an interface with video instructions. A mouse that is clearly visible and of a good size, enlarged click zones and the ability to click effortlessly on hover, a lift with large buttons."
+	},
+	"audioPlusName": {
+		"message": "Audio+"
+	},
+	"audioPlusDescription": {
+		"message": "User guide for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
+	},
+	"calmeName": {
+		"message": "Calm"
+	},
+	"calmeDescription": {
+		"message": "User mode designed for hypersensitive people. Pleasant colours and transitions, no animations or interruptions."
+	},
+	"noModifications": {
+		"message": "No changes"
+	},
+	"spacingTextLabelSmall": {
+		"message": "Little spacing"
+	},
+	"spacingTextLabelBig": {
+		"message": "Big spacing"
+	},
+	"spacingTextLabelHuge": {
+		"message": "Huge spacing"
+	},
+	"alignLeft": {
+		"message": "Left align text"
+	},
+	"marginLeft": {
+		"message": "Left marge"
+	},
+	"margeList": {
+		"message": "Marge and list"
+	},
+	"white_black": {
+		"message": "White and black"
+	},
+	"black_ivory": {
+		"message": "Black and ivory"
+	},
+	"white_red": {
+		"message": "White and red"
+	},
+	"black_yellow": {
+		"message": "Black and yellow"
+	},
+	"white_blue": {
+		"message": "White and blue"
+	},
+	"yellow_blue": {
+		"message": "Yellow and blue"
+	},
+	"black_vert": {
+		"message": "Black and green"
+	},
+	"lightblue_orange_lightvert": {
+		"message": "Lightblue / Orange / Lightgreen"
+	},
+	"yellow_orange_lightvert": {
+	"message": "Yellow / Orange / Lightgreen"
+	},
+	"big_white": {
+		"message": "Big and white"
+	},
+	"huge_white": {
+		"message": "Very big and white"
+	},
+	"big_black": {
+		"message": "Big and black"
+	},
+	"huge_black": {
+		"message": "Very big and black"
+	},
+	"big_blue": {
+		"message": "Big and blue"
+	},
+	"huge_blue": {
+		"message": "Very big and blue"
+	},
+	"big_red": {
+		"message": "Big and red"
+	},
+	"huge_red": {
+		"message": "Very big and red"
+	},
+	"big_yellow": {
+		"message": "Big and yellow"
+	},
+	"huge_yellow": {
+		"message": "Very big and yellow"
+	},
+	"big_vert": {
+		"message": "Big and green"
+	},
+	"huge_vert": {
+		"message": "Very big and green"
+	},
+	"Accessible_DfA": {
+		"message": "Accessible DfA"
+	},
+	"B612_Mono": {
+		"message": "B612 Mono"
+	},
+	"Luciole": {
+		"message": "Luciole"
+	},
+	"Verdana": {
+		"message": "Verdana"
+	},
+	"110": {
+		"message": "A bit bigger 110%"
+	},
+	"130": {
+		"message": "Big 130%"
+	},
+	"160": {
+		"message": "Bigger 160%"
+	},
+	"200": {
+		"message": "Even bigger 200%"
+	},
+	"350": {
+		"message": "Huge 350%"
+	},
+	"500": {
+		"message": "Max 500%"
+	},
+	"reduceTextSize": {
+		"message": "Reduce text size"
+	},
+	"increaseTextSize": {
+		"message": "Increase text size"
+	}
+}

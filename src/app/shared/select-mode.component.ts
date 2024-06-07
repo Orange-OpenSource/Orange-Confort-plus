@@ -6,12 +6,14 @@ selectModeLayout.innerHTML = `
 			<app-icon data-size="2em"></app-icon>
 			<span class="fs-5 text"></span>
 		</div>
-		<span class="fs-6 fw-normal m-0"></span>
+		<span class="fs-6 fw-normal m-0 mb-3"></span>
+		<button class="btn btn-primary" type="submit"></button>
 	</label>
 `;
 
 class SelectModeComponent extends HTMLElement {
 	inputElement: HTMLInputElement = null;
+	submitBtnElement: HTMLButtonElement = null;
 	iconElement: HTMLElement = null;
 	labelElement: HTMLLabelElement = null;
 	textElement: HTMLElement = null;
@@ -32,6 +34,7 @@ class SelectModeComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.inputElement = this.querySelector('input');
+		this.submitBtnElement = this.querySelector('button');
 		this.labelElement = this.querySelector('label');
 		this.iconElement = this.querySelector('app-icon');
 		this.textElement = this.querySelector('div span');
@@ -41,6 +44,7 @@ class SelectModeComponent extends HTMLElement {
 		this.inputElement!.value = this.label;
 		this.inputElement!.checked = this.checked;
 		this.inputElement!.disabled = this.disabled;
+		this.submitBtnElement.innerText = i18nServiceInstance.getMessage('validateThisMode');
 		this.labelElement?.setAttribute('for', stringServiceInstance.normalizeID(this.label));
 		this.iconElement?.setAttribute('data-name', `${this.label}_border`);
 		this.textElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);

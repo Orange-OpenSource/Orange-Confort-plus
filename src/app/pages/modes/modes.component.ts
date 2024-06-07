@@ -6,17 +6,12 @@ modesLayout.innerHTML = `
 		<div id="select-mode-zone" class="d-grid gap-1">
 		</div>
 	</fieldset>
-
-	<div class="d-grid">
-		<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>
-	</div>
 </form>
 `;
 
 class ModesComponent extends HTMLElement {
 	static observedAttributes = ['data-modes'];
 	selectModeForm: HTMLFormElement | null = null;
-	selectModeBtn: HTMLElement | null = null;
 	selectModeZone: HTMLElement | null = null;
 
 	handler: any;
@@ -30,7 +25,6 @@ class ModesComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.selectModeForm = this.querySelector('form');
-		this.selectModeBtn = this.querySelector('#select-mode-btn');
 		this.selectModeZone = this.querySelector('#select-mode-zone');
 
 		this.selectModeForm?.addEventListener('submit', this.handler);
@@ -76,6 +70,7 @@ class ModesComponent extends HTMLElement {
 
 	private selectModeFormEvent = (event: Event): void => {
 		event.preventDefault();
+		modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,
@@ -83,9 +78,8 @@ class ModesComponent extends HTMLElement {
 					route: PAGE_HOME
 				}
 			});
+		this.dispatchEvent(clickEvent);
 
-		modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
-		this.selectModeBtn?.dispatchEvent(clickEvent);
 	}
 }
 
