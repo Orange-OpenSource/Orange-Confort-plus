@@ -20,7 +20,8 @@ class EditTextSizeComponent extends HTMLElement {
 
 	currentIndex: number = null;
 	currentValue: string = null;
-	textSizeValues = ["110", "130", "160", "200", "350", "500"];
+	settingValues: string[] = null;
+	textSizeValues = [DEFAULT_VALUE, '110', '130', '160', '200', '350', '500'];
 
 	handler: any;
 
@@ -40,13 +41,10 @@ class EditTextSizeComponent extends HTMLElement {
 		this.btnPrevValue?.addEventListener('click', this.handler);
 		this.btnNextValue?.addEventListener('click', this.handler);
 
-		modeOfUseServiceInstance.getCustomValue('textSize').then((result: string) => {
-			if (result) {
-				this.currentIndex = this.textSizeValues.findIndex(i => i === result);
-				this.moveTextSize(this.currentIndex);
-			} else {
-				this.moveTextSize(0);
-			}
+		modeOfUseServiceInstance.getSetting('textSize').then((result: SettingModel) => {
+			this.settingValues = result.values.split(',');
+			this.currentIndex = this.textSizeValues.findIndex(i => i === this.settingValues[result.valueSelected]);
+			this.moveTextSize(this.currentIndex);
 		});
 	}
 
@@ -66,8 +64,16 @@ class EditTextSizeComponent extends HTMLElement {
 		}
 
 		this.currentValue = this.textSizeValues[this.currentIndex];
-		this.selectedValue!.innerText = this.currentValue;
-		modeOfUseServiceInstance.setSettingValue('textSize', 3, this.currentValue);
+		this.selectedValue!.innerText = i18nServiceInstance.getMessage(this.currentValue);
+		let valueExist = this.settingValues.includes(this.currentValue);
+		let newSettingIndex = this.settingValues.findIndex(i => i === this.textSizeValues[this.currentIndex]);
+
+		if (valueExist) {
+			modeOfUseServiceInstance.setSettingValue('textSize', newSettingIndex, true);
+		} else {
+			modeOfUseServiceInstance.addSettingCustomValue('textSize', 3, this.currentValue);
+		}
+
 		textSizeServiceInstance.setFontSize(this.currentValue);
 	}
 

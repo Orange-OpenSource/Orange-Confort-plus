@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.4 - 12/06/2024
+ * orange-confort-plus - version 5.0.0-alpha.4 - 19/06/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -178,7 +178,9 @@ class CategoriesService {
     }
     openCategory=(category, open) => {
         const mainIndex = this.settingAccordions.findIndex((o => o.name === category.toLowerCase()));
-        this.settingAccordions[mainIndex].open = open;
+        this.settingAccordions.forEach(((accordion, index) => {
+            accordion.open = index === mainIndex ? !accordion.open : false;
+        }));
     };
     openMainCategory=selectedMode => {
         let mainAccordion;
@@ -194,10 +196,9 @@ class CategoriesService {
                 mainAccordion = "app-text";
                 break;
             }
-            this.settingAccordions = this.settingAccordions.map((accordion => ({
-                ...accordion,
-                open: accordion.name === mainAccordion
-            })));
+            this.settingAccordions.forEach(((accordion, index) => {
+                accordion.open = accordion.name === mainAccordion ? true : false;
+            }));
         }
     };
 }
@@ -229,22 +230,21 @@ class ModeOfUseService {
         }));
         return JSON.stringify(selectedMode);
     }
-    setSettingValue(key, newIndex, newValue) {
+    setSettingValue=(settingName, newIndex, removeCustom = false) => {
         let jsonIsEdited = false;
         return localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
             json.modes.forEach((mode => {
                 if (Object.keys(mode)[0] === json.selectedMode) {
                     let modeSettings = Object.entries(mode)[0][1];
-                    let setting = modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(key)));
+                    let setting = Object.entries(modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName))))[0][1];
+                    let values = setting.values.split(",");
                     if (setting) {
-                        let settingValues = Object.entries(setting)[0][1];
-                        if (newValue) {
-                            let newValues = settingValues.values.split(",");
-                            newValues.length === 4 ? newValues[3] = newValue : newValues.push(newValue);
-                            settingValues.values = newValues.toString();
+                        if (removeCustom && values[3]) {
+                            values.pop();
+                            setting.values = values.toString();
                         }
-                        settingValues.valueSelected = newIndex;
+                        setting.valueSelected = newIndex;
                         localStorageServiceInstance.setItem(JSON_NAME, json);
                         jsonIsEdited = true;
                     }
@@ -252,27 +252,50 @@ class ModeOfUseService {
             }));
             return jsonIsEdited;
         })).catch((error => {
-            console.error("Your settings could not be saved.");
+            console.error("Your setting could not be saved.");
             return jsonIsEdited;
         }));
-    }
-    getCustomValue(settingName) {
-        let customValue = "";
+    };
+    getSetting(settingName) {
+        let setting;
         return localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
             json.modes.forEach((mode => {
                 if (Object.keys(mode)[0] === json.selectedMode) {
                     let modeSettings = Object.entries(mode)[0][1];
-                    let setting = modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)));
-                    customValue = Object.entries(setting)[0][1].values.split(",")[3];
+                    setting = Object.entries(modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName))))[0][1];
                 }
             }));
-            return customValue;
+            return setting;
         })).catch((error => {
-            console.error("The custom value of this setting could not be return.");
-            return customValue;
+            console.error("Values of this setting could not be return.");
+            return setting;
         }));
     }
+    addSettingCustomValue=(settingName, newIndex, newValue) => {
+        let jsonIsEdited = false;
+        return localStorageServiceInstance.getItem(JSON_NAME).then((result => {
+            let json = result;
+            json.modes.forEach((mode => {
+                if (Object.keys(mode)[0] === json.selectedMode) {
+                    let modeSettings = Object.entries(mode)[0][1];
+                    let setting = Object.entries(modeSettings.find((o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName))))[0][1];
+                    let values = setting.values.split(",");
+                    if (setting) {
+                        values[3] = newValue;
+                        setting.valueSelected = newIndex;
+                        setting.values = values.toString();
+                        localStorageServiceInstance.setItem(JSON_NAME, json);
+                        jsonIsEdited = true;
+                    }
+                }
+            }));
+            return jsonIsEdited;
+        })).catch((error => {
+            console.error("The custom value of this setting could not be saved.");
+            return jsonIsEdited;
+        }));
+    };
 }
 
 "use strict";
@@ -808,6 +831,25 @@ class ColourThemeService {
 let cursorAspectServiceIsInstantiated;
 
 class CursorAspectService {
+    colorCursorValues=[ {
+        fill: "white",
+        stroke: "black"
+    }, {
+        fill: "blue",
+        stroke: "white"
+    }, {
+        fill: "red",
+        stroke: "black"
+    }, {
+        fill: "yellow",
+        stroke: "black"
+    }, {
+        fill: "green",
+        stroke: "white"
+    }, {
+        fill: "black",
+        stroke: "white"
+    } ];
     constructor() {
         if (cursorAspectServiceIsInstantiated) {
             throw new Error("CursorAspectService is already instantiated.");
@@ -815,6 +857,7 @@ class CursorAspectService {
         cursorAspectServiceIsInstantiated = true;
     }
     drawCursor=(type, size, color, strokeWidth) => {
+        let stroke = this.colorCursorValues.find((o => o.fill === color)).stroke;
         let path = "";
         switch (type) {
           case "pointer":
@@ -830,7 +873,7 @@ class CursorAspectService {
             path = "M5 6.2a1 1 0 0 1 1.7-.8l76.5 66a1 1 0 0 1-.6 1.8l-32.1 2.5a1 1 0 0 0-.8 1.4l17.8 36.8a1 1 0 0 1-.5 1.3l-17 7.4c-.5.2-1 0-1.3-.5l-17-36.8a1 1 0 0 0-1.6-.4L6.6 103.5a1 1 0 0 1-1.6-.7V6.2Z";
             break;
         }
-        return `<svg width="${size}" height="${size}" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="${color}" d="${path}" stroke="black" stroke-width="${strokeWidth}"/></svg>`;
+        return `<svg width="${size}" height="${size}" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="${color}" d="${path}" stroke="${stroke}" stroke-width="${strokeWidth}"/></svg>`;
     };
     setCursor=value => {
         if (value === DEFAULT_VALUE) {
@@ -838,7 +881,7 @@ class CursorAspectService {
         } else {
             let color = value.split("_")[1];
             let size = value.split("_")[0] === "big" ? 56 : 128;
-            let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 10)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 10)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
+            let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
         }
     };
@@ -3077,10 +3120,11 @@ customElements.define("app-icon", IconComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0"></span>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
+    submitBtnElement=null;
     iconElement=null;
     labelElement=null;
     textElement=null;
@@ -3097,6 +3141,7 @@ class SelectModeComponent extends HTMLElement {
     }
     connectedCallback() {
         this.inputElement = this.querySelector("input");
+        this.submitBtnElement = this.querySelector("button");
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
         this.textElement = this.querySelector("div span");
@@ -3105,6 +3150,7 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement.value = this.label;
         this.inputElement.checked = this.checked;
         this.inputElement.disabled = this.disabled;
+        this.submitBtnElement.innerText = i18nServiceInstance.getMessage("validateThisMode");
         this.labelElement?.setAttribute("for", stringServiceInstance.normalizeID(this.label));
         this.iconElement?.setAttribute("data-name", `${this.label}_border`);
         this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
@@ -3118,7 +3164,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction"></p>\n\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -3366,7 +3412,8 @@ class EditTextSizeComponent extends HTMLElement {
     btnNextValue=null;
     currentIndex=null;
     currentValue=null;
-    textSizeValues=[ "110", "130", "160", "200", "350", "500" ];
+    settingValues=null;
+    textSizeValues=[ DEFAULT_VALUE, "110", "130", "160", "200", "350", "500" ];
     handler;
     constructor() {
         super();
@@ -3379,13 +3426,10 @@ class EditTextSizeComponent extends HTMLElement {
         this.btnNextValue = this.querySelector("#edit-btn-next");
         this.btnPrevValue?.addEventListener("click", this.handler);
         this.btnNextValue?.addEventListener("click", this.handler);
-        modeOfUseServiceInstance.getCustomValue("textSize").then((result => {
-            if (result) {
-                this.currentIndex = this.textSizeValues.findIndex((i => i === result));
-                this.moveTextSize(this.currentIndex);
-            } else {
-                this.moveTextSize(0);
-            }
+        modeOfUseServiceInstance.getSetting("textSize").then((result => {
+            this.settingValues = result.values.split(",");
+            this.currentIndex = this.textSizeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.moveTextSize(this.currentIndex);
         }));
     }
     moveTextSize=index => {
@@ -3402,8 +3446,14 @@ class EditTextSizeComponent extends HTMLElement {
             this.btnNextValue.disabled = true;
         }
         this.currentValue = this.textSizeValues[this.currentIndex];
-        this.selectedValue.innerText = this.currentValue;
-        modeOfUseServiceInstance.setSettingValue("textSize", 3, this.currentValue);
+        this.selectedValue.innerText = i18nServiceInstance.getMessage(this.currentValue);
+        let valueExist = this.settingValues.includes(this.currentValue);
+        let newSettingIndex = this.settingValues.findIndex((i => i === this.textSizeValues[this.currentIndex]));
+        if (valueExist) {
+            modeOfUseServiceInstance.setSettingValue("textSize", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("textSize", 3, this.currentValue);
+        }
         textSizeServiceInstance.setFontSize(this.currentValue);
     };
     createHandler=() => event => {
@@ -3612,12 +3662,11 @@ customElements.define("app-mode", ModeComponent);
 
 const modesLayout = document.createElement("template");
 
-modesLayout.innerHTML = `\n<form class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4 text-body">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n\n\t<div class="d-grid">\n\t\t<button id="select-mode-btn" class="btn btn-primary" type="submit" data-i18n="validateThisMode"></button>\n\t</div>\n</form>\n`;
+modesLayout.innerHTML = `\n<form class="p-3">\n\t<fieldset class="d-grid gap-2 mb-4 text-body">\n\t\t<legend class="fs-6 fw-normal" data-i18n="chooseModeAndValidate"></legend>\n\t\t<div id="select-mode-zone" class="d-grid gap-1">\n\t\t</div>\n\t</fieldset>\n</form>\n`;
 
 class ModesComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
     selectModeForm=null;
-    selectModeBtn=null;
     selectModeZone=null;
     handler;
     constructor() {
@@ -3627,7 +3676,6 @@ class ModesComponent extends HTMLElement {
     }
     connectedCallback() {
         this.selectModeForm = this.querySelector("form");
-        this.selectModeBtn = this.querySelector("#select-mode-btn");
         this.selectModeZone = this.querySelector("#select-mode-zone");
         this.selectModeForm?.addEventListener("submit", this.handler);
     }
@@ -3662,14 +3710,14 @@ class ModesComponent extends HTMLElement {
     };
     selectModeFormEvent=event => {
         event.preventDefault();
+        modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
                 route: PAGE_HOME
             }
         });
-        modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
-        this.selectModeBtn?.dispatchEvent(clickEvent);
+        this.dispatchEvent(clickEvent);
     };
 }
 
@@ -3683,9 +3731,17 @@ settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text clas
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
+    handler;
     constructor() {
         super();
         this.appendChild(settingsLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.addEventListener("collapsedCategory", this.handler);
+    }
+    disconnectedCallback() {
+        this.removeEventListener("collapsedCategory", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
@@ -3703,6 +3759,13 @@ class SettingsComponent extends HTMLElement {
         categoriesServiceInstance.settingAccordions.forEach((accordion => {
             this.querySelector(accordion.name).setAttribute("data-open", (!accordion.open).toString());
         }));
+    };
+    createHandler=() => event => {
+        if (event.type === "collapsedCategory") {
+            categoriesServiceInstance.settingAccordions.forEach((accordion => {
+                this.querySelector(accordion.name).setAttribute("data-open", (!accordion.open).toString());
+            }));
+        }
     };
 }
 
@@ -3764,7 +3827,6 @@ class AbstractCategory extends HTMLElement {
             this.accordionContainer?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
             element?.classList.toggle(this.CLASS_NAME_COLLAPSED, isOpen);
             element?.setAttribute("aria-expanded", String(isOpen));
-            categoriesServiceInstance.openCategory(this.tagName, !isOpen);
         }
     };
     displaySettings=settings => {
@@ -3805,14 +3867,14 @@ class AbstractCategory extends HTMLElement {
     };
     createHandler=() => event => {
         if (event.type === "click") {
-            switch (event.target) {
-              case this.btnAccordion:
-                this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-                break;
-
-              case this.btnMoreSettings:
+            if (event.target === this.btnAccordion || this.btnAccordion.contains(event.target)) {
+                categoriesServiceInstance.openCategory(this.tagName, this.isShown());
+                let clickCollapsedEvent = new CustomEvent("collapsedCategory", {
+                    bubbles: true
+                });
+                this.btnAccordion?.dispatchEvent(clickCollapsedEvent);
+            } else if (event.target === this.btnMoreSettings) {
                 this.displayOrHideOthersSettings();
-                break;
             }
         }
     };

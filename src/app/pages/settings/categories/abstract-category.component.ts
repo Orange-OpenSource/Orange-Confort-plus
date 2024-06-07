@@ -63,7 +63,6 @@ abstract class AbstractCategory extends HTMLElement {
 			this.accordionContainer?.classList.toggle(this.CLASS_NAME_SHOW, !isOpen);
 			element?.classList.toggle(this.CLASS_NAME_COLLAPSED, isOpen);
 			element?.setAttribute('aria-expanded', String(isOpen));
-			categoriesServiceInstance.openCategory(this.tagName, !isOpen);
 		}
 	}
 
@@ -114,13 +113,12 @@ abstract class AbstractCategory extends HTMLElement {
 	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
-				switch (event.target) {
-					case this.btnAccordion:
-						this.addAriaAndCollapsedClass(this._triggerArray, this.isShown());
-						break;
-					case this.btnMoreSettings:
-						this.displayOrHideOthersSettings();
-						break;
+				if (event.target === this.btnAccordion || this.btnAccordion.contains(event.target as Element)) {
+					categoriesServiceInstance.openCategory(this.tagName, this.isShown());
+					let clickCollapsedEvent = new CustomEvent('collapsedCategory', { bubbles: true });
+					this.btnAccordion?.dispatchEvent(clickCollapsedEvent);
+				} else if (event.target === this.btnMoreSettings) {
+					this.displayOrHideOthersSettings();
 				}
 			}
 		}

@@ -28,7 +28,7 @@ class ModeOfUseService {
 		return JSON.stringify(selectedMode);
 	}
 
-	setSettingValue(key: string, newIndex: number, newValue?: string): Promise<boolean> {
+	setSettingValue = (settingName: string, newIndex: number, removeCustom = false): Promise<boolean> => {
 		let jsonIsEdited = false;
 		return localStorageServiceInstance.getItem(JSON_NAME)
 			.then((result: any) => {
@@ -36,15 +36,16 @@ class ModeOfUseService {
 				json.modes.forEach((mode: any) => {
 					if (Object.keys(mode)[0] === json.selectedMode) {
 						let modeSettings: Object[] = Object.entries(mode)[0][1] as [];
-						let setting = modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(key));
+						let setting: SettingModel = Object.entries(modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)))[0][1];
+						let values = setting.values.split(',');
+
 						if (setting) {
-							let settingValues: SettingModel = Object.entries(setting)[0][1];
-							if (newValue) {
-								let newValues: string[] = settingValues.values.split(',');
-								newValues.length === 4 ? newValues[3] = newValue : newValues.push(newValue);
-								settingValues.values = newValues.toString();
+							if (removeCustom && values[3]) {
+								values.pop();
+								setting.values = values.toString();
 							}
-							settingValues.valueSelected = newIndex;
+
+							setting.valueSelected = newIndex;
 							localStorageServiceInstance.setItem(JSON_NAME, json);
 							jsonIsEdited = true;
 						}
@@ -53,28 +54,54 @@ class ModeOfUseService {
 				return jsonIsEdited;
 			})
 			.catch((error: any) => {
-				console.error("Your settings could not be saved.");
+				console.error('Your setting could not be saved.');
 				return jsonIsEdited;
 			});
 	}
 
-	getCustomValue(settingName: string): Promise<string> {
-		let customValue: string = '';
+	getSetting(settingName: string): Promise<SettingModel> {
+		let setting: SettingModel;
 		return localStorageServiceInstance.getItem(JSON_NAME)
 			.then((result: any) => {
 				let json = result;
 				json.modes.forEach((mode: any) => {
 					if (Object.keys(mode)[0] === json.selectedMode) {
 						let modeSettings: Object[] = Object.entries(mode)[0][1] as [];
-						let setting = modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName));
-						customValue = (Object.entries(setting)[0][1] as SettingModel).values.split(',')[3];
+						setting = Object.entries(modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)))[0][1];
 					}
 				});
-				return customValue;
+				return setting;
 			})
 			.catch((error: any) => {
-				console.error("The custom value of this setting could not be return.");
-				return customValue;
+				console.error('Values of this setting could not be return.');
+				return setting;
+			});
+	}
+
+	addSettingCustomValue = (settingName: string, newIndex: number, newValue: string): Promise<boolean> => {
+		let jsonIsEdited = false;
+		return localStorageServiceInstance.getItem(JSON_NAME)
+			.then((result: any) => {
+				let json = result;
+				json.modes.forEach((mode: any) => {
+					if (Object.keys(mode)[0] === json.selectedMode) {
+						let modeSettings: Object[] = Object.entries(mode)[0][1] as [];
+						let setting: SettingModel = Object.entries(modeSettings.find(o => stringServiceInstance.normalizeSettingName(Object.keys(o)[0]) === stringServiceInstance.normalizeSettingName(settingName)))[0][1];
+						let values = setting.values.split(',');
+						if (setting) {
+							values[3] = newValue;
+							setting.valueSelected = newIndex;
+							setting.values = values.toString();
+							localStorageServiceInstance.setItem(JSON_NAME, json);
+							jsonIsEdited = true;
+						}
+					}
+				});
+				return jsonIsEdited;
+			})
+			.catch((error: any) => {
+				console.error('The custom value of this setting could not be saved.');
+				return jsonIsEdited;
 			});
 	}
 }

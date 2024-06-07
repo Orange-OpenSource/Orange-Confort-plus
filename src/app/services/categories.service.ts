@@ -25,7 +25,9 @@ class CategoriesService {
 
 	openCategory = (category: string, open: boolean): void => {
 		const mainIndex = this.settingAccordions.findIndex(o => o.name === category.toLowerCase());
-		this.settingAccordions[mainIndex].open = open;
+		this.settingAccordions.forEach((accordion: AccordionState, index) => {
+			accordion.open = index === mainIndex ? !accordion.open : false;
+		});
 	}
 
 	openMainCategory = (selectedMode: string): void => {
@@ -44,11 +46,8 @@ class CategoriesService {
 					break;
 			}
 
-			this.settingAccordions = this.settingAccordions.map((accordion: AccordionState) => {
-				return {
-					...accordion,
-					open: accordion.name === mainAccordion
-				};
+			this.settingAccordions.forEach((accordion: AccordionState, index) => {
+				accordion.open = accordion.name === mainAccordion ? true : false;
 			});
 		}
 	}

@@ -2,11 +2,11 @@ const editSettingLayout: HTMLTemplateElement = document.createElement('template'
 editSettingLayout.innerHTML = `
 	<div class="gap-1 p-3 text-body">
 		<div class="d-flex align-items-center gap-2 mb-2">
-			<app-icon id="edit-setting-icon" data-size="2rem"></app-icon>
+			<app-icon id="edit-setting-icon" data-size="2em"></app-icon>
 			<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>
 		</div>
 
-		<p id="edit-setting-instruction"></p>
+		<p id="edit-setting-instruction" class="mb-4"></p>
 
 		<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>
 		<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>
@@ -38,7 +38,7 @@ class EditSettingComponent extends HTMLElement {
 
 		this.appendChild(editSettingLayout.content.cloneNode(true));
 
-		this.querySelectorAll(".sc-edit-setting__setting").forEach((element: Element) => {
+		this.querySelectorAll('.sc-edit-setting__setting').forEach((element: Element) => {
 			this.settingsDictionnary.push({ name: stringServiceInstance.normalizeSettingName(element.tagName), element: element.tagName });
 		});
 	}
