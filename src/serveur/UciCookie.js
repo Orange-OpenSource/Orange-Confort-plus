@@ -68,14 +68,16 @@ function UciStorage() {
 		if (event.origin !== hebergementDomaine && event.data[0] !== 'UCI42')
 			return;
 
-		// back from cookie Save
-		if (event.data[1] == "saveDone" && accessibilitytoolbar.needToReload) {
-			accessibilitytoolbar.reloadToolbar();
-		}
-		//cookieData
-		else if (event.data[1].split('|').length >= 4) {
-			// new version with profiles
-			accessibilitytoolbar.userPref.decodeUsageConfort(event.data[1]);
+		if (event.data[1]) {
+			// back from cookie Save
+			if (event.data[1] === "saveDone" && accessibilitytoolbar.needToReload) {
+				accessibilitytoolbar.reloadToolbar();
+			}
+			//cookieData
+			else if (event.data[1].split('|').length >= 4) {
+				// new version with profiles
+				accessibilitytoolbar.userPref.decodeUsageConfort(event.data[1]);
+			}
 		}
 	};
 
@@ -87,7 +89,7 @@ function UciStorage() {
 		window.attachEvent("onmessage", this.receiveMessage);
 	}
 
-	document.getElementsByTagName('body')[0].appendChild(oNewNode);
+	document.body.appendChild(oNewNode);
 }
 
 UciStorage.prototype = new UciUserPref();

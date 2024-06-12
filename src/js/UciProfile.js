@@ -359,7 +359,7 @@ UciProfile = {
 		}
 		document.getElementById("uci_cdu_popin").appendChild(UciProfile.saveProfile());
 		document.getElementById("uci_cdu_popin").style.display = "block";
-		document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
+		document.getElementById("uci_cdu_popin").style.height = document.body.clientHeight + "px";
 		if (top) {
 			document.getElementById("uci_cdu_popin").style.top = "0";
 		} else {
@@ -557,7 +557,7 @@ UciProfile = {
 		document.getElementById("uci_cdu_popin").appendChild(UciProfile.formProfile(profilName));
 
 		document.getElementById("uci_cdu_popin").style.display = "block";
-		document.getElementById("uci_cdu_popin").style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
+		document.getElementById("uci_cdu_popin").style.height = document.body.clientHeight + "px";
 		document.getElementById("uci_profile_name").focus();
 		accessibilitytoolbar.uciAttachEvent('submit', 'onsubmit', document.getElementById('uci_form_profil'), function (e) {
 			accessibilitytoolbar.stopEvt(e);

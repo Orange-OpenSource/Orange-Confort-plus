@@ -85,7 +85,7 @@ function LoopingMenu() {
 			menuContainer.appendChild(menuTitle);
 			menuContainer.appendChild(menuList);
 
-			document.getElementsByTagName("body")[0].appendChild(menuContainer);
+			document.body.appendChild(menuContainer);
 
 			// Define default rendering
 			that.setPosition(LoopingMenuPosition.CENTER);
@@ -1951,7 +1951,7 @@ function RemoteControlPad() {
 		i.height = imgHeight;
 		i.useMap = "#remotemap";
 		pad.appendChild(i);
-		document.getElementsByTagName("body")[0].appendChild(pad);
+		document.body.appendChild(pad);
 	};
 
 	// Publics methods
@@ -2569,7 +2569,7 @@ accessibilitytoolbar = {
 			newStyle.setAttribute("type", "text/css");
 			newStyle.id = "a11yCSSFontStyle";
 			newStyle.appendChild(document.createTextNode("@font-face{font-family: \"orangeconfortplus\";src: " + fontsPath['fonticone'] + ";font-style: normal;font-weight: normal;}"));
-			document.getElementsByTagName('head')[0].appendChild(newStyle);
+			document.head.appendChild(newStyle);
 		}
 	},
 
@@ -2598,7 +2598,7 @@ accessibilitytoolbar = {
 		newStyle.setAttribute("type", "text/css");
 		newStyle.appendChild(document.createTextNode(style));
 
-		var _head = document.getElementsByTagName('head')[0];
+		var _head = document.head;
 		// newStyle
 		_head.insertBefore(newStyle, _head.firstChild);
 
@@ -2996,7 +2996,7 @@ accessibilitytoolbar = {
 		});
 
 		i = 0;
-		theFrames = document.getElementsByTagName('frame');
+		theFrames = document.querySelectorAll('frame');
 		if (theFrames.length > 0) {
 			while (theFrame = theFrames[i]) {
 				try {
@@ -3510,7 +3510,7 @@ accessibilitytoolbar = {
 		// default mode, settings for the page
 		if (localUserPref.get("a11yToolbarEnable") !== "off") {
 			if (document.getElementById('cdu_close')) {
-				document.getElementById('cdu_close').style.display == 'none';
+				document.getElementById('cdu_close').style.display = 'none';
 			}
 			toolbarContent = document.getElementById("cdu_toolbar");
 			if (!toolbarContent || toolbarContent.className.match(/cdu_displayN/)) {
@@ -3519,13 +3519,13 @@ accessibilitytoolbar = {
 		}
 
 		indexIFrame = 0;
-		TheIFrames = document.getElementsByTagName("iframe");
+		TheIFrames = document.querySelectorAll("iframe");
 		if (TheIFrames.length > 0) {
 			while (theIFrame = TheIFrames[indexIFrame]) {
 				try {
 					theIFrameDocument = theIFrame.document || theIFrame.contentDocument;
-					if (theIFrameDocument.getElementsByTagName('head')[0]) {
-						theIFrameDocument.getElementsByTagName('head')[0].removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
+					if (theIFrameDocument.head && theIFrameDocument.getElementById("a11yUserPrefStyle")) {
+						theIFrameDocument.head.removeChild(theIFrameDocument.getElementById("a11yUserPrefStyle"));
 					}
 				} catch (e) {
 				}
@@ -3534,7 +3534,7 @@ accessibilitytoolbar = {
 		}
 		// Remove previous user style
 		if (document.getElementById("a11yUserPrefStyle")) {
-			document.getElementsByTagName("head")[0].removeChild(document.getElementById("a11yUserPrefStyle"));
+			document.head.removeChild(document.getElementById("a11yUserPrefStyle"));
 
 
 			/*
@@ -3548,8 +3548,8 @@ accessibilitytoolbar = {
 				while (theFrame = theFrames[indexFrame]) {
 					try {
 						theFrameDocument = theFrame.contentDocument || theFrame.document;
-						if (theFrameDocument.getElementsByTagName('head')[0]) {
-							theFrameDocument.getElementsByTagName('head')[0].removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
+						if (theFrameDocument.head && theFrameDocument.getElementById("a11yUserPrefStyle")) {
+							theFrameDocument.head.removeChild(theFrameDocument.getElementById("a11yUserPrefStyle"));
 						}
 					} catch (e) {
 						console.error(e);
@@ -3570,11 +3570,11 @@ accessibilitytoolbar = {
 		// if the user remove the option, we need to put back the stylesheets and styles attributes
 
 		if (localUserPref.get("a11yLinearize") === "false"
-			|| localUserPref.get("a11ySiteWebEnabled") == "off") {
+			|| localUserPref.get("a11ySiteWebEnabled") === "off") {
 
 			if (accessibilitytoolbar.savesStylesheets.length > 0) {
 				for (i = accessibilitytoolbar.savesStylesheets.length - 1; i >= 0; i--) {
-					document.getElementsByTagName('head')[0].insertBefore(accessibilitytoolbar.savesStylesheets[i], document.getElementById('a11yCSS'));
+					document.head.insertBefore(accessibilitytoolbar.savesStylesheets[i], document.getElementById('a11yCSS'));
 				}
 				// then clean the array
 				accessibilitytoolbar.savesStylesheets = [];
@@ -3590,11 +3590,11 @@ accessibilitytoolbar = {
 			}
 		}
 
-		if (localUserPref.get("a11ySiteWebEnabled") != "off") {
+		if (localUserPref.get("a11ySiteWebEnabled") !== "off") {
 			// 1. linearize ? -- which is the same as: get rid of all CSS info first
 			if (localUserPref.get("a11yLinearize") !== "false") {
 				// delete all the CSS references
-				links = document.getElementsByTagName("link");
+				links = document.querySelectorAll("link");
 				for (i = links.length - 1; i >= 0; i--) {
 					if (links[i].rel.match(/stylesheet/i) && (!links[i].id || !links[i].id.match(/a11yCSS/))) {
 						accessibilitytoolbar.savesStylesheets.push(links[i]);
@@ -3621,9 +3621,9 @@ accessibilitytoolbar = {
 			fontSizeDef = fontSizeBody = '16px';
 			if (window.getComputedStyle) {
 				// get the font-size from html tag
-				fontSizeDef = window.getComputedStyle(document.getElementsByTagName('html')[0], null).getPropertyValue("font-size") || '16px';
+				fontSizeDef = window.getComputedStyle(document.documentElement, null).getPropertyValue("font-size") || '16px';
 				// get the font-size from the body
-				fontSizeBody = window.getComputedStyle(document.getElementsByTagName('body')[0], null).getPropertyValue("font-size") || '16px';
+				fontSizeBody = window.getComputedStyle(document.body, null).getPropertyValue("font-size") || '16px';
 			}
 			// s += "body { font-size:1rem !important; }\n";
 			s += "#accessibilitytoolbarGraphic { font-size:" + (16 / parseFloat(fontSizeBody)) + "em !important; }\n";
@@ -3745,7 +3745,7 @@ accessibilitytoolbar = {
 						}
 					}
 				}
-			} else if (localUserPref.get("a11ySupImageFirstPlan") == "false") {
+			} else if (localUserPref.get("a11ySupImageFirstPlan") === "false") {
 				accessibilitytoolbar.cleanImgDisabled();
 			}
 
@@ -3782,7 +3782,7 @@ accessibilitytoolbar = {
 						backGroundColor = accessibilitytoolbar.predifinedCombinaisons[localUserPref.get("a11yVisualPredefinedSettings")].backGroundColor;
 					}
 					/*defect 67 */
-					if (localUserPref.get("a11yVisualPredefinedSettings") == "whiteonblack") {
+					if (localUserPref.get("a11yVisualPredefinedSettings") === "whiteonblack") {
 						if (!init) {
 							document.getElementById('uci_reponses_bigger_quick_set').className = document.getElementById('uci_reponses_bigger_quick_set').className + " uci_black";
 						}
@@ -3850,15 +3850,15 @@ accessibilitytoolbar = {
 				newStyle.id = "a11yUserPrefStyle";
 				newStyle.appendChild(document.createTextNode(s));
 
-				document.getElementsByTagName('head')[0].appendChild(newStyle);
+				document.head.appendChild(newStyle);
 				indexFrame = 0;
 				theFrames = window.frames;
 				if (theFrames.length > 0) {
 						while (theFrame = theFrames[indexFrame]) {
 							try {
 								theFrameDocument = theFrame.contentDocument || theFrame.document;
-								if (theFrameDocument.getElementsByTagName('head')[0]) {
-									theFrameDocument.getElementsByTagName('head')[0].appendChild(newStyle.cloneNode(true));
+								if (theFrameDocument.head) {
+									theFrameDocument.head.appendChild(newStyle.cloneNode(true));
 								}
 							} catch (e) {
 								console.error(e);
@@ -4135,9 +4135,9 @@ accessibilitytoolbar = {
 			}
 		}
 		// this creates a few hooks to hold to
-		accessibilitytoolbar.head = document.getElementsByTagName('head')[0];
-		accessibilitytoolbar.body = document.getElementsByTagName('body')[0];
-		accessibilitytoolbar.html = document.getElementsByTagName('html')[0];
+		accessibilitytoolbar.head = document.head;
+		accessibilitytoolbar.body = document.body;
+		accessibilitytoolbar.html = document.documentElement;
 		if (document.getElementById('accessibilitytoolbarGraphic')) {
 			return false;
 		}
@@ -4157,7 +4157,7 @@ accessibilitytoolbar = {
 		newStyle.setAttribute("type", "text/css");
 		newStyle.appendChild(document.createTextNode(style));
 
-		var _head = document.getElementsByTagName('head')[0];
+		var _head = document.head;
 		// newStyle
 		_head.insertBefore(newStyle, _head.firstChild);
 		// And now we create the toolbar...
