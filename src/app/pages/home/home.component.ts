@@ -80,13 +80,6 @@ class HomeComponent extends HTMLElement {
 			this.currentModeSettings = JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]);
 			this.currentMode.setAttribute('data-settings', this.currentModeSettings);
 		}
-
-		// @todo MVP: ne pas afficher l’astérisque si un mode d’usage est personnalisé
-		// @note À enlever lorsque les tests seront terminés.
-		// if ('data-custom' === name) {
-		// 	const modeName = this.modeName.textContent;
-		// 	this.modeName.innerText = newValue === 'true' ? `${modeName}*` : `${modeName}`;
-		// }
 	}
 
 	private createHandler = () => {

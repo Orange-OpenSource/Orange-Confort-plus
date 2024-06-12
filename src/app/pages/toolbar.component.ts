@@ -49,7 +49,6 @@ class ToolbarComponent extends HTMLElement {
 					this.setCurrentPage(result);
 				}
 			});
-			// this.setCustomState();
 		} else {
 			routeServiceInstance.navigate(PAGE_MODES);
 		}
@@ -64,23 +63,6 @@ class ToolbarComponent extends HTMLElement {
 			}
 		})
 	}
-
-	/* setCustomState = (): void => {
-		let defaultMode: any;
-		let currentMode: any;
-		this.defaultJson.modes.forEach((mode: any) => {
-			if (Object.keys(mode)[0] === this.json.selectedMode) {
-				defaultMode = JSON.stringify(mode);
-			}
-		});
-		this.json.modes.forEach((mode: any) => {
-			if (Object.keys(mode)[0] === this.json.selectedMode) {
-				currentMode = JSON.stringify(mode);
-			}
-		});
-		const isCustomMode = !(currentMode === defaultMode);
-		this.querySelector(`app-${PAGE_HOME}`)?.setAttribute('data-custom', isCustomMode.toString());
-	} */
 
 	private createHandler = () => {
 		return (event: any) => {
@@ -118,7 +100,6 @@ class ToolbarComponent extends HTMLElement {
 		localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
 			this.json = result;
 			this.setCurrentPage(routeServiceInstance.currentRoute);
-			// this.setCustomState();
 		});
 	}
 }
