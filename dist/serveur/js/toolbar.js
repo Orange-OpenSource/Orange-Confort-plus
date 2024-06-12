@@ -400,10 +400,6 @@ class RouteService {
         }));
     };
     navigate=(newRoute, shouldLoad = false) => {
-        console.table({
-            newRoute: newRoute,
-            shouldLoad: shouldLoad
-        });
         if (shouldLoad) {
             this.loadRoute(newRoute);
             this.setCurrentRoute(newRoute);
@@ -2202,8 +2198,8 @@ class AppComponent extends HTMLElement {
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
-        localStorageServiceInstance.getItem("is-opened").then((result => {
-            if (result === "true") {
+        localStorageServiceInstance.getItem("is-opened").then((isOpened => {
+            if (isOpened === "true") {
                 this.showToolbar();
             } else {
                 this.hideToolbar();
@@ -3489,6 +3485,11 @@ class HomeComponent extends HTMLElement {
             this.modeIcon?.setAttribute("data-name", selectedModeName);
             this.currentModeSettings = JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]);
             this.currentMode.setAttribute("data-settings", this.currentModeSettings);
+            localStorageServiceInstance.getItem("is-paused").then((isPaused => {
+                if (isPaused) {
+                    this.setPauseState();
+                }
+            }));
         }
     }
     createHandler=() => event => {
@@ -3529,6 +3530,7 @@ class HomeComponent extends HTMLElement {
     setPauseState=() => {
         this.pauseState = !this.pauseState;
         this.querySelector("#pause-icon").setAttribute("data-name", this.pauseState ? "Play" : "Pause");
+        localStorageServiceInstance.setItem("is-paused", this.pauseState);
         if (this.pauseState) {
             pauseServiceInstance.pauseSettings(this.currentModeSettings);
             this.settingsBtn.disabled = true;
