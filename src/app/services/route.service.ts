@@ -36,7 +36,6 @@ class RouteService {
 
 	/* Navigate to the defined route in parameter */
 	navigate = (newRoute: string, shouldLoad = false): void => {
-		console.table({newRoute, shouldLoad});
 		if (shouldLoad) {
 			this.loadRoute(newRoute);
 			this.setCurrentRoute(newRoute);

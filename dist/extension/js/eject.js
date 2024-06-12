@@ -7,9 +7,11 @@
         const pauseBtn = appRootElt?.shadowRoot?.getElementById('pause-btn');
         if (pauseBtn) {
             const isActive = pauseBtn.querySelector('[data-name="Pause"]') !== null;
-            // @todo Store if it wasn't paused?
-            if (isActive)
+            // @ts-ignore
+            localStorageServiceInstance.setItem('is-paused', !isActive);
+            if (isActive) {
                 pauseBtn.click();
+            }
         }
         // Remove toolbar
         appRootElt.remove();

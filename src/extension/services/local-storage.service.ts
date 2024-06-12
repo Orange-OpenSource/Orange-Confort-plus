@@ -29,15 +29,15 @@ class LocalStorageService {
 			});
 		window.dispatchEvent(storeEvent);
 
-		// @note Special case to handle in-tab navigations
-		if (key === 'is-opened' && this.tabId) {
+		// @note Special case to handle in-tab navigations and pause
+		if (['is-opened', 'is-paused'].includes(key) && this.tabId) {
 			chrome.storage.local.set({ [`${PREFIX}${key}-${this.tabId}`]: value });
 		}
 	}
 
 	getItem<T>(key: string): Promise<T> {
-		// @note Special case to handle in-tab navigations
-		if (key === 'is-opened' && this.tabId) {
+		// @note Special case to handle in-tab navigations and pause
+		if (['is-opened', 'is-paused'].includes(key) && this.tabId) {
 			//@ts-ignore
 			return chrome.storage.local.get([`${PREFIX}${key}-${this.tabId}`]).then(datas => {
 				if (datas[`${PREFIX}${key}-${this.tabId}`]) {
