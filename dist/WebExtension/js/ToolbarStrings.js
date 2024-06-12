@@ -45,9 +45,9 @@ function ToolbarStrings() {
 	 * @return nothing
 	 */
 	this.setLocale = function () {
-		var htmlTag = document.getElementsByTagName("html")[0];
+		var htmlTag = document.documentElement;
 		/* HTML tag <html> of the page */
-		var bodyTag = document.getElementsByTagName("body")[0];
+		var bodyTag = document.body;
 		/* HTML tag <body> of the page */
 		this.locale = ((htmlTag.lang) ? htmlTag.lang : (htmlTag.getAttribute("xml:lang")) ? htmlTag.getAttribute("xml:lang") : (bodyTag.lang) ? bodyTag.lang : defaultLocale).substr(0, 2).toUpperCase();
 		if (!this.locale || !traduction[this.locale]) {

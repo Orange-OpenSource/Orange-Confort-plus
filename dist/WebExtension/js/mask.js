@@ -30,16 +30,16 @@ UciMask = {
 				bottomMask = document.createElement("div");
 				bottomMask.className = "uci_mask bottomMask";
 				bottomMask.id = "bottomMask";
-				document.getElementsByTagName("body")[0].appendChild(topMask);
-				document.getElementsByTagName("body")[0].appendChild(bottomMask);
+				document.body.appendChild(topMask);
+				document.body.appendChild(bottomMask);
 				vMouse = document.createElement("div");
 				vMouse.className = "vMouse";
 				vMouse.id = "vMouse";
 				hMouse = document.createElement("div");
 				hMouse.className = "hMouse";
 				hMouse.id = "hMouse";
-				document.getElementsByTagName("body")[0].appendChild(vMouse);
-				document.getElementsByTagName("body")[0].appendChild(hMouse);
+				document.body.appendChild(vMouse);
+				document.body.appendChild(hMouse);
 			}
 			// remove tomask childs if exists
 			while (document.getElementById('topMask').hasChildNodes()) {
