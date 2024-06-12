@@ -79,6 +79,13 @@ class HomeComponent extends HTMLElement {
 			this.modeIcon?.setAttribute('data-name', selectedModeName);
 			this.currentModeSettings = JSON.stringify(Object.entries(JSON.parse(selectedMode))[0][1]);
 			this.currentMode.setAttribute('data-settings', this.currentModeSettings);
+
+			// When restoring from extension
+			localStorageServiceInstance.getItem('is-paused').then((isPaused: any) => {
+				if (isPaused) {
+					this.setPauseState();
+				}
+			});
 		}
 	}
 
@@ -125,6 +132,7 @@ class HomeComponent extends HTMLElement {
 	private setPauseState = (): void => {
 		this.pauseState = !this.pauseState;
 		this.querySelector('#pause-icon').setAttribute('data-name', this.pauseState ? 'Play' : 'Pause');
+		localStorageServiceInstance.setItem('is-paused', this.pauseState);
 		if (this.pauseState) {
 			pauseServiceInstance.pauseSettings(this.currentModeSettings);
 			this.settingsBtn.disabled = true;

@@ -115,10 +115,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 					target: {tabId: tabId},
 					files: ['js/toolbar.js']
 				});
-				chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: true});
-			} else {
-				chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: false});
 			}
+			chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: isEnabled});
 		}
 
 		updateButtonIcon(isEnabled, tabId);
