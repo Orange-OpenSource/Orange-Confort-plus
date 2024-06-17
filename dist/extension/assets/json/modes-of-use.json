@@ -1,5 +1,5 @@
 {
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -111,7 +111,7 @@
 				},
 				{
 					"deleteBackgroundImages": {
-						"values": "noModifications,active",
+						"values": "noModifications,background_transparent,background_foreground_transparent",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -265,7 +265,7 @@
 				},
 				{
 					"deleteBackgroundImages": {
-						"values": "noModifications,active",
+						"values": "noModifications,background_transparent,background_foreground_transparent",
 						"valueSelected": 0,
 						"isTool": false
 					}

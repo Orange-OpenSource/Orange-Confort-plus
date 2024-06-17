@@ -397,5 +397,8 @@
 	},
 	"increaseTextSize": {
 		"message": "Augmenter la taille du texte"
+	},
+	"textContentImageHidden": {
+		"message": "Texte de l'image cachée :"
 	}
 }

@@ -20,10 +20,9 @@ class StopAnimationsService {
 	`;
 
 	setStopAnimations = (value: string): void => {
-		if (value === DEFAULT_VALUE) {
-			stylesServiceInstance.removeStyle('stop-animations');
-			this.unFreezeAllAnimations();
-		} else {
+		this.unFreezeAllAnimations();
+		stylesServiceInstance.removeStyle('stop-animations');
+		if (value !== DEFAULT_VALUE) {
 			stylesServiceInstance.setStyle('stop-animations', this.styleStopAnimations);
 			this.freezeAllAnimations();
 		}
