@@ -1,6 +1,32 @@
 let deleteBackgroundImagesServiceIsInstantiated: boolean;
 
 class DeleteBackgroundImagesService {
+	listImgElements: any[];
+	classDeleteForegroundImg = `${PREFIX}delete-foreground-img`;
+	classSpanImage = `${PREFIX}delete-background-images__span`;
+
+	styleDeleteBackgroundImages = `
+		*, *::before, *::after {
+			background-image: none !important;
+		}
+	`;
+
+	styleDeleteTransparencyEffects = `
+		*, *::before, *::after {
+			opacity: 1 !important;
+			filter: none !important
+		}
+	`;
+
+	styleDeleteForegroundImages = `
+		.${this.classSpanImage} {
+			font-size: 1rem;
+		}
+
+		.${this.classDeleteForegroundImg} {
+			visibility: hidden !important;
+		}
+	`;
 
 	constructor() {
 		if (deleteBackgroundImagesServiceIsInstantiated) {
@@ -11,16 +37,69 @@ class DeleteBackgroundImagesService {
 	}
 
 	setDeleteBackgroundImages = (value: string): void => {
-		if (value === DEFAULT_VALUE) {
-			stylesServiceInstance.removeStyle('delete-background-images');
-		} else {
-			let styleDeleteBackgroundImages = `
-				*, *::before, *::after {
-					background-image: none !important;
-				}
-			`;
-
-			stylesServiceInstance.setStyle('delete-background-images', styleDeleteBackgroundImages);
+		this.resetStyleDeleteBackground();
+		if (value !== DEFAULT_VALUE) {
+			this.setStyleDeleteBackground(value);
 		}
+	}
+
+	setStyleDeleteBackground = (value: string): void => {
+		let styleToDelete: string = '';
+		let values = value.split('_');
+
+		values.forEach((value: string) => {
+			switch (value) {
+				case 'background':
+					styleToDelete += this.styleDeleteBackgroundImages;
+					break;
+				case 'foreground':
+					styleToDelete += this.styleDeleteForegroundImages;
+
+					let listeImg = document.querySelectorAll('img, svg, canvas, area');
+					listeImg.forEach((element: any) => {
+						element.classList.add(this.classDeleteForegroundImg);
+						let imageAlt = this.getAccessibleLabel(element);
+						if (imageAlt !== '') {
+							let spanImage: HTMLSpanElement = document.createElement('span');
+							spanImage.classList.add(this.classSpanImage);
+							spanImage.textContent = `${i18nServiceInstance.getMessage('textContentImageHidden')} ${imageAlt}`;
+							element.parentNode.insertBefore(spanImage, element);
+						}
+					});
+					break;
+				case 'transparent':
+					styleToDelete += this.styleDeleteTransparencyEffects;
+					break;
+			}
+		});
+
+		stylesServiceInstance.setStyle('delete-background-images', styleToDelete);
+	}
+
+	getAccessibleLabel = (element: any): string => {
+		if (element.alt || element.ariaLabel || document.querySelector(`#${element.getAttribute('aria-labelledby')}`)?.textContent) {
+			return element.alt || element.ariaLabel || document.querySelector(`#${element.getAttribute('aria-labelledby')}`)?.textContent;
+		} else {
+			let a11yLabel = [];
+			if (element.querySelector('title')) {
+				a11yLabel.push(element.querySelector('title').textContent);
+			} else if (element.querySelector('desc')) {
+				a11yLabel.push(element.querySelector('desc').textContent);
+			} else if (element.querySelector('text')) {
+				a11yLabel.push(element.querySelector('text').textContent);
+			}
+			return a11yLabel.join(' ');
+		}
+	}
+
+	resetStyleDeleteBackground = (): void => {
+		stylesServiceInstance.removeStyle('delete-background-images');
+		document.querySelectorAll(`.${this.classSpanImage}`).forEach((element: Element) => {
+			element.remove()
+		});
+
+		document.querySelectorAll(`.${this.classDeleteForegroundImg}`).forEach((element: Element) => {
+			element.classList.remove(this.classDeleteForegroundImg);
+		});
 	}
 }

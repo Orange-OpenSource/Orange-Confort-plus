@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.4 - 19/06/2024
+ * orange-confort-plus - version 5.0.0-alpha.4 - 24/06/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1641,6 +1641,12 @@ class CursorAspectService {
 let deleteBackgroundImagesServiceIsInstantiated;
 
 class DeleteBackgroundImagesService {
+    listImgElements;
+    classDeleteForegroundImg=`${PREFIX}delete-foreground-img`;
+    classSpanImage=`${PREFIX}delete-background-images__span`;
+    styleDeleteBackgroundImages=`\n\t\t*, *::before, *::after {\n\t\t\tbackground-image: none !important;\n\t\t}\n\t`;
+    styleDeleteTransparencyEffects=`\n\t\t*, *::before, *::after {\n\t\t\topacity: 1 !important;\n\t\t\tfilter: none !important\n\t\t}\n\t`;
+    styleDeleteForegroundImages=`\n\t\t.${this.classSpanImage} {\n\t\t\tfont-size: 1rem;\n\t\t}\n\n\t\t.${this.classDeleteForegroundImg} {\n\t\t\tvisibility: hidden !important;\n\t\t}\n\t`;
     constructor() {
         if (deleteBackgroundImagesServiceIsInstantiated) {
             throw new Error("DeleteBackgroundImagesService is already instantiated.");
@@ -1648,12 +1654,65 @@ class DeleteBackgroundImagesService {
         deleteBackgroundImagesServiceIsInstantiated = true;
     }
     setDeleteBackgroundImages=value => {
-        if (value === DEFAULT_VALUE) {
-            stylesServiceInstance.removeStyle("delete-background-images");
-        } else {
-            let styleDeleteBackgroundImages = `\n\t\t\t\t*, *::before, *::after {\n\t\t\t\t\tbackground-image: none !important;\n\t\t\t\t}\n\t\t\t`;
-            stylesServiceInstance.setStyle("delete-background-images", styleDeleteBackgroundImages);
+        this.resetStyleDeleteBackground();
+        if (value !== DEFAULT_VALUE) {
+            this.setStyleDeleteBackground(value);
         }
+    };
+    setStyleDeleteBackground=value => {
+        let styleToDelete = "";
+        let values = value.split("_");
+        values.forEach((value => {
+            switch (value) {
+              case "background":
+                styleToDelete += this.styleDeleteBackgroundImages;
+                break;
+
+              case "foreground":
+                styleToDelete += this.styleDeleteForegroundImages;
+                let listeImg = document.querySelectorAll("img, svg, canvas, area");
+                listeImg.forEach((element => {
+                    element.classList.add(this.classDeleteForegroundImg);
+                    let imageAlt = this.getAccessibleLabel(element);
+                    if (imageAlt !== "") {
+                        let spanImage = document.createElement("span");
+                        spanImage.classList.add(this.classSpanImage);
+                        spanImage.textContent = `${i18nServiceInstance.getMessage("textContentImageHidden")} ${imageAlt}`;
+                        element.parentNode.insertBefore(spanImage, element);
+                    }
+                }));
+                break;
+
+              case "transparent":
+                styleToDelete += this.styleDeleteTransparencyEffects;
+                break;
+            }
+        }));
+        stylesServiceInstance.setStyle("delete-background-images", styleToDelete);
+    };
+    getAccessibleLabel=element => {
+        if (element.alt || element.ariaLabel || document.querySelector(`#${element.getAttribute("aria-labelledby")}`)?.textContent) {
+            return element.alt || element.ariaLabel || document.querySelector(`#${element.getAttribute("aria-labelledby")}`)?.textContent;
+        } else {
+            let a11yLabel = [];
+            if (element.querySelector("title")) {
+                a11yLabel.push(element.querySelector("title").textContent);
+            } else if (element.querySelector("desc")) {
+                a11yLabel.push(element.querySelector("desc").textContent);
+            } else if (element.querySelector("text")) {
+                a11yLabel.push(element.querySelector("text").textContent);
+            }
+            return a11yLabel.join(" ");
+        }
+    };
+    resetStyleDeleteBackground=() => {
+        stylesServiceInstance.removeStyle("delete-background-images");
+        document.querySelectorAll(`.${this.classSpanImage}`).forEach((element => {
+            element.remove();
+        }));
+        document.querySelectorAll(`.${this.classDeleteForegroundImg}`).forEach((element => {
+            element.classList.remove(this.classDeleteForegroundImg);
+        }));
     };
 }
 
@@ -2665,10 +2724,9 @@ class StopAnimationsService {
     }
     styleStopAnimations=`\n\t\t*, *::before, *::after {\n\t\t\tanimation: none !important;\n\t\t\tanimation-fill-mode: forwards !important;\n\t\t\ttransition: none !important;\n\t\t\ttransition-duration: 0.00001s !important;\n\t\t}\n\t`;
     setStopAnimations=value => {
-        if (value === DEFAULT_VALUE) {
-            stylesServiceInstance.removeStyle("stop-animations");
-            this.unFreezeAllAnimations();
-        } else {
+        this.unFreezeAllAnimations();
+        stylesServiceInstance.removeStyle("stop-animations");
+        if (value !== DEFAULT_VALUE) {
             stylesServiceInstance.setStyle("stop-animations", this.styleStopAnimations);
             this.freezeAllAnimations();
         }
@@ -4633,7 +4691,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Agencement" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Affichage" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
