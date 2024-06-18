@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.5 - 24/06/2024
+ * orange-confort-plus - version 5.0.0-alpha.5 - 25/06/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1536,6 +1536,58 @@ class ClickFaciliteService {
 let colorContrastServiceIsInstantiated;
 
 class ColorContrastService {
+    colorContrastDictionnary=[ {
+        name: "reinforcedContrasts",
+        cursor: "big_black",
+        focus: "big_black",
+        scroll: "big_black",
+        link: "darkblue_orange_brown"
+    }, {
+        name: "white_black",
+        cursor: "big_ivory",
+        focus: "big_ivory",
+        scroll: "big_ivory",
+        link: "lightblue_orange_lightgreen"
+    }, {
+        name: "black_ivory",
+        cursor: "big_black",
+        focus: "big_black",
+        scroll: "big_black",
+        link: "darkblue_orange_brown"
+    }, {
+        name: "white_red",
+        cursor: "big_white",
+        focus: "big_white",
+        scroll: "big_white",
+        link: "yellow_darkblue_lightgreen"
+    }, {
+        name: "black_yellow",
+        cursor: "big_black",
+        focus: "big_black",
+        scroll: "big_black",
+        link: "darkblue_purple_darkgreen"
+    }, {
+        name: "white_blue",
+        cursor: "big_white",
+        focus: "big_white",
+        scroll: "big_white",
+        link: "yellow_orange_lightgreen"
+    }, {
+        name: "yellow_blue",
+        cursor: "big_yellow",
+        focus: "big_yellow",
+        scroll: "big_yellow",
+        link: "white_darkgreen_lightgreen"
+    }, {
+        name: "black_green",
+        cursor: "big_black",
+        focus: "big_black",
+        scroll: "big_black",
+        link: "yellow_orange_blue"
+    } ];
+    matrixFilter=`\n\t\t0.8,   0.2,   0,     0, 0\n    0.258, 0.742, 0,     0, 0\n    0,     0.142, 0.858, 0, 0\n    0,     0,     0,     1, 0`;
+    svgFilterDaltonism=`<svg xmlns="http://www.w3.org/2000/svg"><filter id="daltonism"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, " ").trim()}"/></filter></svg>`;
+    styleFilterDaltonism=`\n\t\thtml body > *:not(app-root) {\n\t\t\tfilter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');\n\t\t}\n\t`;
     constructor() {
         if (colorContrastServiceIsInstantiated) {
             throw new Error("ColorContrastService is already instantiated.");
@@ -1543,24 +1595,36 @@ class ColorContrastService {
         colorContrastServiceIsInstantiated = true;
     }
     setColorsContrasts=value => {
-        if (value === DEFAULT_VALUE) {
-            stylesServiceInstance.removeStyle("color-contrast");
-        } else {
-            let color = "";
-            let backgroundColor = "";
+        stylesServiceInstance.removeStyle("color-contrast");
+        stylesServiceInstance.removeStyle("filter-daltonism");
+        switch (value) {
+          case DEFAULT_VALUE:
+            break;
+
+          case "daltonism":
+            stylesServiceInstance.setStyle("filter-daltonism", this.styleFilterDaltonism);
+            break;
+
+          case "reinforcedContrasts":
+          default:
+            let color;
+            let backgroundColor;
             if (value === "reinforcedContrasts") {
-                color = "#000";
-                backgroundColor = "#fff";
-            } else if (value === "daltonism") {
                 color = "#000";
                 backgroundColor = "#fff";
             } else {
                 color = value.split("_")[0];
                 backgroundColor = value.split("_")[1];
+                const colorParams = this.colorContrastDictionnary.find((o => o.name === value));
+                colourThemeServiceInstance.setServices(colorParams);
             }
-            let styleColorContrast = `\n\t\t\t\t\t\t\t* {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tli a {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tfieldset,\n\t\t\t\t\t\t\tbutton {\n\t\t\t\t\t\t\t\tborder-color: ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\tinput, td, th {\n\t\t\t\t\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttd, th {\n\t\t\t\t\t\t\t\tpadding: .2em !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\ttable {\n\t\t\t\t\t\t\t\tborder-collapse: collapse !important;\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t*:link,\n\t\t\t\t\t\t\t*:visited,\n\t\t\t\t\t\t\t*:hover {\n\t\t\t\t\t\t\t\tcolor: ${color} !important;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t`;
-            stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
+            this.setColorContrastStyle(color, backgroundColor);
+            break;
         }
+    };
+    setColorContrastStyle=(color, backgroundColor) => {
+        let styleColorContrast = `\n\t\t* {\n\t\t\tcolor: ${color} !important;\n\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t}\n\n\t\tli a {\n\t\t\tcolor: ${color} !important;\n\t\t}\n\n\t\tfieldset,\n\t\tbutton {\n\t\t\tborder-color: ${color} !important;\n\t\t}\n\n\t\tinput, td, th {\n\t\t\tborder: 2px solid ${color} !important;\n\t\t}\n\n\t\ttd, th {\n\t\t\tpadding: .2em !important;\n\t\t}\n\n\t\ttable {\n\t\t\tborder-collapse: collapse !important;\n\t\t}\n\t`;
+        stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
     };
 }
 
