@@ -31,6 +31,7 @@
 		"prebuild": "shx rm -rf dist/* && npm run mkdir",
 		"build": "npm run copy && concurrently \"npm:build:*\"",
 		"postbuild": "npm run move",
+		"version": "npm run build && git add -A dist/ docs/",
 		"postversion": "npm run zip",
 		"move": "concurrently \"npm:move:*\"",
 		"move:help": "shx cp -r docs/help dist/extension/ && shx cp -r docs/help dist/serveur/",
