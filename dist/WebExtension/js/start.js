@@ -16,7 +16,7 @@
 function startCDU() {
 	let toolbarServer = document.querySelector("script[src*='crossdom/js']");
 	let head = document.head;
-	let body = document.querySelector("body");
+	let body = document.body;
 	let toolbarDiv = document.querySelector("accessibilitytoolbarGraphic");
 	let toolbarOnOff = document.getElementById("uci-onoffswitch");
 	if ((toolbarServer === null) && (head !== null) && (body !== null) && (window.location.href !== 'about:blank')) {
