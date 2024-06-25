@@ -1673,11 +1673,69 @@ class MarginAlignService {
 let navigationAutoServiceIsInstantiated;
 
 class NavigationAutoService {
+    currentFocusElt;
+    currentIndex;
+    handler;
+    timer=null;
     constructor() {
         if (navigationAutoServiceIsInstantiated) {
             throw new Error("NavigationAutoService is already instantiated.");
         }
         navigationAutoServiceIsInstantiated = true;
+        this.handler = this.createHandler();
+    }
+    setNavigationAuto=value => {
+        this.resetAutoFocus();
+        if (value !== DEFAULT_VALUE) {
+            this.initializeFocusTracking();
+            let delay = Number(value.split("_")[1]) * 1e3;
+            this.setAutoFocus(delay);
+        }
+    };
+    setAutoFocus=delay => {
+        this.setIntervalFocus(delay);
+    };
+    resetAutoFocus=() => {
+        window.removeEventListener("focus", this.handler);
+        this.clearInterval();
+    };
+    focusElement=() => {
+        const not = {
+            inert: ":not([inert]):not([inert] *)",
+            negTabIndex: ':not([tabindex^="-"])',
+            disabled: ":not(:disabled)"
+        };
+        const focusableElt = [ `a[href]${not.inert}${not.negTabIndex}`, `area[href]${not.inert}${not.negTabIndex}`, `input:not([type="hidden"]):not([type="radio"])${not.inert}${not.negTabIndex}${not.disabled}`, `input[type="radio"]${not.inert}${not.negTabIndex}${not.disabled}`, `select${not.inert}${not.negTabIndex}${not.disabled}`, `textarea${not.inert}${not.negTabIndex}${not.disabled}`, `button${not.inert}${not.negTabIndex}${not.disabled}`, `details${not.inert} > summary:first-of-type${not.negTabIndex}`, `iframe${not.inert}${not.negTabIndex}`, `audio[controls]${not.inert}${not.negTabIndex}`, `video[controls]${not.inert}${not.negTabIndex}`, `[contenteditable]${not.inert}${not.negTabIndex}`, `[tabindex]${not.inert}${not.negTabIndex}` ];
+        const focusableElements = Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+        let newIndex = 0;
+        if (this.currentFocusElt) {
+            const currentIndex = focusableElements.indexOf(this.currentFocusElt);
+            newIndex = (currentIndex + 1) % focusableElements.length;
+        }
+        const newFocusElt = focusableElements[newIndex];
+        newFocusElt?.focus();
+        this.currentFocusElt = newFocusElt;
+    };
+    setIntervalFocus=delay => {
+        this.timer = setInterval((() => {
+            this.focusElement();
+        }), delay);
+    };
+    clearInterval=() => {
+        if (this.timer !== null) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+    };
+    initializeFocusTracking() {
+        window.addEventListener("focus", this.handler, true);
+    }
+    createHandler() {
+        return event => {
+            if (event.target) {
+                this.currentFocusElt = event.target;
+            }
+        };
     }
 }
 
@@ -2890,7 +2948,7 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 const tmplNavigationAuto = document.createElement("template");
 
-tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting data-disabled="true"></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationAutoComponent extends AbstractSetting {
     activesValues={
@@ -2899,6 +2957,7 @@ class NavigationAutoComponent extends AbstractSetting {
     };
     constructor() {
         super();
+        this.setCallback(navigationAutoServiceInstance.setNavigationAuto.bind(this));
         this.appendChild(tmplNavigationAuto.content.cloneNode(true));
     }
 }
