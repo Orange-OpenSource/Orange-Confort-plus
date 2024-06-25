@@ -143,6 +143,9 @@
 	"navigationAuto": {
 		"message": "Navigation par défilement"
 	},
+	"navigationAutoInstruction": {
+		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+	},
 	"navigationButtons": {
 		"message": "Boutons de navigation"
 	},

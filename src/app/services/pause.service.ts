@@ -29,6 +29,7 @@ class PauseService {
 			{ name: 'linkStyle', instanceService: linkStyleServiceInstance.setLinkStyle.bind(this), value: '' },
 			{ name: 'magnifier', instanceService: magnifierServiceInstance.setMagnifier.bind(this), value: '' },
 			{ name: 'marginAlign', instanceService: marginAlignServiceInstance.setMargin.bind(this), value: '' },
+			{ name: 'navigationAuto', instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(this), value: '' },
 			{ name: 'navigationButtons', instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(this), value: '' },
 			{ name: 'readAloud', instanceService: readAloudServiceInstance.setReadAloud.bind(this), value: '' },
 			{ name: 'readingGuide', instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this), value: '' },
