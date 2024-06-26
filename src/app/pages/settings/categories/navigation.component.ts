@@ -10,6 +10,7 @@ tmplNavigation.innerHTML = `
 		<div class="accordion-body px-3">
 			<div class="c-category__settings-container gap-2">
 				<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>
+				<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>
 				<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>
 				<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>
 				<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>

@@ -1,5 +1,5 @@
 {
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -125,7 +125,7 @@
 				},
 				{
 					"skipToContent": {
-						"values": "noModifications,skipToContent",
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -279,7 +279,7 @@
 				},
 				{
 					"skipToContent": {
-						"values": "noModifications,skipToContent",
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
 					}
