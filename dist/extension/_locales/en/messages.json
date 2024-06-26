@@ -143,6 +143,9 @@
 	"navigationAuto": {
 		"message": "Auto scroll navigation"
 	},
+	"navigationAutoInstruction": {
+		"message": "All you have to do is validate, and the focus moves by itself"
+	},
 	"navigationButtons": {
 		"message": "Navigation buttons"
 	},
