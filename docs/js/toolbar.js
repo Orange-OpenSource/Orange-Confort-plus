@@ -205,6 +205,28 @@ class CategoriesService {
 
 "use strict";
 
+let domServiceIsInstantiated;
+
+class DomService {
+    constructor() {
+        if (domServiceIsInstantiated) {
+            throw new Error("DomService is already instantiated.");
+        }
+        domServiceIsInstantiated = true;
+    }
+    getFocusableElements=() => {
+        const not = {
+            inert: "[inert],[inert] *",
+            negTabIndex: '[tabindex^="-"]',
+            disabled: ":disabled"
+        };
+        const focusableElt = [ `a[href]:not(${not.inert},${not.negTabIndex}`, `area[href]:not(${not.inert},${not.negTabIndex}`, `input:not([type="hidden"],[type="radio"],${not.inert},${not.negTabIndex},${not.disabled}`, `input[type="radio"]:not(${not.inert},${not.negTabIndex},${not.disabled}`, `select:not(${not.inert},${not.negTabIndex},${not.disabled}`, `textarea:not(${not.inert},${not.negTabIndex},${not.disabled}`, `button:not(${not.inert},${not.negTabIndex},${not.disabled}`, `details:not(${not.inert} > summary:first-of-type,${not.negTabIndex}`, `iframe:not(${not.inert},${not.negTabIndex}`, `audio[controls]:not(${not.inert},${not.negTabIndex}`, `video[controls]:not(${not.inert},${not.negTabIndex}`, `[contenteditable]:not(${not.inert},${not.negTabIndex}`, `[tabindex]:not(${not.inert},${not.negTabIndex}` ];
+        return Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+    };
+}
+
+"use strict";
+
 let modeOfUseServiceIsInstantiated;
 
 class ModeOfUseService {
@@ -358,6 +380,10 @@ class PauseService {
         }, {
             name: "marginAlign",
             instanceService: marginAlignServiceInstance.setMargin.bind(this),
+            value: ""
+        }, {
+            name: "navigationAuto",
+            instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(this),
             value: ""
         }, {
             name: "navigationButtons",
@@ -1685,28 +1711,16 @@ class NavigationAutoService {
         this.handler = this.createHandler();
     }
     setNavigationAuto=value => {
-        this.resetAutoFocus();
+        window.removeEventListener("focus", this.handler);
+        this.clearIntervalFocus();
         if (value !== DEFAULT_VALUE) {
-            this.initializeFocusTracking();
+            window.addEventListener("focus", this.handler, true);
             let delay = Number(value.split("_")[1]) * 1e3;
-            this.setAutoFocus(delay);
+            this.setIntervalFocus(delay);
         }
     };
-    setAutoFocus=delay => {
-        this.setIntervalFocus(delay);
-    };
-    resetAutoFocus=() => {
-        window.removeEventListener("focus", this.handler);
-        this.clearInterval();
-    };
     focusElement=() => {
-        const not = {
-            inert: ":not([inert]):not([inert] *)",
-            negTabIndex: ':not([tabindex^="-"])',
-            disabled: ":not(:disabled)"
-        };
-        const focusableElt = [ `a[href]${not.inert}${not.negTabIndex}`, `area[href]${not.inert}${not.negTabIndex}`, `input:not([type="hidden"]):not([type="radio"])${not.inert}${not.negTabIndex}${not.disabled}`, `input[type="radio"]${not.inert}${not.negTabIndex}${not.disabled}`, `select${not.inert}${not.negTabIndex}${not.disabled}`, `textarea${not.inert}${not.negTabIndex}${not.disabled}`, `button${not.inert}${not.negTabIndex}${not.disabled}`, `details${not.inert} > summary:first-of-type${not.negTabIndex}`, `iframe${not.inert}${not.negTabIndex}`, `audio[controls]${not.inert}${not.negTabIndex}`, `video[controls]${not.inert}${not.negTabIndex}`, `[contenteditable]${not.inert}${not.negTabIndex}`, `[tabindex]${not.inert}${not.negTabIndex}` ];
-        const focusableElements = Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+        const focusableElements = domServiceInstance.getFocusableElements();
         let newIndex = 0;
         if (this.currentFocusElt) {
             const currentIndex = focusableElements.indexOf(this.currentFocusElt);
@@ -1721,15 +1735,12 @@ class NavigationAutoService {
             this.focusElement();
         }), delay);
     };
-    clearInterval=() => {
+    clearIntervalFocus=() => {
         if (this.timer !== null) {
             clearInterval(this.timer);
             this.timer = null;
         }
     };
-    initializeFocusTracking() {
-        window.addEventListener("focus", this.handler, true);
-    }
     createHandler() {
         return event => {
             if (event.target) {
@@ -1814,13 +1825,7 @@ class NavigationButtonsService {
         }
     };
     focusElement=direction => {
-        const not = {
-            inert: ":not([inert]):not([inert] *)",
-            negTabIndex: ':not([tabindex^="-"])',
-            disabled: ":not(:disabled)"
-        };
-        const focusableElt = [ `a[href]${not.inert}${not.negTabIndex}`, `area[href]${not.inert}${not.negTabIndex}`, `input:not([type="hidden"]):not([type="radio"])${not.inert}${not.negTabIndex}${not.disabled}`, `input[type="radio"]${not.inert}${not.negTabIndex}${not.disabled}`, `select${not.inert}${not.negTabIndex}${not.disabled}`, `textarea${not.inert}${not.negTabIndex}${not.disabled}`, `button${not.inert}${not.negTabIndex}${not.disabled}`, `details${not.inert} > summary:first-of-type${not.negTabIndex}`, `iframe${not.inert}${not.negTabIndex}`, `audio[controls]${not.inert}${not.negTabIndex}`, `video[controls]${not.inert}${not.negTabIndex}`, `[contenteditable]${not.inert}${not.negTabIndex}`, `[tabindex]${not.inert}${not.negTabIndex}` ];
-        const focusableElements = Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+        const focusableElements = domServiceInstance.getFocusableElements();
         let newIndex = 0;
         if (this.currentFocusElt) {
             const currentIndex = focusableElements.indexOf(this.currentFocusElt);
@@ -2426,6 +2431,10 @@ const pathServiceInstance = new PathService;
 Object.freeze(pathServiceInstance);
 
 const appPath = pathServiceInstance.path;
+
+const domServiceInstance = new DomService;
+
+Object.freeze(domServiceInstance);
 
 const i18nServiceInstance = new I18nService;
 
