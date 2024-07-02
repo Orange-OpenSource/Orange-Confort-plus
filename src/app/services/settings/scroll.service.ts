@@ -38,7 +38,7 @@ class ScrollService {
 				position: fixed;
 				bottom: 1rem;
 				right: 1rem;
-				z-index: 2147483647;
+				z-index: calc(infinity);
 			}
 
 			#${PREFIX}container-scroll-buttons button {
