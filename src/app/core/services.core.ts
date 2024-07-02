@@ -3,6 +3,8 @@ const pathServiceInstance = new PathService();
 Object.freeze(pathServiceInstance);
 const appPath = pathServiceInstance.path;
 
+const domServiceInstance = new DomService();
+Object.freeze(domServiceInstance);
 const i18nServiceInstance = new I18nService();
 Object.freeze(i18nServiceInstance);
 const iconsServiceInstance = new IconsService();
