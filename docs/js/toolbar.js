@@ -360,6 +360,10 @@ class PauseService {
             instanceService: marginAlignServiceInstance.setMargin.bind(this),
             value: ""
         }, {
+            name: "navigationAuto",
+            instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(this),
+            value: ""
+        }, {
             name: "navigationButtons",
             instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(this),
             value: ""
@@ -1685,19 +1689,13 @@ class NavigationAutoService {
         this.handler = this.createHandler();
     }
     setNavigationAuto=value => {
-        this.resetAutoFocus();
-        if (value !== DEFAULT_VALUE) {
-            this.initializeFocusTracking();
-            let delay = Number(value.split("_")[1]) * 1e3;
-            this.setAutoFocus(delay);
-        }
-    };
-    setAutoFocus=delay => {
-        this.setIntervalFocus(delay);
-    };
-    resetAutoFocus=() => {
         window.removeEventListener("focus", this.handler);
-        this.clearInterval();
+        this.clearIntervalFocus();
+        if (value !== DEFAULT_VALUE) {
+            window.addEventListener("focus", this.handler, true);
+            let delay = Number(value.split("_")[1]) * 1e3;
+            this.setIntervalFocus(delay);
+        }
     };
     focusElement=() => {
         const not = {
@@ -1721,15 +1719,12 @@ class NavigationAutoService {
             this.focusElement();
         }), delay);
     };
-    clearInterval=() => {
+    clearIntervalFocus=() => {
         if (this.timer !== null) {
             clearInterval(this.timer);
             this.timer = null;
         }
     };
-    initializeFocusTracking() {
-        window.addEventListener("focus", this.handler, true);
-    }
     createHandler() {
         return event => {
             if (event.target) {

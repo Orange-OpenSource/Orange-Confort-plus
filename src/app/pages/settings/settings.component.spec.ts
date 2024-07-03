@@ -5,9 +5,9 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Settings initialization : ', () => {
-	test('should have 4 categories ', async ({ page }) => {
+	test('should have 5 categories ', async ({ page }) => {
 		await page.locator('#confort').click();
 		await page.locator('#settings-btn').click();
-		expect(await page.locator('.c-settings__category').count()).toEqual(4);
+		expect(await page.locator('.c-settings__category').count()).toEqual(5);
 	});
 });
