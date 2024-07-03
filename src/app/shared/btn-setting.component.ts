@@ -1,12 +1,14 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
-// @fixme button > ul seems really weird
 btnSettingLayout.innerHTML = `
 	<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
-		<div class="d-flex flex-column">
+		<span class="d-flex flex-column">
 			<span></span>
 			<app-icon data-size="1.5em"></app-icon>
-		</div>
-		<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>
+		</span>
+		<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>
+		<!-- @todo Nom accessible : réglage, valeur actuelle 1/n, changer en 2/n -->
+		<!-- @note Exemple : « Police Accessible-DfA 1/3, changer en Arial 2/3 » -->
+		<!-- @note Si on peut associer un libellé a une valeur c’est cool -->
 	</button>
 `;
 
@@ -35,7 +37,7 @@ class BtnSettingComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
-		this.btnContentSlots = this.querySelector('ul');
+		this.btnContentSlots = this.querySelector('.sc-btn-setting__values');
 		this.settingBtn.addEventListener('click', this.handler);
 		this.setDisabledState();
 	}
@@ -99,12 +101,11 @@ class BtnSettingComponent extends HTMLElement {
 		this.settingsList.forEach((value, index) => {
 			/* Display the point only if value */
 			if (value) {
-				let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
+				let point = '<span class="sc-btn-setting__value rounded-circle"></span>';
 				if (index === this.index) {
-					point = '<li class="border border-4 border-black rounded-circle"></li>';
+					point = '<span class="sc-btn-setting__value sc-btn-setting__current-value rounded-circle"></span>';
 					this.value = value;
 				}
-				this.slot = `${this.slot}${point}`;
 			}
 		});
 		this.btnContentSlots!.innerHTML = this.slot;
