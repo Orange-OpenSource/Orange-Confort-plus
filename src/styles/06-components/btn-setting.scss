@@ -7,12 +7,12 @@ app-btn-setting {
 	border-radius: 1em;
 	min-height: 6.5em;
 
-	&:hover > ul > li.border.border-4 {
-		border-color: var(--cplus-primary) !important;
+	&:hover .sc-btn-setting__current-value {
+		background-color: var(--cplus-primary);
 	}
 
-	&:active > ul > li.bg-white {
-		background-color: var(--cplus-body-color) !important;
+	&:active .sc-btn-setting__value {
+		background-color: var(--cplus-body-color);
 	}
 }
 
@@ -31,7 +31,14 @@ app-btn-setting {
 	}
 }
 
-.sc-btn-setting__btn-slot {
-	width: .25em;
+.sc-btn-setting__value {
+	background-color: var(--cplus-body-bg);
 	height: .25em;
+	width: .25em;
+}
+
+.sc-btn-setting__current-value {
+	background-color: var(--cplus-body-color);
+	height: .5em;
+	width: .5em;
 }
