@@ -113,11 +113,11 @@ abstract class AbstractCategory extends HTMLElement {
 	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
-				if (event.target === this.btnAccordion || this.btnAccordion.contains(event.target as Element)) {
+				if (event.currentTarget === this.btnAccordion || this.btnAccordion.contains(event.currentTarget as Element)) {
 					categoriesServiceInstance.openCategory(this.tagName, this.isShown());
 					let clickCollapsedEvent = new CustomEvent('collapsedCategory', { bubbles: true });
 					this.btnAccordion?.dispatchEvent(clickCollapsedEvent);
-				} else if (event.target === this.btnMoreSettings) {
+				} else if (event.currentTarget === this.btnMoreSettings) {
 					this.displayOrHideOthersSettings();
 				}
 			}

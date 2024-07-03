@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.5 - 03/07/2024
+ * orange-confort-plus - version 5.0.0-alpha.5 - 11/07/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -712,7 +712,7 @@ class ClickFaciliteService {
         }
     };
     getClickableElt=event => {
-        let pointedElt = event.target;
+        let pointedElt = event.currentTarget;
         let closestPointedElt = pointedElt.closest(this.clickableElements.join(","));
         return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt : closestPointedElt ? closestPointedElt : pointedElt;
     };
@@ -1743,8 +1743,8 @@ class NavigationAutoService {
     };
     createHandler() {
         return event => {
-            if (event.target) {
-                this.currentFocusElt = event.target;
+            if (event.currentTarget) {
+                this.currentFocusElt = event.currentTarget;
             }
         };
     }
@@ -1852,7 +1852,7 @@ class NavigationButtonsService {
     };
     createHandlerNavigationButtons=() => event => {
         if (event.type === "focusout") {
-            this.currentFocusElt = event.target;
+            this.currentFocusElt = event.currentTarget;
         }
     };
 }
@@ -1984,7 +1984,7 @@ class ReadAloudService {
         document.removeEventListener("contextmenu", this.handler);
     };
     downHandler=event => {
-        let textToSpeech = new SpeechSynthesisUtterance(event.target.innerText);
+        let textToSpeech = new SpeechSynthesisUtterance(event.currentTarget.innerText);
         speechSynthesis.speak(textToSpeech);
     };
     stopReadAloud=() => {
@@ -2837,7 +2837,7 @@ customElements.define("app-cursor-aspect", CursorAspectComponent);
 
 const tmplDeleteBackgroundImages = document.createElement("template");
 
-tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none" data-disabled="true"></app-btn-modal>\n</div>\n`;
+tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
     activesValues={
@@ -3170,7 +3170,7 @@ class TextTransformComponent extends HTMLElement {
     }
     createHandler=() => event => {
         if (event.type === "click") {
-            switch (event.target) {
+            switch (event.currentTarget) {
               case this.normalBtn:
                 this.bodyElt.style.textTransform = ``;
                 break;
@@ -3234,7 +3234,7 @@ class BtnModalComponent extends HTMLElement {
     };
     createHandler=() => event => {
         if (event.type === "click") {
-            switch (event.target) {
+            switch (event.currentTarget) {
               case this.modalBtn:
                 let clickEvent = new CustomEvent("changeRoute", {
                     bubbles: true,
@@ -3412,7 +3412,7 @@ class HeaderComponent extends HTMLElement {
     };
     createHandler=() => event => {
         if (event.type === "click") {
-            switch (event.target) {
+            switch (event.currentTarget) {
               case this.closeBtn:
                 this.closeButtonEvent();
                 break;
@@ -3479,6 +3479,87 @@ customElements.define("app-icon", IconComponent);
 
 "use strict";
 
+const selectEditValueLayout = document.createElement("template");
+
+selectEditValueLayout.innerHTML = `\n\t<div class="d-flex align-items-center justify-content-between gap-2">\n\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="prevValue"></span>\n\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t</button>\n\t\t<output></output>\n\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="nextValue"></span>\n\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</div>\n`;
+
+class SelectEditValueComponent extends HTMLElement {
+    static observedAttributes=[ "data-name", "data-index", "data-setting-values" ];
+    selectedValue=null;
+    btnPrevValue=null;
+    btnNextValue=null;
+    name="";
+    values=[];
+    currentIndex=null;
+    currentValue=null;
+    handler;
+    constructor() {
+        super();
+        this.name = this.dataset?.name || this.name;
+        this.appendChild(selectEditValueLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectedValue = this.querySelector("output");
+        this.btnPrevValue = this.querySelector("button:first-of-type");
+        this.btnNextValue = this.querySelector("button:last-of-type");
+        this.btnPrevValue?.addEventListener("click", this.handler);
+        this.btnNextValue?.addEventListener("click", this.handler);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if ("data-index" === name) {
+            this.currentIndex = Number(newValue);
+            this.moveEditValue(this.currentIndex);
+        }
+        if ("data-setting-values" === name) {
+            this.values = newValue.split(",");
+        }
+    }
+    moveEditValue=index => {
+        this.currentIndex = index;
+        this.btnPrevValue.disabled = false;
+        this.btnNextValue.disabled = false;
+        if (this.currentIndex <= 0) {
+            this.currentIndex = 0;
+            this.btnPrevValue.disabled = true;
+            this.btnNextValue.disabled = false;
+        } else if (this.currentIndex >= this.values.length - 1) {
+            this.currentIndex = this.values.length - 1;
+            this.btnPrevValue.disabled = false;
+            this.btnNextValue.disabled = true;
+        }
+        this.currentValue = this.values[this.currentIndex];
+        this.selectedValue.innerText = i18nServiceInstance.getMessage(this.currentValue);
+        this.changeEditValue();
+    };
+    createHandler=() => event => {
+        if (event.type === "click") {
+            switch (event.currentTarget) {
+              case this.btnPrevValue:
+                this.moveEditValue(this.currentIndex - 1);
+                break;
+
+              case this.btnNextValue:
+                this.moveEditValue(this.currentIndex + 1);
+                break;
+            }
+        }
+    };
+    changeEditValue=() => {
+        let editValueEvent = new CustomEvent(`editSetting${this.name}`, {
+            bubbles: true,
+            detail: {
+                newValue: this.currentValue
+            }
+        });
+        this.dispatchEvent(editValueEvent);
+    };
+}
+
+customElements.define("app-select-edit-value", SelectEditValueComponent);
+
+"use strict";
+
 const selectModeLayout = document.createElement("template");
 
 selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</label>\n`;
@@ -3525,7 +3606,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -3616,6 +3697,53 @@ class EditCursorAspectComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-cursor-aspect", EditCursorAspectComponent);
+
+"use strict";
+
+const editDeleteBackgroundImagesLayout = document.createElement("template");
+
+editDeleteBackgroundImagesLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="DeleteBackgroundImages"></app-select-edit-value>\n\t</form>\n`;
+
+class EditDeleteBackgroundImagesComponent extends HTMLElement {
+    selectDeleteBgImgElement=null;
+    settingValues=null;
+    deleteBackgroundImagesValues=[ DEFAULT_VALUE, "background_transparent", "background_foreground_transparent" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editDeleteBackgroundImagesLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectDeleteBgImgElement = this.querySelector("app-select-edit-value");
+        this.selectDeleteBgImgElement.addEventListener("editSettingDeleteBackgroundImages", this.handler);
+        this.selectDeleteBgImgElement.setAttribute("data-setting-values", this.deleteBackgroundImagesValues.join(","));
+        modeOfUseServiceInstance.getSetting("deleteBackgroundImages").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.deleteBackgroundImagesValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectDeleteBgImgElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setDeleteBackgroundImages=value => {
+        let valueExist = this.settingValues.includes(value);
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (valueExist) {
+            modeOfUseServiceInstance.setSettingValue("deleteBackgroundImages", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("deleteBackgroundImages", 3, value);
+        }
+        deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingDeleteBackgroundImages":
+            this.setDeleteBackgroundImages(event.detail.newValue);
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-delete-background-images", EditDeleteBackgroundImagesComponent);
 
 "use strict";
 
@@ -3765,14 +3893,10 @@ customElements.define("app-edit-stop-animations", EditStopAnimationsComponent);
 
 const editTextSizeLayout = document.createElement("template");
 
-editTextSizeLayout.innerHTML = `\n\t<form class="d-flex align-items-center justify-content-between gap-2">\n\t\t<button id="edit-btn-prev" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="increaseTextSize"></span>\n\t\t\t<app-icon data-name="Minus_small"></app-icon>\n\t\t</button>\n\t\t<output id="selected-value"></output>\n\t\t<button id="edit-btn-next" type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="reduceTextSize"></span>\n\t\t\t<app-icon data-name="Plus_small"></app-icon>\n\t\t</button>\n\t</form>\n`;
+editTextSizeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="TextSize"></app-select-edit-value>\n\t</form>\n`;
 
 class EditTextSizeComponent extends HTMLElement {
-    selectedValue=null;
-    btnPrevValue=null;
-    btnNextValue=null;
-    currentIndex=null;
-    currentValue=null;
+    selectTextSizeElement=null;
     settingValues=null;
     textSizeValues=[ DEFAULT_VALUE, "110", "130", "160", "200", "350", "500" ];
     handler;
@@ -3782,52 +3906,30 @@ class EditTextSizeComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
-        this.selectedValue = this.querySelector("#selected-value");
-        this.btnPrevValue = this.querySelector("#edit-btn-prev");
-        this.btnNextValue = this.querySelector("#edit-btn-next");
-        this.btnPrevValue?.addEventListener("click", this.handler);
-        this.btnNextValue?.addEventListener("click", this.handler);
+        this.selectTextSizeElement = this.querySelector("app-select-edit-value");
+        this.selectTextSizeElement.addEventListener("editSettingTextSize", this.handler);
+        this.selectTextSizeElement.setAttribute("data-setting-values", this.textSizeValues.join(","));
         modeOfUseServiceInstance.getSetting("textSize").then((result => {
             this.settingValues = result.values.split(",");
-            this.currentIndex = this.textSizeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
-            this.moveTextSize(this.currentIndex);
+            const currentIndex = this.textSizeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectTextSizeElement.setAttribute("data-index", currentIndex.toString());
         }));
     }
-    moveTextSize=index => {
-        this.currentIndex = index;
-        this.btnPrevValue.disabled = false;
-        this.btnNextValue.disabled = false;
-        if (this.currentIndex <= 0) {
-            this.currentIndex = 0;
-            this.btnPrevValue.disabled = true;
-            this.btnNextValue.disabled = false;
-        } else if (this.currentIndex >= this.textSizeValues.length - 1) {
-            this.currentIndex = this.textSizeValues.length - 1;
-            this.btnPrevValue.disabled = false;
-            this.btnNextValue.disabled = true;
-        }
-        this.currentValue = this.textSizeValues[this.currentIndex];
-        this.selectedValue.innerText = i18nServiceInstance.getMessage(this.currentValue);
-        let valueExist = this.settingValues.includes(this.currentValue);
-        let newSettingIndex = this.settingValues.findIndex((i => i === this.textSizeValues[this.currentIndex]));
+    setTextSize=value => {
+        let valueExist = this.settingValues.includes(value);
+        let newSettingIndex = this.settingValues.indexOf(value);
         if (valueExist) {
             modeOfUseServiceInstance.setSettingValue("textSize", newSettingIndex, true);
         } else {
-            modeOfUseServiceInstance.addSettingCustomValue("textSize", 3, this.currentValue);
+            modeOfUseServiceInstance.addSettingCustomValue("textSize", 3, value);
         }
-        textSizeServiceInstance.setFontSize(this.currentValue);
+        textSizeServiceInstance.setFontSize(value);
     };
     createHandler=() => event => {
-        if (event.type === "click") {
-            switch (event.target) {
-              case this.btnPrevValue:
-                this.moveTextSize(this.currentIndex - 1);
-                break;
-
-              case this.btnNextValue:
-                this.moveTextSize(this.currentIndex + 1);
-                break;
-            }
+        switch (event.type) {
+          case "editSettingTextSize":
+            this.setTextSize(event.detail.newValue);
+            break;
         }
     };
 }
@@ -3905,7 +4007,7 @@ class HomeComponent extends HTMLElement {
     }
     createHandler=() => event => {
         if (event.type === "click") {
-            switch (event.target) {
+            switch (event.currentTarget) {
               case this.changeModeBtn:
                 this.changeModeButtonEvent();
                 break;
@@ -4228,13 +4330,13 @@ class AbstractCategory extends HTMLElement {
     };
     createHandler=() => event => {
         if (event.type === "click") {
-            if (event.target === this.btnAccordion || this.btnAccordion.contains(event.target)) {
+            if (event.currentTarget === this.btnAccordion || this.btnAccordion.contains(event.currentTarget)) {
                 categoriesServiceInstance.openCategory(this.tagName, this.isShown());
                 let clickCollapsedEvent = new CustomEvent("collapsedCategory", {
                     bubbles: true
                 });
                 this.btnAccordion?.dispatchEvent(clickCollapsedEvent);
-            } else if (event.target === this.btnMoreSettings) {
+            } else if (event.currentTarget === this.btnMoreSettings) {
                 this.displayOrHideOthersSettings();
             }
         }

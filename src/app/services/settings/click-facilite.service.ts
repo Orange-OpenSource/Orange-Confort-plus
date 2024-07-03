@@ -49,7 +49,7 @@ class ClickFaciliteService {
 	}
 
 	getClickableElt = (event: MouseEvent): any => {
-		let pointedElt: any = event.target;
+		let pointedElt: any = event.currentTarget;
 		let closestPointedElt: any = pointedElt.closest(this.clickableElements.join(','))
 		return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt :
 			closestPointedElt ? closestPointedElt : pointedElt;
