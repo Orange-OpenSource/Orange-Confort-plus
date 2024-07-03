@@ -52,7 +52,7 @@ class TextTransformComponent extends HTMLElement {
 	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
-				switch (event.target) {
+				switch (event.currentTarget) {
 					case this.normalBtn:
 						this.bodyElt.style.textTransform = ``;
 						break;

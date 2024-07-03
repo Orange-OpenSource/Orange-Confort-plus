@@ -140,6 +140,9 @@
 	"deleteBackgroundImages": {
 		"message": "Supprimer les images de fond"
 	},
+	"deleteBackgroundImagesInstruction": {
+		"message": "Pour empêcher les images de s’afficher"
+	},
 	"navigationAuto": {
 		"message": "Navigation par défilement"
 	},
@@ -404,11 +407,11 @@
 	"500": {
 		"message": "Max 500%"
 	},
-	"reduceTextSize": {
-		"message": "Réduire la taille du texte"
+	"prevValue": {
+		"message": "Valeur précédente"
 	},
-	"increaseTextSize": {
-		"message": "Augmenter la taille du texte"
+	"nextValue": {
+		"message": "Valeur suivante"
 	},
 	"textContentImageHidden": {
 		"message": "Texte de l'image cachée :"

@@ -50,7 +50,7 @@ class BtnModalComponent extends HTMLElement {
 	private createHandler = () => {
 		return (event: Event) => {
 			if (event.type === 'click') {
-				switch (event.target) {
+				switch (event.currentTarget) {
 					case this.modalBtn:
 						let clickEvent = new CustomEvent('changeRoute', {
 							bubbles: true,

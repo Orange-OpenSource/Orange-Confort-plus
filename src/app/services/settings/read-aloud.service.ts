@@ -160,7 +160,7 @@ class ReadAloudService {
 	}
 
 	downHandler = (event: any): void => {
-		let textToSpeech = new SpeechSynthesisUtterance(event.target.innerText);
+		let textToSpeech = new SpeechSynthesisUtterance(event.currentTarget.innerText);
 		speechSynthesis.speak(textToSpeech);
 	}
 

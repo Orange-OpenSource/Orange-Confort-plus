@@ -130,7 +130,7 @@ class NavigationButtonsService {
 	createHandlerNavigationButtons = () => {
 		return (event: any) => {
 			if (event.type === 'focusout') {
-				this.currentFocusElt = event.target;
+				this.currentFocusElt = event.currentTarget;
 			}
 		}
 	}
