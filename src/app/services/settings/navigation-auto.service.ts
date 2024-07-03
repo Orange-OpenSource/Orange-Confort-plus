@@ -56,8 +56,8 @@ class NavigationAutoService {
 
 	private createHandler(): (event: FocusEvent) => void {
 		return (event: FocusEvent) => {
-			if (event.target) {
-				this.currentFocusElt = event.target;
+			if (event.currentTarget) {
+				this.currentFocusElt = event.currentTarget;
 			}
 		};
 	}

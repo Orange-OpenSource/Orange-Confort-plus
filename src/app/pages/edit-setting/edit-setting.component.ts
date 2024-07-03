@@ -8,20 +8,21 @@ editSettingLayout.innerHTML = `
 
 		<p id="edit-setting-instruction" class="mb-4"></p>
 
-		<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>
-		<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>
-		<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>
-		<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>
-		<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>
-		<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>
-		<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>
-		<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>
 		<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>
-		<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>
 		<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>
+		<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>
+		<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>
+		<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>
+		<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>
 		<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>
-		<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>
+		<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>
+		<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>
+		<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>
+		<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>
 		<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>
+		<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>
+		<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>
+		<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>
 	</div>
 `;
 

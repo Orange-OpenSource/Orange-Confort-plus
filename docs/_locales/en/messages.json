@@ -140,6 +140,9 @@
 	"deleteBackgroundImages": {
 		"message": "Delete background images"
 	},
+	"deleteBackgroundImagesInstruction": {
+		"message": "To prevent images from being displayed"
+	},
 	"navigationAuto": {
 		"message": "Auto scroll navigation"
 	},
@@ -404,11 +407,11 @@
 	"500": {
 		"message": "Max 500%"
 	},
-	"reduceTextSize": {
-		"message": "Reduce text size"
+	"prevValue": {
+		"message": "Previous value"
 	},
-	"increaseTextSize": {
-		"message": "Increase text size"
+	"nextValue": {
+		"message": "Next value"
 	},
 	"textContentImageHidden": {
 		"message": "Hidden image text :"

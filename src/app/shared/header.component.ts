@@ -90,7 +90,7 @@ class HeaderComponent extends HTMLElement {
 	private createHandler = () => {
 		return (event: any) => {
 			if (event.type === 'click') {
-				switch (event.target) {
+				switch (event.currentTarget) {
 					case this.closeBtn:
 						this.closeButtonEvent();
 						break;
