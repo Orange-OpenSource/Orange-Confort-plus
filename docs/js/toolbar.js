@@ -3193,7 +3193,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<div class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</div>\n\t\t<ul class="d-flex gap-1 align-items-center mt-2 mb-0 list-unstyled"></ul>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<span class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>\n\t\t\x3c!-- @todo Nom accessible : réglage, valeur actuelle 1/n, changer en 2/n --\x3e\n\t\t\x3c!-- @note Exemple : « Police Accessible-DfA 1/3, changer en Arial 2/3 » --\x3e\n\t\t\x3c!-- @note Si on peut associer un libellé a une valeur c’est cool --\x3e\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
@@ -3215,7 +3215,7 @@ class BtnSettingComponent extends HTMLElement {
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
-        this.btnContentSlots = this.querySelector("ul");
+        this.btnContentSlots = this.querySelector(".sc-btn-setting__values");
         this.settingBtn.addEventListener("click", this.handler);
         this.setDisabledState();
     }
