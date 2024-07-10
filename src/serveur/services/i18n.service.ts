@@ -39,10 +39,22 @@ class I18nService {
 		return localStorage.getItem(`${PREFIX}i18n`) as string;
 	}
 
-	getMessage(message: string): string {
+	getMessage(message: string, substitutions: string[] = []): string {
 		const translations = JSON.parse(this.getMessages());
+		let content = translations[message]?.message;
 
-		return translations[message]?.message;
+		if (substitutions.length > 0) {
+			const placeholders = translations[message]?.placeholders;
+			const matches = [...content.matchAll(/(\$.*?\$)/g)];
+
+			for (const match of matches) {
+				const key = match[0].replaceAll('$', '').toLowerCase();
+				const index = Number(placeholders[key]?.content.replace('$', ''));
+				content = content.replaceAll(match[0], substitutions[index - 1]);
+			}
+		}
+
+		return content;
 	}
 
 	translate(root: ShadowRoot): void {

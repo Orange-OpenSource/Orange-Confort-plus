@@ -13,8 +13,8 @@ class I18nService {
 		this.locale = chrome.i18n.getUILanguage();
 	}
 
-	getMessage = (message: string): string => {
-		return chrome.i18n.getMessage(message);
+	getMessage = (message: string, substitutions: string[] = []): string => {
+		return chrome.i18n.getMessage(message, substitutions);
 	}
 
 	translate(root: ShadowRoot): void {
