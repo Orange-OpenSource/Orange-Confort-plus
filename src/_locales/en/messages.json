@@ -667,5 +667,24 @@
 	},
 	"labelNavigationAutoActive": {
 		"message": "Enable"
+	},
+	"multiclic": {
+		"message": ": $CURRENT$ $INDEX$/$TOTAL$, change to $NEXT$ $INDEX2$/$TOTAL$",
+		"description": "Indicate current setting's value and index, total number of values, and next value.",
+		"placeholders": {
+			"current": { "content": "$1" },
+			"index": { "content": "$2" },
+			"total": { "content":  "$3" },
+			"next": { "content":  "$4" },
+			"index2": { "content":  "$5" }
+		}
+	},
+	"multiclicToggleOff": {
+		"message": " : inactive. Turn on.",
+		"description": "Inactive setting."
+	},
+	"multiclicToggleOn": {
+		"message": " : active. Turn off.",
+		"description": "Active setting."
 	}
 }

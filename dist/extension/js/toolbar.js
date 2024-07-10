@@ -798,7 +798,7 @@ class I18nService {
         i18nServiceIsInstantiated = true;
         this.locale = chrome.i18n.getUILanguage();
     }
-    getMessage=message => chrome.i18n.getMessage(message);
+    getMessage=(message, substitutions = []) => chrome.i18n.getMessage(message, substitutions);
     translate(root) {
         const elements = root.querySelectorAll("[data-i18n]");
         for (const element of elements) {
@@ -3942,15 +3942,15 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<span class="d-flex flex-column">\n\t\t\t<span></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>\n\t\t\x3c!-- @todo Nom accessible : réglage, valeur actuelle 1/n, changer en 2/n --\x3e\n\t\t\x3c!-- @note Exemple : « Police Accessible-DfA 1/3, changer en Arial 2/3 » --\x3e\n\t\t\x3c!-- @note Si on peut associer un libellé a une valeur c’est cool --\x3e\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<span class="d-flex flex-column">\n\t\t\t<span class="sc-btn-setting__name"></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>\n\t\t\x3c!-- @todo Nom accessible : réglage, valeur actuelle 1/n, changer en 2/n --\x3e\n\t\t\x3c!-- @note Exemple : « Police Accessible-DfA 1/3, changer en Arial 2/3 » --\x3e\n\t\t\x3c!-- @note Si on peut associer un libellé a une valeur c’est cool --\x3e\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
     settingBtn=null;
     btnContentSlots=null;
-    index;
+    index=0;
     value;
-    label="";
+    name;
     slot="";
     separator=",";
     settingsList=[];
@@ -3972,6 +3972,7 @@ class BtnSettingComponent extends HTMLElement {
         this.settingBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
+        this.setTitle();
         if ("data-values" === name) {
             this.settingsList = newValue.split(this.separator);
         }
@@ -3980,17 +3981,38 @@ class BtnSettingComponent extends HTMLElement {
         }
         if ("data-name" === name) {
             const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
-            this.label = settingName;
-            const span = this.querySelector("span");
+            this.name = settingName;
+            const span = this.querySelector(".sc-btn-setting__name");
             const icon = this.querySelector("app-icon");
-            span.innerText = i18nServiceInstance.getMessage(settingName);
-            icon?.setAttribute("data-name", settingName);
+            span.innerText = i18nServiceInstance.getMessage(this.name);
+            icon?.setAttribute("data-name", this.name);
         }
         if ("data-disabled" === name) {
             this.disabled = newValue === "true";
             this.setDisabledState();
         }
     }
+    getValueLabel=value => value;
+    setTitle=() => {
+        const settingsNumber = this.settingsList.length;
+        if (settingsNumber > 0) {
+            const currentValueLabel = this.getValueLabel(this.value);
+            const nextValueIndex = settingsNumber === this.index ? 0 : this.index + 1;
+            const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
+            let content = "";
+            if (currentValueLabel === "active") {
+                content = i18nServiceInstance.getMessage("multiclicToggleOn");
+            } else if (nextValueLabel === "active") {
+                content = i18nServiceInstance.getMessage("multiclicToggleOff");
+            } else {
+                const currentIndex = (this.index + 1).toString();
+                content = i18nServiceInstance.getMessage("multiclic", [ currentValueLabel, currentIndex, settingsNumber.toString(), nextValueLabel, (nextValueIndex + 1).toString() ]);
+            }
+            [ "title", "aria-label" ].forEach((attribute => {
+                this.settingBtn.setAttribute(attribute, `${this.name}${content}`);
+            }));
+        }
+    };
     setIndex=index => {
         if (index?.toString()) {
             this.index = index;
@@ -4027,6 +4049,7 @@ class BtnSettingComponent extends HTMLElement {
             }
         }));
         this.btnContentSlots.innerHTML = this.slot;
+        this.setTitle();
     };
     createHandler=() => event => {
         if (event.type === "click") {
