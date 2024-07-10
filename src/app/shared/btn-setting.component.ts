@@ -2,7 +2,7 @@ const btnSettingLayout: HTMLTemplateElement = document.createElement('template')
 btnSettingLayout.innerHTML = `
 	<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
 		<span class="d-flex flex-column">
-			<span></span>
+			<span class="sc-btn-setting__name"></span>
 			<app-icon data-size="1.5em"></app-icon>
 		</span>
 		<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>
@@ -16,9 +16,9 @@ class BtnSettingComponent extends HTMLElement {
 	static observedAttributes = ['data-values', 'data-active-value', 'data-name', 'data-disabled'];
 	settingBtn: HTMLButtonElement = null;
 	btnContentSlots: HTMLElement = null;
-	index: number;
+	index: number = 0;
 	value: string;
-	label = '';
+	name: string;
 	slot = '';
 	separator = ',';
 	settingsList: string[] = [];
@@ -47,6 +47,7 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+		this.setTitle();
 		if ('data-values' === name) {
 			this.settingsList = newValue.split(this.separator);
 		}
@@ -55,15 +56,55 @@ class BtnSettingComponent extends HTMLElement {
 		}
 		if ('data-name' === name) {
 			const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
-			this.label = settingName;
-			const span = this.querySelector('span');
+			this.name = settingName;
+
+			const span: HTMLElement = this.querySelector('.sc-btn-setting__name');
 			const icon = this.querySelector('app-icon');
-			span.innerText = i18nServiceInstance.getMessage(settingName);
-			icon?.setAttribute('data-name', settingName);
+			span.innerText = i18nServiceInstance.getMessage(this.name);
+			icon?.setAttribute('data-name', this.name);
 		}
 		if ('data-disabled' === name) {
 			this.disabled = newValue === 'true';
 			this.setDisabledState();
+		}
+	}
+
+	getValueLabel = (value: string): string => {
+		// @todo Traduire les intitulés des valeurs : avec préfixe du réglage (?)
+		/*return i18nServiceInstance.getMessage(
+			`${this.name}-${stringServiceInstance.normalizeSettingCamelCase(value)}`
+		);*/
+
+		return value;
+	}
+
+	setTitle = (): void => {
+		const settingsNumber = this.settingsList.length;
+		if (settingsNumber > 0) {
+			const currentValueLabel = this.getValueLabel(this.value);
+			const nextValueIndex = settingsNumber === this.index ? 0 : this.index + 1;
+			const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
+
+			let content = '';
+			if (currentValueLabel === 'active') {
+				content = i18nServiceInstance.getMessage('multiclicToggleOn');
+			} else if (nextValueLabel === 'active') {
+				content = i18nServiceInstance.getMessage('multiclicToggleOff');
+			} else {
+				const currentIndex = (this.index + 1).toString();
+				content = i18nServiceInstance.getMessage('multiclic', [
+					currentValueLabel,
+					currentIndex,
+					settingsNumber.toString(),
+					nextValueLabel,
+					(nextValueIndex + 1).toString()
+				]);
+			}
+
+			['title', 'aria-label'].forEach(attribute => {
+				// @todo Traduire le nom du réglage
+				this.settingBtn.setAttribute(attribute, `${this.name}${content}`);
+			});
 		}
 	}
 
@@ -109,6 +150,7 @@ class BtnSettingComponent extends HTMLElement {
 			}
 		});
 		this.btnContentSlots!.innerHTML = this.slot;
+		this.setTitle();
 	}
 
 	private createHandler = () => {

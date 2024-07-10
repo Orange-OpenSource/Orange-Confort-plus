@@ -667,5 +667,24 @@
 	},
 	"labelNavigationAutoActive": {
 		"message": "Activer"
+	},
+	"multiclic": {
+		"message": " : $CURRENT$ $INDEX$/$TOTAL$, changer pour $NEXT$ $INDEX2$/$TOTAL$",
+		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
+		"placeholders": {
+			"current": { "content": "$1" },
+			"index": { "content": "$2" },
+			"total": { "content":  "$3" },
+			"next": { "content":  "$4" },
+			"index2": { "content":  "$5" }
+		}
+	},
+	"multiclicToggleOff": {
+		"message": " : inactif. Activer.",
+		"description": "Réglage inactif."
+	},
+	"multiclicToggleOn": {
+		"message": " : actif. Désactiver.",
+		"description": "Réglage actif."
 	}
 }
