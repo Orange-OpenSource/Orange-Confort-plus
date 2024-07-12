@@ -383,8 +383,17 @@
 	"B612_Mono": {
 		"message": "B612 Mono"
 	},
+	"ComicSansMS": {
+		"message": "Comic Sans MS"
+	},
+	"LexandDeca": {
+		"message": "Lexand Deca"
+	},
 	"Luciole": {
 		"message": "Luciole"
+	},
+	"SylexiadSans": {
+		"message": "Sylexiad Sans"
 	},
 	"Verdana": {
 		"message": "Verdana"
@@ -406,6 +415,12 @@
 	},
 	"500": {
 		"message": "Max 500%"
+	},
+	"background_transparent": {
+		"message": "Removes background images and transparency effects"
+	},
+	"background_foreground_transparent": {
+		"message": "Removes background images, transparency effects and foreground images"
 	},
 	"prevValue": {
 		"message": "Previous value"

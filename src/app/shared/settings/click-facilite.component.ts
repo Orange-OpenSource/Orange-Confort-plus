@@ -7,11 +7,6 @@ tmplClickFacilite.innerHTML = `
 `;
 
 class ClickFaciliteComponent extends AbstractSetting {
-	activesValues = {
-		'values': `${DEFAULT_VALUE},longClick_2,autoClick_2`,
-		'valueSelected': 0
-	};
-
 	constructor() {
 		super();
 

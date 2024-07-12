@@ -7,11 +7,6 @@ tmplReadingGuide.innerHTML = `
 `;
 
 class ReadingGuideComponent extends AbstractSetting {
-	activesValues = {
-		"values": `${DEFAULT_VALUE},ruleGuide,maskGuide`,
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

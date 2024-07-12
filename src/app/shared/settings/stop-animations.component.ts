@@ -7,11 +7,6 @@ tmplStopAnimations.innerHTML = `
 `;
 
 class StopAnimationsComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

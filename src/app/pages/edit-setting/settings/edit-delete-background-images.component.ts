@@ -34,10 +34,9 @@ class EditDeleteBackgroundImagesComponent extends HTMLElement {
 	}
 
 	setDeleteBackgroundImages = (value: string): void => {
-		let valueExist = this.settingValues.includes(value);
 		let newSettingIndex = this.settingValues.indexOf(value);
 
-		if (valueExist) {
+		if (newSettingIndex !== -1) {
 			modeOfUseServiceInstance.setSettingValue('deleteBackgroundImages', newSettingIndex, true);
 		} else {
 			modeOfUseServiceInstance.addSettingCustomValue('deleteBackgroundImages', 3, value);

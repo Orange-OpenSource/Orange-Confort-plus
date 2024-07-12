@@ -34,10 +34,9 @@ class EditTextSizeComponent extends HTMLElement {
 	}
 
 	setTextSize = (value: string): void => {
-		let valueExist = this.settingValues.includes(value);
 		let newSettingIndex = this.settingValues.indexOf(value);
 
-		if (valueExist) {
+		if (newSettingIndex !== -1) {
 			modeOfUseServiceInstance.setSettingValue('textSize', newSettingIndex, true);
 		} else {
 			modeOfUseServiceInstance.addSettingCustomValue('textSize', 3, value);
