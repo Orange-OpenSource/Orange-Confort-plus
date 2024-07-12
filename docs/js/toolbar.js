@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.5 - 11/07/2024
+ * orange-confort-plus - version 5.0.0-alpha.5 - 17/07/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -2682,14 +2682,14 @@ class AbstractSetting extends HTMLElement {
             this.activesValues = JSON.parse(newValue);
             this.setSettingBtn(this.activesValues);
             if (this.callback) {
-                this.callback(this.activesValues.values.split(",")[this.activesValues.valueSelected]);
+                this.callback(this.activesValues?.values.split(",")[this.activesValues?.valueSelected]);
             }
         }
     }
     setSettingBtn=activesValues => {
-        this.settingBtn.setAttribute("data-values", activesValues.values);
-        this.settingBtn.setAttribute("data-active-value", activesValues.valueSelected.toString());
-        this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues.values.split(",")[activesValues.valueSelected]));
+        this.settingBtn.setAttribute("data-values", activesValues?.values);
+        this.settingBtn.setAttribute("data-active-value", activesValues?.valueSelected.toString());
+        this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values.split(",")[activesValues?.valueSelected]));
     };
     setCallback=callback => {
         this.callback = callback;
@@ -2720,10 +2720,6 @@ const tmplCapitalLetters = document.createElement("template");
 tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CapitalLettersComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(capitalLettersServiceInstance.setCapitalLetters.bind(this));
@@ -2740,10 +2736,6 @@ const tmplClearlyLinks = document.createElement("template");
 tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClearlyLinksComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(clearlyLinksServiceInstance.setClearlyLinks.bind(this));
@@ -2760,10 +2752,6 @@ const tmplClickFacilite = document.createElement("template");
 tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClickFaciliteComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},longClick_2,autoClick_2`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(clickFaciliteServiceInstance.setClickFacilite.bind(this));
@@ -2780,10 +2768,6 @@ const tmplColorContrast = document.createElement("template");
 tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColorContrastComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},reinforcedContrasts,white_black`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(colorContrastServiceInstance.setColorsContrasts.bind(this));
@@ -2800,10 +2784,6 @@ const tmplColourTheme = document.createElement("template");
 tmplColourTheme.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColourThemeComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(colourThemeServiceInstance.setColourTheme.bind(this));
@@ -2820,10 +2800,6 @@ const tmplCursorAspect = document.createElement("template");
 tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CursorAspectComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},big_black,huge_green`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(cursorAspectServiceInstance.setCursor.bind(this));
@@ -2840,10 +2816,6 @@ const tmplDeleteBackgroundImages = document.createElement("template");
 tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this));
@@ -2860,10 +2832,6 @@ const tmplFocusAspect = document.createElement("template");
 tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FocusAspectComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},big_blue,veryBig_red`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(focusAspectServiceInstance.setFocus.bind(this));
@@ -2880,10 +2848,6 @@ const tmplFontFamily = document.createElement("template");
 tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},Accessible_DfA,Luciole`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(fontFamilyServiceInstance.setFontFamily.bind(this));
@@ -2900,10 +2864,6 @@ const tmplLinkStyle = document.createElement("template");
 tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class LinkStyleComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},lightblue_orange_lightgreen,yellow_orange_lightgreen`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(linkStyleServiceInstance.setLinkStyle.bind(this));
@@ -2920,10 +2880,6 @@ const tmplMagnifier = document.createElement("template");
 tmplMagnifier.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MagnifierComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(magnifierServiceInstance.setMagnifier.bind(this));
@@ -2940,10 +2896,6 @@ const tmplMarginAlign = document.createElement("template");
 tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MarginAlignComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},alignLeft,margeList`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(marginAlignServiceInstance.setMargin.bind(this));
@@ -2960,10 +2912,6 @@ const tmplNavigationAuto = document.createElement("template");
 tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationAutoComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(navigationAutoServiceInstance.setNavigationAuto.bind(this));
@@ -2980,10 +2928,6 @@ const tmplNavigationButtons = document.createElement("template");
 tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationButtonsComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(navigationButtonsServiceInstance.setNavigationButtons.bind(this));
@@ -3000,10 +2944,6 @@ const tmplReadAloud = document.createElement("template");
 tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadAloudComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(readAloudServiceInstance.setReadAloud.bind(this));
@@ -3020,10 +2960,6 @@ const tmplReadingGuide = document.createElement("template");
 tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},ruleGuide,maskGuide`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(readingGuideServiceInstance.setReadingMaskGuide.bind(this));
@@ -3040,10 +2976,6 @@ const tmplScroll = document.createElement("template");
 tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ScrollComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},bigScroll,scrollOnMouseover`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(scrollServiceInstance.setScroll.bind(this));
@@ -3060,10 +2992,6 @@ const tmplSkipToContent = document.createElement("template");
 tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class SkipToContentComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(skipToContentServiceInstance.setSkipToContent.bind(this));
@@ -3080,10 +3008,6 @@ const tmplStopAnimations = document.createElement("template");
 tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(stopAnimationsServiceInstance.setStopAnimations.bind(this));
@@ -3100,10 +3024,6 @@ const tmplIncreaseTextSize = document.createElement("template");
 tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},110,130`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(textSizeServiceInstance.setFontSize.bind(this));
@@ -3120,10 +3040,6 @@ const tmplSpacingText = document.createElement("template");
 tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class TextSpacingComponent extends AbstractSetting {
-    activesValues={
-        values: `${DEFAULT_VALUE},spacingTextLabelSmall,spacingTextLabelBig`,
-        valueSelected: 0
-    };
     constructor() {
         super();
         this.setCallback(textSpacingServiceInstance.setSpacingText.bind(this));
@@ -3529,7 +3445,7 @@ class SelectEditValueComponent extends HTMLElement {
             this.btnNextValue.disabled = true;
         }
         this.currentValue = this.values[this.currentIndex];
-        this.selectedValue.innerText = i18nServiceInstance.getMessage(this.currentValue);
+        this.selectedValue.innerText = i18nServiceInstance.getMessage(this.currentValue.replace(/\s/g, ""));
         this.changeEditValue();
     };
     createHandler=() => event => {
@@ -3725,9 +3641,8 @@ class EditDeleteBackgroundImagesComponent extends HTMLElement {
         }));
     }
     setDeleteBackgroundImages=value => {
-        let valueExist = this.settingValues.includes(value);
         let newSettingIndex = this.settingValues.indexOf(value);
-        if (valueExist) {
+        if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("deleteBackgroundImages", newSettingIndex, true);
         } else {
             modeOfUseServiceInstance.addSettingCustomValue("deleteBackgroundImages", 3, value);
@@ -3765,14 +3680,44 @@ customElements.define("app-edit-focus-aspect", EditFocusAspectComponent);
 
 const editFontFamilyLayout = document.createElement("template");
 
-editFontFamilyLayout.innerHTML = `\n\t<p>Edit font family works !</p>\n`;
+editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="FontFamily"></app-select-edit-value>\n\t</form>\n`;
 
 class EditFontFamilyComponent extends HTMLElement {
+    selectFontFamilyElement=null;
+    settingValues=null;
+    fontFamilyValues=[ DEFAULT_VALUE, "Accessible_DfA", "B612_Mono", "Comic Sans MS", "Lexand Deca", "Luciole", "Sylexiad Sans", "Verdana" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editFontFamilyLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectFontFamilyElement = this.querySelector("app-select-edit-value");
+        this.selectFontFamilyElement.addEventListener("editSettingFontFamily", this.handler);
+        this.selectFontFamilyElement.setAttribute("data-setting-values", this.fontFamilyValues.join(","));
+        modeOfUseServiceInstance.getSetting("textSize").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.fontFamilyValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectFontFamilyElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setFontFamily=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("fontFamily", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("fontFamily", 3, value);
+        }
+        fontFamilyServiceInstance.setFontFamily(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingFontFamily":
+            this.setFontFamily(event.detail.newValue);
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-font-family", EditFontFamilyComponent);
@@ -3916,9 +3861,8 @@ class EditTextSizeComponent extends HTMLElement {
         }));
     }
     setTextSize=value => {
-        let valueExist = this.settingValues.includes(value);
         let newSettingIndex = this.settingValues.indexOf(value);
-        if (valueExist) {
+        if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("textSize", newSettingIndex, true);
         } else {
             modeOfUseServiceInstance.addSettingCustomValue("textSize", 3, value);

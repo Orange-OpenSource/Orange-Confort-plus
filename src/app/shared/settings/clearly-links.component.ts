@@ -7,11 +7,6 @@ tmplClearlyLinks.innerHTML = `
 `;
 
 class ClearlyLinksComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

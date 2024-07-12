@@ -7,11 +7,6 @@ tmplSkipToContent.innerHTML = `
 `;
 
 class SkipToContentComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

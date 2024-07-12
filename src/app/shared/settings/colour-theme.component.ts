@@ -7,11 +7,6 @@ tmplColourTheme.innerHTML = `
 `;
 
 class ColourThemeComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 
