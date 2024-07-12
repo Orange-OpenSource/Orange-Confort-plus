@@ -315,25 +315,25 @@
 		"message": "Marge et listes numérotées"
 	},
 	"white_black": {
-		"message": "Blanc et noir"
+		"message": "Blanc sur noir"
 	},
 	"black_ivory": {
-		"message": "Noir et ivoir"
+		"message": "Noir sur ivoir"
 	},
 	"white_red": {
-		"message": "Blanc et rouge"
+		"message": "Blanc sur rouge"
 	},
 	"black_yellow": {
-		"message": "Noir et jaune"
+		"message": "Noir sur jaune"
 	},
 	"white_blue": {
-		"message": "Blanc et bleu"
+		"message": "Blanc sur bleu"
 	},
 	"yellow_blue": {
-		"message": "Jaune et bleu"
+		"message": "Jaune sur bleu"
 	},
 	"black_green": {
-		"message": "Noir et vert"
+		"message": "Noir sur vert"
 	},
 	"lightblue_orange_lightgreen": {
 		"message": "Bleu clair / Orange / Vert clair"

@@ -21,8 +21,6 @@ class ColorContrastService {
 
 	svgFilterDaltonism = `<svg xmlns="http://www.w3.org/2000/svg"><filter id="daltonism"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, ' ').trim()}"/></filter></svg>`;
 
-
-
 	styleFilterDaltonism = `
 		html body > *:not(app-root) {
 			filter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');
@@ -40,6 +38,7 @@ class ColorContrastService {
 	setColorsContrasts = (value: string): void => {
 		stylesServiceInstance.removeStyle('color-contrast');
 		stylesServiceInstance.removeStyle('filter-daltonism');
+		colourThemeServiceInstance.setColourTheme(DEFAULT_VALUE);
 
 		switch (value) {
 			case DEFAULT_VALUE:
