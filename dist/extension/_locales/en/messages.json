@@ -56,6 +56,30 @@
 	"magnifierInstruction": {
 		"message": "To zoom in"
 	},
+	"magnifierShape": {
+		"message": "Magnifier shape"
+	},
+	"magnifierDefault": {
+		"message": "Without magnifier"
+	},
+	"magnifierSquare": {
+		"message": "Square"
+	},
+	"magnifierCircle": {
+		"message": "Round"
+	},
+	"magnifierZoom_2": {
+		"message": "200%"
+	},
+	"magnifierZoom_5": {
+		"message": "500%"
+	},
+	"magnifierZoom_10": {
+		"message": "1000%"
+	},
+	"magnifierZoom_15": {
+		"message": "1500%"
+	},
 	"readAloud": {
 		"message": "Read aloud"
 	},
