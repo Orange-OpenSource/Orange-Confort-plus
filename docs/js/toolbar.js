@@ -1410,7 +1410,7 @@ class MagnifierService {
         this.handler = this.createHandler();
     }
     setMagnifier=value => {
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("magnifier");
             document.querySelector(`#${PREFIX}magnifier`)?.remove();
             this.unBindDOMObserver();
@@ -1516,8 +1516,8 @@ class MagnifierService {
         const y1 = this.magnifier?.offsetTop;
         const x2 = document.body.scrollLeft;
         const y2 = document.body.scrollTop;
-        const left = -x1 * this.zoom - x2 * this.zoom - this.magnifierWidth / 2;
-        const top = -y1 * this.zoom - y2 * this.zoom - this.magnifierHeight / 2;
+        const left = -x1 * this.zoom - x2 * this.zoom - (this.zoom - 1) * (this.magnifierWidth / 2);
+        const top = -y1 * this.zoom - y2 * this.zoom - (this.zoom - 1) * (this.magnifierHeight / 2);
         this.setPosition(this.magnifierContent, left, top);
     };
     syncScrollBars=() => {
@@ -3613,9 +3613,8 @@ class EditColorContrastComponent extends HTMLElement {
         }));
     }
     setColorContrast=value => {
-        let valueExist = this.settingValues.includes(value);
         let newSettingIndex = this.settingValues.indexOf(value);
-        if (valueExist) {
+        if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("colorContrast", newSettingIndex, true);
         } else {
             modeOfUseServiceInstance.addSettingCustomValue("colorContrast", 3, value);
@@ -3777,14 +3776,67 @@ customElements.define("app-edit-link-style", EditLinkStyleComponent);
 
 const editMagnifierLayout = document.createElement("template");
 
-editMagnifierLayout.innerHTML = `\n\t<p>Edit magnifier works !</p>\n`;
+editMagnifierLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-3">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="magnifierShape"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${DEFAULT_VALUE}MagnifierShape" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${DEFAULT_VALUE}MagnifierShape" data-i18n="magnifierDefault"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="squareMagnifierShape" value="square">\n\t\t\t\t<label class="form-check-label" for="squareMagnifierShape" data-i18n="magnifierSquare"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="circleMagnifierShape" value="circle">\n\t\t\t\t<label class="form-check-label" for="circleMagnifierShape" data-i18n="magnifierCircle"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value data-name="MagnifierZoom"></app-select-edit-value>\n\t</form>\n`;
 
 class EditMagnifierComponent extends HTMLElement {
+    selectMagnifierZoomElement=null;
+    settingValues=null;
+    magnifierZoomValues=[ "magnifierZoom_2", "magnifierZoom_5", "magnifierZoom_10", "magnifierZoom_15" ];
+    shape;
+    zoom;
+    handler;
     constructor() {
         super();
         this.appendChild(editMagnifierLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectMagnifierZoomElement = this.querySelector("app-select-edit-value");
+        this.selectMagnifierZoomElement.addEventListener("editSettingMagnifierZoom", this.handler);
+        this.selectMagnifierZoomElement.setAttribute("data-setting-values", this.magnifierZoomValues.join(","));
+        this.querySelector("form").addEventListener("change", this.handler);
+        modeOfUseServiceInstance.getSetting("magnifier").then((result => {
+            this.settingValues = result.values.split(",");
+            if (this.settingValues[result.valueSelected] === DEFAULT_VALUE) {
+                this.shape = DEFAULT_VALUE;
+                this.zoom = `magnifierZoom_${this.magnifierZoomValues[0]}`;
+            } else {
+                this.shape = this.settingValues[result.valueSelected].split("_")[0];
+                this.zoom = `magnifierZoom_${this.settingValues[result.valueSelected].split("_")[1]}`;
+            }
+            this.querySelector(`input[name="magnifierShape"][id="${this.shape}MagnifierShape"]`).checked = true;
+            const currentIndex = this.magnifierZoomValues.findIndex((i => i === this.zoom));
+            this.selectMagnifierZoomElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setMagnifier=() => {
+        let value = "";
+        if (this.shape === DEFAULT_VALUE) {
+            value = DEFAULT_VALUE;
+        } else {
+            value = `${this.shape}_${this.zoom.split("_")[1]}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("magnifier", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("magnifier", 3, value);
+        }
+        magnifierServiceInstance.setMagnifier(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "change":
+            this.shape = this.querySelector(`input[name="magnifierShape"]:checked`).value;
+            this.setMagnifier();
+            break;
+
+          case "editSettingMagnifierZoom":
+            this.zoom = event.detail.newValue;
+            this.setMagnifier();
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-magnifier", EditMagnifierComponent);

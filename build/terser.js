@@ -87,7 +87,7 @@ const files = {
 			'dist/js/app/pages/edit-setting/settings/edit-focus-aspect.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-font-family.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-link-style.component.js',
-			'dist/js/app/pages/edit-setting/settings/edit-loupe.component.js',
+			'dist/js/app/pages/edit-setting/settings/edit-magnifier.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-margin-align.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-read-aloud.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-reading-guide.component.js',

@@ -9,7 +9,7 @@ class MagnifierService {
 	magnifierWidth = 300;
 	magnifierHeight = 300;
 	ofs_x: number;
-	ofs_y: number
+	ofs_y: number;
 	pos_x: number;
 	pos_y: number;
 
@@ -67,7 +67,7 @@ class MagnifierService {
 	}
 
 	setMagnifier = (value: string): void => {
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('magnifier');
 			document.querySelector(`#${PREFIX}magnifier`)?.remove();
 			this.unBindDOMObserver();
@@ -186,8 +186,8 @@ class MagnifierService {
 		const y1 = this.magnifier?.offsetTop;
 		const x2 = document.body.scrollLeft;
 		const y2 = document.body.scrollTop;
-		const left = (-x1 * this.zoom - x2 * this.zoom) - (this.magnifierWidth / 2);
-		const top = (-y1 * this.zoom - y2 * this.zoom) - (this.magnifierHeight / 2);
+		const left = (-x1 * this.zoom - x2 * this.zoom) - ((this.zoom - 1) * (this.magnifierWidth / 2));
+		const top = (-y1 * this.zoom - y2 * this.zoom) - ((this.zoom - 1) * (this.magnifierHeight / 2));
 		this.setPosition(this.magnifierContent, left, top);
 	}
 
