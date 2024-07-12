@@ -66,7 +66,7 @@
     function P(a, b, d, f) {
         var c = window.ShadyDOM;
         if (a.shadyDomFastWalk && c && c.inUse) {
-            if (b.nodeType === Node.ELEMENT_NODE && d(b), b.querySelectorAll) for (a = c.nativeMethods.querySelectorAll.call(b, "*"), 
+            if (b.nodeType === Node.ELEMENT_NODE && d(b), b.querySelectorAll) for (a = c.nativeMethods.querySelectorAll.call(b, "*"),
             b = 0; b < a.length; b++) d(a[b]);
         } else M(b, d, f);
     }
@@ -205,7 +205,7 @@
             if (e.localName !== d) throw Error("Failed to construct '" + d + "': The constructed element's local name is incorrect.");
             return e;
         } catch (g) {
-            return X(g), b = null === f ? n.call(b, d) : p.call(b, f, d), Object.setPrototypeOf(b, HTMLUnknownElement.prototype), 
+            return X(g), b = null === f ? n.call(b, d) : p.call(b, f, d), Object.setPrototypeOf(b, HTMLUnknownElement.prototype),
             b.__CE_state = 2, b.__CE_definition = void 0, R(a, b), b;
         }
         b = null === f ? n.call(b, d) : p.call(b, f, d);
@@ -214,7 +214,7 @@
     }
     function X(a) {
         var b = "", d = "", f = 0, c = 0;
-        a instanceof Error ? (b = a.message, d = a.sourceURL || a.fileName || "", f = a.line || a.lineNumber || 0, 
+        a instanceof Error ? (b = a.message, d = a.sourceURL || a.fileName || "", f = a.line || a.lineNumber || 0,
         c = a.column || a.columnNumber || 0) : b = "Uncaught " + String(a);
         var e = void 0;
         void 0 === ErrorEvent.prototype.initErrorEvent ? e = new ErrorEvent("error", {
@@ -224,7 +224,7 @@
             lineno: f,
             colno: c,
             error: a
-        }) : (e = document.createEvent("ErrorEvent"), e.initErrorEvent("error", !1, !0, b, d, f), 
+        }) : (e = document.createEvent("ErrorEvent"), e.initErrorEvent("error", !1, !0, b, d, f),
         e.preventDefault = function() {
             Object.defineProperty(this, "defaultPrevented", {
                 configurable: !0,
@@ -261,7 +261,7 @@
         this.h = a;
         this.g = b;
         V(this.h, this.g);
-        "loading" === this.g.readyState && (this.l = new MutationObserver(this.G.bind(this)), 
+        "loading" === this.g.readyState && (this.l = new MutationObserver(this.G.bind(this)),
         this.l.observe(this.g, {
             childList: !0,
             subtree: !0
@@ -525,8 +525,8 @@
                     var l = this.previousSibling;
                     e.call(this, h, k);
                     g(l || this.parentNode.firstChild, this);
-                } else if ("afterbegin" === h) l = this.firstChild, e.call(this, h, k), g(this.firstChild, l); else if ("beforeend" === h) l = this.lastChild, 
-                e.call(this, h, k), g(l || this.firstChild, null); else if ("afterend" === h) l = this.nextSibling, 
+                } else if ("afterbegin" === h) l = this.firstChild, e.call(this, h, k), g(this.firstChild, l); else if ("beforeend" === h) l = this.lastChild,
+                e.call(this, h, k), g(l || this.firstChild, null); else if ("afterend" === h) l = this.nextSibling,
                 e.call(this, h, k), g(this.nextSibling, l); else throw new SyntaxError("The value provided (" + String(h) + ") is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'.");
             };
         }
@@ -601,7 +601,7 @@
             var f = document.__CE_registry.C.get(d);
             if (!f) throw Error("Failed to construct a custom element: The constructor was not registered with `customElements`.");
             var c = f.constructionStack;
-            if (0 === c.length) return c = n.call(document, f.localName), Object.setPrototypeOf(c, d.prototype), 
+            if (0 === c.length) return c = n.call(document, f.localName), Object.setPrototypeOf(c, d.prototype),
             c.__CE_state = 1, c.__CE_definition = f, R(a, c), c;
             var e = c.length - 1, g = c[e];
             if (g === Fa) throw Error("Failed to construct '" + f.localName + "': This element was already constructed.");
@@ -1639,6 +1639,7 @@ class ColorContrastService {
     setColorsContrasts=value => {
         stylesServiceInstance.removeStyle("color-contrast");
         stylesServiceInstance.removeStyle("filter-daltonism");
+        colourThemeServiceInstance.setColourTheme(DEFAULT_VALUE);
         switch (value) {
           case DEFAULT_VALUE:
             break;
@@ -1719,6 +1720,9 @@ let cursorAspectServiceIsInstantiated;
 class CursorAspectService {
     colorCursorValues=[ {
         fill: "white",
+        stroke: "black"
+    }, {
+        fill: "ivory",
         stroke: "black"
     }, {
         fill: "blue",
@@ -4335,14 +4339,45 @@ customElements.define("app-edit-click-facilite", EditClickFaciliteComponent);
 
 const editColorContrastLayout = document.createElement("template");
 
-editColorContrastLayout.innerHTML = `\n\t<p>Edit color contrast works !</p>\n`;
+editColorContrastLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ColorContrast"></app-select-edit-value>\n\t</form>\n`;
 
 class EditColorContrastComponent extends HTMLElement {
+    selectColorContrastElement=null;
+    settingValues=null;
+    colorContrastValues=[ DEFAULT_VALUE, "reinforcedContrasts", "white_black", "black_ivory", "white_red", "black_yellow", "white_blue", "yellow_blue", "black_green" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editColorContrastLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectColorContrastElement = this.querySelector("app-select-edit-value");
+        this.selectColorContrastElement.addEventListener("editSettingColorContrast", this.handler);
+        this.selectColorContrastElement.setAttribute("data-setting-values", this.colorContrastValues.join(","));
+        modeOfUseServiceInstance.getSetting("colorContrast").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.colorContrastValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectColorContrastElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setColorContrast=value => {
+        let valueExist = this.settingValues.includes(value);
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (valueExist) {
+            modeOfUseServiceInstance.setSettingValue("colorContrast", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("colorContrast", 3, value);
+        }
+        colorContrastServiceInstance.setColorsContrasts(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingColorContrast":
+            this.setColorContrast(event.detail.newValue);
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-color-contrast", EditColorContrastComponent);

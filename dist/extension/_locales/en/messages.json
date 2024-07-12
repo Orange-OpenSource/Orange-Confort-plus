@@ -315,25 +315,25 @@
 		"message": "Marge and list"
 	},
 	"white_black": {
-		"message": "White and black"
+		"message": "White on black"
 	},
 	"black_ivory": {
-		"message": "Black and ivory"
+		"message": "Black on ivory"
 	},
 	"white_red": {
-		"message": "White and red"
+		"message": "White on red"
 	},
 	"black_yellow": {
-		"message": "Black and yellow"
+		"message": "Black on yellow"
 	},
 	"white_blue": {
-		"message": "White and blue"
+		"message": "White on blue"
 	},
 	"yellow_blue": {
-		"message": "Yellow and blue"
+		"message": "Yellow on blue"
 	},
 	"black_vert": {
-		"message": "Black and green"
+		"message": "Black on green"
 	},
 	"lightblue_orange_lightvert": {
 		"message": "Lightblue / Orange / Lightgreen"

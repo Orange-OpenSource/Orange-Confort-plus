@@ -8,6 +8,7 @@ interface ColorCursorValues {
 class CursorAspectService {
 	colorCursorValues: ColorCursorValues[] = [
 		{ fill: 'white', stroke: 'black' },
+		{ fill: 'ivory', stroke: 'black' },
 		{ fill: 'blue', stroke: 'white' },
 		{ fill: 'red', stroke: 'black' },
 		{ fill: 'yellow', stroke: 'black' },
