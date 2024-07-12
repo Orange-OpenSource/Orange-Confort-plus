@@ -56,6 +56,30 @@
 	"magnifierInstruction": {
 		"message": "Pour zoomer ponctuellement"
 	},
+	"magnifierShape": {
+		"message": "Forme de la loupe"
+	},
+	"magnifierDefault": {
+		"message": "Sans loupe"
+	},
+	"magnifierSquare": {
+		"message": "Rectangle"
+	},
+	"magnifierCircle": {
+		"message": "Ronde"
+	},
+	"magnifierZoom_2": {
+		"message": "200%"
+	},
+	"magnifierZoom_5": {
+		"message": "500%"
+	},
+	"magnifierZoom_10": {
+		"message": "1000%"
+	},
+	"magnifierZoom_15": {
+		"message": "1500%"
+	},
 	"readAloud": {
 		"message": "Lire à haute voix"
 	},
