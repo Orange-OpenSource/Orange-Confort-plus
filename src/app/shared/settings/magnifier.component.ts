@@ -7,11 +7,6 @@ tmplMagnifier.innerHTML = `
 `;
 
 class MagnifierComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

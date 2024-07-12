@@ -7,11 +7,6 @@ tmplFontFamily.innerHTML = `
 `;
 
 class FontFamilyComponent extends AbstractSetting {
-	activesValues = {
-		"values": `${DEFAULT_VALUE},Accessible_DfA,Luciole`,
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

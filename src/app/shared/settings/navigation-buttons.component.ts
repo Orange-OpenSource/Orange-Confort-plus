@@ -7,11 +7,6 @@ tmplNavigationButtons.innerHTML = `
 `;
 
 class NavigationButtonsComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

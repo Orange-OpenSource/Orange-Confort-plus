@@ -71,7 +71,7 @@ class SelectEditValueComponent extends HTMLElement {
 		}
 
 		this.currentValue = this.values[this.currentIndex];
-		this.selectedValue!.innerText = i18nServiceInstance.getMessage(this.currentValue);
+		this.selectedValue!.innerText = i18nServiceInstance.getMessage(this.currentValue.replace(/\s/g, ''));
 
 		this.changeEditValue();
 	}

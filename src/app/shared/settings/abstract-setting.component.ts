@@ -46,15 +46,15 @@ abstract class AbstractSetting extends HTMLElement {
 			this.activesValues = JSON.parse(newValue);
 			this.setSettingBtn(this.activesValues);
 			if (this.callback) {
-				this.callback(this.activesValues.values.split(',')[this.activesValues.valueSelected]);
+				this.callback(this.activesValues?.values.split(',')[this.activesValues?.valueSelected]);
 			}
 		}
 	}
 
 	setSettingBtn = (activesValues: SettingModel) => {
-		this.settingBtn.setAttribute('data-values', activesValues.values);
-		this.settingBtn.setAttribute('data-active-value', activesValues.valueSelected.toString());
-		this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(activesValues.values.split(',')[activesValues.valueSelected]));
+		this.settingBtn.setAttribute('data-values', activesValues?.values);
+		this.settingBtn.setAttribute('data-active-value', activesValues?.valueSelected.toString());
+		this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(activesValues?.values.split(',')[activesValues?.valueSelected]));
 	}
 
 	setCallback = (callback: (value: string) => void) => {

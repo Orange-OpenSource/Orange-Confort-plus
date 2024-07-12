@@ -7,11 +7,6 @@ tmplSpacingText.innerHTML = `
 `;
 
 class TextSpacingComponent extends AbstractSetting {
-	activesValues = {
-		"values": `${DEFAULT_VALUE},spacingTextLabelSmall,spacingTextLabelBig`,
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

@@ -7,11 +7,6 @@ tmplNavigationAuto.innerHTML = `
 `;
 
 class NavigationAutoComponent extends AbstractSetting {
-	activesValues = {
-		"values": "",
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 

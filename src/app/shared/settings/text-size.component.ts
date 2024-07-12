@@ -7,11 +7,6 @@ tmplIncreaseTextSize.innerHTML = `
 `;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
-	activesValues = {
-		"values": `${DEFAULT_VALUE},110,130`,
-		"valueSelected": 0
-	};
-
 	constructor() {
 		super();
 
