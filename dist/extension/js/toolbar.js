@@ -4594,14 +4594,44 @@ customElements.define("app-edit-magnifier", EditMagnifierComponent);
 
 const editMarginAlignLayout = document.createElement("template");
 
-editMarginAlignLayout.innerHTML = `\n\t<p>Edit margin align works !</p>\n`;
+editMarginAlignLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="MarginAlign"></app-select-edit-value>\n\t</form>\n`;
 
 class EditMarginAlignComponent extends HTMLElement {
+    selectMarginAlignElement=null;
+    settingValues=null;
+    marginAlignValues=[ DEFAULT_VALUE, "alignLeft", "marginLeft", "margeList" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editMarginAlignLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectMarginAlignElement = this.querySelector("app-select-edit-value");
+        this.selectMarginAlignElement.addEventListener("editSettingMarginAlign", this.handler);
+        this.selectMarginAlignElement.setAttribute("data-setting-values", this.marginAlignValues.join(","));
+        modeOfUseServiceInstance.getSetting("marginAlign").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.marginAlignValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectMarginAlignElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setMarginAlign=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("marginAlign", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("marginAlign", 3, value);
+        }
+        marginAlignServiceInstance.setMargin(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingMarginAlign":
+            this.setMarginAlign(event.detail.newValue);
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-margin-align", EditMarginAlignComponent);
