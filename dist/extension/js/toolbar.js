@@ -4720,14 +4720,44 @@ customElements.define("app-edit-text-size", EditTextSizeComponent);
 
 const editTextSpacingLayout = document.createElement("template");
 
-editTextSpacingLayout.innerHTML = `\n\t<p>Edit text spacing works !</p>\n`;
+editTextSpacingLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="TextSpacing"></app-select-edit-value>\n\t</form>\n`;
 
 class EditTextSpacingComponent extends HTMLElement {
+    selectTextSpacingElement=null;
+    settingValues=null;
+    textSpacingValues=[ DEFAULT_VALUE, "spacingTextLabelSmall", "spacingTextLabelBig", "spacingTextLabelHuge" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editTextSpacingLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectTextSpacingElement = this.querySelector("app-select-edit-value");
+        this.selectTextSpacingElement.addEventListener("editSettingTextSpacing", this.handler);
+        this.selectTextSpacingElement.setAttribute("data-setting-values", this.textSpacingValues.join(","));
+        modeOfUseServiceInstance.getSetting("textSpacing").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.textSpacingValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectTextSpacingElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setSpacingText=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("textSpacing", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("textSpacing", 3, value);
+        }
+        textSpacingServiceInstance.setSpacingText(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingTextSpacing":
+            this.setSpacingText(event.detail.newValue);
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-text-spacing", EditTextSpacingComponent);
