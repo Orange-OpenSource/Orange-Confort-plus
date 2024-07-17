@@ -23,22 +23,22 @@ abstract class AbstractSetting extends HTMLElement {
 		this.settingBtn = this.querySelector('app-btn-setting');
 		this.modalBtn = this.querySelector('app-btn-modal');
 
-		this.settingBtn.setAttribute('data-name', this.name);
-		this.modalBtn.setAttribute('data-name', this.name);
+		this.settingBtn?.setAttribute('data-name', this.name);
+		this.modalBtn?.setAttribute('data-name', this.name);
 
 		if (this.canEdit) {
-			this.modalBtn.classList.remove('d-none');
-			this.settingBtn.classList.add('sc-btn-setting--with-btn-modal');
+			this.modalBtn?.classList.remove('d-none');
+			this.settingBtn?.classList.add('sc-btn-setting--with-btn-modal');
 		}
 
 		this.setSettingBtn(this.activesValues);
 
-		this.settingBtn.addEventListener('changeSettingEvent', this.handler);
+		this.settingBtn?.addEventListener('changeSettingEvent', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.modalBtn.removeEventListener('clickModalEvent', this.handler);
-		this.settingBtn.removeEventListener('changeSettingEvent', this.handler);
+		this.modalBtn?.removeEventListener('clickModalEvent', this.handler);
+		this.settingBtn?.removeEventListener('changeSettingEvent', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -52,9 +52,9 @@ abstract class AbstractSetting extends HTMLElement {
 	}
 
 	setSettingBtn = (activesValues: SettingModel) => {
-		this.settingBtn.setAttribute('data-values', activesValues?.values);
-		this.settingBtn.setAttribute('data-active-value', activesValues?.valueSelected.toString());
-		this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(activesValues?.values.split(',')[activesValues?.valueSelected]));
+		this.settingBtn?.setAttribute('data-values', activesValues?.values);
+		this.settingBtn?.setAttribute('data-active-value', activesValues?.valueSelected.toString());
+		this.modalBtn?.setAttribute('data-value', i18nServiceInstance.getMessage(activesValues?.values.split(',')[activesValues?.valueSelected]));
 	}
 
 	setCallback = (callback: (value: string) => void) => {
@@ -78,7 +78,7 @@ abstract class AbstractSetting extends HTMLElement {
 		modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success: boolean) => {
 			if (!success) {
 				this.callback(newValue);
-				this.modalBtn.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
+				this.modalBtn?.setAttribute('data-value', i18nServiceInstance.getMessage(newValue));
 			}
 		});
 	}

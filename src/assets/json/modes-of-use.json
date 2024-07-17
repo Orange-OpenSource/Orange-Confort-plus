@@ -1,5 +1,5 @@
 {
-	"version": "1.0.13",
+	"version": "1.0.15",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -104,7 +104,7 @@
 				},
 				{
 					"stopAnimations": {
-						"values": "noModifications,stop",
+						"values": "noModifications,active",
 						"valueSelected": 1,
 						"isTool": false
 					}
@@ -118,8 +118,15 @@
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll_black_grey,scrollOnMouseover",
+						"values": "noModifications,bigScroll_black_darkgrey,hugeScroll_black_darkgrey",
 						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 0,
 						"isTool": false
 					}
 				},
@@ -258,7 +265,7 @@
 				},
 				{
 					"stopAnimations": {
-						"values": "noModifications,stop",
+						"values": "noModifications,active",
 						"valueSelected": 1,
 						"isTool": false
 					}
@@ -272,8 +279,15 @@
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll_black_grey,scrollOnMouseover",
+						"values": "noModifications,bigScroll_black_darkgrey,hugeScroll_black_darkgrey",
 						"valueSelected": 1,
+						"isTool": false
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 0,
 						"isTool": false
 					}
 				},

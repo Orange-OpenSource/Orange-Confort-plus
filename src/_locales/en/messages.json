@@ -131,10 +131,10 @@
 	"daltonism": {
 		"message": "Daltonism"
 	},
-	"linksStyle": {
+	"linkStyle": {
 		"message": "Hyperlink colours"
 	},
-	"linksStyleInstruction": {
+	"linkStyleInstruction": {
 		"message": "To change the colour of the navigation links"
 	},
 	"stopAnimations": {
@@ -186,10 +186,10 @@
 		"message": "All you have to do is validate, and the focus moves by itself"
 	},
 	"scroll": {
-		"message": "Lift"
+		"message": "Lift aspect"
 	},
 	"scrollInstruction": {
-		"message": "To make it easier to move up and down the page"
+		"message": "To change the lift rendering"
 	},
 	"scrollUp": {
 		"message": "Up"
@@ -200,11 +200,38 @@
 	"bigScroll": {
 		"message": "Big lift"
 	},
+	"hugeScroll": {
+		"message": "Very big lift"
+	},
+	"scrollColor_white_lightgrey": {
+		"message": "White lift"
+	},
+	"scrollColor_blue_darkblue": {
+		"message": "Blue lift"
+	},
+	"scrollColor_red_darkred": {
+		"message": "Red lift"
+	},
+	"scrollColor_yellow_gold": {
+		"message": "Yellow lift"
+	},
+	"scrollColor_green_darkgreen": {
+		"message": "Green lift"
+	},
+	"scrollColor_black_darkgrey": {
+		"message": "Black lift"
+	},
 	"scrollOnClick": {
 		"message": "Buttons lift on click"
 	},
 	"scrollOnMouseover": {
 		"message": "Buttons lift on mouseover"
+	},
+	"scrollType": {
+		"message": "Lift type"
+	},
+	"scrollTypeInstruction": {
+		"message": "To make it easier to move up and down the page"
 	},
 	"readingMaskClose": {
 		"message": "Mask closing: use <kbd>Esc</kbd>"
@@ -337,6 +364,54 @@
 	},
 	"margeList": {
 		"message": "Marge and list"
+	},
+	"big": {
+		"message": "Big"
+	},
+	"huge": {
+		"message": "Huge"
+	},
+	"white": {
+		"message": "White"
+	},
+	"lightblue": {
+		"message": "Light blue"
+	},
+	"lightgreen": {
+		"message": "Light green"
+	},
+	"yellow": {
+		"message": "Yellow"
+	},
+	"orange": {
+		"message": "Orange"
+	},
+	"pink": {
+		"message": "Pink"
+	},
+	"black": {
+		"message": "Black"
+	},
+	"darkblue": {
+		"message": "Dark blue"
+	},
+	"darkgreen": {
+		"message": "Dark green"
+	},
+	"red": {
+		"message": "Red"
+	},
+	"purple": {
+		"message": "Purple"
+	},
+	"brown": {
+		"message": "Brown"
+	},
+	"blue": {
+		"message": "Blue"
+	},
+	"green": {
+		"message": "Green"
 	},
 	"white_black": {
 		"message": "White on black"
@@ -517,5 +592,80 @@
 	},
 	"linkVisitedLightgreen": {
 		"message": "Link visited light green"
+	},
+	"word": {
+		"message": "Read word"
+	},
+	"sentence": {
+		"message": "Read sentence"
+	},
+	"paragraph": {
+		"message": "Read paragraph"
+	},
+	"bigZone": {
+		"message": "Large click zones"
+	},
+	"longClick": {
+		"message": "Large areas & long click"
+	},
+	"autoClick": {
+		"message": "Large areas & automatic click on hover"
+	},
+	"clickDelay_1": {
+		"message": "1s delay"
+	},
+	"clickDelay_2": {
+		"message": "2s delay"
+	},
+	"clickDelay_3": {
+		"message": "3s delay"
+	},
+	"clickDelay_6": {
+		"message": "6s delay"
+	},
+	"navigationDelay_1": {
+		"message": "1s delay"
+	},
+	"navigationDelay_2": {
+		"message": "2s delay"
+	},
+	"navigationDelay_3": {
+		"message": "3s delay"
+	},
+	"navigationDelay_6": {
+		"message": "6s delay"
+	},
+	"labelColorLink": {
+		"message": "Link colour"
+	},
+	"labelColorActiveLink": {
+		"message": "Active link colour"
+	},
+	"labelColorVisitedLink": {
+		"message": "Visited link colour"
+	},
+	"labelFocusSize": {
+		"message": "Focus size"
+	},
+	"labelFocusColor": {
+		"message": "Focus color"
+	},
+	"labelCursorSize": {
+		"message": "Cursor size"
+	},
+	"labelCursorColor": {
+		"message": "Cursor color"
+	},
+	"labelCursorEmpty": {
+		"message": "Default cursor"
+	},
+	"labelNavigationAuto": {
+		"message": "Enable scroll navigation"
+	},
+	"labelNavigationAutoInactive": {
+		"message": "Disable"
+	},
+	"labelNavigationAutoActive": {
+		"message": "Enable"
 	}
 }

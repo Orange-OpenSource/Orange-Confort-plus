@@ -1,7 +1,6 @@
 let navigationButtonsServiceIsInstantiated: boolean;
 
 class NavigationButtonsService {
-	navigationButtonsId = `${PREFIX}navigation-buttons`;
 	currentFocusElt: any;
 	handlerNavigationButtons: any;
 
@@ -15,60 +14,29 @@ class NavigationButtonsService {
 		this.handlerNavigationButtons = this.createHandlerNavigationButtons();
 	}
 
-	styleNavigationsButtons = `
-		#${this.navigationButtonsId} {
-			display: flex;
-			gap: 1rem;
-			position: fixed;
-			bottom: 1rem;
-			right: 1rem;
-			z-index: calc(infinity);
-		}
-
-		#${this.navigationButtonsId} button {
-			background: #f16e00;
-			color: #000;
-			border: none;
-			font-weight: bold;
-			padding: 1rem 2rem;
-		}
-	`;
-
 	buttonsList: string[] = ['tab', 'shiftTab', 'click', 'escape'];
 
 	setNavigationButtons = (value: string): void => {
 		this.resetNavigationButtons();
 		if (value !== DEFAULT_VALUE) {
-			stylesServiceInstance.setStyle('navigation-buttons', this.styleNavigationsButtons);
 			this.getFocusedElement();
 			this.addNavigationButtons();
 		}
 	}
 
 	resetNavigationButtons = (): void => {
-		stylesServiceInstance.removeStyle('navigation-buttons');
-		document.querySelector(`#${this.navigationButtonsId}`)?.remove();
+		this.buttonsList.forEach((navigationButton: string) => {
+			domServiceInstance.removeButtonsInDom(navigationButton);
+		});
 		document.removeEventListener('click', this.handlerNavigationButtons);
 		document.removeEventListener('focusout', this.handlerNavigationButtons);
 	}
 
 	addNavigationButtons = (): void => {
-		let fragment = document.createDocumentFragment();
-		const container = document.createElement('div');
-		container.setAttribute('id', this.navigationButtonsId);
-
 		this.buttonsList.forEach((navigationButton: string) => {
-			let btn = document.createElement('button');
-			btn.setAttribute('id', `${this.navigationButtonsId}__${navigationButton}`);
-			btn.type = 'button';
-			btn.tabIndex = -1;
-			btn.innerHTML = i18nServiceInstance.getMessage(navigationButton);
-			container.appendChild(btn);
-			fragment.appendChild(container);
-			document.body.appendChild(fragment);
+			domServiceInstance.addButtonsInDom(navigationButton);
 
-			let btnNav = document.querySelector(`#${this.navigationButtonsId}__${navigationButton}`);
-
+			let btnNav = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${navigationButton}`);
 			btnNav.addEventListener('mousedown', (event) => {
 				event.preventDefault();
 				event.stopPropagation();

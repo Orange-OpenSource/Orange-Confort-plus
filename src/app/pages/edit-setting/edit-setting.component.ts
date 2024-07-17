@@ -8,6 +8,8 @@ editSettingLayout.innerHTML = `
 
 		<p id="edit-setting-instruction" class="mb-4"></p>
 
+		<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>
+		<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>
 		<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>
 		<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>
 		<app-edit-colour-theme class="sc-edit-setting__setting"></app-edit-colour-theme>
@@ -18,8 +20,10 @@ editSettingLayout.innerHTML = `
 		<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>
 		<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>
 		<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>
+		<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>
 		<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>
 		<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>
+		<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>
 		<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>
 		<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>
 		<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>

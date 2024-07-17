@@ -47,7 +47,7 @@ class CursorAspectService {
 			stylesServiceInstance.removeStyle('cursor-aspect');
 		} else {
 			let color = value.split('_')[1];
-			let size = value.split('_')[0] === 'big' ? 56 : 128;
+			let size = value.split('_')[0] === 'big' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 			let styleCursor = `
 				* {
 					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('default', size, color, 6)}') 0 0, default !important;

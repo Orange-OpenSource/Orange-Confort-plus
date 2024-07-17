@@ -14,22 +14,13 @@ class LinkStyleService {
 		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('link');
 		} else {
-			let linkColor = value.split('_')[0];
-			let linkPointedColor = value.split('_')[1];
-			let linkVisitedColor = value.split('_')[2];
+			const [linkColor, linkPointedColor, linkVisitedColor] = value.split('_');
 
-			let styleLink = `
-				a:link {
-					color: ${linkColor} !important;
-				}
-				a:visited {
-					color: ${linkVisitedColor} !important;
-				}
-				a:active, a:hover, a:focus {
-					color: ${linkPointedColor} !important;
-				}
-			`;
+			const styleColorLink = linkColor !== DEFAULT_VALUE ? `a:link { color: ${linkColor} !important; }` : '';
+			const styleColorActiveLink = linkPointedColor !== DEFAULT_VALUE ? `a:active, a:hover, a:focus { color: ${linkPointedColor} !important; }` : '';
+			const styleColorVisitedLink = linkVisitedColor !== DEFAULT_VALUE ? `a:visited { color: ${linkVisitedColor} !important; }` : '';
 
+			let styleLink = `${styleColorLink} ${styleColorVisitedLink} ${styleColorActiveLink}`;
 			stylesServiceInstance.setStyle('link', styleLink);
 		}
 	}

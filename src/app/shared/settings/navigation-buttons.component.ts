@@ -2,7 +2,6 @@ const tmplNavigationButtons: HTMLTemplateElement = document.createElement('templ
 tmplNavigationButtons.innerHTML = `
 <div class="d-flex align-items-center gap-3">
 	<app-btn-setting></app-btn-setting>
-	<app-btn-modal class="d-none"></app-btn-modal>
 </div>
 `;
 
