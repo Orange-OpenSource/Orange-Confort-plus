@@ -10,6 +10,7 @@ editSettingLayout.innerHTML = `
 
 		<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>
 		<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>
+		<app-edit-colour-theme class="sc-edit-setting__setting"></app-edit-colour-theme>
 		<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>
 		<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>
 		<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>

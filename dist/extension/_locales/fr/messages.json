@@ -466,5 +466,56 @@
 	},
 	"escape": {
 		"message": "Échappe"
+	},
+	"cursorNoModifications": {
+		"message": "Curseur sans modifications"
+	},
+	"cursorBig_black": {
+		"message": "Curseur noir et grand"
+	},
+	"cursorBig_white": {
+		"message": "Curseur blanc et grand"
+	},
+	"focusNoModifications": {
+		"message": "Focus sans modifications"
+	},
+	"focusBig_black": {
+		"message": "Focus noir et grand"
+	},
+	"focusBig_white": {
+		"message": "Focus blanc et grand"
+	},
+	"scrollNoModifications": {
+		"message": "Ascenseur sans modifications"
+	},
+	"scrollBig_black": {
+		"message": "Ascenseur noir et grand"
+	},
+	"scrollBig_white": {
+		"message": "Ascenseur blanc et grand"
+	},
+	"linkNoModifications": {
+		"message": "Lien sans modifications"
+	},
+	"linkDarkblue": {
+		"message": "Lien bleu foncé"
+	},
+	"linkYellow": {
+		"message": "Lien jaune"
+	},
+	"linkPointedNoModifications": {
+		"message": "Lien pointé sans modifications"
+	},
+	"linkPointedOrange": {
+		"message": "Lien pointé orange"
+	},
+	"linkVisitedNoModifications": {
+		"message": "Lien visité sans modifications"
+	},
+	"linkVisitedDarkgreen": {
+		"message": "Lien visité vert foncé"
+	},
+	"linkVisitedLightgreen": {
+		"message": "Lien visité vert clair"
 	}
 }

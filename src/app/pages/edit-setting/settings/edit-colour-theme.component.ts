@@ -1,9 +1,9 @@
 const editColourThemeLayout: HTMLTemplateElement = document.createElement('template');
 editColourThemeLayout.innerHTML = `
-	<form>
+	<form class="d-flex flex-column gap-3">
 		<app-select-edit-value data-name="ColourTheme"></app-select-edit-value>
-
-		// Ajouter la liste des valeurs modifiés par le theme
+		<output id="colourThemeValues" class="d-flex flex-column">
+		</output>
 	</form>
 `;
 
@@ -36,10 +36,9 @@ class EditColourThemeComponent extends HTMLElement {
 	}
 
 	setColourTheme = (value: string): void => {
-		let valueExist = this.settingValues.includes(value);
 		let newSettingIndex = this.settingValues.indexOf(value);
 
-		if (valueExist) {
+		if (newSettingIndex !== -1) {
 			modeOfUseServiceInstance.setSettingValue('colourTheme', newSettingIndex, true);
 		} else {
 			modeOfUseServiceInstance.addSettingCustomValue('colourTheme', 3, value);
@@ -48,11 +47,43 @@ class EditColourThemeComponent extends HTMLElement {
 		colourThemeServiceInstance.setColourTheme(value);
 	}
 
+	displayValuesSelected = (value: string): void => {
+		this.querySelector('#colourThemeValues').innerHTML = "";
+		let colourThemeValuesSelected: ColourThemeValues = colourThemeServiceInstance.colourThemeDictionnary.find(o => o.name === value);
+		let arrayValuesSelected = [
+			`cursor${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.cursor)}`,
+			`focus${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.focus)}`,
+			`scroll${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.scroll)}`
+		];
+
+		let linkColors = colourThemeValuesSelected.link.split('_');
+		if (linkColors[0] === DEFAULT_VALUE) {
+			linkColors = [
+				`link${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`,
+				`linkPointed${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`,
+				`linkVisited${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`
+			];
+		} else {
+			linkColors = [
+				`link${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split('_')[0])}`,
+				`linkPointed${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split('_')[1])}`,
+				`linkVisited${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split('_')[2])}`
+			];
+		}
+
+		arrayValuesSelected.concat(linkColors).forEach((value: string) => {
+			let span = document.createElement('span');
+			span.innerText = i18nServiceInstance.getMessage(value);
+			this.querySelector('#colourThemeValues').appendChild(span);
+		});
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'editSettingColourTheme':
 					this.setColourTheme(event.detail.newValue);
+					this.displayValuesSelected(event.detail.newValue);
 					break;
 			}
 		}
