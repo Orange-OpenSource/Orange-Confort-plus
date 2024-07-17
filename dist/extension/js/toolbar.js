@@ -3146,6 +3146,7 @@ class StringService {
     normalizeSettingCamelCase(string) {
         return string?.replace("app-", "").normalize("NFD").replace(/[\u0300-\u036f\s]/g, "").replace(/-./g, (x => x[1].toUpperCase()));
     }
+    capitalizeFirstLetter=string => string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 "use strict";
@@ -4275,7 +4276,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-colour-theme class="sc-edit-setting__setting"></app-edit-colour-theme>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -4380,6 +4381,69 @@ class EditColorContrastComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-color-contrast", EditColorContrastComponent);
+
+"use strict";
+
+const editColourThemeLayout = document.createElement("template");
+
+editColourThemeLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-3">\n\t\t<app-select-edit-value data-name="ColourTheme"></app-select-edit-value>\n\t\t<output id="colourThemeValues" class="d-flex flex-column">\n\t\t</output>\n\t</form>\n`;
+
+class EditColourThemeComponent extends HTMLElement {
+    selectColourThemeElement=null;
+    settingValues=null;
+    colourThemeValues=[ DEFAULT_VALUE, "reinforcedContrasts", "white_black" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editColourThemeLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectColourThemeElement = this.querySelector("app-select-edit-value");
+        this.selectColourThemeElement.addEventListener("editSettingColourTheme", this.handler);
+        this.selectColourThemeElement.setAttribute("data-setting-values", this.colourThemeValues.join(","));
+        modeOfUseServiceInstance.getSetting("colourTheme").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.colourThemeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectColourThemeElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setColourTheme=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("colourTheme", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("colourTheme", 3, value);
+        }
+        colourThemeServiceInstance.setColourTheme(value);
+    };
+    displayValuesSelected=value => {
+        this.querySelector("#colourThemeValues").innerHTML = "";
+        let colourThemeValuesSelected = colourThemeServiceInstance.colourThemeDictionnary.find((o => o.name === value));
+        let arrayValuesSelected = [ `cursor${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.cursor)}`, `focus${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.focus)}`, `scroll${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.scroll)}` ];
+        let linkColors = colourThemeValuesSelected.link.split("_");
+        if (linkColors[0] === DEFAULT_VALUE) {
+            linkColors = [ `link${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`, `linkPointed${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`, `linkVisited${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}` ];
+        } else {
+            linkColors = [ `link${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split("_")[0])}`, `linkPointed${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split("_")[1])}`, `linkVisited${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split("_")[2])}` ];
+        }
+        arrayValuesSelected.concat(linkColors).forEach((value => {
+            let span = document.createElement("span");
+            span.innerText = i18nServiceInstance.getMessage(value);
+            this.querySelector("#colourThemeValues").appendChild(span);
+        }));
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingColourTheme":
+            this.setColourTheme(event.detail.newValue);
+            this.displayValuesSelected(event.detail.newValue);
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-colour-theme", EditColourThemeComponent);
 
 "use strict";
 

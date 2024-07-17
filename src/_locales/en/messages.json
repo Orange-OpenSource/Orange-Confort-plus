@@ -466,5 +466,56 @@
 	},
 	"escape": {
 		"message": "Escape"
+	},
+	"cursorNoModifications": {
+		"message": "Cursor no modifications"
+	},
+	"cursorBig_black": {
+		"message": "Cursor black and big"
+	},
+	"cursorBig_white": {
+		"message": "Cursor white and big"
+	},
+	"focusNoModifications": {
+		"message": "Focus no modifications"
+	},
+	"focusBig_black": {
+		"message": "Focus black and big"
+	},
+	"focusBig_white": {
+		"message": "Focus white and big"
+	},
+	"scrollNoModifications": {
+		"message": "Scroll no modifications"
+	},
+	"scrollBig_black": {
+		"message": "Scroll black and big"
+	},
+	"scrollBig_white": {
+		"message": "Scroll white and big"
+	},
+	"linkNoModifications": {
+		"message": "Link no modifications"
+	},
+	"linkDarkblue": {
+		"message": "Link dark blue"
+	},
+	"linkYellow": {
+		"message": "Link yellow"
+	},
+	"linkPointedNoModifications": {
+		"message": "Link pointed no modifications"
+	},
+	"linkPointedOrange": {
+		"message": "Link pointed orange"
+	},
+	"linkVisitedNoModifications": {
+		"message": "Link visited no modifications"
+	},
+	"linkVisitedDarkgreen": {
+		"message": "Link visited dark green"
+	},
+	"linkVisitedLightgreen": {
+		"message": "Link visited light green"
 	}
 }

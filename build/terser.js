@@ -82,6 +82,7 @@ const files = {
 			'dist/js/app/pages/edit-setting/edit-setting.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-click-facilite.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-color-contrast.component.js',
+			'dist/js/app/pages/edit-setting/settings/edit-colour-theme.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-cursor-aspect.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-delete-background-images.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-focus-aspect.component.js',
