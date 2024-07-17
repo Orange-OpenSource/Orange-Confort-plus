@@ -70,16 +70,17 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	getValueLabel = (value: string): string => {
-		// @todo Traduire les intitulés des valeurs : avec préfixe du réglage (?)
-		/*return i18nServiceInstance.getMessage(
-			`${this.name}-${stringServiceInstance.normalizeSettingCamelCase(value)}`
-		);*/
+		const string = value === 'noModifications' ?
+			stringServiceInstance.normalizeSettingCamelCase(value) :
+			`${this.name}-${stringServiceInstance.normalizeSettingCamelCase(value)}`;
 
-		return value;
+		return i18nServiceInstance.getMessage(string);
 	}
 
 	setTitle = (): void => {
+		const settingName = i18nServiceInstance.getMessage(`setting-${this.name}`);
 		const settingsNumber = this.settingsList.length;
+
 		if (settingsNumber > 0) {
 			const currentValueLabel = this.getValueLabel(this.value);
 			const nextValueIndex = settingsNumber === this.index ? 0 : this.index + 1;
@@ -102,8 +103,7 @@ class BtnSettingComponent extends HTMLElement {
 			}
 
 			['title', 'aria-label'].forEach(attribute => {
-				// @todo Traduire le nom du réglage
-				this.settingBtn.setAttribute(attribute, `${this.name}${content}`);
+				this.settingBtn.setAttribute(attribute, `${settingName}${content}`);
 			});
 		}
 	}
