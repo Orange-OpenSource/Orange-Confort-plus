@@ -680,11 +680,212 @@
 		}
 	},
 	"multiclicToggleOff": {
-		"message": " : inactive. Turn on.",
+		"message": ": inactive. Turn on.",
 		"description": "Inactive setting."
 	},
 	"multiclicToggleOn": {
-		"message": " : active. Turn off.",
+		"message": ": active. Turn off.",
 		"description": "Active setting."
+	},
+	"setting-fontFamily": {
+		"message": "Font Family"
+	},
+	"fontFamily-Accessible_DfA": {
+		"message": "Accessible DfA"
+	},
+	"fontFamily-Luciole": {
+		"message": "Luciole"
+	},
+	"fontFamily-Verdana": {
+		"message": "Verdana"
+	},
+	"setting-textSize": {
+		"message": "Text Size"
+	},
+	"textSize-110": {
+		"message": "110%"
+	},
+	"textSize-130": {
+		"message": "130%"
+	},
+	"textSize-200": {
+		"message": "200%"
+	},
+	"setting-capitalLetters": {
+		"message": "Capital Letters"
+	},
+	"capitalLetters-uppercase": {
+		"message": "Uppercase"
+	},
+	"capitalLetters-capitalize": {
+		"message": "Capitalize"
+	},
+	"setting-textSpacing": {
+		"message": "Text Spacing"
+	},
+	"textSpacing-spacingTextLabelSmall": {
+		"message": "Small"
+	},
+	"textSpacing-spacingTextLabelBig": {
+		"message": "Big"
+	},
+	"setting-readingGuide": {
+		"message": "Reading Guide"
+	},
+	"readingGuide-ruleGuide": {
+		"message": "Rule"
+	},
+	"readingGuide-maskGuide": {
+		"message": "Mask"
+	},
+	"setting-marginAlign": {
+		"message": "Margin & Alignment"
+	},
+	"marginAlign-alignLeft": {
+		"message": "Left Align"
+	},
+	"marginAlign-margeList": {
+		"message": "List Margin"
+	},
+	"marginAlign-marginLeft": {
+		"message": "Left Margin"
+	},
+	"setting-magnifier": {
+		"message": "Magnifier"
+	},
+	"magnifier-square_2": {
+		"message": "Square (×2)"
+	},
+	"magnifier-square_5": {
+		"message": "Square (×5)"
+	},
+	"magnifier-circle_2": {
+		"message": "Circle (×2)"
+	},
+	"setting-readAloud": {
+		"message": "Read Aloud"
+	},
+	"readAloud-word": {
+		"message": "Word"
+	},
+	"readAloud-sentence": {
+		"message": "Sentence"
+	},
+	"readAloud-paragraph": {
+		"message": "Paragraph"
+	},
+	"setting-colourTheme": {
+		"message": "Colour Themes"
+	},
+	"colourTheme-reinforcedContrasts": {
+		"message": "Reinforced Contrasts"
+	},
+	"colourTheme-white_black": {
+		"message": "White on Black"
+	},
+	"setting-cursorAspect": {
+		"message": "Cursor Aspect"
+	},
+	"cursorAspect-big_black": {
+		"message": "Big Black Cursor"
+	},
+	"cursorAspect-big_white": {
+		"message": "Big White Cursor"
+	},
+	"cursorAspect-huge_black": {
+		"message": "Huge Black Cursor"
+	},
+	"cursorAspect-huge_green": {
+		"message": "Huge Green Cursor"
+	},
+	"setting-focusAspect": {
+		"message": "Focus Aspect"
+	},
+	"focusAspect-big_black": {
+		"message": "Big Black Focus"
+	},
+	"focusAspect-huge_black": {
+		"message": "Huge Black Focus"
+	},
+	"focusAspect-big_white": {
+		"message": "Big White Focus"
+	},
+	"focusAspect-huge_white": {
+		"message": "Huge White Focus"
+	},
+	"setting-colorContrast": {
+		"message": "Color Contrast"
+	},
+	"colorContrast-white_black": {
+		"message": "White on Black"
+	},
+	"colorContrast-white_blue": {
+		"message": "White on Blue"
+	},
+	"colorContrast-reinforcedContrasts": {
+		"message": "Reinforced Contrasts"
+	},
+	"setting-linkStyle": {
+		"message": "Link style"
+	},
+	"linkStyle-darkblue_orange_red": {
+		"message": "Dark Blue, Orange & Red"
+	},
+	"linkStyle-lightblue_orange_lightgreen": {
+		"message": "Light Blue, Orange & Light Green"
+	},
+	"linkStyle-yellow_orange_lightgreen": {
+		"message": "Yellow, Orange & Light Green"
+	},
+	"setting-clearlyLinks": {
+		"message": "Clearly Links"
+	},
+	"clearlyLinks-bold_underline": {
+		"message": "Bold Underline"
+	},
+	"clearlyLinks-bold_boxed": {
+		"message": "Bold Boxed"
+	},
+	"setting-stopAnimations": {
+		"message": "Stop Animations"
+	},
+	"setting-deleteBackgroundImages": {
+		"message": "Delete Background Images"
+	},
+	"deleteBackgroundImages-background_transparent": {
+		"message": "Transparent Backgrounds"
+	},
+	"deleteBackgroundImages-background_foreground_transparent": {
+		"message": "Transparent Backgrounds and Foregrounds"
+	},
+	"setting-scroll": {
+		"message": "Scroll"
+	},
+	"scroll-bigScroll_black_grey": {
+		"message": "Big Black Grey Scroll"
+	},
+	"scroll-scrollOnMouseover": {
+		"message": "Scroll on MouseOver"
+	},
+	"setting-skipToContent": {
+		"message": "Skip To Content"
+	},
+	"setting-navigationButtons": {
+		"message": "Navigation Buttons"
+	},
+	"setting-clickFacilite": {
+		"message": "Easy click"
+	},
+	"clickFacilite-bigZone": {
+		"message": "Big Zone"
+	},
+	"clickFacilite-longClick_2": {
+		"message": "Long Click (×2)"
+	},
+	"setting-navigationAuto": {
+		"message": "Auto Navigation"
+	},
+	"navigationAuto-autoFocus_2": {
+		"message": "Auto Focus (×2)"
 	}
 }
