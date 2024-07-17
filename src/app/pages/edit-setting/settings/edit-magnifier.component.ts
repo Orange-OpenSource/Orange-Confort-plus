@@ -1,19 +1,19 @@
 const editMagnifierLayout: HTMLTemplateElement = document.createElement('template');
 editMagnifierLayout.innerHTML = `
-	<form class="d-flex flex-column gap-3">
+	<form class="d-flex flex-column gap-4">
 		<fieldset>
 			<legend class="fs-5" data-i18n="magnifierShape"></legend>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="magnifierShape" id="${DEFAULT_VALUE}MagnifierShape" value="${DEFAULT_VALUE}">
-				<label class="form-check-label" for="${DEFAULT_VALUE}MagnifierShape" data-i18n="magnifierDefault"></label>
+				<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}${DEFAULT_VALUE}-magnifier-shape" value="${DEFAULT_VALUE}">
+				<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-magnifier-shape" data-i18n="magnifierDefault"></label>
 			</div>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="magnifierShape" id="squareMagnifierShape" value="square">
-				<label class="form-check-label" for="squareMagnifierShape" data-i18n="magnifierSquare"></label>
+				<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}square-magnifier-shape" value="square">
+				<label class="form-check-label" for="${PREFIX}square-magnifier-shape" data-i18n="magnifierSquare"></label>
 			</div>
 			<div class="form-check">
-				<input class="form-check-input" type="radio" name="magnifierShape" id="circleMagnifierShape" value="circle">
-				<label class="form-check-label" for="circleMagnifierShape" data-i18n="magnifierCircle"></label>
+				<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}circle-magnifier-shape" value="circle">
+				<label class="form-check-label" for="${PREFIX}circle-magnifier-shape" data-i18n="magnifierCircle"></label>
 			</div>
 		</fieldset>
 

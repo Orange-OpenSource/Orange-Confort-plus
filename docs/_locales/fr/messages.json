@@ -186,10 +186,10 @@
 		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
 	},
 	"scroll": {
-		"message": "Ascenseur"
+		"message": "Aspect ascenseur"
 	},
 	"scrollInstruction": {
-		"message": "Pour faciliter la montée et descente dans la page"
+		"message": "Pour modifier le rendu de l’ascenseur"
 	},
 	"scrollUp": {
 		"message": "Monter"
@@ -198,13 +198,40 @@
 		"message": "Descendre"
 	},
 	"bigScroll": {
-		"message": "Gros ascenceur"
+		"message": "Gros ascenseur"
+	},
+	"hugeScroll": {
+		"message": "Très gros ascenseur"
+	},
+	"scrollColor_white_lightgrey": {
+		"message": "Ascenseur blanc"
+	},
+	"scrollColor_blue_darkblue": {
+		"message": "Ascenseur bleu"
+	},
+	"scrollColor_red_darkred": {
+		"message": "Ascenseur rouge"
+	},
+	"scrollColor_yellow_gold": {
+		"message": "Ascenseur jaune"
+	},
+	"scrollColor_green_darkgreen": {
+		"message": "Ascenseur vert"
+	},
+	"scrollColor_black_darkgrey": {
+		"message": "Ascenseur noir"
 	},
 	"scrollOnClick": {
 		"message": "Boutons ascenseurs au clic"
 	},
 	"scrollOnMouseover": {
 		"message": "Boutons ascenseurs au survol"
+	},
+	"scrollType": {
+		"message": "Type d'ascenseur"
+	},
+	"scrollTypeInstruction": {
+		"message": "Pour faciliter la montée et descente dans la page"
 	},
 	"readingMaskClose": {
 		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
@@ -337,6 +364,54 @@
 	},
 	"margeList": {
 		"message": "Marge et listes numérotées"
+	},
+	"big": {
+		"message": "Gros"
+	},
+	"huge": {
+		"message": "Très gros"
+	},
+	"white": {
+		"message": "Blanc"
+	},
+	"lightblue": {
+		"message": "Bleu clair"
+	},
+	"lightgreen": {
+		"message": "Vert clair"
+	},
+	"yellow": {
+		"message": "Jaune"
+	},
+	"orange": {
+		"message": "Orange"
+	},
+	"pink": {
+		"message": "Rose"
+	},
+	"black": {
+		"message": "Noir"
+	},
+	"darkblue": {
+		"message": "Bleu foncé"
+	},
+	"darkgreen": {
+		"message": "Vert foncé"
+	},
+	"red": {
+		"message": "Rouge"
+	},
+	"purple": {
+		"message": "Violet"
+	},
+	"brown": {
+		"message": "Marron"
+	},
+	"blue": {
+		"message": "Bleu"
+	},
+	"green": {
+		"message": "Vert"
 	},
 	"white_black": {
 		"message": "Blanc sur noir"
@@ -517,5 +592,80 @@
 	},
 	"linkVisitedLightgreen": {
 		"message": "Lien visité vert clair"
+	},
+	"word": {
+		"message": "Lire le mot"
+	},
+	"sentence": {
+		"message": "Lire la phrase"
+	},
+	"paragraph": {
+		"message": "Lire le paragraphe"
+	},
+	"bigZone": {
+		"message": "Grandes zones de clic"
+	},
+	"longClick": {
+		"message": "Grandes zones & clic long"
+	},
+	"autoClick": {
+		"message": "Grandes zones & clic automatique au survol"
+	},
+	"clickDelay_1": {
+		"message": "Délai de 1s"
+	},
+	"clickDelay_2": {
+		"message": "Délai de 2s"
+	},
+	"clickDelay_3": {
+		"message": "Délai de 3s"
+	},
+	"clickDelay_6": {
+		"message": "Délai de 6s"
+	},
+	"navigationDelay_1": {
+		"message": "Délai de 1s"
+	},
+	"navigationDelay_2": {
+		"message": "Délai de 2s"
+	},
+	"navigationDelay_3": {
+		"message": "Délai de 3s"
+	},
+	"navigationDelay_6": {
+		"message": "Délai de 6s"
+	},
+	"labelColorLink": {
+		"message": "Couleur des liens"
+	},
+	"labelColorActiveLink": {
+		"message": "Couleur des liens actifs"
+	},
+	"labelColorVisitedLink": {
+		"message": "Couleur des liens visités"
+	},
+	"labelFocusSize": {
+		"message": "Taille du focus"
+	},
+	"labelFocusColor": {
+		"message": "Couleur du focus"
+	},
+	"labelCursorSize": {
+		"message": "Taille de la souris"
+	},
+	"labelCursorColor": {
+		"message": "Couleur de la souris"
+	},
+	"labelCursorEmpty": {
+		"message": "Souris par défaut"
+	},
+	"labelNavigationAuto": {
+		"message": "Activer la navigation par défilement"
+	},
+	"labelNavigationAutoInactive": {
+		"message": "Désactiver"
+	},
+	"labelNavigationAutoActive": {
+		"message": "Activer"
 	}
 }

@@ -23,33 +23,37 @@ class ClickFaciliteService {
 		this.delay = Number(value.split('_')[1]) * 1000;
 
 		switch (paramName) {
-			case 'bigZone': {
+			case CLICK_FACILITE_BIG_ZONE: {
 				this.resetEventClick();
-				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: '', bigScrollActivated: true });
+				scrollServiceInstance.setScroll('bigScroll');
+				scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
 				break;
 			}
-			case 'longClick': {
+			case CLICK_FACILITE_LONG_CLICK: {
 				this.resetEventClick();
-				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: 'scrollOnClick', bigScrollActivated: true });
+				scrollServiceInstance.setScroll('bigScroll');
+				scrollTypeServiceInstance.setScrollType('scrollOnClick');
 				this.longClick();
 				break;
 			}
-			case 'autoClick': {
+			case CLICK_FACILITE_AUTO_CLICK: {
 				this.resetEventClick();
-				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: 'scrollOnClick', bigScrollActivated: true });
+				scrollServiceInstance.setScroll('bigScroll');
+				scrollTypeServiceInstance.setScrollType('scrollOnMouseover');
 				this.autoClick();
 				break;
 			}
 			default: {
+				scrollServiceInstance.setScroll(DEFAULT_VALUE);
+				scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
 				this.resetEventClick();
-				scrollServiceInstance.setScrollParams({ name: 'clickFacilite', btnState: '', bigScrollActivated: false });
 				break;
 			}
 		}
 	}
 
 	getClickableElt = (event: MouseEvent): any => {
-		let pointedElt: any = event.currentTarget;
+		let pointedElt: any = event.target;
 		let closestPointedElt: any = pointedElt.closest(this.clickableElements.join(','))
 		return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt :
 			closestPointedElt ? closestPointedElt : pointedElt;

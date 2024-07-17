@@ -60,6 +60,8 @@ const readingGuideServiceInstance = new ReadingGuideService();
 Object.seal(readingGuideServiceInstance);
 const scrollServiceInstance = new ScrollService();
 Object.seal(scrollServiceInstance);
+const scrollTypeServiceInstance = new ScrollTypeService();
+Object.seal(scrollTypeServiceInstance);
 const skipToContentServiceInstance = new SkipToContentService();
 Object.seal(skipToContentServiceInstance);
 const stopAnimationsServiceInstance = new StopAnimationsService();
