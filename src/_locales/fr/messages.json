@@ -686,5 +686,206 @@
 	"multiclicToggleOn": {
 		"message": " : actif. Désactiver.",
 		"description": "Réglage actif."
+	},
+	"setting-fontFamily": {
+		"message": "Police"
+	},
+	"fontFamily-Accessible_DfA": {
+		"message": "Accessible DfA"
+	},
+	"fontFamily-Luciole": {
+		"message": "Luciole"
+	},
+	"fontFamily-Verdana": {
+		"message": "Verdana"
+	},
+	"setting-textSize": {
+		"message": "Taille du texte"
+	},
+	"textSize-110": {
+		"message": "110%"
+	},
+	"textSize-130": {
+		"message": "130%"
+	},
+	"textSize-200": {
+		"message": "200%"
+	},
+	"setting-capitalLetters": {
+		"message": "Lettres capitales"
+	},
+	"capitalLetters-uppercase": {
+		"message": "Majuscules"
+	},
+	"capitalLetters-capitalize": {
+		"message": "Capitaliser"
+	},
+	"setting-textSpacing": {
+		"message": "Espacement du texte"
+	},
+	"textSpacing-spacingTextLabelSmall": {
+		"message": "Petit"
+	},
+	"textSpacing-spacingTextLabelBig": {
+		"message": "Grand"
+	},
+	"setting-readingGuide": {
+		"message": "Guide de lecture"
+	},
+	"readingGuide-ruleGuide": {
+		"message": "Règle"
+	},
+	"readingGuide-maskGuide": {
+		"message": "Masque"
+	},
+	"setting-marginAlign": {
+		"message": "Marge et alignement"
+	},
+	"marginAlign-alignLeft": {
+		"message": "Ferré à gauche"
+	},
+	"marginAlign-margeList": {
+		"message": "Marge des listes"
+	},
+	"marginAlign-marginLeft": {
+		"message": "Marge à gauche"
+	},
+	"setting-magnifier": {
+		"message": "Loupe"
+	},
+	"magnifier-square_2": {
+		"message": "Carré (×2)"
+	},
+	"magnifier-square_5": {
+		"message": "Carré (×5)"
+	},
+	"magnifier-circle_2": {
+		"message": "Cercle (×2)"
+	},
+	"setting-readAloud": {
+		"message": "Lire à voix haute"
+	},
+	"readAloud-word": {
+		"message": "Mot"
+	},
+	"readAloud-sentence": {
+		"message": "Phrase"
+	},
+	"readAloud-paragraph": {
+		"message": "Paragraphe"
+	},
+	"setting-colourTheme": {
+		"message": "Thème couleurs"
+	},
+	"colourTheme-reinforcedContrasts": {
+		"message": "Contrastes renforcés"
+	},
+	"colourTheme-white_black": {
+		"message": "Blanc sur noir"
+	},
+	"setting-cursorAspect": {
+		"message": "Aspect du curseur"
+	},
+	"cursorAspect-big_black": {
+		"message": "Grand curseur noir"
+	},
+	"cursorAspect-big_white": {
+		"message": "Grand curseur blanc"
+	},
+	"cursorAspect-huge_black": {
+		"message": "Très grand curseur noir"
+	},
+	"cursorAspect-huge_green": {
+		"message": "Très grand curseur vert"
+	},
+	"setting-focusAspect": {
+		"message": "Aspect du focus"
+	},
+	"focusAspect-big_black": {
+		"message": "Grand focus noir"
+	},
+	"focusAspect-huge_black": {
+		"message": "Très grand focus noir"
+	},
+	"focusAspect-big_white": {
+		"message": "Grand focus blanc"
+	},
+	"focusAspect-huge_white": {
+		"message": "Très grand focus blanc"
+	},
+	"setting-colorContrast": {
+		"message": "Contraste des couleurs"
+	},
+	"colorContrast-white_black": {
+		"message": "Blanc sur noir"
+	},
+	"colorContrast-white_blue": {
+		"message": "Blanc sur bleu"
+	},
+	"colorContrast-reinforcedContrasts": {
+		"message": "Contrastes renforcés"
+	},
+	"setting-linkStyle": {
+		"message": "Style des liens"
+	},
+	"linkStyle-darkblue_orange_red": {
+		"message": "Bleu foncé, orange et rouge"
+	},
+	"linkStyle-lightblue_orange_lightgreen": {
+		"message": "Bleu clair, orange et vert clair"
+	},
+	"linkStyle-yellow_orange_lightgreen": {
+		"message": "Jaune, orange et vert clair"
+	},
+	"setting-clearlyLinks": {
+		"message": "Liens bien visibles"
+	},
+	"clearlyLinks-bold_underline": {
+		"message": "Gras souligné"
+	},
+	"clearlyLinks-bold_boxed": {
+		"message": "Gras encadré"
+	},
+	"setting-stopAnimations": {
+		"message": "Stopper les animations"
+	},
+	"setting-deleteBackgroundImages": {
+		"message": "Supprimer les images de fond"
+	},
+	"deleteBackgroundImages-background_transparent": {
+		"message": "Images d’arrière-plan transparent"
+	},
+	"deleteBackgroundImages-background_foreground_transparent": {
+		"message": "Images d’arrière-plan et de premier plan transparentes"
+	},
+	"setting-scroll": {
+		"message": "Ascenseur"
+	},
+	"scroll-bigScroll_black_grey": {
+		"message": "Gros ascenseur noir et gris"
+	},
+	"scroll-scrollOnMouseover": {
+		"message": "Boutons ascenseurs au survol"
+	},
+	"setting-skipToContent": {
+		"message": "Aller au contenu"
+	},
+	"setting-navigationButtons": {
+		"message": "Boutons de navigation"
+	},
+	"setting-clickFacilite": {
+		"message": "Clic facilité"
+	},
+	"clickFacilite-bigZone": {
+		"message": "Grande zone"
+	},
+	"clickFacilite-longClick_2": {
+		"message": "Clic long (×2)"
+	},
+	"setting-navigationAuto": {
+		"message": "Navigation automatique"
+	},
+	"navigationAuto-autoFocus_2": {
+		"message": "Focus automatique (×2)"
 	}
 }
