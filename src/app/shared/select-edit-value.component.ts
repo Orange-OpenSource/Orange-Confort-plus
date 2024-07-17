@@ -1,20 +1,22 @@
 const selectEditValueLayout: HTMLTemplateElement = document.createElement('template');
 selectEditValueLayout.innerHTML = `
-	<div class="d-flex align-items-center justify-content-between gap-2">
-		<button type="button" class="btn btn-icon btn-primary">
-			<span class="visually-hidden" data-i18n="prevValue"></span>
-			<app-icon data-name="Form_Chevron_left"></app-icon>
-		</button>
-		<output></output>
-		<button type="button" class="btn btn-icon btn-primary">
-			<span class="visually-hidden" data-i18n="nextValue"></span>
-			<app-icon data-name="Form_Chevron_right"></app-icon>
-		</button>
+	<div class="d-flex flex-column" role="group">
+		<div class="d-flex align-items-center justify-content-between gap-2">
+			<button type="button" class="btn btn-icon btn-primary">
+				<span class="visually-hidden" data-i18n="prevValue"></span>
+				<app-icon data-name="Form_Chevron_left"></app-icon>
+			</button>
+			<output></output>
+			<button type="button" class="btn btn-icon btn-primary">
+				<span class="visually-hidden" data-i18n="nextValue"></span>
+				<app-icon data-name="Form_Chevron_right"></app-icon>
+			</button>
+		</div>
 	</div>
 `;
 
 class SelectEditValueComponent extends HTMLElement {
-	static observedAttributes = ['data-name', 'data-index', 'data-setting-values'];
+	static observedAttributes = ['data-name', 'data-index', 'data-setting-values', 'data-label'];
 	selectedValue: HTMLOutputElement | null = null;
 	btnPrevValue: HTMLButtonElement | null = null;
 	btnNextValue: HTMLButtonElement | null = null;
@@ -52,6 +54,14 @@ class SelectEditValueComponent extends HTMLElement {
 		}
 		if ('data-setting-values' === name) {
 			this.values = newValue.split(',');
+		}
+		if ('data-label' === name) {
+			let groupElement = this.querySelector('div[role="group"]');
+			let selectLabel = document.createElement('label');
+			selectLabel.innerText = i18nServiceInstance.getMessage(`label${this.name}`);
+			selectLabel.setAttribute('id', `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
+			groupElement.insertBefore(selectLabel, groupElement.firstChild);
+			groupElement.setAttribute('aria-labelledby', `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
 		}
 	}
 

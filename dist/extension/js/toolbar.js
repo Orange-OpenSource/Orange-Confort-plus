@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.5 - 17/07/2024
+ * orange-confort-plus - version 5.0.0-alpha.5 - 25/07/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -746,6 +746,26 @@ const PAGE_SETTINGS = "settings";
 
 const PAGE_EDIT_SETTING = "edit-setting";
 
+const FOCUS_SIZE_BIG = "4px";
+
+const FOCUS_SIZE_HUGE = "10px";
+
+const CURSOR_SIZE_BIG = 56;
+
+const CURSOR_SIZE_HUGE = 128;
+
+const SCROLL_SIZE_BIG = "2rem";
+
+const SCROLL_SIZE_HUGE = "3rem";
+
+const CLICK_FACILITE_BIG_ZONE = "bigZone";
+
+const CLICK_FACILITE_LONG_CLICK = "longClick";
+
+const CLICK_FACILITE_AUTO_CLICK = "autoClick";
+
+const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
+
 "use strict";
 
 let filesServiceIsInstantiated;
@@ -971,6 +991,33 @@ class DomService {
         };
         const focusableElt = [ `a[href]:not(${not.inert},${not.negTabIndex}`, `area[href]:not(${not.inert},${not.negTabIndex}`, `input:not([type="hidden"],[type="radio"],${not.inert},${not.negTabIndex},${not.disabled}`, `input[type="radio"]:not(${not.inert},${not.negTabIndex},${not.disabled}`, `select:not(${not.inert},${not.negTabIndex},${not.disabled}`, `textarea:not(${not.inert},${not.negTabIndex},${not.disabled}`, `button:not(${not.inert},${not.negTabIndex},${not.disabled}`, `details:not(${not.inert} > summary:first-of-type,${not.negTabIndex}`, `iframe:not(${not.inert},${not.negTabIndex}`, `audio[controls]:not(${not.inert},${not.negTabIndex}`, `video[controls]:not(${not.inert},${not.negTabIndex}`, `[contenteditable]:not(${not.inert},${not.negTabIndex}`, `[tabindex]:not(${not.inert},${not.negTabIndex}` ];
         return Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+    };
+    addButtonsInDom=button => {
+        let container;
+        let fragment = document.createDocumentFragment();
+        if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
+            container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
+        } else {
+            container = document.createElement("div");
+            container.setAttribute("id", CONTAINER_BUTTONS_ID);
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1rem;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1rem;\n\t\t\t\t\tright: 1rem;\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: none;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1rem 2rem;\n\t\t\t\t}\n\t\t\t`;
+            stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
+        }
+        let btn = document.createElement("button");
+        btn.setAttribute("id", `${CONTAINER_BUTTONS_ID}__${button}`);
+        btn.type = "button";
+        btn.tabIndex = -1;
+        btn.innerText = i18nServiceInstance.getMessage(button);
+        container.appendChild(btn);
+        fragment.appendChild(container);
+        document.body.appendChild(fragment);
+    };
+    removeButtonsInDom=button => {
+        document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`)?.remove();
+        if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.children.length === 0) {
+            document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.remove();
+            stylesServiceInstance.removeStyle("container-buttons");
+        }
     };
 }
 
@@ -1413,55 +1460,43 @@ class ClickFaciliteService {
         let paramName = value.split("_")[0];
         this.delay = Number(value.split("_")[1]) * 1e3;
         switch (paramName) {
-          case "bigZone":
+          case CLICK_FACILITE_BIG_ZONE:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScrollParams({
-                    name: "clickFacilite",
-                    btnState: "",
-                    bigScrollActivated: true
-                });
+                scrollServiceInstance.setScroll("bigScroll");
+                scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 break;
             }
 
-          case "longClick":
+          case CLICK_FACILITE_LONG_CLICK:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScrollParams({
-                    name: "clickFacilite",
-                    btnState: "scrollOnClick",
-                    bigScrollActivated: true
-                });
+                scrollServiceInstance.setScroll("bigScroll");
+                scrollTypeServiceInstance.setScrollType("scrollOnClick");
                 this.longClick();
                 break;
             }
 
-          case "autoClick":
+          case CLICK_FACILITE_AUTO_CLICK:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScrollParams({
-                    name: "clickFacilite",
-                    btnState: "scrollOnClick",
-                    bigScrollActivated: true
-                });
+                scrollServiceInstance.setScroll("bigScroll");
+                scrollTypeServiceInstance.setScrollType("scrollOnMouseover");
                 this.autoClick();
                 break;
             }
 
           default:
             {
+                scrollServiceInstance.setScroll(DEFAULT_VALUE);
+                scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 this.resetEventClick();
-                scrollServiceInstance.setScrollParams({
-                    name: "clickFacilite",
-                    btnState: "",
-                    bigScrollActivated: false
-                });
                 break;
             }
         }
     };
     getClickableElt=event => {
-        let pointedElt = event.currentTarget;
+        let pointedElt = event.target;
         let closestPointedElt = pointedElt.closest(this.clickableElements.join(","));
         return this.clickableElements.includes(pointedElt.nodeName) ? pointedElt : closestPointedElt ? closestPointedElt : pointedElt;
     };
@@ -1770,7 +1805,7 @@ class CursorAspectService {
             stylesServiceInstance.removeStyle("cursor-aspect");
         } else {
             let color = value.split("_")[1];
-            let size = value.split("_")[0] === "big" ? 56 : 128;
+            let size = value.split("_")[0] === "big" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
         }
@@ -1872,9 +1907,10 @@ class FocusAspectService {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("focus-aspect");
         } else {
-            let size = value.split("_")[0] === "big" ? "4px" : "10px";
-            let color = value.split("_")[1];
-            let styleFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline: ${color} solid ${size} !important;\n\t\t\t\t}\n\t\t\t`;
+            const [size, color] = value.split("_");
+            const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === FOCUS_SIZE_BIG ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : "";
+            const styleFocusColor = color !== DEFAULT_VALUE ? `outline-color: ${color} !important;` : "";
+            let styleFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline-style: solid !important;\n\t\t\t\t\t${styleFocusSize}\n\t\t\t\t\t${styleFocusColor}\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("focus-aspect", styleFocus);
         }
     };
@@ -2122,10 +2158,11 @@ class LinkStyleService {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("link");
         } else {
-            let linkColor = value.split("_")[0];
-            let linkPointedColor = value.split("_")[1];
-            let linkVisitedColor = value.split("_")[2];
-            let styleLink = `\n\t\t\t\ta:link {\n\t\t\t\t\tcolor: ${linkColor} !important;\n\t\t\t\t}\n\t\t\t\ta:visited {\n\t\t\t\t\tcolor: ${linkVisitedColor} !important;\n\t\t\t\t}\n\t\t\t\ta:active, a:hover, a:focus {\n\t\t\t\t\tcolor: ${linkPointedColor} !important;\n\t\t\t\t}\n\t\t\t`;
+            const [linkColor, linkPointedColor, linkVisitedColor] = value.split("_");
+            const styleColorLink = linkColor !== DEFAULT_VALUE ? `a:link { color: ${linkColor} !important; }` : "";
+            const styleColorActiveLink = linkPointedColor !== DEFAULT_VALUE ? `a:active, a:hover, a:focus { color: ${linkPointedColor} !important; }` : "";
+            const styleColorVisitedLink = linkVisitedColor !== DEFAULT_VALUE ? `a:visited { color: ${linkVisitedColor} !important; }` : "";
+            let styleLink = `${styleColorLink} ${styleColorVisitedLink} ${styleColorActiveLink}`;
             stylesServiceInstance.setStyle("link", styleLink);
         }
     };
@@ -2508,7 +2545,6 @@ class NavigationAutoService {
 let navigationButtonsServiceIsInstantiated;
 
 class NavigationButtonsService {
-    navigationButtonsId=`${PREFIX}navigation-buttons`;
     currentFocusElt;
     handlerNavigationButtons;
     constructor() {
@@ -2518,36 +2554,25 @@ class NavigationButtonsService {
         navigationButtonsServiceIsInstantiated = true;
         this.handlerNavigationButtons = this.createHandlerNavigationButtons();
     }
-    styleNavigationsButtons=`\n\t\t#${this.navigationButtonsId} {\n\t\t\tdisplay: flex;\n\t\t\tgap: 1rem;\n\t\t\tposition: fixed;\n\t\t\tbottom: 1rem;\n\t\t\tright: 1rem;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\n\t\t#${this.navigationButtonsId} button {\n\t\t\tbackground: #f16e00;\n\t\t\tcolor: #000;\n\t\t\tborder: none;\n\t\t\tfont-weight: bold;\n\t\t\tpadding: 1rem 2rem;\n\t\t}\n\t`;
     buttonsList=[ "tab", "shiftTab", "click", "escape" ];
     setNavigationButtons=value => {
         this.resetNavigationButtons();
         if (value !== DEFAULT_VALUE) {
-            stylesServiceInstance.setStyle("navigation-buttons", this.styleNavigationsButtons);
             this.getFocusedElement();
             this.addNavigationButtons();
         }
     };
     resetNavigationButtons=() => {
-        stylesServiceInstance.removeStyle("navigation-buttons");
-        document.querySelector(`#${this.navigationButtonsId}`)?.remove();
+        this.buttonsList.forEach((navigationButton => {
+            domServiceInstance.removeButtonsInDom(navigationButton);
+        }));
         document.removeEventListener("click", this.handlerNavigationButtons);
         document.removeEventListener("focusout", this.handlerNavigationButtons);
     };
     addNavigationButtons=() => {
-        let fragment = document.createDocumentFragment();
-        const container = document.createElement("div");
-        container.setAttribute("id", this.navigationButtonsId);
         this.buttonsList.forEach((navigationButton => {
-            let btn = document.createElement("button");
-            btn.setAttribute("id", `${this.navigationButtonsId}__${navigationButton}`);
-            btn.type = "button";
-            btn.tabIndex = -1;
-            btn.innerHTML = i18nServiceInstance.getMessage(navigationButton);
-            container.appendChild(btn);
-            fragment.appendChild(container);
-            document.body.appendChild(fragment);
-            let btnNav = document.querySelector(`#${this.navigationButtonsId}__${navigationButton}`);
+            domServiceInstance.addButtonsInDom(navigationButton);
+            let btnNav = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${navigationButton}`);
             btnNav.addEventListener("mousedown", (event => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -2737,7 +2762,7 @@ class ReadAloudService {
         document.removeEventListener("contextmenu", this.handler);
     };
     downHandler=event => {
-        let textToSpeech = new SpeechSynthesisUtterance(event.currentTarget.innerText);
+        let textToSpeech = new SpeechSynthesisUtterance(event.target.innerText);
         speechSynthesis.speak(textToSpeech);
     };
     stopReadAloud=() => {
@@ -2858,129 +2883,100 @@ class ReadingGuideService {
 
 "use strict";
 
+let scrollTypeServiceIsInstantiated;
+
+class ScrollTypeService {
+    btnState="";
+    scrollSteps=10;
+    scrollTimer=50;
+    constructor() {
+        if (scrollTypeServiceIsInstantiated) {
+            throw new Error("ScrollTypeService is already instantiated.");
+        }
+        scrollTypeServiceIsInstantiated = true;
+    }
+    setScrollType=value => {
+        this.btnState = value;
+        this.setBtnScroll();
+    };
+    setBtnScroll=() => {
+        let intervalUp;
+        let intervalDown;
+        const buttonsList = [ {
+            name: "scrollUp",
+            interval: intervalUp
+        }, {
+            name: "scrollDown",
+            interval: intervalDown
+        } ];
+        buttonsList.forEach((scrollButton => {
+            domServiceInstance.removeButtonsInDom(scrollButton.name);
+        }));
+        if (this.btnState !== DEFAULT_VALUE) {
+            buttonsList.forEach((button => {
+                domServiceInstance.addButtonsInDom(button.name);
+                let btnScroll = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button.name}`);
+                let scrollDir = button.name.includes("Up") ? -1 : button.name.includes("Down") ? 1 : 0;
+                let scrollBy = scrollDir * this.scrollSteps;
+                if (this.btnState === "scrollOnMouseover") {
+                    btnScroll?.addEventListener("mouseover", (event => {
+                        button.interval = setInterval((function() {
+                            window.scrollBy(0, scrollBy);
+                        }), this.scrollTimer);
+                    }));
+                    btnScroll?.addEventListener("mouseleave", (event => {
+                        clearInterval(button.interval);
+                    }));
+                } else {
+                    btnScroll?.addEventListener("click", (event => {
+                        window.scrollBy(0, scrollBy);
+                    }));
+                }
+            }));
+        }
+    };
+}
+
+"use strict";
+
 let scrollServiceIsInstantiated;
 
 class ScrollService {
-    btnScrollUp=null;
-    btnScrollDown=null;
-    btnState="";
-    bigScrollActivated=false;
-    scrollSteps=10;
-    scrollTimer=50;
-    scrollColor="lightgrey";
-    scrollColorHover="grey";
-    scrollWidth="2rem";
-    settingsValues=[];
+    scrollColor="";
+    scrollColorHover="";
+    scrollWidth="";
     constructor() {
         if (scrollServiceIsInstantiated) {
             throw new Error("ScrollService is already instantiated.");
         }
         scrollServiceIsInstantiated = true;
     }
-    setScrollClass=() => {
-        let styleScroll = `\n\t\t\t#${PREFIX}container-scroll-buttons {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 1rem;\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 1rem;\n\t\t\t\tright: 1rem;\n\t\t\t\tz-index: calc(infinity);\n\t\t\t}\n\n\t\t\t#${PREFIX}container-scroll-buttons button {\n\t\t\t\tbackground: #f16e00;\n\t\t\t\tcolor: #000;\n\t\t\t\tborder: none;\n\t\t\t\tfont-weight: bold;\n\t\t\t\tpadding: 1rem 2rem;\n\t\t\t}\n\t\t\t.d-none {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\tborder-radius: 1.75rem\n\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\tcursor: pointer;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t}\n\n\t\t\t/* Firefox */\n\t\t\t.${PREFIX}big-scroll,\n\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\tscrollbar-width: auto;\n\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t}\n\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t}\n\t\t`;
-        stylesServiceInstance.setStyle("scroll", styleScroll);
-    };
     setScroll=value => {
         stylesServiceInstance.removeStyle("scroll");
-        let bigScroll;
-        let btnState;
-        if (value === DEFAULT_VALUE) {
-            bigScroll = false;
-            btnState = "";
-        } else if (value.includes("bigScroll") || value.includes("veryBigScroll")) {
-            this.scrollWidth = value.split("_")[0] === "bigScroll" ? "2rem" : "3rem";
-            this.scrollColor = value.split("_")[1];
-            this.scrollColorHover = value.split("_")[2];
-            this.setScrollClass();
-            bigScroll = true;
-            btnState = "";
-        } else {
-            this.setScrollClass();
-            bigScroll = false;
-            btnState = value;
-        }
-        const scrollSettingValues = {
-            name: "scroll",
-            btnState: btnState,
-            bigScrollActivated: bigScroll
-        };
-        this.setScrollParams(scrollSettingValues);
-    };
-    setScrollParams=values => {
-        const existingIndex = this.settingsValues.findIndex((item => item.name === values.name));
-        if (existingIndex >= 0) {
-            this.settingsValues[existingIndex] = values;
-        } else {
-            this.settingsValues.push(values);
-        }
-        this.calculatePriority(values);
-        this.setBigScroll();
-        this.setBtnScroll();
-    };
-    calculatePriority=values => {
-        let tmpBigScroll = false;
-        let tmpBtnState = "";
-        for (let setting of this.settingsValues) {
-            tmpBigScroll = Boolean(tmpBigScroll || setting.bigScrollActivated);
-            tmpBtnState = setting.btnState ? setting.btnState : tmpBtnState;
-        }
-        this.bigScrollActivated = tmpBigScroll;
-        this.btnState = tmpBtnState;
-    };
-    setBigScroll=() => {
-        if (this.bigScrollActivated) {
+        document.body.classList.remove(`${PREFIX}big-scroll`);
+        if (value !== DEFAULT_VALUE) {
             document.body.classList.add(`${PREFIX}big-scroll`);
-        } else {
-            document.body.classList.remove(`${PREFIX}big-scroll`);
+            switch (value.split("_")[0]) {
+              case "bigScroll":
+                this.scrollWidth = SCROLL_SIZE_BIG;
+                break;
+
+              case "hugeScroll":
+                this.scrollWidth = SCROLL_SIZE_HUGE;
+                break;
+
+              default:
+                this.scrollWidth = "inherit";
+                break;
+            }
+            this.scrollColor = value.split("_")[1] ? value.split("_")[1] : "lightgrey";
+            this.scrollColorHover = value.split("_")[2] ? value.split("_")[2] : "grey";
+            this.setScrollClass();
         }
     };
-    setBtnScroll=() => {
-        document.querySelector(`#${PREFIX}container-scroll-buttons`)?.remove();
-        if (this.btnState) {
-            let intervalUp;
-            let intervalDown;
-            const btnArray = [ {
-                id: `${PREFIX}scroll-up`,
-                label: i18nServiceInstance.getMessage("scrollUp"),
-                element: this.btnScrollUp,
-                interval: intervalUp
-            }, {
-                id: `${PREFIX}scroll-down`,
-                label: i18nServiceInstance.getMessage("scrollDown"),
-                element: this.btnScrollDown,
-                interval: intervalDown
-            } ];
-            let fragment = document.createDocumentFragment();
-            const container = document.createElement("div");
-            container.setAttribute("id", `${PREFIX}container-scroll-buttons`);
-            btnArray.forEach((button => {
-                let btn = document.createElement("button");
-                btn.setAttribute("id", button.id);
-                btn.type = "button";
-                btn.innerHTML = button.label;
-                container.appendChild(btn);
-                fragment.appendChild(container);
-                document.body.appendChild(fragment);
-                button.element = document.querySelector(`#${button.id}`);
-                let scrollDir = button.id.includes("up") ? -1 : button.id.includes("down") ? 1 : 0;
-                let scrollBy = scrollDir * this.scrollSteps;
-                if (this.btnState === "scrollOnMouseover") {
-                    button.element?.addEventListener("mouseover", (event => {
-                        button.interval = setInterval((function() {
-                            window.scrollBy(0, scrollBy);
-                        }), this.scrollTimer);
-                    }));
-                    button.element?.addEventListener("mouseleave", (event => {
-                        clearInterval(button.interval);
-                    }));
-                } else {
-                    button.element?.addEventListener("click", (event => {
-                        window.scrollBy(0, scrollBy);
-                    }));
-                }
-            }));
-        }
+    setScrollClass=() => {
+        let styleScroll = `\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder-radius: 1rem;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
+        stylesServiceInstance.setStyle("scroll", styleScroll);
     };
 }
 
@@ -3294,6 +3290,10 @@ const scrollServiceInstance = new ScrollService;
 
 Object.seal(scrollServiceInstance);
 
+const scrollTypeServiceInstance = new ScrollTypeService;
+
+Object.seal(scrollTypeServiceInstance);
+
 const skipToContentServiceInstance = new SkipToContentService;
 
 Object.seal(skipToContentServiceInstance);
@@ -3418,18 +3418,18 @@ class AbstractSetting extends HTMLElement {
     connectedCallback() {
         this.settingBtn = this.querySelector("app-btn-setting");
         this.modalBtn = this.querySelector("app-btn-modal");
-        this.settingBtn.setAttribute("data-name", this.name);
-        this.modalBtn.setAttribute("data-name", this.name);
+        this.settingBtn?.setAttribute("data-name", this.name);
+        this.modalBtn?.setAttribute("data-name", this.name);
         if (this.canEdit) {
-            this.modalBtn.classList.remove("d-none");
-            this.settingBtn.classList.add("sc-btn-setting--with-btn-modal");
+            this.modalBtn?.classList.remove("d-none");
+            this.settingBtn?.classList.add("sc-btn-setting--with-btn-modal");
         }
         this.setSettingBtn(this.activesValues);
-        this.settingBtn.addEventListener("changeSettingEvent", this.handler);
+        this.settingBtn?.addEventListener("changeSettingEvent", this.handler);
     }
     disconnectedCallback() {
-        this.modalBtn.removeEventListener("clickModalEvent", this.handler);
-        this.settingBtn.removeEventListener("changeSettingEvent", this.handler);
+        this.modalBtn?.removeEventListener("clickModalEvent", this.handler);
+        this.settingBtn?.removeEventListener("changeSettingEvent", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
@@ -3441,9 +3441,9 @@ class AbstractSetting extends HTMLElement {
         }
     }
     setSettingBtn=activesValues => {
-        this.settingBtn.setAttribute("data-values", activesValues?.values);
-        this.settingBtn.setAttribute("data-active-value", activesValues?.valueSelected.toString());
-        this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values.split(",")[activesValues?.valueSelected]));
+        this.settingBtn?.setAttribute("data-values", activesValues?.values);
+        this.settingBtn?.setAttribute("data-active-value", activesValues?.valueSelected.toString());
+        this.modalBtn?.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values.split(",")[activesValues?.valueSelected]));
     };
     setCallback=callback => {
         this.callback = callback;
@@ -3461,7 +3461,7 @@ class AbstractSetting extends HTMLElement {
         modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
             if (!success) {
                 this.callback(newValue);
-                this.modalBtn.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
+                this.modalBtn?.setAttribute("data-value", i18nServiceInstance.getMessage(newValue));
             }
         }));
     };
@@ -3679,7 +3679,7 @@ customElements.define("app-navigation-auto", NavigationAutoComponent);
 
 const tmplNavigationButtons = document.createElement("template");
 
-tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class NavigationButtonsComponent extends AbstractSetting {
     constructor() {
@@ -3725,6 +3725,22 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 "use strict";
 
+const tmplScrollType = document.createElement("template");
+
+tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class ScrollTypeComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.setCallback(scrollTypeServiceInstance.setScrollType.bind(this));
+        this.appendChild(tmplScrollType.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-scroll-type", ScrollTypeComponent);
+
+"use strict";
+
 const tmplScroll = document.createElement("template");
 
 tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -3743,7 +3759,7 @@ customElements.define("app-scroll", ScrollComponent);
 
 const tmplSkipToContent = document.createElement("template");
 
-tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class SkipToContentComponent extends AbstractSetting {
     constructor() {
@@ -3759,7 +3775,7 @@ customElements.define("app-skip-to-content", SkipToContentComponent);
 
 const tmplStopAnimations = document.createElement("template");
 
-tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
     constructor() {
@@ -3981,6 +3997,10 @@ class BtnSettingComponent extends HTMLElement {
         } else {
             let i = this.index + 1;
             this.index = i >= this.settingsList.length ? 0 : i;
+            if (!this.settingsList[this.index]) {
+                let i = this.index + 1;
+                this.index = i >= this.settingsList.length ? 0 : i;
+            }
         }
         if (this.index === 0) {
             this.settingBtn?.classList.add("sc-btn-setting--default");
@@ -3997,12 +4017,14 @@ class BtnSettingComponent extends HTMLElement {
     calculateList=() => {
         this.slot = "";
         this.settingsList.forEach(((value, index) => {
-            let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
-            if (index === this.index) {
-                point = '<li class="border border-4 border-black rounded-circle"></li>';
-                this.value = value;
+            if (value) {
+                let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
+                if (index === this.index) {
+                    point = '<li class="border border-4 border-black rounded-circle"></li>';
+                    this.value = value;
+                }
+                this.slot = `${this.slot}${point}`;
             }
-            this.slot = `${this.slot}${point}`;
         }));
         this.btnContentSlots.innerHTML = this.slot;
     };
@@ -4151,10 +4173,10 @@ customElements.define("app-icon", IconComponent);
 
 const selectEditValueLayout = document.createElement("template");
 
-selectEditValueLayout.innerHTML = `\n\t<div class="d-flex align-items-center justify-content-between gap-2">\n\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="prevValue"></span>\n\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t</button>\n\t\t<output></output>\n\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t<span class="visually-hidden" data-i18n="nextValue"></span>\n\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t</button>\n\t</div>\n`;
+selectEditValueLayout.innerHTML = `\n\t<div class="d-flex flex-column" role="group">\n\t\t<div class="d-flex align-items-center justify-content-between gap-2">\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="prevValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<output></output>\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="nextValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n`;
 
 class SelectEditValueComponent extends HTMLElement {
-    static observedAttributes=[ "data-name", "data-index", "data-setting-values" ];
+    static observedAttributes=[ "data-name", "data-index", "data-setting-values", "data-label" ];
     selectedValue=null;
     btnPrevValue=null;
     btnNextValue=null;
@@ -4183,6 +4205,14 @@ class SelectEditValueComponent extends HTMLElement {
         }
         if ("data-setting-values" === name) {
             this.values = newValue.split(",");
+        }
+        if ("data-label" === name) {
+            let groupElement = this.querySelector('div[role="group"]');
+            let selectLabel = document.createElement("label");
+            selectLabel.innerText = i18nServiceInstance.getMessage(`label${this.name}`);
+            selectLabel.setAttribute("id", `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
+            groupElement.insertBefore(selectLabel, groupElement.firstChild);
+            groupElement.setAttribute("aria-labelledby", `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
         }
     }
     moveEditValue=index => {
@@ -4276,7 +4306,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-colour-theme class="sc-edit-setting__setting"></app-edit-colour-theme>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-colour-theme class="sc-edit-setting__setting"></app-edit-colour-theme>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -4322,16 +4352,162 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 "use strict";
 
+const editCapitalLettersLayout = document.createElement("template");
+
+editCapitalLettersLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="CapitalLetters"></app-select-edit-value>\n\t</form>\n`;
+
+class EditCapitalLettersComponent extends HTMLElement {
+    selectCapitalLettersElement=null;
+    settingValues=null;
+    capitalLettersValues=[ DEFAULT_VALUE, "uppercase", "capitalize" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editCapitalLettersLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectCapitalLettersElement = this.querySelector("app-select-edit-value");
+        this.selectCapitalLettersElement.addEventListener("editSettingCapitalLetters", this.handler);
+        this.selectCapitalLettersElement.setAttribute("data-setting-values", this.capitalLettersValues.join(","));
+        modeOfUseServiceInstance.getSetting("capitalLetters").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.capitalLettersValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectCapitalLettersElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setCapitalLetters=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("capitalLetters", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("capitalLetters", 3, value);
+        }
+        capitalLettersServiceInstance.setCapitalLetters(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingCapitalLetters":
+            this.setCapitalLetters(event.detail.newValue);
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-capital-letters", EditCapitalLettersComponent);
+
+"use strict";
+
+const editClearlyLinksLayout = document.createElement("template");
+
+editClearlyLinksLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ClearlyLinks"></app-select-edit-value>\n\t</form>\n`;
+
+class EditClearlyLinksComponent extends HTMLElement {
+    selectClearlyLinksElement=null;
+    settingValues=null;
+    clearlyLinksValues=[ DEFAULT_VALUE, "bold_underline", "bold_boxed" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editClearlyLinksLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectClearlyLinksElement = this.querySelector("app-select-edit-value");
+        this.selectClearlyLinksElement.addEventListener("editSettingClearlyLinks", this.handler);
+        this.selectClearlyLinksElement.setAttribute("data-setting-values", this.clearlyLinksValues.join(","));
+        modeOfUseServiceInstance.getSetting("clearlyLinks").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.clearlyLinksValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectClearlyLinksElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setClearlyLinks=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("clearlyLinks", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("clearlyLinks", 3, value);
+        }
+        clearlyLinksServiceInstance.setClearlyLinks(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingClearlyLinks":
+            this.setClearlyLinks(event.detail.newValue);
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-clearly-links", EditClearlyLinksComponent);
+
+"use strict";
+
 const editClickFaciliteLayout = document.createElement("template");
 
-editClickFaciliteLayout.innerHTML = `\n\t<p>Edit click facilite works !</p>\n`;
+editClickFaciliteLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-click-facilite" data-name="ClickFacilite"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-delay" class="d-none" data-name="ClickDelay"></app-select-edit-value>\n\t</form>\n`;
 
 class EditClickFaciliteComponent extends HTMLElement {
+    selectClickFaciliteElement=null;
+    selectClickDelayElement=null;
+    settingValues=null;
+    clickFaciliteValue="";
+    clickDelayValue="";
+    clickFaciliteValues=[ DEFAULT_VALUE, "bigZone", "longClick", "autoClick" ];
+    clickDelayValues=[ "clickDelay_1", "clickDelay_2", "clickDelay_3", "clickDelay_6" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editClickFaciliteLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectClickFaciliteElement = this.querySelector(`#${PREFIX}select-click-facilite`);
+        this.selectClickDelayElement = this.querySelector(`#${PREFIX}select-delay`);
+        this.selectClickFaciliteElement.addEventListener("editSettingClickFacilite", this.handler);
+        this.selectClickDelayElement.addEventListener("editSettingClickDelay", this.handler);
+        this.selectClickFaciliteElement.setAttribute("data-setting-values", this.clickFaciliteValues.join(","));
+        this.selectClickDelayElement.setAttribute("data-setting-values", this.clickDelayValues.join(","));
+        modeOfUseServiceInstance.getSetting("clickFacilite").then((result => {
+            this.settingValues = result.values.split(",");
+            this.clickFaciliteValue = this.settingValues[result.valueSelected].split("_")[0];
+            this.clickDelayValue = this.settingValues[result.valueSelected].split("_")[1];
+            const currentIndexClickFacilite = this.clickFaciliteValues.findIndex((i => i === this.clickFaciliteValue));
+            const currentIndexClickDelay = this.clickDelayValue ? this.clickDelayValues.findIndex((i => i === `clickDelay_${this.clickDelayValue}`)) : 0;
+            this.selectClickFaciliteElement.setAttribute("data-index", currentIndexClickFacilite.toString());
+            this.selectClickDelayElement.setAttribute("data-index", currentIndexClickDelay.toString());
+        }));
+    }
+    setClickFacilite=() => {
+        let value = "";
+        if (this.clickFaciliteValue === DEFAULT_VALUE || this.clickFaciliteValue === CLICK_FACILITE_BIG_ZONE) {
+            value = this.clickFaciliteValue;
+        } else {
+            value = `${this.clickFaciliteValue}_${this.clickDelayValue.split("_")[1]}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("clickFacilite", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("clickFacilite", 3, value);
+        }
+        clickFaciliteServiceInstance.setClickFacilite(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingClickFacilite":
+            this.clickFaciliteValue = event.detail.newValue;
+            this.selectClickDelayElement.classList.toggle("d-none", this.clickFaciliteValue === DEFAULT_VALUE || this.clickFaciliteValue === CLICK_FACILITE_BIG_ZONE);
+            this.setClickFacilite();
+            break;
+
+          case "editSettingClickDelay":
+            this.clickDelayValue = event.detail.newValue;
+            this.setClickFacilite();
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-click-facilite", EditClickFaciliteComponent);
@@ -4449,14 +4625,93 @@ customElements.define("app-edit-colour-theme", EditColourThemeComponent);
 
 const editCursorAspectLayout = document.createElement("template");
 
-editCursorAspectLayout.innerHTML = `\n\t<p>Edit cursor aspect works !</p>\n`;
+editCursorAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-cursor-size" data-name="CursorSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-cursor-color" data-name="CursorColor" data-label="true"></app-select-edit-value>\n\n\t\t<div class="d-flex flex-wrap gap-2 bg-light p-3" id="${PREFIX}example-cursor"></div>\n\t</form>\n`;
 
 class EditCursorAspectComponent extends HTMLElement {
+    selectCursorSizeElement=null;
+    selectCursorColorElement=null;
+    settingValues=null;
+    cursorSizeValue="";
+    cursorColorValue="";
+    cursorSizeValues=[ DEFAULT_VALUE, "big", "huge" ];
+    cursorColorValues=[ DEFAULT_VALUE, "white", "blue", "red", "yellow", "green", "black" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editCursorAspectLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectCursorSizeElement = this.querySelector(`#${PREFIX}select-cursor-size`);
+        this.selectCursorColorElement = this.querySelector(`#${PREFIX}select-cursor-color`);
+        this.selectCursorSizeElement.addEventListener("editSettingCursorSize", this.handler);
+        this.selectCursorColorElement.addEventListener("editSettingCursorColor", this.handler);
+        this.selectCursorSizeElement.setAttribute("data-setting-values", this.cursorSizeValues.join(","));
+        this.selectCursorColorElement.setAttribute("data-setting-values", this.cursorColorValues.join(","));
+        modeOfUseServiceInstance.getSetting("cursorAspect").then((result => {
+            this.settingValues = result.values.split(",");
+            this.cursorSizeValue = this.settingValues[result.valueSelected].split("_")[0];
+            this.cursorColorValue = this.settingValues[result.valueSelected].split("_")[1];
+            const currentIndexCursorSize = this.cursorSizeValues.findIndex((i => i === this.cursorSizeValue));
+            const currentIndexCursorColor = this.cursorColorValues.findIndex((i => i === this.cursorColorValue));
+            this.selectCursorSizeElement.setAttribute("data-index", currentIndexCursorSize.toString());
+            this.selectCursorColorElement.setAttribute("data-index", currentIndexCursorColor.toString());
+        }));
+    }
+    setCursorAspect=() => {
+        let value = "";
+        if (this.cursorSizeValue === DEFAULT_VALUE) {
+            value = DEFAULT_VALUE;
+            this.setExampleCursor(true);
+        } else {
+            value = `${this.cursorSizeValue}_${this.cursorColorValue}`;
+            this.setExampleCursor();
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("cursorAspect", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("cursorAspect", 3, value);
+        }
+        cursorAspectServiceInstance.setCursor(value);
+    };
+    setExampleCursor=(deleteExample = false) => {
+        let containerExample = this.querySelector(`#${PREFIX}example-cursor`);
+        containerExample.innerHTML = "";
+        if (deleteExample) {
+            containerExample.innerText = i18nServiceInstance.getMessage("labelCursorEmpty");
+        } else {
+            let size = this.cursorSizeValue.split("_")[0] === "big" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
+            const cursorArray = [ {
+                name: "default",
+                strokeWidth: 6
+            }, {
+                name: "pointer",
+                strokeWidth: 6
+            }, {
+                name: "text",
+                strokeWidth: 4
+            } ];
+            cursorArray.forEach((cursor => {
+                const cursorSvg = cursorAspectServiceInstance.drawCursor(cursor.name, Number(size), this.cursorColorValue, cursor.strokeWidth);
+                let cursorElt = (new DOMParser).parseFromString(cursorSvg, "text/html");
+                containerExample.appendChild(cursorElt.documentElement.querySelector("svg"));
+            }));
+        }
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingCursorSize":
+            this.cursorSizeValue = event.detail.newValue;
+            this.setCursorAspect();
+            break;
+
+          case "editSettingCursorColor":
+            this.cursorColorValue = event.detail.newValue;
+            this.setCursorAspect();
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-cursor-aspect", EditCursorAspectComponent);
@@ -4511,14 +4766,73 @@ customElements.define("app-edit-delete-background-images", EditDeleteBackgroundI
 
 const editFocusAspectLayout = document.createElement("template");
 
-editFocusAspectLayout.innerHTML = `\n\t<p>Edit focus aspect works !</p>\n`;
+editFocusAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-focus-size" data-name="FocusSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-focus-color" data-name="FocusColor" data-label="true"></app-select-edit-value>\n\n\t\t<p>Exemple de texte avec le <span id="${PREFIX}example-focus">focus</span>.</p>\n\t</form>\n`;
 
 class EditFocusAspectComponent extends HTMLElement {
+    selectFocusSizeElement=null;
+    selectFocusColorElement=null;
+    settingValues=null;
+    focusSizeValue="";
+    focusColorValue="";
+    focusSizeValues=[ DEFAULT_VALUE, "big", "huge" ];
+    focusColorValues=[ DEFAULT_VALUE, "white", "blue", "red", "yellow", "green", "black" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editFocusAspectLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectFocusSizeElement = this.querySelector(`#${PREFIX}select-focus-size`);
+        this.selectFocusColorElement = this.querySelector(`#${PREFIX}select-focus-color`);
+        this.selectFocusSizeElement.addEventListener("editSettingFocusSize", this.handler);
+        this.selectFocusColorElement.addEventListener("editSettingFocusColor", this.handler);
+        this.selectFocusSizeElement.setAttribute("data-setting-values", this.focusSizeValues.join(","));
+        this.selectFocusColorElement.setAttribute("data-setting-values", this.focusColorValues.join(","));
+        modeOfUseServiceInstance.getSetting("focusAspect").then((result => {
+            this.settingValues = result.values.split(",");
+            this.focusSizeValue = this.settingValues[result.valueSelected].split("_")[0];
+            this.focusColorValue = this.settingValues[result.valueSelected].split("_")[1];
+            const currentIndexFocusSize = this.focusSizeValues.findIndex((i => i === this.focusSizeValue));
+            const currentIndexFocusColor = this.focusColorValues.findIndex((i => i === this.focusColorValue));
+            this.selectFocusSizeElement.setAttribute("data-index", currentIndexFocusSize.toString());
+            this.selectFocusColorElement.setAttribute("data-index", currentIndexFocusColor.toString());
+        }));
+    }
+    setFocusAspect=() => {
+        let value = "";
+        if (this.focusSizeValue === DEFAULT_VALUE && this.focusColorValue === DEFAULT_VALUE) {
+            value = DEFAULT_VALUE;
+        } else {
+            value = `${this.focusSizeValue}_${this.focusColorValue}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("focusAspect", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("focusAspect", 3, value);
+        }
+        this.setExampleFocus();
+        focusAspectServiceInstance.setFocus(value);
+    };
+    setExampleFocus=() => {
+        let spanExample = this.querySelector(`#${PREFIX}example-focus`);
+        let size = this.focusSizeValue.split("_")[0] === "big" ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE;
+        spanExample.style.outline = `${this.focusColorValue} solid ${size}`;
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingFocusSize":
+            this.focusSizeValue = event.detail.newValue;
+            this.setFocusAspect();
+            break;
+
+          case "editSettingFocusColor":
+            this.focusColorValue = event.detail.newValue;
+            this.setFocusAspect();
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-focus-aspect", EditFocusAspectComponent);
@@ -4573,14 +4887,79 @@ customElements.define("app-edit-font-family", EditFontFamilyComponent);
 
 const editLinkStyleLayout = document.createElement("template");
 
-editLinkStyleLayout.innerHTML = `\n\t<p>Edit link style works !</p>\n`;
+editLinkStyleLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-color-link" data-name="ColorLink" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-active-link" data-name="ColorActiveLink" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-visited-link" data-name="ColorVisitedLink" data-label="true"></app-select-edit-value>\n\t</form>\n`;
 
 class EditLinkStyleComponent extends HTMLElement {
+    selectColorLinkElement=null;
+    selectColorActiveLinkElement=null;
+    selectColorVisitedLinkElement=null;
+    settingValues=null;
+    colorLinkValue="";
+    colorActiveLinkValue="";
+    colorVisitedLinkValue="";
+    colorLinkValues=[ DEFAULT_VALUE, "lightblue", "lightgreen", "yellow", "orange", "pink", "black", "darkblue", "darkgreen", "red", "purple", "brown" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editLinkStyleLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectColorLinkElement = this.querySelector(`#${PREFIX}select-color-link`);
+        this.selectColorActiveLinkElement = this.querySelector(`#${PREFIX}select-color-active-link`);
+        this.selectColorVisitedLinkElement = this.querySelector(`#${PREFIX}select-color-visited-link`);
+        this.selectColorLinkElement.addEventListener("editSettingColorLink", this.handler);
+        this.selectColorActiveLinkElement.addEventListener("editSettingColorActiveLink", this.handler);
+        this.selectColorVisitedLinkElement.addEventListener("editSettingColorVisitedLink", this.handler);
+        this.selectColorLinkElement.setAttribute("data-setting-values", this.colorLinkValues.join(","));
+        this.selectColorActiveLinkElement.setAttribute("data-setting-values", this.colorLinkValues.join(","));
+        this.selectColorVisitedLinkElement.setAttribute("data-setting-values", this.colorLinkValues.join(","));
+        modeOfUseServiceInstance.getSetting("linkStyle").then((result => {
+            this.settingValues = result.values.split(",");
+            this.colorLinkValue = this.settingValues[result.valueSelected].split("_")[0];
+            this.colorActiveLinkValue = this.settingValues[result.valueSelected].split("_")[1];
+            this.colorVisitedLinkValue = this.settingValues[result.valueSelected].split("_")[2];
+            const currentIndexColorLink = this.colorLinkValues.findIndex((i => i === this.colorLinkValue));
+            const currentIndexColorActiveLink = this.colorLinkValues.findIndex((i => i === this.colorActiveLinkValue));
+            const currentIndexColorVisitedLink = this.colorLinkValues.findIndex((i => i === this.colorVisitedLinkValue));
+            this.selectColorLinkElement.setAttribute("data-index", currentIndexColorLink.toString());
+            this.selectColorActiveLinkElement.setAttribute("data-index", currentIndexColorActiveLink.toString());
+            this.selectColorVisitedLinkElement.setAttribute("data-index", currentIndexColorVisitedLink.toString());
+        }));
+    }
+    setLinkStyle=() => {
+        let value = "";
+        if (this.colorLinkValue === DEFAULT_VALUE && this.colorActiveLinkValue === DEFAULT_VALUE && this.colorVisitedLinkValue === DEFAULT_VALUE) {
+            value = DEFAULT_VALUE;
+        } else {
+            value = `${this.colorLinkValue}_${this.colorActiveLinkValue}_${this.colorVisitedLinkValue}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("linkStyle", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("linkStyle", 3, value);
+        }
+        linkStyleServiceInstance.setLinkStyle(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingColorLink":
+            this.colorLinkValue = event.detail.newValue;
+            this.setLinkStyle();
+            break;
+
+          case "editSettingColorActiveLink":
+            this.colorActiveLinkValue = event.detail.newValue;
+            this.setLinkStyle();
+            break;
+
+          case "editSettingColorVisitedLink":
+            this.colorVisitedLinkValue = event.detail.newValue;
+            this.setLinkStyle();
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-link-style", EditLinkStyleComponent);
@@ -4589,7 +4968,7 @@ customElements.define("app-edit-link-style", EditLinkStyleComponent);
 
 const editMagnifierLayout = document.createElement("template");
 
-editMagnifierLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-3">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="magnifierShape"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${DEFAULT_VALUE}MagnifierShape" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${DEFAULT_VALUE}MagnifierShape" data-i18n="magnifierDefault"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="squareMagnifierShape" value="square">\n\t\t\t\t<label class="form-check-label" for="squareMagnifierShape" data-i18n="magnifierSquare"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="circleMagnifierShape" value="circle">\n\t\t\t\t<label class="form-check-label" for="circleMagnifierShape" data-i18n="magnifierCircle"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value data-name="MagnifierZoom"></app-select-edit-value>\n\t</form>\n`;
+editMagnifierLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="magnifierShape"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}${DEFAULT_VALUE}-magnifier-shape" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-magnifier-shape" data-i18n="magnifierDefault"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}square-magnifier-shape" value="square">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}square-magnifier-shape" data-i18n="magnifierSquare"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}circle-magnifier-shape" value="circle">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}circle-magnifier-shape" data-i18n="magnifierCircle"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value data-name="MagnifierZoom"></app-select-edit-value>\n\t</form>\n`;
 
 class EditMagnifierComponent extends HTMLElement {
     selectMagnifierZoomElement=null;
@@ -4702,16 +5081,117 @@ customElements.define("app-edit-margin-align", EditMarginAlignComponent);
 
 "use strict";
 
+const editNavigationAutoLayout = document.createElement("template");
+
+editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="labelNavigationAuto"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="labelNavigationAutoInactive"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="labelNavigationAutoActive"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="NavigationAuto"></app-select-edit-value>\n\t</form>\n`;
+
+class EditNavigationAutoComponent extends HTMLElement {
+    selectNavigationDelayElement=null;
+    settingValues=null;
+    navigationDelayValues=[ "navigationDelay_1", "navigationDelay_2", "navigationDelay_3", "navigationDelay_6" ];
+    navigationAuto;
+    delay;
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editNavigationAutoLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectNavigationDelayElement = this.querySelector("app-select-edit-value");
+        this.selectNavigationDelayElement.addEventListener("editSettingNavigationAuto", this.handler);
+        this.selectNavigationDelayElement.setAttribute("data-setting-values", this.navigationDelayValues.join(","));
+        this.querySelector("form").addEventListener("change", this.handler);
+        modeOfUseServiceInstance.getSetting("navigationAuto").then((result => {
+            this.settingValues = result.values.split(",");
+            if (this.settingValues[result.valueSelected] === DEFAULT_VALUE) {
+                this.navigationAuto = DEFAULT_VALUE;
+                this.delay = `navigationDelay_${this.navigationDelayValues[0]}`;
+            } else {
+                this.navigationAuto = this.settingValues[result.valueSelected].split("_")[0];
+                this.delay = `navigationDelay_${this.settingValues[result.valueSelected].split("_")[1]}`;
+            }
+            this.querySelector(`input[name="navigationAuto"][id="${PREFIX}${this.navigationAuto}-navigation-auto"]`).checked = true;
+            const currentIndex = this.navigationDelayValues.findIndex((i => i === this.delay));
+            this.selectNavigationDelayElement.classList.toggle("d-none", this.navigationAuto === DEFAULT_VALUE);
+            this.selectNavigationDelayElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setNavigationAuto=() => {
+        let value = "";
+        if (this.navigationAuto === DEFAULT_VALUE) {
+            value = DEFAULT_VALUE;
+        } else {
+            value = `${this.navigationAuto}_${this.delay.split("_")[1]}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("navigationAuto", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("navigationAuto", 3, value);
+        }
+        navigationAutoServiceInstance.setNavigationAuto(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "change":
+            this.navigationAuto = this.querySelector(`input[name="navigationAuto"]:checked`).value;
+            this.selectNavigationDelayElement.classList.toggle("d-none", this.navigationAuto === DEFAULT_VALUE);
+            this.setNavigationAuto();
+            break;
+
+          case "editSettingNavigationAuto":
+            this.delay = event.detail.newValue;
+            this.setNavigationAuto();
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-navigation-auto", EditNavigationAutoComponent);
+
+"use strict";
+
 const editReadAloudLayout = document.createElement("template");
 
-editReadAloudLayout.innerHTML = `\n\t<p>Edit read aloud works !</p>\n`;
+editReadAloudLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ReadAloud"></app-select-edit-value>\n\t</form>\n`;
 
 class EditReadAloudComponent extends HTMLElement {
+    selectReadAloudElement=null;
+    settingValues=null;
+    readAloudValues=[ DEFAULT_VALUE, "word", "sentence", "paragraph" ];
+    handler;
     constructor() {
         super();
         this.appendChild(editReadAloudLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectReadAloudElement = this.querySelector("app-select-edit-value");
+        this.selectReadAloudElement.addEventListener("editSettingReadAloud", this.handler);
+        this.selectReadAloudElement.setAttribute("data-setting-values", this.readAloudValues.join(","));
+        modeOfUseServiceInstance.getSetting("readAloud").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.readAloudValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectReadAloudElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setReadAloud=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("readAloud", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("readAloud", 3, value);
+        }
+        readAloudServiceInstance.setReadAloud(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingReadAloud":
+            this.setReadAloud(event.detail.newValue);
+            break;
+        }
+    };
 }
 
 customElements.define("app-edit-read-aloud", EditReadAloudComponent);
@@ -4764,35 +5244,118 @@ customElements.define("app-edit-reading-guide", EditReadingGuideComponent);
 
 "use strict";
 
-const editScrollLayout = document.createElement("template");
+const editScrollTypeLayout = document.createElement("template");
 
-editScrollLayout.innerHTML = `\n\t<p>Edit scroll works !</p>\n`;
+editScrollTypeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ScrollType"></app-select-edit-value>\n\t</form>\n`;
 
-class EditScrollComponent extends HTMLElement {
+class EditScrollTypeComponent extends HTMLElement {
+    selectScrollTypeElement=null;
+    settingValues=null;
+    scrollTypeValues=[ DEFAULT_VALUE, "scrollOnClick", "scrollOnMouseover" ];
+    handler;
     constructor() {
         super();
-        this.appendChild(editScrollLayout.content.cloneNode(true));
+        this.appendChild(editScrollTypeLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectScrollTypeElement = this.querySelector("app-select-edit-value");
+        this.selectScrollTypeElement.addEventListener("editSettingScrollSize", this.handler);
+        this.selectScrollTypeElement.setAttribute("data-setting-values", this.scrollTypeValues.join(","));
+        modeOfUseServiceInstance.getSetting("scrollType").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.scrollTypeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectScrollTypeElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setScrollType=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("scrollType", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("scrollType", 3, value);
+        }
+        scrollTypeServiceInstance.setScrollType(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingScrollSize":
+            this.setScrollType(event.detail.newValue);
+            break;
+        }
+    };
 }
 
-customElements.define("app-edit-scroll", EditScrollComponent);
+customElements.define("app-edit-scroll-type", EditScrollTypeComponent);
 
 "use strict";
 
-const editStopAnimationsLayout = document.createElement("template");
+const editScrollLayout = document.createElement("template");
 
-editStopAnimationsLayout.innerHTML = `\n\t<p>Edit stop animations works !</p>\n`;
+editScrollLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="ScrollSize"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="ScrollColor"></app-select-edit-value>\n\t</form>\n`;
 
-class EditStopAnimationsComponent extends HTMLElement {
+class EditScrollComponent extends HTMLElement {
+    selectScrollSizeElement=null;
+    selectScrollColorElement=null;
+    settingValues=null;
+    scrollSizeValue="";
+    scrollColorValue="";
+    scrollSizeValues=[ DEFAULT_VALUE, "bigScroll", "hugeScroll" ];
+    scrollColorValues=[ DEFAULT_VALUE, "scrollColor_white_lightgrey", "scrollColor_blue_darkblue", "scrollColor_red_darkred", "scrollColor_yellow_gold", "scrollColor_green_darkgreen", "scrollColor_black_darkgrey" ];
+    handler;
     constructor() {
         super();
-        this.appendChild(editStopAnimationsLayout.content.cloneNode(true));
+        this.appendChild(editScrollLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
     }
-    connectedCallback() {}
+    connectedCallback() {
+        this.selectScrollSizeElement = this.querySelector(`#${PREFIX}select-scroll-size`);
+        this.selectScrollColorElement = this.querySelector(`#${PREFIX}select-scroll-color`);
+        this.selectScrollSizeElement.addEventListener("editSettingScrollSize", this.handler);
+        this.selectScrollColorElement.addEventListener("editSettingScrollColor", this.handler);
+        this.selectScrollSizeElement.setAttribute("data-setting-values", this.scrollSizeValues.join(","));
+        this.selectScrollColorElement.setAttribute("data-setting-values", this.scrollColorValues.join(","));
+        modeOfUseServiceInstance.getSetting("scroll").then((result => {
+            this.settingValues = result.values.split(",");
+            this.scrollSizeValue = this.settingValues[result.valueSelected].split("_")[0];
+            this.scrollColorValue = `scrollColor_${this.settingValues[result.valueSelected].split("_")[1]}_${this.settingValues[result.valueSelected].split("_")[2]}`;
+            const currentIndexScrollSize = this.scrollSizeValues.findIndex((i => i === this.scrollSizeValue));
+            const currentIndexScrollColor = this.scrollColorValues.findIndex((i => i === this.scrollColorValue));
+            this.selectScrollSizeElement.setAttribute("data-index", currentIndexScrollSize.toString());
+            this.selectScrollColorElement.setAttribute("data-index", currentIndexScrollColor.toString());
+        }));
+    }
+    setScroll=() => {
+        let value = "";
+        if (this.scrollColorValue === DEFAULT_VALUE) {
+            value = this.scrollSizeValue;
+        } else {
+            value = `${this.scrollSizeValue}_${this.scrollColorValue.split("_")[1]}_${this.scrollColorValue.split("_")[2]}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("scroll", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("scroll", 3, value);
+        }
+        scrollServiceInstance.setScroll(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingScrollSize":
+            this.scrollSizeValue = event.detail.newValue;
+            this.setScroll();
+            break;
+
+          case "editSettingScrollColor":
+            this.scrollColorValue = event.detail.newValue;
+            this.setScroll();
+            break;
+        }
+    };
 }
 
-customElements.define("app-edit-stop-animations", EditStopAnimationsComponent);
+customElements.define("app-edit-scroll", EditScrollComponent);
 
 "use strict";
 
@@ -5004,7 +5567,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5296,7 +5859,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {

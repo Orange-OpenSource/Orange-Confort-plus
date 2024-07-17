@@ -71,6 +71,13 @@ class BtnSettingComponent extends HTMLElement {
 		} else {
 			let i = this.index + 1;
 			this.index = i >= this.settingsList.length ? 0 : i;
+
+			// If value is null, increment to the next value
+			// It's for the case where setting has only 2 values but can add custom value
+			if (!this.settingsList[this.index]) {
+				let i = this.index + 1;
+				this.index = i >= this.settingsList.length ? 0 : i;
+			}
 		}
 
 		if (this.index === 0) {
@@ -90,12 +97,15 @@ class BtnSettingComponent extends HTMLElement {
 	calculateList = (): void => {
 		this.slot = '';
 		this.settingsList.forEach((value, index) => {
-			let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
-			if (index === this.index) {
-				point = '<li class="border border-4 border-black rounded-circle"></li>';
-				this.value = value;
+			/* Display the point only if value */
+			if (value) {
+				let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
+				if (index === this.index) {
+					point = '<li class="border border-4 border-black rounded-circle"></li>';
+					this.value = value;
+				}
+				this.slot = `${this.slot}${point}`;
 			}
-			this.slot = `${this.slot}${point}`;
 		});
 		this.btnContentSlots!.innerHTML = this.slot;
 	}

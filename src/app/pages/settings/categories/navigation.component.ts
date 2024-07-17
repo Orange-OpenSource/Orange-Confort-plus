@@ -12,6 +12,7 @@ tmplNavigation.innerHTML = `
 				<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>
 				<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>
 				<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>
+				<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>
 				<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>
 				<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>
 			</div>
