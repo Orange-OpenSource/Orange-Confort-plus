@@ -3,14 +3,14 @@ let fontFamilyServiceIsInstantiated: boolean;
 class FontFamilyService {
 	fontDictionnary: any[] = [
 		{
-			name: 'Accessible_DfA', size: '91.125%', folder: 'accessibleDfA', files: [
+			name: 'AccessibleDfA', size: '91.125%', folder: 'accessibleDfA', files: [
 				{ name: 'AccessibleDfA-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'AccessibleDfA-Italic.woff2', style: 'italic', weight: '400' },
 				{ name: 'AccessibleDfA-Regular.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'B612_Mono', size: '75%', folder: 'B612', files: [
+			name: 'B612Mono', size: '75%', folder: 'B612', files: [
 				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
@@ -18,12 +18,12 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'Comic Sans MS', size: '100%', folder: 'comic', files: [
+			name: 'ComicSansMS', size: '100%', folder: 'comic', files: [
 				{ name: 'comic-Sans-MS.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'Lexand Deca', size: '92%', folder: 'lexendDeca', files: [
+			name: 'LexandDeca', size: '92%', folder: 'lexendDeca', files: [
 				{ name: 'LexendDeca-Black.woff2', style: 'normal', weight: '900' },
 				{ name: 'LexendDeca-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'LexendDeca-ExtraBold.woff2', style: 'normal', weight: '800' },
@@ -44,7 +44,7 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'Sylexiad Sans', size: '125%', folder: 'sylexiadSans', files: [
+			name: 'SylexiadSans', size: '125%', folder: 'sylexiadSans', files: [
 				{ name: 'SylexiadSansMedium-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'SylexiadSansMedium-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'SylexiadSansMedium-Italic.woff2', style: 'italic', weight: '400' },

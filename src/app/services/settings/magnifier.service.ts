@@ -1,9 +1,6 @@
 let magnifierServiceIsInstantiated: boolean;
 
-type MagnifierShape = 'square' | 'circle';
-
 class MagnifierService {
-	shape: MagnifierShape;
 	zoom: number;
 	handler: any;
 	magnifierWidth = 300;
@@ -73,8 +70,7 @@ class MagnifierService {
 			this.unBindDOMObserver();
 		} else {
 			stylesServiceInstance.setStyle('magnifier', this.styleMagnifier);
-			this.shape = value.split('_')[0] as MagnifierShape;
-			this.zoom = Number(value.split('_')[1]);
+			this.zoom = Number(value.split('-')[1]);
 			this.initMagnifier();
 		}
 	}
@@ -92,7 +88,7 @@ class MagnifierService {
 		window.addEventListener('scroll', this.handler, true);
 		window.addEventListener('scrollend', this.handler, true);
 
-		this.setShapeAndZoom();
+		this.magnifierContent.style.transform = `scale(${this.zoom})`;
 		this.makeDraggable();
 		this.setPosition(this.magnifier, 250, 250);
 		this.syncContent();
@@ -112,18 +108,6 @@ class MagnifierService {
 		magnifier.appendChild(magnifierGlass);
 		fragment.appendChild(magnifier);
 		document.body.appendChild(fragment);
-	}
-
-	setShapeAndZoom = (): void => {
-		switch (this.shape) {
-			case 'square':
-				this.magnifier.style.borderRadius = null;
-				break;
-			case 'circle':
-				this.magnifier.style.borderRadius = '50%';
-				break;
-		}
-		this.magnifierContent.style.transform = `scale(${this.zoom})`;
 	}
 
 	setPosition = (element: HTMLElement, left: number, top: number): void => {

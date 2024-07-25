@@ -13,7 +13,7 @@ class LinkStyleService {
 	setLinkStyle = (value: string): void => {
 		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('link');
-		} else {
+		} else if (value) {
 			const [linkColor, linkPointedColor, linkVisitedColor] = value.split('_');
 
 			const styleColorLink = linkColor !== DEFAULT_VALUE ? `a:link { color: ${linkColor} !important; }` : '';

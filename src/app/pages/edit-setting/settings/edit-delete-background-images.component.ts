@@ -1,14 +1,14 @@
 const editDeleteBackgroundImagesLayout: HTMLTemplateElement = document.createElement('template');
 editDeleteBackgroundImagesLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="DeleteBackgroundImages"></app-select-edit-value>
+		<app-select-edit-value data-name="deleteBackgroundImages"></app-select-edit-value>
 	</form>
 `;
 
 class EditDeleteBackgroundImagesComponent extends HTMLElement {
 	selectDeleteBgImgElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	deleteBackgroundImagesValues = [DEFAULT_VALUE, 'background_transparent', 'background_foreground_transparent'];
+	deleteBackgroundImagesValues = [DEFAULT_VALUE, 'backgroundTransparent', 'backgroundForegroundTransparent'];
 
 	handler: any;
 

@@ -1,7 +1,7 @@
 const editCapitalLettersLayout: HTMLTemplateElement = document.createElement('template');
 editCapitalLettersLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="CapitalLetters"></app-select-edit-value>
+		<app-select-edit-value data-name="capitalLetters"></app-select-edit-value>
 	</form>
 `;
 

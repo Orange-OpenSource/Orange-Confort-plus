@@ -45,33 +45,26 @@ class DeleteBackgroundImagesService {
 
 	setStyleDeleteBackground = (value: string): void => {
 		let styleToDelete: string = '';
-		let values = value.split('_');
 
-		values.forEach((value: string) => {
-			switch (value) {
-				case 'background':
-					styleToDelete += this.styleDeleteBackgroundImages;
-					break;
-				case 'foreground':
-					styleToDelete += this.styleDeleteForegroundImages;
+		if (value.includes('background')) {
+			styleToDelete += this.styleDeleteBackgroundImages;
+		} else if (value.includes('foreground')) {
+			styleToDelete += this.styleDeleteForegroundImages;
 
-					let listeImg = document.querySelectorAll('img, svg, canvas, area');
-					listeImg.forEach((element: any) => {
-						element.classList.add(this.classDeleteForegroundImg);
-						let imageAlt = this.getAccessibleLabel(element);
-						if (imageAlt !== '') {
-							let spanImage: HTMLSpanElement = document.createElement('span');
-							spanImage.classList.add(this.classSpanImage);
-							spanImage.textContent = `${i18nServiceInstance.getMessage('textContentImageHidden')} ${imageAlt}`;
-							element.parentNode.insertBefore(spanImage, element);
-						}
-					});
-					break;
-				case 'transparent':
-					styleToDelete += this.styleDeleteTransparencyEffects;
-					break;
-			}
-		});
+			let listeImg = document.querySelectorAll('img, svg, canvas, area');
+			listeImg.forEach((element: any) => {
+				element.classList.add(this.classDeleteForegroundImg);
+				let imageAlt = this.getAccessibleLabel(element);
+				if (imageAlt !== '') {
+					let spanImage: HTMLSpanElement = document.createElement('span');
+					spanImage.classList.add(this.classSpanImage);
+					spanImage.textContent = `${i18nServiceInstance.getMessage('textContentImageHidden')} ${imageAlt}`;
+					element.parentNode.insertBefore(spanImage, element);
+				}
+			});
+		} else if (value.includes('transparent')) {
+			styleToDelete += this.styleDeleteTransparencyEffects;
+		}
 
 		stylesServiceInstance.setStyle('delete-background-images', styleToDelete);
 	}

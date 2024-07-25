@@ -54,8 +54,8 @@ class ColorContrastService {
 					color = '#000';
 					backgroundColor = '#fff';
 				} else {
-					color = value.split('_')[0];
-					backgroundColor = value.split('_')[1];
+					color = value?.split('_')[0];
+					backgroundColor = value?.split('_')[1];
 
 					const colorParams = this.colorContrastDictionnary.find((o: ColourThemeValues) => o.name === value);
 					colourThemeServiceInstance.setServices(colorParams);

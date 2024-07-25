@@ -22,8 +22,8 @@ class ScrollTypeService {
 		let intervalUp: any;
 		let intervalDown: any;
 		const buttonsList = [
-			{ name: 'scrollUp', interval: intervalUp },
-			{ name: 'scrollDown', interval: intervalDown }
+			{ name: 'scroll-up', interval: intervalUp },
+			{ name: 'scroll-down', interval: intervalDown }
 		];
 
 		buttonsList.forEach((scrollButton: any) => {
@@ -35,7 +35,7 @@ class ScrollTypeService {
 				domServiceInstance.addButtonsInDom(button.name);
 
 				let btnScroll = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button.name}`);
-				let scrollDir = button.name.includes('Up') ? -1 : button.name.includes('Down') ? 1 : 0;
+				let scrollDir = button.name.includes('up') ? -1 : button.name.includes('down') ? 1 : 0;
 				let scrollBy = scrollDir * this.scrollSteps;
 
 				if (this.btnState === 'scrollOnMouseover') {
