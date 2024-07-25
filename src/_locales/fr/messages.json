@@ -2,254 +2,14 @@
 	"mainButton": {
 		"message": "Démarrer Confort+"
 	},
+	"close": {
+		"message": "Fermer Confort+"
+	},
 	"mainTitle": {
 		"message": "Confort"
 	},
 	"profile": {
 		"message": "Mode d’usage"
-	},
-	"wip": {
-		"message": "En cours…"
-	},
-	"layout": {
-		"message": "Affichage"
-	},
-	"medias": {
-		"message": "Images"
-	},
-	"audio": {
-		"message": "Audio"
-	},
-	"text": {
-		"message": "Texte"
-	},
-	"navigation": {
-		"message": "Navigation"
-	},
-	"textSize": {
-		"message": "Taille du texte"
-	},
-	"textSizeInstruction": {
-		"message": "Pour agrandir le texte"
-	},
-	"fontFamily": {
-		"message": "Police"
-	},
-	"fontFamilyInstruction": {
-		"message": "Pour modifier le rendu du texte"
-	},
-	"readingGuide": {
-		"message": "Règle de lecture"
-	},
-	"readingGuideInstruction": {
-		"message": "Pour être guidé lors de la lecture"
-	},
-	"ruleGuide": {
-		"message": "Règle"
-	},
-	"maskGuide": {
-		"message": "Masque"
-	},
-	"magnifier": {
-		"message": "Loupe"
-	},
-	"magnifierInstruction": {
-		"message": "Pour zoomer ponctuellement"
-	},
-	"magnifierShape": {
-		"message": "Forme de la loupe"
-	},
-	"magnifierDefault": {
-		"message": "Sans loupe"
-	},
-	"magnifierSquare": {
-		"message": "Rectangle"
-	},
-	"magnifierCircle": {
-		"message": "Ronde"
-	},
-	"magnifierZoom_2": {
-		"message": "200%"
-	},
-	"magnifierZoom_5": {
-		"message": "500%"
-	},
-	"magnifierZoom_10": {
-		"message": "1000%"
-	},
-	"magnifierZoom_15": {
-		"message": "1500%"
-	},
-	"readAloud": {
-		"message": "Lire à haute voix"
-	},
-	"readAloudInstruction": {
-		"message": "Pour se faire lire le texte sur demande"
-	},
-	"readAloudTooltip": {
-		"message": "Cliquer pour vocaliser, appuyer sur échap ou cliquer droit pour arrêter la vocalisation."
-	},
-	"marginAlign": {
-		"message": "Marge"
-	},
-	"marginAlignInstruction": {
-		"message": "Pour ancrer la lecture à gauche"
-	},
-	"textSpacing": {
-		"message": "Aére le texte"
-	},
-	"textSpacingInstruction": {
-		"message": "Pour bien séparer les caractères et les lignes"
-	},
-	"clickFacilite": {
-		"message": "Clics facilités"
-	},
-	"clickFaciliteInstruction": {
-		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"
-	},
-	"cursorAspect": {
-		"message": "Aspect de la souris"
-	},
-	"cursorAspectInstruction": {
-		"message": "Pour modifier le rendu des curseurs"
-	},
-	"focusAspect": {
-		"message": "Aspect du focus"
-	},
-	"focusAspectInstruction": {
-		"message": "Pour modifier le rendu du focus sur la page"
-	},
-	"colorContrast": {
-		"message": "Couleurs - contrastes"
-	},
-	"colorContrastInstruction": {
-		"message": "Pour changer la couleur du fond et du texte"
-	},
-	"reinforcedContrasts": {
-		"message": "Contrastes renforcés"
-	},
-	"daltonism": {
-		"message": "Daltonisme"
-	},
-	"linkStyle": {
-		"message": "Couleurs des hyperliens"
-	},
-	"linkStyleInstruction": {
-		"message": "Pour modifier la couleur des liens de navigation"
-	},
-	"stopAnimations": {
-		"message": "Stopper les animations"
-	},
-	"stopAnimationsInstruction": {
-		"message": "Pour empêcher les animations au sein de la page"
-	},
-	"capitalLetters": {
-		"message": "Majuscules"
-	},
-	"capitalLettersInstruction": {
-		"message": "Pour utiliser des majuscules"
-	},
-	"clearlyLinks": {
-		"message": "Liens bien visibles"
-	},
-	"clearlyLinksInstruction": {
-		"message": "Pour mieux repérer les liens de navigation"
-	},
-	"colourTheme": {
-		"message": "Thème-Couleurs"
-	},
-	"colourThemeInstruction": {
-		"message": "Pour modifier le rendu visuel de la page et de la souris"
-	},
-	"deleteBackgroundImages": {
-		"message": "Supprimer les images de fond"
-	},
-	"deleteBackgroundImagesInstruction": {
-		"message": "Pour empêcher les images de s’afficher"
-	},
-	"navigationAuto": {
-		"message": "Navigation par défilement"
-	},
-	"navigationAutoInstruction": {
-		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
-	},
-	"navigationButtons": {
-		"message": "Boutons de navigation"
-	},
-	"navigationButtonsInstruction": {
-		"message": "Pour déplacer le focus avec la souris"
-	},
-	"skipToContent": {
-		"message": "Aller au contenu"
-	},
-	"skipToContentInstruction": {
-		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
-	},
-	"scroll": {
-		"message": "Aspect ascenseur"
-	},
-	"scrollInstruction": {
-		"message": "Pour modifier le rendu de l’ascenseur"
-	},
-	"scrollUp": {
-		"message": "Monter"
-	},
-	"scrollDown": {
-		"message": "Descendre"
-	},
-	"bigScroll": {
-		"message": "Gros ascenseur"
-	},
-	"hugeScroll": {
-		"message": "Très gros ascenseur"
-	},
-	"scrollColor_white_lightgrey": {
-		"message": "Ascenseur blanc"
-	},
-	"scrollColor_blue_darkblue": {
-		"message": "Ascenseur bleu"
-	},
-	"scrollColor_red_darkred": {
-		"message": "Ascenseur rouge"
-	},
-	"scrollColor_yellow_gold": {
-		"message": "Ascenseur jaune"
-	},
-	"scrollColor_green_darkgreen": {
-		"message": "Ascenseur vert"
-	},
-	"scrollColor_black_darkgrey": {
-		"message": "Ascenseur noir"
-	},
-	"scrollOnClick": {
-		"message": "Boutons ascenseurs au clic"
-	},
-	"scrollOnMouseover": {
-		"message": "Boutons ascenseurs au survol"
-	},
-	"scrollType": {
-		"message": "Type d'ascenseur"
-	},
-	"scrollTypeInstruction": {
-		"message": "Pour faciliter la montée et descente dans la page"
-	},
-	"readingMaskClose": {
-		"message": "Fermeture du masque : touche <kbd>Échap</kbd>"
-	},
-	"close": {
-		"message": "Fermer Confort+"
-	},
-	"firstLetter": {
-		"message": "Première lettre"
-	},
-	"lowercase": {
-		"message": "Minuscule"
-	},
-	"uppercase": {
-		"message": "Majuscule"
-	},
-	"default": {
-		"message": "Normal"
 	},
 	"openSettingsMode": {
 		"message": "Ouvrir réglages du mode"
@@ -289,6 +49,33 @@
 	},
 	"validateThisMode": {
 		"message" : "Valider ce mode"
+	},
+	"layout": {
+		"message": "Affichage"
+	},
+	"medias": {
+		"message": "Images"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Texte"
+	},
+	"navigation": {
+		"message": "Navigation"
+	},
+	"firstLetter": {
+		"message": "Première lettre"
+	},
+	"lowercase": {
+		"message": "Minuscule"
+	},
+	"uppercase": {
+		"message": "Majuscule"
+	},
+	"default": {
+		"message": "Normal"
 	},
 	"visionPlusName": {
 		"message": "Vision+"
@@ -345,181 +132,73 @@
 		"message": "Mode d’usage destiné aux personnes hypersensibles. Des couleurs et des transitions agréables, absence d’animations et d’interruptions."
 	},
 	"noModifications": {
-		"message": "Pas de modification"
-	},
-	"spacingTextLabelSmall": {
-		"message": "Aère un peu"
-	},
-	"spacingTextLabelBig": {
-		"message": "Aère beaucoup"
-	},
-	"spacingTextLabelHuge": {
-		"message": "Aère énormément"
-	},
-	"alignLeft": {
-		"message": "Texte aligné à gauche"
-	},
-	"marginLeft": {
-		"message": "Marge à gauche"
-	},
-	"margeList": {
-		"message": "Marge et listes numérotées"
+		"message": "pas de modification"
 	},
 	"big": {
-		"message": "Gros"
+		"message": "gros"
+	},
+	"bigCursor": {
+		"message": "grands curseurs"
 	},
 	"huge": {
-		"message": "Très gros"
+		"message": "très gros"
+	},
+	"hugeCursor": {
+		"message": "très grands curseurs"
 	},
 	"white": {
-		"message": "Blanc"
+		"message": "blanc"
 	},
 	"lightblue": {
-		"message": "Bleu clair"
+		"message": "bleu clair"
 	},
 	"lightgreen": {
-		"message": "Vert clair"
+		"message": "vert clair"
 	},
 	"yellow": {
-		"message": "Jaune"
+		"message": "jaune"
 	},
 	"orange": {
-		"message": "Orange"
+		"message": "orange"
 	},
 	"pink": {
-		"message": "Rose"
+		"message": "rose"
 	},
 	"black": {
-		"message": "Noir"
+		"message": "noir"
 	},
 	"darkblue": {
-		"message": "Bleu foncé"
+		"message": "bleu foncé"
 	},
 	"darkgreen": {
-		"message": "Vert foncé"
+		"message": "vert foncé"
 	},
 	"red": {
-		"message": "Rouge"
+		"message": "rouge"
 	},
 	"purple": {
-		"message": "Violet"
+		"message": "violet"
 	},
 	"brown": {
-		"message": "Marron"
+		"message": "marron"
 	},
 	"blue": {
-		"message": "Bleu"
+		"message": "bleu"
 	},
 	"green": {
-		"message": "Vert"
+		"message": "vert"
 	},
-	"white_black": {
-		"message": "Blanc sur noir"
+	"ivory": {
+		"message": "ivoir"
 	},
-	"black_ivory": {
-		"message": "Noir sur ivoir"
+	"bold": {
+		"message": "gras"
 	},
-	"white_red": {
-		"message": "Blanc sur rouge"
+	"underline": {
+		"message": "soulignés"
 	},
-	"black_yellow": {
-		"message": "Noir sur jaune"
-	},
-	"white_blue": {
-		"message": "Blanc sur bleu"
-	},
-	"yellow_blue": {
-		"message": "Jaune sur bleu"
-	},
-	"black_green": {
-		"message": "Noir sur vert"
-	},
-	"lightblue_orange_lightgreen": {
-		"message": "Bleu clair / Orange / Vert clair"
-	},
-	"yellow_orange_lightgreen": {
-	"message": "Jaune / Orange / Vert clair"
-	},
-	"big_white": {
-		"message": "Gros et blanc"
-	},
-	"huge_white": {
-		"message": "Très gros et blanc"
-	},
-	"big_black": {
-		"message": "Gros et noir"
-	},
-	"huge_black": {
-		"message": "Très gros et noir"
-	},
-	"big_blue": {
-		"message": "Gros et bleu"
-	},
-	"huge_blue": {
-		"message": "Très gros et bleu"
-	},
-	"big_red": {
-		"message": "Gros et rouge"
-	},
-	"huge_red": {
-		"message": "Très gros et rouge"
-	},
-	"big_yellow": {
-		"message": "Gros et jaune"
-	},
-	"huge_yellow": {
-		"message": "Très gros et jaune"
-	},
-	"big_green": {
-		"message": "Gros et vert"
-	},
-	"huge_green": {
-		"message": "Très gros et vert"
-	},
-	"Accessible_DfA": {
-		"message": "Accessible DfA"
-	},
-	"B612_Mono": {
-		"message": "B612 Mono"
-	},
-	"ComicSansMS": {
-		"message": "Comic Sans MS"
-	},
-	"LexandDeca": {
-		"message": "Lexand Deca"
-	},
-	"Luciole": {
-		"message": "Luciole"
-	},
-	"SylexiadSans": {
-		"message": "Sylexiad Sans"
-	},
-	"Verdana": {
-		"message": "Verdana"
-	},
-	"110": {
-		"message": "Un peu grand 110%"
-	},
-	"130": {
-		"message": "Plutôt grand 130%"
-	},
-	"160": {
-		"message": "Bien grand 160%"
-	},
-	"200": {
-		"message": "Très grand 200%"
-	},
-	"350": {
-		"message": "Énorme 350%"
-	},
-	"500": {
-		"message": "Max 500%"
-	},
-	"background_transparent": {
-		"message": "Supprime les images de fond et les effets de transparence"
-	},
-	"background_foreground_transparent": {
-		"message": "Supprime les images de fond, les effets de transparence et les images de 1er plan"
+	"boxed": {
+		"message": "encadrés"
 	},
 	"prevValue": {
 		"message": "Valeur précédente"
@@ -542,57 +221,6 @@
 	"escape": {
 		"message": "Échappe"
 	},
-	"cursorNoModifications": {
-		"message": "Curseur sans modifications"
-	},
-	"cursorBig_black": {
-		"message": "Curseur noir et grand"
-	},
-	"cursorBig_white": {
-		"message": "Curseur blanc et grand"
-	},
-	"focusNoModifications": {
-		"message": "Focus sans modifications"
-	},
-	"focusBig_black": {
-		"message": "Focus noir et grand"
-	},
-	"focusBig_white": {
-		"message": "Focus blanc et grand"
-	},
-	"scrollNoModifications": {
-		"message": "Ascenseur sans modifications"
-	},
-	"scrollBig_black": {
-		"message": "Ascenseur noir et grand"
-	},
-	"scrollBig_white": {
-		"message": "Ascenseur blanc et grand"
-	},
-	"linkNoModifications": {
-		"message": "Lien sans modifications"
-	},
-	"linkDarkblue": {
-		"message": "Lien bleu foncé"
-	},
-	"linkYellow": {
-		"message": "Lien jaune"
-	},
-	"linkPointedNoModifications": {
-		"message": "Lien pointé sans modifications"
-	},
-	"linkPointedOrange": {
-		"message": "Lien pointé orange"
-	},
-	"linkVisitedNoModifications": {
-		"message": "Lien visité sans modifications"
-	},
-	"linkVisitedDarkgreen": {
-		"message": "Lien visité vert foncé"
-	},
-	"linkVisitedLightgreen": {
-		"message": "Lien visité vert clair"
-	},
 	"word": {
 		"message": "Lire le mot"
 	},
@@ -602,71 +230,26 @@
 	"paragraph": {
 		"message": "Lire le paragraphe"
 	},
+	"delay-1": {
+		"message": "délai de 1s"
+	},
+	"delay-2": {
+		"message": "délai de 2s"
+	},
+	"delay-3": {
+		"message": "délai de 3s"
+	},
+	"delay-6": {
+		"message": "délai de 6s"
+	},
 	"bigZone": {
-		"message": "Grandes zones de clic"
+		"message": "grandes zones de clic & clic standard"
 	},
 	"longClick": {
-		"message": "Grandes zones & clic long"
+		"message": "grandes zones de clic & clic long"
 	},
 	"autoClick": {
-		"message": "Grandes zones & clic automatique au survol"
-	},
-	"clickDelay_1": {
-		"message": "Délai de 1s"
-	},
-	"clickDelay_2": {
-		"message": "Délai de 2s"
-	},
-	"clickDelay_3": {
-		"message": "Délai de 3s"
-	},
-	"clickDelay_6": {
-		"message": "Délai de 6s"
-	},
-	"navigationDelay_1": {
-		"message": "Délai de 1s"
-	},
-	"navigationDelay_2": {
-		"message": "Délai de 2s"
-	},
-	"navigationDelay_3": {
-		"message": "Délai de 3s"
-	},
-	"navigationDelay_6": {
-		"message": "Délai de 6s"
-	},
-	"labelColorLink": {
-		"message": "Couleur des liens"
-	},
-	"labelColorActiveLink": {
-		"message": "Couleur des liens actifs"
-	},
-	"labelColorVisitedLink": {
-		"message": "Couleur des liens visités"
-	},
-	"labelFocusSize": {
-		"message": "Taille du focus"
-	},
-	"labelFocusColor": {
-		"message": "Couleur du focus"
-	},
-	"labelCursorSize": {
-		"message": "Taille de la souris"
-	},
-	"labelCursorColor": {
-		"message": "Couleur de la souris"
-	},
-	"labelCursorEmpty": {
-		"message": "Souris par défaut"
-	},
-	"labelNavigationAuto": {
-		"message": "Activer la navigation par défilement"
-	},
-	"labelNavigationAutoInactive": {
-		"message": "Désactiver"
-	},
-	"labelNavigationAutoActive": {
-		"message": "Activer"
+		"message": "grandes zones de clic & clic automatique au survol"
 	},
 	"multiclic": {
 		"message": " : $CURRENT$ $INDEX$/$TOTAL$, changer pour $NEXT$ $INDEX2$/$TOTAL$",
@@ -690,11 +273,29 @@
 	"setting-fontFamily": {
 		"message": "Police"
 	},
-	"fontFamily-Accessible_DfA": {
+	"setting-fontFamily-instruction": {
+		"message": "Pour modifier le rendu du texte"
+	},
+	"fontFamily-noModifications": {
+		"message": "sans modification"
+	},
+	"fontFamily-AccessibleDfA": {
 		"message": "Accessible DfA"
+	},
+	"fontFamily-B612Mono": {
+		"message": "B612_Mono"
+	},
+	"fontFamily-ComicSansMS": {
+		"message": "Comic Sans MS"
+	},
+	"fontFamily-LexandDeca": {
+		"message": "Lexand Deca"
 	},
 	"fontFamily-Luciole": {
 		"message": "Luciole"
+	},
+	"fontFamily-SylexiadSans": {
+		"message": "Sylexiad Sans"
 	},
 	"fontFamily-Verdana": {
 		"message": "Verdana"
@@ -702,190 +303,535 @@
 	"setting-textSize": {
 		"message": "Taille du texte"
 	},
+	"setting-textSize-instruction": {
+		"message": "Pour agrandir le texte"
+	},
+	"textSize-noModifications": {
+		"message": "sans modification"
+	},
 	"textSize-110": {
-		"message": "110%"
+		"message": "un peu grand (110%)"
 	},
 	"textSize-130": {
-		"message": "130%"
+		"message": "assez grand (130%)"
+	},
+	"textSize-160": {
+		"message": "bien grand (160%)"
 	},
 	"textSize-200": {
-		"message": "200%"
+		"message": "très grand (200%)"
+	},
+	"textSize-350": {
+		"message": "énorme (350%)"
+	},
+	"textSize-500": {
+		"message": "max (500%)"
 	},
 	"setting-capitalLetters": {
 		"message": "Lettres capitales"
 	},
+	"setting-capitalLetters-instruction": {
+		"message": "Pour utiliser des majuscules"
+	},
+	"capitalLetters-noModifications": {
+		"message": "sans modification"
+	},
 	"capitalLetters-uppercase": {
-		"message": "Majuscules"
+		"message": "tout en majuscules"
 	},
 	"capitalLetters-capitalize": {
-		"message": "Capitaliser"
+		"message": "1ères lettres en majuscules"
 	},
 	"setting-textSpacing": {
 		"message": "Espacement du texte"
 	},
+	"setting-textSpacing-instruction": {
+		"message": "Pour bien séparer les caractères et les lignes"
+	},
+	"textSpacing-noModifications": {
+		"message": "sans modification"
+	},
 	"textSpacing-spacingTextLabelSmall": {
-		"message": "Petit"
+		"message": "aère un peu"
 	},
 	"textSpacing-spacingTextLabelBig": {
-		"message": "Grand"
+		"message": "aère beaucoup"
+	},
+	"textSpacing-spacingTextLabelHuge": {
+		"message": "aère énormément"
 	},
 	"setting-readingGuide": {
 		"message": "Guide de lecture"
 	},
+	"setting-readingGuide-instruction": {
+		"message": "Pour être guidé lors de la lecture"
+	},
+	"readingGuide-noModifications": {
+		"message": "sans guide"
+	},
 	"readingGuide-ruleGuide": {
-		"message": "Règle"
+		"message": "règle"
 	},
 	"readingGuide-maskGuide": {
-		"message": "Masque"
+		"message": "masque"
 	},
 	"setting-marginAlign": {
 		"message": "Marge et alignement"
 	},
-	"marginAlign-alignLeft": {
-		"message": "Ferré à gauche"
+	"setting-marginAlign-instruction": {
+		"message": "Pour ancrer la lecture à gauche"
 	},
-	"marginAlign-margeList": {
-		"message": "Marge des listes"
+	"marginAlign-noModifications": {
+		"message": "sans modification"
+	},
+	"marginAlign-alignLeft": {
+		"message": "texte aligné à gauche"
 	},
 	"marginAlign-marginLeft": {
-		"message": "Marge à gauche"
+		"message": "marge à gauche (& texte aligné à gauche)"
+	},
+	"marginAlign-margeList": {
+		"message": "marge et listes numérotées (& texte aligné à gauche)"
 	},
 	"setting-magnifier": {
 		"message": "Loupe"
 	},
-	"magnifier-square_2": {
-		"message": "Carré (×2)"
+	"setting-magnifier-instruction": {
+		"message": "Pour zoomer ponctuellement"
 	},
-	"magnifier-square_5": {
-		"message": "Carré (×5)"
+	"magnifier-noModifications": {
+		"message": "sans loupe"
 	},
-	"magnifier-circle_2": {
-		"message": "Cercle (×2)"
+	"magnifier-zoom-2": {
+		"message": "×2"
+	},
+	"magnifier-zoom-5": {
+		"message": "×5"
+	},
+	"magnifier-zoom-10": {
+		"message": "×10"
+	},
+	"magnifier-zoom-15": {
+		"message": "×15"
 	},
 	"setting-readAloud": {
 		"message": "Lire à voix haute"
 	},
+	"setting-readAloud-instruction": {
+		"message": "Pour se faire lire le texte sur demande"
+	},
+	"readAloud-tooltip": {
+		"message": "Cliquer pour vocaliser, appuyer sur échap ou cliquer droit pour arrêter la vocalisation."
+	},
+	"readAloud-noModifications": {
+		"message": "sans vocalisation"
+	},
 	"readAloud-word": {
-		"message": "Mot"
+		"message": "vocaliser le mot pointé"
 	},
 	"readAloud-sentence": {
-		"message": "Phrase"
+		"message": "vocaliser la phrase pointée"
 	},
 	"readAloud-paragraph": {
-		"message": "Paragraphe"
+		"message": "vocaliser le paragraphe pointé"
+	},
+	"readAloud-all": {
+		"message": "tout vocaliser"
 	},
 	"setting-colourTheme": {
 		"message": "Thème couleurs"
 	},
-	"colourTheme-reinforcedContrasts": {
-		"message": "Contrastes renforcés"
+	"setting-colourTheme-instruction": {
+		"message": "Pour modifier le rendu visuel de la page et de la souris"
 	},
-	"colourTheme-white_black": {
-		"message": "Blanc sur noir"
+	"colourTheme-noModifications": {
+		"message": "sans modification"
+	},
+	"colourTheme-reinforcedContrasts": {
+		"message": "contrastes renforcés"
+	},
+	"colourTheme-values": {
+		"message": "$COLOR$ sur $BACKGROUND$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"background": { "content": "$2" }
+		}
+	},
+	"colourTheme-cursor": {
+		"message": "Curseur $COLOR$ et $SIZE$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"size": { "content": "$2" }
+		}
+	},
+	"colourTheme-cursor-noModifications": {
+		"message": "Curseur sans modification"
+	},
+	"colourTheme-focus": {
+		"message": "Focus $COLOR$ et $SIZE$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"size": { "content": "$2" }
+		}
+	},
+	"colourTheme-focus-noModifications": {
+		"message": "Focus sans modification"
+	},
+	"colourTheme-scroll": {
+		"message": "Ascenceur $COLOR$ et $SIZE$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"size": { "content": "$2" }
+		}
+	},
+	"colourTheme-scroll-noModifications": {
+		"message": "Ascenceur sans modification"
+	},
+	"colourTheme-link": {
+		"message": "Lien $COLOR$",
+		"placeholders": {
+			"color": { "content": "$1" }
+		}
+	},
+	"colourTheme-link-noModifications": {
+		"message": "Lien sans modification"
+	},
+	"colourTheme-linkPointed": {
+		"message": "Lien pointé $COLOR$",
+		"placeholders": {
+			"color": { "content": "$1" }
+		}
+	},
+	"colourTheme-linkPointed-noModifications": {
+		"message": "Lien pointé sans modification"
+	},
+	"colourTheme-linkVisited": {
+		"message": "Lien visité $COLOR$",
+		"placeholders": {
+			"color": { "content": "$1" }
+		}
+	},
+	"colourTheme-linkVisited-noModifications": {
+		"message": "Lien visité sans modification"
 	},
 	"setting-cursorAspect": {
-		"message": "Aspect du curseur"
+		"message": "Aspect de la souris"
 	},
-	"cursorAspect-big_black": {
-		"message": "Grand curseur noir"
+	"setting-cursorAspect-instruction": {
+		"message": "Pour modifier le rendu des curseurs"
 	},
-	"cursorAspect-big_white": {
-		"message": "Grand curseur blanc"
+	"cursorAspect-empty-example": {
+		"message": "Souris par défaut"
 	},
-	"cursorAspect-huge_black": {
-		"message": "Très grand curseur noir"
+	"cursorAspect-noModifications": {
+		"message": "sans modification"
 	},
-	"cursorAspect-huge_green": {
-		"message": "Très grand curseur vert"
+	"cursorAspect-values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": { "content": "$1" },
+			"color": { "content": "$2" }
+		}
+	},
+	"cursorSize-label": {
+		"message": "Taille de la souris"
+	},
+	"cursorSize-values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": { "content": "$2" }
+		}
+	},
+	"cursorColor-label": {
+		"message": "Couleur de la souris"
+	},
+	"cursorColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": { "content": "$2" }
+		}
 	},
 	"setting-focusAspect": {
 		"message": "Aspect du focus"
 	},
-	"focusAspect-big_black": {
-		"message": "Grand focus noir"
+	"setting-focusAspect-instruction": {
+		"message": "Pour modifier le rendu du focus sur la page"
 	},
-	"focusAspect-huge_black": {
-		"message": "Très grand focus noir"
+	"focusAspect-noModifications": {
+		"message": "sans modification"
 	},
-	"focusAspect-big_white": {
-		"message": "Grand focus blanc"
+	"focusAspect-values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": { "content": "$1" },
+			"color": { "content": "$2" }
+		}
 	},
-	"focusAspect-huge_white": {
-		"message": "Très grand focus blanc"
+	"focusSize-label": {
+		"message": "Taille du focus"
+	},
+	"focusSize-values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": { "content": "$2" }
+		}
+	},
+	"focusColor-label": {
+		"message": "Couleur du focus"
+	},
+	"focusColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": { "content": "$2" }
+		}
 	},
 	"setting-colorContrast": {
 		"message": "Contraste des couleurs"
 	},
-	"colorContrast-white_black": {
-		"message": "Blanc sur noir"
+	"setting-colorContrast-instruction": {
+		"message": "Pour changer la couleur du fond et du texte"
 	},
-	"colorContrast-white_blue": {
-		"message": "Blanc sur bleu"
+	"colorContrast-noModifications": {
+		"message": "sans modification"
 	},
 	"colorContrast-reinforcedContrasts": {
-		"message": "Contrastes renforcés"
+		"message": "contrastes renforcés"
+	},
+	"colorContrast-values": {
+		"message": "$COLOR$ sur $BACKGROUND$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"background": { "content": "$2" }
+		}
+	},
+	"colorContrast-daltonism": {
+		"message": "daltonisme"
 	},
 	"setting-linkStyle": {
-		"message": "Style des liens"
+		"message": "Couleurs des hyperliens"
 	},
-	"linkStyle-darkblue_orange_red": {
-		"message": "Bleu foncé, orange et rouge"
+	"setting-linkStyle-instruction": {
+		"message": "Pour modifier la couleur des liens de navigation"
 	},
-	"linkStyle-lightblue_orange_lightgreen": {
-		"message": "Bleu clair, orange et vert clair"
+	"linkStyle-noModifications": {
+		"message": "sans modification"
 	},
-	"linkStyle-yellow_orange_lightgreen": {
-		"message": "Jaune, orange et vert clair"
+	"linkStyle-values": {
+		"message": "$COLOR$, $POINTED$ et $VISITED$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"pointed": { "content": "$2" },
+			"visited": { "content": "$3" }
+		}
+	},
+	"linkColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": { "content": "$2" }
+		}
+	},
+	"linkPointedColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": { "content": "$2" }
+		}
+	},
+	"linkVisitedColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": { "content": "$2" }
+		}
+	},
+	"linkColor-label": {
+		"message": "Couleur des liens"
+	},
+	"linkPointedColor-label": {
+		"message": "Couleur des liens actifs"
+	},
+	"linkVisitedColor-label": {
+		"message": "Couleur des liens visités"
 	},
 	"setting-clearlyLinks": {
 		"message": "Liens bien visibles"
 	},
-	"clearlyLinks-bold_underline": {
-		"message": "Gras souligné"
+	"setting-clearlyLinks-instruction": {
+		"message": "Pour mieux repérer les liens de navigation"
 	},
-	"clearlyLinks-bold_boxed": {
-		"message": "Gras encadré"
+	"clearlyLinks-noModifications": {
+		"message": "sans modification"
+	},
+	"clearlyLinks-values": {
+		"message": "$BOLD$ & $STYLE$",
+		"placeholders": {
+			"bold": { "content": "$1" },
+			"style": { "content": "$2" }
+		}
 	},
 	"setting-stopAnimations": {
 		"message": "Stopper les animations"
 	},
+	"setting-stopAnimations-instruction": {
+		"message": "Pour empêcher les animations au sein de la page"
+	},
+	"stopAnimations-noModifications": {
+		"message": "sans modification"
+	},
+	"stopAnimations-active": {
+		"message": "stoppe les animations"
+	},
 	"setting-deleteBackgroundImages": {
 		"message": "Supprimer les images de fond"
 	},
-	"deleteBackgroundImages-background_transparent": {
-		"message": "Images d’arrière-plan transparent"
+	"setting-deleteBackgroundImages-instruction": {
+		"message": "Pour empêcher les images de s’afficher"
 	},
-	"deleteBackgroundImages-background_foreground_transparent": {
-		"message": "Images d’arrière-plan et de premier plan transparentes"
+	"deleteBackgroundImages-noModifications": {
+		"message": "sans modification"
+	},
+	"deleteBackgroundImages-backgroundTransparent": {
+		"message": "supprime les images de fond et les effets de transparence "
+	},
+	"deleteBackgroundImages-backgroundForegroundTransparent": {
+		"message": "supprime les images de fond, les effets de transparence et les images de 1er plan"
+	},
+	"setting-scrollType": {
+		"message": "Type d'ascenseur"
+	},
+	"setting-scrollType-instruction": {
+		"message": "Pour faciliter la montée et descente dans la page"
+	},
+	"scrollType-noModifications": {
+		"message": "sans modification"
+	},
+	"scrollType-scrollOnClick": {
+		"message": "boutons ascenseurs Monter/Descendre (à cliquer)"
+	},
+	"scrollType-scrollOnMouseover": {
+		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
 	},
 	"setting-scroll": {
 		"message": "Ascenseur"
 	},
-	"scroll-bigScroll_black_grey": {
-		"message": "Gros ascenseur noir et gris"
+	"setting-scroll-instruction": {
+		"message": "Pour modifier le rendu de l’ascenseur"
 	},
-	"scroll-scrollOnMouseover": {
-		"message": "Boutons ascenseurs au survol"
+	"scroll-up": {
+		"message": "Monter"
+	},
+	"scroll-down": {
+		"message": "Descendre"
+	},
+	"scroll-noModifications": {
+		"message": "sans modification"
+	},
+	"scroll-values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": { "content": "$1" },
+			"color": { "content": "$2" }
+		}
+	},
+	"scrollSize-label": {
+		"message": "Taille de l'ascenceur"
+	},
+	"scrollSize-values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": { "content": "$2" }
+		}
+	},
+	"scrollColor-label": {
+		"message": "Couleur de l'ascenceur"
+	},
+	"scrollColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": { "content": "$2" }
+		}
 	},
 	"setting-skipToContent": {
 		"message": "Aller au contenu"
 	},
+	"setting-skipToContent-instruction": {
+		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+	},
+	"skipToContent-noModifications": {
+		"message": "sans modification"
+	},
+	"skipToContent-active": {
+		"message": "aller au contenu"
+	},
 	"setting-navigationButtons": {
 		"message": "Boutons de navigation"
+	},
+	"setting-navigationButtons-instruction": {
+		"message": "Pour déplacer le focus avec la souris"
+	},
+	"navigationButtons-noModifications": {
+		"message": "sans boutons de navigation"
+	},
+	"navigationButtons-active": {
+		"message": "ajout des boutons de navigation"
 	},
 	"setting-clickFacilite": {
 		"message": "Clic facilité"
 	},
-	"clickFacilite-bigZone": {
-		"message": "Grande zone"
+	"setting-clickFacilite-instruction": {
+		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"
 	},
-	"clickFacilite-longClick_2": {
-		"message": "Clic long (×2)"
+	"clickFacilite-noModifications": {
+		"message": "sans modification"
+	},
+	"clickFacilite-bigZone": {
+		"message": "grandes zones de clic & clic standard"
+	},
+	"clickFacilite-values": {
+		"message": "$TYPE$ ($DELAY$)",
+		"placeholders": {
+			"type": { "content": "$1" },
+			"delay": { "content": "$2" }
+		}
+	},
+	"clickType-values": {
+		"message": "$TYPE$",
+		"placeholders": {
+			"type": { "content": "$2" }
+		}
+	},
+	"clickDelay-values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": { "content": "$2" }
+		}
 	},
 	"setting-navigationAuto": {
-		"message": "Navigation automatique"
+		"message": "Navigation par défilement"
 	},
-	"navigationAuto-autoFocus_2": {
-		"message": "Focus automatique (×2)"
+	"setting-navigationAuto-instruction": {
+		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+	},
+	"navigationAuto-noModifications": {
+		"message": "sans défilement"
+	},
+	"navigationAuto-values": {
+		"message": "défilement automatique du focus ($DELAY$)",
+		"placeholders": {
+			"delay": { "content": "$2" }
+		}
+	},
+	"navigationAuto-label": {
+		"message": "Activer la navigation par défilement"
+	},
+	"navigationAuto-inactive": {
+		"message": "Désactiver"
+	},
+	"navigationAuto-active": {
+		"message": "Activer"
+	},
+	"navigationDelay-values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": { "content": "$2" }
+		}
 	}
 }

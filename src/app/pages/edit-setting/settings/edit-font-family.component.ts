@@ -1,14 +1,14 @@
 const editFontFamilyLayout: HTMLTemplateElement = document.createElement('template');
 editFontFamilyLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="FontFamily"></app-select-edit-value>
+		<app-select-edit-value data-name="fontFamily"></app-select-edit-value>
 	</form>
 `;
 
 class EditFontFamilyComponent extends HTMLElement {
 	selectFontFamilyElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	fontFamilyValues = [DEFAULT_VALUE, 'Accessible_DfA', 'B612_Mono', 'Comic Sans MS', 'Lexand Deca', 'Luciole', 'Sylexiad Sans', 'Verdana'];
+	fontFamilyValues = [DEFAULT_VALUE, 'AccessibleDfA', 'B612Mono', 'ComicSansMS', 'LexandDeca', 'Luciole', 'SylexiadSans', 'Verdana'];
 
 	handler: any;
 
@@ -25,7 +25,7 @@ class EditFontFamilyComponent extends HTMLElement {
 		this.selectFontFamilyElement.addEventListener('editSettingFontFamily', this.handler);
 		this.selectFontFamilyElement.setAttribute('data-setting-values', this.fontFamilyValues.join(','));
 
-		modeOfUseServiceInstance.getSetting('textSize').then((result: SettingModel) => {
+		modeOfUseServiceInstance.getSetting('fontFamily').then((result: SettingModel) => {
 			this.settingValues = result.values.split(',');
 			const currentIndex = this.fontFamilyValues.findIndex(i => i === this.settingValues[result.valueSelected]);
 

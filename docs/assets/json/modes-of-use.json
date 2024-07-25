@@ -6,7 +6,7 @@
 			"visionPlus": [
 				{
 					"fontFamily": {
-						"values": "noModifications,Accessible_DfA,Luciole",
+						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 1,
 						"isTool": true
 					}
@@ -48,7 +48,7 @@
 				},
 				{
 					"magnifier": {
-						"values": "noModifications,square_2,square_5",
+						"values": "noModifications,zoom-2,zoom-5",
 						"valueSelected": 0,
 						"isTool": true
 					}
@@ -69,7 +69,7 @@
 				},
 				{
 					"cursorAspect": {
-						"values": "noModifications,big_white,huge_green",
+						"values": "noModifications,bigCursor_white,hugeCursor_green",
 						"valueSelected": 1,
 						"isTool": true
 					}
@@ -111,14 +111,14 @@
 				},
 				{
 					"deleteBackgroundImages": {
-						"values": "noModifications,background_transparent,background_foreground_transparent",
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
 						"valueSelected": 0,
 						"isTool": false
 					}
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll_black_darkgrey,hugeScroll_black_darkgrey",
+						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
 						"isTool": false
 					}
@@ -146,14 +146,14 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_2",
+						"values": "noModifications,bigZone,longClick_delay-2",
 						"valueSelected": 1,
 						"isTool": false
 					}
 				},
 				{
 					"navigationAuto": {
-						"values": "noModifications,autoFocus_2",
+						"values": "noModifications,autoFocus_delay-2",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -167,7 +167,7 @@
 			"facilePlus": [
 				{
 					"fontFamily": {
-						"values": "noModifications,Accessible_DfA,Verdana",
+						"values": "noModifications,AccessibleDfA,Verdana",
 						"valueSelected": 2,
 						"isTool": true
 					}
@@ -209,7 +209,7 @@
 				},
 				{
 					"magnifier": {
-						"values": "noModifications,square_2,circle_2",
+						"values": "noModifications,zoom-2,zoom-5",
 						"valueSelected": 0,
 						"isTool": true
 					}
@@ -272,14 +272,14 @@
 				},
 				{
 					"deleteBackgroundImages": {
-						"values": "noModifications,background_transparent,background_foreground_transparent",
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
 						"valueSelected": 0,
 						"isTool": false
 					}
 				},
 				{
 					"scroll": {
-						"values": "noModifications,bigScroll_black_darkgrey,hugeScroll_black_darkgrey",
+						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
 						"isTool": false
 					}
@@ -307,14 +307,14 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_2",
+						"values": "noModifications,bigZone,longClick_delay-2",
 						"valueSelected": 1,
 						"isTool": true
 					}
 				},
 				{
 					"navigationAuto": {
-						"values": "noModifications,autoFocus_2",
+						"values": "noModifications,autoFocus_delay-2",
 						"valueSelected": 0,
 						"isTool": false
 					}

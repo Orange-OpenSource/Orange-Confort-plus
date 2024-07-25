@@ -2,257 +2,17 @@
 	"mainButton": {
 		"message": "Start Confort+"
 	},
-	"mainTitle": {
-		"message": "Confort+"
-	},
-	"profile": {
-		"message": "Mode of use"
-	},
-	"wip": {
-		"message": "In progress…"
-	},
-	"layout": {
-		"message": "Displaying"
-	},
-	"medias": {
-		"message": "Images"
-	},
-	"audio": {
-		"message": "Audio"
-	},
-	"text": {
-		"message": "Text"
-	},
-	"navigation": {
-		"message": "Navigation"
-	},
-	"textSize": {
-		"message": "Text size"
-	},
-	"textSizeInstruction": {
-		"message": "To enlarge the text"
-	},
-	"fontFamily": {
-		"message": "Text font"
-	},
-	"fontFamilyInstruction": {
-		"message": "To change the text rendering"
-	},
-	"readingGuide": {
-		"message": "Reading guide"
-	},
-	"readingGuideInstruction": {
-		"message": "For guidance on reading"
-	},
-	"ruleGuide": {
-		"message": "Rule"
-	},
-	"maskGuide": {
-		"message": "Mask"
-	},
-	"magnifier": {
-		"message": "Magnifier"
-	},
-	"magnifierInstruction": {
-		"message": "To zoom in"
-	},
-	"magnifierShape": {
-		"message": "Magnifier shape"
-	},
-	"magnifierDefault": {
-		"message": "Without magnifier"
-	},
-	"magnifierSquare": {
-		"message": "Square"
-	},
-	"magnifierCircle": {
-		"message": "Round"
-	},
-	"magnifierZoom_2": {
-		"message": "200%"
-	},
-	"magnifierZoom_5": {
-		"message": "500%"
-	},
-	"magnifierZoom_10": {
-		"message": "1000%"
-	},
-	"magnifierZoom_15": {
-		"message": "1500%"
-	},
-	"readAloud": {
-		"message": "Read aloud"
-	},
-	"readAloudInstruction": {
-		"message": "The text can be read on request"
-	},
-	"readAloudTooltip": {
-		"message": "Click to vocalise, press escape or right-click to stop vocalizing."
-	},
-	"marginAlign": {
-		"message": "Marge"
-	},
-	"marginAlignInstruction": {
-		"message": "To dock playback to the left"
-	},
-	"textSpacing": {
-		"message": "Air the text"
-	},
-	"textSpacingInstruction": {
-		"message": "To separate characters and lines"
-	},
-	"clickFacilite": {
-		"message": "Easy click"
-	},
-	"clickFaciliteInstruction": {
-		"message": "To avoid scoring errors and save effort"
-	},
-	"cursorAspect": {
-		"message": "Cursor aspect"
-	},
-	"cursorAspectInstruction": {
-		"message": "To change the rendering of cursors"
-	},
-	"focusAspect": {
-		"message": "Focus aspect"
-	},
-	"focusAspectInstruction": {
-		"message": "To change the way the focus is rendered on the page"
-	},
-	"colorContrast": {
-		"message": "Colors - contrasts"
-	},
-	"colorContrastInstruction": {
-		"message": "To change the background and text colours"
-	},
-	"reinforcedContrasts": {
-		"message": "Reinforced contrasts"
-	},
-	"daltonism": {
-		"message": "Daltonism"
-	},
-	"linkStyle": {
-		"message": "Hyperlink colours"
-	},
-	"linkStyleInstruction": {
-		"message": "To change the colour of the navigation links"
-	},
-	"stopAnimations": {
-		"message": "Stop animations"
-	},
-	"stopAnimationsInstruction": {
-		"message": "To prevent animations within the page"
-	},
-	"capitalLetters": {
-		"message": "Capital letters"
-	},
-	"capitalLettersInstruction": {
-		"message": "To use capital letters"
-	},
-	"clearlyLinks": {
-		"message": "Clearly links"
-	},
-	"clearlyLinksInstruction": {
-		"message": "To find navigation links more easily"
-	},
-	"colourTheme": {
-		"message": "Colour-Theme"
-	},
-	"colourThemeInstruction": {
-		"message": "To change the visual rendering of the page and mouse"
-	},
-	"deleteBackgroundImages": {
-		"message": "Delete background images"
-	},
-	"deleteBackgroundImagesInstruction": {
-		"message": "To prevent images from being displayed"
-	},
-	"navigationAuto": {
-		"message": "Auto scroll navigation"
-	},
-	"navigationAutoInstruction": {
-		"message": "All you have to do is validate, and the focus moves by itself"
-	},
-	"navigationButtons": {
-		"message": "Navigation buttons"
-	},
-	"navigationButtonsInstruction": {
-		"message": "To move the focus with the mouse"
-	},
-	"skipToContent": {
-		"message": "Skip to content"
-	},
-	"skipToContentInstruction": {
-		"message": "All you have to do is validate, and the focus moves by itself"
-	},
-	"scroll": {
-		"message": "Lift aspect"
-	},
-	"scrollInstruction": {
-		"message": "To change the lift rendering"
-	},
-	"scrollUp": {
-		"message": "Up"
-	},
-	"scrollDown": {
-		"message": "Down"
-	},
-	"bigScroll": {
-		"message": "Big lift"
-	},
-	"hugeScroll": {
-		"message": "Very big lift"
-	},
-	"scrollColor_white_lightgrey": {
-		"message": "White lift"
-	},
-	"scrollColor_blue_darkblue": {
-		"message": "Blue lift"
-	},
-	"scrollColor_red_darkred": {
-		"message": "Red lift"
-	},
-	"scrollColor_yellow_gold": {
-		"message": "Yellow lift"
-	},
-	"scrollColor_green_darkgreen": {
-		"message": "Green lift"
-	},
-	"scrollColor_black_darkgrey": {
-		"message": "Black lift"
-	},
-	"scrollOnClick": {
-		"message": "Buttons lift on click"
-	},
-	"scrollOnMouseover": {
-		"message": "Buttons lift on mouseover"
-	},
-	"scrollType": {
-		"message": "Lift type"
-	},
-	"scrollTypeInstruction": {
-		"message": "To make it easier to move up and down the page"
-	},
-	"readingMaskClose": {
-		"message": "Mask closing: use <kbd>Esc</kbd>"
-	},
 	"close": {
 		"message": "Close Confort+"
 	},
-	"firstLetter": {
-		"message": "First letter"
+	"mainTitle": {
+		"message": "Confort"
 	},
-	"lowercase": {
-		"message": "Lowercase"
-	},
-	"uppercase": {
-		"message": "Uppercase"
-	},
-	"default": {
-		"message": "Normal"
+	"profile": {
+		"message": "Usage mode"
 	},
 	"openSettingsMode": {
-		"message": "Open mode's settings"
+		"message": "Open mode settings"
 	},
 	"moreSettings": {
 		"message": "More settings"
@@ -267,259 +27,178 @@
 		"message": "Pause"
 	},
 	"pauseInfo": {
-		"message": "Confort+ is paused, to reactivate it press the « restart » button."
+		"message": "Confort+ is paused, to reactivate it, press the 'restart' button."
 	},
 	"otherModes": {
-		"message": "Other modes"
+		"message": "Other usage modes"
 	},
 	"previous": {
 		"message": "Previous"
 	},
 	"pageTitleModes": {
-		"message": "Modes d'usage"
+		"message": "Usage modes"
 	},
 	"pageTitleSettings": {
 		"message": "Settings"
 	},
 	"pageTitleEditSetting": {
-		"message": "Parameter's setting"
+		"message": "Parameter setting"
 	},
 	"chooseModeAndValidate": {
-		"message": "Choose a usage mode and confirm :"
+		"message": "Choose a usage mode and validate:"
 	},
 	"validateThisMode": {
-		"message" : "Confirm this mode"
+		"message": "Validate this mode"
+	},
+	"layout": {
+		"message": "Display"
+	},
+	"medias": {
+		"message": "Images"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Text"
+	},
+	"navigation": {
+		"message": "Navigation"
+	},
+	"firstLetter": {
+		"message": "First letter"
+	},
+	"lowercase": {
+		"message": "Lowercase"
+	},
+	"uppercase": {
+		"message": "Uppercase"
+	},
+	"default": {
+		"message": "Normal"
 	},
 	"visionPlusName": {
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Designed for people with impaired vision. The text and page colours are high contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
+		"message": "Usage mode for people with visual impairments. The text and page colors are highly contrasted, the mouse and focus are very visible, and a magnifier and reading ruler are available."
 	},
 	"visionPlusPlusName": {
 		"message": "Vision++"
 	},
 	"visionPlusPlusDescription": {
-		"message": "User mode designed for people with severe visual impairments. Text and page colours are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimised font, a ×5 magnifier and a reading ruler are available."
+		"message": "Usage mode for people with severe visual impairments. The text and page colors are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimized font, a ×5 magnifier, and a reading ruler are available."
 	},
 	"facilePlusName": {
-		"message": "Facile+"
+		"message": "Easy+"
 	},
 	"facilePlusDescription": {
-		"message": "User mode designed for people who are unfamiliar with the Internet. Text, buttons, links, mouse and focus are clearly visible and slightly larger, contrasts are adjusted and a magnifying glass is available.."
+		"message": "Usage mode for people not very familiar with the internet. The text, buttons, links, mouse, and focus are very visible and slightly larger, contrasts are adjusted, and a magnifier is available."
 	},
 	"dysPlusName": {
 		"message": "Dys+"
 	},
 	"dysPlusDescription": {
-		"message": "A user guide for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
+		"message": "Usage mode for people with reading or writing difficulties. An optimized font for dyslexia, well-spaced and left-aligned text, a reading ruler, the possibility to color characters and sounds, and text-to-speech."
 	},
 	"moteurPlusName": {
-		"message": "Moteur+"
+		"message": "Motor+"
 	},
 	"moteurPlusDescription": {
-		"message": "User mode designed for people with motor impairments. Easy keyboard navigation, a clearly visible focus, a palette of virtual buttons."
+		"message": "Usage mode for people with motor disabilities. Easier keyboard navigation, a highly visible focus, and a palette of virtual buttons."
 	},
 	"pointagePlusName": {
-		"message": "Pointage+"
+		"message": "Pointing+"
 	},
 	"pointagePlusDescription": {
-		"message": "Use mode designed for people who have difficulty pointing with the mouse. A mouse that is clearly visible and of a good size, enlarged click zones and the ability to click effortlessly on hover, a lift with large buttons."
+		"message": "Usage mode for people with mouse pointing difficulties. A highly visible and large mouse, enlarged click areas, and the possibility to click by hovering without effort, with large button scrollbars."
 	},
 	"langueDesSignesName": {
-		"message": "Sign language"
+		"message": "Sign Language"
 	},
 	"langueDesSignesDescription": {
-		"message": "User guide for people who express themselves mainly in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary and an interface with video instructions. A mouse that is clearly visible and of a good size, enlarged click zones and the ability to click effortlessly on hover, a lift with large buttons."
+		"message": "Usage mode for people who primarily communicate in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary, and a video-sign interface."
 	},
 	"audioPlusName": {
 		"message": "Audio+"
 	},
 	"audioPlusDescription": {
-		"message": "User guide for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
+		"message": "Usage mode for people with hearing impairments. Visual equivalents for sound signals and systematic subtitles."
 	},
 	"calmeName": {
 		"message": "Calm"
 	},
 	"calmeDescription": {
-		"message": "User mode designed for hypersensitive people. Pleasant colours and transitions, no animations or interruptions."
+		"message": "Usage mode for highly sensitive people. Pleasant colors and transitions, no animations or interruptions."
 	},
 	"noModifications": {
-		"message": "No changes"
-	},
-	"spacingTextLabelSmall": {
-		"message": "Little spacing"
-	},
-	"spacingTextLabelBig": {
-		"message": "Big spacing"
-	},
-	"spacingTextLabelHuge": {
-		"message": "Huge spacing"
-	},
-	"alignLeft": {
-		"message": "Left align text"
-	},
-	"marginLeft": {
-		"message": "Left marge"
-	},
-	"margeList": {
-		"message": "Marge and list"
+		"message": "no modification"
 	},
 	"big": {
-		"message": "Big"
+		"message": "big"
+	},
+	"bigCursor": {
+		"message": "large cursors"
 	},
 	"huge": {
-		"message": "Huge"
+		"message": "huge"
+	},
+	"hugeCursor": {
+		"message": "very large cursors"
 	},
 	"white": {
-		"message": "White"
+		"message": "white"
 	},
 	"lightblue": {
-		"message": "Light blue"
+		"message": "light blue"
 	},
 	"lightgreen": {
-		"message": "Light green"
+		"message": "light green"
 	},
 	"yellow": {
-		"message": "Yellow"
+		"message": "yellow"
 	},
 	"orange": {
-		"message": "Orange"
+		"message": "orange"
 	},
 	"pink": {
-		"message": "Pink"
+		"message": "pink"
 	},
 	"black": {
-		"message": "Black"
+		"message": "black"
 	},
 	"darkblue": {
-		"message": "Dark blue"
+		"message": "dark blue"
 	},
 	"darkgreen": {
-		"message": "Dark green"
+		"message": "dark green"
 	},
 	"red": {
-		"message": "Red"
+		"message": "red"
 	},
 	"purple": {
-		"message": "Purple"
+		"message": "purple"
 	},
 	"brown": {
-		"message": "Brown"
+		"message": "brown"
 	},
 	"blue": {
-		"message": "Blue"
+		"message": "blue"
 	},
 	"green": {
-		"message": "Green"
+		"message": "green"
 	},
-	"white_black": {
-		"message": "White on black"
+	"ivory": {
+		"message": "ivory"
 	},
-	"black_ivory": {
-		"message": "Black on ivory"
+	"bold": {
+		"message": "bold"
 	},
-	"white_red": {
-		"message": "White on red"
+	"underline": {
+		"message": "underlined"
 	},
-	"black_yellow": {
-		"message": "Black on yellow"
-	},
-	"white_blue": {
-		"message": "White on blue"
-	},
-	"yellow_blue": {
-		"message": "Yellow on blue"
-	},
-	"black_vert": {
-		"message": "Black on green"
-	},
-	"lightblue_orange_lightvert": {
-		"message": "Lightblue / Orange / Lightgreen"
-	},
-	"yellow_orange_lightvert": {
-	"message": "Yellow / Orange / Lightgreen"
-	},
-	"big_white": {
-		"message": "Big and white"
-	},
-	"huge_white": {
-		"message": "Very big and white"
-	},
-	"big_black": {
-		"message": "Big and black"
-	},
-	"huge_black": {
-		"message": "Very big and black"
-	},
-	"big_blue": {
-		"message": "Big and blue"
-	},
-	"huge_blue": {
-		"message": "Very big and blue"
-	},
-	"big_red": {
-		"message": "Big and red"
-	},
-	"huge_red": {
-		"message": "Very big and red"
-	},
-	"big_yellow": {
-		"message": "Big and yellow"
-	},
-	"huge_yellow": {
-		"message": "Very big and yellow"
-	},
-	"big_vert": {
-		"message": "Big and green"
-	},
-	"huge_vert": {
-		"message": "Very big and green"
-	},
-	"Accessible_DfA": {
-		"message": "Accessible DfA"
-	},
-	"B612_Mono": {
-		"message": "B612 Mono"
-	},
-	"ComicSansMS": {
-		"message": "Comic Sans MS"
-	},
-	"LexandDeca": {
-		"message": "Lexand Deca"
-	},
-	"Luciole": {
-		"message": "Luciole"
-	},
-	"SylexiadSans": {
-		"message": "Sylexiad Sans"
-	},
-	"Verdana": {
-		"message": "Verdana"
-	},
-	"110": {
-		"message": "A bit bigger 110%"
-	},
-	"130": {
-		"message": "Big 130%"
-	},
-	"160": {
-		"message": "Bigger 160%"
-	},
-	"200": {
-		"message": "Even bigger 200%"
-	},
-	"350": {
-		"message": "Huge 350%"
-	},
-	"500": {
-		"message": "Max 500%"
-	},
-	"background_transparent": {
-		"message": "Removes background images and transparency effects"
-	},
-	"background_foreground_transparent": {
-		"message": "Removes background images, transparency effects and foreground images"
+	"boxed": {
+		"message": "boxed"
 	},
 	"prevValue": {
 		"message": "Previous value"
@@ -528,13 +207,13 @@
 		"message": "Next value"
 	},
 	"textContentImageHidden": {
-		"message": "Hidden image text :"
+		"message": "Image text hidden:"
 	},
 	"tab": {
-		"message": "Tabulation"
+		"message": "Tab"
 	},
 	"shiftTab": {
-		"message": "Shift + Tabulation"
+		"message": "Shift + Tab"
 	},
 	"click": {
 		"message": "Click"
@@ -542,159 +221,81 @@
 	"escape": {
 		"message": "Escape"
 	},
-	"cursorNoModifications": {
-		"message": "Cursor no modifications"
-	},
-	"cursorBig_black": {
-		"message": "Cursor black and big"
-	},
-	"cursorBig_white": {
-		"message": "Cursor white and big"
-	},
-	"focusNoModifications": {
-		"message": "Focus no modifications"
-	},
-	"focusBig_black": {
-		"message": "Focus black and big"
-	},
-	"focusBig_white": {
-		"message": "Focus white and big"
-	},
-	"scrollNoModifications": {
-		"message": "Scroll no modifications"
-	},
-	"scrollBig_black": {
-		"message": "Scroll black and big"
-	},
-	"scrollBig_white": {
-		"message": "Scroll white and big"
-	},
-	"linkNoModifications": {
-		"message": "Link no modifications"
-	},
-	"linkDarkblue": {
-		"message": "Link dark blue"
-	},
-	"linkYellow": {
-		"message": "Link yellow"
-	},
-	"linkPointedNoModifications": {
-		"message": "Link pointed no modifications"
-	},
-	"linkPointedOrange": {
-		"message": "Link pointed orange"
-	},
-	"linkVisitedNoModifications": {
-		"message": "Link visited no modifications"
-	},
-	"linkVisitedDarkgreen": {
-		"message": "Link visited dark green"
-	},
-	"linkVisitedLightgreen": {
-		"message": "Link visited light green"
-	},
 	"word": {
-		"message": "Read word"
+		"message": "Read the word"
 	},
 	"sentence": {
-		"message": "Read sentence"
+		"message": "Read the sentence"
 	},
 	"paragraph": {
-		"message": "Read paragraph"
+		"message": "Read the paragraph"
+	},
+	"delay-1": {
+		"message": "1s delay"
+	},
+	"delay-2": {
+		"message": "2s delay"
+	},
+	"delay-3": {
+		"message": "3s delay"
+	},
+	"delay-6": {
+		"message": "6s delay"
 	},
 	"bigZone": {
-		"message": "Large click zones"
+		"message": "large click zones & standard click"
 	},
 	"longClick": {
-		"message": "Large areas & long click"
+		"message": "large click zones & long click"
 	},
 	"autoClick": {
-		"message": "Large areas & automatic click on hover"
-	},
-	"clickDelay_1": {
-		"message": "1s delay"
-	},
-	"clickDelay_2": {
-		"message": "2s delay"
-	},
-	"clickDelay_3": {
-		"message": "3s delay"
-	},
-	"clickDelay_6": {
-		"message": "6s delay"
-	},
-	"navigationDelay_1": {
-		"message": "1s delay"
-	},
-	"navigationDelay_2": {
-		"message": "2s delay"
-	},
-	"navigationDelay_3": {
-		"message": "3s delay"
-	},
-	"navigationDelay_6": {
-		"message": "6s delay"
-	},
-	"labelColorLink": {
-		"message": "Link colour"
-	},
-	"labelColorActiveLink": {
-		"message": "Active link colour"
-	},
-	"labelColorVisitedLink": {
-		"message": "Visited link colour"
-	},
-	"labelFocusSize": {
-		"message": "Focus size"
-	},
-	"labelFocusColor": {
-		"message": "Focus color"
-	},
-	"labelCursorSize": {
-		"message": "Cursor size"
-	},
-	"labelCursorColor": {
-		"message": "Cursor color"
-	},
-	"labelCursorEmpty": {
-		"message": "Default cursor"
-	},
-	"labelNavigationAuto": {
-		"message": "Enable scroll navigation"
-	},
-	"labelNavigationAutoInactive": {
-		"message": "Disable"
-	},
-	"labelNavigationAutoActive": {
-		"message": "Enable"
+		"message": "large click zones & auto-click on hover"
 	},
 	"multiclic": {
-		"message": ": $CURRENT$ $INDEX$/$TOTAL$, change to $NEXT$ $INDEX2$/$TOTAL$",
-		"description": "Indicate current setting's value and index, total number of values, and next value.",
+		"message": ": $CURRENT$ $INDEX$/$TOTAL$, switch to $NEXT$ $INDEX2$/$TOTAL$",
+		"description": "Indicates the current setting value and index, the total number of values, and the next value.",
 		"placeholders": {
 			"current": { "content": "$1" },
 			"index": { "content": "$2" },
-			"total": { "content":  "$3" },
-			"next": { "content":  "$4" },
-			"index2": { "content":  "$5" }
+			"total": { "content": "$3" },
+			"next": { "content": "$4" },
+			"index2": { "content": "$5" }
 		}
 	},
 	"multiclicToggleOff": {
-		"message": ": inactive. Turn on.",
+		"message": "Inactive. Activate.",
 		"description": "Inactive setting."
 	},
 	"multiclicToggleOn": {
-		"message": ": active. Turn off.",
+		"message": "Active. Deactivate.",
 		"description": "Active setting."
 	},
 	"setting-fontFamily": {
-		"message": "Font Family"
+		"message": "Font"
 	},
-	"fontFamily-Accessible_DfA": {
+	"setting-fontFamily-instruction": {
+		"message": "To change the text appearance"
+	},
+	"fontFamily-noModifications": {
+		"message": "no modifications"
+	},
+	"fontFamily-AccessibleDfA": {
 		"message": "Accessible DfA"
+	},
+	"fontFamily-B612Mono": {
+		"message": "B612 Mono"
+	},
+	"fontFamily-ComicSansMS": {
+		"message": "Comic Sans MS"
+	},
+	"fontFamily-LexandDeca": {
+		"message": "Lexand Deca"
 	},
 	"fontFamily-Luciole": {
 		"message": "Luciole"
+	},
+	"fontFamily-SylexiadSans": {
+		"message": "Sylexiad Sans"
 	},
 	"fontFamily-Verdana": {
 		"message": "Verdana"
@@ -702,190 +303,535 @@
 	"setting-textSize": {
 		"message": "Text Size"
 	},
+	"setting-textSize-instruction": {
+		"message": "To increase text size"
+	},
+	"textSize-noModifications": {
+		"message": "no modifications"
+	},
 	"textSize-110": {
-		"message": "110%"
+		"message": "slightly larger (110%)"
 	},
 	"textSize-130": {
-		"message": "130%"
+		"message": "larger (130%)"
+	},
+	"textSize-160": {
+		"message": "quite large (160%)"
 	},
 	"textSize-200": {
-		"message": "200%"
+		"message": "very large (200%)"
+	},
+	"textSize-350": {
+		"message": "huge (350%)"
+	},
+	"textSize-500": {
+		"message": "max (500%)"
 	},
 	"setting-capitalLetters": {
 		"message": "Capital Letters"
 	},
+	"setting-capitalLetters-instruction": {
+		"message": "To use capital letters"
+	},
+	"capitalLetters-noModifications": {
+		"message": "no modifications"
+	},
 	"capitalLetters-uppercase": {
-		"message": "Uppercase"
+		"message": "all uppercase"
 	},
 	"capitalLetters-capitalize": {
-		"message": "Capitalize"
+		"message": "capitalize first letters"
 	},
 	"setting-textSpacing": {
 		"message": "Text Spacing"
 	},
+	"setting-textSpacing-instruction": {
+		"message": "To increase character and line spacing"
+	},
+	"textSpacing-noModifications": {
+		"message": "no modifications"
+	},
 	"textSpacing-spacingTextLabelSmall": {
-		"message": "Small"
+		"message": "slightly spaced"
 	},
 	"textSpacing-spacingTextLabelBig": {
-		"message": "Big"
+		"message": "widely spaced"
+	},
+	"textSpacing-spacingTextLabelHuge": {
+		"message": "very widely spaced"
 	},
 	"setting-readingGuide": {
 		"message": "Reading Guide"
 	},
+	"setting-readingGuide-instruction": {
+		"message": "To guide your reading"
+	},
+	"readingGuide-noModifications": {
+		"message": "no guide"
+	},
 	"readingGuide-ruleGuide": {
-		"message": "Rule"
+		"message": "ruler"
 	},
 	"readingGuide-maskGuide": {
-		"message": "Mask"
+		"message": "mask"
 	},
 	"setting-marginAlign": {
 		"message": "Margin & Alignment"
 	},
-	"marginAlign-alignLeft": {
-		"message": "Left Align"
+	"setting-marginAlign-instruction": {
+		"message": "To anchor reading to the left"
 	},
-	"marginAlign-margeList": {
-		"message": "List Margin"
+	"marginAlign-noModifications": {
+		"message": "no modifications"
+	},
+	"marginAlign-alignLeft": {
+		"message": "left-aligned text"
 	},
 	"marginAlign-marginLeft": {
-		"message": "Left Margin"
+		"message": "left margin (& left-aligned text)"
+	},
+	"marginAlign-margeList": {
+		"message": "left margin and numbered lists (& left-aligned text)"
 	},
 	"setting-magnifier": {
 		"message": "Magnifier"
 	},
-	"magnifier-square_2": {
-		"message": "Square (×2)"
+	"setting-magnifier-instruction": {
+		"message": "To zoom in temporarily"
 	},
-	"magnifier-square_5": {
-		"message": "Square (×5)"
+	"magnifier-noModifications": {
+		"message": "no magnifier"
 	},
-	"magnifier-circle_2": {
-		"message": "Circle (×2)"
+	"magnifier-zoom-2": {
+		"message": "×2"
+	},
+	"magnifier-zoom-5": {
+		"message": "×5"
+	},
+	"magnifier-zoom-10": {
+		"message": "×10"
+	},
+	"magnifier-zoom-15": {
+		"message": "×15"
 	},
 	"setting-readAloud": {
 		"message": "Read Aloud"
 	},
+	"setting-readAloud-instruction": {
+		"message": "To have text read aloud on request"
+	},
+	"readAloud-tooltip": {
+		"message": "Click to vocalize, press Esc or right-click to stop."
+	},
+	"readAloud-noModifications": {
+		"message": "no vocalization"
+	},
 	"readAloud-word": {
-		"message": "Word"
+		"message": "vocalize pointed word"
 	},
 	"readAloud-sentence": {
-		"message": "Sentence"
+		"message": "vocalize pointed sentence"
 	},
 	"readAloud-paragraph": {
-		"message": "Paragraph"
+		"message": "vocalize pointed paragraph"
+	},
+	"readAloud-all": {
+		"message": "vocalize all"
 	},
 	"setting-colourTheme": {
-		"message": "Colour Themes"
+		"message": "Color Theme"
+	},
+	"setting-colourTheme-instruction": {
+		"message": "To change the page and cursor appearance"
+	},
+	"colourTheme-noModifications": {
+		"message": "no modifications"
 	},
 	"colourTheme-reinforcedContrasts": {
-		"message": "Reinforced Contrasts"
+		"message": "reinforced contrasts"
 	},
-	"colourTheme-white_black": {
-		"message": "White on Black"
+	"colourTheme-values": {
+		"message": "$COLOR$ on $BACKGROUND$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"background": { "content": "$2" }
+		}
+	},
+	"colourTheme-cursor": {
+		"message": "Cursor $COLOR$ and $SIZE$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"size": { "content": "$2" }
+		}
+	},
+	"colourTheme-cursor-noModifications": {
+		"message": "Cursor with no modifications"
+	},
+	"colourTheme-focus": {
+		"message": "Focus $COLOR$ and $SIZE$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"size": { "content": "$2" }
+		}
+	},
+	"colourTheme-focus-noModifications": {
+		"message": "Focus with no modifications"
+	},
+	"colourTheme-scroll": {
+		"message": "Scrollbar $COLOR$ and $SIZE$",
+		"placeholders": {
+			"color": { "content": "$1" },
+			"size": { "content": "$2" }
+		}
+	},
+	"colourTheme-scroll-noModifications": {
+		"message": "Scrollbar with no modifications"
+	},
+	"colourTheme-link": {
+		"message": "Link $COLOR$",
+		"placeholders": {
+			"color": { "content": "$1" }
+		}
+	},
+	"colourTheme-link-noModifications": {
+		"message": "Link with no modifications"
+	},
+	"colourTheme-linkPointed": {
+		"message": "Pointed link $COLOR$",
+		"placeholders": {
+			"color": { "content": "$1" }
+		}
+	},
+	"colourTheme-linkPointed-noModifications": {
+		"message": "Pointed link with no modifications"
+	},
+	"colourTheme-linkVisited": {
+		"message": "Visited link $COLOR$",
+		"placeholders": {
+			"color": { "content": "$1" }
+		}
+	},
+	"colourTheme-linkVisited-noModifications": {
+		"message": "Visited link with no modifications"
 	},
 	"setting-cursorAspect": {
-		"message": "Cursor Aspect"
+		"message": "Cursor Appearance"
 	},
-	"cursorAspect-big_black": {
-		"message": "Big Black Cursor"
+	"setting-cursorAspect-instruction": {
+		"message": "To change cursor appearance"
 	},
-	"cursorAspect-big_white": {
-		"message": "Big White Cursor"
+	"cursorAspect-empty-example": {
+		"message": "Default cursor"
 	},
-	"cursorAspect-huge_black": {
-		"message": "Huge Black Cursor"
+	"cursorAspect-noModifications": {
+		"message": "no modifications"
 	},
-	"cursorAspect-huge_green": {
-		"message": "Huge Green Cursor"
+	"cursorAspect-values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": { "content": "$1" },
+			"color": { "content": "$2" }
+		}
+	},
+	"cursorSize-label": {
+    "message": "Cursor Size"
+	},
+	"cursorSize-values": {
+		"message": "$SIZE$",
+		"placeholders": {
+				"size": { "content": "$2" }
+		}
+	},
+	"cursorColor-label": {
+		"message": "Cursor Color"
+	},
+	"cursorColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+				"color": { "content": "$2" }
+		}
 	},
 	"setting-focusAspect": {
-		"message": "Focus Aspect"
+    "message": "Focus Appearance"
 	},
-	"focusAspect-big_black": {
-		"message": "Big Black Focus"
+	"setting-focusAspect-instruction": {
+		"message": "To change the focus appearance on the page"
 	},
-	"focusAspect-huge_black": {
-		"message": "Huge Black Focus"
+	"focusAspect-noModifications": {
+		"message": "no modifications"
 	},
-	"focusAspect-big_white": {
-		"message": "Big White Focus"
+	"focusAspect-values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+				"size": { "content": "$1" },
+				"color": { "content": "$2" }
+		}
 	},
-	"focusAspect-huge_white": {
-		"message": "Huge White Focus"
+	"focusSize-label": {
+		"message": "Focus Size"
+	},
+	"focusSize-values": {
+		"message": "$SIZE$",
+		"placeholders": {
+				"size": { "content": "$2" }
+		}
+	},
+	"focusColor-label": {
+		"message": "Focus Color"
+	},
+	"focusColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+				"color": { "content": "$2" }
+		}
 	},
 	"setting-colorContrast": {
 		"message": "Color Contrast"
 	},
-	"colorContrast-white_black": {
-		"message": "White on Black"
+	"setting-colorContrast-instruction": {
+		"message": "To change the background and text colors"
 	},
-	"colorContrast-white_blue": {
-		"message": "White on Blue"
+	"colorContrast-noModifications": {
+		"message": "no modifications"
 	},
 	"colorContrast-reinforcedContrasts": {
-		"message": "Reinforced Contrasts"
+		"message": "reinforced contrasts"
+	},
+	"colorContrast-values": {
+		"message": "$COLOR$ on $BACKGROUND$",
+		"placeholders": {
+				"color": { "content": "$1" },
+				"background": { "content": "$2" }
+		}
+	},
+	"colorContrast-daltonism": {
+		"message": "color blindness"
 	},
 	"setting-linkStyle": {
-		"message": "Link style"
+		"message": "Hyperlink Colors"
 	},
-	"linkStyle-darkblue_orange_red": {
-		"message": "Dark Blue, Orange & Red"
+	"setting-linkStyle-instruction": {
+		"message": "To modify the colors of navigation links"
 	},
-	"linkStyle-lightblue_orange_lightgreen": {
-		"message": "Light Blue, Orange & Light Green"
+	"linkStyle-noModifications": {
+		"message": "no modifications"
 	},
-	"linkStyle-yellow_orange_lightgreen": {
-		"message": "Yellow, Orange & Light Green"
+	"linkStyle-values": {
+		"message": "$COLOR$, $POINTED$, and $VISITED$",
+		"placeholders": {
+				"color": { "content": "$1" },
+				"pointed": { "content": "$2" },
+				"visited": { "content": "$3" }
+		}
+	},
+	"linkColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+				"color": { "content": "$2" }
+		}
+	},
+	"linkPointedColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+				"color": { "content": "$2" }
+		}
+	},
+	"linkVisitedColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+				"color": { "content": "$2" }
+		}
+	},
+	"linkColor-label": {
+		"message": "Link Color"
+	},
+	"linkPointedColor-label": {
+		"message": "Active Link Color"
+	},
+	"linkVisitedColor-label": {
+		"message": "Visited Link Color"
 	},
 	"setting-clearlyLinks": {
-		"message": "Clearly Links"
+    "message": "Clearly Visible Links"
 	},
-	"clearlyLinks-bold_underline": {
-		"message": "Bold Underline"
+	"setting-clearlyLinks-instruction": {
+		"message": "To make navigation links more visible"
 	},
-	"clearlyLinks-bold_boxed": {
-		"message": "Bold Boxed"
+	"clearlyLinks-noModifications": {
+		"message": "no modifications"
+	},
+	"clearlyLinks-values": {
+		"message": "$BOLD$ & $STYLE$",
+		"placeholders": {
+				"bold": { "content": "$1" },
+				"style": { "content": "$2" }
+		}
 	},
 	"setting-stopAnimations": {
 		"message": "Stop Animations"
 	},
+	"setting-stopAnimations-instruction": {
+		"message": "To prevent animations on the page"
+	},
+	"stopAnimations-noModifications": {
+		"message": "no modifications"
+	},
+	"stopAnimations-active": {
+		"message": "stop animations"
+	},
 	"setting-deleteBackgroundImages": {
-		"message": "Delete Background Images"
+		"message": "Remove Background Images"
 	},
-	"deleteBackgroundImages-background_transparent": {
-		"message": "Transparent Backgrounds"
+	"setting-deleteBackgroundImages-instruction": {
+		"message": "To prevent background images from displaying"
 	},
-	"deleteBackgroundImages-background_foreground_transparent": {
-		"message": "Transparent Backgrounds and Foregrounds"
+	"deleteBackgroundImages-noModifications": {
+		"message": "no modifications"
+	},
+	"deleteBackgroundImages-backgroundTransparent": {
+		"message": "removes background images and transparency effects"
+	},
+	"deleteBackgroundImages-backgroundForegroundTransparent": {
+		"message": "removes background images, transparency effects, and foreground images"
+	},
+	"setting-scrollType": {
+		"message": "Scroll Type"
+	},
+	"setting-scrollType-instruction": {
+		"message": "To facilitate scrolling on the page"
+	},
+	"scrollType-noModifications": {
+		"message": "no modifications"
+	},
+	"scrollType-scrollOnClick": {
+		"message": "Scroll Up/Down Buttons (on click)"
+	},
+	"scrollType-scrollOnMouseover": {
+		"message": "Scroll Up/Down Buttons (on mouseover, no click required)"
 	},
 	"setting-scroll": {
 		"message": "Scroll"
 	},
-	"scroll-bigScroll_black_grey": {
-		"message": "Big Black Grey Scroll"
+	"setting-scroll-instruction": {
+		"message": "To modify the appearance of the scroll bar"
 	},
-	"scroll-scrollOnMouseover": {
-		"message": "Scroll on MouseOver"
+	"scroll-up": {
+		"message": "Scroll Up"
+	},
+	"scroll-down": {
+		"message": "Scroll Down"
+	},
+	"scroll-noModifications": {
+		"message": "no modifications"
+	},
+	"scroll-values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+				"size": { "content": "$1" },
+				"color": { "content": "$2" }
+		}
+	},
+	"scrollSize-label": {
+		"message": "Scroll Bar Size"
+	},
+	"scrollSize-values": {
+		"message": "$SIZE$",
+		"placeholders": {
+				"size": { "content": "$2" }
+		}
+	},
+	"scrollColor-label": {
+		"message": "Scroll Bar Color"
+	},
+	"scrollColor-values": {
+		"message": "$COLOR$",
+		"placeholders": {
+				"color": { "content": "$2" }
+		}
 	},
 	"setting-skipToContent": {
-		"message": "Skip To Content"
+		"message": "Skip to Content"
+	},
+	"setting-skipToContent-instruction": {
+		"message": "To jump directly to the main content"
+	},
+	"skipToContent-noModifications": {
+		"message": "no modifications"
+	},
+	"skipToContent-active": {
+		"message": "skip to content"
 	},
 	"setting-navigationButtons": {
 		"message": "Navigation Buttons"
 	},
+	"setting-navigationButtons-instruction": {
+		"message": "To move focus with the mouse"
+	},
+	"navigationButtons-noModifications": {
+		"message": "no navigation buttons"
+	},
+	"navigationButtons-active": {
+		"message": "add navigation buttons"
+	},
 	"setting-clickFacilite": {
-		"message": "Easy click"
+		"message": "Click Assistance"
+	},
+	"setting-clickFacilite-instruction": {
+		"message": "To avoid pointer errors and reduce effort"
+	},
+	"clickFacilite-noModifications": {
+		"message": "no modifications"
 	},
 	"clickFacilite-bigZone": {
-		"message": "Big Zone"
+		"message": "large click zones & standard click"
 	},
-	"clickFacilite-longClick_2": {
-		"message": "Long Click (×2)"
+	"clickFacilite-values": {
+		"message": "$TYPE$ ($DELAY$)",
+		"placeholders": {
+				"type": { "content": "$1" },
+				"delay": { "content": "$2" }
+		}
+	},
+	"clickType-values": {
+    "message": "$TYPE$",
+    "placeholders": {
+        "type": { "content": "$2" }
+    }
+	},
+	"clickDelay-values": {
+		"message": "$DELAY$",
+		"placeholders": {
+				"delay": { "content": "$2" }
+		}
 	},
 	"setting-navigationAuto": {
-		"message": "Auto Navigation"
+		"message": "Auto-Scrolling Navigation"
 	},
-	"navigationAuto-autoFocus_2": {
-		"message": "Auto Focus (×2)"
+	"setting-navigationAuto-instruction": {
+		"message": "To move focus automatically"
+	},
+	"navigationAuto-noModifications": {
+		"message": "no auto-scrolling"
+	},
+	"navigationAuto-values": {
+		"message": "auto-scrolling focus ($DELAY$)",
+		"placeholders": {
+				"delay": { "content": "$2" }
+		}
+	},
+	"navigationAuto-label": {
+		"message": "Enable Auto-Scrolling Navigation"
+	},
+	"navigationAuto-inactive": {
+		"message": "Disable"
+	},
+	"navigationAuto-active": {
+		"message": "Enable"
+	},
+	"navigationDelay-values": {
+		"message": "$DELAY$",
+		"placeholders": {
+				"delay": { "content": "$2" }
+		}
 	}
 }

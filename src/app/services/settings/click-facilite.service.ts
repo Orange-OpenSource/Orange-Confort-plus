@@ -20,7 +20,7 @@ class ClickFaciliteService {
 
 	setClickFacilite = (value: string): void => {
 		let paramName = value.split('_')[0];
-		this.delay = Number(value.split('_')[1]) * 1000;
+		this.delay = Number(value.split('_')[1]?.split('-')[1]) * 1000;
 
 		switch (paramName) {
 			case CLICK_FACILITE_BIG_ZONE: {

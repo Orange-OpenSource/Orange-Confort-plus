@@ -22,7 +22,7 @@ class NavigationAutoService {
 
 		if (value !== DEFAULT_VALUE) {
 			window.addEventListener('focus', this.handler, true);
-			let delay = Number(value.split('_')[1]) * 1000;
+			let delay = Number(value.split('_')[1]?.split('-')[1]) * 1000;
 			this.setIntervalFocus(delay);
 		}
 	}

@@ -1,7 +1,7 @@
 const editTextSizeLayout: HTMLTemplateElement = document.createElement('template');
 editTextSizeLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="TextSize"></app-select-edit-value>
+		<app-select-edit-value data-name="textSize"></app-select-edit-value>
 	</form>
 `;
 

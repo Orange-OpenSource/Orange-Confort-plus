@@ -25,7 +25,7 @@ class CursorAspectService {
 	}
 
 	drawCursor = (type: string, size: number, color: string, strokeWidth: number): string => {
-		let stroke: string = (this.colorCursorValues.find((o: ColorCursorValues) => o.fill === color)).stroke;
+		let stroke: string = (this.colorCursorValues.find((o: ColorCursorValues) => o.fill === color))?.stroke;
 		let path = '';
 		switch (type) {
 			case 'pointer':
@@ -45,9 +45,9 @@ class CursorAspectService {
 	setCursor = (value: string): void => {
 		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('cursor-aspect');
-		} else {
+		} else if (value) {
 			let color = value.split('_')[1];
-			let size = value.split('_')[0] === 'big' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
+			let size = value.split('_')[0] === 'bigCursor' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 			let styleCursor = `
 				* {
 					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('default', size, color, 6)}') 0 0, default !important;

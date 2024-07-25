@@ -1,7 +1,7 @@
 const editClearlyLinksLayout: HTMLTemplateElement = document.createElement('template');
 editClearlyLinksLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="ClearlyLinks"></app-select-edit-value>
+		<app-select-edit-value data-name="clearlyLinks"></app-select-edit-value>
 	</form>
 `;
 

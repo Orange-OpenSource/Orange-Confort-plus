@@ -60,8 +60,8 @@ class EditSettingComponent extends HTMLElement {
 		if ('data-setting' === name) {
 			this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
 			this.settingIcon?.setAttribute('data-name', this.settingName);
-			this.settingTitle!.innerText = i18nServiceInstance.getMessage(this.settingName);
-			this.settingInstruction!.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
+			this.settingTitle!.innerText = i18nServiceInstance.getMessage(`setting-${this.settingName}`);
+			this.settingInstruction!.innerText = i18nServiceInstance.getMessage(`setting-${this.settingName}-instruction`);
 			this.displaySetting(`edit-${newValue}`);
 			localStorageServiceInstance.setItem('current-setting', newValue);
 		}
