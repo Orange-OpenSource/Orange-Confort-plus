@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.6 - 21/08/2024
+ * orange-confort-plus - version 5.0.0-alpha.6 - 22/08/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -719,7 +719,7 @@ class ClickFaciliteService {
     }
     setClickFacilite=value => {
         let paramName = value.split("_")[0];
-        this.delay = Number(value.split("_")[1]) * 1e3;
+        this.delay = Number(value.split("_")[1]?.split("-")[1]) * 1e3;
         switch (paramName) {
           case CLICK_FACILITE_BIG_ZONE:
             {
@@ -952,8 +952,8 @@ class ColorContrastService {
                 color = "#000";
                 backgroundColor = "#fff";
             } else {
-                color = value.split("_")[0];
-                backgroundColor = value.split("_")[1];
+                color = value?.split("_")[0];
+                backgroundColor = value?.split("_")[1];
                 const colorParams = this.colorContrastDictionnary.find((o => o.name === value));
                 colourThemeServiceInstance.setServices(colorParams);
             }
@@ -1002,10 +1002,10 @@ class ColourThemeService {
         this.setServices(colourThemeValues);
     };
     setServices=colourThemeValues => {
-        cursorAspectServiceInstance.setCursor(colourThemeValues.cursor);
-        focusAspectServiceInstance.setFocus(colourThemeValues.focus);
-        scrollServiceInstance.setScroll(colourThemeValues.scroll);
-        linkStyleServiceInstance.setLinkStyle(colourThemeValues.link);
+        cursorAspectServiceInstance.setCursor(colourThemeValues?.cursor);
+        focusAspectServiceInstance.setFocus(colourThemeValues?.focus);
+        scrollServiceInstance.setScroll(colourThemeValues?.scroll);
+        linkStyleServiceInstance.setLinkStyle(colourThemeValues?.link);
     };
 }
 
@@ -1043,7 +1043,7 @@ class CursorAspectService {
         cursorAspectServiceIsInstantiated = true;
     }
     drawCursor=(type, size, color, strokeWidth) => {
-        let stroke = this.colorCursorValues.find((o => o.fill === color)).stroke;
+        let stroke = this.colorCursorValues.find((o => o.fill === color))?.stroke;
         let path = "";
         switch (type) {
           case "pointer":
@@ -1064,9 +1064,9 @@ class CursorAspectService {
     setCursor=value => {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("cursor-aspect");
-        } else {
+        } else if (value) {
             let color = value.split("_")[1];
-            let size = value.split("_")[0] === "big" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
+            let size = value.split("_")[0] === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
         }
@@ -1098,33 +1098,24 @@ class DeleteBackgroundImagesService {
     };
     setStyleDeleteBackground=value => {
         let styleToDelete = "";
-        let values = value.split("_");
-        values.forEach((value => {
-            switch (value) {
-              case "background":
-                styleToDelete += this.styleDeleteBackgroundImages;
-                break;
-
-              case "foreground":
-                styleToDelete += this.styleDeleteForegroundImages;
-                let listeImg = document.querySelectorAll("img, svg, canvas, area");
-                listeImg.forEach((element => {
-                    element.classList.add(this.classDeleteForegroundImg);
-                    let imageAlt = this.getAccessibleLabel(element);
-                    if (imageAlt !== "") {
-                        let spanImage = document.createElement("span");
-                        spanImage.classList.add(this.classSpanImage);
-                        spanImage.textContent = `${i18nServiceInstance.getMessage("textContentImageHidden")} ${imageAlt}`;
-                        element.parentNode.insertBefore(spanImage, element);
-                    }
-                }));
-                break;
-
-              case "transparent":
-                styleToDelete += this.styleDeleteTransparencyEffects;
-                break;
-            }
-        }));
+        if (value.includes("background")) {
+            styleToDelete += this.styleDeleteBackgroundImages;
+        } else if (value.includes("foreground")) {
+            styleToDelete += this.styleDeleteForegroundImages;
+            let listeImg = document.querySelectorAll("img, svg, canvas, area");
+            listeImg.forEach((element => {
+                element.classList.add(this.classDeleteForegroundImg);
+                let imageAlt = this.getAccessibleLabel(element);
+                if (imageAlt !== "") {
+                    let spanImage = document.createElement("span");
+                    spanImage.classList.add(this.classSpanImage);
+                    spanImage.textContent = `${i18nServiceInstance.getMessage("textContentImageHidden")} ${imageAlt}`;
+                    element.parentNode.insertBefore(spanImage, element);
+                }
+            }));
+        } else if (value.includes("transparent")) {
+            styleToDelete += this.styleDeleteTransparencyEffects;
+        }
         stylesServiceInstance.setStyle("delete-background-images", styleToDelete);
     };
     getAccessibleLabel=element => {
@@ -1167,7 +1158,7 @@ class FocusAspectService {
     setFocus=value => {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("focus-aspect");
-        } else {
+        } else if (value) {
             const [size, color] = value.split("_");
             const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === FOCUS_SIZE_BIG ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : "";
             const styleFocusColor = color !== DEFAULT_VALUE ? `outline-color: ${color} !important;` : "";
@@ -1183,7 +1174,7 @@ let fontFamilyServiceIsInstantiated;
 
 class FontFamilyService {
     fontDictionnary=[ {
-        name: "Accessible_DfA",
+        name: "AccessibleDfA",
         size: "91.125%",
         folder: "accessibleDfA",
         files: [ {
@@ -1200,7 +1191,7 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "B612_Mono",
+        name: "B612Mono",
         size: "75%",
         folder: "B612",
         files: [ {
@@ -1221,7 +1212,7 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "Comic Sans MS",
+        name: "ComicSansMS",
         size: "100%",
         folder: "comic",
         files: [ {
@@ -1230,7 +1221,7 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "Lexand Deca",
+        name: "LexandDeca",
         size: "92%",
         folder: "lexendDeca",
         files: [ {
@@ -1292,7 +1283,7 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "Sylexiad Sans",
+        name: "SylexiadSans",
         size: "125%",
         folder: "sylexiadSans",
         files: [ {
@@ -1418,7 +1409,7 @@ class LinkStyleService {
     setLinkStyle=value => {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("link");
-        } else {
+        } else if (value) {
             const [linkColor, linkPointedColor, linkVisitedColor] = value.split("_");
             const styleColorLink = linkColor !== DEFAULT_VALUE ? `a:link { color: ${linkColor} !important; }` : "";
             const styleColorActiveLink = linkPointedColor !== DEFAULT_VALUE ? `a:active, a:hover, a:focus { color: ${linkPointedColor} !important; }` : "";
@@ -1434,7 +1425,6 @@ class LinkStyleService {
 let magnifierServiceIsInstantiated;
 
 class MagnifierService {
-    shape;
     zoom;
     handler;
     magnifierWidth=300;
@@ -1463,8 +1453,7 @@ class MagnifierService {
             this.unBindDOMObserver();
         } else {
             stylesServiceInstance.setStyle("magnifier", this.styleMagnifier);
-            this.shape = value.split("_")[0];
-            this.zoom = Number(value.split("_")[1]);
+            this.zoom = Number(value.split("-")[1]);
             this.initMagnifier();
         }
     };
@@ -1477,7 +1466,7 @@ class MagnifierService {
         window.addEventListener("resize", this.handler, false);
         window.addEventListener("scroll", this.handler, true);
         window.addEventListener("scrollend", this.handler, true);
-        this.setShapeAndZoom();
+        this.magnifierContent.style.transform = `scale(${this.zoom})`;
         this.makeDraggable();
         this.setPosition(this.magnifier, 250, 250);
         this.syncContent();
@@ -1495,18 +1484,6 @@ class MagnifierService {
         magnifier.appendChild(magnifierGlass);
         fragment.appendChild(magnifier);
         document.body.appendChild(fragment);
-    };
-    setShapeAndZoom=() => {
-        switch (this.shape) {
-          case "square":
-            this.magnifier.style.borderRadius = null;
-            break;
-
-          case "circle":
-            this.magnifier.style.borderRadius = "50%";
-            break;
-        }
-        this.magnifierContent.style.transform = `scale(${this.zoom})`;
     };
     setPosition=(element, left, top) => {
         element.style.left = `${left}px`;
@@ -1766,7 +1743,7 @@ class NavigationAutoService {
         this.clearIntervalFocus();
         if (value !== DEFAULT_VALUE) {
             window.addEventListener("focus", this.handler, true);
-            let delay = Number(value.split("_")[1]) * 1e3;
+            let delay = Number(value.split("_")[1]?.split("-")[1]) * 1e3;
             this.setIntervalFocus(delay);
         }
     };
@@ -1945,7 +1922,7 @@ class ReadAloudService {
         const fragment = document.createDocumentFragment();
         const tooltip = document.createElement("div");
         tooltip.setAttribute("id", this.readAloudTooltipId);
-        tooltip.textContent = i18nServiceInstance.getMessage("readAloudTooltip");
+        tooltip.textContent = i18nServiceInstance.getMessage("readAloud-tooltip");
         fragment.appendChild(tooltip);
         document.body.insertBefore(fragment, document.body.firstChild);
         stylesServiceInstance.setStyle("read-aloud", this.classReadAloud);
@@ -2164,10 +2141,10 @@ class ScrollTypeService {
         let intervalUp;
         let intervalDown;
         const buttonsList = [ {
-            name: "scrollUp",
+            name: "scroll-up",
             interval: intervalUp
         }, {
-            name: "scrollDown",
+            name: "scroll-down",
             interval: intervalDown
         } ];
         buttonsList.forEach((scrollButton => {
@@ -2177,7 +2154,7 @@ class ScrollTypeService {
             buttonsList.forEach((button => {
                 domServiceInstance.addButtonsInDom(button.name);
                 let btnScroll = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button.name}`);
-                let scrollDir = button.name.includes("Up") ? -1 : button.name.includes("Down") ? 1 : 0;
+                let scrollDir = button.name.includes("up") ? -1 : button.name.includes("down") ? 1 : 0;
                 let scrollBy = scrollDir * this.scrollSteps;
                 if (this.btnState === "scrollOnMouseover") {
                     btnScroll?.addEventListener("mouseover", (event => {
@@ -2206,6 +2183,25 @@ class ScrollService {
     scrollColor="";
     scrollColorHover="";
     scrollWidth="";
+    scrollColorValues=[ {
+        color: "white",
+        hover: "lightgrey"
+    }, {
+        color: "blue",
+        hover: "darkblue"
+    }, {
+        color: "red",
+        hover: "darkred"
+    }, {
+        color: "yellow",
+        hover: "gold"
+    }, {
+        color: "green",
+        hover: "darkgreen"
+    }, {
+        color: "black",
+        hover: "darkgrey"
+    } ];
     constructor() {
         if (scrollServiceIsInstantiated) {
             throw new Error("ScrollService is already instantiated.");
@@ -2217,12 +2213,12 @@ class ScrollService {
         document.body.classList.remove(`${PREFIX}big-scroll`);
         if (value !== DEFAULT_VALUE) {
             document.body.classList.add(`${PREFIX}big-scroll`);
-            switch (value.split("_")[0]) {
-              case "bigScroll":
+            switch (value?.split("_")[0]) {
+              case "big":
                 this.scrollWidth = SCROLL_SIZE_BIG;
                 break;
 
-              case "hugeScroll":
+              case "huge":
                 this.scrollWidth = SCROLL_SIZE_HUGE;
                 break;
 
@@ -2230,8 +2226,9 @@ class ScrollService {
                 this.scrollWidth = "inherit";
                 break;
             }
-            this.scrollColor = value.split("_")[1] ? value.split("_")[1] : "lightgrey";
-            this.scrollColorHover = value.split("_")[2] ? value.split("_")[2] : "grey";
+            this.scrollColor = value?.split("_")[1] ? value?.split("_")[1] : "lightgrey";
+            let colorHover = this.scrollColorValues.find((o => o.color === this.scrollColor))?.hover;
+            this.scrollColorHover = colorHover ? colorHover : "grey";
             this.setScrollClass();
         }
     };
@@ -3203,7 +3200,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<span class="d-flex flex-column">\n\t\t\t<span class="sc-btn-setting__name"></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>\n\t\t\x3c!-- @todo Nom accessible : réglage, valeur actuelle 1/n, changer en 2/n --\x3e\n\t\t\x3c!-- @note Exemple : « Police Accessible-DfA 1/3, changer en Arial 2/3 » --\x3e\n\t\t\x3c!-- @note Si on peut associer un libellé a une valeur c’est cool --\x3e\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<span class="d-flex flex-column">\n\t\t\t<span class="sc-btn-setting__name"></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
@@ -3245,7 +3242,7 @@ class BtnSettingComponent extends HTMLElement {
             this.name = settingName;
             const span = this.querySelector(".sc-btn-setting__name");
             const icon = this.querySelector("app-icon");
-            span.innerText = i18nServiceInstance.getMessage(this.name);
+            span.innerText = i18nServiceInstance.getMessage(`setting-${this.name}`);
             icon?.setAttribute("data-name", this.name);
         }
         if ("data-disabled" === name) {
@@ -3254,15 +3251,22 @@ class BtnSettingComponent extends HTMLElement {
         }
     }
     getValueLabel=value => {
-        const string = value === "noModifications" ? stringServiceInstance.normalizeSettingCamelCase(value) : `${this.name}-${stringServiceInstance.normalizeSettingCamelCase(value)}`;
-        return i18nServiceInstance.getMessage(string);
+        if (value?.includes("_")) {
+            let arrayValues = [];
+            value.split("_").forEach((item => {
+                arrayValues.push(i18nServiceInstance.getMessage(item));
+            }));
+            return i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+        } else {
+            return i18nServiceInstance.getMessage(`${this.name}-${value}`);
+        }
     };
     setTitle=() => {
         const settingName = i18nServiceInstance.getMessage(`setting-${this.name}`);
         const settingsNumber = this.settingsList.length;
         if (settingsNumber > 0) {
             const currentValueLabel = this.getValueLabel(this.value);
-            const nextValueIndex = settingsNumber === this.index ? 0 : this.index + 1;
+            const nextValueIndex = settingsNumber === this.index + 1 ? 0 : this.index + 1;
             const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
             let content = "";
             if (currentValueLabel === "active") {
@@ -3305,9 +3309,9 @@ class BtnSettingComponent extends HTMLElement {
         this.slot = "";
         this.settingsList.forEach(((value, index) => {
             if (value) {
-                let point = '<li class="bg-white rounded-circle sc-btn-setting__btn-slot"></li>';
+                let point = '<span class="sc-btn-setting__value rounded-circle"></span>';
                 if (index === this.index) {
-                    point = '<li class="border border-4 border-black rounded-circle"></li>';
+                    point = '<span class="sc-btn-setting__value sc-btn-setting__current-value rounded-circle"></span>';
                     this.value = value;
                 }
                 this.slot = `${this.slot}${point}`;
@@ -3497,7 +3501,7 @@ class SelectEditValueComponent extends HTMLElement {
         if ("data-label" === name) {
             let groupElement = this.querySelector('div[role="group"]');
             let selectLabel = document.createElement("label");
-            selectLabel.innerText = i18nServiceInstance.getMessage(`label${this.name}`);
+            selectLabel.innerText = i18nServiceInstance.getMessage(`${this.name}-label`);
             selectLabel.setAttribute("id", `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
             groupElement.insertBefore(selectLabel, groupElement.firstChild);
             groupElement.setAttribute("aria-labelledby", `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
@@ -3517,7 +3521,16 @@ class SelectEditValueComponent extends HTMLElement {
             this.btnNextValue.disabled = true;
         }
         this.currentValue = this.values[this.currentIndex];
-        this.selectedValue.innerText = i18nServiceInstance.getMessage(this.currentValue.replace(/\s/g, ""));
+        if (this.currentValue?.includes("_")) {
+            let arrayValues = [];
+            this.currentValue.split("_").forEach((item => {
+                arrayValues.push(i18nServiceInstance.getMessage(item));
+            }));
+            this.selectedValue.innerText = i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+        } else {
+            let message = `${this.name}-${this.currentValue}`;
+            this.selectedValue.innerText = i18nServiceInstance.getMessage(message);
+        }
         this.changeEditValue();
     };
     createHandler=() => event => {
@@ -3534,7 +3547,7 @@ class SelectEditValueComponent extends HTMLElement {
         }
     };
     changeEditValue=() => {
-        let editValueEvent = new CustomEvent(`editSetting${this.name}`, {
+        let editValueEvent = new CustomEvent(`editSetting${stringServiceInstance.capitalizeFirstLetter(this.name)}`, {
             bubbles: true,
             detail: {
                 newValue: this.currentValue
@@ -3623,8 +3636,8 @@ class EditSettingComponent extends HTMLElement {
         if ("data-setting" === name) {
             this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
             this.settingIcon?.setAttribute("data-name", this.settingName);
-            this.settingTitle.innerText = i18nServiceInstance.getMessage(this.settingName);
-            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
+            this.settingTitle.innerText = i18nServiceInstance.getMessage(`setting-${this.settingName}`);
+            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`setting-${this.settingName}-instruction`);
             this.displaySetting(`edit-${newValue}`);
             localStorageServiceInstance.setItem("current-setting", newValue);
         }
@@ -3642,7 +3655,7 @@ customElements.define("app-edit-setting", EditSettingComponent);
 
 const editCapitalLettersLayout = document.createElement("template");
 
-editCapitalLettersLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="CapitalLetters"></app-select-edit-value>\n\t</form>\n`;
+editCapitalLettersLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="capitalLetters"></app-select-edit-value>\n\t</form>\n`;
 
 class EditCapitalLettersComponent extends HTMLElement {
     selectCapitalLettersElement=null;
@@ -3688,7 +3701,7 @@ customElements.define("app-edit-capital-letters", EditCapitalLettersComponent);
 
 const editClearlyLinksLayout = document.createElement("template");
 
-editClearlyLinksLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ClearlyLinks"></app-select-edit-value>\n\t</form>\n`;
+editClearlyLinksLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="clearlyLinks"></app-select-edit-value>\n\t</form>\n`;
 
 class EditClearlyLinksComponent extends HTMLElement {
     selectClearlyLinksElement=null;
@@ -3734,16 +3747,16 @@ customElements.define("app-edit-clearly-links", EditClearlyLinksComponent);
 
 const editClickFaciliteLayout = document.createElement("template");
 
-editClickFaciliteLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-click-facilite" data-name="ClickFacilite"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-delay" class="d-none" data-name="ClickDelay"></app-select-edit-value>\n\t</form>\n`;
+editClickFaciliteLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-click-type" data-name="clickType"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-click-delay" class="d-none" data-name="clickDelay"></app-select-edit-value>\n\t</form>\n`;
 
 class EditClickFaciliteComponent extends HTMLElement {
-    selectClickFaciliteElement=null;
+    selectClickTypeElement=null;
     selectClickDelayElement=null;
     settingValues=null;
-    clickFaciliteValue="";
+    clickTypeValue="";
     clickDelayValue="";
-    clickFaciliteValues=[ DEFAULT_VALUE, "bigZone", "longClick", "autoClick" ];
-    clickDelayValues=[ "clickDelay_1", "clickDelay_2", "clickDelay_3", "clickDelay_6" ];
+    clickTypeValues=[ `clickType_${DEFAULT_VALUE}`, `clickType_${CLICK_FACILITE_BIG_ZONE}`, `clickType_${CLICK_FACILITE_LONG_CLICK}`, `clickType_${CLICK_FACILITE_AUTO_CLICK}` ];
+    clickDelayValues=[ "clickDelay_delay-1", "clickDelay_delay-2", "clickDelay_delay-3", "clickDelay_delay-6" ];
     handler;
     constructor() {
         super();
@@ -3751,28 +3764,28 @@ class EditClickFaciliteComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
-        this.selectClickFaciliteElement = this.querySelector(`#${PREFIX}select-click-facilite`);
-        this.selectClickDelayElement = this.querySelector(`#${PREFIX}select-delay`);
-        this.selectClickFaciliteElement.addEventListener("editSettingClickFacilite", this.handler);
+        this.selectClickTypeElement = this.querySelector(`#${PREFIX}select-click-type`);
+        this.selectClickDelayElement = this.querySelector(`#${PREFIX}select-click-delay`);
+        this.selectClickTypeElement.addEventListener("editSettingClickType", this.handler);
         this.selectClickDelayElement.addEventListener("editSettingClickDelay", this.handler);
-        this.selectClickFaciliteElement.setAttribute("data-setting-values", this.clickFaciliteValues.join(","));
+        this.selectClickTypeElement.setAttribute("data-setting-values", this.clickTypeValues.join(","));
         this.selectClickDelayElement.setAttribute("data-setting-values", this.clickDelayValues.join(","));
         modeOfUseServiceInstance.getSetting("clickFacilite").then((result => {
             this.settingValues = result.values.split(",");
-            this.clickFaciliteValue = this.settingValues[result.valueSelected].split("_")[0];
+            this.clickTypeValue = this.settingValues[result.valueSelected].split("_")[0];
             this.clickDelayValue = this.settingValues[result.valueSelected].split("_")[1];
-            const currentIndexClickFacilite = this.clickFaciliteValues.findIndex((i => i === this.clickFaciliteValue));
+            const currentIndexClickType = this.clickTypeValues.findIndex((i => i === `clickType_${this.clickTypeValue}`));
             const currentIndexClickDelay = this.clickDelayValue ? this.clickDelayValues.findIndex((i => i === `clickDelay_${this.clickDelayValue}`)) : 0;
-            this.selectClickFaciliteElement.setAttribute("data-index", currentIndexClickFacilite.toString());
+            this.selectClickTypeElement.setAttribute("data-index", currentIndexClickType.toString());
             this.selectClickDelayElement.setAttribute("data-index", currentIndexClickDelay.toString());
         }));
     }
     setClickFacilite=() => {
         let value = "";
-        if (this.clickFaciliteValue === DEFAULT_VALUE || this.clickFaciliteValue === CLICK_FACILITE_BIG_ZONE) {
-            value = this.clickFaciliteValue;
+        if (this.clickTypeValue === DEFAULT_VALUE || this.clickTypeValue === CLICK_FACILITE_BIG_ZONE) {
+            value = this.clickTypeValue;
         } else {
-            value = `${this.clickFaciliteValue}_${this.clickDelayValue.split("_")[1]}`;
+            value = `${this.clickTypeValue}_${this.clickDelayValue}`;
         }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
@@ -3784,14 +3797,14 @@ class EditClickFaciliteComponent extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
-          case "editSettingClickFacilite":
-            this.clickFaciliteValue = event.detail.newValue;
-            this.selectClickDelayElement.classList.toggle("d-none", this.clickFaciliteValue === DEFAULT_VALUE || this.clickFaciliteValue === CLICK_FACILITE_BIG_ZONE);
+          case "editSettingClickType":
+            this.clickTypeValue = event.detail.newValue.split("_")[1];
+            this.selectClickDelayElement.classList.toggle("d-none", this.clickTypeValue === DEFAULT_VALUE || this.clickTypeValue === CLICK_FACILITE_BIG_ZONE);
             this.setClickFacilite();
             break;
 
           case "editSettingClickDelay":
-            this.clickDelayValue = event.detail.newValue;
+            this.clickDelayValue = event.detail.newValue.split("_")[1];
             this.setClickFacilite();
             break;
         }
@@ -3804,7 +3817,7 @@ customElements.define("app-edit-click-facilite", EditClickFaciliteComponent);
 
 const editColorContrastLayout = document.createElement("template");
 
-editColorContrastLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ColorContrast"></app-select-edit-value>\n\t</form>\n`;
+editColorContrastLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="colorContrast"></app-select-edit-value>\n\t</form>\n`;
 
 class EditColorContrastComponent extends HTMLElement {
     selectColorContrastElement=null;
@@ -3850,7 +3863,7 @@ customElements.define("app-edit-color-contrast", EditColorContrastComponent);
 
 const editColourThemeLayout = document.createElement("template");
 
-editColourThemeLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-3">\n\t\t<app-select-edit-value data-name="ColourTheme"></app-select-edit-value>\n\t\t<output id="colourThemeValues" class="d-flex flex-column">\n\t\t</output>\n\t</form>\n`;
+editColourThemeLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-3">\n\t\t<app-select-edit-value data-name="colourTheme"></app-select-edit-value>\n\t\t<output id="colourThemeValues" class="d-flex flex-column">\n\t\t</output>\n\t</form>\n`;
 
 class EditColourThemeComponent extends HTMLElement {
     selectColourThemeElement=null;
@@ -3884,18 +3897,56 @@ class EditColourThemeComponent extends HTMLElement {
     displayValuesSelected=value => {
         this.querySelector("#colourThemeValues").innerHTML = "";
         let colourThemeValuesSelected = colourThemeServiceInstance.colourThemeDictionnary.find((o => o.name === value));
-        let arrayValuesSelected = [ `cursor${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.cursor)}`, `focus${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.focus)}`, `scroll${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.scroll)}` ];
-        let linkColors = colourThemeValuesSelected.link.split("_");
-        if (linkColors[0] === DEFAULT_VALUE) {
-            linkColors = [ `link${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`, `linkPointed${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}`, `linkVisited${stringServiceInstance.capitalizeFirstLetter(DEFAULT_VALUE)}` ];
+        let arrayValuesSelected = [ {
+            key: "colourTheme-cursor",
+            value: this.getValuesMessage(colourThemeValuesSelected.cursor.split("_"))
+        }, {
+            key: "colourTheme-focus",
+            value: this.getValuesMessage(colourThemeValuesSelected.focus.split("_"))
+        }, {
+            key: "colourTheme-scroll",
+            value: this.getValuesMessage(colourThemeValuesSelected.scroll.split("_"))
+        } ];
+        let linkColors = [];
+        if (colourThemeValuesSelected.link.split("_")[0] === DEFAULT_VALUE) {
+            linkColors = [ {
+                key: "colourTheme-link",
+                value: this.getValuesMessage([ DEFAULT_VALUE ])
+            }, {
+                key: "colourTheme-linkPointed",
+                value: this.getValuesMessage([ DEFAULT_VALUE ])
+            }, {
+                key: "colourTheme-linkVisited",
+                value: this.getValuesMessage([ DEFAULT_VALUE ])
+            } ];
         } else {
-            linkColors = [ `link${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split("_")[0])}`, `linkPointed${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split("_")[1])}`, `linkVisited${stringServiceInstance.capitalizeFirstLetter(colourThemeValuesSelected.link.split("_")[2])}` ];
+            linkColors = [ {
+                key: "colourTheme-link",
+                value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[0] ])
+            }, {
+                key: "colourTheme-linkPointed",
+                value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[1] ])
+            }, {
+                key: "colourTheme-linkVisited",
+                value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[2] ])
+            } ];
         }
-        arrayValuesSelected.concat(linkColors).forEach((value => {
+        arrayValuesSelected.concat(linkColors).forEach((message => {
             let span = document.createElement("span");
-            span.innerText = i18nServiceInstance.getMessage(value);
+            if (message.value[0] === i18nServiceInstance.getMessage(DEFAULT_VALUE)) {
+                span.innerText = i18nServiceInstance.getMessage(`${message.key}-${DEFAULT_VALUE}`);
+            } else {
+                span.innerText = i18nServiceInstance.getMessage(message.key, message.value);
+            }
             this.querySelector("#colourThemeValues").appendChild(span);
         }));
+    };
+    getValuesMessage=values => {
+        let message = [];
+        values.forEach((value => {
+            message.push(i18nServiceInstance.getMessage(value));
+        }));
+        return message;
     };
     createHandler=() => event => {
         switch (event.type) {
@@ -3913,7 +3964,7 @@ customElements.define("app-edit-colour-theme", EditColourThemeComponent);
 
 const editCursorAspectLayout = document.createElement("template");
 
-editCursorAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-cursor-size" data-name="CursorSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-cursor-color" data-name="CursorColor" data-label="true"></app-select-edit-value>\n\n\t\t<div class="d-flex flex-wrap gap-2 bg-light p-3" id="${PREFIX}example-cursor"></div>\n\t</form>\n`;
+editCursorAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-cursor-size" data-name="cursorSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-cursor-color" class="d-none" data-name="cursorColor" data-label="true"></app-select-edit-value>\n\n\t\t<div class="d-flex flex-wrap gap-2 bg-light p-3" id="${PREFIX}example-cursor"></div>\n\t</form>\n`;
 
 class EditCursorAspectComponent extends HTMLElement {
     selectCursorSizeElement=null;
@@ -3921,8 +3972,8 @@ class EditCursorAspectComponent extends HTMLElement {
     settingValues=null;
     cursorSizeValue="";
     cursorColorValue="";
-    cursorSizeValues=[ DEFAULT_VALUE, "big", "huge" ];
-    cursorColorValues=[ DEFAULT_VALUE, "white", "blue", "red", "yellow", "green", "black" ];
+    cursorSizeValues=[ `cursorSize_${DEFAULT_VALUE}`, "cursorSize_bigCursor", "cursorSize_hugeCursor" ];
+    cursorColorValues=[ `cursorColor_${DEFAULT_VALUE}`, "cursorColor_white", "cursorColor_blue", "cursorColor_red", "cursorColor_yellow", "cursorColor_green", "cursorColor_black" ];
     handler;
     constructor() {
         super();
@@ -3940,8 +3991,8 @@ class EditCursorAspectComponent extends HTMLElement {
             this.settingValues = result.values.split(",");
             this.cursorSizeValue = this.settingValues[result.valueSelected].split("_")[0];
             this.cursorColorValue = this.settingValues[result.valueSelected].split("_")[1];
-            const currentIndexCursorSize = this.cursorSizeValues.findIndex((i => i === this.cursorSizeValue));
-            const currentIndexCursorColor = this.cursorColorValues.findIndex((i => i === this.cursorColorValue));
+            const currentIndexCursorSize = this.cursorSizeValues.findIndex((i => i === `cursorSize_${this.cursorSizeValue}`));
+            const currentIndexCursorColor = this.cursorColorValues.findIndex((i => i === `cursorColor_${this.cursorColorValue}`));
             this.selectCursorSizeElement.setAttribute("data-index", currentIndexCursorSize.toString());
             this.selectCursorColorElement.setAttribute("data-index", currentIndexCursorColor.toString());
         }));
@@ -3967,9 +4018,9 @@ class EditCursorAspectComponent extends HTMLElement {
         let containerExample = this.querySelector(`#${PREFIX}example-cursor`);
         containerExample.innerHTML = "";
         if (deleteExample) {
-            containerExample.innerText = i18nServiceInstance.getMessage("labelCursorEmpty");
+            containerExample.innerText = i18nServiceInstance.getMessage("cursorAspect-empty-example");
         } else {
-            let size = this.cursorSizeValue.split("_")[0] === "big" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
+            let size = this.cursorSizeValue === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             const cursorArray = [ {
                 name: "default",
                 strokeWidth: 6
@@ -3990,12 +4041,13 @@ class EditCursorAspectComponent extends HTMLElement {
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingCursorSize":
-            this.cursorSizeValue = event.detail.newValue;
+            this.cursorSizeValue = event.detail.newValue.split("_")[1];
+            this.selectCursorColorElement.classList.toggle("d-none", this.cursorSizeValue === `cursorSize_${DEFAULT_VALUE}`);
             this.setCursorAspect();
             break;
 
           case "editSettingCursorColor":
-            this.cursorColorValue = event.detail.newValue;
+            this.cursorColorValue = event.detail.newValue.split("_")[1];
             this.setCursorAspect();
             break;
         }
@@ -4008,12 +4060,12 @@ customElements.define("app-edit-cursor-aspect", EditCursorAspectComponent);
 
 const editDeleteBackgroundImagesLayout = document.createElement("template");
 
-editDeleteBackgroundImagesLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="DeleteBackgroundImages"></app-select-edit-value>\n\t</form>\n`;
+editDeleteBackgroundImagesLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="deleteBackgroundImages"></app-select-edit-value>\n\t</form>\n`;
 
 class EditDeleteBackgroundImagesComponent extends HTMLElement {
     selectDeleteBgImgElement=null;
     settingValues=null;
-    deleteBackgroundImagesValues=[ DEFAULT_VALUE, "background_transparent", "background_foreground_transparent" ];
+    deleteBackgroundImagesValues=[ DEFAULT_VALUE, "backgroundTransparent", "backgroundForegroundTransparent" ];
     handler;
     constructor() {
         super();
@@ -4054,7 +4106,7 @@ customElements.define("app-edit-delete-background-images", EditDeleteBackgroundI
 
 const editFocusAspectLayout = document.createElement("template");
 
-editFocusAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-focus-size" data-name="FocusSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-focus-color" data-name="FocusColor" data-label="true"></app-select-edit-value>\n\n\t\t<p>Exemple de texte avec le <span id="${PREFIX}example-focus">focus</span>.</p>\n\t</form>\n`;
+editFocusAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-focus-size" data-name="focusSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-focus-color" data-name="focusColor" data-label="true"></app-select-edit-value>\n\n\t\t<p>Exemple de texte avec le <span id="${PREFIX}example-focus">focus</span>.</p>\n\t</form>\n`;
 
 class EditFocusAspectComponent extends HTMLElement {
     selectFocusSizeElement=null;
@@ -4062,8 +4114,8 @@ class EditFocusAspectComponent extends HTMLElement {
     settingValues=null;
     focusSizeValue="";
     focusColorValue="";
-    focusSizeValues=[ DEFAULT_VALUE, "big", "huge" ];
-    focusColorValues=[ DEFAULT_VALUE, "white", "blue", "red", "yellow", "green", "black" ];
+    focusSizeValues=[ `focusSize_${DEFAULT_VALUE}`, "focusSize_big", "focusSize_huge" ];
+    focusColorValues=[ `focusColor_${DEFAULT_VALUE}`, "focusColor_white", "focusColor_blue", "focusColor_red", "focusColor_yellow", "focusColor_green", "focusColor_black" ];
     handler;
     constructor() {
         super();
@@ -4079,10 +4131,10 @@ class EditFocusAspectComponent extends HTMLElement {
         this.selectFocusColorElement.setAttribute("data-setting-values", this.focusColorValues.join(","));
         modeOfUseServiceInstance.getSetting("focusAspect").then((result => {
             this.settingValues = result.values.split(",");
-            this.focusSizeValue = this.settingValues[result.valueSelected].split("_")[0];
-            this.focusColorValue = this.settingValues[result.valueSelected].split("_")[1];
-            const currentIndexFocusSize = this.focusSizeValues.findIndex((i => i === this.focusSizeValue));
-            const currentIndexFocusColor = this.focusColorValues.findIndex((i => i === this.focusColorValue));
+            this.focusSizeValue = this.settingValues[result.valueSelected]?.split("_")[0];
+            this.focusColorValue = this.settingValues[result.valueSelected]?.split("_")[1];
+            const currentIndexFocusSize = this.focusSizeValues.findIndex((i => i === `focusSize_${this.focusSizeValue}`));
+            const currentIndexFocusColor = this.focusColorValues.findIndex((i => i === `focusColor_${this.focusColorValue}`));
             this.selectFocusSizeElement.setAttribute("data-index", currentIndexFocusSize.toString());
             this.selectFocusColorElement.setAttribute("data-index", currentIndexFocusColor.toString());
         }));
@@ -4105,18 +4157,23 @@ class EditFocusAspectComponent extends HTMLElement {
     };
     setExampleFocus=() => {
         let spanExample = this.querySelector(`#${PREFIX}example-focus`);
-        let size = this.focusSizeValue.split("_")[0] === "big" ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE;
-        spanExample.style.outline = `${this.focusColorValue} solid ${size}`;
+        let size = this.focusSizeValue;
+        let color = this.focusColorValue;
+        const styleFocusSize = size !== DEFAULT_VALUE ? size === "big" ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE : "";
+        const styleFocusColor = color !== DEFAULT_VALUE ? color : "";
+        spanExample.style.outlineStyle = "solid";
+        spanExample.style.outlineWidth = styleFocusSize;
+        spanExample.style.outlineColor = styleFocusColor;
     };
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingFocusSize":
-            this.focusSizeValue = event.detail.newValue;
+            this.focusSizeValue = event.detail.newValue.split("_")[1];
             this.setFocusAspect();
             break;
 
           case "editSettingFocusColor":
-            this.focusColorValue = event.detail.newValue;
+            this.focusColorValue = event.detail.newValue.split("_")[1];
             this.setFocusAspect();
             break;
         }
@@ -4129,12 +4186,12 @@ customElements.define("app-edit-focus-aspect", EditFocusAspectComponent);
 
 const editFontFamilyLayout = document.createElement("template");
 
-editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="FontFamily"></app-select-edit-value>\n\t</form>\n`;
+editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="fontFamily"></app-select-edit-value>\n\t</form>\n`;
 
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "Accessible_DfA", "B612_Mono", "Comic Sans MS", "Lexand Deca", "Luciole", "Sylexiad Sans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "ComicSansMS", "LexandDeca", "Luciole", "SylexiadSans", "Verdana" ];
     handler;
     constructor() {
         super();
@@ -4145,7 +4202,7 @@ class EditFontFamilyComponent extends HTMLElement {
         this.selectFontFamilyElement = this.querySelector("app-select-edit-value");
         this.selectFontFamilyElement.addEventListener("editSettingFontFamily", this.handler);
         this.selectFontFamilyElement.setAttribute("data-setting-values", this.fontFamilyValues.join(","));
-        modeOfUseServiceInstance.getSetting("textSize").then((result => {
+        modeOfUseServiceInstance.getSetting("fontFamily").then((result => {
             this.settingValues = result.values.split(",");
             const currentIndex = this.fontFamilyValues.findIndex((i => i === this.settingValues[result.valueSelected]));
             this.selectFontFamilyElement.setAttribute("data-index", currentIndex.toString());
@@ -4175,7 +4232,7 @@ customElements.define("app-edit-font-family", EditFontFamilyComponent);
 
 const editLinkStyleLayout = document.createElement("template");
 
-editLinkStyleLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-color-link" data-name="ColorLink" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-active-link" data-name="ColorActiveLink" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-visited-link" data-name="ColorVisitedLink" data-label="true"></app-select-edit-value>\n\t</form>\n`;
+editLinkStyleLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-color-link" data-name="linkColor" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-active-link" data-name="linkPointedColor" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-visited-link" data-name="linkVisitedColor" data-label="true"></app-select-edit-value>\n\t</form>\n`;
 
 class EditLinkStyleComponent extends HTMLElement {
     selectColorLinkElement=null;
@@ -4185,7 +4242,7 @@ class EditLinkStyleComponent extends HTMLElement {
     colorLinkValue="";
     colorActiveLinkValue="";
     colorVisitedLinkValue="";
-    colorLinkValues=[ DEFAULT_VALUE, "lightblue", "lightgreen", "yellow", "orange", "pink", "black", "darkblue", "darkgreen", "red", "purple", "brown" ];
+    colorLinkValues=[ `linkColor_${DEFAULT_VALUE}`, "linkColor_lightblue", "linkColor_lightgreen", "linkColor_yellow", "linkColor_orange", "linkColor_pink", "linkColor_black", "linkColor_darkblue", "linkColor_darkgreen", "linkColor_red", "linkColor_purple", "linkColor_brown" ];
     handler;
     constructor() {
         super();
@@ -4196,20 +4253,20 @@ class EditLinkStyleComponent extends HTMLElement {
         this.selectColorLinkElement = this.querySelector(`#${PREFIX}select-color-link`);
         this.selectColorActiveLinkElement = this.querySelector(`#${PREFIX}select-color-active-link`);
         this.selectColorVisitedLinkElement = this.querySelector(`#${PREFIX}select-color-visited-link`);
-        this.selectColorLinkElement.addEventListener("editSettingColorLink", this.handler);
-        this.selectColorActiveLinkElement.addEventListener("editSettingColorActiveLink", this.handler);
-        this.selectColorVisitedLinkElement.addEventListener("editSettingColorVisitedLink", this.handler);
+        this.selectColorLinkElement.addEventListener("editSettingLinkColor", this.handler);
+        this.selectColorActiveLinkElement.addEventListener("editSettingLinkPointedColor", this.handler);
+        this.selectColorVisitedLinkElement.addEventListener("editSettingLinkVisitedColor", this.handler);
         this.selectColorLinkElement.setAttribute("data-setting-values", this.colorLinkValues.join(","));
         this.selectColorActiveLinkElement.setAttribute("data-setting-values", this.colorLinkValues.join(","));
         this.selectColorVisitedLinkElement.setAttribute("data-setting-values", this.colorLinkValues.join(","));
         modeOfUseServiceInstance.getSetting("linkStyle").then((result => {
             this.settingValues = result.values.split(",");
-            this.colorLinkValue = this.settingValues[result.valueSelected].split("_")[0];
-            this.colorActiveLinkValue = this.settingValues[result.valueSelected].split("_")[1];
-            this.colorVisitedLinkValue = this.settingValues[result.valueSelected].split("_")[2];
-            const currentIndexColorLink = this.colorLinkValues.findIndex((i => i === this.colorLinkValue));
-            const currentIndexColorActiveLink = this.colorLinkValues.findIndex((i => i === this.colorActiveLinkValue));
-            const currentIndexColorVisitedLink = this.colorLinkValues.findIndex((i => i === this.colorVisitedLinkValue));
+            this.colorLinkValue = this.settingValues[result.valueSelected]?.split("_")[0];
+            this.colorActiveLinkValue = this.settingValues[result.valueSelected]?.split("_")[1];
+            this.colorVisitedLinkValue = this.settingValues[result.valueSelected]?.split("_")[2];
+            const currentIndexColorLink = this.colorLinkValues.findIndex((i => i === `linkColor_${this.colorLinkValue}`));
+            const currentIndexColorActiveLink = this.colorLinkValues.findIndex((i => i === `linkColor_${this.colorActiveLinkValue}`));
+            const currentIndexColorVisitedLink = this.colorLinkValues.findIndex((i => i === `linkColor_${this.colorVisitedLinkValue}`));
             this.selectColorLinkElement.setAttribute("data-index", currentIndexColorLink.toString());
             this.selectColorActiveLinkElement.setAttribute("data-index", currentIndexColorActiveLink.toString());
             this.selectColorVisitedLinkElement.setAttribute("data-index", currentIndexColorVisitedLink.toString());
@@ -4232,18 +4289,18 @@ class EditLinkStyleComponent extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
-          case "editSettingColorLink":
-            this.colorLinkValue = event.detail.newValue;
+          case "editSettingLinkColor":
+            this.colorLinkValue = event.detail.newValue.split("_")[1];
             this.setLinkStyle();
             break;
 
-          case "editSettingColorActiveLink":
-            this.colorActiveLinkValue = event.detail.newValue;
+          case "editSettingLinkPointedColor":
+            this.colorActiveLinkValue = event.detail.newValue.split("_")[1];
             this.setLinkStyle();
             break;
 
-          case "editSettingColorVisitedLink":
-            this.colorVisitedLinkValue = event.detail.newValue;
+          case "editSettingLinkVisitedColor":
+            this.colorVisitedLinkValue = event.detail.newValue.split("_")[1];
             this.setLinkStyle();
             break;
         }
@@ -4256,14 +4313,12 @@ customElements.define("app-edit-link-style", EditLinkStyleComponent);
 
 const editMagnifierLayout = document.createElement("template");
 
-editMagnifierLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="magnifierShape"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}${DEFAULT_VALUE}-magnifier-shape" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-magnifier-shape" data-i18n="magnifierDefault"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}square-magnifier-shape" value="square">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}square-magnifier-shape" data-i18n="magnifierSquare"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="magnifierShape" id="${PREFIX}circle-magnifier-shape" value="circle">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}circle-magnifier-shape" data-i18n="magnifierCircle"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value data-name="MagnifierZoom"></app-select-edit-value>\n\t</form>\n`;
+editMagnifierLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="magnifier"></app-select-edit-value>\n\t</form>\n`;
 
 class EditMagnifierComponent extends HTMLElement {
-    selectMagnifierZoomElement=null;
+    selectMagnifierElement=null;
     settingValues=null;
-    magnifierZoomValues=[ "magnifierZoom_2", "magnifierZoom_5", "magnifierZoom_10", "magnifierZoom_15" ];
-    shape;
-    zoom;
+    magnifierValues=[ DEFAULT_VALUE, "zoom-2", "zoom-5", "zoom-10", "zoom-15" ];
     handler;
     constructor() {
         super();
@@ -4271,31 +4326,17 @@ class EditMagnifierComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
-        this.selectMagnifierZoomElement = this.querySelector("app-select-edit-value");
-        this.selectMagnifierZoomElement.addEventListener("editSettingMagnifierZoom", this.handler);
-        this.selectMagnifierZoomElement.setAttribute("data-setting-values", this.magnifierZoomValues.join(","));
+        this.selectMagnifierElement = this.querySelector("app-select-edit-value");
+        this.selectMagnifierElement.addEventListener("editSettingMagnifier", this.handler);
+        this.selectMagnifierElement.setAttribute("data-setting-values", this.magnifierValues.join(","));
         this.querySelector("form").addEventListener("change", this.handler);
         modeOfUseServiceInstance.getSetting("magnifier").then((result => {
             this.settingValues = result.values.split(",");
-            if (this.settingValues[result.valueSelected] === DEFAULT_VALUE) {
-                this.shape = DEFAULT_VALUE;
-                this.zoom = `magnifierZoom_${this.magnifierZoomValues[0]}`;
-            } else {
-                this.shape = this.settingValues[result.valueSelected].split("_")[0];
-                this.zoom = `magnifierZoom_${this.settingValues[result.valueSelected].split("_")[1]}`;
-            }
-            this.querySelector(`input[name="magnifierShape"][id="${this.shape}MagnifierShape"]`).checked = true;
-            const currentIndex = this.magnifierZoomValues.findIndex((i => i === this.zoom));
-            this.selectMagnifierZoomElement.setAttribute("data-index", currentIndex.toString());
+            const currentIndex = this.magnifierValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectMagnifierElement.setAttribute("data-index", currentIndex.toString());
         }));
     }
-    setMagnifier=() => {
-        let value = "";
-        if (this.shape === DEFAULT_VALUE) {
-            value = DEFAULT_VALUE;
-        } else {
-            value = `${this.shape}_${this.zoom.split("_")[1]}`;
-        }
+    setMagnifier=value => {
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("magnifier", newSettingIndex, true);
@@ -4306,14 +4347,8 @@ class EditMagnifierComponent extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
-          case "change":
-            this.shape = this.querySelector(`input[name="magnifierShape"]:checked`).value;
-            this.setMagnifier();
-            break;
-
-          case "editSettingMagnifierZoom":
-            this.zoom = event.detail.newValue;
-            this.setMagnifier();
+          case "editSettingMagnifier":
+            this.setMagnifier(event.detail.newValue);
             break;
         }
     };
@@ -4325,7 +4360,7 @@ customElements.define("app-edit-magnifier", EditMagnifierComponent);
 
 const editMarginAlignLayout = document.createElement("template");
 
-editMarginAlignLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="MarginAlign"></app-select-edit-value>\n\t</form>\n`;
+editMarginAlignLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="marginAlign"></app-select-edit-value>\n\t</form>\n`;
 
 class EditMarginAlignComponent extends HTMLElement {
     selectMarginAlignElement=null;
@@ -4371,12 +4406,12 @@ customElements.define("app-edit-margin-align", EditMarginAlignComponent);
 
 const editNavigationAutoLayout = document.createElement("template");
 
-editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="labelNavigationAuto"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="labelNavigationAutoInactive"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="labelNavigationAutoActive"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="NavigationAuto"></app-select-edit-value>\n\t</form>\n`;
+editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="navigationAuto-label"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto-inactive"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto-active"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="navigationDelay"></app-select-edit-value>\n\t</form>\n`;
 
 class EditNavigationAutoComponent extends HTMLElement {
     selectNavigationDelayElement=null;
     settingValues=null;
-    navigationDelayValues=[ "navigationDelay_1", "navigationDelay_2", "navigationDelay_3", "navigationDelay_6" ];
+    navigationDelayValues=[ "navigationDelay_delay-1", "navigationDelay_delay-2", "navigationDelay_delay-3", "navigationDelay_delay-6" ];
     navigationAuto;
     delay;
     handler;
@@ -4387,20 +4422,15 @@ class EditNavigationAutoComponent extends HTMLElement {
     }
     connectedCallback() {
         this.selectNavigationDelayElement = this.querySelector("app-select-edit-value");
-        this.selectNavigationDelayElement.addEventListener("editSettingNavigationAuto", this.handler);
+        this.selectNavigationDelayElement.addEventListener("editSettingNavigationDelay", this.handler);
         this.selectNavigationDelayElement.setAttribute("data-setting-values", this.navigationDelayValues.join(","));
         this.querySelector("form").addEventListener("change", this.handler);
         modeOfUseServiceInstance.getSetting("navigationAuto").then((result => {
             this.settingValues = result.values.split(",");
-            if (this.settingValues[result.valueSelected] === DEFAULT_VALUE) {
-                this.navigationAuto = DEFAULT_VALUE;
-                this.delay = `navigationDelay_${this.navigationDelayValues[0]}`;
-            } else {
-                this.navigationAuto = this.settingValues[result.valueSelected].split("_")[0];
-                this.delay = `navigationDelay_${this.settingValues[result.valueSelected].split("_")[1]}`;
-            }
+            this.navigationAuto = this.settingValues[result.valueSelected].split("_")[0];
+            this.delay = this.settingValues[result.valueSelected].split("_")[1];
             this.querySelector(`input[name="navigationAuto"][id="${PREFIX}${this.navigationAuto}-navigation-auto"]`).checked = true;
-            const currentIndex = this.navigationDelayValues.findIndex((i => i === this.delay));
+            const currentIndex = this.delay ? this.navigationDelayValues.findIndex((i => i === `navigationDelay_${this.delay}`)) : 0;
             this.selectNavigationDelayElement.classList.toggle("d-none", this.navigationAuto === DEFAULT_VALUE);
             this.selectNavigationDelayElement.setAttribute("data-index", currentIndex.toString());
         }));
@@ -4410,7 +4440,7 @@ class EditNavigationAutoComponent extends HTMLElement {
         if (this.navigationAuto === DEFAULT_VALUE) {
             value = DEFAULT_VALUE;
         } else {
-            value = `${this.navigationAuto}_${this.delay.split("_")[1]}`;
+            value = `${this.navigationAuto}_${this.delay}`;
         }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
@@ -4428,8 +4458,8 @@ class EditNavigationAutoComponent extends HTMLElement {
             this.setNavigationAuto();
             break;
 
-          case "editSettingNavigationAuto":
-            this.delay = event.detail.newValue;
+          case "editSettingNavigationDelay":
+            this.delay = event.detail.newValue.split("_")[1];
             this.setNavigationAuto();
             break;
         }
@@ -4442,12 +4472,12 @@ customElements.define("app-edit-navigation-auto", EditNavigationAutoComponent);
 
 const editReadAloudLayout = document.createElement("template");
 
-editReadAloudLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ReadAloud"></app-select-edit-value>\n\t</form>\n`;
+editReadAloudLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="readAloud"></app-select-edit-value>\n\t</form>\n`;
 
 class EditReadAloudComponent extends HTMLElement {
     selectReadAloudElement=null;
     settingValues=null;
-    readAloudValues=[ DEFAULT_VALUE, "word", "sentence", "paragraph" ];
+    readAloudValues=[ DEFAULT_VALUE, "word", "sentence", "paragraph", "all" ];
     handler;
     constructor() {
         super();
@@ -4488,7 +4518,7 @@ customElements.define("app-edit-read-aloud", EditReadAloudComponent);
 
 const editReadingGuideLayout = document.createElement("template");
 
-editReadingGuideLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ReadingGuide"></app-select-edit-value>\n\t</form>\n`;
+editReadingGuideLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="readingGuide"></app-select-edit-value>\n\t</form>\n`;
 
 class EditReadingGuideComponent extends HTMLElement {
     selectReadingGuideElement=null;
@@ -4534,7 +4564,7 @@ customElements.define("app-edit-reading-guide", EditReadingGuideComponent);
 
 const editScrollTypeLayout = document.createElement("template");
 
-editScrollTypeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="ScrollType"></app-select-edit-value>\n\t</form>\n`;
+editScrollTypeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="scrollType"></app-select-edit-value>\n\t</form>\n`;
 
 class EditScrollTypeComponent extends HTMLElement {
     selectScrollTypeElement=null;
@@ -4548,7 +4578,7 @@ class EditScrollTypeComponent extends HTMLElement {
     }
     connectedCallback() {
         this.selectScrollTypeElement = this.querySelector("app-select-edit-value");
-        this.selectScrollTypeElement.addEventListener("editSettingScrollSize", this.handler);
+        this.selectScrollTypeElement.addEventListener("editSettingScrollType", this.handler);
         this.selectScrollTypeElement.setAttribute("data-setting-values", this.scrollTypeValues.join(","));
         modeOfUseServiceInstance.getSetting("scrollType").then((result => {
             this.settingValues = result.values.split(",");
@@ -4567,7 +4597,7 @@ class EditScrollTypeComponent extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
-          case "editSettingScrollSize":
+          case "editSettingScrollType":
             this.setScrollType(event.detail.newValue);
             break;
         }
@@ -4580,7 +4610,7 @@ customElements.define("app-edit-scroll-type", EditScrollTypeComponent);
 
 const editScrollLayout = document.createElement("template");
 
-editScrollLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="ScrollSize"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="ScrollColor"></app-select-edit-value>\n\t</form>\n`;
+editScrollLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="scrollSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="scrollColor" data-label="true"></app-select-edit-value>\n\t</form>\n`;
 
 class EditScrollComponent extends HTMLElement {
     selectScrollSizeElement=null;
@@ -4588,8 +4618,8 @@ class EditScrollComponent extends HTMLElement {
     settingValues=null;
     scrollSizeValue="";
     scrollColorValue="";
-    scrollSizeValues=[ DEFAULT_VALUE, "bigScroll", "hugeScroll" ];
-    scrollColorValues=[ DEFAULT_VALUE, "scrollColor_white_lightgrey", "scrollColor_blue_darkblue", "scrollColor_red_darkred", "scrollColor_yellow_gold", "scrollColor_green_darkgreen", "scrollColor_black_darkgrey" ];
+    scrollSizeValues=[ `scrollSize_${DEFAULT_VALUE}`, "scrollSize_big", "scrollSize_huge" ];
+    scrollColorValues=[ `scrollColor_${DEFAULT_VALUE}`, "scrollColor_white", "scrollColor_blue", "scrollColor_red", "scrollColor_yellow", "scrollColor_green", "scrollColor_black" ];
     handler;
     constructor() {
         super();
@@ -4604,11 +4634,11 @@ class EditScrollComponent extends HTMLElement {
         this.selectScrollSizeElement.setAttribute("data-setting-values", this.scrollSizeValues.join(","));
         this.selectScrollColorElement.setAttribute("data-setting-values", this.scrollColorValues.join(","));
         modeOfUseServiceInstance.getSetting("scroll").then((result => {
-            this.settingValues = result.values.split(",");
-            this.scrollSizeValue = this.settingValues[result.valueSelected].split("_")[0];
-            this.scrollColorValue = `scrollColor_${this.settingValues[result.valueSelected].split("_")[1]}_${this.settingValues[result.valueSelected].split("_")[2]}`;
-            const currentIndexScrollSize = this.scrollSizeValues.findIndex((i => i === this.scrollSizeValue));
-            const currentIndexScrollColor = this.scrollColorValues.findIndex((i => i === this.scrollColorValue));
+            this.settingValues = result.values?.split(",");
+            this.scrollSizeValue = this.settingValues[result.valueSelected]?.split("_")[0];
+            this.scrollColorValue = this.settingValues[result.valueSelected]?.split("_")[1];
+            const currentIndexScrollSize = this.scrollSizeValues.findIndex((i => i === `scrollSize_${this.scrollSizeValue}`));
+            const currentIndexScrollColor = this.scrollColorValues.findIndex((i => i === `scrollColor_${this.scrollColorValue}`));
             this.selectScrollSizeElement.setAttribute("data-index", currentIndexScrollSize.toString());
             this.selectScrollColorElement.setAttribute("data-index", currentIndexScrollColor.toString());
         }));
@@ -4618,7 +4648,7 @@ class EditScrollComponent extends HTMLElement {
         if (this.scrollColorValue === DEFAULT_VALUE) {
             value = this.scrollSizeValue;
         } else {
-            value = `${this.scrollSizeValue}_${this.scrollColorValue.split("_")[1]}_${this.scrollColorValue.split("_")[2]}`;
+            value = `${this.scrollSizeValue}_${this.scrollColorValue}`;
         }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
@@ -4631,12 +4661,12 @@ class EditScrollComponent extends HTMLElement {
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingScrollSize":
-            this.scrollSizeValue = event.detail.newValue;
+            this.scrollSizeValue = event.detail.newValue.split("_")[1];
             this.setScroll();
             break;
 
           case "editSettingScrollColor":
-            this.scrollColorValue = event.detail.newValue;
+            this.scrollColorValue = event.detail.newValue.split("_")[1];
             this.setScroll();
             break;
         }
@@ -4649,7 +4679,7 @@ customElements.define("app-edit-scroll", EditScrollComponent);
 
 const editTextSizeLayout = document.createElement("template");
 
-editTextSizeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="TextSize"></app-select-edit-value>\n\t</form>\n`;
+editTextSizeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="textSize"></app-select-edit-value>\n\t</form>\n`;
 
 class EditTextSizeComponent extends HTMLElement {
     selectTextSizeElement=null;
@@ -4695,7 +4725,7 @@ customElements.define("app-edit-text-size", EditTextSizeComponent);
 
 const editTextSpacingLayout = document.createElement("template");
 
-editTextSpacingLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="TextSpacing"></app-select-edit-value>\n\t</form>\n`;
+editTextSpacingLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="textSpacing"></app-select-edit-value>\n\t</form>\n`;
 
 class EditTextSpacingComponent extends HTMLElement {
     selectTextSpacingElement=null;

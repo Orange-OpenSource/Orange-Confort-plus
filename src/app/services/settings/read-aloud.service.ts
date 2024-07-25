@@ -67,7 +67,7 @@ class ReadAloudService {
 		const fragment = document.createDocumentFragment();
 		const tooltip = document.createElement('div');
 		tooltip.setAttribute('id', this.readAloudTooltipId);
-		tooltip.textContent = i18nServiceInstance.getMessage('readAloudTooltip');
+		tooltip.textContent = i18nServiceInstance.getMessage('readAloud-tooltip');
 		fragment.appendChild(tooltip);
 		document.body.insertBefore(fragment, document.body.firstChild);
 		stylesServiceInstance.setStyle('read-aloud', this.classReadAloud);

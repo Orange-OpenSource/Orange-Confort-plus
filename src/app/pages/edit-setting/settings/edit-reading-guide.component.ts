@@ -1,7 +1,7 @@
 const editReadingGuideLayout: HTMLTemplateElement = document.createElement('template');
 editReadingGuideLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="ReadingGuide"></app-select-edit-value>
+		<app-select-edit-value data-name="readingGuide"></app-select-edit-value>
 	</form>
 `;
 

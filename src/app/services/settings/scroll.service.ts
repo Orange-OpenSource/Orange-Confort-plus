@@ -4,6 +4,14 @@ class ScrollService {
 	scrollColor = '';
 	scrollColorHover = '';
 	scrollWidth = '';
+	scrollColorValues = [
+		{ color: 'white', hover: 'lightgrey' },
+		{ color: 'blue', hover: 'darkblue' },
+		{ color: 'red', hover: 'darkred' },
+		{ color: 'yellow', hover: 'gold' },
+		{ color: 'green', hover: 'darkgreen' },
+		{ color: 'black', hover: 'darkgrey' }
+	];
 
 	constructor() {
 		if (scrollServiceIsInstantiated) {
@@ -20,19 +28,20 @@ class ScrollService {
 		if (value !== DEFAULT_VALUE) {
 			document.body.classList.add(`${PREFIX}big-scroll`);
 
-			switch (value.split('_')[0]) {
-				case 'bigScroll':
+			switch (value?.split('_')[0]) {
+				case 'big':
 					this.scrollWidth = SCROLL_SIZE_BIG;
 					break;
-				case 'hugeScroll':
+				case 'huge':
 					this.scrollWidth = SCROLL_SIZE_HUGE;
 					break;
 				default:
 					this.scrollWidth = 'inherit';
 					break;
 			}
-			this.scrollColor = value.split('_')[1] ? value.split('_')[1] : 'lightgrey';
-			this.scrollColorHover = value.split('_')[2] ? value.split('_')[2] : 'grey';
+			this.scrollColor = value?.split('_')[1] ? value?.split('_')[1] : 'lightgrey';
+			let colorHover = this.scrollColorValues.find((o: any) => o.color === this.scrollColor)?.hover;
+			this.scrollColorHover = colorHover ? colorHover : 'grey';
 			this.setScrollClass();
 		}
 	}

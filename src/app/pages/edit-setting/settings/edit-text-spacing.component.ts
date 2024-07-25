@@ -1,7 +1,7 @@
 const editTextSpacingLayout: HTMLTemplateElement = document.createElement('template');
 editTextSpacingLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="TextSpacing"></app-select-edit-value>
+		<app-select-edit-value data-name="textSpacing"></app-select-edit-value>
 	</form>
 `;
 

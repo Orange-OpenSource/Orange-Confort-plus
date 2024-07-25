@@ -29,9 +29,9 @@ class ColourThemeService {
 	}
 
 	setServices = (colourThemeValues: ColourThemeValues): void => {
-		cursorAspectServiceInstance.setCursor(colourThemeValues.cursor);
-		focusAspectServiceInstance.setFocus(colourThemeValues.focus);
-		scrollServiceInstance.setScroll(colourThemeValues.scroll);
-		linkStyleServiceInstance.setLinkStyle(colourThemeValues.link);
+		cursorAspectServiceInstance.setCursor(colourThemeValues?.cursor);
+		focusAspectServiceInstance.setFocus(colourThemeValues?.focus);
+		scrollServiceInstance.setScroll(colourThemeValues?.scroll);
+		linkStyleServiceInstance.setLinkStyle(colourThemeValues?.link);
 	}
 }

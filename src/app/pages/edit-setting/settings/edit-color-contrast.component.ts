@@ -1,7 +1,7 @@
 const editColorContrastLayout: HTMLTemplateElement = document.createElement('template');
 editColorContrastLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="ColorContrast"></app-select-edit-value>
+		<app-select-edit-value data-name="colorContrast"></app-select-edit-value>
 	</form>
 `;
 

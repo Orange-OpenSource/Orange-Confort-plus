@@ -1,8 +1,8 @@
 const editScrollLayout: HTMLTemplateElement = document.createElement('template');
 editScrollLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4">
-		<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="ScrollSize"></app-select-edit-value>
-		<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="ScrollColor"></app-select-edit-value>
+		<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="scrollSize" data-label="true"></app-select-edit-value>
+		<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="scrollColor" data-label="true"></app-select-edit-value>
 	</form>
 `;
 
@@ -13,8 +13,8 @@ class EditScrollComponent extends HTMLElement {
 	settingValues: string[] = null;
 	scrollSizeValue = '';
 	scrollColorValue = '';
-	scrollSizeValues = [DEFAULT_VALUE, 'bigScroll', 'hugeScroll'];
-	scrollColorValues = [DEFAULT_VALUE, 'scrollColor_white_lightgrey', 'scrollColor_blue_darkblue', 'scrollColor_red_darkred', 'scrollColor_yellow_gold', 'scrollColor_green_darkgreen', 'scrollColor_black_darkgrey'];
+	scrollSizeValues = [`scrollSize_${DEFAULT_VALUE}`, 'scrollSize_big', 'scrollSize_huge'];
+	scrollColorValues = [`scrollColor_${DEFAULT_VALUE}`, 'scrollColor_white', 'scrollColor_blue', 'scrollColor_red', 'scrollColor_yellow', 'scrollColor_green', 'scrollColor_black'];
 
 	handler: any;
 
@@ -37,12 +37,12 @@ class EditScrollComponent extends HTMLElement {
 		this.selectScrollColorElement.setAttribute('data-setting-values', this.scrollColorValues.join(','));
 
 		modeOfUseServiceInstance.getSetting('scroll').then((result: SettingModel) => {
-			this.settingValues = result.values.split(',');
-			this.scrollSizeValue = this.settingValues[result.valueSelected].split('_')[0];
-			this.scrollColorValue = `scrollColor_${this.settingValues[result.valueSelected].split('_')[1]}_${this.settingValues[result.valueSelected].split('_')[2]}`;
+			this.settingValues = result.values?.split(',');
+			this.scrollSizeValue = this.settingValues[result.valueSelected]?.split('_')[0];
+			this.scrollColorValue = this.settingValues[result.valueSelected]?.split('_')[1];
 
-			const currentIndexScrollSize = this.scrollSizeValues.findIndex(i => i === this.scrollSizeValue);
-			const currentIndexScrollColor = this.scrollColorValues.findIndex(i => i === this.scrollColorValue);
+			const currentIndexScrollSize = this.scrollSizeValues.findIndex(i => i === `scrollSize_${this.scrollSizeValue}`);
+			const currentIndexScrollColor = this.scrollColorValues.findIndex(i => i === `scrollColor_${this.scrollColorValue}`);
 
 			this.selectScrollSizeElement.setAttribute('data-index', currentIndexScrollSize.toString());
 			this.selectScrollColorElement.setAttribute('data-index', currentIndexScrollColor.toString());
@@ -54,7 +54,7 @@ class EditScrollComponent extends HTMLElement {
 		if (this.scrollColorValue === DEFAULT_VALUE) {
 			value = this.scrollSizeValue;
 		} else {
-			value = `${this.scrollSizeValue}_${this.scrollColorValue.split('_')[1]}_${this.scrollColorValue.split('_')[2]}`;
+			value = `${this.scrollSizeValue}_${this.scrollColorValue}`;
 		}
 
 		let newSettingIndex = this.settingValues.indexOf(value);
@@ -72,11 +72,11 @@ class EditScrollComponent extends HTMLElement {
 		return (event: any) => {
 			switch (event.type) {
 				case 'editSettingScrollSize':
-					this.scrollSizeValue = event.detail.newValue;
+					this.scrollSizeValue = event.detail.newValue.split('_')[1];
 					this.setScroll();
 					break;
 				case 'editSettingScrollColor':
-					this.scrollColorValue = event.detail.newValue;
+					this.scrollColorValue = event.detail.newValue.split('_')[1];
 					this.setScroll();
 					break;
 			}

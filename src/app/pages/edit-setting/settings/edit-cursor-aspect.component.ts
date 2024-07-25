@@ -1,8 +1,8 @@
 const editCursorAspectLayout: HTMLTemplateElement = document.createElement('template');
 editCursorAspectLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4">
-		<app-select-edit-value id="${PREFIX}select-cursor-size" data-name="CursorSize" data-label="true"></app-select-edit-value>
-		<app-select-edit-value id="${PREFIX}select-cursor-color" data-name="CursorColor" data-label="true"></app-select-edit-value>
+		<app-select-edit-value id="${PREFIX}select-cursor-size" data-name="cursorSize" data-label="true"></app-select-edit-value>
+		<app-select-edit-value id="${PREFIX}select-cursor-color" class="d-none" data-name="cursorColor" data-label="true"></app-select-edit-value>
 
 		<div class="d-flex flex-wrap gap-2 bg-light p-3" id="${PREFIX}example-cursor"></div>
 	</form>
@@ -15,8 +15,8 @@ class EditCursorAspectComponent extends HTMLElement {
 	settingValues: string[] = null;
 	cursorSizeValue = '';
 	cursorColorValue = '';
-	cursorSizeValues = [DEFAULT_VALUE, 'big', 'huge'];
-	cursorColorValues = [DEFAULT_VALUE, 'white', 'blue', 'red', 'yellow', 'green', 'black'];
+	cursorSizeValues = [`cursorSize_${DEFAULT_VALUE}`, 'cursorSize_bigCursor', 'cursorSize_hugeCursor'];
+	cursorColorValues = [`cursorColor_${DEFAULT_VALUE}`, 'cursorColor_white', 'cursorColor_blue', 'cursorColor_red', 'cursorColor_yellow', 'cursorColor_green', 'cursorColor_black'];
 
 	handler: any;
 
@@ -43,8 +43,8 @@ class EditCursorAspectComponent extends HTMLElement {
 			this.cursorSizeValue = this.settingValues[result.valueSelected].split('_')[0];
 			this.cursorColorValue = this.settingValues[result.valueSelected].split('_')[1];
 
-			const currentIndexCursorSize = this.cursorSizeValues.findIndex(i => i === this.cursorSizeValue);
-			const currentIndexCursorColor = this.cursorColorValues.findIndex(i => i === this.cursorColorValue);
+			const currentIndexCursorSize = this.cursorSizeValues.findIndex(i => i === `cursorSize_${this.cursorSizeValue}`);
+			const currentIndexCursorColor = this.cursorColorValues.findIndex(i => i === `cursorColor_${this.cursorColorValue}`);
 
 			this.selectCursorSizeElement.setAttribute('data-index', currentIndexCursorSize.toString());
 			this.selectCursorColorElement.setAttribute('data-index', currentIndexCursorColor.toString());
@@ -77,9 +77,9 @@ class EditCursorAspectComponent extends HTMLElement {
 		containerExample.innerHTML = '';
 
 		if (deleteExample) {
-			containerExample.innerText = i18nServiceInstance.getMessage('labelCursorEmpty');
+			containerExample.innerText = i18nServiceInstance.getMessage('cursorAspect-empty-example');
 		} else {
-			let size = this.cursorSizeValue.split('_')[0] === 'big' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
+			let size = this.cursorSizeValue === 'bigCursor' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 
 			const cursorArray = [
 				{ name: 'default', strokeWidth: 6 },
@@ -99,11 +99,12 @@ class EditCursorAspectComponent extends HTMLElement {
 		return (event: any) => {
 			switch (event.type) {
 				case 'editSettingCursorSize':
-					this.cursorSizeValue = event.detail.newValue;
+					this.cursorSizeValue = event.detail.newValue.split('_')[1];
+					this.selectCursorColorElement.classList.toggle('d-none', this.cursorSizeValue === `cursorSize_${DEFAULT_VALUE}`);
 					this.setCursorAspect();
 					break;
 				case 'editSettingCursorColor':
-					this.cursorColorValue = event.detail.newValue;
+					this.cursorColorValue = event.detail.newValue.split('_')[1];
 					this.setCursorAspect();
 					break;
 			}

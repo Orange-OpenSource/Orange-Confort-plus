@@ -1,7 +1,7 @@
 const editScrollTypeLayout: HTMLTemplateElement = document.createElement('template');
 editScrollTypeLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="ScrollType"></app-select-edit-value>
+		<app-select-edit-value data-name="scrollType"></app-select-edit-value>
 	</form>
 `;
 
@@ -22,7 +22,7 @@ class EditScrollTypeComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.selectScrollTypeElement = this.querySelector('app-select-edit-value');
-		this.selectScrollTypeElement.addEventListener('editSettingScrollSize', this.handler);
+		this.selectScrollTypeElement.addEventListener('editSettingScrollType', this.handler);
 		this.selectScrollTypeElement.setAttribute('data-setting-values', this.scrollTypeValues.join(','));
 
 		modeOfUseServiceInstance.getSetting('scrollType').then((result: SettingModel) => {
@@ -48,7 +48,7 @@ class EditScrollTypeComponent extends HTMLElement {
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
-				case 'editSettingScrollSize':
+				case 'editSettingScrollType':
 					this.setScrollType(event.detail.newValue);
 					break;
 			}

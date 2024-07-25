@@ -6,9 +6,6 @@ btnSettingLayout.innerHTML = `
 			<app-icon data-size="1.5em"></app-icon>
 		</span>
 		<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>
-		<!-- @todo Nom accessible : réglage, valeur actuelle 1/n, changer en 2/n -->
-		<!-- @note Exemple : « Police Accessible-DfA 1/3, changer en Arial 2/3 » -->
-		<!-- @note Si on peut associer un libellé a une valeur c’est cool -->
 	</button>
 `;
 
@@ -60,7 +57,7 @@ class BtnSettingComponent extends HTMLElement {
 
 			const span: HTMLElement = this.querySelector('.sc-btn-setting__name');
 			const icon = this.querySelector('app-icon');
-			span.innerText = i18nServiceInstance.getMessage(this.name);
+			span.innerText = i18nServiceInstance.getMessage(`setting-${this.name}`);
 			icon?.setAttribute('data-name', this.name);
 		}
 		if ('data-disabled' === name) {
@@ -70,11 +67,15 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	getValueLabel = (value: string): string => {
-		const string = value === 'noModifications' ?
-			stringServiceInstance.normalizeSettingCamelCase(value) :
-			`${this.name}-${stringServiceInstance.normalizeSettingCamelCase(value)}`;
-
-		return i18nServiceInstance.getMessage(string);
+		if (value?.includes('_')) {
+			let arrayValues: string[] = [];
+			value.split('_').forEach((item: string) => {
+				arrayValues.push(i18nServiceInstance.getMessage(item));
+			});
+			return i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+		} else {
+			return i18nServiceInstance.getMessage(`${this.name}-${value}`);
+		}
 	}
 
 	setTitle = (): void => {
@@ -83,7 +84,7 @@ class BtnSettingComponent extends HTMLElement {
 
 		if (settingsNumber > 0) {
 			const currentValueLabel = this.getValueLabel(this.value);
-			const nextValueIndex = settingsNumber === this.index ? 0 : this.index + 1;
+			const nextValueIndex = settingsNumber === (this.index + 1) ? 0 : this.index + 1;
 			const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
 
 			let content = '';
@@ -147,6 +148,7 @@ class BtnSettingComponent extends HTMLElement {
 					point = '<span class="sc-btn-setting__value sc-btn-setting__current-value rounded-circle"></span>';
 					this.value = value;
 				}
+				this.slot = `${this.slot}${point}`;
 			}
 		});
 		this.btnContentSlots!.innerHTML = this.slot;

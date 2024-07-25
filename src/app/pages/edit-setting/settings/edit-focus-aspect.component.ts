@@ -1,8 +1,8 @@
 const editFocusAspectLayout: HTMLTemplateElement = document.createElement('template');
 editFocusAspectLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4">
-		<app-select-edit-value id="${PREFIX}select-focus-size" data-name="FocusSize" data-label="true"></app-select-edit-value>
-		<app-select-edit-value id="${PREFIX}select-focus-color" data-name="FocusColor" data-label="true"></app-select-edit-value>
+		<app-select-edit-value id="${PREFIX}select-focus-size" data-name="focusSize" data-label="true"></app-select-edit-value>
+		<app-select-edit-value id="${PREFIX}select-focus-color" data-name="focusColor" data-label="true"></app-select-edit-value>
 
 		<p>Exemple de texte avec le <span id="${PREFIX}example-focus">focus</span>.</p>
 	</form>
@@ -15,8 +15,8 @@ class EditFocusAspectComponent extends HTMLElement {
 	settingValues: string[] = null;
 	focusSizeValue = '';
 	focusColorValue = '';
-	focusSizeValues = [DEFAULT_VALUE, 'big', 'huge'];
-	focusColorValues = [DEFAULT_VALUE, 'white', 'blue', 'red', 'yellow', 'green', 'black'];
+	focusSizeValues = [`focusSize_${DEFAULT_VALUE}`, 'focusSize_big', 'focusSize_huge'];
+	focusColorValues = [`focusColor_${DEFAULT_VALUE}`, 'focusColor_white', 'focusColor_blue', 'focusColor_red', 'focusColor_yellow', 'focusColor_green', 'focusColor_black'];
 
 	handler: any;
 
@@ -40,11 +40,11 @@ class EditFocusAspectComponent extends HTMLElement {
 
 		modeOfUseServiceInstance.getSetting('focusAspect').then((result: SettingModel) => {
 			this.settingValues = result.values.split(',');
-			this.focusSizeValue = this.settingValues[result.valueSelected].split('_')[0];
-			this.focusColorValue = this.settingValues[result.valueSelected].split('_')[1];
+			this.focusSizeValue = this.settingValues[result.valueSelected]?.split('_')[0];
+			this.focusColorValue = this.settingValues[result.valueSelected]?.split('_')[1];
 
-			const currentIndexFocusSize = this.focusSizeValues.findIndex(i => i === this.focusSizeValue);
-			const currentIndexFocusColor = this.focusColorValues.findIndex(i => i === this.focusColorValue);
+			const currentIndexFocusSize = this.focusSizeValues.findIndex(i => i === `focusSize_${this.focusSizeValue}`);
+			const currentIndexFocusColor = this.focusColorValues.findIndex(i => i === `focusColor_${this.focusColorValue}`);
 
 			this.selectFocusSizeElement.setAttribute('data-index', currentIndexFocusSize.toString());
 			this.selectFocusColorElement.setAttribute('data-index', currentIndexFocusColor.toString());
@@ -73,19 +73,26 @@ class EditFocusAspectComponent extends HTMLElement {
 
 	setExampleFocus = (): void => {
 		let spanExample: HTMLElement = this.querySelector(`#${PREFIX}example-focus`);
-		let size = this.focusSizeValue.split('_')[0] === 'big' ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE;
-		spanExample.style.outline = `${this.focusColorValue} solid ${size}`;
+		let size = this.focusSizeValue;
+		let color = this.focusColorValue;
+
+		const styleFocusSize = size !== DEFAULT_VALUE ? size === 'big' ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE : '';
+		const styleFocusColor = color !== DEFAULT_VALUE ? color : '';
+
+		spanExample.style.outlineStyle = 'solid';
+		spanExample.style.outlineWidth = styleFocusSize;
+		spanExample.style.outlineColor = styleFocusColor;
 	}
 
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'editSettingFocusSize':
-					this.focusSizeValue = event.detail.newValue;
+					this.focusSizeValue = event.detail.newValue.split('_')[1];
 					this.setFocusAspect();
 					break;
 				case 'editSettingFocusColor':
-					this.focusColorValue = event.detail.newValue;
+					this.focusColorValue = event.detail.newValue.split('_')[1];
 					this.setFocusAspect();
 					break;
 			}

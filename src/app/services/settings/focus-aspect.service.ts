@@ -13,7 +13,7 @@ class FocusAspectService {
 	setFocus = (value: string): void => {
 		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('focus-aspect');
-		} else {
+		} else if (value) {
 			const [size, color] = value.split('_');
 
 			const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === FOCUS_SIZE_BIG ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : '';

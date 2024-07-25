@@ -1,14 +1,14 @@
 const editReadAloudLayout: HTMLTemplateElement = document.createElement('template');
 editReadAloudLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="ReadAloud"></app-select-edit-value>
+		<app-select-edit-value data-name="readAloud"></app-select-edit-value>
 	</form>
 `;
 
 class EditReadAloudComponent extends HTMLElement {
 	selectReadAloudElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	readAloudValues = [DEFAULT_VALUE, 'word', 'sentence', 'paragraph'];
+	readAloudValues = [DEFAULT_VALUE, 'word', 'sentence', 'paragraph', 'all'];
 
 	handler: any;
 

@@ -1,7 +1,7 @@
 const editMarginAlignLayout: HTMLTemplateElement = document.createElement('template');
 editMarginAlignLayout.innerHTML = `
 	<form>
-		<app-select-edit-value data-name="MarginAlign"></app-select-edit-value>
+		<app-select-edit-value data-name="marginAlign"></app-select-edit-value>
 	</form>
 `;
 
