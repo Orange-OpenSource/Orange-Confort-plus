@@ -1,7 +1,7 @@
 {
 	"name": "orange-confort-plus",
 	"description": "Enhance user experience on web sites",
-	"version": "5.0.0-alpha.5",
+	"version": "5.0.0-alpha.6",
 	"homepage": "https://confort-plus.orange.com/",
 	"author": "Orange SA",
 	"config": {
