@@ -14,6 +14,9 @@
 	"openSettingsMode": {
 		"message": "Open mode settings"
 	},
+	"othersSettings": {
+		"message": "Others settings"
+	},
 	"moreSettings": {
 		"message": "More settings"
 	},
@@ -32,6 +35,21 @@
 	"otherModes": {
 		"message": "Other usage modes"
 	},
+	"chooseModeAndValidate": {
+		"message": "Choose a usage mode and validate:"
+	},
+	"validateThisMode": {
+		"message": "Validate this mode"
+	},
+	"resetThisMode": {
+		"message": "Reset this mode"
+	},
+	"resetThisModeTitle": {
+		"message": "Reset this mode : restores the original settings"
+	},
+	"activeMode": {
+		"message": "Active"
+	},
 	"previous": {
 		"message": "Previous"
 	},
@@ -43,12 +61,6 @@
 	},
 	"pageTitleEditSetting": {
 		"message": "Parameter setting"
-	},
-	"chooseModeAndValidate": {
-		"message": "Choose a usage mode and validate:"
-	},
-	"validateThisMode": {
-		"message": "Validate this mode"
 	},
 	"layout": {
 		"message": "Display"

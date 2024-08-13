@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.6 - 22/08/2024
+ * orange-confort-plus - version 5.0.0-alpha.6 - 28/08/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -296,8 +296,27 @@ class ModeOfUseService {
     setSelectedMode=newSelectedMode => {
         localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
-            json.selectedMode = newSelectedMode;
-            localStorageServiceInstance.setItem(JSON_NAME, json);
+            if (json.selectedMode === newSelectedMode) {
+                filesServiceInstance.getJSONFile("modes-of-use").then((result => {
+                    const defaultJson = result;
+                    let resetMode;
+                    defaultJson.modes.forEach((mode => {
+                        if (Object.keys(mode)[0] === json.selectedMode) {
+                            resetMode = mode;
+                        }
+                    }));
+                    json.modes.forEach(((mode, index) => {
+                        if (Object.keys(mode)[0] === json.selectedMode) {
+                            json.modes[index] = resetMode;
+                        }
+                    }));
+                    json.selectedMode = newSelectedMode;
+                    localStorageServiceInstance.setItem(JSON_NAME, json);
+                }));
+            } else {
+                json.selectedMode = newSelectedMode;
+                localStorageServiceInstance.setItem(JSON_NAME, json);
+            }
         }));
     };
     getSelectedMode(json) {
@@ -3200,7 +3219,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">\n\t\t<span class="d-flex flex-column">\n\t\t\t<span class="sc-btn-setting__name"></span>\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 px-2">\n\t\t<span class="d-flex align-items-start gap-1">\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t\t<span class="sc-btn-setting__name text-start lh-base"></span>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>\n\t</button>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
@@ -3563,7 +3582,7 @@ customElements.define("app-select-edit-value", SelectEditValueComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-1 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</label>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -3587,18 +3606,28 @@ class SelectModeComponent extends HTMLElement {
         this.submitBtnElement = this.querySelector("button");
         this.labelElement = this.querySelector("label");
         this.iconElement = this.querySelector("app-icon");
-        this.textElement = this.querySelector("div span");
+        this.textElement = this.querySelector("app-icon + span");
         this.descriptionElement = this.querySelector("label > span");
         this.inputElement.id = stringServiceInstance.normalizeID(this.label);
         this.inputElement.value = this.label;
         this.inputElement.checked = this.checked;
         this.inputElement.disabled = this.disabled;
-        this.submitBtnElement.innerText = i18nServiceInstance.getMessage("validateThisMode");
+        this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.checked ? "resetThisMode" : "validateThisMode");
+        this.submitBtnElement.title = this.checked ? i18nServiceInstance.getMessage("resetThisModeTitle") : "";
         this.labelElement?.setAttribute("for", stringServiceInstance.normalizeID(this.label));
         this.iconElement?.setAttribute("data-name", `${this.label}_border`);
         this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
         this.descriptionElement.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
+        if (this.checked) {
+            this.setActiveState();
+        }
     }
+    setActiveState=() => {
+        let span = document.createElement("span");
+        span.classList.add("fs-5", "text");
+        span.innerText = i18nServiceInstance.getMessage("activeMode");
+        this.querySelector("div").appendChild(span);
+    };
 }
 
 customElements.define("app-select-mode", SelectModeComponent);
@@ -4771,7 +4800,7 @@ customElements.define("app-edit-text-spacing", EditTextSpacingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t\t<div class="d-flex gap-2">\n\t\t\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t\t\t\t<app-icon data-size="5em"></app-icon>\n\t\t\t\t</div>\n\t\t\t\t<div class="d-flex justify-content-center flex-column">\n\t\t\t\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class="d-grid gap-3 d-md-block">\n\t\t\t\t<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">\n\t\t\t\t\t\t<span class="visually-hidden" data-i18n="openSettingsMode"></span>\n\t\t\t\t\t\t<app-icon data-name="Settings"></app-icon>\n        </button>\n\t\t\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n            <span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n        </button>\n    </div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<div class="d-flex">\n\t\t\t<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>\n\t\t</div>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0">\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="4em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-modes", "data-custom" ];
@@ -5005,10 +5034,12 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n<section class="accordion mb-2">\n\t<app-text class="c-settings__category accordion-item"></app-text>\n\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n</section>\n`;
+settingsLayout.innerHTML = `\n\t<section class="accordion mb-2">\n\t\t<app-text class="c-settings__category accordion-item"></app-text>\n\t\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n\t\t<div class="border-top border-light border-1"></div>\n\t</section>\n\n\t<div class="p-3">\n\t\t<button id="${PREFIX}reset-mode" type="button" class="btn btn-secondary w-100" data-i18n="resetThisMode" data-i18n-title="resetThisModeTitle"></button>\n\t</div>\n\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
+    resetModeElement=null;
+    selectedMode="";
     handler;
     constructor() {
         super();
@@ -5016,6 +5047,8 @@ class SettingsComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
+        this.resetModeElement = this.querySelector(`#${PREFIX}reset-mode`);
+        this.resetModeElement.addEventListener("click", this.handler);
         this.addEventListener("collapsedCategory", this.handler);
     }
     disconnectedCallback() {
@@ -5024,9 +5057,10 @@ class SettingsComponent extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
             this.openOrHideCategories(newValue);
-            let selectedMode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
+            this.selectedMode = JSON.parse(newValue).selectedMode;
+            let mode = modeOfUseServiceInstance.getSelectedMode(JSON.parse(newValue));
             let elements = this.querySelectorAll(".c-settings__category");
-            const settings = Object.entries(JSON.parse(selectedMode))[0][1];
+            const settings = Object.entries(JSON.parse(mode))[0][1];
             elements.forEach((element => {
                 element.setAttribute("data-settings", JSON.stringify(settings));
             }));
@@ -5039,10 +5073,16 @@ class SettingsComponent extends HTMLElement {
         }));
     };
     createHandler=() => event => {
-        if (event.type === "collapsedCategory") {
+        switch (event.type) {
+          case "collapsedCategory":
             categoriesServiceInstance.settingAccordions.forEach((accordion => {
                 this.querySelector(accordion.name).setAttribute("data-open", (!accordion.open).toString());
             }));
+            break;
+
+          case "click":
+            modeOfUseServiceInstance.setSelectedMode(this.selectedMode);
+            break;
         }
     };
 }
