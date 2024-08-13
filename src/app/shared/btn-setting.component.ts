@@ -1,11 +1,11 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 btnSettingLayout.innerHTML = `
-	<button type="button" class="sc-btn-setting btn btn-primary flex-column justify-content-between w-100 px-1">
-		<span class="d-flex flex-column">
-			<span class="sc-btn-setting__name"></span>
+	<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 px-2">
+		<span class="d-flex align-items-start gap-1">
 			<app-icon data-size="1.5em"></app-icon>
+			<span class="sc-btn-setting__name text-start lh-base"></span>
 		</span>
-		<span class="sc-btn-setting__values d-flex gap-1 align-items-center mt-2 mb-0"></span>
+		<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>
 	</button>
 `;
 

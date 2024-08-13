@@ -1,5 +1,5 @@
 {
-	"version": "1.0.15",
+	"version": "1.0.16",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -85,7 +85,7 @@
 					"colorContrast": {
 						"values": "noModifications,white_black,white_blue",
 						"valueSelected": 1,
-						"isTool": false
+						"isTool": true
 					}
 				},
 				{
@@ -99,7 +99,7 @@
 					"clearlyLinks": {
 						"values": "noModifications,bold_underline,bold_boxed",
 						"valueSelected": 1,
-						"isTool": false
+						"isTool": true
 					}
 				},
 				{
@@ -148,7 +148,7 @@
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_delay-2",
 						"valueSelected": 1,
-						"isTool": false
+						"isTool": true
 					}
 				},
 				{

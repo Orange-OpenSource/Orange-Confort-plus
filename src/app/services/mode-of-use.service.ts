@@ -13,8 +13,31 @@ class ModeOfUseService {
 	setSelectedMode = (newSelectedMode: string): void => {
 		localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
 			let json = result;
-			json.selectedMode = newSelectedMode;
-			localStorageServiceInstance.setItem(JSON_NAME, json);
+
+			/* Check if have to reset mode or not */
+			if (json.selectedMode === newSelectedMode) {
+				filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
+					const defaultJson = result;
+					let resetMode: any;
+					defaultJson.modes.forEach((mode: any) => {
+						if (Object.keys(mode)[0] === json.selectedMode) {
+							resetMode = mode;
+						}
+					});
+
+					json.modes.forEach((mode: any, index: number) => {
+						if (Object.keys(mode)[0] === json.selectedMode) {
+							json.modes[index] = resetMode;
+						}
+					});
+
+					json.selectedMode = newSelectedMode;
+					localStorageServiceInstance.setItem(JSON_NAME, json);
+				});
+			} else {
+				json.selectedMode = newSelectedMode;
+				localStorageServiceInstance.setItem(JSON_NAME, json);
+			}
 		});
 	}
 

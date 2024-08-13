@@ -1,34 +1,31 @@
 const homeLayout: HTMLTemplateElement = document.createElement('template');
 homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-		<div class="d-flex gap-2">
-				<div class="sc-home__icon-mode bg-body rounded-circle text-body">
-						<app-icon data-size="5em"></app-icon>
-				</div>
-				<div class="d-flex justify-content-center flex-column">
-						<span class="text-white" data-i18n="profile"></span>
-						<span id="mode-name" class="fs-4 fw-bold text-primary"></span>
-				</div>
+	<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0">
+		<div class="sc-home__icon-mode bg-body rounded-circle text-body">
+			<app-icon data-size="4em"></app-icon>
 		</div>
-		<div class="d-grid gap-3 d-md-block">
-				<button id="settings-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="openSettingsMode">
-						<span class="visually-hidden" data-i18n="openSettingsMode"></span>
-						<app-icon data-name="Settings"></app-icon>
-        </button>
-				<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
-            <span id="pause-label" class="visually-hidden" data-i18n="pause"></span>
-						<app-icon id="pause-icon" data-name="Pause"></app-icon>
-        </button>
-    </div>
+		<div class="d-flex flex-column align-items-start">
+			<span class="text-white" data-i18n="profile"></span>
+			<span id="mode-name" class="fs-4 fw-bold text-primary"></span>
+		</div>
+	</button>
+	<div class="d-grid gap-3 d-md-block">
+		<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
+			<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>
+			<app-icon id="pause-icon" data-name="Pause"></app-icon>
+		</button>
+	</div>
 </section>
 
 <section class="gap-3 p-3">
 	<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>
 	<div class="sc-home__settings gap-3">
 		<app-mode></app-mode>
-		<div class="d-flex">
-			<button id="change-mode-btn" class="btn btn-link" type="button" data-i18n="otherModes"></button>
-		</div>
+		<button id="settings-btn" type="button" class="btn btn-secondary">
+			<app-icon class="me-1" data-name="Settings"></app-icon>
+			<span data-i18n="othersSettings"></span>
+		</button>
 	</div>
 </section>
 `;
