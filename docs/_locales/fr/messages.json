@@ -9,10 +9,13 @@
 		"message": "Confort"
 	},
 	"profile": {
-		"message": "Mode d’usage"
+		"message": "Modes d’usages"
 	},
 	"openSettingsMode": {
 		"message": "Ouvrir réglages du mode"
+	},
+	"othersSettings": {
+		"message": "Autres réglages"
 	},
 	"moreSettings": {
 		"message": "Plus de réglages"
@@ -32,6 +35,21 @@
 	"otherModes": {
 		"message": "Autres modes d'usage"
 	},
+	"chooseModeAndValidate": {
+		"message": "Choisissez un mode d'usage et validez :"
+	},
+	"validateThisMode": {
+		"message" : "Valider ce mode"
+	},
+	"resetThisMode": {
+		"message": "Réinitialiser ce mode"
+	},
+	"resetThisModeTitle": {
+		"message": "Réinitialiser ce mode : remet les réglages d’origine"
+	},
+	"activeMode": {
+		"message": "Actif"
+	},
 	"previous": {
 		"message": "Précédent"
 	},
@@ -43,12 +61,6 @@
 	},
 	"pageTitleEditSetting": {
 		"message": "Réglage du paramètre"
-	},
-	"chooseModeAndValidate": {
-		"message": "Choisissez un mode d'usage et validez :"
-	},
-	"validateThisMode": {
-		"message" : "Valider ce mode"
 	},
 	"layout": {
 		"message": "Affichage"
