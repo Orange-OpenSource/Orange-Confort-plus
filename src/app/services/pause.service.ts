@@ -37,7 +37,8 @@ class PauseService {
 			{ name: 'skipToContent', instanceService: skipToContentServiceInstance.setSkipToContent.bind(this), value: '' },
 			{ name: 'stopAnimations', instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(this), value: '' },
 			{ name: 'textSize', instanceService: textSizeServiceInstance.setFontSize.bind(this), value: '' },
-			{ name: 'textSpacing', instanceService: textSpacingServiceInstance.setSpacingText.bind(this), value: '' }
+			{ name: 'textSpacing', instanceService: textSpacingServiceInstance.setSpacingText.bind(this), value: '' },
+			{ name: 'textColor', instanceService: textColorServiceInstance.setTextColor.bind(this), value: '' }
 		];
 	}
 
