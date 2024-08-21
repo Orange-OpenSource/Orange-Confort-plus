@@ -45,6 +45,7 @@ class EditSettingComponent extends HTMLElement {
 		this.appendChild(editSettingLayout.content.cloneNode(true));
 
 		this.querySelectorAll('.sc-edit-setting__setting').forEach((element: Element) => {
+			element.classList.add('d-none');
 			this.settingsDictionnary.push({ name: stringServiceInstance.normalizeSettingName(element.tagName), element: element.tagName });
 		});
 	}
@@ -62,15 +63,16 @@ class EditSettingComponent extends HTMLElement {
 			this.settingTitle!.innerText = i18nServiceInstance.getMessage(this.settingName);
 			this.settingInstruction!.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
 			this.displaySetting(`edit-${newValue}`);
+			localStorageServiceInstance.setItem('current-setting', newValue);
 		}
 	}
 
 	displaySetting = (settingName: string): void => {
-		this.settingsDictionnary.forEach((setting: SettingsDictionnary) => {
-			if (settingName !== setting.name) {
-				this.querySelector(setting.element).classList.add('d-none');
-			}
-		});
+		this.querySelector('.sc-edit-setting__setting:not(.d-none)')?.classList.add('d-none');
+		const setting = this.settingsDictionnary.find(
+			(setting: SettingsDictionnary) => settingName === setting.name
+		);
+		this.querySelector(setting.element).classList.remove('d-none');
 	}
 }
 
