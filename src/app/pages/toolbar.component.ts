@@ -60,6 +60,15 @@ class ToolbarComponent extends HTMLElement {
 			let currentPage = this.querySelector(`app-${page}`);
 			if (currentPage) {
 				currentPage?.setAttribute('data-modes', JSON.stringify(this.json));
+
+				if (page === PAGE_EDIT_SETTING) {
+					localStorageServiceInstance.getItem('current-setting').then((result: any) => {
+						if (result) {
+							const editSettingElement: HTMLElement = (this.querySelector(`app-${PAGE_EDIT_SETTING}`) as HTMLElement);
+							editSettingElement?.setAttribute('data-setting', result);
+						}
+					});
+				}
 			}
 		})
 	}

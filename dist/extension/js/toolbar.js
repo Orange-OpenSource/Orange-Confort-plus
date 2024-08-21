@@ -4319,6 +4319,7 @@ class EditSettingComponent extends HTMLElement {
         super();
         this.appendChild(editSettingLayout.content.cloneNode(true));
         this.querySelectorAll(".sc-edit-setting__setting").forEach((element => {
+            element.classList.add("d-none");
             this.settingsDictionnary.push({
                 name: stringServiceInstance.normalizeSettingName(element.tagName),
                 element: element.tagName
@@ -4337,14 +4338,13 @@ class EditSettingComponent extends HTMLElement {
             this.settingTitle.innerText = i18nServiceInstance.getMessage(this.settingName);
             this.settingInstruction.innerText = i18nServiceInstance.getMessage(`${this.settingName}Instruction`);
             this.displaySetting(`edit-${newValue}`);
+            localStorageServiceInstance.setItem("current-setting", newValue);
         }
     }
     displaySetting=settingName => {
-        this.settingsDictionnary.forEach((setting => {
-            if (settingName !== setting.name) {
-                this.querySelector(setting.element).classList.add("d-none");
-            }
-        }));
+        this.querySelector(".sc-edit-setting__setting:not(.d-none)")?.classList.add("d-none");
+        const setting = this.settingsDictionnary.find((setting => settingName === setting.name));
+        this.querySelector(setting.element).classList.remove("d-none");
     };
 }
 
@@ -5967,6 +5967,14 @@ class ToolbarComponent extends HTMLElement {
             let currentPage = this.querySelector(`app-${page}`);
             if (currentPage) {
                 currentPage?.setAttribute("data-modes", JSON.stringify(this.json));
+                if (page === PAGE_EDIT_SETTING) {
+                    localStorageServiceInstance.getItem("current-setting").then((result => {
+                        if (result) {
+                            const editSettingElement = this.querySelector(`app-${PAGE_EDIT_SETTING}`);
+                            editSettingElement?.setAttribute("data-setting", result);
+                        }
+                    }));
+                }
             }
         }));
     };
