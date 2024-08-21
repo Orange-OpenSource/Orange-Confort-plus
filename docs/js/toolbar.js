@@ -501,6 +501,10 @@ class PauseService {
             name: "textSpacing",
             instanceService: textSpacingServiceInstance.setSpacingText.bind(this),
             value: ""
+        }, {
+            name: "dyslexia",
+            instanceService: dyslexiaServiceInstance.setDyslexia.bind(this),
+            value: ""
         } ];
     }
     pauseSettings=currentSettings => {
@@ -646,6 +650,14 @@ class CapitalLettersService {
             break;
         }
     };
+}
+
+"use strict";
+
+class BodySelectorService {
+    getBodyElements() {
+        return document.body.querySelectorAll(":not(script):not(app-root)");
+    }
 }
 
 "use strict";
@@ -2420,6 +2432,80 @@ class TextSpacingService {
 
 "use strict";
 
+let dyslexiaServiceIsInstantiated;
+
+class DyslexiaService extends BodySelectorService {
+    groupsToColorize=[ "an", "ou", "us" ];
+    constructor() {
+        super();
+        if (dyslexiaServiceIsInstantiated) {
+            throw new Error("DyslexiaService is already instantiated.");
+        }
+        dyslexiaServiceIsInstantiated = true;
+    }
+    setDyslexia=value => {
+        if (value === "noModifications") {} else {
+            this.colorizeTextNodesForDyslexia();
+        }
+    };
+    colorizeTextNodesForDyslexia() {
+        const bodyChildren = this.getBodyElements();
+        for (let i = 0; i < bodyChildren.length; i++) {
+            const child = bodyChildren[i];
+            const textNodes = this.getTextNodes(child);
+            for (let j = 0; j < textNodes.length; j++) {
+                const node = textNodes[j];
+                const text = node.nodeValue.trim();
+                if (text !== "") {
+                    let colorizedText = "";
+                    let words = text.split(" ");
+                    for (let k = 0; k < words.length; k++) {
+                        const word = words[k];
+                        const syllables = this.segmentWordIntoSyllables(word, this.groupsToColorize);
+                        for (let l = 0; l < syllables.length; l++) {
+                            colorizedText += syllables[l];
+                        }
+                        colorizedText += " ";
+                    }
+                    const span = document.createElement("span");
+                    span.innerHTML = colorizedText.trim();
+                    node.parentNode.insertBefore(span, node);
+                    node.parentNode.removeChild(node);
+                }
+            }
+        }
+    }
+    getTextNodes(element) {
+        const textNodes = [];
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+        }
+        return textNodes;
+    }
+    segmentWordIntoSyllables(word, groups) {
+        const syllables = [];
+        let syllable = "";
+        for (let i = 0; i < word.length; i++) {
+            const char = word[i];
+            const isInGroups = groups.some((group => word.slice(i, i + group.length) === group));
+            if (isInGroups) {
+                syllable += `<span style="color: red;">${word.slice(i, i + groups[0].length).split("").map((char => `${char}`)).join("")}</span>`;
+                i += groups[0].length - 1;
+            } else {
+                syllable += char;
+            }
+            if (!isInGroups || i === word.length - 1) {
+                syllables.push(syllable);
+                syllable = "";
+            }
+        }
+        return syllables;
+    }
+}
+
+"use strict";
+
 let stringServiceIsInstantiated;
 
 class StringService {
@@ -2605,6 +2691,10 @@ Object.seal(textSizeServiceInstance);
 const textSpacingServiceInstance = new TextSpacingService;
 
 Object.seal(textSpacingServiceInstance);
+
+const dyslexiaServiceInstance = new DyslexiaService;
+
+Object.freeze(dyslexiaServiceInstance);
 
 const pauseServiceInstance = new PauseService;
 
@@ -3173,6 +3263,26 @@ class TextTransformComponent extends HTMLElement {
 }
 
 customElements.define("app-text-transform", TextTransformComponent);
+
+"use strict";
+
+const tmplDyslexia = document.createElement("template");
+
+tmplDyslexia.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class DyslexiaComponent extends AbstractSetting {
+    activesValues={
+        values: "",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(dyslexiaServiceInstance.setDyslexia.bind(this));
+        this.appendChild(tmplDyslexia.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-dyslexia", DyslexiaComponent);
 
 "use strict";
 
@@ -4932,7 +5042,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n\t<app-dyslexia class="sc-mode__setting"></app-dyslexia>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
