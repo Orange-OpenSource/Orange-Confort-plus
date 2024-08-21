@@ -322,7 +322,15 @@
 			]
 		},
 		{
-			"dysPlus": []
+			"dysPlus": [
+				{
+					"dyslexia": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": true
+					}
+				}
+			]
 		},
 		{
 			"moteurPlus": []

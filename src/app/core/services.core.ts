@@ -70,5 +70,7 @@ const textSizeServiceInstance = new TextSizeService();
 Object.seal(textSizeServiceInstance);
 const textSpacingServiceInstance = new TextSpacingService();
 Object.seal(textSpacingServiceInstance);
+const textColorServiceInstance = new TextColorService();
+Object.freeze(textColorServiceInstance);
 const pauseServiceInstance = new PauseService();
 Object.freeze(pauseServiceInstance);
