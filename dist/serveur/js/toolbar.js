@@ -503,7 +503,7 @@ class PauseService {
                 if (settingsService.name === Object.keys(setting)[0]) {
                     settingsService.value = this.getSelectedValue(settingValues);
                 }
-                settingsService.instanceService("noModifications");
+                settingsService.instanceService(DEFAULT_VALUE);
             }));
         }));
     };
@@ -1179,7 +1179,7 @@ class FocusAspectService {
             stylesServiceInstance.removeStyle("focus-aspect");
         } else if (value) {
             const [size, color] = value.split("_");
-            const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === FOCUS_SIZE_BIG ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : "";
+            const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === "big" ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : "";
             const styleFocusColor = color !== DEFAULT_VALUE ? `outline-color: ${color} !important;` : "";
             let styleFocus = `\n\t\t\t\t*:focus, *:focus-visible {\n\t\t\t\t\toutline-style: solid !important;\n\t\t\t\t\t${styleFocusSize}\n\t\t\t\t\t${styleFocusColor}\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("focus-aspect", styleFocus);
@@ -1227,6 +1227,15 @@ class FontFamilyService {
             weight: "400"
         }, {
             name: "B612Mono-Regular.woff2",
+            style: "normal",
+            weight: "400"
+        } ]
+    }, {
+        name: "Airbus",
+        size: "100%",
+        folder: "airbus",
+        files: [ {
+            name: "Airbus-Special.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -1916,7 +1925,7 @@ class ReadAloudService {
     }
     setReadAloud=value => {
         this.resetBody();
-        if (value === "noModifications") {
+        if (value === DEFAULT_VALUE) {
             this.resetReadAloud();
         } else {
             switch (value) {
@@ -1926,6 +1935,10 @@ class ReadAloudService {
 
               case "sentence":
                 this.setBodyToSpeech(this.regexSentence);
+                break;
+
+              case "all":
+                document.addEventListener("focusin", this.handler);
                 break;
 
               default:
@@ -2017,13 +2030,7 @@ class ReadAloudService {
         document.removeEventListener("pointerdown", this.handler);
         document.removeEventListener("keydown", this.handler);
         document.removeEventListener("contextmenu", this.handler);
-    };
-    downHandler=event => {
-        let textToSpeech = new SpeechSynthesisUtterance(event.target.innerText);
-        speechSynthesis.speak(textToSpeech);
-    };
-    stopReadAloud=() => {
-        speechSynthesis.cancel();
+        document.removeEventListener("focusin", this.handler);
     };
     createHandler=() => event => {
         switch (event.type) {
@@ -2033,17 +2040,21 @@ class ReadAloudService {
             break;
 
           case "pointerdown":
-            this.downHandler(event);
+            speechSynthesis.speak(new SpeechSynthesisUtterance(event.target.innerText));
             break;
 
           case "keydown":
             if (event.key === "Escape" || event.key === "Esc") {
-                this.stopReadAloud();
+                speechSynthesis.cancel();
             }
             break;
 
           case "contextmenu":
-            this.stopReadAloud();
+            speechSynthesis.cancel();
+            break;
+
+          case "focusin":
+            speechSynthesis.speak(new SpeechSynthesisUtterance(document.activeElement.innerText));
             break;
         }
     };
@@ -4220,7 +4231,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "ComicSansMS", "LexandDeca", "Luciole", "SylexiadSans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "Airbus", "ComicSansMS", "LexandDeca", "Luciole", "SylexiadSans", "Verdana" ];
     handler;
     constructor() {
         super();

@@ -18,6 +18,11 @@ class FontFamilyService {
 			]
 		},
 		{
+			name: 'Airbus', size: '100%', folder: 'airbus', files: [
+				{ name: 'Airbus-Special.woff2', style: 'normal', weight: '400' }
+			]
+		},
+		{
 			name: 'ComicSansMS', size: '100%', folder: 'comic', files: [
 				{ name: 'comic-Sans-MS.woff2', style: 'normal', weight: '400' }
 			]
