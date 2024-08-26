@@ -16,7 +16,7 @@ class FocusAspectService {
 		} else if (value) {
 			const [size, color] = value.split('_');
 
-			const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === FOCUS_SIZE_BIG ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : '';
+			const styleFocusSize = size !== DEFAULT_VALUE ? `outline-width: ${size === 'big' ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE} !important;` : '';
 			const styleFocusColor = color !== DEFAULT_VALUE ? `outline-color: ${color} !important;` : '';
 
 			let styleFocus = `

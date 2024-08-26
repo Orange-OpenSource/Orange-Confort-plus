@@ -55,7 +55,7 @@
 				},
 				{
 					"readAloud": {
-						"values": "noModifications,word",
+						"values": "noModifications,word,all",
 						"valueSelected": 0,
 						"isTool": true
 					}
