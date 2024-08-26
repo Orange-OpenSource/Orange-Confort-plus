@@ -43,7 +43,7 @@ class ReadAloudService {
 
 	setReadAloud = (value: string): void => {
 		this.resetBody();
-		if (value === 'noModifications') {
+		if (value === DEFAULT_VALUE) {
 			this.resetReadAloud();
 		} else {
 			switch (value) {
@@ -52,6 +52,9 @@ class ReadAloudService {
 					break;
 				case 'sentence':
 					this.setBodyToSpeech(this.regexSentence);
+					break;
+				case 'all':
+					document.addEventListener('focusin', this.handler);
 					break;
 				default:
 					break
@@ -157,15 +160,7 @@ class ReadAloudService {
 		document.removeEventListener('pointerdown', this.handler);
 		document.removeEventListener('keydown', this.handler);
 		document.removeEventListener('contextmenu', this.handler);
-	}
-
-	downHandler = (event: any): void => {
-		let textToSpeech = new SpeechSynthesisUtterance(event.target.innerText);
-		speechSynthesis.speak(textToSpeech);
-	}
-
-	stopReadAloud = (): void => {
-		speechSynthesis.cancel();
+		document.removeEventListener('focusin', this.handler);
 	}
 
 	private createHandler = () => {
@@ -176,15 +171,18 @@ class ReadAloudService {
 					this.tooltipReadAloud.style.top = `${event.pageY}px`;
 					break;
 				case 'pointerdown':
-					this.downHandler(event);
+					speechSynthesis.speak(new SpeechSynthesisUtterance(event.target.innerText));
 					break;
 				case 'keydown':
 					if (event.key === 'Escape' || event.key === 'Esc') {
-						this.stopReadAloud();
+						speechSynthesis.cancel();
 					}
 					break;
 				case 'contextmenu':
-					this.stopReadAloud();
+					speechSynthesis.cancel();
+					break;
+				case 'focusin':
+					speechSynthesis.speak(new SpeechSynthesisUtterance((document.activeElement as HTMLElement).innerText));
 					break;
 			}
 		}

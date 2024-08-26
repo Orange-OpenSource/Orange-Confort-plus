@@ -49,7 +49,7 @@ class PauseService {
 				if (settingsService.name === Object.keys(setting)[0]) {
 					settingsService.value = this.getSelectedValue(settingValues);
 				}
-				settingsService.instanceService('noModifications');
+				settingsService.instanceService(DEFAULT_VALUE);
 			});
 		});
 	}

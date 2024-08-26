@@ -297,6 +297,9 @@
 	"fontFamily-B612Mono": {
 		"message": "B612_Mono"
 	},
+	"fontFamily-Airbus": {
+		"message": "Airbus"
+	},
 	"fontFamily-ComicSansMS": {
 		"message": "Comic Sans MS"
 	},
