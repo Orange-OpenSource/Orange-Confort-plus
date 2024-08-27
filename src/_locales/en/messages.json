@@ -105,7 +105,7 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Usage mode for people with visual impairments. The text and page colors are highly contrasted, the mouse and focus are very visible, and a magnifier and reading ruler are available."
+		"message": "User mode designed for people with visual limitations (colour, legibility). The colours of the text and page are high-contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
 	},
 	"visionPlusPlusName": {
 		"message": "Vision++"
@@ -123,13 +123,19 @@
 		"message": "Dys+"
 	},
 	"dysPlusDescription": {
-		"message": "Usage mode for people with reading or writing difficulties. An optimized font for dyslexia, well_spaced and left_aligned text, a reading ruler, the possibility to color characters and sounds, and text_to_speech."
+		"message": "A user guide for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
 	},
 	"moteurPlusName": {
 		"message": "Motor+"
 	},
 	"moteurPlusDescription": {
 		"message": "Usage mode for people with motor disabilities. Easier keyboard navigation, a highly visible focus, and a palette of virtual buttons."
+	},
+	"moteurPlusPlusName": {
+		"message": "Motor++"
+	},
+	"moteurPlusPlusDescription": {
+		"message": "Use mode designed for people using a single switch. Automatic scrolling of the focus in the web page, with adjustable speed and delay."
 	},
 	"pointagePlusName": {
 		"message": "Pointing+"
@@ -147,13 +153,13 @@
 		"message": "Audio+"
 	},
 	"audioPlusDescription": {
-		"message": "Usage mode for people with hearing impairments. Visual equivalents for sound signals and systematic subtitles."
+		"message": "User guide for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
 	},
-	"calmeName": {
-		"message": "Calm"
+	"calmePlusName": {
+		"message": "Calm+"
 	},
-	"calmeDescription": {
-		"message": "Usage mode for highly sensitive people. Pleasant colors and transitions, no animations or interruptions."
+	"calmePlusDescription": {
+		"message": "Mode of use that meets the constraints of hypersensoriality. Pleasant colours and transitions, no animations or interruptions."
 	},
 	"noModifications": {
 		"message": "no modification"
@@ -388,7 +394,7 @@
 	"textSpacing_noModifications": {
 		"message": "no modifications"
 	},
-	"textSpacing_spacingTextLabelSmall": {
+	"textSpacing_spacingTextSmall": {
 		"message": "slightly spaced"
 	},
 	"textSpacing_spacingTextLabelBig": {
@@ -489,104 +495,6 @@
 	},
 	"readAloud_all": {
 		"message": "vocalize all"
-	},
-	"setting_colourTheme": {
-		"message": "Color Theme"
-	},
-	"setting_colourTheme_instruction": {
-		"message": "To change the page and cursor appearance"
-	},
-	"colourTheme_noModifications": {
-		"message": "no modifications"
-	},
-	"colourTheme_reinforcedContrasts": {
-		"message": "reinforced contrasts"
-	},
-	"colourTheme_values": {
-		"message": "$COLOR$ on $BACKGROUND$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"background": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_cursor": {
-		"message": "Cursor $COLOR$ and $SIZE$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"size": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_cursor_noModifications": {
-		"message": "Cursor with no modifications"
-	},
-	"colourTheme_focus": {
-		"message": "Focus $COLOR$ and $SIZE$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"size": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_focus_noModifications": {
-		"message": "Focus with no modifications"
-	},
-	"colourTheme_scroll": {
-		"message": "Scrollbar $COLOR$ and $SIZE$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"size": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_scroll_noModifications": {
-		"message": "Scrollbar with no modifications"
-	},
-	"colourTheme_link": {
-		"message": "Link $COLOR$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			}
-		}
-	},
-	"colourTheme_link_noModifications": {
-		"message": "Link with no modifications"
-	},
-	"colourTheme_linkPointed": {
-		"message": "Pointed link $COLOR$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			}
-		}
-	},
-	"colourTheme_linkPointed_noModifications": {
-		"message": "Pointed link with no modifications"
-	},
-	"colourTheme_linkVisited": {
-		"message": "Visited link $COLOR$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			}
-		}
-	},
-	"colourTheme_linkVisited_noModifications": {
-		"message": "Visited link with no modifications"
 	},
 	"setting_cursorAspect": {
 		"message": "Cursor Appearance"

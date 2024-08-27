@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 28/10/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 29/10/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1181,10 +1181,6 @@ class PauseService {
             instanceService: colorContrastServiceInstance.setColorsContrasts.bind(this),
             value: ""
         }, {
-            name: "colourTheme",
-            instanceService: colourThemeServiceInstance.setColourTheme.bind(this),
-            value: ""
-        }, {
             name: "cursorAspect",
             instanceService: cursorAspectServiceInstance.setCursor.bind(this),
             value: ""
@@ -1704,13 +1700,19 @@ let colorContrastServiceIsInstantiated;
 
 class ColorContrastService {
     colorContrastDictionnary=[ {
+        name: DEFAULT_VALUE,
+        cursor: DEFAULT_VALUE,
+        focus: DEFAULT_VALUE,
+        scroll: DEFAULT_VALUE,
+        link: DEFAULT_VALUE
+    }, {
         name: "reinforcedContrasts",
         cursor: "big_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_orange_brown"
     }, {
-        name: "white_black",
+        name: "ivory_black",
         cursor: "big_ivory",
         focus: "big_ivory",
         scroll: "big_ivory",
@@ -1764,7 +1766,7 @@ class ColorContrastService {
     setColorsContrasts=value => {
         stylesServiceInstance.removeStyle("color-contrast");
         stylesServiceInstance.removeStyle("filter-daltonism");
-        colourThemeServiceInstance.setColourTheme(DEFAULT_VALUE);
+        this.setServices(DEFAULT_VALUE);
         switch (value) {
           case DEFAULT_VALUE:
             break;
@@ -1783,58 +1785,22 @@ class ColorContrastService {
             } else {
                 color = value?.split("_")[0];
                 backgroundColor = value?.split("_")[1];
-                const colorParams = this.colorContrastDictionnary.find((o => o.name === value));
-                colourThemeServiceInstance.setServices(colorParams);
+                this.setServices(`${color}_${backgroundColor}`);
             }
             this.setColorContrastStyle(color, backgroundColor);
             break;
         }
     };
     setColorContrastStyle=(color, backgroundColor) => {
-        let styleColorContrast = `\n\t\t* {\n\t\t\tcolor: ${color} !important;\n\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t}\n\n\t\tli a {\n\t\t\tcolor: ${color} !important;\n\t\t}\n\n\t\tfieldset,\n\t\tbutton {\n\t\t\tborder-color: ${color} !important;\n\t\t}\n\n\t\tinput, td, th {\n\t\t\tborder: 2px solid ${color} !important;\n\t\t}\n\n\t\ttd, th {\n\t\t\tpadding: .2em !important;\n\t\t}\n\n\t\ttable {\n\t\t\tborder-collapse: collapse !important;\n\t\t}\n\t`;
+        let styleColorContrast = `\n\t\t\t* {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tli a {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
     };
-}
-
-"use strict";
-
-let colourThemeServiceIsInstantiated;
-
-class ColourThemeService {
-    colourThemeDictionnary=[ {
-        name: DEFAULT_VALUE,
-        cursor: DEFAULT_VALUE,
-        focus: DEFAULT_VALUE,
-        scroll: DEFAULT_VALUE,
-        link: DEFAULT_VALUE
-    }, {
-        name: "reinforcedContrasts",
-        cursor: "big_black",
-        focus: "big_black",
-        scroll: "big_black",
-        link: "darkblue_orange_darkgreen"
-    }, {
-        name: "white_black",
-        cursor: "big_white",
-        focus: "big_white",
-        scroll: "big_white",
-        link: "yellow_orange_lightgreen"
-    } ];
-    constructor() {
-        if (colourThemeServiceIsInstantiated) {
-            throw new Error("ColourThemeService is already instantiated.");
-        }
-        colourThemeServiceIsInstantiated = true;
-    }
-    setColourTheme=value => {
-        const colourThemeValues = this.colourThemeDictionnary.find((o => o.name === value));
-        this.setServices(colourThemeValues);
-    };
-    setServices=colourThemeValues => {
-        cursorAspectServiceInstance.setCursor(colourThemeValues?.cursor);
-        focusAspectServiceInstance.setFocus(colourThemeValues?.focus);
-        scrollServiceInstance.setScroll(colourThemeValues?.scroll);
-        linkStyleServiceInstance.setLinkStyle(colourThemeValues?.link);
+    setServices=value => {
+        const colorParams = this.colorContrastDictionnary.find((o => o.name === value));
+        cursorAspectServiceInstance.setCursor(colorParams?.cursor);
+        focusAspectServiceInstance.setFocus(colorParams?.focus);
+        scrollServiceInstance.setScroll(colorParams?.scroll);
+        linkStyleServiceInstance.setLinkStyle(colorParams?.link);
     };
 }
 
@@ -2733,7 +2699,7 @@ class ReadAloudService extends BodySelectorService {
     readAloudSpan=`${PREFIX}read-aloud-span`;
     regexWord=/\S+\s*[.,!?]*/g;
     regexSentence=/[^\.!\?]+[\.!\?]+["']?|.+$/g;
-    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\ttransform: translate(0%, 75%);\n\t\tz-index: calc(infinity)\n\t}`;
+    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity)\n\t\ttransform: translate(75px, 50%);\n\t}`;
     constructor() {
         super();
         if (readAloudServiceIsInstantiated) {
@@ -3237,17 +3203,17 @@ class TextSpacingService {
     }
     setSpacingText=value => {
         const spacingTextValues = [ {
-            name: "spacingTextLabelSmall",
+            name: "spacingTextSmall",
             wordSpacing: ".10em",
             lineHeight: "2em",
             letterSpacing: ".0625em"
         }, {
-            name: "spacingTextLabelBig",
+            name: "spacingTextBig",
             wordSpacing: ".25em",
             lineHeight: "2.5em",
             letterSpacing: ".25em"
         }, {
-            name: "spacingTextLabelHuge",
+            name: "spacingTextHuge",
             wordSpacing: ".5em",
             lineHeight: "3em",
             letterSpacing: ".5em"
@@ -3441,10 +3407,6 @@ Object.seal(clickFaciliteServiceInstance);
 const colorContrastServiceInstance = new ColorContrastService;
 
 Object.seal(colorContrastServiceInstance);
-
-const colourThemeServiceInstance = new ColourThemeService;
-
-Object.seal(colourThemeServiceInstance);
 
 const cursorAspectServiceInstance = new CursorAspectService;
 
@@ -3747,22 +3709,6 @@ class ColorContrastComponent extends AbstractSetting {
 }
 
 customElements.define("app-color-contrast", ColorContrastComponent);
-
-"use strict";
-
-const tmplColourTheme = document.createElement("template");
-
-tmplColourTheme.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
-
-class ColourThemeComponent extends AbstractSetting {
-    constructor() {
-        super();
-        this.setCallback(colourThemeServiceInstance.setColourTheme.bind(this));
-        this.appendChild(tmplColourTheme.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-colour-theme", ColourThemeComponent);
 
 "use strict";
 
@@ -4646,7 +4592,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-colour-theme class="sc-edit-setting__setting"></app-edit-colour-theme>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -4861,7 +4807,7 @@ editColorContrastLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data
 class EditColorContrastComponent extends HTMLElement {
     selectColorContrastElement=null;
     settingValues=null;
-    colorContrastValues=[ DEFAULT_VALUE, "reinforcedContrasts", "white_black", "black_ivory", "white_red", "black_yellow", "white_blue", "yellow_blue", "black_green" ];
+    colorContrastValues=[ DEFAULT_VALUE, "reinforcedContrasts", "ivory_black", "black_ivory", "white_red", "black_yellow", "white_blue", "yellow_blue", "black_green" ];
     handler;
     constructor() {
         super();
@@ -4908,107 +4854,6 @@ class EditColorContrastComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-color-contrast", EditColorContrastComponent);
-
-"use strict";
-
-const editColourThemeLayout = document.createElement("template");
-
-editColourThemeLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-3">\n\t\t<app-select-edit-value data-name="colourTheme"></app-select-edit-value>\n\t\t<output id="colourThemeValues" class="d-flex flex-column">\n\t\t</output>\n\t</form>\n`;
-
-class EditColourThemeComponent extends HTMLElement {
-    selectColourThemeElement=null;
-    settingValues=null;
-    colourThemeValues=[ DEFAULT_VALUE, "reinforcedContrasts", "white_black" ];
-    handler;
-    constructor() {
-        super();
-        this.appendChild(editColourThemeLayout.content.cloneNode(true));
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.selectColourThemeElement = this.querySelector("app-select-edit-value");
-        this.selectColourThemeElement.addEventListener("editSettingColourTheme", this.handler);
-        this.selectColourThemeElement.setAttribute("data-setting-values", this.colourThemeValues.join(","));
-        modeOfUseServiceInstance.getSetting("colourTheme").then((result => {
-            this.settingValues = result.values.split(",");
-            const currentIndex = this.colourThemeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
-            this.selectColourThemeElement.setAttribute("data-index", currentIndex.toString());
-        }));
-    }
-    setColourTheme=value => {
-        let newSettingIndex = this.settingValues.indexOf(value);
-        if (newSettingIndex !== -1) {
-            modeOfUseServiceInstance.setSettingValue("colourTheme", newSettingIndex, true);
-        } else {
-            modeOfUseServiceInstance.addSettingCustomValue("colourTheme", 3, value);
-        }
-        colourThemeServiceInstance.setColourTheme(value);
-    };
-    displayValuesSelected=value => {
-        this.querySelector("#colourThemeValues").innerHTML = "";
-        let colourThemeValuesSelected = colourThemeServiceInstance.colourThemeDictionnary.find((o => o.name === value));
-        let arrayValuesSelected = [ {
-            key: "colourTheme_cursor",
-            value: this.getValuesMessage(colourThemeValuesSelected.cursor.split("_"))
-        }, {
-            key: "colourTheme_focus",
-            value: this.getValuesMessage(colourThemeValuesSelected.focus.split("_"))
-        }, {
-            key: "colourTheme_scroll",
-            value: this.getValuesMessage(colourThemeValuesSelected.scroll.split("_"))
-        } ];
-        let linkColors = [];
-        if (colourThemeValuesSelected.link.split("_")[0] === DEFAULT_VALUE) {
-            linkColors = [ {
-                key: "colourTheme_link",
-                value: this.getValuesMessage([ DEFAULT_VALUE ])
-            }, {
-                key: "colourTheme_linkPointed",
-                value: this.getValuesMessage([ DEFAULT_VALUE ])
-            }, {
-                key: "colourTheme_linkVisited",
-                value: this.getValuesMessage([ DEFAULT_VALUE ])
-            } ];
-        } else {
-            linkColors = [ {
-                key: "colourTheme_link",
-                value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[0] ])
-            }, {
-                key: "colourTheme_linkPointed",
-                value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[1] ])
-            }, {
-                key: "colourTheme_linkVisited",
-                value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[2] ])
-            } ];
-        }
-        arrayValuesSelected.concat(linkColors).forEach((message => {
-            let span = document.createElement("span");
-            if (message.value[0] === i18nServiceInstance.getMessage(DEFAULT_VALUE)) {
-                span.innerText = i18nServiceInstance.getMessage(`${message.key}_${DEFAULT_VALUE}`);
-            } else {
-                span.innerText = i18nServiceInstance.getMessage(message.key, message.value);
-            }
-            this.querySelector("#colourThemeValues").appendChild(span);
-        }));
-    };
-    getValuesMessage=values => {
-        let message = [];
-        values.forEach((value => {
-            message.push(i18nServiceInstance.getMessage(value));
-        }));
-        return message;
-    };
-    createHandler=() => event => {
-        switch (event.type) {
-          case "editSettingColourTheme":
-            this.setColourTheme(event.detail.newValue);
-            this.displayValuesSelected(event.detail.newValue);
-            break;
-        }
-    };
-}
-
-customElements.define("app-edit-colour-theme", EditColourThemeComponent);
 
 "use strict";
 
@@ -5780,7 +5625,7 @@ editTextSpacingLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-n
 class EditTextSpacingComponent extends HTMLElement {
     selectTextSpacingElement=null;
     settingValues=null;
-    textSpacingValues=[ DEFAULT_VALUE, "spacingTextLabelSmall", "spacingTextLabelBig", "spacingTextLabelHuge" ];
+    textSpacingValues=[ DEFAULT_VALUE, "spacingTextSmall", "spacingTextBig", "spacingTextHuge" ];
     handler;
     constructor() {
         super();
@@ -5935,7 +5780,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5963,17 +5808,26 @@ class ModeComponent extends HTMLElement {
         }
     }
     displaySettings=settings => {
-        let elements = this.querySelectorAll(".sc-mode__setting");
-        elements.forEach((element => {
+        let orderedElements = [];
+        let othersElements = [];
+        this.querySelectorAll(".sc-mode__setting").forEach((element => {
             element.classList.add("d-none");
         }));
         settings.forEach((setting => {
-            let settingObj = this.settingsDictionnary.find((o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0])));
-            let settingElement = this.querySelector(settingObj?.element);
-            settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
-            if (Object.entries(setting)[0][1].isTool) {
-                settingElement?.classList.remove("d-none");
+            const settingObj = Object.values(setting)[0];
+            let settingName = Object.keys(setting)[0];
+            let settingRef = this.settingsDictionnary.find((o => o.name === stringServiceInstance.normalizeSettingName(settingName)));
+            let settingElement = this.querySelector(settingRef?.element);
+            if (settingElement) {
+                settingElement.setAttribute("data-values", JSON.stringify(settingObj));
+                settingElement.classList.toggle("d-none", !settingObj.isTool);
+                settingObj.order ? orderedElements[settingObj.order - 1] = settingElement : othersElements.push(settingElement);
+                settingElement.remove();
             }
+        }));
+        const elementsToDisplay = orderedElements.filter((el => el)).concat(othersElements);
+        elementsToDisplay.forEach((element => {
+            this.modeContent.appendChild(element);
         }));
     };
     disableSettings=disabled => {
