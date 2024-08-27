@@ -29,7 +29,6 @@ const files = {
 			'dist/js/app/services/settings/clearly-links.service.js',
 			'dist/js/app/services/settings/click-facilite.service.js',
 			'dist/js/app/services/settings/color-contrast.service.js',
-			'dist/js/app/services/settings/colour-theme.service.js',
 			'dist/js/app/services/settings/cursor-aspect.service.js',
 			'dist/js/app/services/settings/delete-background-images.service.js',
 			'dist/js/app/services/settings/focus-aspect.service.js',
@@ -58,7 +57,6 @@ const files = {
 			'dist/js/app/shared/settings/clearly-links.component.js',
 			'dist/js/app/shared/settings/click-facilite.component.js',
 			'dist/js/app/shared/settings/color-contrast.component.js',
-			'dist/js/app/shared/settings/colour-theme.component.js',
 			'dist/js/app/shared/settings/cursor-aspect.component.js',
 			'dist/js/app/shared/settings/delete-background-images.component.js',
 			'dist/js/app/shared/settings/focus-aspect.component.js',
@@ -89,7 +87,6 @@ const files = {
 			'dist/js/app/pages/edit-setting/settings/edit-clearly-links.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-click-facilite.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-color-contrast.component.js',
-			'dist/js/app/pages/edit-setting/settings/edit-colour-theme.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-cursor-aspect.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-delete-background-images.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-focus-aspect.component.js',
@@ -213,18 +210,18 @@ const files = {
 }
 
 const getContext = () => {
-	const hasContext = process.argv.find( element => element.startsWith( `--context=` ) );
+	const hasContext = process.argv.find(element => element.startsWith(`--context=`));
 
-	if ( !hasContext ) return null;
+	if (!hasContext) return null;
 
-	const value= hasContext.replace( `--context=` , '' );
+	const value = hasContext.replace(`--context=`, '');
 
 	return files[value];
 }
 
 const context = getContext();
 context.files.forEach(async file => {
-	Object.assign(code, {[file]: readFileSync(file, "utf8")});
+	Object.assign(code, { [file]: readFileSync(file, "utf8") });
 });
 
 const minified = await minify(code, context.options);

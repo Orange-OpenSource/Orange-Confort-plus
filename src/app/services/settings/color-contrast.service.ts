@@ -1,9 +1,18 @@
 let colorContrastServiceIsInstantiated: boolean;
 
+interface ColourThemeValues {
+	name: string;
+	cursor: string;
+	focus: string;
+	scroll: string;
+	link: string;
+};
+
 class ColorContrastService {
 	colorContrastDictionnary: ColourThemeValues[] = [
+		{ name: DEFAULT_VALUE, cursor: DEFAULT_VALUE, focus: DEFAULT_VALUE, scroll: DEFAULT_VALUE, link: DEFAULT_VALUE },
 		{ name: 'reinforcedContrasts', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_orange_brown' },
-		{ name: 'white_black', cursor: 'big_ivory', focus: 'big_ivory', scroll: 'big_ivory', link: 'lightblue_orange_lightgreen' },
+		{ name: 'ivory_black', cursor: 'big_ivory', focus: 'big_ivory', scroll: 'big_ivory', link: 'lightblue_orange_lightgreen' },
 		{ name: 'black_ivory', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_orange_brown' },
 		{ name: 'white_red', cursor: 'big_white', focus: 'big_white', scroll: 'big_white', link: 'yellow_darkblue_lightgreen' },
 		{ name: 'black_yellow', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_purple_darkgreen' },
@@ -38,7 +47,7 @@ class ColorContrastService {
 	setColorsContrasts = (value: string): void => {
 		stylesServiceInstance.removeStyle('color-contrast');
 		stylesServiceInstance.removeStyle('filter-daltonism');
-		colourThemeServiceInstance.setColourTheme(DEFAULT_VALUE);
+		this.setServices(DEFAULT_VALUE);
 
 		switch (value) {
 			case DEFAULT_VALUE:
@@ -56,9 +65,7 @@ class ColorContrastService {
 				} else {
 					color = value?.split('_')[0];
 					backgroundColor = value?.split('_')[1];
-
-					const colorParams = this.colorContrastDictionnary.find((o: ColourThemeValues) => o.name === value);
-					colourThemeServiceInstance.setServices(colorParams);
+					this.setServices(`${color}_${backgroundColor}`);
 				}
 
 				this.setColorContrastStyle(color, backgroundColor);
@@ -68,32 +75,41 @@ class ColorContrastService {
 
 	setColorContrastStyle = (color: string, backgroundColor: string): void => {
 		let styleColorContrast = `
-		* {
-			color: ${color} !important;
-			background-color: ${backgroundColor} !important;
-		}
+			* {
+				color: ${color} !important;
+				background-color: ${backgroundColor} !important;
+			}
 
-		li a {
-			color: ${color} !important;
-		}
+			li a {
+				color: ${color} !important;
+			}
 
-		fieldset,
-		button {
-			border-color: ${color} !important;
-		}
+			fieldset,
+			button {
+				border-color: ${color} !important;
+			}
 
-		input, td, th {
-			border: 2px solid ${color} !important;
-		}
+			input, td, th {
+				border: 2px solid ${color} !important;
+			}
 
-		td, th {
-			padding: .2em !important;
-		}
+			td, th {
+				padding: .2em !important;
+			}
 
-		table {
-			border-collapse: collapse !important;
-		}
-	`;
+			table {
+				border-collapse: collapse !important;
+			}
+		`;
 		stylesServiceInstance.setStyle('color-contrast', styleColorContrast);
+	}
+
+	setServices = (value: string): void => {
+		const colorParams = this.colorContrastDictionnary.find((o: ColourThemeValues) => o.name === value);
+
+		cursorAspectServiceInstance.setCursor(colorParams?.cursor);
+		focusAspectServiceInstance.setFocus(colorParams?.focus);
+		scrollServiceInstance.setScroll(colorParams?.scroll);
+		linkStyleServiceInstance.setLinkStyle(colorParams?.link);
 	}
 }

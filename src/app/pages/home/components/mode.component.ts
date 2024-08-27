@@ -10,7 +10,6 @@ tmplMode.innerHTML = `
 	<app-magnifier class="sc-mode__setting"></app-magnifier>
 	<app-read-aloud class="sc-mode__setting"></app-read-aloud>
 	<app-text-color class="sc-mode__setting"></app-text-color>
-	<app-colour-theme class="sc-mode__setting"></app-colour-theme>
 	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
 	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
 	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
@@ -65,8 +64,9 @@ class ModeComponent extends HTMLElement {
 			let settingObj = this.settingsDictionnary.find((o: SettingsDictionnary) => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
 			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
 			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
-			if ((Object.entries(setting)[0][1] as SettingModel).isTool) {
-				settingElement?.classList.remove('d-none');
+			if ((Object.entries(setting)[0][1] as SettingModel).isTool && settingElement) {
+				settingElement.classList.remove('d-none');
+				settingElement.style.order = (Object.entries(setting)[0][1] as SettingModel).order?.toString();
 			}
 		});
 	}
