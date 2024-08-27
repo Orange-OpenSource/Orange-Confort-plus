@@ -34,8 +34,6 @@ const clickFaciliteServiceInstance = new ClickFaciliteService();
 Object.seal(clickFaciliteServiceInstance);
 const colorContrastServiceInstance = new ColorContrastService();
 Object.seal(colorContrastServiceInstance);
-const colourThemeServiceInstance = new ColourThemeService();
-Object.seal(colourThemeServiceInstance);
 const cursorAspectServiceInstance = new CursorAspectService();
 Object.seal(cursorAspectServiceInstance);
 const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService();

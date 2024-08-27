@@ -8,7 +8,7 @@ editColorContrastLayout.innerHTML = `
 class EditColorContrastComponent extends HTMLElement {
 	selectColorContrastElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	colorContrastValues = [DEFAULT_VALUE, 'reinforcedContrasts', 'white_black', 'black_ivory', 'white_red', 'black_yellow', 'white_blue', 'yellow_blue', 'black_green'];
+	colorContrastValues = [DEFAULT_VALUE, 'reinforcedContrasts', 'ivory_black', 'black_ivory', 'white_red', 'black_yellow', 'white_blue', 'yellow_blue', 'black_green'];
 
 	handler: any;
 

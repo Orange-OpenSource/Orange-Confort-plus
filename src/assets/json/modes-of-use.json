@@ -3,362 +3,935 @@
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
-			"visionPlus": [
-				{
-					"fontFamily": {
-						"values": "noModifications,AccessibleDfA,Luciole",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"textSize": {
-						"values": "noModifications,130,200",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"capitalLetters": {
-						"values": "noModifications,uppercase,capitalize",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"textSpacing": {
-						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"marginAlign": {
-						"values": "noModifications,alignLeft,marginList",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"magnifier": {
-						"values": "noModifications,zoom2,zoom5",
-						"valueSelected": 0,
-						"isTool": true
-					}
-				},
-				{
-					"readAloud": {
-						"values": "noModifications,word,all",
-						"valueSelected": 0,
-						"isTool": true
-					}
-				},
-				{
-					"colourTheme": {
-						"values": "noModifications,reinforcedContrasts,white_black",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_white,hugeCursor_green",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"focusAspect": {
-						"values": "noModifications,big_white,huge_white",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"colorContrast": {
-						"values": "noModifications,white_black,white_blue",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"linkStyle": {
-						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"clearlyLinks": {
-						"values": "noModifications,bold_underline,bold_boxed",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"stopAnimations": {
-						"values": "noModifications,active",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"deleteBackgroundImages": {
-						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"scroll": {
-						"values": "noModifications,big_black,huge_black",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"navigationButtons": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_delay2",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"navigationAuto": {
-						"values": "noModifications,autoFocus_delay2",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				}
-			]
-		},
-		{
-			"visionPlusPlus": []
-		},
-		{
 			"facilePlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Verdana",
 						"valueSelected": 2,
-						"isTool": true
+						"isTool": true,
+						"order": 4
 					}
 				},
 				{
 					"textSize": {
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
-						"isTool": true
+						"isTool": true,
+						"order": 3
 					}
 				},
 				{
 					"capitalLetters": {
 						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"textSpacing": {
-						"values": "noModifications,spacingTextLabelSmall,spacingTextLabelBig",
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
 						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"textColor": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": true
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"readingGuide": {
 						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"marginAlign": {
 						"values": "noModifications,alignLeft,marginLeft",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"magnifier": {
 						"values": "noModifications,zoom2,zoom5",
 						"valueSelected": 0,
-						"isTool": true
+						"isTool": true,
+						"order": 1
 					}
 				},
 				{
 					"readAloud": {
-						"values": "noModifications,word,sentence,paragraph",
-						"valueSelected": 0,
-						"isTool": true
-					}
-				},
-				{
-					"colourTheme": {
-						"values": "noModifications,reinforcedContrasts,white_black",
+						"values": "noModifications,sentence,paragraph",
 						"valueSelected": 1,
-						"isTool": true
+						"isTool": true,
+						"order": 2
 					}
 				},
 				{
 					"cursorAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"colorContrast": {
-						"values": "noModifications,reinforcedContrasts,white_black",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				},
-				{
-					"linkStyle": {
-						"values": "noModifications,darkblue_orange_red,lightblue_orange_lightgreen",
-						"valueSelected": 0,
-						"isTool": false
-					}
-				},
-				{
-					"clearlyLinks": {
-						"values": "noModifications,bold_underline,bold_boxed",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"stopAnimations": {
-						"values": "noModifications,active",
-						"valueSelected": 1,
-						"isTool": false
-					}
-				},
-				{
-					"deleteBackgroundImages": {
-						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
-						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"scroll": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
-						"isTool": false
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,reinforcedContrasts,ivory_black",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"values": "noModifications,scrollOnMouseover",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"skipToContent": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"navigationButtons": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"restartTopLeft": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_delay-2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay-2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"visionPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 4
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,130,200",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,sentence,paragraph",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 2
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_white,hugeCursor_green",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 7
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_white,huge_white",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 8
+					}
+				},
+				{
+					"scroll": {
+						"values": "noModifications,big_white,huge_white",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,ivory_black,white_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_delay-2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 9
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay-2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"visionPlusPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,130,200",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 2,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom5,zoom10",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,paragraph,all",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_yellow,hugeCursor_green",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_yellow,huge_green",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"scroll": {
+						"values": "noModifications,big_white,huge_vert",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,ivory_black,white_blue",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,white_orange_lightgreen,yellow_orange_lightgreen",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
-						"isTool": true
+						"isTool": true,
+						"order": 1
 					}
 				},
 				{
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
-						"isTool": false
+						"isTool": false,
+						"order": null
 					}
 				}
 			]
 		},
 		{
-			"dysPlus": []
+			"dysPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,110,130",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,word,paragraph",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textColor": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_black,huge_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"scroll": {
+						"values": "noModifications,big_black,huge_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,reinforcedContrasts,black_ivory",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnMouseover",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,autoClick_delay2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
 		},
 		{
-			"moteurPlus": []
+			"dysPlusPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,110,130",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textColor": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,sentence,paragraph",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_black,huge_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"scroll": {
+						"values": "noModifications,big_black,huge_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,reinforcedContrasts,black_ivory",
+						"valueSelected": 2,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnMouseover",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,autoClick_delay2",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"calmePlus": []
 		},
 		{
 			"pointagePlus": []
+		},
+		{
+			"moteurPlus": []
 		},
 		{
 			"langueDesSignes": []
 		},
 		{
 			"audioPlus": []
-		},
-		{
-			"calme": []
 		}
 	]
 }
