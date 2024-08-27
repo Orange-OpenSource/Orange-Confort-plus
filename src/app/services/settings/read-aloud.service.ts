@@ -18,8 +18,8 @@ class ReadAloudService extends BodySelectorService {
 		width: fit-content;
 		padding: 1rem;
 		pointer-events: none;
-		transform: translate(0%, 75%);
 		z-index: calc(infinity)
+		transform: translate(75px, 50%);
 	}`;
 
 	constructor() {

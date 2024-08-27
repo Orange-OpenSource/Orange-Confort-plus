@@ -21,7 +21,6 @@ class PauseService {
 			{ name: 'clearlyLinks', instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(this), value: '' },
 			{ name: 'clickFacilite', instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(this), value: '' },
 			{ name: 'colorContrast', instanceService: colorContrastServiceInstance.setColorsContrasts.bind(this), value: '' },
-			{ name: 'colourTheme', instanceService: colourThemeServiceInstance.setColourTheme.bind(this), value: '' },
 			{ name: 'cursorAspect', instanceService: cursorAspectServiceInstance.setCursor.bind(this), value: '' },
 			{ name: 'deleteBackgroundImages', instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this), value: '' },
 			{ name: 'focusAspect', instanceService: focusAspectServiceInstance.setFocus.bind(this), value: '' },

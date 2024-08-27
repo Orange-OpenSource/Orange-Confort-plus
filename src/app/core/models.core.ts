@@ -7,7 +7,8 @@ interface ModeOfUseModel {
 interface SettingModel {
 	values: string;
 	valueSelected: number;
-	isTool?: boolean
+	isTool?: boolean;
+	order?: number;
 }
 
 interface SettingsDictionnary {

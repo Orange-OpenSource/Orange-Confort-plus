@@ -8,7 +8,7 @@ editTextSpacingLayout.innerHTML = `
 class EditTextSpacingComponent extends HTMLElement {
 	selectTextSpacingElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	textSpacingValues = [DEFAULT_VALUE, 'spacingTextLabelSmall', 'spacingTextLabelBig', 'spacingTextLabelHuge'];
+	textSpacingValues = [DEFAULT_VALUE, 'spacingTextSmall', 'spacingTextBig', 'spacingTextHuge'];
 
 	handler: any;
 

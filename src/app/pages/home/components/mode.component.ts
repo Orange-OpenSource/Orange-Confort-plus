@@ -10,7 +10,6 @@ tmplMode.innerHTML = `
 	<app-magnifier class="sc-mode__setting"></app-magnifier>
 	<app-read-aloud class="sc-mode__setting"></app-read-aloud>
 	<app-text-color class="sc-mode__setting"></app-text-color>
-	<app-colour-theme class="sc-mode__setting"></app-colour-theme>
 	<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>
 	<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>
 	<app-color-contrast class="sc-mode__setting"></app-color-contrast>
@@ -57,18 +56,30 @@ class ModeComponent extends HTMLElement {
 	}
 
 	displaySettings = (settings: any[]): void => {
-		let elements = this.querySelectorAll('.sc-mode__setting');
-		elements.forEach((element) => {
+		let orderedElements: Element[] = [];
+		let othersElements: Element[] = [];
+
+		this.querySelectorAll(".sc-mode__setting").forEach((element: Element) => {
 			element.classList.add('d-none');
 		});
 
 		settings.forEach((setting: any) => {
-			let settingObj = this.settingsDictionnary.find((o: SettingsDictionnary) => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0]));
-			let settingElement: HTMLElement = this.querySelector(settingObj?.element);
-			settingElement?.setAttribute('data-values', JSON.stringify(Object.entries(setting)[0][1]));
-			if ((Object.entries(setting)[0][1] as SettingModel).isTool) {
-				settingElement?.classList.remove('d-none');
+			const settingObj: SettingModel = Object.values(setting)[0] as SettingModel;
+			let settingName = Object.keys(setting)[0];
+			let settingRef = this.settingsDictionnary.find((o: SettingsDictionnary) => o.name === stringServiceInstance.normalizeSettingName(settingName));
+			let settingElement: HTMLElement = this.querySelector(settingRef?.element);
+
+			if (settingElement) {
+				settingElement.setAttribute('data-values', JSON.stringify(settingObj));
+				settingElement.classList.toggle('d-none', !settingObj.isTool);
+				settingObj.order ? orderedElements[settingObj.order - 1] = settingElement : othersElements.push(settingElement);
+				settingElement.remove();
 			}
+		});
+
+		const elementsToDisplay = orderedElements.filter(el => el).concat(othersElements);
+		elementsToDisplay.forEach((element: Element) => {
+			this.modeContent.appendChild(element);
 		});
 	}
 

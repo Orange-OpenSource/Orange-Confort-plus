@@ -12,9 +12,9 @@ class TextSpacingService {
 
 	setSpacingText = (value: string): void => {
 		const spacingTextValues = [
-			{ name: 'spacingTextLabelSmall', wordSpacing: '.10em', lineHeight: '2em', letterSpacing: '.0625em' },
-			{ name: 'spacingTextLabelBig', wordSpacing: '.25em', lineHeight: '2.5em', letterSpacing: '.25em' },
-			{ name: 'spacingTextLabelHuge', wordSpacing: '.5em', lineHeight: '3em', letterSpacing: '.5em' }
+			{ name: 'spacingTextSmall', wordSpacing: '.10em', lineHeight: '2em', letterSpacing: '.0625em' },
+			{ name: 'spacingTextBig', wordSpacing: '.25em', lineHeight: '2.5em', letterSpacing: '.25em' },
+			{ name: 'spacingTextHuge', wordSpacing: '.5em', lineHeight: '3em', letterSpacing: '.5em' }
 		];
 
 		if (value === DEFAULT_VALUE) {
