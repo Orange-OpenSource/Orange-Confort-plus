@@ -90,15 +90,18 @@ class I18nService {
         return localStorage.getItem(`${PREFIX}i18n`);
     }
     getMessage(message, substitutions = []) {
-        const translations = JSON.parse(this.getMessages());
-        let content = translations[message]?.message;
-        if (substitutions.length > 0) {
-            const placeholders = translations[message]?.placeholders;
-            const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
-            for (const match of matches) {
-                const key = match[0].replaceAll("$", "").toLowerCase();
-                const index = Number(placeholders[key]?.content.replace("$", ""));
-                content = content.replaceAll(match[0], substitutions[index - 1]);
+        let content = "";
+        if (message && message.indexOf("undefined") === -1) {
+            const translations = JSON.parse(this.getMessages());
+            content = translations[message]?.message;
+            if (substitutions.length > 0) {
+                const placeholders = translations[message]?.placeholders;
+                const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
+                for (const match of matches) {
+                    const key = match[0].replaceAll("$", "").toLowerCase();
+                    const index = Number(placeholders[key]?.content.replace("$", ""));
+                    content = content.replaceAll(match[0], substitutions[index - 1]);
+                }
             }
         }
         return content;
@@ -2712,7 +2715,6 @@ class AbstractSetting extends HTMLElement {
             this.modalBtn?.classList.remove("d-none");
             this.settingBtn?.classList.add("sc-btn-setting--with-btn-modal");
         }
-        this.setSettingBtn(this.activesValues);
         this.settingBtn?.addEventListener("changeSettingEvent", this.handler);
     }
     disconnectedCallback() {
@@ -2731,7 +2733,7 @@ class AbstractSetting extends HTMLElement {
     setSettingBtn=activesValues => {
         this.settingBtn?.setAttribute("data-values", activesValues?.values);
         this.settingBtn?.setAttribute("data-active-value", activesValues?.valueSelected.toString());
-        this.modalBtn?.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values.split(",")[activesValues?.valueSelected]));
+        this.modalBtn?.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values?.split(",")[activesValues?.valueSelected]));
     };
     setCallback=callback => {
         this.callback = callback;
