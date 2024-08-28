@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.6 - 28/08/2024
+ * orange-confort-plus - version 5.0.0-alpha.6 - 29/08/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -90,22 +90,26 @@ class I18nService {
         return localStorage.getItem(`${PREFIX}i18n`);
     }
     getMessage(message, substitutions = []) {
-        if (message && message.indexOf("undefined") === -1 || message && message.indexOf("undefined") === -1 && !substitutions.some((str => str.includes("undefined")))) {
-            const translations = JSON.parse(this.getMessages());
-            let content = translations[message]?.message;
-            if (substitutions.length > 0) {
-                const placeholders = translations[message]?.placeholders;
-                const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
-                for (const match of matches) {
-                    const key = match[0].replaceAll("$", "").toLowerCase();
-                    const index = Number(placeholders[key]?.content.replace("$", ""));
-                    content = content.replaceAll(match[0], substitutions[index - 1]);
-                }
-            }
-            return content;
-        } else {
-            console.warn(`A character string is incorrect for this message : ${message}.`);
+        if (!message || message.includes("undefined")) {
+            console.warn(`Part of argument for I18nService getMessage() is undefined. Message: "${message}".`);
+            return;
         }
+        const translations = JSON.parse(this.getMessages());
+        let content = translations[message]?.message;
+        if (substitutions.length > 0) {
+            if (substitutions.some((str => str?.includes("undefined")))) {
+                console.warn(`At least one substitution string for I18nService getMessage() is undefined. Message: "${message}". Substitutions: "${substitutions}".`);
+                return;
+            }
+            const placeholders = translations[message]?.placeholders;
+            const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
+            for (const match of matches) {
+                const key = match[0].replaceAll("$", "").toLowerCase();
+                const index = Number(placeholders[key]?.content.replace("$", ""));
+                content = content.replaceAll(match[0], substitutions[index - 1]);
+            }
+        }
+        return content;
     }
     translate(root) {
         const elements = root.querySelectorAll("[data-i18n]");
@@ -3307,7 +3311,6 @@ class BtnSettingComponent extends HTMLElement {
             } else if (nextValueLabel === "active") {
                 content = i18nServiceInstance.getMessage("multiclicToggleOff");
             } else {
-                console.log(currentValueLabel);
                 const currentIndex = this.index + 1;
                 content = i18nServiceInstance.getMessage("multiclic", [ currentValueLabel, String(currentIndex), String(settingsNumber), nextValueLabel, String(nextValueIndex + 1) ]);
             }
@@ -3413,7 +3416,7 @@ class HeaderComponent extends HTMLElement {
         if ("data-display" === name) {
             this.displayMode(newValue);
         }
-        if ("data-page-title" === name) {
+        if ("data-page-title" === name && newValue) {
             this.pageTitle.innerText = i18nServiceInstance.getMessage(newValue);
         }
         if ("data-page-icon" === name) {
