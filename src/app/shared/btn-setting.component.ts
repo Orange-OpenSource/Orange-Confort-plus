@@ -44,7 +44,6 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		this.setTitle();
 		if ('data-values' === name) {
 			this.settingsList = newValue.split(this.separator);
 		}
@@ -59,6 +58,7 @@ class BtnSettingComponent extends HTMLElement {
 			const icon = this.querySelector('app-icon');
 			span.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
 			icon?.setAttribute('data-name', this.name);
+			this.setTitle();
 		}
 		if ('data-disabled' === name) {
 			this.disabled = newValue === 'true';
@@ -93,13 +93,13 @@ class BtnSettingComponent extends HTMLElement {
 			} else if (nextValueLabel === 'active') {
 				content = i18nServiceInstance.getMessage('multiclicToggleOff');
 			} else {
-				const currentIndex = (this.index + 1).toString();
+				const currentIndex = this.index + 1;
 				content = i18nServiceInstance.getMessage('multiclic', [
 					currentValueLabel,
-					currentIndex,
-					settingsNumber.toString(),
+					String(currentIndex),
+					String(settingsNumber),
 					nextValueLabel,
-					(nextValueIndex + 1).toString()
+					String(nextValueIndex + 1)
 				]);
 			}
 
