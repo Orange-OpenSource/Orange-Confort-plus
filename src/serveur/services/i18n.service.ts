@@ -40,21 +40,23 @@ class I18nService {
 	}
 
 	getMessage(message: string, substitutions: string[] = []): string {
-		const translations = JSON.parse(this.getMessages());
-		let content = translations[message]?.message;
+		let content: string = '';
 
-		if (substitutions.length > 0) {
-			const placeholders = translations[message]?.placeholders;
-			const matches = [...content.matchAll(/(\$.*?\$)/g)];
+		if (message && message.indexOf('undefined') === -1) {
+			const translations = JSON.parse(this.getMessages());
+			content = translations[message]?.message;
+			if (substitutions.length > 0) {
+				const placeholders = translations[message]?.placeholders;
+				const matches = [...content.matchAll(/(\$.*?\$)/g)];
 
-			for (const match of matches) {
-				const key = match[0].replaceAll('$', '').toLowerCase();
-				const index = Number(placeholders[key]?.content.replace('$', ''));
-				content = content.replaceAll(match[0], substitutions[index - 1]);
+				for (const match of matches) {
+					const key = match[0].replaceAll('$', '').toLowerCase();
+					const index = Number(placeholders[key]?.content.replace('$', ''));
+					content = content.replaceAll(match[0], substitutions[index - 1]);
+				}
 			}
 		}
-
-		return content;
+		return content
 	}
 
 	translate(root: ShadowRoot): void {
