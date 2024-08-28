@@ -14,7 +14,12 @@ class I18nService {
 	}
 
 	getMessage = (message: string, substitutions: string[] = []): string => {
-		return chrome.i18n.getMessage(message, substitutions);
+		if (message && message.indexOf('undefined') === -1 ||
+			message && message.indexOf('undefined') === -1 && !substitutions.some(str => str.includes('undefined'))) {
+			return chrome.i18n.getMessage(message, substitutions);
+		} else {
+			console.warn(`A character string is incorrect for this message : ${message}.`);
+		}
 	}
 
 	translate(root: ShadowRoot): void {

@@ -798,7 +798,13 @@ class I18nService {
         i18nServiceIsInstantiated = true;
         this.locale = chrome.i18n.getUILanguage();
     }
-    getMessage=(message, substitutions = []) => chrome.i18n.getMessage(message, substitutions);
+    getMessage=(message, substitutions = []) => {
+        if (message && message.indexOf("undefined") === -1 || message && message.indexOf("undefined") === -1 && !substitutions.some((str => str.includes("undefined")))) {
+            return chrome.i18n.getMessage(message, substitutions);
+        } else {
+            console.warn(`A character string is incorrect for this message : ${message}.`);
+        }
+    };
     translate(root) {
         const elements = root.querySelectorAll("[data-i18n]");
         for (const element of elements) {
