@@ -3451,7 +3451,6 @@ class AbstractSetting extends HTMLElement {
             this.modalBtn?.classList.remove("d-none");
             this.settingBtn?.classList.add("sc-btn-setting--with-btn-modal");
         }
-        this.setSettingBtn(this.activesValues);
         this.settingBtn?.addEventListener("changeSettingEvent", this.handler);
     }
     disconnectedCallback() {
@@ -3470,7 +3469,7 @@ class AbstractSetting extends HTMLElement {
     setSettingBtn=activesValues => {
         this.settingBtn?.setAttribute("data-values", activesValues?.values);
         this.settingBtn?.setAttribute("data-active-value", activesValues?.valueSelected.toString());
-        this.modalBtn?.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values.split(",")[activesValues?.valueSelected]));
+        this.modalBtn?.setAttribute("data-value", i18nServiceInstance.getMessage(activesValues?.values?.split(",")[activesValues?.valueSelected]));
     };
     setCallback=callback => {
         this.callback = callback;
