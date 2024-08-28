@@ -11,9 +11,9 @@ class ClearlyLinksService {
 	}
 
 	setClearlyLinks = (value: string): void => {
-		let styleClearlyLinks = "";
+		let styleClearlyLinks = '';
 		switch (value) {
-			case "bold_underline":
+			case 'bold_underline':
 				styleClearlyLinks = `
 					a:any-link {
 						font-weight: bold !important;
@@ -22,17 +22,17 @@ class ClearlyLinksService {
 				stylesServiceInstance.setStyle("clearly-links", styleClearlyLinks);
 				this.resetInverseBorder();
 				break;
-			case "bold_boxed":
+			case 'bold_boxed':
 				styleClearlyLinks = `
 					a:any-link {
 						font-weight: bold !important;
 						border: 2px solid black !important;
 					}`;
-				stylesServiceInstance.setStyle("clearly-links", styleClearlyLinks);
+				stylesServiceInstance.setStyle('clearly-links', styleClearlyLinks);
 				this.applyInverseBorder();
 				break;
 			default:
-				stylesServiceInstance.removeStyle("clearly-links");
+				stylesServiceInstance.removeStyle('clearly-links');
 				this.resetInverseBorder();
 				break;
 		}

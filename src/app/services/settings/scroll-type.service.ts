@@ -22,8 +22,8 @@ class ScrollTypeService {
 		let intervalUp: any;
 		let intervalDown: any;
 		const buttonsList = [
-			{ name: 'scroll-up', interval: intervalUp },
-			{ name: 'scroll-down', interval: intervalDown }
+			{ name: 'scroll_up', interval: intervalUp },
+			{ name: 'scroll_down', interval: intervalDown }
 		];
 
 		buttonsList.forEach((scrollButton: any) => {

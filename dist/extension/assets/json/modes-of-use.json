@@ -1,5 +1,5 @@
 {
-	"version": "1.0.16",
+	"version": "1.0.17",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -48,7 +48,7 @@
 				},
 				{
 					"magnifier": {
-						"values": "noModifications,zoom-2,zoom-5",
+						"values": "noModifications,zoom2,zoom5",
 						"valueSelected": 0,
 						"isTool": true
 					}
@@ -146,14 +146,14 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_delay-2",
+						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
 						"isTool": true
 					}
 				},
 				{
 					"navigationAuto": {
-						"values": "noModifications,autoFocus_delay-2",
+						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
 						"isTool": false
 					}
@@ -209,7 +209,7 @@
 				},
 				{
 					"magnifier": {
-						"values": "noModifications,zoom-2,zoom-5",
+						"values": "noModifications,zoom2,zoom5",
 						"valueSelected": 0,
 						"isTool": true
 					}
@@ -307,14 +307,14 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_delay-2",
+						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
 						"isTool": true
 					}
 				},
 				{
 					"navigationAuto": {
-						"values": "noModifications,autoFocus_delay-2",
+						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
 						"isTool": false
 					}

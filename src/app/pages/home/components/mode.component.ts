@@ -55,7 +55,7 @@ class ModeComponent extends HTMLElement {
 	}
 
 	displaySettings = (settings: any[]): void => {
-		let elements = this.querySelectorAll(".sc-mode__setting");
+		let elements = this.querySelectorAll('.sc-mode__setting');
 		elements.forEach((element) => {
 			element.classList.add('d-none');
 		});
@@ -71,7 +71,7 @@ class ModeComponent extends HTMLElement {
 	}
 
 	disableSettings = (disabled: boolean): void => {
-		let elements = this.querySelectorAll(".sc-mode__setting");
+		let elements = this.querySelectorAll('.sc-mode__setting');
 		elements.forEach((element) => {
 			element.querySelector('app-btn-setting').setAttribute('data-disabled', String(disabled));
 		});

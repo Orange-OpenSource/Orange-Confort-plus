@@ -26,7 +26,7 @@ abstract class AbstractCategory extends HTMLElement {
 		this.settingsContainer = this.querySelector('.c-category__settings-container');
 		this.btnMoreSettings = this.querySelector('.c-category__btn-more');
 
-		this.querySelectorAll(".c-category__setting").forEach((element: Element) => {
+		this.querySelectorAll('.c-category__setting').forEach((element: Element) => {
 			this.settingsDictionnary.push({ name: stringServiceInstance.normalizeSettingName(element.tagName), element: element.tagName });
 			this.settingsElements.push(this.querySelector(element.tagName));
 		});

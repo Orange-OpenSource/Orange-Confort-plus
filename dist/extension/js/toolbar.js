@@ -66,7 +66,7 @@
     function P(a, b, d, f) {
         var c = window.ShadyDOM;
         if (a.shadyDomFastWalk && c && c.inUse) {
-            if (b.nodeType === Node.ELEMENT_NODE && d(b), b.querySelectorAll) for (a = c.nativeMethods.querySelectorAll.call(b, "*"),
+            if (b.nodeType === Node.ELEMENT_NODE && d(b), b.querySelectorAll) for (a = c.nativeMethods.querySelectorAll.call(b, "*"), 
             b = 0; b < a.length; b++) d(a[b]);
         } else M(b, d, f);
     }
@@ -205,7 +205,7 @@
             if (e.localName !== d) throw Error("Failed to construct '" + d + "': The constructed element's local name is incorrect.");
             return e;
         } catch (g) {
-            return X(g), b = null === f ? n.call(b, d) : p.call(b, f, d), Object.setPrototypeOf(b, HTMLUnknownElement.prototype),
+            return X(g), b = null === f ? n.call(b, d) : p.call(b, f, d), Object.setPrototypeOf(b, HTMLUnknownElement.prototype), 
             b.__CE_state = 2, b.__CE_definition = void 0, R(a, b), b;
         }
         b = null === f ? n.call(b, d) : p.call(b, f, d);
@@ -214,7 +214,7 @@
     }
     function X(a) {
         var b = "", d = "", f = 0, c = 0;
-        a instanceof Error ? (b = a.message, d = a.sourceURL || a.fileName || "", f = a.line || a.lineNumber || 0,
+        a instanceof Error ? (b = a.message, d = a.sourceURL || a.fileName || "", f = a.line || a.lineNumber || 0, 
         c = a.column || a.columnNumber || 0) : b = "Uncaught " + String(a);
         var e = void 0;
         void 0 === ErrorEvent.prototype.initErrorEvent ? e = new ErrorEvent("error", {
@@ -224,7 +224,7 @@
             lineno: f,
             colno: c,
             error: a
-        }) : (e = document.createEvent("ErrorEvent"), e.initErrorEvent("error", !1, !0, b, d, f),
+        }) : (e = document.createEvent("ErrorEvent"), e.initErrorEvent("error", !1, !0, b, d, f), 
         e.preventDefault = function() {
             Object.defineProperty(this, "defaultPrevented", {
                 configurable: !0,
@@ -261,7 +261,7 @@
         this.h = a;
         this.g = b;
         V(this.h, this.g);
-        "loading" === this.g.readyState && (this.l = new MutationObserver(this.G.bind(this)),
+        "loading" === this.g.readyState && (this.l = new MutationObserver(this.G.bind(this)), 
         this.l.observe(this.g, {
             childList: !0,
             subtree: !0
@@ -525,8 +525,8 @@
                     var l = this.previousSibling;
                     e.call(this, h, k);
                     g(l || this.parentNode.firstChild, this);
-                } else if ("afterbegin" === h) l = this.firstChild, e.call(this, h, k), g(this.firstChild, l); else if ("beforeend" === h) l = this.lastChild,
-                e.call(this, h, k), g(l || this.firstChild, null); else if ("afterend" === h) l = this.nextSibling,
+                } else if ("afterbegin" === h) l = this.firstChild, e.call(this, h, k), g(this.firstChild, l); else if ("beforeend" === h) l = this.lastChild, 
+                e.call(this, h, k), g(l || this.firstChild, null); else if ("afterend" === h) l = this.nextSibling, 
                 e.call(this, h, k), g(this.nextSibling, l); else throw new SyntaxError("The value provided (" + String(h) + ") is not one of 'beforebegin', 'afterbegin', 'beforeend', or 'afterend'.");
             };
         }
@@ -601,7 +601,7 @@
             var f = document.__CE_registry.C.get(d);
             if (!f) throw Error("Failed to construct a custom element: The constructor was not registered with `customElements`.");
             var c = f.constructionStack;
-            if (0 === c.length) return c = n.call(document, f.localName), Object.setPrototypeOf(c, d.prototype),
+            if (0 === c.length) return c = n.call(document, f.localName), Object.setPrototypeOf(c, d.prototype), 
             c.__CE_state = 1, c.__CE_definition = f, R(a, c), c;
             var e = c.length - 1, g = c[e];
             if (g === Fa) throw Error("Failed to construct '" + f.localName + "': This element was already constructed.");
@@ -1477,7 +1477,7 @@ class ClickFaciliteService {
     }
     setClickFacilite=value => {
         let paramName = value.split("_")[0];
-        this.delay = Number(value.split("_")[1]?.split("-")[1]) * 1e3;
+        this.delay = parseInt(value.split("_")[1]?.replace(/\D/g, ""), 10) * 1e3;
         switch (paramName) {
           case CLICK_FACILITE_BIG_ZONE:
             {
@@ -2220,7 +2220,7 @@ class MagnifierService {
             this.unBindDOMObserver();
         } else {
             stylesServiceInstance.setStyle("magnifier", this.styleMagnifier);
-            this.zoom = Number(value.split("-")[1]);
+            this.zoom = parseInt(value.replace(/\D/g, ""), 10);
             this.initMagnifier();
         }
     };
@@ -2510,7 +2510,7 @@ class NavigationAutoService {
         this.clearIntervalFocus();
         if (value !== DEFAULT_VALUE) {
             window.addEventListener("focus", this.handler, true);
-            let delay = Number(value.split("_")[1]?.split("-")[1]) * 1e3;
+            let delay = parseInt(value.split("_")[1]?.replace(/\D/g, ""), 10) * 1e3;
             this.setIntervalFocus(delay);
         }
     };
@@ -2910,10 +2910,10 @@ class ScrollTypeService {
         let intervalUp;
         let intervalDown;
         const buttonsList = [ {
-            name: "scroll-up",
+            name: "scroll_up",
             interval: intervalUp
         }, {
-            name: "scroll-down",
+            name: "scroll_down",
             interval: intervalDown
         } ];
         buttonsList.forEach((scrollButton => {
@@ -4011,7 +4011,7 @@ class BtnSettingComponent extends HTMLElement {
             this.name = settingName;
             const span = this.querySelector(".sc-btn-setting__name");
             const icon = this.querySelector("app-icon");
-            span.innerText = i18nServiceInstance.getMessage(`setting-${this.name}`);
+            span.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
             icon?.setAttribute("data-name", this.name);
         }
         if ("data-disabled" === name) {
@@ -4025,13 +4025,13 @@ class BtnSettingComponent extends HTMLElement {
             value.split("_").forEach((item => {
                 arrayValues.push(i18nServiceInstance.getMessage(item));
             }));
-            return i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+            return i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
         } else {
-            return i18nServiceInstance.getMessage(`${this.name}-${value}`);
+            return i18nServiceInstance.getMessage(`${this.name}_${value}`);
         }
     };
     setTitle=() => {
-        const settingName = i18nServiceInstance.getMessage(`setting-${this.name}`);
+        const settingName = i18nServiceInstance.getMessage(`setting_${this.name}`);
         const settingsNumber = this.settingsList.length;
         if (settingsNumber > 0) {
             const currentValueLabel = this.getValueLabel(this.value);
@@ -4270,7 +4270,7 @@ class SelectEditValueComponent extends HTMLElement {
         if ("data-label" === name) {
             let groupElement = this.querySelector('div[role="group"]');
             let selectLabel = document.createElement("label");
-            selectLabel.innerText = i18nServiceInstance.getMessage(`${this.name}-label`);
+            selectLabel.innerText = i18nServiceInstance.getMessage(`${this.name}_label`);
             selectLabel.setAttribute("id", `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
             groupElement.insertBefore(selectLabel, groupElement.firstChild);
             groupElement.setAttribute("aria-labelledby", `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
@@ -4295,9 +4295,9 @@ class SelectEditValueComponent extends HTMLElement {
             this.currentValue.split("_").forEach((item => {
                 arrayValues.push(i18nServiceInstance.getMessage(item));
             }));
-            this.selectedValue.innerText = i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+            this.selectedValue.innerText = i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
         } else {
-            let message = `${this.name}-${this.currentValue}`;
+            let message = `${this.name}_${this.currentValue}`;
             this.selectedValue.innerText = i18nServiceInstance.getMessage(message);
         }
         this.changeEditValue();
@@ -4415,8 +4415,8 @@ class EditSettingComponent extends HTMLElement {
         if ("data-setting" === name) {
             this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
             this.settingIcon?.setAttribute("data-name", this.settingName);
-            this.settingTitle.innerText = i18nServiceInstance.getMessage(`setting-${this.settingName}`);
-            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`setting-${this.settingName}-instruction`);
+            this.settingTitle.innerText = i18nServiceInstance.getMessage(`setting_${this.settingName}`);
+            this.settingInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.settingName}_instruction`);
             this.displaySetting(`edit-${newValue}`);
             localStorageServiceInstance.setItem("current-setting", newValue);
         }
@@ -4535,7 +4535,7 @@ class EditClickFaciliteComponent extends HTMLElement {
     clickTypeValue="";
     clickDelayValue="";
     clickTypeValues=[ `clickType_${DEFAULT_VALUE}`, `clickType_${CLICK_FACILITE_BIG_ZONE}`, `clickType_${CLICK_FACILITE_LONG_CLICK}`, `clickType_${CLICK_FACILITE_AUTO_CLICK}` ];
-    clickDelayValues=[ "clickDelay_delay-1", "clickDelay_delay-2", "clickDelay_delay-3", "clickDelay_delay-6" ];
+    clickDelayValues=[ "clickDelay_delay1", "clickDelay_delay2", "clickDelay_delay3", "clickDelay_delay6" ];
     handler;
     constructor() {
         super();
@@ -4677,43 +4677,43 @@ class EditColourThemeComponent extends HTMLElement {
         this.querySelector("#colourThemeValues").innerHTML = "";
         let colourThemeValuesSelected = colourThemeServiceInstance.colourThemeDictionnary.find((o => o.name === value));
         let arrayValuesSelected = [ {
-            key: "colourTheme-cursor",
+            key: "colourTheme_cursor",
             value: this.getValuesMessage(colourThemeValuesSelected.cursor.split("_"))
         }, {
-            key: "colourTheme-focus",
+            key: "colourTheme_focus",
             value: this.getValuesMessage(colourThemeValuesSelected.focus.split("_"))
         }, {
-            key: "colourTheme-scroll",
+            key: "colourTheme_scroll",
             value: this.getValuesMessage(colourThemeValuesSelected.scroll.split("_"))
         } ];
         let linkColors = [];
         if (colourThemeValuesSelected.link.split("_")[0] === DEFAULT_VALUE) {
             linkColors = [ {
-                key: "colourTheme-link",
+                key: "colourTheme_link",
                 value: this.getValuesMessage([ DEFAULT_VALUE ])
             }, {
-                key: "colourTheme-linkPointed",
+                key: "colourTheme_linkPointed",
                 value: this.getValuesMessage([ DEFAULT_VALUE ])
             }, {
-                key: "colourTheme-linkVisited",
+                key: "colourTheme_linkVisited",
                 value: this.getValuesMessage([ DEFAULT_VALUE ])
             } ];
         } else {
             linkColors = [ {
-                key: "colourTheme-link",
+                key: "colourTheme_link",
                 value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[0] ])
             }, {
-                key: "colourTheme-linkPointed",
+                key: "colourTheme_linkPointed",
                 value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[1] ])
             }, {
-                key: "colourTheme-linkVisited",
+                key: "colourTheme_linkVisited",
                 value: this.getValuesMessage([ colourThemeValuesSelected.link.split("_")[2] ])
             } ];
         }
         arrayValuesSelected.concat(linkColors).forEach((message => {
             let span = document.createElement("span");
             if (message.value[0] === i18nServiceInstance.getMessage(DEFAULT_VALUE)) {
-                span.innerText = i18nServiceInstance.getMessage(`${message.key}-${DEFAULT_VALUE}`);
+                span.innerText = i18nServiceInstance.getMessage(`${message.key}_${DEFAULT_VALUE}`);
             } else {
                 span.innerText = i18nServiceInstance.getMessage(message.key, message.value);
             }
@@ -4797,7 +4797,7 @@ class EditCursorAspectComponent extends HTMLElement {
         let containerExample = this.querySelector(`#${PREFIX}example-cursor`);
         containerExample.innerHTML = "";
         if (deleteExample) {
-            containerExample.innerText = i18nServiceInstance.getMessage("cursorAspect-empty-example");
+            containerExample.innerText = i18nServiceInstance.getMessage("cursorAspect_empty_example");
         } else {
             let size = this.cursorSizeValue === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             const cursorArray = [ {
@@ -5097,7 +5097,7 @@ editMagnifierLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-nam
 class EditMagnifierComponent extends HTMLElement {
     selectMagnifierElement=null;
     settingValues=null;
-    magnifierValues=[ DEFAULT_VALUE, "zoom-2", "zoom-5", "zoom-10", "zoom-15" ];
+    magnifierValues=[ DEFAULT_VALUE, "zoom2", "zoom5", "zoom10", "zoom15" ];
     handler;
     constructor() {
         super();
@@ -5185,12 +5185,12 @@ customElements.define("app-edit-margin-align", EditMarginAlignComponent);
 
 const editNavigationAutoLayout = document.createElement("template");
 
-editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="navigationAuto-label"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto-inactive"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto-active"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="navigationDelay"></app-select-edit-value>\n\t</form>\n`;
+editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="navigationAuto_label"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto_inactive"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto_active"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="navigationDelay"></app-select-edit-value>\n\t</form>\n`;
 
 class EditNavigationAutoComponent extends HTMLElement {
     selectNavigationDelayElement=null;
     settingValues=null;
-    navigationDelayValues=[ "navigationDelay_delay-1", "navigationDelay_delay-2", "navigationDelay_delay-3", "navigationDelay_delay-6" ];
+    navigationDelayValues=[ "navigationDelay_delay1", "navigationDelay_delay2", "navigationDelay_delay3", "navigationDelay_delay6" ];
     navigationAuto;
     delay;
     handler;

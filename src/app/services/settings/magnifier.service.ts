@@ -70,7 +70,7 @@ class MagnifierService {
 			this.unBindDOMObserver();
 		} else {
 			stylesServiceInstance.setStyle('magnifier', this.styleMagnifier);
-			this.zoom = Number(value.split('-')[1]);
+			this.zoom = parseInt(value.replace(/\D/g, ''), 10);
 			this.initMagnifier();
 		}
 	}
