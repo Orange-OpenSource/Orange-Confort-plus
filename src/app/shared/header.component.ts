@@ -70,7 +70,7 @@ class HeaderComponent extends HTMLElement {
 		if ('data-display' === name) {
 			this.displayMode(newValue);
 		}
-		if ('data-page-title' === name) {
+		if ('data-page-title' === name && newValue) {
 			this.pageTitle!.innerText = i18nServiceInstance.getMessage(newValue);
 		}
 		if ('data-page-icon' === name) {
