@@ -90,10 +90,9 @@ class I18nService {
         return localStorage.getItem(`${PREFIX}i18n`);
     }
     getMessage(message, substitutions = []) {
-        let content = "";
-        if (message && message.indexOf("undefined") === -1) {
+        if (message && message.indexOf("undefined") === -1 || message && message.indexOf("undefined") === -1 && !substitutions.some((str => str.includes("undefined")))) {
             const translations = JSON.parse(this.getMessages());
-            content = translations[message]?.message;
+            let content = translations[message]?.message;
             if (substitutions.length > 0) {
                 const placeholders = translations[message]?.placeholders;
                 const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
@@ -103,8 +102,10 @@ class I18nService {
                     content = content.replaceAll(match[0], substitutions[index - 1]);
                 }
             }
+            return content;
+        } else {
+            console.warn(`A character string is incorrect for this message : ${message}.`);
         }
-        return content;
     }
     translate(root) {
         const elements = root.querySelectorAll("[data-i18n]");
