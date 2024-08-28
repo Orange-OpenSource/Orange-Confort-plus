@@ -51,23 +51,23 @@ class EditColourThemeComponent extends HTMLElement {
 		this.querySelector('#colourThemeValues').innerHTML = "";
 		let colourThemeValuesSelected: ColourThemeValues = colourThemeServiceInstance.colourThemeDictionnary.find(o => o.name === value);
 		let arrayValuesSelected: any[] = [
-			{ key: 'colourTheme-cursor', value: this.getValuesMessage(colourThemeValuesSelected.cursor.split('_')) },
-			{ key: 'colourTheme-focus', value: this.getValuesMessage(colourThemeValuesSelected.focus.split('_')) },
-			{ key: 'colourTheme-scroll', value: this.getValuesMessage(colourThemeValuesSelected.scroll.split('_')) }
+			{ key: 'colourTheme_cursor', value: this.getValuesMessage(colourThemeValuesSelected.cursor.split('_')) },
+			{ key: 'colourTheme_focus', value: this.getValuesMessage(colourThemeValuesSelected.focus.split('_')) },
+			{ key: 'colourTheme_scroll', value: this.getValuesMessage(colourThemeValuesSelected.scroll.split('_')) }
 		];
 
 		let linkColors: any[] = [];
 		if (colourThemeValuesSelected.link.split('_')[0] === DEFAULT_VALUE) {
 			linkColors = [
-				{ key: 'colourTheme-link', value: this.getValuesMessage([DEFAULT_VALUE]) },
-				{ key: 'colourTheme-linkPointed', value: this.getValuesMessage([DEFAULT_VALUE]) },
-				{ key: 'colourTheme-linkVisited', value: this.getValuesMessage([DEFAULT_VALUE]) }
+				{ key: 'colourTheme_link', value: this.getValuesMessage([DEFAULT_VALUE]) },
+				{ key: 'colourTheme_linkPointed', value: this.getValuesMessage([DEFAULT_VALUE]) },
+				{ key: 'colourTheme_linkVisited', value: this.getValuesMessage([DEFAULT_VALUE]) }
 			];
 		} else {
 			linkColors = [
-				{ key: 'colourTheme-link', value: this.getValuesMessage([colourThemeValuesSelected.link.split('_')[0]]) },
-				{ key: 'colourTheme-linkPointed', value: this.getValuesMessage([colourThemeValuesSelected.link.split('_')[1]]) },
-				{ key: 'colourTheme-linkVisited', value: this.getValuesMessage([colourThemeValuesSelected.link.split('_')[2]]) }
+				{ key: 'colourTheme_link', value: this.getValuesMessage([colourThemeValuesSelected.link.split('_')[0]]) },
+				{ key: 'colourTheme_linkPointed', value: this.getValuesMessage([colourThemeValuesSelected.link.split('_')[1]]) },
+				{ key: 'colourTheme_linkVisited', value: this.getValuesMessage([colourThemeValuesSelected.link.split('_')[2]]) }
 			];
 		}
 
@@ -75,7 +75,7 @@ class EditColourThemeComponent extends HTMLElement {
 			let span = document.createElement('span');
 
 			if (message.value[0] === i18nServiceInstance.getMessage(DEFAULT_VALUE)) {
-				span.innerText = i18nServiceInstance.getMessage(`${message.key}-${DEFAULT_VALUE}`);
+				span.innerText = i18nServiceInstance.getMessage(`${message.key}_${DEFAULT_VALUE}`);
 			} else {
 				span.innerText = i18nServiceInstance.getMessage(message.key, message.value);
 			}

@@ -14,7 +14,7 @@ class EditClickFaciliteComponent extends HTMLElement {
 	clickTypeValue = '';
 	clickDelayValue = '';
 	clickTypeValues = [`clickType_${DEFAULT_VALUE}`, `clickType_${CLICK_FACILITE_BIG_ZONE}`, `clickType_${CLICK_FACILITE_LONG_CLICK}`, `clickType_${CLICK_FACILITE_AUTO_CLICK}`];
-	clickDelayValues = ['clickDelay_delay-1', 'clickDelay_delay-2', 'clickDelay_delay-3', 'clickDelay_delay-6'];
+	clickDelayValues = ['clickDelay_delay1', 'clickDelay_delay2', 'clickDelay_delay3', 'clickDelay_delay6'];
 
 	handler: any;
 

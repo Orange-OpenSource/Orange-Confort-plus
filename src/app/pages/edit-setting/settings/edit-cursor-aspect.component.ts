@@ -77,7 +77,7 @@ class EditCursorAspectComponent extends HTMLElement {
 		containerExample.innerHTML = '';
 
 		if (deleteExample) {
-			containerExample.innerText = i18nServiceInstance.getMessage('cursorAspect-empty-example');
+			containerExample.innerText = i18nServiceInstance.getMessage('cursorAspect_empty_example');
 		} else {
 			let size = this.cursorSizeValue === 'bigCursor' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 
@@ -89,7 +89,7 @@ class EditCursorAspectComponent extends HTMLElement {
 
 			cursorArray.forEach((cursor: any) => {
 				const cursorSvg = cursorAspectServiceInstance.drawCursor(cursor.name, Number(size), this.cursorColorValue, cursor.strokeWidth);
-				let cursorElt = new DOMParser().parseFromString(cursorSvg, "text/html");
+				let cursorElt = new DOMParser().parseFromString(cursorSvg, 'text/html');
 				containerExample.appendChild(cursorElt.documentElement.querySelector('svg'));
 			});
 		}

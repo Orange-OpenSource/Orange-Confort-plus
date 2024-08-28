@@ -20,7 +20,7 @@ block_comment_end = */
 [*.svg]
 insert_final_newline = false
 
-[*.js]
+[*.{js,ts}]
 quote_type = single
 
 [*.txt]

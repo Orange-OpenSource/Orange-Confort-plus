@@ -57,7 +57,7 @@ class BtnSettingComponent extends HTMLElement {
 
 			const span: HTMLElement = this.querySelector('.sc-btn-setting__name');
 			const icon = this.querySelector('app-icon');
-			span.innerText = i18nServiceInstance.getMessage(`setting-${this.name}`);
+			span.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
 			icon?.setAttribute('data-name', this.name);
 		}
 		if ('data-disabled' === name) {
@@ -72,14 +72,14 @@ class BtnSettingComponent extends HTMLElement {
 			value.split('_').forEach((item: string) => {
 				arrayValues.push(i18nServiceInstance.getMessage(item));
 			});
-			return i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+			return i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
 		} else {
-			return i18nServiceInstance.getMessage(`${this.name}-${value}`);
+			return i18nServiceInstance.getMessage(`${this.name}_${value}`);
 		}
 	}
 
 	setTitle = (): void => {
-		const settingName = i18nServiceInstance.getMessage(`setting-${this.name}`);
+		const settingName = i18nServiceInstance.getMessage(`setting_${this.name}`);
 		const settingsNumber = this.settingsList.length;
 
 		if (settingsNumber > 0) {

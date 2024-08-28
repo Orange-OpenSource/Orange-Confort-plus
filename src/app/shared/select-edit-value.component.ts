@@ -58,7 +58,7 @@ class SelectEditValueComponent extends HTMLElement {
 		if ('data-label' === name) {
 			let groupElement = this.querySelector('div[role="group"]');
 			let selectLabel = document.createElement('label');
-			selectLabel.innerText = i18nServiceInstance.getMessage(`${this.name}-label`);
+			selectLabel.innerText = i18nServiceInstance.getMessage(`${this.name}_label`);
 			selectLabel.setAttribute('id', `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
 			groupElement.insertBefore(selectLabel, groupElement.firstChild);
 			groupElement.setAttribute('aria-labelledby', `${PREFIX}${stringServiceInstance.normalizeID(this.name)}`);
@@ -87,9 +87,9 @@ class SelectEditValueComponent extends HTMLElement {
 			this.currentValue.split('_').forEach((item: string) => {
 				arrayValues.push(i18nServiceInstance.getMessage(item));
 			});
-			this.selectedValue!.innerText = i18nServiceInstance.getMessage(`${this.name}-values`, arrayValues);
+			this.selectedValue!.innerText = i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
 		} else {
-			let message = `${this.name}-${this.currentValue}`;
+			let message = `${this.name}_${this.currentValue}`;
 			this.selectedValue!.innerText = i18nServiceInstance.getMessage(message);
 		}
 
