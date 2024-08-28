@@ -111,7 +111,7 @@
 		"message": "Dys+"
 	},
 	"dysPlusDescription": {
-		"message": "Usage mode for people with reading or writing difficulties. An optimized font for dyslexia, well-spaced and left-aligned text, a reading ruler, the possibility to color characters and sounds, and text-to-speech."
+		"message": "Usage mode for people with reading or writing difficulties. An optimized font for dyslexia, well_spaced and left_aligned text, a reading ruler, the possibility to color characters and sounds, and text_to_speech."
 	},
 	"moteurPlusName": {
 		"message": "Motor+"
@@ -129,7 +129,7 @@
 		"message": "Sign Language"
 	},
 	"langueDesSignesDescription": {
-		"message": "Usage mode for people who primarily communicate in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary, and a video-sign interface."
+		"message": "Usage mode for people who primarily communicate in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary, and a video_sign interface."
 	},
 	"audioPlusName": {
 		"message": "Audio+"
@@ -242,16 +242,16 @@
 	"paragraph": {
 		"message": "Read the paragraph"
 	},
-	"delay-1": {
+	"delay1": {
 		"message": "1s delay"
 	},
-	"delay-2": {
+	"delay2": {
 		"message": "2s delay"
 	},
-	"delay-3": {
+	"delay3": {
 		"message": "3s delay"
 	},
-	"delay-6": {
+	"delay6": {
 		"message": "6s delay"
 	},
 	"bigZone": {
@@ -261,7 +261,7 @@
 		"message": "large click zones & long click"
 	},
 	"autoClick": {
-		"message": "large click zones & auto-click on hover"
+		"message": "large click zones & auto_click on hover"
 	},
 	"multiclic": {
 		"message": ": $CURRENT$ $INDEX$/$TOTAL$, switch to $NEXT$ $INDEX2$/$TOTAL$",
@@ -282,356 +282,356 @@
 		"message": "Active. Deactivate.",
 		"description": "Active setting."
 	},
-	"setting-fontFamily": {
+	"setting_fontFamily": {
 		"message": "Font"
 	},
-	"setting-fontFamily-instruction": {
+	"setting_fontFamily_instruction": {
 		"message": "To change the text appearance"
 	},
-	"fontFamily-noModifications": {
+	"fontFamily_noModifications": {
 		"message": "no modifications"
 	},
-	"fontFamily-AccessibleDfA": {
+	"fontFamily_AccessibleDfA": {
 		"message": "Accessible DfA"
 	},
-	"fontFamily-B612Mono": {
+	"fontFamily_B612Mono": {
 		"message": "B612 Mono"
 	},
-	"fontFamily-Airbus": {
+	"fontFamily_Airbus": {
 		"message": "Airbus"
 	},
-	"fontFamily-ComicSansMS": {
+	"fontFamily_ComicSansMS": {
 		"message": "Comic Sans MS"
 	},
-	"fontFamily-LexandDeca": {
+	"fontFamily_LexandDeca": {
 		"message": "Lexand Deca"
 	},
-	"fontFamily-Luciole": {
+	"fontFamily_Luciole": {
 		"message": "Luciole"
 	},
-	"fontFamily-SylexiadSans": {
+	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
 	},
-	"fontFamily-Verdana": {
+	"fontFamily_Verdana": {
 		"message": "Verdana"
 	},
-	"setting-textSize": {
+	"setting_textSize": {
 		"message": "Text Size"
 	},
-	"setting-textSize-instruction": {
+	"setting_textSize_instruction": {
 		"message": "To increase text size"
 	},
-	"textSize-noModifications": {
+	"textSize_noModifications": {
 		"message": "no modifications"
 	},
-	"textSize-110": {
+	"textSize_110": {
 		"message": "slightly larger (110%)"
 	},
-	"textSize-130": {
+	"textSize_130": {
 		"message": "larger (130%)"
 	},
-	"textSize-160": {
+	"textSize_160": {
 		"message": "quite large (160%)"
 	},
-	"textSize-200": {
+	"textSize_200": {
 		"message": "very large (200%)"
 	},
-	"textSize-350": {
+	"textSize_350": {
 		"message": "huge (350%)"
 	},
-	"textSize-500": {
+	"textSize_500": {
 		"message": "max (500%)"
 	},
-	"setting-capitalLetters": {
+	"setting_capitalLetters": {
 		"message": "Capital Letters"
 	},
-	"setting-capitalLetters-instruction": {
+	"setting_capitalLetters_instruction": {
 		"message": "To use capital letters"
 	},
-	"capitalLetters-noModifications": {
+	"capitalLetters_noModifications": {
 		"message": "no modifications"
 	},
-	"capitalLetters-uppercase": {
+	"capitalLetters_uppercase": {
 		"message": "all uppercase"
 	},
-	"capitalLetters-capitalize": {
+	"capitalLetters_capitalize": {
 		"message": "capitalize first letters"
 	},
-	"setting-textSpacing": {
+	"setting_textSpacing": {
 		"message": "Text Spacing"
 	},
-	"setting-textSpacing-instruction": {
+	"setting_textSpacing_instruction": {
 		"message": "To increase character and line spacing"
 	},
-	"textSpacing-noModifications": {
+	"textSpacing_noModifications": {
 		"message": "no modifications"
 	},
-	"textSpacing-spacingTextLabelSmall": {
+	"textSpacing_spacingTextLabelSmall": {
 		"message": "slightly spaced"
 	},
-	"textSpacing-spacingTextLabelBig": {
+	"textSpacing_spacingTextLabelBig": {
 		"message": "widely spaced"
 	},
-	"textSpacing-spacingTextLabelHuge": {
+	"textSpacing_spacingTextLabelHuge": {
 		"message": "very widely spaced"
 	},
-	"setting-readingGuide": {
+	"setting_readingGuide": {
 		"message": "Reading Guide"
 	},
-	"setting-readingGuide-instruction": {
+	"setting_readingGuide_instruction": {
 		"message": "To guide your reading"
 	},
-	"readingGuide-noModifications": {
+	"readingGuide_noModifications": {
 		"message": "no guide"
 	},
-	"readingGuide-ruleGuide": {
+	"readingGuide_ruleGuide": {
 		"message": "ruler"
 	},
-	"readingGuide-maskGuide": {
+	"readingGuide_maskGuide": {
 		"message": "mask"
 	},
-	"setting-marginAlign": {
+	"setting_marginAlign": {
 		"message": "Margin & Alignment"
 	},
-	"setting-marginAlign-instruction": {
+	"setting_marginAlign_instruction": {
 		"message": "To anchor reading to the left"
 	},
-	"marginAlign-noModifications": {
+	"marginAlign_noModifications": {
 		"message": "no modifications"
 	},
-	"marginAlign-alignLeft": {
-		"message": "left-aligned text"
+	"marginAlign_alignLeft": {
+		"message": "left_aligned text"
 	},
-	"marginAlign-marginLeft": {
-		"message": "left margin (& left-aligned text)"
+	"marginAlign_marginLeft": {
+		"message": "left margin (& left_aligned text)"
 	},
-	"marginAlign-margeList": {
-		"message": "left margin and numbered lists (& left-aligned text)"
+	"marginAlign_margeList": {
+		"message": "left margin and numbered lists (& left_aligned text)"
 	},
-	"setting-magnifier": {
+	"setting_magnifier": {
 		"message": "Magnifier"
 	},
-	"setting-magnifier-instruction": {
+	"setting_magnifier_instruction": {
 		"message": "To zoom in temporarily"
 	},
-	"magnifier-noModifications": {
+	"magnifier_noModifications": {
 		"message": "no magnifier"
 	},
-	"magnifier-zoom-2": {
+	"magnifier_zoom2": {
 		"message": "×2"
 	},
-	"magnifier-zoom-5": {
+	"magnifier_zoom5": {
 		"message": "×5"
 	},
-	"magnifier-zoom-10": {
+	"magnifier_zoom10": {
 		"message": "×10"
 	},
-	"magnifier-zoom-15": {
+	"magnifier_zoom15": {
 		"message": "×15"
 	},
-	"setting-readAloud": {
+	"setting_readAloud": {
 		"message": "Read Aloud"
 	},
-	"setting-readAloud-instruction": {
+	"setting_readAloud_instruction": {
 		"message": "To have text read aloud on request"
 	},
-	"readAloud-tooltip": {
-		"message": "Click to vocalize, press Esc or right-click to stop."
+	"readAloud_tooltip": {
+		"message": "Click to vocalize, press Esc or right_click to stop."
 	},
-	"readAloud-noModifications": {
+	"readAloud_noModifications": {
 		"message": "no vocalization"
 	},
-	"readAloud-word": {
+	"readAloud_word": {
 		"message": "vocalize pointed word"
 	},
-	"readAloud-sentence": {
+	"readAloud_sentence": {
 		"message": "vocalize pointed sentence"
 	},
-	"readAloud-paragraph": {
+	"readAloud_paragraph": {
 		"message": "vocalize pointed paragraph"
 	},
-	"readAloud-all": {
+	"readAloud_all": {
 		"message": "vocalize all"
 	},
-	"setting-colourTheme": {
+	"setting_colourTheme": {
 		"message": "Color Theme"
 	},
-	"setting-colourTheme-instruction": {
+	"setting_colourTheme_instruction": {
 		"message": "To change the page and cursor appearance"
 	},
-	"colourTheme-noModifications": {
+	"colourTheme_noModifications": {
 		"message": "no modifications"
 	},
-	"colourTheme-reinforcedContrasts": {
+	"colourTheme_reinforcedContrasts": {
 		"message": "reinforced contrasts"
 	},
-	"colourTheme-values": {
+	"colourTheme_values": {
 		"message": "$COLOR$ on $BACKGROUND$",
 		"placeholders": {
 			"color": { "content": "$1" },
 			"background": { "content": "$2" }
 		}
 	},
-	"colourTheme-cursor": {
+	"colourTheme_cursor": {
 		"message": "Cursor $COLOR$ and $SIZE$",
 		"placeholders": {
 			"color": { "content": "$1" },
 			"size": { "content": "$2" }
 		}
 	},
-	"colourTheme-cursor-noModifications": {
+	"colourTheme_cursor_noModifications": {
 		"message": "Cursor with no modifications"
 	},
-	"colourTheme-focus": {
+	"colourTheme_focus": {
 		"message": "Focus $COLOR$ and $SIZE$",
 		"placeholders": {
 			"color": { "content": "$1" },
 			"size": { "content": "$2" }
 		}
 	},
-	"colourTheme-focus-noModifications": {
+	"colourTheme_focus_noModifications": {
 		"message": "Focus with no modifications"
 	},
-	"colourTheme-scroll": {
+	"colourTheme_scroll": {
 		"message": "Scrollbar $COLOR$ and $SIZE$",
 		"placeholders": {
 			"color": { "content": "$1" },
 			"size": { "content": "$2" }
 		}
 	},
-	"colourTheme-scroll-noModifications": {
+	"colourTheme_scroll_noModifications": {
 		"message": "Scrollbar with no modifications"
 	},
-	"colourTheme-link": {
+	"colourTheme_link": {
 		"message": "Link $COLOR$",
 		"placeholders": {
 			"color": { "content": "$1" }
 		}
 	},
-	"colourTheme-link-noModifications": {
+	"colourTheme_link_noModifications": {
 		"message": "Link with no modifications"
 	},
-	"colourTheme-linkPointed": {
+	"colourTheme_linkPointed": {
 		"message": "Pointed link $COLOR$",
 		"placeholders": {
 			"color": { "content": "$1" }
 		}
 	},
-	"colourTheme-linkPointed-noModifications": {
+	"colourTheme_linkPointed_noModifications": {
 		"message": "Pointed link with no modifications"
 	},
-	"colourTheme-linkVisited": {
+	"colourTheme_linkVisited": {
 		"message": "Visited link $COLOR$",
 		"placeholders": {
 			"color": { "content": "$1" }
 		}
 	},
-	"colourTheme-linkVisited-noModifications": {
+	"colourTheme_linkVisited_noModifications": {
 		"message": "Visited link with no modifications"
 	},
-	"setting-cursorAspect": {
+	"setting_cursorAspect": {
 		"message": "Cursor Appearance"
 	},
-	"setting-cursorAspect-instruction": {
+	"setting_cursorAspect_instruction": {
 		"message": "To change cursor appearance"
 	},
-	"cursorAspect-empty-example": {
+	"cursorAspect_empty_example": {
 		"message": "Default cursor"
 	},
-	"cursorAspect-noModifications": {
+	"cursorAspect_noModifications": {
 		"message": "no modifications"
 	},
-	"cursorAspect-values": {
+	"cursorAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
 			"size": { "content": "$1" },
 			"color": { "content": "$2" }
 		}
 	},
-	"cursorSize-label": {
+	"cursorSize_label": {
     "message": "Cursor Size"
 	},
-	"cursorSize-values": {
+	"cursorSize_values": {
 		"message": "$SIZE$",
 		"placeholders": {
 				"size": { "content": "$2" }
 		}
 	},
-	"cursorColor-label": {
+	"cursorColor_label": {
 		"message": "Cursor Color"
 	},
-	"cursorColor-values": {
+	"cursorColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
 				"color": { "content": "$2" }
 		}
 	},
-	"setting-focusAspect": {
+	"setting_focusAspect": {
     "message": "Focus Appearance"
 	},
-	"setting-focusAspect-instruction": {
+	"setting_focusAspect_instruction": {
 		"message": "To change the focus appearance on the page"
 	},
-	"focusAspect-noModifications": {
+	"focusAspect_noModifications": {
 		"message": "no modifications"
 	},
-	"focusAspect-values": {
+	"focusAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
 				"size": { "content": "$1" },
 				"color": { "content": "$2" }
 		}
 	},
-	"focusSize-label": {
+	"focusSize_label": {
 		"message": "Focus Size"
 	},
-	"focusSize-values": {
+	"focusSize_values": {
 		"message": "$SIZE$",
 		"placeholders": {
 				"size": { "content": "$2" }
 		}
 	},
-	"focusColor-label": {
+	"focusColor_label": {
 		"message": "Focus Color"
 	},
-	"focusColor-values": {
+	"focusColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
 				"color": { "content": "$2" }
 		}
 	},
-	"setting-colorContrast": {
+	"setting_colorContrast": {
 		"message": "Color Contrast"
 	},
-	"setting-colorContrast-instruction": {
+	"setting_colorContrast_instruction": {
 		"message": "To change the background and text colors"
 	},
-	"colorContrast-noModifications": {
+	"colorContrast_noModifications": {
 		"message": "no modifications"
 	},
-	"colorContrast-reinforcedContrasts": {
+	"colorContrast_reinforcedContrasts": {
 		"message": "reinforced contrasts"
 	},
-	"colorContrast-values": {
+	"colorContrast_values": {
 		"message": "$COLOR$ on $BACKGROUND$",
 		"placeholders": {
 				"color": { "content": "$1" },
 				"background": { "content": "$2" }
 		}
 	},
-	"colorContrast-daltonism": {
+	"colorContrast_daltonism": {
 		"message": "color blindness"
 	},
-	"setting-linkStyle": {
+	"setting_linkStyle": {
 		"message": "Hyperlink Colors"
 	},
-	"setting-linkStyle-instruction": {
+	"setting_linkStyle_instruction": {
 		"message": "To modify the colors of navigation links"
 	},
-	"linkStyle-noModifications": {
+	"linkStyle_noModifications": {
 		"message": "no modifications"
 	},
-	"linkStyle-values": {
+	"linkStyle_values": {
 		"message": "$COLOR$, $POINTED$, and $VISITED$",
 		"placeholders": {
 				"color": { "content": "$1" },
@@ -639,211 +639,211 @@
 				"visited": { "content": "$3" }
 		}
 	},
-	"linkColor-values": {
+	"linkColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
 				"color": { "content": "$2" }
 		}
 	},
-	"linkPointedColor-values": {
+	"linkPointedColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
 				"color": { "content": "$2" }
 		}
 	},
-	"linkVisitedColor-values": {
+	"linkVisitedColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
 				"color": { "content": "$2" }
 		}
 	},
-	"linkColor-label": {
+	"linkColor_label": {
 		"message": "Link Color"
 	},
-	"linkPointedColor-label": {
+	"linkPointedColor_label": {
 		"message": "Active Link Color"
 	},
-	"linkVisitedColor-label": {
+	"linkVisitedColor_label": {
 		"message": "Visited Link Color"
 	},
-	"setting-clearlyLinks": {
+	"setting_clearlyLinks": {
     "message": "Clearly Visible Links"
 	},
-	"setting-clearlyLinks-instruction": {
+	"setting_clearlyLinks_instruction": {
 		"message": "To make navigation links more visible"
 	},
-	"clearlyLinks-noModifications": {
+	"clearlyLinks_noModifications": {
 		"message": "no modifications"
 	},
-	"clearlyLinks-values": {
+	"clearlyLinks_values": {
 		"message": "$BOLD$ & $STYLE$",
 		"placeholders": {
 				"bold": { "content": "$1" },
 				"style": { "content": "$2" }
 		}
 	},
-	"setting-stopAnimations": {
+	"setting_stopAnimations": {
 		"message": "Stop Animations"
 	},
-	"setting-stopAnimations-instruction": {
+	"setting_stopAnimations_instruction": {
 		"message": "To prevent animations on the page"
 	},
-	"stopAnimations-noModifications": {
+	"stopAnimations_noModifications": {
 		"message": "no modifications"
 	},
-	"stopAnimations-active": {
+	"stopAnimations_active": {
 		"message": "stop animations"
 	},
-	"setting-deleteBackgroundImages": {
+	"setting_deleteBackgroundImages": {
 		"message": "Remove Background Images"
 	},
-	"setting-deleteBackgroundImages-instruction": {
+	"setting_deleteBackgroundImages_instruction": {
 		"message": "To prevent background images from displaying"
 	},
-	"deleteBackgroundImages-noModifications": {
+	"deleteBackgroundImages_noModifications": {
 		"message": "no modifications"
 	},
-	"deleteBackgroundImages-backgroundTransparent": {
+	"deleteBackgroundImages_backgroundTransparent": {
 		"message": "removes background images and transparency effects"
 	},
-	"deleteBackgroundImages-backgroundForegroundTransparent": {
+	"deleteBackgroundImages_backgroundForegroundTransparent": {
 		"message": "removes background images, transparency effects, and foreground images"
 	},
-	"setting-scrollType": {
+	"setting_scrollType": {
 		"message": "Scroll Type"
 	},
-	"setting-scrollType-instruction": {
+	"setting_scrollType_instruction": {
 		"message": "To facilitate scrolling on the page"
 	},
-	"scrollType-noModifications": {
+	"scrollType_noModifications": {
 		"message": "no modifications"
 	},
-	"scrollType-scrollOnClick": {
+	"scrollType_scrollOnClick": {
 		"message": "Scroll Up/Down Buttons (on click)"
 	},
-	"scrollType-scrollOnMouseover": {
+	"scrollType_scrollOnMouseover": {
 		"message": "Scroll Up/Down Buttons (on mouseover, no click required)"
 	},
-	"setting-scroll": {
+	"setting_scroll": {
 		"message": "Scroll"
 	},
-	"setting-scroll-instruction": {
+	"setting_scroll_instruction": {
 		"message": "To modify the appearance of the scroll bar"
 	},
-	"scroll-up": {
+	"scroll_up": {
 		"message": "Scroll Up"
 	},
-	"scroll-down": {
+	"scroll_down": {
 		"message": "Scroll Down"
 	},
-	"scroll-noModifications": {
+	"scroll_noModifications": {
 		"message": "no modifications"
 	},
-	"scroll-values": {
+	"scroll_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
 				"size": { "content": "$1" },
 				"color": { "content": "$2" }
 		}
 	},
-	"scrollSize-label": {
+	"scrollSize_label": {
 		"message": "Scroll Bar Size"
 	},
-	"scrollSize-values": {
+	"scrollSize_values": {
 		"message": "$SIZE$",
 		"placeholders": {
 				"size": { "content": "$2" }
 		}
 	},
-	"scrollColor-label": {
+	"scrollColor_label": {
 		"message": "Scroll Bar Color"
 	},
-	"scrollColor-values": {
+	"scrollColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
 				"color": { "content": "$2" }
 		}
 	},
-	"setting-skipToContent": {
+	"setting_skipToContent": {
 		"message": "Skip to Content"
 	},
-	"setting-skipToContent-instruction": {
+	"setting_skipToContent_instruction": {
 		"message": "To jump directly to the main content"
 	},
-	"skipToContent-noModifications": {
+	"skipToContent_noModifications": {
 		"message": "no modifications"
 	},
-	"skipToContent-active": {
+	"skipToContent_active": {
 		"message": "skip to content"
 	},
-	"setting-navigationButtons": {
+	"setting_navigationButtons": {
 		"message": "Navigation Buttons"
 	},
-	"setting-navigationButtons-instruction": {
+	"setting_navigationButtons_instruction": {
 		"message": "To move focus with the mouse"
 	},
-	"navigationButtons-noModifications": {
+	"navigationButtons_noModifications": {
 		"message": "no navigation buttons"
 	},
-	"navigationButtons-active": {
+	"navigationButtons_active": {
 		"message": "add navigation buttons"
 	},
-	"setting-clickFacilite": {
+	"setting_clickFacilite": {
 		"message": "Click Assistance"
 	},
-	"setting-clickFacilite-instruction": {
+	"setting_clickFacilite_instruction": {
 		"message": "To avoid pointer errors and reduce effort"
 	},
-	"clickFacilite-noModifications": {
+	"clickFacilite_noModifications": {
 		"message": "no modifications"
 	},
-	"clickFacilite-bigZone": {
+	"clickFacilite_bigZone": {
 		"message": "large click zones & standard click"
 	},
-	"clickFacilite-values": {
+	"clickFacilite_values": {
 		"message": "$TYPE$ ($DELAY$)",
 		"placeholders": {
 				"type": { "content": "$1" },
 				"delay": { "content": "$2" }
 		}
 	},
-	"clickType-values": {
+	"clickType_values": {
     "message": "$TYPE$",
     "placeholders": {
         "type": { "content": "$2" }
     }
 	},
-	"clickDelay-values": {
+	"clickDelay_values": {
 		"message": "$DELAY$",
 		"placeholders": {
 				"delay": { "content": "$2" }
 		}
 	},
-	"setting-navigationAuto": {
-		"message": "Auto-Scrolling Navigation"
+	"setting_navigationAuto": {
+		"message": "Auto_Scrolling Navigation"
 	},
-	"setting-navigationAuto-instruction": {
+	"setting_navigationAuto_instruction": {
 		"message": "To move focus automatically"
 	},
-	"navigationAuto-noModifications": {
-		"message": "no auto-scrolling"
+	"navigationAuto_noModifications": {
+		"message": "no auto_scrolling"
 	},
-	"navigationAuto-values": {
-		"message": "auto-scrolling focus ($DELAY$)",
+	"navigationAuto_values": {
+		"message": "auto_scrolling focus ($DELAY$)",
 		"placeholders": {
 				"delay": { "content": "$2" }
 		}
 	},
-	"navigationAuto-label": {
-		"message": "Enable Auto-Scrolling Navigation"
+	"navigationAuto_label": {
+		"message": "Enable Auto_Scrolling Navigation"
 	},
-	"navigationAuto-inactive": {
+	"navigationAuto_inactive": {
 		"message": "Disable"
 	},
-	"navigationAuto-active": {
+	"navigationAuto_active": {
 		"message": "Enable"
 	},
-	"navigationDelay-values": {
+	"navigationDelay_values": {
 		"message": "$DELAY$",
 		"placeholders": {
 				"delay": { "content": "$2" }

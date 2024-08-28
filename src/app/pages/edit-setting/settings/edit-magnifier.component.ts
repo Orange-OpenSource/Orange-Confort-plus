@@ -8,7 +8,7 @@ editMagnifierLayout.innerHTML = `
 class EditMagnifierComponent extends HTMLElement {
 	selectMagnifierElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	magnifierValues = [DEFAULT_VALUE, 'zoom-2', 'zoom-5', 'zoom-10', 'zoom-15'];
+	magnifierValues = [DEFAULT_VALUE, 'zoom2', 'zoom5', 'zoom10', 'zoom15'];
 
 	handler: any;
 

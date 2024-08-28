@@ -137,7 +137,7 @@ class ReadAloudService {
 				if (child.nodeType === Node.ELEMENT_NODE && (child as Element).classList.contains(this.readAloudSpan)) {
 					textChilds += (child as HTMLElement).innerHTML.trim() + ' ';
 					if (!(child.nextSibling && child.nextSibling.nodeType === Node.ELEMENT_NODE && (child.nextSibling as Element).classList.contains(this.readAloudSpan))) {
-						let decodedText = parser.parseFromString(textChilds, "text/html").documentElement.textContent;
+						let decodedText = parser.parseFromString(textChilds, 'text/html').documentElement.textContent;
 						let textNode = document.createTextNode(decodedText);
 						newChilds.appendChild(textNode);
 						textChilds = '';

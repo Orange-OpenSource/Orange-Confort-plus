@@ -2,14 +2,14 @@ const editNavigationAutoLayout: HTMLTemplateElement = document.createElement('te
 editNavigationAutoLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4">
 		<fieldset>
-			<legend class="fs-5" data-i18n="navigationAuto-label"></legend>
+			<legend class="fs-5" data-i18n="navigationAuto_label"></legend>
 			<div class="form-check">
 				<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">
-				<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto-inactive"></label>
+				<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto_inactive"></label>
 			</div>
 			<div class="form-check">
 				<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">
-				<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto-active"></label>
+				<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto_active"></label>
 			</div>
 		</fieldset>
 
@@ -20,7 +20,7 @@ editNavigationAutoLayout.innerHTML = `
 class EditNavigationAutoComponent extends HTMLElement {
 	selectNavigationDelayElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	navigationDelayValues = ['navigationDelay_delay-1', 'navigationDelay_delay-2', 'navigationDelay_delay-3', 'navigationDelay_delay-6'];
+	navigationDelayValues = ['navigationDelay_delay1', 'navigationDelay_delay2', 'navigationDelay_delay3', 'navigationDelay_delay6'];
 	navigationAuto: string;
 	delay: string;
 
