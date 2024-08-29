@@ -14,12 +14,17 @@ class I18nService {
 	}
 
 	getMessage = (message: string, substitutions: string[] = []): string => {
-		if (message && message.indexOf('undefined') === -1 ||
-			message && message.indexOf('undefined') === -1 && !substitutions.some(str => str.includes('undefined'))) {
-			return chrome.i18n.getMessage(message, substitutions);
-		} else {
-			console.warn(`A character string is incorrect for this message : ${message}.`);
+		if (!message || message.includes('undefined')) {
+			console.warn(`Part of argument for I18nService getMessage() is undefined. Message: "${message}".`);
+			return;
 		}
+
+		if (substitutions.length > 0 && substitutions.some(str => str?.includes('undefined'))) {
+			console.warn(`At least one substitution string for I18nService getMessage() is undefined. Message: "${message}". Substitutions: "${substitutions}".`);
+			return;
+		}
+
+		return chrome.i18n.getMessage(message, substitutions);
 	}
 
 	translate(root: ShadowRoot): void {

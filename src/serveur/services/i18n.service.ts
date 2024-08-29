@@ -40,24 +40,30 @@ class I18nService {
 	}
 
 	getMessage(message: string, substitutions: string[] = []): string {
-		if (message && message.indexOf('undefined') === -1 ||
-			message && message.indexOf('undefined') === -1 && !substitutions.some(str => str.includes('undefined'))) {
-			const translations = JSON.parse(this.getMessages());
-			let content = translations[message]?.message;
-			if (substitutions.length > 0) {
-				const placeholders = translations[message]?.placeholders;
-				const matches = [...content.matchAll(/(\$.*?\$)/g)];
-
-				for (const match of matches) {
-					const key = match[0].replaceAll('$', '').toLowerCase();
-					const index = Number(placeholders[key]?.content.replace('$', ''));
-					content = content.replaceAll(match[0], substitutions[index - 1]);
-				}
-			}
-			return content
-		} else {
-			console.warn(`A character string is incorrect for this message : ${message}.`);
+		if (!message || message.includes('undefined')) {
+			console.warn(`Part of argument for I18nService getMessage() is undefined. Message: "${message}".`);
+			return;
 		}
+
+		const translations = JSON.parse(this.getMessages());
+		let content = translations[message]?.message;
+
+		if (substitutions.length > 0) {
+			if (substitutions.some(str => str?.includes('undefined'))) {
+				console.warn(`At least one substitution string for I18nService getMessage() is undefined. Message: "${message}". Substitutions: "${substitutions}".`);
+				return;
+			}
+
+			const placeholders = translations[message]?.placeholders;
+			const matches = [...content.matchAll(/(\$.*?\$)/g)];
+			for (const match of matches) {
+				const key = match[0].replaceAll('$', '').toLowerCase();
+				const index = Number(placeholders[key]?.content.replace('$', ''));
+				content = content.replaceAll(match[0], substitutions[index - 1]);
+			}
+		}
+
+		return content
 	}
 
 	translate(root: ShadowRoot): void {
