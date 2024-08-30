@@ -22,3 +22,5 @@ const CLICK_FACILITE_LONG_CLICK = 'longClick';
 const CLICK_FACILITE_AUTO_CLICK = 'autoClick';
 
 const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
+
+const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;

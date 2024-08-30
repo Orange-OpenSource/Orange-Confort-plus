@@ -1,8 +1,8 @@
-// @ts-ignore
 let textColorServiceIsInstantiated: boolean;
 
 class TextColorService extends BodySelectorService {
 	groupsToColorize = ['an', 'ou', 'us'];
+	textColorIsActive = false;
 
 	constructor() {
 		super();
@@ -13,20 +13,23 @@ class TextColorService extends BodySelectorService {
 	}
 
 	setTextColor = (value: string): void => {
+		this.textColorIsActive = false;
+		this.resetToDefaultBody([TEXT_COLOR_SPAN_CLASS]);
 		if (value !== DEFAULT_VALUE) {
 			this.colorizeTextNodesForTextColor();
+			this.textColorIsActive = true;
 		}
 	}
 
 	private colorizeTextNodesForTextColor(): void {
 		const bodyChildren = this.getBodyElements();
 
-		bodyChildren.forEach((child) => {
+		bodyChildren.forEach((child: any) => {
 			const textNodes = this.getTextNodes(child);
 
-			textNodes.forEach((node) => {
-				const text = node.nodeValue?.trim();
-				if (text) {
+			textNodes.forEach((node: any) => {
+				const text = node.nodeValue;
+				if (text && !this.isAlreadyEdited(node, TEXT_COLOR_SPAN_CLASS)) {
 					const parent = node.parentNode;
 					const fragment = this.createFragmentForText(text);
 
@@ -39,40 +42,29 @@ class TextColorService extends BodySelectorService {
 		});
 	}
 
-	private getTextNodes(element: Node): Node[] {
-		const textNodes: Node[] = [];
-		const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-
-		while (walker.nextNode()) {
-			textNodes.push(walker.currentNode);
-		}
-
-		return textNodes;
-	}
-
 	private createFragmentForText(text: string): DocumentFragment {
 		const fragment = document.createDocumentFragment();
+		const regex = new RegExp(`(${this.groupsToColorize.join('|')})`, 'g');
 		let lastIndex = 0;
+		let match;
 
-		this.groupsToColorize.forEach((group) => {
-			let index;
-			while ((index = text.indexOf(group, lastIndex)) !== -1) {
-				// Ajout du texte avant la syllabe à coloriser
-				if (index > lastIndex) {
-					fragment.appendChild(document.createTextNode(text.slice(lastIndex, index)));
-				}
+		while ((match = regex.exec(text)) !== null) {
+			const matchText = match[0];
+			const matchIndex = match.index;
 
-				// Ajout de la syllabe avec style
-				const span = document.createElement('span');
-				span.style.color = 'red';
-				span.textContent = group;
-				fragment.appendChild(span);
-
-				lastIndex = index + group.length;
+			if (matchIndex > lastIndex) {
+				fragment.appendChild(document.createTextNode(text.slice(lastIndex, matchIndex)));
 			}
-		});
 
-		// Ajout du texte restant après la dernière syllabe colorisée
+			const span = document.createElement('span');
+			span.classList.add(TEXT_COLOR_SPAN_CLASS);
+			span.style.color = 'red';
+			span.textContent = matchText;
+			fragment.appendChild(span);
+
+			lastIndex = matchIndex + matchText.length;
+		}
+
 		if (lastIndex < text.length) {
 			fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
 		}

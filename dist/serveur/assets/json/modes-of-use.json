@@ -1,5 +1,5 @@
 {
-	"version": "1.0.17",
+	"version": "1.0.18",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -194,6 +194,13 @@
 					}
 				},
 				{
+					"textColor": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": true
+					}
+				},
+				{
 					"readingGuide": {
 						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
@@ -322,15 +329,7 @@
 			]
 		},
 		{
-			"dysPlus": [
-				{
-					"dyslexia": {
-						"values": "noModifications,active",
-						"valueSelected": 1,
-						"isTool": true
-					}
-				}
-			]
+			"dysPlus": []
 		},
 		{
 			"moteurPlus": []
