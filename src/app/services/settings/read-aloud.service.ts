@@ -1,15 +1,10 @@
 let readAloudServiceIsInstantiated: boolean;
 
-type ReadingType = 'word' | 'sentence' | 'paragraph';
-
-class ReadAloudService {
+class ReadAloudService extends BodySelectorService {
 	handler: any;
 	tooltipReadAloud: HTMLElement;
-	scriptsElements: any[];
-	confortPlusElement: any;
 	readAloudTooltipId = `${PREFIX}read-aloud-tooltip`;
 	readAloudSpan = `${PREFIX}read-aloud-span`;
-	readAloudPreventFlexbox = `${PREFIX}read-aloud-prevent-flexbox`;
 
 	/* @todo: vérifier si ces REGEX correspondent aux autres langues que le français. */
 	regexWord = /\S+\s*[.,!?]*/g;
@@ -25,13 +20,10 @@ class ReadAloudService {
 		pointer-events: none;
 		transform: translate(0%, 75%);
 		z-index: 2147483645;
-	}
-
-	.${this.readAloudPreventFlexbox} {
-		white-space: pre-wrap;
 	}`;
 
 	constructor() {
+		super();
 		if (readAloudServiceIsInstantiated) {
 			throw new Error('ReadAloudService is already instantiated.');
 		}
@@ -64,94 +56,56 @@ class ReadAloudService {
 			document.addEventListener('keydown', this.handler);
 			document.addEventListener('contextmenu', this.handler);
 		}
-	}
 
-	setTooltip = (): void => {
-		const fragment = document.createDocumentFragment();
-		const tooltip = document.createElement('div');
-		tooltip.setAttribute('id', this.readAloudTooltipId);
-		tooltip.textContent = i18nServiceInstance.getMessage('readAloud-tooltip');
-		fragment.appendChild(tooltip);
-		document.body.insertBefore(fragment, document.body.firstChild);
-		stylesServiceInstance.setStyle('read-aloud', this.classReadAloud);
-		this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
-		document.addEventListener('pointermove', this.handler);
-	}
-
-	setBodyToSpeech = (regex: RegExp): void => {
-		const elements = document.body.querySelectorAll(':not(script):not(app-root)');
-
-		elements.forEach((element: Element) => {
-			let newNodes: Node[] = [];
-
-			element.childNodes.forEach((node: Node) => {
-				if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim().length > 0) {
-					const items = node.textContent.trim().match(regex);
-					if (items?.length > 0) {
-						const template = document.createElement('template');
-
-						items?.forEach((item: string) => {
-							const span = document.createElement('span');
-							span.classList.add(this.readAloudSpan);
-							span.innerText = item.trim() + ' ';
-							template.content.appendChild(span);
-						});
-
-						newNodes.push(...template.content.childNodes);
-					} else {
-						newNodes.push(node);
-					}
-				} else if (node.nodeType !== Node.TEXT_NODE) {
-					newNodes.push(node);
-				}
-			});
-
-			element.innerHTML = '';
-			newNodes.forEach((node: Node) => {
-				element.appendChild(node);
-			});
-
-			this.addClassForSpecificCase(element);
-		});
-	}
-
-	addClassForSpecificCase = (element: Element): void => {
-		const style = window.getComputedStyle(element);
-
-		// Prevents <span> being stuck in flexboxes
-		if (style.display === 'flex' || style.display === 'inline-flex') {
-			element.classList.add(this.readAloudPreventFlexbox);
+		if (textColorServiceInstance.textColorIsActive) {
+			textColorServiceInstance.setTextColor('active');
 		}
 	}
 
-	resetBody = (): void => {
-		this.tooltipReadAloud?.remove();
-		const elements = Array.from(document.body.querySelectorAll(':not(script):not(app-root)'));
-		const parser = new DOMParser();
+	setBodyToSpeech = (regex: RegExp): void => {
+		const bodyChildren = this.getBodyElements();
 
-		elements.forEach((element: Element) => {
-			element.classList.remove(this.readAloudPreventFlexbox);
-			let newChilds = document.createDocumentFragment();
-			let textChilds: string = '';
-			Array.from(element.childNodes).forEach((child: Node) => {
-				if (child.nodeType === Node.ELEMENT_NODE && (child as Element).classList.contains(this.readAloudSpan)) {
-					textChilds += (child as HTMLElement).innerHTML.trim() + ' ';
-					if (!(child.nextSibling && child.nextSibling.nodeType === Node.ELEMENT_NODE && (child.nextSibling as Element).classList.contains(this.readAloudSpan))) {
-						let decodedText = parser.parseFromString(textChilds, 'text/html').documentElement.textContent;
-						let textNode = document.createTextNode(decodedText);
-						newChilds.appendChild(textNode);
-						textChilds = '';
+		bodyChildren.forEach((child: any) => {
+			const textNodes = this.getTextNodes(child);
+
+			textNodes.forEach((node: any) => {
+				const text = node.nodeValue;
+				if (text && !this.isAlreadyEdited(node, this.readAloudSpan)) {
+					const parent = node.parentNode;
+					const fragment = this.createFragmentForText(text, regex);
+
+					if (parent) {
+						parent.insertBefore(fragment, node);
+						parent.removeChild(node);
 					}
-				} else if (!(child.nodeType === Node.TEXT_NODE && child.textContent.trim().length < 1)) {
-					newChilds.appendChild(child);
 				}
 			});
-
-			while (element.firstChild) {
-				element.removeChild(element.firstChild);
-			}
-			element.appendChild(newChilds);
 		});
+	}
+
+	private createFragmentForText(text: string, regex: RegExp): DocumentFragment {
+		const fragment = document.createDocumentFragment();
+		const items = text.match(regex);
+
+		if (items?.length > 0) {
+			items?.forEach((item: string, index: number) => {
+				const span = document.createElement('span');
+				span.classList.add(this.readAloudSpan);
+				span.textContent = item;
+				fragment.appendChild(span);
+
+				if (index < items.length - 1) {
+					fragment.appendChild(document.createTextNode(' '));
+				}
+			});
+		}
+
+		return fragment;
+	}
+
+	private resetBody = (): void => {
+		this.tooltipReadAloud?.remove();
+		this.resetToDefaultBody([this.readAloudSpan, TEXT_COLOR_SPAN_CLASS]);
 	}
 
 	resetReadAloud = (): void => {
@@ -163,15 +117,31 @@ class ReadAloudService {
 		document.removeEventListener('focusin', this.handler);
 	}
 
+	setTooltip = (): void => {
+		const fragment = document.createDocumentFragment();
+		const tooltip = document.createElement('div');
+		tooltip.setAttribute('id', this.readAloudTooltipId);
+		tooltip.textContent = i18nServiceInstance.getMessage('readAloud_tooltip');
+		fragment.appendChild(tooltip);
+		document.body.insertBefore(fragment, document.body.firstChild);
+		stylesServiceInstance.setStyle('read-aloud', this.classReadAloud);
+		this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
+		document.addEventListener('pointermove', this.handler);
+	}
+
+	getInnerText = (element: HTMLElement): string => {
+		return element.classList.contains('cplus-colored-text') ? element.parentElement.innerText : element.innerText;
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'pointermove':
-					this.tooltipReadAloud.style.left = `${event.pageX}px`;
-					this.tooltipReadAloud.style.top = `${event.pageY}px`;
+					this.tooltipReadAloud.style.left = `${event.pageX! - (window.scrollX || document.documentElement.scrollLeft)}px`;
+					this.tooltipReadAloud.style.top = `${event.pageY! - (window.scrollY || document.documentElement.scrollTop)}px`;
 					break;
 				case 'pointerdown':
-					speechSynthesis.speak(new SpeechSynthesisUtterance(event.target.innerText));
+					speechSynthesis.speak(new SpeechSynthesisUtterance(this.getInnerText((event.target as HTMLElement))));
 					break;
 				case 'keydown':
 					if (event.key === 'Escape' || event.key === 'Esc') {

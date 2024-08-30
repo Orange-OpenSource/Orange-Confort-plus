@@ -39,7 +39,7 @@
 		"message": "Choisissez un mode d'usage et validez :"
 	},
 	"validateThisMode": {
-		"message" : "Valider ce mode"
+		"message": "Valider ce mode"
 	},
 	"resetThisMode": {
 		"message": "Réinitialiser ce mode"
@@ -267,11 +267,21 @@
 		"message": " : $CURRENT$ $INDEX$/$TOTAL$, changer pour $NEXT$ $INDEX2$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
-			"current": { "content": "$1" },
-			"index": { "content": "$2" },
-			"total": { "content":  "$3" },
-			"next": { "content":  "$4" },
-			"index2": { "content":  "$5" }
+			"current": {
+				"content": "$1"
+			},
+			"index": {
+				"content": "$2"
+			},
+			"total": {
+				"content": "$3"
+			},
+			"next": {
+				"content": "$4"
+			},
+			"index2": {
+				"content": "$5"
+			}
 		}
 	},
 	"multiclicToggleOff": {
@@ -375,6 +385,18 @@
 	"textSpacing_spacingTextLabelHuge": {
 		"message": "aère énormément"
 	},
+	"setting_textColor": {
+		"message": "Colore le texte"
+	},
+	"setting_textColor_instruction": {
+		"message": "Pour bien distinguer les sons à prononcer"
+	},
+	"textColor_noModifications": {
+		"message": "sans modification"
+	},
+	"textColor_active": {
+		"message": "sons pièges colorés"
+	},
 	"setting_readingGuide": {
 		"message": "Guide de lecture"
 	},
@@ -468,15 +490,23 @@
 	"colourTheme_values": {
 		"message": "$COLOR$ sur $BACKGROUND$",
 		"placeholders": {
-			"color": { "content": "$1" },
-			"background": { "content": "$2" }
+			"color": {
+				"content": "$1"
+			},
+			"background": {
+				"content": "$2"
+			}
 		}
 	},
 	"colourTheme_cursor": {
 		"message": "Curseur $COLOR$ et $SIZE$",
 		"placeholders": {
-			"color": { "content": "$1" },
-			"size": { "content": "$2" }
+			"color": {
+				"content": "$1"
+			},
+			"size": {
+				"content": "$2"
+			}
 		}
 	},
 	"colourTheme_cursor_noModifications": {
@@ -485,8 +515,12 @@
 	"colourTheme_focus": {
 		"message": "Focus $COLOR$ et $SIZE$",
 		"placeholders": {
-			"color": { "content": "$1" },
-			"size": { "content": "$2" }
+			"color": {
+				"content": "$1"
+			},
+			"size": {
+				"content": "$2"
+			}
 		}
 	},
 	"colourTheme_focus_noModifications": {
@@ -495,8 +529,12 @@
 	"colourTheme_scroll": {
 		"message": "Ascenceur $COLOR$ et $SIZE$",
 		"placeholders": {
-			"color": { "content": "$1" },
-			"size": { "content": "$2" }
+			"color": {
+				"content": "$1"
+			},
+			"size": {
+				"content": "$2"
+			}
 		}
 	},
 	"colourTheme_scroll_noModifications": {
@@ -505,7 +543,9 @@
 	"colourTheme_link": {
 		"message": "Lien $COLOR$",
 		"placeholders": {
-			"color": { "content": "$1" }
+			"color": {
+				"content": "$1"
+			}
 		}
 	},
 	"colourTheme_link_noModifications": {
@@ -514,7 +554,9 @@
 	"colourTheme_linkPointed": {
 		"message": "Lien pointé $COLOR$",
 		"placeholders": {
-			"color": { "content": "$1" }
+			"color": {
+				"content": "$1"
+			}
 		}
 	},
 	"colourTheme_linkPointed_noModifications": {
@@ -523,7 +565,9 @@
 	"colourTheme_linkVisited": {
 		"message": "Lien visité $COLOR$",
 		"placeholders": {
-			"color": { "content": "$1" }
+			"color": {
+				"content": "$1"
+			}
 		}
 	},
 	"colourTheme_linkVisited_noModifications": {
@@ -544,8 +588,12 @@
 	"cursorAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
-			"size": { "content": "$1" },
-			"color": { "content": "$2" }
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"cursorSize_label": {
@@ -554,7 +602,9 @@
 	"cursorSize_values": {
 		"message": "$SIZE$",
 		"placeholders": {
-			"size": { "content": "$2" }
+			"size": {
+				"content": "$2"
+			}
 		}
 	},
 	"cursorColor_label": {
@@ -563,7 +613,9 @@
 	"cursorColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
-			"color": { "content": "$2" }
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"setting_focusAspect": {
@@ -578,8 +630,12 @@
 	"focusAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
-			"size": { "content": "$1" },
-			"color": { "content": "$2" }
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"focusSize_label": {
@@ -588,7 +644,9 @@
 	"focusSize_values": {
 		"message": "$SIZE$",
 		"placeholders": {
-			"size": { "content": "$2" }
+			"size": {
+				"content": "$2"
+			}
 		}
 	},
 	"focusColor_label": {
@@ -597,7 +655,9 @@
 	"focusColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
-			"color": { "content": "$2" }
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"setting_colorContrast": {
@@ -615,8 +675,12 @@
 	"colorContrast_values": {
 		"message": "$COLOR$ sur $BACKGROUND$",
 		"placeholders": {
-			"color": { "content": "$1" },
-			"background": { "content": "$2" }
+			"color": {
+				"content": "$1"
+			},
+			"background": {
+				"content": "$2"
+			}
 		}
 	},
 	"colorContrast_daltonism": {
@@ -634,27 +698,39 @@
 	"linkStyle_values": {
 		"message": "$COLOR$, $POINTED$ et $VISITED$",
 		"placeholders": {
-			"color": { "content": "$1" },
-			"pointed": { "content": "$2" },
-			"visited": { "content": "$3" }
+			"color": {
+				"content": "$1"
+			},
+			"pointed": {
+				"content": "$2"
+			},
+			"visited": {
+				"content": "$3"
+			}
 		}
 	},
 	"linkColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
-			"color": { "content": "$2" }
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"linkPointedColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
-			"color": { "content": "$2" }
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"linkVisitedColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
-			"color": { "content": "$2" }
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"linkColor_label": {
@@ -678,8 +754,12 @@
 	"clearlyLinks_values": {
 		"message": "$BOLD$ & $STYLE$",
 		"placeholders": {
-			"bold": { "content": "$1" },
-			"style": { "content": "$2" }
+			"bold": {
+				"content": "$1"
+			},
+			"style": {
+				"content": "$2"
+			}
 		}
 	},
 	"setting_stopAnimations": {
@@ -742,8 +822,12 @@
 	"scroll_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
-			"size": { "content": "$1" },
-			"color": { "content": "$2" }
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"scrollSize_label": {
@@ -752,7 +836,9 @@
 	"scrollSize_values": {
 		"message": "$SIZE$",
 		"placeholders": {
-			"size": { "content": "$2" }
+			"size": {
+				"content": "$2"
+			}
 		}
 	},
 	"scrollColor_label": {
@@ -761,7 +847,9 @@
 	"scrollColor_values": {
 		"message": "$COLOR$",
 		"placeholders": {
-			"color": { "content": "$2" }
+			"color": {
+				"content": "$2"
+			}
 		}
 	},
 	"setting_skipToContent": {
@@ -803,20 +891,28 @@
 	"clickFacilite_values": {
 		"message": "$TYPE$ ($DELAY$)",
 		"placeholders": {
-			"type": { "content": "$1" },
-			"delay": { "content": "$2" }
+			"type": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
 		}
 	},
 	"clickType_values": {
 		"message": "$TYPE$",
 		"placeholders": {
-			"type": { "content": "$2" }
+			"type": {
+				"content": "$2"
+			}
 		}
 	},
 	"clickDelay_values": {
 		"message": "$DELAY$",
 		"placeholders": {
-			"delay": { "content": "$2" }
+			"delay": {
+				"content": "$2"
+			}
 		}
 	},
 	"setting_navigationAuto": {
@@ -831,7 +927,9 @@
 	"navigationAuto_values": {
 		"message": "défilement automatique du focus ($DELAY$)",
 		"placeholders": {
-			"delay": { "content": "$2" }
+			"delay": {
+				"content": "$2"
+			}
 		}
 	},
 	"navigationAuto_label": {
@@ -846,7 +944,9 @@
 	"navigationDelay_values": {
 		"message": "$DELAY$",
 		"placeholders": {
-			"delay": { "content": "$2" }
+			"delay": {
+				"content": "$2"
+			}
 		}
 	}
 }

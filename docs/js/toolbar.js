@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 29/08/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 06/09/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -38,6 +38,8 @@ const CLICK_FACILITE_LONG_CLICK = "longClick";
 const CLICK_FACILITE_AUTO_CLICK = "autoClick";
 
 const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
+
+const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 
 "use strict";
 
@@ -502,8 +504,8 @@ class PauseService {
             instanceService: textSpacingServiceInstance.setSpacingText.bind(this),
             value: ""
         }, {
-            name: "dyslexia",
-            instanceService: dyslexiaServiceInstance.setDyslexia.bind(this),
+            name: "textColor",
+            instanceService: textColorServiceInstance.setTextColor.bind(this),
             value: ""
         } ];
     }
@@ -658,6 +660,41 @@ class BodySelectorService {
     getBodyElements() {
         return document.body.querySelectorAll(":not(script):not(app-root)");
     }
+    getTextNodes(element) {
+        const textNodes = [];
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+        }
+        return textNodes;
+    }
+    isAlreadyEdited(node, className) {
+        return node.parentNode instanceof HTMLElement && node.parentNode.classList.contains(className);
+    }
+    resetToDefaultBody=classToDelete => {
+        const spans = document.querySelectorAll(classToDelete.map((c => `.${c}`)).join(", "));
+        spans.forEach((span => {
+            const textNode = document.createTextNode(span.textContent);
+            span.replaceWith(textNode);
+        }));
+        const body = document.body;
+        this.concatTextNodes(body);
+    };
+    concatTextNodes=element => {
+        let child = element.firstChild;
+        while (child) {
+            if (child.nodeType === Node.ELEMENT_NODE) {
+                this.concatTextNodes(child);
+            }
+            if (child.nodeType === Node.TEXT_NODE) {
+                while (child.nextSibling && child.nextSibling.nodeType === Node.TEXT_NODE) {
+                    child.textContent += child.nextSibling.textContent;
+                    child.parentNode.removeChild(child.nextSibling);
+                }
+            }
+            child = child.nextSibling;
+        }
+    };
 }
 
 "use strict";
@@ -1925,18 +1962,16 @@ class NavigationButtonsService {
 
 let readAloudServiceIsInstantiated;
 
-class ReadAloudService {
+class ReadAloudService extends BodySelectorService {
     handler;
     tooltipReadAloud;
-    scriptsElements;
-    confortPlusElement;
     readAloudTooltipId=`${PREFIX}read-aloud-tooltip`;
     readAloudSpan=`${PREFIX}read-aloud-span`;
-    readAloudPreventFlexbox=`${PREFIX}read-aloud-prevent-flexbox`;
     regexWord=/\S+\s*[.,!?]*/g;
     regexSentence=/[^\.!\?]+[\.!\?]+["']?|.+$/g;
-    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\ttransform: translate(0%, 75%);\n\t\tz-index: 2147483645;\n\t}\n\n\t.${this.readAloudPreventFlexbox} {\n\t\twhite-space: pre-wrap;\n\t}`;
+    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\ttransform: translate(0%, 75%);\n\t\tz-index: 2147483645;\n\t}`;
     constructor() {
+        super();
         if (readAloudServiceIsInstantiated) {
             throw new Error("ReadAloudService is already instantiated.");
         }
@@ -1969,80 +2004,46 @@ class ReadAloudService {
             document.addEventListener("keydown", this.handler);
             document.addEventListener("contextmenu", this.handler);
         }
-    };
-    setTooltip=() => {
-        const fragment = document.createDocumentFragment();
-        const tooltip = document.createElement("div");
-        tooltip.setAttribute("id", this.readAloudTooltipId);
-        tooltip.textContent = i18nServiceInstance.getMessage("readAloud-tooltip");
-        fragment.appendChild(tooltip);
-        document.body.insertBefore(fragment, document.body.firstChild);
-        stylesServiceInstance.setStyle("read-aloud", this.classReadAloud);
-        this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
-        document.addEventListener("pointermove", this.handler);
-    };
-    setBodyToSpeech=regex => {
-        const elements = document.body.querySelectorAll(":not(script):not(app-root)");
-        elements.forEach((element => {
-            let newNodes = [];
-            element.childNodes.forEach((node => {
-                if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim().length > 0) {
-                    const items = node.textContent.trim().match(regex);
-                    if (items?.length > 0) {
-                        const template = document.createElement("template");
-                        items?.forEach((item => {
-                            const span = document.createElement("span");
-                            span.classList.add(this.readAloudSpan);
-                            span.innerText = item.trim() + " ";
-                            template.content.appendChild(span);
-                        }));
-                        newNodes.push(...template.content.childNodes);
-                    } else {
-                        newNodes.push(node);
-                    }
-                } else if (node.nodeType !== Node.TEXT_NODE) {
-                    newNodes.push(node);
-                }
-            }));
-            element.innerHTML = "";
-            newNodes.forEach((node => {
-                element.appendChild(node);
-            }));
-            this.addClassForSpecificCase(element);
-        }));
-    };
-    addClassForSpecificCase=element => {
-        const style = window.getComputedStyle(element);
-        if (style.display === "flex" || style.display === "inline-flex") {
-            element.classList.add(this.readAloudPreventFlexbox);
+        if (textColorServiceInstance.textColorIsActive) {
+            textColorServiceInstance.setTextColor("active");
         }
     };
-    resetBody=() => {
-        this.tooltipReadAloud?.remove();
-        const elements = Array.from(document.body.querySelectorAll(":not(script):not(app-root)"));
-        const parser = new DOMParser;
-        elements.forEach((element => {
-            element.classList.remove(this.readAloudPreventFlexbox);
-            let newChilds = document.createDocumentFragment();
-            let textChilds = "";
-            Array.from(element.childNodes).forEach((child => {
-                if (child.nodeType === Node.ELEMENT_NODE && child.classList.contains(this.readAloudSpan)) {
-                    textChilds += child.innerHTML.trim() + " ";
-                    if (!(child.nextSibling && child.nextSibling.nodeType === Node.ELEMENT_NODE && child.nextSibling.classList.contains(this.readAloudSpan))) {
-                        let decodedText = parser.parseFromString(textChilds, "text/html").documentElement.textContent;
-                        let textNode = document.createTextNode(decodedText);
-                        newChilds.appendChild(textNode);
-                        textChilds = "";
+    setBodyToSpeech=regex => {
+        const bodyChildren = this.getBodyElements();
+        bodyChildren.forEach((child => {
+            const textNodes = this.getTextNodes(child);
+            textNodes.forEach((node => {
+                const text = node.nodeValue;
+                if (text && !this.isAlreadyEdited(node, this.readAloudSpan)) {
+                    const parent = node.parentNode;
+                    const fragment = this.createFragmentForText(text, regex);
+                    if (parent) {
+                        parent.insertBefore(fragment, node);
+                        parent.removeChild(node);
                     }
-                } else if (!(child.nodeType === Node.TEXT_NODE && child.textContent.trim().length < 1)) {
-                    newChilds.appendChild(child);
                 }
             }));
-            while (element.firstChild) {
-                element.removeChild(element.firstChild);
-            }
-            element.appendChild(newChilds);
         }));
+    };
+    createFragmentForText(text, regex) {
+        const fragment = document.createDocumentFragment();
+        const items = text.match(regex);
+        if (items?.length > 0) {
+            items?.forEach(((item, index) => {
+                const span = document.createElement("span");
+                span.classList.add(this.readAloudSpan);
+                span.textContent = item;
+                fragment.appendChild(span);
+                if (index < items.length - 1) {
+                    fragment.appendChild(document.createTextNode(" "));
+                }
+            }));
+        }
+        return fragment;
+    }
+    resetBody=() => {
+        this.tooltipReadAloud?.remove();
+        this.resetToDefaultBody([ this.readAloudSpan, TEXT_COLOR_SPAN_CLASS ]);
     };
     resetReadAloud=() => {
         stylesServiceInstance.removeStyle("read-aloud");
@@ -2052,15 +2053,27 @@ class ReadAloudService {
         document.removeEventListener("contextmenu", this.handler);
         document.removeEventListener("focusin", this.handler);
     };
+    setTooltip=() => {
+        const fragment = document.createDocumentFragment();
+        const tooltip = document.createElement("div");
+        tooltip.setAttribute("id", this.readAloudTooltipId);
+        tooltip.textContent = i18nServiceInstance.getMessage("readAloud_tooltip");
+        fragment.appendChild(tooltip);
+        document.body.insertBefore(fragment, document.body.firstChild);
+        stylesServiceInstance.setStyle("read-aloud", this.classReadAloud);
+        this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
+        document.addEventListener("pointermove", this.handler);
+    };
+    getInnerText=element => element.classList.contains("cplus-colored-text") ? element.parentElement.innerText : element.innerText;
     createHandler=() => event => {
         switch (event.type) {
           case "pointermove":
-            this.tooltipReadAloud.style.left = `${event.pageX}px`;
-            this.tooltipReadAloud.style.top = `${event.pageY}px`;
+            this.tooltipReadAloud.style.left = `${event.pageX - (window.scrollX || document.documentElement.scrollLeft)}px`;
+            this.tooltipReadAloud.style.top = `${event.pageY - (window.scrollY || document.documentElement.scrollTop)}px`;
             break;
 
           case "pointerdown":
-            speechSynthesis.speak(new SpeechSynthesisUtterance(event.target.innerText));
+            speechSynthesis.speak(new SpeechSynthesisUtterance(this.getInnerText(event.target)));
             break;
 
           case "keydown":
@@ -2432,75 +2445,65 @@ class TextSpacingService {
 
 "use strict";
 
-let dyslexiaServiceIsInstantiated;
+let textColorServiceIsInstantiated;
 
-class DyslexiaService extends BodySelectorService {
+class TextColorService extends BodySelectorService {
     groupsToColorize=[ "an", "ou", "us" ];
+    textColorIsActive=false;
     constructor() {
         super();
-        if (dyslexiaServiceIsInstantiated) {
-            throw new Error("DyslexiaService is already instantiated.");
+        if (textColorServiceIsInstantiated) {
+            throw new Error("TextColorService is already instantiated.");
         }
-        dyslexiaServiceIsInstantiated = true;
+        textColorServiceIsInstantiated = true;
     }
-    setDyslexia=value => {
-        if (value === "noModifications") {} else {
-            this.colorizeTextNodesForDyslexia();
+    setTextColor=value => {
+        this.textColorIsActive = false;
+        this.resetToDefaultBody([ TEXT_COLOR_SPAN_CLASS ]);
+        if (value !== DEFAULT_VALUE) {
+            this.colorizeTextNodesForTextColor();
+            this.textColorIsActive = true;
         }
     };
-    colorizeTextNodesForDyslexia() {
+    colorizeTextNodesForTextColor() {
         const bodyChildren = this.getBodyElements();
-        for (let i = 0; i < bodyChildren.length; i++) {
-            const child = bodyChildren[i];
+        bodyChildren.forEach((child => {
             const textNodes = this.getTextNodes(child);
-            for (let j = 0; j < textNodes.length; j++) {
-                const node = textNodes[j];
-                const text = node.nodeValue.trim();
-                if (text !== "") {
-                    let colorizedText = "";
-                    let words = text.split(" ");
-                    for (let k = 0; k < words.length; k++) {
-                        const word = words[k];
-                        const syllables = this.segmentWordIntoSyllables(word, this.groupsToColorize);
-                        for (let l = 0; l < syllables.length; l++) {
-                            colorizedText += syllables[l];
-                        }
-                        colorizedText += " ";
+            textNodes.forEach((node => {
+                const text = node.nodeValue;
+                if (text && !this.isAlreadyEdited(node, TEXT_COLOR_SPAN_CLASS)) {
+                    const parent = node.parentNode;
+                    const fragment = this.createFragmentForText(text);
+                    if (parent) {
+                        parent.insertBefore(fragment, node);
+                        parent.removeChild(node);
                     }
-                    const span = document.createElement("span");
-                    span.innerHTML = colorizedText.trim();
-                    node.parentNode.insertBefore(span, node);
-                    node.parentNode.removeChild(node);
                 }
-            }
-        }
+            }));
+        }));
     }
-    getTextNodes(element) {
-        const textNodes = [];
-        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-        while (walker.nextNode()) {
-            textNodes.push(walker.currentNode);
-        }
-        return textNodes;
-    }
-    segmentWordIntoSyllables(word, groups) {
-        const syllables = [];
-        let syllable = "";
-        for (let i = 0; i < word.length; i++) {
-            const char = word[i];
-            const isInGroups = groups.some((group => word.slice(i, i + group.length) === group));
-            if (isInGroups) {
-                syllable += `<span style="color: red;">${word.slice(i, i + groups[0].length).split("").map((char => `${char}`)).join("")}</span>`;
-                i += groups[0].length - 1;
-            } else {
-                syllable += char;
+    createFragmentForText(text) {
+        const fragment = document.createDocumentFragment();
+        const regex = new RegExp(`(${this.groupsToColorize.join("|")})`, "g");
+        let lastIndex = 0;
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+            const matchText = match[0];
+            const matchIndex = match.index;
+            if (matchIndex > lastIndex) {
+                fragment.appendChild(document.createTextNode(text.slice(lastIndex, matchIndex)));
             }
-            if (!isInGroups || i === word.length - 1) {
-                syllables.push(syllable);
-                syllable = "";
-            }
+            const span = document.createElement("span");
+            span.classList.add(TEXT_COLOR_SPAN_CLASS);
+            span.style.color = "red";
+            span.textContent = matchText;
+            fragment.appendChild(span);
+            lastIndex = matchIndex + matchText.length;
         }
-        return syllables;
+        if (lastIndex < text.length) {
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+        return fragment;
     }
 }
 
@@ -2692,9 +2695,9 @@ const textSpacingServiceInstance = new TextSpacingService;
 
 Object.seal(textSpacingServiceInstance);
 
-const dyslexiaServiceInstance = new DyslexiaService;
+const textColorServiceInstance = new TextColorService;
 
-Object.freeze(dyslexiaServiceInstance);
+Object.seal(textColorServiceInstance);
 
 const pauseServiceInstance = new PauseService;
 
@@ -3266,23 +3269,19 @@ customElements.define("app-text-transform", TextTransformComponent);
 
 "use strict";
 
-const tmplDyslexia = document.createElement("template");
+const tmplTextColor = document.createElement("template");
 
-tmplDyslexia.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplTextColor.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
-class DyslexiaComponent extends AbstractSetting {
-    activesValues={
-        values: "",
-        valueSelected: 0
-    };
+class TextColorComponent extends AbstractSetting {
     constructor() {
         super();
-        this.setCallback(dyslexiaServiceInstance.setDyslexia.bind(this));
-        this.appendChild(tmplDyslexia.content.cloneNode(true));
+        this.setCallback(textColorServiceInstance.setTextColor.bind(this));
+        this.appendChild(tmplTextColor.content.cloneNode(true));
     }
 }
 
-customElements.define("app-dyslexia", DyslexiaComponent);
+customElements.define("app-text-color", TextColorComponent);
 
 "use strict";
 
@@ -5042,7 +5041,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n\t<app-dyslexia class="sc-mode__setting"></app-dyslexia>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-colour-theme class="sc-mode__setting"></app-colour-theme>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5345,7 +5344,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Nav" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
@@ -5390,7 +5389,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="c-category__settings-container gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-text-color class="c-category__setting" data-can-edit="true"></app-text-color>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
