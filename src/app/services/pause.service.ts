@@ -33,6 +33,7 @@ class PauseService {
 			{ name: 'navigationButtons', instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(this), value: '' },
 			{ name: 'readAloud', instanceService: readAloudServiceInstance.setReadAloud.bind(this), value: '' },
 			{ name: 'readingGuide', instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this), value: '' },
+			{ name: 'restartTopLeft', instanceService: restartTopLeftServiceInstance.setRestartTopLeft.bind(this), value: '' },
 			{ name: 'scroll', instanceService: scrollServiceInstance.setScroll.bind(this), value: '' },
 			{ name: 'skipToContent', instanceService: skipToContentServiceInstance.setSkipToContent.bind(this), value: '' },
 			{ name: 'stopAnimations', instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(this), value: '' },

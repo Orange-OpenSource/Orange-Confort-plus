@@ -8,7 +8,7 @@ tmplPictureVideo.innerHTML = `
 	</div>
 	<div class="accordion-collapse collapse" id="category-picture-video">
 		<div class="accordion-body px-3">
-			<div class="c-category__settings-container gap-2">
+			<div class="d-flex flex-column gap-2">
 				<app-stop-animations class="c-category__setting" data-can-edit="true"></app-stop-animations>
 				<app-delete-background-images class="c-category__setting" data-can-edit="true"></app-delete-background-images>
 			</div>

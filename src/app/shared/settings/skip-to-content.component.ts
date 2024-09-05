@@ -1,6 +1,6 @@
 const tmplSkipToContent: HTMLTemplateElement = document.createElement('template');
 tmplSkipToContent.innerHTML = `
-<div class="d-flex align-items-center gap-3">
+<div class="d-flex align-items-center gap-3 h-100">
 	<app-btn-setting></app-btn-setting>
 </div>
 `;
