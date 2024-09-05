@@ -19,7 +19,7 @@ class ReadAloudService extends BodySelectorService {
 		padding: 1rem;
 		pointer-events: none;
 		transform: translate(0%, 75%);
-		z-index: 2147483645;
+		z-index: calc(infinity)
 	}`;
 
 	constructor() {
