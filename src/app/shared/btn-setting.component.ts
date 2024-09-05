@@ -1,6 +1,6 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 btnSettingLayout.innerHTML = `
-	<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 px-2">
+	<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 h-100 px-2">
 		<span class="d-flex align-items-start gap-1">
 			<app-icon data-size="1.5em"></app-icon>
 			<span class="sc-btn-setting__name text-start lh-base"></span>
@@ -176,6 +176,7 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	showTooltip = (): void => {
+		this.hideTooltip();
 		this.timeoutTooltip = setTimeout(() => {
 			this.tooltip?.classList.remove('d-none');
 		}, 3000);

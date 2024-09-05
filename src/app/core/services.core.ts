@@ -58,6 +58,8 @@ const readAloudServiceInstance = new ReadAloudService();
 Object.seal(readAloudServiceInstance);
 const readingGuideServiceInstance = new ReadingGuideService();
 Object.seal(readingGuideServiceInstance);
+const restartTopLeftServiceInstance = new RestartTopLeftService();
+Object.seal(restartTopLeftServiceInstance);
 const scrollServiceInstance = new ScrollService();
 Object.seal(scrollServiceInstance);
 const scrollTypeServiceInstance = new ScrollTypeService();

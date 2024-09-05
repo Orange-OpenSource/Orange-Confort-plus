@@ -145,6 +145,13 @@
 					}
 				},
 				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
@@ -307,6 +314,13 @@
 				},
 				{
 					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false
+					}
+				},
+				{
+					"restartTopLeft": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false
