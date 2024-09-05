@@ -41,6 +41,7 @@ const files = {
 			'dist/js/app/services/settings/navigation-buttons.service.js',
 			'dist/js/app/services/settings/read-aloud.service.js',
 			'dist/js/app/services/settings/reading-guide.service.js',
+			'dist/js/app/services/settings/restart-top-left.service.js',
 			'dist/js/app/services/settings/scroll-type.service.js',
 			'dist/js/app/services/settings/scroll.service.js',
 			'dist/js/app/services/settings/skip-to-content.service.js',
@@ -70,6 +71,7 @@ const files = {
 			'dist/js/app/shared/settings/navigation-buttons.component.js',
 			'dist/js/app/shared/settings/read-aloud.component.js',
 			'dist/js/app/shared/settings/reading-guide.component.js',
+			'dist/js/app/shared/settings/restart-top-left.component.js',
 			'dist/js/app/shared/settings/scroll-type.component.js',
 			'dist/js/app/shared/settings/scroll.component.js',
 			'dist/js/app/shared/settings/skip-to-content.component.js',
@@ -213,18 +215,18 @@ const files = {
 }
 
 const getContext = () => {
-	const hasContext = process.argv.find( element => element.startsWith( `--context=` ) );
+	const hasContext = process.argv.find(element => element.startsWith(`--context=`));
 
-	if ( !hasContext ) return null;
+	if (!hasContext) return null;
 
-	const value= hasContext.replace( `--context=` , '' );
+	const value = hasContext.replace(`--context=`, '');
 
 	return files[value];
 }
 
 const context = getContext();
 context.files.forEach(async file => {
-	Object.assign(code, {[file]: readFileSync(file, "utf8")});
+	Object.assign(code, { [file]: readFileSync(file, "utf8") });
 });
 
 const minified = await minify(code, context.options);

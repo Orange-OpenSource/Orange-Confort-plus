@@ -22,6 +22,7 @@ tmplMode.innerHTML = `
 	<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>
 	<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>
 	<app-scroll-type class="sc-mode__setting"></app-scroll-type>
+	<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>
 	<app-click-facilite class="sc-mode__setting"></app-click-facilite>
 	<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>
 </div>

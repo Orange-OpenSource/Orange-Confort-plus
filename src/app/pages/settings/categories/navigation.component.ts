@@ -8,13 +8,14 @@ tmplNavigation.innerHTML = `
 	</div>
 	<div class="accordion-collapse collapse" id="category-navigation">
 		<div class="accordion-body px-3">
-			<div class="c-category__settings-container gap-2">
+			<div class="d-flex flex-column gap-2">
 				<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>
 				<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>
 				<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>
 				<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>
 				<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>
 				<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>
+				<app-restart-top-left class="c-category__setting" data-can-edit="true"></app-restart-top-left>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>

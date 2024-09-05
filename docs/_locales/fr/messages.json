@@ -963,5 +963,17 @@
 				"content": "$2"
 			}
 		}
+	},
+	"setting_restartTopLeft": {
+		"message": "Recommencer en haut à gauche"
+	},
+	"setting_restartTopLeft_instruction": {
+		"message": "Pour placer scroll et souris en haut à gauche de la page"
+	},
+	"restartTopLeft_noModifications": {
+		"message": "sans action"
+	},
+	"restartTopLeft_active": {
+		"message": "recommencer"
 	}
 }
