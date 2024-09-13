@@ -213,7 +213,7 @@
 		"message": "vert"
 	},
 	"ivory": {
-		"message": "ivoir"
+		"message": "ivoire"
 	},
 	"bold": {
 		"message": "gras"
@@ -276,7 +276,7 @@
 		"message": "grandes zones de clic & clic automatique au survol"
 	},
 	"multiclic": {
-		"message": " : $CURRENT$ $INDEX$/$TOTAL$, changer pour $NEXT$ $INDEX2$/$TOTAL$",
+		"message": "Valeur actuelle : $CURRENT$ $INDEX$/$TOTAL$, changer pour $NEXT$ $INDEX2$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
 			"current": {
@@ -347,22 +347,22 @@
 		"message": "sans modification"
 	},
 	"textSize_110": {
-		"message": "un peu grand (110%)"
+		"message": "un peu grand \"110%\""
 	},
 	"textSize_130": {
-		"message": "assez grand (130%)"
+		"message": "assez grand \"130%\""
 	},
 	"textSize_160": {
-		"message": "bien grand (160%)"
+		"message": "bien grand \"160%\""
 	},
 	"textSize_200": {
-		"message": "très grand (200%)"
+		"message": "très grand \"200%\""
 	},
 	"textSize_350": {
-		"message": "énorme (350%)"
+		"message": "énorme \"350%\""
 	},
 	"textSize_500": {
-		"message": "max (500%)"
+		"message": "max \"500%\""
 	},
 	"setting_capitalLetters": {
 		"message": "Lettres capitales"
@@ -892,7 +892,7 @@
 		"message": "ajout des boutons de navigation"
 	},
 	"setting_clickFacilite": {
-		"message": "Clic facilité"
+		"message": "Clics facilités"
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"

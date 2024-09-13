@@ -7,6 +7,12 @@ btnSettingLayout.innerHTML = `
 		</span>
 		<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>
 	</button>
+	<div class="tooltip bs-tooltip-top sc-btn-setting__tooltip d-none mt-2" role="tooltip">
+		<div class="tooltip-inner text-bg-secondary fw-normal">
+			<div class="sc-btn-setting__tooltip-instruction mb-2"></div>
+			<div class="sc-btn-setting__tooltip-value"></div>
+  	</div>
+	</div>
 `;
 
 class BtnSettingComponent extends HTMLElement {
@@ -20,6 +26,10 @@ class BtnSettingComponent extends HTMLElement {
 	separator = ',';
 	settingsList: string[] = [];
 	disabled = false;
+
+	tooltip: HTMLElement = null;
+	timeoutTooltip: any;
+
 	handler: any;
 
 	constructor() {
@@ -34,13 +44,22 @@ class BtnSettingComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
+		this.tooltip = this.querySelector('.tooltip');
 		this.btnContentSlots = this.querySelector('.sc-btn-setting__values');
 		this.settingBtn.addEventListener('click', this.handler);
+		this.settingBtn.addEventListener('focusin', this.handler);
+		this.settingBtn.addEventListener('focusout', this.handler);
+		this.settingBtn.addEventListener('mouseover', this.handler);
+		this.settingBtn.addEventListener('mouseout', this.handler);
 		this.setDisabledState();
 	}
 
 	disconnectedCallback(): void {
 		this.settingBtn?.removeEventListener('click', this.handler);
+		this.settingBtn?.removeEventListener('focusin', this.handler);
+		this.settingBtn?.removeEventListener('focusout', this.handler);
+		this.settingBtn?.removeEventListener('mouseover', this.handler);
+		this.settingBtn?.removeEventListener('mouseout', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -54,9 +73,11 @@ class BtnSettingComponent extends HTMLElement {
 			const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
 			this.name = settingName;
 
-			const span: HTMLElement = this.querySelector('.sc-btn-setting__name');
+			const buttonName: HTMLElement = this.querySelector('.sc-btn-setting__name');
+			const tooltipInstruction: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-instruction');
 			const icon = this.querySelector('app-icon');
-			span.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
+			buttonName.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
+			tooltipInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.name}_instruction`);
 			icon?.setAttribute('data-name', this.name);
 			this.setTitle();
 		}
@@ -103,9 +124,8 @@ class BtnSettingComponent extends HTMLElement {
 				]);
 			}
 
-			['title', 'aria-label'].forEach(attribute => {
-				this.settingBtn.setAttribute(attribute, `${settingName}${content}`);
-			});
+			const tooltipValue: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-value');
+			tooltipValue.innerText = content;
 		}
 	}
 
@@ -155,21 +175,43 @@ class BtnSettingComponent extends HTMLElement {
 		this.setTitle();
 	}
 
+	showTooltip = (): void => {
+		this.timeoutTooltip = setTimeout(() => {
+			this.tooltip?.classList.remove('d-none');
+		}, 3000);
+
+	}
+
+	hideTooltip = (): void => {
+		clearTimeout(this.timeoutTooltip);
+		this.tooltip?.classList.add('d-none');
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
-			if (event.type === 'click') {
-				this.setIndex();
+			switch (event.type) {
+				case 'click':
+					this.setIndex();
 
-				let clickEvent = new CustomEvent(
-					'changeSettingEvent',
-					{
-						bubbles: true,
-						detail: {
-							value: this.value,
-							index: this.index
-						}
-					});
-				this.settingBtn?.dispatchEvent(clickEvent);
+					let clickEvent = new CustomEvent(
+						'changeSettingEvent',
+						{
+							bubbles: true,
+							detail: {
+								value: this.value,
+								index: this.index
+							}
+						});
+					this.settingBtn?.dispatchEvent(clickEvent);
+					break;
+				case 'focusin':
+				case 'mouseover':
+					this.showTooltip();
+					break;
+				case 'focusout':
+				case 'mouseout':
+					this.hideTooltip();
+					break;
 			}
 		}
 	}

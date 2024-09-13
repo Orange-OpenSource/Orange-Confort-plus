@@ -118,6 +118,7 @@
 		"web-ext": "^8.2.0"
 	},
 	"dependencies": {
+		"@popperjs/core": "^2.11.8",
 		"@webcomponents/custom-elements": "^1.6.0"
 	}
 }

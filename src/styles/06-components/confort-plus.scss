@@ -1,9 +1,9 @@
 .sc-confort-plus {
 	border-radius: 50%;
 	position: fixed;
-	top: 50%;
+	top: 0;
 	right: 0;
 	padding: 0 !important;
-	transform: translate(-50%, -50%);
+	transform: translate(-25%, 25%);
 	z-index: calc(infinity);
 }
