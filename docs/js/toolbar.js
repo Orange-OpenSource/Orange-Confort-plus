@@ -3398,7 +3398,7 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 px-2">\n\t\t<span class="d-flex align-items-start gap-1">\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t\t<span class="sc-btn-setting__name text-start lh-base"></span>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>\n\t</button>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 px-2">\n\t\t<span class="d-flex align-items-start gap-1">\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t\t<span class="sc-btn-setting__name text-start lh-base"></span>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>\n\t</button>\n\t<div class="tooltip bs-tooltip-top sc-btn-setting__tooltip d-none mt-2" role="tooltip">\n\t\t<div class="tooltip-inner text-bg-secondary fw-normal">\n\t\t\t<div class="sc-btn-setting__tooltip-instruction mb-2"></div>\n\t\t\t<div class="sc-btn-setting__tooltip-value"></div>\n  \t</div>\n\t</div>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
@@ -3411,6 +3411,8 @@ class BtnSettingComponent extends HTMLElement {
     separator=",";
     settingsList=[];
     disabled=false;
+    tooltip=null;
+    timeoutTooltip;
     handler;
     constructor() {
         super();
@@ -3420,12 +3422,21 @@ class BtnSettingComponent extends HTMLElement {
     }
     connectedCallback() {
         this.settingBtn = this.querySelector("button");
+        this.tooltip = this.querySelector(".tooltip");
         this.btnContentSlots = this.querySelector(".sc-btn-setting__values");
         this.settingBtn.addEventListener("click", this.handler);
+        this.settingBtn.addEventListener("focusin", this.handler);
+        this.settingBtn.addEventListener("focusout", this.handler);
+        this.settingBtn.addEventListener("mouseover", this.handler);
+        this.settingBtn.addEventListener("mouseout", this.handler);
         this.setDisabledState();
     }
     disconnectedCallback() {
         this.settingBtn?.removeEventListener("click", this.handler);
+        this.settingBtn?.removeEventListener("focusin", this.handler);
+        this.settingBtn?.removeEventListener("focusout", this.handler);
+        this.settingBtn?.removeEventListener("mouseover", this.handler);
+        this.settingBtn?.removeEventListener("mouseout", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
@@ -3437,9 +3448,11 @@ class BtnSettingComponent extends HTMLElement {
         if ("data-name" === name) {
             const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
             this.name = settingName;
-            const span = this.querySelector(".sc-btn-setting__name");
+            const buttonName = this.querySelector(".sc-btn-setting__name");
+            const tooltipInstruction = this.querySelector(".sc-btn-setting__tooltip-instruction");
             const icon = this.querySelector("app-icon");
-            span.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
+            buttonName.innerText = i18nServiceInstance.getMessage(`setting_${this.name}`);
+            tooltipInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.name}_instruction`);
             icon?.setAttribute("data-name", this.name);
             this.setTitle();
         }
@@ -3475,9 +3488,8 @@ class BtnSettingComponent extends HTMLElement {
                 const currentIndex = this.index + 1;
                 content = i18nServiceInstance.getMessage("multiclic", [ currentValueLabel, String(currentIndex), String(settingsNumber), nextValueLabel, String(nextValueIndex + 1) ]);
             }
-            [ "title", "aria-label" ].forEach((attribute => {
-                this.settingBtn.setAttribute(attribute, `${settingName}${content}`);
-            }));
+            const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
+            tooltipValue.innerText = content;
         }
     };
     setIndex=index => {
@@ -3518,8 +3530,18 @@ class BtnSettingComponent extends HTMLElement {
         this.btnContentSlots.innerHTML = this.slot;
         this.setTitle();
     };
+    showTooltip=() => {
+        this.timeoutTooltip = setTimeout((() => {
+            this.tooltip?.classList.remove("d-none");
+        }), 3e3);
+    };
+    hideTooltip=() => {
+        clearTimeout(this.timeoutTooltip);
+        this.tooltip?.classList.add("d-none");
+    };
     createHandler=() => event => {
-        if (event.type === "click") {
+        switch (event.type) {
+          case "click":
             this.setIndex();
             let clickEvent = new CustomEvent("changeSettingEvent", {
                 bubbles: true,
@@ -3529,6 +3551,17 @@ class BtnSettingComponent extends HTMLElement {
                 }
             });
             this.settingBtn?.dispatchEvent(clickEvent);
+            break;
+
+          case "focusin":
+          case "mouseover":
+            this.showTooltip();
+            break;
+
+          case "focusout":
+          case "mouseout":
+            this.hideTooltip();
+            break;
         }
     };
 }

@@ -1,6 +1,5 @@
 /* Import Boosted */
-@forward "boosted/scss/boosted.scss" with (
-	$prefix: "cplus-",
+@forward "boosted/scss/boosted.scss" with ($prefix: "cplus-",
 	$spacer: 1em,
 	$font-size-base: 1em,
 	$border-width: .125em,
@@ -11,8 +10,7 @@
 	$form-switch-width: 3em,
 	$form-switch-padding-start: 3.625em,
 	$input-btn-padding-y: .5em,
-	$input-btn-padding-x: 1.125em
-);
+	$input-btn-padding-x: 1.125em);
 
 $font-path: "../assets/fonts/HelveticaNeue/";
 

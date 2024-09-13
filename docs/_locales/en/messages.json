@@ -347,22 +347,22 @@
 		"message": "no modifications"
 	},
 	"textSize_110": {
-		"message": "slightly larger (110%)"
+		"message": "slightly larger \"110%)\""
 	},
 	"textSize_130": {
-		"message": "larger (130%)"
+		"message": "larger \"130%\""
 	},
 	"textSize_160": {
-		"message": "quite large (160%)"
+		"message": "quite large \"160%\""
 	},
 	"textSize_200": {
-		"message": "very large (200%)"
+		"message": "very large \"200%\""
 	},
 	"textSize_350": {
-		"message": "huge (350%)"
+		"message": "huge \"350%\""
 	},
 	"textSize_500": {
-		"message": "max (500%)"
+		"message": "max \"500%\""
 	},
 	"setting_capitalLetters": {
 		"message": "Capital Letters"
