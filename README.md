@@ -40,6 +40,8 @@ _Orange Confort+_ aims to enhance user experience on websites. It works best whe
 
 ## Deploying _Orange Confort+_ on your website
 
+To deploy _Orange Confort+_ on a WordPress site, the plugin [Orange Confort+ for WordPress](https://wordpress.org/plugins/orange-confort-plus/) is available.
+
 To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: simply add the `dist/serveur` folder to your website.
 
 ### Customize path
