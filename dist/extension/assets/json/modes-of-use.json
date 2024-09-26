@@ -369,7 +369,7 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 4
 					}
 				},
 				{
@@ -377,7 +377,7 @@
 						"values": "noModifications,130,200",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 3
 					}
 				},
 				{
@@ -425,7 +425,7 @@
 						"values": "noModifications,paragraph,all",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 2
 					}
 				},
 				{
@@ -433,7 +433,7 @@
 						"values": "noModifications,bigCursor_yellow,hugeCursor_green",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 7
 					}
 				},
 				{
@@ -441,7 +441,7 @@
 						"values": "noModifications,big_yellow,huge_green",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 8
 					}
 				},
 				{
@@ -449,7 +449,7 @@
 						"values": "noModifications,big_white,huge_vert",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 10
 					}
 				},
 				{
@@ -457,7 +457,7 @@
 						"values": "noModifications,ivory_black,white_blue",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 5
 					}
 				},
 				{
@@ -465,7 +465,7 @@
 						"values": "noModifications,white_orange_lightgreen,yellow_orange_lightgreen",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 11
 					}
 				},
 				{
@@ -473,7 +473,7 @@
 						"values": "noModifications,bold_underline,bold_boxed",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 6
 					}
 				},
 				{
@@ -497,7 +497,7 @@
 						"values": "noModifications,scrollOnClick,scrollOnMouseover",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 12
 					}
 				},
 				{
@@ -505,7 +505,7 @@
 						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 1
+						"order": 13
 					}
 				},
 				{
@@ -529,7 +529,7 @@
 						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 9
 					}
 				},
 				{
@@ -557,7 +557,7 @@
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 2
 					}
 				},
 				{
@@ -581,7 +581,7 @@
 						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 1
+						"order": 3
 					}
 				},
 				{
@@ -605,7 +605,7 @@
 						"values": "noModifications,word,paragraph",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 4
 					}
 				},
 				{
@@ -613,7 +613,7 @@
 						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 1
+						"order": 5
 					}
 				},
 				{
@@ -621,7 +621,7 @@
 						"values": "noModifications,bigCursor_black,hugeCursor_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 6
 					}
 				},
 				{
@@ -629,7 +629,7 @@
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 7
 					}
 				},
 				{
@@ -645,7 +645,7 @@
 						"values": "noModifications,reinforcedContrasts,black_ivory",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 8
 					}
 				},
 				{
@@ -717,7 +717,7 @@
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 9
 					}
 				},
 				{
@@ -745,7 +745,7 @@
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 2
 					}
 				},
 				{
@@ -753,7 +753,7 @@
 						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 1
+						"order": 3
 					}
 				},
 				{
@@ -761,7 +761,7 @@
 						"values": "noModifications,spacingTextSmall,spacingTextBig",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 4
 					}
 				},
 				{
@@ -769,7 +769,7 @@
 						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 5
 					}
 				},
 				{
@@ -777,7 +777,7 @@
 						"values": "noModifications,alignLeft,marginList",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 6
 					}
 				},
 				{
@@ -793,7 +793,7 @@
 						"values": "noModifications,active",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 7
 					}
 				},
 				{
@@ -801,7 +801,7 @@
 						"values": "noModifications,sentence,paragraph",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 8
 					}
 				},
 				{
@@ -809,7 +809,7 @@
 						"values": "noModifications,bigCursor_black,hugeCursor_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 9
 					}
 				},
 				{
@@ -817,7 +817,7 @@
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 10
 					}
 				},
 				{
@@ -905,7 +905,7 @@
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 1
+						"order": 11
 					}
 				},
 				{
