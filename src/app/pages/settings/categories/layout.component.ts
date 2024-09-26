@@ -10,7 +10,6 @@ tmplLayout.innerHTML = `
 		<div class="accordion-body px-3">
 			<div class="d-flex flex-column gap-2">
 				<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>
-				<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>
 				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
 				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>

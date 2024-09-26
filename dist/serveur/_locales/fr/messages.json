@@ -125,6 +125,12 @@
 	"dysPlusDescription": {
 		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
 	},
+	"dysPlusPlusName": {
+		"message": "Dys++"
+	},
+	"dysPlusPlusDescription": {
+		"message": "Ce mode n'a pas encore de description"
+	},
 	"moteurPlusName": {
 		"message": "Moteur+"
 	},

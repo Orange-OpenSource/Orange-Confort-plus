@@ -125,6 +125,12 @@
 	"dysPlusDescription": {
 		"message": "A user guide for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
 	},
+	"dysPlusPlusName": {
+		"message": "Dys++"
+	},
+	"dysPlusPlusDescription": {
+		"message": "This mode has not yet been described"
+	},
 	"moteurPlusName": {
 		"message": "Motor+"
 	},
