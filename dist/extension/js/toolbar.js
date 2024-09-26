@@ -1963,6 +1963,38 @@ class DeleteBackgroundImagesService {
 
 "use strict";
 
+let deleteLayoutServiceIsInstantiated;
+
+class DeleteLayoutService {
+    storedStyles=[];
+    constructor() {
+        if (deleteLayoutServiceIsInstantiated) {
+            throw new Error("DeleteLayoutService is already instantiated.");
+        }
+        deleteLayoutServiceIsInstantiated = true;
+    }
+    setDeleteLayout=value => {
+        this.storedStyles?.forEach((style => {
+            style.parent.appendChild(style.stylesheet);
+        }));
+        if (value !== DEFAULT_VALUE) {
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"], style');
+            Array.from(stylesheets).filter((style => {
+                if (!style.id.startsWith(PREFIX)) {
+                    const storedStyle = {
+                        stylesheet: style,
+                        parent: style.parentElement
+                    };
+                    this.storedStyles.push(storedStyle);
+                    style.remove();
+                }
+            }));
+        }
+    };
+}
+
+"use strict";
+
 let focusAspectServiceIsInstantiated;
 
 class FocusAspectService {
@@ -2699,7 +2731,7 @@ class ReadAloudService extends BodySelectorService {
     readAloudSpan=`${PREFIX}read-aloud-span`;
     regexWord=/\S+\s*[.,!?]*/g;
     regexSentence=/[^\.!\?]+[\.!\?]+["']?|.+$/g;
-    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity)\n\t\ttransform: translate(75px, 50%);\n\t}`;
+    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity);\n\t\ttransform: translate(75px, 50%);\n\t}`;
     constructor() {
         super();
         if (readAloudServiceIsInstantiated) {
@@ -3182,11 +3214,10 @@ class TextSizeService {
         textSizeServiceIsInstantiated = true;
     }
     setFontSize=value => {
-        if (value === DEFAULT_VALUE) {
-            document.documentElement.style.fontSize = null;
-        } else {
-            document.documentElement.style.fontSize = `${value}%`;
-        }
+        const fontSize = value === DEFAULT_VALUE ? null : `${value}%`;
+        document.documentElement.style.fontSize = fontSize;
+        const layoutState = Number(value) >= 350 ? "active" : DEFAULT_VALUE;
+        deleteLayoutServiceInstance.setDeleteLayout(layoutState);
     };
 }
 
@@ -3415,6 +3446,10 @@ Object.seal(cursorAspectServiceInstance);
 const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService;
 
 Object.seal(deleteBackgroundImagesServiceInstance);
+
+const deleteLayoutServiceInstance = new DeleteLayoutService;
+
+Object.seal(deleteLayoutServiceInstance);
 
 const focusAspectServiceInstance = new FocusAspectService;
 
@@ -6077,7 +6112,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Affichage" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-colour-theme class="c-category__setting" data-can-edit="true"></app-colour-theme>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Affichage" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {

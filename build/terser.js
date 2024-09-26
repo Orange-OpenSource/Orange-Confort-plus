@@ -31,6 +31,7 @@ const files = {
 			'dist/js/app/services/settings/color-contrast.service.js',
 			'dist/js/app/services/settings/cursor-aspect.service.js',
 			'dist/js/app/services/settings/delete-background-images.service.js',
+			'dist/js/app/services/settings/delete-layout.service.js',
 			'dist/js/app/services/settings/focus-aspect.service.js',
 			'dist/js/app/services/settings/font-family.service.js',
 			'dist/js/app/services/settings/link-style.service.js',

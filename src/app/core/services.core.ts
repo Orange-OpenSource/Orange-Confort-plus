@@ -38,6 +38,8 @@ const cursorAspectServiceInstance = new CursorAspectService();
 Object.seal(cursorAspectServiceInstance);
 const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService();
 Object.seal(deleteBackgroundImagesServiceInstance);
+const deleteLayoutServiceInstance = new DeleteLayoutService();
+Object.seal(deleteLayoutServiceInstance);
 const focusAspectServiceInstance = new FocusAspectService();
 Object.seal(focusAspectServiceInstance);
 const fontFamilyServiceInstance = new FontFamilyService();
