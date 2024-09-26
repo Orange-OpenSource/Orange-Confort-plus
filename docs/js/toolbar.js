@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 17/10/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 23/10/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1252,6 +1252,38 @@ class DeleteBackgroundImagesService {
 
 "use strict";
 
+let deleteLayoutServiceIsInstantiated;
+
+class DeleteLayoutService {
+    storedStyles=[];
+    constructor() {
+        if (deleteLayoutServiceIsInstantiated) {
+            throw new Error("DeleteLayoutService is already instantiated.");
+        }
+        deleteLayoutServiceIsInstantiated = true;
+    }
+    setDeleteLayout=value => {
+        this.storedStyles?.forEach((style => {
+            style.parent.appendChild(style.stylesheet);
+        }));
+        if (value !== DEFAULT_VALUE) {
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"], style');
+            Array.from(stylesheets).filter((style => {
+                if (!style.id.startsWith(PREFIX)) {
+                    const storedStyle = {
+                        stylesheet: style,
+                        parent: style.parentElement
+                    };
+                    this.storedStyles.push(storedStyle);
+                    style.remove();
+                }
+            }));
+        }
+    };
+}
+
+"use strict";
+
 let focusAspectServiceIsInstantiated;
 
 class FocusAspectService {
@@ -2443,11 +2475,10 @@ class TextSizeService {
         textSizeServiceIsInstantiated = true;
     }
     setFontSize=value => {
-        if (value === DEFAULT_VALUE) {
-            document.documentElement.style.fontSize = null;
-        } else {
-            document.documentElement.style.fontSize = `${value}%`;
-        }
+        const fontSize = value === DEFAULT_VALUE ? null : `${value}%`;
+        document.documentElement.style.fontSize = fontSize;
+        const layoutState = Number(value) >= 350 ? "active" : DEFAULT_VALUE;
+        deleteLayoutServiceInstance.setDeleteLayout(layoutState);
     };
 }
 
@@ -2680,6 +2711,10 @@ Object.seal(cursorAspectServiceInstance);
 const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService;
 
 Object.seal(deleteBackgroundImagesServiceInstance);
+
+const deleteLayoutServiceInstance = new DeleteLayoutService;
+
+Object.seal(deleteLayoutServiceInstance);
 
 const focusAspectServiceInstance = new FocusAspectService;
 

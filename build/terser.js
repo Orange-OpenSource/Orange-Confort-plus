@@ -32,6 +32,7 @@ const files = {
 			'dist/js/app/services/settings/colour-theme.service.js',
 			'dist/js/app/services/settings/cursor-aspect.service.js',
 			'dist/js/app/services/settings/delete-background-images.service.js',
+			'dist/js/app/services/settings/delete-layout.service.js',
 			'dist/js/app/services/settings/focus-aspect.service.js',
 			'dist/js/app/services/settings/font-family.service.js',
 			'dist/js/app/services/settings/link-style.service.js',
@@ -213,18 +214,18 @@ const files = {
 }
 
 const getContext = () => {
-	const hasContext = process.argv.find( element => element.startsWith( `--context=` ) );
+	const hasContext = process.argv.find(element => element.startsWith(`--context=`));
 
-	if ( !hasContext ) return null;
+	if (!hasContext) return null;
 
-	const value= hasContext.replace( `--context=` , '' );
+	const value = hasContext.replace(`--context=`, '');
 
 	return files[value];
 }
 
 const context = getContext();
 context.files.forEach(async file => {
-	Object.assign(code, {[file]: readFileSync(file, "utf8")});
+	Object.assign(code, { [file]: readFileSync(file, "utf8") });
 });
 
 const minified = await minify(code, context.options);
