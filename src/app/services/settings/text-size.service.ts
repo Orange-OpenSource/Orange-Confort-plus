@@ -13,8 +13,13 @@ class TextSizeService {
 	setFontSize = (value: string): void => {
 		if (value === DEFAULT_VALUE) {
 			document.documentElement.style.fontSize = null;
+			deleteLayoutServiceInstance.setDeleteLayout(DEFAULT_VALUE);
 		} else {
 			document.documentElement.style.fontSize = `${value}%`;
+
+			if (Number(value) >= 350) {
+				deleteLayoutServiceInstance.setDeleteLayout('active');
+			}
 		}
 	}
 }

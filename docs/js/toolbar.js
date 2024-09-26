@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 06/09/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 27/09/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1222,6 +1222,34 @@ class DeleteBackgroundImagesService {
 
 "use strict";
 
+let deleteLayoutServiceIsInstantiated;
+
+class DeleteLayoutService {
+    storedStyles;
+    constructor() {
+        if (deleteLayoutServiceIsInstantiated) {
+            throw new Error("DeleteLayoutService is already instantiated.");
+        }
+        deleteLayoutServiceIsInstantiated = true;
+    }
+    setDeleteLayout=value => {
+        this.storedStyles?.forEach((style => document.head.appendChild(style)));
+        if (value !== DEFAULT_VALUE) {
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"], style');
+            this.storedStyles = Array.from(stylesheets).filter((style => {
+                if (style.id && style.id.startsWith(PREFIX)) {
+                    return false;
+                } else {
+                    style.remove();
+                    return true;
+                }
+            }));
+        }
+    };
+}
+
+"use strict";
+
 let focusAspectServiceIsInstantiated;
 
 class FocusAspectService {
@@ -2399,8 +2427,12 @@ class TextSizeService {
     setFontSize=value => {
         if (value === DEFAULT_VALUE) {
             document.documentElement.style.fontSize = null;
+            deleteLayoutServiceInstance.setDeleteLayout(DEFAULT_VALUE);
         } else {
             document.documentElement.style.fontSize = `${value}%`;
+            if (Number(value) >= 350) {
+                deleteLayoutServiceInstance.setDeleteLayout("active");
+            }
         }
     };
 }
@@ -2634,6 +2666,10 @@ Object.seal(cursorAspectServiceInstance);
 const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService;
 
 Object.seal(deleteBackgroundImagesServiceInstance);
+
+const deleteLayoutServiceInstance = new DeleteLayoutService;
+
+Object.seal(deleteLayoutServiceInstance);
 
 const focusAspectServiceInstance = new FocusAspectService;
 
