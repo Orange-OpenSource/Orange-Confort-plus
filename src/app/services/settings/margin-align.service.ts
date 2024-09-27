@@ -1,6 +1,59 @@
 let marginAlignServiceIsInstantiated: boolean;
 
 class MarginAlignService {
+	alignLeftStyle = `
+		p {
+			text-align: left !important;
+		}
+	`;
+
+	marginStyle = `
+		p, h1, h2, h3, h4, h5, h6 {
+			position: relative;
+			text-align: left !important;
+			margin-left: 1lh !important;
+		}
+
+		p *, h1 *, h2 *, h3 *, h4 *, h5 *, h6 * {
+			margin-left: 0 !important;
+		}
+	`;
+
+	marginLeftStyle = `
+		${this.marginStyle}
+
+		p:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {
+			content: "";
+			background: black;
+			border-radius: 10px;
+			width: 12px;
+			height: 100%;
+			position: absolute;
+			left: -24px;
+		}
+	`;
+
+	marginListStyle = `
+		${this.marginStyle}
+
+		ul, ol {
+			list-style-position: initial !important;
+			list-style-image: none !important;
+			list-style-type: decimal !important;
+		}
+
+		p:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {
+			content: "";
+			background: radial-gradient(ellipse at center, #000 10%, #000 30%, transparent 30%);
+			background-repeat: repeat-y;
+			background-position-x: right;
+			background-size: 1lh 1lh;
+			width: 1lh;
+			height: 100%;
+			position: absolute;
+			left: -1lh;
+		}
+	`;
 
 	constructor() {
 		if (marginAlignServiceIsInstantiated) {
@@ -11,37 +64,23 @@ class MarginAlignService {
 	}
 
 	setMargin = (value: string): void => {
-		const elements = value === 'margeList' ?
-			document.querySelectorAll('ul, ol') :
-			document.body.querySelectorAll('*');
+		stylesServiceInstance.removeStyle('align-left');
+		stylesServiceInstance.removeStyle('margin-left');
+		stylesServiceInstance.removeStyle('margin-list');
 
-		elements.forEach((elt) => {
-			const element = elt as HTMLElement;
-			switch (value) {
-				case 'alignLeft': {
-					element.style.textAlign = 'left';
-					break;
-				}
-				case 'marginLeft': {
-					element.style.textAlign = 'left';
-					element.style.marginLeft = '40px';
-					break;
-				}
-				case 'margeList': {
-					element.style.listStylePosition = 'initial';
-					element.style.listStyleImage = 'none';
-					element.style.listStyleType = 'decimal';
-					break;
-				}
-				default: {
-					element.style.textAlign = null;
-					element.style.marginLeft = null;
-					element.style.listStylePosition = null;
-					element.style.listStyleImage = null;
-					element.style.listStyleType = null;
-					break;
-				}
+		switch (value) {
+			case 'alignLeft': {
+				stylesServiceInstance.setStyle('align-left', this.alignLeftStyle);
+				break;
 			}
-		});
+			case 'marginLeft': {
+				stylesServiceInstance.setStyle('margin-left', this.marginLeftStyle);
+				break;
+			}
+			case 'marginList': {
+				stylesServiceInstance.setStyle('margin-list', this.marginListStyle);
+				break;
+			}
+		}
 	}
 }

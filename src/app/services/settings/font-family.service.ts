@@ -84,31 +84,28 @@ class FontFamilyService {
 		}
 
 		fontFamilyServiceIsInstantiated = true;
-
-		const fontFaceList: string[] = [];
-		this.fontDictionnary.forEach((font) => {
-			for (const file of font.files) {
-				fontFaceList.push(`
-					@font-face {
-						font-family:"${font.name}";
-						src: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");
-						font-style: ${file.style};
-						font-weight: ${file.weight};
-						font-display: swap;
-						size-adjust: ${font.size};
-					}`
-				);
-			}
-		});
-
-		stylesServiceInstance.setStyle('font-family', fontFaceList.join(''));
 	}
 
 	setFontFamily = (value: string): void => {
-		if (value === DEFAULT_VALUE) {
-			document.body.style.fontFamily = null;
-		} else {
-			document.body.style.fontFamily = value;
+		stylesServiceInstance.removeStyle('font-family');
+		if (value !== DEFAULT_VALUE) {
+			let fontFaceStyle: string[] = [];
+			this.fontDictionnary.forEach((font) => {
+				for (const file of font.files) {
+					fontFaceStyle.push(`
+						@font-face {
+							font-family:"${font.name}";
+							src: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");
+							font-style: ${file.style};
+							font-weight: ${file.weight};
+							font-display: swap;
+							size-adjust: ${font.size};
+						}`
+					);
+				}
+			});
+			fontFaceStyle.push(`* { font-family: ${value} !important; }`);
+			stylesServiceInstance.setStyle('font-family', fontFaceStyle.join(''));
 		}
 	}
 }

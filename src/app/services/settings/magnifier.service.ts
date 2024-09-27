@@ -148,7 +148,7 @@ class MagnifierService {
 		this.removeSelectors(bodyCopy, 'script');
 		this.removeSelectors(bodyCopy, 'audio');
 		this.removeSelectors(bodyCopy, 'video');
-		this.removeSelectors(bodyCopy, `app-root`);
+		this.removeSelectors(bodyCopy, APP_NAME);
 		this.removeSelectors(bodyCopy, `#${PREFIX}magnifier`);
 		this.magnifierContent.appendChild(bodyCopy);
 		this.magnifierContent.style.width = `${document.body.clientWidth}px`;

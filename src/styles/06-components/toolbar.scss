@@ -1,9 +1,8 @@
-#toolbar {
+#cplus-toolbar {
 	box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 	display: grid;
 	grid-template-rows: auto 1fr;
-	width: 19.5vw;
-	min-width: 18em;
+	width: 20em;
 	height: 100vh;
 	overflow: auto;
 	transition:
@@ -11,4 +10,9 @@
 		visibility .3s ease-in-out;
 	will-change: transform, visibility;
 	z-index: calc(infinity);
+
+	&.close {
+		transform: translateX(100%);
+		visibility: hidden;
+	}
 }

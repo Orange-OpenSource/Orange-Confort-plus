@@ -424,6 +424,9 @@
 	"readingGuide_maskGuide": {
 		"message": "masque"
 	},
+	"readingGuide_closeMask": {
+		"message": "Appuyer sur échap pour fermer le masque."
+	},
 	"setting_marginAlign": {
 		"message": "Marge et alignement"
 	},
@@ -439,7 +442,7 @@
 	"marginAlign_marginLeft": {
 		"message": "marge à gauche (& texte aligné à gauche)"
 	},
-	"marginAlign_margeList": {
+	"marginAlign_marginList": {
 		"message": "marge et listes numérotées (& texte aligné à gauche)"
 	},
 	"setting_magnifier": {
@@ -746,13 +749,13 @@
 		}
 	},
 	"linkColor_label": {
-		"message": "Couleur des liens"
+		"message": "Liens"
 	},
 	"linkPointedColor_label": {
-		"message": "Couleur des liens actifs"
+		"message": "Liens pointés"
 	},
 	"linkVisitedColor_label": {
-		"message": "Couleur des liens visités"
+		"message": "Liens visités"
 	},
 	"setting_clearlyLinks": {
 		"message": "Liens bien visibles"
