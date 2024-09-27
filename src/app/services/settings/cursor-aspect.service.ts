@@ -49,7 +49,7 @@ class CursorAspectService {
 			let color = value.split('_')[1];
 			let size = value.split('_')[0] === 'bigCursor' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 			let styleCursor = `
-				* {
+				*:not(${APP_NAME}) {
 					cursor: url('data:image/svg+xml;utf8,${this.drawCursor('default', size, color, 6)}') 0 0, default !important;
 				}
 

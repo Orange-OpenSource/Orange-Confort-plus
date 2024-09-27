@@ -3,14 +3,15 @@ let scrollServiceIsInstantiated: boolean;
 class ScrollService {
 	scrollColor = '';
 	scrollColorHover = '';
+	scrollBorderColor = '';
 	scrollWidth = '';
 	scrollColorValues = [
-		{ color: 'white', hover: 'lightgrey' },
-		{ color: 'blue', hover: 'darkblue' },
-		{ color: 'red', hover: 'darkred' },
-		{ color: 'yellow', hover: 'gold' },
-		{ color: 'green', hover: 'darkgreen' },
-		{ color: 'black', hover: 'darkgrey' }
+		{ color: 'white', hover: 'lightgrey', border: 'black' },
+		{ color: 'blue', hover: 'darkblue', border: 'blue' },
+		{ color: 'red', hover: 'darkred', border: 'red' },
+		{ color: 'yellow', hover: 'gold', border: 'yellow' },
+		{ color: 'green', hover: 'darkgreen', border: 'green' },
+		{ color: 'black', hover: 'darkgrey', border: 'black' }
 	];
 
 	constructor() {
@@ -41,7 +42,9 @@ class ScrollService {
 			}
 			this.scrollColor = value?.split('_')[1] ? value?.split('_')[1] : 'lightgrey';
 			let colorHover = this.scrollColorValues.find((o: any) => o.color === this.scrollColor)?.hover;
+			let borderColor = this.scrollColorValues.find((o: any) => o.color === this.scrollColor)?.border;
 			this.scrollColorHover = colorHover ? colorHover : 'grey';
+			this.scrollBorderColor = borderColor ? borderColor : 'grey';
 			this.setScrollClass();
 		}
 	}
@@ -56,11 +59,12 @@ class ScrollService {
 				/* WebKit (Chrome, Safari) */
 				.${PREFIX}big-scroll::-webkit-scrollbar,
 				.${PREFIX}big-scroll *::-webkit-scrollbar {
-						width: ${this.scrollWidth};
+					width: ${this.scrollWidth};
 				}
 				.${PREFIX}big-scroll::-webkit-scrollbar-thumb,
 				.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {
 					background-color: ${this.scrollColor};
+					border: 1px solid ${this.scrollBorderColor};
 					border-radius: 1rem;
 					width: ${this.scrollWidth};
 					cursor: pointer;

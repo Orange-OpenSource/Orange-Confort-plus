@@ -424,6 +424,9 @@
 	"readingGuide_maskGuide": {
 		"message": "mask"
 	},
+	"readingGuide_closeMask": {
+		"message": "Press escape to close the mask."
+	},
 	"setting_marginAlign": {
 		"message": "Margin & Alignment"
 	},
@@ -439,7 +442,7 @@
 	"marginAlign_marginLeft": {
 		"message": "left margin (& left_aligned text)"
 	},
-	"marginAlign_margeList": {
+	"marginAlign_marginList": {
 		"message": "left margin and numbered lists (& left_aligned text)"
 	},
 	"setting_magnifier": {
@@ -746,13 +749,13 @@
 		}
 	},
 	"linkColor_label": {
-		"message": "Link Color"
+		"message": "Links"
 	},
 	"linkPointedColor_label": {
-		"message": "Active Link Color"
+		"message": "Pointed links"
 	},
 	"linkVisitedColor_label": {
-		"message": "Visited Link Color"
+		"message": "Visited links"
 	},
 	"setting_clearlyLinks": {
 		"message": "Clearly Visible Links"

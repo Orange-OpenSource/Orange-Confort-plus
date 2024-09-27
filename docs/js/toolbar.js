@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 08/10/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 17/10/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -10,6 +10,8 @@ const PREFIX = "cplus-";
 const JSON_NAME = "modeOfUse";
 
 const DEFAULT_VALUE = "noModifications";
+
+const APP_NAME = `${PREFIX}app-root`;
 
 const PAGE_HOME = "home";
 
@@ -248,6 +250,7 @@ class CategoriesService {
 let domServiceIsInstantiated;
 
 class DomService {
+    excludedElements=`${APP_NAME}, script`;
     constructor() {
         if (domServiceIsInstantiated) {
             throw new Error("DomService is already instantiated.");
@@ -266,12 +269,13 @@ class DomService {
     addButtonsInDom=button => {
         let container;
         let fragment = document.createDocumentFragment();
+        let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector("app-toolbar")?.classList.contains("close") ? "2rem" : "21rem";
         if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
             container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1rem;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1rem;\n\t\t\t\t\tright: 1rem;\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: none;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1rem 2rem;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1rem;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1rem;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: none;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1rem 2rem;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
         }
         let btn = document.createElement("button");
@@ -662,7 +666,7 @@ class CapitalLettersService {
 
 class BodySelectorService {
     getBodyElements() {
-        return document.body.querySelectorAll(":not(script):not(app-root)");
+        return document.body.querySelectorAll(`:not(script):not(${APP_NAME})`);
     }
     getTextNodes(element) {
         const textNodes = [];
@@ -1005,7 +1009,7 @@ class ColorContrastService {
     } ];
     matrixFilter=`\n\t\t0.8,   0.2,   0,     0, 0\n    0.258, 0.742, 0,     0, 0\n    0,     0.142, 0.858, 0, 0\n    0,     0,     0,     1, 0`;
     svgFilterDaltonism=`<svg xmlns="http://www.w3.org/2000/svg"><filter id="daltonism"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, " ").trim()}"/></filter></svg>`;
-    styleFilterDaltonism=`\n\t\thtml body > *:not(app-root) {\n\t\t\tfilter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');\n\t\t}\n\t`;
+    styleFilterDaltonism=`\n\t\thtml body > *:not(${APP_NAME}) {\n\t\t\tfilter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');\n\t\t}\n\t`;
     constructor() {
         if (colorContrastServiceIsInstantiated) {
             throw new Error("ColorContrastService is already instantiated.");
@@ -1147,7 +1151,7 @@ class CursorAspectService {
         } else if (value) {
             let color = value.split("_")[1];
             let size = value.split("_")[0] === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
-            let styleCursor = `\n\t\t\t\t* {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
+            let styleCursor = `\n\t\t\t\t*:not(${APP_NAME}) {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
         }
     };
@@ -1159,11 +1163,12 @@ let deleteBackgroundImagesServiceIsInstantiated;
 
 class DeleteBackgroundImagesService {
     listImgElements;
+    classDeleteBackgroundImg=`${PREFIX}delete-background-img`;
     classDeleteForegroundImg=`${PREFIX}delete-foreground-img`;
     classSpanImage=`${PREFIX}delete-background-images__span`;
-    styleDeleteBackgroundImages=`\n\t\t*, *::before, *::after {\n\t\t\tbackground-image: none !important;\n\t\t}\n\t`;
-    styleDeleteTransparencyEffects=`\n\t\t*, *::before, *::after {\n\t\t\topacity: 1 !important;\n\t\t\tfilter: none !important\n\t\t}\n\t`;
+    styleDeleteBackgroundImages=`\n\t\t.${this.classDeleteBackgroundImg},\n\t\t.${this.classDeleteBackgroundImg}:before,\n\t\t.${this.classDeleteBackgroundImg}:after {\n\t\t\tbackground-image: none !important;\n\t\t\tbackground-color: white;\n\t\t\tcolor: black;\n\t\t}\n\t`;
     styleDeleteForegroundImages=`\n\t\t.${this.classSpanImage} {\n\t\t\tfont-size: 1rem;\n\t\t}\n\n\t\t.${this.classDeleteForegroundImg} {\n\t\t\tvisibility: hidden !important;\n\t\t}\n\t`;
+    styleDeleteTransparencyEffects=`\n\t\t*, *::before, *::after {\n\t\t\topacity: 1 !important;\n\t\t\tfilter: none !important\n\t\t}\n\t`;
     constructor() {
         if (deleteBackgroundImagesServiceIsInstantiated) {
             throw new Error("DeleteBackgroundImagesService is already instantiated.");
@@ -1178,24 +1183,42 @@ class DeleteBackgroundImagesService {
     };
     setStyleDeleteBackground=value => {
         let styleToDelete = "";
-        if (value.includes("background")) {
-            styleToDelete += this.styleDeleteBackgroundImages;
-        } else if (value.includes("foreground")) {
-            styleToDelete += this.styleDeleteForegroundImages;
-            let listeImg = document.querySelectorAll("img, svg, canvas, area");
-            listeImg.forEach((element => {
-                element.classList.add(this.classDeleteForegroundImg);
-                let imageAlt = this.getAccessibleLabel(element);
-                if (imageAlt !== "") {
-                    let spanImage = document.createElement("span");
-                    spanImage.classList.add(this.classSpanImage);
-                    spanImage.textContent = `${i18nServiceInstance.getMessage("textContentImageHidden")} ${imageAlt}`;
-                    element.parentNode.insertBefore(spanImage, element);
-                }
-            }));
-        } else if (value.includes("transparent")) {
-            styleToDelete += this.styleDeleteTransparencyEffects;
-        }
+        const arrayValues = value.match(/[A-Z]?[a-z]+/g);
+        arrayValues.forEach((value => {
+            switch (value.toLowerCase()) {
+              case "background":
+                styleToDelete += this.styleDeleteBackgroundImages;
+                const allElements = Array.from(document.querySelectorAll(`*:not(${domServiceInstance.excludedElements})`));
+                allElements.forEach((element => {
+                    if (window.getComputedStyle(element).getPropertyValue("background-image") !== "none" || window.getComputedStyle(element, "::before").getPropertyValue("background-image") !== "none" || window.getComputedStyle(element, "::after").getPropertyValue("background-image") !== "none") {
+                        element.classList.add(this.classDeleteBackgroundImg);
+                    }
+                }));
+                break;
+
+              case "foreground":
+                styleToDelete += this.styleDeleteForegroundImages;
+                const imgElements = document.querySelectorAll("img, svg, canvas, area");
+                imgElements.forEach((element => {
+                    element.classList.add(this.classDeleteForegroundImg);
+                    let imageAlt = this.getAccessibleLabel(element);
+                    if (imageAlt !== "") {
+                        let spanImage = document.createElement("span");
+                        spanImage.classList.add(this.classSpanImage);
+                        spanImage.textContent = `${i18nServiceInstance.getMessage("textContentImageHidden")} ${imageAlt}`;
+                        element.parentNode.insertBefore(spanImage, element);
+                    }
+                }));
+                break;
+
+              case "transparent":
+                styleToDelete += this.styleDeleteTransparencyEffects;
+                break;
+
+              default:
+                break;
+            }
+        }));
         stylesServiceInstance.setStyle("delete-background-images", styleToDelete);
     };
     getAccessibleLabel=element => {
@@ -1220,6 +1243,9 @@ class DeleteBackgroundImagesService {
         }));
         document.querySelectorAll(`.${this.classDeleteForegroundImg}`).forEach((element => {
             element.classList.remove(this.classDeleteForegroundImg);
+        }));
+        document.querySelectorAll(`.${this.classDeleteBackgroundImg}`).forEach((element => {
+            element.classList.remove(this.classDeleteBackgroundImg);
         }));
     };
 }
@@ -1467,19 +1493,18 @@ class FontFamilyService {
             throw new Error("FontFamilyService is already instantiated.");
         }
         fontFamilyServiceIsInstantiated = true;
-        const fontFaceList = [];
-        this.fontDictionnary.forEach((font => {
-            for (const file of font.files) {
-                fontFaceList.push(`\n\t\t\t\t\t@font-face {\n\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\tfont-style: ${file.style};\n\t\t\t\t\t\tfont-weight: ${file.weight};\n\t\t\t\t\t\tfont-display: swap;\n\t\t\t\t\t\tsize-adjust: ${font.size};\n\t\t\t\t\t}`);
-            }
-        }));
-        stylesServiceInstance.setStyle("font-family", fontFaceList.join(""));
     }
     setFontFamily=value => {
-        if (value === DEFAULT_VALUE) {
-            document.body.style.fontFamily = null;
-        } else {
-            document.body.style.fontFamily = value;
+        stylesServiceInstance.removeStyle("font-family");
+        if (value !== DEFAULT_VALUE) {
+            let fontFaceStyle = [];
+            this.fontDictionnary.forEach((font => {
+                for (const file of font.files) {
+                    fontFaceStyle.push(`\n\t\t\t\t\t\t@font-face {\n\t\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\t\tfont-style: ${file.style};\n\t\t\t\t\t\t\tfont-weight: ${file.weight};\n\t\t\t\t\t\t\tfont-display: swap;\n\t\t\t\t\t\t\tsize-adjust: ${font.size};\n\t\t\t\t\t\t}`);
+                }
+            }));
+            fontFaceStyle.push(`* { font-family: ${value} !important; }`);
+            stylesServiceInstance.setStyle("font-family", fontFaceStyle.join(""));
         }
     };
 }
@@ -1610,7 +1635,7 @@ class MagnifierService {
         this.removeSelectors(bodyCopy, "script");
         this.removeSelectors(bodyCopy, "audio");
         this.removeSelectors(bodyCopy, "video");
-        this.removeSelectors(bodyCopy, `app-root`);
+        this.removeSelectors(bodyCopy, APP_NAME);
         this.removeSelectors(bodyCopy, `#${PREFIX}magnifier`);
         this.magnifierContent.appendChild(bodyCopy);
         this.magnifierContent.style.width = `${document.body.clientWidth}px`;
@@ -1765,6 +1790,10 @@ class MagnifierService {
 let marginAlignServiceIsInstantiated;
 
 class MarginAlignService {
+    alignLeftStyle=`\n\t\tp {\n\t\t\ttext-align: left !important;\n\t\t}\n\t`;
+    marginStyle=`\n\t\tp, h1, h2, h3, h4, h5, h6 {\n\t\t\tposition: relative;\n\t\t\ttext-align: left !important;\n\t\t\tmargin-left: 1lh !important;\n\t\t}\n\n\t\tp *, h1 *, h2 *, h3 *, h4 *, h5 *, h6 * {\n\t\t\tmargin-left: 0 !important;\n\t\t}\n\t`;
+    marginLeftStyle=`\n\t\t${this.marginStyle}\n\n\t\tp:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {\n\t\t\tcontent: "";\n\t\t\tbackground: black;\n\t\t\tborder-radius: 10px;\n\t\t\twidth: 12px;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\tleft: -24px;\n\t\t}\n\t`;
+    marginListStyle=`\n\t\t${this.marginStyle}\n\n\t\tul, ol {\n\t\t\tlist-style-position: initial !important;\n\t\t\tlist-style-image: none !important;\n\t\t\tlist-style-type: decimal !important;\n\t\t}\n\n\t\tp:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {\n\t\t\tcontent: "";\n\t\t\tbackground: radial-gradient(ellipse at center, #000 10%, #000 30%, transparent 30%);\n\t\t\tbackground-repeat: repeat-y;\n\t\t\tbackground-position-x: right;\n\t\t\tbackground-size: 1lh 1lh;\n\t\t\twidth: 1lh;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\tleft: -1lh;\n\t\t}\n\t`;
     constructor() {
         if (marginAlignServiceIsInstantiated) {
             throw new Error("MarginAlignService is already instantiated.");
@@ -1772,42 +1801,28 @@ class MarginAlignService {
         marginAlignServiceIsInstantiated = true;
     }
     setMargin=value => {
-        const elements = value === "margeList" ? document.querySelectorAll("ul, ol") : document.body.querySelectorAll("*");
-        elements.forEach((elt => {
-            const element = elt;
-            switch (value) {
-              case "alignLeft":
-                {
-                    element.style.textAlign = "left";
-                    break;
-                }
-
-              case "marginLeft":
-                {
-                    element.style.textAlign = "left";
-                    element.style.marginLeft = "40px";
-                    break;
-                }
-
-              case "margeList":
-                {
-                    element.style.listStylePosition = "initial";
-                    element.style.listStyleImage = "none";
-                    element.style.listStyleType = "decimal";
-                    break;
-                }
-
-              default:
-                {
-                    element.style.textAlign = null;
-                    element.style.marginLeft = null;
-                    element.style.listStylePosition = null;
-                    element.style.listStyleImage = null;
-                    element.style.listStyleType = null;
-                    break;
-                }
+        stylesServiceInstance.removeStyle("align-left");
+        stylesServiceInstance.removeStyle("margin-left");
+        stylesServiceInstance.removeStyle("margin-list");
+        switch (value) {
+          case "alignLeft":
+            {
+                stylesServiceInstance.setStyle("align-left", this.alignLeftStyle);
+                break;
             }
-        }));
+
+          case "marginLeft":
+            {
+                stylesServiceInstance.setStyle("margin-left", this.marginLeftStyle);
+                break;
+            }
+
+          case "marginList":
+            {
+                stylesServiceInstance.setStyle("margin-list", this.marginListStyle);
+                break;
+            }
+        }
     };
 }
 
@@ -2102,23 +2117,21 @@ class ReadAloudService extends BodySelectorService {
 let readingGuideServiceIsInstantiated;
 
 class ReadingGuideService {
-    topGuideElt=null;
-    bottomGuideElt=null;
-    readingGuideElt=null;
     guideType="";
     sizeGuide=40;
-    handlerReadingGuide;
-    classRuleGuide=`\n\t\t#${PREFIX}vertical-guide-elt {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t`;
-    classMaskGuide=`\n\t\t#${PREFIX}mask-guide--top-elt,\n\t\t#${PREFIX}mask-guide--bottom-elt {\n\t\t\tbackground: rgba(0, 0, 0, 0.5);\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: 2147483645;\n\t\t}\n\t\t#${PREFIX}mask-guide--top-elt {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${PREFIX}mask-guide--bottom-elt {\n\t\t\tbottom: 0;\n\t\t}\n\t`;
+    handler;
+    verticalGuideID=`${PREFIX}vertical-guide-elt`;
+    maskTopEltID=`${PREFIX}mask-guide__top-elt`;
+    maskBottomEltID=`${PREFIX}mask-guide__bottom-elt`;
+    closeTextID=`${PREFIX}mask-guide__close-text`;
+    classRuleGuide=`\n\t\t#${this.verticalGuideID} {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
+    classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25rem 1rem;\n\t\t\tposition: fixed;\n\t\t\tright: 0;\n\t\t\tline-height: 2rem;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     constructor() {
         if (readingGuideServiceIsInstantiated) {
             throw new Error("ReadingGuideService is already instantiated.");
         }
         readingGuideServiceIsInstantiated = true;
-        this.readingGuideElt = document.querySelector(`#${PREFIX}vertical-guide-elt`);
-        this.topGuideElt = document.querySelector(`#${PREFIX}top-guide-elt`);
-        this.bottomGuideElt = document.querySelector(`#${PREFIX}bottom-guide-elt`);
-        this.handlerReadingGuide = this.createHandlerReadingGuide();
+        this.handler = this.createHandler();
     }
     setReadingMaskGuide=value => {
         switch (value) {
@@ -2154,34 +2167,51 @@ class ReadingGuideService {
         stylesServiceInstance.setStyle("reading-guide", styleGuide);
         if (this.guideType === "rule") {
             const readingElt = document.createElement("div");
-            readingElt.setAttribute("id", `${PREFIX}vertical-guide-elt`);
+            readingElt.setAttribute("id", `${this.verticalGuideID}`);
             document.body.appendChild(readingElt);
         } else if (this.guideType === "mask") {
             const maskTopElt = document.createElement("div");
             const maskBottomElt = document.createElement("div");
-            maskTopElt.setAttribute("id", `${PREFIX}mask-guide--top-elt`);
-            maskBottomElt.setAttribute("id", `${PREFIX}mask-guide--bottom-elt`);
+            const closeMask = document.createElement("span");
+            maskTopElt.setAttribute("id", `${this.maskTopEltID}`);
+            maskBottomElt.setAttribute("id", `${this.maskBottomEltID}`);
+            closeMask.setAttribute("id", `${this.closeTextID}`);
+            closeMask.innerText = i18nServiceInstance.getMessage("readingGuide_closeMask");
             document.body.appendChild(maskTopElt);
             document.body.appendChild(maskBottomElt);
+            document.body.appendChild(closeMask);
         }
-        document.addEventListener("mousemove", this.handlerReadingGuide);
+        document.addEventListener("mousemove", this.handler);
+        document.addEventListener("keydown", this.handler);
     };
     resetGuide=() => {
         this.guideType = "";
         stylesServiceInstance.removeStyle("reading-guide");
-        document.querySelector(`#${PREFIX}vertical-guide-elt`)?.remove();
-        document.querySelector(`#${PREFIX}mask-guide--top-elt`)?.remove();
-        document.querySelector(`#${PREFIX}mask-guide--bottom-elt`)?.remove();
+        document.querySelector(`#${this.verticalGuideID}`)?.remove();
+        document.querySelector(`#${this.maskTopEltID}`)?.remove();
+        document.querySelector(`#${this.maskBottomEltID}`)?.remove();
+        document.querySelector(`#${this.closeTextID}`)?.remove();
+        document.removeEventListener("keydown", this.handler);
+        document.removeEventListener("mousemove", this.handler);
     };
-    createHandlerReadingGuide=() => event => {
-        if (event.type === "mousemove") {
+    createHandler=() => event => {
+        switch (event.type) {
+          case "mousemove":
             if (this.guideType === "rule") {
                 document.querySelector(`#${PREFIX}vertical-guide-elt`).style.left = `${event.x + 2}px`;
             } else if (this.guideType === "mask") {
-                document.querySelector(`#${PREFIX}mask-guide--top-elt`).style.height = `${event.y - this.sizeGuide}px`;
-                document.querySelector(`#${PREFIX}mask-guide--bottom-elt`).style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+                document.querySelector(`#${this.maskTopEltID}`).style.height = `${event.y - this.sizeGuide}px`;
+                document.querySelector(`#${this.maskBottomEltID}`).style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
+                document.querySelector(`#${this.closeTextID}`).style.top = `${event.y - this.sizeGuide}px`;
             }
             event.stopPropagation();
+            break;
+
+          case "keydown":
+            if (event.key === "Escape" || event.key === "Esc") {
+                this.resetGuide();
+            }
+            break;
         }
     };
 }
@@ -2192,7 +2222,7 @@ let scrollTypeServiceIsInstantiated;
 
 class ScrollTypeService {
     btnState="";
-    scrollSteps=10;
+    scrollSteps=100;
     scrollTimer=50;
     constructor() {
         if (scrollTypeServiceIsInstantiated) {
@@ -2249,25 +2279,32 @@ let scrollServiceIsInstantiated;
 class ScrollService {
     scrollColor="";
     scrollColorHover="";
+    scrollBorderColor="";
     scrollWidth="";
     scrollColorValues=[ {
         color: "white",
-        hover: "lightgrey"
+        hover: "lightgrey",
+        border: "black"
     }, {
         color: "blue",
-        hover: "darkblue"
+        hover: "darkblue",
+        border: "blue"
     }, {
         color: "red",
-        hover: "darkred"
+        hover: "darkred",
+        border: "red"
     }, {
         color: "yellow",
-        hover: "gold"
+        hover: "gold",
+        border: "yellow"
     }, {
         color: "green",
-        hover: "darkgreen"
+        hover: "darkgreen",
+        border: "green"
     }, {
         color: "black",
-        hover: "darkgrey"
+        hover: "darkgrey",
+        border: "black"
     } ];
     constructor() {
         if (scrollServiceIsInstantiated) {
@@ -2295,12 +2332,14 @@ class ScrollService {
             }
             this.scrollColor = value?.split("_")[1] ? value?.split("_")[1] : "lightgrey";
             let colorHover = this.scrollColorValues.find((o => o.color === this.scrollColor))?.hover;
+            let borderColor = this.scrollColorValues.find((o => o.color === this.scrollColor))?.border;
             this.scrollColorHover = colorHover ? colorHover : "grey";
+            this.scrollBorderColor = borderColor ? borderColor : "grey";
             this.setScrollClass();
         }
     };
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder-radius: 1rem;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
+        let styleScroll = `\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 1rem;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
         stylesServiceInstance.setStyle("scroll", styleScroll);
     };
 }
@@ -2351,40 +2390,43 @@ class StopAnimationsService {
             this.freezeAllAnimations();
         }
     };
-    freezeAnimation=img => {
-        const width = img.width;
-        const height = img.height;
-        const alt = img.alt;
+    freezeAnimation=media => {
+        const width = media.width;
+        const height = media.height;
+        const alt = media.alt;
         let canvas = document.createElement("canvas");
         canvas.width = width;
         canvas.height = height;
         canvas.title = alt;
         canvas.classList.add(`${PREFIX}freeze-animation--canvas`);
         canvas.setAttribute("aria-hidden", "true");
-        img.classList.add(`${PREFIX}freeze-animation--img`);
+        media.classList.add(`${PREFIX}freeze-animation--media`);
         let freeze = () => {
-            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+            canvas.getContext("2d").drawImage(media, 0, 0, width, height);
             canvas.style.position = "absolute";
-            img.parentNode.insertBefore(canvas, img);
-            img.style.opacity = 0;
+            media.parentNode.insertBefore(canvas, media);
+            media.style.opacity = 0;
         };
-        if (img.complete) {
+        if (media.complete) {
             freeze();
         } else {
-            img.addEventListener("load", freeze, true);
+            media.addEventListener("load", freeze, true);
         }
     };
     freezeAllAnimations=() => {
         document.querySelectorAll('img:is([src$=".gif"], [src$=".png"], [src$=".webp"], [src$=".avif"])').forEach((img => {
             this.freezeAnimation(img);
         }));
+        document.querySelectorAll("video").forEach((video => {
+            video.pause();
+        }));
     };
     unFreezeAllAnimations=() => {
         document.querySelectorAll(`.${PREFIX}freeze-animation--canvas`).forEach((canvas => {
             canvas.remove();
         }));
-        document.querySelectorAll(`.${PREFIX}freeze-animation--img`).forEach((img => {
-            img.style.opacity = 1;
+        document.querySelectorAll(`.${PREFIX}freeze-animation--media`).forEach((media => {
+            media.style.opacity = 1;
         }));
     };
 }
@@ -2441,7 +2483,7 @@ class TextSpacingService {
             stylesServiceInstance.removeStyle("text-spacing");
         } else {
             let objSpacingText = spacingTextValues?.find((o => o.name === value));
-            let styleSpacingText = `\n\t\t\t\t* {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
+            let styleSpacingText = `\n\t\t\t\t*:not(${APP_NAME}) {\n\t\t\t\t\tword-spacing: ${objSpacingText.wordSpacing} !important;\n\t\t\t\t\tline-height: ${objSpacingText.lineHeight} !important;\n\t\t\t\t\tletter-spacing: ${objSpacingText.letterSpacing} !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("text-spacing", styleSpacingText);
         }
     };
@@ -2711,7 +2753,7 @@ Object.freeze(pauseServiceInstance);
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     confortPlusBtn=null;
@@ -2741,7 +2783,7 @@ class AppComponent extends HTMLElement {
         }));
         this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
         this.closeBtn = this?.shadowRoot?.getElementById("close-toolbar");
-        this.confortPlusToolbar = this?.shadowRoot?.getElementById("toolbar");
+        this.confortPlusToolbar = this?.shadowRoot?.getElementById(`${PREFIX}toolbar`);
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
         }
@@ -2774,21 +2816,27 @@ class AppComponent extends HTMLElement {
         }
     };
     showToolbar=() => {
-        this.confortPlusToolbar.removeAttribute("style");
-        this.closeBtn?.focus();
+        this.setContainerButtonsPosition("21em");
+        this.confortPlusToolbar.classList.remove("close");
         this.confortPlusBtn.classList.add("d-none");
+        this.closeBtn?.focus();
         localStorageServiceInstance.setItem("is-opened", "true");
     };
     hideToolbar=() => {
-        this.confortPlusToolbar.style.transform = "translateX(100%)";
-        this.confortPlusToolbar.style.visibility = "hidden";
+        this.setContainerButtonsPosition("2em");
+        this.confortPlusToolbar.classList.add("close");
         this.confortPlusBtn.classList.remove("d-none");
         this.confortPlusBtn?.focus();
         localStorageServiceInstance.setItem("is-opened", "false");
     };
+    setContainerButtonsPosition=position => {
+        if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
+            document.querySelector(`#${CONTAINER_BUTTONS_ID}`).style.right = position;
+        }
+    };
 }
 
-customElements.define("app-root", AppComponent);
+customElements.define(APP_NAME, AppComponent);
 
 "use strict";
 
@@ -4540,7 +4588,7 @@ editMarginAlignLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-n
 class EditMarginAlignComponent extends HTMLElement {
     selectMarginAlignElement=null;
     settingValues=null;
-    marginAlignValues=[ DEFAULT_VALUE, "alignLeft", "marginLeft", "margeList" ];
+    marginAlignValues=[ DEFAULT_VALUE, "alignLeft", "marginLeft", "marginList" ];
     handler;
     constructor() {
         super();
@@ -5519,6 +5567,6 @@ customElements.define("app-toolbar", ToolbarComponent);
 
 "use strict";
 
-const appRootElt = document.createElement("app-root");
+const appRootElt = document.createElement(APP_NAME);
 
 document.body.prepend(appRootElt);

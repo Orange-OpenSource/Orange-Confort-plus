@@ -1,6 +1,8 @@
 let domServiceIsInstantiated: boolean;
 
 class DomService {
+	excludedElements = `${APP_NAME}, script`;
+
 	constructor() {
 		if (domServiceIsInstantiated) {
 			throw new Error('DomService is already instantiated.');
@@ -43,6 +45,8 @@ class DomService {
 	addButtonsInDom = (button: string): void => {
 		let container: HTMLElement;
 		let fragment = document.createDocumentFragment();
+		let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector('app-toolbar')?.classList.contains('close') ?
+			'2rem' : '21rem';
 
 		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
 			container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
@@ -56,7 +60,7 @@ class DomService {
 					gap: 1rem;
 					position: fixed;
 					bottom: 1rem;
-					right: 1rem;
+					right: ${rightPosition};
 					z-index: calc(infinity);
 				}
 
@@ -66,6 +70,21 @@ class DomService {
 					border: none;
 					font-weight: bold;
 					padding: 1rem 2rem;
+				}
+
+				#${CONTAINER_BUTTONS_ID} button:hover {
+					background: #000;
+					color: #fff;
+				}
+
+				#${CONTAINER_BUTTONS_ID} button:active {
+					background: #fff;
+					color: #000;
+				}
+
+				#${CONTAINER_BUTTONS_ID} button:focus {
+					outline: 3px solid #000;
+    			outline-offset: 2px;
 				}
 			`;
 

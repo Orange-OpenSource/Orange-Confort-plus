@@ -22,7 +22,7 @@ class TextSpacingService {
 		} else {
 			let objSpacingText = spacingTextValues?.find(o => o.name === value);
 			let styleSpacingText = `
-				* {
+				*:not(${APP_NAME}) {
 					word-spacing: ${objSpacingText.wordSpacing} !important;
 					line-height: ${objSpacingText.lineHeight} !important;
 					letter-spacing: ${objSpacingText.letterSpacing} !important;

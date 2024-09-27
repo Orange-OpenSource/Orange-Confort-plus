@@ -22,7 +22,7 @@ class ColorContrastService {
 	svgFilterDaltonism = `<svg xmlns="http://www.w3.org/2000/svg"><filter id="daltonism"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, ' ').trim()}"/></filter></svg>`;
 
 	styleFilterDaltonism = `
-		html body > *:not(app-root) {
+		html body > *:not(${APP_NAME}) {
 			filter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');
 		}
 	`;

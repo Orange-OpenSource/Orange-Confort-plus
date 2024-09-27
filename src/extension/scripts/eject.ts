@@ -1,6 +1,7 @@
 // @ts-ignore
 (() => {
-	const appRootElt = document.querySelector('app-root');
+	// @ts-ignore
+	const appRootElt = document.querySelector(APP_NAME);
 	if (appRootElt) {
 		// Pause settings if they're active
 		const pauseBtn = appRootElt?.shadowRoot?.getElementById('pause-btn');

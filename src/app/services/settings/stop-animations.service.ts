@@ -28,10 +28,10 @@ class StopAnimationsService {
 		}
 	}
 
-	freezeAnimation = (img: any) => {
-		const width = img.width;
-		const height = img.height;
-		const alt = img.alt;
+	freezeAnimation = (media: any) => {
+		const width = media.width;
+		const height = media.height;
+		const alt = media.alt;
 
 		let canvas: HTMLCanvasElement = document.createElement('canvas');
 		canvas.width = width;
@@ -39,25 +39,28 @@ class StopAnimationsService {
 		canvas.title = alt;
 		canvas.classList.add(`${PREFIX}freeze-animation--canvas`);
 		canvas.setAttribute('aria-hidden', 'true');
-		img.classList.add(`${PREFIX}freeze-animation--img`);
+		media.classList.add(`${PREFIX}freeze-animation--media`);
 
 		let freeze = (): void => {
-			canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+			canvas.getContext('2d').drawImage(media, 0, 0, width, height);
 			canvas.style.position = 'absolute';
-			img.parentNode.insertBefore(canvas, img);
-			img.style.opacity = 0;
+			media.parentNode.insertBefore(canvas, media);
+			media.style.opacity = 0;
 		}
 
-		if (img.complete) {
+		if (media.complete) {
 			freeze();
 		} else {
-			img.addEventListener('load', freeze, true);
+			media.addEventListener('load', freeze, true);
 		}
 	}
 
 	freezeAllAnimations = (): any => {
 		document.querySelectorAll('img:is([src$=".gif"], [src$=".png"], [src$=".webp"], [src$=".avif"])').forEach((img) => {
 			this.freezeAnimation(img);
+		});
+		document.querySelectorAll('video').forEach((video) => {
+			video.pause();
 		});
 	}
 
@@ -66,8 +69,8 @@ class StopAnimationsService {
 			canvas.remove();
 		});
 
-		document.querySelectorAll(`.${PREFIX}freeze-animation--img`).forEach((img: any) => {
-			img.style.opacity = 1;
+		document.querySelectorAll(`.${PREFIX}freeze-animation--media`).forEach((media: any) => {
+			media.style.opacity = 1;
 		});
 	}
 }

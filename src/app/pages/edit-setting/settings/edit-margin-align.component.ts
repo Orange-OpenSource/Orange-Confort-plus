@@ -8,7 +8,7 @@ editMarginAlignLayout.innerHTML = `
 class EditMarginAlignComponent extends HTMLElement {
 	selectMarginAlignElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	marginAlignValues = [DEFAULT_VALUE, 'alignLeft', 'marginLeft', 'margeList'];
+	marginAlignValues = [DEFAULT_VALUE, 'alignLeft', 'marginLeft', 'marginList'];
 
 	handler: any;
 

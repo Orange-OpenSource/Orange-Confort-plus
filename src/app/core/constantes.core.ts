@@ -4,6 +4,7 @@
 const PREFIX = 'cplus-';
 const JSON_NAME = 'modeOfUse';
 const DEFAULT_VALUE = 'noModifications';
+const APP_NAME = `${PREFIX}app-root`;
 
 const PAGE_HOME = 'home';
 const PAGE_MODES = 'modes';

@@ -2,19 +2,17 @@ let deleteBackgroundImagesServiceIsInstantiated: boolean;
 
 class DeleteBackgroundImagesService {
 	listImgElements: any[];
+	classDeleteBackgroundImg = `${PREFIX}delete-background-img`;
 	classDeleteForegroundImg = `${PREFIX}delete-foreground-img`;
 	classSpanImage = `${PREFIX}delete-background-images__span`;
 
 	styleDeleteBackgroundImages = `
-		*, *::before, *::after {
+		.${this.classDeleteBackgroundImg},
+		.${this.classDeleteBackgroundImg}:before,
+		.${this.classDeleteBackgroundImg}:after {
 			background-image: none !important;
-		}
-	`;
-
-	styleDeleteTransparencyEffects = `
-		*, *::before, *::after {
-			opacity: 1 !important;
-			filter: none !important
+			background-color: white;
+			color: black;
 		}
 	`;
 
@@ -25,6 +23,13 @@ class DeleteBackgroundImagesService {
 
 		.${this.classDeleteForegroundImg} {
 			visibility: hidden !important;
+		}
+	`;
+
+	styleDeleteTransparencyEffects = `
+		*, *::before, *::after {
+			opacity: 1 !important;
+			filter: none !important
 		}
 	`;
 
@@ -45,26 +50,46 @@ class DeleteBackgroundImagesService {
 
 	setStyleDeleteBackground = (value: string): void => {
 		let styleToDelete: string = '';
+		const arrayValues = value.match(/[A-Z]?[a-z]+/g);
 
-		if (value.includes('background')) {
-			styleToDelete += this.styleDeleteBackgroundImages;
-		} else if (value.includes('foreground')) {
-			styleToDelete += this.styleDeleteForegroundImages;
+		arrayValues.forEach((value: string) => {
+			switch (value.toLowerCase()) {
+				case 'background':
+					styleToDelete += this.styleDeleteBackgroundImages;
 
-			let listeImg = document.querySelectorAll('img, svg, canvas, area');
-			listeImg.forEach((element: any) => {
-				element.classList.add(this.classDeleteForegroundImg);
-				let imageAlt = this.getAccessibleLabel(element);
-				if (imageAlt !== '') {
-					let spanImage: HTMLSpanElement = document.createElement('span');
-					spanImage.classList.add(this.classSpanImage);
-					spanImage.textContent = `${i18nServiceInstance.getMessage('textContentImageHidden')} ${imageAlt}`;
-					element.parentNode.insertBefore(spanImage, element);
-				}
-			});
-		} else if (value.includes('transparent')) {
-			styleToDelete += this.styleDeleteTransparencyEffects;
-		}
+					const allElements = Array.from(document.querySelectorAll(`*:not(${domServiceInstance.excludedElements})`))
+					allElements.forEach((element: Element) => {
+						if (
+							window.getComputedStyle(element).getPropertyValue('background-image') !== 'none' ||
+							window.getComputedStyle(element, '::before').getPropertyValue('background-image') !== 'none' ||
+							window.getComputedStyle(element, '::after').getPropertyValue('background-image') !== 'none'
+						) {
+							element.classList.add(this.classDeleteBackgroundImg);
+						}
+					});
+					break;
+				case 'foreground':
+					styleToDelete += this.styleDeleteForegroundImages;
+
+					const imgElements = document.querySelectorAll('img, svg, canvas, area');
+					imgElements.forEach((element: Element) => {
+						element.classList.add(this.classDeleteForegroundImg);
+						let imageAlt = this.getAccessibleLabel(element);
+						if (imageAlt !== '') {
+							let spanImage: HTMLSpanElement = document.createElement('span');
+							spanImage.classList.add(this.classSpanImage);
+							spanImage.textContent = `${i18nServiceInstance.getMessage('textContentImageHidden')} ${imageAlt}`;
+							element.parentNode.insertBefore(spanImage, element);
+						}
+					});
+					break;
+				case 'transparent':
+					styleToDelete += this.styleDeleteTransparencyEffects;
+					break;
+				default:
+					break;
+			}
+		});
 
 		stylesServiceInstance.setStyle('delete-background-images', styleToDelete);
 	}
@@ -90,9 +115,11 @@ class DeleteBackgroundImagesService {
 		document.querySelectorAll(`.${this.classSpanImage}`).forEach((element: Element) => {
 			element.remove()
 		});
-
 		document.querySelectorAll(`.${this.classDeleteForegroundImg}`).forEach((element: Element) => {
 			element.classList.remove(this.classDeleteForegroundImg);
+		});
+		document.querySelectorAll(`.${this.classDeleteBackgroundImg}`).forEach((element: Element) => {
+			element.classList.remove(this.classDeleteBackgroundImg);
 		});
 	}
 }
