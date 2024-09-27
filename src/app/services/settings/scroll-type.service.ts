@@ -2,7 +2,7 @@ let scrollTypeServiceIsInstantiated: boolean;
 
 class ScrollTypeService {
 	btnState = '';
-	scrollSteps = 10;
+	scrollSteps = 100;
 	scrollTimer = 50;
 
 	constructor() {

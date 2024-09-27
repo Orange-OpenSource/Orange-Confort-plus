@@ -5,7 +5,7 @@ template.innerHTML = `
 		<span class="visually-hidden" data-i18n="mainButton"></span>
 		<app-icon data-size="3em" data-name="Accessibility"></app-icon>
 	</button>
-	<app-toolbar class="bg-body position-fixed top-0 end-0" id="toolbar"></app-toolbar>
+	<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>
 </div>
 `;
 
@@ -43,19 +43,19 @@ class AppComponent extends HTMLElement {
 
 		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
 		this.closeBtn = this?.shadowRoot?.getElementById('close-toolbar');
-		this.confortPlusToolbar = this?.shadowRoot?.getElementById('toolbar');
+		this.confortPlusToolbar = this?.shadowRoot?.getElementById(`${PREFIX}toolbar`);
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
 		}
 
 		localStorageServiceInstance.getItem('is-opened')
 			.then((isOpened: any) => {
-					if (isOpened === 'true') {
-						this.showToolbar();
-					} else {
-						this.hideToolbar();
-					}
+				if (isOpened === 'true') {
+					this.showToolbar();
+				} else {
+					this.hideToolbar();
 				}
+			}
 			);
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
@@ -83,19 +83,27 @@ class AppComponent extends HTMLElement {
 	}
 
 	private showToolbar = (): void => {
-		this.confortPlusToolbar.removeAttribute('style');
-		this.closeBtn?.focus();
+		this.setContainerButtonsPosition('21em');
+		this.confortPlusToolbar.classList.remove('close');
 		this.confortPlusBtn.classList.add('d-none');
+		this.closeBtn?.focus();
 		localStorageServiceInstance.setItem('is-opened', 'true');
 	}
 
 	private hideToolbar = (): void => {
-		this.confortPlusToolbar.style.transform = 'translateX(100%)';
-		this.confortPlusToolbar.style.visibility = 'hidden';
+		this.setContainerButtonsPosition('2em');
+		this.confortPlusToolbar.classList.add('close');
 		this.confortPlusBtn.classList.remove('d-none');
 		this.confortPlusBtn?.focus();
 		localStorageServiceInstance.setItem('is-opened', 'false');
+
+	}
+
+	private setContainerButtonsPosition = (position: string): void => {
+		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
+			(document.querySelector(`#${CONTAINER_BUTTONS_ID}`) as HTMLElement).style.right = position;
+		}
 	}
 }
 
-customElements.define('app-root', AppComponent);
+customElements.define(APP_NAME, AppComponent);

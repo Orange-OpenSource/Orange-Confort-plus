@@ -1,39 +1,51 @@
 let readingGuideServiceIsInstantiated: boolean;
 
 class ReadingGuideService {
-	topGuideElt: HTMLElement = null;
-	bottomGuideElt: HTMLElement = null;
-	readingGuideElt: HTMLElement = null;
 	guideType: 'rule' | 'mask' | '' = '';
 	sizeGuide: number = 40;
-	handlerReadingGuide: any;
+	handler: any;
+
+	verticalGuideID = `${PREFIX}vertical-guide-elt`;
+	maskTopEltID = `${PREFIX}mask-guide__top-elt`;
+	maskBottomEltID = `${PREFIX}mask-guide__bottom-elt`;
+	closeTextID = `${PREFIX}mask-guide__close-text`;
 
 	classRuleGuide = `
-		#${PREFIX}vertical-guide-elt {
+		#${this.verticalGuideID} {
 			border-left: 4px solid black;
 			background: white;
 			height: 100%;
 			width: 6px;
 			position: fixed;
 			top: 0;
-			z-index: 2147483645;
+			z-index: calc(infinity);
 		}
 	`;
 
 	classMaskGuide = `
-		#${PREFIX}mask-guide--top-elt,
-		#${PREFIX}mask-guide--bottom-elt {
-			background: rgba(0, 0, 0, 0.5);
+		#${this.maskTopEltID},
+		#${this.maskBottomEltID} {
+			background: rgba(0, 0, 0, 0.5) !important;
 			position: fixed;
 			left: 0;
 			right: 0;
-			z-index: 2147483645;
+			z-index: calc(infinity);
 		}
-		#${PREFIX}mask-guide--top-elt {
+		#${this.maskTopEltID} {
 			top: 0;
 		}
-		#${PREFIX}mask-guide--bottom-elt {
+		#${this.maskBottomEltID} {
 			bottom: 0;
+		}
+
+		#${this.closeTextID} {
+			background: rgba(255, 255, 255, 0.4) !important;
+			padding: 0.25rem 1rem;
+			position: fixed;
+			right: 0;
+			line-height: 2rem;
+			transform: translate(0, -100%);
+			z-index: calc(infinity);
 		}
 	`;
 
@@ -44,11 +56,7 @@ class ReadingGuideService {
 
 		readingGuideServiceIsInstantiated = true;
 
-		this.readingGuideElt = document.querySelector(`#${PREFIX}vertical-guide-elt`);
-		this.topGuideElt = document.querySelector(`#${PREFIX}top-guide-elt`);
-		this.bottomGuideElt = document.querySelector(`#${PREFIX}bottom-guide-elt`);
-
-		this.handlerReadingGuide = this.createHandlerReadingGuide();
+		this.handler = this.createHandler();
 	}
 
 	setReadingMaskGuide = (value: string): void => {
@@ -83,38 +91,54 @@ class ReadingGuideService {
 
 		if (this.guideType === 'rule') {
 			const readingElt = document.createElement('div');
-			readingElt.setAttribute('id', `${PREFIX}vertical-guide-elt`);
+			readingElt.setAttribute('id', `${this.verticalGuideID}`);
 			document.body.appendChild(readingElt);
 		} else if (this.guideType === 'mask') {
 			const maskTopElt = document.createElement('div');
 			const maskBottomElt = document.createElement('div');
-			maskTopElt.setAttribute('id', `${PREFIX}mask-guide--top-elt`);
-			maskBottomElt.setAttribute('id', `${PREFIX}mask-guide--bottom-elt`);
+			const closeMask = document.createElement('span');
+			maskTopElt.setAttribute('id', `${this.maskTopEltID}`);
+			maskBottomElt.setAttribute('id', `${this.maskBottomEltID}`);
+			closeMask.setAttribute('id', `${this.closeTextID}`);
+			closeMask.innerText = i18nServiceInstance.getMessage('readingGuide_closeMask');
 			document.body.appendChild(maskTopElt);
 			document.body.appendChild(maskBottomElt);
+			document.body.appendChild(closeMask);
 		}
 
-		document.addEventListener('mousemove', this.handlerReadingGuide);
+		document.addEventListener('mousemove', this.handler);
+		document.addEventListener('keydown', this.handler);
 	}
 
 	resetGuide = (): void => {
 		this.guideType = '';
 		stylesServiceInstance.removeStyle('reading-guide');
-		document.querySelector(`#${PREFIX}vertical-guide-elt`)?.remove();
-		document.querySelector(`#${PREFIX}mask-guide--top-elt`)?.remove();
-		document.querySelector(`#${PREFIX}mask-guide--bottom-elt`)?.remove();
+		document.querySelector(`#${this.verticalGuideID}`)?.remove();
+		document.querySelector(`#${this.maskTopEltID}`)?.remove();
+		document.querySelector(`#${this.maskBottomEltID}`)?.remove();
+		document.querySelector(`#${this.closeTextID}`)?.remove();
+		document.removeEventListener('keydown', this.handler);
+		document.removeEventListener('mousemove', this.handler);
 	}
 
-	createHandlerReadingGuide = () => {
-		return (event: Event) => {
-			if (event.type === 'mousemove') {
-				if (this.guideType === 'rule') {
-					(document.querySelector(`#${PREFIX}vertical-guide-elt`) as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
-				} else if (this.guideType === 'mask') {
-					(document.querySelector(`#${PREFIX}mask-guide--top-elt`) as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
-					(document.querySelector(`#${PREFIX}mask-guide--bottom-elt`) as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;
-				}
-				event.stopPropagation();
+	private createHandler = () => {
+		return (event: any) => {
+			switch (event.type) {
+				case 'mousemove':
+					if (this.guideType === 'rule') {
+						(document.querySelector(`#${PREFIX}vertical-guide-elt`) as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
+					} else if (this.guideType === 'mask') {
+						(document.querySelector(`#${this.maskTopEltID}`) as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
+						(document.querySelector(`#${this.maskBottomEltID}`) as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;
+						(document.querySelector(`#${this.closeTextID}`) as HTMLElement).style.top = `${(event as MouseEvent).y - this.sizeGuide}px`;
+					}
+					event.stopPropagation();
+					break;
+				case 'keydown':
+					if (event.key === 'Escape' || event.key === 'Esc') {
+						this.resetGuide();
+					}
+					break;
 			}
 		}
 	}

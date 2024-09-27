@@ -1,3 +1,3 @@
 // Injector
-const appRootElt = document.createElement('app-root');
+const appRootElt = document.createElement(APP_NAME);
 document.body.prepend(appRootElt);
