@@ -1,9 +1,10 @@
 const homeLayout: HTMLTemplateElement = document.createElement('template');
 homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-	<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0">
+	<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">
+		<span class="visually-hidden" data-i18n="otherUsagesModes"></span>
 		<div class="sc-home__icon-mode bg-body rounded-circle text-body">
-			<app-icon data-size="4em"></app-icon>
+			<app-icon data-size="2.5em"></app-icon>
 		</div>
 		<div class="d-flex flex-column align-items-start">
 			<span class="text-white" data-i18n="profile"></span>

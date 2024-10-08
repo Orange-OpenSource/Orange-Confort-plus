@@ -36,6 +36,18 @@ class EditColorContrastComponent extends HTMLElement {
 	setColorContrast = (value: string): void => {
 		let newSettingIndex = this.settingValues.indexOf(value);
 
+		let color = value?.split('_')[0];
+		let backgroundColor = value?.split('_')[1];
+		if (value === 'reinforcedContrasts') {
+			color = '#000';
+			backgroundColor = '#fff';
+		} else if (value === DEFAULT_VALUE) {
+			color = 'inherit';
+			backgroundColor = 'inherit';
+		}
+		this.selectColorContrastElement.querySelector('output').style.color = color;
+		this.selectColorContrastElement.querySelector('output').style.backgroundColor = backgroundColor;
+
 		if (newSettingIndex !== -1) {
 			modeOfUseServiceInstance.setSettingValue('colorContrast', newSettingIndex, true);
 		} else {

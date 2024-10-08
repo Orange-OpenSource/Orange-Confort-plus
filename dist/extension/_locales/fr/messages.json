@@ -1,21 +1,24 @@
 {
 	"mainButton": {
-		"message": "Démarrer Confort+"
+		"message": "Déplier Confort+"
 	},
 	"close": {
-		"message": "Fermer Confort+"
+		"message": "Replier"
 	},
 	"mainTitle": {
 		"message": "Confort"
 	},
 	"profile": {
-		"message": "Modes d’usages"
+		"message": "Mode"
+	},
+	"otherUsagesModes": {
+		"message": "Accès aux modes d'usages et à leur description"
 	},
 	"openSettingsMode": {
 		"message": "Ouvrir réglages du mode"
 	},
 	"othersSettings": {
-		"message": "Autres réglages"
+		"message": "Tous les réglages"
 	},
 	"moreSettings": {
 		"message": "Plus de réglages"
@@ -24,10 +27,10 @@
 		"message": "Moins de réglages"
 	},
 	"play": {
-		"message": "Redémarrer"
+		"message": "Réutiliser Confort+"
 	},
 	"pause": {
-		"message": "Mettre en pause"
+		"message": "Mettre en pause Confort+"
 	},
 	"pauseInfo": {
 		"message": "Confort+ est en pause, pour le réactiver appuyer sur le bouton « redémarrer »."
@@ -53,6 +56,12 @@
 	"previous": {
 		"message": "Précédent"
 	},
+	"backToSettings": {
+		"message": "Retour aux réglages. (Votre choix est déjà enregistré)"
+	},
+	"backToHome": {
+		"message": "Retour à l'accueil"
+	},
 	"pageTitleModes": {
 		"message": "Modes d'usage"
 	},
@@ -60,7 +69,10 @@
 		"message": "Réglages"
 	},
 	"pageTitleEditSetting": {
-		"message": "Réglage du paramètre"
+		"message": "Choix pour ce réglage"
+	},
+	"moreChoice": {
+		"message": "Plus de choix"
 	},
 	"layout": {
 		"message": "Affichage"
@@ -293,7 +305,7 @@
 		"description": "Réglage actif."
 	},
 	"setting_fontFamily": {
-		"message": "Police"
+		"message": "Police de texte"
 	},
 	"setting_fontFamily_instruction": {
 		"message": "Pour modifier le rendu du texte"
@@ -452,7 +464,7 @@
 		"message": "×15"
 	},
 	"setting_readAloud": {
-		"message": "Lire à voix haute"
+		"message": "Lire à haute voix"
 	},
 	"setting_readAloud_instruction": {
 		"message": "Pour se faire lire le texte sur demande"
@@ -664,7 +676,7 @@
 		"message": "Contraste des couleurs"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "Pour changer la couleur du fond et du texte"
+		"message": "Pour changer la couleur du texte et du fond"
 	},
 	"colorContrast_noModifications": {
 		"message": "sans modification"

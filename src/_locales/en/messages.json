@@ -1,21 +1,24 @@
 {
 	"mainButton": {
-		"message": "Start Confort+"
+		"message": "Unfold Confort+"
 	},
 	"close": {
-		"message": "Close Confort+"
+		"message": "Fold Confort+"
 	},
 	"mainTitle": {
 		"message": "Confort"
 	},
 	"profile": {
-		"message": "Usage mode"
+		"message": "Mode"
+	},
+	"otherUsagesModes": {
+		"message": "Access to usage modes and descriptions"
 	},
 	"openSettingsMode": {
 		"message": "Open mode settings"
 	},
 	"othersSettings": {
-		"message": "Others settings"
+		"message": "All settings"
 	},
 	"moreSettings": {
 		"message": "More settings"
@@ -24,10 +27,10 @@
 		"message": "Less settings"
 	},
 	"play": {
-		"message": "Restart"
+		"message": "Restart Confort+"
 	},
 	"pause": {
-		"message": "Pause"
+		"message": "Pause Confort+"
 	},
 	"pauseInfo": {
 		"message": "Confort+ is paused, to reactivate it, press the 'restart' button."
@@ -53,6 +56,12 @@
 	"previous": {
 		"message": "Previous"
 	},
+	"backToSettings": {
+		"message": "Return to settings. (Your choice has already been saved)"
+	},
+	"backToHome": {
+		"message": "Back to home"
+	},
 	"pageTitleModes": {
 		"message": "Usage modes"
 	},
@@ -60,7 +69,10 @@
 		"message": "Settings"
 	},
 	"pageTitleEditSetting": {
-		"message": "Parameter setting"
+		"message": "Choice for this setting"
+	},
+	"moreChoice": {
+		"message": "More choice"
 	},
 	"layout": {
 		"message": "Display"
@@ -293,7 +305,7 @@
 		"description": "Active setting."
 	},
 	"setting_fontFamily": {
-		"message": "Font"
+		"message": "Text font"
 	},
 	"setting_fontFamily_instruction": {
 		"message": "To change the text appearance"
@@ -452,7 +464,7 @@
 		"message": "×15"
 	},
 	"setting_readAloud": {
-		"message": "Read Aloud"
+		"message": "Read aloud"
 	},
 	"setting_readAloud_instruction": {
 		"message": "To have text read aloud on request"
@@ -664,7 +676,7 @@
 		"message": "Color Contrast"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "To change the background and text colors"
+		"message": "To change the text and background colors"
 	},
 	"colorContrast_noModifications": {
 		"message": "no modifications"

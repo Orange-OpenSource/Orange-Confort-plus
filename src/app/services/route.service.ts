@@ -60,6 +60,7 @@ class RouteService {
 				routeServiceInstance.historyRoute = [];
 				header?.setAttribute('data-display', 'primary');
 				header?.setAttribute('data-page-title', '');
+				header?.setAttribute('data-prev-btn', '');
 				break;
 			}
 			case PAGE_SETTINGS: {
@@ -67,6 +68,7 @@ class RouteService {
 				header?.setAttribute('data-display', 'secondary');
 				header?.setAttribute('data-page-title', 'pageTitleSettings');
 				header?.setAttribute('data-page-icon', 'Settings');
+				header?.setAttribute('data-prev-btn', 'backToHome');
 				break;
 			}
 			case PAGE_EDIT_SETTING: {
@@ -74,6 +76,7 @@ class RouteService {
 				header?.setAttribute('data-display', 'secondary');
 				header?.setAttribute('data-page-title', 'pageTitleEditSetting');
 				header?.setAttribute('data-page-icon', 'Settings');
+				header?.setAttribute('data-prev-btn', 'backToSettings');
 				break;
 			}
 			case PAGE_MODES: {
@@ -81,6 +84,7 @@ class RouteService {
 				header?.setAttribute('data-display', 'secondary');
 				header?.setAttribute('data-page-title', 'pageTitleModes');
 				header?.setAttribute('data-page-icon', '');
+				header?.setAttribute('data-prev-btn', 'backToHome');
 				break;
 			}
 		}

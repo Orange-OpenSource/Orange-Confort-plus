@@ -2,13 +2,13 @@ const headerLayout: HTMLTemplateElement = document.createElement('template');
 headerLayout.innerHTML = `
 	<header class="d-flex justify-content-between bg-secondary px-3 py-2">
 		<div class="d-flex align-items-center">
-			<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">
-				<span class="visually-hidden" data-i18n="previous"></span>
+			<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary">
+				<span class="visually-hidden"></span>
 				<app-icon data-name="Form_Chevron_left"></app-icon>
+				<app-icon id="mode-icon"></app-icon>
 			</button>
 
 			<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">
-				<app-icon id="mode-icon" class="border-end border-white pe-1"></app-icon>
 				<app-icon id="page-icon" data-name="Settings"></app-icon>
 				<span id="page-title"></span>
 			</span>
@@ -27,7 +27,7 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-selected-mode'];
+	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-selected-mode', 'data-prev-btn'];
 	closeBtn: HTMLElement | null = null;
 	prevBtn: HTMLElement | null = null;
 	appTitle: HTMLElement | null = null;
@@ -78,6 +78,10 @@ class HeaderComponent extends HTMLElement {
 		}
 		if ('data-selected-mode' === name) {
 			this.modeIcon?.setAttribute('data-name', `${newValue}_border`);
+		}
+		if ('data-prev-btn' === name && newValue) {
+			this.prevBtn!.title = i18nServiceInstance.getMessage(newValue);
+			this.prevBtn!.querySelector('span').innerText = i18nServiceInstance.getMessage(newValue);
 		}
 	}
 
