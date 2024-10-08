@@ -1,8 +1,6 @@
 const btnModalLayout: HTMLTemplateElement = document.createElement('template');
 btnModalLayout.innerHTML = `
-	<button type="button" class="btn btn-primary pe-4 sc-btn-modal">
-		<app-icon data-name="Plus_small"></app-icon>
-	</button>`;
+	<button type="button" class="btn btn-primary pe-4 sc-btn-modal" data-i18n="moreChoice"></button>`;
 
 class BtnModalComponent extends HTMLElement {
 	static observedAttributes = ['data-name', 'data-disabled'];

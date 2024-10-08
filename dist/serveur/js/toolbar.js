@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 06/09/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 08/10/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -579,6 +579,7 @@ class RouteService {
                 routeServiceInstance.historyRoute = [];
                 header?.setAttribute("data-display", "primary");
                 header?.setAttribute("data-page-title", "");
+                header?.setAttribute("data-prev-btn", "");
                 break;
             }
 
@@ -588,6 +589,7 @@ class RouteService {
                 header?.setAttribute("data-display", "secondary");
                 header?.setAttribute("data-page-title", "pageTitleSettings");
                 header?.setAttribute("data-page-icon", "Settings");
+                header?.setAttribute("data-prev-btn", "backToHome");
                 break;
             }
 
@@ -597,6 +599,7 @@ class RouteService {
                 header?.setAttribute("data-display", "secondary");
                 header?.setAttribute("data-page-title", "pageTitleEditSetting");
                 header?.setAttribute("data-page-icon", "Settings");
+                header?.setAttribute("data-prev-btn", "backToSettings");
                 break;
             }
 
@@ -606,6 +609,7 @@ class RouteService {
                 header?.setAttribute("data-display", "secondary");
                 header?.setAttribute("data-page-title", "pageTitleModes");
                 header?.setAttribute("data-page-icon", "");
+                header?.setAttribute("data-prev-btn", "backToHome");
                 break;
             }
         }
@@ -3287,7 +3291,7 @@ customElements.define("app-text-color", TextColorComponent);
 
 const btnModalLayout = document.createElement("template");
 
-btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal">\n\t\t<app-icon data-name="Plus_small"></app-icon>\n\t</button>`;
+btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal" data-i18n="moreChoice"></button>`;
 
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-name", "data-disabled" ];
@@ -3487,10 +3491,10 @@ customElements.define("app-btn-setting", BtnSettingComponent);
 
 const headerLayout = document.createElement("template");
 
-headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="previous">\n\t\t\t\t<span class="visually-hidden" data-i18n="previous"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="mode-icon" class="border-end border-white pe-1"></app-icon>\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
+headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary">\n\t\t\t\t<span class="visually-hidden"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t\t<app-icon id="mode-icon"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</span>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-selected-mode" ];
+    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-selected-mode", "data-prev-btn" ];
     closeBtn=null;
     prevBtn=null;
     appTitle=null;
@@ -3533,6 +3537,10 @@ class HeaderComponent extends HTMLElement {
         }
         if ("data-selected-mode" === name) {
             this.modeIcon?.setAttribute("data-name", `${newValue}_border`);
+        }
+        if ("data-prev-btn" === name && newValue) {
+            this.prevBtn.title = i18nServiceInstance.getMessage(newValue);
+            this.prevBtn.querySelector("span").innerText = i18nServiceInstance.getMessage(newValue);
         }
     }
     displayMode=mode => {
@@ -3997,6 +4005,17 @@ class EditColorContrastComponent extends HTMLElement {
     }
     setColorContrast=value => {
         let newSettingIndex = this.settingValues.indexOf(value);
+        let color = value?.split("_")[0];
+        let backgroundColor = value?.split("_")[1];
+        if (value === "reinforcedContrasts") {
+            color = "#000";
+            backgroundColor = "#fff";
+        } else if (value === DEFAULT_VALUE) {
+            color = "inherit";
+            backgroundColor = "inherit";
+        }
+        this.selectColorContrastElement.querySelector("output").style.color = color;
+        this.selectColorContrastElement.querySelector("output").style.backgroundColor = backgroundColor;
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("colorContrast", newSettingIndex, true);
         } else {
@@ -4927,7 +4946,7 @@ customElements.define("app-edit-text-spacing", EditTextSpacingComponent);
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0">\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="4em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">\n\t\t<span class="visually-hidden" data-i18n="otherUsagesModes"></span>\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="2.5em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-modes", "data-custom" ];
