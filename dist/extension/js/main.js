@@ -70,7 +70,7 @@ chrome.action.onClicked.addListener(async (tab) => {
     const injections = await chrome.storage.local.get(`${PREFIX}is-injected-${tab.id}`);
     const isInjected = injections[`${PREFIX}is-injected-${tab.id}`];
     updateButtonIcon(!isEnabled, tab.id);
-    if (!isEnabled && !isInjected) {
+    if (!isInjected) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['js/toolbar.js']
@@ -104,16 +104,24 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         chrome.action.enable(tabId);
         const activations = await chrome.storage.local.get(`${PREFIX}is-enabled-${tabId}`);
         const isEnabled = activations[`${PREFIX}is-enabled-${tabId}`];
-        if (changeInfo.url) {
+        const reloads = await chrome.storage.local.get(`${PREFIX}is-reloaded-${tab.id}`);
+        const isReload = reloads[`${PREFIX}is-reloaded-${tab.id}`];
+        if (changeInfo.url || isReload) {
             if (isEnabled) {
                 chrome.scripting.executeScript({
                     target: { tabId: tabId },
                     files: ['js/toolbar.js']
                 });
+                chrome.storage.local.set({ [`${PREFIX}is-reloaded-${tabId}`]: false });
             }
             chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: isEnabled });
         }
         updateButtonIcon(isEnabled, tabId);
+    }
+});
+chrome.webNavigation.onCommitted.addListener((details) => {
+    if (details.transitionType === 'reload') {
+        chrome.storage.local.set({ [`${PREFIX}is-reloaded-${details.tabId}`]: true });
     }
 });
 chrome.tabs.onCreated.addListener(tab => {
