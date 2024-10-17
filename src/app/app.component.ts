@@ -50,12 +50,12 @@ class AppComponent extends HTMLElement {
 
 		localStorageServiceInstance.getItem('is-opened')
 			.then((isOpened: any) => {
-					if (isOpened === 'true') {
-						this.showToolbar();
-					} else {
-						this.hideToolbar();
-					}
+				if (isOpened === 'true') {
+					this.showToolbar();
+				} else {
+					this.hideToolbar();
 				}
+			}
 			);
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);

@@ -20,9 +20,11 @@ class ToolbarComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.header = this.querySelector('#header');
 		this.state = (this.parentNode.parentNode as ShadowRoot).host.getAttribute('data-state');
+		console.log('toolbar connectedCallback');
 
 		/* JSON retrieval and initialisation */
 		filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
+			console.log('toolbar filesServiceInstance.getJSONFile()');
 			this.defaultJson = result;
 
 			localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
@@ -43,6 +45,7 @@ class ToolbarComponent extends HTMLElement {
 	}
 
 	initCurrentMode = (shouldLoad = false): void => {
+		console.log('toolbar initCurrentMode');
 		if (this.json.selectedMode) {
 			routeServiceInstance.initPages(this, shouldLoad).then((result: string) => {
 				if (result) {
