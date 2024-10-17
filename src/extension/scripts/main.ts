@@ -13,7 +13,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 		} else {
 			chrome.action.enable(tab.id);
 			const states = await chrome.storage.local.get(`${PREFIX}is-enabled-${tab.id}`);
-			chrome.storage.local.set({[`${PREFIX}is-enabled-${tab.id}`]: false});
+			chrome.storage.local.set({ [`${PREFIX}is-enabled-${tab.id}`]: false });
 			// Reload tabs that had Confort+ loaded and active
 			if (states[`${PREFIX}is-enabled-${tab.id}`]) {
 				chrome.tabs.reload(tab.id as number)
@@ -74,12 +74,12 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 	updateButtonIcon(!isEnabled, tab.id as number);
 
-	if (!isEnabled && !isInjected) {
+	if (!isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id as number },
 			files: ['js/toolbar.js']
 		});
-		chrome.storage.local.set({[`${PREFIX}is-injected-${tab.id}`]: true});
+		chrome.storage.local.set({ [`${PREFIX}is-injected-${tab.id}`]: true });
 	} else if (!isEnabled && isInjected) {
 		chrome.scripting.executeScript({
 			target: { tabId: tab.id as number },
@@ -95,7 +95,7 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	if (request.getTabId) {
-		sendResponse({tabId: sender.tab.id});
+		sendResponse({ tabId: sender.tab.id });
 	}
 });
 
@@ -109,17 +109,27 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 		const activations = await chrome.storage.local.get(`${PREFIX}is-enabled-${tabId}`);
 		const isEnabled = activations[`${PREFIX}is-enabled-${tabId}`];
 
-		if (changeInfo.url) {
+		const reloads = await chrome.storage.local.get(`${PREFIX}is-reloaded-${tab.id}`);
+		const isReload = reloads[`${PREFIX}is-reloaded-${tab.id}`];
+
+		if (changeInfo.url || isReload) {
 			if (isEnabled) {
 				chrome.scripting.executeScript({
-					target: {tabId: tabId},
+					target: { tabId: tabId },
 					files: ['js/toolbar.js']
 				});
+				chrome.storage.local.set({ [`${PREFIX}is-reloaded-${tabId}`]: false });
 			}
-			chrome.storage.local.set({[`${PREFIX}is-injected-${tabId}`]: isEnabled});
+			chrome.storage.local.set({ [`${PREFIX}is-injected-${tabId}`]: isEnabled });
 		}
 
 		updateButtonIcon(isEnabled, tabId);
+	}
+});
+
+chrome.webNavigation.onCommitted.addListener((details) => {
+	if (details.transitionType === 'reload') {
+		chrome.storage.local.set({ [`${PREFIX}is-reloaded-${details.tabId}`]: true });
 	}
 });
 

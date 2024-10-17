@@ -55,8 +55,7 @@ class AppComponent extends HTMLElement {
 				} else {
 					this.hideToolbar();
 				}
-			}
-			);
+			});
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);

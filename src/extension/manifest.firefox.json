@@ -13,7 +13,9 @@
 		}
 	},
 	"background": {
-		"scripts": ["js/main.js"]
+		"scripts": [
+			"js/main.js"
+		]
 	},
 	"action": {
 		"default_title": "Orange Confort+",
@@ -26,7 +28,8 @@
 		"activeTab",
 		"tabs",
 		"storage",
-		"scripting"
+		"scripting",
+		"webNavigation"
 	],
 	"host_permissions": [
 		"<all_urls>"
