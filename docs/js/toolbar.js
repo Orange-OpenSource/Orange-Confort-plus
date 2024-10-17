@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 06/09/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 14/10/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -2593,7 +2593,7 @@ Object.freeze(stylesServiceInstance);
 
 const stringServiceInstance = new StringService;
 
-Object.freeze(stringServiceInstance);
+Object.seal(stringServiceInstance);
 
 const categoriesServiceInstance = new CategoriesService;
 
@@ -5420,7 +5420,9 @@ class ToolbarComponent extends HTMLElement {
     connectedCallback() {
         this.header = this.querySelector("#header");
         this.state = this.parentNode.parentNode.host.getAttribute("data-state");
+        console.log("toolbar connectedCallback");
         filesServiceInstance.getJSONFile("modes-of-use").then((result => {
+            console.log("toolbar filesServiceInstance.getJSONFile()");
             this.defaultJson = result;
             localStorageServiceInstance.getItem(JSON_NAME).then((result => {
                 if (result && Object.keys(result).length !== 0 && result.version === this.defaultJson.version) {
@@ -5436,6 +5438,7 @@ class ToolbarComponent extends HTMLElement {
         this.addEventListener("changeRoute", this.handler);
     }
     initCurrentMode=(shouldLoad = false) => {
+        console.log("toolbar initCurrentMode");
         if (this.json.selectedMode) {
             routeServiceInstance.initPages(this, shouldLoad).then((result => {
                 if (result) {
