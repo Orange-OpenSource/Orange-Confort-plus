@@ -105,7 +105,7 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "Mode d’usage destiné aux personnes ayant des contraintes visuelles. Les couleurs du texte et de la page sont très contrastés, la souris et le focus sont bien visibles, une loupe et une règle de lecture sont disponibles."
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes visuelles (couleur, lisibilité). Les couleurs du texte et de la page sont très contrastés, la souris et le focus sont bien visibles, une loupe et une règle de lecture sont disponibles."
 	},
 	"visionPlusPlusName": {
 		"message": "Vision++"
@@ -123,13 +123,19 @@
 		"message": "Dys+"
 	},
 	"dysPlusDescription": {
-		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères_sons et de se faire lire le texte."
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
 	},
 	"moteurPlusName": {
 		"message": "Moteur+"
 	},
 	"moteurPlusDescription": {
 		"message": "Mode d’usage destiné aux personnes ayant des contraintes motrices. Une navigation au clavier facilitée, un focus bien visible, une palette de boutons virtuels."
+	},
+	"moteurPlusPlusName": {
+		"message": "Moteur++"
+	},
+	"moteurPlusPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes utilisant un contacteur unique. Défilement automatique du focus dans la page web, à vitesse et délais ajustables."
 	},
 	"pointagePlusName": {
 		"message": "Pointage+"
@@ -147,13 +153,13 @@
 		"message": "Audio+"
 	},
 	"audioPlusDescription": {
-		"message": "Mode d’usage destiné aux personnes ayant des contraintes auditives. Des équivalences visuelles au signaux sonores, du sous_titrage systématique."
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes auditives. Des équivalences visuelles au signaux sonores, du sous-titrage systématique."
 	},
-	"calmeName": {
-		"message": "Calme"
+	"calmePlusName": {
+		"message": "Calme+"
 	},
-	"calmeDescription": {
-		"message": "Mode d’usage destiné aux personnes hypersensibles. Des couleurs et des transitions agréables, absence d’animations et d’interruptions."
+	"calmePlusDescription": {
+		"message": "Mode d’usage répondant aux contraintes d’hypersensorialités. Des couleurs et des transitions agréables, absence d’animations et d’interruptions."
 	},
 	"noModifications": {
 		"message": "pas de modification"
@@ -388,7 +394,7 @@
 	"textSpacing_noModifications": {
 		"message": "sans modification"
 	},
-	"textSpacing_spacingTextLabelSmall": {
+	"textSpacing_spacingTextSmall": {
 		"message": "aère un peu"
 	},
 	"textSpacing_spacingTextLabelBig": {
@@ -489,104 +495,6 @@
 	},
 	"readAloud_all": {
 		"message": "tout vocaliser"
-	},
-	"setting_colourTheme": {
-		"message": "Thème couleurs"
-	},
-	"setting_colourTheme_instruction": {
-		"message": "Pour modifier le rendu visuel de la page et de la souris"
-	},
-	"colourTheme_noModifications": {
-		"message": "sans modification"
-	},
-	"colourTheme_reinforcedContrasts": {
-		"message": "contrastes renforcés"
-	},
-	"colourTheme_values": {
-		"message": "$COLOR$ sur $BACKGROUND$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"background": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_cursor": {
-		"message": "Curseur $COLOR$ et $SIZE$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"size": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_cursor_noModifications": {
-		"message": "Curseur sans modification"
-	},
-	"colourTheme_focus": {
-		"message": "Focus $COLOR$ et $SIZE$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"size": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_focus_noModifications": {
-		"message": "Focus sans modification"
-	},
-	"colourTheme_scroll": {
-		"message": "Ascenceur $COLOR$ et $SIZE$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			},
-			"size": {
-				"content": "$2"
-			}
-		}
-	},
-	"colourTheme_scroll_noModifications": {
-		"message": "Ascenceur sans modification"
-	},
-	"colourTheme_link": {
-		"message": "Lien $COLOR$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			}
-		}
-	},
-	"colourTheme_link_noModifications": {
-		"message": "Lien sans modification"
-	},
-	"colourTheme_linkPointed": {
-		"message": "Lien pointé $COLOR$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			}
-		}
-	},
-	"colourTheme_linkPointed_noModifications": {
-		"message": "Lien pointé sans modification"
-	},
-	"colourTheme_linkVisited": {
-		"message": "Lien visité $COLOR$",
-		"placeholders": {
-			"color": {
-				"content": "$1"
-			}
-		}
-	},
-	"colourTheme_linkVisited_noModifications": {
-		"message": "Lien visité sans modification"
 	},
 	"setting_cursorAspect": {
 		"message": "Aspect de la souris"
