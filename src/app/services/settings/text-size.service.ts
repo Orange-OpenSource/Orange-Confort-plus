@@ -11,10 +11,10 @@ class TextSizeService {
 	}
 
 	setFontSize = (value: string): void => {
-		if (value === DEFAULT_VALUE) {
-			document.documentElement.style.fontSize = null;
-		} else {
-			document.documentElement.style.fontSize = `${value}%`;
-		}
+		const fontSize = value === DEFAULT_VALUE ? null : `${value}%`;
+		document.documentElement.style.fontSize = fontSize;
+
+		const layoutState = (Number(value) >= 350) ? 'active' : DEFAULT_VALUE;
+		deleteLayoutServiceInstance.setDeleteLayout(layoutState);
 	}
 }
