@@ -42,11 +42,11 @@ _Orange Confort+_ aims to enhance user experience on websites. It works best whe
 
 **WordPress site**
   
-You could use the plugin [Orange Confort+ for WordPress](https://wordpress.org/plugins/orange-confort-plus/) is available. Thanks to [@RavanH](https://github.com/RavanH).
+A tailor-made [Orange Confort+ for WordPress](https://wordpress.org/plugins/orange-confort-plus/) plugin is available. Thanks to [@RavanH](https://github.com/RavanH).
 
-_N.B: This plugin is not directly maintained by the core team of this project, in case of issues please use the [plugin support from wordpress](https://wordpress.org/support/plugin/orange-confort-plus/)_ 
+_N.B: This plugin is not directly maintained by the Confort+ core team, in case of issues please use the [plugin support from wordpress](https://wordpress.org/support/plugin/orange-confort-plus/)_ 
 
-**Onto your own domain**
+**On your own domain**
 
 A prepackaged version is available: simply add the `dist/serveur` folder to your website.
 
