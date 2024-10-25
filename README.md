@@ -44,7 +44,7 @@ _Orange Confort+_ aims to enhance user experience on websites. It works best whe
   
 You could use the plugin [Orange Confort+ for WordPress](https://wordpress.org/plugins/orange-confort-plus/) is available. Thanks to [@RavanH](https://github.com/RavanH).
 
-_N.B: This plugin is not directly maintained by the core team of this project, in case of issues please use the support from wordpress_ 
+_N.B: This plugin is not directly maintained by the core team of this project, in case of issues please use the [plugin support from wordpress](https://wordpress.org/support/plugin/orange-confort-plus/)_ 
 
 **Onto your own domain**
 
