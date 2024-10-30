@@ -25,26 +25,26 @@ class ClickFaciliteService {
 		switch (paramName) {
 			case CLICK_FACILITE_BIG_ZONE: {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll('bigScroll');
+				scrollAspectServiceInstance.setScrollAspect('bigScroll');
 				scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
 				break;
 			}
 			case CLICK_FACILITE_LONG_CLICK: {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll('bigScroll');
+				scrollAspectServiceInstance.setScrollAspect('bigScroll');
 				scrollTypeServiceInstance.setScrollType('scrollOnClick');
 				this.longClick();
 				break;
 			}
 			case CLICK_FACILITE_AUTO_CLICK: {
 				this.resetEventClick();
-				scrollServiceInstance.setScroll('bigScroll');
+				scrollAspectServiceInstance.setScrollAspect('bigScroll');
 				scrollTypeServiceInstance.setScrollType('scrollOnMouseover');
 				this.autoClick();
 				break;
 			}
 			default: {
-				scrollServiceInstance.setScroll(DEFAULT_VALUE);
+				scrollAspectServiceInstance.setScrollAspect(DEFAULT_VALUE);
 				scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
 				this.resetEventClick();
 				break;

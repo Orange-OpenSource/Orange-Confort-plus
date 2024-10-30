@@ -20,12 +20,12 @@ class MagnifierService {
 		#${PREFIX}magnifier {
 			background-color: white;
 			border: 1px solid black;
-			border-radius: 0.5rem;
+			border-radius: 0.5em;
 			width: ${this.magnifierWidth}px;
 			height: ${this.magnifierHeight}px;
 			position: fixed;
 			overflow: hidden;
-			z-index: 2147483645;
+			z-index: calc(infinity);
 		}
 
 		#${PREFIX}magnifier-content {

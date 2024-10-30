@@ -1,6 +1,6 @@
-let scrollServiceIsInstantiated: boolean;
+let scrollAspectServiceIsInstantiated: boolean;
 
-class ScrollService {
+class ScrollAspectService {
 	scrollColor = '';
 	scrollColorHover = '';
 	scrollBorderColor = '';
@@ -15,15 +15,15 @@ class ScrollService {
 	];
 
 	constructor() {
-		if (scrollServiceIsInstantiated) {
-			throw new Error('ScrollService is already instantiated.');
+		if (scrollAspectServiceIsInstantiated) {
+			throw new Error('ScrollAspectService is already instantiated.');
 		}
 
-		scrollServiceIsInstantiated = true;
+		scrollAspectServiceIsInstantiated = true;
 	}
 
-	setScroll = (value: any): void => {
-		stylesServiceInstance.removeStyle('scroll');
+	setScrollAspect = (value: any): void => {
+		stylesServiceInstance.removeStyle('scroll-aspect');
 		document.body.classList.remove(`${PREFIX}big-scroll`);
 
 		if (value !== DEFAULT_VALUE) {
@@ -65,7 +65,7 @@ class ScrollService {
 				.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {
 					background-color: ${this.scrollColor};
 					border: 1px solid ${this.scrollBorderColor};
-					border-radius: 1rem;
+					border-radius: 10px;
 					width: ${this.scrollWidth};
 					cursor: pointer;
 				}
@@ -88,6 +88,6 @@ class ScrollService {
 				}
 			`;
 
-		stylesServiceInstance.setStyle('scroll', styleScroll);
+		stylesServiceInstance.setStyle('scroll-aspect', styleScroll);
 	}
 }
