@@ -46,7 +46,7 @@ class DomService {
 		let container: HTMLElement;
 		let fragment = document.createDocumentFragment();
 		let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector('app-toolbar')?.classList.contains('close') ?
-			'2rem' : '21rem';
+			'2em' : '26em';
 
 		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
 			container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
@@ -56,10 +56,11 @@ class DomService {
 
 			let styleContainerButtons = `
 				#${CONTAINER_BUTTONS_ID} {
+					font-size: 16px;
 					display: flex;
-					gap: 1rem;
+					gap: 1em;
 					position: fixed;
-					bottom: 1rem;
+					bottom: 1em;
 					right: ${rightPosition};
 					z-index: calc(infinity);
 				}
@@ -69,7 +70,7 @@ class DomService {
 					color: #000;
 					border: none;
 					font-weight: bold;
-					padding: 1rem 2rem;
+					padding: 1em 2em;
 				}
 
 				#${CONTAINER_BUTTONS_ID} button:hover {

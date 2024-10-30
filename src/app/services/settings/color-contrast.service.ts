@@ -109,7 +109,7 @@ class ColorContrastService {
 
 		cursorAspectServiceInstance.setCursor(colorParams?.cursor);
 		focusAspectServiceInstance.setFocus(colorParams?.focus);
-		scrollServiceInstance.setScroll(colorParams?.scroll);
+		scrollAspectServiceInstance.setScrollAspect(colorParams?.scroll);
 		linkStyleServiceInstance.setLinkStyle(colorParams?.link);
 	}
 }

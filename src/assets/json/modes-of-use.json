@@ -1,5 +1,5 @@
 {
-	"version": "1.0.19",
+	"version": "1.0.20",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -85,7 +85,7 @@
 					}
 				},
 				{
-					"scroll": {
+					"scrollAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
 						"isTool": false,
@@ -166,7 +166,7 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_delay-2",
+						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 6
@@ -174,7 +174,7 @@
 				},
 				{
 					"navigationAuto": {
-						"values": "noModifications,autoFocus_delay-2",
+						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -265,7 +265,7 @@
 					}
 				},
 				{
-					"scroll": {
+					"scrollAspect": {
 						"values": "noModifications,big_white,huge_white",
 						"valueSelected": 1,
 						"isTool": false,
@@ -346,7 +346,7 @@
 				},
 				{
 					"clickFacilite": {
-						"values": "noModifications,bigZone,longClick_delay-2",
+						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 9
@@ -354,7 +354,7 @@
 				},
 				{
 					"navigationAuto": {
-						"values": "noModifications,autoFocus_delay-2",
+						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -445,7 +445,7 @@
 					}
 				},
 				{
-					"scroll": {
+					"scrollAspect": {
 						"values": "noModifications,big_white,huge_vert",
 						"valueSelected": 1,
 						"isTool": true,
@@ -633,7 +633,7 @@
 					}
 				},
 				{
-					"scroll": {
+					"scrollAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
 						"isTool": false,
@@ -821,7 +821,7 @@
 					}
 				},
 				{
-					"scroll": {
+					"scrollAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
 						"isTool": false,

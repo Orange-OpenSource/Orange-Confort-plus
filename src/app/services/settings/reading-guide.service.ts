@@ -40,10 +40,10 @@ class ReadingGuideService {
 
 		#${this.closeTextID} {
 			background: rgba(255, 255, 255, 0.4) !important;
-			padding: 0.25rem 1rem;
+			padding: 0.25em 1em;
 			position: fixed;
 			right: 0;
-			line-height: 2rem;
+			line-height: 2em;
 			transform: translate(0, -100%);
 			z-index: calc(infinity);
 		}

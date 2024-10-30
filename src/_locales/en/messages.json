@@ -733,22 +733,16 @@
 	"scrollType_scrollOnMouseover": {
 		"message": "Scroll Up/Down Buttons (on mouseover, no click required)"
 	},
-	"setting_scroll": {
+	"setting_scrollAspect": {
 		"message": "Scroll"
 	},
-	"setting_scroll_instruction": {
+	"setting_scrollAspect_instruction": {
 		"message": "To modify the appearance of the scroll bar"
 	},
-	"scroll_up": {
-		"message": "Scroll Up"
-	},
-	"scroll_down": {
-		"message": "Scroll Down"
-	},
-	"scroll_noModifications": {
+	"scrollAspect_noModifications": {
 		"message": "no modifications"
 	},
-	"scroll_values": {
+	"scrollAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
 			"size": {
@@ -758,6 +752,12 @@
 				"content": "$2"
 			}
 		}
+	},
+	"scroll_up": {
+		"message": "Scroll Up"
+	},
+	"scroll_down": {
+		"message": "Scroll Down"
 	},
 	"scrollSize_label": {
 		"message": "Scroll Bar Size"

@@ -733,22 +733,16 @@
 	"scrollType_scrollOnMouseover": {
 		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
 	},
-	"setting_scroll": {
+	"setting_scrollAspect": {
 		"message": "Ascenseur"
 	},
-	"setting_scroll_instruction": {
+	"setting_scrollAspect_instruction": {
 		"message": "Pour modifier le rendu de l’ascenseur"
 	},
-	"scroll_up": {
-		"message": "Monter"
-	},
-	"scroll_down": {
-		"message": "Descendre"
-	},
-	"scroll_noModifications": {
+	"scrollAspect_noModifications": {
 		"message": "sans modification"
 	},
-	"scroll_values": {
+	"scrollAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
 		"placeholders": {
 			"size": {
@@ -758,6 +752,12 @@
 				"content": "$2"
 			}
 		}
+	},
+	"scroll_up": {
+		"message": "Monter"
+	},
+	"scroll_down": {
+		"message": "Descendre"
 	},
 	"scrollSize_label": {
 		"message": "Taille de l'ascenceur"
