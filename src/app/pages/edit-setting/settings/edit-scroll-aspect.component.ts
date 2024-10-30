@@ -1,12 +1,12 @@
-const editScrollLayout: HTMLTemplateElement = document.createElement('template');
-editScrollLayout.innerHTML = `
+const editScrollAspectLayout: HTMLTemplateElement = document.createElement('template');
+editScrollAspectLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4">
 		<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="scrollSize" data-label="true"></app-select-edit-value>
 		<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="scrollColor" data-label="true"></app-select-edit-value>
 	</form>
 `;
 
-class EditScrollComponent extends HTMLElement {
+class EditScrollAspectComponent extends HTMLElement {
 	selectScrollSizeElement: HTMLElement | null = null;
 	selectScrollColorElement: HTMLElement | null = null;
 
@@ -21,7 +21,7 @@ class EditScrollComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		this.appendChild(editScrollLayout.content.cloneNode(true));
+		this.appendChild(editScrollAspectLayout.content.cloneNode(true));
 
 		this.handler = this.createHandler();
 	}
@@ -49,7 +49,7 @@ class EditScrollComponent extends HTMLElement {
 		});
 	}
 
-	setScroll = (): void => {
+	setScrollAspect = (): void => {
 		let value = '';
 		if (this.scrollColorValue === DEFAULT_VALUE) {
 			value = this.scrollSizeValue;
@@ -65,7 +65,7 @@ class EditScrollComponent extends HTMLElement {
 			modeOfUseServiceInstance.addSettingCustomValue('scroll', 3, value);
 		}
 
-		scrollServiceInstance.setScroll(value);
+		scrollAspectServiceInstance.setScrollAspect(value);
 	}
 
 	private createHandler = () => {
@@ -73,15 +73,15 @@ class EditScrollComponent extends HTMLElement {
 			switch (event.type) {
 				case 'editSettingScrollSize':
 					this.scrollSizeValue = event.detail.newValue.split('_')[1];
-					this.setScroll();
+					this.setScrollAspect();
 					break;
 				case 'editSettingScrollColor':
 					this.scrollColorValue = event.detail.newValue.split('_')[1];
-					this.setScroll();
+					this.setScrollAspect();
 					break;
 			}
 		}
 	}
 }
 
-customElements.define('app-edit-scroll', EditScrollComponent);
+customElements.define('app-edit-scroll-aspect', EditScrollAspectComponent);

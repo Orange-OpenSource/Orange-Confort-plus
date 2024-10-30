@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.7 - 29/10/2024
+ * orange-confort-plus - version 5.0.0-alpha.7 - 30/10/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -29,9 +29,9 @@ const CURSOR_SIZE_BIG = 56;
 
 const CURSOR_SIZE_HUGE = 128;
 
-const SCROLL_SIZE_BIG = "2rem";
+const SCROLL_SIZE_BIG = "32px";
 
-const SCROLL_SIZE_HUGE = "3rem";
+const SCROLL_SIZE_HUGE = "48px";
 
 const CLICK_FACILITE_BIG_ZONE = "bigZone";
 
@@ -269,13 +269,13 @@ class DomService {
     addButtonsInDom=button => {
         let container;
         let fragment = document.createDocumentFragment();
-        let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector("app-toolbar")?.classList.contains("close") ? "2rem" : "21rem";
+        let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector("app-toolbar")?.classList.contains("close") ? "2em" : "26em";
         if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
             container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1rem;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1rem;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: none;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1rem 2rem;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: none;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
         }
         let btn = document.createElement("button");
@@ -489,7 +489,7 @@ class PauseService {
             value: ""
         }, {
             name: "scroll",
-            instanceService: scrollServiceInstance.setScroll.bind(this),
+            instanceService: scrollAspectServiceInstance.setScrollAspect.bind(this),
             value: ""
         }, {
             name: "skipToContent",
@@ -808,7 +808,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_BIG_ZONE:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll("bigScroll");
+                scrollAspectServiceInstance.setScrollAspect("bigScroll");
                 scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 break;
             }
@@ -816,7 +816,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_LONG_CLICK:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll("bigScroll");
+                scrollAspectServiceInstance.setScrollAspect("bigScroll");
                 scrollTypeServiceInstance.setScrollType("scrollOnClick");
                 this.longClick();
                 break;
@@ -825,7 +825,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_AUTO_CLICK:
             {
                 this.resetEventClick();
-                scrollServiceInstance.setScroll("bigScroll");
+                scrollAspectServiceInstance.setScrollAspect("bigScroll");
                 scrollTypeServiceInstance.setScrollType("scrollOnMouseover");
                 this.autoClick();
                 break;
@@ -833,7 +833,7 @@ class ClickFaciliteService {
 
           default:
             {
-                scrollServiceInstance.setScroll(DEFAULT_VALUE);
+                scrollAspectServiceInstance.setScrollAspect(DEFAULT_VALUE);
                 scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 this.resetEventClick();
                 break;
@@ -1058,7 +1058,7 @@ class ColorContrastService {
         const colorParams = this.colorContrastDictionnary.find((o => o.name === value));
         cursorAspectServiceInstance.setCursor(colorParams?.cursor);
         focusAspectServiceInstance.setFocus(colorParams?.focus);
-        scrollServiceInstance.setScroll(colorParams?.scroll);
+        scrollAspectServiceInstance.setScrollAspect(colorParams?.scroll);
         linkStyleServiceInstance.setLinkStyle(colorParams?.link);
     };
 }
@@ -1554,7 +1554,7 @@ class MagnifierService {
     magnifierBody;
     observerObj;
     syncTimeout;
-    styleMagnifier=`\n\t\t#${PREFIX}magnifier {\n\t\t\tbackground-color: white;\n\t\t\tborder: 1px solid black;\n\t\t\tborder-radius: 0.5rem;\n\t\t\twidth: ${this.magnifierWidth}px;\n\t\t\theight: ${this.magnifierHeight}px;\n\t\t\tposition: fixed;\n\t\t\toverflow: hidden;\n\t\t\tz-index: 2147483645;\n\t\t}\n\n\t\t#${PREFIX}magnifier-content {\n\t\t\tdisplay: block;\n\t\t\tmargin-left: 0;\n\t\t\tmargin-top: 0;\n\t\t\tpadding-top: 0;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\toverflow: visible;\n\t\t\ttransform-origin: left top;\n\t\t\tuser-select: none;\n\t\t}\n\n\t\t#${PREFIX}magnifier-glass {\n\t\t\tbackground-color: white;\n\t\t\topacity: 0;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tcursor: move;\n\t\t}\n\t`;
+    styleMagnifier=`\n\t\t#${PREFIX}magnifier {\n\t\t\tbackground-color: white;\n\t\t\tborder: 1px solid black;\n\t\t\tborder-radius: 0.5em;\n\t\t\twidth: ${this.magnifierWidth}px;\n\t\t\theight: ${this.magnifierHeight}px;\n\t\t\tposition: fixed;\n\t\t\toverflow: hidden;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\n\t\t#${PREFIX}magnifier-content {\n\t\t\tdisplay: block;\n\t\t\tmargin-left: 0;\n\t\t\tmargin-top: 0;\n\t\t\tpadding-top: 0;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\toverflow: visible;\n\t\t\ttransform-origin: left top;\n\t\t\tuser-select: none;\n\t\t}\n\n\t\t#${PREFIX}magnifier-glass {\n\t\t\tbackground-color: white;\n\t\t\topacity: 0;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tcursor: move;\n\t\t}\n\t`;
     constructor() {
         if (magnifierServiceIsInstantiated) {
             throw new Error("MagnifierService is already instantiated.");
@@ -1990,7 +1990,7 @@ class ReadAloudService extends BodySelectorService {
     readAloudSpan=`${PREFIX}read-aloud-span`;
     regexWord=/\S+\s*[.,!?]*/g;
     regexSentence=/[^\.!\?]+[\.!\?]+["']?|.+$/g;
-    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1rem;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity);\n\t\ttransform: translate(75px, 50%);\n\t}`;
+    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1em;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity);\n\t\ttransform: translate(75px, 50%);\n\t}`;
     constructor() {
         super();
         if (readAloudServiceIsInstantiated) {
@@ -2127,7 +2127,7 @@ class ReadingGuideService {
     maskBottomEltID=`${PREFIX}mask-guide__bottom-elt`;
     closeTextID=`${PREFIX}mask-guide__close-text`;
     classRuleGuide=`\n\t\t#${this.verticalGuideID} {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
-    classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25rem 1rem;\n\t\t\tposition: fixed;\n\t\t\tright: 0;\n\t\t\tline-height: 2rem;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
+    classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25em 1em;\n\t\t\tposition: fixed;\n\t\t\tright: 0;\n\t\t\tline-height: 2em;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     constructor() {
         if (readingGuideServiceIsInstantiated) {
             throw new Error("ReadingGuideService is already instantiated.");
@@ -2248,6 +2248,78 @@ class RestartTopLeftService {
 
 "use strict";
 
+let scrollAspectServiceIsInstantiated;
+
+class ScrollAspectService {
+    scrollColor="";
+    scrollColorHover="";
+    scrollBorderColor="";
+    scrollWidth="";
+    scrollColorValues=[ {
+        color: "white",
+        hover: "lightgrey",
+        border: "black"
+    }, {
+        color: "blue",
+        hover: "darkblue",
+        border: "blue"
+    }, {
+        color: "red",
+        hover: "darkred",
+        border: "red"
+    }, {
+        color: "yellow",
+        hover: "gold",
+        border: "yellow"
+    }, {
+        color: "green",
+        hover: "darkgreen",
+        border: "green"
+    }, {
+        color: "black",
+        hover: "darkgrey",
+        border: "black"
+    } ];
+    constructor() {
+        if (scrollAspectServiceIsInstantiated) {
+            throw new Error("ScrollAspectService is already instantiated.");
+        }
+        scrollAspectServiceIsInstantiated = true;
+    }
+    setScrollAspect=value => {
+        stylesServiceInstance.removeStyle("scroll-aspect");
+        document.body.classList.remove(`${PREFIX}big-scroll`);
+        if (value !== DEFAULT_VALUE) {
+            document.body.classList.add(`${PREFIX}big-scroll`);
+            switch (value?.split("_")[0]) {
+              case "big":
+                this.scrollWidth = SCROLL_SIZE_BIG;
+                break;
+
+              case "huge":
+                this.scrollWidth = SCROLL_SIZE_HUGE;
+                break;
+
+              default:
+                this.scrollWidth = "inherit";
+                break;
+            }
+            this.scrollColor = value?.split("_")[1] ? value?.split("_")[1] : "lightgrey";
+            let colorHover = this.scrollColorValues.find((o => o.color === this.scrollColor))?.hover;
+            let borderColor = this.scrollColorValues.find((o => o.color === this.scrollColor))?.border;
+            this.scrollColorHover = colorHover ? colorHover : "grey";
+            this.scrollBorderColor = borderColor ? borderColor : "grey";
+            this.setScrollClass();
+        }
+    };
+    setScrollClass=() => {
+        let styleScroll = `\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
+        stylesServiceInstance.setStyle("scroll-aspect", styleScroll);
+    };
+}
+
+"use strict";
+
 let scrollTypeServiceIsInstantiated;
 
 class ScrollTypeService {
@@ -2299,78 +2371,6 @@ class ScrollTypeService {
                 }
             }));
         }
-    };
-}
-
-"use strict";
-
-let scrollServiceIsInstantiated;
-
-class ScrollService {
-    scrollColor="";
-    scrollColorHover="";
-    scrollBorderColor="";
-    scrollWidth="";
-    scrollColorValues=[ {
-        color: "white",
-        hover: "lightgrey",
-        border: "black"
-    }, {
-        color: "blue",
-        hover: "darkblue",
-        border: "blue"
-    }, {
-        color: "red",
-        hover: "darkred",
-        border: "red"
-    }, {
-        color: "yellow",
-        hover: "gold",
-        border: "yellow"
-    }, {
-        color: "green",
-        hover: "darkgreen",
-        border: "green"
-    }, {
-        color: "black",
-        hover: "darkgrey",
-        border: "black"
-    } ];
-    constructor() {
-        if (scrollServiceIsInstantiated) {
-            throw new Error("ScrollService is already instantiated.");
-        }
-        scrollServiceIsInstantiated = true;
-    }
-    setScroll=value => {
-        stylesServiceInstance.removeStyle("scroll");
-        document.body.classList.remove(`${PREFIX}big-scroll`);
-        if (value !== DEFAULT_VALUE) {
-            document.body.classList.add(`${PREFIX}big-scroll`);
-            switch (value?.split("_")[0]) {
-              case "big":
-                this.scrollWidth = SCROLL_SIZE_BIG;
-                break;
-
-              case "huge":
-                this.scrollWidth = SCROLL_SIZE_HUGE;
-                break;
-
-              default:
-                this.scrollWidth = "inherit";
-                break;
-            }
-            this.scrollColor = value?.split("_")[1] ? value?.split("_")[1] : "lightgrey";
-            let colorHover = this.scrollColorValues.find((o => o.color === this.scrollColor))?.hover;
-            let borderColor = this.scrollColorValues.find((o => o.color === this.scrollColor))?.border;
-            this.scrollColorHover = colorHover ? colorHover : "grey";
-            this.scrollBorderColor = borderColor ? borderColor : "grey";
-            this.setScrollClass();
-        }
-    };
-    setScrollClass=() => {
-        let styleScroll = `\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 1rem;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
-        stylesServiceInstance.setStyle("scroll", styleScroll);
     };
 }
 
@@ -2750,9 +2750,9 @@ const restartTopLeftServiceInstance = new RestartTopLeftService;
 
 Object.seal(restartTopLeftServiceInstance);
 
-const scrollServiceInstance = new ScrollService;
+const scrollAspectServiceInstance = new ScrollAspectService;
 
-Object.seal(scrollServiceInstance);
+Object.seal(scrollAspectServiceInstance);
 
 const scrollTypeServiceInstance = new ScrollTypeService;
 
@@ -3198,6 +3198,22 @@ customElements.define("app-restart-top-left", RestartTopLeftComponent);
 
 "use strict";
 
+const tmplScrollAspect = document.createElement("template");
+
+tmplScrollAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class ScrollAspectComponent extends AbstractSetting {
+    constructor() {
+        super();
+        this.setCallback(scrollAspectServiceInstance.setScrollAspect.bind(this));
+        this.appendChild(tmplScrollAspect.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-scroll-aspect", ScrollAspectComponent);
+
+"use strict";
+
 const tmplScrollType = document.createElement("template");
 
 tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -3211,22 +3227,6 @@ class ScrollTypeComponent extends AbstractSetting {
 }
 
 customElements.define("app-scroll-type", ScrollTypeComponent);
-
-"use strict";
-
-const tmplScroll = document.createElement("template");
-
-tmplScroll.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
-
-class ScrollComponent extends AbstractSetting {
-    constructor() {
-        super();
-        this.setCallback(scrollServiceInstance.setScroll.bind(this));
-        this.appendChild(tmplScroll.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-scroll", ScrollComponent);
 
 "use strict";
 
@@ -3886,7 +3886,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-scroll class="sc-edit-setting__setting"></app-edit-scroll>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -4751,6 +4751,75 @@ customElements.define("app-edit-reading-guide", EditReadingGuideComponent);
 
 "use strict";
 
+const editScrollAspectLayout = document.createElement("template");
+
+editScrollAspectLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="scrollSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="scrollColor" data-label="true"></app-select-edit-value>\n\t</form>\n`;
+
+class EditScrollAspectComponent extends HTMLElement {
+    selectScrollSizeElement=null;
+    selectScrollColorElement=null;
+    settingValues=null;
+    scrollSizeValue="";
+    scrollColorValue="";
+    scrollSizeValues=[ `scrollSize_${DEFAULT_VALUE}`, "scrollSize_big", "scrollSize_huge" ];
+    scrollColorValues=[ `scrollColor_${DEFAULT_VALUE}`, "scrollColor_white", "scrollColor_blue", "scrollColor_red", "scrollColor_yellow", "scrollColor_green", "scrollColor_black" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editScrollAspectLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectScrollSizeElement = this.querySelector(`#${PREFIX}select-scroll-size`);
+        this.selectScrollColorElement = this.querySelector(`#${PREFIX}select-scroll-color`);
+        this.selectScrollSizeElement.addEventListener("editSettingScrollSize", this.handler);
+        this.selectScrollColorElement.addEventListener("editSettingScrollColor", this.handler);
+        this.selectScrollSizeElement.setAttribute("data-setting-values", this.scrollSizeValues.join(","));
+        this.selectScrollColorElement.setAttribute("data-setting-values", this.scrollColorValues.join(","));
+        modeOfUseServiceInstance.getSetting("scroll").then((result => {
+            this.settingValues = result.values?.split(",");
+            this.scrollSizeValue = this.settingValues[result.valueSelected]?.split("_")[0];
+            this.scrollColorValue = this.settingValues[result.valueSelected]?.split("_")[1];
+            const currentIndexScrollSize = this.scrollSizeValues.findIndex((i => i === `scrollSize_${this.scrollSizeValue}`));
+            const currentIndexScrollColor = this.scrollColorValues.findIndex((i => i === `scrollColor_${this.scrollColorValue}`));
+            this.selectScrollSizeElement.setAttribute("data-index", currentIndexScrollSize.toString());
+            this.selectScrollColorElement.setAttribute("data-index", currentIndexScrollColor.toString());
+        }));
+    }
+    setScrollAspect=() => {
+        let value = "";
+        if (this.scrollColorValue === DEFAULT_VALUE) {
+            value = this.scrollSizeValue;
+        } else {
+            value = `${this.scrollSizeValue}_${this.scrollColorValue}`;
+        }
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("scroll", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("scroll", 3, value);
+        }
+        scrollAspectServiceInstance.setScrollAspect(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingScrollSize":
+            this.scrollSizeValue = event.detail.newValue.split("_")[1];
+            this.setScrollAspect();
+            break;
+
+          case "editSettingScrollColor":
+            this.scrollColorValue = event.detail.newValue.split("_")[1];
+            this.setScrollAspect();
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-scroll-aspect", EditScrollAspectComponent);
+
+"use strict";
+
 const editScrollTypeLayout = document.createElement("template");
 
 editScrollTypeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="scrollType"></app-select-edit-value>\n\t</form>\n`;
@@ -4794,75 +4863,6 @@ class EditScrollTypeComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-scroll-type", EditScrollTypeComponent);
-
-"use strict";
-
-const editScrollLayout = document.createElement("template");
-
-editScrollLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-size" data-name="scrollSize" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-scroll-color" data-name="scrollColor" data-label="true"></app-select-edit-value>\n\t</form>\n`;
-
-class EditScrollComponent extends HTMLElement {
-    selectScrollSizeElement=null;
-    selectScrollColorElement=null;
-    settingValues=null;
-    scrollSizeValue="";
-    scrollColorValue="";
-    scrollSizeValues=[ `scrollSize_${DEFAULT_VALUE}`, "scrollSize_big", "scrollSize_huge" ];
-    scrollColorValues=[ `scrollColor_${DEFAULT_VALUE}`, "scrollColor_white", "scrollColor_blue", "scrollColor_red", "scrollColor_yellow", "scrollColor_green", "scrollColor_black" ];
-    handler;
-    constructor() {
-        super();
-        this.appendChild(editScrollLayout.content.cloneNode(true));
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.selectScrollSizeElement = this.querySelector(`#${PREFIX}select-scroll-size`);
-        this.selectScrollColorElement = this.querySelector(`#${PREFIX}select-scroll-color`);
-        this.selectScrollSizeElement.addEventListener("editSettingScrollSize", this.handler);
-        this.selectScrollColorElement.addEventListener("editSettingScrollColor", this.handler);
-        this.selectScrollSizeElement.setAttribute("data-setting-values", this.scrollSizeValues.join(","));
-        this.selectScrollColorElement.setAttribute("data-setting-values", this.scrollColorValues.join(","));
-        modeOfUseServiceInstance.getSetting("scroll").then((result => {
-            this.settingValues = result.values?.split(",");
-            this.scrollSizeValue = this.settingValues[result.valueSelected]?.split("_")[0];
-            this.scrollColorValue = this.settingValues[result.valueSelected]?.split("_")[1];
-            const currentIndexScrollSize = this.scrollSizeValues.findIndex((i => i === `scrollSize_${this.scrollSizeValue}`));
-            const currentIndexScrollColor = this.scrollColorValues.findIndex((i => i === `scrollColor_${this.scrollColorValue}`));
-            this.selectScrollSizeElement.setAttribute("data-index", currentIndexScrollSize.toString());
-            this.selectScrollColorElement.setAttribute("data-index", currentIndexScrollColor.toString());
-        }));
-    }
-    setScroll=() => {
-        let value = "";
-        if (this.scrollColorValue === DEFAULT_VALUE) {
-            value = this.scrollSizeValue;
-        } else {
-            value = `${this.scrollSizeValue}_${this.scrollColorValue}`;
-        }
-        let newSettingIndex = this.settingValues.indexOf(value);
-        if (newSettingIndex !== -1) {
-            modeOfUseServiceInstance.setSettingValue("scroll", newSettingIndex, true);
-        } else {
-            modeOfUseServiceInstance.addSettingCustomValue("scroll", 3, value);
-        }
-        scrollServiceInstance.setScroll(value);
-    };
-    createHandler=() => event => {
-        switch (event.type) {
-          case "editSettingScrollSize":
-            this.scrollSizeValue = event.detail.newValue.split("_")[1];
-            this.setScroll();
-            break;
-
-          case "editSettingScrollColor":
-            this.scrollColorValue = event.detail.newValue.split("_")[1];
-            this.setScroll();
-            break;
-        }
-    };
-}
-
-customElements.define("app-edit-scroll", EditScrollComponent);
 
 "use strict";
 
@@ -5074,7 +5074,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll class="sc-mode__setting"></app-scroll>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5386,7 +5386,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll class="c-category__setting" data-can-edit="true"></app-scroll>\n\t\t\t\t<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t\t<app-restart-top-left class="c-category__setting" data-can-edit="true"></app-restart-top-left>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll-aspect class="c-category__setting" data-can-edit="true"></app-scroll-aspect>\n\t\t\t\t<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t\t<app-restart-top-left class="c-category__setting" data-can-edit="true"></app-restart-top-left>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
