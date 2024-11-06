@@ -1,0 +1,35 @@
+name: Bug report
+description: Signalez un bug dans Confort+.
+title: "[Nom de la fonctionnalité] Fournir un résumé général du bug."
+labels: [bug]
+assignees: "-"
+body:
+	- type: markdown
+    attributes:
+      value: |
+        Merci de remplir les informations suivantes pour signaler un bug.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Décrire le problème
+      description: Fournir un résumé du problème, y compris les étapes spécifiques pour le reproduire.
+      value: "1. Allez dans '...'\n2. Cliquez sur '...'\n3. Faites défiler jusqu'à '...'\n4. Voyez l’erreur"
+    validations:
+      required: true
+	- type: textarea
+    id: expected_behavior
+    attributes:
+      label: Comportement attendu
+      description: Indiquez ce que vous attendiez. Un lien vers l’issue original peut être utile.
+			value: "Le comportenement attendu est…"
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Avec quel navigateur avez-vous reproduit ce bug ?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Microsoft Edge
