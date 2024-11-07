@@ -403,10 +403,10 @@
 	"textSpacing_spacingTextSmall": {
 		"message": "aère un peu"
 	},
-	"textSpacing_spacingTextLabelBig": {
+	"textSpacing_spacingTextBig": {
 		"message": "aère beaucoup"
 	},
-	"textSpacing_spacingTextLabelHuge": {
+	"textSpacing_spacingTextHuge": {
 		"message": "aère énormément"
 	},
 	"setting_textColor": {

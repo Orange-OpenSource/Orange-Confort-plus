@@ -403,10 +403,10 @@
 	"textSpacing_spacingTextSmall": {
 		"message": "slightly spaced"
 	},
-	"textSpacing_spacingTextLabelBig": {
+	"textSpacing_spacingTextBig": {
 		"message": "widely spaced"
 	},
-	"textSpacing_spacingTextLabelHuge": {
+	"textSpacing_spacingTextHuge": {
 		"message": "very widely spaced"
 	},
 	"setting_textColor": {
