@@ -5,6 +5,7 @@ class MagnifierService {
 	handler: any;
 	magnifierWidth = 300;
 	magnifierHeight = 300;
+	magnifierTransition = 300;
 	ofs_x: number;
 	ofs_y: number;
 	pos_x: number;
@@ -15,6 +16,7 @@ class MagnifierService {
 	magnifierBody: HTMLElement;
 	observerObj: MutationObserver | null;
 	syncTimeout: number | undefined;
+	magnifierClickTimer: any;
 
 	styleMagnifier = `
 		#${PREFIX}magnifier {
@@ -25,6 +27,8 @@ class MagnifierService {
 			height: ${this.magnifierHeight}px;
 			position: fixed;
 			overflow: hidden;
+			pointer-events: none;
+			transition: box-shadow ease ${this.magnifierTransition}ms;
 			z-index: calc(infinity);
 		}
 
@@ -87,6 +91,8 @@ class MagnifierService {
 		window.addEventListener('resize', this.handler, false);
 		window.addEventListener('scroll', this.handler, true);
 		window.addEventListener('scrollend', this.handler, true);
+		window.addEventListener('pointerdown', this.handler);
+		window.addEventListener('pointerup', this.handler);
 
 		this.magnifierContent.style.transform = `scale(${this.zoom})`;
 		this.makeDraggable();
@@ -245,10 +251,7 @@ class MagnifierService {
 	/* Makes the magnifier draggable and adds events linked to magnifier movements */
 	makeDraggable = (): void => {
 		this.magnifier.style.cursor = 'move';
-
-		this.magnifier.addEventListener('pointerdown', this.handler);
 		this.magnifier.addEventListener('pointermove', this.handler);
-		this.magnifier.addEventListener('pointerup', this.handler);
 	}
 
 	downHandler = (event: any): void => {
@@ -296,6 +299,16 @@ class MagnifierService {
 		this.syncContent();
 	}
 
+	setMovingStyle = (): void => {
+		this.magnifier.style.pointerEvents = 'auto';
+		this.magnifier.style.boxShadow = '0 0 20px 10px rgba(0,0,0, 0.25)';
+	}
+
+	setStaticStyle = (): void => {
+		this.magnifier.style.pointerEvents = null;
+		this.magnifier.style.boxShadow = null;
+	}
+
 	private createHandler = () => {
 		return (event: Event) => {
 			switch (event.type) {
@@ -312,11 +325,20 @@ class MagnifierService {
 					break;
 				case 'pointerdown':
 					this.downHandler(event);
+					this.magnifierClickTimer = setTimeout(() => {
+						if (this.magnifier) {
+							this.setMovingStyle();
+						}
+					}, this.magnifierTransition);
 					break;
 				case 'pointermove':
 					this.moveHandler(event);
 					break;
 				case 'pointerup':
+					if (this.magnifier) {
+						this.setStaticStyle();
+						clearTimeout(this.magnifierClickTimer);
+					}
 					this.upHandler();
 					break;
 			}
