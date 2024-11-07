@@ -1,11 +1,12 @@
 const btnSettingLayout: HTMLTemplateElement = document.createElement('template');
 btnSettingLayout.innerHTML = `
-	<button type="button" class="sc-btn-setting btn btn-primary flex-column align-items-start justify-content-between w-100 h-100 px-2">
+	<button type="button" class="sc-btn-setting btn btn-primary border-0 flex-column align-items-start justify-content-between w-100 h-100 px-2 position-relative overflow-hidden">
 		<span class="d-flex align-items-start gap-1">
 			<app-icon data-size="1.5em"></app-icon>
 			<span class="sc-btn-setting__name text-start lh-base"></span>
 		</span>
 		<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>
+		<span class="sc-btn-setting__selected-value btn btn-primary border-0 position-absolute d-none w-100 h-100"></span>
 	</button>
 	<div class="tooltip bs-tooltip-top sc-btn-setting__tooltip d-none mt-2" role="tooltip">
 		<div class="tooltip-inner text-bg-secondary fw-normal">
@@ -28,7 +29,9 @@ class BtnSettingComponent extends HTMLElement {
 	disabled = false;
 
 	tooltip: HTMLElement = null;
+	selectedValue: HTMLElement = null;
 	timeoutTooltip: any;
+	timeoutSelectedValue: any;
 
 	handler: any;
 
@@ -45,6 +48,7 @@ class BtnSettingComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.settingBtn = this.querySelector('button');
 		this.tooltip = this.querySelector('.tooltip');
+		this.selectedValue = this.querySelector('.sc-btn-setting__selected-value');
 		this.btnContentSlots = this.querySelector('.sc-btn-setting__values');
 		this.settingBtn.addEventListener('click', this.handler);
 		this.settingBtn.addEventListener('focusin', this.handler);
@@ -100,7 +104,6 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	setTitle = (): void => {
-		const settingName = i18nServiceInstance.getMessage(`setting_${this.name}`);
 		const settingsNumber = this.settingsList.length;
 
 		if (settingsNumber > 0) {
@@ -180,7 +183,6 @@ class BtnSettingComponent extends HTMLElement {
 		this.timeoutTooltip = setTimeout(() => {
 			this.tooltip?.classList.remove('d-none');
 		}, 3000);
-
 	}
 
 	hideTooltip = (): void => {
@@ -188,11 +190,21 @@ class BtnSettingComponent extends HTMLElement {
 		this.tooltip?.classList.add('d-none');
 	}
 
+	showSelectedValue = (): void => {
+		this.selectedValue.innerText = this.getValueLabel(this.value);
+		clearTimeout(this.timeoutSelectedValue);
+		this.selectedValue?.classList.remove('d-none');
+		this.timeoutSelectedValue = setTimeout(() => {
+			this.selectedValue?.classList.add('d-none');
+		}, 3000);
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'click':
 					this.setIndex();
+					this.showSelectedValue();
 
 					let clickEvent = new CustomEvent(
 						'changeSettingEvent',

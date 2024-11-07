@@ -4,7 +4,8 @@ app-btn-setting {
 	height: 100%;
 }
 
-.sc-btn-setting {
+.sc-btn-setting,
+.sc-btn-setting__selected-value {
 	border-radius: 1em;
 	min-height: 5.5em;
 
@@ -17,12 +18,15 @@ app-btn-setting {
 	}
 }
 
-.sc-btn-setting--default {
+$corner-value: 10px;
+
+.sc-btn-setting--default,
+.sc-btn-setting__selected-value {
 	background-image:
-		linear-gradient(45deg, var(--cplus-body-bg) 0 8px, transparent 8px),
-		linear-gradient(-45deg, var(--cplus-body-bg) 0 8px, transparent 8px),
-		linear-gradient(135deg, var(--cplus-body-bg) 0 8px, transparent 8px),
-		linear-gradient(-135deg, var(--cplus-body-bg) 0 8px, transparent 8px);
+		linear-gradient(45deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value),
+		linear-gradient(-45deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value),
+		linear-gradient(135deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value),
+		linear-gradient(-135deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value);
 
 	&.btn,
 	&.btn:hover,
@@ -42,6 +46,13 @@ app-btn-setting {
 	background-color: var(--cplus-body-color);
 	height: .5em;
 	width: .5em;
+}
+
+.sc-btn-setting__selected-value {
+	font-size: 0.8em;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .sc-btn-setting__tooltip {
