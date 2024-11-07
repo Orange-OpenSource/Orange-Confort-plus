@@ -4,7 +4,7 @@ title: "[Nom de la fonctionnalité] Fournir un résumé général du bug."
 labels: [bug]
 assignees: "-"
 body:
-	- type: markdown
+  - type: markdown
     attributes:
       value: |
         Merci de remplir les informations suivantes pour signaler un bug.
@@ -16,12 +16,12 @@ body:
       value: "1. Allez dans '...'\n2. Cliquez sur '...'\n3. Faites défiler jusqu'à '...'\n4. Voyez l’erreur"
     validations:
       required: true
-	- type: textarea
+  - type: textarea
     id: expected_behavior
     attributes:
       label: Comportement attendu
       description: Indiquez ce que vous attendiez. Un lien vers l’issue original peut être utile.
-			value: "Le comportenement attendu est…"
+      value: "Le comportement attendu est…"
     validations:
       required: true
   - type: dropdown
