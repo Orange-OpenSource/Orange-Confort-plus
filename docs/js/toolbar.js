@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.8 - 30/10/2024
+ * orange-confort-plus - version 5.0.0-alpha.8 - 07/11/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1545,6 +1545,7 @@ class MagnifierService {
     handler;
     magnifierWidth=300;
     magnifierHeight=300;
+    magnifierTransition=300;
     ofs_x;
     ofs_y;
     pos_x;
@@ -1554,7 +1555,8 @@ class MagnifierService {
     magnifierBody;
     observerObj;
     syncTimeout;
-    styleMagnifier=`\n\t\t#${PREFIX}magnifier {\n\t\t\tbackground-color: white;\n\t\t\tborder: 1px solid black;\n\t\t\tborder-radius: 0.5em;\n\t\t\twidth: ${this.magnifierWidth}px;\n\t\t\theight: ${this.magnifierHeight}px;\n\t\t\tposition: fixed;\n\t\t\toverflow: hidden;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\n\t\t#${PREFIX}magnifier-content {\n\t\t\tdisplay: block;\n\t\t\tmargin-left: 0;\n\t\t\tmargin-top: 0;\n\t\t\tpadding-top: 0;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\toverflow: visible;\n\t\t\ttransform-origin: left top;\n\t\t\tuser-select: none;\n\t\t}\n\n\t\t#${PREFIX}magnifier-glass {\n\t\t\tbackground-color: white;\n\t\t\topacity: 0;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tcursor: move;\n\t\t}\n\t`;
+    magnifierClickTimer;
+    styleMagnifier=`\n\t\t#${PREFIX}magnifier {\n\t\t\tbackground-color: white;\n\t\t\tborder: 1px solid black;\n\t\t\tborder-radius: 0.5em;\n\t\t\twidth: ${this.magnifierWidth}px;\n\t\t\theight: ${this.magnifierHeight}px;\n\t\t\tposition: fixed;\n\t\t\toverflow: hidden;\n\t\t\tpointer-events: none;\n\t\t\ttransition: box-shadow ease ${this.magnifierTransition}ms;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\n\t\t#${PREFIX}magnifier-content {\n\t\t\tdisplay: block;\n\t\t\tmargin-left: 0;\n\t\t\tmargin-top: 0;\n\t\t\tpadding-top: 0;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\toverflow: visible;\n\t\t\ttransform-origin: left top;\n\t\t\tuser-select: none;\n\t\t}\n\n\t\t#${PREFIX}magnifier-glass {\n\t\t\tbackground-color: white;\n\t\t\topacity: 0;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tcursor: move;\n\t\t}\n\t`;
     constructor() {
         if (magnifierServiceIsInstantiated) {
             throw new Error("MagnifierService is already instantiated.");
@@ -1582,6 +1584,8 @@ class MagnifierService {
         window.addEventListener("resize", this.handler, false);
         window.addEventListener("scroll", this.handler, true);
         window.addEventListener("scrollend", this.handler, true);
+        window.addEventListener("pointerdown", this.handler);
+        window.addEventListener("pointerup", this.handler);
         this.magnifierContent.style.transform = `scale(${this.zoom})`;
         this.makeDraggable();
         this.setPosition(this.magnifier, 250, 250);
@@ -1716,9 +1720,7 @@ class MagnifierService {
     };
     makeDraggable=() => {
         this.magnifier.style.cursor = "move";
-        this.magnifier.addEventListener("pointerdown", this.handler);
         this.magnifier.addEventListener("pointermove", this.handler);
-        this.magnifier.addEventListener("pointerup", this.handler);
     };
     downHandler=event => {
         this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
@@ -1756,6 +1758,14 @@ class MagnifierService {
         }), 100);
         this.syncContent();
     };
+    setMovingStyle=() => {
+        this.magnifier.style.pointerEvents = "auto";
+        this.magnifier.style.boxShadow = "0 0 20px 10px rgba(0,0,0, 0.25)";
+    };
+    setStaticStyle=() => {
+        this.magnifier.style.pointerEvents = null;
+        this.magnifier.style.boxShadow = null;
+    };
     createHandler=() => event => {
         switch (event.type) {
           case "resize":
@@ -1774,6 +1784,11 @@ class MagnifierService {
 
           case "pointerdown":
             this.downHandler(event);
+            this.magnifierClickTimer = setTimeout((() => {
+                if (this.magnifier) {
+                    this.setMovingStyle();
+                }
+            }), this.magnifierTransition);
             break;
 
           case "pointermove":
@@ -1781,6 +1796,10 @@ class MagnifierService {
             break;
 
           case "pointerup":
+            if (this.magnifier) {
+                this.setStaticStyle();
+                clearTimeout(this.magnifierClickTimer);
+            }
             this.upHandler();
             break;
         }
