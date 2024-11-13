@@ -26,6 +26,8 @@ abstract class AbstractSetting extends HTMLElement {
 		this.settingBtn?.setAttribute('data-name', this.name);
 		this.modalBtn?.setAttribute('data-name', this.name);
 
+		this.setSettingBtn(this.activesValues);
+
 		if (this.canEdit) {
 			this.modalBtn?.classList.remove('d-none');
 			this.settingBtn?.classList.add('sc-btn-setting--with-btn-modal');

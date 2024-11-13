@@ -7,6 +7,8 @@ tmplClickFacilite.innerHTML = `
 `;
 
 class ClickFaciliteComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,bigZone,longClick_delay2", valueSelected: 0 };
+
 	constructor() {
 		super();
 

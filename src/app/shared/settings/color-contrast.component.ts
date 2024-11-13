@@ -7,6 +7,8 @@ tmplColorContrast.innerHTML = `
 `;
 
 class ColorContrastComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,reinforcedContrasts,ivory_black", valueSelected: 0 };
+
 	constructor() {
 		super();
 

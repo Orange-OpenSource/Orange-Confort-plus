@@ -7,6 +7,8 @@ tmplSpacingText.innerHTML = `
 `;
 
 class TextSpacingComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,spacingTextSmall,spacingTextBig", valueSelected: 0 };
+
 	constructor() {
 		super();
 

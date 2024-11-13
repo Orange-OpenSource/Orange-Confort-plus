@@ -7,6 +7,8 @@ tmplReadingGuide.innerHTML = `
 `;
 
 class ReadingGuideComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,ruleGuide,maskGuide", valueSelected: 0 };
+
 	constructor() {
 		super();
 

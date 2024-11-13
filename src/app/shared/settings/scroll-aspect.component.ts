@@ -7,6 +7,8 @@ tmplScrollAspect.innerHTML = `
 `;
 
 class ScrollAspectComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,big_black,huge_black", valueSelected: 0 };
+
 	constructor() {
 		super();
 

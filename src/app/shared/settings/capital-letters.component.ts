@@ -7,6 +7,8 @@ tmplCapitalLetters.innerHTML = `
 `;
 
 class CapitalLettersComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,uppercase,capitalize", valueSelected: 0 };
+
 	constructor() {
 		super();
 

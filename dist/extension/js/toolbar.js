@@ -1028,7 +1028,7 @@ class DomService {
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: none;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 1px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
         }
         let btn = document.createElement("button");
@@ -2483,7 +2483,6 @@ class MagnifierService {
         this.ofs_y = this.magnifier.getBoundingClientRect().top - this.magnifier.offsetTop;
         this.pos_x = pageX - (this.magnifier.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
         this.pos_y = pageY - (this.magnifier.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
-        event.preventDefault();
     };
     moveHandler=event => {
         if (this.magnifier !== null) {
@@ -2510,6 +2509,11 @@ class MagnifierService {
             return;
         }), 100);
         this.syncContent();
+    };
+    pointerIsInMagnifier=event => {
+        const {clientX: clientX, clientY: clientY} = event;
+        const {offsetLeft: offsetLeft, offsetTop: offsetTop} = this.magnifier;
+        return clientX > offsetLeft && clientX < offsetLeft + this.magnifierWidth && clientY > offsetTop && clientY < offsetTop + this.magnifierHeight;
     };
     setMovingStyle=() => {
         this.magnifier.style.pointerEvents = "auto";
@@ -2538,7 +2542,8 @@ class MagnifierService {
           case "pointerdown":
             this.downHandler(event);
             this.magnifierClickTimer = setTimeout((() => {
-                if (this.magnifier) {
+                if (this.magnifier && this.pointerIsInMagnifier(event)) {
+                    document.body.style.userSelect = "none";
                     this.setMovingStyle();
                 }
             }), this.magnifierTransition);
@@ -2549,6 +2554,7 @@ class MagnifierService {
             break;
 
           case "pointerup":
+            document.body.style.userSelect = null;
             if (this.magnifier) {
                 this.setStaticStyle();
                 clearTimeout(this.magnifierClickTimer);
@@ -2762,7 +2768,7 @@ class ReadAloudService extends BodySelectorService {
     readAloudSpan=`${PREFIX}read-aloud-span`;
     regexWord=/\S+\s*[.,!?]*/g;
     regexSentence=/[^\.!\?]+[\.!\?]+["']?|.+$/g;
-    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\twidth: fit-content;\n\t\tpadding: 1em;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity);\n\t\ttransform: translate(75px, 50%);\n\t}`;
+    classReadAloud=`\n\t#${this.readAloudTooltipId} {\n\t\tposition: fixed;\n\t\tbackground-color: rgba(0, 0, 0, 0.7);\n\t\tcolor: white;\n\t\tborder: 1px solid currentColor;\n\t\twidth: fit-content;\n\t\tpadding: 1em;\n\t\tpointer-events: none;\n\t\tz-index: calc(infinity);\n\t\ttransform: translate(75px, 50%);\n\t}`;
     constructor() {
         super();
         if (readAloudServiceIsInstantiated) {
@@ -3177,6 +3183,9 @@ class SkipToContentService {
 let stopAnimationsServiceIsInstantiated;
 
 class StopAnimationsService {
+    imgClass=`${PREFIX}stop-animations--img`;
+    canvasClass=`${PREFIX}stop-animations--canvas`;
+    mediaClass=`${PREFIX}stop-animations--media`;
     constructor() {
         if (stopAnimationsServiceIsInstantiated) {
             throw new Error("StopAnimationsService is already instantiated.");
@@ -3192,43 +3201,50 @@ class StopAnimationsService {
             this.freezeAllAnimations();
         }
     };
-    freezeAnimation=media => {
-        const width = media.width;
-        const height = media.height;
-        const alt = media.alt;
+    freezeAnimation=img => {
+        const width = img.width;
+        const height = img.height;
+        const alt = img.alt;
         let canvas = document.createElement("canvas");
         canvas.width = width;
         canvas.height = height;
         canvas.title = alt;
-        canvas.classList.add(`${PREFIX}freeze-animation--canvas`);
+        canvas.classList.add(this.canvasClass);
         canvas.setAttribute("aria-hidden", "true");
-        media.classList.add(`${PREFIX}freeze-animation--media`);
+        img.classList.add(this.imgClass);
         let freeze = () => {
-            canvas.getContext("2d").drawImage(media, 0, 0, width, height);
+            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
             canvas.style.position = "absolute";
-            media.parentNode.insertBefore(canvas, media);
-            media.style.opacity = 0;
+            img.parentNode.insertBefore(canvas, img);
+            img.style.opacity = 0;
         };
-        if (media.complete) {
+        if (img.complete) {
             freeze();
         } else {
-            media.addEventListener("load", freeze, true);
+            img.addEventListener("load", freeze, true);
         }
     };
     freezeAllAnimations=() => {
         document.querySelectorAll('img:is([src$=".gif"], [src$=".png"], [src$=".webp"], [src$=".avif"])').forEach((img => {
             this.freezeAnimation(img);
         }));
-        document.querySelectorAll("video").forEach((video => {
-            video.pause();
+        document.querySelectorAll("audio, video").forEach((media => {
+            if (!media.paused) {
+                media.classList.add(this.mediaClass);
+                media.pause();
+            }
         }));
     };
     unFreezeAllAnimations=() => {
-        document.querySelectorAll(`.${PREFIX}freeze-animation--canvas`).forEach((canvas => {
+        document.querySelectorAll(`.${this.canvasClass}`).forEach((canvas => {
             canvas.remove();
         }));
-        document.querySelectorAll(`.${PREFIX}freeze-animation--media`).forEach((media => {
-            media.style.opacity = 1;
+        document.querySelectorAll(`.${this.imgClass}`).forEach((img => {
+            img.style.opacity = 1;
+        }));
+        document.querySelectorAll(`.${this.mediaClass}`).forEach((media => {
+            media.classList.remove(this.mediaClass);
+            media.play();
         }));
     };
 }
@@ -3666,6 +3682,7 @@ class AbstractSetting extends HTMLElement {
         this.modalBtn = this.querySelector("app-btn-modal");
         this.settingBtn?.setAttribute("data-name", this.name);
         this.modalBtn?.setAttribute("data-name", this.name);
+        this.setSettingBtn(this.activesValues);
         if (this.canEdit) {
             this.modalBtn?.classList.remove("d-none");
             this.settingBtn?.classList.add("sc-btn-setting--with-btn-modal");
@@ -3719,6 +3736,10 @@ const tmplCapitalLetters = document.createElement("template");
 tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CapitalLettersComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,uppercase,capitalize",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(capitalLettersServiceInstance.setCapitalLetters.bind(this));
@@ -3735,6 +3756,10 @@ const tmplClearlyLinks = document.createElement("template");
 tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClearlyLinksComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,bold_underline,bold_boxed",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(clearlyLinksServiceInstance.setClearlyLinks.bind(this));
@@ -3751,6 +3776,10 @@ const tmplClickFacilite = document.createElement("template");
 tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClickFaciliteComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,bigZone,longClick_delay2",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(clickFaciliteServiceInstance.setClickFacilite.bind(this));
@@ -3767,6 +3796,10 @@ const tmplColorContrast = document.createElement("template");
 tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColorContrastComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,reinforcedContrasts,ivory_black",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(colorContrastServiceInstance.setColorsContrasts.bind(this));
@@ -3783,6 +3816,10 @@ const tmplCursorAspect = document.createElement("template");
 tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CursorAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big_black,huge_black",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(cursorAspectServiceInstance.setCursor.bind(this));
@@ -3799,6 +3836,10 @@ const tmplDeleteBackgroundImages = document.createElement("template");
 tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this));
@@ -3815,6 +3856,10 @@ const tmplFocusAspect = document.createElement("template");
 tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FocusAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big_black,huge_black",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(focusAspectServiceInstance.setFocus.bind(this));
@@ -3831,6 +3876,10 @@ const tmplFontFamily = document.createElement("template");
 tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,AccessibleDfA,Verdana",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(fontFamilyServiceInstance.setFontFamily.bind(this));
@@ -3847,6 +3896,10 @@ const tmplLinkStyle = document.createElement("template");
 tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class LinkStyleComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(linkStyleServiceInstance.setLinkStyle.bind(this));
@@ -3863,6 +3916,10 @@ const tmplMagnifier = document.createElement("template");
 tmplMagnifier.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MagnifierComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,zoom2,zoom5",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(magnifierServiceInstance.setMagnifier.bind(this));
@@ -3879,6 +3936,10 @@ const tmplMarginAlign = document.createElement("template");
 tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MarginAlignComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,alignLeft,marginLeft",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(marginAlignServiceInstance.setMargin.bind(this));
@@ -3895,6 +3956,10 @@ const tmplNavigationAuto = document.createElement("template");
 tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationAutoComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,autoFocus_delay2",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(navigationAutoServiceInstance.setNavigationAuto.bind(this));
@@ -3911,6 +3976,10 @@ const tmplNavigationButtons = document.createElement("template");
 tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class NavigationButtonsComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(navigationButtonsServiceInstance.setNavigationButtons.bind(this));
@@ -3927,6 +3996,10 @@ const tmplReadAloud = document.createElement("template");
 tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadAloudComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,sentence,paragraph",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(readAloudServiceInstance.setReadAloud.bind(this));
@@ -3943,6 +4016,10 @@ const tmplReadingGuide = document.createElement("template");
 tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,ruleGuide,maskGuide",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(readingGuideServiceInstance.setReadingMaskGuide.bind(this));
@@ -3959,6 +4036,10 @@ const tmplRestartTopLeft = document.createElement("template");
 tmplRestartTopLeft.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class RestartTopLeftComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(restartTopLeftServiceInstance.setRestartTopLeft.bind(this));
@@ -3975,6 +4056,10 @@ const tmplScrollAspect = document.createElement("template");
 tmplScrollAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ScrollAspectComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,big_black,huge_black",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(scrollAspectServiceInstance.setScrollAspect.bind(this));
@@ -3991,6 +4076,10 @@ const tmplScrollType = document.createElement("template");
 tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ScrollTypeComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,scrollOnMouseover",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(scrollTypeServiceInstance.setScrollType.bind(this));
@@ -4007,6 +4096,10 @@ const tmplSkipToContent = document.createElement("template");
 tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class SkipToContentComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(skipToContentServiceInstance.setSkipToContent.bind(this));
@@ -4023,6 +4116,10 @@ const tmplStopAnimations = document.createElement("template");
 tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(stopAnimationsServiceInstance.setStopAnimations.bind(this));
@@ -4039,6 +4136,10 @@ const tmplIncreaseTextSize = document.createElement("template");
 tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,110,130",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(textSizeServiceInstance.setFontSize.bind(this));
@@ -4055,6 +4156,10 @@ const tmplSpacingText = document.createElement("template");
 tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class TextSpacingComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,spacingTextSmall,spacingTextBig",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(textSpacingServiceInstance.setSpacingText.bind(this));
@@ -4066,71 +4171,15 @@ customElements.define("app-text-spacing", TextSpacingComponent);
 
 "use strict";
 
-const tmplTextTransform = document.createElement("template");
-
-tmplTextTransform.innerHTML = `\n<style>\n\t\tapp-text-transform {\n\t\t\t\tmargin-bottom: 1rem;\n\t\t}\n</style>\n<button type="button" id="normal-btn" data-i18n="default"></button>\n<button type="button" id="first-letter-btn" data-i18n="firstLetter"></button>\n<button type="button" id="lowercase-btn" data-i18n="lowercase"></button>\n<button type="button" id="uppercase-btn" data-i18n="uppercase"></button>\n`;
-
-class TextTransformComponent extends HTMLElement {
-    bodyElt=null;
-    normalBtn=null;
-    firstLetterBtn=null;
-    lowercaseBtn=null;
-    uppercaseBtn=null;
-    handler;
-    constructor() {
-        super();
-        this.appendChild(tmplTextTransform.content.cloneNode(true));
-        this.normalBtn = this.querySelector("#normal-btn");
-        this.firstLetterBtn = this.querySelector("#first-letter-btn");
-        this.lowercaseBtn = this.querySelector("#lowercase-btn");
-        this.uppercaseBtn = this.querySelector("#uppercase-btn");
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.bodyElt = document.body;
-        this.normalBtn?.addEventListener("click", this.handler);
-        this.firstLetterBtn?.addEventListener("click", this.handler);
-        this.lowercaseBtn?.addEventListener("click", this.handler);
-        this.uppercaseBtn?.addEventListener("click", this.handler);
-    }
-    disconnectedCallback() {
-        this.normalBtn?.removeEventListener("click", this.handler);
-        this.firstLetterBtn?.removeEventListener("click", this.handler);
-        this.lowercaseBtn?.removeEventListener("click", this.handler);
-        this.uppercaseBtn?.removeEventListener("click", this.handler);
-    }
-    createHandler=() => event => {
-        if (event.type === "click") {
-            switch (event.currentTarget) {
-              case this.normalBtn:
-                this.bodyElt.style.textTransform = ``;
-                break;
-
-              case this.firstLetterBtn:
-                this.bodyElt.style.textTransform = `capitalize`;
-                break;
-
-              case this.lowercaseBtn:
-                this.bodyElt.style.textTransform = `lowercase`;
-                break;
-
-              case this.uppercaseBtn:
-                this.bodyElt.style.textTransform = `uppercase`;
-                break;
-            }
-        }
-    };
-}
-
-customElements.define("app-text-transform", TextTransformComponent);
-
-"use strict";
-
 const tmplTextColor = document.createElement("template");
 
 tmplTextColor.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class TextColorComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
     constructor() {
         super();
         this.setCallback(textColorServiceInstance.setTextColor.bind(this));

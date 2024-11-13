@@ -1,6 +1,9 @@
 let stopAnimationsServiceIsInstantiated: boolean;
 
 class StopAnimationsService {
+	imgClass = `${PREFIX}stop-animations--img`;
+	canvasClass = `${PREFIX}stop-animations--canvas`;
+	mediaClass = `${PREFIX}stop-animations--media`;
 
 	constructor() {
 		if (stopAnimationsServiceIsInstantiated) {
@@ -28,30 +31,30 @@ class StopAnimationsService {
 		}
 	}
 
-	freezeAnimation = (media: any) => {
-		const width = media.width;
-		const height = media.height;
-		const alt = media.alt;
+	freezeAnimation = (img: any) => {
+		const width = img.width;
+		const height = img.height;
+		const alt = img.alt;
 
 		let canvas: HTMLCanvasElement = document.createElement('canvas');
 		canvas.width = width;
 		canvas.height = height;
 		canvas.title = alt;
-		canvas.classList.add(`${PREFIX}freeze-animation--canvas`);
+		canvas.classList.add(this.canvasClass);
 		canvas.setAttribute('aria-hidden', 'true');
-		media.classList.add(`${PREFIX}freeze-animation--media`);
+		img.classList.add(this.imgClass);
 
 		let freeze = (): void => {
-			canvas.getContext('2d').drawImage(media, 0, 0, width, height);
+			canvas.getContext('2d').drawImage(img, 0, 0, width, height);
 			canvas.style.position = 'absolute';
-			media.parentNode.insertBefore(canvas, media);
-			media.style.opacity = 0;
+			img.parentNode.insertBefore(canvas, img);
+			img.style.opacity = 0;
 		}
 
-		if (media.complete) {
+		if (img.complete) {
 			freeze();
 		} else {
-			media.addEventListener('load', freeze, true);
+			img.addEventListener('load', freeze, true);
 		}
 	}
 
@@ -59,18 +62,24 @@ class StopAnimationsService {
 		document.querySelectorAll('img:is([src$=".gif"], [src$=".png"], [src$=".webp"], [src$=".avif"])').forEach((img) => {
 			this.freezeAnimation(img);
 		});
-		document.querySelectorAll('video').forEach((video) => {
-			video.pause();
+		document.querySelectorAll('audio, video').forEach((media: any) => {
+			if (!media.paused) {
+				media.classList.add(this.mediaClass);
+				media.pause();
+			}
 		});
 	}
 
 	unFreezeAllAnimations = (): any => {
-		document.querySelectorAll(`.${PREFIX}freeze-animation--canvas`).forEach((canvas: any) => {
+		document.querySelectorAll(`.${this.canvasClass}`).forEach((canvas: any) => {
 			canvas.remove();
 		});
-
-		document.querySelectorAll(`.${PREFIX}freeze-animation--media`).forEach((media: any) => {
-			media.style.opacity = 1;
+		document.querySelectorAll(`.${this.imgClass}`).forEach((img: any) => {
+			img.style.opacity = 1;
+		});
+		document.querySelectorAll(`.${this.mediaClass}`).forEach((media: any) => {
+			media.classList.remove(this.mediaClass)
+			media.play();
 		});
 	}
 }

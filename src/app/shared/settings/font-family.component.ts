@@ -7,6 +7,8 @@ tmplFontFamily.innerHTML = `
 `;
 
 class FontFamilyComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,AccessibleDfA,Verdana", valueSelected: 0 };
+
 	constructor() {
 		super();
 

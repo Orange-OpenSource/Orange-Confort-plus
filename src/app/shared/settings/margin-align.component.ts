@@ -7,6 +7,8 @@ tmplMarginAlign.innerHTML = `
 `;
 
 class MarginAlignComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,alignLeft,marginLeft", valueSelected: 0 };
+
 	constructor() {
 		super();
 
