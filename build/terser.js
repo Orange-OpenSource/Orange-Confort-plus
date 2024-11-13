@@ -77,7 +77,6 @@ const files = {
 			'dist/js/app/shared/settings/stop-animations.component.js',
 			'dist/js/app/shared/settings/text-size.component.js',
 			'dist/js/app/shared/settings/text-spacing.component.js',
-			'dist/js/app/shared/settings/text-transform.component.js',
 			'dist/js/app/shared/settings/text-color.component.js',
 			'dist/js/app/shared/btn-modal.component.js',
 			'dist/js/app/shared/btn-setting.component.js',

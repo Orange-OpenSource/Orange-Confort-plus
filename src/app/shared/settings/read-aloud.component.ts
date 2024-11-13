@@ -7,6 +7,8 @@ tmplReadAloud.innerHTML = `
 `;
 
 class ReadAloudComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,sentence,paragraph", valueSelected: 0 };
+
 	constructor() {
 		super();
 

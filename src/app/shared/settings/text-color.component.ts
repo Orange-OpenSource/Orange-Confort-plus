@@ -6,6 +6,8 @@ tmplTextColor.innerHTML = `
 `;
 
 class TextColorComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,active", valueSelected: 0 };
+
 	constructor() {
 		super();
 

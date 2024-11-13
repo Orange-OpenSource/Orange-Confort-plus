@@ -7,6 +7,8 @@ tmplScrollType.innerHTML = `
 `;
 
 class ScrollTypeComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,scrollOnMouseover", valueSelected: 0 };
+
 	constructor() {
 		super();
 

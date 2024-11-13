@@ -7,6 +7,8 @@ tmplLinkStyle.innerHTML = `
 `;
 
 class LinkStyleComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen", valueSelected: 0 };
+
 	constructor() {
 		super();
 

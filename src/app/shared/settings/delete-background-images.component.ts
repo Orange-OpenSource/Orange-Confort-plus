@@ -7,6 +7,8 @@ tmplDeleteBackgroundImages.innerHTML = `
 `;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,backgroundTransparent,backgroundForegroundTransparent", valueSelected: 0 };
+
 	constructor() {
 		super();
 
