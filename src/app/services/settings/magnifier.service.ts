@@ -264,8 +264,6 @@ class MagnifierService {
 		this.ofs_y = this.magnifier.getBoundingClientRect().top - this.magnifier.offsetTop;
 		this.pos_x = pageX! - (this.magnifier.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
 		this.pos_y = pageY! - (this.magnifier.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
-
-		event.preventDefault();
 	}
 
 	moveHandler = (event: any): void => {
@@ -299,6 +297,16 @@ class MagnifierService {
 		this.syncContent();
 	}
 
+	pointerIsInMagnifier = (event: any): boolean => {
+		const { clientX, clientY } = event;
+		const { offsetLeft, offsetTop } = this.magnifier;
+
+		return clientX > offsetLeft &&
+			clientX < offsetLeft + this.magnifierWidth &&
+			clientY > offsetTop &&
+			clientY < offsetTop + this.magnifierHeight;
+	};
+
 	setMovingStyle = (): void => {
 		this.magnifier.style.pointerEvents = 'auto';
 		this.magnifier.style.boxShadow = '0 0 20px 10px rgba(0,0,0, 0.25)';
@@ -326,7 +334,8 @@ class MagnifierService {
 				case 'pointerdown':
 					this.downHandler(event);
 					this.magnifierClickTimer = setTimeout(() => {
-						if (this.magnifier) {
+						if (this.magnifier && this.pointerIsInMagnifier(event)) {
+							document.body.style.userSelect = 'none';
 							this.setMovingStyle();
 						}
 					}, this.magnifierTransition);
@@ -335,6 +344,7 @@ class MagnifierService {
 					this.moveHandler(event);
 					break;
 				case 'pointerup':
+					document.body.style.userSelect = null;
 					if (this.magnifier) {
 						this.setStaticStyle();
 						clearTimeout(this.magnifierClickTimer);

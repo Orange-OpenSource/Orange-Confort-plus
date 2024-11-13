@@ -15,6 +15,7 @@ class ReadAloudService extends BodySelectorService {
 		position: fixed;
 		background-color: rgba(0, 0, 0, 0.7);
 		color: white;
+		border: 1px solid currentColor;
 		width: fit-content;
 		padding: 1em;
 		pointer-events: none;

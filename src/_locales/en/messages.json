@@ -590,10 +590,10 @@
 		}
 	},
 	"setting_colorContrast": {
-		"message": "Color Contrast"
+		"message": "Colors Text - Background"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "To change the text and background colors"
+		"message": "Text and background colours"
 	},
 	"colorContrast_noModifications": {
 		"message": "no modifications"

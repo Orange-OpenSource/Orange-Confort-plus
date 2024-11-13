@@ -590,10 +590,10 @@
 		}
 	},
 	"setting_colorContrast": {
-		"message": "Contraste des couleurs"
+		"message": "Couleurs Texte - Fond"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "Pour changer la couleur du texte et du fond"
+		"message": "Les couleurs du texte et du fond"
 	},
 	"colorContrast_noModifications": {
 		"message": "sans modification"

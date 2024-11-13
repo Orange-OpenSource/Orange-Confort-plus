@@ -68,7 +68,7 @@ class DomService {
 				#${CONTAINER_BUTTONS_ID} button {
 					background: #f16e00;
 					color: #000;
-					border: none;
+					border: 1px solid currentColor;
 					font-weight: bold;
 					padding: 1em 2em;
 				}

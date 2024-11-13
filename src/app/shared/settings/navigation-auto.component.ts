@@ -7,6 +7,8 @@ tmplNavigationAuto.innerHTML = `
 `;
 
 class NavigationAutoComponent extends AbstractSetting {
+	activesValues = { values: "noModifications,autoFocus_delay2", valueSelected: 0 };
+
 	constructor() {
 		super();
 
