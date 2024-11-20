@@ -9,13 +9,24 @@ app-btn-setting {
 	border-radius: 1em;
 	min-height: 5.5em;
 
-	&:hover .sc-btn-setting__current-value {
+	&:hover .sc-btn-setting__current-value,
+	&:focus.sc-btn-setting--show-tooltip .sc-btn-setting__current-value {
 		background-color: var(--cplus-primary);
 	}
 
 	&:active .sc-btn-setting__value {
 		background-color: var(--cplus-body-color);
 	}
+}
+
+.sc-btn-setting--show-tooltip {
+	background-color: var(--cplus-btn-hover-bg);
+	color: var(--cplus-btn-hover-color);
+	box-shadow: 0 0 0 2px var(--cplus-focus-visible-inner-color);
+	isolation: isolate;
+	outline: 3px solid var(--cplus-primary);
+	outline-offset: 2px;
+	z-index: 5;
 }
 
 $corner-value: 10px;
