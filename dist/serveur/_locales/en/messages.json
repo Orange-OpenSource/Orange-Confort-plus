@@ -288,7 +288,7 @@
 		"message": "large click zones & auto_click on hover"
 	},
 	"multiclic": {
-		"message": ": $CURRENT$ $INDEX$/$TOTAL$, switch to $NEXT$ $INDEX2$/$TOTAL$",
+		"message": "Current value : “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
 		"description": "Indicates the current setting value and index, the total number of values, and the next value.",
 		"placeholders": {
 			"current": {

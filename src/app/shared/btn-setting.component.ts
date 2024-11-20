@@ -182,12 +182,14 @@ class BtnSettingComponent extends HTMLElement {
 		this.hideTooltip();
 		this.timeoutTooltip = setTimeout(() => {
 			this.tooltip?.classList.remove('d-none');
+			this.settingBtn.classList.add('sc-btn-setting--show-tooltip');
 		}, 3000);
 	}
 
 	hideTooltip = (): void => {
 		clearTimeout(this.timeoutTooltip);
 		this.tooltip?.classList.add('d-none');
+		this.settingBtn.classList.remove('sc-btn-setting--show-tooltip');
 	}
 
 	showSelectedValue = (): void => {
