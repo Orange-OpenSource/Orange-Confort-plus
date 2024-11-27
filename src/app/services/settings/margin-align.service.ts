@@ -24,7 +24,7 @@ class MarginAlignService {
 
 		p:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {
 			content: "";
-			background: black;
+			background: currentColor;
 			border-radius: 10px;
 			width: 12px;
 			height: 100%;
@@ -44,7 +44,7 @@ class MarginAlignService {
 
 		p:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {
 			content: "";
-			background: radial-gradient(ellipse at center, #000 10%, #000 30%, transparent 30%);
+			background: radial-gradient(ellipse at center, currentColor 10%, currentColor 30%, transparent 30%);
 			background-repeat: repeat-y;
 			background-position-x: right;
 			background-size: 1lh 1lh;

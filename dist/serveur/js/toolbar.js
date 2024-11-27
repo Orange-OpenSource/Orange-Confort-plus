@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.8 - 28/11/2024
+ * orange-confort-plus - version 5.0.0-alpha.8 - 05/12/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1825,8 +1825,8 @@ let marginAlignServiceIsInstantiated;
 class MarginAlignService {
     alignLeftStyle=`\n\t\tp {\n\t\t\ttext-align: left !important;\n\t\t}\n\t`;
     marginStyle=`\n\t\tp, h1, h2, h3, h4, h5, h6 {\n\t\t\tposition: relative;\n\t\t\ttext-align: left !important;\n\t\t\tmargin-left: 1lh !important;\n\t\t}\n\n\t\tp *, h1 *, h2 *, h3 *, h4 *, h5 *, h6 * {\n\t\t\tmargin-left: 0 !important;\n\t\t}\n\t`;
-    marginLeftStyle=`\n\t\t${this.marginStyle}\n\n\t\tp:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {\n\t\t\tcontent: "";\n\t\t\tbackground: black;\n\t\t\tborder-radius: 10px;\n\t\t\twidth: 12px;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\tleft: -24px;\n\t\t}\n\t`;
-    marginListStyle=`\n\t\t${this.marginStyle}\n\n\t\tul, ol {\n\t\t\tlist-style-position: initial !important;\n\t\t\tlist-style-image: none !important;\n\t\t\tlist-style-type: decimal !important;\n\t\t}\n\n\t\tp:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {\n\t\t\tcontent: "";\n\t\t\tbackground: radial-gradient(ellipse at center, #000 10%, #000 30%, transparent 30%);\n\t\t\tbackground-repeat: repeat-y;\n\t\t\tbackground-position-x: right;\n\t\t\tbackground-size: 1lh 1lh;\n\t\t\twidth: 1lh;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\tleft: -1lh;\n\t\t}\n\t`;
+    marginLeftStyle=`\n\t\t${this.marginStyle}\n\n\t\tp:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {\n\t\t\tcontent: "";\n\t\t\tbackground: currentColor;\n\t\t\tborder-radius: 10px;\n\t\t\twidth: 12px;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\tleft: -24px;\n\t\t}\n\t`;
+    marginListStyle=`\n\t\t${this.marginStyle}\n\n\t\tul, ol {\n\t\t\tlist-style-position: initial !important;\n\t\t\tlist-style-image: none !important;\n\t\t\tlist-style-type: decimal !important;\n\t\t}\n\n\t\tp:before, h1:before, h2:before, h3:before, h4:before, h5:before, h6:before {\n\t\t\tcontent: "";\n\t\t\tbackground: radial-gradient(ellipse at center, currentColor 10%, currentColor 30%, transparent 30%);\n\t\t\tbackground-repeat: repeat-y;\n\t\t\tbackground-position-x: right;\n\t\t\tbackground-size: 1lh 1lh;\n\t\t\twidth: 1lh;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\tleft: -1lh;\n\t\t}\n\t`;
     constructor() {
         if (marginAlignServiceIsInstantiated) {
             throw new Error("MarginAlignService is already instantiated.");
@@ -2344,7 +2344,7 @@ class ScrollAspectService {
         }
     };
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
+        let styleScroll = `\n\t\t\t\thtml {\n\t\t\t\t\toverflow: initial !important;\n\t\t\t\t}\n\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
         stylesServiceInstance.setStyle("scroll-aspect", styleScroll);
     };
 }
@@ -4818,7 +4818,7 @@ class EditScrollAspectComponent extends HTMLElement {
         this.selectScrollColorElement.addEventListener("editSettingScrollColor", this.handler);
         this.selectScrollSizeElement.setAttribute("data-setting-values", this.scrollSizeValues.join(","));
         this.selectScrollColorElement.setAttribute("data-setting-values", this.scrollColorValues.join(","));
-        modeOfUseServiceInstance.getSetting("scroll").then((result => {
+        modeOfUseServiceInstance.getSetting("scrollAspect").then((result => {
             this.settingValues = result.values?.split(",");
             this.scrollSizeValue = this.settingValues[result.valueSelected]?.split("_")[0];
             this.scrollColorValue = this.settingValues[result.valueSelected]?.split("_")[1];
@@ -4837,9 +4837,9 @@ class EditScrollAspectComponent extends HTMLElement {
         }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
-            modeOfUseServiceInstance.setSettingValue("scroll", newSettingIndex, true);
+            modeOfUseServiceInstance.setSettingValue("scrollAspect", newSettingIndex, true);
         } else {
-            modeOfUseServiceInstance.addSettingCustomValue("scroll", 3, value);
+            modeOfUseServiceInstance.addSettingCustomValue("scrollAspect", 3, value);
         }
         scrollAspectServiceInstance.setScrollAspect(value);
     };
