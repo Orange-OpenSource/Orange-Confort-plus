@@ -36,7 +36,7 @@ class EditScrollAspectComponent extends HTMLElement {
 		this.selectScrollSizeElement.setAttribute('data-setting-values', this.scrollSizeValues.join(','));
 		this.selectScrollColorElement.setAttribute('data-setting-values', this.scrollColorValues.join(','));
 
-		modeOfUseServiceInstance.getSetting('scroll').then((result: SettingModel) => {
+		modeOfUseServiceInstance.getSetting('scrollAspect').then((result: SettingModel) => {
 			this.settingValues = result.values?.split(',');
 			this.scrollSizeValue = this.settingValues[result.valueSelected]?.split('_')[0];
 			this.scrollColorValue = this.settingValues[result.valueSelected]?.split('_')[1];
@@ -60,9 +60,9 @@ class EditScrollAspectComponent extends HTMLElement {
 		let newSettingIndex = this.settingValues.indexOf(value);
 
 		if (newSettingIndex !== -1) {
-			modeOfUseServiceInstance.setSettingValue('scroll', newSettingIndex, true);
+			modeOfUseServiceInstance.setSettingValue('scrollAspect', newSettingIndex, true);
 		} else {
-			modeOfUseServiceInstance.addSettingCustomValue('scroll', 3, value);
+			modeOfUseServiceInstance.addSettingCustomValue('scrollAspect', 3, value);
 		}
 
 		scrollAspectServiceInstance.setScrollAspect(value);

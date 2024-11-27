@@ -52,6 +52,10 @@ class ScrollAspectService {
 	/* Adds the style required for scrolling functions */
 	setScrollClass = (): void => {
 		let styleScroll = `
+				html {
+					overflow: initial !important;
+				}
+
 				.d-none {
 					display: none;
 				}
