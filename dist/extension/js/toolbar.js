@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.8 - 12/11/2024
+ * orange-confort-plus - version 5.0.0-alpha.8 - 28/11/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -959,30 +959,42 @@ class CategoriesService {
         }
         categoriesServiceIsInstantiated = true;
     }
-    openCategory=(category, open) => {
+    openCategory=category => {
+        let currentCategory = "allClosed";
         const mainIndex = this.settingAccordions.findIndex((o => o.name === category.toLowerCase()));
         this.settingAccordions.forEach(((accordion, index) => {
             accordion.open = index === mainIndex ? !accordion.open : false;
+            if (accordion.open) {
+                currentCategory = accordion.name;
+            }
         }));
+        localStorageServiceInstance.setItem("current-category", currentCategory);
     };
     openMainCategory=selectedMode => {
         let mainAccordion;
-        if (this.selectedMode !== selectedMode) {
-            this.selectedMode = selectedMode;
-            switch (selectedMode) {
-              case "visionPlus":
-                mainAccordion = "app-layout";
-                break;
+        return localStorageServiceInstance.getItem("current-category").then((result => {
+            if (result) {
+                mainAccordion = result;
+            } else {
+                if (this.selectedMode !== selectedMode) {
+                    this.selectedMode = selectedMode;
+                    switch (selectedMode) {
+                      case "visionPlus":
+                        mainAccordion = "app-layout";
+                        break;
 
-              case "facilePlus":
-              default:
-                mainAccordion = "app-text";
-                break;
+                      case "facilePlus":
+                      default:
+                        mainAccordion = "app-text";
+                        break;
+                    }
+                }
             }
             this.settingAccordions.forEach(((accordion, index) => {
                 accordion.open = accordion.name === mainAccordion ? true : false;
             }));
-        }
+            return this.settingAccordions;
+        }));
     };
 }
 
@@ -1860,7 +1872,7 @@ class CursorAspectService {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("cursor-aspect");
         } else if (value) {
-            let color = value.split("_")[1];
+            let color = value.split("_")[1] === DEFAULT_VALUE ? "black" : value.split("_")[1];
             let size = value.split("_")[0] === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             let styleCursor = `\n\t\t\t\t*:not(${APP_NAME}) {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
@@ -5007,7 +5019,7 @@ class EditCursorAspectComponent extends HTMLElement {
             break;
 
           case "editSettingCursorColor":
-            this.cursorColorValue = event.detail.newValue.split("_")[1];
+            this.cursorColorValue = event.detail.newValue.split("_")[1] === DEFAULT_VALUE ? "black" : event.detail.newValue.split("_")[1];
             this.setCursorAspect();
             break;
         }
@@ -5957,6 +5969,7 @@ class ModesComponent extends HTMLElement {
     };
     selectModeFormEvent=event => {
         event.preventDefault();
+        localStorageServiceInstance.setItem("current-category", null);
         modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
@@ -6007,9 +6020,10 @@ class SettingsComponent extends HTMLElement {
         }
     }
     openOrHideCategories=mode => {
-        categoriesServiceInstance.openMainCategory(JSON.parse(mode).selectedMode);
-        categoriesServiceInstance.settingAccordions.forEach((accordion => {
-            this.querySelector(accordion.name).setAttribute("data-open", (!accordion.open).toString());
+        categoriesServiceInstance.openMainCategory(JSON.parse(mode).selectedMode).then((result => {
+            result.forEach((accordion => {
+                this.querySelector(accordion.name).setAttribute("data-open", (!accordion.open).toString());
+            }));
         }));
     };
     createHandler=() => event => {
@@ -6076,7 +6090,6 @@ class AbstractCategory extends HTMLElement {
             this.addAriaAndCollapsedClass(this._triggerArray, JSON.parse(newValue));
         }
     }
-    isShown=(element = this.accordionContainer) => element.classList.contains(this.CLASS_NAME_SHOW);
     addAriaAndCollapsedClass=(triggerArray, isOpen) => {
         if (!triggerArray.length) {
             return;
@@ -6126,7 +6139,7 @@ class AbstractCategory extends HTMLElement {
     createHandler=() => event => {
         if (event.type === "click") {
             if (event.currentTarget === this.btnAccordion || this.btnAccordion.contains(event.currentTarget)) {
-                categoriesServiceInstance.openCategory(this.tagName, this.isShown());
+                categoriesServiceInstance.openCategory(this.tagName);
                 let clickCollapsedEvent = new CustomEvent("collapsedCategory", {
                     bubbles: true
                 });

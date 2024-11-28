@@ -46,7 +46,7 @@ class CursorAspectService {
 		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('cursor-aspect');
 		} else if (value) {
-			let color = value.split('_')[1];
+			let color = value.split('_')[1] === DEFAULT_VALUE ? 'black' : value.split('_')[1];
 			let size = value.split('_')[0] === 'bigCursor' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 			let styleCursor = `
 				*:not(${APP_NAME}) {
