@@ -53,10 +53,12 @@ class SettingsComponent extends HTMLElement {
 	}
 
 	openOrHideCategories = (mode: string): void => {
-		categoriesServiceInstance.openMainCategory(JSON.parse(mode).selectedMode);
-		categoriesServiceInstance.settingAccordions.forEach((accordion: AccordionState) => {
-			this.querySelector(accordion.name).setAttribute('data-open', (!accordion.open).toString());
+		categoriesServiceInstance.openMainCategory(JSON.parse(mode).selectedMode).then((result: AccordionState[]) => {
+			result.forEach((accordion: AccordionState) => {
+				this.querySelector(accordion.name).setAttribute('data-open', (!accordion.open).toString());
+			});
 		});
+
 	}
 
 	private createHandler = () => {

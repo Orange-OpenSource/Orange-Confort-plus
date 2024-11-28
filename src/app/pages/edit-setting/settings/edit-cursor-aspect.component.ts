@@ -104,7 +104,7 @@ class EditCursorAspectComponent extends HTMLElement {
 					this.setCursorAspect();
 					break;
 				case 'editSettingCursorColor':
-					this.cursorColorValue = event.detail.newValue.split('_')[1];
+					this.cursorColorValue = event.detail.newValue.split('_')[1] === DEFAULT_VALUE ? 'black' : event.detail.newValue.split('_')[1];
 					this.setCursorAspect();
 					break;
 			}
