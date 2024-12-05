@@ -359,22 +359,22 @@
 		"message": "sans modification"
 	},
 	"textSize_110": {
-		"message": "un peu grand \"110%\""
+		"message": "un peu grand “110%”"
 	},
 	"textSize_130": {
-		"message": "assez grand \"130%\""
+		"message": "assez grand “130%”"
 	},
 	"textSize_160": {
-		"message": "bien grand \"160%\""
+		"message": "bien grand “160%”"
 	},
 	"textSize_200": {
-		"message": "très grand \"200%\""
+		"message": "très grand “200%”"
 	},
 	"textSize_350": {
-		"message": "énorme \"350%\""
+		"message": "énorme “350%”"
 	},
 	"textSize_500": {
-		"message": "max \"500%\""
+		"message": "max “500%”"
 	},
 	"setting_capitalLetters": {
 		"message": "Lettres capitales"
@@ -440,7 +440,7 @@
 		"message": "Appuyer sur échap pour fermer le masque."
 	},
 	"setting_marginAlign": {
-		"message": "Marge et alignement"
+		"message": "Marge et repères"
 	},
 	"setting_marginAlign_instruction": {
 		"message": "Pour ancrer la lecture à gauche"

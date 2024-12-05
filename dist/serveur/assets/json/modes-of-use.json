@@ -1,5 +1,5 @@
 {
-	"version": "1.0.20",
+	"version": "1.0.21",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -134,7 +134,7 @@
 				},
 				{
 					"scrollType": {
-						"values": "noModifications,scrollOnMouseover",
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -682,7 +682,7 @@
 				},
 				{
 					"scrollType": {
-						"values": "noModifications,scrollOnMouseover",
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -870,7 +870,7 @@
 				},
 				{
 					"scrollType": {
-						"values": "noModifications,scrollOnMouseover",
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
 						"valueSelected": 1,
 						"isTool": false,
 						"order": null
