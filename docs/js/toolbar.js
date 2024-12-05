@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.8 - 05/12/2024
+ * orange-confort-plus - version 5.0.0-alpha.8 - 06/12/2024
  * Enhance user experience on web sites
  * © 2014 - 2024 Orange SA
  */
@@ -1148,7 +1148,7 @@ class DeleteBackgroundImagesService {
     classDeleteBackgroundImg=`${PREFIX}delete-background-img`;
     classDeleteForegroundImg=`${PREFIX}delete-foreground-img`;
     classSpanImage=`${PREFIX}delete-background-images__span`;
-    styleDeleteBackgroundImages=`\n\t\t.${this.classDeleteBackgroundImg},\n\t\t.${this.classDeleteBackgroundImg}:before,\n\t\t.${this.classDeleteBackgroundImg}:after {\n\t\t\tbackground-image: none !important;\n\t\t\tbackground-color: white;\n\t\t\tcolor: black;\n\t\t}\n\t`;
+    styleDeleteBackgroundImages=`\n\t\t.${this.classDeleteBackgroundImg},\n\t\t.${this.classDeleteBackgroundImg}:before,\n\t\t.${this.classDeleteBackgroundImg}:after {\n\t\t\tbackground-image: none !important;\n\t\t\tbackground-color: white;\n\t\t\tcolor: black;\n\t\t}\n\n\t\t.${this.classDeleteBackgroundImg} * {\n\t\t\tcolor: black;\n\t\t}\n\t`;
     styleDeleteForegroundImages=`\n\t\t.${this.classSpanImage} {\n\t\t\tfont-size: 1rem;\n\t\t}\n\n\t\t.${this.classDeleteForegroundImg} {\n\t\t\tvisibility: hidden !important;\n\t\t}\n\t`;
     styleDeleteTransparencyEffects=`\n\t\t*, *::before, *::after {\n\t\t\topacity: 1 !important;\n\t\t\tfilter: none !important\n\t\t}\n\t`;
     constructor() {
@@ -2992,7 +2992,7 @@ class AbstractSetting extends HTMLElement {
 
 const tmplCapitalLetters = document.createElement("template");
 
-tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class CapitalLettersComponent extends AbstractSetting {
     activesValues={
@@ -3012,7 +3012,7 @@ customElements.define("app-capital-letters", CapitalLettersComponent);
 
 const tmplClearlyLinks = document.createElement("template");
 
-tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ClearlyLinksComponent extends AbstractSetting {
     activesValues={
@@ -3332,7 +3332,7 @@ customElements.define("app-scroll-aspect", ScrollAspectComponent);
 
 const tmplScrollType = document.createElement("template");
 
-tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ScrollTypeComponent extends AbstractSetting {
     activesValues={
@@ -3452,7 +3452,7 @@ customElements.define("app-text-color", TextColorComponent);
 
 const btnModalLayout = document.createElement("template");
 
-btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4 sc-btn-modal" data-i18n="moreChoice"></button>`;
+btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4" data-i18n="moreChoice">\n\t</button>`;
 
 class BtnModalComponent extends HTMLElement {
     static observedAttributes=[ "data-name", "data-disabled" ];
@@ -4022,98 +4022,6 @@ class EditSettingComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-setting", EditSettingComponent);
-
-"use strict";
-
-const editCapitalLettersLayout = document.createElement("template");
-
-editCapitalLettersLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="capitalLetters"></app-select-edit-value>\n\t</form>\n`;
-
-class EditCapitalLettersComponent extends HTMLElement {
-    selectCapitalLettersElement=null;
-    settingValues=null;
-    capitalLettersValues=[ DEFAULT_VALUE, "uppercase", "capitalize" ];
-    handler;
-    constructor() {
-        super();
-        this.appendChild(editCapitalLettersLayout.content.cloneNode(true));
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.selectCapitalLettersElement = this.querySelector("app-select-edit-value");
-        this.selectCapitalLettersElement.addEventListener("editSettingCapitalLetters", this.handler);
-        this.selectCapitalLettersElement.setAttribute("data-setting-values", this.capitalLettersValues.join(","));
-        modeOfUseServiceInstance.getSetting("capitalLetters").then((result => {
-            this.settingValues = result.values.split(",");
-            const currentIndex = this.capitalLettersValues.findIndex((i => i === this.settingValues[result.valueSelected]));
-            this.selectCapitalLettersElement.setAttribute("data-index", currentIndex.toString());
-        }));
-    }
-    setCapitalLetters=value => {
-        let newSettingIndex = this.settingValues.indexOf(value);
-        if (newSettingIndex !== -1) {
-            modeOfUseServiceInstance.setSettingValue("capitalLetters", newSettingIndex, true);
-        } else {
-            modeOfUseServiceInstance.addSettingCustomValue("capitalLetters", 3, value);
-        }
-        capitalLettersServiceInstance.setCapitalLetters(value);
-    };
-    createHandler=() => event => {
-        switch (event.type) {
-          case "editSettingCapitalLetters":
-            this.setCapitalLetters(event.detail.newValue);
-            break;
-        }
-    };
-}
-
-customElements.define("app-edit-capital-letters", EditCapitalLettersComponent);
-
-"use strict";
-
-const editClearlyLinksLayout = document.createElement("template");
-
-editClearlyLinksLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="clearlyLinks"></app-select-edit-value>\n\t</form>\n`;
-
-class EditClearlyLinksComponent extends HTMLElement {
-    selectClearlyLinksElement=null;
-    settingValues=null;
-    clearlyLinksValues=[ DEFAULT_VALUE, "bold_underline", "bold_boxed" ];
-    handler;
-    constructor() {
-        super();
-        this.appendChild(editClearlyLinksLayout.content.cloneNode(true));
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.selectClearlyLinksElement = this.querySelector("app-select-edit-value");
-        this.selectClearlyLinksElement.addEventListener("editSettingClearlyLinks", this.handler);
-        this.selectClearlyLinksElement.setAttribute("data-setting-values", this.clearlyLinksValues.join(","));
-        modeOfUseServiceInstance.getSetting("clearlyLinks").then((result => {
-            this.settingValues = result.values.split(",");
-            const currentIndex = this.clearlyLinksValues.findIndex((i => i === this.settingValues[result.valueSelected]));
-            this.selectClearlyLinksElement.setAttribute("data-index", currentIndex.toString());
-        }));
-    }
-    setClearlyLinks=value => {
-        let newSettingIndex = this.settingValues.indexOf(value);
-        if (newSettingIndex !== -1) {
-            modeOfUseServiceInstance.setSettingValue("clearlyLinks", newSettingIndex, true);
-        } else {
-            modeOfUseServiceInstance.addSettingCustomValue("clearlyLinks", 3, value);
-        }
-        clearlyLinksServiceInstance.setClearlyLinks(value);
-    };
-    createHandler=() => event => {
-        switch (event.type) {
-          case "editSettingClearlyLinks":
-            this.setClearlyLinks(event.detail.newValue);
-            break;
-        }
-    };
-}
-
-customElements.define("app-edit-clearly-links", EditClearlyLinksComponent);
 
 "use strict";
 
@@ -4910,52 +4818,6 @@ class EditScrollAspectComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-scroll-aspect", EditScrollAspectComponent);
-
-"use strict";
-
-const editScrollTypeLayout = document.createElement("template");
-
-editScrollTypeLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="scrollType"></app-select-edit-value>\n\t</form>\n`;
-
-class EditScrollTypeComponent extends HTMLElement {
-    selectScrollTypeElement=null;
-    settingValues=null;
-    scrollTypeValues=[ DEFAULT_VALUE, "scrollOnClick", "scrollOnMouseover" ];
-    handler;
-    constructor() {
-        super();
-        this.appendChild(editScrollTypeLayout.content.cloneNode(true));
-        this.handler = this.createHandler();
-    }
-    connectedCallback() {
-        this.selectScrollTypeElement = this.querySelector("app-select-edit-value");
-        this.selectScrollTypeElement.addEventListener("editSettingScrollType", this.handler);
-        this.selectScrollTypeElement.setAttribute("data-setting-values", this.scrollTypeValues.join(","));
-        modeOfUseServiceInstance.getSetting("scrollType").then((result => {
-            this.settingValues = result.values.split(",");
-            const currentIndex = this.scrollTypeValues.findIndex((i => i === this.settingValues[result.valueSelected]));
-            this.selectScrollTypeElement.setAttribute("data-index", currentIndex.toString());
-        }));
-    }
-    setScrollType=value => {
-        let newSettingIndex = this.settingValues.indexOf(value);
-        if (newSettingIndex !== -1) {
-            modeOfUseServiceInstance.setSettingValue("scrollType", newSettingIndex, true);
-        } else {
-            modeOfUseServiceInstance.addSettingCustomValue("scrollType", 3, value);
-        }
-        scrollTypeServiceInstance.setScrollType(value);
-    };
-    createHandler=() => event => {
-        switch (event.type) {
-          case "editSettingScrollType":
-            this.setScrollType(event.detail.newValue);
-            break;
-        }
-    };
-}
-
-customElements.define("app-edit-scroll-type", EditScrollTypeComponent);
 
 "use strict";
 

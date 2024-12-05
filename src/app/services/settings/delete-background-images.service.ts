@@ -14,6 +14,10 @@ class DeleteBackgroundImagesService {
 			background-color: white;
 			color: black;
 		}
+
+		.${this.classDeleteBackgroundImg} * {
+			color: black;
+		}
 	`;
 
 	styleDeleteForegroundImages = `
