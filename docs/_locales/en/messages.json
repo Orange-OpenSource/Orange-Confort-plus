@@ -285,7 +285,7 @@
 		"message": "large click zones & long click"
 	},
 	"autoClick": {
-		"message": "large click zones & auto_click on hover"
+		"message": "large click zones & auto click on hover"
 	},
 	"multiclic": {
 		"message": "Current value : “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
@@ -359,22 +359,22 @@
 		"message": "no modifications"
 	},
 	"textSize_110": {
-		"message": "slightly larger \"110%)\""
+		"message": "slightly larger “110%”"
 	},
 	"textSize_130": {
-		"message": "larger \"130%\""
+		"message": "larger “130%”"
 	},
 	"textSize_160": {
-		"message": "quite large \"160%\""
+		"message": "quite large “160%”"
 	},
 	"textSize_200": {
-		"message": "very large \"200%\""
+		"message": "very large “200%”"
 	},
 	"textSize_350": {
-		"message": "huge \"350%\""
+		"message": "huge “350%”"
 	},
 	"textSize_500": {
-		"message": "max \"500%\""
+		"message": "max “500%”"
 	},
 	"setting_capitalLetters": {
 		"message": "Capital Letters"
@@ -440,7 +440,7 @@
 		"message": "Press escape to close the mask."
 	},
 	"setting_marginAlign": {
-		"message": "Margin & Alignment"
+		"message": "Margin & Landmark"
 	},
 	"setting_marginAlign_instruction": {
 		"message": "To anchor reading to the left"
@@ -449,13 +449,13 @@
 		"message": "no modifications"
 	},
 	"marginAlign_alignLeft": {
-		"message": "left_aligned text"
+		"message": "left aligned text"
 	},
 	"marginAlign_marginLeft": {
-		"message": "left margin (& left_aligned text)"
+		"message": "left margin (& left aligned text)"
 	},
 	"marginAlign_marginList": {
-		"message": "left margin and numbered lists (& left_aligned text)"
+		"message": "left margin and numbered lists (& left aligned text)"
 	},
 	"setting_magnifier": {
 		"message": "Magnifier"
@@ -845,16 +845,16 @@
 		}
 	},
 	"setting_navigationAuto": {
-		"message": "Auto_Scrolling Navigation"
+		"message": "Auto scrolling navigation"
 	},
 	"setting_navigationAuto_instruction": {
 		"message": "To move focus automatically"
 	},
 	"navigationAuto_noModifications": {
-		"message": "no auto_scrolling"
+		"message": "no auto scrolling"
 	},
 	"navigationAuto_values": {
-		"message": "auto_scrolling focus ($DELAY$)",
+		"message": "auto scrolling focus ($DELAY$)",
 		"placeholders": {
 			"delay": {
 				"content": "$2"
@@ -862,7 +862,7 @@
 		}
 	},
 	"navigationAuto_label": {
-		"message": "Enable Auto_Scrolling Navigation"
+		"message": "Enable auto scrolling navigation"
 	},
 	"navigationAuto_inactive": {
 		"message": "Disable"
