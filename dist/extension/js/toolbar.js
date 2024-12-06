@@ -1179,91 +1179,91 @@ class PauseService {
         this.settingsServices = [ {
             name: "capitalLetters",
             instanceService: capitalLettersServiceInstance.setCapitalLetters.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "clearlyLinks",
             instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "clickFacilite",
             instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "colorContrast",
             instanceService: colorContrastServiceInstance.setColorsContrasts.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "cursorAspect",
             instanceService: cursorAspectServiceInstance.setCursor.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "deleteBackgroundImages",
             instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "focusAspect",
             instanceService: focusAspectServiceInstance.setFocus.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "fontFamily",
             instanceService: fontFamilyServiceInstance.setFontFamily.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "linkStyle",
             instanceService: linkStyleServiceInstance.setLinkStyle.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "magnifier",
             instanceService: magnifierServiceInstance.setMagnifier.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "marginAlign",
             instanceService: marginAlignServiceInstance.setMargin.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "navigationAuto",
             instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "navigationButtons",
             instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "readAloud",
             instanceService: readAloudServiceInstance.setReadAloud.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "readingGuide",
             instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "restartTopLeft",
             instanceService: restartTopLeftServiceInstance.setRestartTopLeft.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "scroll",
             instanceService: scrollAspectServiceInstance.setScrollAspect.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "skipToContent",
             instanceService: skipToContentServiceInstance.setSkipToContent.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "stopAnimations",
             instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "textSize",
             instanceService: textSizeServiceInstance.setFontSize.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "textSpacing",
             instanceService: textSpacingServiceInstance.setSpacingText.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         }, {
             name: "textColor",
             instanceService: textColorServiceInstance.setTextColor.bind(this),
-            value: ""
+            value: DEFAULT_VALUE
         } ];
     }
     pauseSettings=currentSettings => {
@@ -2479,10 +2479,10 @@ class MagnifierService {
         this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
         const pageX = event.pageX || event.touches && event.touches[0].pageX;
         const pageY = event.pageY || event.touches && event.touches[0].pageY;
-        this.ofs_x = this.magnifier.getBoundingClientRect().left - this.magnifier.offsetLeft;
-        this.ofs_y = this.magnifier.getBoundingClientRect().top - this.magnifier.offsetTop;
-        this.pos_x = pageX - (this.magnifier.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
-        this.pos_y = pageY - (this.magnifier.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
+        this.ofs_x = this.magnifier?.getBoundingClientRect().left - this.magnifier?.offsetLeft;
+        this.ofs_y = this.magnifier?.getBoundingClientRect().top - this.magnifier?.offsetTop;
+        this.pos_x = pageX - (this.magnifier?.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
+        this.pos_y = pageY - (this.magnifier?.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
     };
     moveHandler=event => {
         if (this.magnifier !== null) {

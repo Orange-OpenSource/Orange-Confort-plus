@@ -260,10 +260,10 @@ class MagnifierService {
 		const pageX = event.pageX || (event.touches && event.touches[0].pageX);
 		const pageY = event.pageY || (event.touches && event.touches[0].pageY);
 
-		this.ofs_x = this.magnifier.getBoundingClientRect().left - this.magnifier.offsetLeft;
-		this.ofs_y = this.magnifier.getBoundingClientRect().top - this.magnifier.offsetTop;
-		this.pos_x = pageX! - (this.magnifier.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
-		this.pos_y = pageY! - (this.magnifier.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
+		this.ofs_x = this.magnifier?.getBoundingClientRect().left - this.magnifier?.offsetLeft;
+		this.ofs_y = this.magnifier?.getBoundingClientRect().top - this.magnifier?.offsetTop;
+		this.pos_x = pageX! - (this.magnifier?.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
+		this.pos_y = pageY! - (this.magnifier?.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
 	}
 
 	moveHandler = (event: any): void => {
