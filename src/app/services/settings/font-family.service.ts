@@ -28,7 +28,7 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'LexandDeca', size: '92%', folder: 'lexendDeca', files: [
+			name: 'LexendDeca', size: '92%', folder: 'lexendDeca', files: [
 				{ name: 'LexendDeca-Black.woff2', style: 'normal', weight: '900' },
 				{ name: 'LexendDeca-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'LexendDeca-ExtraBold.woff2', style: 'normal', weight: '800' },

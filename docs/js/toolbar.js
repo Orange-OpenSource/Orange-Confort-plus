@@ -1,7 +1,7 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.9 - 06/12/2024
+ * orange-confort-plus - version 5.0.0-alpha.9 - 15/01/2025
  * Enhance user experience on web sites
- * © 2014 - 2024 Orange SA
+ * © 2014 - 2025 Orange SA
  */
 "use strict";
 
@@ -1350,7 +1350,7 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "LexandDeca",
+        name: "LexendDeca",
         size: "92%",
         folder: "lexendDeca",
         files: [ {
@@ -4381,7 +4381,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "Airbus", "ComicSansMS", "LexandDeca", "Luciole", "SylexiadSans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "Airbus", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
     handler;
     constructor() {
         super();
