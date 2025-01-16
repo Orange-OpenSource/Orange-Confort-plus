@@ -593,7 +593,7 @@
 		"message": "Colors Text - Background"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "Text and background colours"
+		"message": "In order to change text and background colors"
 	},
 	"colorContrast_noModifications": {
 		"message": "no modifications"

@@ -593,7 +593,7 @@
 		"message": "Couleurs Texte - Fond"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "Les couleurs du texte et du fond"
+		"message": "Pour changer la couleur du fond et du texte"
 	},
 	"colorContrast_noModifications": {
 		"message": "sans modification"
