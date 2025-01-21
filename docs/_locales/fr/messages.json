@@ -111,7 +111,7 @@
 		"message": "Vision++"
 	},
 	"visionPlusPlusDescription": {
-		"message": "Mode d’usage destiné aux personnes ayant de fortes contraintes visuelles. Les couleurs du texte et de la page sont modifiées, les éléments (focus, souris, texte, ascenseur) sont plus bien plus gros, une police optimisée, une loupe ×5 et une règle de lecture sont disponibles."
+		"message": "Mode d’usage destiné aux personnes ayant de fortes contraintes visuelles. Les couleurs du texte et de la page sont modifiées, les éléments (focus, souris, texte, ascenseur) sont bien plus gros, une police optimisée, une loupe ×5 et une règle de lecture sont disponibles."
 	},
 	"facilePlusName": {
 		"message": "Facile+"
@@ -337,8 +337,8 @@
 	"fontFamily_ComicSansMS": {
 		"message": "Comic Sans MS"
 	},
-	"fontFamily_LexandDeca": {
-		"message": "Lexand Deca"
+	"fontFamily_LexendDeca": {
+		"message": "Lexend Deca"
 	},
 	"fontFamily_Luciole": {
 		"message": "Luciole"
@@ -362,7 +362,7 @@
 		"message": "un peu grand “110%”"
 	},
 	"textSize_130": {
-		"message": "assez grand “130%”"
+		"message": "plutôt grand “130%”"
 	},
 	"textSize_160": {
 		"message": "bien grand “160%”"
@@ -593,7 +593,7 @@
 		"message": "Couleurs Texte - Fond"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "Les couleurs du texte et du fond"
+		"message": "Pour changer la couleur du fond et du texte"
 	},
 	"colorContrast_noModifications": {
 		"message": "sans modification"
