@@ -1,5 +1,5 @@
 {
-	"version": "1.0.21",
+	"version": "1.0.22",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -46,7 +46,7 @@
 				},
 				{
 					"marginAlign": {
-						"values": "noModifications,alignLeft,marginLeft",
+						"values": "noModifications,alignLeft,marginLeft,marginList",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
