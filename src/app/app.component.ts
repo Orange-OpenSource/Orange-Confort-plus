@@ -1,5 +1,6 @@
 const template: HTMLTemplateElement = document.createElement('template');
 template.innerHTML = `
+<style>:host { display: contents; }</style>
 <div data-bs-theme="light" style="display:none">
 	<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
 		<span class="visually-hidden" data-i18n="mainButton"></span>
