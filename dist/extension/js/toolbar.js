@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-alpha.9 - 23/01/2025
+ * orange-confort-plus - version 5.0.0-alpha.9 - 27/01/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -4013,7 +4013,7 @@ customElements.define("app-read-aloud", ReadAloudComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
