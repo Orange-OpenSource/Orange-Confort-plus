@@ -38,6 +38,7 @@
 		"move:cookies": "shx cp -r docs/cookie.html dist/serveur",
 		"move:assets": "shx cp -r dist/serveur/{js,assets} docs && shx cp -r src/site/assets/img docs/assets",
 		"move:favicon": "shx cp -r src/site/{favicon.ico,apple-touch-icon.png} docs",
+		"move:manifest": "npm run mv:manifest:chrome",
 		"copy": "concurrently \"npm:copy:*\"",
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/",
 		"copy:extension": "shx cp -r src/extension/manifest.*.json dist/ && shx cp -r src/extension/assets/img/ dist/extension/assets/img",
