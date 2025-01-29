@@ -1,5 +1,5 @@
 {
-	"version": "1.0.23",
+	"version": "1.0.24",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -70,7 +70,7 @@
 				},
 				{
 					"cursorAspect": {
-						"values": "noModifications,big_black,huge_black",
+						"values": "noModifications,bigCursor_black,hugeCursor_black",
 						"valueSelected": 1,
 						"isTool": false,
 						"order": null
