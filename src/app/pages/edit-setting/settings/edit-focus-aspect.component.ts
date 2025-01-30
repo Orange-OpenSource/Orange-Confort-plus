@@ -71,17 +71,52 @@ class EditFocusAspectComponent extends HTMLElement {
 		focusAspectServiceInstance.setFocus(value);
 	}
 
+	getFocusStyle = (): string => {
+		let defaultFocusStyle = `outline: auto 5px -webkit-focus-ring-color;`;
+		const e: HTMLElement | null = document.querySelector('a[href]');
+		console.log('e', e);
+		if (!e) return;
+
+		const styleBase: CSSStyleDeclaration = getComputedStyle(e);
+		console.log('styleBase', styleBase);
+		e.style.transition = 'none';
+		e.focus();
+		const styleFocus: CSSStyleDeclaration = getComputedStyle(e);
+		console.log('styleFocus', styleFocus);
+
+		const justFocus: Record<string, string> = {};
+		for (let i = 0; i < styleBase.length; i++) {
+			const prop = styleBase[i];
+			const baseValue = styleBase.getPropertyValue(prop);
+			const focusValue = styleFocus.getPropertyValue(prop);
+
+			if (baseValue !== focusValue) {
+				justFocus[prop] = focusValue;
+			}
+		}
+
+		console.log('Styles qui changent au focus:', justFocus);
+
+		if (Object.keys(justFocus).length > 0) {
+			defaultFocusStyle = Object.entries(justFocus)
+				.map(([prop, value]) => `${prop}: ${value};`)
+				.join('\n');
+		}
+
+		console.log('RESULT', defaultFocusStyle);
+		return defaultFocusStyle;
+	}
+
 	setExampleFocus = (): void => {
-		let spanExample: HTMLElement = this.querySelector(`#${PREFIX}example-focus`);
-		let size = this.focusSizeValue;
-		let color = this.focusColorValue;
+		stylesServiceInstance.removeStyle('focus-style-example');
 
-		const styleFocusSize = size !== DEFAULT_VALUE ? size === 'big' ? FOCUS_SIZE_BIG : FOCUS_SIZE_HUGE : '';
-		const styleFocusColor = color !== DEFAULT_VALUE ? color : '';
+		let styleFocusExample = `
+			#${PREFIX}example-focus {
+				${this.getFocusStyle()}
+			}
+		`;
 
-		spanExample.style.outlineStyle = 'solid';
-		spanExample.style.outlineWidth = styleFocusSize;
-		spanExample.style.outlineColor = styleFocusColor;
+		stylesServiceInstance.setStyle('focus-style-example', styleFocusExample);
 	}
 
 	private createHandler = () => {
