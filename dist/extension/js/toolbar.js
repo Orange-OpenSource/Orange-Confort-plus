@@ -1399,12 +1399,12 @@ class CapitalLettersService {
         let styleCapitalLetters = "";
         switch (value) {
           case "uppercase":
-            styleCapitalLetters = `\n\t\t\t\t*, *::before, *::after {\n\t\t\t\t\ttext-transform: uppercase !important;\n\t\t\t\t}\n\t\t\t`;
+            styleCapitalLetters = `\n\t\t\t\t*:not(${APP_NAME}), *:not(${APP_NAME})::before, *:not(${APP_NAME})::after {\n\t\t\t\t\ttext-transform: uppercase !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("capital-letters", styleCapitalLetters);
             break;
 
           case "capitalize":
-            styleCapitalLetters = `\n\t\t\t\t*, *::before, *::after {\n\t\t\t\t\ttext-transform: capitalize !important;\n\t\t\t\t}\n\t\t\t`;
+            styleCapitalLetters = `\n\t\t\t\t*:not(${APP_NAME}), *:not(${APP_NAME})::before, *:not(${APP_NAME})::after {\n\t\t\t\t\ttext-transform: capitalize !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("capital-letters", styleCapitalLetters);
             break;
 
@@ -1794,6 +1794,7 @@ class ColorContrastService {
             if (value === "reinforcedContrasts") {
                 color = "#000";
                 backgroundColor = "#fff";
+                this.setServices("reinforcedContrasts");
             } else {
                 color = value?.split("_")[0];
                 backgroundColor = value?.split("_")[1];
@@ -1804,7 +1805,7 @@ class ColorContrastService {
         }
     };
     setColorContrastStyle=(color, backgroundColor) => {
-        let styleColorContrast = `\n\t\t\t* {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tli a {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
+        let styleColorContrast = `\n\t\t\t* {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
     };
     setServices=value => {
@@ -2356,7 +2357,7 @@ class MagnifierService {
         magnifier.appendChild(magnifierContent);
         magnifier.appendChild(magnifierGlass);
         fragment.appendChild(magnifier);
-        document.body.appendChild(fragment);
+        document.body.insertBefore(fragment, document.querySelector(APP_NAME));
     };
     setPosition=(element, left, top) => {
         element.style.left = `${left}px`;
@@ -2905,7 +2906,7 @@ class ReadingGuideService {
     maskBottomEltID=`${PREFIX}mask-guide__bottom-elt`;
     closeTextID=`${PREFIX}mask-guide__close-text`;
     classRuleGuide=`\n\t\t#${this.verticalGuideID} {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
-    classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25em 1em;\n\t\t\tposition: fixed;\n\t\t\tright: 0;\n\t\t\tline-height: 2em;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
+    classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25em 1em;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tline-height: 2em;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     constructor() {
         if (readingGuideServiceIsInstantiated) {
             throw new Error("ReadingGuideService is already instantiated.");
@@ -2948,7 +2949,7 @@ class ReadingGuideService {
         if (this.guideType === "rule") {
             const readingElt = document.createElement("div");
             readingElt.setAttribute("id", `${this.verticalGuideID}`);
-            document.body.appendChild(readingElt);
+            document.body.insertBefore(readingElt, document.querySelector(APP_NAME));
         } else if (this.guideType === "mask") {
             const maskTopElt = document.createElement("div");
             const maskBottomElt = document.createElement("div");
@@ -2957,9 +2958,9 @@ class ReadingGuideService {
             maskBottomElt.setAttribute("id", `${this.maskBottomEltID}`);
             closeMask.setAttribute("id", `${this.closeTextID}`);
             closeMask.innerText = i18nServiceInstance.getMessage("readingGuide_closeMask");
-            document.body.appendChild(maskTopElt);
-            document.body.appendChild(maskBottomElt);
-            document.body.appendChild(closeMask);
+            document.body.insertBefore(maskTopElt, document.querySelector(APP_NAME));
+            document.body.insertBefore(maskBottomElt, document.querySelector(APP_NAME));
+            document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
         }
         document.addEventListener("mousemove", this.handler);
         document.addEventListener("keydown", this.handler);
@@ -3685,7 +3686,6 @@ class AbstractSetting extends HTMLElement {
         this.setSettingBtn(this.activesValues);
         if (this.canEdit) {
             this.modalBtn?.classList.remove("d-none");
-            this.settingBtn?.classList.add("sc-btn-setting--with-btn-modal");
         }
         this.settingBtn?.addEventListener("changeSettingEvent", this.handler);
     }
@@ -3833,7 +3833,7 @@ customElements.define("app-cursor-aspect", CursorAspectComponent);
 
 const tmplDeleteBackgroundImages = document.createElement("template");
 
-tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
     activesValues={
