@@ -62,6 +62,7 @@ class ColorContrastService {
 				if (value === 'reinforcedContrasts') {
 					color = '#000';
 					backgroundColor = '#fff';
+					this.setServices('reinforcedContrasts');
 				} else {
 					color = value?.split('_')[0];
 					backgroundColor = value?.split('_')[1];
@@ -78,10 +79,6 @@ class ColorContrastService {
 			* {
 				color: ${color} !important;
 				background-color: ${backgroundColor} !important;
-			}
-
-			li a {
-				color: ${color} !important;
 			}
 
 			fieldset,
