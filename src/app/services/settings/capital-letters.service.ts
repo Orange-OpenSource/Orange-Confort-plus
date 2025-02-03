@@ -16,7 +16,7 @@ class CapitalLettersService {
 		switch (value) {
 			case 'uppercase':
 				styleCapitalLetters = `
-				*, *::before, *::after {
+				*:not(${APP_NAME}), *:not(${APP_NAME})::before, *:not(${APP_NAME})::after {
 					text-transform: uppercase !important;
 				}
 			`;
@@ -24,7 +24,7 @@ class CapitalLettersService {
 				break;
 			case 'capitalize':
 				styleCapitalLetters = `
-				*, *::before, *::after {
+				*:not(${APP_NAME}), *:not(${APP_NAME})::before, *:not(${APP_NAME})::after {
 					text-transform: capitalize !important;
 				}
 			`;

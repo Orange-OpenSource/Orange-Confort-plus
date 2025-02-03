@@ -113,7 +113,7 @@ class MagnifierService {
 		magnifier.appendChild(magnifierContent);
 		magnifier.appendChild(magnifierGlass);
 		fragment.appendChild(magnifier);
-		document.body.appendChild(fragment);
+		document.body.insertBefore(fragment, document.querySelector(APP_NAME));
 	}
 
 	setPosition = (element: HTMLElement, left: number, top: number): void => {

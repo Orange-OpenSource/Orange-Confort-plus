@@ -42,7 +42,7 @@ class ReadingGuideService {
 			background: rgba(255, 255, 255, 0.4) !important;
 			padding: 0.25em 1em;
 			position: fixed;
-			right: 0;
+			left: 0;
 			line-height: 2em;
 			transform: translate(0, -100%);
 			z-index: calc(infinity);
@@ -92,7 +92,7 @@ class ReadingGuideService {
 		if (this.guideType === 'rule') {
 			const readingElt = document.createElement('div');
 			readingElt.setAttribute('id', `${this.verticalGuideID}`);
-			document.body.appendChild(readingElt);
+			document.body.insertBefore(readingElt, document.querySelector(APP_NAME));
 		} else if (this.guideType === 'mask') {
 			const maskTopElt = document.createElement('div');
 			const maskBottomElt = document.createElement('div');
@@ -101,9 +101,9 @@ class ReadingGuideService {
 			maskBottomElt.setAttribute('id', `${this.maskBottomEltID}`);
 			closeMask.setAttribute('id', `${this.closeTextID}`);
 			closeMask.innerText = i18nServiceInstance.getMessage('readingGuide_closeMask');
-			document.body.appendChild(maskTopElt);
-			document.body.appendChild(maskBottomElt);
-			document.body.appendChild(closeMask);
+			document.body.insertBefore(maskTopElt, document.querySelector(APP_NAME));
+			document.body.insertBefore(maskBottomElt, document.querySelector(APP_NAME));
+			document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
 		}
 
 		document.addEventListener('mousemove', this.handler);

@@ -30,7 +30,6 @@ abstract class AbstractSetting extends HTMLElement {
 
 		if (this.canEdit) {
 			this.modalBtn?.classList.remove('d-none');
-			this.settingBtn?.classList.add('sc-btn-setting--with-btn-modal');
 		}
 
 		this.settingBtn?.addEventListener('changeSettingEvent', this.handler);

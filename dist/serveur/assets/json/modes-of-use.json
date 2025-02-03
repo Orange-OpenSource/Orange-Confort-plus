@@ -1,5 +1,5 @@
 {
-	"version": "1.0.24",
+	"version": "1.0.25",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -609,19 +609,11 @@
 					}
 				},
 				{
-					"textColor": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 5
-					}
-				},
-				{
 					"cursorAspect": {
 						"values": "noModifications,bigCursor_black,hugeCursor_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 6
+						"order": 5
 					}
 				},
 				{
@@ -629,7 +621,7 @@
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 7
+						"order": 6
 					}
 				},
 				{
@@ -645,7 +637,7 @@
 						"values": "noModifications,reinforcedContrasts,black_ivory",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 8
+						"order": 7
 					}
 				},
 				{
@@ -717,7 +709,7 @@
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 9
+						"order": 8
 					}
 				},
 				{
@@ -789,19 +781,11 @@
 					}
 				},
 				{
-					"textColor": {
-						"values": "noModifications,active",
-						"valueSelected": 1,
-						"isTool": true,
-						"order": 7
-					}
-				},
-				{
 					"readAloud": {
 						"values": "noModifications,sentence,paragraph",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 8
+						"order": 7
 					}
 				},
 				{
@@ -809,7 +793,7 @@
 						"values": "noModifications,bigCursor_black,hugeCursor_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 9
+						"order": 8
 					}
 				},
 				{
@@ -817,7 +801,7 @@
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 10
+						"order": 9
 					}
 				},
 				{
@@ -905,7 +889,7 @@
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 11
+						"order": 10
 					}
 				},
 				{
