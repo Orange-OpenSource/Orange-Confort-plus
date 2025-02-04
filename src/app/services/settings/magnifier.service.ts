@@ -47,7 +47,7 @@ class MagnifierService {
 
 		#${PREFIX}magnifier-glass {
 			background-color: white;
-			opacity: 0;
+			opacity: 0 !important;
 			width: 100%;
 			height: 100%;
 			position: absolute;
