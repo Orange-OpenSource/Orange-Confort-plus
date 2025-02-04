@@ -11,17 +11,25 @@ class ReadAloudService extends BodySelectorService {
 	regexSentence = /[^\.!\?]+[\.!\?]+["']?|.+$/g;
 
 	classReadAloud = `
-	#${this.readAloudTooltipId} {
-		position: fixed;
-		background-color: rgba(0, 0, 0, 0.7);
-		color: white;
-		border: 1px solid currentColor;
-		width: fit-content;
-		padding: 1em;
-		pointer-events: none;
-		z-index: calc(infinity);
-		transform: translate(75px, 50%);
-	}`;
+		#${this.readAloudTooltipId} {
+			position: fixed;
+			background-color: rgba(0, 0, 0, 0.7);
+			color: white;
+			border: 1px solid currentColor;
+			width: fit-content;
+			padding: 1em;
+			pointer-events: none;
+			z-index: calc(infinity);
+			transform: translate(75px, 50%);
+		}
+
+		h1, h2, h3, h4, h5, h6,
+		p, ul, ol, dl, blockquote,
+		pre, td, th,
+		input, textarea, legend {
+			cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="black" d="M114.821 60.554c0 33.882-26.402 56.278-56.846 56.278-6.216 0-21.82-2.872-25.265-5.743C26.394 117.406 9.168 122 9.168 122c-.374-.298.176-1.564 1.067-3.613 1.913-4.401 5.396-12.415 4.675-22.229C6.87 85.822 4 74.911 4 60.554 4 30.108 28.105 6 58.55 6c32.73 0 56.271 24.693 56.271 54.554Zm-28.55 4.38a3.532 3.532 0 1 1 0-7.064 3.532 3.532 0 0 1 0 7.063Zm-27.075 0a3.532 3.532 0 1 1 0-7.064 3.532 3.532 0 0 1 0 7.063Zm-30.607-3.532a3.532 3.532 0 1 0 7.063 0 3.532 3.532 0 0 0-7.063 0Z" stroke="white" stroke-width="6"/></svg>') 24 24, text !important;
+		}
+	`;
 
 	constructor() {
 		super();
