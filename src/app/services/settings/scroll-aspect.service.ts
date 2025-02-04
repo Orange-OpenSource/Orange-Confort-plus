@@ -37,7 +37,7 @@ class ScrollAspectService {
 					this.scrollWidth = SCROLL_SIZE_HUGE;
 					break;
 				default:
-					this.scrollWidth = 'inherit';
+					this.scrollWidth = 'auto';
 					break;
 			}
 			this.scrollColor = value?.split('_')[1] ? value?.split('_')[1] : 'lightgrey';
