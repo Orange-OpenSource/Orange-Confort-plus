@@ -288,7 +288,7 @@
 		"message": "grandes zones de clic & clic automatique au survol"
 	},
 	"multiclic": {
-		"message": "Valeur actuelle : “$CURRENT$” $INDEX$/$TOTAL$, changer pour “$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Valeur actuelle : $CURRENT$ $INDEX$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
 			"current": {
@@ -299,12 +299,6 @@
 			},
 			"total": {
 				"content": "$3"
-			},
-			"next": {
-				"content": "$4"
-			},
-			"index2": {
-				"content": "$5"
 			}
 		}
 	},
