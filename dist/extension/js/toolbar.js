@@ -3742,7 +3742,7 @@ class AbstractSetting extends HTMLElement {
 
 const tmplCapitalLetters = document.createElement("template");
 
-tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplCapitalLetters.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class CapitalLettersComponent extends AbstractSetting {
     activesValues={
@@ -3762,7 +3762,7 @@ customElements.define("app-capital-letters", CapitalLettersComponent);
 
 const tmplClearlyLinks = document.createElement("template");
 
-tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplClearlyLinks.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ClearlyLinksComponent extends AbstractSetting {
     activesValues={
@@ -3782,7 +3782,7 @@ customElements.define("app-clearly-links", ClearlyLinksComponent);
 
 const tmplClickFacilite = document.createElement("template");
 
-tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplClickFacilite.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ClickFaciliteComponent extends AbstractSetting {
     activesValues={
@@ -3802,7 +3802,7 @@ customElements.define("app-click-facilite", ClickFaciliteComponent);
 
 const tmplColorContrast = document.createElement("template");
 
-tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplColorContrast.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColorContrastComponent extends AbstractSetting {
     activesValues={
@@ -3822,7 +3822,7 @@ customElements.define("app-color-contrast", ColorContrastComponent);
 
 const tmplCursorAspect = document.createElement("template");
 
-tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplCursorAspect.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class CursorAspectComponent extends AbstractSetting {
     activesValues={
@@ -3842,7 +3842,7 @@ customElements.define("app-cursor-aspect", CursorAspectComponent);
 
 const tmplDeleteBackgroundImages = document.createElement("template");
 
-tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplDeleteBackgroundImages.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class DeleteBackgroundImagesComponent extends AbstractSetting {
     activesValues={
@@ -3862,7 +3862,7 @@ customElements.define("app-delete-background-images", DeleteBackgroundImagesComp
 
 const tmplFocusAspect = document.createElement("template");
 
-tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplFocusAspect.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FocusAspectComponent extends AbstractSetting {
     activesValues={
@@ -3882,7 +3882,7 @@ customElements.define("app-focus-aspect", FocusAspectComponent);
 
 const tmplFontFamily = document.createElement("template");
 
-tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class FontFamilyComponent extends AbstractSetting {
     activesValues={
@@ -3902,7 +3902,7 @@ customElements.define("app-font-family", FontFamilyComponent);
 
 const tmplLinkStyle = document.createElement("template");
 
-tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplLinkStyle.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class LinkStyleComponent extends AbstractSetting {
     activesValues={
@@ -3922,7 +3922,7 @@ customElements.define("app-link-style", LinkStyleComponent);
 
 const tmplMagnifier = document.createElement("template");
 
-tmplMagnifier.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplMagnifier.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MagnifierComponent extends AbstractSetting {
     activesValues={
@@ -3942,7 +3942,7 @@ customElements.define("app-magnifier", MagnifierComponent);
 
 const tmplMarginAlign = document.createElement("template");
 
-tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplMarginAlign.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class MarginAlignComponent extends AbstractSetting {
     activesValues={
@@ -3962,7 +3962,7 @@ customElements.define("app-margin-align", MarginAlignComponent);
 
 const tmplNavigationAuto = document.createElement("template");
 
-tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplNavigationAuto.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationAutoComponent extends AbstractSetting {
     activesValues={
@@ -3982,7 +3982,7 @@ customElements.define("app-navigation-auto", NavigationAutoComponent);
 
 const tmplNavigationButtons = document.createElement("template");
 
-tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class NavigationButtonsComponent extends AbstractSetting {
     activesValues={
@@ -4002,7 +4002,7 @@ customElements.define("app-navigation-buttons", NavigationButtonsComponent);
 
 const tmplReadAloud = document.createElement("template");
 
-tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplReadAloud.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadAloudComponent extends AbstractSetting {
     activesValues={
@@ -4022,7 +4022,7 @@ customElements.define("app-read-aloud", ReadAloudComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
@@ -4042,7 +4042,7 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 const tmplRestartTopLeft = document.createElement("template");
 
-tmplRestartTopLeft.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplRestartTopLeft.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class RestartTopLeftComponent extends AbstractSetting {
     activesValues={
@@ -4062,7 +4062,7 @@ customElements.define("app-restart-top-left", RestartTopLeftComponent);
 
 const tmplScrollAspect = document.createElement("template");
 
-tmplScrollAspect.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplScrollAspect.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ScrollAspectComponent extends AbstractSetting {
     activesValues={
@@ -4082,7 +4082,7 @@ customElements.define("app-scroll-aspect", ScrollAspectComponent);
 
 const tmplScrollType = document.createElement("template");
 
-tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ScrollTypeComponent extends AbstractSetting {
     activesValues={
@@ -4102,7 +4102,7 @@ customElements.define("app-scroll-type", ScrollTypeComponent);
 
 const tmplSkipToContent = document.createElement("template");
 
-tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class SkipToContentComponent extends AbstractSetting {
     activesValues={
@@ -4122,7 +4122,7 @@ customElements.define("app-skip-to-content", SkipToContentComponent);
 
 const tmplStopAnimations = document.createElement("template");
 
-tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplStopAnimations.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class StopAnimationsComponent extends AbstractSetting {
     activesValues={
@@ -4142,7 +4142,7 @@ customElements.define("app-stop-animations", StopAnimationsComponent);
 
 const tmplIncreaseTextSize = document.createElement("template");
 
-tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplIncreaseTextSize.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class IncreaseTextSizeComponent extends AbstractSetting {
     activesValues={
@@ -4162,7 +4162,7 @@ customElements.define("app-text-size", IncreaseTextSizeComponent);
 
 const tmplSpacingText = document.createElement("template");
 
-tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-3 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplSpacingText.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class TextSpacingComponent extends AbstractSetting {
     activesValues={
@@ -4182,7 +4182,7 @@ customElements.define("app-text-spacing", TextSpacingComponent);
 
 const tmplTextColor = document.createElement("template");
 
-tmplTextColor.innerHTML = `\n<div class="d-flex align-items-center gap-3">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplTextColor.innerHTML = `\n<div class="d-flex align-items-center gap-2">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class TextColorComponent extends AbstractSetting {
     activesValues={
