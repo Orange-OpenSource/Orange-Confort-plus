@@ -1,6 +1,6 @@
 const tmplScrollType: HTMLTemplateElement = document.createElement('template');
 tmplScrollType.innerHTML = `
-<div class="d-flex align-items-center gap-3 h-100">
+<div class="d-flex align-items-center gap-2 h-100">
 	<app-btn-setting></app-btn-setting>
 </div>
 `;
