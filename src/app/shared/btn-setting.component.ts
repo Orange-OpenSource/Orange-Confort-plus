@@ -107,7 +107,7 @@ class BtnSettingComponent extends HTMLElement {
 		const settingsNumber = this.settingsList.length;
 
 		if (settingsNumber > 0) {
-			const currentValueLabel = this.getValueLabel(this.value);
+			const currentValueLabel = `<span class="fw-bold">${this.getValueLabel(this.value)}</span>`;
 			const nextValueIndex = settingsNumber === (this.index + 1) ? 0 : this.index + 1;
 			const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
 
@@ -128,7 +128,7 @@ class BtnSettingComponent extends HTMLElement {
 			}
 
 			const tooltipValue: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-value');
-			tooltipValue.innerText = content;
+			tooltipValue.innerHTML = content;
 		}
 	}
 
