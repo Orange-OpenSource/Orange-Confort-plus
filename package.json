@@ -74,7 +74,7 @@
 		"watch": "concurrently --kill-others \"npm:watch:*\"",
 		"watch:html": "nodemon --watch src/site --ext html --exec \"npm run build:html\"",
 		"watch:css": "nodemon --watch src/styles --ext scss --exec \"npm run build:css\"",
-		"watch:ts": "nodemon --watch src/app --ext ts --exec \"npm run ts:toolbar && npm run toolbar: server && shx cp -r dist/serveur/js docs\"",
+		"watch:ts": "nodemon --watch src/app --ext ts --exec \"npm run ts:toolbar && npm run toolbar:server && shx cp -r dist/serveur/js docs\"",
 		"watch:icons": "nodemon --watch src/assets/icons --ext svg --exec \"npm run build:icons\"",
 		"mv:manifest:firefox": "shx cp dist/manifest.firefox.json dist/extension/manifest.json",
 		"mv:manifest:chrome": "shx cp dist/manifest.chrome.json dist/extension/manifest.json",
