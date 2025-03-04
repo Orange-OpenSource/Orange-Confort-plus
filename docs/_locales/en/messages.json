@@ -353,7 +353,7 @@
 		"message": "Text Size"
 	},
 	"setting_textSize_instruction": {
-		"message": "To increase text size"
+		"message": "To only increase text size"
 	},
 	"textSize_noModifications": {
 		"message": "no modifications"
