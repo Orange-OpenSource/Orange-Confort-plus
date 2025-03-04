@@ -4316,8 +4316,8 @@ class EditFocusAspectComponent extends HTMLElement {
     settingValues=null;
     focusSizeValue="";
     focusColorValue="";
-    focusSizeValues=[ `focusSize_${DEFAULT_VALUE}`, "focusSize_big", "focusSize_huge" ];
-    focusColorValues=[ `focusColor_${DEFAULT_VALUE}`, "focusColor_white", "focusColor_blue", "focusColor_red", "focusColor_yellow", "focusColor_green", "focusColor_black" ];
+    focusSizeValues=[ DEFAULT_VALUE, "focusSize_big", "focusSize_huge" ];
+    focusColorValues=[ DEFAULT_VALUE, "focusColor_white", "focusColor_blue", "focusColor_red", "focusColor_yellow", "focusColor_green", "focusColor_black" ];
     handler;
     constructor() {
         super();
@@ -4370,12 +4370,20 @@ class EditFocusAspectComponent extends HTMLElement {
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingFocusSize":
-            this.focusSizeValue = event.detail.newValue.split("_")[1];
+            if (event.detail.newValue === DEFAULT_VALUE) {
+                this.focusSizeValue = DEFAULT_VALUE;
+            } else {
+                this.focusSizeValue = event.detail.newValue.split("_")[1];
+            }
             this.setFocusAspect();
             break;
 
           case "editSettingFocusColor":
-            this.focusColorValue = event.detail.newValue.split("_")[1];
+            if (event.detail.newValue === DEFAULT_VALUE) {
+                this.focusColorValue = DEFAULT_VALUE;
+            } else {
+                this.focusColorValue = event.detail.newValue.split("_")[1];
+            }
             this.setFocusAspect();
             break;
         }
@@ -4774,8 +4782,8 @@ class EditScrollAspectComponent extends HTMLElement {
     settingValues=null;
     scrollSizeValue="";
     scrollColorValue="";
-    scrollSizeValues=[ `scrollSize_${DEFAULT_VALUE}`, "scrollSize_big", "scrollSize_huge" ];
-    scrollColorValues=[ `scrollColor_${DEFAULT_VALUE}`, "scrollColor_white", "scrollColor_blue", "scrollColor_red", "scrollColor_yellow", "scrollColor_green", "scrollColor_black" ];
+    scrollSizeValues=[ DEFAULT_VALUE, "scrollSize_big", "scrollSize_huge" ];
+    scrollColorValues=[ DEFAULT_VALUE, "scrollColor_white", "scrollColor_blue", "scrollColor_red", "scrollColor_yellow", "scrollColor_green", "scrollColor_black" ];
     handler;
     constructor() {
         super();
@@ -4817,12 +4825,20 @@ class EditScrollAspectComponent extends HTMLElement {
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingScrollSize":
-            this.scrollSizeValue = event.detail.newValue.split("_")[1];
+            if (event.detail.newValue === DEFAULT_VALUE) {
+                this.scrollSizeValue = DEFAULT_VALUE;
+            } else {
+                this.scrollSizeValue = event.detail.newValue.split("_")[1];
+            }
             this.setScrollAspect();
             break;
 
           case "editSettingScrollColor":
-            this.scrollColorValue = event.detail.newValue.split("_")[1];
+            if (event.detail.newValue === DEFAULT_VALUE) {
+                this.scrollColorValue = DEFAULT_VALUE;
+            } else {
+                this.scrollColorValue = event.detail.newValue.split("_")[1];
+            }
             this.setScrollAspect();
             break;
         }
