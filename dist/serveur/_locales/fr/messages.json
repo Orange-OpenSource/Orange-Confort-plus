@@ -347,7 +347,7 @@
 		"message": "Taille du texte"
 	},
 	"setting_textSize_instruction": {
-		"message": "Pour agrandir le texte"
+		"message": "Pour agrandir uniquement le texte"
 	},
 	"textSize_noModifications": {
 		"message": "sans modification"
