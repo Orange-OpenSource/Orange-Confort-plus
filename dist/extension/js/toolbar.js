@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.0 - 28/02/2025
+ * orange-confort-plus - version 5.0.0-beta.0 - 04/03/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -3262,9 +3262,12 @@ class TextSizeService {
         textSizeServiceIsInstantiated = true;
     }
     setFontSize=value => {
+        const nbValue = Number(value);
         const fontSize = value === DEFAULT_VALUE ? null : `${value}%`;
         document.documentElement.style.fontSize = fontSize;
-        const layoutState = Number(value) >= 350 ? "active" : DEFAULT_VALUE;
+        const lineHeight = !isNaN(nbValue) && nbValue >= 130 ? `${.75 * nbValue / 100}` : DEFAULT_VALUE;
+        document.documentElement.style.lineHeight = lineHeight;
+        const layoutState = nbValue >= 200 ? "active" : DEFAULT_VALUE;
         deleteLayoutServiceInstance.setDeleteLayout(layoutState);
     };
 }
