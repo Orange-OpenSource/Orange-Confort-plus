@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.0 - 06/03/2025
+ * orange-confort-plus - version 5.0.0-beta.0 - 10/03/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -5348,7 +5348,7 @@ customElements.define("app-edit-margin-align", EditMarginAlignComponent);
 
 const editNavigationAutoLayout = document.createElement("template");
 
-editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="navigationAuto_label"></legend>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto_inactive"></label>\n\t\t\t</div>\n\t\t\t<div class="form-check">\n\t\t\t\t<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">\n\t\t\t\t<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto_active"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="navigationDelay"></app-select-edit-value>\n\t</form>\n`;
+editNavigationAutoLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<fieldset>\n\t\t\t<legend class="fs-5" data-i18n="navigationAuto_label"></legend>\n\t\t\t<div class="btn-group w-100" role="group">\n\t\t\t\t\t<input class="btn-check" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}" autocomplete="off">\n\t\t\t\t\t<label class="btn btn-secondary" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto_inactive"></label>\n\t\t\t\t\t<input class="btn-check" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus" autocomplete="off">\n\t\t\t\t\t<label class="btn btn-secondary" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto_active"></label>\n\t\t\t</div>\n\t\t</fieldset>\n\n\t\t<app-select-edit-value class="d-none" data-name="navigationDelay"></app-select-edit-value>\n\t</form>\n`;
 
 class EditNavigationAutoComponent extends HTMLElement {
     selectNavigationDelayElement=null;
