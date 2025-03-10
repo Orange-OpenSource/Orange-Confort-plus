@@ -4,6 +4,9 @@ template.innerHTML = `
 	<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
 		<span class="visually-hidden" data-i18n="mainButton"></span>
 		<app-icon data-size="3em" data-name="Accessibility"></app-icon>
+		<span id="pause-indicator" class="sc-confort-plus--paused">
+			<app-icon data-size="0.75em" data-name="Pause"></app-icon>
+		</span>
 	</button>
 	<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>
 </div>
@@ -13,6 +16,7 @@ class AppComponent extends HTMLElement {
 	confortPlusBtn: HTMLElement | undefined = null;
 	confortPlusToolbar: HTMLElement | undefined = null;
 	closeBtn: HTMLElement | undefined = null;
+	pauseIndicator: HTMLElement | undefined = null;
 	link: HTMLLinkElement;
 
 	handler: any;
@@ -43,6 +47,7 @@ class AppComponent extends HTMLElement {
 
 		this.confortPlusBtn = this?.shadowRoot?.getElementById('confort');
 		this.closeBtn = this?.shadowRoot?.getElementById('close-toolbar');
+		this.pauseIndicator = this?.shadowRoot?.getElementById('pause-indicator');
 		this.confortPlusToolbar = this?.shadowRoot?.getElementById(`${PREFIX}toolbar`);
 		if (!this.confortPlusBtn || !this.confortPlusToolbar) {
 			return;
@@ -56,6 +61,8 @@ class AppComponent extends HTMLElement {
 					this.hideToolbar();
 				}
 			});
+
+		this.setPauseIndicator();
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);
@@ -95,13 +102,20 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn.classList.remove('d-none');
 		this.confortPlusBtn?.focus();
 		localStorageServiceInstance.setItem('is-opened', 'false');
-
+		this.setPauseIndicator();
 	}
 
 	private setContainerButtonsPosition = (position: string): void => {
 		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
 			(document.querySelector(`#${CONTAINER_BUTTONS_ID}`) as HTMLElement).style.right = position;
 		}
+	}
+
+	private setPauseIndicator = () => {
+		localStorageServiceInstance.getItem('is-paused')
+			.then((isPaused: any) => {
+				this.pauseIndicator.hidden = isPaused !== true;
+			});
 	}
 }
 

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.0 - 04/02/2025
+ * orange-confort-plus - version 5.0.0-beta.0 - 10/03/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -3575,12 +3575,13 @@ Object.freeze(pauseServiceInstance);
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus--paused">\n\t\t\t<app-icon data-size="0.75em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     confortPlusBtn=null;
     confortPlusToolbar=null;
     closeBtn=null;
+    pauseIndicator=null;
     link;
     handler;
     constructor() {
@@ -3605,6 +3606,7 @@ class AppComponent extends HTMLElement {
         }));
         this.confortPlusBtn = this?.shadowRoot?.getElementById("confort");
         this.closeBtn = this?.shadowRoot?.getElementById("close-toolbar");
+        this.pauseIndicator = this?.shadowRoot?.getElementById("pause-indicator");
         this.confortPlusToolbar = this?.shadowRoot?.getElementById(`${PREFIX}toolbar`);
         if (!this.confortPlusBtn || !this.confortPlusToolbar) {
             return;
@@ -3616,6 +3618,7 @@ class AppComponent extends HTMLElement {
                 this.hideToolbar();
             }
         }));
+        this.setPauseIndicator();
         this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
         this.confortPlusBtn.addEventListener("click", this.handler);
     }
@@ -3650,11 +3653,17 @@ class AppComponent extends HTMLElement {
         this.confortPlusBtn.classList.remove("d-none");
         this.confortPlusBtn?.focus();
         localStorageServiceInstance.setItem("is-opened", "false");
+        this.setPauseIndicator();
     };
     setContainerButtonsPosition=position => {
         if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
             document.querySelector(`#${CONTAINER_BUTTONS_ID}`).style.right = position;
         }
+    };
+    setPauseIndicator=() => {
+        localStorageServiceInstance.getItem("is-paused").then((isPaused => {
+            this.pauseIndicator.hidden = isPaused !== true;
+        }));
     };
 }
 
