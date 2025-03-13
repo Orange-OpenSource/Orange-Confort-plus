@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.0 - 10/03/2025
+ * orange-confort-plus - version 5.0.0-beta.0 - 26/03/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1263,6 +1263,10 @@ class PauseService {
         }, {
             name: "textColor",
             instanceService: textColorServiceInstance.setTextColor.bind(this),
+            value: DEFAULT_VALUE
+        }, {
+            name: "zoom",
+            instanceService: zoomServiceInstance.setZoom.bind(this),
             value: DEFAULT_VALUE
         } ];
     }
@@ -3376,6 +3380,29 @@ class TextColorService extends BodySelectorService {
 
 "use strict";
 
+let zoomServiceIsInstantiated;
+
+class ZoomService {
+    constructor() {
+        if (zoomServiceIsInstantiated) {
+            throw new Error("ZoomService is already instantiated.");
+        }
+        zoomServiceIsInstantiated = true;
+    }
+    setZoom=value => {
+        console.log("setZoom execution");
+        const nbValue = Number(value);
+        const zoomValue = value === DEFAULT_VALUE ? null : (nbValue / 100).toString();
+        const noZoomValue = value === DEFAULT_VALUE ? null : (100 / nbValue).toString();
+        const zoomStyle = `\n\t\tbody {\n\t\t\tzoom: ${zoomValue};\n\t\t}\n\t\tcplus-app-root, body > [id^=${PREFIX}]{\n\t\t\tzoom: ${noZoomValue} !important;\n\t\t}\n\t\t`;
+        stylesServiceInstance.setStyle("zoom", zoomStyle);
+        const layoutState = nbValue >= 300 ? "active" : DEFAULT_VALUE;
+        deleteLayoutServiceInstance.setDeleteLayout(layoutState);
+    };
+}
+
+"use strict";
+
 let stringServiceIsInstantiated;
 
 class StringService {
@@ -3569,6 +3596,10 @@ Object.seal(textSpacingServiceInstance);
 const textColorServiceInstance = new TextColorService;
 
 Object.seal(textColorServiceInstance);
+
+const zoomServiceInstance = new ZoomService;
+
+Object.seal(zoomServiceInstance);
 
 const pauseServiceInstance = new PauseService;
 
@@ -4203,6 +4234,26 @@ customElements.define("app-text-color", TextColorComponent);
 
 "use strict";
 
+const tmplZoom = document.createElement("template");
+
+tmplZoom.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+
+class ZoomComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,130,200",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(zoomServiceInstance.setZoom.bind(this));
+        this.appendChild(tmplZoom.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-zoom", ZoomComponent);
+
+"use strict";
+
 const btnModalLayout = document.createElement("template");
 
 btnModalLayout.innerHTML = `\n\t<button type="button" class="btn btn-primary pe-4" data-i18n="moreChoice">\n\t</button>`;
@@ -4732,7 +4783,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-zoom class="sc-edit-setting__setting"></app-edit-zoom>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -5682,6 +5733,52 @@ customElements.define("app-edit-text-spacing", EditTextSpacingComponent);
 
 "use strict";
 
+const editZoomLayout = document.createElement("template");
+
+editZoomLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="zoom"></app-select-edit-value>\n\t</form>\n`;
+
+class EditZoomComponent extends HTMLElement {
+    selectZoomElement=null;
+    settingValues=null;
+    zoomValues=[ DEFAULT_VALUE, "110", "130", "160", "200", "350", "500" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editZoomLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectZoomElement = this.querySelector("app-select-edit-value");
+        this.selectZoomElement.addEventListener("editSettingZoom", this.handler);
+        this.selectZoomElement.setAttribute("data-setting-values", this.zoomValues.join(","));
+        modeOfUseServiceInstance.getSetting("zoom").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.zoomValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectZoomElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setZoom(value) {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex === -1) {
+            modeOfUseServiceInstance.addSettingCustomValue("zoom", 3, value);
+        } else {
+            modeOfUseServiceInstance.setSettingValue("zoom", newSettingIndex, true);
+        }
+        zoomServiceInstance.setZoom(value);
+    }
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingZoom":
+            this.setZoom(event.detail.newValue);
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-zoom", EditZoomComponent);
+
+"use strict";
+
 const homeLayout = document.createElement("template");
 
 homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">\n\t\t<span class="visually-hidden" data-i18n="otherUsagesModes"></span>\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="2.5em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
@@ -5798,7 +5895,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting"></app-zoom>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -6096,7 +6193,7 @@ class AbstractCategory extends HTMLElement {
 
 const tmplLayout = document.createElement("template");
 
-tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Affichage" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplLayout.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-layout">\n\t\t\t<app-icon data-name="Affichage" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="layout"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-layout">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>\n\t\t\t\t<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>\n\t\t\t\t<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t\t<app-zoom class="c-category__setting" data-can-edit="true"></app-zoom>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class LayoutComponent extends AbstractCategory {
     constructor() {
