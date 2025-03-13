@@ -27,6 +27,7 @@ editSettingLayout.innerHTML = `
 		<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>
 		<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>
 		<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>
+		<app-edit-zoom class="sc-edit-setting__setting"></app-edit-zoom>
 	</div>
 `;
 
