@@ -901,5 +901,32 @@
 	},
 	"restartTopLeft_active": {
 		"message": "restart"
+	},
+	"setting_zoom": {
+		"message": "Zoom"
+	},
+	"setting_zoom_instruction": {
+		"message": "To increase page size"
+	},
+	"zoom_noModifications": {
+		"message": "no modifications"
+	},
+	"zoom_110": {
+		"message": "slightly larger “110%”"
+	},
+	"zoom_130": {
+		"message": "larger “130%”"
+	},
+	"zoom_160": {
+		"message": "quite large “160%”"
+	},
+	"zoom_200": {
+		"message": "very large “200%”"
+	},
+	"zoom_350": {
+		"message": "huge “350%”"
+	},
+	"zoom_500": {
+		"message": "max “500%”"
 	}
 }

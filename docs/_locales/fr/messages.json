@@ -895,5 +895,32 @@
 	},
 	"restartTopLeft_active": {
 		"message": "recommencer"
+	},
+	"setting_zoom": {
+		"message": "Zoom"
+	},
+	"setting_zoom_instruction": {
+		"message": "Pour agrandir la page"
+	},
+	"zoom_noModifications": {
+		"message": "sans modification"
+	},
+	"zoom_110": {
+		"message": "un peu grand “110%”"
+	},
+	"zoom_130": {
+		"message": "plutôt grand “130%”"
+	},
+	"zoom_160": {
+		"message": "bien grand “160%”"
+	},
+	"zoom_200": {
+		"message": "très grand “200%”"
+	},
+	"zoom_350": {
+		"message": "énorme “350%”"
+	},
+	"zoom_500": {
+		"message": "max “500%”"
 	}
 }
