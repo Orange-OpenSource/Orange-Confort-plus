@@ -797,7 +797,7 @@
 		"message": "Skip to Content"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "To jump directly to the main content"
+		"message": "Allows you to go directly to the content of a site without going through the menus"
 	},
 	"skipToContent_noModifications": {
 		"message": "no modifications"
