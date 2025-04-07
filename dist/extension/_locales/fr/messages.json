@@ -791,7 +791,7 @@
 		"message": "Aller au contenu"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+		"message": "Permet d'aller directement sur les contenus d'un site sans passer par les menus"
 	},
 	"skipToContent_noModifications": {
 		"message": "sans modification"
