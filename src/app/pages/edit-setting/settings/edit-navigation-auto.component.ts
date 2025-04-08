@@ -3,13 +3,11 @@ editNavigationAutoLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4">
 		<fieldset>
 			<legend class="fs-5" data-i18n="navigationAuto_label"></legend>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}">
-				<label class="form-check-label" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto_inactive"></label>
-			</div>
-			<div class="form-check">
-				<input class="form-check-input" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus">
-				<label class="form-check-label" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto_active"></label>
+			<div class="btn-group w-100" role="group">
+					<input class="btn-check" type="radio" name="navigationAuto" id="${PREFIX}${DEFAULT_VALUE}-navigation-auto" value="${DEFAULT_VALUE}" autocomplete="off">
+					<label class="btn btn-secondary" for="${PREFIX}${DEFAULT_VALUE}-navigation-auto" data-i18n="navigationAuto_inactive"></label>
+					<input class="btn-check" type="radio" name="navigationAuto" id="${PREFIX}autoFocus-navigation-auto" value="autoFocus" autocomplete="off">
+					<label class="btn btn-secondary" for="${PREFIX}autoFocus-navigation-auto" data-i18n="navigationAuto_active"></label>
 			</div>
 		</fieldset>
 

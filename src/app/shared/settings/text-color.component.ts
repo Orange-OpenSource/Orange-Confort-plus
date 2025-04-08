@@ -1,6 +1,6 @@
 const tmplTextColor: HTMLTemplateElement = document.createElement('template');
 tmplTextColor.innerHTML = `
-<div class="d-flex align-items-center gap-3">
+<div class="d-flex align-items-center gap-2">
 	<app-btn-setting></app-btn-setting>
 </div>
 `;
