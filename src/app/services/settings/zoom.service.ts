@@ -10,7 +10,6 @@ class ZoomService {
 	}
 
 	setZoom= (value: string): void => {
-		console.log('setZoom execution');
 		const nbValue = Number(value);
 		const zoomValue = value === DEFAULT_VALUE ? null : (nbValue / 100).toString();
 
