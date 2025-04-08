@@ -20,7 +20,7 @@ class ZoomService {
 		body {
 			zoom: ${zoomValue};
 		}
-		cplus-app-root, body > [id^=${PREFIX}]{
+		${APP_NAME}, body > [id^=${PREFIX}], body::-webkit-scrollbar {
 			zoom: ${noZoomValue} !important;
 		}
 		`;
