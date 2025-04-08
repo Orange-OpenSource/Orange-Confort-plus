@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.0 - 07/04/2025
+ * orange-confort-plus - version 5.0.0-beta.0 - 08/04/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -3393,7 +3393,7 @@ class ZoomService {
         const nbValue = Number(value);
         const zoomValue = value === DEFAULT_VALUE ? null : (nbValue / 100).toString();
         const noZoomValue = value === DEFAULT_VALUE ? null : (100 / nbValue).toString();
-        const zoomStyle = `\n\t\tbody {\n\t\t\tzoom: ${zoomValue};\n\t\t}\n\t\tcplus-app-root, body > [id^=${PREFIX}]{\n\t\t\tzoom: ${noZoomValue} !important;\n\t\t}\n\t\t`;
+        const zoomStyle = `\n\t\tbody {\n\t\t\tzoom: ${zoomValue};\n\t\t}\n\t\t${APP_NAME}, body > [id^=${PREFIX}], body::-webkit-scrollbar {\n\t\t\tzoom: ${noZoomValue} !important;\n\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("zoom", zoomStyle);
         const layoutState = nbValue >= 300 ? "active" : DEFAULT_VALUE;
         deleteLayoutServiceInstance.setDeleteLayout(layoutState);
