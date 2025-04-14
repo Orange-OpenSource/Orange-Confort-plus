@@ -46,6 +46,12 @@ A tailor-made [Orange Confort+ for WordPress](https://wordpress.org/plugins/oran
 
 _N.B: This plugin is not directly maintained by the Confort+ core team, in case of issues please use the [plugin support from wordpress](https://wordpress.org/support/plugin/orange-confort-plus/)_ 
 
+**React App**
+
+To integrate Orange Confort+ into a React application, you can use [orange-confort-plus npm package](https://www.npmjs.com/package/orange-confort-plus). Thanks to [@gbili](https://github.com/gbili).
+
+_N.B: This package is not directly maintained by the Confort+ core team, please file issues using the [Github repo](https://github.com/meow-ch/orange-confort-plus/issues)_
+
 **On your own domain**
 
 A prepackaged version is available: simply add the `dist/serveur` folder to your website.
