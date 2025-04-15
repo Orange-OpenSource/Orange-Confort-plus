@@ -72,7 +72,7 @@
 		"message": "Choix pour ce réglage"
 	},
 	"moreChoice": {
-		"message": "Plus de choix"
+		"message": "Tous les choix"
 	},
 	"layout": {
 		"message": "Affichage"
@@ -288,7 +288,7 @@
 		"message": "grandes zones de clic & clic automatique au survol"
 	},
 	"multiclic": {
-		"message": "Valeur actuelle : “$CURRENT$” $INDEX$/$TOTAL$, changer pour “$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Valeur actuelle : $CURRENT$ $INDEX$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
 			"current": {
@@ -299,12 +299,6 @@
 			},
 			"total": {
 				"content": "$3"
-			},
-			"next": {
-				"content": "$4"
-			},
-			"index2": {
-				"content": "$5"
 			}
 		}
 	},
@@ -353,7 +347,7 @@
 		"message": "Taille du texte"
 	},
 	"setting_textSize_instruction": {
-		"message": "Pour agrandir le texte"
+		"message": "Pour agrandir uniquement le texte"
 	},
 	"textSize_noModifications": {
 		"message": "sans modification"
@@ -377,7 +371,7 @@
 		"message": "max “500%”"
 	},
 	"setting_capitalLetters": {
-		"message": "Lettres capitales"
+		"message": "Majuscules"
 	},
 	"setting_capitalLetters_instruction": {
 		"message": "Pour utiliser des majuscules"
@@ -392,10 +386,10 @@
 		"message": "1ères lettres en majuscules"
 	},
 	"setting_textSpacing": {
-		"message": "Espacement du texte"
+		"message": "Aérer le  texte"
 	},
 	"setting_textSpacing_instruction": {
-		"message": "Pour bien séparer les caractères et les lignes"
+		"message": "Pour bien espacer les caractères et les lignes"
 	},
 	"textSpacing_noModifications": {
 		"message": "sans modification"
@@ -551,7 +545,7 @@
 		"message": "Aspect du focus"
 	},
 	"setting_focusAspect_instruction": {
-		"message": "Pour modifier le rendu du focus sur la page"
+		"message": "Pour modifier le rendu du focus de sélection"
 	},
 	"focusAspect_noModifications": {
 		"message": "sans modification"
@@ -578,6 +572,9 @@
 			}
 		}
 	},
+	"focusSize_noModifications": {
+		"message": "sans modification de taille"
+	},
 	"focusColor_label": {
 		"message": "Couleur du focus"
 	},
@@ -588,6 +585,9 @@
 				"content": "$2"
 			}
 		}
+	},
+	"focusColor_noModifications": {
+		"message": "sans modification de couleur"
 	},
 	"setting_colorContrast": {
 		"message": "Couleurs Texte - Fond"
@@ -707,7 +707,7 @@
 		"message": "Supprimer les images de fond"
 	},
 	"setting_deleteBackgroundImages_instruction": {
-		"message": "Pour empêcher les images de s’afficher"
+		"message": "Pour empêcher les images de fond de page de s'afficher"
 	},
 	"deleteBackgroundImages_noModifications": {
 		"message": "sans modification"
@@ -734,7 +734,7 @@
 		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
 	},
 	"setting_scrollAspect": {
-		"message": "Ascenseur"
+		"message": "Aspect ascenseur"
 	},
 	"setting_scrollAspect_instruction": {
 		"message": "Pour modifier le rendu de l’ascenseur"
@@ -770,6 +770,9 @@
 			}
 		}
 	},
+	"scrollSize_noModifications": {
+		"message": "sans modification de taille"
+	},
 	"scrollColor_label": {
 		"message": "Couleur de l'ascenceur"
 	},
@@ -781,11 +784,14 @@
 			}
 		}
 	},
+	"scrollColor_noModifications": {
+		"message": "sans modification de couleur"
+	},
 	"setting_skipToContent": {
 		"message": "Aller au contenu"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+		"message": "Permet d'aller directement sur les contenus d'un site sans passer par les menus"
 	},
 	"skipToContent_noModifications": {
 		"message": "sans modification"
@@ -889,5 +895,32 @@
 	},
 	"restartTopLeft_active": {
 		"message": "recommencer"
+	},
+	"setting_zoom": {
+		"message": "Zoom"
+	},
+	"setting_zoom_instruction": {
+		"message": "Pour agrandir la page"
+	},
+	"zoom_noModifications": {
+		"message": "sans modification"
+	},
+	"zoom_110": {
+		"message": "un peu grand “110%”"
+	},
+	"zoom_130": {
+		"message": "plutôt grand “130%”"
+	},
+	"zoom_160": {
+		"message": "bien grand “160%”"
+	},
+	"zoom_200": {
+		"message": "très grand “200%”"
+	},
+	"zoom_350": {
+		"message": "énorme “350%”"
+	},
+	"zoom_500": {
+		"message": "max “500%”"
 	}
 }

@@ -15,6 +15,7 @@ tmplLayout.innerHTML = `
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
 				<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>
 				<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>
+				<app-zoom class="c-category__setting" data-can-edit="true"></app-zoom>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>

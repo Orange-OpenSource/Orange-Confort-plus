@@ -15,8 +15,8 @@ class EditFocusAspectComponent extends HTMLElement {
 	settingValues: string[] = null;
 	focusSizeValue = '';
 	focusColorValue = '';
-	focusSizeValues = [`focusSize_${DEFAULT_VALUE}`, 'focusSize_big', 'focusSize_huge'];
-	focusColorValues = [`focusColor_${DEFAULT_VALUE}`, 'focusColor_white', 'focusColor_blue', 'focusColor_red', 'focusColor_yellow', 'focusColor_green', 'focusColor_black'];
+	focusSizeValues = [DEFAULT_VALUE, 'focusSize_big', 'focusSize_huge'];
+	focusColorValues = [DEFAULT_VALUE, 'focusColor_white', 'focusColor_blue', 'focusColor_red', 'focusColor_yellow', 'focusColor_green', 'focusColor_black'];
 
 	handler: any;
 
@@ -29,6 +29,7 @@ class EditFocusAspectComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
+
 		this.selectFocusSizeElement = this.querySelector(`#${PREFIX}select-focus-size`);
 		this.selectFocusColorElement = this.querySelector(`#${PREFIX}select-focus-color`);
 
@@ -88,11 +89,19 @@ class EditFocusAspectComponent extends HTMLElement {
 		return (event: any) => {
 			switch (event.type) {
 				case 'editSettingFocusSize':
-					this.focusSizeValue = event.detail.newValue.split('_')[1];
+					if(event.detail.newValue === DEFAULT_VALUE) {
+						this.focusSizeValue = DEFAULT_VALUE;
+					} else {
+						this.focusSizeValue = event.detail.newValue.split('_')[1];
+					}
 					this.setFocusAspect();
 					break;
 				case 'editSettingFocusColor':
-					this.focusColorValue = event.detail.newValue.split('_')[1];
+					if(event.detail.newValue === DEFAULT_VALUE) {
+						this.focusColorValue = DEFAULT_VALUE;
+					} else {
+						this.focusColorValue = event.detail.newValue.split('_')[1];
+					}
 					this.setFocusAspect();
 					break;
 			}

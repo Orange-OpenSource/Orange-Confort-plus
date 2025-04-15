@@ -72,7 +72,7 @@
 		"message": "Choice for this setting"
 	},
 	"moreChoice": {
-		"message": "More choice"
+		"message": "Show all"
 	},
 	"layout": {
 		"message": "Display"
@@ -353,7 +353,7 @@
 		"message": "Text Size"
 	},
 	"setting_textSize_instruction": {
-		"message": "To increase text size"
+		"message": "To only increase text size"
 	},
 	"textSize_noModifications": {
 		"message": "no modifications"
@@ -551,7 +551,7 @@
 		"message": "Focus Appearance"
 	},
 	"setting_focusAspect_instruction": {
-		"message": "To change the focus appearance on the page"
+		"message": "To change the selecting focus' appearance"
 	},
 	"focusAspect_noModifications": {
 		"message": "no modifications"
@@ -578,6 +578,9 @@
 			}
 		}
 	},
+	"focusSize_noModifications": {
+		"message": "no size change"
+	},
 	"focusColor_label": {
 		"message": "Focus Color"
 	},
@@ -588,6 +591,9 @@
 				"content": "$2"
 			}
 		}
+	},
+	"focusColor_noModifications": {
+		"message": "no color change"
 	},
 	"setting_colorContrast": {
 		"message": "Colors Text - Background"
@@ -734,7 +740,7 @@
 		"message": "Scroll Up/Down Buttons (on mouseover, no click required)"
 	},
 	"setting_scrollAspect": {
-		"message": "Scroll"
+		"message": "Scroll aspect"
 	},
 	"setting_scrollAspect_instruction": {
 		"message": "To modify the appearance of the scroll bar"
@@ -770,6 +776,9 @@
 			}
 		}
 	},
+	"scrollSize_noModifications": {
+		"message": "no size change"
+	},
 	"scrollColor_label": {
 		"message": "Scroll Bar Color"
 	},
@@ -781,11 +790,14 @@
 			}
 		}
 	},
+	"scrollColor_noModifications": {
+		"message": "no color change"
+	},
 	"setting_skipToContent": {
 		"message": "Skip to Content"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "To jump directly to the main content"
+		"message": "Allows you to go directly to the content of a site without going through the menus"
 	},
 	"skipToContent_noModifications": {
 		"message": "no modifications"
@@ -889,5 +901,32 @@
 	},
 	"restartTopLeft_active": {
 		"message": "restart"
+	},
+	"setting_zoom": {
+		"message": "Zoom"
+	},
+	"setting_zoom_instruction": {
+		"message": "To increase page size"
+	},
+	"zoom_noModifications": {
+		"message": "no modifications"
+	},
+	"zoom_110": {
+		"message": "slightly larger “110%”"
+	},
+	"zoom_130": {
+		"message": "larger “130%”"
+	},
+	"zoom_160": {
+		"message": "quite large “160%”"
+	},
+	"zoom_200": {
+		"message": "very large “200%”"
+	},
+	"zoom_350": {
+		"message": "huge “350%”"
+	},
+	"zoom_500": {
+		"message": "max “500%”"
 	}
 }
