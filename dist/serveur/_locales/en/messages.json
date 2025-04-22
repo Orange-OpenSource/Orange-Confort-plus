@@ -425,7 +425,7 @@
 		"message": "Reading Guide"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "To guide your reading"
+		"message": "To follow the reading line"
 	},
 	"readingGuide_noModifications": {
 		"message": "no guide"
@@ -435,6 +435,9 @@
 	},
 	"readingGuide_maskGuide": {
 		"message": "mask"
+	},
+	"readingGuide_alternatingLines": {
+		"message": "alternating lines"
 	},
 	"readingGuide_closeMask": {
 		"message": "Press escape to close the mask."

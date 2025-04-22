@@ -8,7 +8,7 @@ editReadingGuideLayout.innerHTML = `
 class EditReadingGuideComponent extends HTMLElement {
 	selectReadingGuideElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	readingGuideValues = [DEFAULT_VALUE, 'ruleGuide', 'maskGuide'];
+	readingGuideValues = [DEFAULT_VALUE, 'ruleGuide', 'maskGuide', 'alternatingLines'];
 
 	handler: any;
 
