@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 15/04/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 22/04/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -2911,6 +2911,7 @@ class ReadingGuideService {
     closeTextID=`${PREFIX}mask-guide__close-text`;
     classRuleGuide=`\n\t\t#${this.verticalGuideID} {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25em 1em;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tline-height: 2em;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
+    classAlternatingLinesGuide=`\n\tbody > :not([id^=${PREFIX}]) p, body > p {\n\t\tbackground: repeating-linear-gradient(\n\t\t\tto bottom,\n\t\t\trgba(255, 255, 255, 0.4) 0 1lh,\n\t\t\trgba(0, 0, 0, 0.2) 1lh 2lh\n\t\t)\n\t}\n\t`;
     constructor() {
         if (readingGuideServiceIsInstantiated) {
             throw new Error("ReadingGuideService is already instantiated.");
@@ -2921,25 +2922,25 @@ class ReadingGuideService {
     setReadingMaskGuide=value => {
         switch (value) {
           case "ruleGuide":
-            {
-                this.resetGuide();
-                this.guideType = "rule";
-                this.setGuide();
-                break;
-            }
+            this.resetGuide();
+            this.guideType = "rule";
+            this.setGuide();
+            break;
 
           case "maskGuide":
-            {
-                this.resetGuide();
-                this.guideType = "mask";
-                this.setGuide();
-                break;
-            }
+            this.resetGuide();
+            this.guideType = "mask";
+            this.setGuide();
+            break;
+
+          case "alternatingLines":
+            this.resetGuide();
+            this.guideType = "alternatingLines";
+            this.setGuide();
+            break;
 
           default:
-            {
-                this.resetGuide();
-            }
+            this.resetGuide();
         }
     };
     setGuide=() => {
@@ -2948,6 +2949,8 @@ class ReadingGuideService {
             styleGuide = this.classRuleGuide;
         } else if (this.guideType === "mask") {
             styleGuide = this.classMaskGuide;
+        } else if (this.guideType === "alternatingLines") {
+            styleGuide = this.classAlternatingLinesGuide;
         }
         stylesServiceInstance.setStyle("reading-guide", styleGuide);
         if (this.guideType === "rule") {
@@ -4059,7 +4062,7 @@ tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-10
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,ruleGuide,maskGuide",
+        values: "noModifications,ruleGuide,maskGuide,alternatingLinesGuide",
         valueSelected: 0
     };
     constructor() {
@@ -5524,7 +5527,7 @@ editReadingGuideLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-
 class EditReadingGuideComponent extends HTMLElement {
     selectReadingGuideElement=null;
     settingValues=null;
-    readingGuideValues=[ DEFAULT_VALUE, "ruleGuide", "maskGuide" ];
+    readingGuideValues=[ DEFAULT_VALUE, "ruleGuide", "maskGuide", "alternatingLines" ];
     handler;
     constructor() {
         super();
