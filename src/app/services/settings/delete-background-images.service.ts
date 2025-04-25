@@ -9,7 +9,8 @@ class DeleteBackgroundImagesService {
 	styleDeleteBackgroundImages = `
 		.${this.classDeleteBackgroundImg},
 		.${this.classDeleteBackgroundImg}:before,
-		.${this.classDeleteBackgroundImg}:after {
+		.${this.classDeleteBackgroundImg}:after
+		::not(.${TEXT_COLOR_SPAN_CLASS}) {
 			background-image: none !important;
 			background-color: white;
 			color: black;
