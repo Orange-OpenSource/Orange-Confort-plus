@@ -49,7 +49,7 @@ class ReadingGuideService {
 		}
 	`;
 	classAlternatingLinesGuide = `
-	body > :not([id^=${PREFIX}]) p, body > p {
+	${PAGE_P_MARKUP_SELECTOR} {
 		background: repeating-linear-gradient(
 			to bottom,
 			rgba(255, 255, 255, 0.4) 0 1lh,
@@ -97,6 +97,7 @@ class ReadingGuideService {
 		} else if (this.guideType === 'mask') {
 			styleGuide = this.classMaskGuide;
 		} else if (this.guideType === 'alternatingLines') {
+			this.setPagePMarkupElementsFlag();
 			styleGuide = this.classAlternatingLinesGuide;
 		}
 
@@ -132,6 +133,25 @@ class ReadingGuideService {
 		document.querySelector(`#${this.closeTextID}`)?.remove();
 		document.removeEventListener('keydown', this.handler);
 		document.removeEventListener('mousemove', this.handler);
+		this.removePagePMarkupElementsFlag();
+	}
+
+	setPagePMarkupElementsFlag = (): void => {
+		const elts = document.querySelectorAll(PAGE_P_MARKUP_SELECTOR);
+		elts.forEach((elt) => {
+			if (!elt.classList.contains(TEXT_ALTERNATE_LINES)) {
+				elt.classList.add(TEXT_ALTERNATE_LINES);
+			}
+		});
+	}
+
+	removePagePMarkupElementsFlag = (): void => {
+		const elts = document.querySelectorAll(PAGE_P_MARKUP_SELECTOR);
+		elts.forEach((elt) => {
+			if (elt.classList.contains(TEXT_ALTERNATE_LINES)) {
+				elt.classList.remove(TEXT_ALTERNATE_LINES);
+			}
+		});
 	}
 
 	private createHandler = () => {

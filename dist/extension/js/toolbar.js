@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 22/04/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 30/04/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -748,6 +748,8 @@ const PAGE_SETTINGS = "settings";
 
 const PAGE_EDIT_SETTING = "edit-setting";
 
+const PAGE_P_MARKUP_SELECTOR = `body > :not([id^=${PREFIX}]) p, body > p`;
+
 const FOCUS_SIZE_BIG = "4px";
 
 const FOCUS_SIZE_HUGE = "10px";
@@ -769,6 +771,8 @@ const CLICK_FACILITE_AUTO_CLICK = "autoClick";
 const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
 
 const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
+
+const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 "use strict";
 
@@ -1894,7 +1898,7 @@ class DeleteBackgroundImagesService {
     classDeleteBackgroundImg=`${PREFIX}delete-background-img`;
     classDeleteForegroundImg=`${PREFIX}delete-foreground-img`;
     classSpanImage=`${PREFIX}delete-background-images__span`;
-    styleDeleteBackgroundImages=`\n\t\t.${this.classDeleteBackgroundImg},\n\t\t.${this.classDeleteBackgroundImg}:before,\n\t\t.${this.classDeleteBackgroundImg}:after {\n\t\t\tbackground-image: none !important;\n\t\t\tbackground-color: white;\n\t\t\tcolor: black;\n\t\t}\n\n\t\t.${this.classDeleteBackgroundImg} * {\n\t\t\tcolor: black;\n\t\t}\n\t`;
+    styleDeleteBackgroundImages=`\n\t\t.${this.classDeleteBackgroundImg},\n\t\t.${this.classDeleteBackgroundImg}:before,\n\t\t.${this.classDeleteBackgroundImg}:after\n\t\t::not(.${TEXT_COLOR_SPAN_CLASS}) {\n\t\t\tbackground-image: none !important;\n\t\t\tbackground-color: white;\n\t\t\tcolor: black;\n\t\t}\n\n\t\t.${this.classDeleteBackgroundImg} * {\n\t\t\tcolor: black;\n\t\t}\n\t`;
     styleDeleteForegroundImages=`\n\t\t.${this.classSpanImage} {\n\t\t\tfont-size: 1rem;\n\t\t}\n\n\t\t.${this.classDeleteForegroundImg} {\n\t\t\tvisibility: hidden !important;\n\t\t}\n\t`;
     styleDeleteTransparencyEffects=`\n\t\t*, *::before, *::after {\n\t\t\topacity: 1 !important;\n\t\t\tfilter: none !important\n\t\t}\n\t`;
     constructor() {
@@ -2911,7 +2915,7 @@ class ReadingGuideService {
     closeTextID=`${PREFIX}mask-guide__close-text`;
     classRuleGuide=`\n\t\t#${this.verticalGuideID} {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25em 1em;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tline-height: 2em;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
-    classAlternatingLinesGuide=`\n\tbody > :not([id^=${PREFIX}]) p, body > p {\n\t\tbackground: repeating-linear-gradient(\n\t\t\tto bottom,\n\t\t\trgba(255, 255, 255, 0.4) 0 1lh,\n\t\t\trgba(0, 0, 0, 0.2) 1lh 2lh\n\t\t)\n\t}\n\t`;
+    classAlternatingLinesGuide=`\n\t${PAGE_P_MARKUP_SELECTOR} {\n\t\tbackground: repeating-linear-gradient(\n\t\t\tto bottom,\n\t\t\trgba(255, 255, 255, 0.4) 0 1lh,\n\t\t\trgba(0, 0, 0, 0.2) 1lh 2lh\n\t\t)\n\t}\n\t`;
     constructor() {
         if (readingGuideServiceIsInstantiated) {
             throw new Error("ReadingGuideService is already instantiated.");
@@ -2950,6 +2954,7 @@ class ReadingGuideService {
         } else if (this.guideType === "mask") {
             styleGuide = this.classMaskGuide;
         } else if (this.guideType === "alternatingLines") {
+            this.setPagePMarkupElementsFlag();
             styleGuide = this.classAlternatingLinesGuide;
         }
         stylesServiceInstance.setStyle("reading-guide", styleGuide);
@@ -2981,6 +2986,23 @@ class ReadingGuideService {
         document.querySelector(`#${this.closeTextID}`)?.remove();
         document.removeEventListener("keydown", this.handler);
         document.removeEventListener("mousemove", this.handler);
+        this.removePagePMarkupElementsFlag();
+    };
+    setPagePMarkupElementsFlag=() => {
+        const elts = document.querySelectorAll(PAGE_P_MARKUP_SELECTOR);
+        elts.forEach((elt => {
+            if (!elt.classList.contains(TEXT_ALTERNATE_LINES)) {
+                elt.classList.add(TEXT_ALTERNATE_LINES);
+            }
+        }));
+    };
+    removePagePMarkupElementsFlag=() => {
+        const elts = document.querySelectorAll(PAGE_P_MARKUP_SELECTOR);
+        elts.forEach((elt => {
+            if (elt.classList.contains(TEXT_ALTERNATE_LINES)) {
+                elt.classList.remove(TEXT_ALTERNATE_LINES);
+            }
+        }));
     };
     createHandler=() => event => {
         switch (event.type) {
