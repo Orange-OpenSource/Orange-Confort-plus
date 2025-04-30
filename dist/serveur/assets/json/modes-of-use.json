@@ -1,5 +1,5 @@
 {
-	"version": "1.0.26",
+	"version": "1.0.27",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -187,6 +187,14 @@
 						"isTool": false,
 						"order": null
 					}
+				},
+				{
+					"readingMode": {
+						"values": "noModifications,contentAndBigger,black_ivory",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
 				}
 			]
 		},
@@ -371,6 +379,14 @@
 				{
 					"zoom": {
 						"values": "noModifications,130,200",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingMode": {
+						"values": "noModifications,contentAndBigger,black_ivory",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -563,6 +579,14 @@
 						"isTool": false,
 						"order": null
 					}
+				},
+				{
+					"readingMode": {
+						"values": "noModifications,contentAndBigger,black_ivory",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
 				}
 			]
 		},
@@ -751,6 +775,14 @@
 						"isTool": false,
 						"order": null
 					}
+				},
+				{
+					"readingMode": {
+						"values": "noModifications,contentAndBigger,black_ivory",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
 				}
 			]
 		},
@@ -935,6 +967,14 @@
 				{
 					"zoom": {
 						"values": "noModifications,130,200",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingMode": {
+						"values": "noModifications,contentAndBigger,black_ivory",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null

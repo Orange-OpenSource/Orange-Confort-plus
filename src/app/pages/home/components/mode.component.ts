@@ -25,6 +25,7 @@ tmplMode.innerHTML = `
 	<app-click-facilite class="sc-mode__setting"></app-click-facilite>
 	<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>
 	<app-zoom class="sc-mode__setting"></app-zoom>
+	<app-reading-mode class="sc-mode__setting"></app-reading-mode>
 </div>
 `;
 

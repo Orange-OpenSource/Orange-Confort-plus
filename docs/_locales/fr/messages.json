@@ -925,5 +925,20 @@
 	},
 	"zoom_500": {
 		"message": "max “500%”"
+	},
+	"setting_readingMode": {
+		"message": "Mode lecture"
+	},
+	"setting_readingMode_instruction": {
+		"message": "Pour faciliter la lecture des textes"
+	},
+	"readingMode_noModifications": {
+		"message": "sans modification"
+	},
+	"readingMode_contentAndBigger": {
+		"message": "seulement le contenu et peu grand “110%"
+	},
+	"readingMode_black_ivory": {
+		"message": "noir sur ivoire"
 	}
 }

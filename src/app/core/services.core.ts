@@ -76,5 +76,7 @@ const textColorServiceInstance = new TextColorService();
 Object.seal(textColorServiceInstance);
 const zoomServiceInstance = new ZoomService();
 Object.seal(zoomServiceInstance);
+const readingModeServiceInstance = new ReadingModeService();
+Object.seal(readingModeServiceInstance);
 const pauseServiceInstance = new PauseService();
 Object.freeze(pauseServiceInstance);
