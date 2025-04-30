@@ -1,7 +1,7 @@
 let readingGuideServiceIsInstantiated: boolean;
 
 class ReadingGuideService {
-	guideType: 'rule' | 'mask' | '' = '';
+	guideType: 'rule' | 'mask' | 'alternatingLines' |'' = '';
 	sizeGuide: number = 40;
 	handler: any;
 
@@ -48,6 +48,15 @@ class ReadingGuideService {
 			z-index: calc(infinity);
 		}
 	`;
+	classAlternatingLinesGuide = `
+	${PAGE_P_MARKUP_SELECTOR} {
+		background: repeating-linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.4) 0 1lh,
+			rgba(0, 0, 0, 0.2) 1lh 2lh
+		)
+	}
+	`;
 
 	constructor() {
 		if (readingGuideServiceIsInstantiated) {
@@ -61,21 +70,23 @@ class ReadingGuideService {
 
 	setReadingMaskGuide = (value: string): void => {
 		switch (value) {
-			case 'ruleGuide': {
+			case 'ruleGuide':
 				this.resetGuide();
 				this.guideType = 'rule';
 				this.setGuide();
 				break;
-			}
-			case 'maskGuide': {
+			case 'maskGuide':
 				this.resetGuide();
 				this.guideType = 'mask';
 				this.setGuide();
 				break;
-			}
-			default: {
+			case 'alternatingLines':
 				this.resetGuide();
-			}
+				this.guideType = 'alternatingLines';
+				this.setGuide();
+				break;
+			default:
+				this.resetGuide();
 		}
 	}
 
@@ -85,6 +96,9 @@ class ReadingGuideService {
 			styleGuide = this.classRuleGuide;
 		} else if (this.guideType === 'mask') {
 			styleGuide = this.classMaskGuide;
+		} else if (this.guideType === 'alternatingLines') {
+			this.setPagePMarkupElementsFlag();
+			styleGuide = this.classAlternatingLinesGuide;
 		}
 
 		stylesServiceInstance.setStyle('reading-guide', styleGuide);
@@ -119,6 +133,25 @@ class ReadingGuideService {
 		document.querySelector(`#${this.closeTextID}`)?.remove();
 		document.removeEventListener('keydown', this.handler);
 		document.removeEventListener('mousemove', this.handler);
+		this.removePagePMarkupElementsFlag();
+	}
+
+	setPagePMarkupElementsFlag = (): void => {
+		const elts = document.querySelectorAll(PAGE_P_MARKUP_SELECTOR);
+		elts.forEach((elt) => {
+			if (!elt.classList.contains(TEXT_ALTERNATE_LINES)) {
+				elt.classList.add(TEXT_ALTERNATE_LINES);
+			}
+		});
+	}
+
+	removePagePMarkupElementsFlag = (): void => {
+		const elts = document.querySelectorAll(PAGE_P_MARKUP_SELECTOR);
+		elts.forEach((elt) => {
+			if (elt.classList.contains(TEXT_ALTERNATE_LINES)) {
+				elt.classList.remove(TEXT_ALTERNATE_LINES);
+			}
+		});
 	}
 
 	private createHandler = () => {

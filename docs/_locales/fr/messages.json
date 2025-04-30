@@ -419,7 +419,7 @@
 		"message": "Guide de lecture"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Pour être guidé lors de la lecture"
+		"message": "Pour suivre La ligne de lecture"
 	},
 	"readingGuide_noModifications": {
 		"message": "sans guide"
@@ -429,6 +429,9 @@
 	},
 	"readingGuide_maskGuide": {
 		"message": "masque"
+	},
+	"readingGuide_alternatingLines": {
+		"message": "lignes alternées"
 	},
 	"readingGuide_closeMask": {
 		"message": "Appuyer sur échap pour fermer le masque."

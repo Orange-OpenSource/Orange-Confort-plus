@@ -38,7 +38,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide",
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -226,7 +226,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide",
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -510,7 +510,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide",
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -602,7 +602,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide",
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 3
@@ -790,7 +790,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide",
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 5

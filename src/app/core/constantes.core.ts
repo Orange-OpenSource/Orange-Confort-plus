@@ -10,6 +10,7 @@ const PAGE_HOME = 'home';
 const PAGE_MODES = 'modes';
 const PAGE_SETTINGS = 'settings';
 const PAGE_EDIT_SETTING = 'edit-setting';
+const PAGE_P_MARKUP_SELECTOR = `body > :not([id^=${PREFIX}]) p, body > p`;
 
 const FOCUS_SIZE_BIG = '4px';
 const FOCUS_SIZE_HUGE = '10px';
@@ -25,3 +26,5 @@ const CLICK_FACILITE_AUTO_CLICK = 'autoClick';
 const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
 
 const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
+
+const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
