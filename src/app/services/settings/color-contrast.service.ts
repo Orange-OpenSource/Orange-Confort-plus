@@ -48,7 +48,6 @@ class ColorContrastService {
 		stylesServiceInstance.removeStyle('color-contrast');
 		stylesServiceInstance.removeStyle('filter-daltonism');
 		this.setServices(DEFAULT_VALUE);
-
 		switch (value) {
 			case DEFAULT_VALUE:
 				break;

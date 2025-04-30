@@ -23,7 +23,7 @@
 	"type": "module",
 	"node": ">=18",
 	"scripts": {
-		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/vendors",
+		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/vendors && shx mkdir -p src/vendors && shx cp -r node_modules/@mozilla/readability/Readability.js src/vendors/Readability.js",
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
 		"serve": "servor docs/ index.html 9010 --browse --reload",
 		"test": "",
@@ -119,6 +119,7 @@
 		"web-ext": "^8.2.0"
 	},
 	"dependencies": {
+		"@mozilla/readability": "^0.6.0",
 		"@popperjs/core": "^2.11.8",
 		"@webcomponents/custom-elements": "^1.6.0"
 	}

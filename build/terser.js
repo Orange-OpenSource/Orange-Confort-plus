@@ -19,6 +19,7 @@ const preamble = `/*
 const files = {
 	'toolbar': {
 		files: [
+			'src/vendors/Readability.js',
 			'dist/js/app/services/categories.service.js',
 			'dist/js/app/services/dom.service.js',
 			'dist/js/app/services/mode-of-use.service.js',
@@ -50,6 +51,7 @@ const files = {
 			'dist/js/app/services/settings/text-spacing.service.js',
 			'dist/js/app/services/settings/text-color.service.js',
 			'dist/js/app/services/settings/zoom.service.js',
+			'dist/js/app/services/settings/reading-mode.service.js',
 			'dist/js/app/services/string.service.js',
 			'dist/js/app/services/styles.service.js',
 			'dist/js/app/core/models.core.js',
@@ -120,6 +122,7 @@ const files = {
 		options: {
 			compress: false,
 			mangle: false,
+			keep_classnames: true,
 			format: {
 				preamble: preamble,
 				beautify: true
@@ -140,6 +143,7 @@ const files = {
 		options: {
 			compress: false,
 			mangle: false,
+			keep_classnames: true,
 			format: {
 				preamble: preamble,
 				beautify: true
@@ -161,6 +165,7 @@ const files = {
 		options: {
 			compress: false,
 			mangle: false,
+			keep_classnames: true,
 			format: {
 				preamble: preamble,
 				beautify: true
