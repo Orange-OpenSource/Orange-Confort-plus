@@ -1307,15 +1307,15 @@ class FontFamilyService {
         size: "91.125%",
         folder: "accessibleDfA",
         files: [ {
-            name: "AccessibleDfA-Bold.woff2",
+            name: "AccessibleDfA-VF.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "AccessibleDfA-Italic.woff2",
+            name: "AccessibleDfA-VF.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "AccessibleDfA-Regular.woff2",
+            name: "AccessibleDfA-VF.woff2",
             style: "normal",
             weight: "400"
         } ]
