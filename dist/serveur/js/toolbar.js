@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 30/04/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 02/05/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1337,15 +1337,6 @@ class FontFamilyService {
             weight: "400"
         }, {
             name: "B612Mono-Regular.woff2",
-            style: "normal",
-            weight: "400"
-        } ]
-    }, {
-        name: "Airbus",
-        size: "100%",
-        folder: "airbus",
-        files: [ {
-            name: "Airbus-Special.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -4476,7 +4467,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "Airbus", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
     handler;
     constructor() {
         super();
