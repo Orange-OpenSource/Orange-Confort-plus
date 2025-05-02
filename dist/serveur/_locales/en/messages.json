@@ -48,7 +48,7 @@
 		"message": "Reset this mode"
 	},
 	"resetThisModeTitle": {
-		"message": "Reset this mode : restores the original settings"
+		"message": "Reset this mode: restores the original settings"
 	},
 	"activeMode": {
 		"message": "Active"
@@ -288,7 +288,7 @@
 		"message": "large click zones & auto click on hover"
 	},
 	"multiclic": {
-		"message": "Current value : “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Current value: “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
 		"description": "Indicates the current setting value and index, the total number of values, and the next value.",
 		"placeholders": {
 			"current": {
@@ -309,18 +309,18 @@
 		}
 	},
 	"multiclicToggleOff": {
-		"message": "Inactive. Activate.",
+		"message": ": inactive. Activate.",
 		"description": "Inactive setting."
 	},
 	"multiclicToggleOn": {
-		"message": "Active. Deactivate.",
+		"message": ": active. Deactivate.",
 		"description": "Active setting."
 	},
 	"setting_fontFamily": {
 		"message": "Text font"
 	},
 	"setting_fontFamily_instruction": {
-		"message": "To change the text appearance"
+		"message": "To change the text appearance."
 	},
 	"fontFamily_noModifications": {
 		"message": "no modifications"
@@ -350,7 +350,7 @@
 		"message": "Text Size"
 	},
 	"setting_textSize_instruction": {
-		"message": "To only increase text size"
+		"message": "To only increase text size."
 	},
 	"textSize_noModifications": {
 		"message": "no modifications"
@@ -377,7 +377,7 @@
 		"message": "Capital Letters"
 	},
 	"setting_capitalLetters_instruction": {
-		"message": "To use capital letters"
+		"message": "To use capital letters."
 	},
 	"capitalLetters_noModifications": {
 		"message": "no modifications"
@@ -392,7 +392,7 @@
 		"message": "Text Spacing"
 	},
 	"setting_textSpacing_instruction": {
-		"message": "To increase character and line spacing"
+		"message": "To increase character and line spacing."
 	},
 	"textSpacing_noModifications": {
 		"message": "no modifications"
@@ -410,7 +410,7 @@
 		"message": "Colour the text"
 	},
 	"setting_textColor_instruction": {
-		"message": "To distinguish between the sounds to be pronounced"
+		"message": "To distinguish between the sounds to be pronounced."
 	},
 	"textColor_noModifications": {
 		"message": "no modification"
@@ -422,7 +422,7 @@
 		"message": "Reading Guide"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "To follow the reading line"
+		"message": "To follow the reading line."
 	},
 	"readingGuide_noModifications": {
 		"message": "no guide"
@@ -443,7 +443,7 @@
 		"message": "Margin & Landmark"
 	},
 	"setting_marginAlign_instruction": {
-		"message": "To anchor reading to the left"
+		"message": "To anchor reading to the left."
 	},
 	"marginAlign_noModifications": {
 		"message": "no modifications"
@@ -461,7 +461,7 @@
 		"message": "Magnifier"
 	},
 	"setting_magnifier_instruction": {
-		"message": "To zoom in temporarily"
+		"message": "To zoom in temporarily."
 	},
 	"magnifier_noModifications": {
 		"message": "no magnifier"
@@ -482,7 +482,7 @@
 		"message": "Read aloud"
 	},
 	"setting_readAloud_instruction": {
-		"message": "To have text read aloud on request"
+		"message": "To have text read aloud on request."
 	},
 	"readAloud_tooltip": {
 		"message": "Click to vocalize, press Esc or right_click to stop."
@@ -506,7 +506,7 @@
 		"message": "Cursor Appearance"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "To change cursor appearance"
+		"message": "To change cursor appearance."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Default cursor"
@@ -551,7 +551,7 @@
 		"message": "Focus Appearance"
 	},
 	"setting_focusAspect_instruction": {
-		"message": "To change the selecting focus' appearance"
+		"message": "To change the selecting focus' appearance."
 	},
 	"focusAspect_noModifications": {
 		"message": "no modifications"
@@ -599,7 +599,7 @@
 		"message": "Colors Text - Background"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "In order to change text and background colors"
+		"message": "In order to change text and background colors."
 	},
 	"colorContrast_noModifications": {
 		"message": "no modifications"
@@ -625,7 +625,7 @@
 		"message": "Hyperlink Colors"
 	},
 	"setting_linkStyle_instruction": {
-		"message": "To modify the colors of navigation links"
+		"message": "To modify the colors of navigation links."
 	},
 	"linkStyle_noModifications": {
 		"message": "no modifications"
@@ -681,7 +681,7 @@
 		"message": "Clearly Visible Links"
 	},
 	"setting_clearlyLinks_instruction": {
-		"message": "To make navigation links more visible"
+		"message": "To make navigation links more visible."
 	},
 	"clearlyLinks_noModifications": {
 		"message": "no modifications"
@@ -701,7 +701,7 @@
 		"message": "Stop Animations"
 	},
 	"setting_stopAnimations_instruction": {
-		"message": "To prevent animations on the page"
+		"message": "To prevent animations on the page."
 	},
 	"stopAnimations_noModifications": {
 		"message": "no modifications"
@@ -713,7 +713,7 @@
 		"message": "Remove Background Images"
 	},
 	"setting_deleteBackgroundImages_instruction": {
-		"message": "To prevent background images from displaying"
+		"message": "To prevent background images from displaying."
 	},
 	"deleteBackgroundImages_noModifications": {
 		"message": "no modifications"
@@ -728,7 +728,7 @@
 		"message": "Scroll Type"
 	},
 	"setting_scrollType_instruction": {
-		"message": "To facilitate scrolling on the page"
+		"message": "To facilitate scrolling on the page."
 	},
 	"scrollType_noModifications": {
 		"message": "no modifications"
@@ -743,7 +743,7 @@
 		"message": "Scroll aspect"
 	},
 	"setting_scrollAspect_instruction": {
-		"message": "To modify the appearance of the scroll bar"
+		"message": "To modify the appearance of the scroll bar."
 	},
 	"scrollAspect_noModifications": {
 		"message": "no modifications"
@@ -797,7 +797,7 @@
 		"message": "Skip to Content"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "Allows you to go directly to the content of a site without going through the menus"
+		"message": "Allows you to go directly to the content of a site without going through the menus."
 	},
 	"skipToContent_noModifications": {
 		"message": "no modifications"
@@ -809,7 +809,7 @@
 		"message": "Navigation Buttons"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "To move focus with the mouse"
+		"message": "To move focus with the mouse."
 	},
 	"navigationButtons_noModifications": {
 		"message": "no navigation buttons"
@@ -821,7 +821,7 @@
 		"message": "Click Assistance"
 	},
 	"setting_clickFacilite_instruction": {
-		"message": "To avoid pointer errors and reduce effort"
+		"message": "To avoid pointer errors and reduce effort."
 	},
 	"clickFacilite_noModifications": {
 		"message": "no modifications"
@@ -860,7 +860,7 @@
 		"message": "Auto scrolling navigation"
 	},
 	"setting_navigationAuto_instruction": {
-		"message": "To move focus automatically"
+		"message": "To move focus automatically."
 	},
 	"navigationAuto_noModifications": {
 		"message": "no auto scrolling"
@@ -894,7 +894,7 @@
 		"message": "Restart at top left"
 	},
 	"setting_restartTopLeft_instruction": {
-		"message": "To move scroll and mouse to the top left of the page"
+		"message": "To move scroll and mouse to the top left of the page."
 	},
 	"restartTopLeft_noModifications": {
 		"message": "without action"
@@ -906,7 +906,7 @@
 		"message": "Zoom"
 	},
 	"setting_zoom_instruction": {
-		"message": "To increase page size"
+		"message": "To increase page size."
 	},
 	"zoom_noModifications": {
 		"message": "no modifications"

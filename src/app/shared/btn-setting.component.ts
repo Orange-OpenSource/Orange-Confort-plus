@@ -7,11 +7,12 @@ btnSettingLayout.innerHTML = `
 		</span>
 		<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>
 		<span class="sc-btn-setting__selected-value btn btn-primary border-0 position-absolute d-none w-100 h-100"></span>
+		<span class="sc-btn-setting__label visually-hidden"></span>
 	</button>
 	<div class="tooltip bs-tooltip-top sc-btn-setting__tooltip d-none mt-2" role="tooltip">
 		<div class="tooltip-inner text-bg-secondary fw-normal">
-			<div class="sc-btn-setting__tooltip-instruction mb-2"></div>
-			<div class="sc-btn-setting__tooltip-value"></div>
+			<p class="sc-btn-setting__tooltip-instruction mb-2"></p>
+			<p class="sc-btn-setting__tooltip-value"></p>
   	</div>
 	</div>
 `;
@@ -20,6 +21,7 @@ class BtnSettingComponent extends HTMLElement {
 	static observedAttributes = ['data-values', 'data-active-value', 'data-name', 'data-disabled'];
 	settingBtn: HTMLButtonElement = null;
 	btnContentSlots: HTMLElement = null;
+	btnLabel: HTMLElement = null;
 	index: number = 0;
 	value: string;
 	name: string;
@@ -50,6 +52,7 @@ class BtnSettingComponent extends HTMLElement {
 		this.tooltip = this.querySelector('.tooltip');
 		this.selectedValue = this.querySelector('.sc-btn-setting__selected-value');
 		this.btnContentSlots = this.querySelector('.sc-btn-setting__values');
+		this.btnLabel = this.querySelector('.sc-btn-setting__label');
 		this.settingBtn.addEventListener('click', this.handler);
 		this.settingBtn.addEventListener('focusin', this.handler);
 		this.settingBtn.addEventListener('focusout', this.handler);
@@ -127,8 +130,11 @@ class BtnSettingComponent extends HTMLElement {
 				]);
 			}
 
+			const labelParts = content.split(',');
+
 			const tooltipValue: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-value');
-			tooltipValue.innerHTML = content;
+			tooltipValue.innerHTML = labelParts[0];
+			this.btnLabel.innerHTML = content;
 		}
 	}
 
@@ -218,6 +224,9 @@ class BtnSettingComponent extends HTMLElement {
 							}
 						});
 					this.settingBtn?.dispatchEvent(clickEvent);
+					setTimeout(() => {
+						this.settingBtn?.focus();
+					}, 300);
 					break;
 				case 'focusin':
 				case 'mouseover':
