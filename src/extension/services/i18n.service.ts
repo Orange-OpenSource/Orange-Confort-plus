@@ -24,7 +24,7 @@ class I18nService {
 			return;
 		}
 
-		return chrome.i18n.getMessage(message, substitutions);
+		return chrome.i18n.getMessage(message, substitutions).trim();
 	}
 
 	translate(root: ShadowRoot): void {

@@ -12,7 +12,7 @@
 		"message": "Mode"
 	},
 	"otherUsagesModes": {
-		"message": "Accès aux modes d'usages et à leur description"
+		"message": "Accès aux modes d’usages et à leur description"
 	},
 	"openSettingsMode": {
 		"message": "Ouvrir réglages du mode"
@@ -36,10 +36,10 @@
 		"message": "Confort+ est en pause, pour le réactiver appuyer sur le bouton « réutiliser Confort+ »."
 	},
 	"otherModes": {
-		"message": "Autres modes d'usage"
+		"message": "Autres modes d’usage"
 	},
 	"chooseModeAndValidate": {
-		"message": "Choisissez un mode d'usage et validez :"
+		"message": "Choisissez un mode d’usage et validez :"
 	},
 	"validateThisMode": {
 		"message": "Valider ce mode"
@@ -60,10 +60,10 @@
 		"message": "Retour aux réglages. (Votre choix est déjà enregistré)"
 	},
 	"backToHome": {
-		"message": "Retour à l'accueil"
+		"message": "Retour à l’accueil"
 	},
 	"pageTitleModes": {
-		"message": "Modes d'usage"
+		"message": "Modes d’usage"
 	},
 	"pageTitleSettings": {
 		"message": "Réglages"
@@ -129,7 +129,7 @@
 		"message": "Dys++"
 	},
 	"dysPlusPlusDescription": {
-		"message": "Ce mode n'a pas encore de description"
+		"message": "Ce mode n’a pas encore de description"
 	},
 	"moteurPlusName": {
 		"message": "Moteur+"
@@ -243,7 +243,7 @@
 		"message": "Valeur suivante"
 	},
 	"textContentImageHidden": {
-		"message": "Texte de l'image cachée :"
+		"message": "Texte de l’image cachée :"
 	},
 	"tab": {
 		"message": "Tabulation"
@@ -288,7 +288,7 @@
 		"message": "grandes zones de clic & clic automatique au survol"
 	},
 	"multiclic": {
-		"message": "Valeur actuelle : $CURRENT$ $INDEX$/$TOTAL$",
+		"message": "Valeur actuelle : « $CURRENT$ » $INDEX$/$TOTAL$, changer pour « $NEXT$ » $INDEX2$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
 			"current": {
@@ -299,6 +299,12 @@
 			},
 			"total": {
 				"content": "$3"
+			},
+			"next": {
+				"content": "$4"
+			},
+			"index2": {
+				"content": "$5"
 			}
 		}
 	},
@@ -314,7 +320,7 @@
 		"message": "Police de texte"
 	},
 	"setting_fontFamily_instruction": {
-		"message": "Pour modifier le rendu du texte"
+		"message": "Pour modifier le rendu du texte."
 	},
 	"fontFamily_noModifications": {
 		"message": "sans modification"
@@ -344,7 +350,7 @@
 		"message": "Taille du texte"
 	},
 	"setting_textSize_instruction": {
-		"message": "Pour agrandir uniquement le texte"
+		"message": "Pour agrandir uniquement le texte."
 	},
 	"textSize_noModifications": {
 		"message": "sans modification"
@@ -371,7 +377,7 @@
 		"message": "Majuscules"
 	},
 	"setting_capitalLetters_instruction": {
-		"message": "Pour utiliser des majuscules"
+		"message": "Pour utiliser des majuscules."
 	},
 	"capitalLetters_noModifications": {
 		"message": "sans modification"
@@ -386,7 +392,7 @@
 		"message": "Aérer le  texte"
 	},
 	"setting_textSpacing_instruction": {
-		"message": "Pour bien espacer les caractères et les lignes"
+		"message": "Pour bien espacer les caractères et les lignes."
 	},
 	"textSpacing_noModifications": {
 		"message": "sans modification"
@@ -404,7 +410,7 @@
 		"message": "Colore le texte"
 	},
 	"setting_textColor_instruction": {
-		"message": "Pour bien distinguer les sons à prononcer"
+		"message": "Pour bien distinguer les sons à prononcer."
 	},
 	"textColor_noModifications": {
 		"message": "sans modification"
@@ -416,7 +422,7 @@
 		"message": "Guide de lecture"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Pour suivre La ligne de lecture"
+		"message": "Pour suivre La ligne de lecture."
 	},
 	"readingGuide_noModifications": {
 		"message": "sans guide"
@@ -437,7 +443,7 @@
 		"message": "Marge et repères"
 	},
 	"setting_marginAlign_instruction": {
-		"message": "Pour ancrer la lecture à gauche"
+		"message": "Pour ancrer la lecture à gauche."
 	},
 	"marginAlign_noModifications": {
 		"message": "sans modification"
@@ -455,7 +461,7 @@
 		"message": "Loupe"
 	},
 	"setting_magnifier_instruction": {
-		"message": "Pour zoomer ponctuellement"
+		"message": "Pour zoomer ponctuellement."
 	},
 	"magnifier_noModifications": {
 		"message": "sans loupe"
@@ -476,10 +482,10 @@
 		"message": "Lire à haute voix"
 	},
 	"setting_readAloud_instruction": {
-		"message": "Pour se faire lire le texte sur demande"
+		"message": "Pour se faire lire le texte sur demande."
 	},
 	"readAloud_tooltip": {
-		"message": "Cliquer pour vocaliser, appuyer sur échap ou cliquer droit pour arrêter la vocalisation."
+		"message": "Cliquer pour vocaliser, appuyer sur Échap ou cliquer droit pour arrêter la vocalisation."
 	},
 	"readAloud_noModifications": {
 		"message": "sans vocalisation"
@@ -500,7 +506,7 @@
 		"message": "Aspect de la souris"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Pour modifier le rendu des curseurs"
+		"message": "Pour modifier le rendu des curseurs."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Souris par défaut"
@@ -545,7 +551,7 @@
 		"message": "Aspect du focus"
 	},
 	"setting_focusAspect_instruction": {
-		"message": "Pour modifier le rendu du focus de sélection"
+		"message": "Pour modifier le rendu du focus de sélection."
 	},
 	"focusAspect_noModifications": {
 		"message": "sans modification"
@@ -593,7 +599,7 @@
 		"message": "Couleurs Texte - Fond"
 	},
 	"setting_colorContrast_instruction": {
-		"message": "Pour changer la couleur du fond et du texte"
+		"message": "Pour changer la couleur du fond et du texte."
 	},
 	"colorContrast_noModifications": {
 		"message": "sans modification"
@@ -619,7 +625,7 @@
 		"message": "Couleurs des hyperliens"
 	},
 	"setting_linkStyle_instruction": {
-		"message": "Pour modifier la couleur des liens de navigation"
+		"message": "Pour modifier la couleur des liens de navigation."
 	},
 	"linkStyle_noModifications": {
 		"message": "sans modification"
@@ -675,7 +681,7 @@
 		"message": "Liens bien visibles"
 	},
 	"setting_clearlyLinks_instruction": {
-		"message": "Pour mieux repérer les liens de navigation"
+		"message": "Pour mieux repérer les liens de navigation."
 	},
 	"clearlyLinks_noModifications": {
 		"message": "sans modification"
@@ -695,7 +701,7 @@
 		"message": "Stopper les animations"
 	},
 	"setting_stopAnimations_instruction": {
-		"message": "Pour empêcher les animations au sein de la page"
+		"message": "Pour empêcher les animations au sein de la page."
 	},
 	"stopAnimations_noModifications": {
 		"message": "sans modification"
@@ -707,7 +713,7 @@
 		"message": "Supprimer les images de fond"
 	},
 	"setting_deleteBackgroundImages_instruction": {
-		"message": "Pour empêcher les images de fond de page de s'afficher"
+		"message": "Pour empêcher les images de fond de page de s’afficher."
 	},
 	"deleteBackgroundImages_noModifications": {
 		"message": "sans modification"
@@ -719,10 +725,10 @@
 		"message": "supprime les images de fond, les effets de transparence et les images de 1er plan"
 	},
 	"setting_scrollType": {
-		"message": "Type d'ascenseur"
+		"message": "Type d’ascenseur"
 	},
 	"setting_scrollType_instruction": {
-		"message": "Pour faciliter la montée et descente dans la page"
+		"message": "Pour faciliter la montée et descente dans la page."
 	},
 	"scrollType_noModifications": {
 		"message": "sans modification"
@@ -737,7 +743,7 @@
 		"message": "Aspect ascenseur"
 	},
 	"setting_scrollAspect_instruction": {
-		"message": "Pour modifier le rendu de l’ascenseur"
+		"message": "Pour modifier le rendu de l’ascenseur."
 	},
 	"scrollAspect_noModifications": {
 		"message": "sans modification"
@@ -760,7 +766,7 @@
 		"message": "Descendre"
 	},
 	"scrollSize_label": {
-		"message": "Taille de l'ascenceur"
+		"message": "Taille de l’ascenceur"
 	},
 	"scrollSize_values": {
 		"message": "$SIZE$",
@@ -774,7 +780,7 @@
 		"message": "sans modification de taille"
 	},
 	"scrollColor_label": {
-		"message": "Couleur de l'ascenceur"
+		"message": "Couleur de l’ascenceur"
 	},
 	"scrollColor_values": {
 		"message": "$COLOR$",
@@ -791,7 +797,7 @@
 		"message": "Aller au contenu"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "Permet d'aller directement sur les contenus d'un site sans passer par les menus"
+		"message": "Permet d’aller directement sur les contenus d’un site sans passer par les menus."
 	},
 	"skipToContent_noModifications": {
 		"message": "sans modification"
@@ -803,7 +809,7 @@
 		"message": "Boutons de navigation"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Pour déplacer le focus avec la souris"
+		"message": "Pour déplacer le focus avec la souris."
 	},
 	"navigationButtons_noModifications": {
 		"message": "sans boutons de navigation"
@@ -815,7 +821,7 @@
 		"message": "Clics facilités"
 	},
 	"setting_clickFacilite_instruction": {
-		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts"
+		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts."
 	},
 	"clickFacilite_noModifications": {
 		"message": "sans modification"
@@ -854,7 +860,7 @@
 		"message": "Navigation par défilement"
 	},
 	"setting_navigationAuto_instruction": {
-		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul"
+		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul."
 	},
 	"navigationAuto_noModifications": {
 		"message": "sans défilement"
@@ -888,7 +894,7 @@
 		"message": "Recommencer en haut à gauche"
 	},
 	"setting_restartTopLeft_instruction": {
-		"message": "Pour placer scroll et souris en haut à gauche de la page"
+		"message": "Pour placer scroll et souris en haut à gauche de la page."
 	},
 	"restartTopLeft_noModifications": {
 		"message": "sans action"
@@ -900,7 +906,7 @@
 		"message": "Zoom"
 	},
 	"setting_zoom_instruction": {
-		"message": "Pour agrandir la page"
+		"message": "Pour agrandir la page."
 	},
 	"zoom_noModifications": {
 		"message": "sans modification"
