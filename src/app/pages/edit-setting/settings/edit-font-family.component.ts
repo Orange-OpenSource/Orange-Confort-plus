@@ -8,7 +8,7 @@ editFontFamilyLayout.innerHTML = `
 class EditFontFamilyComponent extends HTMLElement {
 	selectFontFamilyElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	fontFamilyValues = [DEFAULT_VALUE, 'AccessibleDfA', 'B612Mono', 'Airbus', 'ComicSansMS', 'LexendDeca', 'Luciole', 'SylexiadSans', 'Verdana'];
+	fontFamilyValues = [DEFAULT_VALUE, 'AccessibleDfA', 'B612Mono', 'ComicSansMS', 'LexendDeca', 'Luciole', 'SylexiadSans', 'Verdana'];
 
 	handler: any;
 
