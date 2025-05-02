@@ -63,7 +63,7 @@ class I18nService {
 			}
 		}
 
-		return content;
+		return content.trim();
 	}
 
 	translate(root: ShadowRoot): void {
