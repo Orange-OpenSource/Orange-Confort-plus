@@ -70,3 +70,8 @@ $corner-value: 10px;
 	opacity: 1;
 	position: absolute;
 }
+
+.sc-btn-setting__name::after {
+	content: ".";
+	font-size: 0;
+}
