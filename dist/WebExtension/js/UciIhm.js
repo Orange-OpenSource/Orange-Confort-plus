@@ -39,7 +39,7 @@ UciIhm = {
 						["a", {
 							"class": "uci_alt_logo",
 							id: "uci_logo_link",
-							href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(),
+							href: "http://confort-plus.orange.com/v4/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(),
 							title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")",
 							target: "_blank"
 						},
@@ -162,7 +162,7 @@ UciIhm = {
 												["li",
 													["a", {
 														"class": "uci_menu_ouverture_aide",
-														href: "http://confort-plus.orange.com/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(),
+														href: "http://confort-plus.orange.com/v4/index_" + accessibilitytoolbar.strings.getLocale().toLowerCase(),
 														title: accessibilitytoolbar.get('uci_menu_info') + " (" + accessibilitytoolbar.get('uci_new_window') + ")",
 														target: "_blank"
 													},
