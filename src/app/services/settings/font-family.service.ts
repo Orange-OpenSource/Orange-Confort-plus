@@ -4,9 +4,9 @@ class FontFamilyService {
 	fontDictionnary: any[] = [
 		{
 			name: 'AccessibleDfA', size: '91.125%', folder: 'accessibleDfA', files: [
-				{ name: 'AccessibleDfA-Bold.woff2', style: 'normal', weight: '700' },
-				{ name: 'AccessibleDfA-Italic.woff2', style: 'italic', weight: '400' },
-				{ name: 'AccessibleDfA-Regular.woff2', style: 'normal', weight: '400' }
+				{ name: 'AccessibleDfA-VF.woff2', style: 'normal', weight: '700' },
+				{ name: 'AccessibleDfA-VF.woff2', style: 'italic', weight: '400' },
+				{ name: 'AccessibleDfA-VF.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
