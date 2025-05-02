@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 30/04/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 02/05/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -117,7 +117,7 @@ class I18nService {
                 content = content.replaceAll(match[0], substitutions[index - 1]);
             }
         }
-        return content;
+        return content.trim();
     }
     translate(root) {
         const elements = root.querySelectorAll("[data-i18n]");
@@ -1307,15 +1307,15 @@ class FontFamilyService {
         size: "91.125%",
         folder: "accessibleDfA",
         files: [ {
-            name: "AccessibleDfA-Bold.woff2",
+            name: "AccessibleDfA-VF.woff2",
             style: "normal",
             weight: "700"
         }, {
-            name: "AccessibleDfA-Italic.woff2",
+            name: "AccessibleDfA-VF.woff2",
             style: "italic",
             weight: "400"
         }, {
-            name: "AccessibleDfA-Regular.woff2",
+            name: "AccessibleDfA-VF.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -1337,15 +1337,6 @@ class FontFamilyService {
             weight: "400"
         }, {
             name: "B612Mono-Regular.woff2",
-            style: "normal",
-            weight: "400"
-        } ]
-    }, {
-        name: "Airbus",
-        size: "100%",
-        folder: "airbus",
-        files: [ {
-            name: "Airbus-Special.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -3598,12 +3589,13 @@ customElements.define("app-btn-modal", BtnModalComponent);
 
 const btnSettingLayout = document.createElement("template");
 
-btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary border-0 flex-column align-items-start justify-content-between w-100 h-100 px-2 position-relative overflow-hidden">\n\t\t<span class="d-flex align-items-start gap-1">\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t\t<span class="sc-btn-setting__name text-start lh-base"></span>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>\n\t\t<span class="sc-btn-setting__selected-value btn btn-primary border-0 position-absolute d-none w-100 h-100"></span>\n\t</button>\n\t<div class="tooltip bs-tooltip-top sc-btn-setting__tooltip d-none mt-2" role="tooltip">\n\t\t<div class="tooltip-inner text-bg-secondary fw-normal">\n\t\t\t<div class="sc-btn-setting__tooltip-instruction mb-2"></div>\n\t\t\t<div class="sc-btn-setting__tooltip-value"></div>\n  \t</div>\n\t</div>\n`;
+btnSettingLayout.innerHTML = `\n\t<button type="button" class="sc-btn-setting btn btn-primary border-0 flex-column align-items-start justify-content-between w-100 h-100 px-2 position-relative overflow-hidden">\n\t\t<span class="d-flex align-items-start gap-1">\n\t\t\t<app-icon data-size="1.5em"></app-icon>\n\t\t\t<span class="sc-btn-setting__name text-start lh-base"></span>\n\t\t</span>\n\t\t<span class="sc-btn-setting__values d-flex gap-1 align-items-center justify-content-center mt-2 mb-0 w-100"></span>\n\t\t<span class="sc-btn-setting__selected-value btn btn-primary border-0 position-absolute d-none w-100 h-100"></span>\n\t\t<span class="sc-btn-setting__label visually-hidden"></span>\n\t</button>\n\t<div class="tooltip bs-tooltip-top sc-btn-setting__tooltip d-none mt-2" role="tooltip">\n\t\t<div class="tooltip-inner text-bg-secondary fw-normal">\n\t\t\t<p class="sc-btn-setting__tooltip-instruction mb-2"></p>\n\t\t\t<p class="sc-btn-setting__tooltip-value"></p>\n  \t</div>\n\t</div>\n`;
 
 class BtnSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-values", "data-active-value", "data-name", "data-disabled" ];
     settingBtn=null;
     btnContentSlots=null;
+    btnLabel=null;
     index=0;
     value;
     name;
@@ -3627,6 +3619,7 @@ class BtnSettingComponent extends HTMLElement {
         this.tooltip = this.querySelector(".tooltip");
         this.selectedValue = this.querySelector(".sc-btn-setting__selected-value");
         this.btnContentSlots = this.querySelector(".sc-btn-setting__values");
+        this.btnLabel = this.querySelector(".sc-btn-setting__label");
         this.settingBtn.addEventListener("click", this.handler);
         this.settingBtn.addEventListener("focusin", this.handler);
         this.settingBtn.addEventListener("focusout", this.handler);
@@ -3690,8 +3683,10 @@ class BtnSettingComponent extends HTMLElement {
                 const currentIndex = this.index + 1;
                 content = i18nServiceInstance.getMessage("multiclic", [ currentValueLabel, String(currentIndex), String(settingsNumber), nextValueLabel, String(nextValueIndex + 1) ]);
             }
+            const labelParts = content.split(",");
             const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
-            tooltipValue.innerHTML = content;
+            tooltipValue.innerHTML = labelParts[0];
+            this.btnLabel.innerHTML = content;
         }
     };
     setIndex=index => {
@@ -3765,6 +3760,9 @@ class BtnSettingComponent extends HTMLElement {
                 }
             });
             this.settingBtn?.dispatchEvent(clickEvent);
+            setTimeout((() => {
+                this.settingBtn?.focus();
+            }), 300);
             break;
 
           case "focusin":
@@ -4476,7 +4474,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "Airbus", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
     handler;
     constructor() {
         super();

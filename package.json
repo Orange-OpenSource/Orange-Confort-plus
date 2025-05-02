@@ -34,8 +34,6 @@
 		"version": "npm run build && git add -A dist/ docs/",
 		"postversion": "npm run zip",
 		"move": "concurrently \"npm:move:*\"",
-		"move:help": "shx cp -r docs/help dist/extension/ && shx cp -r docs/help dist/serveur/",
-		"move:cookies": "shx cp -r docs/cookie.html dist/serveur",
 		"move:assets": "shx cp -r dist/serveur/{js,assets} docs && shx cp -r src/site/assets/img docs/assets",
 		"move:favicon": "shx cp -r src/site/{favicon.ico,apple-touch-icon.png} docs",
 		"move:manifest": "npm run mv:manifest:chrome",
