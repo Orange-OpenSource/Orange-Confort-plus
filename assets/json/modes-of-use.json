@@ -1,0 +1,961 @@
+{
+	"version": "1.0.26",
+	"selectedMode": "facilePlus",
+	"modes": [
+		{
+			"facilePlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Verdana",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 4
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,110,130",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginLeft,marginList",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,sentence,paragraph",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 2
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_black,huge_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollAspect": {
+						"values": "noModifications,big_black,huge_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,reinforcedContrasts,ivory_black",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_delay2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,130,200",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"visionPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 4
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,130,200",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,sentence,paragraph",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 2
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_white,hugeCursor_green",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 7
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_white,huge_white",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 8
+					}
+				},
+				{
+					"scrollAspect": {
+						"values": "noModifications,big_white,huge_white",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,ivory_black,white_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_delay2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 9
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,130,200",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"visionPlusPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,130,200",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 2
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom5,zoom10",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,paragraph,all",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 4
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_yellow,hugeCursor_green",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_yellow,huge_green",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"scrollAspect": {
+						"values": "noModifications,big_white,huge_vert",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 7
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,ivory_black,white_blue",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 8
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,white_orange_lightgreen,yellow_orange_lightgreen",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 9
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 10
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 11
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 12
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 13
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,longClick_delay2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 14
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 2,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,130,200",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"dysPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,110,130",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 2
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,word,paragraph",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 4
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_black,huge_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"scrollAspect": {
+						"values": "noModifications,big_black,huge_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,reinforcedContrasts,black_ivory",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 7
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,autoClick_delay2",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 8
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,130,200",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"dysPlusPlus": [
+				{
+					"fontFamily": {
+						"values": "noModifications,AccessibleDfA,Luciole",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 1
+					}
+				},
+				{
+					"textSize": {
+						"values": "noModifications,110,130",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 2
+					}
+				},
+				{
+					"capitalLetters": {
+						"values": "noModifications,uppercase,capitalize",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
+					"textSpacing": {
+						"values": "noModifications,spacingTextSmall,spacingTextBig",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 4
+					}
+				},
+				{
+					"readingGuide": {
+						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 5
+					}
+				},
+				{
+					"marginAlign": {
+						"values": "noModifications,alignLeft,marginList",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 6
+					}
+				},
+				{
+					"magnifier": {
+						"values": "noModifications,zoom2,zoom5",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readAloud": {
+						"values": "noModifications,sentence,paragraph",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 7
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 8
+					}
+				},
+				{
+					"focusAspect": {
+						"values": "noModifications,big_black,huge_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 9
+					}
+				},
+				{
+					"scrollAspect": {
+						"values": "noModifications,big_black,huge_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"colorContrast": {
+						"values": "noModifications,reinforcedContrasts,black_ivory",
+						"valueSelected": 2,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"linkStyle": {
+						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clearlyLinks": {
+						"values": "noModifications,bold_underline,bold_boxed",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"stopAnimations": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"deleteBackgroundImages": {
+						"values": "noModifications,backgroundTransparent,backgroundForegroundTransparent",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"skipToContent": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"navigationButtons": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"restartTopLeft": {
+						"values": "noModifications,active",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"clickFacilite": {
+						"values": "noModifications,bigZone,autoClick_delay2",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 10
+					}
+				},
+				{
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,130,200",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				}
+			]
+		},
+		{
+			"calmePlus": []
+		},
+		{
+			"pointagePlus": []
+		},
+		{
+			"moteurPlus": []
+		},
+		{
+			"langueDesSignes": []
+		},
+		{
+			"audioPlus": []
+		}
+	]
+}

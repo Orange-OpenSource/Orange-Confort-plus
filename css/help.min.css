@@ -1,0 +1,10 @@
+@charset "UTF-8";/*!
+ * Boosted  v5.3.2 (https://boosted.orange.com/)
+ * Copyright 2014-2023 The Boosted Authors
+ * Copyright 2014-2023 Orange SA
+ * Licensed under MIT (https://github.com/Orange-OpenSource/Orange-Boosted-Bootstrap/blob/main/LICENSE)
+ * This a fork of Bootstrap: Initial license below
+ * Bootstrap  v5.3.2 (https://getbootstrap.com/)
+ * Copyright 2011-2023 The Bootstrap Authors
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */:root{}*,::after,::before{box-sizing:border-box}:root{scroll-padding-top:3.75rem}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}@media (min-width:1024px){:root{scroll-padding-top:7.5rem}}::-moz-focus-inner{padding:0;border-style:none}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}::file-selector-button{font:inherit;-webkit-appearance:button}:root{}
