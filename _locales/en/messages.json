@@ -1,0 +1,940 @@
+{
+	"mainButton": {
+		"message": "Unfold Comfort+"
+	},
+	"close": {
+		"message": "Fold Comfort+"
+	},
+	"mainTitle": {
+		"message": "Comfort"
+	},
+	"aboutLink": {
+		"message": "About Orange Comfort+ v$VERSION$",
+		"placeholders": {
+			"version": {
+				"content": "$1"
+			}
+		}
+	},
+	"profile": {
+		"message": "Mode"
+	},
+	"otherUsagesModes": {
+		"message": "Access to usage modes and descriptions"
+	},
+	"openSettingsMode": {
+		"message": "Open mode settings"
+	},
+	"othersSettings": {
+		"message": "All settings"
+	},
+	"moreSettings": {
+		"message": "More settings"
+	},
+	"lessSettings": {
+		"message": "Less settings"
+	},
+	"play": {
+		"message": "Restart Comfort+"
+	},
+	"pause": {
+		"message": "Pause Comfort+"
+	},
+	"pauseInfo": {
+		"message": "Comfort+ is paused, to reactivate it, press the « restart Comfort+ » button."
+	},
+	"otherModes": {
+		"message": "Other usage modes"
+	},
+	"chooseModeAndValidate": {
+		"message": "Choose a usage mode and validate:"
+	},
+	"validateThisMode": {
+		"message": "Validate this mode"
+	},
+	"resetThisMode": {
+		"message": "Reset this mode"
+	},
+	"resetThisModeTitle": {
+		"message": "Reset this mode: restores the original settings"
+	},
+	"activeMode": {
+		"message": "Active"
+	},
+	"previous": {
+		"message": "Previous"
+	},
+	"backToSettings": {
+		"message": "Return to settings. (Your choice has already been saved)"
+	},
+	"backToHome": {
+		"message": "Back to home"
+	},
+	"pageTitleModes": {
+		"message": "Usage modes"
+	},
+	"pageTitleSettings": {
+		"message": "Settings"
+	},
+	"pageTitleEditSetting": {
+		"message": "Choices for this setting"
+	},
+	"moreChoice": {
+		"message": "Show all"
+	},
+	"layout": {
+		"message": "Display"
+	},
+	"medias": {
+		"message": "Images"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Text"
+	},
+	"navigation": {
+		"message": "Navigation"
+	},
+	"firstLetter": {
+		"message": "First letter"
+	},
+	"lowercase": {
+		"message": "Lowercase"
+	},
+	"uppercase": {
+		"message": "Uppercase"
+	},
+	"default": {
+		"message": "Normal"
+	},
+	"visionPlusName": {
+		"message": "Vision+"
+	},
+	"visionPlusDescription": {
+		"message": "Mode of use designed for people with visual limitations (colour, legibility). The colours of the text and page are high-contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
+	},
+	"visionPlusPlusName": {
+		"message": "Vision++"
+	},
+	"visionPlusPlusDescription": {
+		"message": "Mode of use for people with severe visual impairments. The text and page colors are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimized font, a ×5 magnifier, and a reading ruler are available."
+	},
+	"facilePlusName": {
+		"message": "Easy+"
+	},
+	"facilePlusDescription": {
+		"message": "Mode of use for people not very familiar with the internet. The text, buttons, links, mouse, and focus are very visible and slightly larger, contrasts are adjusted, and a magnifier is available."
+	},
+	"lecturePlusName": {
+		"message": "Reading+"
+	},
+	"lecturePlusDescription": {
+		"message": "A mode of use for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
+	},
+	"lecturePlusPlusName": {
+		"message": "Reading++"
+	},
+	"lecturePlusPlusDescription": {
+		"message": "Mode of use intended for people with reading and/or handling constraints. A font optimized for dyslexia, clearly readable texts, reading rules, the possibility of coloring characters-sounds and to be read the text, as well as aids to pointing."
+	},
+	"moteurPlusName": {
+		"message": "Motor+"
+	},
+	"moteurPlusDescription": {
+		"message": "Mode of use for people with motor disabilities. Easier keyboard navigation, a highly visible focus, and a palette of virtual buttons."
+	},
+	"moteurPlusPlusName": {
+		"message": "Motor++"
+	},
+	"moteurPlusPlusDescription": {
+		"message": "Mode of use designed for people using a single switch. Automatic scrolling of the focus in the web page, with adjustable speed and delay."
+	},
+	"pointagePlusName": {
+		"message": "Pointing+"
+	},
+	"pointagePlusDescription": {
+		"message": "Mode of use for people with mouse pointing difficulties. A highly visible and large mouse, enlarged click areas, and the possibility to click by hovering without effort, with large button scrollbars."
+	},
+	"langueDesSignesName": {
+		"message": "Sign Language"
+	},
+	"langueDesSignesDescription": {
+		"message": "Mode of use for people who primarily communicate in sign language. It provides sign language thumbnails on complex words, a link to the Signs@Work dictionary, and an interface with videosigns."
+	},
+	"audioPlusName": {
+		"message": "Audio+"
+	},
+	"audioPlusDescription": {
+		"message": "Mode of use for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
+	},
+	"calmePlusName": {
+		"message": "Serene+"
+	},
+	"calmePlusDescription": {
+		"message": "Mode of use that meets the constraints of hypersensoriality. Pleasant colours and transitions, no animations or interruptions."
+	},
+	"noModifications": {
+		"message": "no modification"
+	},
+	"big": {
+		"message": "big"
+	},
+	"bigCursor": {
+		"message": "large cursors"
+	},
+	"huge": {
+		"message": "huge"
+	},
+	"hugeCursor": {
+		"message": "very large cursors"
+	},
+	"white": {
+		"message": "white"
+	},
+	"lightblue": {
+		"message": "light blue"
+	},
+	"lightgreen": {
+		"message": "light green"
+	},
+	"yellow": {
+		"message": "yellow"
+	},
+	"orange": {
+		"message": "orange"
+	},
+	"pink": {
+		"message": "pink"
+	},
+	"black": {
+		"message": "black"
+	},
+	"darkblue": {
+		"message": "dark blue"
+	},
+	"darkgreen": {
+		"message": "dark green"
+	},
+	"red": {
+		"message": "red"
+	},
+	"purple": {
+		"message": "purple"
+	},
+	"brown": {
+		"message": "brown"
+	},
+	"blue": {
+		"message": "blue"
+	},
+	"green": {
+		"message": "green"
+	},
+	"ivory": {
+		"message": "ivory"
+	},
+	"bold": {
+		"message": "bold"
+	},
+	"underline": {
+		"message": "underlined"
+	},
+	"boxed": {
+		"message": "boxed"
+	},
+	"prevValue": {
+		"message": "Previous value"
+	},
+	"nextValue": {
+		"message": "Next value"
+	},
+	"textContentImageHidden": {
+		"message": "Image text hidden:"
+	},
+	"tab": {
+		"message": "Tab"
+	},
+	"shiftTab": {
+		"message": "Shift + Tab"
+	},
+	"click": {
+		"message": "Click"
+	},
+	"escape": {
+		"message": "Escape"
+	},
+	"word": {
+		"message": "Read the word"
+	},
+	"sentence": {
+		"message": "Read the sentence"
+	},
+	"paragraph": {
+		"message": "Read the paragraph"
+	},
+	"delay1": {
+		"message": "1s delay"
+	},
+	"delay2": {
+		"message": "2s delay"
+	},
+	"delay3": {
+		"message": "3s delay"
+	},
+	"delay6": {
+		"message": "6s delay"
+	},
+	"bigZone": {
+		"message": "large click zones & standard click"
+	},
+	"longClick": {
+		"message": "large click zones & long click"
+	},
+	"autoClick": {
+		"message": "large click zones & auto click on hover"
+	},
+	"multiclic": {
+		"message": "Current value: “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
+		"description": "Indicates the current setting value and index, the total number of values, and the next value.",
+		"placeholders": {
+			"current": {
+				"content": "$1"
+			},
+			"index": {
+				"content": "$2"
+			},
+			"total": {
+				"content": "$3"
+			},
+			"next": {
+				"content": "$4"
+			},
+			"index2": {
+				"content": "$5"
+			}
+		}
+	},
+	"multiclicToggleOff": {
+		"message": ": inactive. Activate.",
+		"description": "Inactive setting."
+	},
+	"multiclicToggleOn": {
+		"message": ": active. Deactivate.",
+		"description": "Active setting."
+	},
+	"setting_fontFamily": {
+		"message": "Text font"
+	},
+	"setting_fontFamily_instruction": {
+		"message": "To change the text appearance."
+	},
+	"fontFamily_noModifications": {
+		"message": "no modification"
+	},
+	"fontFamily_AccessibleDfA": {
+		"message": "Accessible-DfA"
+	},
+	"fontFamily_B612Mono": {
+		"message": "B612 Mono"
+	},
+	"fontFamily_LexendDeca": {
+		"message": "Lexend Deca"
+	},
+	"fontFamily_Luciole": {
+		"message": "Luciole"
+	},
+	"fontFamily_HelveticaNeue": {
+		"message": "Helvetica Neue"
+	},
+	"fontFamily_SylexiadSans": {
+		"message": "Sylexiad Sans"
+	},
+	"fontFamily_BelleAllure": {
+		"message": "BelleAllure"
+	},
+	"setting_textSize": {
+		"message": "Text Size"
+	},
+	"setting_textSize_instruction": {
+		"message": "To only increase text size."
+	},
+	"textSize_noModifications": {
+		"message": "no modification"
+	},
+	"textSize_110": {
+		"message": "slightly larger, 110%"
+	},
+	"textSize_130": {
+		"message": "larger, 130%"
+	},
+	"textSize_160": {
+		"message": "quite large, 160%"
+	},
+	"textSize_200": {
+		"message": "very large, 200%"
+	},
+	"textSize_350": {
+		"message": "huge, 350%"
+	},
+	"textSize_500": {
+		"message": "max, 500%"
+	},
+	"setting_capitalLetters": {
+		"message": "Capital letters"
+	},
+	"setting_capitalLetters_instruction": {
+		"message": "To use capital letters."
+	},
+	"capitalLetters_noModifications": {
+		"message": "no modification"
+	},
+	"capitalLetters_uppercase": {
+		"message": "ALL UPPERCASE"
+	},
+	"capitalLetters_capitalize": {
+		"message": "Capitalize First Letters"
+	},
+	"setting_textSpacing": {
+		"message": "To aerate the text"
+	},
+	"setting_textSpacing_instruction": {
+		"message": "To increase character and line spacing."
+	},
+	"textSpacing_noModifications": {
+		"message": "no modification"
+	},
+	"textSpacing_spacingTextSmall": {
+		"message": "slightly spaced"
+	},
+	"textSpacing_spacingTextBig": {
+		"message": "widely spaced"
+	},
+	"textSpacing_spacingTextHuge": {
+		"message": "very widely spaced"
+	},
+	"setting_textColor": {
+		"message": "To color the text"
+	},
+	"setting_textColor_instruction": {
+		"message": "To distinguish between the sounds to be pronounced."
+	},
+	"textColor_noModifications": {
+		"message": "no modification"
+	},
+	"textColor_active": {
+		"message": "colourful trap sounds"
+	},
+	"setting_readingGuide": {
+		"message": "Reading Guide"
+	},
+	"setting_readingGuide_instruction": {
+		"message": "To follow the reading line."
+	},
+	"readingGuide_noModifications": {
+		"message": "no guide"
+	},
+	"readingGuide_ruleGuide": {
+		"message": "ruler"
+	},
+	"readingGuide_maskGuide": {
+		"message": "mask"
+	},
+	"readingGuide_alternatingLines": {
+		"message": "alternating lines"
+	},
+	"readingGuide_closeMask": {
+		"message": "Press Escape to close the mask."
+	},
+	"setting_marginAlign": {
+		"message": "Margin & Landmark"
+	},
+	"setting_marginAlign_instruction": {
+		"message": "To anchor reading to the left."
+	},
+	"marginAlign_noModifications": {
+		"message": "no modification"
+	},
+	"marginAlign_alignLeft": {
+		"message": "left aligned text"
+	},
+	"marginAlign_marginLeft": {
+		"message": "left margin (& left aligned text)"
+	},
+	"marginAlign_marginList": {
+		"message": "left margin and numbered lists (& left aligned text)"
+	},
+	"setting_magnifier": {
+		"message": "Magnifier"
+	},
+	"setting_magnifier_instruction": {
+		"message": "To zoom in temporarily."
+	},
+	"magnifier_noModifications": {
+		"message": "no magnifier"
+	},
+	"magnifier_zoom2": {
+		"message": "×2"
+	},
+	"magnifier_zoom5": {
+		"message": "×5"
+	},
+	"magnifier_zoom10": {
+		"message": "×10"
+	},
+	"magnifier_zoom15": {
+		"message": "×15"
+	},
+	"setting_readAloud": {
+		"message": "Read aloud"
+	},
+	"setting_readAloud_instruction": {
+		"message": "To have text read aloud on request."
+	},
+	"readAloud_tooltip": {
+		"message": "Click to vocalize, press Esc or right_click to stop."
+	},
+	"readAloud_noModifications": {
+		"message": "no vocalization"
+	},
+	"readAloud_word": {
+		"message": "vocalize pointed word"
+	},
+	"readAloud_sentence": {
+		"message": "vocalize pointed sentence"
+	},
+	"readAloud_paragraph": {
+		"message": "vocalize pointed paragraph"
+	},
+	"readAloud_all": {
+		"message": "vocalize all"
+	},
+	"setting_cursorAspect": {
+		"message": "Cursor Appearance"
+	},
+	"setting_cursorAspect_instruction": {
+		"message": "To change cursor appearance."
+	},
+	"cursorAspect_empty_example": {
+		"message": "Default cursor"
+	},
+	"cursorAspect_noModifications": {
+		"message": "no modification"
+	},
+	"cursorAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"cursorSize_label": {
+		"message": "Cursor size"
+	},
+	"cursorSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"cursorColor_label": {
+		"message": "Cursor Color"
+	},
+	"cursorColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_focusAspect": {
+		"message": "Focus appearance"
+	},
+	"setting_focusAspect_instruction": {
+		"message": "To change the selecting focus' appearance."
+	},
+	"focusAspect_noModifications": {
+		"message": "no modification"
+	},
+	"focusAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusSize_label": {
+		"message": "Focus size"
+	},
+	"focusSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusSize_noModifications": {
+		"message": "no size change"
+	},
+	"focusColor_label": {
+		"message": "Focus color"
+	},
+	"focusColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusColor_noModifications": {
+		"message": "no color change"
+	},
+	"setting_colorContrast": {
+		"message": "Colors Text-Background"
+	},
+	"setting_colorContrast_instruction": {
+		"message": "In order to change text and background colors."
+	},
+	"colorContrast_noModifications": {
+		"message": "no modification"
+	},
+	"colorContrast_reinforcedContrasts": {
+		"message": "reinforced contrasts"
+	},
+	"colorContrast_values": {
+		"message": "$COLOR$ on $BACKGROUND$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			},
+			"background": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorContrast_daltonism": {
+		"message": "color blindness"
+	},
+	"setting_linkStyle": {
+		"message": "Hyperlink Colors"
+	},
+	"setting_linkStyle_instruction": {
+		"message": "To modify the colors of navigation links."
+	},
+	"linkStyle_noModifications": {
+		"message": "no modification"
+	},
+	"linkStyle_values": {
+		"message": "$COLOR$, $POINTED$, and $VISITED$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			},
+			"pointed": {
+				"content": "$2"
+			},
+			"visited": {
+				"content": "$3"
+			}
+		}
+	},
+	"linkColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkPointedColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkVisitedColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkColor_label": {
+		"message": "Links"
+	},
+	"linkPointedColor_label": {
+		"message": "Pointed links"
+	},
+	"linkVisitedColor_label": {
+		"message": "Visited links"
+	},
+	"setting_clearlyLinks": {
+		"message": "Clearly visible links"
+	},
+	"setting_clearlyLinks_instruction": {
+		"message": "To make navigation links more visible."
+	},
+	"clearlyLinks_noModifications": {
+		"message": "no modification"
+	},
+	"clearlyLinks_values": {
+		"message": "$BOLD$ & $STYLE$",
+		"placeholders": {
+			"bold": {
+				"content": "$1"
+			},
+			"style": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_stopAnimations": {
+		"message": "Stop animations"
+	},
+	"setting_stopAnimations_instruction": {
+		"message": "To prevent animations on the page."
+	},
+	"stopAnimations_noModifications": {
+		"message": "no modification"
+	},
+	"stopAnimations_active": {
+		"message": "stop animations"
+	},
+	"setting_deleteBackgroundImages": {
+		"message": "Remove background images"
+	},
+	"setting_deleteBackgroundImages_instruction": {
+		"message": "To prevent background images from displaying."
+	},
+	"deleteBackgroundImages_noModifications": {
+		"message": "no modification"
+	},
+	"deleteBackgroundImages_backgroundTransparent": {
+		"message": "removes background images and transparency effects"
+	},
+	"deleteBackgroundImages_backgroundForegroundTransparent": {
+		"message": "removes background images, transparency effects, and foreground images"
+	},
+	"setting_scrollType": {
+		"message": "Scroll type"
+	},
+	"setting_scrollType_instruction": {
+		"message": "To facilitate scrolling on the page."
+	},
+	"scrollType_noModifications": {
+		"message": "no modification"
+	},
+	"scrollType_scrollOnClick": {
+		"message": "Scroll Up/Down buttons (on click)"
+	},
+	"scrollType_scrollOnMouseover": {
+		"message": "Scroll Up/Down buttons (on mouseover, no click required)"
+	},
+	"setting_scrollAspect": {
+		"message": "Scroll aspect"
+	},
+	"setting_scrollAspect_instruction": {
+		"message": "To modify the appearance of the scroll bar."
+	},
+	"scrollAspect_noModifications": {
+		"message": "no modification"
+	},
+	"scrollAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"scroll_up": {
+		"message": "Scroll Up"
+	},
+	"scroll_down": {
+		"message": "Scroll Down"
+	},
+	"scrollSize_label": {
+		"message": "Scroll bar size"
+	},
+	"scrollSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSize_noModifications": {
+		"message": "no size change"
+	},
+	"scrollColor_label": {
+		"message": "Scroll bar color"
+	},
+	"scrollColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollColor_noModifications": {
+		"message": "no color change"
+	},
+	"setting_skipToContent": {
+		"message": "Skip to content"
+	},
+	"setting_skipToContent_instruction": {
+		"message": "Allows you to go directly to the content of a site without going through the menus."
+	},
+	"skipToContent_noModifications": {
+		"message": "no modification"
+	},
+	"skipToContent_active": {
+		"message": "skip to content"
+	},
+	"setting_navigationButtons": {
+		"message": "Navigation buttons"
+	},
+	"setting_navigationButtons_instruction": {
+		"message": "To move focus with the mouse."
+	},
+	"navigationButtons_noModifications": {
+		"message": "no navigation buttons"
+	},
+	"navigationButtons_active": {
+		"message": "add navigation buttons"
+	},
+	"setting_clickFacilite": {
+		"message": "Click assistance"
+	},
+	"setting_clickFacilite_instruction": {
+		"message": "To avoid pointer errors and reduce effort."
+	},
+	"clickFacilite_noModifications": {
+		"message": "no modification"
+	},
+	"clickFacilite_bigZone": {
+		"message": "large click zones & standard click"
+	},
+	"clickFacilite_values": {
+		"message": "$TYPE$ ($DELAY$)",
+		"placeholders": {
+			"type": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"clickType_values": {
+		"message": "$TYPE$",
+		"placeholders": {
+			"type": {
+				"content": "$2"
+			}
+		}
+	},
+	"clickDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_navigationAuto": {
+		"message": "Auto scrolling navigation"
+	},
+	"setting_navigationAuto_instruction": {
+		"message": "To move focus automatically."
+	},
+	"navigationAuto_noModifications": {
+		"message": "no auto scrolling"
+	},
+	"navigationAuto_values": {
+		"message": "auto scrolling focus ($DELAY$)",
+		"placeholders": {
+			"delay": {
+				"content": "$1"
+			}
+		}
+	},
+	"navigationAuto_label": {
+		"message": "Enable auto scrolling navigation"
+	},
+	"navigationAuto_inactive": {
+		"message": "Disable"
+	},
+	"navigationAuto_active": {
+		"message": "Enable"
+	},
+	"navigationDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_restartTopLeft": {
+		"message": "Restart at top left"
+	},
+	"setting_restartTopLeft_instruction": {
+		"message": "To move scroll and mouse to the top left of the page."
+	},
+	"restartTopLeft_noModifications": {
+		"message": "without action"
+	},
+	"restartTopLeft_active": {
+		"message": "restart"
+	},
+	"setting_zoom": {
+		"message": "Zoom"
+	},
+	"setting_zoom_instruction": {
+		"message": "To increase page size."
+	},
+	"zoom_noModifications": {
+		"message": "no modification"
+	},
+	"zoom_110": {
+		"message": "slightly larger, 110%"
+	},
+	"zoom_130": {
+		"message": "larger, 130%"
+	},
+	"zoom_160": {
+		"message": "quite large, 160%"
+	},
+	"zoom_200": {
+		"message": "very large, 200%"
+	},
+	"zoom_350": {
+		"message": "huge, 350%"
+	},
+	"zoom_500": {
+		"message": "max, 500%"
+	}
+}
