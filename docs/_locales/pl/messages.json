@@ -288,8 +288,8 @@
 		"message": "duże strefy klikania & automatyczne kliknięcie po najechaniu kursorem"
 	},
 	"multiclic": {
-		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$",
-		"description": "Oznacza wartość i indeks ustawienia actualnego i całkowita liczba wartości.",
+		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$, mień na „$NEXT$” $INDEX2$/$TOTAL$",
+		"description": "Oznacza wartość i indeks ustawienia actualnego, całkowita liczba wartości i następną wartość.",
 		"placeholders": {
 			"current": {
 				"content": "$1"
@@ -299,6 +299,12 @@
 			},
 			"total": {
 				"content": "$3"
+			},
+			"next": {
+				"content": "$4"
+			},
+			"index2": {
+				"content": "$5"
 			}
 		}
 	},
