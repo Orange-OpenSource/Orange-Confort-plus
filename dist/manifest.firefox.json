@@ -3,7 +3,7 @@
 	"name": "Orange Confort+",
 	"description": "Orange Confort+",
 	"version": "1.2.1.2",
-	"default_locale": "en",
+	"default_locale": "fr",
 	"author": "Orange SA",
 	"homepage_url": "https://confort-plus.orange.com",
 	"browser_specific_settings": {
