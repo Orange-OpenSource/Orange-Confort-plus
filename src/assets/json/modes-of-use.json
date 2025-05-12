@@ -1,5 +1,5 @@
 {
-	"version": "1.0.27",
+	"version": "1.0.28",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -197,15 +197,15 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 4
+						"order": 6
 					}
 				},
 				{
 					"textSize": {
 						"values": "noModifications,130,200",
 						"valueSelected": 1,
-						"isTool": true,
-						"order": 3
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
@@ -241,11 +241,19 @@
 					}
 				},
 				{
+					"zoom": {
+						"values": "noModifications,110,130",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 3
+					}
+				},
+				{
 					"magnifier": {
 						"values": "noModifications,zoom2,zoom5",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 1
+						"order": 2
 					}
 				},
 				{
@@ -253,7 +261,7 @@
 						"values": "noModifications,sentence,paragraph",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 2
+						"order": 4
 					}
 				},
 				{
@@ -261,7 +269,7 @@
 						"values": "noModifications,bigCursor_white,hugeCursor_green",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 7
+						"order": 9
 					}
 				},
 				{
@@ -269,15 +277,15 @@
 						"values": "noModifications,big_white,huge_white",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 8
+						"order": 13
 					}
 				},
 				{
 					"scrollAspect": {
 						"values": "noModifications,big_white,huge_white",
 						"valueSelected": 1,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 11
 					}
 				},
 				{
@@ -292,8 +300,8 @@
 					"linkStyle": {
 						"values": "noModifications,lightblue_orange_lightgreen,yellow_orange_lightgreen",
 						"valueSelected": 1,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 7
 					}
 				},
 				{
@@ -301,7 +309,7 @@
 						"values": "noModifications,bold_underline,bold_boxed",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 6
+						"order": 8
 					}
 				},
 				{
@@ -332,16 +340,16 @@
 					"skipToContent": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 1
 					}
 				},
 				{
 					"navigationButtons": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 12
 					}
 				},
 				{
@@ -357,20 +365,12 @@
 						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 9
+						"order": 10
 					}
 				},
 				{
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"zoom": {
-						"values": "noModifications,130,200",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
