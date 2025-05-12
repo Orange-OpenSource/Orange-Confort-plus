@@ -120,16 +120,16 @@
 		"message": "Mode d’usage destiné aux personnes peu habituées à internet. Le texte, les boutons, les liens, la souris et le focus sont bien visibles et un peu plus grands, les contrastes sont ajustés et une loupe est disponible."
 	},
 	"dysPlusName": {
-		"message": "Dys+"
+		"message": "Lecture+"
 	},
 	"dysPlusDescription": {
 		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
 	},
 	"dysPlusPlusName": {
-		"message": "Dys++"
+		"message": "Lecture++"
 	},
 	"dysPlusPlusDescription": {
-		"message": "Ce mode n’a pas encore de description"
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture et/ou de manipulation. Une police optimisée pour la dyslexie, des textes bien lisibles, des règles de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte, ainsi que des aides au pointage."
 	},
 	"moteurPlusName": {
 		"message": "Moteur+"
@@ -153,7 +153,7 @@
 		"message": "Langue des signes"
 	},
 	"langueDesSignesDescription": {
-		"message": "Mode d’usage destiné aux personnes s’exprimant surtout en langue des signes. Des vignettes de LSF sur les mots complexes, un lien au dictionnaire Signs@Work et une interface en vidéosignes."
+		"message": "Mode d’usage destiné aux personnes s’exprimant surtout en langue des signes. Des vignettes de LSF sur les mots complexes, un lien vers le dictionnaire Signs@Work et une interface en vidéosignes."
 	},
 	"audioPlusName": {
 		"message": "Audio+"
@@ -162,7 +162,7 @@
 		"message": "Mode d’usage destiné aux personnes ayant des contraintes auditives. Des équivalences visuelles au signaux sonores, du sous-titrage systématique."
 	},
 	"calmePlusName": {
-		"message": "Calme+"
+		"message": "Serein+"
 	},
 	"calmePlusDescription": {
 		"message": "Mode d’usage répondant aux contraintes d’hypersensorialités. Des couleurs et des transitions agréables, absence d’animations et d’interruptions."
@@ -243,13 +243,13 @@
 		"message": "Valeur suivante"
 	},
 	"textContentImageHidden": {
-		"message": "Texte de l’image cachée :"
+		"message": "Texte d’image caché :"
 	},
 	"tab": {
 		"message": "Tabulation"
 	},
 	"shiftTab": {
-		"message": "Shift + Tabulation"
+		"message": "Maj. + Tabulation"
 	},
 	"click": {
 		"message": "Clique"
@@ -309,11 +309,11 @@
 		}
 	},
 	"multiclicToggleOff": {
-		"message": " : inactif. Activer.",
+		"message": "Inactif. Activer.",
 		"description": "Réglage inactif."
 	},
 	"multiclicToggleOn": {
-		"message": " : actif. Désactiver.",
+		"message": "Actif. Désactiver.",
 		"description": "Réglage actif."
 	},
 	"setting_fontFamily": {
@@ -326,7 +326,7 @@
 		"message": "sans modification"
 	},
 	"fontFamily_AccessibleDfA": {
-		"message": "Accessible DfA"
+		"message": "Accessible-DfA"
 	},
 	"fontFamily_B612Mono": {
 		"message": "B612_Mono"
@@ -356,22 +356,22 @@
 		"message": "sans modification"
 	},
 	"textSize_110": {
-		"message": "un peu grand “110%”"
+		"message": "un peu grand, 110%"
 	},
 	"textSize_130": {
-		"message": "plutôt grand “130%”"
+		"message": "plutôt grand, 130%"
 	},
 	"textSize_160": {
-		"message": "bien grand “160%”"
+		"message": "bien grand, 160%"
 	},
 	"textSize_200": {
-		"message": "très grand “200%”"
+		"message": "très grand, 200%"
 	},
 	"textSize_350": {
-		"message": "énorme “350%”"
+		"message": "énorme, 350%"
 	},
 	"textSize_500": {
-		"message": "max “500%”"
+		"message": "max, 500%"
 	},
 	"setting_capitalLetters": {
 		"message": "Majuscules"
@@ -383,10 +383,10 @@
 		"message": "sans modification"
 	},
 	"capitalLetters_uppercase": {
-		"message": "tout en majuscules"
+		"message": "TOUT EN MAJUSCULES"
 	},
 	"capitalLetters_capitalize": {
-		"message": "1ères lettres en majuscules"
+		"message": "1ères Lettres En Majuscules"
 	},
 	"setting_textSpacing": {
 		"message": "Aérer le  texte"
@@ -395,34 +395,34 @@
 		"message": "Pour bien espacer les caractères et les lignes."
 	},
 	"textSpacing_noModifications": {
-		"message": "sans modification"
+		"message": "sans aérer"
 	},
 	"textSpacing_spacingTextSmall": {
-		"message": "aère un peu"
+		"message": "aérer un peu"
 	},
 	"textSpacing_spacingTextBig": {
-		"message": "aère beaucoup"
+		"message": "aérer beaucoup"
 	},
 	"textSpacing_spacingTextHuge": {
-		"message": "aère énormément"
+		"message": "aérer énormément"
 	},
 	"setting_textColor": {
-		"message": "Colore le texte"
+		"message": "Colorer le texte"
 	},
 	"setting_textColor_instruction": {
 		"message": "Pour bien distinguer les sons à prononcer."
 	},
 	"textColor_noModifications": {
-		"message": "sans modification"
+		"message": "sans colorer"
 	},
 	"textColor_active": {
 		"message": "sons pièges colorés"
 	},
 	"setting_readingGuide": {
-		"message": "Guide de lecture"
+		"message": "Règle de lecture"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Pour suivre La ligne de lecture."
+		"message": "Pour mieux repérer la ligne lue."
 	},
 	"readingGuide_noModifications": {
 		"message": "sans guide"
@@ -437,7 +437,7 @@
 		"message": "lignes alternées"
 	},
 	"readingGuide_closeMask": {
-		"message": "Appuyer sur échap pour fermer le masque."
+		"message": "Appuyer sur Échap pour fermer le masque."
 	},
 	"setting_marginAlign": {
 		"message": "Marge et repères"
@@ -461,7 +461,7 @@
 		"message": "Loupe"
 	},
 	"setting_magnifier_instruction": {
-		"message": "Pour zoomer ponctuellement."
+		"message": "Pour agrandir ponctuellement."
 	},
 	"magnifier_noModifications": {
 		"message": "sans loupe"
@@ -506,7 +506,7 @@
 		"message": "Aspect de la souris"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Pour modifier le rendu des curseurs."
+		"message": "Pour modifier l’apparence des pointeurs."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Souris par défaut"
@@ -596,7 +596,7 @@
 		"message": "sans modification de couleur"
 	},
 	"setting_colorContrast": {
-		"message": "Couleurs Texte - Fond"
+		"message": "Couleurs Texte-Fond"
 	},
 	"setting_colorContrast_instruction": {
 		"message": "Pour changer la couleur du fond et du texte."
@@ -622,7 +622,7 @@
 		"message": "daltonisme"
 	},
 	"setting_linkStyle": {
-		"message": "Couleurs des hyperliens"
+		"message": "Couleurs des liens"
 	},
 	"setting_linkStyle_instruction": {
 		"message": "Pour modifier la couleur des liens de navigation."
@@ -740,10 +740,10 @@
 		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
 	},
 	"setting_scrollAspect": {
-		"message": "Aspect ascenseur"
+		"message": "Aspect de l’ascenseur"
 	},
 	"setting_scrollAspect_instruction": {
-		"message": "Pour modifier le rendu de l’ascenseur."
+		"message": "Pour modifier l’apparence de l’ascenseur."
 	},
 	"scrollAspect_noModifications": {
 		"message": "sans modification"
@@ -766,7 +766,7 @@
 		"message": "Descendre"
 	},
 	"scrollSize_label": {
-		"message": "Taille de l’ascenceur"
+		"message": "Taille de l'ascenseur."
 	},
 	"scrollSize_values": {
 		"message": "$SIZE$",
@@ -780,7 +780,7 @@
 		"message": "sans modification de taille"
 	},
 	"scrollColor_label": {
-		"message": "Couleur de l’ascenceur"
+		"message": "Couleur de l'ascenseur."
 	},
 	"scrollColor_values": {
 		"message": "$COLOR$",
@@ -857,7 +857,7 @@
 		}
 	},
 	"setting_navigationAuto": {
-		"message": "Navigation par défilement"
+		"message": "Navigation par défilement automatique"
 	},
 	"setting_navigationAuto_instruction": {
 		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul."
@@ -874,7 +874,7 @@
 		}
 	},
 	"navigationAuto_label": {
-		"message": "Activer la navigation par défilement"
+		"message": "Activer la navigation par défilement automatique"
 	},
 	"navigationAuto_inactive": {
 		"message": "Désactiver"
@@ -891,19 +891,19 @@
 		}
 	},
 	"setting_restartTopLeft": {
-		"message": "Recommencer en haut à gauche"
+		"message": "Début"
 	},
 	"setting_restartTopLeft_instruction": {
-		"message": "Pour placer scroll et souris en haut à gauche de la page."
+		"message": "Pour repositionner le focus et la souris en haut à gauche de la page."
 	},
 	"restartTopLeft_noModifications": {
 		"message": "sans action"
 	},
 	"restartTopLeft_active": {
-		"message": "recommencer"
+		"message": "début"
 	},
 	"setting_zoom": {
-		"message": "Zoom"
+		"message": "Zoomer"
 	},
 	"setting_zoom_instruction": {
 		"message": "Pour agrandir la page."
@@ -912,21 +912,21 @@
 		"message": "sans modification"
 	},
 	"zoom_110": {
-		"message": "un peu grand “110%”"
+		"message": "un peu grand, 110%"
 	},
 	"zoom_130": {
-		"message": "plutôt grand “130%”"
+		"message": "plutôt grand, 130%"
 	},
 	"zoom_160": {
-		"message": "bien grand “160%”"
+		"message": "bien grand, 160%"
 	},
 	"zoom_200": {
-		"message": "très grand “200%”"
+		"message": "très grand, 200%"
 	},
 	"zoom_350": {
-		"message": "énorme “350%”"
+		"message": "énorme, 350%"
 	},
 	"zoom_500": {
-		"message": "max “500%”"
+		"message": "max, 500%"
 	}
 }

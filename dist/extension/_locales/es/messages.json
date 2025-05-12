@@ -1,0 +1,935 @@
+{
+	"mainButton": {
+		"message": "Desplegar Confort+"
+	},
+	"close": {
+		"message": "Plegar"
+	},
+	"mainTitle": {
+		"message": "Confort"
+	},
+	"profile": {
+		"message": "Modo de uso"
+	},
+	"otherUsagesModes": {
+		"message": "Acceso a las modalidades de uso y su descripción"
+	},
+	"openSettingsMode": {
+		"message": "Abrir la configuración del modo"
+	},
+	"othersSettings": {
+		"message": "Todos los ajustes"
+	},
+	"moreSettings": {
+		"message": "Más ajustes"
+	},
+	"lessSettings": {
+		"message": "Menos ajustes"
+	},
+	"play": {
+		"message": "Reactivar Confort+"
+	},
+	"pause": {
+		"message": "Confort+ en pausa"
+	},
+	"pauseInfo": {
+		"message": "Confort+ está en pausa, para reactivarlo pulse el botón «Reactivar Confort+»"
+	},
+	"otherModes": {
+		"message": "Otros modos de uso"
+	},
+	"chooseModeAndValidate": {
+		"message": "Elegir un modo de uso y validar:"
+	},
+	"validateThisMode": {
+		"message": "Validar este modo"
+	},
+	"resetThisMode": {
+		"message": "Restablecer este modo"
+	},
+	"resetThisModeTitle": {
+		"message": "Restablecer este modo: devuelve los ajustes originales"
+	},
+	"activeMode": {
+		"message": "Activado"
+	},
+	"previous": {
+		"message": "Precedente"
+	},
+	"backToSettings": {
+		"message": "Volver a los ajustes. (sus elecciones ya han sido guardadas)"
+	},
+	"backToHome": {
+		"message": "Volver al inicio"
+	},
+	"pageTitleModes": {
+		"message": "Modos de uso"
+	},
+	"pageTitleSettings": {
+		"message": "Ajustes"
+	},
+	"pageTitleEditSetting": {
+		"message": "Opciones para este ajuste"
+	},
+	"moreChoice": {
+		"message": "Todas las opciones"
+	},
+	"layout": {
+		"message": "Visualización"
+	},
+	"medias": {
+		"message": "Imágenes"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Texto"
+	},
+	"navigation": {
+		"message": "Navegación"
+	},
+	"firstLetter": {
+		"message": "Letra inicial"
+	},
+	"lowercase": {
+		"message": "Minúsculo"
+	},
+	"uppercase": {
+		"message": "Mayúscula"
+	},
+	"default": {
+		"message": "Normal"
+	},
+	"visionPlusName": {
+		"message": "Visión+"
+	},
+	"visionPlusDescription": {
+		"message": "Modo de uso destinado a personas con limitaciones visuales (color, legibilidad). Los colores del texto y de la página son muy contrastantes, el ratón y el foco están bien visibles, una lupa y una regla de lectura están disponibles."
+	},
+	"visionPlusPlusName": {
+		"message": "Visión++"
+	},
+	"visionPlusPlusDescription": {
+		"message": "Modo de uso para personas con limitaciones visuales graves. Los colores del texto y de la página se modifican, los elementos (foco, ratón, texto, elevador) son mucho más grandes, una fuente optimizada, una lupa 5 y una regla de lectura están disponibles."
+	},
+	"facilePlusName": {
+		"message": "Fácil+"
+	},
+	"facilePlusDescription": {
+		"message": "Modo de uso destinado a las personas poco acostumbradas a internet. El texto, los botones, los enlaces, el ratón y el foco son bien visibles y un poco más grandes, los contrastes se ajustan y una lupa está disponible."
+	},
+	"dysPlusName": {
+		"message": "Lectura+"
+	},
+	"dysPlusDescription": {
+		"message": "Modo de uso destinado a personas con limitaciones de lectura o escritura. Una fuente optimizada para la dislexia, textos aireados y alineados a la izquierda, una regla de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto."
+	},
+	"dysPlusPlusName": {
+		"message": "Lectura++"
+	},
+	"dysPlusPlusDescription": {
+		"message": "Modo de uso destinado a personas con limitaciones de lectura y/o manipulación. Una fuente optimizada para la dislexia, textos claramente legibles, reglas de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto, así como ayudas al apuntado."
+	},
+	"moteurPlusName": {
+		"message": "Motor+"
+	},
+	"moteurPlusDescription": {
+		"message": "Modo de uso para personas con discapacidades motoras. Navegación más fácil con el teclado, un foco muy visible y una paleta de botones virtuales."
+	},
+	"moteurPlusPlusName": {
+		"message": "Motor++"
+	},
+	"moteurPlusPlusDescription": {
+		"message": "Modo de uso diseñado para personas que utilizan un solo interruptor. Desplazamiento automático del foco en la página web, con velocidad y retardo ajustables."
+	},
+	"pointagePlusName": {
+		"message": "Apuntar+"
+	},
+	"pointagePlusDescription": {
+		"message": "Modo de uso para personas con dificultades para apuntar con el ratón. Un ratón muy visible y grande, áreas de clic agrandadas, y la posibilidad de hacer clic flotando sin esfuerzo, con grandes barras de desplazamiento de botones."
+	},
+	"langueDesSignesName": {
+		"message": "Lenguaje de señas"
+	},
+	"langueDesSignesDescription": {
+		"message": "Modo de uso para las personas que se comunican principalmente en lenguaje de señas. Miniaturas señas sobre palabras complejas, un enlace al diccionario Signs@Work y una interfaz con videosignos."
+	},
+	"audioPlusName": {
+		"message": "Audio+"
+	},
+	"audioPlusDescription": {
+		"message": "Modo de uso para personas con dificultades auditivas. Equivalencias visuales a las señales sonoras, subtitulación sistemática."
+	},
+	"calmePlusName": {
+		"message": "Sereno+"
+	},
+	"calmePlusDescription": {
+		"message": "Modo de uso que satisface las limitaciones de la hipersensorialidad. Colores y transiciones agradables, sin animaciones ni interrupciones."
+	},
+	"noModifications": {
+		"message": "sin modificación"
+	},
+	"big": {
+		"message": "grande"
+	},
+	"bigCursor": {
+		"message": "cursores grandes"
+	},
+	"huge": {
+		"message": "enorme"
+	},
+	"hugeCursor": {
+		"message": "cursores muy grandes"
+	},
+	"white": {
+		"message": "blanco"
+	},
+	"lightblue": {
+		"message": "azul claro"
+	},
+	"lightgreen": {
+		"message": "verde claro"
+	},
+	"yellow": {
+		"message": "amarillo"
+	},
+	"orange": {
+		"message": "naranja"
+	},
+	"pink": {
+		"message": "rosa"
+	},
+	"black": {
+		"message": "negro"
+	},
+	"darkblue": {
+		"message": "azul oscuro"
+	},
+	"darkgreen": {
+		"message": "verde oscuro"
+	},
+	"red": {
+		"message": "rojo"
+	},
+	"purple": {
+		"message": "púrpura"
+	},
+	"brown": {
+		"message": "marrón"
+	},
+	"blue": {
+		"message": "azul"
+	},
+	"green": {
+		"message": "verde"
+	},
+	"ivory": {
+		"message": "marfil"
+	},
+	"bold": {
+		"message": "negrita"
+	},
+	"underline": {
+		"message": "subrayado"
+	},
+	"boxed": {
+		"message": "recuadro"
+	},
+	"prevValue": {
+		"message": "Valor previo"
+	},
+	"nextValue": {
+		"message": "Valor siguiente"
+	},
+	"textContentImageHidden": {
+		"message": "Texto de la imagen oculto:"
+	},
+	"tab": {
+		"message": "Tabulación"
+	},
+	"shiftTab": {
+		"message": "Mayúscula + Tabulación"
+	},
+	"click": {
+		"message": "Clic"
+	},
+	"escape": {
+		"message": "Escapar"
+	},
+	"word": {
+		"message": "Leer la palabra"
+	},
+	"sentence": {
+		"message": "Leer la frase"
+	},
+	"paragraph": {
+		"message": "Leer el párrafo"
+	},
+	"delay1": {
+		"message": "plazo de 1s"
+	},
+	"delay2": {
+		"message": "plazo de 2s"
+	},
+	"delay3": {
+		"message": "plazo de 3s"
+	},
+	"delay6": {
+		"message": "plazo de 6s"
+	},
+	"bigZone": {
+		"message": "grandes áreas de clic y clics estándar"
+	},
+	"longClick": {
+		"message": "grandes áreas de clic y clics largos"
+	},
+	"autoClick": {
+		"message": "grandes áreas de clic y clics al pasar el ratón"
+	},
+	"multiclic": {
+		"message": "Valor actual: $CURRENT$ $INDEX$/$TOTAL$, cambia por «$NEXT$» $INDEX2$/$TOTAL$",
+		"description": "Indica el valor e índice de la configuración actual, el número total de valores y el valor siguiente.",
+		"placeholders": {
+			"current": {
+				"content": "$1"
+			},
+			"index": {
+				"content": "$2"
+			},
+			"total": {
+				"content": "$3"
+			},
+			"next": {
+				"content": "$4"
+			},
+			"index2": {
+				"content": "$5"
+			}
+		}
+	},
+	"multiclicToggleOff": {
+		"message": "Inactivo. Activar.",
+		"description": "Configuración inactiva."
+	},
+	"multiclicToggleOn": {
+		"message": "Activado. Desactivar.",
+		"description": "Configuración activa."
+	},
+	"setting_fontFamily": {
+		"message": "Fuente del texto"
+	},
+	"setting_fontFamily_instruction": {
+		"message": "Para cambiar la apariencia del texto"
+	},
+	"fontFamily_noModifications": {
+		"message": "sin modificación"
+	},
+	"fontFamily_AccessibleDfA": {
+		"message": "Accessible-DfA"
+	},
+	"fontFamily_B612Mono": {
+		"message": "B612 Mono"
+	},
+	"fontFamily_Airbus": {
+		"message": "Airbus"
+	},
+	"fontFamily_ComicSansMS": {
+		"message": "Comic Sans MS"
+	},
+	"fontFamily_LexendDeca": {
+		"message": "Lexend Deca"
+	},
+	"fontFamily_Luciole": {
+		"message": "Luciole"
+	},
+	"fontFamily_SylexiadSans": {
+		"message": "Sylexiad Sans"
+	},
+	"fontFamily_Verdana": {
+		"message": "Verdana"
+	},
+	"setting_textSize": {
+		"message": "Tamaño del texto"
+	},
+	"setting_textSize_instruction": {
+		"message": "Solo para aumentar el tamaño del texto"
+	},
+	"textSize_noModifications": {
+		"message": "sin modificación"
+	},
+	"textSize_110": {
+		"message": "un poco  grande, 110%"
+	},
+	"textSize_130": {
+		"message": "un poco más grande, 130%"
+	},
+	"textSize_160": {
+		"message": "bastante grande, 160%"
+	},
+	"textSize_200": {
+		"message": "muy grande, 200%”"
+	},
+	"textSize_350": {
+		"message": "enorme, 350%"
+	},
+	"textSize_500": {
+		"message": "máximo, 500%"
+	},
+	"setting_capitalLetters": {
+		"message": "Letras capitales"
+	},
+	"setting_capitalLetters_instruction": {
+		"message": "Utilizar letras mayúsculas"
+	},
+	"capitalLetters_noModifications": {
+		"message": "sin modificación"
+	},
+	"capitalLetters_uppercase": {
+		"message": "TODO EN MAYÚSCULAS"
+	},
+	"capitalLetters_capitalize": {
+		"message": "Capitalizar Las Primeras Letras"
+	},
+	"setting_textSpacing": {
+		"message": "Airear el texto"
+	},
+	"setting_textSpacing_instruction": {
+		"message": "Para aumentar el espaciado de caracteres y líneas"
+	},
+	"textSpacing_noModifications": {
+		"message": "sin airear el texto"
+	},
+	"textSpacing_spacingTextSmall": {
+		"message": "ligeramente espaciado"
+	},
+	"textSpacing_spacingTextBig": {
+		"message": "ampliamente espaciado"
+	},
+	"textSpacing_spacingTextHuge": {
+		"message": "muy espaciado"
+	},
+	"setting_textColor": {
+		"message": "Colorear el texto"
+	},
+	"setting_textColor_instruction": {
+		"message": "Para distinguir entre los sonidos a pronunciar"
+	},
+	"textColor_noModifications": {
+		"message": "sin colorear"
+	},
+	"textColor_active": {
+		"message": "trampas de sonidos que son coloridos"
+	},
+	"setting_readingGuide": {
+		"message": "Regla de apoyo a la lectura"
+	},
+	"setting_readingGuide_instruction": {
+		"message": "Para seguir la línea de lectura"
+	},
+	"readingGuide_noModifications": {
+		"message": "no hay guía de lectura"
+	},
+	"readingGuide_ruleGuide": {
+		"message": "regla"
+	},
+	"readingGuide_maskGuide": {
+		"message": "máscara"
+	},
+	"readingGuide_alternatingLines": {
+		"message": "líneas alternas"
+	},
+	"readingGuide_closeMask": {
+		"message": "Pulse Esc. para cerrar la máscara de lectura"
+	},
+	"setting_marginAlign": {
+		"message": "Márgenes y marcas"
+	},
+	"setting_marginAlign_instruction": {
+		"message": "Para anclar la lectura a la izquierda"
+	},
+	"marginAlign_noModifications": {
+		"message": "sin modificación"
+	},
+	"marginAlign_alignLeft": {
+		"message": "texto alineado a la izquierda"
+	},
+	"marginAlign_marginLeft": {
+		"message": "margen izquierdo (y texto alineado a la izquierda)"
+	},
+	"marginAlign_marginList": {
+		"message": "margen izquierdo y listas numeradas (y texto alineado a la izquierda)"
+	},
+	"setting_magnifier": {
+		"message": "Lupa"
+	},
+	"setting_magnifier_instruction": {
+		"message": "Para hacer zoom temporalmente"
+	},
+	"magnifier_noModifications": {
+		"message": "no lupa"
+	},
+	"magnifier_zoom2": {
+		"message": "×2"
+	},
+	"magnifier_zoom5": {
+		"message": "×5"
+	},
+	"magnifier_zoom10": {
+		"message": "×10"
+	},
+	"magnifier_zoom15": {
+		"message": "×15"
+	},
+	"setting_readAloud": {
+		"message": "Leer en voz alta"
+	},
+	"setting_readAloud_instruction": {
+		"message": "Para leer el texto"
+	},
+	"readAloud_tooltip": {
+		"message": "Haga clic para vocalizar, pulse Esc. o haga clic derecho para detener"
+	},
+	"readAloud_noModifications": {
+		"message": "sin vocalización"
+	},
+	"readAloud_word": {
+		"message": "vocalizar la palabra señalada"
+	},
+	"readAloud_sentence": {
+		"message": "vocalizar la frase apuntada"
+	},
+	"readAloud_paragraph": {
+		"message": "vocalize pointed paragraph"
+	},
+	"readAloud_all": {
+		"message": "vocalizar todo"
+	},
+	"setting_cursorAspect": {
+		"message": "Apariencia de ratón"
+	},
+	"setting_cursorAspect_instruction": {
+		"message": "Para cambiar la apariencia del ratón"
+	},
+	"cursorAspect_empty_example": {
+		"message": "Cursor predeterminado"
+	},
+	"cursorAspect_noModifications": {
+		"message": "sin modificación"
+	},
+	"cursorAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"cursorSize_label": {
+		"message": "Tamaño del cursor"
+	},
+	"cursorSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"cursorColor_label": {
+		"message": "Color del cursor"
+	},
+	"cursorColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_focusAspect": {
+		"message": "Apariencia del foco"
+	},
+	"setting_focusAspect_instruction": {
+		"message": "Para cambiar el aspecto del foco de selección"
+	},
+	"focusAspect_noModifications": {
+		"message": "sin modificación"
+	},
+	"focusAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusSize_label": {
+		"message": "Tamaño del foco de selección"
+	},
+	"focusSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusSize_noModifications": {
+		"message": "sin cambio de tamaño"
+	},
+	"focusColor_label": {
+		"message": "Color del foco"
+	},
+	"focusColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusColor_noModifications": {
+		"message": "sin cambio de color"
+	},
+	"setting_colorContrast": {
+		"message": "Colores de Texto-Fondo"
+	},
+	"setting_colorContrast_instruction": {
+		"message": "Para cambiar los colores del texto y el fondo"
+	},
+	"colorContrast_noModifications": {
+		"message": "sin modificación"
+	},
+	"colorContrast_reinforcedContrasts": {
+		"message": "contrastes reforzados"
+	},
+	"colorContrast_values": {
+		"message": "$COLOR$ on $BACKGROUND$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			},
+			"background": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorContrast_daltonism": {
+		"message": "daltonismo"
+	},
+	"setting_linkStyle": {
+		"message": "Colores de los hipervínculos"
+	},
+	"setting_linkStyle_instruction": {
+		"message": "Para cambiar los colores de los enlaces de navegación"
+	},
+	"linkStyle_noModifications": {
+		"message": "sin modificación"
+	},
+	"linkStyle_values": {
+		"message": "$COLOR$, $POINTED$, and $VISITED$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			},
+			"pointed": {
+				"content": "$2"
+			},
+			"visited": {
+				"content": "$3"
+			}
+		}
+	},
+	"linkColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkPointedColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkVisitedColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkColor_label": {
+		"message": "Vínculos"
+	},
+	"linkPointedColor_label": {
+		"message": "Vínculos señalados"
+	},
+	"linkVisitedColor_label": {
+		"message": "Vínculos visitados"
+	},
+	"setting_clearlyLinks": {
+		"message": "Vínculos prominente"
+	},
+	"setting_clearlyLinks_instruction": {
+		"message": "Para hacer los vínculos de navegación más visibles"
+	},
+	"clearlyLinks_noModifications": {
+		"message": "sin modificación"
+	},
+	"clearlyLinks_values": {
+		"message": "$BOLD$ & $STYLE$",
+		"placeholders": {
+			"bold": {
+				"content": "$1"
+			},
+			"style": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_stopAnimations": {
+		"message": "Detener las animaciones"
+	},
+	"setting_stopAnimations_instruction": {
+		"message": "Para evitar animaciones en la página"
+	},
+	"stopAnimations_noModifications": {
+		"message": "sin modificación"
+	},
+	"stopAnimations_active": {
+		"message": "detiene las animaciones"
+	},
+	"setting_deleteBackgroundImages": {
+		"message": "Eliminar imágenes de fondo"
+	},
+	"setting_deleteBackgroundImages_instruction": {
+		"message": "Para evitar que aparezcan imágenes de fondo"
+	},
+	"deleteBackgroundImages_noModifications": {
+		"message": "sin modificacións"
+	},
+	"deleteBackgroundImages_backgroundTransparent": {
+		"message": "eliminar los efectos de fondo y transparencia"
+	},
+	"deleteBackgroundImages_backgroundForegroundTransparent": {
+		"message": "eliminar imágenes de fondo, efectos de transparencia e imágenes de primer plano"
+	},
+	"setting_scrollType": {
+		"message": "Tipo de barra de desplazamiento"
+	},
+	"setting_scrollType_instruction": {
+		"message": "Para facilitar el desplazamiento por la página"
+	},
+	"scrollType_noModifications": {
+		"message": "sin modificación"
+	},
+	"scrollType_scrollOnClick": {
+		"message": "Botones de desplazamiento Arriba/Abajo (con clic)"
+	},
+	"scrollType_scrollOnMouseover": {
+		"message": "Botones de desplazamiento Arriba/Abajo (al pasar por encima, sin clic)"
+	},
+	"setting_scrollAspect": {
+		"message": "Aspecto de la barra de desplazamiento"
+	},
+	"setting_scrollAspect_instruction": {
+		"message": "Para cambiar el aspecto de la barra de desplazamiento"
+	},
+	"scrollAspect_noModifications": {
+		"message": "sin modificación"
+	},
+	"scrollAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"scroll_up": {
+		"message": "Arriba"
+	},
+	"scroll_down": {
+		"message": "Abajo"
+	},
+	"scrollSize_label": {
+		"message": "Tamaño de la barra de desplazamiento"
+	},
+	"scrollSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSize_noModifications": {
+		"message": "sin cambio de tamaño"
+	},
+	"scrollColor_label": {
+		"message": "Color de la barra de desplazamiento"
+	},
+	"scrollColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollColor_noModifications": {
+		"message": "sin cambio de color"
+	},
+	"setting_skipToContent": {
+		"message": "Ir al contenido"
+	},
+	"setting_skipToContent_instruction": {
+		"message": "Permite ir directamente al contenido sin pasar por los menús"
+	},
+	"skipToContent_noModifications": {
+		"message": "sin modificación"
+	},
+	"skipToContent_active": {
+		"message": "ir al contenido"
+	},
+	"setting_navigationButtons": {
+		"message": "Botones de navegación"
+	},
+	"setting_navigationButtons_instruction": {
+		"message": "Para mover el foco con el ratón"
+	},
+	"navigationButtons_noModifications": {
+		"message": "sin botón de navegación"
+	},
+	"navigationButtons_active": {
+		"message": "adición de los botones de navegación"
+	},
+	"setting_clickFacilite": {
+		"message": "Clics fáciles"
+	},
+	"setting_clickFacilite_instruction": {
+		"message": "Para evitar errores de puntuación y reducir el esfuerzo"
+	},
+	"clickFacilite_noModifications": {
+		"message": "sin modificación"
+	},
+	"clickFacilite_bigZone": {
+		"message": "áreas de clic grandes y clics estándar"
+	},
+	"clickFacilite_values": {
+		"message": "$TYPE$ ($DELAY$)",
+		"placeholders": {
+			"type": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"clickType_values": {
+		"message": "$TYPE$",
+		"placeholders": {
+			"type": {
+				"content": "$2"
+			}
+		}
+	},
+	"clickDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_navigationAuto": {
+		"message": "Navegación por desplazamiento automático"
+	},
+	"setting_navigationAuto_instruction": {
+		"message": "Para tener que validar, el foco se mueve por sí mismo"
+	},
+	"navigationAuto_noModifications": {
+		"message": "sin desplazamiento automático"
+	},
+	"navigationAuto_values": {
+		"message": "desplazamiento automático del foco ($DELAY$)",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"navigationAuto_label": {
+		"message": "Habilitar la navegación por desplazamiento automático"
+	},
+	"navigationAuto_inactive": {
+		"message": "Desactivar"
+	},
+	"navigationAuto_active": {
+		"message": "Activar"
+	},
+	"navigationDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_restartTopLeft": {
+		"message": "Inicio"
+	},
+	"setting_restartTopLeft_instruction": {
+		"message": "Para volver a colocar el foco y el ratón en la parte superior izquierda de la página"
+	},
+	"restartTopLeft_noModifications": {
+		"message": "sin acción"
+	},
+	"restartTopLeft_active": {
+		"message": "inicio"
+	},
+	"setting_zoom": {
+		"message": "Acercar"
+	},
+	"setting_zoom_instruction": {
+		"message": "Para acercar la página"
+	},
+	"zoom_noModifications": {
+		"message": "sin modificación"
+	},
+	"zoom_110": {
+		"message": "un poco grande, 110%"
+	},
+	"zoom_130": {
+		"message": "un poco más grande, 130%"
+	},
+	"zoom_160": {
+		"message": "bastante grande, 160%"
+	},
+	"zoom_200": {
+		"message": "muy grande, 200%"
+	},
+	"zoom_350": {
+		"message": "enorme, 350%"
+	},
+	"zoom_500": {
+		"message": "máximo, 500%"
+	}
+}

@@ -69,7 +69,7 @@
 		"message": "Settings"
 	},
 	"pageTitleEditSetting": {
-		"message": "Choice for this setting"
+		"message": "Choices for this setting"
 	},
 	"moreChoice": {
 		"message": "Show all"
@@ -105,64 +105,64 @@
 		"message": "Vision+"
 	},
 	"visionPlusDescription": {
-		"message": "User mode designed for people with visual limitations (colour, legibility). The colours of the text and page are high-contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
+		"message": "Mode of use designed for people with visual limitations (colour, legibility). The colours of the text and page are high-contrast, the mouse and focus are clearly visible, and a magnifying glass and reading ruler are available."
 	},
 	"visionPlusPlusName": {
 		"message": "Vision++"
 	},
 	"visionPlusPlusDescription": {
-		"message": "Usage mode for people with severe visual impairments. The text and page colors are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimized font, a ×5 magnifier, and a reading ruler are available."
+		"message": "Mode of use for people with severe visual impairments. The text and page colors are modified, elements (focus, mouse, text, scrollbar) are much larger, an optimized font, a ×5 magnifier, and a reading ruler are available."
 	},
 	"facilePlusName": {
 		"message": "Easy+"
 	},
 	"facilePlusDescription": {
-		"message": "Usage mode for people not very familiar with the internet. The text, buttons, links, mouse, and focus are very visible and slightly larger, contrasts are adjusted, and a magnifier is available."
+		"message": "Mode of use for people not very familiar with the internet. The text, buttons, links, mouse, and focus are very visible and slightly larger, contrasts are adjusted, and a magnifier is available."
 	},
 	"dysPlusName": {
-		"message": "Dys+"
+		"message": "Reading+"
 	},
 	"dysPlusDescription": {
-		"message": "A user guide for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
+		"message": "A mode of use for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
 	},
 	"dysPlusPlusName": {
-		"message": "Dys++"
+		"message": "Reading++"
 	},
 	"dysPlusPlusDescription": {
-		"message": "This mode has not yet been described"
+		"message": "Mode of use intended for people with reading and/or handling constraints. A font optimized for dyslexia, clearly readable texts, reading rules, the possibility of coloring characters-sounds and to be read the text, as well as aids to pointing."
 	},
 	"moteurPlusName": {
 		"message": "Motor+"
 	},
 	"moteurPlusDescription": {
-		"message": "Usage mode for people with motor disabilities. Easier keyboard navigation, a highly visible focus, and a palette of virtual buttons."
+		"message": "Mode of use for people with motor disabilities. Easier keyboard navigation, a highly visible focus, and a palette of virtual buttons."
 	},
 	"moteurPlusPlusName": {
 		"message": "Motor++"
 	},
 	"moteurPlusPlusDescription": {
-		"message": "Use mode designed for people using a single switch. Automatic scrolling of the focus in the web page, with adjustable speed and delay."
+		"message": "Mode of use designed for people using a single switch. Automatic scrolling of the focus in the web page, with adjustable speed and delay."
 	},
 	"pointagePlusName": {
 		"message": "Pointing+"
 	},
 	"pointagePlusDescription": {
-		"message": "Usage mode for people with mouse pointing difficulties. A highly visible and large mouse, enlarged click areas, and the possibility to click by hovering without effort, with large button scrollbars."
+		"message": "Mode of use for people with mouse pointing difficulties. A highly visible and large mouse, enlarged click areas, and the possibility to click by hovering without effort, with large button scrollbars."
 	},
 	"langueDesSignesName": {
 		"message": "Sign Language"
 	},
 	"langueDesSignesDescription": {
-		"message": "Usage mode for people who primarily communicate in sign language. LSF thumbnails on complex words, a link to the Signs@Work dictionary, and a video_sign interface."
+		"message": "Mode of use for people who primarily communicate in sign language. It provides sign language thumbnails on complex words, a link to the Signs@Work dictionary, and an interface with videosigns."
 	},
 	"audioPlusName": {
 		"message": "Audio+"
 	},
 	"audioPlusDescription": {
-		"message": "User guide for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
+		"message": "Mode of use for people with hearing difficulties. Visual equivalents to audio signals, systematic subtitling."
 	},
 	"calmePlusName": {
-		"message": "Calm+"
+		"message": "Serene+"
 	},
 	"calmePlusDescription": {
 		"message": "Mode of use that meets the constraints of hypersensoriality. Pleasant colours and transitions, no animations or interruptions."
@@ -323,10 +323,10 @@
 		"message": "To change the text appearance."
 	},
 	"fontFamily_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"fontFamily_AccessibleDfA": {
-		"message": "Accessible DfA"
+		"message": "Accessible-DfA"
 	},
 	"fontFamily_B612Mono": {
 		"message": "B612 Mono"
@@ -353,49 +353,49 @@
 		"message": "To only increase text size."
 	},
 	"textSize_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"textSize_110": {
-		"message": "slightly larger “110%”"
+		"message": "slightly larger, 110%"
 	},
 	"textSize_130": {
-		"message": "larger “130%”"
+		"message": "larger, 130%"
 	},
 	"textSize_160": {
-		"message": "quite large “160%”"
+		"message": "quite large, 160%"
 	},
 	"textSize_200": {
-		"message": "very large “200%”"
+		"message": "very large, 200%"
 	},
 	"textSize_350": {
-		"message": "huge “350%”"
+		"message": "huge, 350%"
 	},
 	"textSize_500": {
-		"message": "max “500%”"
+		"message": "max, 500%"
 	},
 	"setting_capitalLetters": {
-		"message": "Capital Letters"
+		"message": "Capital letters"
 	},
 	"setting_capitalLetters_instruction": {
 		"message": "To use capital letters."
 	},
 	"capitalLetters_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"capitalLetters_uppercase": {
-		"message": "all uppercase"
+		"message": "ALL UPPERCASE"
 	},
 	"capitalLetters_capitalize": {
-		"message": "capitalize first letters"
+		"message": "Capitalize First Letters"
 	},
 	"setting_textSpacing": {
-		"message": "Text Spacing"
+		"message": "To aerate the text"
 	},
 	"setting_textSpacing_instruction": {
 		"message": "To increase character and line spacing."
 	},
 	"textSpacing_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"textSpacing_spacingTextSmall": {
 		"message": "slightly spaced"
@@ -407,7 +407,7 @@
 		"message": "very widely spaced"
 	},
 	"setting_textColor": {
-		"message": "Colour the text"
+		"message": "To color the text"
 	},
 	"setting_textColor_instruction": {
 		"message": "To distinguish between the sounds to be pronounced."
@@ -437,7 +437,7 @@
 		"message": "alternating lines"
 	},
 	"readingGuide_closeMask": {
-		"message": "Press escape to close the mask."
+		"message": "Press Escape to close the mask."
 	},
 	"setting_marginAlign": {
 		"message": "Margin & Landmark"
@@ -446,7 +446,7 @@
 		"message": "To anchor reading to the left."
 	},
 	"marginAlign_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"marginAlign_alignLeft": {
 		"message": "left aligned text"
@@ -512,7 +512,7 @@
 		"message": "Default cursor"
 	},
 	"cursorAspect_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"cursorAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
@@ -526,7 +526,7 @@
 		}
 	},
 	"cursorSize_label": {
-		"message": "Cursor Size"
+		"message": "Cursor size"
 	},
 	"cursorSize_values": {
 		"message": "$SIZE$",
@@ -548,13 +548,13 @@
 		}
 	},
 	"setting_focusAspect": {
-		"message": "Focus Appearance"
+		"message": "Focus appearance"
 	},
 	"setting_focusAspect_instruction": {
 		"message": "To change the selecting focus' appearance."
 	},
 	"focusAspect_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"focusAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
@@ -568,7 +568,7 @@
 		}
 	},
 	"focusSize_label": {
-		"message": "Focus Size"
+		"message": "Focus size"
 	},
 	"focusSize_values": {
 		"message": "$SIZE$",
@@ -582,7 +582,7 @@
 		"message": "no size change"
 	},
 	"focusColor_label": {
-		"message": "Focus Color"
+		"message": "Focus color"
 	},
 	"focusColor_values": {
 		"message": "$COLOR$",
@@ -596,13 +596,13 @@
 		"message": "no color change"
 	},
 	"setting_colorContrast": {
-		"message": "Colors Text - Background"
+		"message": "Colors Text-Background"
 	},
 	"setting_colorContrast_instruction": {
 		"message": "In order to change text and background colors."
 	},
 	"colorContrast_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"colorContrast_reinforcedContrasts": {
 		"message": "reinforced contrasts"
@@ -628,7 +628,7 @@
 		"message": "To modify the colors of navigation links."
 	},
 	"linkStyle_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"linkStyle_values": {
 		"message": "$COLOR$, $POINTED$, and $VISITED$",
@@ -678,13 +678,13 @@
 		"message": "Visited links"
 	},
 	"setting_clearlyLinks": {
-		"message": "Clearly Visible Links"
+		"message": "Clearly visible links"
 	},
 	"setting_clearlyLinks_instruction": {
 		"message": "To make navigation links more visible."
 	},
 	"clearlyLinks_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"clearlyLinks_values": {
 		"message": "$BOLD$ & $STYLE$",
@@ -698,25 +698,25 @@
 		}
 	},
 	"setting_stopAnimations": {
-		"message": "Stop Animations"
+		"message": "Stop animations"
 	},
 	"setting_stopAnimations_instruction": {
 		"message": "To prevent animations on the page."
 	},
 	"stopAnimations_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"stopAnimations_active": {
 		"message": "stop animations"
 	},
 	"setting_deleteBackgroundImages": {
-		"message": "Remove Background Images"
+		"message": "Remove background images"
 	},
 	"setting_deleteBackgroundImages_instruction": {
 		"message": "To prevent background images from displaying."
 	},
 	"deleteBackgroundImages_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"deleteBackgroundImages_backgroundTransparent": {
 		"message": "removes background images and transparency effects"
@@ -725,19 +725,19 @@
 		"message": "removes background images, transparency effects, and foreground images"
 	},
 	"setting_scrollType": {
-		"message": "Scroll Type"
+		"message": "Scroll type"
 	},
 	"setting_scrollType_instruction": {
 		"message": "To facilitate scrolling on the page."
 	},
 	"scrollType_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"scrollType_scrollOnClick": {
-		"message": "Scroll Up/Down Buttons (on click)"
+		"message": "Scroll Up/Down buttons (on click)"
 	},
 	"scrollType_scrollOnMouseover": {
-		"message": "Scroll Up/Down Buttons (on mouseover, no click required)"
+		"message": "Scroll Up/Down buttons (on mouseover, no click required)"
 	},
 	"setting_scrollAspect": {
 		"message": "Scroll aspect"
@@ -746,7 +746,7 @@
 		"message": "To modify the appearance of the scroll bar."
 	},
 	"scrollAspect_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"scrollAspect_values": {
 		"message": "$SIZE$ & $COLOR$",
@@ -766,7 +766,7 @@
 		"message": "Scroll Down"
 	},
 	"scrollSize_label": {
-		"message": "Scroll Bar Size"
+		"message": "Scroll bar size"
 	},
 	"scrollSize_values": {
 		"message": "$SIZE$",
@@ -780,7 +780,7 @@
 		"message": "no size change"
 	},
 	"scrollColor_label": {
-		"message": "Scroll Bar Color"
+		"message": "Scroll bar color"
 	},
 	"scrollColor_values": {
 		"message": "$COLOR$",
@@ -794,19 +794,19 @@
 		"message": "no color change"
 	},
 	"setting_skipToContent": {
-		"message": "Skip to Content"
+		"message": "Skip to content"
 	},
 	"setting_skipToContent_instruction": {
 		"message": "Allows you to go directly to the content of a site without going through the menus."
 	},
 	"skipToContent_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"skipToContent_active": {
 		"message": "skip to content"
 	},
 	"setting_navigationButtons": {
-		"message": "Navigation Buttons"
+		"message": "Navigation buttons"
 	},
 	"setting_navigationButtons_instruction": {
 		"message": "To move focus with the mouse."
@@ -818,13 +818,13 @@
 		"message": "add navigation buttons"
 	},
 	"setting_clickFacilite": {
-		"message": "Click Assistance"
+		"message": "Click assistance"
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "To avoid pointer errors and reduce effort."
 	},
 	"clickFacilite_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"clickFacilite_bigZone": {
 		"message": "large click zones & standard click"
@@ -909,24 +909,24 @@
 		"message": "To increase page size."
 	},
 	"zoom_noModifications": {
-		"message": "no modifications"
+		"message": "no modification"
 	},
 	"zoom_110": {
-		"message": "slightly larger “110%”"
+		"message": "slightly larger, 110%"
 	},
 	"zoom_130": {
-		"message": "larger “130%”"
+		"message": "larger, 130%"
 	},
 	"zoom_160": {
-		"message": "quite large “160%”"
+		"message": "quite large, 160%"
 	},
 	"zoom_200": {
-		"message": "very large “200%”"
+		"message": "very large, 200%"
 	},
 	"zoom_350": {
-		"message": "huge “350%”"
+		"message": "huge, 350%"
 	},
 	"zoom_500": {
-		"message": "max “500%”"
+		"message": "max, 500%"
 	}
 }
