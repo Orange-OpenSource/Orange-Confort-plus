@@ -1,5 +1,5 @@
 {
-	"version": "1.0.26",
+	"version": "1.0.27",
 	"selectedMode": "facilePlus",
 	"modes": [
 		{
@@ -15,9 +15,9 @@
 				{
 					"textSize": {
 						"values": "noModifications,110,130",
-						"valueSelected": 1,
-						"isTool": true,
-						"order": 3
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
@@ -46,10 +46,18 @@
 				},
 				{
 					"marginAlign": {
-						"values": "noModifications,alignLeft,marginLeft,marginList",
+						"values": "noModifications,alignLeft,marginLeft",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,110,130",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 3
 					}
 				},
 				{
@@ -103,7 +111,7 @@
 				{
 					"linkStyle": {
 						"values": "noModifications,darkblue_orange_brown,lightblue_orange_lightgreen",
-						"valueSelected": 0,
+						"valueSelected": 1,
 						"isTool": false,
 						"order": null
 					}
@@ -152,8 +160,8 @@
 					"navigationButtons": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 7
 					}
 				},
 				{
@@ -176,14 +184,6 @@
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"zoom": {
-						"values": "noModifications,130,200",
-						"valueSelected": 1,
 						"isTool": false,
 						"order": null
 					}
