@@ -573,7 +573,7 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 1
+						"order": 4
 					}
 				},
 				{
@@ -581,23 +581,31 @@
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 2
+						"order": 5
 					}
 				},
 				{
 					"capitalLetters": {
 						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 6
 					}
 				},
 				{
 					"textSpacing": {
 						"values": "noModifications,spacingTextSmall,spacingTextBig",
 						"valueSelected": 1,
-						"isTool": false,
-						"order": null
+						"isTool": true,
+						"order": 8
+					}
+				},
+				{
+					"textColor": {
+						"values": "noModifications,active",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 2
 					}
 				},
 				{
@@ -612,13 +620,21 @@
 					"marginAlign": {
 						"values": "noModifications,alignLeft,marginList",
 						"valueSelected": 1,
+						"isTool": true,
+						"order": 9
+					}
+				},
+				{
+					"zoom": {
+						"values": "noModifications,110,130",
+						"valueSelected": 0,
 						"isTool": false,
 						"order": null
 					}
 				},
 				{
 					"magnifier": {
-						"values": "noModifications,zoom2,zoom5",
+						"values": "noModifications,zoom5,zoom10",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -629,23 +645,23 @@
 						"values": "noModifications,word,paragraph",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 4
+						"order": 1
 					}
 				},
 				{
 					"cursorAspect": {
 						"values": "noModifications,bigCursor_black,hugeCursor_blue",
 						"valueSelected": 1,
-						"isTool": true,
-						"order": 5
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
-						"isTool": true,
-						"order": 6
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
@@ -697,16 +713,16 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
+					"skipToContent": {
+						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
 					}
 				},
 				{
-					"skipToContent": {
-						"values": "noModifications,active",
+					"scrollType": {
+						"values": "noModifications,scrollOnClick,scrollOnMouseover",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -732,21 +748,13 @@
 					"clickFacilite": {
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 1,
-						"isTool": true,
-						"order": 8
-					}
-				},
-				{
-					"navigationAuto": {
-						"values": "noModifications,autoFocus_delay2",
-						"valueSelected": 0,
 						"isTool": false,
 						"order": null
 					}
 				},
 				{
-					"zoom": {
-						"values": "noModifications,130,200",
+					"navigationAuto": {
+						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
