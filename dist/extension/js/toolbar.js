@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 12/05/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 15/05/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -738,6 +738,8 @@ const JSON_NAME = "modeOfUse";
 
 const DEFAULT_VALUE = "noModifications";
 
+const DEFAULT_MODE = "facilePlus";
+
 const APP_NAME = `${PREFIX}app-root`;
 
 const PAGE_HOME = "home";
@@ -1313,30 +1315,32 @@ class RouteService {
         this.toolbar = root;
         return localStorageServiceInstance.getItem("current-route").then((result => {
             if (this.routes.some((route => result === route))) {
-                this.navigate(result, shouldLoad);
+                this.navigate(result, shouldLoad, this.toolbar);
                 return result;
             } else {
-                this.navigate(PAGE_HOME);
+                this.navigate(PAGE_HOME, false, this.toolbar);
                 return PAGE_HOME;
             }
         }));
     };
-    navigate=(newRoute, shouldLoad = false) => {
+    navigate=(newRoute, shouldLoad = false, root) => {
+        this.toolbar = root;
         if (shouldLoad) {
-            this.loadRoute(newRoute);
-            this.setCurrentRoute(newRoute);
+            this.loadRoute(newRoute, this.toolbar);
+            this.setCurrentRoute(newRoute, this.toolbar);
         } else if (newRoute !== this.currentRoute) {
             this.routes.forEach((route => {
                 if (route === newRoute) {
-                    this.loadRoute(route);
+                    this.loadRoute(route, this.toolbar);
                 } else if (route === this.currentRoute) {
                     this.toolbar.querySelector(`app-${route}`)?.remove();
                 }
             }));
-            this.setCurrentRoute(newRoute);
+            this.setCurrentRoute(newRoute, this.toolbar);
         }
     };
-    setHistoryAndHeader=newRoute => {
+    setHistoryAndHeader=(newRoute, root) => {
+        this.toolbar = root;
         const header = this.toolbar.querySelector("#header");
         switch (newRoute) {
           case PAGE_HOME:
@@ -1379,14 +1383,15 @@ class RouteService {
             }
         }
     };
-    loadRoute=route => {
+    loadRoute=(route, root) => {
+        this.toolbar = root;
         const element = `<app-${route}></app-${route}>`;
         this.toolbar.insertAdjacentHTML("beforeend", element);
         const page = this.toolbar.querySelector(`app-${route}`);
         i18nServiceInstance.translate(page);
     };
-    setCurrentRoute=route => {
-        this.setHistoryAndHeader(route);
+    setCurrentRoute=(route, root) => {
+        this.setHistoryAndHeader(route, root);
         this.currentRoute = route;
         localStorageServiceInstance.setItem("current-route", route);
     };
@@ -6008,12 +6013,12 @@ class ModesComponent extends HTMLElement {
     }
     displayListMode=json => {
         const listMode = json.modes;
-        const selectedMode = json.selectedMode;
+        const selectedMode = json.selectedMode ? json.selectedMode : DEFAULT_MODE;
         let radioModeList = "";
         listMode.forEach((mode => {
             let settingsList = Object.entries(mode)[0][1];
             let disabled = settingsList.length === 0;
-            let isChecked = Object.keys(mode)[0] === selectedMode ? true : false;
+            let isChecked = Object.keys(mode)[0] === selectedMode;
             let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-disabled="${disabled}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
@@ -6329,11 +6334,15 @@ class ToolbarComponent extends HTMLElement {
                 }
             }));
         } else {
-            routeServiceInstance.navigate(PAGE_MODES);
+            routeServiceInstance.navigate(PAGE_MODES, false, this);
+            setTimeout((() => {
+                this.querySelector("app-modes")?.setAttribute("data-modes", JSON.stringify(this.json));
+            }));
         }
     };
     setCurrentPage=page => {
-        this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
+        const selectedMode = this.json.selectedMode ? this.json.selectedMode : DEFAULT_MODE;
+        this.header?.setAttribute("data-selected-mode", selectedMode);
         setTimeout((() => {
             let currentPage = this.querySelector(`app-${page}`);
             if (currentPage) {
@@ -6367,7 +6376,7 @@ class ToolbarComponent extends HTMLElement {
             this.json.selectedMode = event.detail.mode;
             this.querySelector(`app-${PAGE_HOME}`)?.focus();
         }
-        routeServiceInstance.navigate(newRoute);
+        routeServiceInstance.navigate(newRoute, false, this);
         this.setCurrentPage(newRoute);
         if (event.detail.setting) {
             const editSettingElement = this.querySelector(`app-${PAGE_EDIT_SETTING}`);
