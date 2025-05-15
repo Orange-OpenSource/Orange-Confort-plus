@@ -50,12 +50,16 @@ class ToolbarComponent extends HTMLElement {
 				}
 			});
 		} else {
-			routeServiceInstance.navigate(PAGE_MODES);
+			routeServiceInstance.navigate(PAGE_MODES, false, this);
+			setTimeout(() => {
+				this.querySelector('app-modes')?.setAttribute('data-modes', JSON.stringify(this.json));
+			});
 		}
 	}
 
 	setCurrentPage = (page: string): void => {
-		this.header?.setAttribute('data-selected-mode', this.json.selectedMode);
+		const selectedMode = this.json.selectedMode ? this.json.selectedMode : DEFAULT_MODE;
+		this.header?.setAttribute('data-selected-mode', selectedMode);
 		setTimeout(() => {
 			let currentPage = this.querySelector(`app-${page}`);
 			if (currentPage) {
@@ -70,7 +74,7 @@ class ToolbarComponent extends HTMLElement {
 					});
 				}
 			}
-		})
+		});
 	}
 
 	private createHandler = () => {
@@ -96,7 +100,7 @@ class ToolbarComponent extends HTMLElement {
 			(this.querySelector(`app-${PAGE_HOME}`) as HTMLElement)?.focus();
 		}
 
-		routeServiceInstance.navigate(newRoute);
+		routeServiceInstance.navigate(newRoute, false, this);
 		this.setCurrentPage(newRoute);
 
 		if ((event as CustomEvent).detail.setting) {
