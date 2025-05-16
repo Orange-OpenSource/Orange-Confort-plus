@@ -340,6 +340,9 @@
 	"fontFamily_Luciole": {
 		"message": "Luciole"
 	},
+	"fontFamily_HelveticaNeue": {
+		"message": "Helvetica Neue"
+	},
 	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
 	},
