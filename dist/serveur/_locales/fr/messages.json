@@ -331,9 +331,6 @@
 	"fontFamily_B612Mono": {
 		"message": "B612_Mono"
 	},
-	"fontFamily_ComicSansMS": {
-		"message": "Comic Sans MS"
-	},
 	"fontFamily_LexendDeca": {
 		"message": "Lexend Deca"
 	},
@@ -342,9 +339,6 @@
 	},
 	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
-	},
-	"fontFamily_Verdana": {
-		"message": "Verdana"
 	},
 	"setting_textSize": {
 		"message": "Taille du texte"
