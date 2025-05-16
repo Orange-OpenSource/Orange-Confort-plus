@@ -1325,6 +1325,19 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
+        name: "HelveticaNeue",
+        size: "100%",
+        folder: "HelveticaNeue",
+        files: [ {
+            name: "HelvNeue55_W1G.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "HelvNeue75_W1G.woff2",
+            style: "normal",
+            weight: "700"
+        } ]
+    }, {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
@@ -4452,7 +4465,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "HelveticaNeue", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans" ];
     handler;
     constructor() {
         super();

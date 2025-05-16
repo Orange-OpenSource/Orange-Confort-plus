@@ -10,6 +10,12 @@ class FontFamilyService {
 			]
 		},
 		{
+			name: 'HelveticaNeue', size: '100%', folder: 'HelveticaNeue', files: [
+				{ name: 'HelvNeue55_W1G.woff2', style: 'normal', weight: '400' },
+				{ name: 'HelvNeue75_W1G.woff2', style: 'normal', weight: '700' },
+			]
+		},
+		{
 			name: 'B612Mono', size: '75%', folder: 'B612', files: [
 				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
