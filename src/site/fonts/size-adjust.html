@@ -73,15 +73,6 @@
 			font-display: swap;
 			size-adjust: 75%;
 		}
-		/* Comic Sans MS */
-		@font-face {
-			font-family:"Comic Sans MS";
-			src: local("Comic Sans MS"), url("../assets/fonts/comic/Comic-Sans-MS.woff2");
-			font-style: normal;
-			font-weight: 400;
-			font-display: swap;
-			size-adjust: 100%;
-		}
 		/* Lexend Deca */
 		@font-face {
 			font-family:"Lexend Deca";
@@ -317,39 +308,6 @@
 			font-display: swap;
 			size-adjust: 125%;
 		}
-		/* Verdana */
-		@font-face {
-			font-family:"Verdana";
-			src: local("Verdana"), url("../assets/fonts/verdana/Verdana-Bold-Italic.woff2");
-			font-style: italic;
-			font-weight: 700;
-			font-display: swap;
-			size-adjust: 87.5%;
-		}
-		@font-face {
-			font-family:"Verdana";
-			src: local("Verdana"), url("../assets/fonts/verdana/Verdana-Bold.woff2");
-			font-style: normal;
-			font-weight: 700;
-			font-display: swap;
-			size-adjust: 87.5%;
-		}
-		@font-face {
-			font-family:"Verdana";
-			src: local("Verdana"), url("../assets/fonts/verdana/Verdana-Italic.woff2");
-			font-style: italic;
-			font-weight: 400;
-			font-display: swap;
-			size-adjust: 87.5%;
-		}
-		@font-face {
-			font-family:"Verdana";
-			src: local("Verdana"), url("../assets/fonts/verdana/Verdana.woff2");
-			font-style: normal;
-			font-weight: 400;
-			font-display: swap;
-			size-adjust: 87.5%;
-		}
 
 		html {
 			font-family: HelvNeueOrange, system-ui, sans-serif;
@@ -399,7 +357,7 @@
 		<ul id="fonts-list"></ul>
 	</main>
 	<script>
-		const fonts = ['HelvNeueOrange', 'Accessible DfA', 'B612 Mono', 'Comic Sans MS', 'Lexend Deca', 'Luciole', 'Sylexiad Sans', 'Verdana'];
+		const fonts = ['HelvNeueOrange', 'Accessible DfA', 'B612 Mono', 'Lexend Deca', 'Luciole', 'Sylexiad Sans'];
 		const template = document.getElementById('size-adjust');
 		const list = document.getElementById('fonts-list');
 		fonts.forEach(font => {

@@ -334,9 +334,6 @@
 	"fontFamily_Airbus": {
 		"message": "Airbus"
 	},
-	"fontFamily_ComicSansMS": {
-		"message": "Comic Sans MS"
-	},
 	"fontFamily_LexendDeca": {
 		"message": "Lexend Deca"
 	},
@@ -345,9 +342,6 @@
 	},
 	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
-	},
-	"fontFamily_Verdana": {
-		"message": "Verdana"
 	},
 	"setting_textSize": {
 		"message": "Rozmiar tekstu"
