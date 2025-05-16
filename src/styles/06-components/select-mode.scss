@@ -3,20 +3,20 @@
 	position: absolute;
 	opacity: 0;
 
-	&:checked + label {
+	&:checked + div {
 		box-shadow: var(--cplus-focus-ring-x,0) var(--cplus-focus-ring-y,0) var(--cplus-focus-ring-blur,0) var(--cplus-focus-ring-width) var(--cplus-primary);
 	}
 
-	&:not(:checked) + label > span,
-	&:not(:checked) + label > button {
+	&:not(:checked) + div > label > span,
+	&:not(:checked) + div > button {
 		display: none;
 	}
 
-	&:focus + label {
+	&:focus + div {
 		box-shadow: var(--cplus-focus-ring-x,0) var(--cplus-focus-ring-y,0) var(--cplus-focus-ring-blur,0) var(--cplus-focus-ring-width) var(--cplus-focus-visible-outer-color);
 	}
 
-	&:disabled + label {
+	&:disabled + div {
 		border: 0;
 		color: var(--cplus-gray);
 		cursor: default;
