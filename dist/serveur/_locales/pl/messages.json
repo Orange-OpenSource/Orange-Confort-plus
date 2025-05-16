@@ -869,7 +869,7 @@
 		"message": "automatyczne przewijanie ostrości ($DELAY$)",
 		"placeholders": {
 			"delay": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},

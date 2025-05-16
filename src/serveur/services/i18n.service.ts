@@ -13,7 +13,7 @@ class I18nService {
 
 		this.path = `${window.location.origin}/`;
 
-		if (['en', 'fr'].some(language => navigator.language.startsWith(language))) {
+		if (['en', 'fr', 'pl', 'es'].some(language => navigator.language.startsWith(language))) {
 			this.locale = navigator.language.slice(0, 2);
 		}
 
@@ -46,7 +46,7 @@ class I18nService {
 		}
 
 		const translations = JSON.parse(this.getMessages());
-		let content = translations[message]?.message;
+		let content = translations[message]?.message || '';
 
 		if (substitutions.length > 0) {
 			if (substitutions.some(str => str?.includes('undefined'))) {

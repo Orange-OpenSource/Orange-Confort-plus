@@ -869,7 +869,7 @@
 		"message": "auto scrolling focus ($DELAY$)",
 		"placeholders": {
 			"delay": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},

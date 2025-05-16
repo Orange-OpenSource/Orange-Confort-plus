@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 12/05/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 16/05/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -738,6 +738,8 @@ const JSON_NAME = "modeOfUse";
 
 const DEFAULT_VALUE = "noModifications";
 
+const DEFAULT_MODE = "facilePlus";
+
 const APP_NAME = `${PREFIX}app-root`;
 
 const PAGE_HOME = "home";
@@ -1067,7 +1069,7 @@ class ModeOfUseService {
     setSelectedMode=newSelectedMode => {
         localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
-            if (json.selectedMode === newSelectedMode) {
+            if (json.selectedMode !== undefined && json.selectedMode === newSelectedMode) {
                 filesServiceInstance.getJSONFile("modes-of-use").then((result => {
                     const defaultJson = result;
                     let resetMode;
@@ -1313,30 +1315,32 @@ class RouteService {
         this.toolbar = root;
         return localStorageServiceInstance.getItem("current-route").then((result => {
             if (this.routes.some((route => result === route))) {
-                this.navigate(result, shouldLoad);
+                this.navigate(result, shouldLoad, this.toolbar);
                 return result;
             } else {
-                this.navigate(PAGE_HOME);
+                this.navigate(PAGE_HOME, false, this.toolbar);
                 return PAGE_HOME;
             }
         }));
     };
-    navigate=(newRoute, shouldLoad = false) => {
+    navigate=(newRoute, shouldLoad = false, root) => {
+        this.toolbar = root;
         if (shouldLoad) {
-            this.loadRoute(newRoute);
-            this.setCurrentRoute(newRoute);
+            this.loadRoute(newRoute, this.toolbar);
+            this.setCurrentRoute(newRoute, this.toolbar);
         } else if (newRoute !== this.currentRoute) {
             this.routes.forEach((route => {
                 if (route === newRoute) {
-                    this.loadRoute(route);
+                    this.loadRoute(route, this.toolbar);
                 } else if (route === this.currentRoute) {
                     this.toolbar.querySelector(`app-${route}`)?.remove();
                 }
             }));
-            this.setCurrentRoute(newRoute);
+            this.setCurrentRoute(newRoute, this.toolbar);
         }
     };
-    setHistoryAndHeader=newRoute => {
+    setHistoryAndHeader=(newRoute, root) => {
+        this.toolbar = root;
         const header = this.toolbar.querySelector("#header");
         switch (newRoute) {
           case PAGE_HOME:
@@ -1379,14 +1383,15 @@ class RouteService {
             }
         }
     };
-    loadRoute=route => {
+    loadRoute=(route, root) => {
+        this.toolbar = root;
         const element = `<app-${route}></app-${route}>`;
         this.toolbar.insertAdjacentHTML("beforeend", element);
         const page = this.toolbar.querySelector(`app-${route}`);
         i18nServiceInstance.translate(page);
     };
-    setCurrentRoute=route => {
-        this.setHistoryAndHeader(route);
+    setCurrentRoute=(route, root) => {
+        this.setHistoryAndHeader(route, root);
         this.currentRoute = route;
         localStorageServiceInstance.setItem("current-route", route);
     };
@@ -4402,7 +4407,8 @@ class BtnSettingComponent extends HTMLElement {
         if (value?.includes("_")) {
             let arrayValues = [];
             value.split("_").forEach((item => {
-                arrayValues.push(i18nServiceInstance.getMessage(item));
+                const value = i18nServiceInstance.getMessage(item);
+                if (value) arrayValues.push(value);
             }));
             return i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
         } else {
@@ -4411,8 +4417,8 @@ class BtnSettingComponent extends HTMLElement {
     };
     setTitle=() => {
         const settingsNumber = this.settingsList.length;
-        if (settingsNumber > 0) {
-            const currentValueLabel = `<span class="fw-bold">${this.getValueLabel(this.value)}</span>`;
+        if (settingsNumber > 0 && this.value) {
+            const currentValueLabel = this.getValueLabel(this.value);
             const nextValueIndex = settingsNumber === this.index + 1 ? 0 : this.index + 1;
             const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
             let content = "";
@@ -4426,7 +4432,7 @@ class BtnSettingComponent extends HTMLElement {
             }
             const labelParts = content.split(",");
             const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
-            tooltipValue.innerHTML = labelParts[0];
+            tooltipValue.innerHTML = labelParts ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
             this.btnLabel.innerHTML = content;
         }
     };
@@ -4751,7 +4757,7 @@ customElements.define("app-select-edit-value", SelectEditValueComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<div class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">\n\t\t<label>\n\t\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t\t</div>\n\t\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t</label>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</div>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -4763,11 +4769,13 @@ class SelectModeComponent extends HTMLElement {
     label="";
     checked=false;
     disabled=false;
+    active=false;
     constructor() {
         super();
         this.label = this.dataset?.label || this.label;
         this.checked = this.dataset?.checked === "true" || this.checked;
         this.disabled = this.dataset?.disabled === "true" || this.disabled;
+        this.active = this.dataset?.active === "true" || this.active;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -4781,13 +4789,13 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement.value = this.label;
         this.inputElement.checked = this.checked;
         this.inputElement.disabled = this.disabled;
-        this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.checked ? "resetThisMode" : "validateThisMode");
-        this.submitBtnElement.title = this.checked ? i18nServiceInstance.getMessage("resetThisModeTitle") : "";
+        this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.active ? "resetThisMode" : "validateThisMode");
+        this.submitBtnElement.title = this.active ? i18nServiceInstance.getMessage("resetThisModeTitle") : "";
         this.labelElement?.setAttribute("for", stringServiceInstance.normalizeID(this.label));
         this.iconElement?.setAttribute("data-name", `${this.label}_border`);
         this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
         this.descriptionElement.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
-        if (this.checked) {
+        if (this.active) {
             this.setActiveState();
         }
     }
@@ -4795,7 +4803,7 @@ class SelectModeComponent extends HTMLElement {
         let span = document.createElement("span");
         span.classList.add("fs-5", "text");
         span.innerText = i18nServiceInstance.getMessage("activeMode");
-        this.querySelector("div").appendChild(span);
+        this.querySelector("label div").appendChild(span);
     };
 }
 
@@ -6008,13 +6016,13 @@ class ModesComponent extends HTMLElement {
     }
     displayListMode=json => {
         const listMode = json.modes;
-        const selectedMode = json.selectedMode;
+        const selectedMode = json.selectedMode ? json.selectedMode : DEFAULT_MODE;
         let radioModeList = "";
         listMode.forEach((mode => {
             let settingsList = Object.entries(mode)[0][1];
             let disabled = settingsList.length === 0;
-            let isChecked = Object.keys(mode)[0] === selectedMode ? true : false;
-            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-disabled="${disabled}"></app-select-mode>`;
+            let isChecked = Object.keys(mode)[0] === selectedMode;
+            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-active="${json.selectedMode === mode}" data-disabled="${disabled}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;
@@ -6329,11 +6337,15 @@ class ToolbarComponent extends HTMLElement {
                 }
             }));
         } else {
-            routeServiceInstance.navigate(PAGE_MODES);
+            routeServiceInstance.navigate(PAGE_MODES, false, this);
+            setTimeout((() => {
+                this.querySelector("app-modes")?.setAttribute("data-modes", JSON.stringify(this.json));
+            }));
         }
     };
     setCurrentPage=page => {
-        this.header?.setAttribute("data-selected-mode", this.json.selectedMode);
+        const selectedMode = this.json.selectedMode ? this.json.selectedMode : DEFAULT_MODE;
+        this.header?.setAttribute("data-selected-mode", selectedMode);
         setTimeout((() => {
             let currentPage = this.querySelector(`app-${page}`);
             if (currentPage) {
@@ -6367,7 +6379,7 @@ class ToolbarComponent extends HTMLElement {
             this.json.selectedMode = event.detail.mode;
             this.querySelector(`app-${PAGE_HOME}`)?.focus();
         }
-        routeServiceInstance.navigate(newRoute);
+        routeServiceInstance.navigate(newRoute, false, this);
         this.setCurrentPage(newRoute);
         if (event.detail.setting) {
             const editSettingElement = this.querySelector(`app-${PAGE_EDIT_SETTING}`);
