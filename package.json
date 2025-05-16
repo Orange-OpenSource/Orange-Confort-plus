@@ -29,7 +29,7 @@
 		"prebuild": "shx rm -rf dist/{serveur,WebExtension}/*",
 		"build": "npm run copy && concurrently \"npm:build:*\"",
 		"postbuild": "shx cp -r dist/serveur/{css,img,js} docs",
-		"version": "npm run build && git add -A dist/",
+		"version": "npm run build && git add -A dist/ docs/",
 		"postversion": "npm run zip",
 		"copy": "concurrently \"npm:copy:*\"",
 		"copy:serveur": "shx cp -r src/*.txt dist/serveur/ && shx cp -r docs/help dist/serveur/ && shx cp -r docs/cookie.html dist/serveur",
