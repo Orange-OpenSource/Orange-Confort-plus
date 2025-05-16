@@ -331,20 +331,17 @@
 	"fontFamily_B612Mono": {
 		"message": "B612_Mono"
 	},
-	"fontFamily_ComicSansMS": {
-		"message": "Comic Sans MS"
-	},
 	"fontFamily_LexendDeca": {
 		"message": "Lexend Deca"
 	},
 	"fontFamily_Luciole": {
 		"message": "Luciole"
 	},
+	"fontFamily_HelveticaNeue": {
+		"message": "Helvetica Neue"
+	},
 	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
-	},
-	"fontFamily_Verdana": {
-		"message": "Verdana"
 	},
 	"setting_textSize": {
 		"message": "Taille du texte"
@@ -869,7 +866,7 @@
 		"message": "défilement automatique du focus ($DELAY$)",
 		"placeholders": {
 			"delay": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},

@@ -10,16 +10,17 @@ class FontFamilyService {
 			]
 		},
 		{
+			name: 'HelveticaNeue', size: '100%', folder: 'HelveticaNeue', files: [
+				{ name: 'HelvNeue55_W1G.woff2', style: 'normal', weight: '400' },
+				{ name: 'HelvNeue75_W1G.woff2', style: 'normal', weight: '700' },
+			]
+		},
+		{
 			name: 'B612Mono', size: '75%', folder: 'B612', files: [
 				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
 				{ name: 'B612Mono-Regular.woff2', style: 'normal', weight: '400' }
-			]
-		},
-		{
-			name: 'ComicSansMS', size: '100%', folder: 'comic', files: [
-				{ name: 'comic-Sans-MS.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
@@ -61,14 +62,6 @@ class FontFamilyService {
 				{ name: 'SylexiadSansThin-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'SylexiadSansThin-Italic.woff2', style: 'italic', weight: '400' },
 				{ name: 'SylexiadSansThin.woff2', style: 'normal', weight: '400' }
-			]
-		},
-		{
-			name: 'Verdana', size: '87.5%', folder: 'verdana', files: [
-				{ name: 'Verdana-Bold-Italic.woff2', style: 'italic', weight: '700' },
-				{ name: 'Verdana-Bold.woff2', style: 'normal', weight: '700' },
-				{ name: 'Verdana-Italic.woff2', style: 'italic', weight: '400' },
-				{ name: 'Verdana.woff2', style: 'normal', weight: '400' }
 			]
 		}
 	];

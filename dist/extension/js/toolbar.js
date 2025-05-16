@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 15/05/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 16/05/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1069,7 +1069,7 @@ class ModeOfUseService {
     setSelectedMode=newSelectedMode => {
         localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
-            if (json.selectedMode === newSelectedMode) {
+            if (json.selectedMode !== undefined && json.selectedMode === newSelectedMode) {
                 filesServiceInstance.getJSONFile("modes-of-use").then((result => {
                     const defaultJson = result;
                     let resetMode;
@@ -2066,6 +2066,19 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
+        name: "HelveticaNeue",
+        size: "100%",
+        folder: "HelveticaNeue",
+        files: [ {
+            name: "HelvNeue55_W1G.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "HelvNeue75_W1G.woff2",
+            style: "normal",
+            weight: "700"
+        } ]
+    }, {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
@@ -2083,15 +2096,6 @@ class FontFamilyService {
             weight: "400"
         }, {
             name: "B612Mono-Regular.woff2",
-            style: "normal",
-            weight: "400"
-        } ]
-    }, {
-        name: "ComicSansMS",
-        size: "100%",
-        folder: "comic",
-        files: [ {
-            name: "comic-Sans-MS.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -2223,27 +2227,6 @@ class FontFamilyService {
             weight: "400"
         }, {
             name: "SylexiadSansThin.woff2",
-            style: "normal",
-            weight: "400"
-        } ]
-    }, {
-        name: "Verdana",
-        size: "87.5%",
-        folder: "verdana",
-        files: [ {
-            name: "Verdana-Bold-Italic.woff2",
-            style: "italic",
-            weight: "700"
-        }, {
-            name: "Verdana-Bold.woff2",
-            style: "normal",
-            weight: "700"
-        }, {
-            name: "Verdana-Italic.woff2",
-            style: "italic",
-            weight: "400"
-        }, {
-            name: "Verdana.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -4407,7 +4390,8 @@ class BtnSettingComponent extends HTMLElement {
         if (value?.includes("_")) {
             let arrayValues = [];
             value.split("_").forEach((item => {
-                arrayValues.push(i18nServiceInstance.getMessage(item));
+                const value = i18nServiceInstance.getMessage(item);
+                if (value) arrayValues.push(value);
             }));
             return i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
         } else {
@@ -4416,8 +4400,8 @@ class BtnSettingComponent extends HTMLElement {
     };
     setTitle=() => {
         const settingsNumber = this.settingsList.length;
-        if (settingsNumber > 0) {
-            const currentValueLabel = `<span class="fw-bold">${this.getValueLabel(this.value)}</span>`;
+        if (settingsNumber > 0 && this.value) {
+            const currentValueLabel = this.getValueLabel(this.value);
             const nextValueIndex = settingsNumber === this.index + 1 ? 0 : this.index + 1;
             const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
             let content = "";
@@ -4431,7 +4415,7 @@ class BtnSettingComponent extends HTMLElement {
             }
             const labelParts = content.split(",");
             const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
-            tooltipValue.innerHTML = labelParts[0];
+            tooltipValue.innerHTML = labelParts ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
             this.btnLabel.innerHTML = content;
         }
     };
@@ -4756,7 +4740,7 @@ customElements.define("app-select-edit-value", SelectEditValueComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<label class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">\n\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t</div>\n\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</label>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<div class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">\n\t\t<label>\n\t\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t\t</div>\n\t\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t</label>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</div>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;
@@ -4768,11 +4752,13 @@ class SelectModeComponent extends HTMLElement {
     label="";
     checked=false;
     disabled=false;
+    active=false;
     constructor() {
         super();
         this.label = this.dataset?.label || this.label;
         this.checked = this.dataset?.checked === "true" || this.checked;
         this.disabled = this.dataset?.disabled === "true" || this.disabled;
+        this.active = this.dataset?.active === "true" || this.active;
         this.appendChild(selectModeLayout.content.cloneNode(true));
     }
     connectedCallback() {
@@ -4786,13 +4772,13 @@ class SelectModeComponent extends HTMLElement {
         this.inputElement.value = this.label;
         this.inputElement.checked = this.checked;
         this.inputElement.disabled = this.disabled;
-        this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.checked ? "resetThisMode" : "validateThisMode");
-        this.submitBtnElement.title = this.checked ? i18nServiceInstance.getMessage("resetThisModeTitle") : "";
+        this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.active ? "resetThisMode" : "validateThisMode");
+        this.submitBtnElement.title = this.active ? i18nServiceInstance.getMessage("resetThisModeTitle") : "";
         this.labelElement?.setAttribute("for", stringServiceInstance.normalizeID(this.label));
         this.iconElement?.setAttribute("data-name", `${this.label}_border`);
         this.textElement.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
         this.descriptionElement.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
-        if (this.checked) {
+        if (this.active) {
             this.setActiveState();
         }
     }
@@ -4800,7 +4786,7 @@ class SelectModeComponent extends HTMLElement {
         let span = document.createElement("span");
         span.classList.add("fs-5", "text");
         span.innerText = i18nServiceInstance.getMessage("activeMode");
-        this.querySelector("div").appendChild(span);
+        this.querySelector("label div").appendChild(span);
     };
 }
 
@@ -5220,7 +5206,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "HelveticaNeue", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans" ];
     handler;
     constructor() {
         super();
@@ -6019,7 +6005,7 @@ class ModesComponent extends HTMLElement {
             let settingsList = Object.entries(mode)[0][1];
             let disabled = settingsList.length === 0;
             let isChecked = Object.keys(mode)[0] === selectedMode;
-            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-disabled="${disabled}"></app-select-mode>`;
+            let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-active="${json.selectedMode === mode}" data-disabled="${disabled}"></app-select-mode>`;
             radioModeList = radioModeList + radioMode;
         }));
         this.selectModeZone.innerHTML = radioModeList;

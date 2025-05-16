@@ -1,14 +1,16 @@
 const selectModeLayout: HTMLTemplateElement = document.createElement('template');
 selectModeLayout.innerHTML = `
 	<input type="radio" name="modes" class="sc-select-mode__input">
-	<label class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">
-		<div class="d-flex align-items-center gap-2 w-100">
-			<app-icon data-size="2em"></app-icon>
-			<span class="fs-5 text flex-fill"></span>
-		</div>
-		<span class="fs-6 fw-normal m-0 mb-3"></span>
+	<div class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">
+		<label>
+			<div class="d-flex align-items-center gap-2 w-100">
+				<app-icon data-size="2em"></app-icon>
+				<span class="fs-5 text flex-fill"></span>
+			</div>
+			<span class="fs-6 fw-normal m-0 mb-3"></span>
+		</label>
 		<button class="btn btn-primary" type="submit"></button>
-	</label>
+	</div>
 `;
 
 class SelectModeComponent extends HTMLElement {
@@ -21,6 +23,7 @@ class SelectModeComponent extends HTMLElement {
 	label = '';
 	checked = false;
 	disabled = false;
+	active = false;
 
 	constructor() {
 		super();
@@ -28,6 +31,7 @@ class SelectModeComponent extends HTMLElement {
 		this.label = this.dataset?.label || this.label;
 		this.checked = (this.dataset?.checked === 'true') || this.checked;
 		this.disabled = (this.dataset?.disabled === 'true') || this.disabled;
+		this.active = (this.dataset?.active === 'true') || this.active;
 
 		this.appendChild(selectModeLayout.content.cloneNode(true));
 	}
@@ -44,14 +48,14 @@ class SelectModeComponent extends HTMLElement {
 		this.inputElement!.value = this.label;
 		this.inputElement!.checked = this.checked;
 		this.inputElement!.disabled = this.disabled;
-		this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.checked ? 'resetThisMode' : 'validateThisMode');
-		this.submitBtnElement.title = this.checked ? i18nServiceInstance.getMessage('resetThisModeTitle') : '';
+		this.submitBtnElement.innerText = i18nServiceInstance.getMessage(this.active ? 'resetThisMode' : 'validateThisMode');
+		this.submitBtnElement.title = this.active ? i18nServiceInstance.getMessage('resetThisModeTitle') : '';
 		this.labelElement?.setAttribute('for', stringServiceInstance.normalizeID(this.label));
 		this.iconElement?.setAttribute('data-name', `${this.label}_border`);
 		this.textElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Name`);
 		this.descriptionElement!.innerText = i18nServiceInstance.getMessage(`${this.label}Description`);
 
-		if (this.checked) {
+		if (this.active) {
 			this.setActiveState();
 		}
 	}
@@ -60,7 +64,7 @@ class SelectModeComponent extends HTMLElement {
 		let span: HTMLSpanElement = document.createElement('span');
 		span.classList.add('fs-5', 'text');
 		span.innerText = i18nServiceInstance.getMessage('activeMode');
-		this.querySelector('div').appendChild(span);
+		this.querySelector('label div').appendChild(span);
 	}
 }
 

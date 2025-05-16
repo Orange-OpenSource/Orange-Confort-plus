@@ -334,20 +334,17 @@
 	"fontFamily_Airbus": {
 		"message": "Airbus"
 	},
-	"fontFamily_ComicSansMS": {
-		"message": "Comic Sans MS"
-	},
 	"fontFamily_LexendDeca": {
 		"message": "Lexend Deca"
 	},
 	"fontFamily_Luciole": {
 		"message": "Luciole"
 	},
+	"fontFamily_HelveticaNeue": {
+		"message": "Helvetica Neue"
+	},
 	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
-	},
-	"fontFamily_Verdana": {
-		"message": "Verdana"
 	},
 	"setting_textSize": {
 		"message": "Tamaño del texto"
@@ -872,7 +869,7 @@
 		"message": "desplazamiento automático del foco ($DELAY$)",
 		"placeholders": {
 			"delay": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},

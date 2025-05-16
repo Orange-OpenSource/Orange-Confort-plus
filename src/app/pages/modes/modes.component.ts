@@ -48,7 +48,7 @@ class ModesComponent extends HTMLElement {
 			let settingsList = Object.entries(mode)[0][1] as [];
 			let disabled = settingsList.length === 0;
 			let isChecked = Object.keys(mode)[0] === selectedMode;
-			let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-disabled="${disabled}"></app-select-mode>`;
+			let radioMode = `<app-select-mode data-label="${Object.keys(mode)[0]}" data-checked="${isChecked}" data-active="${json.selectedMode === mode}" data-disabled="${disabled}"></app-select-mode>`;
 			radioModeList = radioModeList + radioMode;
 		});
 		this.selectModeZone!.innerHTML = radioModeList;
@@ -80,7 +80,6 @@ class ModesComponent extends HTMLElement {
 				}
 			});
 		this.dispatchEvent(clickEvent);
-
 	}
 }
 
