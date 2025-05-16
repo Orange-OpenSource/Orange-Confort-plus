@@ -98,7 +98,8 @@ class BtnSettingComponent extends HTMLElement {
 		if (value?.includes('_')) {
 			let arrayValues: string[] = [];
 			value.split('_').forEach((item: string) => {
-				arrayValues.push(i18nServiceInstance.getMessage(item));
+				const value = i18nServiceInstance.getMessage(item);
+				if (value) arrayValues.push(value);
 			});
 			return i18nServiceInstance.getMessage(`${this.name}_values`, arrayValues);
 		} else {
@@ -109,8 +110,8 @@ class BtnSettingComponent extends HTMLElement {
 	setTitle = (): void => {
 		const settingsNumber = this.settingsList.length;
 
-		if (settingsNumber > 0) {
-			const currentValueLabel = `<span class="fw-bold">${this.getValueLabel(this.value)}</span>`;
+		if (settingsNumber > 0 && this.value) {
+			const currentValueLabel = this.getValueLabel(this.value);
 			const nextValueIndex = settingsNumber === (this.index + 1) ? 0 : this.index + 1;
 			const nextValueLabel = this.getValueLabel(this.settingsList[nextValueIndex]);
 
@@ -133,7 +134,7 @@ class BtnSettingComponent extends HTMLElement {
 			const labelParts = content.split(',');
 
 			const tooltipValue: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-value');
-			tooltipValue.innerHTML = labelParts[0];
+			tooltipValue.innerHTML = labelParts ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
 			this.btnLabel.innerHTML = content;
 		}
 	}

@@ -15,7 +15,7 @@ class ModeOfUseService {
 			let json = result;
 
 			/* Check if have to reset mode or not */
-			if (json.selectedMode === newSelectedMode) {
+			if (json.selectedMode !== undefined && json.selectedMode === newSelectedMode) {
 				filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
 					const defaultJson = result;
 					let resetMode: any;
