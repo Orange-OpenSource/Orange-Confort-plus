@@ -18,11 +18,6 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'ComicSansMS', size: '100%', folder: 'comic', files: [
-				{ name: 'comic-Sans-MS.woff2', style: 'normal', weight: '400' }
-			]
-		},
-		{
 			name: 'LexendDeca', size: '92%', folder: 'lexendDeca', files: [
 				{ name: 'LexendDeca-Black.woff2', style: 'normal', weight: '900' },
 				{ name: 'LexendDeca-Bold.woff2', style: 'normal', weight: '700' },
@@ -61,14 +56,6 @@ class FontFamilyService {
 				{ name: 'SylexiadSansThin-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'SylexiadSansThin-Italic.woff2', style: 'italic', weight: '400' },
 				{ name: 'SylexiadSansThin.woff2', style: 'normal', weight: '400' }
-			]
-		},
-		{
-			name: 'Verdana', size: '87.5%', folder: 'verdana', files: [
-				{ name: 'Verdana-Bold-Italic.woff2', style: 'italic', weight: '700' },
-				{ name: 'Verdana-Bold.woff2', style: 'normal', weight: '700' },
-				{ name: 'Verdana-Italic.woff2', style: 'italic', weight: '400' },
-				{ name: 'Verdana.woff2', style: 'normal', weight: '400' }
 			]
 		}
 	];

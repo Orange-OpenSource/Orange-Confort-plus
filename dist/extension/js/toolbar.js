@@ -2087,15 +2087,6 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "ComicSansMS",
-        size: "100%",
-        folder: "comic",
-        files: [ {
-            name: "comic-Sans-MS.woff2",
-            style: "normal",
-            weight: "400"
-        } ]
-    }, {
         name: "LexendDeca",
         size: "92%",
         folder: "lexendDeca",
@@ -2223,27 +2214,6 @@ class FontFamilyService {
             weight: "400"
         }, {
             name: "SylexiadSansThin.woff2",
-            style: "normal",
-            weight: "400"
-        } ]
-    }, {
-        name: "Verdana",
-        size: "87.5%",
-        folder: "verdana",
-        files: [ {
-            name: "Verdana-Bold-Italic.woff2",
-            style: "italic",
-            weight: "700"
-        }, {
-            name: "Verdana-Bold.woff2",
-            style: "normal",
-            weight: "700"
-        }, {
-            name: "Verdana-Italic.woff2",
-            style: "italic",
-            weight: "400"
-        }, {
-            name: "Verdana.woff2",
             style: "normal",
             weight: "400"
         } ]
@@ -5223,7 +5193,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "ComicSansMS", "LexendDeca", "Luciole", "SylexiadSans", "Verdana" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans" ];
     handler;
     constructor() {
         super();
