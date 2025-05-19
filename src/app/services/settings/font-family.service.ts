@@ -3,10 +3,16 @@ let fontFamilyServiceIsInstantiated: boolean;
 class FontFamilyService {
 	fontDictionnary: any[] = [
 		{
-			name: 'AccessibleDfA', size: '91.125%', folder: 'accessibleDfA', files: [
+			name: 'AccessibleDfA', size: '82.5%', folder: 'accessibleDfA', files: [
 				{ name: 'AccessibleDfA-VF.woff2', style: 'normal', weight: '700' },
 				{ name: 'AccessibleDfA-VF.woff2', style: 'italic', weight: '400' },
 				{ name: 'AccessibleDfA-VF.woff2', style: 'normal', weight: '400' }
+			]
+		},
+		{
+			name: 'BelleAllure', size: '80%', folder: 'BelleAllure', files: [
+				{ name: 'BelleAllureCM-Fin.woff2', style: 'normal', weight: '400' },
+				{ name: 'BelleAllureCM-Gros.woff2', style: 'normal', weight: '700' }
 			]
 		},
 		{
@@ -45,7 +51,7 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'SylexiadSans', size: '125%', folder: 'sylexiadSans', files: [
+			name: 'SylexiadSans', size: '122.5%', folder: 'sylexiadSans', files: [
 				{ name: 'SylexiadSansMedium-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'SylexiadSansMedium-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'SylexiadSansMedium-Italic.woff2', style: 'italic', weight: '400' },
@@ -92,7 +98,14 @@ class FontFamilyService {
 					);
 				}
 			});
-			fontFaceStyle.push(`* { font-family: ${value} !important; }`);
+			fontFaceStyle.push(`
+				* { font-family: ${value} !important; }
+
+				body {
+					font-synthesis: none;
+					font-variant-ligatures: normal;
+					text-rendering: optimizeLegibility;
+				}`);
 			stylesServiceInstance.setStyle('font-family', fontFaceStyle.join(''));
 		}
 	}
