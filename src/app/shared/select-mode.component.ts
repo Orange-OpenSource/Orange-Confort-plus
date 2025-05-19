@@ -1,8 +1,8 @@
 const selectModeLayout: HTMLTemplateElement = document.createElement('template');
 selectModeLayout.innerHTML = `
 	<input type="radio" name="modes" class="sc-select-mode__input">
-	<div class="d-flex flex-column align-items-start gap-1 p-2 sc-select-mode__label btn btn-tertiary">
-		<label>
+	<div class="d-flex flex-column align-items-start gap-1 p-2 position-relative sc-select-mode__label btn btn-tertiary">
+		<label class="stretched-link">
 			<div class="d-flex align-items-center gap-2 w-100">
 				<app-icon data-size="2em"></app-icon>
 				<span class="fs-5 text flex-fill"></span>
