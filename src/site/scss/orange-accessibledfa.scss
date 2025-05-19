@@ -1,0 +1,28 @@
+@font-face {
+	font-family:"Accessible DfA";
+	src: local("Accessible DfA"), url("../assets/fonts/accessibleDfA/AccessibleDfA-VF.woff2");
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	size-adjust: 91.125%;
+}
+@font-face {
+	font-family: "Accessible DfA";
+	src: local("Accessible DfA"), url("../assets/fonts/accessibleDfA/AccessibleDfA-VF.woff2");
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	size-adjust: 91.125%;
+}
+@font-face {
+	font-family: "Accessible DfA";
+	src: local("Accessible DfA"), url("../assets/fonts/accessibleDfA/AccessibleDfA-VF.woff2");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	size-adjust: 91.125%;
+}
+
+:root {
+	--bs-font-sans-serif: "Accessible DfA", "Helvetica Neue", Helvetica, "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
