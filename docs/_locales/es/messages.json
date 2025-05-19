@@ -127,16 +127,16 @@
 	"facilePlusDescription": {
 		"message": "Modo de uso destinado a las personas poco acostumbradas a internet. El texto, los botones, los enlaces, el ratón y el foco son bien visibles y un poco más grandes, los contrastes se ajustan y una lupa está disponible."
 	},
-	"dysPlusName": {
+	"lecturePlusName": {
 		"message": "Lectura+"
 	},
-	"dysPlusDescription": {
+	"lecturePlusDescription": {
 		"message": "Modo de uso destinado a personas con limitaciones de lectura o escritura. Una fuente optimizada para la dislexia, textos aireados y alineados a la izquierda, una regla de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto."
 	},
-	"dysPlusPlusName": {
+	"lecturePlusPlusName": {
 		"message": "Lectura++"
 	},
-	"dysPlusPlusDescription": {
+	"lecturePlusPlusDescription": {
 		"message": "Modo de uso destinado a personas con limitaciones de lectura y/o manipulación. Una fuente optimizada para la dislexia, textos claramente legibles, reglas de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto, así como ayudas al apuntado."
 	},
 	"moteurPlusName": {

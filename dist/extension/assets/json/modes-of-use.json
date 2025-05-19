@@ -1,5 +1,5 @@
 {
-	"version": "1.0.33",
+	"version": "1.0.34",
 	"modes": [
 		{
 			"facilePlus": [
@@ -566,7 +566,7 @@
 			]
 		},
 		{
-			"dysPlus": [
+			"lecturePlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -762,7 +762,7 @@
 			]
 		},
 		{
-			"dysPlusPlus": [
+			"lecturePlusPlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
