@@ -4016,7 +4016,7 @@ customElements.define("app-select-edit-value", SelectEditValueComponent);
 
 const selectModeLayout = document.createElement("template");
 
-selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<div class="d-flex flex-column align-items-start gap-1 p-2 position-relative sc-select-mode__label btn btn-tertiary">\n\t\t<label class="stretched-link">\n\t\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t\t</div>\n\t\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t</label>\n\t\t<button class="btn btn-primary" type="submit"></button>\n\t</div>\n`;
+selectModeLayout.innerHTML = `\n\t<input type="radio" name="modes" class="sc-select-mode__input">\n\t<div class="d-flex flex-column align-items-start gap-1 p-2 position-relative sc-select-mode__label btn btn-tertiary">\n\t\t<label class="stretched-link">\n\t\t\t<div class="d-flex align-items-center gap-2 w-100">\n\t\t\t\t<app-icon data-size="2em"></app-icon>\n\t\t\t\t<span class="fs-5 text flex-fill"></span>\n\t\t\t</div>\n\t\t\t<span class="fs-6 fw-normal m-0 mb-3"></span>\n\t\t</label>\n\t\t<button class="btn btn-primary position-relative z-1" type="submit"></button>\n\t</div>\n`;
 
 class SelectModeComponent extends HTMLElement {
     inputElement=null;

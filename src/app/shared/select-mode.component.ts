@@ -9,7 +9,7 @@ selectModeLayout.innerHTML = `
 			</div>
 			<span class="fs-6 fw-normal m-0 mb-3"></span>
 		</label>
-		<button class="btn btn-primary" type="submit"></button>
+		<button class="btn btn-primary position-relative z-1" type="submit"></button>
 	</div>
 `;
 
