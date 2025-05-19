@@ -15,6 +15,8 @@ const DEFAULT_MODE = "facilePlus";
 
 const APP_NAME = `${PREFIX}app-root`;
 
+let VERSION;
+
 const PAGE_HOME = "home";
 
 const PAGE_MODES = "modes";
@@ -48,6 +50,8 @@ const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
 const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
+
+VERSION = "5.0.0-beta.1";
 
 "use strict";
 
@@ -5310,11 +5314,12 @@ customElements.define("app-modes", ModesComponent);
 
 const settingsLayout = document.createElement("template");
 
-settingsLayout.innerHTML = `\n\t<section class="accordion mb-2">\n\t\t<app-text class="c-settings__category accordion-item"></app-text>\n\t\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n\t\t<div class="border-top border-light border-1"></div>\n\t</section>\n\n\t<div class="p-3">\n\t\t<button id="${PREFIX}reset-mode" type="button" class="btn btn-secondary w-100" data-i18n="resetThisMode" data-i18n-title="resetThisModeTitle"></button>\n\t</div>\n\n`;
+settingsLayout.innerHTML = `\n\t<section class="accordion mb-2">\n\t\t<app-text class="c-settings__category accordion-item"></app-text>\n\t\t<app-layout class="c-settings__category accordion-item"></app-layout>\n\t\t<app-picture-video class="c-settings__category accordion-item"></app-picture-video>\n\t\t<app-sound class="c-settings__category accordion-item"></app-sound>\n\t\t<app-navigation class="c-settings__category accordion-item"></app-navigation>\n\t\t<div class="border-top border-light border-1"></div>\n\t</section>\n\n\t<div class="p-3">\n\t\t<button id="${PREFIX}reset-mode" type="button" class="btn btn-secondary w-100" data-i18n="resetThisMode" data-i18n-title="resetThisModeTitle"></button>\n\t</div>\n\t<p class="px-3 small text-muted">\n\t\t<a href="https://confort-plus.orange.com/#footer" id="${PREFIX}about-link"></a>.\n\t</p>\n`;
 
 class SettingsComponent extends HTMLElement {
     static observedAttributes=[ "data-modes" ];
     resetModeElement=null;
+    aboutLinkElement=null;
     selectedMode="";
     handler;
     constructor() {
@@ -5323,6 +5328,8 @@ class SettingsComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
+        this.aboutLinkElement = this.querySelector(`#${PREFIX}about-link`);
+        this.aboutLinkElement.innerText = i18nServiceInstance.getMessage("aboutLink", [ VERSION ]);
         this.resetModeElement = this.querySelector(`#${PREFIX}reset-mode`);
         this.resetModeElement.addEventListener("click", this.handler);
         this.addEventListener("collapsedCategory", this.handler);

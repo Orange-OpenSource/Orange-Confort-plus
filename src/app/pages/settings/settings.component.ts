@@ -12,12 +12,15 @@ settingsLayout.innerHTML = `
 	<div class="p-3">
 		<button id="${PREFIX}reset-mode" type="button" class="btn btn-secondary w-100" data-i18n="resetThisMode" data-i18n-title="resetThisModeTitle"></button>
 	</div>
-
+	<p class="px-3 small text-muted">
+		<a href="https://confort-plus.orange.com/#footer" id="${PREFIX}about-link"></a>.
+	</p>
 `;
 
 class SettingsComponent extends HTMLElement {
 	static observedAttributes = ['data-modes'];
 	resetModeElement: HTMLButtonElement | null = null;
+	aboutLinkElement: HTMLButtonElement | null = null;
 	selectedMode = '';
 	handler: any;
 
@@ -30,6 +33,8 @@ class SettingsComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
+		this.aboutLinkElement = this.querySelector(`#${PREFIX}about-link`);
+		this.aboutLinkElement!.innerText = i18nServiceInstance.getMessage('aboutLink', [VERSION]);
 		this.resetModeElement = this.querySelector(`#${PREFIX}reset-mode`);
 		this.resetModeElement.addEventListener('click', this.handler);
 		this.addEventListener('collapsedCategory', this.handler);
