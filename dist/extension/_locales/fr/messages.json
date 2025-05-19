@@ -127,16 +127,16 @@
 	"facilePlusDescription": {
 		"message": "Mode d’usage destiné aux personnes peu habituées à internet. Le texte, les boutons, les liens, la souris et le focus sont bien visibles et un peu plus grands, les contrastes sont ajustés et une loupe est disponible."
 	},
-	"dysPlusName": {
+	"lecturePlusName": {
 		"message": "Lecture+"
 	},
-	"dysPlusDescription": {
+	"lecturePlusDescription": {
 		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
 	},
-	"dysPlusPlusName": {
+	"lecturePlusPlusName": {
 		"message": "Lecture++"
 	},
-	"dysPlusPlusDescription": {
+	"lecturePlusPlusDescription": {
 		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture et/ou de manipulation. Une police optimisée pour la dyslexie, des textes bien lisibles, des règles de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte, ainsi que des aides au pointage."
 	},
 	"moteurPlusName": {

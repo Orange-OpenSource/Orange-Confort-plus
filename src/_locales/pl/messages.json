@@ -127,16 +127,16 @@
 	"facilePlusDescription": {
 		"message": "Tryb użytkowania dla osób które nie są sfobodne z Internetem. Tekst, przyciski, linki, mysz i fokus są dobrze widoczne i trochę większe. Kontrasty są dostosowane i dostępna jest lupa."
 	},
-	"dysPlusName": {
+	"lecturePlusName": {
 		"message": "Czytanie+"
 	},
-	"dysPlusDescription": {
+	"lecturePlusDescription": {
 		"message": "Tryb użytkowania dla osób z wyzwaniami czytania lub pisania. Czcionka zoptymalizowana pod kątem dysleksji. Teksty oddzielne i wyrównane do lewej strony. Linijka do czytania. Możliwość pokolorowania znaków dźwiękowych i usłyszenia tekstu."
 	},
-	"dysPlusPlusName": {
+	"lecturePlusPlusName": {
 		"message": "Czytanie++"
 	},
-	"dysPlusPlusDescription": {
+	"lecturePlusPlusDescription": {
 		"message": "Tryb użytkowania przeznaczony dla osób z ograniczeniami czytania i/lub obsługi. Czcionka zoptymalizowana pod kątem dysleksji, dobrze czytelnych tekstów, reguł czytania, zdolności do kolorowania znaków dźwiękowych i czytania tekstu, a także pomocy wskazujących."
 	},
 	"moteurPlusName": {

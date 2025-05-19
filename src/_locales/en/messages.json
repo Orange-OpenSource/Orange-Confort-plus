@@ -127,16 +127,16 @@
 	"facilePlusDescription": {
 		"message": "Mode of use for people not very familiar with the internet. The text, buttons, links, mouse, and focus are very visible and slightly larger, contrasts are adjusted, and a magnifier is available."
 	},
-	"dysPlusName": {
+	"lecturePlusName": {
 		"message": "Reading+"
 	},
-	"dysPlusDescription": {
+	"lecturePlusDescription": {
 		"message": "A mode of use for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
 	},
-	"dysPlusPlusName": {
+	"lecturePlusPlusName": {
 		"message": "Reading++"
 	},
-	"dysPlusPlusDescription": {
+	"lecturePlusPlusDescription": {
 		"message": "Mode of use intended for people with reading and/or handling constraints. A font optimized for dyslexia, clearly readable texts, reading rules, the possibility of coloring characters-sounds and to be read the text, as well as aids to pointing."
 	},
 	"moteurPlusName": {
