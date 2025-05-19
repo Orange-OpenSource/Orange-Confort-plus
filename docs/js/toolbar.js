@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.1 - 16/05/2025
+ * orange-confort-plus - version 5.0.0-beta.1 - 19/05/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1309,7 +1309,7 @@ let fontFamilyServiceIsInstantiated;
 class FontFamilyService {
     fontDictionnary=[ {
         name: "AccessibleDfA",
-        size: "91.125%",
+        size: "82.5%",
         folder: "accessibleDfA",
         files: [ {
             name: "AccessibleDfA-VF.woff2",
@@ -1323,6 +1323,19 @@ class FontFamilyService {
             name: "AccessibleDfA-VF.woff2",
             style: "normal",
             weight: "400"
+        } ]
+    }, {
+        name: "BelleAllure",
+        size: "80%",
+        folder: "BelleAllure",
+        files: [ {
+            name: "BelleAllureCM-Fin.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "BelleAllureCM-Gros.woff2",
+            style: "normal",
+            weight: "700"
         } ]
     }, {
         name: "HelveticaNeue",
@@ -1422,7 +1435,7 @@ class FontFamilyService {
         } ]
     }, {
         name: "SylexiadSans",
-        size: "125%",
+        size: "122.5%",
         folder: "sylexiadSans",
         files: [ {
             name: "SylexiadSansMedium-BoldItalic.woff2",
@@ -1505,7 +1518,7 @@ class FontFamilyService {
                     fontFaceStyle.push(`\n\t\t\t\t\t\t@font-face {\n\t\t\t\t\t\t\tfont-family:"${font.name}";\n\t\t\t\t\t\t\tsrc: local("${font.name}"), url("${appPath}assets/fonts/${font.folder}/${file.name}");\n\t\t\t\t\t\t\tfont-style: ${file.style};\n\t\t\t\t\t\t\tfont-weight: ${file.weight};\n\t\t\t\t\t\t\tfont-display: swap;\n\t\t\t\t\t\t\tsize-adjust: ${font.size};\n\t\t\t\t\t\t}`);
                 }
             }));
-            fontFaceStyle.push(`* { font-family: ${value} !important; }`);
+            fontFaceStyle.push(`\n\t\t\t\t* { font-family: ${value} !important; }\n\n\t\t\t\tbody {\n\t\t\t\t\tfont-synthesis: none;\n\t\t\t\t\tfont-variant-ligatures: normal;\n\t\t\t\t\ttext-rendering: optimizeLegibility;\n\t\t\t\t}`);
             stylesServiceInstance.setStyle("font-family", fontFaceStyle.join(""));
         }
     };
@@ -3182,7 +3195,7 @@ tmplFontFamily.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100"
 
 class FontFamilyComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,AccessibleDfA,Verdana",
+        values: "noModifications,AccessibleDfA,HelveticaNeue",
         valueSelected: 0
     };
     constructor() {
@@ -4465,7 +4478,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "HelveticaNeue", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans" ];
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "HelveticaNeue", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans", "BelleAllure" ];
     handler;
     constructor() {
         super();
