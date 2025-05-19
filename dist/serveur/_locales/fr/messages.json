@@ -8,6 +8,14 @@
 	"mainTitle": {
 		"message": "Confort"
 	},
+	"aboutLink": {
+		"message": "À propos d’Orange Confort+ v$VERSION$",
+		"placeholders": {
+			"version": {
+				"content": "$1"
+			}
+		}
+	},
 	"profile": {
 		"message": "Mode"
 	},
@@ -532,7 +540,7 @@
 		"message": "$SIZE$",
 		"placeholders": {
 			"size": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -543,7 +551,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -574,7 +582,7 @@
 		"message": "$SIZE$",
 		"placeholders": {
 			"size": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -588,7 +596,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -648,7 +656,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -656,7 +664,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -664,7 +672,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -772,7 +780,7 @@
 		"message": "$SIZE$",
 		"placeholders": {
 			"size": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -786,7 +794,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -844,7 +852,7 @@
 		"message": "$TYPE$",
 		"placeholders": {
 			"type": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -852,7 +860,7 @@
 		"message": "$DELAY$",
 		"placeholders": {
 			"delay": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},
@@ -886,7 +894,7 @@
 		"message": "$DELAY$",
 		"placeholders": {
 			"delay": {
-				"content": "$2"
+				"content": "$1"
 			}
 		}
 	},

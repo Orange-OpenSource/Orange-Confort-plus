@@ -6,6 +6,7 @@ const JSON_NAME = 'modeOfUse';
 const DEFAULT_VALUE = 'noModifications';
 const DEFAULT_MODE = 'facilePlus';
 const APP_NAME = `${PREFIX}app-root`;
+let VERSION: string;
 
 const PAGE_HOME = 'home';
 const PAGE_MODES = 'modes';
