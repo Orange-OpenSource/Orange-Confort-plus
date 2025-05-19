@@ -63,7 +63,7 @@
 		"postbuild:html": "purgecss --config purgecss.docs.config.cjs",
 		"build:icons": "svg-sprite --symbol --symbol-dest dist/serveur/assets/icons --symbol-sprite orange-icons-sprite.svg --svg-xmldecl false --svg-doctype  false src/assets/icons/*.svg",
 		"postbuild:icons": "shx cp -r dist/serveur/assets/icons dist/extension/assets/",
-		"build:helvetica": "sass src/site/scss/orange-helvetica.scss:docs/css/orange-helvetica.min.css -s compressed --load-path=node_modules --source-map --no-error-css --quiet-deps",
+		"build:accessibledfa": "sass src/site/scss/orange-accessibledfa.scss:docs/css/orange-accessibledfa.min.css -s compressed --source-map --no-error-css --quiet-deps",
 		"compress:img": "concurrently \"npm:compress:img:*\"",
 		"compress:img:icons": "svgo -f src/assets/icons -o src/assets/icons",
 		"compress:img:docs": "imagemin src/site/assets/img/*.{png,gif} --out-dir=src/site/assets/img --plugin=pngquant --plugin=gifsicle --plugin=zopfli",
