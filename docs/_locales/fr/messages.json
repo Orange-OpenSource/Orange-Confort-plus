@@ -343,6 +343,9 @@
 	"fontFamily_SylexiadSans": {
 		"message": "Sylexiad Sans"
 	},
+	"fontFamily_BelleAllure": {
+		"message": "BelleAllure"
+	},
 	"setting_textSize": {
 		"message": "Taille du texte"
 	},
