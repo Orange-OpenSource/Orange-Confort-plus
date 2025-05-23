@@ -89,7 +89,7 @@ class AppComponent extends HTMLElement {
 	}
 
 	private showToolbar = (): void => {
-		this.setContainerButtonsPosition('21em');
+		this.setContainerButtonsPosition(BTN_RIGHT_POS_OPEN);
 		this.confortPlusToolbar.classList.remove('close');
 		this.confortPlusBtn.classList.add('d-none');
 		this.closeBtn?.focus();
@@ -97,7 +97,7 @@ class AppComponent extends HTMLElement {
 	}
 
 	private hideToolbar = (): void => {
-		this.setContainerButtonsPosition('2em');
+		this.setContainerButtonsPosition(BTN_RIGHT_POS_DEFAULT);
 		this.confortPlusToolbar.classList.add('close');
 		this.confortPlusBtn.classList.remove('d-none');
 		this.confortPlusBtn?.focus();
