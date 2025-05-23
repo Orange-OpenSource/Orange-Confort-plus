@@ -164,14 +164,6 @@
 					}
 				},
 				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,longClick_delay2",
 						"valueSelected": 1,
@@ -349,14 +341,6 @@
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 12
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{
@@ -554,14 +538,6 @@
 						"isTool": false,
 						"order": null
 					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
 				}
 			]
 		},
@@ -729,14 +705,6 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"restartTopLeft": {
 						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false,
@@ -932,14 +900,6 @@
 					}
 				},
 				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 2,
@@ -1128,14 +1088,6 @@
 					}
 				},
 				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 2,
@@ -1321,14 +1273,6 @@
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 1
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{

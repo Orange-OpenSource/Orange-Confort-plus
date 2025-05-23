@@ -46,7 +46,7 @@ class DomService {
 		let container: HTMLElement;
 		let fragment = document.createDocumentFragment();
 		let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector('app-toolbar')?.classList.contains('close') ?
-			'2em' : '26em';
+			BTN_RIGHT_POS_DEFAULT : BTN_RIGHT_POS_OPEN;
 
 		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
 			container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
