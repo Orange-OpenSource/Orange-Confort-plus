@@ -73,7 +73,6 @@ const files = {
 			'dist/js/app/shared/settings/navigation-buttons.component.js',
 			'dist/js/app/shared/settings/read-aloud.component.js',
 			'dist/js/app/shared/settings/reading-guide.component.js',
-			'dist/js/app/shared/settings/restart-top-left.component.js',
 			'dist/js/app/shared/settings/scroll-aspect.component.js',
 			'dist/js/app/shared/settings/scroll-type.component.js',
 			'dist/js/app/shared/settings/skip-to-content.component.js',
