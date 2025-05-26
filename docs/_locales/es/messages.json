@@ -543,7 +543,7 @@
 		"message": "$SIZE$",
 		"placeholders": {
 			"size": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -554,7 +554,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -585,7 +585,7 @@
 		"message": "$SIZE$",
 		"placeholders": {
 			"size": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -599,7 +599,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -659,7 +659,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -667,7 +667,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -675,7 +675,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -783,7 +783,7 @@
 		"message": "$SIZE$",
 		"placeholders": {
 			"size": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -797,7 +797,7 @@
 		"message": "$COLOR$",
 		"placeholders": {
 			"color": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -855,7 +855,7 @@
 		"message": "$TYPE$",
 		"placeholders": {
 			"type": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -863,7 +863,7 @@
 		"message": "$DELAY$",
 		"placeholders": {
 			"delay": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
@@ -897,7 +897,7 @@
 		"message": "$DELAY$",
 		"placeholders": {
 			"delay": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
