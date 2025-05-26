@@ -4579,8 +4579,15 @@ class HeaderComponent extends HTMLElement {
             this.modeIcon?.setAttribute("data-name", `${newValue}_border`);
         }
         if ("data-prev-btn" === name && newValue) {
-            this.prevBtn.title = i18nServiceInstance.getMessage(newValue);
-            this.prevBtn.querySelector("span").innerText = i18nServiceInstance.getMessage(newValue);
+            if (!this.hasAttribute("data-selected-mode")) {
+                this.prevBtn.classList.add("d-none");
+                this.pageBlockTitle.classList.remove("ms-2");
+            } else {
+                this.prevBtn.title = i18nServiceInstance.getMessage(newValue);
+                this.prevBtn.querySelector("span").innerText = i18nServiceInstance.getMessage(newValue);
+                this.prevBtn.classList.remove("d-none");
+                this.pageBlockTitle.classList.add("ms-2");
+            }
         }
     }
     displayMode=mode => {
