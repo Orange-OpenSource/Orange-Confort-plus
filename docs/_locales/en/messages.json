@@ -1,15 +1,15 @@
 {
 	"mainButton": {
-		"message": "Unfold Confort+"
+		"message": "Unfold Comfort+"
 	},
 	"close": {
-		"message": "Fold Confort+"
+		"message": "Fold Comfort+"
 	},
 	"mainTitle": {
-		"message": "Confort"
+		"message": "Comfort"
 	},
 	"aboutLink": {
-		"message": "About Orange Confort+ v$VERSION$",
+		"message": "About Orange Comfort+ v$VERSION$",
 		"placeholders": {
 			"version": {
 				"content": "$1"
@@ -35,13 +35,13 @@
 		"message": "Less settings"
 	},
 	"play": {
-		"message": "Restart Confort+"
+		"message": "Restart Comfort+"
 	},
 	"pause": {
-		"message": "Pause Confort+"
+		"message": "Pause Comfort+"
 	},
 	"pauseInfo": {
-		"message": "Confort+ is paused, to reactivate it, press the « restart Confort+ » button."
+		"message": "Comfort+ is paused, to reactivate it, press the « restart Comfort+ » button."
 	},
 	"otherModes": {
 		"message": "Other usage modes"
