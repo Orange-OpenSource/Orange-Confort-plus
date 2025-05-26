@@ -81,9 +81,9 @@ class ReadAloudService extends BodySelectorService {
 				const text = node.nodeValue;
 				if (text && !this.isAlreadyEdited(node, this.readAloudSpan)) {
 					const parent = node.parentNode;
-					const fragment = this.createFragmentForText(text, regex);
 
-					if (parent) {
+					if (parent && !BODY_ELEMENTS_FILTER.split(',').includes(parent.nodeName.toLowerCase())) {
+						const fragment = this.createFragmentForText(text, regex);
 						parent.insertBefore(fragment, node);
 						parent.removeChild(node);
 					}
