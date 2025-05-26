@@ -9,7 +9,7 @@
 		"message": "Komfort"
 	},
 	"aboutLink": {
-		"message": "Informacje o Orange Confort+ v$VERSION$",
+		"message": "Informacje o Orange Komfort+ v$VERSION$",
 		"placeholders": {
 			"version": {
 				"content": "$1"
