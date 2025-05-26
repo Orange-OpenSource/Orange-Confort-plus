@@ -831,6 +831,20 @@
 	"navigationButtons_active": {
 		"message": "ajout des boutons de navigation"
 	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"navigationSet": {
+		"message": "Boutons de navigation"
+	},
+	"fullSet": {
+		"message": "Boutons de navigation et ascenseur"
+	},
 	"setting_clickFacilite": {
 		"message": "Clics facilités"
 	},
