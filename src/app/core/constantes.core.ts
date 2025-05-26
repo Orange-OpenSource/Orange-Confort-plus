@@ -30,3 +30,5 @@ const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
 const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
+
+const BODY_ELEMENTS_FILTER = 'script,style,link,meta';
