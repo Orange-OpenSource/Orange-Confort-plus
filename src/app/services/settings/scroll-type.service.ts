@@ -1,6 +1,7 @@
 let scrollTypeServiceIsInstantiated: boolean;
 
 class ScrollTypeService {
+	// TODO : se servir de btnState pour changer de type de scroll (scrollOnMouseover, scrollOnClick)
 	btnState = '';
 	scrollSteps = 100;
 	scrollTimer = 50;

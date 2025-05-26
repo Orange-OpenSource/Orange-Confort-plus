@@ -3,7 +3,8 @@ let navigationButtonsServiceIsInstantiated: boolean;
 class NavigationButtonsService {
 	currentFocusElt: any;
 	handlerNavigationButtons: any;
-
+	navigationButtonSet: string = DEFAULT_VALUE;
+	delay: number = 0;
 	constructor() {
 		if (navigationButtonsServiceIsInstantiated) {
 			throw new Error('NavigationButtonsService is already instantiated.');
@@ -17,14 +18,30 @@ class NavigationButtonsService {
 	buttonsList: string[] = ['escape', 'start', 'previous', 'next', 'click'];
 
 	setNavigationButtons = (value: string): void => {
+		// TODO : get params from value
+		this.navigationButtonSet = value.split("_")[0];
+		this.delay = parseInt(value.split('_')[1]?.replace(/\D/g, ''), 10) * 1000;
+
 		this.resetNavigationButtons();
-		if (value !== DEFAULT_VALUE) {
-			this.getFocusedElement();
-			this.addNavigationButtons();
+
+		// TODO : switchcase for buttonsList
+		switch (this.navigationButtonSet) {
+			case 'navigationSet' :
+				this.getFocusedElement();
+				this.addNavigationButtons();
+				break;
+			case 'fullset':
+				this.getFocusedElement();
+				this.addNavigationButtons();
+				scrollTypeServiceInstance.setScrollType('scrollOnClick');
+				break;
+			default:
+				break;
 		}
 	}
 
 	resetNavigationButtons = (): void => {
+		scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
 		this.buttonsList.forEach((navigationButton: string) => {
 			domServiceInstance.removeButtonsInDom(navigationButton);
 		});

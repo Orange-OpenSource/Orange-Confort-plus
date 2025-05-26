@@ -103,6 +103,7 @@ const files = {
 			'dist/js/app/pages/edit-setting/settings/edit-text-size.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-text-spacing.component.js',
 			'dist/js/app/pages/edit-setting/settings/edit-zoom.component.js',
+			'dist/js/app/pages/edit-setting/settings/edit-navigation-buttons.component.js',
 			'dist/js/app/pages/home/home.component.js',
 			'dist/js/app/pages/home/components/mode.component.js',
 			'dist/js/app/pages/modes/modes.component.js',
