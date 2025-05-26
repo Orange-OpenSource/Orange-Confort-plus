@@ -5,19 +5,20 @@ class ReadingGuideService {
 	sizeGuide: number = 40;
 	handler: any;
 
-	verticalGuideID = `${PREFIX}vertical-guide-elt`;
+	horizontalGuideID = `${PREFIX}horizontal-guide-elt`;
 	maskTopEltID = `${PREFIX}mask-guide__top-elt`;
 	maskBottomEltID = `${PREFIX}mask-guide__bottom-elt`;
 	closeTextID = `${PREFIX}mask-guide__close-text`;
 
 	classRuleGuide = `
-		#${this.verticalGuideID} {
-			border-left: 4px solid black;
-			background: white;
-			height: 100%;
-			width: 6px;
+		#${this.horizontalGuideID} {
+			border-top: 4px solid black;
+			border-bottom: 4px solid white;
+			background: black;
+			height: 1px;
+			width: 100%;
 			position: fixed;
-			top: 0;
+			left: 0;
 			z-index: calc(infinity);
 		}
 	`;
@@ -105,7 +106,7 @@ class ReadingGuideService {
 
 		if (this.guideType === 'rule') {
 			const readingElt = document.createElement('div');
-			readingElt.setAttribute('id', `${this.verticalGuideID}`);
+			readingElt.setAttribute('id', `${this.horizontalGuideID}`);
 			document.body.insertBefore(readingElt, document.querySelector(APP_NAME));
 		} else if (this.guideType === 'mask') {
 			const maskTopElt = document.createElement('div');
@@ -127,7 +128,7 @@ class ReadingGuideService {
 	resetGuide = (): void => {
 		this.guideType = '';
 		stylesServiceInstance.removeStyle('reading-guide');
-		document.querySelector(`#${this.verticalGuideID}`)?.remove();
+		document.querySelector(`#${this.horizontalGuideID}`)?.remove();
 		document.querySelector(`#${this.maskTopEltID}`)?.remove();
 		document.querySelector(`#${this.maskBottomEltID}`)?.remove();
 		document.querySelector(`#${this.closeTextID}`)?.remove();
@@ -159,7 +160,7 @@ class ReadingGuideService {
 			switch (event.type) {
 				case 'mousemove':
 					if (this.guideType === 'rule') {
-						(document.querySelector(`#${PREFIX}vertical-guide-elt`) as HTMLElement).style.left = `${(event as MouseEvent).x + 2}px`;
+						(document.querySelector(`#${PREFIX}horizontal-guide-elt`) as HTMLElement).style.top = `${(event as MouseEvent).y + 2}px`;
 					} else if (this.guideType === 'mask') {
 						(document.querySelector(`#${this.maskTopEltID}`) as HTMLElement).style.height = `${(event as MouseEvent).y - this.sizeGuide}px`;
 						(document.querySelector(`#${this.maskBottomEltID}`) as HTMLElement).style.height = `${window.innerHeight - (event as MouseEvent).y - this.sizeGuide}px`;

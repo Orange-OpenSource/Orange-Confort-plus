@@ -2905,11 +2905,11 @@ class ReadingGuideService {
     guideType="";
     sizeGuide=40;
     handler;
-    verticalGuideID=`${PREFIX}vertical-guide-elt`;
+    horizontalGuideID=`${PREFIX}horizontal-guide-elt`;
     maskTopEltID=`${PREFIX}mask-guide__top-elt`;
     maskBottomEltID=`${PREFIX}mask-guide__bottom-elt`;
     closeTextID=`${PREFIX}mask-guide__close-text`;
-    classRuleGuide=`\n\t\t#${this.verticalGuideID} {\n\t\t\tborder-left: 4px solid black;\n\t\t\tbackground: white;\n\t\t\theight: 100%;\n\t\t\twidth: 6px;\n\t\t\tposition: fixed;\n\t\t\ttop: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
+    classRuleGuide=`\n\t\t#${this.horizontalGuideID} {\n\t\t\tborder-top: 4px solid black;\n\t\t\tborder-bottom: 4px solid white;\n\t\t\tbackground: black;\n\t\t\theight: 1px;\n\t\t\twidth: 100%;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     classMaskGuide=`\n\t\t#${this.maskTopEltID},\n\t\t#${this.maskBottomEltID} {\n\t\t\tbackground: rgba(0, 0, 0, 0.5) !important;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t\t#${this.maskTopEltID} {\n\t\t\ttop: 0;\n\t\t}\n\t\t#${this.maskBottomEltID} {\n\t\t\tbottom: 0;\n\t\t}\n\n\t\t#${this.closeTextID} {\n\t\t\tbackground: rgba(255, 255, 255, 0.4) !important;\n\t\t\tpadding: 0.25em 1em;\n\t\t\tposition: fixed;\n\t\t\tleft: 0;\n\t\t\tline-height: 2em;\n\t\t\ttransform: translate(0, -100%);\n\t\t\tz-index: calc(infinity);\n\t\t}\n\t`;
     classAlternatingLinesGuide=`\n\t${PAGE_P_MARKUP_SELECTOR} {\n\t\tbackground: repeating-linear-gradient(\n\t\t\tto bottom,\n\t\t\trgba(255, 255, 255, 0.4) 0 1lh,\n\t\t\trgba(0, 0, 0, 0.2) 1lh 2lh\n\t\t)\n\t}\n\t`;
     constructor() {
@@ -2956,7 +2956,7 @@ class ReadingGuideService {
         stylesServiceInstance.setStyle("reading-guide", styleGuide);
         if (this.guideType === "rule") {
             const readingElt = document.createElement("div");
-            readingElt.setAttribute("id", `${this.verticalGuideID}`);
+            readingElt.setAttribute("id", `${this.horizontalGuideID}`);
             document.body.insertBefore(readingElt, document.querySelector(APP_NAME));
         } else if (this.guideType === "mask") {
             const maskTopElt = document.createElement("div");
@@ -2976,7 +2976,7 @@ class ReadingGuideService {
     resetGuide=() => {
         this.guideType = "";
         stylesServiceInstance.removeStyle("reading-guide");
-        document.querySelector(`#${this.verticalGuideID}`)?.remove();
+        document.querySelector(`#${this.horizontalGuideID}`)?.remove();
         document.querySelector(`#${this.maskTopEltID}`)?.remove();
         document.querySelector(`#${this.maskBottomEltID}`)?.remove();
         document.querySelector(`#${this.closeTextID}`)?.remove();
@@ -3004,7 +3004,7 @@ class ReadingGuideService {
         switch (event.type) {
           case "mousemove":
             if (this.guideType === "rule") {
-                document.querySelector(`#${PREFIX}vertical-guide-elt`).style.left = `${event.x + 2}px`;
+                document.querySelector(`#${PREFIX}horizontal-guide-elt`).style.top = `${event.y + 2}px`;
             } else if (this.guideType === "mask") {
                 document.querySelector(`#${this.maskTopEltID}`).style.height = `${event.y - this.sizeGuide}px`;
                 document.querySelector(`#${this.maskBottomEltID}`).style.height = `${window.innerHeight - event.y - this.sizeGuide}px`;
