@@ -1,11 +1,21 @@
 abstract class BodySelectorService {
 	getBodyElements(): NodeListOf<Element> {
-		return document.body.querySelectorAll(`:not(script):not(${APP_NAME})`);
+		return document.body.querySelectorAll(`:not(${APP_NAME},${BODY_ELEMENTS_FILTER})`);
 	}
 
 	getTextNodes(element: Node): Node[] {
 		const textNodes: Node[] = [];
-		const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+		const walker = document.createTreeWalker(
+			element,
+			NodeFilter.SHOW_TEXT,
+			{
+				acceptNode: (node) => {
+					return (node.nodeValue.trim() !== '')
+						? NodeFilter.FILTER_ACCEPT
+						: NodeFilter.FILTER_REJECT;
+				},
+			}
+		);
 
 		while (walker.nextNode()) {
 			textNodes.push(walker.currentNode);

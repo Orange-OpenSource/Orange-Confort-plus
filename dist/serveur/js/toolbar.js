@@ -51,6 +51,8 @@ const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
+const BODY_ELEMENTS_FILTER = "script,style,link,meta";
+
 VERSION = "5.0.0-beta.2";
 
 "use strict";
@@ -695,11 +697,13 @@ class CapitalLettersService {
 
 class BodySelectorService {
     getBodyElements() {
-        return document.body.querySelectorAll(`:not(script):not(${APP_NAME})`);
+        return document.body.querySelectorAll(`:not(${APP_NAME},${BODY_ELEMENTS_FILTER})`);
     }
     getTextNodes(element) {
         const textNodes = [];
-        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
+            acceptNode: node => node.nodeValue.trim() !== "" ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+        });
         while (walker.nextNode()) {
             textNodes.push(walker.currentNode);
         }
@@ -2079,8 +2083,8 @@ class ReadAloudService extends BodySelectorService {
                 const text = node.nodeValue;
                 if (text && !this.isAlreadyEdited(node, this.readAloudSpan)) {
                     const parent = node.parentNode;
-                    const fragment = this.createFragmentForText(text, regex);
-                    if (parent) {
+                    if (parent && !BODY_ELEMENTS_FILTER.split(",").includes(parent.nodeName.toLowerCase())) {
+                        const fragment = this.createFragmentForText(text, regex);
                         parent.insertBefore(fragment, node);
                         parent.removeChild(node);
                     }
