@@ -805,7 +805,7 @@
 		"message": "Aller au contenu"
 	},
 	"setting_skipToContent_instruction": {
-		"message": "Permet d’aller directement sur les contenus d’un site sans passer par les menus."
+		"message": "Pour sauter directement au contenu sans passer par les menus."
 	},
 	"skipToContent_noModifications": {
 		"message": "sans modification"
