@@ -825,11 +825,47 @@
 	"setting_navigationButtons_instruction": {
 		"message": "Pour déplacer le focus avec la souris."
 	},
-	"navigationButtons_noModifications": {
-		"message": "sans boutons de navigation"
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
 	},
-	"navigationButtons_active": {
-		"message": "ajout des boutons de navigation"
+	"buttonSet_label": {
+		"message": "Sélection de boutons"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"navigationSet": {
+		"message": "Boutons de navigation"
+	},
+	"fullSet": {
+		"message": "Boutons de navigation et ascenseur"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Délai de pointage"
+	},
+	"clicAction": {
+		"message": "clic des bouton"
 	},
 	"setting_clickFacilite": {
 		"message": "Clics facilités"
