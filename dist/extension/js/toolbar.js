@@ -1003,7 +1003,7 @@ class CategoriesService {
                 }
             }
             this.settingAccordions.forEach(((accordion, index) => {
-                accordion.open = accordion.name === mainAccordion ? true : false;
+                accordion.open = accordion.name === mainAccordion;
             }));
             return this.settingAccordions;
         }));
@@ -4438,7 +4438,7 @@ class BtnSettingComponent extends HTMLElement {
             }
             const labelParts = content.split(",");
             const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
-            tooltipValue.innerHTML = labelParts ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
+            tooltipValue.innerHTML = labelParts && labelParts.length > 1 ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
             this.btnLabel.innerHTML = content;
         }
     };
@@ -4850,6 +4850,9 @@ class EditSettingComponent extends HTMLElement {
         this.settingIcon = this.querySelector("#edit-setting-icon");
         this.settingTitle = this.querySelector("#edit-setting-title");
         this.settingInstruction = this.querySelector("#edit-setting-instruction");
+    }
+    disconnectedCallback() {
+        localStorageServiceInstance.removeItem("current-setting");
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-setting" === name) {
@@ -5831,6 +5834,8 @@ class HomeComponent extends HTMLElement {
     changeModeBtn=null;
     settingsBtn=null;
     pauseBtn=null;
+    pauseLabel=null;
+    pauseInfo=null;
     modeName=null;
     modeIcon=null;
     currentMode=null;
@@ -5846,6 +5851,8 @@ class HomeComponent extends HTMLElement {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
         this.pauseBtn = this.querySelector("#pause-btn");
+        this.pauseLabel = this.querySelector("#pause-label");
+        this.pauseInfo = this.querySelector("#pause-info");
         this.modeName = this.querySelector("#mode-name");
         this.modeIcon = this.querySelector("app-icon");
         this.currentMode = this.querySelector("app-mode");
@@ -5854,6 +5861,7 @@ class HomeComponent extends HTMLElement {
         this.pauseBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
+        this.cleanupModeData();
         this.changeModeBtn?.removeEventListener("click", this.handler);
         this.settingsBtn?.removeEventListener("click", this.handler);
         this.pauseBtn?.removeEventListener("click", this.handler);
@@ -5891,6 +5899,7 @@ class HomeComponent extends HTMLElement {
         }
     };
     changeModeButtonEvent=() => {
+        this.cleanupModeData();
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
@@ -5917,18 +5926,24 @@ class HomeComponent extends HTMLElement {
             this.settingsBtn.disabled = true;
             this.changeModeBtn.disabled = true;
             this.pauseBtn.setAttribute("title", i18nServiceInstance.getMessage("play"));
-            this.pauseBtn.querySelector("#pause-label").innerText = i18nServiceInstance.getMessage("play");
-            this.querySelector("#pause-info").classList.remove("d-none");
+            this.pauseLabel.innerText = i18nServiceInstance.getMessage("play");
+            this.pauseInfo.classList.remove("d-none");
             this.currentMode.setAttribute("data-pause", "true");
         } else {
             pauseServiceInstance.playSettings();
             this.settingsBtn.disabled = false;
             this.changeModeBtn.disabled = false;
             this.pauseBtn.setAttribute("title", i18nServiceInstance.getMessage("pause"));
-            this.pauseBtn.querySelector("#pause-label").innerText = i18nServiceInstance.getMessage("pause");
-            this.querySelector("#pause-info").classList.add("d-none");
+            this.pauseLabel.innerText = i18nServiceInstance.getMessage("pause");
+            this.pauseInfo.classList.add("d-none");
             this.currentMode.setAttribute("data-pause", "false");
         }
+    };
+    cleanupModeData=() => {
+        this.modeName.innerText = "";
+        this.modeIcon?.removeAttribute("data-name");
+        this.currentMode.removeAttribute("data-settings");
+        this.currentModeSettings = null;
     };
 }
 
@@ -5938,7 +5953,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting"></app-font-family>\n\t<app-text-size class="sc-mode__setting"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting"></app-zoom>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting d-none"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting d-none"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting d-none"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting d-none"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5957,8 +5972,11 @@ class ModeComponent extends HTMLElement {
     connectedCallback() {
         this.modeContent = this.querySelector("#mode-content");
     }
+    disconnectedCallback() {
+        this.modeContent.innerHTML = "";
+    }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ("data-settings" === name) {
+        if ("data-settings" === name && newValue) {
             this.displaySettings(JSON.parse(newValue));
         }
         if ("data-pause" === name) {
@@ -5968,9 +5986,6 @@ class ModeComponent extends HTMLElement {
     displaySettings=settings => {
         let orderedElements = [];
         let othersElements = [];
-        this.querySelectorAll(".sc-mode__setting").forEach((element => {
-            element.classList.add("d-none");
-        }));
         settings.forEach((setting => {
             const settingObj = Object.values(setting)[0];
             let settingName = Object.keys(setting)[0];
@@ -6055,7 +6070,8 @@ class ModesComponent extends HTMLElement {
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
-                route: PAGE_HOME
+                route: PAGE_HOME,
+                mode: selectedModeName
             }
         });
         this.dispatchEvent(clickEvent);

@@ -36,6 +36,8 @@ class HomeComponent extends HTMLElement {
 	changeModeBtn: HTMLButtonElement | null = null;
 	settingsBtn: HTMLButtonElement | null = null;
 	pauseBtn: HTMLButtonElement | null = null;
+	pauseLabel: HTMLSpanElement | null = null;
+	pauseInfo: HTMLElement | null = null;
 	modeName: HTMLElement | null = null;
 	modeIcon: HTMLElement | null = null;
 	currentMode: HTMLElement | null = null;
@@ -54,6 +56,8 @@ class HomeComponent extends HTMLElement {
 		this.changeModeBtn = this.querySelector('#change-mode-btn');
 		this.settingsBtn = this.querySelector('#settings-btn');
 		this.pauseBtn = this.querySelector('#pause-btn');
+		this.pauseLabel = this.querySelector('#pause-label');
+		this.pauseInfo = this.querySelector('#pause-info');
 		this.modeName = this.querySelector('#mode-name');
 		this.modeIcon = this.querySelector('app-icon');
 		this.currentMode = this.querySelector('app-mode');
@@ -64,6 +68,7 @@ class HomeComponent extends HTMLElement {
 	}
 
 	disconnectedCallback(): void {
+		this.cleanupModeData();
 		this.changeModeBtn?.removeEventListener('click', this.handler);
 		this.settingsBtn?.removeEventListener('click', this.handler);
 		this.pauseBtn?.removeEventListener('click', this.handler);
@@ -106,6 +111,7 @@ class HomeComponent extends HTMLElement {
 	}
 
 	private changeModeButtonEvent = (): void => {
+		this.cleanupModeData();
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,
@@ -136,18 +142,25 @@ class HomeComponent extends HTMLElement {
 			this.settingsBtn.disabled = true;
 			this.changeModeBtn.disabled = true;
 			this.pauseBtn.setAttribute('title', i18nServiceInstance.getMessage('play'));
-			(this.pauseBtn.querySelector('#pause-label') as HTMLSpanElement).innerText = i18nServiceInstance.getMessage('play');
-			this.querySelector('#pause-info').classList.remove('d-none');
+			this.pauseLabel.innerText = i18nServiceInstance.getMessage('play');
+			this.pauseInfo.classList.remove('d-none');
 			this.currentMode.setAttribute('data-pause', 'true');
 		} else {
 			pauseServiceInstance.playSettings();
 			this.settingsBtn.disabled = false;
 			this.changeModeBtn.disabled = false;
 			this.pauseBtn.setAttribute('title', i18nServiceInstance.getMessage('pause'));
-			(this.pauseBtn.querySelector('#pause-label') as HTMLSpanElement).innerText = i18nServiceInstance.getMessage('pause');
-			this.querySelector('#pause-info').classList.add('d-none');
+			this.pauseLabel.innerText = i18nServiceInstance.getMessage('pause');
+			this.pauseInfo.classList.add('d-none');
 			this.currentMode.setAttribute('data-pause', 'false');
 		}
+	}
+
+	private cleanupModeData = (): void => {
+		this.modeName.innerText = '';
+		this.modeIcon?.removeAttribute('data-name');
+		this.currentMode.removeAttribute('data-settings');
+		this.currentModeSettings = null;
 	}
 }
 

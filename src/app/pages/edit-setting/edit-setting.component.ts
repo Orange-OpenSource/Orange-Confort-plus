@@ -56,6 +56,10 @@ class EditSettingComponent extends HTMLElement {
 		this.settingInstruction = this.querySelector('#edit-setting-instruction');
 	}
 
+	disconnectedCallback(): void {
+		localStorageServiceInstance.removeItem('current-setting');
+	}
+
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-setting' === name) {
 			this.settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
