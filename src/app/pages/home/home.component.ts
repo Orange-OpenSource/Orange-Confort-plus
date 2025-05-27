@@ -1,7 +1,7 @@
 const homeLayout: HTMLTemplateElement = document.createElement('template');
 homeLayout.innerHTML = `
 <section class="bg-dark p-3 d-flex align-items-center justify-content-between">
-	<button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">
+	<h2 class="fs-6 m-0"><button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">
 		<span class="visually-hidden" data-i18n="otherUsagesModes"></span>
 		<div class="sc-home__icon-mode bg-body rounded-circle text-body">
 			<app-icon data-size="2.5em"></app-icon>
@@ -10,7 +10,7 @@ homeLayout.innerHTML = `
 			<span class="text-white" data-i18n="profile"></span>
 			<span id="mode-name" class="fs-4 fw-bold text-primary"></span>
 		</div>
-	</button>
+	</button></h2>
 	<div class="d-grid gap-3 d-md-block">
 		<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">
 			<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>
