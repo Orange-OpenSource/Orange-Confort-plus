@@ -13,11 +13,11 @@ headerLayout.innerHTML = `
 				<span id="page-title"></span>
 			</span>
 
-			<span id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white">
+			<h1 id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white m-0">
 				<app-icon data-name="Accessibility"></app-icon>
 				<span data-i18n="mainTitle"></span>
 				<span class="text-primary">+</span>
-			</span>
+			</h1>
 		</div>
 		<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">
 				<span class="visually-hidden" data-i18n="close"></span>
