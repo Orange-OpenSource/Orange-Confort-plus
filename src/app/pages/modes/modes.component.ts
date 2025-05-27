@@ -70,7 +70,7 @@ class ModesComponent extends HTMLElement {
 
 	private selectModeFormEvent = (event: Event): void => {
 		event.preventDefault();
-		localStorageServiceInstance.setItem('current-category', null);
+		localStorageServiceInstance.removeItem('current-category');
 		modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
 		let clickEvent = new CustomEvent('changeRoute',
 			{
