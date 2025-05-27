@@ -58,7 +58,7 @@ class CategoriesService {
 			}
 
 			this.settingAccordions.forEach((accordion: AccordionState, index) => {
-				accordion.open = accordion.name === mainAccordion ? true : false;
+				accordion.open = accordion.name === mainAccordion;
 			});
 
 			return this.settingAccordions;
