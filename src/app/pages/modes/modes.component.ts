@@ -73,7 +73,8 @@ class ModesComponent extends HTMLElement {
 			{
 				bubbles: true,
 				detail: {
-					route: PAGE_HOME
+					route: PAGE_HOME,
+					mode: selectedModeName
 				}
 			});
 		this.dispatchEvent(clickEvent);

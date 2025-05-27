@@ -92,7 +92,6 @@ class ToolbarComponent extends HTMLElement {
 		let newRoute = (event as CustomEvent).detail.route;
 		this.header?.focus();
 
-		/* If mode is changed */
 		if ((event as CustomEvent).detail.mode) {
 			this.json.selectedMode = (event as CustomEvent).detail.mode;
 			(this.querySelector(`app-${PAGE_HOME}`) as HTMLElement)?.focus();
