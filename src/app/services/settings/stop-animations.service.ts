@@ -78,7 +78,7 @@ class StopAnimationsService {
 			img.style.opacity = 1;
 		});
 		document.querySelectorAll(`.${this.mediaClass}`).forEach((media: any) => {
-			media.classList.remove(this.mediaClass)
+			media.classList.remove(this.mediaClass);
 			media.play();
 		});
 	}
