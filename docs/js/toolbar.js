@@ -534,10 +534,6 @@ class PauseService {
             instanceService: textSpacingServiceInstance.setSpacingText.bind(this),
             value: DEFAULT_VALUE
         }, {
-            name: "textColor",
-            instanceService: textColorServiceInstance.setTextColor.bind(this),
-            value: DEFAULT_VALUE
-        }, {
             name: "zoom",
             instanceService: zoomServiceInstance.setZoom.bind(this),
             value: DEFAULT_VALUE
@@ -2073,9 +2069,6 @@ class ReadAloudService extends BodySelectorService {
             document.addEventListener("keydown", this.handler);
             document.addEventListener("contextmenu", this.handler);
         }
-        if (textColorServiceInstance.textColorIsActive) {
-            textColorServiceInstance.setTextColor("active");
-        }
     };
     setBodyToSpeech=regex => {
         const bodyChildren = this.getBodyElements();
@@ -2602,70 +2595,6 @@ class TextSpacingService {
 
 "use strict";
 
-let textColorServiceIsInstantiated;
-
-class TextColorService extends BodySelectorService {
-    groupsToColorize=[ "an", "ou", "us" ];
-    textColorIsActive=false;
-    constructor() {
-        super();
-        if (textColorServiceIsInstantiated) {
-            throw new Error("TextColorService is already instantiated.");
-        }
-        textColorServiceIsInstantiated = true;
-    }
-    setTextColor=value => {
-        this.textColorIsActive = false;
-        this.resetToDefaultBody([ TEXT_COLOR_SPAN_CLASS ]);
-        if (value !== DEFAULT_VALUE) {
-            this.colorizeTextNodesForTextColor();
-            this.textColorIsActive = true;
-        }
-    };
-    colorizeTextNodesForTextColor() {
-        const bodyChildren = this.getBodyElements();
-        bodyChildren.forEach((child => {
-            const textNodes = this.getTextNodes(child);
-            textNodes.forEach((node => {
-                const text = node.nodeValue;
-                if (text && !this.isAlreadyEdited(node, TEXT_COLOR_SPAN_CLASS)) {
-                    const parent = node.parentNode;
-                    const fragment = this.createFragmentForText(text);
-                    if (parent) {
-                        parent.insertBefore(fragment, node);
-                        parent.removeChild(node);
-                    }
-                }
-            }));
-        }));
-    }
-    createFragmentForText(text) {
-        const fragment = document.createDocumentFragment();
-        const regex = new RegExp(`(${this.groupsToColorize.join("|")})`, "g");
-        let lastIndex = 0;
-        let match;
-        while ((match = regex.exec(text)) !== null) {
-            const matchText = match[0];
-            const matchIndex = match.index;
-            if (matchIndex > lastIndex) {
-                fragment.appendChild(document.createTextNode(text.slice(lastIndex, matchIndex)));
-            }
-            const span = document.createElement("span");
-            span.classList.add(TEXT_COLOR_SPAN_CLASS);
-            span.style.color = "red";
-            span.textContent = matchText;
-            fragment.appendChild(span);
-            lastIndex = matchIndex + matchText.length;
-        }
-        if (lastIndex < text.length) {
-            fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
-        }
-        return fragment;
-    }
-}
-
-"use strict";
-
 let zoomServiceIsInstantiated;
 
 class ZoomService {
@@ -2877,10 +2806,6 @@ Object.seal(textSizeServiceInstance);
 const textSpacingServiceInstance = new TextSpacingService;
 
 Object.seal(textSpacingServiceInstance);
-
-const textColorServiceInstance = new TextColorService;
-
-Object.seal(textColorServiceInstance);
 
 const zoomServiceInstance = new ZoomService;
 
@@ -3499,26 +3424,6 @@ customElements.define("app-text-spacing", TextSpacingComponent);
 
 "use strict";
 
-const tmplTextColor = document.createElement("template");
-
-tmplTextColor.innerHTML = `\n<div class="d-flex align-items-center gap-2">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
-
-class TextColorComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,active",
-        valueSelected: 0
-    };
-    constructor() {
-        super();
-        this.setCallback(textColorServiceInstance.setTextColor.bind(this));
-        this.appendChild(tmplTextColor.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-text-color", TextColorComponent);
-
-"use strict";
-
 const tmplZoom = document.createElement("template");
 
 tmplZoom.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -3915,7 +3820,6 @@ class IconComponent extends HTMLElement {
         svg?.setAttribute("width", this.size);
         svg?.setAttribute("height", this.size);
         let use = this.querySelector("use");
-        console.log(`${this.sprite}#ic_${this.icon}`);
         use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
     }
     attributeChangedCallback(name, oldValue, newValue) {
@@ -5213,7 +5117,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-text-color class="sc-mode__setting d-none"></app-text-color>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting d-none"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting d-none"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting d-none"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting d-none"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting d-none"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting d-none"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5575,7 +5479,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-text-color class="c-category__setting" data-can-edit="true"></app-text-color>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
