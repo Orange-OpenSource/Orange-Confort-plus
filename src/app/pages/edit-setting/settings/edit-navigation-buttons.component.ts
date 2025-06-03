@@ -13,7 +13,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
 	settingValues: string[] = null;
 	buttonSetValue = '';
 	pointingDelayValue = '';
-	buttonSetValues = [`buttonSet_${DEFAULT_VALUE}`, 'buttonSet_navigationSet', 'buttonSet_fullSet'];
+	buttonSetValues = [`buttonSet_${DEFAULT_VALUE}`, 'buttonSet_scrollSet', 'buttonSet_navigationSet', 'buttonSet_fullSet'];
 	pointingDelayValues = [`pointingDelay_clicAction`, 'pointingDelay_delay1', 'pointingDelay_delay2', 'pointingDelay_delay3', 'pointingDelay_delay6'];
 
 	handler: any;
@@ -36,7 +36,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
 		this.selectButtonPresetElement.setAttribute('data-setting-values', this.buttonSetValues.join(','));
 		this.selectPointingDelayElement.setAttribute('data-setting-values', this.pointingDelayValues.join(','));
 
-		modeOfUseServiceInstance.getSetting('buttonSet').then((result: SettingModel) => {
+		modeOfUseServiceInstance.getSetting('navigationButtons').then((result: SettingModel) => {
 			this.settingValues = result.values?.split(',');
 			this.buttonSetValue = this.settingValues[result.valueSelected]?.split('_')[0];
 			this.pointingDelayValue = this.settingValues[result.valueSelected]?.split('_')[1];
@@ -49,9 +49,38 @@ class EditNavigationButtonsComponent extends HTMLElement {
 		});
 	}
 
+	setNavigationButtons = (): void => {
+		let value = `${this.buttonSetValue}_${this.pointingDelayValue}`;
+		let newSettingIndex = this.settingValues.indexOf(value);
+		if (newSettingIndex !== -1) {
+			modeOfUseServiceInstance.setSettingValue('navigationButtons', newSettingIndex, true);
+		} else {
+			modeOfUseServiceInstance.addSettingCustomValue('navigationButtons', 3, value);
+		}
+
+		navigationButtonsServiceInstance.setNavigationButtons(value);
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
-			// TODO: Implement the logic to handle the events
+			switch (event.type) {
+				case 'editSettingButtonSet':
+					if (event.detail.newValue === DEFAULT_VALUE) {
+						this.buttonSetValue = DEFAULT_VALUE;
+					} else {
+						this.buttonSetValue = event.detail.newValue.split('_')[1];
+					}
+					this.setNavigationButtons();
+					break;
+				case 'editSettingPointingDelay':
+					if (event.detail.newValue === DEFAULT_VALUE) {
+						this.pointingDelayValue = DEFAULT_VALUE;
+					} else {
+						this.pointingDelayValue = event.detail.newValue.split('_')[1];
+					}
+					this.setNavigationButtons();
+					break;
+			}
 		}
 	}
 }

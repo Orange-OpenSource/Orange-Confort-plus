@@ -1,5 +1,5 @@
 {
-	"version": "1.0.35",
+	"version": "1.0.351",
 	"modes": [
 		{
 			"facilePlus": [
@@ -140,35 +140,11 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction,fullSet_delay1",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 7
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{
@@ -328,35 +304,11 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 1
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 12
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{
@@ -516,16 +468,8 @@
 					}
 				},
 				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 1
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 12
@@ -540,24 +484,8 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 1,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -704,32 +632,8 @@
 					}
 				},
 				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -892,35 +796,11 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 2,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 10
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{
@@ -1080,35 +960,11 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 2,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 3
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 1
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{
@@ -1268,35 +1124,11 @@
 					}
 				},
 				{
-					"scrollType": {
-						"values": "noModifications,scrollOnClick,scrollOnMouseover",
-						"valueSelected": 2,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"skipToContent": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 3
-					}
-				},
-				{
 					"navigationButtons": {
-						"values": "noModifications,active",
+						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 1
-					}
-				},
-				{
-					"restartTopLeft": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
 					}
 				},
 				{
