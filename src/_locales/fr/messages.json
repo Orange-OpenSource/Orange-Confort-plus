@@ -265,6 +265,9 @@
 	"start": {
 		"message": "Début"
 	},
+	"content": {
+		"message": "Contenu"
+	},
 	"click": {
 		"message": "Clique"
 	},
@@ -823,7 +826,10 @@
 		"message": "Boutons de navigation"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Pour déplacer le focus avec la souris."
+		"message": "Pour faciliter la navigation dans la page"
+	},
+	"navigationButtons_noModifications": {
+		"message": "sans modification"
 	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
@@ -846,6 +852,9 @@
 				"content": "$2"
 			}
 		}
+	},
+	"scrollSet": {
+		"message": "Boutons d'ascenseur"
 	},
 	"navigationSet": {
 		"message": "Boutons de navigation"

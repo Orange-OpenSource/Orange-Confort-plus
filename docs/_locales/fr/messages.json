@@ -259,6 +259,15 @@
 	"shiftTab": {
 		"message": "Maj. + Tabulation"
 	},
+	"next": {
+		"message": "Suivant"
+	},
+	"start": {
+		"message": "Début"
+	},
+	"content": {
+		"message": "Contenu"
+	},
 	"click": {
 		"message": "Clique"
 	},
@@ -817,13 +826,55 @@
 		"message": "Boutons de navigation"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Pour déplacer le focus avec la souris."
+		"message": "Pour faciliter la navigation dans la page."
 	},
 	"navigationButtons_noModifications": {
-		"message": "sans boutons de navigation"
+		"message": "sans modification"
 	},
-	"navigationButtons_active": {
-		"message": "ajout des boutons de navigation"
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Sélection de boutons"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Boutons d'ascenseur"
+	},
+	"navigationSet": {
+		"message": "Boutons de navigation"
+	},
+	"fullSet": {
+		"message": "Boutons de navigation et ascenseur"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Délai de pointage"
+	},
+	"clicAction": {
+		"message": "clic des bouton"
 	},
 	"setting_clickFacilite": {
 		"message": "Clics facilités"
@@ -897,18 +948,6 @@
 				"content": "$2"
 			}
 		}
-	},
-	"setting_restartTopLeft": {
-		"message": "Début"
-	},
-	"setting_restartTopLeft_instruction": {
-		"message": "Pour repositionner le focus et la souris en haut à gauche de la page."
-	},
-	"restartTopLeft_noModifications": {
-		"message": "sans action"
-	},
-	"restartTopLeft_active": {
-		"message": "début"
 	},
 	"setting_zoom": {
 		"message": "Zoom"

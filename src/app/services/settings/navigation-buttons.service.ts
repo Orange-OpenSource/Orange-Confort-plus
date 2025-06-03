@@ -1,10 +1,12 @@
-let navigationButtonsServiceIsInstantiated: boolean;
+let navigationButtonsServiceIsInstantiated: boolean = false;
 
 class NavigationButtonsService {
 	currentFocusElt: any;
 	handlerNavigationButtons: any;
 	navigationButtonSet: string = DEFAULT_VALUE;
 	delay: number = 0;
+	hoverTimeoutIds: { [key: string]: number | null } = {};
+
 	constructor() {
 		if (navigationButtonsServiceIsInstantiated) {
 			throw new Error('NavigationButtonsService is already instantiated.');
@@ -15,25 +17,40 @@ class NavigationButtonsService {
 		this.handlerNavigationButtons = this.createHandlerNavigationButtons();
 	}
 
-	buttonsList: string[] = ['escape', 'start', 'previous', 'next', 'click'];
+	navigationButtonsList: string[] = ['escape', 'start', 'previous', 'next', 'click'];
+	fullButtonsList: string[] 			= ['escape', 'start', 'content', 'previous', 'next', 'click'];
+
+	currentList: string[] = this.navigationButtonsList;
 
 	setNavigationButtons = (value: string): void => {
-		// TODO : get params from value
 		this.navigationButtonSet = value.split("_")[0];
 		this.delay = parseInt(value.split('_')[1]?.replace(/\D/g, ''), 10) * 1000;
 
 		this.resetNavigationButtons();
 
-		// TODO : switchcase for buttonsList
 		switch (this.navigationButtonSet) {
+			case 'scrollSet':
+				this.currentList = [];
+				if (this.delay < 0) {
+					scrollTypeServiceInstance.setScrollType('scrollOnClick');
+				} else {
+					scrollTypeServiceInstance.setScrollType('scrollOnMouseover', this.delay);
+				}
+				break;
 			case 'navigationSet' :
+				this.currentList = this.navigationButtonsList;
 				this.getFocusedElement();
 				this.addNavigationButtons();
 				break;
-			case 'fullset':
+			case 'fullSet':
+				this.currentList = this.fullButtonsList;
 				this.getFocusedElement();
 				this.addNavigationButtons();
-				scrollTypeServiceInstance.setScrollType('scrollOnClick');
+				if (this.delay < 0) {
+					scrollTypeServiceInstance.setScrollType('scrollOnClick');
+				} else {
+					scrollTypeServiceInstance.setScrollType('scrollOnMouseover', this.delay);
+				}
 				break;
 			default:
 				break;
@@ -42,23 +59,48 @@ class NavigationButtonsService {
 
 	resetNavigationButtons = (): void => {
 		scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
-		this.buttonsList.forEach((navigationButton: string) => {
+		this.currentList.forEach((navigationButton: string) => {
 			domServiceInstance.removeButtonsInDom(navigationButton);
+			if (this.hoverTimeoutIds[navigationButton]) {
+				clearTimeout(this.hoverTimeoutIds[navigationButton]!);
+				this.hoverTimeoutIds[navigationButton] = null;
+			}
 		});
 		document.removeEventListener('click', this.handlerNavigationButtons);
 		document.removeEventListener('focusout', this.handlerNavigationButtons);
 	}
 
 	addNavigationButtons = (): void => {
-		this.buttonsList.forEach((navigationButton: string) => {
+		this.currentList.forEach((navigationButton: string) => {
 			domServiceInstance.addButtonsInDom(navigationButton);
 
 			let btnNav = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${navigationButton}`);
-			btnNav.addEventListener('mousedown', (event) => {
-				event.preventDefault();
-				event.stopPropagation();
-				this.simulateKeyEvent(navigationButton);
-			});
+			if (btnNav) {
+				btnNav.addEventListener('mousedown', (event) => {
+					event.preventDefault();
+					event.stopPropagation();
+					this.simulateKeyEvent(navigationButton);
+				});
+
+				if (this.delay > 0) {
+					btnNav.addEventListener('mouseenter', () => {
+						if (this.hoverTimeoutIds[navigationButton]) {
+							clearTimeout(this.hoverTimeoutIds[navigationButton]!);
+						}
+						this.hoverTimeoutIds[navigationButton] = window.setTimeout(() => {
+							this.simulateKeyEvent(navigationButton);
+							this.hoverTimeoutIds[navigationButton] = null;
+						}, this.delay);
+					});
+
+					btnNav.addEventListener('mouseleave', () => {
+						if (this.hoverTimeoutIds[navigationButton]) {
+							clearTimeout(this.hoverTimeoutIds[navigationButton]!);
+							this.hoverTimeoutIds[navigationButton] = null;
+						}
+					});
+				}
+			}
 		});
 	}
 
@@ -78,6 +120,9 @@ class NavigationButtonsService {
 				break;
 			case 'start':
 				restartTopLeftServiceInstance.setRestartTopLeft('');
+				break;
+			case 'content':
+				skipToContentServiceInstance.setSkipToContent('');
 				break;
 			default:
 				break;

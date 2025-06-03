@@ -7,7 +7,7 @@ tmplNavigationButtons.innerHTML = `
 `;
 
 class NavigationButtonsComponent extends AbstractSetting {
-	activesValues = { values: "noModifications,navigationSet_clicAction,fullset_clicAction", valueSelected: 0 };
+	activesValues = { values: "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction", valueSelected: 0 };
 
 	constructor() {
 		super();
