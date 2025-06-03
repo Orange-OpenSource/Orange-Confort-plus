@@ -10,12 +10,12 @@ class ModeOfUseService {
 		modeOfUseServiceIsInstantiated = true;
 	}
 
-	setSelectedMode = (newSelectedMode: string): void => {
+	setSelectedMode = (newSelectedModeName: string): void => {
 		localStorageServiceInstance.getItem(JSON_NAME).then((result: any) => {
 			let json = result;
 
 			/* Check if have to reset mode or not */
-			if (json.selectedMode !== undefined && json.selectedMode === newSelectedMode) {
+			if (json.selectedMode !== undefined && json.selectedMode === newSelectedModeName) {
 				filesServiceInstance.getJSONFile('modes-of-use').then((result: any) => {
 					const defaultJson = result;
 					let resetMode: any;
@@ -31,12 +31,14 @@ class ModeOfUseService {
 						}
 					});
 
-					json.selectedMode = newSelectedMode;
+					json.selectedMode = newSelectedModeName;
 					localStorageServiceInstance.setItem(JSON_NAME, json);
+					localStorageServiceInstance.setItem('selectedModeName', newSelectedModeName);
 				});
 			} else {
-				json.selectedMode = newSelectedMode;
+				json.selectedMode = newSelectedModeName;
 				localStorageServiceInstance.setItem(JSON_NAME, json);
+				localStorageServiceInstance.setItem('selectedModeName', newSelectedModeName);
 			}
 		});
 	}

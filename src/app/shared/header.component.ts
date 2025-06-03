@@ -27,7 +27,7 @@ headerLayout.innerHTML = `
 `;
 
 class HeaderComponent extends HTMLElement {
-	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-selected-mode', 'data-prev-btn'];
+	static observedAttributes = ['data-display', 'data-page-title', 'data-page-icon', 'data-prev-btn'];
 	closeBtn: HTMLElement | null = null;
 	prevBtn: HTMLElement | null = null;
 	appTitle: HTMLElement | null = null;
@@ -76,19 +76,20 @@ class HeaderComponent extends HTMLElement {
 		if ('data-page-icon' === name) {
 			newValue.length === 0 ? this.pageIcon.classList.add('d-none') : this.pageIcon?.setAttribute('data-name', newValue);
 		}
-		if ('data-selected-mode' === name) {
-			this.modeIcon?.setAttribute('data-name', `${newValue}_border`);
-		}
 		if ('data-prev-btn' === name && newValue) {
-			if(!this.hasAttribute('data-selected-mode')) {
-				this.prevBtn.classList.add('d-none');
-				this.pageBlockTitle.classList.remove('ms-2');
-			} else {
-				this.prevBtn!.title = i18nServiceInstance.getMessage(newValue);
-				this.prevBtn!.querySelector('span').innerText = i18nServiceInstance.getMessage(newValue);
-				this.prevBtn.classList.remove('d-none');
-				this.pageBlockTitle.classList.add('ms-2');
-			}
+			localStorageServiceInstance.getItem('selectedModeName')
+				.then((selectedMode: any) => {
+					if(!selectedMode) {
+						this.prevBtn.classList.add('d-none');
+						this.pageBlockTitle.classList.remove('ms-2');
+					} else {
+						this.prevBtn!.title = i18nServiceInstance.getMessage(newValue);
+						this.prevBtn!.querySelector('span').innerText = i18nServiceInstance.getMessage(newValue);
+						this.prevBtn.classList.remove('d-none');
+						this.pageBlockTitle.classList.add('ms-2');
+						this.modeIcon?.setAttribute('data-name', `${selectedMode}_border`);
+					}
+				});
 		}
 	}
 
