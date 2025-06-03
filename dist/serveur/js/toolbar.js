@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.3 - 27/05/2025
+ * orange-confort-plus - version 5.0.0-beta.3 - 03/06/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -331,10 +331,10 @@ class ModeOfUseService {
         }
         modeOfUseServiceIsInstantiated = true;
     }
-    setSelectedMode=newSelectedMode => {
+    setSelectedMode=newSelectedModeName => {
         localStorageServiceInstance.getItem(JSON_NAME).then((result => {
             let json = result;
-            if (json.selectedMode !== undefined && json.selectedMode === newSelectedMode) {
+            if (json.selectedMode !== undefined && json.selectedMode === newSelectedModeName) {
                 filesServiceInstance.getJSONFile("modes-of-use").then((result => {
                     const defaultJson = result;
                     let resetMode;
@@ -348,12 +348,14 @@ class ModeOfUseService {
                             json.modes[index] = resetMode;
                         }
                     }));
-                    json.selectedMode = newSelectedMode;
+                    json.selectedMode = newSelectedModeName;
                     localStorageServiceInstance.setItem(JSON_NAME, json);
+                    localStorageServiceInstance.setItem("selectedModeName", newSelectedModeName);
                 }));
             } else {
-                json.selectedMode = newSelectedMode;
+                json.selectedMode = newSelectedModeName;
                 localStorageServiceInstance.setItem(JSON_NAME, json);
+                localStorageServiceInstance.setItem("selectedModeName", newSelectedModeName);
             }
         }));
     };
@@ -3797,7 +3799,7 @@ const headerLayout = document.createElement("template");
 headerLayout.innerHTML = `\n\t<header class="d-flex justify-content-between bg-secondary px-3 py-2">\n\t\t<div class="d-flex align-items-center">\n\t\t\t<button id="prev-toolbar" type="button" class="btn btn-icon btn-inverse btn-secondary">\n\t\t\t\t<span class="visually-hidden"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t\t<app-icon id="mode-icon"></app-icon>\n\t\t\t</button>\n\n\t\t\t<span id="page-block-title" class="d-flex gap-1 align-items-center fs-6 fw-bold text-white ms-2">\n\t\t\t\t<app-icon id="page-icon" data-name="Settings"></app-icon>\n\t\t\t\t<span id="page-title"></span>\n\t\t\t</span>\n\n\t\t\t<h1 id="app-title" class="d-flex gap-1 align-items-center fs-3 fw-bold text-white m-0">\n\t\t\t\t<app-icon data-name="Accessibility"></app-icon>\n\t\t\t\t<span data-i18n="mainTitle"></span>\n\t\t\t\t<span class="text-primary">+</span>\n\t\t\t</h1>\n\t\t</div>\n\t\t<button id="close-toolbar" type="button" class="btn btn-icon btn-inverse btn-primary" data-i18n-title="close">\n\t\t\t\t<span class="visually-hidden" data-i18n="close"></span>\n\t\t\t\t<app-icon data-name="Reduire_C+"></app-icon>\n\t\t</button>\n\t</header>\n`;
 
 class HeaderComponent extends HTMLElement {
-    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-selected-mode", "data-prev-btn" ];
+    static observedAttributes=[ "data-display", "data-page-title", "data-page-icon", "data-prev-btn" ];
     closeBtn=null;
     prevBtn=null;
     appTitle=null;
@@ -3838,19 +3840,19 @@ class HeaderComponent extends HTMLElement {
         if ("data-page-icon" === name) {
             newValue.length === 0 ? this.pageIcon.classList.add("d-none") : this.pageIcon?.setAttribute("data-name", newValue);
         }
-        if ("data-selected-mode" === name) {
-            this.modeIcon?.setAttribute("data-name", `${newValue}_border`);
-        }
         if ("data-prev-btn" === name && newValue) {
-            if (!this.hasAttribute("data-selected-mode")) {
-                this.prevBtn.classList.add("d-none");
-                this.pageBlockTitle.classList.remove("ms-2");
-            } else {
-                this.prevBtn.title = i18nServiceInstance.getMessage(newValue);
-                this.prevBtn.querySelector("span").innerText = i18nServiceInstance.getMessage(newValue);
-                this.prevBtn.classList.remove("d-none");
-                this.pageBlockTitle.classList.add("ms-2");
-            }
+            localStorageServiceInstance.getItem("selectedModeName").then((selectedMode => {
+                if (!selectedMode) {
+                    this.prevBtn.classList.add("d-none");
+                    this.pageBlockTitle.classList.remove("ms-2");
+                } else {
+                    this.prevBtn.title = i18nServiceInstance.getMessage(newValue);
+                    this.prevBtn.querySelector("span").innerText = i18nServiceInstance.getMessage(newValue);
+                    this.prevBtn.classList.remove("d-none");
+                    this.pageBlockTitle.classList.add("ms-2");
+                    this.modeIcon?.setAttribute("data-name", `${selectedMode}_border`);
+                }
+            }));
         }
     }
     displayMode=mode => {
@@ -5297,7 +5299,6 @@ class ModesComponent extends HTMLElement {
         }));
         this.selectModeZone.innerHTML = radioModeList;
     };
-    getSelectedMode=() => this.querySelector("input:checked").value;
     createHandler=() => event => {
         switch (event.type) {
           case "submit":
@@ -5307,8 +5308,9 @@ class ModesComponent extends HTMLElement {
     };
     selectModeFormEvent=event => {
         event.preventDefault();
+        const selectedModeName = this.querySelector("input:checked").value;
+        modeOfUseServiceInstance.setSelectedMode(selectedModeName);
         localStorageServiceInstance.setItem("current-category", null);
-        modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
         let clickEvent = new CustomEvent("changeRoute", {
             bubbles: true,
             detail: {
@@ -5617,8 +5619,6 @@ class ToolbarComponent extends HTMLElement {
         }
     };
     setCurrentPage=page => {
-        const selectedMode = this.json.selectedMode ? this.json.selectedMode : DEFAULT_MODE;
-        this.header?.setAttribute("data-selected-mode", selectedMode);
         setTimeout((() => {
             let currentPage = this.querySelector(`app-${page}`);
             if (currentPage) {

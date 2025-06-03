@@ -54,10 +54,6 @@ class ModesComponent extends HTMLElement {
 		this.selectModeZone!.innerHTML = radioModeList;
 	}
 
-	getSelectedMode = (): string => {
-		return (this.querySelector('input:checked') as HTMLInputElement).value;
-	}
-
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
@@ -70,8 +66,9 @@ class ModesComponent extends HTMLElement {
 
 	private selectModeFormEvent = (event: Event): void => {
 		event.preventDefault();
+		const selectedModeName = (this.querySelector('input:checked') as HTMLInputElement).value;
+		modeOfUseServiceInstance.setSelectedMode(selectedModeName);
 		localStorageServiceInstance.setItem('current-category', null);
-		modeOfUseServiceInstance.setSelectedMode(this.getSelectedMode());
 		let clickEvent = new CustomEvent('changeRoute',
 			{
 				bubbles: true,
