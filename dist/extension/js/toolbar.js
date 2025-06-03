@@ -4646,21 +4646,22 @@ class IconComponent extends HTMLElement {
     size="1.5em";
     constructor() {
         super();
-        this.sprite = iconsServiceInstance.path;
-        this.icon = this.dataset?.name || this.icon;
-        this.size = this.dataset?.size || this.size;
         this.appendChild(iconLayout.content.cloneNode(true));
     }
     connectedCallback() {
+        this.sprite = iconsServiceInstance.path;
+        this.icon = this.dataset?.name || this.icon;
+        this.size = this.dataset?.size || this.size;
         let svg = this.querySelector("svg");
         svg?.setAttribute("width", this.size);
         svg?.setAttribute("height", this.size);
         let use = this.querySelector("use");
+        console.log(`${this.sprite}#ic_${this.icon}`);
         use?.setAttribute("href", `${this.sprite}#ic_${this.icon}`);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         let use = this.querySelector("use");
-        if ("data-name" === name) {
+        if ("data-name" === name && newValue) {
             use?.setAttribute("href", `${this.sprite}#ic_${newValue}`);
         }
     }

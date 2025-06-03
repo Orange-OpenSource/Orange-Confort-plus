@@ -10,15 +10,14 @@ class IconComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		this.sprite = iconsServiceInstance.path;
-
-		this.icon = this.dataset?.name || this.icon;
-		this.size = this.dataset?.size || this.size;
-
 		this.appendChild(iconLayout.content.cloneNode(true));
 	}
 
 	connectedCallback(): void {
+		this.sprite = iconsServiceInstance.path;
+		this.icon = this.dataset?.name || this.icon;
+		this.size = this.dataset?.size || this.size;
+
 		let svg = this.querySelector('svg');
 		svg?.setAttribute('width', this.size);
 		svg?.setAttribute('height', this.size);
@@ -29,7 +28,7 @@ class IconComponent extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		let use = this.querySelector('use');
-		if ('data-name' === name) {
+		if ('data-name' === name && newValue) {
 			use?.setAttribute('href', `${this.sprite}#ic_${newValue}`);
 		}
 	}
