@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.3 - 03/06/2025
+ * orange-confort-plus - version 5.0.0-beta.4 - 03/06/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -53,7 +53,7 @@ const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = "script,style,link,meta";
 
-VERSION = "5.0.0-beta.3";
+VERSION = "5.0.0-beta.4";
 
 "use strict";
 
