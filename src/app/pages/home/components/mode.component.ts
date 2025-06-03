@@ -9,7 +9,6 @@ tmplMode.innerHTML = `
 	<app-margin-align class="sc-mode__setting d-none"></app-margin-align>
 	<app-magnifier class="sc-mode__setting d-none"></app-magnifier>
 	<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>
-	<app-text-color class="sc-mode__setting d-none"></app-text-color>
 	<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>
 	<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>
 	<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>

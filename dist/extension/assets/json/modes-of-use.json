@@ -1,5 +1,5 @@
 {
-	"version": "1.0.34",
+	"version": "1.0.35",
 	"modes": [
 		{
 			"facilePlus": [
@@ -600,14 +600,6 @@
 					}
 				},
 				{
-					"textColor": {
-						"values": "noModifications,active",
-						"valueSelected": 1,
-						"isTool": true,
-						"order": 2
-					}
-				},
-				{
 					"readingGuide": {
 						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
@@ -793,14 +785,6 @@
 						"valueSelected": 2,
 						"isTool": true,
 						"order": 8
-					}
-				},
-				{
-					"textColor": {
-						"values": "noModifications,active",
-						"valueSelected": 1,
-						"isTool": true,
-						"order": 2
 					}
 				},
 				{
@@ -992,14 +976,6 @@
 					}
 				},
 				{
-					"textColor": {
-						"values": "noModifications,active",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"readingGuide": {
 						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
@@ -1182,14 +1158,6 @@
 				{
 					"textSpacing": {
 						"values": "noModifications,spacingTextSmall,spacingTextBig",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
-					"textColor": {
-						"values": "noModifications,active",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null

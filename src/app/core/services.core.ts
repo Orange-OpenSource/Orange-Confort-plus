@@ -72,8 +72,6 @@ const textSizeServiceInstance = new TextSizeService();
 Object.seal(textSizeServiceInstance);
 const textSpacingServiceInstance = new TextSpacingService();
 Object.seal(textSpacingServiceInstance);
-const textColorServiceInstance = new TextColorService();
-Object.seal(textColorServiceInstance);
 const zoomServiceInstance = new ZoomService();
 Object.seal(zoomServiceInstance);
 const pauseServiceInstance = new PauseService();

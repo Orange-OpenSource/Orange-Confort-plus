@@ -65,10 +65,6 @@ class ReadAloudService extends BodySelectorService {
 			document.addEventListener('keydown', this.handler);
 			document.addEventListener('contextmenu', this.handler);
 		}
-
-		if (textColorServiceInstance.textColorIsActive) {
-			textColorServiceInstance.setTextColor('active');
-		}
 	}
 
 	setBodyToSpeech = (regex: RegExp): void => {

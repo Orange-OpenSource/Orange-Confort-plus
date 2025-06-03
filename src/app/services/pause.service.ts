@@ -38,7 +38,6 @@ class PauseService {
 			{ name: 'stopAnimations', instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(this), value: DEFAULT_VALUE },
 			{ name: 'textSize', instanceService: textSizeServiceInstance.setFontSize.bind(this), value: DEFAULT_VALUE },
 			{ name: 'textSpacing', instanceService: textSpacingServiceInstance.setSpacingText.bind(this), value: DEFAULT_VALUE },
-			{ name: 'textColor', instanceService: textColorServiceInstance.setTextColor.bind(this), value: DEFAULT_VALUE },
 			{ name: 'zoom', instanceService: zoomServiceInstance.setZoom.bind(this), value: DEFAULT_VALUE }
 		];
 	}
