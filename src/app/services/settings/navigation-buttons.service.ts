@@ -14,7 +14,7 @@ class NavigationButtonsService {
 		this.handlerNavigationButtons = this.createHandlerNavigationButtons();
 	}
 
-	buttonsList: string[] = ['tab', 'shiftTab', 'click', 'escape'];
+	buttonsList: string[] = ['escape', 'start', 'previous', 'next', 'click'];
 
 	setNavigationButtons = (value: string): void => {
 		this.resetNavigationButtons();
@@ -47,10 +47,10 @@ class NavigationButtonsService {
 
 	simulateKeyEvent = (name: string): void => {
 		switch (name) {
-			case 'tab':
+			case 'next':
 				this.focusElement('next');
 				break;
-			case 'shiftTab':
+			case 'previous':
 				this.focusElement('previous');
 				break;
 			case 'click':
@@ -58,6 +58,9 @@ class NavigationButtonsService {
 				break;
 			case 'escape':
 				this.simulateKeydownEscape();
+				break;
+			case 'start':
+				restartTopLeftServiceInstance.setRestartTopLeft('');
 				break;
 			default:
 				break;
