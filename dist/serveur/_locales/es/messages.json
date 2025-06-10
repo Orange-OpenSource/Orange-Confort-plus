@@ -20,7 +20,7 @@
 		"message": "Modo de uso"
 	},
 	"otherUsagesModes": {
-		"message": "Acceso a las modalidades de uso y su descripción"
+		"message": "Acceso a los modos de uso y su descripción"
 	},
 	"openSettingsMode": {
 		"message": "Abrir la configuración del modo"
@@ -47,7 +47,7 @@
 		"message": "Otros modos de uso"
 	},
 	"chooseModeAndValidate": {
-		"message": "Elegir un modo de uso y validar:"
+		"message": "Elija un modo de uso y valide:"
 	},
 	"validateThisMode": {
 		"message": "Validar este modo"
@@ -62,7 +62,7 @@
 		"message": "Activado"
 	},
 	"previous": {
-		"message": "Precedente"
+		"message": "Página anterior"
 	},
 	"backToSettings": {
 		"message": "Volver a los ajustes. (sus elecciones ya han sido guardadas)"
@@ -98,10 +98,10 @@
 		"message": "Navegación"
 	},
 	"firstLetter": {
-		"message": "Letra inicial"
+		"message": "Primera letra"
 	},
 	"lowercase": {
-		"message": "Minúsculo"
+		"message": "Minúscula"
 	},
 	"uppercase": {
 		"message": "Mayúscula"
@@ -113,61 +113,61 @@
 		"message": "Visión+"
 	},
 	"visionPlusDescription": {
-		"message": "Modo de uso destinado a personas con limitaciones visuales (color, legibilidad). Los colores del texto y de la página son muy contrastantes, el ratón y el foco están bien visibles, una lupa y una regla de lectura están disponibles."
+		"message": "Modo de uso destinado a las personas con limitaciones visuales (color, legibilidad). Los colores del texto y de la página son muy contrastantes, el ratón y el foco son más visibles, una lupa y una regla de lectura son disponibles."
 	},
 	"visionPlusPlusName": {
 		"message": "Visión++"
 	},
 	"visionPlusPlusDescription": {
-		"message": "Modo de uso para personas con limitaciones visuales graves. Los colores del texto y de la página se modifican, los elementos (foco, ratón, texto, elevador) son mucho más grandes, una fuente optimizada, una lupa 5 y una regla de lectura están disponibles."
+		"message": "Modo de uso para las personas con limitaciones visuales graves. Los colores del texto y de la página son modificadas, los elementos (foco, ratón, texto, elevador) son mucho más grandes, un tipo de letra optimizado, una lupa 5 y una regla de lectura son disponibles."
 	},
 	"facilePlusName": {
 		"message": "Fácil+"
 	},
 	"facilePlusDescription": {
-		"message": "Modo de uso destinado a las personas poco acostumbradas a internet. El texto, los botones, los enlaces, el ratón y el foco son bien visibles y un poco más grandes, los contrastes se ajustan y una lupa está disponible."
+		"message": "Modo de uso destinado a las personas poco acostumbradas a internet. El texto, los botones, los enlaces, el ratón y el foco son más visibles y un poco más grandes, los contrastes se ajustan y una lupa es disponible."
 	},
 	"lecturePlusName": {
 		"message": "Lectura+"
 	},
 	"lecturePlusDescription": {
-		"message": "Modo de uso destinado a personas con limitaciones de lectura o escritura. Una fuente optimizada para la dislexia, textos aireados y alineados a la izquierda, una regla de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto."
+		"message": "Modo de uso destinado a personas con limitaciones de lectura o escritura. Un tipo de letra optimizado para la dislexia, textos aireados y alineados a la izquierda, una regla de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto."
 	},
 	"lecturePlusPlusName": {
 		"message": "Lectura++"
 	},
 	"lecturePlusPlusDescription": {
-		"message": "Modo de uso destinado a personas con limitaciones de lectura y/o manipulación. Una fuente optimizada para la dislexia, textos claramente legibles, reglas de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto, así como ayudas al apuntado."
+		"message": "Modo de uso destinado a personas con limitaciones de lectura y/o manipulación. Un tipo de letra optimizado para la dislexia, textos claramente legibles, reglas de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto, así como ayudas al apuntado."
 	},
 	"moteurPlusName": {
 		"message": "Motor+"
 	},
 	"moteurPlusDescription": {
-		"message": "Modo de uso para personas con discapacidades motoras. Navegación más fácil con el teclado, un foco muy visible y una paleta de botones virtuales."
+		"message": "Modo de uso para las personas con discapacidades motoras. Navegación más fácil con el teclado, un foco muy visible y una paleta de botones virtuales."
 	},
 	"moteurPlusPlusName": {
 		"message": "Motor++"
 	},
 	"moteurPlusPlusDescription": {
-		"message": "Modo de uso diseñado para personas que utilizan un solo interruptor. Desplazamiento automático del foco en la página web, con velocidad y retardo ajustables."
+		"message": "Modo de uso diseñado para las personas que utilizan un interruptor único. Desplazamiento automático del foco en la página web, con velocidad y retardo ajustables."
 	},
 	"pointagePlusName": {
 		"message": "Apuntar+"
 	},
 	"pointagePlusDescription": {
-		"message": "Modo de uso para personas con dificultades para apuntar con el ratón. Un ratón muy visible y grande, áreas de clic agrandadas, y la posibilidad de hacer clic flotando sin esfuerzo, con grandes barras de desplazamiento de botones."
+		"message": "Modo de uso para las personas que tienen dificultades para utilizar el ratón. Un ratón muy visible y más grande, áreas de clic agrandadas, y la posibilidad de hacer clic flotando sin esfuerzo, con grandes barras de desplazamiento de botones."
 	},
 	"langueDesSignesName": {
-		"message": "Lenguaje de señas"
+		"message": "Lengua de signos"
 	},
 	"langueDesSignesDescription": {
-		"message": "Modo de uso para las personas que se comunican principalmente en lenguaje de señas. Miniaturas señas sobre palabras complejas, un enlace al diccionario Signs@Work y una interfaz con videosignos."
+		"message": "Modo de uso para las personas que comunican principalmente con la lengua de signos. Dibujos de signos para algunas palabras complejas, un enlace al diccionario Signs@Work y una interfaz con videosignos."
 	},
 	"audioPlusName": {
 		"message": "Audio+"
 	},
 	"audioPlusDescription": {
-		"message": "Modo de uso para personas con dificultades auditivas. Equivalencias visuales a las señales sonoras, subtitulación sistemática."
+		"message": "Modo de uso para las personas con dificultades auditivas. Equivalencias visuales a las señales sonoras, subtitulación sistemática."
 	},
 	"calmePlusName": {
 		"message": "Sereno+"
@@ -239,19 +239,19 @@
 		"message": "negrita"
 	},
 	"underline": {
-		"message": "subrayado"
+		"message": "resaltados"
 	},
 	"boxed": {
-		"message": "recuadro"
+		"message": "recuadros"
 	},
 	"prevValue": {
-		"message": "Valor previo"
+		"message": "Valor anterior"
 	},
 	"nextValue": {
 		"message": "Valor siguiente"
 	},
 	"textContentImageHidden": {
-		"message": "Texto de la imagen oculto:"
+		"message": "Texto de la imagen ocultado:"
 	},
 	"tab": {
 		"message": "Tabulación"
@@ -263,7 +263,7 @@
 		"message": "Clic"
 	},
 	"escape": {
-		"message": "Escapar"
+		"message": "Tecla Esc."
 	},
 	"word": {
 		"message": "Leer la palabra"
@@ -321,11 +321,11 @@
 		"description": "Configuración inactiva."
 	},
 	"multiclicToggleOn": {
-		"message": "Activado. Desactivar.",
+		"message": "Activo. Desactivar.",
 		"description": "Configuración activa."
 	},
 	"setting_fontFamily": {
-		"message": "Fuente del texto"
+		"message": "Tipo de letra"
 	},
 	"setting_fontFamily_instruction": {
 		"message": "Para cambiar la apariencia del texto"
@@ -385,7 +385,7 @@
 		"message": "máximo, 500%"
 	},
 	"setting_capitalLetters": {
-		"message": "Letras capitales"
+		"message": "Mayúsculas"
 	},
 	"setting_capitalLetters_instruction": {
 		"message": "Utilizar letras mayúsculas"
@@ -397,16 +397,16 @@
 		"message": "TODO EN MAYÚSCULAS"
 	},
 	"capitalLetters_capitalize": {
-		"message": "Capitalizar Las Primeras Letras"
+		"message": "Primeras Letras en Mayúsculas"
 	},
 	"setting_textSpacing": {
-		"message": "Airear el texto"
+		"message": "Aumentar el espaciado del texto"
 	},
 	"setting_textSpacing_instruction": {
 		"message": "Para aumentar el espaciado de caracteres y líneas"
 	},
 	"textSpacing_noModifications": {
-		"message": "sin airear el texto"
+		"message": "sin aumentar el espaciado del texto"
 	},
 	"textSpacing_spacingTextSmall": {
 		"message": "ligeramente espaciado"
@@ -421,13 +421,13 @@
 		"message": "Colorear el texto"
 	},
 	"setting_textColor_instruction": {
-		"message": "Para distinguir entre los sonidos a pronunciar"
+		"message": "Para distinguir claramente los sonidos a pronunciar"
 	},
 	"textColor_noModifications": {
 		"message": "sin colorear"
 	},
 	"textColor_active": {
-		"message": "trampas de sonidos que son coloridos"
+		"message": "trampas de sonidos coloridas"
 	},
 	"setting_readingGuide": {
 		"message": "Regla de apoyo a la lectura"
@@ -436,7 +436,7 @@
 		"message": "Para seguir la línea de lectura"
 	},
 	"readingGuide_noModifications": {
-		"message": "no hay guía de lectura"
+		"message": "sin guía de lectura"
 	},
 	"readingGuide_ruleGuide": {
 		"message": "regla"
@@ -451,7 +451,7 @@
 		"message": "Pulse Esc. para cerrar la máscara de lectura"
 	},
 	"setting_marginAlign": {
-		"message": "Márgenes y marcas"
+		"message": "Margen y marcas"
 	},
 	"setting_marginAlign_instruction": {
 		"message": "Para anclar la lectura a la izquierda"
@@ -463,10 +463,10 @@
 		"message": "texto alineado a la izquierda"
 	},
 	"marginAlign_marginLeft": {
-		"message": "margen izquierdo (y texto alineado a la izquierda)"
+		"message": "margen a la izquierda (y texto alineado a la izquierda)"
 	},
 	"marginAlign_marginList": {
-		"message": "margen izquierdo y listas numeradas (y texto alineado a la izquierda)"
+		"message": "margen a la izquierda y listas numeradas (y texto alineado a la izquierda)"
 	},
 	"setting_magnifier": {
 		"message": "Lupa"
@@ -475,7 +475,7 @@
 		"message": "Para hacer zoom temporalmente"
 	},
 	"magnifier_noModifications": {
-		"message": "no lupa"
+		"message": "sin lupa"
 	},
 	"magnifier_zoom2": {
 		"message": "×2"
@@ -493,7 +493,7 @@
 		"message": "Leer en voz alta"
 	},
 	"setting_readAloud_instruction": {
-		"message": "Para leer el texto"
+		"message": "El texto puede leerse previa solicitud"
 	},
 	"readAloud_tooltip": {
 		"message": "Haga clic para vocalizar, pulse Esc. o haga clic derecho para detener"
@@ -502,22 +502,22 @@
 		"message": "sin vocalización"
 	},
 	"readAloud_word": {
-		"message": "vocalizar la palabra señalada"
+		"message": "vocalizar la palabra punteada"
 	},
 	"readAloud_sentence": {
-		"message": "vocalizar la frase apuntada"
+		"message": "vocalizar la frase punteada"
 	},
 	"readAloud_paragraph": {
-		"message": "vocalize pointed paragraph"
+		"message": "vocalizar el párrafo punteado"
 	},
 	"readAloud_all": {
 		"message": "vocalizar todo"
 	},
 	"setting_cursorAspect": {
-		"message": "Apariencia de ratón"
+		"message": "Aspecto del cursor"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Para cambiar la apariencia del ratón"
+		"message": "Para cambiar la apariencia del cursor"
 	},
 	"cursorAspect_empty_example": {
 		"message": "Cursor predeterminado"
@@ -616,7 +616,7 @@
 		"message": "sin modificación"
 	},
 	"colorContrast_reinforcedContrasts": {
-		"message": "contrastes reforzados"
+		"message": "contrastes mejorados"
 	},
 	"colorContrast_values": {
 		"message": "$COLOR$ on $BACKGROUND$",
@@ -633,7 +633,7 @@
 		"message": "daltonismo"
 	},
 	"setting_linkStyle": {
-		"message": "Colores de los hipervínculos"
+		"message": "Colores de los enlaces"
 	},
 	"setting_linkStyle_instruction": {
 		"message": "Para cambiar los colores de los enlaces de navegación"
@@ -680,19 +680,19 @@
 		}
 	},
 	"linkColor_label": {
-		"message": "Vínculos"
+		"message": "Enlaces"
 	},
 	"linkPointedColor_label": {
-		"message": "Vínculos señalados"
+		"message": "Enlaces apunteados"
 	},
 	"linkVisitedColor_label": {
-		"message": "Vínculos visitados"
+		"message": "Enlaces visitados"
 	},
 	"setting_clearlyLinks": {
-		"message": "Vínculos prominente"
+		"message": "Enlaces claramente visibles"
 	},
 	"setting_clearlyLinks_instruction": {
-		"message": "Para hacer los vínculos de navegación más visibles"
+		"message": "Para que los enlaces sean más visibles"
 	},
 	"clearlyLinks_noModifications": {
 		"message": "sin modificación"
@@ -727,10 +727,10 @@
 		"message": "Para evitar que aparezcan imágenes de fondo"
 	},
 	"deleteBackgroundImages_noModifications": {
-		"message": "sin modificacións"
+		"message": "sin modificación"
 	},
 	"deleteBackgroundImages_backgroundTransparent": {
-		"message": "eliminar los efectos de fondo y transparencia"
+		"message": "eliminar las imágenes de fondo y transparencia"
 	},
 	"deleteBackgroundImages_backgroundForegroundTransparent": {
 		"message": "eliminar imágenes de fondo, efectos de transparencia e imágenes de primer plano"
@@ -826,7 +826,7 @@
 		"message": "sin botón de navegación"
 	},
 	"navigationButtons_active": {
-		"message": "adición de los botones de navegación"
+		"message": "Añadir botones de navegación"
 	},
 	"setting_clickFacilite": {
 		"message": "Clics fáciles"
@@ -838,7 +838,7 @@
 		"message": "sin modificación"
 	},
 	"clickFacilite_bigZone": {
-		"message": "áreas de clic grandes y clics estándar"
+		"message": "áreas de clic grandes y clic estándar"
 	},
 	"clickFacilite_values": {
 		"message": "$TYPE$ ($DELAY$)",
@@ -880,12 +880,12 @@
 		"message": "desplazamiento automático del foco ($DELAY$)",
 		"placeholders": {
 			"delay": {
-				"content": "$1"
+				"content": "$2"
 			}
 		}
 	},
 	"navigationAuto_label": {
-		"message": "Habilitar la navegación por desplazamiento automático"
+		"message": "Activar la navegación por desplazamiento automático"
 	},
 	"navigationAuto_inactive": {
 		"message": "Desactivar"
@@ -914,10 +914,10 @@
 		"message": "inicio"
 	},
 	"setting_zoom": {
-		"message": "Acercar"
+		"message": "Ampliar"
 	},
 	"setting_zoom_instruction": {
-		"message": "Para acercar la página"
+		"message": "Para apmliar la página"
 	},
 	"zoom_noModifications": {
 		"message": "sin modificación"
