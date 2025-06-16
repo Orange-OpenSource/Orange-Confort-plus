@@ -9,9 +9,7 @@
 	<link rel="stylesheet" href="css/orange-accessibledfa.min.css">
 	<link rel="stylesheet" href="css/boosted.min.css">
 
-	<!-- @fixme Mettre à jour avec les trads -->
 	<link rel="alternate" hreflang="en" href="index_en.html">
-	<link rel="alternate" hreflang="es" href="index_es.html">
 	<link rel="alternate" hreflang="pl" href="index_pl.html">
 </head>
 
@@ -21,10 +19,8 @@
 	<nav class="navbar supra navbar-expand-lg navbar-dark bg-dark" aria-label="Langues alternatives" role="navigation">
 		<div class="container">
 			<ul class="navbar-nav ms-auto me-5">
-				<!-- @fixme Mettre à jour avec les trads -->
 				<li class="nav-item"><a href="index.html" class="nav-link active" aria-current="page">Français</a></li>
 				<li class="nav-item"><a href="index_en.html" class="nav-link" lang="en" hreflang="en">English</a></li>
-				<li class="nav-item"><a href="index_es.html" class="nav-link" lang="es" hreflang="es">Español</a></li>
 				<li class="nav-item me-5"><a href="index_pl.html" class="nav-link" lang="pl" hreflang="pl">Polski</a></li>
 			</ul>
 		</div>
@@ -38,39 +34,18 @@
 
 			<ul class="navbar-nav flex-row me-5 ms-auto">
 				<li class="nav-item">
-					<a class="nav-link nav-icon gap-2" href="https://addons.mozilla.org/fr/firefox/addon/orange-confort/"
-						 target="_blank" rel="noopener">
+					<a class="nav-link nav-icon gap-2" href="index.html/#downloads">
 						<svg aria-hidden="true" width="30" height="30">
-							<use xlink:href="assets/img/logos.svg#firefox"></use>
+							<use xlink:href="assets/img/icons.svg#download"></use>
 						</svg>
-						<span>Extension Firefox</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link nav-icon gap-2"
-						 href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=fr"
-						 target="_blank" rel="noopener">
-						<svg aria-hidden="true" width="30" height="31">
-							<use xlink:href="assets/img/logos.svg#chrome"></use>
-						</svg>
-						<span>Extension Chrome</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link nav-icon gap-2"
-						 href="https://microsoftedge.microsoft.com/addons/detail/orange-confort/innlajggdjejhpeopnbhegahnkcpameb"
-						 target="_blank" rel="noopener">
-						<svg aria-hidden="true" width="30" height="30">
-							<use xlink:href="assets/img/logos.svg#edge"></use>
-						</svg>
-						<span>Extension Edge</span>
+						<span>Téléchargement Confort+</span>
 					</a>
 				</li>
 				<li class="nav-item me-5">
 					<a class="nav-link nav-icon gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/"
 						 hreflang="en" target="_blank" rel="noopener">
 						<svg aria-hidden="true" width="30" height="30">
-							<use xlink:href="assets/img/logos.svg#github"></use>
+							<use xlink:href="assets/img/icons.svg#github"></use>
 						</svg>
 						<span class="visually-hidden">Orange Confort<span class="text-primary fw-bold">+</span> sur </span>
 						<span>GitHub</span>
@@ -86,18 +61,22 @@
 			<h1 class="display-2">Mentions légales</h1>
 		</div>
 		<div class="col-md-8 offset-md-2 lead">
-			<p>
-				Confort<span class="text-primary fw-bold">+</span> repose sur d’autres œuvres <em lang="en">open-source</em>.
-			</p>
+			<ul>
+				<li>
+					Confort<span class="text-primary fw-bold">+</span> repose sur d’autres œuvres <em lang="en">open-source</em>,
+					des <a href="#typographies">polices d’écriture</a> et
+					des <a href="#pictogrammes">pictogrammes</a>.
+				</li>
+				<li><a href="#confidentialites">Confidentialité de vos données personnelles</a>.</li>
+			</ul>
 		</div>
 	</div>
 
-	<div class="row my-5">
+	<div class="row my-5" id="typographies">
 		<div class="col-md-10 offset-md-1">
-			<h2 class="display-3 mt-4">Crédits</h2>
+			<h2 class="display-3 mt-4">Crédits des polices d’écriture</h2>
 		</div>
 		<div class="col-md-8 offset-md-2 lead">
-			<h3 class="mt-3">Typographies</h3>
 			<ul>
 				<li>
 					<a hreflang="en" href="https://github.com/Orange-OpenSource/font-accessible-dfa/" class="fw-bold">Accessible-DfA</a>&nbsp;:
@@ -131,44 +110,88 @@
 			</ul>
 		</div>
 	</div>
+
+	<div class="row my-5" id="pictogrammes">
+		<div class="col-md-10 offset-md-1">
+			<h2 class="display-3 mt-4">Crédits des pictogrammes</h2>
+		</div>
+		<div class="col-md-8 offset-md-2 lead">
+			<ul>
+				<li>
+					Les <a href="https://github.com/Orange-OpenSource/Accessibility-icons"
+								 hreflang="en" target="_blank" rel="noopener">icônes accessibilité</a>
+					des modes d’usages proposés par Confort<span class="text-primary">+</span>
+					sont déclarés dans la norme <a href="https://www.iso.org/fr/standard/78028.html">ISO 11581-7:2024</a>
+					et sont distribués sous licence <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode.fr">Creative Commons CC0-1.0</a>.
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row my-5" id="confidentialites">
+		<div class="col-md-10 offset-md-1">
+			<h2 class="display-3 mt-4">Confidentialité de vos données personnelles sur Orange Confort<span class="text-primary">+</span></h2>
+		</div>
+		<div class="col-md-8 offset-md-2 lead">
+			<p>
+				Cette page a pour objet de vous informer sur la collecte de vos données personnelles
+				par Orange Confort<span class="text-primary">+</span> et sur les façons dont elles
+				sont utilisées par l’extension.
+			</p>
+			<p class="fw-bold">
+				L'extension Orange Confort<span class="text-primary">+</span> ne collecte aucune
+				donnée à caractère personnel.
+			</p>
+			<p>
+				Les données de l’Utilisateur restent dans son Terminal. Pour que l’extension
+				fonctionne correctement, elle doit conserver localement, sur le PC de l’utilisateur,
+				les données suivantes&nbsp;:
+			</p>
+			<ul>
+				<li>Le mode d’usage sélectionné par l’utilisateur.</li>
+				<li>
+					Les préférences de réglage de l’utilisateur&nbsp;: réglages de rendus visuels de
+					l’interface (couleurs du texte, taille du texte, couleur de pointeur…), réglages
+					de rendus audios de l’interface (type de vocalisation) et réglages des commandes
+					(ascenseur, boutons de raccourcis…).
+				</li>
+			</ul>
+			<p class="fw-bold">
+				Ces données ne sont pas collectées par Orange Innovation Produits & Services.
+			</p>
+		</div>
+	</div>
+	<div class="row my-5">
+		<div class="col-md-10 offset-md-1">
+			<h2 class="display-3 mt-4">Fournisseur du service open-source Orange Confort<span class="text-primary">+</span></h2>
+		</div>
+		<div class="col-md-8 offset-md-2 lead">
+			<p>
+				Ce Service est fourni par la société&nbsp;: Orange, Société Anonyme au capital
+				de 10 640 226 396 Euros, immatriculée au Registre du Commerce et des Sociétés de Nanterre
+				sous le numéro RCS Nanterre B 380 129 866 dont le siège social est situé
+				<address class="d-inline fw-bold">111 quai du Président Roosevelt, 92130 Issy-les-Moulineaux</address>,
+				domiciliée aux fins des présentes à <address class="d-inline fw-bold">Orange Innovation
+				Produits & Services, 40-48, Avenue de la République, 92320, Châtillon</address>.
+			</p>
+		</div>
+	</div>
 </main>
 <footer id="footer" class="footer bg-dark navbar-dark" role="contentinfo">
 	<div class="container d-flex footer-service">
 		<ul class="navbar-nav gap-3 gap-md-5 mx-auto">
-			<li class="ms-1">
-				<a class="nav-link gap-2" href="https://addons.mozilla.org/fr/firefox/addon/orange-confort/" target="_blank"
-					 rel="noopener">
+			<li>
+				<a class="nav-link gap-2 nav-icon" href="index.html/#downloads">
 					<svg aria-hidden="true" width="30" height="30">
-						<use xlink:href="assets/img/logos.svg#firefox"></use>
+						<use xlink:href="assets/img/icons.svg#download"></use>
 					</svg>
-					<span>Extension Firefox</span>
+					<span>Téléchargement Confort+</span>
 				</a>
 			</li>
 			<li>
-				<a class="nav-link gap-2"
-					 href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=fr"
-					 target="_blank" rel="noopener">
-					<svg aria-hidden="true" width="30" height="31">
-						<use xlink:href="assets/img/logos.svg#chrome"></use>
-					</svg>
-					<span>Extension Chrome</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-icon gap-2"
-					 href="https://microsoftedge.microsoft.com/addons/detail/orange-confort/innlajggdjejhpeopnbhegahnkcpameb"
+				<a class="nav-link gap-2 nav-icon" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" hreflang="en"
 					 target="_blank" rel="noopener">
 					<svg aria-hidden="true" width="30" height="30">
-						<use xlink:href="assets/img/logos.svg#edge"></use>
-					</svg>
-					<span>Extension Edge</span>
-				</a>
-			</li>
-			<li>
-				<a class="nav-link gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" hreflang="en"
-					 target="_blank" rel="noopener">
-					<svg aria-hidden="true" width="30" height="30">
-						<use xlink:href="assets/img/logos.svg#github"></use>
+						<use xlink:href="assets/img/icons.svg#github"></use>
 					</svg>
 					<span class="visually-hidden">Orange Confort<span class="text-primary fw-bold">+</span> sur </span>
 					<span>GitHub</span>
@@ -181,7 +204,10 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1 d-flex">
 				<p class="mb-0 fw-bold">© Orange 2025</p>
-				<p class="mb-0 ms-auto">
+				<p class="mb-0 mx-auto">
+					Orange Confort<span class="text-primary fw-bold">+</span> est un produit open-source.
+				</p>
+				<p class="mb-0">
 					<a href="/mentions-legales.html">Mentions légales</a>
 				</p>
 			</div>
