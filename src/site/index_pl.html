@@ -12,7 +12,6 @@
 	<link rel="stylesheet" href="css/boosted.min.css">
 
 	<link rel="alternate" hreflang="en" href="index_en.html">
-	<link rel="alternate" hreflang="es" href="index_es.html">
 	<link rel="alternate" hreflang="fr" href="index.html">
 </head>
 <body>
@@ -23,7 +22,6 @@
 			<ul class="navbar-nav ms-auto me-5">
 				<li class="nav-item"><a href="index.html" class="nav-link" lang="fr" hreflang="fr">Français</a></li>
 				<li class="nav-item"><a href="index_en.html" class="nav-link" lang="en" hreflang="en">English</a></li>
-				<li class="nav-item"><a href="index_es.html" class="nav-link" lang="es" hreflang="es">Español</a></li>
 				<li class="nav-item me-5"><a href="index_pl.html" class="nav-link active" aria-current="page">Polski</a></li>
 			</ul>
 		</div>
@@ -34,23 +32,23 @@
 				<img alt="Orange" src="assets/img/orange_logo.svg" width="50" height="50" class="ms-5">
 				<h1 class="title">Komfort<span class="text-primary">+</span></h1>
 			</div>
+
 			<ul class="navbar-nav flex-row me-5 ms-auto">
 				<li class="nav-item">
-					<a class="nav-link nav-icon gap-2" href="https://addons.mozilla.org/pl/firefox/addon/orange-confort/" target="_blank" rel="noopener">
-						<svg aria-hidden="true" width="30" height="30"><use xlink:href="assets/img/logos.svg#firefox"></use></svg>
-						<span>Firefox Addon</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link nav-icon gap-2" href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=pl" target="_blank" rel="noopener">
-						<svg aria-hidden="true" width="30" height="31"><use xlink:href="assets/img/logos.svg#chrome"></use></svg>
-						<span>Chrome Addon</span>
+					<a class="nav-link nav-icon gap-2" href="#downloads">
+						<svg aria-hidden="true" width="30" height="30">
+							<use xlink:href="assets/img/icons.svg#download"></use>
+						</svg>
+						<span>Pobieranie Komfort<span class="text-primary fw-bold">+</span></span>
 					</a>
 				</li>
 				<li class="nav-item me-5">
-					<a class="nav-link nav-icon gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" hreflang="en" target="_blank" rel="noopener">
-						<svg aria-hidden="true" width="30" height="30"><use xlink:href="assets/img/logos.svg#github"></use></svg>
-						<span class="visually-hidden">Orange Confort+ na </span>
+					<a class="nav-link nav-icon gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/"
+						 hreflang="en" target="_blank" rel="noopener">
+						<svg aria-hidden="true" width="30" height="30">
+							<use xlink:href="assets/img/icons.svg#github"></use>
+						</svg>
+						<span class="visually-hidden">Orange Komfort+ na </span>
 						<span>GitHub</span>
 					</a>
 				</li>
@@ -61,33 +59,38 @@
 <main class="container" role="main">
 	<div class="row my-5">
 		<div class="col-md-10 offset-md-1 mb-5">
-			<p class="display-2">
-				Orange Komfort<span class="text-primary">+</span> to rozwiązanie typu OpenSource mające
-				na celu zwiększenie komfortu wszystkich użytkowników i wyróżnianie stron spełniających
-				zasady dostępności cyfrowej.
+			<p class="display-2 lh-sm">
+				Orange Komfort<span class="text-primary">+</span><br>
+				Aby uzyskać bardziej użyteczne strony internetowe.<br>
+				Aby podkreślić dostępność Twojej strony internetowej.
 			</p>
 		</div>
 		<div class="col-md-8 offset-md-2 lead">
 			<p>
-				Komfort<span class="text-primary fw-bold">+</span> to rozszerzenie przeglądarki ułatwiające
-				czytanie i poruszanie sie po stronach internetowych spełniających zasady dostępności cyfrowej.
+				Komfort<span class="text-primary fw-bold">+</span> eto rozszerzenie przeglądarki,
+				które ułatwia czytanie i nawigację po stronach internetowych. Pozwala na poprawę
+				wyświetlania tekstu, przycisków, linków, a także na syntezę mowy i ułatwia nawigację,
+				oferując specyficzne przyciski, duży kursor myszy, dobrze widoczny fokus oraz szybki
+				dostęp do wielu ustawień.
 			</p>
 			<p>
-				Rozwiązanie to pozwala skorygować wyświetlanie tekstu, przycisków, linków, ale także ułatwia
-				wokalizację i nawigację oferując konkretne przyciski, duży wskaźnik myszy, dobrze widoczny fokus
-				i szybki dostęp do dodatkowych licznych ustawień.
+				Orange Komfort<span class="text-primary fw-bold">+</span> to darmowe rozszerzenie
+				przeglądarki (<span lang="en">open-source</span>), dostępne na Firefox, Chrome i Edge.
 			</p>
 			<p>
-				Orange Komfort<span class="text-primary fw-bold">+</span> to darmowa wtyczka do przeglądarek,
-				<a href="#downloads">dostępna dla Firefox, Edge i Chrome</a>.
+				<a class="btn btn-outline-secondary btn-sm" href="#downloads">
+					<svg aria-hidden="true" width="30" height="30" class="me-1">
+						<use xlink:href="assets/img/icons.svg#download"></use>
+					</svg>
+					Pobieranie Komfort<span class="text-primary fw-bold">+</span>
+				</a>
 			</p>
 			<p>
-				Na niektórych stronach internetowych Orange Komfort<span class="text-primary fw-bold">+</span> jest
-				już zainstalowany. W takim przypadku przycisk znajdujący się w prawym górnym rogu wyświetlany jest
-				domyślnie w trybie „pauzy”, tak jak ma to miejsce w przypadku tej witryny.
-				<!-- @todo À passer en mode pause -->
-				<svg aria-hidden="true" viewBox="0 0 24 24" width="32" height="32" class="bg-primary p-1 rounded-circle">
-					<path d="M12.74 5.737a1.332 1.332 0 1 1-1.48-2.215 1.332 1.332 0 0 1 1.48 2.215m5.224.28a.628.628 0 0 1-.006 1.162s-4.468 1.5-4.468 1.972c0 .56.022.713.6 4.683.226 1.544.535 3.666.96 6.614a.767.767 0 0 1-1.5.322s-1.288-6.437-1.547-6.437c-.26 0-1.547 6.437-1.547 6.437a.767.767 0 0 1-1.5-.322c-.123.694 2.064-10.793 1.56-11.297-.38-.381-4.47-1.963-4.47-1.963a.639.639 0 0 1 .488-1.181s4.54 1.79 5.472 1.79c.931 0 5.478-1.78 5.478-1.78a.63.63 0 0 1 .48 0"/>
+				Na niektórych stronach internetowych Komfort<span class="text-primary fw-bold">+</span>
+				jest już zainstalowane. W takim przypadku dostęp jest bezpośrednio za pośrednictwem
+				kółka wyświetlanego w prawym górnym rogu, tak jak na tej stronie.
+				<svg aria-hidden="true" width="32" height="32" class="bg-primary p-1 rounded-circle">
+					<use xlink:href="assets/img/icons.svg#pastille"></use>
 				</svg>
 			</p>
 		</div>
@@ -95,34 +98,186 @@
 
 	<div class="row my-5">
 		<div class="col-md-10 offset-md-1">
-			<h2 class="display-3 mt-4">Dla kogo jest usługa Orange Komfort<span class="text-primary">+</span></h2>
+			<h2 class="display-3 mt-4">Do kogo skierowana jest usługa Orange Komfort<span class="text-primary">+</span></h2>
 		</div>
 		<div class="col-md-8 offset-md-2 lead">
 			<p>
-				Rozwiązanie Orange Komfort<span class="text-primary">+</span> zostało stworzone przez Orange.
-				To usługa zapewniająca pomoc użytkownikom z niepełnosprawnościami ruchowymi, wzrokowymi i intelektualnymi
-				(np. dysleksja), która poprawia komfort korzystania ze stron internetowych wszystkim użytkownikom.
-				Kto z nas nie chciał pod koniec dnia zwiększyć rozmiaru czcionki lub kontrastu kolorów na stronie
-				internetowej?
+				Paleta Komfort<span class="text-primary fw-bold">+</span> jest zorganizowana w grupy ustawień, jedne dedykowane
+				są dla osób szukających jedynie nieco większej łatwości w użytkowaniu
+				(Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#facilePlus"></use>
+				</svg> Łatwy+), inne do osób poszukujących lekkich ustawień wizualnych
+				(Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#visionPlus"></use>
+				</svg> Wizualny+) lub bardziej zaawansowanych ustawień wizualnych,
+				takich jak duże powiększenie i bardzo wysoki kontrast
+				(Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#visionPlusPlus"></use>
+				</svg> Wizualny++).
 			</p>
 			<p>
-				Nasze podejście do projektowania zorientowanego na użytkownika opiera się na zasadzie projektowania
-				uniwersalnego. Każdy może dostosować ustawienia do swoich indywidualnych potrzeb.
+				Inne ustawienia są przeznaczone dla osób potrzebujących udogodnień
+				do czytania, takich jak czytelny i głosowy tekst
+				(Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#lecturePlus"></use>
+				</svg> Czytanie+) lub bardziej zaawansowane narzędzia, takie jak
+				linijki, marginesy, kolorowanie
+				(Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#lecturePlusPlus"></use>
+				</svg> Czytanie++).
+				<br>
+				Wreszcie oferowane są ustawienia nawigacji dla osób mających trudności
+				z używaniem wskaźnika myszy i preferujących większe przyciski lub nawet
+				niepotrzebujących klikać myszą dzięki automatycznemu klikaniu po
+				najechaniu (Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#pointagePlus"></use>
+				</svg> Wskaźnik+). Inne ustawienia są dostępne dla osób korzystających wyłącznie z
+				przycisków lub poleceń klawiatury do nawigacji po stronach internetowych
+				(Tryb <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#moteurPlus"></use>
+				</svg> Moteur+).
+			</p>
+			<p>
+				Dla twórców stron internetowych, Komfort<span class="text-primary fw-bold">+</span>
+				jest doskonałym sposobem na jeszcze lepsze uwidocznienie prac związanych z
+				dostępnością cyfrową realizownych na ich stronie internetowej.
 			</p>
 		</div>
 	</div>
 
 	<div class="row my-5">
 		<div class="col-md-10 offset-md-1">
-			<h2 class="display-3 mt-4">Dostępne ustawienia</h2>
-			<p class="lead">
-				Komfort<span class="text-primary fw-bold">+</span> oferuje kilka trybów użytkowania.
-				Czym jest tryb użytkowania? Jest to zestaw ustawień już skonfigurowanych, gotowych dla
-				użytkownika mającego bardzo specyficzne potrzeby.
-			</p>
+			<h2 class="display-3 mt-4">Skąd pochodzi Orange Komfort<span class="text-primary">+</span>&nbsp;?</h2>
 		</div>
 		<div class="col-md-8 offset-md-2 lead">
-			<h3 class="mt-3">Aby rozpocząć wybierz tryb użytkowania</h3>
+			<p>
+				Usługa Orange Komfort<span class="text-primary fw-bold">+</span> została
+				stworzona przez Orange. Wdraża podejście projektowe, skoncentrowane
+				na różnorodności użytkowników i realizujące zasady projektowania uniwersalnego.
+				Interfejs dla wszystkich, a ustawienia dostosowane do każdego.
+			</p>
+		</div>
+	</div>
+
+	<div class="row my-5">
+		<div class="col-md-10 offset-md-1">
+			<h2 class="display-3 mt-4">Wymagania wstępne</h2>
+		</div>
+		<div class="col-md-8 offset-md-2 lead">
+			<p>
+				Ustawienia Komfort<span class="text-primary fw-bold">+</span> będą działać
+				poprawnie tylko na stronie przestrzegającej zasad dostępności cyfrowej.
+				Jeśli strona jest niedostępna, korzystanie z Komfort<span class="text-primary fw-bold">+</span>
+				sprawi, że może ona stać sie nieczytelna. Przycisk Pauza pozwala tymczasowo dezaktywować
+				Komfort<span class="text-primary fw-bold">+</span>.
+			</p>
+			<p>
+				Jeśli Komfort<span class="text-primary fw-bold">+</span> nie poprawia witryny,
+				to dlatego, że nie jest ona zgodna z zasadami.
+				Jest to okazja do zgłaszania niedostępnych witryn.
+				Jest to również okazja do zobaczenia wysiłków na rzecz dostępności podejmowanych przez inne witryny.
+			</p>
+		</div>
+	</div>
+	<div class="row my-5">
+		<div class="col-md-10 offset-md-1">
+			<h2 class="display-3 mt-4">Jak uzyskać dostęp do Komfort+</h2>
+		</div>
+		<div class="col-md-8 offset-md-2 lead">
+			<p>
+				Rozszerzenie Komfort<span class="text-primary fw-bold">+</span> jest dostępne
+				na liście rozszerzeń dostępnych dla przeglądarek Firefox, Chrome i Edge..
+			</p>
+		</div>
+	</div>
+
+	<div class="row my-5" id="downloads">
+		<div class="col-md-10 offset-md-1 lead">
+			<h2 class="display-3 mt-4">Pobieranie rozszerzenia</h2>
+		</div>
+		<div class="col-md-8 lead offset-md-2">
+			<p>
+				Najnowsza wersja jest wersją eksperymentalną. Jeśli zdecydujesz się zainstalować
+				tę wersję, dziękujemy za pomoc w jej ulepszaniu.
+				Prześlij nam swoje uwagi za pośrednictwem wiadomości:
+				<a href="mailto:Komfort.plus@orange.com"><code>Komfort.plus@orange.com</code></a>.
+			</p>
+			<h3 class="mt-5">Ostatnia wersja <code>5.0.0 beta 2</code> (eksperymentalna)</h3>
+			<ul>
+				<li class="mb-1">
+					<a href="https://addons.mozilla.org/pl/firefox/addon/orange-Komfort/" target="_blank" rel="noopener">
+						<svg aria-hidden="true" width="30" height="30" class="me-2">
+							<use xlink:href="assets/img/icons.svg#firefox"></use>
+						</svg><!--
+							-->Pobierz rozszerzenie dla Firefox
+					</a>
+				</li>
+				<li class="mb-1">
+					<a href="https://chrome.google.com/webstore/detail/orange-Komfort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=pl"
+						 target="_blank" rel="noopener">
+						<svg aria-hidden="true" width="30" height="31" class="me-2">
+							<use xlink:href="assets/img/icons.svg#chrome"></use>
+						</svg><!--
+							-->Pobierz rozszerzenie dla Chrome
+					</a>
+				</li>
+				<li class="mb-1">
+					<a href="https://microsoftedge.microsoft.com/addons/detail/orange-Komfort/innlajggdjejhpeopnbhegahnkcpameb"
+						 target="_blank" rel="noopener">
+						<svg aria-hidden="true" width="30" height="30" class="me-2">
+							<use xlink:href="assets/img/icons.svg#edge"></use>
+						</svg><!--
+							-->Pobierz rozszerzenie dla Edge
+					</a>
+				</li>
+			</ul>
+			<h3 class="mt-5">Wersja wcześniejsza (<code>4.3.5</code>)</h3>
+			<p>
+				Rozszerzenie to jest nadal rozpowszechniane:
+				<a href="/v4/index_pl.html">odwiedź stronę wersja 4</a>.
+			</p>
+		</div>
+	</div>
+
+	<div class="row my-5">
+		<div class="col-md-10 offset-md-1 lead">
+			<h2 class="display-3 mt-4">Instalacja Komfort<span class="text-primary">+</span></h2>
+		</div>
+		<div class="col-md-8 lead offset-md-2">
+			<h3 class="mt-3">Edge</h3>
+			<p>
+				W oknie, które się otworzy, kliknij "Dodaj rozszerzenie".
+				Aby aktywować rozszerzenie, kliknij ikonę Rozszerzenia <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#edgeAddOn"></use>
+				</svg> Rozszerzenia na górze ekranu i kliknij ikonę Orange Komfort<span class="text-primary">+</span>.
+			</p>
+			<h3 class="mt-3">Chrome</h3>
+			<p>
+				W oknie, które się otworzy, kliknij "Dodaj rozszerzenie".
+				Aby aktywować rozszerzenie, kliknij ikonę Rozszerzenia <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#chromeAddOn"></use>
+				</svg> Rozszerzenia na górze ekranu i kliknij ikonę Orange Komfort<span class="text-primary">+</span>.
+			</p>
+			<h3 class="mt-3">Firefox</h3>
+			<p>
+				W oknie, które się otworzy, kliknij "Dodaj".
+				Z przeglądarki Firefox kliknij ikonę <svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#firefoxAddOn"></use>
+				</svg> Rozszerzenia w prawym górnym rogu ekranu, a następnie kliknij ikonę
+				<svg aria-hidden="true" width="30" height="30">
+					<use xlink:href="assets/img/icons.svg#firefoxSetting"></use>
+				</svg> zębatki Orange Komfort<span class="text-primary">+</span>
+				aby dodać ją do paska nawigacji.
+			</p>
+		</div>
+	</div>
+
+	<div class="row my-5">
+		<div class="col-md-10 offset-md-1 lead">
+			<h2 class="display-3 mt-4">Korzystanie z Komfort<span class="text-primary">+</span></h2>
+		</div>
+		<div class="col-md-8 offset-md-2 lead">
+			<h3 class="mt-3">Wybierz swój sposób użytkowania</h3>
 			<div class="row">
 				<div class="col-md-4">
 					<img class="mx-auto img-fluid" loading="lazy" alt=""
@@ -130,38 +285,41 @@
 				</div>
 				<div class="col-md-8">
 					<p>
-						Zapoznaj się z trybami użytkowania i wybierz ten, który najbardziej
-						Ci odpowiada, klikając przycisk Zatwierdź ten tryb.
+						Poznaj tryby użytkowania i wybierz ten, który najlepiej Ci odpowiada,
+						klikając na Zatwierdź ten tryb.
 					</p>
 					<p>
-						Jeśli wahasz się między jednym a drugim trybem, nie martw się,
-						wszystkie ustawienia są dostępne w każdym trybie użytkowania.
+						Jeśli wahasz się między dwoma, nie martw się, wszystkie ustawienia
+						są dostępne we wszystkich trybach użytkowania.
+						Będziesz mógł więc dopasować swoje ustawienia.
 					</p>
 					<p>
-						Następnie będziesz mógł doprecyzować swoje spersonalizowane ustawienia.
-						Powracając do tego ekranu możesz również zresetować tryb użytkowania.
+						Wracając do tego ekranu, będziesz mógł również zresetować tryb użytkowania.
 					</p>
 					<p>
-						Po wybraniu trybu możesz zamknąć paletę
-						Komfort<span class="text-primary fw-bold">+</span>, klikając na podwójny szewron.
-						<svg aria-hidden="true" viewBox="0 0 24 24" width="32" height="32" class="bg-primary p-1">
-							<path d="m10.848 19.821 6.212-7.885-6.164-7.821a1.296 1.296 0 0 1 .24-1.84 1.353 1.353 0 0 1 1.875.234l6.641 8.428c.464.588.464 1.41 0 1.998l-6.69 8.492a1.353 1.353 0 0 1-1.875.235 1.296 1.296 0 0 1-.24-1.84"/><path d="M4.28 19.885 10.491 12 4.328 4.18a1.296 1.296 0 0 1 .24-1.84 1.353 1.353 0 0 1 1.874.234l6.642 8.428c.464.588.464 1.41 0 1.998l-6.69 8.492a1.353 1.353 0 0 1-1.875.235 1.296 1.296 0 0 1-.24-1.84"/>
-						</svg>
+						Po wybraniu trybu, możesz zamknąć paletę Komfort<span class="text-primary fw-bold">+</span>
+						klikając na podwójne strzałki <svg aria-hidden="true" width="32" height="32" class="bg-primary p-1">
+							<use xlink:href="assets/img/icons.svg#chevrons"></use>
+						</svg> w prawym górnym rogu palety.
 					</p>
 					<p>
-						Aby ponownie otworzyć paletę, wystarczy kliknąć na miniaturę przedstawiającą człowieka w okręgu.
-						<svg aria-hidden="true" viewBox="0 0 24 24" width="32" height="32" class="bg-primary p-1 rounded-circle">
-							<path d="M12.74 5.737a1.332 1.332 0 1 1-1.48-2.215 1.332 1.332 0 0 1 1.48 2.215m5.224.28a.628.628 0 0 1-.006 1.162s-4.468 1.5-4.468 1.972c0 .56.022.713.6 4.683.226 1.544.535 3.666.96 6.614a.767.767 0 0 1-1.5.322s-1.288-6.437-1.547-6.437c-.26 0-1.547 6.437-1.547 6.437a.767.767 0 0 1-1.5-.322c-.123.694 2.064-10.793 1.56-11.297-.38-.381-4.47-1.963-4.47-1.963a.639.639 0 0 1 .488-1.181s4.54 1.79 5.472 1.79c.931 0 5.478-1.78 5.478-1.78a.63.63 0 0 1 .48 0"/>
-						</svg>
+						Aby ponownie otworzyć paletę, wystarczy kliknąć na miniaturkę przedstawiającą człowieka
+						w kole <svg aria-hidden="true" width="32" height="32" class="bg-primary p-1 rounded-circle">
+							<use xlink:href="assets/img/icons.svg#pastille"></use>
+						</svg>, symbolizującą dostępność uniwersalną.
 					</p>
 				</div>
 			</div>
 			<h3 class="mt-5">Pauza</h3>
 			<p>
-				Niektóre strony zbyt niedbale odnoszą się do zasad dostępności cyfrowej.
-				Komfort<span class="text-primary fw-bold">+</span>, powoduje wówczas więcej szkody
-				wizualnej niż pożytku. W takiej sytuacji wygodnie jest zdezaktywować wszystkie ustawienia
-				Komfort<span class="text-primary fw-bold">+</span> na raz. Aby to zrobić naciśnij przycisk Pauza.
+				Niektóre strony są zbyt mało zgodne z zasadami dostępności.
+				Komfort<span class="text-primary fw-bold">+</span>
+				powoduje wtedy więcej szkód wizualnych niż korzyści. W takim razie praktyczne
+				jest wyłączenie wszystkich ustawień Komfort<span class="text-primary fw-bold">+</span>
+				za jednym razem. Aby to zrobić, naciśnij przycisk
+				<svg aria-hidden="true" width="32" height="32" class="bg-dark text-white p-1">
+				<use xlink:href="assets/img/icons.svg#pause"></use>
+			</svg> Pauza.
 			</p>
 			<h3 class="mt-5">Przyciski wielokrotnego kliknięcia</h3>
 			<div class="row">
@@ -171,18 +329,20 @@
 				</div>
 				<div class="col-md-8">
 					<p>
-						Aby zmienić ustawienia, możesz szybko uzyskać dostęp do opcji wyboru za
-						pomocą dużych przycisków. Przyciski te można kliknąć kilka razy z rzędu
-						(3 lub 4 razy), a następnie różne ustawienia zostaną zastosowane na stronie internetowej.
+						Aby zmienić ustawienia, masz szybki dostęp do wyboru za pomocą dużych przycisków.
+						Te przyciski można klikać wielokrotnie z rzędu (3 lub 4 razy), a różne ustawienia
+						zostaną wówczas wdrożone na stronie internetowej.
 					</p>
 					<p>
-						Pierwsze dostosowanie każdego przycisku (kiedy czarna kropka jest najdalej
-						po lewej stronie) nie daje żadnego efektu i nie zmienia bieżącej strony.
-						Oto sposób na ominięcie jednego z ustawień.
+						Pierwsze ustawienie każdego przycisku (gdy czarna kropka jest najbardziej
+						po lewej stronie) nie ma żadnego efektu, nie zmienia bieżącej strony.
+						To sposób na anulowanie jednego z ustawień.
 					</p>
+					<img loading="lazy" alt=""
+							 src="assets/img/BoutonMulti-clic-off.png" width="148" height="70"/>
 				</div>
 			</div>
-			<h3 class="mt-5">Wszystkie ustawienia</h3>
+			<h3 class="mt-5">Pełne ustawienia</h3>
 			<div class="row">
 				<div class="col-md-4">
 					<img class="mx-auto img-fluid" loading="lazy" alt=""
@@ -190,11 +350,10 @@
 				</div>
 				<div class="col-md-8">
 					<p>
-						Klikając przycisk Wszystkie ustawienia u dołu palety głównej, można uzyskać
-						dostęp do wszystkich ustawień dostępnych we wszystkich trybach użytkowania.
-						Lista jest długa i podzielona na kategorie (Tekst, Wyświetlacz, Obrazy, Dźwięk, Nawigacja).
-						Przyciski Więcej wyborów zapewniają dostęp do zaawansowanych ustawień,
-						które dają jeszcze większy wybór.
+						Klikając przycisk Wszystkie ustawienia na dole palety głównej, możesz uzyskać
+						dostęp do wszystkich dostępnych ustawień we wszystkich trybach użytkowania.
+						Lista jest długa i podzielona na kategorie (Tekst, Wyświetlanie, Obrazy, Audio, Nawigacja).
+						Przyciski Więcej opcji umożliwiają dostęp do zaawansowanych ustawień, które oferują inne wybory
 					</p>
 				</div>
 			</div>
@@ -206,99 +365,59 @@
 				</div>
 				<div class="col-md-8">
 					<p>
-						Ustawienia zaawansowane umożliwiają przeglądanie jeszcze szerszego wyboru dla każdego ustawienia.
-						Jeśli wybierzesz ustawienie, którego nie ma jeszcze w odpowiadającym mu przycisku
-						wielokrotnego kliknięcia, zostanie ono do niego dodane jako czwarty niestandardowy wybór.
+						Ustawienia zaawansowane pozwalają na jeszcze szerszy wybór dla każdego ustawienia.
+						Jeśli wybierzesz ustawienie, które nie jest jeszcze obecne w odpowiadającym mu
+						przycisku wielokrotnego kliknięcia, zostanie ono dodane jako 4. niestandardowy wybór.
 					</p>
 					<img loading="lazy" alt=""
-							 src="assets/img/BoutonMulti-clic.png" width="188" height="89"/>
+							 src="assets/img/BoutonMulti-clic.png" width="151" height="70"/>
 				</div>
 			</div>
-			<h3 class="mt-5">Zapamiętywanie ustawień</h3>
+			<h3 class="mt-5">Zapamiętywanie twoich ustawień</h3>
 			<p>
-				Komfort<span class="text-primary fw-bold">+</span> zapamięta Twoje ustawienia dla każdej
-				odwiedzanej strony internetowej. Umożliwi to dokonanie jednych ustawień dla jednej
-				strony i innych dla kolejnych stron. Gdy powrócisz na te witryny,
-				Komfort<span class="text-primary fw-bold">+</span> wdroży prawidłowe ustawienia
-				specyficzne dla każdej strony.
-			</p>
-		</div>
-	</div>
-
-	<div class="row my-5" id="downloads">
-		<div class="col-md-10 offset-md-1 lead">
-			<h2 class="display-3 mt-4">Pobieranie rozszerzenia</h2>
-			<p>
-				Obecnie oferujemy dwie wersje Komfort<span class="text-primary fw-bold">+</span>.
-			</p>
-		</div>
-		<div class="col-md-8 offset-md-2 lead">
-			<h3 class="mt-5">Wersja eksperymentalna (<code>5.0.0 beta 2</code>)</h3>
-			<p>
-				Wersja eksperymentalna: dostępna pod nazwą nowa wersja.
-				Jeśli zdecydujesz się zainstalować tę wersję, zachęcamy do przesyłania do nas komentarzy pocztą
-				<a href="mailto:confort.plus@orange.com">elektroniczną na adres <code>confort.plus@orange.com</code></a>.
-				Naszym celem jest udoskonalenie wersji dzięki komentarzom użytkowników.
-			</p>
-			<ul>
-				<li class="mb-1">
-					<a href="https://addons.mozilla.org/pl/firefox/addon/orange-confort/" target="_blank" rel="noopener">
-						Firefox Addon
-					</a>
-				</li>
-				<li class="mb-1">
-					<a href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=pl"
-						 target="_blank" rel="noopener">
-						Chrome Addon
-					</a>
-				</li>
-				<li class="mb-1">
-					<a href="https://microsoftedge.microsoft.com/addons/detail/orange-confort/innlajggdjejhpeopnbhegahnkcpameb"
-						 target="_blank" rel="noopener">
-						Edge Addon
-					</a>
-				</li>
-			</ul>
-			<h3 class="mt-5">Poprzednia wersja (<code>4.3.5</code>)</h3>
-			<p>
-				Rozszerzenie to jest nadal rozpowszechniane:
-				<a href="/v4/index.html">zobacz stronę internetową wersji 4</a>.
+				Komfort<span class="text-primary fw-bold">+</span> zapamięta Twoje
+				ustawienia dla każdej odwiedzanej strony internetowej. Możesz w
+				ten sposób dokonać pewnych ustawień dla jednej strony, a innych dla
+				innej strony. Kiedy wrócisz na te strony,
+				Komfort<span class="text-primary fw-bold">+</span> wprowadzi
+				odpowiednie ustawienia specyficzne dla każdej strony.
 			</p>
 		</div>
 	</div>
 
 	<div class="row my-5">
 		<div class="col-md-10 offset-md-1">
-			<h2 class="display-3 mt-4">
-				Jesteś programistą?<br>
-				Chcesz zintegrować Orange Komfort<span class="text-primary">+</span> ze swoimi stronami?
+			<h2 class="display-3 mt-4">Jesteś programistą?<br>Zintegruj Orange Komfort<span
+				class="text-primary">+</span> na swoich stronach.</h2>
 		</div>
 		<div class="col-md-8 offset-md-2 lead">
 			<p>
-				Usługa jest mało inwazyjna; jest ona zintegrowana w formie linku,
-				którego wygląd i pozycję na stronie możesz dostosować.
+				Usługa jest mało inwazyjna, integruje się w formie linku,
+				którego wygląd i położenie na stronie można dostosować.
 			</p>
 			<p>
-				Komfort<span class="text-primary fw-bold">+</span>  oferuje poprawę użyteczności witryny,
-				ale nie będzie korygować witryn, które nie są zgodne z zasadami dostępności.
-				Aby Komfort<span class="text-primary fw-bold">+</span> oferował optymalne rozwiązanie,
-				Twoja witryna musi być zgodna z zaleceniami dostępności
-				<abbr lang="en" title="Web Content Accessibility Guidelines">WCAG</abbr> 2.2 lub RGAA 4.1.2.
+				Komfort<span class="text-primary fw-bold">+</span> proponuje poprawę użytkowania strony,
+				ale nie naprawi strony, która nie przestrzega zasad dostępności.
+				Aby Komfort<span class="text-primary fw-bold">+</span> zaproponowało optymalne rozwiązanie,
+				Twoja strona musi spełniać zalecenia dotyczące dostępności
+				<abbr lang="en" title="Web Content Accessibility Guidelines">WCAG</abbr> 2.2
+				lub <abbr title="Référentiel Général d’Amélioration de l’Accessibilité">RGAA</abbr> 4.1.2.
 			</p>
 			<p>
-				Po aktywacji usługi przez użytkownika wyświetlana jest paleta nawigacyjna.
-				Aby dodać usługę Orange Komfort<span class="text-primary fw-bold">+</span> na swojej stronie,
-				wystarczy umieścić plik JavaScript w kodzie HTML.
+				Podczas aktywacji usługi przez użytkownika, wyświetla się paleta nawigacyjna.
 			</p>
 			<p>
-				Plik Javascript usługi Orange Komfort<span class="text-primary fw-bold">+</span> musi
-				być hostowany na serwerze.
+				Na Twojej stronie dodanie usługi  Orange Komfort<span class="text-primary fw-bold">+</span>
+				odbywa się poprzez proste dodanie pliku JavaScript do Twojego kodu HTML.
 			</p>
 			<p>
-				Serwer ten może być serwerem Twojej witryny lub serwerem zdalnym hostowanym przez partnera
-				(w innej domenie). Jeżeli zdecydujesz się na korzystanie ze zdalnego serwera hostowanego
-				u partnera, użytkownik usługi Orange Komfort<span class="text-primary fw-bold">+</span>
-				znajdzie swoje ustawienia na wszystkich stronach korzystających z tego serwera.
+				Plik JavaScript usługi Orange Komfort<span class="text-primary fw-bold">+</span>
+				doit être hébergé sur un serveur.
+				musi być hostowany na serwerze. Ten serwer może być serwerem Twojej strony lub
+				zdalnym serwerem hostowanym przez partnera (na innej domenie). Jeśli zdecydujesz
+				się na korzystanie ze zdalnego serwera hostowanego przez partnera, użytkownik
+				usługi Orange Komfort<span class="text-primary fw-bold">+</span> znajdzie swoje
+				ustawienia na wszystkich stronach korzystających z tego serwera.
 			</p>
 			<p>
 				<a href="https://github.com/Orange-OpenSource/Orange-Confort-plus/tree/develop"
@@ -318,7 +437,7 @@
 		<div class="col-md-8 offset-md-2 lead">
 			<p>
 				Orange Komfort<span class="text-primary fw-bold">+</span> przeszedł audyt dostępności WCAG.
-				Zobacz <a href="accessibility.html" hreflang="en">deklarację zgodności</a>.
+				Zapoznaj się z <a href="accessibility.html" hreflang="en">deklarację zgodności</a>.
 			</p>
 		</div>
 	</div>
@@ -326,42 +445,21 @@
 <footer id="footer" class="footer bg-dark navbar-dark" role="contentinfo">
 	<div class="container d-flex footer-service">
 		<ul class="navbar-nav gap-3 gap-md-5 mx-auto">
-			<li class="ms-1">
-				<a class="nav-link gap-2" href="https://addons.mozilla.org/pl/firefox/addon/orange-confort/" target="_blank"
-					 rel="noopener">
+			<li>
+				<a class="nav-link gap-2 nav-icon" href="#downloads">
 					<svg aria-hidden="true" width="30" height="30">
-						<use xlink:href="assets/img/logos.svg#firefox"></use>
+						<use xlink:href="assets/img/icons.svg#download"></use>
 					</svg>
-					<span>Firefox Addon</span>
+					<span>Pobieranie Komfort<span class="text-primary fw-bold">+</span></span>
 				</a>
 			</li>
 			<li>
-				<a class="nav-link gap-2"
-					 href="https://chrome.google.com/webstore/detail/orange-confort%2B/ddnpdohiipephjpdpohikkamhdikbldp?hl=pl"
-					 target="_blank" rel="noopener">
-					<svg aria-hidden="true" width="30" height="31">
-						<use xlink:href="assets/img/logos.svg#chrome"></use>
-					</svg>
-					<span>Chrome Addon</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-icon gap-2"
-					 href="https://microsoftedge.microsoft.com/addons/detail/orange-confort/innlajggdjejhpeopnbhegahnkcpameb"
+				<a class="nav-link gap-2 nav-icon" href="https://github.com/Orange-OpenSource/Orange-Komfort-plus/" hreflang="en"
 					 target="_blank" rel="noopener">
 					<svg aria-hidden="true" width="30" height="30">
-						<use xlink:href="assets/img/logos.svg#edge"></use>
+						<use xlink:href="assets/img/icons.svg#github"></use>
 					</svg>
-					<span>Edge Addon</span>
-				</a>
-			</li>
-			<li>
-				<a class="nav-link gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" hreflang="en"
-					 target="_blank" rel="noopener">
-					<svg aria-hidden="true" width="30" height="30">
-						<use xlink:href="assets/img/logos.svg#github"></use>
-					</svg>
-					<span class="visually-hidden">Orange Komfort<span class="text-primary fw-bold">+</span> na </span>
+					<span class="visually-hidden">Orange Komfort+ na </span>
 					<span>GitHub</span>
 				</a>
 			</li>
@@ -372,8 +470,11 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1 d-flex">
 				<p class="mb-0 fw-bold">© Orange 2025</p>
-				<p class="mb-0 ms-auto">
-					<a href="/mentions-legales.html" hreflang="fr">Informacje prawne</a>
+				<p class="mb-0 mx-auto">
+					Orange Komfort<span class="text-primary fw-bold">+</span> jest produktem typu <span lang="en">open-source</span>.
+				</p>
+				<p class="mb-0">
+					<a href="/informacje-prawne.html">Informacje prawne</a>
 				</p>
 			</div>
 		</div>
@@ -386,4 +487,5 @@
 </div>
 <script src="js/toolbar.min.js"></script>
 </body>
+
 </html>
