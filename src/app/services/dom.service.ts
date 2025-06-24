@@ -42,11 +42,11 @@ class DomService {
 			.filter((el: any) => !el.disabled && el.tabIndex >= 0);
 	}
 
-	addButtonsInDom = (button: string): void => {
+	addButtonsInDom = (button: string, start: boolean = false): void => {
 		let container: HTMLElement;
 		let fragment = document.createDocumentFragment();
 		let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector('app-toolbar')?.classList.contains('close') ?
-			'2em' : '26em';
+			BTN_RIGHT_POS_DEFAULT : BTN_RIGHT_POS_OPEN;
 
 		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
 			container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
@@ -97,7 +97,11 @@ class DomService {
 		btn.type = 'button';
 		btn.tabIndex = -1;
 		btn.innerText = i18nServiceInstance.getMessage(button);
-		container.appendChild(btn);
+		if (start) {
+			container.prepend(btn);
+		} else {
+			container.appendChild(btn);
+		}
 		fragment.appendChild(container);
 		document.body.appendChild(fragment);
 	}

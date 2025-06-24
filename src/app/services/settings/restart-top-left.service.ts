@@ -12,6 +12,7 @@ class RestartTopLeftService {
 	}
 
 	setRestartTopLeft = (value: string): void => {
+		// RELECTURE: avec la disparition du réglage associé dans la modale, peut être nettoyer le fonctionnement avec la valeur DEFAULT_VALUE plus nécessaire
 		this.firstElement?.remove();
 		if (value !== DEFAULT_VALUE) {
 			this.addAndFocusFirstElement();
