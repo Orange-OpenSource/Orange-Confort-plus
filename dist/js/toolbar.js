@@ -1,8 +1,211 @@
 /*
- * orange-confort-plus - version 5.0.0 - 23/09/2025
+ * orange-confort-plus - version 5.0.0-beta.5 - 30/06/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
+"use strict";
+
+const PREFIX = "cplus-";
+
+const JSON_NAME = "modeOfUse";
+
+const DEFAULT_VALUE = "noModifications";
+
+const DEFAULT_MODE = "facilePlus";
+
+const APP_NAME = `${PREFIX}app-root`;
+
+let VERSION;
+
+const PAGE_HOME = "home";
+
+const PAGE_MODES = "modes";
+
+const PAGE_SETTINGS = "settings";
+
+const PAGE_EDIT_SETTING = "edit-setting";
+
+const PAGE_P_MARKUP_SELECTOR = `body > :not([id^=${PREFIX}]) p, body > p`;
+
+const FOCUS_SIZE_BIG = "4px";
+
+const FOCUS_SIZE_HUGE = "10px";
+
+const CURSOR_SIZE_BIG = 56;
+
+const CURSOR_SIZE_HUGE = 128;
+
+const SCROLL_SIZE_BIG = "32px";
+
+const SCROLL_SIZE_HUGE = "48px";
+
+const BTN_RIGHT_POS_DEFAULT = "2em";
+
+const BTN_RIGHT_POS_OPEN = "26em";
+
+const CLICK_FACILITE_BIG_ZONE = "bigZone";
+
+const CLICK_FACILITE_LONG_CLICK = "longClick";
+
+const CLICK_FACILITE_AUTO_CLICK = "autoClick";
+
+const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
+
+const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
+
+const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
+
+const BODY_ELEMENTS_FILTER = "script,style,link,meta";
+
+VERSION = "5.0.0-beta.5";
+
+"use strict";
+
+let filesServiceIsInstantiated;
+
+class FilesService {
+    path="";
+    constructor() {
+        if (filesServiceIsInstantiated) {
+            throw new Error("FilesService is already instantiated.");
+        }
+        filesServiceIsInstantiated = true;
+        this.path = `${window.location.origin}/`;
+    }
+    getJSONFile(file) {
+        return fetch(`${this.path}assets/json/${file}.json`).then((response => response.json())).catch((error => {
+            console.error(`Error when retrieving ${file}.json: ${error}.`);
+            return error;
+        }));
+    }
+}
+
+"use strict";
+
+let i18nServiceIsInstantiated;
+
+class I18nService {
+    locale="en";
+    path="";
+    constructor() {
+        if (i18nServiceIsInstantiated) {
+            throw new Error("I18nService is already instantiated.");
+        }
+        i18nServiceIsInstantiated = true;
+        this.path = `${window.location.origin}/`;
+        if ([ "en", "fr", "pl", "es" ].some((language => navigator.language.startsWith(language)))) {
+            this.locale = navigator.language.slice(0, 2);
+        }
+        this.getJSON().then((result => {
+            localStorage.setItem(`${PREFIX}i18n`, JSON.stringify(result));
+        }));
+    }
+    getJSON() {
+        return fetch(`${this.path}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
+            console.error(`Error when retrieving 'messages.json' file : ${error}.`);
+            return error;
+        }));
+    }
+    getMessages() {
+        return localStorage.getItem(`${PREFIX}i18n`);
+    }
+    getMessage(message, substitutions = []) {
+        if (!message || message.includes("undefined")) {
+            console.warn(`Part of argument for I18nService getMessage() is undefined. Message: "${message}".`);
+            return;
+        }
+        const translations = JSON.parse(this.getMessages());
+        let content = translations[message]?.message || "";
+        if (substitutions.length > 0) {
+            if (substitutions.some((str => str?.includes("undefined")))) {
+                console.warn(`At least one substitution string for I18nService getMessage() is undefined. Message: "${message}". Substitutions: "${substitutions}".`);
+                return;
+            }
+            const placeholders = translations[message]?.placeholders;
+            const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
+            for (const match of matches) {
+                const key = match[0].replaceAll("$", "").toLowerCase();
+                const index = Number(placeholders[key]?.content.replace("$", ""));
+                content = content.replaceAll(match[0], substitutions[index - 1]);
+            }
+        }
+        return content.trim();
+    }
+    translate(root) {
+        const elements = root.querySelectorAll("[data-i18n]");
+        for (const element of elements) {
+            element.innerHTML = this.getMessage(element.dataset?.i18n);
+        }
+        const elementsTitle = root.querySelectorAll("[data-i18n-title]");
+        for (const element of elementsTitle) {
+            element.title = this.getMessage(element.dataset?.i18nTitle);
+        }
+    }
+}
+
+"use strict";
+
+let iconsServiceIsInstantiated;
+
+class IconsService {
+    constructor() {
+        if (iconsServiceIsInstantiated) {
+            throw new Error("IconsService is already instantiated.");
+        }
+        iconsServiceIsInstantiated = true;
+    }
+    get path() {
+        return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
+    }
+    loadSprite(root) {
+        return;
+    }
+}
+
+"use strict";
+
+let localStorageServiceIsInstantiated;
+
+class LocalStorageService {
+    constructor() {
+        if (localStorageServiceIsInstantiated) {
+            throw new Error("LocalStorageService is already instantiated.");
+        }
+        localStorageServiceIsInstantiated = true;
+    }
+    setItem(key, value) {
+        localStorage.setItem(`${PREFIX}${key}`, JSON.stringify(value));
+        let storeEvent = new CustomEvent(`storage-${key}`, {
+            bubbles: true
+        });
+        window.dispatchEvent(storeEvent);
+    }
+    getItem(key) {
+        return new Promise(((resolve, reject) => {
+            resolve(JSON.parse(localStorage.getItem(`${PREFIX}${key}`)));
+            reject(new Error("KO"));
+        }));
+    }
+    removeItem(key) {
+        localStorage.removeItem(`${PREFIX}${key}`);
+    }
+}
+
+"use strict";
+
+let pathServiceIsInstantiated;
+
+class PathService {
+    path="";
+    constructor() {
+        if (pathServiceIsInstantiated) {
+            throw new Error("PathService is already instantiated.");
+        }
+        pathServiceIsInstantiated = true;
+        this.path = `${window.location.origin}/`;
+    }
+}
+
 "use strict";
 
 let categoriesServiceIsInstantiated;
@@ -100,25 +303,8 @@ class DomService {
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} .button-row {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tjustify-content: flex-end;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 2px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t\toutline: 2px solid #fff;\n\t\t\t\t\tbox-shadow: 0 0 6px 3px #bbb;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 1px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
-        }
-        const isScrollButton = this.isScrollButton(button);
-        const rowClass = isScrollButton ? "scroll-row" : "navigation-row";
-        let targetRow = container.querySelector(`.${rowClass}`);
-        if (!targetRow) {
-            targetRow = document.createElement("div");
-            targetRow.className = `button-row ${rowClass}`;
-            if (isScrollButton) {
-                container.appendChild(targetRow);
-            } else {
-                const scrollRow = container.querySelector(".scroll-row");
-                if (scrollRow) {
-                    container.insertBefore(targetRow, scrollRow);
-                } else {
-                    container.appendChild(targetRow);
-                }
-            }
         }
         let btn = document.createElement("button");
         btn.setAttribute("id", `${CONTAINER_BUTTONS_ID}__${button}`);
@@ -126,21 +312,15 @@ class DomService {
         btn.tabIndex = -1;
         btn.innerText = i18nServiceInstance.getMessage(button);
         if (start) {
-            targetRow.prepend(btn);
+            container.prepend(btn);
         } else {
-            targetRow.appendChild(btn);
+            container.appendChild(btn);
         }
         fragment.appendChild(container);
         document.body.appendChild(fragment);
     };
-    isScrollButton=button => button.includes("scroll_");
     removeButtonsInDom=button => {
-        const buttonElement = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`);
-        const parentRow = buttonElement?.parentElement;
-        buttonElement?.remove();
-        if (parentRow && parentRow.children.length === 0) {
-            parentRow.remove();
-        }
+        document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`)?.remove();
         if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.children.length === 0) {
             document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.remove();
             stylesServiceInstance.removeStyle("container-buttons");
@@ -660,6 +840,7 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
+                scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 break;
             }
 
@@ -667,6 +848,7 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
+                scrollTypeServiceInstance.setScrollType("scrollOnClick");
                 this.longClick();
                 break;
             }
@@ -675,6 +857,7 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
+                scrollTypeServiceInstance.setScrollType("scrollOnMouseover");
                 this.autoClick();
                 break;
             }
@@ -814,49 +997,49 @@ class ColorContrastService {
         link: DEFAULT_VALUE
     }, {
         name: "reinforcedContrasts",
-        cursor: "bigCursor_black",
+        cursor: "big_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_orange_brown"
     }, {
         name: "ivory_black",
-        cursor: "bigCursor_ivory",
+        cursor: "big_ivory",
         focus: "big_ivory",
         scroll: "big_ivory",
         link: "lightblue_orange_lightgreen"
     }, {
         name: "black_ivory",
-        cursor: "bigCursor_black",
+        cursor: "big_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_orange_brown"
     }, {
         name: "white_red",
-        cursor: "bigCursor_white",
+        cursor: "big_white",
         focus: "big_white",
         scroll: "big_white",
         link: "yellow_darkblue_lightgreen"
     }, {
         name: "black_yellow",
-        cursor: "bigCursor_black",
+        cursor: "big_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_purple_darkgreen"
     }, {
         name: "white_blue",
-        cursor: "bigCursor_white",
+        cursor: "big_white",
         focus: "big_white",
         scroll: "big_white",
         link: "yellow_orange_lightgreen"
     }, {
         name: "yellow_blue",
-        cursor: "bigCursor_yellow",
+        cursor: "big_yellow",
         focus: "big_yellow",
         scroll: "big_yellow",
         link: "white_darkgreen_lightgreen"
     }, {
         name: "black_green",
-        cursor: "bigCursor_black",
+        cursor: "big_black",
         focus: "big_black",
         scroll: "big_black",
         link: "yellow_orange_blue"
@@ -900,7 +1083,7 @@ class ColorContrastService {
         }
     };
     setColorContrastStyle=(color, backgroundColor) => {
-        let styleColorContrast = `\n\t\t\t*:not(.${PREFIX}container-buttons) {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
+        let styleColorContrast = `\n\t\t\t* {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
     };
     setServices=value => {
@@ -1134,7 +1317,6 @@ class FontFamilyService {
         name: "AccessibleDfA",
         size: "82.5%",
         folder: "accessibleDfA",
-        generic: "serif",
         files: [ {
             name: "AccessibleDfA-VF.woff2",
             style: "normal",
@@ -1152,7 +1334,6 @@ class FontFamilyService {
         name: "BelleAllure",
         size: "80%",
         folder: "BelleAllure",
-        generic: "cursive",
         files: [ {
             name: "BelleAllureCM-Fin.woff2",
             style: "normal",
@@ -1166,7 +1347,6 @@ class FontFamilyService {
         name: "HelveticaNeue",
         size: "100%",
         folder: "HelveticaNeue",
-        generic: "sans-serif",
         files: [ {
             name: "HelvNeue55_W1G.woff2",
             style: "normal",
@@ -1180,7 +1360,6 @@ class FontFamilyService {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
-        generic: "monospace",
         files: [ {
             name: "B612Mono-Bold.woff2",
             style: "normal",
@@ -1202,7 +1381,6 @@ class FontFamilyService {
         name: "LexendDeca",
         size: "92%",
         folder: "lexendDeca",
-        generic: "sans-serif",
         files: [ {
             name: "LexendDeca-Black.woff2",
             style: "normal",
@@ -1244,7 +1422,6 @@ class FontFamilyService {
         name: "Luciole",
         size: "87.5%",
         folder: "luciole",
-        generic: "sans-serif",
         files: [ {
             name: "Luciole-Bold-Italic.woff2",
             style: "italic",
@@ -1266,7 +1443,6 @@ class FontFamilyService {
         name: "SylexiadSans",
         size: "122.5%",
         folder: "sylexiadSans",
-        generic: "sans-serif",
         files: [ {
             name: "SylexiadSansMedium-BoldItalic.woff2",
             style: "italic",
@@ -1351,12 +1527,6 @@ class FontFamilyService {
             fontFaceStyle.push(`\n\t\t\t\t* { font-family: ${value} !important; }\n\n\t\t\t\tbody {\n\t\t\t\t\tfont-synthesis: none;\n\t\t\t\t\tfont-variant-ligatures: normal;\n\t\t\t\t\ttext-rendering: optimizeLegibility;\n\t\t\t\t}`);
             stylesServiceInstance.setStyle("font-family", fontFaceStyle.join(""));
         }
-    };
-    getFontInfo=fontName => this.fontDictionnary.find((font => font.name === fontName));
-    getFontList=() => {
-        let fontList = this.fontDictionnary.map((font => font.name));
-        fontList.unshift(DEFAULT_VALUE);
-        return fontList;
     };
 }
 
@@ -1780,12 +1950,12 @@ class NavigationButtonsService {
     currentList=this.navigationButtonsList;
     setNavigationButtons=value => {
         this.navigationButtonSet = value.split("_")[0];
-        this.delay = this.getDelay(value.split("_")[1]);
+        this.delay = parseInt(value.split("_")[1]?.replace(/\D/g, ""), 10) * 1e3;
         this.resetNavigationButtons();
         switch (this.navigationButtonSet) {
           case "scrollSet":
             this.currentList = [];
-            if (this.delay <= 0) {
+            if (this.delay < 0) {
                 scrollTypeServiceInstance.setScrollType("scrollOnClick");
             } else {
                 scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
@@ -1802,7 +1972,7 @@ class NavigationButtonsService {
             this.currentList = this.fullButtonsList;
             this.getFocusedElement();
             this.addNavigationButtons();
-            if (this.delay <= 0) {
+            if (this.delay < 0) {
                 scrollTypeServiceInstance.setScrollType("scrollOnClick");
             } else {
                 scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
@@ -1916,12 +2086,6 @@ class NavigationButtonsService {
             this.currentFocusElt = event.currentTarget;
         }
     };
-    getDelay=delay => {
-        if (delay !== "clicAction") {
-            return parseInt(delay?.replace(/\D/g, ""), 10) * 1e3;
-        }
-        return 0;
-    };
 }
 
 "use strict";
@@ -1945,7 +2109,6 @@ class ReadAloudService extends BodySelectorService {
         this.handler = this.createHandler();
     }
     setReadAloud=value => {
-        if (speechSynthesis.speaking) speechSynthesis.cancel();
         this.resetBody();
         if (value === DEFAULT_VALUE) {
             this.resetReadAloud();
@@ -2028,7 +2191,7 @@ class ReadAloudService extends BodySelectorService {
         this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
         document.addEventListener("pointermove", this.handler);
     };
-    getInnerText=element => element.classList.contains(`${PREFIX}colored-text`) ? element.parentElement.innerText : element.innerText;
+    getInnerText=element => element.classList.contains("cplus-colored-text") ? element.parentElement.innerText : element.innerText;
     createHandler=() => event => {
         switch (event.type) {
           case "pointermove":
@@ -2037,22 +2200,20 @@ class ReadAloudService extends BodySelectorService {
             break;
 
           case "pointerdown":
-            if (speechSynthesis.speaking) speechSynthesis.cancel();
             speechSynthesis.speak(new SpeechSynthesisUtterance(this.getInnerText(event.target)));
             break;
 
           case "keydown":
             if (event.key === "Escape" || event.key === "Esc") {
-                if (speechSynthesis.speaking) speechSynthesis.cancel();
+                speechSynthesis.cancel();
             }
             break;
 
           case "contextmenu":
-            if (speechSynthesis.speaking) speechSynthesis.cancel();
+            speechSynthesis.cancel();
             break;
 
           case "focusin":
-            if (speechSynthesis.speaking) speechSynthesis.cancel();
             speechSynthesis.speak(new SpeechSynthesisUtterance(document.activeElement.innerText));
             break;
         }
@@ -2123,12 +2284,17 @@ class ReadingGuideService {
         } else if (this.guideType === "mask") {
             const maskTopElt = document.createElement("div");
             const maskBottomElt = document.createElement("div");
+            const closeMask = document.createElement("span");
             maskTopElt.setAttribute("id", `${this.maskTopEltID}`);
             maskBottomElt.setAttribute("id", `${this.maskBottomEltID}`);
+            closeMask.setAttribute("id", `${this.closeTextID}`);
+            closeMask.innerText = i18nServiceInstance.getMessage("readingGuide_closeMask");
             document.body.insertBefore(maskTopElt, document.querySelector(APP_NAME));
             document.body.insertBefore(maskBottomElt, document.querySelector(APP_NAME));
+            document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
         }
         document.addEventListener("mousemove", this.handler);
+        document.addEventListener("keydown", this.handler);
     };
     resetGuide=() => {
         this.guideType = "";
@@ -2137,6 +2303,7 @@ class ReadingGuideService {
         document.querySelector(`#${this.maskTopEltID}`)?.remove();
         document.querySelector(`#${this.maskBottomEltID}`)?.remove();
         document.querySelector(`#${this.closeTextID}`)?.remove();
+        document.removeEventListener("keydown", this.handler);
         document.removeEventListener("mousemove", this.handler);
         this.removePagePMarkupElementsFlag();
     };
@@ -2167,6 +2334,12 @@ class ReadingGuideService {
                 document.querySelector(`#${this.closeTextID}`).style.top = `${event.y - this.sizeGuide}px`;
             }
             event.stopPropagation();
+            break;
+
+          case "keydown":
+            if (event.key === "Escape" || event.key === "Esc") {
+                this.resetGuide();
+            }
             break;
         }
     };
@@ -2742,7 +2915,7 @@ Object.freeze(pauseServiceInstance);
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus-pause-icon">\n\t\t\t<app-icon data-size="2em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus--paused">\n\t\t\t<app-icon data-size="0.75em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     confortPlusBtn=null;
@@ -2829,8 +3002,7 @@ class AppComponent extends HTMLElement {
     };
     setPauseIndicator=() => {
         localStorageServiceInstance.getItem("is-paused").then((isPaused => {
-            this.pauseIndicator.hidden = !isPaused;
-            this.confortPlusBtn.classList.toggle("sc-confort-plus--paused", isPaused ?? false);
+            this.pauseIndicator.hidden = isPaused !== true;
         }));
     };
 }
@@ -3464,7 +3636,7 @@ class BtnSettingComponent extends HTMLElement {
                 const currentIndex = this.index + 1;
                 content = i18nServiceInstance.getMessage("multiclic", [ currentValueLabel, String(currentIndex), String(settingsNumber), nextValueLabel, String(nextValueIndex + 1) ]);
             }
-            const labelParts = content.split(" — ");
+            const labelParts = content.split(",");
             const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
             tooltipValue.innerHTML = labelParts && labelParts.length > 1 ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
             this.btnLabel.innerHTML = content;
@@ -4267,7 +4439,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=fontFamilyServiceInstance.getFontList();
+    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "HelveticaNeue", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans", "BelleAllure" ];
     handler;
     constructor() {
         super();
@@ -4282,7 +4454,6 @@ class EditFontFamilyComponent extends HTMLElement {
             this.settingValues = result.values.split(",");
             const currentIndex = this.fontFamilyValues.findIndex((i => i === this.settingValues[result.valueSelected]));
             this.selectFontFamilyElement.setAttribute("data-index", currentIndex.toString());
-            this.applyFontPreview(this.settingValues[result.valueSelected]);
         }));
     }
     setFontFamily=value => {
@@ -4292,19 +4463,7 @@ class EditFontFamilyComponent extends HTMLElement {
         } else {
             modeOfUseServiceInstance.addSettingCustomValue("fontFamily", 3, value);
         }
-        this.applyFontPreview(value);
         fontFamilyServiceInstance.setFontFamily(value);
-    };
-    applyFontPreview=fontValue => {
-        if (!this.selectFontFamilyElement) return;
-        this.selectFontFamilyElement.style.fontFamily = "";
-        if (fontValue === DEFAULT_VALUE) {
-            return;
-        }
-        const fontInfo = fontFamilyServiceInstance.getFontInfo(fontValue);
-        if (fontInfo) {
-            this.selectFontFamilyElement.querySelector("output").setAttribute("style", `font-family: ${fontValue}, ${fontInfo.generic} !important`);
-        }
     };
     createHandler=() => event => {
         switch (event.type) {
@@ -4899,14 +5058,10 @@ class EditNavigationButtonsComponent extends HTMLElement {
             const currentIndexPointingDelay = this.pointingDelayValues.findIndex((i => i === `pointingDelay_${this.pointingDelayValue}`));
             this.selectButtonPresetElement.setAttribute("data-index", currentIndexButtonPreset.toString());
             this.selectPointingDelayElement.setAttribute("data-index", currentIndexPointingDelay.toString());
-            this.togglePointingDelayVisibility();
         }));
     }
     setNavigationButtons=() => {
         let value = `${this.buttonSetValue}_${this.pointingDelayValue}`;
-        if (value === `${DEFAULT_VALUE}_clicAction`) {
-            value = DEFAULT_VALUE;
-        }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("navigationButtons", newSettingIndex, true);
@@ -4914,13 +5069,6 @@ class EditNavigationButtonsComponent extends HTMLElement {
             modeOfUseServiceInstance.addSettingCustomValue("navigationButtons", 3, value);
         }
         navigationButtonsServiceInstance.setNavigationButtons(value);
-    };
-    togglePointingDelayVisibility=() => {
-        if (this.buttonSetValue === DEFAULT_VALUE) {
-            this.selectPointingDelayElement.style.display = "none";
-        } else {
-            this.selectPointingDelayElement.style.display = "";
-        }
     };
     createHandler=() => event => {
         switch (event.type) {
@@ -4930,7 +5078,6 @@ class EditNavigationButtonsComponent extends HTMLElement {
             } else {
                 this.buttonSetValue = event.detail.newValue.split("_")[1];
             }
-            this.togglePointingDelayVisibility();
             this.setNavigationButtons();
             break;
 
@@ -4952,15 +5099,13 @@ customElements.define("app-edit-navigation-buttons", EditNavigationButtonsCompon
 
 const homeLayout = document.createElement("template");
 
-homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<h2 class="fs-6 m-0"><button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">\n\t\t<span class="visually-hidden" data-i18n="otherUsagesModes"></span>\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="2.5em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button></h2>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<div id="pause-info" class="d-none text-center">\n\t\t<div class="d-flex align-items-center justify-content-center gap-2 mb-3">\n\t\t\t<p class="m-0" data-i18n="pauseInfo"></p>\n\t\t\t<app-icon data-name="Pause" class="text-body"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-center gap-2">\n\t\t\t<button id="reactivate-btn" type="button" class="rounded-circle btn btn-icon btn-inverse btn-secondary sc-reactivate-btn p-2" data-i18n-title="reactivateConfortPlus">\n\t\t\t\t<app-icon data-name="Play" class="ms-1"></app-icon>\n\t\t\t</button>\n\t\t\t<span class="text-body" data-i18n="reactivateBtn"></span>\n\t\t</div>\n\t</div>\n\t<div id="mode-settings" class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
+homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<h2 class="fs-6 m-0"><button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">\n\t\t<span class="visually-hidden" data-i18n="otherUsagesModes"></span>\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="2.5em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button></h2>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
 
 class HomeComponent extends HTMLElement {
     static observedAttributes=[ "data-modes", "data-custom" ];
     changeModeBtn=null;
-    modeSettings=null;
     settingsBtn=null;
     pauseBtn=null;
-    reactivateBtn=null;
     pauseLabel=null;
     pauseInfo=null;
     modeName=null;
@@ -4978,8 +5123,6 @@ class HomeComponent extends HTMLElement {
         this.changeModeBtn = this.querySelector("#change-mode-btn");
         this.settingsBtn = this.querySelector("#settings-btn");
         this.pauseBtn = this.querySelector("#pause-btn");
-        this.reactivateBtn = this.querySelector("#reactivate-btn");
-        this.modeSettings = this.querySelector("#mode-settings");
         this.pauseLabel = this.querySelector("#pause-label");
         this.pauseInfo = this.querySelector("#pause-info");
         this.modeName = this.querySelector("#mode-name");
@@ -4988,14 +5131,12 @@ class HomeComponent extends HTMLElement {
         this.changeModeBtn?.addEventListener("click", this.handler);
         this.settingsBtn?.addEventListener("click", this.handler);
         this.pauseBtn?.addEventListener("click", this.handler);
-        this.reactivateBtn?.addEventListener("click", this.handler);
     }
     disconnectedCallback() {
         this.cleanupModeData();
         this.changeModeBtn?.removeEventListener("click", this.handler);
         this.settingsBtn?.removeEventListener("click", this.handler);
         this.pauseBtn?.removeEventListener("click", this.handler);
-        this.reactivateBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-modes" === name) {
@@ -5024,7 +5165,6 @@ class HomeComponent extends HTMLElement {
                 break;
 
               case this.pauseBtn:
-              case this.reactivateBtn:
                 this.setPauseState();
                 break;
             }
@@ -5060,7 +5200,6 @@ class HomeComponent extends HTMLElement {
             this.pauseBtn.setAttribute("title", i18nServiceInstance.getMessage("play"));
             this.pauseLabel.innerText = i18nServiceInstance.getMessage("play");
             this.pauseInfo.classList.remove("d-none");
-            this.modeSettings.classList.add("d-none");
             this.currentMode.setAttribute("data-pause", "true");
         } else {
             pauseServiceInstance.playSettings();
@@ -5069,7 +5208,6 @@ class HomeComponent extends HTMLElement {
             this.pauseBtn.setAttribute("title", i18nServiceInstance.getMessage("pause"));
             this.pauseLabel.innerText = i18nServiceInstance.getMessage("pause");
             this.pauseInfo.classList.add("d-none");
-            this.modeSettings.classList.remove("d-none");
             this.currentMode.setAttribute("data-pause", "false");
         }
     };
