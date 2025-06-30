@@ -10,13 +10,12 @@ class SkipToContentService {
 		skipToContentServiceIsInstantiated = true;
 	}
 
-	setSkipToContent = (value: string): void => {
-		if (value !== DEFAULT_VALUE) {
-			this.goToMain();
-		}
+	setSkipToContent = (): void => {
+		this.goToMain();
 	}
 
 	goToMain = (): void => {
+
 		let mainElement: HTMLElement;
 
 		mainElement =

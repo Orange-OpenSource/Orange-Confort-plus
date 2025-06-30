@@ -11,11 +11,9 @@ class RestartTopLeftService {
 		restartTopLeftServiceIsInstantiated = true;
 	}
 
-	setRestartTopLeft = (value: string): void => {
+	setRestartTopLeft = (): void => {
 		this.firstElement?.remove();
-		if (value !== DEFAULT_VALUE) {
-			this.addAndFocusFirstElement();
-		}
+		this.addAndFocusFirstElement();
 	}
 
 	addAndFocusFirstElement = (): void => {

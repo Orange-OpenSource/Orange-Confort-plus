@@ -10,12 +10,9 @@ tmplNavigation.innerHTML = `
 		<div class="accordion-body px-3">
 			<div class="d-flex flex-column gap-2">
 				<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>
-				<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>
 				<app-scroll-aspect class="c-category__setting" data-can-edit="true"></app-scroll-aspect>
-				<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>
 				<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>
 				<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>
-				<app-restart-top-left class="c-category__setting" data-can-edit="true"></app-restart-top-left>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
