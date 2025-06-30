@@ -826,7 +826,7 @@
 		"message": "Boutons de navigation"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Pour faciliter la navigation dans la page."
+		"message": "Pour faciliter la navigation dans la page"
 	},
 	"navigationButtons_noModifications": {
 		"message": "sans modification"
@@ -854,7 +854,7 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Boutons d'ascenseur"
+		"message": "Boutons d’ascenseur"
 	},
 	"navigationSet": {
 		"message": "Boutons de navigation"
@@ -874,7 +874,7 @@
 		"message": "Délai de pointage"
 	},
 	"clicAction": {
-		"message": "clic des bouton"
+		"message": "clic des boutons"
 	},
 	"setting_clickFacilite": {
 		"message": "Clics facilités"
