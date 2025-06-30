@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.4 - 24/06/2025
+ * orange-confort-plus - version 5.0.0-beta.4 - 30/06/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -518,16 +518,8 @@ class PauseService {
             instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this),
             value: DEFAULT_VALUE
         }, {
-            name: "restartTopLeft",
-            instanceService: restartTopLeftServiceInstance.setRestartTopLeft.bind(this),
-            value: DEFAULT_VALUE
-        }, {
             name: "scroll",
             instanceService: scrollAspectServiceInstance.setScrollAspect.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "skipToContent",
-            instanceService: skipToContentServiceInstance.setSkipToContent.bind(this),
             value: DEFAULT_VALUE
         }, {
             name: "stopAnimations",
@@ -2561,8 +2553,10 @@ class SkipToContentService {
         }
     };
     goToMain=() => {
+        console.log("Skip to content activated");
         let mainElement;
         mainElement = document.querySelector("main") || document.querySelector('[role="main"]') || document.querySelector('[id="main"]') || document.querySelector('[class="main"]') || document.querySelector('[id="content"]') || document.querySelector('[class="content"]');
+        console.log("Main element found:", mainElement);
         if (mainElement) {
             mainElement.tabIndex = -1;
             mainElement.focus();
