@@ -45,6 +45,7 @@ class ReadAloudService extends BodySelectorService {
 	setReadAloud = (value: string): void => {
 		this.resetBody();
 		if (value === DEFAULT_VALUE) {
+			speechSynthesis.cancel();
 			this.resetReadAloud();
 		} else {
 			switch (value) {

@@ -38,8 +38,15 @@ class ToolbarComponent extends HTMLElement {
 		});
 
 		window.addEventListener(`storage-${JSON_NAME}`, this.handler);
+		document.addEventListener('keydown', this.handler);
 
 		this.addEventListener('changeRoute', this.handler);
+	}
+
+	disconnectedCallback(): void {
+		window.removeEventListener(`storage-${JSON_NAME}`, this.handler);
+		document.removeEventListener('keydown', this.handler);
+		this.removeEventListener('changeRoute', this.handler);
 	}
 
 	initCurrentMode = (shouldLoad = false): void => {
@@ -84,7 +91,32 @@ class ToolbarComponent extends HTMLElement {
 				case `storage-${JSON_NAME}`:
 					this.storageEvent();
 					break;
+				case 'keydown':
+					if (event.key === 'Escape' || event.key === 'Esc') {
+						const appReadingGuideElement = this.querySelector('app-reading-guide');
+						//readingGuideServiceInstance.setReadingMaskGuide('');
+						this.resetSetting(appReadingGuideElement);
+
+						const appReadAloudElement = this.querySelector('app-read-aloud');
+						//readAloudServiceInstance.setReadAloud(DEFAULT_VALUE);
+						this.resetSetting(appReadAloudElement);
+					}
+					break;
 			}
+		}
+	}
+
+	private resetSetting = (settingElement: Element): void => {
+		const values = settingElement?.getAttribute('data-values');
+		const button = settingElement?.querySelector('app-btn-setting');
+		try {
+			let valuesAsJSON = JSON.parse(values);
+			valuesAsJSON.valueSelected = 0;
+			settingElement?.setAttribute('data-values', JSON.stringify(valuesAsJSON));
+			button?.dispatchEvent(new Event('reset'));
+			console.table(valuesAsJSON);
+		} catch (error) {
+			console.error(`Impossible de remettre à zéro la valeur sélectionnée : ${error}`);
 		}
 	}
 

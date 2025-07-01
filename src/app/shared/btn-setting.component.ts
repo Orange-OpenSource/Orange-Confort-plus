@@ -53,6 +53,7 @@ class BtnSettingComponent extends HTMLElement {
 		this.selectedValue = this.querySelector('.sc-btn-setting__selected-value');
 		this.btnContentSlots = this.querySelector('.sc-btn-setting__values');
 		this.btnLabel = this.querySelector('.sc-btn-setting__label');
+		this.settingBtn.addEventListener('reset', this.handler);
 		this.settingBtn.addEventListener('click', this.handler);
 		this.settingBtn.addEventListener('focusin', this.handler);
 		this.settingBtn.addEventListener('focusout', this.handler);
@@ -62,6 +63,7 @@ class BtnSettingComponent extends HTMLElement {
 	}
 
 	disconnectedCallback(): void {
+		this.settingBtn?.removeEventListener('reset', this.handler);
 		this.settingBtn?.removeEventListener('click', this.handler);
 		this.settingBtn?.removeEventListener('focusin', this.handler);
 		this.settingBtn?.removeEventListener('focusout', this.handler);
@@ -211,11 +213,25 @@ class BtnSettingComponent extends HTMLElement {
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
+				case 'reset':
+					console.log('reset Event');
+					this.setIndex(0);
+
+					let resetSettingEvent = new CustomEvent(
+						'resetSettingEvent',
+						{
+							bubbles: true,
+							detail: {
+								value: this.value,
+								index: 0
+							}
+						});
+					this.settingBtn?.dispatchEvent(resetSettingEvent);
 				case 'click':
 					this.setIndex();
 					this.showSelectedValue();
 
-					let clickEvent = new CustomEvent(
+					let changeSettingEvent = new CustomEvent(
 						'changeSettingEvent',
 						{
 							bubbles: true,
@@ -224,7 +240,7 @@ class BtnSettingComponent extends HTMLElement {
 								index: this.index
 							}
 						});
-					this.settingBtn?.dispatchEvent(clickEvent);
+					this.settingBtn?.dispatchEvent(changeSettingEvent);
 					setTimeout(() => {
 						this.settingBtn?.focus();
 					}, 300);
