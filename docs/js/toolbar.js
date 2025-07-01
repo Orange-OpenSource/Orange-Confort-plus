@@ -2117,6 +2117,7 @@ class ReadAloudService extends BodySelectorService {
     setReadAloud=value => {
         this.resetBody();
         if (value === DEFAULT_VALUE) {
+            speechSynthesis.cancel();
             this.resetReadAloud();
         } else {
             switch (value) {
@@ -3044,10 +3045,12 @@ class AbstractSetting extends HTMLElement {
             this.modalBtn?.classList.remove("d-none");
         }
         this.settingBtn?.addEventListener("changeSettingEvent", this.handler);
+        this.settingBtn?.addEventListener("resetSettingEvent", this.handler);
     }
     disconnectedCallback() {
         this.modalBtn?.removeEventListener("clickModalEvent", this.handler);
         this.settingBtn?.removeEventListener("changeSettingEvent", this.handler);
+        this.settingBtn?.removeEventListener("resetSettingEvent", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
@@ -3068,6 +3071,7 @@ class AbstractSetting extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
+          case "resetSettingEvent":
           case "changeSettingEvent":
             this.changeSettingEvent(event);
             break;
@@ -3076,6 +3080,7 @@ class AbstractSetting extends HTMLElement {
     changeSettingEvent=event => {
         let newIndex = event.detail.index;
         let newValue = event.detail.value;
+        console.log("resetSettingEvent");
         modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
             if (!success) {
                 this.callback(newValue);
@@ -3579,6 +3584,7 @@ class BtnSettingComponent extends HTMLElement {
         this.selectedValue = this.querySelector(".sc-btn-setting__selected-value");
         this.btnContentSlots = this.querySelector(".sc-btn-setting__values");
         this.btnLabel = this.querySelector(".sc-btn-setting__label");
+        this.settingBtn.addEventListener("reset", this.handler);
         this.settingBtn.addEventListener("click", this.handler);
         this.settingBtn.addEventListener("focusin", this.handler);
         this.settingBtn.addEventListener("focusout", this.handler);
@@ -3587,6 +3593,7 @@ class BtnSettingComponent extends HTMLElement {
         this.setDisabledState();
     }
     disconnectedCallback() {
+        this.settingBtn?.removeEventListener("reset", this.handler);
         this.settingBtn?.removeEventListener("click", this.handler);
         this.settingBtn?.removeEventListener("focusin", this.handler);
         this.settingBtn?.removeEventListener("focusout", this.handler);
@@ -3709,17 +3716,29 @@ class BtnSettingComponent extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
+          case "reset":
+            console.log("reset Event");
+            this.setIndex(0);
+            let resetSettingEvent = new CustomEvent("resetSettingEvent", {
+                bubbles: true,
+                detail: {
+                    value: this.value,
+                    index: 0
+                }
+            });
+            this.settingBtn?.dispatchEvent(resetSettingEvent);
+
           case "click":
             this.setIndex();
             this.showSelectedValue();
-            let clickEvent = new CustomEvent("changeSettingEvent", {
+            let changeSettingEvent = new CustomEvent("changeSettingEvent", {
                 bubbles: true,
                 detail: {
                     value: this.value,
                     index: this.index
                 }
             });
-            this.settingBtn?.dispatchEvent(clickEvent);
+            this.settingBtn?.dispatchEvent(changeSettingEvent);
             setTimeout((() => {
                 this.settingBtn?.focus();
             }), 300);
@@ -5638,7 +5657,13 @@ class ToolbarComponent extends HTMLElement {
             }));
         }));
         window.addEventListener(`storage-${JSON_NAME}`, this.handler);
+        document.addEventListener("keydown", this.handler);
         this.addEventListener("changeRoute", this.handler);
+    }
+    disconnectedCallback() {
+        window.removeEventListener(`storage-${JSON_NAME}`, this.handler);
+        document.removeEventListener("keydown", this.handler);
+        this.removeEventListener("changeRoute", this.handler);
     }
     initCurrentMode=(shouldLoad = false) => {
         if (this.json.selectedMode) {
@@ -5679,6 +5704,28 @@ class ToolbarComponent extends HTMLElement {
           case `storage-${JSON_NAME}`:
             this.storageEvent();
             break;
+
+          case "keydown":
+            if (event.key === "Escape" || event.key === "Esc") {
+                const appReadingGuideElement = this.querySelector("app-reading-guide");
+                this.resetSetting(appReadingGuideElement);
+                const appReadAloudElement = this.querySelector("app-read-aloud");
+                this.resetSetting(appReadAloudElement);
+            }
+            break;
+        }
+    };
+    resetSetting=settingElement => {
+        const values = settingElement?.getAttribute("data-values");
+        const button = settingElement?.querySelector("app-btn-setting");
+        try {
+            let valuesAsJSON = JSON.parse(values);
+            valuesAsJSON.valueSelected = 0;
+            settingElement?.setAttribute("data-values", JSON.stringify(valuesAsJSON));
+            button?.dispatchEvent(new Event("reset"));
+            console.table(valuesAsJSON);
+        } catch (error) {
+            console.error(`Impossible de remettre à zéro la valeur sélectionnée : ${error}`);
         }
     };
     changeRouteEvent=event => {
