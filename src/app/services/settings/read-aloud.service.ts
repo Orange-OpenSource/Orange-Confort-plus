@@ -100,6 +100,9 @@ class ReadAloudService extends BodySelectorService {
 				fragment.appendChild(span);
 
 				if (index < items.length - 1) {
+					// @fixme Les nœuds texte vides ne sont pas retirés quand on désactive le réglage
+					// ++ Parfois ils sont contre-productifs (par exemple : numéro de version sur page C+
+					// ++ ça ne sert à rien dans un conteneur flexible notamment : exemple, le bouton « Télécharger Confort+ sur la page C+
 					fragment.appendChild(document.createTextNode(' '));
 				}
 			});
