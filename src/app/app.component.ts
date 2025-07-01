@@ -4,8 +4,8 @@ template.innerHTML = `
 	<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">
 		<span class="visually-hidden" data-i18n="mainButton"></span>
 		<app-icon data-size="3em" data-name="Accessibility"></app-icon>
-		<span id="pause-indicator" class="sc-confort-plus--paused">
-			<app-icon data-size="0.75em" data-name="Pause"></app-icon>
+		<span id="pause-indicator" class="sc-confort-plus-pause-icon">
+			<app-icon data-size="2em" data-name="Pause"></app-icon>
 		</span>
 	</button>
 	<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>
@@ -114,7 +114,12 @@ class AppComponent extends HTMLElement {
 	private setPauseIndicator = () => {
 		localStorageServiceInstance.getItem('is-paused')
 			.then((isPaused: any) => {
-				this.pauseIndicator.hidden = isPaused !== true;
+				this.pauseIndicator.hidden = !isPaused;
+				if (isPaused) {
+					this.confortPlusBtn.classList.add('sc-confort-plus--paused');
+				} else {
+					this.confortPlusBtn.classList.remove('sc-confort-plus--paused');
+				}
 			});
 	}
 }

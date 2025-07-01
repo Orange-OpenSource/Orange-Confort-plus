@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.5 - 30/06/2025
+ * orange-confort-plus - version 5.0.0-beta.5 - 01/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -2915,7 +2915,7 @@ Object.freeze(pauseServiceInstance);
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus--paused">\n\t\t\t<app-icon data-size="0.75em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus-pause-icon">\n\t\t\t<app-icon data-size="2em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     confortPlusBtn=null;
@@ -3002,7 +3002,12 @@ class AppComponent extends HTMLElement {
     };
     setPauseIndicator=() => {
         localStorageServiceInstance.getItem("is-paused").then((isPaused => {
-            this.pauseIndicator.hidden = isPaused !== true;
+            this.pauseIndicator.hidden = !isPaused;
+            if (isPaused) {
+                this.confortPlusBtn.classList.add("sc-confort-plus--paused");
+            } else {
+                this.confortPlusBtn.classList.remove("sc-confort-plus--paused");
+            }
         }));
     };
 }
