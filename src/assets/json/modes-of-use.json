@@ -1,5 +1,5 @@
 {
-	"version": "1.0.351",
+	"version": "1.0.36",
 	"modes": [
 		{
 			"facilePlus": [
@@ -70,7 +70,7 @@
 				{
 					"readAloud": {
 						"values": "noModifications,sentence,paragraph",
-						"valueSelected": 1,
+						"valueSelected": 0,
 						"isTool": true,
 						"order": 2
 					}
@@ -141,8 +141,8 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction,fullSet_delay1",
-						"valueSelected": 0,
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
+						"valueSelected":2,
 						"isTool": true,
 						"order": 7
 					}
@@ -305,8 +305,8 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
-						"valueSelected": 0,
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
+						"valueSelected": 2,
 						"isTool": true,
 						"order": 12
 					}
@@ -469,8 +469,8 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
-						"valueSelected": 0,
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
+						"valueSelected": 2,
 						"isTool": true,
 						"order": 12
 					}
@@ -633,7 +633,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -797,8 +797,8 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
-						"valueSelected": 0,
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
+						"valueSelected": 5,
 						"isTool": true,
 						"order": 10
 					}
@@ -961,8 +961,8 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
-						"valueSelected": 0,
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
+						"valueSelected": 5,
 						"isTool": true,
 						"order": 1
 					}
@@ -1125,8 +1125,8 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
-						"valueSelected": 0,
+						"values": "noModifications,navigationSet_clicAction,scrollSet_clicAction,fullSet_clicAction,navigationSet_delay2,scrollSet_delay2,fullSet_delay2",
+						"valueSelected": 5,
 						"isTool": true,
 						"order": 1
 					}

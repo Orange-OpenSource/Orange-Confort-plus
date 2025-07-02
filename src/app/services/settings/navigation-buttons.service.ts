@@ -24,7 +24,7 @@ class NavigationButtonsService {
 
 	setNavigationButtons = (value: string): void => {
 		this.navigationButtonSet = value.split("_")[0];
-		this.delay = parseInt(value.split('_')[1]?.replace(/\D/g, ''), 10) * 1000;
+		this.delay = this.getDelay(value.split("_")[1]);
 
 		this.resetNavigationButtons();
 
@@ -46,7 +46,7 @@ class NavigationButtonsService {
 				this.currentList = this.fullButtonsList;
 				this.getFocusedElement();
 				this.addNavigationButtons();
-				if (this.delay < 0) {
+				if (this.delay <= 0) {
 					scrollTypeServiceInstance.setScrollType('scrollOnClick');
 				} else {
 					scrollTypeServiceInstance.setScrollType('scrollOnMouseover', this.delay);
@@ -166,5 +166,12 @@ class NavigationButtonsService {
 				this.currentFocusElt = event.currentTarget;
 			}
 		}
+	}
+
+	getDelay = (delay: string): number => {
+		if (delay !== "clicAction") {
+			return parseInt(delay?.replace(/\D/g, ''), 10) * 1000;
+		}
+		return 0;
 	}
 }
