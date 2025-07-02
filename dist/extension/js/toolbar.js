@@ -3212,7 +3212,6 @@ class ScrollTypeService {
         this.setBtnScroll();
     };
     setBtnScroll=() => {
-        console.log("set scroll");
         let intervalUp = null;
         let intervalDown = null;
         const buttonsList = [ {
@@ -3233,7 +3232,6 @@ class ScrollTypeService {
                 scrollButton.intervalRef = null;
             }
         }));
-        console.log("set scroll buttons", this.btnState, this.scrollDelay);
         if (this.btnState !== DEFAULT_VALUE) {
             buttonsList.forEach((button => {
                 domServiceInstance.addButtonsInDom(button.name, true);
