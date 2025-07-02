@@ -32,8 +32,10 @@
 	border: none;
 }
 
-.sc-confort-plus-pause-icon svg {
+.sc-confort-plus--paused {
 	filter:
-		drop-shadow(1px 1px 1px var(--cplus-white))
-		drop-shadow(-1px -1px 1px var(--cplus-white));
+		drop-shadow(1px 1px 0 var(--cplus-white))
+		drop-shadow(-1px -1px 0 var(--cplus-white))
+		drop-shadow(1px -1px 0 var(--cplus-white))
+		drop-shadow(-1px 1px 0 var(--cplus-white));
 }
