@@ -115,11 +115,7 @@ class AppComponent extends HTMLElement {
 		localStorageServiceInstance.getItem('is-paused')
 			.then((isPaused: any) => {
 				this.pauseIndicator.hidden = !isPaused;
-				if (isPaused) {
-					this.confortPlusBtn.classList.add('sc-confort-plus--paused');
-				} else {
-					this.confortPlusBtn.classList.remove('sc-confort-plus--paused');
-				}
+				this.confortPlusBtn.classList.toggle('sc-confort-plus--paused', isPaused);
 			});
 	}
 }
