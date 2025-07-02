@@ -1950,7 +1950,7 @@ class NavigationButtonsService {
     currentList=this.navigationButtonsList;
     setNavigationButtons=value => {
         this.navigationButtonSet = value.split("_")[0];
-        this.delay = parseInt(value.split("_")[1]?.replace(/\D/g, ""), 10) * 1e3;
+        this.delay = this.getDelay(value.split("_")[1]);
         this.resetNavigationButtons();
         switch (this.navigationButtonSet) {
           case "scrollSet":
@@ -1972,7 +1972,7 @@ class NavigationButtonsService {
             this.currentList = this.fullButtonsList;
             this.getFocusedElement();
             this.addNavigationButtons();
-            if (this.delay < 0) {
+            if (this.delay <= 0) {
                 scrollTypeServiceInstance.setScrollType("scrollOnClick");
             } else {
                 scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
@@ -2085,6 +2085,12 @@ class NavigationButtonsService {
         if (event.type === "focusout") {
             this.currentFocusElt = event.currentTarget;
         }
+    };
+    getDelay=delay => {
+        if (delay !== "clicAction") {
+            return parseInt(delay?.replace(/\D/g, ""), 10) * 1e3;
+        }
+        return 0;
     };
 }
 
@@ -2467,6 +2473,7 @@ class ScrollTypeService {
         this.setBtnScroll();
     };
     setBtnScroll=() => {
+        console.log("set scroll");
         let intervalUp = null;
         let intervalDown = null;
         const buttonsList = [ {
@@ -2487,6 +2494,7 @@ class ScrollTypeService {
                 scrollButton.intervalRef = null;
             }
         }));
+        console.log("set scroll buttons", this.btnState, this.scrollDelay);
         if (this.btnState !== DEFAULT_VALUE) {
             buttonsList.forEach((button => {
                 domServiceInstance.addButtonsInDom(button.name, true);
