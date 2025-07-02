@@ -24,7 +24,7 @@ class NavigationButtonsService {
 
 	setNavigationButtons = (value: string): void => {
 		this.navigationButtonSet = value.split("_")[0];
-		this.delay = this.getDelay(value.split("_")[1]);
+		this.delay = this.getDelay(value.split('_')[1]);
 
 		this.resetNavigationButtons();
 
@@ -169,7 +169,7 @@ class NavigationButtonsService {
 	}
 
 	getDelay = (delay: string): number => {
-		if (delay !== "clicAction") {
+		if (delay !== 'clicAction') {
 			return parseInt(delay?.replace(/\D/g, ''), 10) * 1000;
 		}
 		return 0;
