@@ -93,28 +93,25 @@ class ToolbarComponent extends HTMLElement {
 					break;
 				case 'keydown':
 					if (event.key === 'Escape' || event.key === 'Esc') {
-						const appReadingGuideElement = this.querySelector('app-reading-guide');
-						//readingGuideServiceInstance.setReadingMaskGuide('');
-						this.resetSetting(appReadingGuideElement);
-
-						const appReadAloudElement = this.querySelector('app-read-aloud');
-						//readAloudServiceInstance.setReadAloud(DEFAULT_VALUE);
-						this.resetSetting(appReadAloudElement);
+						ESC_HANDLING_SETTINGS.forEach(setting => {
+							const settingElement = this.querySelector(`app-${setting}`);
+							this.resetSetting(settingElement, setting);
+						});
 					}
 					break;
 			}
 		}
 	}
 
-	private resetSetting = (settingElement: Element): void => {
+	private resetSetting = (settingElement: Element, name: string): void => {
 		const values = settingElement?.getAttribute('data-values');
-		const button = settingElement?.querySelector('app-btn-setting');
+
 		try {
 			let valuesAsJSON = JSON.parse(values);
 			valuesAsJSON.valueSelected = 0;
 			settingElement?.setAttribute('data-values', JSON.stringify(valuesAsJSON));
-			button?.dispatchEvent(new Event('reset'));
-			console.table(valuesAsJSON);
+			settingElement?.querySelector('app-btn-setting')?.setAttribute('data-active-value', '0');
+			settingElement?.querySelector('app-btn-modal')?.setAttribute('data-value', i18nServiceInstance.getMessage(DEFAULT_VALUE));
 		} catch (error) {
 			console.error(`Impossible de remettre à zéro la valeur sélectionnée : ${error}`);
 		}
