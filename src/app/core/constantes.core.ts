@@ -35,3 +35,5 @@ const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = 'script,style,link,meta';
+
+const ESC_HANDLING_SETTINGS = ['reading-guide', 'read-aloud'];
