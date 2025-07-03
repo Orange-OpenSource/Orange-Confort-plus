@@ -75,6 +75,18 @@ class BtnSettingComponent extends HTMLElement {
 		}
 		if ('data-active-value' === name) {
 			this.setIndex(Number(newValue));
+			if(newValue === '0' && ESC_HANDLING_SETTINGS.includes(this.name)) {
+				let resetSettingEvent = new CustomEvent(
+					'resetSettingEvent',
+					{
+						bubbles: true,
+						detail: {
+							value: DEFAULT_VALUE,
+							index: 0
+						}
+					});
+				this.settingBtn?.dispatchEvent(resetSettingEvent);
+			}
 		}
 		if ('data-name' === name) {
 			const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
@@ -215,7 +227,7 @@ class BtnSettingComponent extends HTMLElement {
 					this.setIndex();
 					this.showSelectedValue();
 
-					let clickEvent = new CustomEvent(
+					let changeSettingEvent = new CustomEvent(
 						'changeSettingEvent',
 						{
 							bubbles: true,
@@ -224,7 +236,7 @@ class BtnSettingComponent extends HTMLElement {
 								index: this.index
 							}
 						});
-					this.settingBtn?.dispatchEvent(clickEvent);
+					this.settingBtn?.dispatchEvent(changeSettingEvent);
 					setTimeout(() => {
 						this.settingBtn?.focus();
 					}, 300);
