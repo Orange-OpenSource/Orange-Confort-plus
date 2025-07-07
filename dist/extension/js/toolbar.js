@@ -784,6 +784,8 @@ const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = "script,style,link,meta";
 
+const ESC_HANDLING_SETTINGS = [ "reading-guide", "read-aloud" ];
+
 VERSION = "5.0.0-beta.6";
 
 "use strict";
@@ -3785,13 +3787,18 @@ class AbstractSetting extends HTMLElement {
             this.modalBtn?.classList.remove("d-none");
         }
         this.settingBtn?.addEventListener("changeSettingEvent", this.handler);
+        this.settingBtn?.addEventListener("resetSettingEvent", this.handler);
     }
     disconnectedCallback() {
         this.modalBtn?.removeEventListener("clickModalEvent", this.handler);
         this.settingBtn?.removeEventListener("changeSettingEvent", this.handler);
+        this.settingBtn?.removeEventListener("resetSettingEvent", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
+            if (ESC_HANDLING_SETTINGS.includes(this.name)) {
+                console.log(`changement de data-values pour ${this.name} avec ${newValue}`);
+            }
             this.activesValues = JSON.parse(newValue);
             this.setSettingBtn(this.activesValues);
             if (this.callback) {
@@ -3809,12 +3816,16 @@ class AbstractSetting extends HTMLElement {
     };
     createHandler=() => event => {
         switch (event.type) {
+          case "resetSettingEvent":
+            console.log("resetSettingEvent");
+            break;
+
           case "changeSettingEvent":
-            this.changeSettingEvent(event);
+            this.changeSettingEventHandler(event);
             break;
         }
     };
-    changeSettingEvent=event => {
+    changeSettingEventHandler=event => {
         let newIndex = event.detail.index;
         let newValue = event.detail.value;
         modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success => {
@@ -4340,6 +4351,16 @@ class BtnSettingComponent extends HTMLElement {
         }
         if ("data-active-value" === name) {
             this.setIndex(Number(newValue));
+            if (newValue === "0" && ESC_HANDLING_SETTINGS.includes(this.name)) {
+                let resetSettingEvent = new CustomEvent("resetSettingEvent", {
+                    bubbles: true,
+                    detail: {
+                        value: DEFAULT_VALUE,
+                        index: 0
+                    }
+                });
+                this.settingBtn?.dispatchEvent(resetSettingEvent);
+            }
         }
         if ("data-name" === name) {
             const settingName = stringServiceInstance.normalizeSettingCamelCase(newValue);
@@ -4453,14 +4474,14 @@ class BtnSettingComponent extends HTMLElement {
           case "click":
             this.setIndex();
             this.showSelectedValue();
-            let clickEvent = new CustomEvent("changeSettingEvent", {
+            let changeSettingEvent = new CustomEvent("changeSettingEvent", {
                 bubbles: true,
                 detail: {
                     value: this.value,
                     index: this.index
                 }
             });
-            this.settingBtn?.dispatchEvent(clickEvent);
+            this.settingBtn?.dispatchEvent(changeSettingEvent);
             setTimeout((() => {
                 this.settingBtn?.focus();
             }), 300);
@@ -6379,7 +6400,13 @@ class ToolbarComponent extends HTMLElement {
             }));
         }));
         window.addEventListener(`storage-${JSON_NAME}`, this.handler);
+        document.addEventListener("keydown", this.handler);
         this.addEventListener("changeRoute", this.handler);
+    }
+    disconnectedCallback() {
+        window.removeEventListener(`storage-${JSON_NAME}`, this.handler);
+        document.removeEventListener("keydown", this.handler);
+        this.removeEventListener("changeRoute", this.handler);
     }
     initCurrentMode=(shouldLoad = false) => {
         if (this.json.selectedMode) {
@@ -6420,6 +6447,27 @@ class ToolbarComponent extends HTMLElement {
           case `storage-${JSON_NAME}`:
             this.storageEvent();
             break;
+
+          case "keydown":
+            if (event.key === "Escape" || event.key === "Esc") {
+                ESC_HANDLING_SETTINGS.forEach((setting => {
+                    const settingElement = this.querySelector(`app-${setting}`);
+                    this.resetSetting(settingElement, setting);
+                }));
+            }
+            break;
+        }
+    };
+    resetSetting=(settingElement, name) => {
+        const values = settingElement?.getAttribute("data-values");
+        try {
+            let valuesAsJSON = JSON.parse(values);
+            valuesAsJSON.valueSelected = 0;
+            settingElement?.setAttribute("data-values", JSON.stringify(valuesAsJSON));
+            settingElement?.querySelector("app-btn-setting")?.setAttribute("data-active-value", "0");
+            settingElement?.querySelector("app-btn-modal")?.setAttribute("data-value", i18nServiceInstance.getMessage(DEFAULT_VALUE));
+        } catch (error) {
+            console.error(`Impossible de remettre à zéro la valeur sélectionnée : ${error}`);
         }
     };
     changeRouteEvent=event => {

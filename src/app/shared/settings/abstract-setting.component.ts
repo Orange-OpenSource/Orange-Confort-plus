@@ -33,15 +33,20 @@ abstract class AbstractSetting extends HTMLElement {
 		}
 
 		this.settingBtn?.addEventListener('changeSettingEvent', this.handler);
+		this.settingBtn?.addEventListener('resetSettingEvent', this.handler);
 	}
 
 	disconnectedCallback(): void {
 		this.modalBtn?.removeEventListener('clickModalEvent', this.handler);
 		this.settingBtn?.removeEventListener('changeSettingEvent', this.handler);
+		this.settingBtn?.removeEventListener('resetSettingEvent', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-values' === name) {
+			if (ESC_HANDLING_SETTINGS.includes(this.name)) {
+				console.log(`changement de data-values pour ${this.name} avec ${newValue}`)
+			}
 			this.activesValues = JSON.parse(newValue);
 			this.setSettingBtn(this.activesValues);
 			if (this.callback) {
@@ -63,17 +68,19 @@ abstract class AbstractSetting extends HTMLElement {
 	createHandler = () => {
 		return (event: Event) => {
 			switch (event.type) {
+				case 'resetSettingEvent':
+					console.log('resetSettingEvent');
+					break;
 				case 'changeSettingEvent':
-					this.changeSettingEvent(event);
+					this.changeSettingEventHandler(event);
 					break;
 			}
 		}
 	}
 
-	private changeSettingEvent = (event: Event): void => {
+	private changeSettingEventHandler = (event: Event): void => {
 		let newIndex = (event as CustomEvent).detail.index;
 		let newValue = (event as CustomEvent).detail.value;
-
 		modeOfUseServiceInstance.setSettingValue(this.name, newIndex).then((success: boolean) => {
 			if (!success) {
 				this.callback(newValue);

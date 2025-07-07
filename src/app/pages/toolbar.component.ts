@@ -38,8 +38,15 @@ class ToolbarComponent extends HTMLElement {
 		});
 
 		window.addEventListener(`storage-${JSON_NAME}`, this.handler);
+		document.addEventListener('keydown', this.handler);
 
 		this.addEventListener('changeRoute', this.handler);
+	}
+
+	disconnectedCallback(): void {
+		window.removeEventListener(`storage-${JSON_NAME}`, this.handler);
+		document.removeEventListener('keydown', this.handler);
+		this.removeEventListener('changeRoute', this.handler);
 	}
 
 	initCurrentMode = (shouldLoad = false): void => {
@@ -84,7 +91,29 @@ class ToolbarComponent extends HTMLElement {
 				case `storage-${JSON_NAME}`:
 					this.storageEvent();
 					break;
+				case 'keydown':
+					if (event.key === 'Escape' || event.key === 'Esc') {
+						ESC_HANDLING_SETTINGS.forEach(setting => {
+							const settingElement = this.querySelector(`app-${setting}`);
+							this.resetSetting(settingElement, setting);
+						});
+					}
+					break;
 			}
+		}
+	}
+
+	private resetSetting = (settingElement: Element, name: string): void => {
+		const values = settingElement?.getAttribute('data-values');
+
+		try {
+			let valuesAsJSON = JSON.parse(values);
+			valuesAsJSON.valueSelected = 0;
+			settingElement?.setAttribute('data-values', JSON.stringify(valuesAsJSON));
+			settingElement?.querySelector('app-btn-setting')?.setAttribute('data-active-value', '0');
+			settingElement?.querySelector('app-btn-modal')?.setAttribute('data-value', i18nServiceInstance.getMessage(DEFAULT_VALUE));
+		} catch (error) {
+			console.error(`Impossible de remettre à zéro la valeur sélectionnée : ${error}`);
 		}
 	}
 
