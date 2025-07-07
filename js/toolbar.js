@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.4 - 16/06/2025
+ * orange-confort-plus - version 5.0.0-beta.6 - 07/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -39,6 +39,10 @@ const SCROLL_SIZE_BIG = "32px";
 
 const SCROLL_SIZE_HUGE = "48px";
 
+const BTN_RIGHT_POS_DEFAULT = "2em";
+
+const BTN_RIGHT_POS_OPEN = "26em";
+
 const CLICK_FACILITE_BIG_ZONE = "bigZone";
 
 const CLICK_FACILITE_LONG_CLICK = "longClick";
@@ -53,7 +57,7 @@ const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = "script,style,link,meta";
 
-VERSION = "5.0.0-beta.4";
+VERSION = "5.0.0-beta.6";
 
 "use strict";
 
@@ -290,10 +294,10 @@ class DomService {
         const focusableElt = [ `a[href]:not(${not.inert},${not.negTabIndex}`, `area[href]:not(${not.inert},${not.negTabIndex}`, `input:not([type="hidden"],[type="radio"],${not.inert},${not.negTabIndex},${not.disabled}`, `input[type="radio"]:not(${not.inert},${not.negTabIndex},${not.disabled}`, `select:not(${not.inert},${not.negTabIndex},${not.disabled}`, `textarea:not(${not.inert},${not.negTabIndex},${not.disabled}`, `button:not(${not.inert},${not.negTabIndex},${not.disabled}`, `details:not(${not.inert} > summary:first-of-type,${not.negTabIndex}`, `iframe:not(${not.inert},${not.negTabIndex}`, `audio[controls]:not(${not.inert},${not.negTabIndex}`, `video[controls]:not(${not.inert},${not.negTabIndex}`, `[contenteditable]:not(${not.inert},${not.negTabIndex}`, `[tabindex]:not(${not.inert},${not.negTabIndex}` ];
         return Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
     };
-    addButtonsInDom=button => {
+    addButtonsInDom=(button, start = false) => {
         let container;
         let fragment = document.createDocumentFragment();
-        let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector("app-toolbar")?.classList.contains("close") ? "2em" : "26em";
+        let rightPosition = document.querySelector(APP_NAME)?.shadowRoot?.querySelector("app-toolbar")?.classList.contains("close") ? BTN_RIGHT_POS_DEFAULT : BTN_RIGHT_POS_OPEN;
         if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)) {
             container = document.querySelector(`#${CONTAINER_BUTTONS_ID}`);
         } else {
@@ -307,7 +311,11 @@ class DomService {
         btn.type = "button";
         btn.tabIndex = -1;
         btn.innerText = i18nServiceInstance.getMessage(button);
-        container.appendChild(btn);
+        if (start) {
+            container.prepend(btn);
+        } else {
+            container.appendChild(btn);
+        }
         fragment.appendChild(container);
         document.body.appendChild(fragment);
     };
@@ -510,16 +518,8 @@ class PauseService {
             instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this),
             value: DEFAULT_VALUE
         }, {
-            name: "restartTopLeft",
-            instanceService: restartTopLeftServiceInstance.setRestartTopLeft.bind(this),
-            value: DEFAULT_VALUE
-        }, {
             name: "scroll",
             instanceService: scrollAspectServiceInstance.setScrollAspect.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "skipToContent",
-            instanceService: skipToContentServiceInstance.setSkipToContent.bind(this),
             value: DEFAULT_VALUE
         }, {
             name: "stopAnimations",
@@ -1930,11 +1930,14 @@ class NavigationAutoService {
 
 "use strict";
 
-let navigationButtonsServiceIsInstantiated;
+let navigationButtonsServiceIsInstantiated = false;
 
 class NavigationButtonsService {
     currentFocusElt;
     handlerNavigationButtons;
+    navigationButtonSet=DEFAULT_VALUE;
+    delay=0;
+    hoverTimeoutIds={};
     constructor() {
         if (navigationButtonsServiceIsInstantiated) {
             throw new Error("NavigationButtonsService is already instantiated.");
@@ -1942,39 +1945,93 @@ class NavigationButtonsService {
         navigationButtonsServiceIsInstantiated = true;
         this.handlerNavigationButtons = this.createHandlerNavigationButtons();
     }
-    buttonsList=[ "tab", "shiftTab", "click", "escape" ];
+    navigationButtonsList=[ "escape", "start", "previous", "next", "click" ];
+    fullButtonsList=[ "escape", "start", "content", "previous", "next", "click" ];
+    currentList=this.navigationButtonsList;
     setNavigationButtons=value => {
+        this.navigationButtonSet = value.split("_")[0];
+        this.delay = this.getDelay(value.split("_")[1]);
         this.resetNavigationButtons();
-        if (value !== DEFAULT_VALUE) {
+        switch (this.navigationButtonSet) {
+          case "scrollSet":
+            this.currentList = [];
+            if (this.delay < 0) {
+                scrollTypeServiceInstance.setScrollType("scrollOnClick");
+            } else {
+                scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
+            }
+            break;
+
+          case "navigationSet":
+            this.currentList = this.navigationButtonsList;
             this.getFocusedElement();
             this.addNavigationButtons();
+            break;
+
+          case "fullSet":
+            this.currentList = this.fullButtonsList;
+            this.getFocusedElement();
+            this.addNavigationButtons();
+            if (this.delay <= 0) {
+                scrollTypeServiceInstance.setScrollType("scrollOnClick");
+            } else {
+                scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
+            }
+            break;
+
+          default:
+            break;
         }
     };
     resetNavigationButtons=() => {
-        this.buttonsList.forEach((navigationButton => {
+        scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
+        this.currentList.forEach((navigationButton => {
             domServiceInstance.removeButtonsInDom(navigationButton);
+            if (this.hoverTimeoutIds[navigationButton]) {
+                clearTimeout(this.hoverTimeoutIds[navigationButton]);
+                this.hoverTimeoutIds[navigationButton] = null;
+            }
         }));
         document.removeEventListener("click", this.handlerNavigationButtons);
         document.removeEventListener("focusout", this.handlerNavigationButtons);
     };
     addNavigationButtons=() => {
-        this.buttonsList.forEach((navigationButton => {
+        this.currentList.forEach((navigationButton => {
             domServiceInstance.addButtonsInDom(navigationButton);
             let btnNav = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${navigationButton}`);
-            btnNav.addEventListener("mousedown", (event => {
-                event.preventDefault();
-                event.stopPropagation();
-                this.simulateKeyEvent(navigationButton);
-            }));
+            if (btnNav) {
+                btnNav.addEventListener("mousedown", (event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.simulateKeyEvent(navigationButton);
+                }));
+                if (this.delay > 0) {
+                    btnNav.addEventListener("mouseenter", (() => {
+                        if (this.hoverTimeoutIds[navigationButton]) {
+                            clearTimeout(this.hoverTimeoutIds[navigationButton]);
+                        }
+                        this.hoverTimeoutIds[navigationButton] = window.setTimeout((() => {
+                            this.simulateKeyEvent(navigationButton);
+                            this.hoverTimeoutIds[navigationButton] = null;
+                        }), this.delay);
+                    }));
+                    btnNav.addEventListener("mouseleave", (() => {
+                        if (this.hoverTimeoutIds[navigationButton]) {
+                            clearTimeout(this.hoverTimeoutIds[navigationButton]);
+                            this.hoverTimeoutIds[navigationButton] = null;
+                        }
+                    }));
+                }
+            }
         }));
     };
     simulateKeyEvent=name => {
         switch (name) {
-          case "tab":
+          case "next":
             this.focusElement("next");
             break;
 
-          case "shiftTab":
+          case "previous":
             this.focusElement("previous");
             break;
 
@@ -1984,6 +2041,14 @@ class NavigationButtonsService {
 
           case "escape":
             this.simulateKeydownEscape();
+            break;
+
+          case "start":
+            restartTopLeftServiceInstance.setRestartTopLeft();
+            break;
+
+          case "content":
+            skipToContentServiceInstance.setSkipToContent();
             break;
 
           default:
@@ -2020,6 +2085,12 @@ class NavigationButtonsService {
         if (event.type === "focusout") {
             this.currentFocusElt = event.currentTarget;
         }
+    };
+    getDelay=delay => {
+        if (delay !== "clicAction") {
+            return parseInt(delay?.replace(/\D/g, ""), 10) * 1e3;
+        }
+        return 0;
     };
 }
 
@@ -2292,11 +2363,9 @@ class RestartTopLeftService {
         }
         restartTopLeftServiceIsInstantiated = true;
     }
-    setRestartTopLeft=value => {
+    setRestartTopLeft=() => {
         this.firstElement?.remove();
-        if (value !== DEFAULT_VALUE) {
-            this.addAndFocusFirstElement();
-        }
+        this.addAndFocusFirstElement();
     };
     addAndFocusFirstElement=() => {
         this.firstElement = document.createElement("a");
@@ -2382,58 +2451,93 @@ class ScrollAspectService {
 
 "use strict";
 
-let scrollTypeServiceIsInstantiated;
+let scrollTypeServiceIsInstantiated = false;
 
 class ScrollTypeService {
     btnState="";
     scrollSteps=100;
     scrollTimer=50;
+    scrollDelay=0;
+    hoverTimeoutIds={};
     constructor() {
         if (scrollTypeServiceIsInstantiated) {
             throw new Error("ScrollTypeService is already instantiated.");
         }
         scrollTypeServiceIsInstantiated = true;
     }
-    setScrollType=value => {
+    setScrollType=(value, delay = 0) => {
         this.btnState = value;
+        this.scrollDelay = delay;
         this.setBtnScroll();
     };
     setBtnScroll=() => {
-        let intervalUp;
-        let intervalDown;
+        let intervalUp = null;
+        let intervalDown = null;
         const buttonsList = [ {
-            name: "scroll_up",
-            interval: intervalUp
-        }, {
             name: "scroll_down",
-            interval: intervalDown
+            intervalRef: intervalDown
+        }, {
+            name: "scroll_up",
+            intervalRef: intervalUp
         } ];
         buttonsList.forEach((scrollButton => {
             domServiceInstance.removeButtonsInDom(scrollButton.name);
+            if (this.hoverTimeoutIds[scrollButton.name]) {
+                clearTimeout(this.hoverTimeoutIds[scrollButton.name]);
+                this.hoverTimeoutIds[scrollButton.name] = null;
+            }
+            if (scrollButton.intervalRef) {
+                clearInterval(scrollButton.intervalRef);
+                scrollButton.intervalRef = null;
+            }
         }));
         if (this.btnState !== DEFAULT_VALUE) {
             buttonsList.forEach((button => {
-                domServiceInstance.addButtonsInDom(button.name);
+                domServiceInstance.addButtonsInDom(button.name, true);
                 let btnScroll = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button.name}`);
                 let scrollDir = button.name.includes("up") ? -1 : button.name.includes("down") ? 1 : 0;
                 let scrollBy = scrollDir * this.scrollSteps;
                 if (this.btnState === "scrollOnMouseover") {
-                    btnScroll?.addEventListener("mouseover", (event => {
-                        button.interval = setInterval((function() {
-                            window.scrollBy(0, scrollBy);
-                        }), this.scrollTimer);
+                    btnScroll.addEventListener("mouseenter", (() => {
+                        if (this.scrollDelay > 0) {
+                            if (this.hoverTimeoutIds[button.name]) {
+                                clearTimeout(this.hoverTimeoutIds[button.name]);
+                            }
+                            this.hoverTimeoutIds[button.name] = window.setTimeout((() => {
+                                this.startScrolling(button, scrollBy);
+                                this.hoverTimeoutIds[button.name] = null;
+                            }), this.scrollDelay);
+                        } else {
+                            this.startScrolling(button, scrollBy);
+                        }
                     }));
-                    btnScroll?.addEventListener("mouseleave", (event => {
-                        clearInterval(button.interval);
-                    }));
+                    btnScroll.addEventListener("mouseleave", (() => this.stopScrolling(button)));
                 } else {
-                    btnScroll?.addEventListener("click", (event => {
+                    btnScroll.addEventListener("click", (() => {
                         window.scrollBy(0, scrollBy);
                     }));
                 }
             }));
         }
     };
+    startScrolling(button, scrollBy) {
+        if (button.intervalRef) {
+            clearInterval(button.intervalRef);
+        }
+        button.intervalRef = setInterval((() => {
+            window.scrollBy(0, scrollBy);
+        }), this.scrollTimer);
+    }
+    stopScrolling(button) {
+        if (this.hoverTimeoutIds[button.name]) {
+            clearTimeout(this.hoverTimeoutIds[button.name]);
+            this.hoverTimeoutIds[button.name] = null;
+        }
+        if (button.intervalRef) {
+            clearInterval(button.intervalRef);
+            button.intervalRef = null;
+        }
+    }
 }
 
 "use strict";
@@ -2447,10 +2551,8 @@ class SkipToContentService {
         }
         skipToContentServiceIsInstantiated = true;
     }
-    setSkipToContent=value => {
-        if (value !== DEFAULT_VALUE) {
-            this.goToMain();
-        }
+    setSkipToContent=() => {
+        this.goToMain();
     };
     goToMain=() => {
         let mainElement;
@@ -2819,7 +2921,7 @@ Object.freeze(pauseServiceInstance);
 
 const template = document.createElement("template");
 
-template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus--paused">\n\t\t\t<app-icon data-size="0.75em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
+template.innerHTML = `\n<div data-bs-theme="light" style="display:none">\n\t<button type="button" class="btn btn-icon btn-primary btn-lg sc-confort-plus" id="confort" data-i18n-title="mainButton">\n\t\t<span class="visually-hidden" data-i18n="mainButton"></span>\n\t\t<app-icon data-size="3em" data-name="Accessibility"></app-icon>\n\t\t<span id="pause-indicator" class="sc-confort-plus-pause-icon">\n\t\t\t<app-icon data-size="2em" data-name="Pause"></app-icon>\n\t\t</span>\n\t</button>\n\t<app-toolbar class="bg-body position-fixed top-0 end-0" id="${PREFIX}toolbar"></app-toolbar>\n</div>\n`;
 
 class AppComponent extends HTMLElement {
     confortPlusBtn=null;
@@ -2885,14 +2987,14 @@ class AppComponent extends HTMLElement {
         }
     };
     showToolbar=() => {
-        this.setContainerButtonsPosition("21em");
+        this.setContainerButtonsPosition(BTN_RIGHT_POS_OPEN);
         this.confortPlusToolbar.classList.remove("close");
         this.confortPlusBtn.classList.add("d-none");
         this.closeBtn?.focus();
         localStorageServiceInstance.setItem("is-opened", "true");
     };
     hideToolbar=() => {
-        this.setContainerButtonsPosition("2em");
+        this.setContainerButtonsPosition(BTN_RIGHT_POS_DEFAULT);
         this.confortPlusToolbar.classList.add("close");
         this.confortPlusBtn.classList.remove("d-none");
         this.confortPlusBtn?.focus();
@@ -2906,7 +3008,8 @@ class AppComponent extends HTMLElement {
     };
     setPauseIndicator=() => {
         localStorageServiceInstance.getItem("is-paused").then((isPaused => {
-            this.pauseIndicator.hidden = isPaused !== true;
+            this.pauseIndicator.hidden = !isPaused;
+            this.confortPlusBtn.classList.toggle("sc-confort-plus--paused", isPaused);
         }));
     };
 }
@@ -3226,11 +3329,11 @@ customElements.define("app-navigation-auto", NavigationAutoComponent);
 
 const tmplNavigationButtons = document.createElement("template");
 
-tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplNavigationButtons.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class NavigationButtonsComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,active",
+        values: "noModifications,scrollSet_clicAction,navigationSet_clicAction,fullSet_clicAction",
         valueSelected: 0
     };
     constructor() {
@@ -3284,26 +3387,6 @@ customElements.define("app-reading-guide", ReadingGuideComponent);
 
 "use strict";
 
-const tmplRestartTopLeft = document.createElement("template");
-
-tmplRestartTopLeft.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
-
-class RestartTopLeftComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,active",
-        valueSelected: 0
-    };
-    constructor() {
-        super();
-        this.setCallback(restartTopLeftServiceInstance.setRestartTopLeft.bind(this));
-        this.appendChild(tmplRestartTopLeft.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-restart-top-left", RestartTopLeftComponent);
-
-"use strict";
-
 const tmplScrollAspect = document.createElement("template");
 
 tmplScrollAspect.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
@@ -3321,46 +3404,6 @@ class ScrollAspectComponent extends AbstractSetting {
 }
 
 customElements.define("app-scroll-aspect", ScrollAspectComponent);
-
-"use strict";
-
-const tmplScrollType = document.createElement("template");
-
-tmplScrollType.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
-
-class ScrollTypeComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,scrollOnMouseover",
-        valueSelected: 0
-    };
-    constructor() {
-        super();
-        this.setCallback(scrollTypeServiceInstance.setScrollType.bind(this));
-        this.appendChild(tmplScrollType.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-scroll-type", ScrollTypeComponent);
-
-"use strict";
-
-const tmplSkipToContent = document.createElement("template");
-
-tmplSkipToContent.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
-
-class SkipToContentComponent extends AbstractSetting {
-    activesValues={
-        values: "noModifications,active",
-        valueSelected: 0
-    };
-    constructor() {
-        super();
-        this.setCallback(skipToContentServiceInstance.setSkipToContent.bind(this));
-        this.appendChild(tmplSkipToContent.content.cloneNode(true));
-    }
-}
-
-customElements.define("app-skip-to-content", SkipToContentComponent);
 
 "use strict";
 
@@ -3990,7 +4033,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-zoom class="sc-edit-setting__setting"></app-edit-zoom>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-zoom class="sc-edit-setting__setting"></app-edit-zoom>\n\t\t<app-edit-navigation-buttons class="sc-edit-setting__setting"></app-edit-navigation-buttons>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -4989,6 +5032,78 @@ customElements.define("app-edit-zoom", EditZoomComponent);
 
 "use strict";
 
+const editNavigationButtonsComponent = document.createElement("template");
+
+editNavigationButtonsComponent.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-button-preset" data-name="buttonSet" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-pointing-delay" data-name="pointingDelay" data-label="true"></app-select-edit-value>\n\t</form>\n`;
+
+class EditNavigationButtonsComponent extends HTMLElement {
+    selectButtonPresetElement=null;
+    selectPointingDelayElement=null;
+    settingValues=null;
+    buttonSetValue="";
+    pointingDelayValue="";
+    buttonSetValues=[ `buttonSet_${DEFAULT_VALUE}`, "buttonSet_scrollSet", "buttonSet_navigationSet", "buttonSet_fullSet" ];
+    pointingDelayValues=[ `pointingDelay_clicAction`, "pointingDelay_delay1", "pointingDelay_delay2", "pointingDelay_delay3", "pointingDelay_delay6" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editNavigationButtonsComponent.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectButtonPresetElement = this.querySelector(`#${PREFIX}select-button-preset`);
+        this.selectPointingDelayElement = this.querySelector(`#${PREFIX}select-pointing-delay`);
+        this.selectButtonPresetElement.addEventListener("editSettingButtonSet", this.handler);
+        this.selectPointingDelayElement.addEventListener("editSettingPointingDelay", this.handler);
+        this.selectButtonPresetElement.setAttribute("data-setting-values", this.buttonSetValues.join(","));
+        this.selectPointingDelayElement.setAttribute("data-setting-values", this.pointingDelayValues.join(","));
+        modeOfUseServiceInstance.getSetting("navigationButtons").then((result => {
+            this.settingValues = result.values?.split(",");
+            this.buttonSetValue = this.settingValues[result.valueSelected]?.split("_")[0];
+            this.pointingDelayValue = this.settingValues[result.valueSelected]?.split("_")[1];
+            const currentIndexButtonPreset = this.buttonSetValues.findIndex((i => i === `buttonSet_${this.buttonSetValue}`));
+            const currentIndexPointingDelay = this.pointingDelayValues.findIndex((i => i === `pointingDelay_${this.pointingDelayValue}`));
+            this.selectButtonPresetElement.setAttribute("data-index", currentIndexButtonPreset.toString());
+            this.selectPointingDelayElement.setAttribute("data-index", currentIndexPointingDelay.toString());
+        }));
+    }
+    setNavigationButtons=() => {
+        let value = `${this.buttonSetValue}_${this.pointingDelayValue}`;
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("navigationButtons", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("navigationButtons", 3, value);
+        }
+        navigationButtonsServiceInstance.setNavigationButtons(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingButtonSet":
+            if (event.detail.newValue === DEFAULT_VALUE) {
+                this.buttonSetValue = DEFAULT_VALUE;
+            } else {
+                this.buttonSetValue = event.detail.newValue.split("_")[1];
+            }
+            this.setNavigationButtons();
+            break;
+
+          case "editSettingPointingDelay":
+            if (event.detail.newValue === DEFAULT_VALUE) {
+                this.pointingDelayValue = DEFAULT_VALUE;
+            } else {
+                this.pointingDelayValue = event.detail.newValue.split("_")[1];
+            }
+            this.setNavigationButtons();
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-navigation-buttons", EditNavigationButtonsComponent);
+
+"use strict";
+
 const homeLayout = document.createElement("template");
 
 homeLayout.innerHTML = `\n<section class="bg-dark p-3 d-flex align-items-center justify-content-between">\n\t<h2 class="fs-6 m-0"><button id="change-mode-btn" type="button" class="btn btn-secondary bg-dark gap-2 p-0 border-0" data-i18n-title="otherUsagesModes">\n\t\t<span class="visually-hidden" data-i18n="otherUsagesModes"></span>\n\t\t<div class="sc-home__icon-mode bg-body rounded-circle text-body">\n\t\t\t<app-icon data-size="2.5em"></app-icon>\n\t\t</div>\n\t\t<div class="d-flex flex-column align-items-start">\n\t\t\t<span class="text-white" data-i18n="profile"></span>\n\t\t\t<span id="mode-name" class="fs-4 fw-bold text-primary"></span>\n\t\t</div>\n\t</button></h2>\n\t<div class="d-grid gap-3 d-md-block">\n\t\t<button id="pause-btn" type="button" class="btn btn-icon btn-inverse btn-secondary" data-i18n-title="pause">\n\t\t\t<span id="pause-label" class="visually-hidden" data-i18n="pause"></span>\n\t\t\t<app-icon id="pause-icon" data-name="Pause"></app-icon>\n\t\t</button>\n\t</div>\n</section>\n\n<section class="gap-3 p-3">\n\t<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>\n\t<div class="sc-home__settings gap-3">\n\t\t<app-mode></app-mode>\n\t\t<button id="settings-btn" type="button" class="btn btn-secondary">\n\t\t\t<app-icon class="me-1" data-name="Settings"></app-icon>\n\t\t\t<span data-i18n="othersSettings"></span>\n\t\t</button>\n\t</div>\n</section>\n`;
@@ -5117,7 +5232,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-skip-to-content class="sc-mode__setting d-none"></app-skip-to-content>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-scroll-type class="sc-mode__setting d-none"></app-scroll-type>\n\t<app-restart-top-left class="sc-mode__setting d-none"></app-restart-top-left>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -5434,7 +5549,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-skip-to-content class="c-category__setting" data-can-edit="true"></app-skip-to-content>\n\t\t\t\t<app-scroll-aspect class="c-category__setting" data-can-edit="true"></app-scroll-aspect>\n\t\t\t\t<app-scroll-type class="c-category__setting" data-can-edit="true"></app-scroll-type>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t\t<app-restart-top-left class="c-category__setting" data-can-edit="true"></app-restart-top-left>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-scroll-aspect class="c-category__setting" data-can-edit="true"></app-scroll-aspect>\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {
