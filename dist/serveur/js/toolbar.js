@@ -840,7 +840,6 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
-                scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 break;
             }
 
@@ -848,7 +847,6 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
-                scrollTypeServiceInstance.setScrollType("scrollOnClick");
                 this.longClick();
                 break;
             }
@@ -857,7 +855,6 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
-                scrollTypeServiceInstance.setScrollType("scrollOnMouseover");
                 this.autoClick();
                 break;
             }
