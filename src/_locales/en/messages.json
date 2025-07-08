@@ -259,6 +259,15 @@
 	"shiftTab": {
 		"message": "Shift + Tab"
 	},
+	"next": {
+		"message": "Next"
+	},
+	"start":{
+		"message":"Beginning"
+	},
+	"content": {
+		"message": "Content"
+	},
 	"click": {
 		"message": "Click"
 	},
@@ -817,10 +826,55 @@
 		"message": "Navigation buttons"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "To move focus with the mouse."
+		"message": "To facilitate navigation within the page"
 	},
 	"navigationButtons_noModifications": {
-		"message": "no navigation buttons"
+		"message":"without modification"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Buttons selection"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Scroll bar buttons"
+	},
+	"navigationSet": {
+		"message": "Navigation buttons"
+	},
+	"fullSet": {
+		"message": "Scroll bar and navigation buttons"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Pointing duration"
+	},
+	"clicAction": {
+		"message": "buttons clicking"
 	},
 	"navigationButtons_active": {
 		"message": "add navigation buttons"
