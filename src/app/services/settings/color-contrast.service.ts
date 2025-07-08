@@ -76,7 +76,7 @@ class ColorContrastService {
 
 	setColorContrastStyle = (color: string, backgroundColor: string): void => {
 		let styleColorContrast = `
-			* {
+			*:not(.${PREFIX}container-buttons) {
 				color: ${color} !important;
 				background-color: ${backgroundColor} !important;
 			}
