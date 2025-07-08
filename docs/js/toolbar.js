@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.6 - 07/07/2025
+ * orange-confort-plus - version 5.0.0-beta.6 - 08/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -303,7 +303,7 @@ class DomService {
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 1px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 2px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t\toutline: 2px solid #fff;\n\t\t\t\t\tbox-shadow: 0 0 6px 3px #bbb;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
         }
         let btn = document.createElement("button");
