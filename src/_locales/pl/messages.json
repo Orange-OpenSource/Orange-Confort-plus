@@ -259,6 +259,15 @@
 	"shiftTab": {
 		"message": "Shift + Tabulacjia"
 	},
+	"next":{
+		"message":"na dół"
+	},
+	"start":{
+		"message":"początek"
+	},
+	"content":{
+		"message":"treść"
+	},
 	"click": {
 		"message": "Kliknięcie"
 	},
@@ -817,10 +826,55 @@
 		"message": "Przyciski nawigacyjne"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Aby przesunąć fokus myszką"
+		"message": "Ułatwić nawigację po stronie"
 	},
 	"navigationButtons_noModifications": {
-		"message": "bez przycisków nawigacyjnych"
+		"message": "bez zmian"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Wybór przycisków"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Pasek przewijania"
+	},
+	"navigationSet": {
+		"message": "Przyciski nawigacyjne"
+	},
+	"fullSet": {
+		"message": "Przyciski nawigacyjne i pasek przewijania"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Czas wskazywania"
+	},
+	"clicAction": {
+		"message": "kliknięcie przycisków"
 	},
 	"navigationButtons_active": {
 		"message": "dodać przycisków nawigacyjnych "

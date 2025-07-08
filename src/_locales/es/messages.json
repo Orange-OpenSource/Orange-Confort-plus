@@ -259,6 +259,15 @@
 	"shiftTab": {
 		"message": "Mayúscula + Tabulación"
 	},
+	"next": {
+		"message": "TODO"
+	},
+	"start":{
+		"message":"TODO"
+	},
+	"content": {
+		"message": "TODO"
+	},
 	"click": {
 		"message": "Clic"
 	},
@@ -820,10 +829,55 @@
 		"message": "Botones de navegación"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Para mover el foco con el ratón"
+		"message": "TODO"
 	},
 	"navigationButtons_noModifications": {
-		"message": "sin botón de navegación"
+		"message": "TODO"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "TODO"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "TODO"
+	},
+	"navigationSet": {
+		"message": "TODO"
+	},
+	"fullSet": {
+		"message": "TODO"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "TODO"
+	},
+	"clicAction": {
+		"message": "TODO"
 	},
 	"navigationButtons_active": {
 		"message": "Añadir botones de navegación"
