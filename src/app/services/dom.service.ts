@@ -68,9 +68,11 @@ class DomService {
 				#${CONTAINER_BUTTONS_ID} button {
 					background: #f16e00;
 					color: #000;
-					border: 1px solid currentColor;
+					border: 2px solid currentColor;
 					font-weight: bold;
 					padding: 1em 2em;
+					outline: 2px solid #fff;
+					box-shadow: 0 0 6px 3px #bbb;
 				}
 
 				#${CONTAINER_BUTTONS_ID} button:hover {
