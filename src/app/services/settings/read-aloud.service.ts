@@ -43,6 +43,7 @@ class ReadAloudService extends BodySelectorService {
 	}
 
 	setReadAloud = (value: string): void => {
+		if (speechSynthesis.speaking) speechSynthesis.cancel();
 		this.resetBody();
 		if (value === DEFAULT_VALUE) {
 			this.resetReadAloud();
@@ -135,7 +136,7 @@ class ReadAloudService extends BodySelectorService {
 	}
 
 	getInnerText = (element: HTMLElement): string => {
-		return element.classList.contains('cplus-colored-text') ? element.parentElement.innerText : element.innerText;
+		return element.classList.contains(`${PREFIX}colored-text`) ? element.parentElement.innerText : element.innerText;
 	}
 
 	private createHandler = () => {
@@ -146,17 +147,19 @@ class ReadAloudService extends BodySelectorService {
 					this.tooltipReadAloud.style.top = `${event.pageY! - (window.scrollY || document.documentElement.scrollTop)}px`;
 					break;
 				case 'pointerdown':
+					if (speechSynthesis.speaking) speechSynthesis.cancel();
 					speechSynthesis.speak(new SpeechSynthesisUtterance(this.getInnerText((event.target as HTMLElement))));
 					break;
 				case 'keydown':
 					if (event.key === 'Escape' || event.key === 'Esc') {
-						speechSynthesis.cancel();
+						if (speechSynthesis.speaking) speechSynthesis.cancel();
 					}
 					break;
 				case 'contextmenu':
-					speechSynthesis.cancel();
+					if (speechSynthesis.speaking) speechSynthesis.cancel();
 					break;
 				case 'focusin':
+					if (speechSynthesis.speaking) speechSynthesis.cancel();
 					speechSynthesis.speak(new SpeechSynthesisUtterance((document.activeElement as HTMLElement).innerText));
 					break;
 			}
