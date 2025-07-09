@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.7 - 09/07/2025
+ * orange-confort-plus - version 5.0.0-beta.7 - 10/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -2853,6 +2853,7 @@ class ReadAloudService extends BodySelectorService {
         this.handler = this.createHandler();
     }
     setReadAloud=value => {
+        if (speechSynthesis.speaking) speechSynthesis.cancel();
         this.resetBody();
         if (value === DEFAULT_VALUE) {
             this.resetReadAloud();
@@ -2935,7 +2936,7 @@ class ReadAloudService extends BodySelectorService {
         this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
         document.addEventListener("pointermove", this.handler);
     };
-    getInnerText=element => element.classList.contains("cplus-colored-text") ? element.parentElement.innerText : element.innerText;
+    getInnerText=element => element.classList.contains(`${PREFIX}colored-text`) ? element.parentElement.innerText : element.innerText;
     createHandler=() => event => {
         switch (event.type) {
           case "pointermove":
@@ -2944,20 +2945,22 @@ class ReadAloudService extends BodySelectorService {
             break;
 
           case "pointerdown":
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             speechSynthesis.speak(new SpeechSynthesisUtterance(this.getInnerText(event.target)));
             break;
 
           case "keydown":
             if (event.key === "Escape" || event.key === "Esc") {
-                speechSynthesis.cancel();
+                if (speechSynthesis.speaking) speechSynthesis.cancel();
             }
             break;
 
           case "contextmenu":
-            speechSynthesis.cancel();
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             break;
 
           case "focusin":
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             speechSynthesis.speak(new SpeechSynthesisUtterance(document.activeElement.innerText));
             break;
         }
