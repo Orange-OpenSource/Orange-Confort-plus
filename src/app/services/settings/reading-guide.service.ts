@@ -122,7 +122,6 @@ class ReadingGuideService {
 		}
 
 		document.addEventListener('mousemove', this.handler);
-		document.addEventListener('keydown', this.handler);
 	}
 
 	resetGuide = (): void => {
@@ -132,7 +131,6 @@ class ReadingGuideService {
 		document.querySelector(`#${this.maskTopEltID}`)?.remove();
 		document.querySelector(`#${this.maskBottomEltID}`)?.remove();
 		document.querySelector(`#${this.closeTextID}`)?.remove();
-		document.removeEventListener('keydown', this.handler);
 		document.removeEventListener('mousemove', this.handler);
 		this.removePagePMarkupElementsFlag();
 	}
@@ -167,11 +165,6 @@ class ReadingGuideService {
 						(document.querySelector(`#${this.closeTextID}`) as HTMLElement).style.top = `${(event as MouseEvent).y - this.sizeGuide}px`;
 					}
 					event.stopPropagation();
-					break;
-				case 'keydown':
-					if (event.key === 'Escape' || event.key === 'Esc') {
-						this.resetGuide();
-					}
 					break;
 			}
 		}
