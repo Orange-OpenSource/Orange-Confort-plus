@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.7 - 08/07/2025
+ * orange-confort-plus - version 5.0.0-beta.7 - 09/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -2297,7 +2297,6 @@ class ReadingGuideService {
             document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
         }
         document.addEventListener("mousemove", this.handler);
-        document.addEventListener("keydown", this.handler);
     };
     resetGuide=() => {
         this.guideType = "";
@@ -2306,7 +2305,6 @@ class ReadingGuideService {
         document.querySelector(`#${this.maskTopEltID}`)?.remove();
         document.querySelector(`#${this.maskBottomEltID}`)?.remove();
         document.querySelector(`#${this.closeTextID}`)?.remove();
-        document.removeEventListener("keydown", this.handler);
         document.removeEventListener("mousemove", this.handler);
         this.removePagePMarkupElementsFlag();
     };
@@ -2337,12 +2335,6 @@ class ReadingGuideService {
                 document.querySelector(`#${this.closeTextID}`).style.top = `${event.y - this.sizeGuide}px`;
             }
             event.stopPropagation();
-            break;
-
-          case "keydown":
-            if (event.key === "Escape" || event.key === "Esc") {
-                this.resetGuide();
-            }
             break;
         }
     };
