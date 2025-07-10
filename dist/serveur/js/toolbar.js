@@ -1952,7 +1952,7 @@ class NavigationButtonsService {
         switch (this.navigationButtonSet) {
           case "scrollSet":
             this.currentList = [];
-            if (this.delay < 0) {
+            if (this.delay <= 0) {
                 scrollTypeServiceInstance.setScrollType("scrollOnClick");
             } else {
                 scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
