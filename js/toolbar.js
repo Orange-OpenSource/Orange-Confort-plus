@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.6 - 07/07/2025
+ * orange-confort-plus - version 5.0.0-beta.8 - 11/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -57,7 +57,7 @@ const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = "script,style,link,meta";
 
-VERSION = "5.0.0-beta.6";
+VERSION = "5.0.0-beta.8";
 
 "use strict";
 
@@ -303,7 +303,7 @@ class DomService {
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 1px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 2px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t\toutline: 2px solid #fff;\n\t\t\t\t\tbox-shadow: 0 0 6px 3px #bbb;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
         }
         let btn = document.createElement("button");
@@ -840,7 +840,6 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
-                scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 break;
             }
 
@@ -848,7 +847,6 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
-                scrollTypeServiceInstance.setScrollType("scrollOnClick");
                 this.longClick();
                 break;
             }
@@ -857,7 +855,6 @@ class ClickFaciliteService {
             {
                 this.resetEventClick();
                 scrollAspectServiceInstance.setScrollAspect("bigScroll");
-                scrollTypeServiceInstance.setScrollType("scrollOnMouseover");
                 this.autoClick();
                 break;
             }
@@ -1083,7 +1080,7 @@ class ColorContrastService {
         }
     };
     setColorContrastStyle=(color, backgroundColor) => {
-        let styleColorContrast = `\n\t\t\t* {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
+        let styleColorContrast = `\n\t\t\t*:not(.${PREFIX}container-buttons) {\n\t\t\t\tcolor: ${color} !important;\n\t\t\t\tbackground-color: ${backgroundColor} !important;\n\t\t\t}\n\n\t\t\tfieldset,\n\t\t\tbutton {\n\t\t\t\tborder-color: ${color} !important;\n\t\t\t}\n\n\t\t\tinput, td, th {\n\t\t\t\tborder: 2px solid ${color} !important;\n\t\t\t}\n\n\t\t\ttd, th {\n\t\t\t\tpadding: .2em !important;\n\t\t\t}\n\n\t\t\ttable {\n\t\t\t\tborder-collapse: collapse !important;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("color-contrast", styleColorContrast);
     };
     setServices=value => {
@@ -1955,7 +1952,7 @@ class NavigationButtonsService {
         switch (this.navigationButtonSet) {
           case "scrollSet":
             this.currentList = [];
-            if (this.delay < 0) {
+            if (this.delay <= 0) {
                 scrollTypeServiceInstance.setScrollType("scrollOnClick");
             } else {
                 scrollTypeServiceInstance.setScrollType("scrollOnMouseover", this.delay);
@@ -2115,6 +2112,7 @@ class ReadAloudService extends BodySelectorService {
         this.handler = this.createHandler();
     }
     setReadAloud=value => {
+        if (speechSynthesis.speaking) speechSynthesis.cancel();
         this.resetBody();
         if (value === DEFAULT_VALUE) {
             this.resetReadAloud();
@@ -2197,7 +2195,7 @@ class ReadAloudService extends BodySelectorService {
         this.tooltipReadAloud = document.querySelector(`#${this.readAloudTooltipId}`);
         document.addEventListener("pointermove", this.handler);
     };
-    getInnerText=element => element.classList.contains("cplus-colored-text") ? element.parentElement.innerText : element.innerText;
+    getInnerText=element => element.classList.contains(`${PREFIX}colored-text`) ? element.parentElement.innerText : element.innerText;
     createHandler=() => event => {
         switch (event.type) {
           case "pointermove":
@@ -2206,20 +2204,22 @@ class ReadAloudService extends BodySelectorService {
             break;
 
           case "pointerdown":
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             speechSynthesis.speak(new SpeechSynthesisUtterance(this.getInnerText(event.target)));
             break;
 
           case "keydown":
             if (event.key === "Escape" || event.key === "Esc") {
-                speechSynthesis.cancel();
+                if (speechSynthesis.speaking) speechSynthesis.cancel();
             }
             break;
 
           case "contextmenu":
-            speechSynthesis.cancel();
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             break;
 
           case "focusin":
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
             speechSynthesis.speak(new SpeechSynthesisUtterance(document.activeElement.innerText));
             break;
         }
@@ -2300,7 +2300,6 @@ class ReadingGuideService {
             document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
         }
         document.addEventListener("mousemove", this.handler);
-        document.addEventListener("keydown", this.handler);
     };
     resetGuide=() => {
         this.guideType = "";
@@ -2309,7 +2308,6 @@ class ReadingGuideService {
         document.querySelector(`#${this.maskTopEltID}`)?.remove();
         document.querySelector(`#${this.maskBottomEltID}`)?.remove();
         document.querySelector(`#${this.closeTextID}`)?.remove();
-        document.removeEventListener("keydown", this.handler);
         document.removeEventListener("mousemove", this.handler);
         this.removePagePMarkupElementsFlag();
     };
@@ -2340,12 +2338,6 @@ class ReadingGuideService {
                 document.querySelector(`#${this.closeTextID}`).style.top = `${event.y - this.sizeGuide}px`;
             }
             event.stopPropagation();
-            break;
-
-          case "keydown":
-            if (event.key === "Escape" || event.key === "Esc") {
-                this.resetGuide();
-            }
             break;
         }
     };
