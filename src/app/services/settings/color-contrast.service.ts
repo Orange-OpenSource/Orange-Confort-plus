@@ -11,14 +11,14 @@ interface ColourThemeValues {
 class ColorContrastService {
 	colorContrastDictionnary: ColourThemeValues[] = [
 		{ name: DEFAULT_VALUE, cursor: DEFAULT_VALUE, focus: DEFAULT_VALUE, scroll: DEFAULT_VALUE, link: DEFAULT_VALUE },
-		{ name: 'reinforcedContrasts', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_orange_brown' },
-		{ name: 'ivory_black', cursor: 'big_ivory', focus: 'big_ivory', scroll: 'big_ivory', link: 'lightblue_orange_lightgreen' },
-		{ name: 'black_ivory', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_orange_brown' },
-		{ name: 'white_red', cursor: 'big_white', focus: 'big_white', scroll: 'big_white', link: 'yellow_darkblue_lightgreen' },
-		{ name: 'black_yellow', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_purple_darkgreen' },
-		{ name: 'white_blue', cursor: 'big_white', focus: 'big_white', scroll: 'big_white', link: 'yellow_orange_lightgreen' },
-		{ name: 'yellow_blue', cursor: 'big_yellow', focus: 'big_yellow', scroll: 'big_yellow', link: 'white_darkgreen_lightgreen' },
-		{ name: 'black_green', cursor: 'big_black', focus: 'big_black', scroll: 'big_black', link: 'yellow_orange_blue' }
+		{ name: 'reinforcedContrasts', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_orange_brown' },
+		{ name: 'ivory_black', cursor: 'bigCursor_ivory', focus: 'big_ivory', scroll: 'big_ivory', link: 'lightblue_orange_lightgreen' },
+		{ name: 'black_ivory', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_orange_brown' },
+		{ name: 'white_red', cursor: 'bigCursor_white', focus: 'big_white', scroll: 'big_white', link: 'yellow_darkblue_lightgreen' },
+		{ name: 'black_yellow', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_purple_darkgreen' },
+		{ name: 'white_blue', cursor: 'bigCursor_white', focus: 'big_white', scroll: 'big_white', link: 'yellow_orange_lightgreen' },
+		{ name: 'yellow_blue', cursor: 'bigCursor_yellow', focus: 'big_yellow', scroll: 'big_yellow', link: 'white_darkgreen_lightgreen' },
+		{ name: 'black_green', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'yellow_orange_blue' }
 	];
 
 	/* Daltonism type deuteranomaly */
