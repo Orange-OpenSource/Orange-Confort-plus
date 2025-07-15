@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.8 - 11/07/2025
+ * orange-confort-plus - version 5.0.0-beta.8 - 15/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1735,49 +1735,49 @@ class ColorContrastService {
         link: DEFAULT_VALUE
     }, {
         name: "reinforcedContrasts",
-        cursor: "big_black",
+        cursor: "bigCursor_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_orange_brown"
     }, {
         name: "ivory_black",
-        cursor: "big_ivory",
+        cursor: "bigCursor_ivory",
         focus: "big_ivory",
         scroll: "big_ivory",
         link: "lightblue_orange_lightgreen"
     }, {
         name: "black_ivory",
-        cursor: "big_black",
+        cursor: "bigCursor_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_orange_brown"
     }, {
         name: "white_red",
-        cursor: "big_white",
+        cursor: "bigCursor_white",
         focus: "big_white",
         scroll: "big_white",
         link: "yellow_darkblue_lightgreen"
     }, {
         name: "black_yellow",
-        cursor: "big_black",
+        cursor: "bigCursor_black",
         focus: "big_black",
         scroll: "big_black",
         link: "darkblue_purple_darkgreen"
     }, {
         name: "white_blue",
-        cursor: "big_white",
+        cursor: "bigCursor_white",
         focus: "big_white",
         scroll: "big_white",
         link: "yellow_orange_lightgreen"
     }, {
         name: "yellow_blue",
-        cursor: "big_yellow",
+        cursor: "bigCursor_yellow",
         focus: "big_yellow",
         scroll: "big_yellow",
         link: "white_darkgreen_lightgreen"
     }, {
         name: "black_green",
-        cursor: "big_black",
+        cursor: "bigCursor_black",
         focus: "big_black",
         scroll: "big_black",
         link: "yellow_orange_blue"
