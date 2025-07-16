@@ -62,6 +62,7 @@ dist/extension/manifest.json
 /dist/js
 /dist/css
 /src/img/
+/build/version.txt
 
 # Docs
 /docs/css/boosted.css
