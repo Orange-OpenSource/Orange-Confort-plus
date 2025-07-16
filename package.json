@@ -32,7 +32,7 @@
 		"build": "npm run copy && concurrently \"npm:build:*\"",
 		"postbuild": "npm run move",
 		"preversion": "cross-env-shell shx echo -n $npm_package_version >> build/version.txt",
-		"version": "npm run change:version && npm run build && git add -A dist/ docs/",
+		"version": "npm run change:version && npm run build && git add -A src/ dist/ docs/",
 		"postversion": "npm run zip",
 		"change:version": "node --no-warnings build/change-version.js",
 		"move": "concurrently \"npm:move:*\"",
