@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.9 - 17/07/2025
+ * orange-confort-plus - version 5.0.0-beta.9 - 21/07/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -3005,7 +3005,7 @@ class AppComponent extends HTMLElement {
     setPauseIndicator=() => {
         localStorageServiceInstance.getItem("is-paused").then((isPaused => {
             this.pauseIndicator.hidden = !isPaused;
-            this.confortPlusBtn.classList.toggle("sc-confort-plus--paused", isPaused);
+            this.confortPlusBtn.classList.toggle("sc-confort-plus--paused", isPaused ?? false);
         }));
     };
 }
