@@ -190,7 +190,8 @@ const files = {
 		dist: 'dist/extension/js/toolbar.min.js',
 		options: {
 			compress: {
-				passes: 2
+				passes: 2,
+				pure_funcs: ['console.log']
 			},
 			mangle: {
 				keep_fnames: true,
