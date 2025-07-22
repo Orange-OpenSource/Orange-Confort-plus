@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.9 - 22/07/2025
+ * orange-confort-plus - version 5.0.0-beta.9 - 18/08/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -334,7 +334,7 @@ class DomService {
         fragment.appendChild(container);
         document.body.appendChild(fragment);
     };
-    isScrollButton=button => button === "scroll_up" || button === "scroll_down";
+    isScrollButton=button => button.includes("scroll_");
     removeButtonsInDom=button => {
         const buttonElement = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`);
         const parentRow = buttonElement?.parentElement;
@@ -5088,6 +5088,9 @@ class EditNavigationButtonsComponent extends HTMLElement {
     }
     setNavigationButtons=() => {
         let value = `${this.buttonSetValue}_${this.pointingDelayValue}`;
+        if (value === `${DEFAULT_VALUE}_clicAction`) {
+            value = DEFAULT_VALUE;
+        }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("navigationButtons", newSettingIndex, true);
