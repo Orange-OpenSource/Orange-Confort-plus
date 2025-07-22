@@ -138,7 +138,7 @@ class DomService {
 	}
 
 	isScrollButton = (button: string): boolean => {
-		return button === 'scroll_up' || button === 'scroll_down';
+		return button.includes( 'scroll_');
 	}
 
 	removeButtonsInDom = (button: string): void => {
