@@ -2,6 +2,7 @@ app-btn-setting {
 	flex: 2;
 	max-width: 12em;
 	height: 100%;
+	position: relative;
 }
 
 .sc-btn-setting,
@@ -69,6 +70,7 @@ $corner-value: 10px;
 .sc-btn-setting__tooltip {
 	opacity: 1;
 	position: absolute;
+	bottom: 6rem
 }
 
 .sc-btn-setting__name::after {
