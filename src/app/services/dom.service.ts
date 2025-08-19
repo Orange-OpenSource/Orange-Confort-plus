@@ -58,11 +58,18 @@ class DomService {
 				#${CONTAINER_BUTTONS_ID} {
 					font-size: 16px;
 					display: flex;
+					flex-direction: column;
 					gap: 1em;
 					position: fixed;
 					bottom: 1em;
 					right: ${rightPosition};
 					z-index: calc(infinity);
+				}
+
+				#${CONTAINER_BUTTONS_ID} .button-row {
+					display: flex;
+					gap: 1em;
+					justify-content: flex-end;
 				}
 
 				#${CONTAINER_BUTTONS_ID} button {
@@ -94,22 +101,55 @@ class DomService {
 			stylesServiceInstance.setStyle('container-buttons', styleContainerButtons);
 		}
 
+		const isScrollButton = this.isScrollButton(button);
+		const rowClass = isScrollButton ? 'scroll-row' : 'navigation-row';
+
+		let targetRow = container.querySelector(`.${rowClass}`);
+		if (!targetRow) {
+			targetRow = document.createElement('div');
+			targetRow.className = `button-row ${rowClass}`;
+
+			if (isScrollButton) {
+				container.appendChild(targetRow);
+			} else {
+				const scrollRow = container.querySelector('.scroll-row');
+				if (scrollRow) {
+					container.insertBefore(targetRow, scrollRow);
+				} else {
+					container.appendChild(targetRow);
+				}
+			}
+		}
+
 		let btn = document.createElement('button');
 		btn.setAttribute('id', `${CONTAINER_BUTTONS_ID}__${button}`);
 		btn.type = 'button';
 		btn.tabIndex = -1;
 		btn.innerText = i18nServiceInstance.getMessage(button);
+
 		if (start) {
-			container.prepend(btn);
+			targetRow.prepend(btn);
 		} else {
-			container.appendChild(btn);
+			targetRow.appendChild(btn);
 		}
+
 		fragment.appendChild(container);
 		document.body.appendChild(fragment);
 	}
 
+	isScrollButton = (button: string): boolean => {
+		return button.includes( 'scroll_');
+	}
+
 	removeButtonsInDom = (button: string): void => {
-		document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`)?.remove();
+		const buttonElement = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`);
+		const parentRow = buttonElement?.parentElement;
+
+		buttonElement?.remove();
+
+		if (parentRow && parentRow.children.length === 0) {
+			parentRow.remove();
+		}
 
 		if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.children.length === 0) {
 			document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.remove();

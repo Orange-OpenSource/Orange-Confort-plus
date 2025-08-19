@@ -51,6 +51,9 @@ class EditNavigationButtonsComponent extends HTMLElement {
 
 	setNavigationButtons = (): void => {
 		let value = `${this.buttonSetValue}_${this.pointingDelayValue}`;
+		if (value === `${DEFAULT_VALUE}_clicAction`) {
+			value = DEFAULT_VALUE;
+		}
 		let newSettingIndex = this.settingValues.indexOf(value);
 		if (newSettingIndex !== -1) {
 			modeOfUseServiceInstance.setSettingValue('navigationButtons', newSettingIndex, true);

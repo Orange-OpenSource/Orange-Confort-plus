@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.9 - 21/07/2025
+ * orange-confort-plus - version 5.0.0-beta.9 - 18/08/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1042,8 +1042,25 @@ class DomService {
         } else {
             container = document.createElement("div");
             container.setAttribute("id", CONTAINER_BUTTONS_ID);
-            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 2px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t\toutline: 2px solid #fff;\n\t\t\t\t\tbox-shadow: 0 0 6px 3px #bbb;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
+            let styleContainerButtons = `\n\t\t\t\t#${CONTAINER_BUTTONS_ID} {\n\t\t\t\t\tfont-size: 16px;\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tposition: fixed;\n\t\t\t\t\tbottom: 1em;\n\t\t\t\t\tright: ${rightPosition};\n\t\t\t\t\tz-index: calc(infinity);\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} .button-row {\n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tgap: 1em;\n\t\t\t\t\tjustify-content: flex-end;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button {\n\t\t\t\t\tbackground: #f16e00;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t\tborder: 2px solid currentColor;\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t\tpadding: 1em 2em;\n\t\t\t\t\toutline: 2px solid #fff;\n\t\t\t\t\tbox-shadow: 0 0 6px 3px #bbb;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:hover {\n\t\t\t\t\tbackground: #000;\n\t\t\t\t\tcolor: #fff;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:active {\n\t\t\t\t\tbackground: #fff;\n\t\t\t\t\tcolor: #000;\n\t\t\t\t}\n\n\t\t\t\t#${CONTAINER_BUTTONS_ID} button:focus {\n\t\t\t\t\toutline: 3px solid #000;\n    \t\t\toutline-offset: 2px;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("container-buttons", styleContainerButtons);
+        }
+        const isScrollButton = this.isScrollButton(button);
+        const rowClass = isScrollButton ? "scroll-row" : "navigation-row";
+        let targetRow = container.querySelector(`.${rowClass}`);
+        if (!targetRow) {
+            targetRow = document.createElement("div");
+            targetRow.className = `button-row ${rowClass}`;
+            if (isScrollButton) {
+                container.appendChild(targetRow);
+            } else {
+                const scrollRow = container.querySelector(".scroll-row");
+                if (scrollRow) {
+                    container.insertBefore(targetRow, scrollRow);
+                } else {
+                    container.appendChild(targetRow);
+                }
+            }
         }
         let btn = document.createElement("button");
         btn.setAttribute("id", `${CONTAINER_BUTTONS_ID}__${button}`);
@@ -1051,15 +1068,21 @@ class DomService {
         btn.tabIndex = -1;
         btn.innerText = i18nServiceInstance.getMessage(button);
         if (start) {
-            container.prepend(btn);
+            targetRow.prepend(btn);
         } else {
-            container.appendChild(btn);
+            targetRow.appendChild(btn);
         }
         fragment.appendChild(container);
         document.body.appendChild(fragment);
     };
+    isScrollButton=button => button.includes("scroll_");
     removeButtonsInDom=button => {
-        document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`)?.remove();
+        const buttonElement = document.querySelector(`#${CONTAINER_BUTTONS_ID}__${button}`);
+        const parentRow = buttonElement?.parentElement;
+        buttonElement?.remove();
+        if (parentRow && parentRow.children.length === 0) {
+            parentRow.remove();
+        }
         if (document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.children.length === 0) {
             document.querySelector(`#${CONTAINER_BUTTONS_ID}`)?.remove();
             stylesServiceInstance.removeStyle("container-buttons");
@@ -5800,6 +5823,9 @@ class EditNavigationButtonsComponent extends HTMLElement {
     }
     setNavigationButtons=() => {
         let value = `${this.buttonSetValue}_${this.pointingDelayValue}`;
+        if (value === `${DEFAULT_VALUE}_clicAction`) {
+            value = DEFAULT_VALUE;
+        }
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("navigationButtons", newSettingIndex, true);
