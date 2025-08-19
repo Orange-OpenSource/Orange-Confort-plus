@@ -20,8 +20,19 @@ homeLayout.innerHTML = `
 </section>
 
 <section class="gap-3 p-3">
-	<p id="pause-info" class="d-none" data-i18n="pauseInfo"></p>
-	<div class="sc-home__settings gap-3">
+	<div id="pause-info" class="d-none text-center">
+		<div class="d-flex align-items-center justify-content-center gap-2 mb-3">
+			<p class="m-0" data-i18n="pauseInfo"></p>
+			<app-icon data-name="Pause" class="text-body"></app-icon>
+		</div>
+		<div class="d-flex flex-column align-items-center gap-2">
+			<button id="reactivate-btn" type="button" class="rounded-circle btn btn-icon btn-inverse btn-secondary sc-reactivate-btn p-2" data-i18n-title="reactivateConfortPlus">
+				<app-icon data-name="Play" class="ms-1"></app-icon>
+			</button>
+			<span class="text-body" data-i18n="reactivateBtn"></span>
+		</div>
+	</div>
+	<div id="mode-settings" class="sc-home__settings gap-3">
 		<app-mode></app-mode>
 		<button id="settings-btn" type="button" class="btn btn-secondary">
 			<app-icon class="me-1" data-name="Settings"></app-icon>
@@ -34,8 +45,10 @@ homeLayout.innerHTML = `
 class HomeComponent extends HTMLElement {
 	static observedAttributes = ['data-modes', 'data-custom'];
 	changeModeBtn: HTMLButtonElement | null = null;
+	modeSettings: HTMLElement | null = null;
 	settingsBtn: HTMLButtonElement | null = null;
 	pauseBtn: HTMLButtonElement | null = null;
+	reactivateBtn: HTMLButtonElement | null = null;
 	pauseLabel: HTMLSpanElement | null = null;
 	pauseInfo: HTMLElement | null = null;
 	modeName: HTMLElement | null = null;
@@ -56,6 +69,8 @@ class HomeComponent extends HTMLElement {
 		this.changeModeBtn = this.querySelector('#change-mode-btn');
 		this.settingsBtn = this.querySelector('#settings-btn');
 		this.pauseBtn = this.querySelector('#pause-btn');
+		this.reactivateBtn = this.querySelector('#reactivate-btn');
+		this.modeSettings = this.querySelector('#mode-settings');
 		this.pauseLabel = this.querySelector('#pause-label');
 		this.pauseInfo = this.querySelector('#pause-info');
 		this.modeName = this.querySelector('#mode-name');
@@ -65,6 +80,7 @@ class HomeComponent extends HTMLElement {
 		this.changeModeBtn?.addEventListener('click', this.handler);
 		this.settingsBtn?.addEventListener('click', this.handler);
 		this.pauseBtn?.addEventListener('click', this.handler);
+		this.reactivateBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
@@ -72,6 +88,7 @@ class HomeComponent extends HTMLElement {
 		this.changeModeBtn?.removeEventListener('click', this.handler);
 		this.settingsBtn?.removeEventListener('click', this.handler);
 		this.pauseBtn?.removeEventListener('click', this.handler);
+		this.reactivateBtn?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -103,6 +120,7 @@ class HomeComponent extends HTMLElement {
 						this.settingsButtonEvent();
 						break;
 					case this.pauseBtn:
+					case this.reactivateBtn:
 						this.setPauseState();
 						break;
 				}
@@ -144,6 +162,7 @@ class HomeComponent extends HTMLElement {
 			this.pauseBtn.setAttribute('title', i18nServiceInstance.getMessage('play'));
 			this.pauseLabel.innerText = i18nServiceInstance.getMessage('play');
 			this.pauseInfo.classList.remove('d-none');
+			this.modeSettings.classList.add('d-none');
 			this.currentMode.setAttribute('data-pause', 'true');
 		} else {
 			pauseServiceInstance.playSettings();
@@ -152,6 +171,7 @@ class HomeComponent extends HTMLElement {
 			this.pauseBtn.setAttribute('title', i18nServiceInstance.getMessage('pause'));
 			this.pauseLabel.innerText = i18nServiceInstance.getMessage('pause');
 			this.pauseInfo.classList.add('d-none');
+			this.modeSettings.classList.remove('d-none');
 			this.currentMode.setAttribute('data-pause', 'false');
 		}
 	}
