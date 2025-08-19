@@ -2076,6 +2076,7 @@ class FontFamilyService {
         name: "AccessibleDfA",
         size: "82.5%",
         folder: "accessibleDfA",
+        type: "sans-serif",
         files: [ {
             name: "AccessibleDfA-VF.woff2",
             style: "normal",
@@ -2093,6 +2094,7 @@ class FontFamilyService {
         name: "BelleAllure",
         size: "80%",
         folder: "BelleAllure",
+        type: "serif",
         files: [ {
             name: "BelleAllureCM-Fin.woff2",
             style: "normal",
@@ -2106,6 +2108,7 @@ class FontFamilyService {
         name: "HelveticaNeue",
         size: "100%",
         folder: "HelveticaNeue",
+        type: "sans-serif",
         files: [ {
             name: "HelvNeue55_W1G.woff2",
             style: "normal",
@@ -2119,6 +2122,7 @@ class FontFamilyService {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
+        type: "monospace",
         files: [ {
             name: "B612Mono-Bold.woff2",
             style: "normal",
@@ -2140,6 +2144,7 @@ class FontFamilyService {
         name: "LexendDeca",
         size: "92%",
         folder: "lexendDeca",
+        type: "sans-serif",
         files: [ {
             name: "LexendDeca-Black.woff2",
             style: "normal",
@@ -2181,6 +2186,7 @@ class FontFamilyService {
         name: "Luciole",
         size: "87.5%",
         folder: "luciole",
+        type: "sans-serif",
         files: [ {
             name: "Luciole-Bold-Italic.woff2",
             style: "italic",
@@ -2202,6 +2208,7 @@ class FontFamilyService {
         name: "SylexiadSans",
         size: "122.5%",
         folder: "sylexiadSans",
+        type: "sans-serif",
         files: [ {
             name: "SylexiadSansMedium-BoldItalic.woff2",
             style: "italic",
@@ -2286,6 +2293,12 @@ class FontFamilyService {
             fontFaceStyle.push(`\n\t\t\t\t* { font-family: ${value} !important; }\n\n\t\t\t\tbody {\n\t\t\t\t\tfont-synthesis: none;\n\t\t\t\t\tfont-variant-ligatures: normal;\n\t\t\t\t\ttext-rendering: optimizeLegibility;\n\t\t\t\t}`);
             stylesServiceInstance.setStyle("font-family", fontFaceStyle.join(""));
         }
+    };
+    getFontInfo=fontName => this.fontDictionnary.find((font => font.name === fontName));
+    getFontList=() => {
+        let fontList = this.fontDictionnary.map((font => font.name));
+        fontList.unshift(DEFAULT_VALUE);
+        return fontList;
     };
 }
 
@@ -5200,7 +5213,7 @@ editFontFamilyLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-na
 class EditFontFamilyComponent extends HTMLElement {
     selectFontFamilyElement=null;
     settingValues=null;
-    fontFamilyValues=[ DEFAULT_VALUE, "AccessibleDfA", "HelveticaNeue", "B612Mono", "LexendDeca", "Luciole", "SylexiadSans", "BelleAllure" ];
+    fontFamilyValues=fontFamilyServiceInstance.getFontList();
     handler;
     constructor() {
         super();
@@ -5215,6 +5228,7 @@ class EditFontFamilyComponent extends HTMLElement {
             this.settingValues = result.values.split(",");
             const currentIndex = this.fontFamilyValues.findIndex((i => i === this.settingValues[result.valueSelected]));
             this.selectFontFamilyElement.setAttribute("data-index", currentIndex.toString());
+            this.applyFontPreview(this.settingValues[result.valueSelected]);
         }));
     }
     setFontFamily=value => {
@@ -5224,7 +5238,19 @@ class EditFontFamilyComponent extends HTMLElement {
         } else {
             modeOfUseServiceInstance.addSettingCustomValue("fontFamily", 3, value);
         }
+        this.applyFontPreview(value);
         fontFamilyServiceInstance.setFontFamily(value);
+    };
+    applyFontPreview=fontValue => {
+        if (!this.selectFontFamilyElement) return;
+        this.selectFontFamilyElement.style.fontFamily = "";
+        if (fontValue === DEFAULT_VALUE) {
+            return;
+        }
+        const fontInfo = fontFamilyServiceInstance.getFontInfo(fontValue);
+        if (fontInfo) {
+            this.selectFontFamilyElement.querySelector("output").setAttribute("style", `font-family: ${fontValue}, ${fontInfo.type} !important`);
+        }
     };
     createHandler=() => event => {
         switch (event.type) {

@@ -8,7 +8,7 @@ editFontFamilyLayout.innerHTML = `
 class EditFontFamilyComponent extends HTMLElement {
 	selectFontFamilyElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	fontFamilyValues = [DEFAULT_VALUE, 'AccessibleDfA', 'HelveticaNeue', 'B612Mono', 'LexendDeca', 'Luciole', 'SylexiadSans', 'BelleAllure'];
+	fontFamilyValues = fontFamilyServiceInstance.getFontList();
 
 	handler: any;
 
@@ -30,6 +30,8 @@ class EditFontFamilyComponent extends HTMLElement {
 			const currentIndex = this.fontFamilyValues.findIndex(i => i === this.settingValues[result.valueSelected]);
 
 			this.selectFontFamilyElement.setAttribute('data-index', currentIndex.toString());
+
+			this.applyFontPreview(this.settingValues[result.valueSelected]);
 		});
 	}
 
@@ -41,8 +43,24 @@ class EditFontFamilyComponent extends HTMLElement {
 		} else {
 			modeOfUseServiceInstance.addSettingCustomValue('fontFamily', 3, value);
 		}
+		this.applyFontPreview(value);
 
 		fontFamilyServiceInstance.setFontFamily(value);
+	}
+
+	private applyFontPreview = (fontValue: string): void => {
+		if (!this.selectFontFamilyElement) return;
+
+		this.selectFontFamilyElement.style.fontFamily = '';
+
+		if (fontValue === DEFAULT_VALUE) {
+			return;
+		}
+
+		const fontInfo = fontFamilyServiceInstance.getFontInfo(fontValue);
+		if (fontInfo) {
+			this.selectFontFamilyElement.querySelector('output').setAttribute('style', `font-family: ${fontValue}, ${fontInfo.type} !important`);
+		}
 	}
 
 	private createHandler = () => {
