@@ -20,8 +20,17 @@ class ScrollAspectService {
 		}
 
 		scrollAspectServiceIsInstantiated = true;
+		this.initOverlayScrollbars();
 	}
 
+	private initOverlayScrollbars(): void {
+		if (typeof window !== 'undefined' && window.OverlayScrollbarsGlobal) {
+			// @ts-ignore
+			this.overlayScrollbars = window.OverlayScrollbarsGlobal.OverlayScrollbars;
+		} else {
+			console.warn('OverlayScrollbars not available yet');
+		}
+	}
 	setScrollAspect = (value: any): void => {
 		stylesServiceInstance.removeStyle('scroll-aspect');
 		document.body.classList.remove(`${PREFIX}big-scroll`);

@@ -23,7 +23,7 @@
 	"type": "module",
 	"node": ">=18",
 	"scripts": {
-		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/vendors",
+		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/vendors && shx cp -r node_modules/overlayscrollbars/browser/overlayscrollbars.browser.es6.min.js src/extension/vendors/overlayscrollbars.min.js",
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
 		"serve": "servor docs/ index.html 9010 --browse --reload",
 		"test": "npm run lint:ext",
@@ -120,6 +120,7 @@
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
-		"@webcomponents/custom-elements": "^1.6.0"
+		"@webcomponents/custom-elements": "^1.6.0",
+		"overlayscrollbars": "^2.11.5"
 	}
 }

@@ -35,3 +35,12 @@ const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = 'script,style,link,meta';
+
+// Déclaration pour OverlayScrollbars
+declare global {
+	interface Window {
+		OverlayScrollbarsGlobal: {
+			OverlayScrollbars: any;
+		};
+	}
+}

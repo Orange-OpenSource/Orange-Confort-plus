@@ -20,6 +20,7 @@ const preamble = `/*
 const files = {
 	'toolbar': {
 		files: [
+			'src/extension/vendors/overlayscrollbars.min.js',
 			'dist/js/app/services/categories.service.js',
 			'dist/js/app/services/dom.service.js',
 			'dist/js/app/services/mode-of-use.service.js',
@@ -126,6 +127,7 @@ const files = {
 	'server': {
 		files: [
 			'dist/js/app/core/constantes.core.js',
+			'src/extension/vendors/overlayscrollbars.min.js',
 			'dist/js/serveur/services/files.service.js',
 			'dist/js/serveur/services/i18n.service.js',
 			'dist/js/serveur/services/icons.service.js',
@@ -146,6 +148,7 @@ const files = {
 	'extension': {
 		files: [
 			'src/extension/vendors/custom-elements.min.js',
+			'src/extension/vendors/overlayscrollbars.min.js',
 			'dist/js/app/core/constantes.core.js',
 			'dist/js/extension/services/files.service.js',
 			'dist/js/extension/services/i18n.service.js',
