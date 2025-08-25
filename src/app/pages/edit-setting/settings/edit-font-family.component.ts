@@ -59,7 +59,7 @@ class EditFontFamilyComponent extends HTMLElement {
 
 		const fontInfo = fontFamilyServiceInstance.getFontInfo(fontValue);
 		if (fontInfo) {
-			this.selectFontFamilyElement.querySelector('output').setAttribute('style', `font-family: ${fontValue}, ${fontInfo.type} !important`);
+			this.selectFontFamilyElement.querySelector('output').setAttribute('style', `font-family: ${fontValue}, ${fontInfo.generic} !important`);
 		}
 	}
 

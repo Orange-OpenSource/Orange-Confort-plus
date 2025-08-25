@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.9 - 19/08/2025
+ * orange-confort-plus - version 5.0.0-beta.9 - 25/08/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -1335,7 +1335,7 @@ class FontFamilyService {
         name: "AccessibleDfA",
         size: "82.5%",
         folder: "accessibleDfA",
-        type: "sans-serif",
+        generic: "serif",
         files: [ {
             name: "AccessibleDfA-VF.woff2",
             style: "normal",
@@ -1353,7 +1353,7 @@ class FontFamilyService {
         name: "BelleAllure",
         size: "80%",
         folder: "BelleAllure",
-        type: "serif",
+        generic: "cursive",
         files: [ {
             name: "BelleAllureCM-Fin.woff2",
             style: "normal",
@@ -1367,7 +1367,7 @@ class FontFamilyService {
         name: "HelveticaNeue",
         size: "100%",
         folder: "HelveticaNeue",
-        type: "sans-serif",
+        generic: "sans-serif",
         files: [ {
             name: "HelvNeue55_W1G.woff2",
             style: "normal",
@@ -1381,7 +1381,7 @@ class FontFamilyService {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
-        type: "monospace",
+        generic: "monospace",
         files: [ {
             name: "B612Mono-Bold.woff2",
             style: "normal",
@@ -1403,7 +1403,7 @@ class FontFamilyService {
         name: "LexendDeca",
         size: "92%",
         folder: "lexendDeca",
-        type: "sans-serif",
+        generic: "sans-serif",
         files: [ {
             name: "LexendDeca-Black.woff2",
             style: "normal",
@@ -1445,7 +1445,7 @@ class FontFamilyService {
         name: "Luciole",
         size: "87.5%",
         folder: "luciole",
-        type: "sans-serif",
+        generic: "sans-serif",
         files: [ {
             name: "Luciole-Bold-Italic.woff2",
             style: "italic",
@@ -1467,7 +1467,7 @@ class FontFamilyService {
         name: "SylexiadSans",
         size: "122.5%",
         folder: "sylexiadSans",
-        type: "sans-serif",
+        generic: "sans-serif",
         files: [ {
             name: "SylexiadSansMedium-BoldItalic.woff2",
             style: "italic",
@@ -4508,7 +4508,7 @@ class EditFontFamilyComponent extends HTMLElement {
         }
         const fontInfo = fontFamilyServiceInstance.getFontInfo(fontValue);
         if (fontInfo) {
-            this.selectFontFamilyElement.querySelector("output").setAttribute("style", `font-family: ${fontValue}, ${fontInfo.type} !important`);
+            this.selectFontFamilyElement.querySelector("output").setAttribute("style", `font-family: ${fontValue}, ${fontInfo.generic} !important`);
         }
     };
     createHandler=() => event => {

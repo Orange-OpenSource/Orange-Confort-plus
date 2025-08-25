@@ -3,26 +3,26 @@ let fontFamilyServiceIsInstantiated: boolean;
 class FontFamilyService {
 	fontDictionnary: any[] = [
 		{
-			name: 'AccessibleDfA', size: '82.5%', folder: 'accessibleDfA', type: 'sans-serif', files: [
+			name: 'AccessibleDfA', size: '82.5%', folder: 'accessibleDfA', generic: 'serif', files: [
 				{ name: 'AccessibleDfA-VF.woff2', style: 'normal', weight: '700' },
 				{ name: 'AccessibleDfA-VF.woff2', style: 'italic', weight: '400' },
 				{ name: 'AccessibleDfA-VF.woff2', style: 'normal', weight: '400' }
 			]
 		},
 		{
-			name: 'BelleAllure', size: '80%', folder: 'BelleAllure', type: 'serif', files: [
+			name: 'BelleAllure', size: '80%', folder: 'BelleAllure', generic: 'cursive', files: [
 				{ name: 'BelleAllureCM-Fin.woff2', style: 'normal', weight: '400' },
 				{ name: 'BelleAllureCM-Gros.woff2', style: 'normal', weight: '700' }
 			]
 		},
 		{
-			name: 'HelveticaNeue', size: '100%', folder: 'HelveticaNeue', type: 'sans-serif', files: [
+			name: 'HelveticaNeue', size: '100%', folder: 'HelveticaNeue', generic: 'sans-serif', files: [
 				{ name: 'HelvNeue55_W1G.woff2', style: 'normal', weight: '400' },
 				{ name: 'HelvNeue75_W1G.woff2', style: 'normal', weight: '700' },
 			]
 		},
 		{
-			name: 'B612Mono', size: '75%', folder: 'B612', type: 'monospace', files: [
+			name: 'B612Mono', size: '75%', folder: 'B612', generic: 'monospace', files: [
 				{ name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
@@ -30,7 +30,7 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'LexendDeca', size: '92%', folder: 'lexendDeca', type: 'sans-serif', files: [
+			name: 'LexendDeca', size: '92%', folder: 'lexendDeca', generic: 'sans-serif', files: [
 				{ name: 'LexendDeca-Black.woff2', style: 'normal', weight: '900' },
 				{ name: 'LexendDeca-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'LexendDeca-ExtraBold.woff2', style: 'normal', weight: '800' },
@@ -43,7 +43,7 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'Luciole', size: '87.5%', folder: 'luciole', type: 'sans-serif', files: [
+			name: 'Luciole', size: '87.5%', folder: 'luciole', generic: 'sans-serif', files: [
 				{ name: 'Luciole-Bold-Italic.woff2', style: 'italic', weight: '700' },
 				{ name: 'Luciole-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'Luciole-Regular-Italic.woff2', style: 'italic', weight: '400' },
@@ -51,7 +51,7 @@ class FontFamilyService {
 			]
 		},
 		{
-			name: 'SylexiadSans', size: '122.5%', folder: 'sylexiadSans', type: 'sans-serif', files: [
+			name: 'SylexiadSans', size: '122.5%', folder: 'sylexiadSans', generic: 'sans-serif', files: [
 				{ name: 'SylexiadSansMedium-BoldItalic.woff2', style: 'italic', weight: '700' },
 				{ name: 'SylexiadSansMedium-Bold.woff2', style: 'normal', weight: '700' },
 				{ name: 'SylexiadSansMedium-Italic.woff2', style: 'italic', weight: '400' },
