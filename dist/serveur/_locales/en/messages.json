@@ -41,7 +41,10 @@
 		"message": "Pause Comfort+"
 	},
 	"pauseInfo": {
-		"message": "Comfort+ is paused, to reactivate it, press the « restart Comfort+ » button."
+		"message": "Comfort+ is paused"
+	},
+	"reactivateBtn": {
+		"message": "Restart Comfort+"
 	},
 	"otherModes": {
 		"message": "Other usage modes"

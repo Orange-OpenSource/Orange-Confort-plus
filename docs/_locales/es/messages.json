@@ -41,7 +41,10 @@
 		"message": "Confort+ en pausa"
 	},
 	"pauseInfo": {
-		"message": "Confort+ está en pausa, para reactivarlo pulse el botón «Reactivar Confort+»"
+		"message": "Confort+ está en pausa"
+	},
+	"reactivateBtn": {
+		"message": "Reactivar Confort+"
 	},
 	"otherModes": {
 		"message": "Otros modos de uso"
