@@ -41,7 +41,10 @@
 		"message": "Wstrzymać Komfort+"
 	},
 	"pauseInfo": {
-		"message": "Komfort+ jest wstrzymany. Aby był ponownie aktywny, naciśnij przycisk «ponownie użyć Komfort+»."
+		"message": "Komfort+ jest obecnie wstrzymany"
+	},
+	"reactivateBtn": {
+		"message": "Ponownie aktywuj Komfort+"
 	},
 	"otherModes": {
 		"message": "Inne tryby użytkowania"
