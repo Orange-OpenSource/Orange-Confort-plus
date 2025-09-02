@@ -5104,6 +5104,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
             const currentIndexPointingDelay = this.pointingDelayValues.findIndex((i => i === `pointingDelay_${this.pointingDelayValue}`));
             this.selectButtonPresetElement.setAttribute("data-index", currentIndexButtonPreset.toString());
             this.selectPointingDelayElement.setAttribute("data-index", currentIndexPointingDelay.toString());
+            this.togglePointingDelayVisibility();
         }));
     }
     setNavigationButtons=() => {
@@ -5119,6 +5120,13 @@ class EditNavigationButtonsComponent extends HTMLElement {
         }
         navigationButtonsServiceInstance.setNavigationButtons(value);
     };
+    togglePointingDelayVisibility=() => {
+        if (this.buttonSetValue === DEFAULT_VALUE) {
+            this.selectPointingDelayElement.style.display = "none";
+        } else {
+            this.selectPointingDelayElement.style.display = "";
+        }
+    };
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingButtonSet":
@@ -5127,6 +5135,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
             } else {
                 this.buttonSetValue = event.detail.newValue.split("_")[1];
             }
+            this.togglePointingDelayVisibility();
             this.setNavigationButtons();
             break;
 

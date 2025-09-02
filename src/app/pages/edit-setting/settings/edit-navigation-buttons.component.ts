@@ -46,6 +46,9 @@ class EditNavigationButtonsComponent extends HTMLElement {
 
 			this.selectButtonPresetElement.setAttribute('data-index', currentIndexButtonPreset.toString());
 			this.selectPointingDelayElement.setAttribute('data-index', currentIndexPointingDelay.toString());
+
+			// Contrôler la visibilité du sélecteur de délai lors de l'initialisation
+			this.togglePointingDelayVisibility();
 		});
 	}
 
@@ -64,6 +67,14 @@ class EditNavigationButtonsComponent extends HTMLElement {
 		navigationButtonsServiceInstance.setNavigationButtons(value);
 	}
 
+	togglePointingDelayVisibility = (): void => {
+			if (this.buttonSetValue === DEFAULT_VALUE) {
+				this.selectPointingDelayElement.style.display = 'none';
+			} else {
+				this.selectPointingDelayElement.style.display = '';
+			}
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
@@ -73,6 +84,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
 					} else {
 						this.buttonSetValue = event.detail.newValue.split('_')[1];
 					}
+					this.togglePointingDelayVisibility();
 					this.setNavigationButtons();
 					break;
 				case 'editSettingPointingDelay':
