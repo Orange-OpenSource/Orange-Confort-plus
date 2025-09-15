@@ -131,7 +131,7 @@ class BtnSettingComponent extends HTMLElement {
 				]);
 			}
 
-			const labelParts = content.split(',');
+			const labelParts = content.split(' — ');
 
 			const tooltipValue: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-value');
 			tooltipValue.innerHTML = labelParts && labelParts.length > 1 ? `<span class="fw-bold">${labelParts[0]}</span>` : content;

@@ -299,16 +299,16 @@
 		"message": "6s opóźnienia"
 	},
 	"bigZone": {
-		"message": "duże strefy klikania & standardowe strefy klikania"
+		"message": "duże strefy klikania\n& standardowe strefy klikania"
 	},
 	"longClick": {
-		"message": "duże strefy klikania & zwolnione kliknięcie"
+		"message": "duże strefy klikania\n& zwolnione kliknięcie"
 	},
 	"autoClick": {
-		"message": "duże strefy klikania & automatyczne kliknięcie po najechaniu kursorem"
+		"message": "duże strefy klikania\n& automatyczne kliknięcie po najechaniu kursorem"
 	},
 	"multiclic": {
-		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$, mień na „$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$ — mień na „$NEXT$” $INDEX2$/$TOTAL$",
 		"description": "Oznacza wartość i indeks ustawienia actualnego, całkowita liczba wartości i następną wartość.",
 		"placeholders": {
 			"current": {
