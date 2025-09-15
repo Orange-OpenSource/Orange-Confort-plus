@@ -299,16 +299,16 @@
 		"message": "plazo de 6s"
 	},
 	"bigZone": {
-		"message": "grandes áreas de clic y clics estándar"
+		"message": "grandes áreas de clic\ny clics estándar"
 	},
 	"longClick": {
-		"message": "grandes áreas de clic y clics largos"
+		"message": "grandes áreas de clic\ny clics largos"
 	},
 	"autoClick": {
-		"message": "grandes áreas de clic y clics al pasar el ratón"
+		"message": "grandes áreas de clic\ny clics al pasar el ratón"
 	},
 	"multiclic": {
-		"message": "Valor actual: $CURRENT$ $INDEX$/$TOTAL$, cambia por «$NEXT$» $INDEX2$/$TOTAL$",
+		"message": "Valor actual: $CURRENT$ $INDEX$/$TOTAL$ — cambia por «$NEXT$» $INDEX2$/$TOTAL$",
 		"description": "Indica el valor e índice de la configuración actual, el número total de valores y el valor siguiente.",
 		"placeholders": {
 			"current": {

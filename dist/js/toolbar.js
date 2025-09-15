@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.10 - 02/09/2025
+ * orange-confort-plus - version 5.0.0-beta.10 - 15/09/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -3669,7 +3669,7 @@ class BtnSettingComponent extends HTMLElement {
                 const currentIndex = this.index + 1;
                 content = i18nServiceInstance.getMessage("multiclic", [ currentValueLabel, String(currentIndex), String(settingsNumber), nextValueLabel, String(nextValueIndex + 1) ]);
             }
-            const labelParts = content.split(",");
+            const labelParts = content.split(" — ");
             const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
             tooltipValue.innerHTML = labelParts && labelParts.length > 1 ? `<span class="fw-bold">${labelParts[0]}</span>` : content;
             this.btnLabel.innerHTML = content;
