@@ -299,16 +299,16 @@
 		"message": "délai de 6s"
 	},
 	"bigZone": {
-		"message": "grandes zones de clic & clic standard"
+		"message": "grandes zones de clic\n& clic standard"
 	},
 	"longClick": {
-		"message": "grandes zones de clic & clic long"
+		"message": "grandes zones de clic\n& clic long"
 	},
 	"autoClick": {
-		"message": "grandes zones de clic & clic automatique au survol"
+		"message": "grandes zones de clic\n& clic automatique au survol"
 	},
 	"multiclic": {
-		"message": "Valeur actuelle : « $CURRENT$ » $INDEX$/$TOTAL$, changer pour « $NEXT$ » $INDEX2$/$TOTAL$",
+		"message": "Valeur actuelle : « $CURRENT$ » $INDEX$/$TOTAL$ — changer pour « $NEXT$ » $INDEX2$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
 			"current": {
@@ -415,16 +415,16 @@
 		"message": "Pour bien espacer les caractères et les lignes."
 	},
 	"textSpacing_noModifications": {
-		"message": "sans aérer"
+		"message": "sans modification"
 	},
 	"textSpacing_spacingTextSmall": {
-		"message": "aérer un peu"
+		"message": "aére un peu"
 	},
 	"textSpacing_spacingTextBig": {
-		"message": "aérer beaucoup"
+		"message": "aére beaucoup"
 	},
 	"textSpacing_spacingTextHuge": {
-		"message": "aérer énormément"
+		"message": "aére énormément"
 	},
 	"setting_textColor": {
 		"message": "Colorer le texte"
@@ -733,7 +733,7 @@
 		"message": "Supprimer les images de fond"
 	},
 	"setting_deleteBackgroundImages_instruction": {
-		"message": "Pour empêcher les images de fond de page de s’afficher."
+		"message": "Pour empêcher les images de s’afficher."
 	},
 	"deleteBackgroundImages_noModifications": {
 		"message": "sans modification"

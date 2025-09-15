@@ -299,16 +299,16 @@
 		"message": "6s delay"
 	},
 	"bigZone": {
-		"message": "large click zones & standard click"
+		"message": "large click zones\n& standard click"
 	},
 	"longClick": {
-		"message": "large click zones & long click"
+		"message": "large click zones\n& long click"
 	},
 	"autoClick": {
-		"message": "large click zones & auto click on hover"
+		"message": "large click zones\n& auto click on hover"
 	},
 	"multiclic": {
-		"message": "Current value: “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Current value: “$CURRENT$” $INDEX$/$TOTAL$ — switch to “$NEXT$” $INDEX2$/$TOTAL$",
 		"description": "Indicates the current setting value and index, the total number of values, and the next value.",
 		"placeholders": {
 			"current": {
