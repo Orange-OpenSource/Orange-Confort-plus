@@ -42,6 +42,7 @@ const files = {
 			'dist/js/app/services/settings/navigation-buttons.service.js',
 			'dist/js/app/services/settings/read-aloud.service.js',
 			'dist/js/app/services/settings/reading-guide.service.js',
+			'dist/js/app/services/settings/reading-page.service.js',
 			'dist/js/app/services/settings/restart-top-left.service.js',
 			'dist/js/app/services/settings/scroll-aspect.service.js',
 			'dist/js/app/services/settings/scroll-type.service.js',
@@ -71,6 +72,7 @@ const files = {
 			'dist/js/app/shared/settings/navigation-buttons.component.js',
 			'dist/js/app/shared/settings/read-aloud.component.js',
 			'dist/js/app/shared/settings/reading-guide.component.js',
+			'dist/js/app/shared/settings/reading-page.component.js',
 			'dist/js/app/shared/settings/scroll-aspect.component.js',
 			'dist/js/app/shared/settings/stop-animations.component.js',
 			'dist/js/app/shared/settings/text-size.component.js',
@@ -125,6 +127,7 @@ const files = {
 	},
 	'server': {
 		files: [
+			'src/extension/vendors/Readability.js',
 			'dist/js/app/core/constantes.core.js',
 			'dist/js/serveur/services/files.service.js',
 			'dist/js/serveur/services/i18n.service.js',
@@ -146,6 +149,7 @@ const files = {
 	'extension': {
 		files: [
 			'src/extension/vendors/custom-elements.min.js',
+			'src/extension/vendors/Readability.js',
 			'dist/js/app/core/constantes.core.js',
 			'dist/js/extension/services/files.service.js',
 			'dist/js/extension/services/i18n.service.js',

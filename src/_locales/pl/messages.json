@@ -462,6 +462,18 @@
 	"readingGuide_maskGuide": {
 		"message": "maska"
 	},
+	"setting_readingPage": {
+		"message": "Strona do czytania"
+	},
+	"setting_readingPage_instruction": {
+		"message": "Aby wyświetlić tylko główną treść strony w formacie zoptymalizowanym pod kątem czytania."
+	},
+	"readingPage_noModifications": {
+		"message": "bez zmnian"
+	},
+	"readingPage_onlyContent110IvoryBlack": {
+		"message": "tylko treść 110% i kość słoniowa na czarnym tle"
+	},
 	"setting_marginAlign": {
 		"message": "Marże i znaczniki"
 	},

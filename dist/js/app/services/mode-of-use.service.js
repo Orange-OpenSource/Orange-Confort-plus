@@ -73,6 +73,7 @@ class ModeOfUseService {
             return jsonIsEdited;
         })
             .catch((error) => {
+            console.log(error);
             console.error('Your setting could not be saved.');
             return jsonIsEdited;
         });

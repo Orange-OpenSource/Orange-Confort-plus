@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.1 - 30/09/2025
+ * orange-confort-plus - version 5.0.1 - 21/10/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -220,6 +220,7 @@ class ModeOfUseService {
             }));
             return jsonIsEdited;
         })).catch((error => {
+            console.log(error);
             console.error("Your setting could not be saved.");
             return jsonIsEdited;
         }));
@@ -1149,34 +1150,6 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "BelleAllure",
-        size: "80%",
-        folder: "BelleAllure",
-        generic: "cursive",
-        files: [ {
-            name: "BelleAllureCM-Fin.woff2",
-            style: "normal",
-            weight: "400"
-        }, {
-            name: "BelleAllureCM-Gros.woff2",
-            style: "normal",
-            weight: "700"
-        } ]
-    }, {
-        name: "HelveticaNeue",
-        size: "100%",
-        folder: "HelveticaNeue",
-        generic: "sans-serif",
-        files: [ {
-            name: "HelvNeue55_W1G.woff2",
-            style: "normal",
-            weight: "400"
-        }, {
-            name: "HelvNeue75_W1G.woff2",
-            style: "normal",
-            weight: "700"
-        } ]
-    }, {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
@@ -1197,6 +1170,20 @@ class FontFamilyService {
             name: "B612Mono-Regular.woff2",
             style: "normal",
             weight: "400"
+        } ]
+    }, {
+        name: "BelleAllure",
+        size: "80%",
+        folder: "BelleAllure",
+        generic: "cursive",
+        files: [ {
+            name: "BelleAllureCM-Fin.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "BelleAllureCM-Gros.woff2",
+            style: "normal",
+            weight: "700"
         } ]
     }, {
         name: "LexendDeca",
@@ -1331,6 +1318,20 @@ class FontFamilyService {
             name: "SylexiadSansThin.woff2",
             style: "normal",
             weight: "400"
+        } ]
+    }, {
+        name: "HelveticaNeue",
+        size: "100%",
+        folder: "HelveticaNeue",
+        generic: "sans-serif",
+        files: [ {
+            name: "HelvNeue55_W1G.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "HelvNeue75_W1G.woff2",
+            style: "normal",
+            weight: "700"
         } ]
     } ];
     constructor() {
@@ -2174,6 +2175,128 @@ class ReadingGuideService {
 
 "use strict";
 
+let readingPageServiceIsInstantiated;
+
+class ReadingPageService {
+    readingPageDictionary=[ {
+        name: DEFAULT_VALUE,
+        fontSize: DEFAULT_VALUE,
+        backgroundColor: DEFAULT_VALUE,
+        textColor: DEFAULT_VALUE
+    }, {
+        name: "onlyContent110IvoryBlack",
+        fontSize: "110%",
+        backgroundColor: "ivory",
+        textColor: "black"
+    } ];
+    originalContent=null;
+    readingPageContainer=null;
+    constructor() {
+        if (readingPageServiceIsInstantiated) {
+            throw new Error("ReadingPageService is already instantiated.");
+        }
+        readingPageServiceIsInstantiated = true;
+    }
+    setReadingPage=value => {
+        this.restoreOriginalContent();
+        stylesServiceInstance.removeStyle("reading-page");
+        if (value === DEFAULT_VALUE) {
+            return;
+        }
+        const readingPageConfig = this.readingPageDictionary.find((config => config.name === value));
+        if (!readingPageConfig) {
+            return;
+        }
+        this.extractAndDisplayContent(readingPageConfig);
+    };
+    extractAndDisplayContent=config => {
+        try {
+            if (!this.originalContent) {
+                this.originalContent = document.body.cloneNode(true);
+            }
+            let documentClone;
+            try {
+                documentClone = document.cloneNode(true);
+            } catch (error) {
+                documentClone = document.implementation.createHTMLDocument(document.title);
+                const htmlElement = document.documentElement.cloneNode(false);
+                const headClone = document.head.cloneNode(true);
+                const bodyClone = this.createSafeBodyClone();
+                htmlElement.appendChild(headClone);
+                htmlElement.appendChild(bodyClone);
+                documentClone.replaceChild(htmlElement, documentClone.documentElement);
+            }
+            const reader = new Readability(documentClone);
+            const article = reader.parse();
+            if (!article) {
+                console.warn("ReadingPage: Impossible d'extraire le contenu de la page");
+                return;
+            }
+            this.createReadingPageContainer(article, config);
+        } catch (error) {
+            console.error("ReadingPage: Erreur lors de l'extraction du contenu:", error);
+        }
+    };
+    createReadingPageContainer=(article, config) => {
+        const bodyChildren = Array.from(document.body.children);
+        bodyChildren.forEach((child => {
+            if (!child.tagName.toLowerCase().includes("app-") && !child.id.includes("cplus-")) {
+                child.style.display = "none";
+            }
+        }));
+        this.readingPageContainer = document.createElement("div");
+        this.readingPageContainer.id = `${PREFIX}reading-page-container`;
+        this.readingPageContainer.innerHTML = `\n\t\t\t<div class="${PREFIX}reading-page-content">\n\t\t\t\t<h1>${article.title || ""}</h1>\n\t\t\t\t<div class="${PREFIX}reading-page-article">${article.content || ""}</div>\n\t\t\t</div>\n\t\t`;
+        document.body.appendChild(this.readingPageContainer);
+        this.applyReadingPageStyles(config);
+    };
+    applyReadingPageStyles=config => {
+        const styles = `\n\t\t\t#${PREFIX}reading-page-container {\n\t\t\t\tposition: fixed;\n\t\t\t\ttop: 0;\n\t\t\t\tleft: 0;\n\t\t\t\twidth: 100vw;\n\t\t\t\theight: 100vh;\n\t\t\t\tbackground-color: ${config.backgroundColor} !important;\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tfont-size: ${config.fontSize} !important;\n\t\t\t\toverflow-y: auto;\n\t\t\t\tz-index: 999999;\n\t\t\t\tpadding: 2rem;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content {\n\t\t\t\tmax-width: 800px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.6;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content h1 {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tfont-size: 2em !important;\n\t\t\t\tmargin-bottom: 1em !important;\n\t\t\t\tfont-weight: bold !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content h2,\n\t\t\t.${PREFIX}reading-page-content h3,\n\t\t\t.${PREFIX}reading-page-content h4,\n\t\t\t.${PREFIX}reading-page-content h5,\n\t\t\t.${PREFIX}reading-page-content h6 {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 0.5em 0 !important;\n\t\t\t\tfont-weight: bold !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content p {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tline-height: 1.6 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content a {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\ttext-decoration: underline !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content ul,\n\t\t\t.${PREFIX}reading-page-content ol {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tpadding-left: 2em !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content li {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 0.5em 0 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content img {\n\t\t\t\tmax-width: 100% !important;\n\t\t\t\theight: auto !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content blockquote {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tborder-left: 4px solid ${config.textColor} !important;\n\t\t\t\tpadding-left: 1em !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tfont-style: italic !important;\n\t\t\t}\n\t\t`;
+        stylesServiceInstance.setStyle("reading-page", styles);
+    };
+    createSafeBodyClone() {
+        const bodyClone = document.createElement("body");
+        Array.from(document.body.attributes).forEach((attr => {
+            bodyClone.setAttribute(attr.name, attr.value);
+        }));
+        this.cloneChildrenSafely(document.body, bodyClone);
+        return bodyClone;
+    }
+    cloneChildrenSafely(source, target) {
+        Array.from(source.childNodes).forEach((child => {
+            try {
+                if (child.nodeType === Node.ELEMENT_NODE) {
+                    const element = child;
+                    if (element.tagName.includes("-") || element.tagName.toLowerCase().includes("app-")) {
+                        return;
+                    }
+                }
+                const clonedChild = child.cloneNode(false);
+                target.appendChild(clonedChild);
+                if (child.nodeType === Node.ELEMENT_NODE && child.hasChildNodes()) {
+                    this.cloneChildrenSafely(child, clonedChild);
+                }
+            } catch (error) {
+                console.debug("Élément ignoré lors du clonage:", child);
+            }
+        }));
+    }
+    restoreOriginalContent=() => {
+        if (this.readingPageContainer) {
+            this.readingPageContainer.remove();
+            this.readingPageContainer = null;
+        }
+        const bodyChildren = Array.from(document.body.children);
+        bodyChildren.forEach((child => {
+            if (!child.tagName.toLowerCase().includes("app-") && !child.id.includes("cplus-")) {
+                child.style.display = "";
+            }
+        }));
+    };
+}
+
+"use strict";
+
 let restartTopLeftServiceIsInstantiated;
 
 class RestartTopLeftService {
@@ -2702,6 +2825,10 @@ const readingGuideServiceInstance = new ReadingGuideService;
 
 Object.seal(readingGuideServiceInstance);
 
+const readingPageServiceInstance = new ReadingPageService;
+
+Object.seal(readingPageServiceInstance);
+
 const restartTopLeftServiceInstance = new RestartTopLeftService;
 
 Object.seal(restartTopLeftServiceInstance);
@@ -3205,6 +3332,26 @@ class ReadingGuideComponent extends AbstractSetting {
 }
 
 customElements.define("app-reading-guide", ReadingGuideComponent);
+
+"use strict";
+
+const tmplReadingPage = document.createElement("template");
+
+tmplReadingPage.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+
+class ReadingPageComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,onlyContent110IvoryBlack",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(readingPageServiceInstance.setReadingPage.bind(this));
+        this.appendChild(tmplReadingPage.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-reading-page", ReadingPageComponent);
 
 "use strict";
 
@@ -5451,7 +5598,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
