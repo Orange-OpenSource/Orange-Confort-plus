@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.0-beta.10 - 15/09/2025
+ * orange-confort-plus - version 5.0.0-beta.10 - 16/09/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -3065,14 +3065,10 @@ class ReadingGuideService {
         } else if (this.guideType === "mask") {
             const maskTopElt = document.createElement("div");
             const maskBottomElt = document.createElement("div");
-            const closeMask = document.createElement("span");
             maskTopElt.setAttribute("id", `${this.maskTopEltID}`);
             maskBottomElt.setAttribute("id", `${this.maskBottomEltID}`);
-            closeMask.setAttribute("id", `${this.closeTextID}`);
-            closeMask.innerText = i18nServiceInstance.getMessage("readingGuide_closeMask");
             document.body.insertBefore(maskTopElt, document.querySelector(APP_NAME));
             document.body.insertBefore(maskBottomElt, document.querySelector(APP_NAME));
-            document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
         }
         document.addEventListener("mousemove", this.handler);
     };

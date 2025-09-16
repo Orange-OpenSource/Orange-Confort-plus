@@ -111,14 +111,10 @@ class ReadingGuideService {
 		} else if (this.guideType === 'mask') {
 			const maskTopElt = document.createElement('div');
 			const maskBottomElt = document.createElement('div');
-			const closeMask = document.createElement('span');
 			maskTopElt.setAttribute('id', `${this.maskTopEltID}`);
 			maskBottomElt.setAttribute('id', `${this.maskBottomEltID}`);
-			closeMask.setAttribute('id', `${this.closeTextID}`);
-			closeMask.innerText = i18nServiceInstance.getMessage('readingGuide_closeMask');
 			document.body.insertBefore(maskTopElt, document.querySelector(APP_NAME));
 			document.body.insertBefore(maskBottomElt, document.querySelector(APP_NAME));
-			document.body.insertBefore(closeMask, document.querySelector(APP_NAME));
 		}
 
 		document.addEventListener('mousemove', this.handler);

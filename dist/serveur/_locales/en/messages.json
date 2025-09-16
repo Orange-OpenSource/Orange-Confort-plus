@@ -456,9 +456,6 @@
 	"readingGuide_alternatingLines": {
 		"message": "alternating lines"
 	},
-	"readingGuide_closeMask": {
-		"message": "Press Escape to close the mask."
-	},
 	"setting_marginAlign": {
 		"message": "Margin & Landmark"
 	},

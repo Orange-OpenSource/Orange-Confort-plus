@@ -456,9 +456,6 @@
 	"readingGuide_alternatingLines": {
 		"message": "lignes alternées"
 	},
-	"readingGuide_closeMask": {
-		"message": "Appuyer sur Échap pour fermer le masque."
-	},
 	"setting_marginAlign": {
 		"message": "Marge et repères"
 	},
