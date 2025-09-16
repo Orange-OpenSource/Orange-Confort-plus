@@ -459,9 +459,6 @@
 	"readingGuide_alternatingLines": {
 		"message": "líneas alternas"
 	},
-	"readingGuide_closeMask": {
-		"message": "Pulse Esc. para cerrar la máscara de lectura"
-	},
 	"setting_marginAlign": {
 		"message": "Margen y marcas"
 	},
