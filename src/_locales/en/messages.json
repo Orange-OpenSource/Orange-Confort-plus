@@ -462,6 +462,18 @@
 	"readingGuide_alternatingLines": {
 		"message": "alternating lines"
 	},
+	"setting_readingPage": {
+		"message": "Reading page"
+	},
+	"setting_readingPage_instruction": {
+		"message": "To display only the main content of the page in a format optimized for reading."
+	},
+	"readingPage_noModifications": {
+		"message": "no modifications"
+	},
+	"readingPage_onlyContent110IvoryBlack": {
+		"message": "content only 110% and ivory on black"
+	},
 	"setting_marginAlign": {
 		"message": "Margin & Landmark"
 	},

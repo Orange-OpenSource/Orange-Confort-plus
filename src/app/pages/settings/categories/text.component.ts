@@ -15,6 +15,7 @@ tmplText.innerHTML = `
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
 				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
 				<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>
+				<app-reading-page class="c-category__setting"></app-reading-page>
 				<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
