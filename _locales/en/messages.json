@@ -41,7 +41,10 @@
 		"message": "Pause Comfort+"
 	},
 	"pauseInfo": {
-		"message": "Comfort+ is paused, to reactivate it, press the « restart Comfort+ » button."
+		"message": "Comfort+ is paused"
+	},
+	"reactivateBtn": {
+		"message": "Restart Comfort+"
 	},
 	"otherModes": {
 		"message": "Other usage modes"
@@ -259,6 +262,15 @@
 	"shiftTab": {
 		"message": "Shift + Tab"
 	},
+	"next": {
+		"message": "Next"
+	},
+	"start":{
+		"message":"Beginning"
+	},
+	"content": {
+		"message": "Content"
+	},
 	"click": {
 		"message": "Click"
 	},
@@ -287,16 +299,16 @@
 		"message": "6s delay"
 	},
 	"bigZone": {
-		"message": "large click zones & standard click"
+		"message": "large click zones\n& standard click"
 	},
 	"longClick": {
-		"message": "large click zones & long click"
+		"message": "large click zones\n& long click"
 	},
 	"autoClick": {
-		"message": "large click zones & auto click on hover"
+		"message": "large click zones\n& auto click on hover"
 	},
 	"multiclic": {
-		"message": "Current value: “$CURRENT$” $INDEX$/$TOTAL$, switch to “$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Current value: “$CURRENT$” $INDEX$/$TOTAL$ — switch to “$NEXT$” $INDEX2$/$TOTAL$",
 		"description": "Indicates the current setting value and index, the total number of values, and the next value.",
 		"placeholders": {
 			"current": {
@@ -443,9 +455,6 @@
 	},
 	"readingGuide_alternatingLines": {
 		"message": "alternating lines"
-	},
-	"readingGuide_closeMask": {
-		"message": "Press Escape to close the mask."
 	},
 	"setting_marginAlign": {
 		"message": "Margin & Landmark"
@@ -817,10 +826,55 @@
 		"message": "Navigation buttons"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "To move focus with the mouse."
+		"message": "To facilitate navigation within the page"
 	},
 	"navigationButtons_noModifications": {
-		"message": "no navigation buttons"
+		"message":"without modification"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Buttons selection"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Scroll bar buttons"
+	},
+	"navigationSet": {
+		"message": "Navigation buttons"
+	},
+	"fullSet": {
+		"message": "Scroll bar and navigation buttons"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Pointing duration"
+	},
+	"clicAction": {
+		"message": "buttons clicking"
 	},
 	"navigationButtons_active": {
 		"message": "add navigation buttons"

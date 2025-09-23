@@ -41,7 +41,10 @@
 		"message": "Wstrzymać Komfort+"
 	},
 	"pauseInfo": {
-		"message": "Komfort+ jest wstrzymany. Aby był ponownie aktywny, naciśnij przycisk «ponownie użyć Komfort+»."
+		"message": "Komfort+ jest obecnie wstrzymany"
+	},
+	"reactivateBtn": {
+		"message": "Ponownie aktywuj Komfort+"
 	},
 	"otherModes": {
 		"message": "Inne tryby użytkowania"
@@ -259,6 +262,15 @@
 	"shiftTab": {
 		"message": "Shift + Tabulacjia"
 	},
+	"next":{
+		"message":"na dół"
+	},
+	"start":{
+		"message":"początek"
+	},
+	"content":{
+		"message":"treść"
+	},
 	"click": {
 		"message": "Kliknięcie"
 	},
@@ -287,16 +299,16 @@
 		"message": "6s opóźnienia"
 	},
 	"bigZone": {
-		"message": "duże strefy klikania & standardowe strefy klikania"
+		"message": "duże strefy klikania\n& standardowe strefy klikania"
 	},
 	"longClick": {
-		"message": "duże strefy klikania & zwolnione kliknięcie"
+		"message": "duże strefy klikania\n& zwolnione kliknięcie"
 	},
 	"autoClick": {
-		"message": "duże strefy klikania & automatyczne kliknięcie po najechaniu kursorem"
+		"message": "duże strefy klikania\n& automatyczne kliknięcie po najechaniu kursorem"
 	},
 	"multiclic": {
-		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$, mień na „$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$ — mień na „$NEXT$” $INDEX2$/$TOTAL$",
 		"description": "Oznacza wartość i indeks ustawienia actualnego, całkowita liczba wartości i następną wartość.",
 		"placeholders": {
 			"current": {
@@ -443,9 +455,6 @@
 	},
 	"readingGuide_maskGuide": {
 		"message": "maska"
-	},
-	"readingGuide_closeMask": {
-		"message": "Naciśnij na Escape, aby zamknąć maskę."
 	},
 	"setting_marginAlign": {
 		"message": "Marże i znaczniki"
@@ -817,10 +826,55 @@
 		"message": "Przyciski nawigacyjne"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Aby przesunąć fokus myszką"
+		"message": "Ułatwić nawigację po stronie"
 	},
 	"navigationButtons_noModifications": {
-		"message": "bez przycisków nawigacyjnych"
+		"message": "bez zmian"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Wybór przycisków"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Pasek przewijania"
+	},
+	"navigationSet": {
+		"message": "Przyciski nawigacyjne"
+	},
+	"fullSet": {
+		"message": "Przyciski nawigacyjne i pasek przewijania"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Czas wskazywania"
+	},
+	"clicAction": {
+		"message": "kliknięcie przycisków"
 	},
 	"navigationButtons_active": {
 		"message": "dodać przycisków nawigacyjnych "

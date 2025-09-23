@@ -41,7 +41,10 @@
 		"message": "Confort+ en pausa"
 	},
 	"pauseInfo": {
-		"message": "Confort+ está en pausa, para reactivarlo pulse el botón «Reactivar Confort+»"
+		"message": "Confort+ está en pausa"
+	},
+	"reactivateBtn": {
+		"message": "Reactivar Confort+"
 	},
 	"otherModes": {
 		"message": "Otros modos de uso"
@@ -259,6 +262,15 @@
 	"shiftTab": {
 		"message": "Mayúscula + Tabulación"
 	},
+	"next": {
+		"message": "Siguiente"
+	},
+	"start":{
+		"message":"Principio"
+	},
+	"content": {
+		"message": "Contenido"
+	},
 	"click": {
 		"message": "Clic"
 	},
@@ -287,16 +299,16 @@
 		"message": "plazo de 6s"
 	},
 	"bigZone": {
-		"message": "grandes áreas de clic y clics estándar"
+		"message": "grandes áreas de clic\ny clics estándar"
 	},
 	"longClick": {
-		"message": "grandes áreas de clic y clics largos"
+		"message": "grandes áreas de clic\ny clics largos"
 	},
 	"autoClick": {
-		"message": "grandes áreas de clic y clics al pasar el ratón"
+		"message": "grandes áreas de clic\ny clics al pasar el ratón"
 	},
 	"multiclic": {
-		"message": "Valor actual: $CURRENT$ $INDEX$/$TOTAL$, cambia por «$NEXT$» $INDEX2$/$TOTAL$",
+		"message": "Valor actual: $CURRENT$ $INDEX$/$TOTAL$ — cambia por «$NEXT$» $INDEX2$/$TOTAL$",
 		"description": "Indica el valor e índice de la configuración actual, el número total de valores y el valor siguiente.",
 		"placeholders": {
 			"current": {
@@ -446,9 +458,6 @@
 	},
 	"readingGuide_alternatingLines": {
 		"message": "líneas alternas"
-	},
-	"readingGuide_closeMask": {
-		"message": "Pulse Esc. para cerrar la máscara de lectura"
 	},
 	"setting_marginAlign": {
 		"message": "Margen y marcas"
@@ -820,10 +829,55 @@
 		"message": "Botones de navegación"
 	},
 	"setting_navigationButtons_instruction": {
-		"message": "Para mover el foco con el ratón"
+		"message": "Para facilitar el desplazamiento por la página"
 	},
 	"navigationButtons_noModifications": {
-		"message": "sin botón de navegación"
+		"message": "Sin  modificación"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Selección de los botones"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Botón de desplazamiento"
+	},
+	"navigationSet": {
+		"message": "Botón de navegación"
+	},
+	"fullSet": {
+		"message": "Botones de navegación y de barra de desplazamiento"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Retraso para apuntar"
+	},
+	"clicAction": {
+		"message": "clic de los botones"
 	},
 	"navigationButtons_active": {
 		"message": "Añadir botones de navegación"
