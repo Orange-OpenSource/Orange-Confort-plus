@@ -1,0 +1,42 @@
+$btn-width: 80px;
+
+app-btn-modal {
+	flex: 1;
+	min-width: 6em;
+
+	button.btn.btn-primary {
+		font-size: 12px;
+		border: none;
+		text-align: left;
+		width: $btn-width;
+		height: 60px;
+		position: relative;
+
+		&:after {
+			content: '';
+			display: block;
+			width: 0;
+			height: 0;
+			position: absolute;
+			left: $btn-width;
+			top: 0;
+			border: 30px solid transparent;
+			border-left-color: var(--cplus-btn-bg);
+		}
+
+		&:hover:after {
+			border-left-color: var(--cplus-btn-hover-bg);
+		}
+
+		&:active:after {
+			border-left-color: var(--cplus-btn-active-bg);
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+			filter:
+				drop-shadow(0px 2px 0 white) drop-shadow(0px -2px 0 white) drop-shadow(2px 0px 0 white) drop-shadow(-2px 0px 0 white) drop-shadow(0px 3px 0 black) drop-shadow(0px -3px 0 black) drop-shadow(1px 0px 0 black) drop-shadow(-3px 0px 0 black);
+		}
+	}
+}

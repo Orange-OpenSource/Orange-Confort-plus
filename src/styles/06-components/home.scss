@@ -1,0 +1,14 @@
+app-home {
+	display: grid;
+	grid-template-rows: 4.5em 1fr;
+}
+
+.sc-home__settings {
+	display: grid;
+	grid-template-rows: 1fr auto;
+}
+
+.sc-home__icon-mode {
+	width: fit-content;
+	height: fit-content;
+}

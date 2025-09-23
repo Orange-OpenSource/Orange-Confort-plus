@@ -1,0 +1,323 @@
+"use strict";
+let magnifierServiceIsInstantiated;
+class MagnifierService {
+    zoom;
+    handler;
+    magnifierWidth = 300;
+    magnifierHeight = 300;
+    magnifierTransition = 300;
+    ofs_x;
+    ofs_y;
+    pos_x;
+    pos_y;
+    magnifier;
+    magnifierContent;
+    magnifierBody;
+    observerObj;
+    syncTimeout;
+    magnifierClickTimer;
+    styleMagnifier = `
+		#${PREFIX}magnifier {
+			background-color: white;
+			border: 1px solid black;
+			border-radius: 0.5em;
+			width: ${this.magnifierWidth}px;
+			height: ${this.magnifierHeight}px;
+			position: fixed;
+			overflow: hidden;
+			pointer-events: none;
+			transition: box-shadow ease ${this.magnifierTransition}ms;
+			z-index: calc(infinity);
+		}
+
+		#${PREFIX}magnifier-content {
+			display: block;
+			margin-left: 0;
+			margin-top: 0;
+			padding-top: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			overflow: visible;
+			transform-origin: left top;
+			user-select: none;
+		}
+
+		#${PREFIX}magnifier-glass {
+			background-color: white;
+			opacity: 0 !important;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			cursor: move;
+		}
+	`;
+    constructor() {
+        if (magnifierServiceIsInstantiated) {
+            throw new Error('MagnifierService is already instantiated.');
+        }
+        magnifierServiceIsInstantiated = true;
+        this.handler = this.createHandler();
+    }
+    setMagnifier = (value) => {
+        if (value === DEFAULT_VALUE) {
+            stylesServiceInstance.removeStyle('magnifier');
+            document.querySelector(`#${PREFIX}magnifier`)?.remove();
+            this.unBindDOMObserver();
+        }
+        else {
+            stylesServiceInstance.setStyle('magnifier', this.styleMagnifier);
+            this.zoom = parseInt(value.replace(/\D/g, ''), 10);
+            this.initMagnifier();
+        }
+    };
+    /* The code below uses the code from this repository. Simplified for our use. */
+    /* https://github.com/jagermesh/html-magnifier */
+    initMagnifier = () => {
+        if (!document.querySelector(`#${PREFIX}magnifier`)) {
+            this.setMagnifierElements();
+        }
+        this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
+        this.magnifierContent = document.querySelector(`#${PREFIX}magnifier-content`);
+        window.addEventListener('resize', this.handler, false);
+        window.addEventListener('scroll', this.handler, true);
+        window.addEventListener('scrollend', this.handler, true);
+        window.addEventListener('pointerdown', this.handler);
+        window.addEventListener('pointerup', this.handler);
+        this.magnifierContent.style.transform = `scale(${this.zoom})`;
+        this.makeDraggable();
+        this.setPosition(this.magnifier, 250, 250);
+        this.syncContent();
+        this.bindDOMObserver();
+    };
+    setMagnifierElements = () => {
+        let fragment = document.createDocumentFragment();
+        const magnifier = document.createElement('div');
+        const magnifierContent = document.createElement('div');
+        const magnifierGlass = document.createElement('div');
+        magnifier.setAttribute('id', `${PREFIX}magnifier`);
+        magnifierContent.setAttribute('id', `${PREFIX}magnifier-content`);
+        magnifierGlass.setAttribute('id', `${PREFIX}magnifier-glass`);
+        magnifier.appendChild(magnifierContent);
+        magnifier.appendChild(magnifierGlass);
+        fragment.appendChild(magnifier);
+        document.body.insertBefore(fragment, document.querySelector(APP_NAME));
+    };
+    setPosition = (element, left, top) => {
+        element.style.left = `${left}px`;
+        element.style.top = `${top}px`;
+    };
+    syncContent = () => {
+        this.prepareContent();
+        this.syncViewport();
+        this.syncScrollBars();
+    };
+    prepareContent = () => {
+        this.magnifierContent.innerHTML = '';
+        const bodyOriginal = document.body;
+        const bodyCopy = bodyOriginal.cloneNode(true);
+        const color = bodyOriginal.style.backgroundColor;
+        if (color) {
+            this.magnifier.style.backgroundColor = color;
+        }
+        bodyCopy.style.cursor = 'auto';
+        bodyCopy.style.paddingTop = '0px';
+        bodyCopy.style.position = 'relative';
+        bodyCopy.setAttribute('unselectable', 'on');
+        const canvasOriginal = bodyOriginal.querySelectorAll('canvas');
+        const canvasCopy = bodyCopy.querySelectorAll('canvas');
+        if (canvasOriginal.length > 0 && canvasOriginal.length === canvasCopy.length) {
+            for (let i = 0; i < canvasOriginal.length; i++) {
+                let ctx = canvasCopy[i].getContext('2d');
+                try {
+                    ctx?.drawImage(canvasOriginal[i], 0, 0);
+                }
+                catch (error) {
+                    console.error(error);
+                }
+            }
+        }
+        this.removeSelectors(bodyCopy, 'script');
+        this.removeSelectors(bodyCopy, 'audio');
+        this.removeSelectors(bodyCopy, 'video');
+        this.removeSelectors(bodyCopy, APP_NAME);
+        this.removeSelectors(bodyCopy, `#${PREFIX}magnifier`);
+        this.magnifierContent.appendChild(bodyCopy);
+        this.magnifierContent.style.width = `${document.body.clientWidth}px`;
+        this.magnifierContent.style.height = `${document.body.clientHeight}px`;
+        this.magnifierBody = this.magnifierContent.querySelector('body');
+        // Identifies the magnifying glass and its contents so that it can be ignored by MutationObserver
+        this.magnifier?.classList.add(`${PREFIX}magnifier-ignore-class`);
+        this.magnifierContent?.classList.add(`${PREFIX}magnifier-ignore-class`);
+        this.magnifierBody?.classList.add(`${PREFIX}magnifier-ignore-class`);
+        const bodyCopyElements = this.magnifierBody.querySelectorAll('*');
+        bodyCopyElements.forEach((element) => {
+            element.classList.add(`${PREFIX}magnifier-ignore-class`);
+        });
+    };
+    syncViewport = () => {
+        const x1 = this.magnifier?.offsetLeft;
+        const y1 = this.magnifier?.offsetTop;
+        const x2 = document.body.scrollLeft;
+        const y2 = document.body.scrollTop;
+        const left = (-x1 * this.zoom - x2 * this.zoom) - ((this.zoom - 1) * (this.magnifierWidth / 2));
+        const top = (-y1 * this.zoom - y2 * this.zoom) - ((this.zoom - 1) * (this.magnifierHeight / 2));
+        this.setPosition(this.magnifierContent, left, top);
+    };
+    syncScrollBars = () => {
+        if (this.magnifierBody !== null) {
+            const x2 = window.scrollX || document.documentElement.scrollLeft;
+            const y2 = window.scrollY || document.documentElement.scrollTop;
+            this.setPosition(this.magnifierBody, -x2, -y2);
+        }
+    };
+    stopSyncScrollBars = () => {
+        if (this.magnifierBody !== null) {
+            this.magnifierBody = null;
+        }
+        if (this.magnifier !== null) {
+            this.magnifier = null;
+        }
+    };
+    removeSelectors = (container, selector) => {
+        const elements = container.querySelectorAll(selector);
+        if (elements.length > 0) {
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].parentNode?.removeChild(elements[i]);
+            }
+        }
+    };
+    /* Set of methods for detecting DOM changes */
+    syncContentQueued = () => {
+        window.clearTimeout(this.syncTimeout);
+        this.syncTimeout = window.setTimeout(this.syncContent.bind(this), 100);
+    };
+    domChanged = () => {
+        this.syncContentQueued();
+    };
+    unBindDOMObserver = () => {
+        if (this.observerObj) {
+            this.observerObj.disconnect();
+            this.observerObj = null;
+        }
+    };
+    bindDOMObserver = () => {
+        this.observerObj = new MutationObserver((mutations) => {
+            for (let i = 0; i < mutations.length; i++) {
+                this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
+                if (!mutations[i].target?.parentElement?.classList?.contains(`${PREFIX}magnifier-ignore-class`) && !mutations[i].target?.firstChild?.parentElement?.classList?.contains(`${PREFIX}magnifier-ignore-class`)) {
+                    this.domChanged();
+                }
+            }
+        });
+        this.observerObj.observe(document, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: [
+                'class',
+                'width',
+                'height',
+                'style'
+            ],
+            attributeOldValue: true,
+            characterDataOldValue: true
+        });
+    };
+    /* Makes the magnifier draggable and adds events linked to magnifier movements */
+    makeDraggable = () => {
+        this.magnifier.style.cursor = 'move';
+        this.magnifier.addEventListener('pointermove', this.handler);
+    };
+    downHandler = (event) => {
+        this.magnifier = document.querySelector(`#${PREFIX}magnifier`);
+        const pageX = event.pageX || (event.touches && event.touches[0].pageX);
+        const pageY = event.pageY || (event.touches && event.touches[0].pageY);
+        this.ofs_x = this.magnifier?.getBoundingClientRect().left - this.magnifier?.offsetLeft;
+        this.ofs_y = this.magnifier?.getBoundingClientRect().top - this.magnifier?.offsetTop;
+        this.pos_x = pageX - (this.magnifier?.getBoundingClientRect().left + window.scrollX || document.documentElement.scrollLeft);
+        this.pos_y = pageY - (this.magnifier?.getBoundingClientRect().top + window.scrollY || document.documentElement.scrollTop);
+    };
+    moveHandler = (event) => {
+        if (this.magnifier !== null) {
+            const pageX = event.pageX || (event.touches && event.touches[0].pageX);
+            const pageY = event.pageY || (event.touches && event.touches[0].pageY);
+            const left = pageX - this.pos_x - this.ofs_x - (window.scrollX || document.documentElement.scrollLeft);
+            const top = pageY - this.pos_y - this.ofs_y - (window.scrollY || document.documentElement.scrollTop);
+            this.setPosition(this.magnifier, left, top);
+            this.syncViewport();
+        }
+    };
+    upHandler = () => {
+        if (this.magnifier !== null) {
+            this.magnifier = null;
+        }
+    };
+    resizeWindow = () => {
+        // Synchronises content while the window is being resized.
+        let timer;
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            this.stopSyncScrollBars();
+            return;
+        }, 100);
+        this.syncContent();
+    };
+    pointerIsInMagnifier = (event) => {
+        const { clientX, clientY } = event;
+        const { offsetLeft, offsetTop } = this.magnifier;
+        return clientX > offsetLeft &&
+            clientX < offsetLeft + this.magnifierWidth &&
+            clientY > offsetTop &&
+            clientY < offsetTop + this.magnifierHeight;
+    };
+    setMovingStyle = () => {
+        this.magnifier.style.pointerEvents = 'auto';
+        this.magnifier.style.boxShadow = '0 0 20px 10px rgba(0,0,0, 0.25)';
+    };
+    setStaticStyle = () => {
+        this.magnifier.style.pointerEvents = null;
+        this.magnifier.style.boxShadow = null;
+    };
+    createHandler = () => {
+        return (event) => {
+            switch (event.type) {
+                case 'resize':
+                    this.magnifierBody = this.magnifierContent.querySelector('body');
+                    this.resizeWindow();
+                    break;
+                case 'scroll':
+                    this.magnifierBody = this.magnifierContent.querySelector('body');
+                    this.syncScrollBars();
+                    break;
+                case 'scrollend':
+                    this.stopSyncScrollBars();
+                    break;
+                case 'pointerdown':
+                    this.downHandler(event);
+                    this.magnifierClickTimer = setTimeout(() => {
+                        if (this.magnifier && this.pointerIsInMagnifier(event)) {
+                            document.body.style.userSelect = 'none';
+                            this.setMovingStyle();
+                        }
+                    }, this.magnifierTransition);
+                    break;
+                case 'pointermove':
+                    this.moveHandler(event);
+                    break;
+                case 'pointerup':
+                    document.body.style.userSelect = null;
+                    if (this.magnifier) {
+                        this.setStaticStyle();
+                        clearTimeout(this.magnifierClickTimer);
+                    }
+                    this.upHandler();
+                    break;
+            }
+        };
+    };
+}

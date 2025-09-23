@@ -1,10 +1,20 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# compiled output
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
 # dependencies
 /node_modules
+yarn.lock
 
 # IDEs and editors
 /.idea
+.idea
+/.idea:*
+/.idea/*
 .project
 .classpath
 .c9/
@@ -20,6 +30,16 @@
 !.vscode/extensions.json
 .history/*
 
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
 # System Files
 .DS_Store
 ._*
@@ -32,12 +52,18 @@ Thumbs.db
 *.rej
 
 # Docs
-docs/js/toolbar.js
-docs/js/toolbar.js.map
-src/boosted/*.css
-src/boosted/*.css.map
-img/
+src/site/css/*.css
+src/site/css/*.css.map
+./img/
 
 # Build
 *.zip
-dist/WebExtension/manifest.json
+dist/extension/manifest.json
+/dist/js
+/dist/css
+/src/img/
+/build/version.txt
+
+# Docs
+/docs/css/boosted.css
+/docs/css/orange-helvetica.css

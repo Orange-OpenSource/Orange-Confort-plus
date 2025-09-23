@@ -1,0 +1,14 @@
+:host {
+	all: initial;
+	contain: strict;
+	display: contents;
+}
+
+* {
+	font-family: var(--cplus-body-font-family);
+}
+
+button svg,
+button app-icon {
+	pointer-events: none;
+}

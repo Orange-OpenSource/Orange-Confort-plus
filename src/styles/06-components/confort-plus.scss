@@ -1,0 +1,41 @@
+.sc-confort-plus {
+	border-radius: 50%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 0 !important;
+	transform: translate(-25%, 25%);
+	z-index: calc(infinity);
+}
+
+.sc-confort-plus--paused {
+	background-color: var(--cplus-btn-disabled-bg);
+	border-color: var(--cplus-btn-active-border-color);
+}
+
+.sc-confort-plus-pause-icon {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	right: -0.500rem;
+	bottom: -0.3125rem;
+	width: 1.5625rem;
+	height: 1.5625rem;
+	line-height: 1.5625rem;
+	padding-bottom: 0.1875rem;
+	border-radius: 50%;
+	color: var(--cplus-black);
+}
+
+.sc-confort-plus:hover .sc-confort-plus-pause-icon {
+	border: none;
+}
+
+.sc-confort-plus--paused {
+	filter:
+		drop-shadow(1px 1px 0 var(--cplus-white))
+		drop-shadow(-1px -1px 0 var(--cplus-white))
+		drop-shadow(1px -1px 0 var(--cplus-white))
+		drop-shadow(-1px 1px 0 var(--cplus-white));
+}

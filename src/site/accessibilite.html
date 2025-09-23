@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Déclaration d’accessibilité — Orange Confort+</title>
+
+	<link rel="stylesheet" href="css/orange-accessibledfa.min.css">
+	<link rel="stylesheet" href="css/boosted.min.css">
+	<style>
+		.pie {
+			width: 12.5rem;
+			height: 12.5rem;
+			background-image: linear-gradient(to right, transparent 50%, #f16e00 0);
+		}
+
+		.pie::after {
+			content: '';
+			position: absolute;
+			width: 50%;
+			height: 100%;
+			border-radius: 0 100% 100% 0 / 50%;
+			background-color: #f16e00;
+			transform-origin: left;
+		}
+
+		.pie[data-value="66"]::after { transform: rotate(57.6deg) }
+
+		.pie-val {
+			inset: .9375rem;
+			line-height: 10rem;
+			z-index: 2;
+		}
+	</style>
+
+	<link rel="alternate" hreflang="en" href="accessibility.html">
+</head>
+
+<body>
+	<header role="banner">
+		<a id="top"></a>
+		<nav class="navbar supra navbar-expand-lg navbar-dark bg-dark" aria-label="Langues alternatives" role="navigation">
+			<div class="container">
+				<ul class="navbar-nav ms-auto me-5">
+					<li class="nav-item"><a href="accessibilite.html" class="nav-link active" aria-current="page">Français</a></li>
+					<li class="nav-item me-5"><a href="accessibility.html" class="nav-link" lang="en" hreflang="en">English</a></li>
+				</ul>
+			</div>
+		</nav>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Liens utiles" role="navigation">
+			<div class="container">
+				<a href="index.html" class="navbar-brand text-white me-auto me-lg-4 ms-5">
+					<img alt="Orange" src="assets/img/orange_logo.svg" width="50" height="50" class="ms-5">
+					<h1 class="title">Confort<span class="text-primary">+</span></h1>
+				</a>
+
+				<ul class="navbar-nav flex-row me-5 ms-auto">
+					<li class="nav-item">
+						<a class="nav-link nav-icon gap-2" href="index.html/#downloads">
+							<svg aria-hidden="true" width="30" height="30">
+								<use xlink:href="assets/img/icons.svg#download"></use>
+							</svg>
+							<span>Téléchargement Confort<span class="text-primary fw-bold">+</span></span>
+						</a>
+					</li>
+					<li class="nav-item me-5">
+						<a class="nav-link nav-icon gap-2" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/"
+							 hreflang="en" target="_blank" rel="noopener">
+							<svg aria-hidden="true" width="30" height="30">
+								<use xlink:href="assets/img/icons.svg#github"></use>
+							</svg>
+							<span class="visually-hidden">Orange Confort+ sur </span>
+							<span>GitHub</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main class="container my-5" role="main">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<h1 class="display-2">Déclaration d'Accessibilité&nbsp;: Confort<span class="text-primary">+</span></h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<h2 class="display-3 lh-sm">Contexte</h2>
+			</div>
+			<div class="col-md-8 offset-md-2 mb-5 lead">
+				<p>
+					Orange s’engage à rendre ses sites web, ses applications mobiles et son mobilier urbain numérique accessibles
+					conformément à l’article 106 de la loi n°2016-1321 du 7 octobre 2016 pour une République numérique, tel que
+					décrit dans son <a href="https://oran.ge/accessibilite-schema">schéma
+					pluriannuel d’amélioration de l’accessibilité numérique (PDF, 230Ko)</a>.
+				</p>
+			</div>
+
+			<div class="col-md-10 offset-md-1">
+				<h2 class="display-3 lh-sm mt-4">État de conformité</h2>
+			</div>
+			<div class="col-md-8 offset-md-2 mb-5 lead">
+				<p>
+					Confort<span class="text-primary">+</span> est non conforme aux critères
+					<a href="https://www.w3.org/Translations/WCAG22-fr/"><abbr lang="en" title="Web Content Accessibility Guidelines">WCAG</abbr> version 2.2, niveau AA</a>,
+					car il n'existe aucun résultat d'analyse de conformité en cours de validité.
+				</p>
+			</div>
+
+			<div class="col-md-10 offset-md-1">
+				<h2 class="display-3 lh-sm mt-4">Établissement de cette déclaration d’accessibilité</h2>
+			</div>
+			<div class="col-md-8 offset-md-2 mb-5 lead">
+				<p>Cette déclaration a été établie le 23/05/2025.</p>
+			</div>
+
+			<div class="col-md-10 offset-md-1">
+				<h2 class="display-3 lh-sm mt-4">Retour d’information et contact</h2>
+			</div>
+			<div class="col-md-8 offset-md-2 mb-5 lead">
+				<p>
+					Vous pouvez nous aider à améliorer l’accessibilité du site en nous signalant les problèmes éventuels que vous
+					rencontrez. Pour ce faire, <a href="mailto:confort.plus@orange.com">envoyez un courriel à confort.plus@orange.com</a>.
+				</p>
+			</div>
+
+			<div class="col-md-10 offset-md-1">
+				<h2 class="display-3 lh-sm mt-4">Voies de recours</h2>
+			</div>
+			<div class="col-md-8 offset-md-2 mb-5 lead">
+				<p>
+					Vous avez signalé au responsable du site internet un défaut d’accessibilité qui vous empêche d’accéder à un
+					contenu ou à un des services du portail et vous n’avez pas obtenu de réponse satisfaisante, dans ce
+					cas&nbsp;:
+				</p>
+				<ul>
+					<li>Écrire un message au <a href="https://formulaire.defenseurdesdroits.fr/">Défenseur des droits</a>.</li>
+					<li>
+						Ou contacter le <a href="https://www.defenseurdesdroits.fr/saisir/delegues">délégué du Défenseur des droits
+						dans votre département</a>.
+					</li>
+					<li>
+						Ou envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) <br>
+						<address> Défenseur des droits <br> Libre réponse 71120 <br> 75342 Paris CEDEX 07</address>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</main>
+	<footer id="footer" class="footer bg-dark navbar-dark" role="contentinfo">
+		<div class="container d-flex footer-service">
+			<ul class="navbar-nav gap-3 gap-md-5 mx-auto">
+				<li>
+					<a class="nav-link gap-2 nav-icon" href="index.html/#downloads">
+						<svg aria-hidden="true" width="30" height="30">
+							<use xlink:href="assets/img/icons.svg#download"></use>
+						</svg>
+						<span>Téléchargement Confort+</span>
+					</a>
+				</li>
+				<li>
+					<a class="nav-link gap-2 nav-icon" href="https://github.com/Orange-OpenSource/Orange-Confort-plus/" hreflang="en"
+						 target="_blank" rel="noopener">
+						<svg aria-hidden="true" width="30" height="30">
+							<use xlink:href="assets/img/icons.svg#github"></use>
+						</svg>
+						<span class="visually-hidden">Orange Confort<span class="text-primary fw-bold">+</span> sur </span>
+						<span>GitHub</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="border-bottom border-1 border-dark"></div>
+		<div class="container footer-terms">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 d-flex">
+					<p class="mb-0 fw-bold">© Orange 2025</p>
+					<p class="mb-0 mx-auto">
+						Orange Confort<span class="text-primary fw-bold">+</span> est un produit <span lang="en">open-source</span>.
+					</p>
+					<p class="mb-0">
+						<a href="mentions-legales.html" aria-current="page">Mentions légales</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div class="back-to-top">
+		<a href="#top" class="back-to-top-link btn btn-icon btn-secondary" data-bs-label="Retour en haut">
+			<span class="visually-hidden">Retour en haut</span>
+		</a>
+	</div>
+	<script src="js/toolbar.min.js"></script>
+</body>
+
+</html>

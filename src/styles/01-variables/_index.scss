@@ -1,0 +1,33 @@
+/* Import Boosted */
+@forward "boosted/scss/boosted.scss" with ($prefix: "cplus-",
+	$spacer: 1em,
+	$font-size-base: 1em,
+	$small-font-size: .875em,
+	$border-width: .125em,
+	$border-radius: .375em,
+	$focus-ring-width: .25em,
+	$form-helper-size: 1.25em,
+	$form-label-margin-bottom: .5em,
+	$form-switch-width: 3em,
+	$form-switch-padding-start: 3.625em,
+	$input-btn-padding-y: .5em,
+	$input-btn-padding-x: 1.125em,
+	$tooltip-max-width: 21em);
+
+$font-path: "../assets/fonts/HelveticaNeue/";
+
+@font-face {
+	font-family: HelvNeueOrange;
+	font-style: normal;
+	font-weight: 400;
+	src: url("#{$font-path}HelvNeue55_W1G.woff2") format("woff2");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: HelvNeueOrange;
+	font-style: normal;
+	font-weight: 700;
+	src: url("#{$font-path}HelvNeue75_W1G.woff2") format("woff2");
+	font-display: swap;
+}

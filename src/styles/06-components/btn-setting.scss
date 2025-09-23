@@ -1,0 +1,79 @@
+app-btn-setting {
+	flex: 2;
+	max-width: 12em;
+	height: 100%;
+	position: relative;
+}
+
+.sc-btn-setting,
+.sc-btn-setting__selected-value {
+	border-radius: 1em;
+	min-height: 5.5em;
+
+	&:hover .sc-btn-setting__current-value,
+	&:focus.sc-btn-setting--show-tooltip .sc-btn-setting__current-value {
+		background-color: var(--cplus-primary);
+	}
+
+	&:active .sc-btn-setting__value {
+		background-color: var(--cplus-body-color);
+	}
+}
+
+.sc-btn-setting--show-tooltip {
+	background-color: var(--cplus-btn-hover-bg);
+	color: var(--cplus-btn-hover-color);
+	box-shadow: 0 0 0 2px var(--cplus-focus-visible-inner-color);
+	isolation: isolate;
+	outline: 3px solid var(--cplus-primary);
+	outline-offset: 2px;
+	z-index: 5;
+}
+
+$corner-value: 10px;
+
+.sc-btn-setting--default,
+.sc-btn-setting--default .sc-btn-setting__selected-value {
+	background-image:
+		linear-gradient(45deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value),
+		linear-gradient(-45deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value),
+		linear-gradient(135deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value),
+		linear-gradient(-135deg, var(--cplus-body-bg) 0 $corner-value, transparent $corner-value);
+
+	&.btn,
+	&.btn:hover,
+	&.btn:focus,
+	&.btn:active {
+		border-color: var(--cplus-body-bg);
+	}
+}
+
+.sc-btn-setting__value {
+	background-color: var(--cplus-body-bg);
+	height: .25em;
+	width: .25em;
+}
+
+.sc-btn-setting__current-value {
+	background-color: var(--cplus-body-color);
+	height: .5em;
+	width: .5em;
+}
+
+.sc-btn-setting__selected-value {
+	font-size: 0.8em;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.sc-btn-setting__tooltip {
+	opacity: 1;
+	position: absolute;
+	bottom: 6rem
+}
+
+.sc-btn-setting__name::after {
+	content: ".";
+	font-size: 0;
+}
