@@ -119,10 +119,10 @@ class NavigationButtonsService {
 				this.simulateKeydownEscape();
 				break;
 			case 'start':
-				restartTopLeftServiceInstance.setRestartTopLeft('');
+				restartTopLeftServiceInstance.setRestartTopLeft();
 				break;
 			case 'content':
-				skipToContentServiceInstance.setSkipToContent('');
+				skipToContentServiceInstance.setSkipToContent();
 				break;
 			default:
 				break;

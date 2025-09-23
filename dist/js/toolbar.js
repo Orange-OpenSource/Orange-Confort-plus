@@ -5,207 +5,6 @@
  */
 "use strict";
 
-const PREFIX = "cplus-";
-
-const JSON_NAME = "modeOfUse";
-
-const DEFAULT_VALUE = "noModifications";
-
-const DEFAULT_MODE = "facilePlus";
-
-const APP_NAME = `${PREFIX}app-root`;
-
-const VERSION = "5.0.0";
-
-const PAGE_HOME = "home";
-
-const PAGE_MODES = "modes";
-
-const PAGE_SETTINGS = "settings";
-
-const PAGE_EDIT_SETTING = "edit-setting";
-
-const PAGE_P_MARKUP_SELECTOR = `body > :not([id^=${PREFIX}]) p, body > p`;
-
-const FOCUS_SIZE_BIG = "4px";
-
-const FOCUS_SIZE_HUGE = "10px";
-
-const CURSOR_SIZE_BIG = 56;
-
-const CURSOR_SIZE_HUGE = 128;
-
-const SCROLL_SIZE_BIG = "32px";
-
-const SCROLL_SIZE_HUGE = "48px";
-
-const BTN_RIGHT_POS_DEFAULT = "2em";
-
-const BTN_RIGHT_POS_OPEN = "26em";
-
-const CLICK_FACILITE_BIG_ZONE = "bigZone";
-
-const CLICK_FACILITE_LONG_CLICK = "longClick";
-
-const CLICK_FACILITE_AUTO_CLICK = "autoClick";
-
-const CONTAINER_BUTTONS_ID = `${PREFIX}container-buttons`;
-
-const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
-
-const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
-
-const BODY_ELEMENTS_FILTER = "script,style,link,meta";
-
-"use strict";
-
-let filesServiceIsInstantiated;
-
-class FilesService {
-    path="";
-    constructor() {
-        if (filesServiceIsInstantiated) {
-            throw new Error("FilesService is already instantiated.");
-        }
-        filesServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
-    }
-    getJSONFile(file) {
-        return fetch(`${this.path}assets/json/${file}.json`).then((response => response.json())).catch((error => {
-            console.error(`Error when retrieving ${file}.json: ${error}.`);
-            return error;
-        }));
-    }
-}
-
-"use strict";
-
-let i18nServiceIsInstantiated;
-
-class I18nService {
-    locale="en";
-    path="";
-    constructor() {
-        if (i18nServiceIsInstantiated) {
-            throw new Error("I18nService is already instantiated.");
-        }
-        i18nServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
-        if ([ "en", "fr", "pl", "es" ].some((language => navigator.language.startsWith(language)))) {
-            this.locale = navigator.language.slice(0, 2);
-        }
-        this.getJSON().then((result => {
-            localStorage.setItem(`${PREFIX}i18n`, JSON.stringify(result));
-        }));
-    }
-    getJSON() {
-        return fetch(`${this.path}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
-            console.error(`Error when retrieving 'messages.json' file : ${error}.`);
-            return error;
-        }));
-    }
-    getMessages() {
-        return localStorage.getItem(`${PREFIX}i18n`);
-    }
-    getMessage(message, substitutions = []) {
-        if (!message || message.includes("undefined")) {
-            console.warn(`Part of argument for I18nService getMessage() is undefined. Message: "${message}".`);
-            return;
-        }
-        const translations = JSON.parse(this.getMessages());
-        let content = translations[message]?.message || "";
-        if (substitutions.length > 0) {
-            if (substitutions.some((str => str?.includes("undefined")))) {
-                console.warn(`At least one substitution string for I18nService getMessage() is undefined. Message: "${message}". Substitutions: "${substitutions}".`);
-                return;
-            }
-            const placeholders = translations[message]?.placeholders;
-            const matches = [ ...content.matchAll(/(\$.*?\$)/g) ];
-            for (const match of matches) {
-                const key = match[0].replaceAll("$", "").toLowerCase();
-                const index = Number(placeholders[key]?.content.replace("$", ""));
-                content = content.replaceAll(match[0], substitutions[index - 1]);
-            }
-        }
-        return content.trim();
-    }
-    translate(root) {
-        const elements = root.querySelectorAll("[data-i18n]");
-        for (const element of elements) {
-            element.innerHTML = this.getMessage(element.dataset?.i18n);
-        }
-        const elementsTitle = root.querySelectorAll("[data-i18n-title]");
-        for (const element of elementsTitle) {
-            element.title = this.getMessage(element.dataset?.i18nTitle);
-        }
-    }
-}
-
-"use strict";
-
-let iconsServiceIsInstantiated;
-
-class IconsService {
-    constructor() {
-        if (iconsServiceIsInstantiated) {
-            throw new Error("IconsService is already instantiated.");
-        }
-        iconsServiceIsInstantiated = true;
-    }
-    get path() {
-        return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
-    }
-    loadSprite(root) {
-        return;
-    }
-}
-
-"use strict";
-
-let localStorageServiceIsInstantiated;
-
-class LocalStorageService {
-    constructor() {
-        if (localStorageServiceIsInstantiated) {
-            throw new Error("LocalStorageService is already instantiated.");
-        }
-        localStorageServiceIsInstantiated = true;
-    }
-    setItem(key, value) {
-        localStorage.setItem(`${PREFIX}${key}`, JSON.stringify(value));
-        let storeEvent = new CustomEvent(`storage-${key}`, {
-            bubbles: true
-        });
-        window.dispatchEvent(storeEvent);
-    }
-    getItem(key) {
-        return new Promise(((resolve, reject) => {
-            resolve(JSON.parse(localStorage.getItem(`${PREFIX}${key}`)));
-            reject(new Error("KO"));
-        }));
-    }
-    removeItem(key) {
-        localStorage.removeItem(`${PREFIX}${key}`);
-    }
-}
-
-"use strict";
-
-let pathServiceIsInstantiated;
-
-class PathService {
-    path="";
-    constructor() {
-        if (pathServiceIsInstantiated) {
-            throw new Error("PathService is already instantiated.");
-        }
-        pathServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
-    }
-}
-
-"use strict";
-
 let categoriesServiceIsInstantiated;
 
 class CategoriesService {
@@ -5536,7 +5335,6 @@ class AbstractCategory extends HTMLElement {
         }
     };
     displaySettings=settings => {
-        this.btnMoreSettings?.classList.add("d-none");
         if (!this.displayAllSettings) {
             this.settingsElements.forEach((element => {
                 element.removeAttribute("data-default-setting");
@@ -5546,30 +5344,33 @@ class AbstractCategory extends HTMLElement {
         let nbActifSetting = 0;
         settings.forEach((setting => {
             let settingObj = this.settingsDictionnary.find((o => o.name === stringServiceInstance.normalizeSettingName(Object.keys(setting)[0])));
-            let settingElement = this.querySelector(settingObj?.element);
-            settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
-            settingElement?.setAttribute("data-default-setting", "true");
-            settingElement?.classList.remove("d-none");
             if (settingObj) {
                 nbActifSetting++;
+                let settingElement = this.querySelector(settingObj?.element);
+                settingElement?.setAttribute("data-values", JSON.stringify(Object.entries(setting)[0][1]));
+                settingElement?.setAttribute("data-default-setting", "true");
+                settingElement?.classList.remove("d-none");
             }
         }));
-        if (nbActifSetting !== this.settingsDictionnary.length) {
-            this.btnMoreSettings?.classList.remove("d-none");
+        if (nbActifSetting === 0 || nbActifSetting === this.settingsDictionnary.length) {
+            this.settingsElements.forEach((element => {
+                element.classList.remove("d-none");
+            }));
+            this.btnMoreSettings?.classList.add("d-none");
         }
     };
     displayOrHideOthersSettings=() => {
         this.displayAllSettings = !this.displayAllSettings;
         this.settingsElements.forEach((element => {
             if (!element.hasAttribute("data-default-setting")) {
-                if (element.classList.contains("d-none")) {
-                    this.btnMoreSettings.innerText = i18nServiceInstance.getMessage("lessSettings");
-                } else {
-                    this.btnMoreSettings.innerText = i18nServiceInstance.getMessage("moreSettings");
-                }
                 element.classList.toggle("d-none");
             }
         }));
+        if (this.displayAllSettings) {
+            this.btnMoreSettings.innerText = i18nServiceInstance.getMessage("lessSettings");
+        } else {
+            this.btnMoreSettings.innerText = i18nServiceInstance.getMessage("moreSettings");
+        }
     };
     createHandler=() => event => {
         if (event.type === "click") {
