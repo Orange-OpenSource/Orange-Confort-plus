@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
-	"name": "Orange Confort+",
-	"description": "Orange Confort+",
+	"name": "__MSG_extensionName__",
+	"description": "__MSG_extensionDescription__",
 	"version": "5.0.0",
 	"version_name": "5.0.0",
 	"default_locale": "fr",

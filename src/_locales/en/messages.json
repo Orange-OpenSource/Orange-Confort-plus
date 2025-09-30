@@ -1,4 +1,10 @@
 {
+	"extensionName": {
+		"message": "Orange Comfort+"
+	},
+	"extensionDescription": {
+		"message": "Comfort+ improves readability, navigation, and web accessibility through various customised settings."
+	},
 	"mainButton": {
 		"message": "Unfold Comfort+"
 	},
