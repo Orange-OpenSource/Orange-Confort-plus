@@ -1,0 +1,985 @@
+{
+	"extensionName": {
+		"message": "Orange Confort+"
+	},
+	"extensionDescription": {
+		"message": "Confort+ améliore la lisibilité, la navigation et l'accessibilité web grâce à divers paramètres personnalisés."
+	},
+	"mainButton": {
+		"message": "Déplier Confort+"
+	},
+	"close": {
+		"message": "Replier"
+	},
+	"mainTitle": {
+		"message": "Confort"
+	},
+	"aboutLink": {
+		"message": "À propos d’Orange Confort+ v$VERSION$",
+		"placeholders": {
+			"version": {
+				"content": "$1"
+			}
+		}
+	},
+	"profile": {
+		"message": "Mode"
+	},
+	"otherUsagesModes": {
+		"message": "Accès aux modes d’usages et à leur description"
+	},
+	"openSettingsMode": {
+		"message": "Ouvrir réglages du mode"
+	},
+	"othersSettings": {
+		"message": "Tous les réglages"
+	},
+	"moreSettings": {
+		"message": "Plus de réglages"
+	},
+	"lessSettings": {
+		"message": "Moins de réglages"
+	},
+	"play": {
+		"message": "Réutiliser Confort+"
+	},
+	"pause": {
+		"message": "Mettre en pause Confort+"
+	},
+	"pauseInfo": {
+		"message": "Confort+ est actuellement en Pause"
+	},
+	"reactivateBtn": {
+		"message": "Réactiver Confort+"
+	},
+	"otherModes": {
+		"message": "Autres modes d’usage"
+	},
+	"chooseModeAndValidate": {
+		"message": "Choisissez un mode d’usage et validez :"
+	},
+	"validateThisMode": {
+		"message": "Valider ce mode"
+	},
+	"resetThisMode": {
+		"message": "Réinitialiser ce mode"
+	},
+	"resetThisModeTitle": {
+		"message": "Réinitialiser ce mode : remet les réglages d’origine"
+	},
+	"activeMode": {
+		"message": "Actif"
+	},
+	"previous": {
+		"message": "Précédent"
+	},
+	"backToSettings": {
+		"message": "Retour aux réglages. (Votre choix est déjà enregistré)"
+	},
+	"backToHome": {
+		"message": "Retour à l’accueil"
+	},
+	"pageTitleModes": {
+		"message": "Modes d’usage"
+	},
+	"pageTitleSettings": {
+		"message": "Réglages"
+	},
+	"pageTitleEditSetting": {
+		"message": "Choix pour ce réglage"
+	},
+	"moreChoice": {
+		"message": "Tous les choix"
+	},
+	"layout": {
+		"message": "Affichage"
+	},
+	"medias": {
+		"message": "Images"
+	},
+	"audio": {
+		"message": "Audio"
+	},
+	"text": {
+		"message": "Texte"
+	},
+	"navigation": {
+		"message": "Navigation"
+	},
+	"firstLetter": {
+		"message": "Première lettre"
+	},
+	"lowercase": {
+		"message": "Minuscule"
+	},
+	"uppercase": {
+		"message": "Majuscule"
+	},
+	"default": {
+		"message": "Normal"
+	},
+	"visionPlusName": {
+		"message": "Vision+"
+	},
+	"visionPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes visuelles (couleur, lisibilité). Les couleurs du texte et de la page sont très contrastés, la souris et le focus sont bien visibles, une loupe et une règle de lecture sont disponibles."
+	},
+	"visionPlusPlusName": {
+		"message": "Vision++"
+	},
+	"visionPlusPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant de fortes contraintes visuelles. Les couleurs du texte et de la page sont modifiées, les éléments (focus, souris, texte, ascenseur) sont bien plus gros, une police optimisée, une loupe ×5 et une règle de lecture sont disponibles."
+	},
+	"facilePlusName": {
+		"message": "Facile+"
+	},
+	"facilePlusDescription": {
+		"message": "Mode d’usage destiné aux personnes peu habituées à internet. Le texte, les boutons, les liens, la souris et le focus sont bien visibles et un peu plus grands, les contrastes sont ajustés et une loupe est disponible."
+	},
+	"lecturePlusName": {
+		"message": "Lecture+"
+	},
+	"lecturePlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
+	},
+	"lecturePlusPlusName": {
+		"message": "Lecture++"
+	},
+	"lecturePlusPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture et/ou de manipulation. Une police optimisée pour la dyslexie, des textes bien lisibles, des règles de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte, ainsi que des aides au pointage."
+	},
+	"moteurPlusName": {
+		"message": "Moteur+"
+	},
+	"moteurPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes privilégiant l’usage du clavier ou de boutons de navigation et de raccourcis."
+	},
+	"moteurPlusPlusName": {
+		"message": "Moteur++"
+	},
+	"moteurPlusPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes utilisant un contacteur unique. Défilement automatique du focus dans la page web, à vitesse et délais ajustables."
+	},
+	"pointagePlusName": {
+		"message": "Pointage+"
+	},
+	"pointagePlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de pointage à la souris. Une souris bien visible et de bonne taille, des zones de clics agrandies et la possibilité de cliquer au survol, sans effort, un ascenseur à gros boutons."
+	},
+	"langueDesSignesName": {
+		"message": "Langue des signes"
+	},
+	"langueDesSignesDescription": {
+		"message": "Mode d’usage destiné aux personnes s’exprimant surtout en langue des signes. Des vignettes de LSF sur les mots complexes, un lien vers le dictionnaire Signs@Work et une interface en vidéosignes."
+	},
+	"audioPlusName": {
+		"message": "Audio+"
+	},
+	"audioPlusDescription": {
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes auditives. Des équivalences visuelles au signaux sonores, du sous-titrage systématique."
+	},
+	"calmePlusName": {
+		"message": "Serein+"
+	},
+	"calmePlusDescription": {
+		"message": "Mode d’usage répondant aux contraintes d’hypersensorialités. Des couleurs et des transitions agréables, absence d’animations et d’interruptions."
+	},
+	"noModifications": {
+		"message": "pas de modification"
+	},
+	"big": {
+		"message": "gros"
+	},
+	"bigCursor": {
+		"message": "grands curseurs"
+	},
+	"huge": {
+		"message": "très gros"
+	},
+	"hugeCursor": {
+		"message": "très grands curseurs"
+	},
+	"white": {
+		"message": "blanc"
+	},
+	"lightblue": {
+		"message": "bleu clair"
+	},
+	"lightgreen": {
+		"message": "vert clair"
+	},
+	"yellow": {
+		"message": "jaune"
+	},
+	"orange": {
+		"message": "orange"
+	},
+	"pink": {
+		"message": "rose"
+	},
+	"black": {
+		"message": "noir"
+	},
+	"darkblue": {
+		"message": "bleu foncé"
+	},
+	"darkgreen": {
+		"message": "vert foncé"
+	},
+	"red": {
+		"message": "rouge"
+	},
+	"purple": {
+		"message": "violet"
+	},
+	"brown": {
+		"message": "marron"
+	},
+	"blue": {
+		"message": "bleu"
+	},
+	"green": {
+		"message": "vert"
+	},
+	"ivory": {
+		"message": "ivoire"
+	},
+	"bold": {
+		"message": "gras"
+	},
+	"underline": {
+		"message": "soulignés"
+	},
+	"boxed": {
+		"message": "encadrés"
+	},
+	"prevValue": {
+		"message": "Valeur précédente"
+	},
+	"nextValue": {
+		"message": "Valeur suivante"
+	},
+	"textContentImageHidden": {
+		"message": "Texte d’image caché :"
+	},
+	"tab": {
+		"message": "Tabulation"
+	},
+	"shiftTab": {
+		"message": "Maj. + Tabulation"
+	},
+	"next": {
+		"message": "Suivant"
+	},
+	"start": {
+		"message": "Début"
+	},
+	"content": {
+		"message": "Contenu"
+	},
+	"click": {
+		"message": "Clique"
+	},
+	"escape": {
+		"message": "Échappe"
+	},
+	"word": {
+		"message": "Lire le mot"
+	},
+	"sentence": {
+		"message": "Lire la phrase"
+	},
+	"paragraph": {
+		"message": "Lire le paragraphe"
+	},
+	"delay1": {
+		"message": "délai de 1s"
+	},
+	"delay2": {
+		"message": "délai de 2s"
+	},
+	"delay3": {
+		"message": "délai de 3s"
+	},
+	"delay6": {
+		"message": "délai de 6s"
+	},
+	"bigZone": {
+		"message": "grandes zones de clic\n& clic standard"
+	},
+	"longClick": {
+		"message": "grandes zones de clic\n& clic long"
+	},
+	"autoClick": {
+		"message": "grandes zones de clic\n& clic automatique au survol"
+	},
+	"multiclic": {
+		"message": "Valeur actuelle : « $CURRENT$ » $INDEX$/$TOTAL$ — changer pour « $NEXT$ » $INDEX2$/$TOTAL$",
+		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
+		"placeholders": {
+			"current": {
+				"content": "$1"
+			},
+			"index": {
+				"content": "$2"
+			},
+			"total": {
+				"content": "$3"
+			},
+			"next": {
+				"content": "$4"
+			},
+			"index2": {
+				"content": "$5"
+			}
+		}
+	},
+	"multiclicToggleOff": {
+		"message": "Inactif. Activer.",
+		"description": "Réglage inactif."
+	},
+	"multiclicToggleOn": {
+		"message": "Actif. Désactiver.",
+		"description": "Réglage actif."
+	},
+	"setting_fontFamily": {
+		"message": "Police de texte"
+	},
+	"setting_fontFamily_instruction": {
+		"message": "Pour modifier le rendu du texte."
+	},
+	"fontFamily_noModifications": {
+		"message": "sans modification"
+	},
+	"fontFamily_AccessibleDfA": {
+		"message": "Accessible-DfA"
+	},
+	"fontFamily_B612Mono": {
+		"message": "B612_Mono"
+	},
+	"fontFamily_LexendDeca": {
+		"message": "Lexend Deca"
+	},
+	"fontFamily_Luciole": {
+		"message": "Luciole"
+	},
+	"fontFamily_HelveticaNeue": {
+		"message": "Helvetica Neue"
+	},
+	"fontFamily_SylexiadSans": {
+		"message": "Sylexiad Sans"
+	},
+	"fontFamily_BelleAllure": {
+		"message": "BelleAllure"
+	},
+	"setting_textSize": {
+		"message": "Taille du texte"
+	},
+	"setting_textSize_instruction": {
+		"message": "Pour agrandir uniquement le texte."
+	},
+	"textSize_noModifications": {
+		"message": "sans modification"
+	},
+	"textSize_110": {
+		"message": "un peu grand, 110%"
+	},
+	"textSize_130": {
+		"message": "plutôt grand, 130%"
+	},
+	"textSize_160": {
+		"message": "bien grand, 160%"
+	},
+	"textSize_200": {
+		"message": "très grand, 200%"
+	},
+	"textSize_350": {
+		"message": "énorme, 350%"
+	},
+	"textSize_500": {
+		"message": "max, 500%"
+	},
+	"setting_capitalLetters": {
+		"message": "Majuscules"
+	},
+	"setting_capitalLetters_instruction": {
+		"message": "Pour utiliser des majuscules."
+	},
+	"capitalLetters_noModifications": {
+		"message": "sans modification"
+	},
+	"capitalLetters_uppercase": {
+		"message": "TOUT EN MAJUSCULES"
+	},
+	"capitalLetters_capitalize": {
+		"message": "1ères Lettres En Majuscules"
+	},
+	"setting_textSpacing": {
+		"message": "Aérer le  texte"
+	},
+	"setting_textSpacing_instruction": {
+		"message": "Pour bien espacer les caractères et les lignes."
+	},
+	"textSpacing_noModifications": {
+		"message": "sans modification"
+	},
+	"textSpacing_spacingTextSmall": {
+		"message": "aére un peu"
+	},
+	"textSpacing_spacingTextBig": {
+		"message": "aére beaucoup"
+	},
+	"textSpacing_spacingTextHuge": {
+		"message": "aére énormément"
+	},
+	"setting_textColor": {
+		"message": "Colorer le texte"
+	},
+	"setting_textColor_instruction": {
+		"message": "Pour bien distinguer les sons à prononcer."
+	},
+	"textColor_noModifications": {
+		"message": "sans colorer"
+	},
+	"textColor_active": {
+		"message": "sons pièges colorés"
+	},
+	"setting_readingGuide": {
+		"message": "Règle de lecture"
+	},
+	"setting_readingGuide_instruction": {
+		"message": "Pour suivre La ligne de lecture."
+	},
+	"readingGuide_noModifications": {
+		"message": "sans guide"
+	},
+	"readingGuide_ruleGuide": {
+		"message": "règle"
+	},
+	"readingGuide_maskGuide": {
+		"message": "masque"
+	},
+	"readingGuide_alternatingLines": {
+		"message": "lignes alternées"
+	},
+	"setting_marginAlign": {
+		"message": "Marge et repères"
+	},
+	"setting_marginAlign_instruction": {
+		"message": "Pour ancrer la lecture à gauche."
+	},
+	"marginAlign_noModifications": {
+		"message": "sans modification"
+	},
+	"marginAlign_alignLeft": {
+		"message": "texte aligné à gauche"
+	},
+	"marginAlign_marginLeft": {
+		"message": "marge à gauche (& texte aligné à gauche)"
+	},
+	"marginAlign_marginList": {
+		"message": "marge et listes numérotées (& texte aligné à gauche)"
+	},
+	"setting_magnifier": {
+		"message": "Loupe"
+	},
+	"setting_magnifier_instruction": {
+		"message": "Pour agrandir ponctuellement."
+	},
+	"magnifier_noModifications": {
+		"message": "sans loupe"
+	},
+	"magnifier_zoom2": {
+		"message": "×2"
+	},
+	"magnifier_zoom5": {
+		"message": "×5"
+	},
+	"magnifier_zoom10": {
+		"message": "×10"
+	},
+	"magnifier_zoom15": {
+		"message": "×15"
+	},
+	"setting_readAloud": {
+		"message": "Lire à haute voix"
+	},
+	"setting_readAloud_instruction": {
+		"message": "Pour se faire lire le texte sur demande."
+	},
+	"readAloud_tooltip": {
+		"message": "Cliquer pour vocaliser, appuyer sur Échap ou cliquer droit pour arrêter la vocalisation."
+	},
+	"readAloud_noModifications": {
+		"message": "sans vocalisation"
+	},
+	"readAloud_word": {
+		"message": "vocaliser le mot pointé"
+	},
+	"readAloud_sentence": {
+		"message": "vocaliser la phrase pointée"
+	},
+	"readAloud_paragraph": {
+		"message": "vocaliser le paragraphe pointé"
+	},
+	"readAloud_all": {
+		"message": "tout vocaliser"
+	},
+	"setting_cursorAspect": {
+		"message": "Aspect de la souris"
+	},
+	"setting_cursorAspect_instruction": {
+		"message": "Pour modifier l’apparence des pointeurs."
+	},
+	"cursorAspect_empty_example": {
+		"message": "Souris par défaut"
+	},
+	"cursorAspect_noModifications": {
+		"message": "sans modification"
+	},
+	"cursorAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"cursorSize_label": {
+		"message": "Taille de la souris"
+	},
+	"cursorSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"cursorColor_label": {
+		"message": "Couleur de la souris"
+	},
+	"cursorColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_focusAspect": {
+		"message": "Aspect du focus"
+	},
+	"setting_focusAspect_instruction": {
+		"message": "Pour modifier le rendu du focus de sélection."
+	},
+	"focusAspect_noModifications": {
+		"message": "sans modification"
+	},
+	"focusAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusSize_label": {
+		"message": "Taille du focus"
+	},
+	"focusSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusSize_noModifications": {
+		"message": "sans modification de taille"
+	},
+	"focusColor_label": {
+		"message": "Couleur du focus"
+	},
+	"focusColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"focusColor_noModifications": {
+		"message": "sans modification de couleur"
+	},
+	"setting_colorContrast": {
+		"message": "Couleurs Texte-Fond"
+	},
+	"setting_colorContrast_instruction": {
+		"message": "Pour changer la couleur du fond et du texte."
+	},
+	"colorContrast_noModifications": {
+		"message": "sans modification"
+	},
+	"colorContrast_reinforcedContrasts": {
+		"message": "contrastes renforcés"
+	},
+	"colorContrast_values": {
+		"message": "$COLOR$ sur $BACKGROUND$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			},
+			"background": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorContrast_daltonism": {
+		"message": "daltonisme"
+	},
+	"setting_linkStyle": {
+		"message": "Couleurs des liens"
+	},
+	"setting_linkStyle_instruction": {
+		"message": "Pour modifier la couleur des liens de navigation."
+	},
+	"linkStyle_noModifications": {
+		"message": "sans modification"
+	},
+	"linkStyle_values": {
+		"message": "$COLOR$, $POINTED$ et $VISITED$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			},
+			"pointed": {
+				"content": "$2"
+			},
+			"visited": {
+				"content": "$3"
+			}
+		}
+	},
+	"linkColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkPointedColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkVisitedColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"linkColor_label": {
+		"message": "Liens"
+	},
+	"linkPointedColor_label": {
+		"message": "Liens pointés"
+	},
+	"linkVisitedColor_label": {
+		"message": "Liens visités"
+	},
+	"setting_clearlyLinks": {
+		"message": "Liens bien visibles"
+	},
+	"setting_clearlyLinks_instruction": {
+		"message": "Pour mieux repérer les liens de navigation."
+	},
+	"clearlyLinks_noModifications": {
+		"message": "sans modification"
+	},
+	"clearlyLinks_values": {
+		"message": "$BOLD$ & $STYLE$",
+		"placeholders": {
+			"bold": {
+				"content": "$1"
+			},
+			"style": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_stopAnimations": {
+		"message": "Stopper les animations"
+	},
+	"setting_stopAnimations_instruction": {
+		"message": "Pour empêcher les animations au sein de la page."
+	},
+	"stopAnimations_noModifications": {
+		"message": "sans modification"
+	},
+	"stopAnimations_active": {
+		"message": "stoppe les animations"
+	},
+	"setting_deleteBackgroundImages": {
+		"message": "Supprimer les images de fond"
+	},
+	"setting_deleteBackgroundImages_instruction": {
+		"message": "Pour empêcher les images de s’afficher."
+	},
+	"deleteBackgroundImages_noModifications": {
+		"message": "sans modification"
+	},
+	"deleteBackgroundImages_backgroundTransparent": {
+		"message": "supprime les images de fond et les effets de transparence "
+	},
+	"deleteBackgroundImages_backgroundForegroundTransparent": {
+		"message": "supprime les images de fond, les effets de transparence et les images de 1er plan"
+	},
+	"setting_scrollType": {
+		"message": "Type d’ascenseur"
+	},
+	"setting_scrollType_instruction": {
+		"message": "Pour faciliter la montée et descente dans la page."
+	},
+	"scrollType_noModifications": {
+		"message": "sans modification"
+	},
+	"scrollType_scrollOnClick": {
+		"message": "boutons ascenseurs Monter/Descendre (à cliquer)"
+	},
+	"scrollType_scrollOnMouseover": {
+		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
+	},
+	"setting_scrollAspect": {
+		"message": "Aspect de l’ascenseur"
+	},
+	"setting_scrollAspect_instruction": {
+		"message": "Pour modifier l’apparence de l’ascenseur."
+	},
+	"scrollAspect_noModifications": {
+		"message": "sans modification"
+	},
+	"scrollAspect_values": {
+		"message": "$SIZE$ & $COLOR$",
+		"placeholders": {
+			"size": {
+				"content": "$1"
+			},
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"scroll_up": {
+		"message": "Monter"
+	},
+	"scroll_down": {
+		"message": "Descendre"
+	},
+	"scrollSize_label": {
+		"message": "Taille de l'ascenseur."
+	},
+	"scrollSize_values": {
+		"message": "$SIZE$",
+		"placeholders": {
+			"size": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSize_noModifications": {
+		"message": "sans modification de taille"
+	},
+	"scrollColor_label": {
+		"message": "Couleur de l'ascenseur."
+	},
+	"scrollColor_values": {
+		"message": "$COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollColor_noModifications": {
+		"message": "sans modification de couleur"
+	},
+	"setting_skipToContent": {
+		"message": "Aller au contenu"
+	},
+	"setting_skipToContent_instruction": {
+		"message": "Pour sauter directement au contenu sans passer par les menus."
+	},
+	"skipToContent_noModifications": {
+		"message": "sans modification"
+	},
+	"skipToContent_active": {
+		"message": "aller au contenu"
+	},
+	"setting_navigationButtons": {
+		"message": "Boutons de navigation"
+	},
+	"setting_navigationButtons_instruction": {
+		"message": "Pour faciliter la navigation dans la page"
+	},
+	"navigationButtons_noModifications": {
+		"message": "sans modification"
+	},
+	"navigationButtons_values": {
+		"message": "$BUTTONS$ & $DELAY$",
+		"placeholders": {
+			"buttons": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"buttonSet_label": {
+		"message": "Sélection de boutons"
+	},
+	"buttonSet_values": {
+		"message": "$BUTTONS$",
+		"placeholders": {
+			"buttons": {
+				"content": "$2"
+			}
+		}
+	},
+	"scrollSet": {
+		"message": "Boutons d’ascenseur"
+	},
+	"navigationSet": {
+		"message": "Boutons de navigation"
+	},
+	"fullSet": {
+		"message": "Boutons de navigation et ascenseur"
+	},
+	"pointingDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"pointingDelay_label": {
+		"message": "Délai de pointage"
+	},
+	"clicAction": {
+		"message": "clic des boutons"
+	},
+	"setting_clickFacilite": {
+		"message": "Clics facilités"
+	},
+	"setting_clickFacilite_instruction": {
+		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts."
+	},
+	"clickFacilite_noModifications": {
+		"message": "sans modification"
+	},
+	"clickFacilite_bigZone": {
+		"message": "grandes zones de clic & clic standard"
+	},
+	"clickFacilite_values": {
+		"message": "$TYPE$ ($DELAY$)",
+		"placeholders": {
+			"type": {
+				"content": "$1"
+			},
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"clickType_values": {
+		"message": "$TYPE$",
+		"placeholders": {
+			"type": {
+				"content": "$2"
+			}
+		}
+	},
+	"clickDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_navigationAuto": {
+		"message": "Navigation par défilement automatique"
+	},
+	"setting_navigationAuto_instruction": {
+		"message": "Pour n’avoir qu’à valider, le focus se déplace tout seul."
+	},
+	"navigationAuto_noModifications": {
+		"message": "sans défilement"
+	},
+	"navigationAuto_values": {
+		"message": "défilement automatique du focus ($DELAY$)",
+		"placeholders": {
+			"delay": {
+				"content": "$1"
+			}
+		}
+	},
+	"navigationAuto_label": {
+		"message": "Activer la navigation par défilement automatique"
+	},
+	"navigationAuto_inactive": {
+		"message": "Désactiver"
+	},
+	"navigationAuto_active": {
+		"message": "Activer"
+	},
+	"navigationDelay_values": {
+		"message": "$DELAY$",
+		"placeholders": {
+			"delay": {
+				"content": "$2"
+			}
+		}
+	},
+	"setting_zoom": {
+		"message": "Zoom"
+	},
+	"setting_zoom_instruction": {
+		"message": "Pour agrandir la page."
+	},
+	"zoom_noModifications": {
+		"message": "sans modification"
+	},
+	"zoom_110": {
+		"message": "un peu grand, 110%"
+	},
+	"zoom_130": {
+		"message": "plutôt grand, 130%"
+	},
+	"zoom_160": {
+		"message": "bien grand, 160%"
+	},
+	"zoom_200": {
+		"message": "très grand, 200%"
+	},
+	"zoom_350": {
+		"message": "énorme, 350%"
+	},
+	"zoom_500": {
+		"message": "max, 500%"
+	}
+}
