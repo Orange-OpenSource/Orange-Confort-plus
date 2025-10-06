@@ -1,10 +1,4 @@
 {
-	"extensionName": {
-		"message": "Orange Confort+"
-	},
-	"extensionDescription": {
-		"message": "Confort+ améliore la lisibilité, la navigation et l'accessibilité web grâce à divers paramètres personnalisés."
-	},
 	"mainButton": {
 		"message": "Déplier Confort+"
 	},
