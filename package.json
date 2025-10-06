@@ -116,7 +116,7 @@
 		"terser": "^5.31.6",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.4.5",
-		"web-ext": "^8.2.0"
+		"web-ext": "^8.10.0"
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
