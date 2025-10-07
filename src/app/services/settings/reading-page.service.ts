@@ -33,7 +33,7 @@ class ReadingPageService {
 		}
 
 		const readingPageConfig = this.readingPageDictionary.find((config: ReadingPageValues) => config.name === value);
-		
+
 		if (!readingPageConfig) {
 			return;
 		}
@@ -48,8 +48,28 @@ class ReadingPageService {
 				this.originalContent = document.body.cloneNode(true) as Element;
 			}
 
+			// Créer une copie sécurisée du document pour Readability
+			// en évitant les problèmes avec les Custom Elements
+			let documentClone: Document;
+			try {
+				// Essayer d'abord le clonage normal
+				documentClone = document.cloneNode(true) as Document;
+			} catch (error) {
+				// Si le clonage échoue à cause des Custom Elements,
+				// créer un nouveau document et importer le contenu
+				documentClone = document.implementation.createHTMLDocument(document.title);
+				const htmlElement = document.documentElement.cloneNode(false) as HTMLElement;
+				const headClone = document.head.cloneNode(true) as HTMLHeadElement;
+				const bodyClone = this.createSafeBodyClone();
+				
+				htmlElement.appendChild(headClone);
+				htmlElement.appendChild(bodyClone);
+				documentClone.replaceChild(htmlElement, documentClone.documentElement);
+			}
+
 			// @ts-ignore - Readability est chargé globalement
-			const reader = new Readability(document.cloneNode(true));
+			const reader = new Readability(documentClone);
+
 			const article = reader.parse();
 
 			if (!article) {
@@ -172,6 +192,44 @@ class ReadingPageService {
 		`;
 
 		stylesServiceInstance.setStyle('reading-page', styles);
+	}
+
+	private createSafeBodyClone(): HTMLBodyElement {
+		const bodyClone = document.createElement('body');
+		
+		// Copier les attributs du body original
+		Array.from(document.body.attributes).forEach(attr => {
+			bodyClone.setAttribute(attr.name, attr.value);
+		});
+		
+		// Cloner le contenu en évitant les Custom Elements
+		this.cloneChildrenSafely(document.body, bodyClone);
+		
+		return bodyClone;
+	}
+
+	private cloneChildrenSafely(source: Element, target: Element): void {
+		Array.from(source.childNodes).forEach(child => {
+			try {
+				if (child.nodeType === Node.ELEMENT_NODE) {
+					const element = child as Element;
+					// Ignorer les Custom Elements (éléments avec des tirets dans le nom)
+					if (element.tagName.includes('-') || element.tagName.toLowerCase().includes('app-')) {
+						return;
+					}
+				}
+				
+				const clonedChild = child.cloneNode(false);
+				target.appendChild(clonedChild);
+				
+				if (child.nodeType === Node.ELEMENT_NODE && child.hasChildNodes()) {
+					this.cloneChildrenSafely(child as Element, clonedChild as Element);
+				}
+			} catch (error) {
+				// Ignorer les éléments qui ne peuvent pas être clonés
+				console.debug('Élément ignoré lors du clonage:', child);
+			}
+		});
 	}
 
 	restoreOriginalContent = (): void => {
