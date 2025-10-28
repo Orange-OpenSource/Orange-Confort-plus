@@ -91,10 +91,8 @@ class ReadingPageService {
 		this.readingPageContainer = document.createElement('main');
 		this.readingPageContainer.id = `${PREFIX}reading-page-container`;
 		this.readingPageContainer.innerHTML = `
-			<div class="${PREFIX}reading-page-content">
 				<h1>${article.title || ''}</h1>
 				<div class="${PREFIX}reading-page-article">${article.content || ''}</div>
-			</div>
 		`;
 
 		document.body.appendChild(this.readingPageContainer);
@@ -113,56 +111,52 @@ class ReadingPageService {
 				overflow-y: auto;
 				padding: 2rem;
 				box-sizing: border-box;
-			}
-
-			.${PREFIX}reading-page-content {
-				max-width: 50rem;
-				margin: 0 auto;
+				padding: 32px 532px;
 				line-height: 1.6;
 			}
 
-			.${PREFIX}reading-page-content h1 {
+			#${PREFIX}reading-page-container h1 {
 				color: ${config.textColor} !important;
 				font-size: 2em !important;
 				margin-bottom: 1em !important;
 				font-weight: bold !important;
 			}
 
-			.${PREFIX}reading-page-content :is(h2, h3, h4, h5, h6) {
+			#${PREFIX}reading-page-container :is(h2, h3, h4, h5, h6) {
 				color: ${config.textColor} !important;
 				margin: 1em 0 0.5em 0 !important;
 				font-weight: bold !important;
 			}
 
-			.${PREFIX}reading-page-content p {
+			#${PREFIX}reading-page-container p {
 				color: ${config.textColor} !important;
 				margin: 1em 0 !important;
 				line-height: 1.6 !important;
 			}
 
-			.${PREFIX}reading-page-content a {
+			#${PREFIX}reading-page-container a {
 				color: ${config.textColor} !important;
 				text-decoration: underline !important;
 			}
 
-			.${PREFIX}reading-page-content is(ol,ul) {
+			#${PREFIX}reading-page-container is(ol,ul) {
 				color: ${config.textColor} !important;
 				margin: 1em 0 !important;
 				padding-left: 2em !important;
 			}
 
-			.${PREFIX}reading-page-content li {
+			#${PREFIX}reading-page-container li {
 				color: ${config.textColor} !important;
 				margin: 0.5em 0 !important;
 			}
 
-			.${PREFIX}reading-page-content img {
+			#${PREFIX}reading-page-container img {
 				max-width: 100% !important;
 				height: auto !important;
 				margin: 1em 0 !important;
 			}
 
-			.${PREFIX}reading-page-content blockquote {
+			#${PREFIX}reading-page-container blockquote {
 				color: ${config.textColor} !important;
 				border-left: 4px solid ${config.textColor} !important;
 				padding-left: 1em !important;
