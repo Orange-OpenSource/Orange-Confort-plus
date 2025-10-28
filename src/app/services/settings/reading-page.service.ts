@@ -69,13 +69,13 @@ class ReadingPageService {
 			const article = reader.parse();
 
 			if (!article) {
-				console.warn('ReadingPage: Impossible d\'extraire le contenu de la page');
+				console.warn("[ReadingPage]: Unable to extract the page content");
 				return;
 			}
 
 			this.createReadingPageContainer(article, config);
 		} catch (error) {
-			console.error('ReadingPage: Erreur lors de l\'extraction du contenu:', error);
+			console.error("[ReadingPage]: Error while extracting content:", error);
 		}
 	}
 
@@ -88,7 +88,7 @@ class ReadingPageService {
 		});
 
 		// Créer le conteneur pour le contenu extrait
-		this.readingPageContainer = document.createElement('div');
+		this.readingPageContainer = document.createElement('main');
 		this.readingPageContainer.id = `${PREFIX}reading-page-container`;
 		this.readingPageContainer.innerHTML = `
 			<div class="${PREFIX}reading-page-content">
@@ -106,21 +106,17 @@ class ReadingPageService {
 		const styles = `
 			#${PREFIX}reading-page-container {
 				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
+				inset: 0;
 				background-color: ${config.backgroundColor} !important;
 				color: ${config.textColor} !important;
 				font-size: ${config.fontSize} !important;
 				overflow-y: auto;
-				z-index: 999999;
 				padding: 2rem;
 				box-sizing: border-box;
 			}
 
 			.${PREFIX}reading-page-content {
-				max-width: 800px;
+				max-width: 50rem;
 				margin: 0 auto;
 				line-height: 1.6;
 			}
@@ -132,11 +128,7 @@ class ReadingPageService {
 				font-weight: bold !important;
 			}
 
-			.${PREFIX}reading-page-content h2,
-			.${PREFIX}reading-page-content h3,
-			.${PREFIX}reading-page-content h4,
-			.${PREFIX}reading-page-content h5,
-			.${PREFIX}reading-page-content h6 {
+			.${PREFIX}reading-page-content :is(h2, h3, h4, h5, h6) {
 				color: ${config.textColor} !important;
 				margin: 1em 0 0.5em 0 !important;
 				font-weight: bold !important;
@@ -153,8 +145,7 @@ class ReadingPageService {
 				text-decoration: underline !important;
 			}
 
-			.${PREFIX}reading-page-content ul,
-			.${PREFIX}reading-page-content ol {
+			.${PREFIX}reading-page-content is(ol,ul) {
 				color: ${config.textColor} !important;
 				margin: 1em 0 !important;
 				padding-left: 2em !important;

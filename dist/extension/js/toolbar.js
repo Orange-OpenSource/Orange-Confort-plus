@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.1 - 21/10/2025
+ * orange-confort-plus - version 5.0.1 - 28/10/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -2641,7 +2641,6 @@ class ModeOfUseService {
             }));
             return jsonIsEdited;
         })).catch((error => {
-            console.log(error);
             console.error("Your setting could not be saved.");
             return jsonIsEdited;
         }));
@@ -4650,12 +4649,12 @@ class ReadingPageService {
             const reader = new Readability(documentClone);
             const article = reader.parse();
             if (!article) {
-                console.warn("ReadingPage: Impossible d'extraire le contenu de la page");
+                console.warn("[ReadingPage]: Unable to extract the page content");
                 return;
             }
             this.createReadingPageContainer(article, config);
         } catch (error) {
-            console.error("ReadingPage: Erreur lors de l'extraction du contenu:", error);
+            console.error("[ReadingPage]: Error while extracting content:", error);
         }
     };
     createReadingPageContainer=(article, config) => {
@@ -4665,14 +4664,14 @@ class ReadingPageService {
                 child.style.display = "none";
             }
         }));
-        this.readingPageContainer = document.createElement("div");
+        this.readingPageContainer = document.createElement("main");
         this.readingPageContainer.id = `${PREFIX}reading-page-container`;
         this.readingPageContainer.innerHTML = `\n\t\t\t<div class="${PREFIX}reading-page-content">\n\t\t\t\t<h1>${article.title || ""}</h1>\n\t\t\t\t<div class="${PREFIX}reading-page-article">${article.content || ""}</div>\n\t\t\t</div>\n\t\t`;
         document.body.appendChild(this.readingPageContainer);
         this.applyReadingPageStyles(config);
     };
     applyReadingPageStyles=config => {
-        const styles = `\n\t\t\t#${PREFIX}reading-page-container {\n\t\t\t\tposition: fixed;\n\t\t\t\ttop: 0;\n\t\t\t\tleft: 0;\n\t\t\t\twidth: 100vw;\n\t\t\t\theight: 100vh;\n\t\t\t\tbackground-color: ${config.backgroundColor} !important;\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tfont-size: ${config.fontSize} !important;\n\t\t\t\toverflow-y: auto;\n\t\t\t\tz-index: 999999;\n\t\t\t\tpadding: 2rem;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content {\n\t\t\t\tmax-width: 800px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.6;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content h1 {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tfont-size: 2em !important;\n\t\t\t\tmargin-bottom: 1em !important;\n\t\t\t\tfont-weight: bold !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content h2,\n\t\t\t.${PREFIX}reading-page-content h3,\n\t\t\t.${PREFIX}reading-page-content h4,\n\t\t\t.${PREFIX}reading-page-content h5,\n\t\t\t.${PREFIX}reading-page-content h6 {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 0.5em 0 !important;\n\t\t\t\tfont-weight: bold !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content p {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tline-height: 1.6 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content a {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\ttext-decoration: underline !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content ul,\n\t\t\t.${PREFIX}reading-page-content ol {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tpadding-left: 2em !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content li {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 0.5em 0 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content img {\n\t\t\t\tmax-width: 100% !important;\n\t\t\t\theight: auto !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content blockquote {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tborder-left: 4px solid ${config.textColor} !important;\n\t\t\t\tpadding-left: 1em !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tfont-style: italic !important;\n\t\t\t}\n\t\t`;
+        const styles = `\n\t\t\t#${PREFIX}reading-page-container {\n\t\t\t\tposition: fixed;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground-color: ${config.backgroundColor} !important;\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tfont-size: ${config.fontSize} !important;\n\t\t\t\toverflow-y: auto;\n\t\t\t\tpadding: 2rem;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content {\n\t\t\t\tmax-width: 50rem;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.6;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content h1 {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tfont-size: 2em !important;\n\t\t\t\tmargin-bottom: 1em !important;\n\t\t\t\tfont-weight: bold !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content :is(h2, h3, h4, h5, h6) {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 0.5em 0 !important;\n\t\t\t\tfont-weight: bold !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content p {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tline-height: 1.6 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content a {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\ttext-decoration: underline !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content is(ol,ul) {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tpadding-left: 2em !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content li {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tmargin: 0.5em 0 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content img {\n\t\t\t\tmax-width: 100% !important;\n\t\t\t\theight: auto !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t}\n\n\t\t\t.${PREFIX}reading-page-content blockquote {\n\t\t\t\tcolor: ${config.textColor} !important;\n\t\t\t\tborder-left: 4px solid ${config.textColor} !important;\n\t\t\t\tpadding-left: 1em !important;\n\t\t\t\tmargin: 1em 0 !important;\n\t\t\t\tfont-style: italic !important;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("reading-page", styles);
     };
     createSafeBodyClone() {
