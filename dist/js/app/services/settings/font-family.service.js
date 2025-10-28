@@ -10,23 +10,17 @@ class FontFamilyService {
             ]
         },
         {
-            name: 'BelleAllure', size: '80%', folder: 'BelleAllure', generic: 'cursive', files: [
-                { name: 'BelleAllureCM-Fin.woff2', style: 'normal', weight: '400' },
-                { name: 'BelleAllureCM-Gros.woff2', style: 'normal', weight: '700' }
-            ]
-        },
-        {
-            name: 'HelveticaNeue', size: '100%', folder: 'HelveticaNeue', generic: 'sans-serif', files: [
-                { name: 'HelvNeue55_W1G.woff2', style: 'normal', weight: '400' },
-                { name: 'HelvNeue75_W1G.woff2', style: 'normal', weight: '700' },
-            ]
-        },
-        {
             name: 'B612Mono', size: '75%', folder: 'B612', generic: 'monospace', files: [
                 { name: 'B612Mono-Bold.woff2', style: 'normal', weight: '700' },
                 { name: 'B612Mono-BoldItalic.woff2', style: 'italic', weight: '700' },
                 { name: 'B612Mono-Italic.woff2', style: 'italic', weight: '400' },
                 { name: 'B612Mono-Regular.woff2', style: 'normal', weight: '400' }
+            ]
+        },
+        {
+            name: 'BelleAllure', size: '80%', folder: 'BelleAllure', generic: 'cursive', files: [
+                { name: 'BelleAllureCM-Fin.woff2', style: 'normal', weight: '400' },
+                { name: 'BelleAllureCM-Gros.woff2', style: 'normal', weight: '700' }
             ]
         },
         {
@@ -68,6 +62,12 @@ class FontFamilyService {
                 { name: 'SylexiadSansThin-Bold.woff2', style: 'normal', weight: '700' },
                 { name: 'SylexiadSansThin-Italic.woff2', style: 'italic', weight: '400' },
                 { name: 'SylexiadSansThin.woff2', style: 'normal', weight: '400' }
+            ]
+        },
+        {
+            name: 'HelveticaNeue', size: '100%', folder: 'HelveticaNeue', generic: 'sans-serif', files: [
+                { name: 'HelvNeue55_W1G.woff2', style: 'normal', weight: '400' },
+                { name: 'HelvNeue75_W1G.woff2', style: 'normal', weight: '700' },
             ]
         }
     ];

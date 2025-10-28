@@ -1,5 +1,5 @@
 {
-	"version": "1.0.37",
+	"version": "1.0.38",
 	"modes": [
 		{
 			"facilePlus": [
@@ -158,6 +158,14 @@
 				{
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -326,6 +334,14 @@
 						"isTool": false,
 						"order": null
 					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
 				}
 			]
 		},
@@ -486,6 +502,14 @@
 				{
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -654,6 +678,14 @@
 						"isTool": false,
 						"order": null
 					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
 				}
 			]
 		},
@@ -814,6 +846,14 @@
 				{
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -982,6 +1022,14 @@
 						"isTool": true,
 						"order": 9
 					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
+					}
 				}
 			]
 		},
@@ -1145,6 +1193,14 @@
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 4
+					}
+				},
+				{
+					"readingPage": {
+						"values": "noModifications,onlyContent110IvoryBlack",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
 					}
 				}
 			]
