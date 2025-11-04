@@ -9,7 +9,7 @@ class I18nService {
         }
         i18nServiceIsInstantiated = true;
         this.path = `${window.location.origin}/`;
-        if (['en', 'fr', 'pl', 'es'].some(language => navigator.language.startsWith(language))) {
+        if (['en', 'fr', 'pl', 'es', 'it'].some(language => navigator.language.startsWith(language))) {
             this.locale = navigator.language.slice(0, 2);
         }
         this.getJSON().then((result) => {
