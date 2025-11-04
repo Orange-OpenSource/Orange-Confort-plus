@@ -4,6 +4,7 @@
 		"outDir": "dist/js/"
 	},
 	"include": [
-		"./src/app/**/*"
+		"./src/app/**/*",
+		"./src/globals.d.ts"
 	],
 }

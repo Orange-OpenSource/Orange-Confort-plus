@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.1 - 07/10/2025
+ * orange-confort-plus - version 5.0.1 - 04/11/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */

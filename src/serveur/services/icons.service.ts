@@ -10,7 +10,7 @@ class IconsService {
 	}
 
 	get path(): string {
-		return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
+		return `${appPath}assets/icons/orange-icons-sprite.svg`;
 	}
 
 	loadSprite(root: ShadowRoot): void { return; }

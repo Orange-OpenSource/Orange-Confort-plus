@@ -5,6 +5,7 @@
 		"outDir": "dist/js/serveur/",
 	},
 	"include": [
-		"./src/serveur/services/*.ts"
+		"./src/serveur/services/*.ts",
+		"./src/globals.d.ts"
 	]
 }
