@@ -2,13 +2,11 @@
 let i18nServiceIsInstantiated;
 class I18nService {
     locale = 'en';
-    path = '';
     constructor() {
         if (i18nServiceIsInstantiated) {
             throw new Error('I18nService is already instantiated.');
         }
         i18nServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
         if (['en', 'fr', 'pl', 'es'].some(language => navigator.language.startsWith(language))) {
             this.locale = navigator.language.slice(0, 2);
         }
@@ -18,7 +16,7 @@ class I18nService {
         });
     }
     getJSON() {
-        return fetch(`${this.path}_locales/${this.locale}/messages.json`)
+        return fetch(`${appPath}_locales/${this.locale}/messages.json`)
             .then(response => {
             return response.json();
         })

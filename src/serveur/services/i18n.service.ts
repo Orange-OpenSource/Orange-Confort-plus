@@ -2,7 +2,6 @@ let i18nServiceIsInstantiated: boolean;
 
 class I18nService {
 	locale: string = 'en';
-	path: string = '';
 
 	constructor() {
 		if (i18nServiceIsInstantiated) {
@@ -10,8 +9,6 @@ class I18nService {
 		}
 
 		i18nServiceIsInstantiated = true;
-
-		this.path = `${window.location.origin}/`;
 
 		if (['en', 'fr', 'pl', 'es'].some(language => navigator.language.startsWith(language))) {
 			this.locale = navigator.language.slice(0, 2);
@@ -24,7 +21,7 @@ class I18nService {
 	}
 
 	getJSON(): Promise<string> {
-		return fetch(`${this.path}_locales/${this.locale}/messages.json`)
+		return fetch(`${appPath}_locales/${this.locale}/messages.json`)
 			.then(response => {
 				return response.json();
 			})

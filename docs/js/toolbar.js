@@ -62,16 +62,14 @@ const BODY_ELEMENTS_FILTER = "script,style,link,meta";
 let filesServiceIsInstantiated;
 
 class FilesService {
-    path="";
     constructor() {
         if (filesServiceIsInstantiated) {
             throw new Error("FilesService is already instantiated.");
         }
         filesServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
     }
     getJSONFile(file) {
-        return fetch(`${this.path}assets/json/${file}.json`).then((response => response.json())).catch((error => {
+        return fetch(`${appPath}assets/json/${file}.json`).then((response => response.json())).catch((error => {
             console.error(`Error when retrieving ${file}.json: ${error}.`);
             return error;
         }));
@@ -84,13 +82,11 @@ let i18nServiceIsInstantiated;
 
 class I18nService {
     locale="en";
-    path="";
     constructor() {
         if (i18nServiceIsInstantiated) {
             throw new Error("I18nService is already instantiated.");
         }
         i18nServiceIsInstantiated = true;
-        this.path = `${window.location.origin}/`;
         if ([ "en", "fr", "pl", "es" ].some((language => navigator.language.startsWith(language)))) {
             this.locale = navigator.language.slice(0, 2);
         }
@@ -99,7 +95,7 @@ class I18nService {
         }));
     }
     getJSON() {
-        return fetch(`${this.path}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
+        return fetch(`${appPath}_locales/${this.locale}/messages.json`).then((response => response.json())).catch((error => {
             console.error(`Error when retrieving 'messages.json' file : ${error}.`);
             return error;
         }));
@@ -153,7 +149,7 @@ class IconsService {
         iconsServiceIsInstantiated = true;
     }
     get path() {
-        return `${window.location.origin}/assets/icons/orange-icons-sprite.svg`;
+        return `${appPath}assets/icons/orange-icons-sprite.svg`;
     }
     loadSprite(root) {
         return;

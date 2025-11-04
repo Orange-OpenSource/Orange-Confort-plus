@@ -6,6 +6,7 @@
 	},
 	"include": [
 		"./src/extension/services/*.ts",
-		"./src/extension/scripts/*.ts"
+		"./src/extension/scripts/*.ts",
+		"./src/globals.d.ts"
 	],
 }
