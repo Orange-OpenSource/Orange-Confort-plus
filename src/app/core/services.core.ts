@@ -1,7 +1,7 @@
 // @ts-nocheck
 const pathServiceInstance = new PathService();
 Object.freeze(pathServiceInstance);
-const appPath = pathServiceInstance.path;
+const appPath = customAppPath || pathServiceInstance.path;
 
 const domServiceInstance = new DomService();
 Object.freeze(domServiceInstance);
