@@ -71,7 +71,7 @@
 		"message": "Activado"
 	},
 	"previous": {
-		"message": "Página anterior"
+		"message": "Anterior"
 	},
 	"backToSettings": {
 		"message": "Volver a los ajustes. (sus elecciones ya han sido guardadas)"
@@ -272,7 +272,7 @@
 		"message": "Siguiente"
 	},
 	"start":{
-		"message":"Principio"
+		"message":"Inicio"
 	},
 	"content": {
 		"message": "Contenido"
@@ -281,7 +281,7 @@
 		"message": "Clic"
 	},
 	"escape": {
-		"message": "Tecla Esc."
+		"message": "Esc."
 	},
 	"word": {
 		"message": "Leer la palabra"
@@ -875,10 +875,10 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Botón de desplazamiento"
+		"message": "Botón de desplazamiento \"Arriba, Abajo\""
 	},
 	"navigationSet": {
-		"message": "Botón de navegación"
+		"message": "Botón de navegación \"Esc., Inicio, Anterior, Siguiente, Clic\""
 	},
 	"fullSet": {
 		"message": "Botones de navegación y de barra de desplazamiento"

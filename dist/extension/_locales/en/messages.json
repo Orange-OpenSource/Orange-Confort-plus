@@ -872,10 +872,10 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Scroll bar buttons"
+		"message": "Scroll bar buttons \"Scroll up, Scroll down\""
 	},
 	"navigationSet": {
-		"message": "Navigation buttons"
+		"message": "Navigation buttons \"Escape, Start, Previous, Next, Click\""
 	},
 	"fullSet": {
 		"message": "Scroll bar and navigation buttons"

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.1.0 - 28/10/2025
+ * orange-confort-plus - version 5.1.0 - 04/11/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -6267,7 +6267,7 @@ customElements.define("app-icon", IconComponent);
 
 const selectEditValueLayout = document.createElement("template");
 
-selectEditValueLayout.innerHTML = `\n\t<div class="d-flex flex-column" role="group">\n\t\t<div class="d-flex align-items-center justify-content-between gap-2">\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="prevValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<output></output>\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="nextValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n`;
+selectEditValueLayout.innerHTML = `\n\t<div class="d-flex flex-column" role="group">\n\t\t<div class="d-flex align-items-center justify-content-between mt-2 gap-2">\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="prevValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<output></output>\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="nextValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n`;
 
 class SelectEditValueComponent extends HTMLElement {
     static observedAttributes=[ "data-name", "data-index", "data-setting-values", "data-label" ];
@@ -7435,7 +7435,7 @@ customElements.define("app-edit-zoom", EditZoomComponent);
 
 const editNavigationButtonsComponent = document.createElement("template");
 
-editNavigationButtonsComponent.innerHTML = `\n\t<form class="d-flex flex-column gap-4">\n\t\t<app-select-edit-value id="${PREFIX}select-button-preset" data-name="buttonSet" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-pointing-delay" data-name="pointingDelay" data-label="true"></app-select-edit-value>\n\t</form>\n`;
+editNavigationButtonsComponent.innerHTML = `\n\t<form class="d-flex flex-column gap-4 text-center">\n\t\t<app-select-edit-value id="${PREFIX}select-button-preset" data-name="buttonSet" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-pointing-delay" data-name="pointingDelay" data-label="true"></app-select-edit-value>\n\t</form>\n`;
 
 class EditNavigationButtonsComponent extends HTMLElement {
     selectButtonPresetElement=null;
