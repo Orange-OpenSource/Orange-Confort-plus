@@ -36,6 +36,7 @@
 		"postversion": "npm run zip",
 		"change:version": "node --no-warnings build/change-version.js",
 		"move": "concurrently \"npm:move:*\"",
+		"move:js": "shx cp -r src/site/js docs",
 		"move:assets": "shx cp -r dist/serveur/{js,assets} docs && shx cp -r src/site/assets/img docs/assets",
 		"move:favicon": "shx cp -r src/site/{favicon.ico,apple-touch-icon.png} docs",
 		"move:manifest": "npm run mv:manifest:chrome",
