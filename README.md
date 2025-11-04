@@ -23,23 +23,26 @@ _Orange Confort+_ aims to enhance user experience on websites. It works best whe
 
 To deploy _Orange Confort+_ onto your domain, a prepackaged version is available: simply add the `dist/serveur` folder to your website.
 
-### Customize path
-
-> [!IMPORTANT]
-> If `dist/serveur/` content is placed at your website root, you do not need the following action.
-
-Edit `toolbar.min.js` JavaScript file to change the following property:
-
-```javascript
-this.path=`${window.location.origin}/my-custom-path/`
-```
-
 ### Call Confort+
 
 To initialize Confort+, call it before the `body` closing tag using the correct path:
 
 ```html
-<script src="/my-custom-path/js/toolbar.min.js"></script>
+	<script src="/js/toolbar.min.js"></script>
+</body>
+```
+
+### Customize path
+
+> [!IMPORTANT]
+> If `dist/serveur/` content is placed at your website root, you do not need the following action.
+
+Declare `customConfortPath` before including Confort+:
+
+```html
+	<script>const customConfortPath = `${window.location.origin}/my-custom-path/`;</script>
+	<script src="/my-custom-path/js/toolbar.min.js"></script>
+</body>
 ```
 
 > [!NOTE]
