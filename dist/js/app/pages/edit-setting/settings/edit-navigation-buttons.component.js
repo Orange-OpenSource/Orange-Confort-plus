@@ -1,7 +1,7 @@
 "use strict";
 const editNavigationButtonsComponent = document.createElement('template');
 editNavigationButtonsComponent.innerHTML = `
-	<form class="d-flex flex-column gap-4">
+	<form class="d-flex flex-column gap-4 text-center">
 		<app-select-edit-value id="${PREFIX}select-button-preset" data-name="buttonSet" data-label="true"></app-select-edit-value>
 		<app-select-edit-value id="${PREFIX}select-pointing-delay" data-name="pointingDelay" data-label="true"></app-select-edit-value>
 	</form>

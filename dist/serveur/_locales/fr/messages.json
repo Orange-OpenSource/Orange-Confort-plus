@@ -872,10 +872,10 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Boutons d’ascenseur"
+		"message": "Boutons d’ascenseur \"Monter, Descendre\""
 	},
 	"navigationSet": {
-		"message": "Boutons de navigation"
+		"message": "Boutons de navigation \"Échap., Début, Précédent, Suivant, Cliquer\""
 	},
 	"fullSet": {
 		"message": "Boutons de navigation et ascenseur"

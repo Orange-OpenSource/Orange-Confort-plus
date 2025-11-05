@@ -1,7 +1,7 @@
 const selectEditValueLayout: HTMLTemplateElement = document.createElement('template');
 selectEditValueLayout.innerHTML = `
 	<div class="d-flex flex-column" role="group">
-		<div class="d-flex align-items-center justify-content-between gap-2">
+		<div class="d-flex align-items-center justify-content-between mt-2 gap-2">
 			<button type="button" class="btn btn-icon btn-primary">
 				<span class="visually-hidden" data-i18n="prevValue"></span>
 				<app-icon data-name="Form_Chevron_left"></app-icon>

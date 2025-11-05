@@ -872,13 +872,13 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Pasek przewijania"
+		"message": "Przyciski windy „W górę, W dół”"
 	},
 	"navigationSet": {
 		"message": "Przyciski nawigacyjne"
 	},
 	"fullSet": {
-		"message": "Przyciski nawigacyjne i pasek przewijania"
+		"message": "Przyciski nawigacyjne „Esc, Start, Poprzedni, Następny, Kliknij”"
 	},
 	"pointingDelay_values": {
 		"message": "$DELAY$",
