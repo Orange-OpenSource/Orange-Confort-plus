@@ -13,7 +13,7 @@ class I18nService {
 
 		this.path = `${window.location.origin}/`;
 
-		if (['en', 'fr', 'pl', 'es'].some(language => navigator.language.startsWith(language))) {
+		if (['en', 'fr', 'pl', 'es', 'it'].some(language => navigator.language.startsWith(language))) {
 			this.locale = navigator.language.slice(0, 2);
 		}
 
