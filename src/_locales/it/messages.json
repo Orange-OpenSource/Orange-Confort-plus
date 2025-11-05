@@ -872,10 +872,10 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Pulsanti della barra di scorrimento"
+		"message": "Pulsanti della barra di scorrimento \"Salire, Scendere\""
 	},
 	"navigationSet": {
-		"message": "Pulsanti di navigazione"
+		"message": "Pulsanti di navigazione \"Esc., Inizio, Precedente, Successivo, Clic\""
 	},
 	"fullSet": {
 		"message": "Pulsanti di navigazione e barra di scorrimento"
