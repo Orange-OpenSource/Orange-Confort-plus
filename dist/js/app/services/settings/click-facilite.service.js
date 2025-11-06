@@ -20,14 +20,14 @@ class ClickFaciliteService {
         switch (paramName) {
             case CLICK_FACILITE_BIG_ZONE: {
                 this.resetEventClick();
-                scrollAspectServiceInstance.setScrollAspect('bigScroll');
+                scrollAspectServiceInstance.setScrollAspect('big_black');
                 // Issue #500 : conflict between "Navigation buttons" et "Click Facilite"
                 // scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 break;
             }
             case CLICK_FACILITE_LONG_CLICK: {
                 this.resetEventClick();
-                scrollAspectServiceInstance.setScrollAspect('bigScroll');
+                scrollAspectServiceInstance.setScrollAspect('big_black');
                 // Issue #500 : conflict between "Navigation buttons" et "Click Facilite"
                 // scrollTypeServiceInstance.setScrollType('scrollOnClick');
                 this.longClick();
@@ -35,7 +35,7 @@ class ClickFaciliteService {
             }
             case CLICK_FACILITE_AUTO_CLICK: {
                 this.resetEventClick();
-                scrollAspectServiceInstance.setScrollAspect('bigScroll');
+                scrollAspectServiceInstance.setScrollAspect('big_black');
                 // Issue #500 : conflict between "Navigation buttons" et "Click Facilite"
                 // scrollTypeServiceInstance.setScrollType('scrollOnMouseover');
                 this.autoClick();
