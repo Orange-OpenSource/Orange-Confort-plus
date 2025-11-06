@@ -37,10 +37,10 @@ To initialize Confort+, call it before the `body` closing tag using the correct 
 > [!IMPORTANT]
 > If `dist/serveur/` content is placed at your website root, you do not need the following action.
 
-Declare `customConfortPath` before including Confort+:
+Declare `customAppPath` before including Confort+:
 
 ```html
-	<script>const customConfortPath = `${window.location.origin}/my-custom-path/`;</script>
+	<script>const customAppPath = `${window.location.origin}/my-custom-path/`;</script>
 	<script src="/my-custom-path/js/toolbar.min.js"></script>
 </body>
 ```
