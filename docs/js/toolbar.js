@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.1.0 - 05/11/2025
+ * orange-confort-plus - version 5.1.0 - 07/11/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -2339,14 +2339,14 @@ class ClickFaciliteService {
           case CLICK_FACILITE_BIG_ZONE:
             {
                 this.resetEventClick();
-                scrollAspectServiceInstance.setScrollAspect("bigScroll");
+                scrollAspectServiceInstance.setScrollAspect("big_black");
                 break;
             }
 
           case CLICK_FACILITE_LONG_CLICK:
             {
                 this.resetEventClick();
-                scrollAspectServiceInstance.setScrollAspect("bigScroll");
+                scrollAspectServiceInstance.setScrollAspect("big_black");
                 this.longClick();
                 break;
             }
@@ -2354,7 +2354,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_AUTO_CLICK:
             {
                 this.resetEventClick();
-                scrollAspectServiceInstance.setScrollAspect("bigScroll");
+                scrollAspectServiceInstance.setScrollAspect("big_black");
                 this.autoClick();
                 break;
             }
