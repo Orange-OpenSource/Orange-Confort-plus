@@ -1,5 +1,5 @@
 {
-	"version": "1.0.38",
+	"version": "1.0.39",
 	"modes": [
 		{
 			"facilePlus": [
@@ -838,7 +838,7 @@
 				{
 					"clickFacilite": {
 						"values": "noModifications,bigZone,autoClick_delay2",
-						"valueSelected": 2,
+						"valueSelected": 1,
 						"isTool": true,
 						"order": 11
 					}
