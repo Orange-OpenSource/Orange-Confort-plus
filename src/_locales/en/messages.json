@@ -140,7 +140,7 @@
 		"message": "Reading+"
 	},
 	"lecturePlusDescription": {
-		"message": "A mode of use for people with reading or writing difficulties. A font optimised for dyslexia, airy, left-aligned text, a reading ruler, the option of colouring the sound characters and having the text read to you."
+		"message": "Usage mode designed for people with reading difficulties.\nA font optimized for dyslexia, highly readable texts, reading guides, the ability to color characters and sounds, and text-to-speech functionality."
 	},
 	"lecturePlusPlusName": {
 		"message": "Reading++"
@@ -376,7 +376,7 @@
 		"message": "Text Size"
 	},
 	"setting_textSize_instruction": {
-		"message": "To only increase text size."
+		"message": "To enlarge the text."
 	},
 	"textSize_noModifications": {
 		"message": "no modification"
@@ -847,7 +847,7 @@
 		"message": "To facilitate navigation within the page"
 	},
 	"navigationButtons_noModifications": {
-		"message":"without modification"
+		"message": "without navigation buttons"
 	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
@@ -898,7 +898,7 @@
 		"message": "add navigation buttons"
 	},
 	"setting_clickFacilite": {
-		"message": "Click assistance"
+		"message": "Adapted click"
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "To avoid pointer errors and reduce effort."

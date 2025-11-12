@@ -140,7 +140,7 @@
 		"message": "Lectura+"
 	},
 	"lecturePlusDescription": {
-		"message": "Modo de uso destinado a personas con limitaciones de lectura o escritura. Un tipo de letra optimizado para la dislexia, textos aireados y alineados a la izquierda, una regla de lectura, la posibilidad de colorear los caracteres-sonidos y hacer leer el texto."
+		"message": "Modo de uso destinado a personas con dificultades de lectura.\nUna fuente optimizada para la dislexia, textos muy legibles, guías de lectura, la posibilidad de colorear caracteres y sonidos y de que se lea el texto en voz alta."
 	},
 	"lecturePlusPlusName": {
 		"message": "Lectura++"
@@ -379,7 +379,7 @@
 		"message": "Tamaño del texto"
 	},
 	"setting_textSize_instruction": {
-		"message": "Solo para aumentar el tamaño del texto"
+		"message": "Para agrandar el texto."
 	},
 	"textSize_noModifications": {
 		"message": "sin modificación"
@@ -781,7 +781,7 @@
 		"message": "Aspecto de la barra de desplazamiento"
 	},
 	"setting_scrollAspect_instruction": {
-		"message": "Para cambiar el aspecto de la barra de desplazamiento"
+		"message": "Para modificar la apariencia de la barra de desplazamiento."
 	},
 	"scrollAspect_noModifications": {
 		"message": "sin modificación"
@@ -850,7 +850,7 @@
 		"message": "Para facilitar el desplazamiento por la página"
 	},
 	"navigationButtons_noModifications": {
-		"message": "Sin  modificación"
+		"message": "sin botones de navegación"
 	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
@@ -901,7 +901,7 @@
 		"message": "Añadir botones de navegación"
 	},
 	"setting_clickFacilite": {
-		"message": "Clics fáciles"
+		"message": "Clic adaptado"
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "Para evitar errores de puntuación y reducir el esfuerzo"

@@ -140,7 +140,7 @@
 		"message": "Lecture+"
 	},
 	"lecturePlusDescription": {
-		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture ou d’écriture. Une police optimisée pour la dyslexie, des textes aérés et alignés à gauche, une règle de lecture, la possibilité de colorer les caractères-sons et de se faire lire le texte."
+		"message": "Mode d’usage destiné aux personnes ayant des contraintes de lecture.\nUne police optimisée pour la dyslexie, des textes bien lisibles, des règles de lecture, la possibilité de colorer les caractères et sons et de se faire lire le texte."
 	},
 	"lecturePlusPlusName": {
 		"message": "Lecture++"
@@ -376,7 +376,7 @@
 		"message": "Taille du texte"
 	},
 	"setting_textSize_instruction": {
-		"message": "Pour agrandir uniquement le texte."
+		"message": "Pour agrandir le texte."
 	},
 	"textSize_noModifications": {
 		"message": "sans modification"
@@ -424,13 +424,13 @@
 		"message": "sans modification"
 	},
 	"textSpacing_spacingTextSmall": {
-		"message": "aére un peu"
+		"message": "aère un peu"
 	},
 	"textSpacing_spacingTextBig": {
-		"message": "aére beaucoup"
+		"message": "aère beaucoup"
 	},
 	"textSpacing_spacingTextHuge": {
-		"message": "aére énormément"
+		"message": "aère énormément"
 	},
 	"setting_textColor": {
 		"message": "Colorer le texte"
@@ -778,7 +778,7 @@
 		"message": "Aspect de l’ascenseur"
 	},
 	"setting_scrollAspect_instruction": {
-		"message": "Pour modifier l’apparence de l’ascenseur."
+		"message": "Pour modifier le rendu de l'ascenseur."
 	},
 	"scrollAspect_noModifications": {
 		"message": "sans modification"
@@ -847,7 +847,7 @@
 		"message": "Pour faciliter la navigation dans la page"
 	},
 	"navigationButtons_noModifications": {
-		"message": "sans modification"
+		"message": "sans boutons de navigation"
 	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
@@ -895,7 +895,7 @@
 		"message": "clic des boutons"
 	},
 	"setting_clickFacilite": {
-		"message": "Clics facilités"
+		"message": "Clic adapté"
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "Pour éviter les erreurs de pointage et faire moins d’efforts."

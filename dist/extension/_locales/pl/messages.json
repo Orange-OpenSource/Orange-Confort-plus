@@ -140,7 +140,7 @@
 		"message": "Czytanie+"
 	},
 	"lecturePlusDescription": {
-		"message": "Tryb użytkowania dla osób z wyzwaniami czytania lub pisania. Czcionka zoptymalizowana pod kątem dysleksji. Teksty oddzielne i wyrównane do lewej strony. Linijka do czytania. Możliwość pokolorowania znaków dźwiękowych i usłyszenia tekstu."
+		"message": "Tryb użytkowania przeznaczony dla osób z trudnościami w czytaniu.\nCzcionka zoptymalizowana pod kątem dysleksji, dobrze czytelne teksty, linijki do czytania, możliwość kolorowania znaków i dźwięków oraz odczytywania tekstu na głos."
 	},
 	"lecturePlusPlusName": {
 		"message": "Czytanie++"
@@ -379,7 +379,7 @@
 		"message": "Rozmiar tekstu"
 	},
 	"setting_textSize_instruction": {
-		"message": "Aby powiększyć tylko tekst"
+		"message": "Aby powiększyć tekst."
 	},
 	"textSize_noModifications": {
 		"message": "bez zmian"
@@ -847,7 +847,7 @@
 		"message": "Ułatwić nawigację po stronie"
 	},
 	"navigationButtons_noModifications": {
-		"message": "bez zmian"
+		"message": "bez przycisków nawigacji"
 	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
@@ -898,7 +898,7 @@
 		"message": "dodać przycisków nawigacyjnych "
 	},
 	"setting_clickFacilite": {
-		"message": "UŁatwione kliknięcia"
+		"message": "Kliknięcie dostosowane"
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "Aby uniknąć błędów w wskazywaniu i wykonać mniejszego wysiłku"
