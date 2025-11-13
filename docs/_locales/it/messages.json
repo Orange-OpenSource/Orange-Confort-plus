@@ -140,7 +140,7 @@
 		"message": "Lettura+"
 	},
 	"lecturePlusDescription": {
-		"message": "Modalità d’uso per persone con difficoltà di lettura o di scrittura. Un carattere ottimizzato per la dislessia, testi ariosi e allineati a sinistra, una guida di lettura, possibilità di colorare i caratteri-suoni e di farsi leggere il testo."
+		"message": "Modalità d'uso destinata alle persone con difficoltà di lettura.\nUn carattere ottimizzato per la dislessia, testi ben leggibili, guide di lettura, la possibilità di colorare caratteri e suoni e di farsi leggere il testo."
 	},
 	"lecturePlusPlusName": {
 		"message": "Lettura++"
@@ -376,7 +376,7 @@
 		"message": "Dimensione del testo"
 	},
 	"setting_textSize_instruction": {
-		"message": "Per ingrandire solo il testo."
+		"message": "Per ingrandire il testo."
 	},
 	"textSize_noModifications": {
 		"message": "nessuna modifica"
@@ -847,7 +847,7 @@
 		"message": "Per facilitare la navigazione nella pagina"
 	},
 	"navigationButtons_noModifications": {
-		"message": "nessuna modifica"
+		"message": "senza pulsanti di navigazione"
 	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
@@ -895,7 +895,7 @@
 		"message": "clic dei pulsanti"
 	},
 	"setting_clickFacilite": {
-		"message": "Clic facilitati"
+		"message": "Clic adattato
 	},
 	"setting_clickFacilite_instruction": {
 		"message": "Per evitare errori di puntamento e fare meno sforzo."
