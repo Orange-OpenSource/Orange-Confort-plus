@@ -8133,4 +8133,4 @@ customElements.define("app-toolbar", ToolbarComponent);
 
 const appRootElt = document.createElement(APP_NAME);
 
-document.body.prepend(appRootElt);
+document.body.append(appRootElt);
