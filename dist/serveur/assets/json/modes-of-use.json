@@ -1,5 +1,5 @@
 {
-	"version": "1.0.39",
+	"version": "1.0.40",
 	"modes": [
 		{
 			"facilePlus": [
@@ -76,14 +76,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_black,hugeCursor_black",
-						"valueSelected": 1,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
@@ -105,6 +97,14 @@
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 5
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_black",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
@@ -248,14 +248,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_white,hugeCursor_green",
-						"valueSelected": 1,
-						"isTool": true,
-						"order": 9
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_white,huge_white",
 						"valueSelected": 1,
@@ -277,6 +269,14 @@
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 5
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_white,hugeCursor_green",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 9
 					}
 				},
 				{
@@ -420,14 +420,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_yellow,hugeCursor_green",
-						"valueSelected": 2,
-						"isTool": true,
-						"order": 9
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_yellow,huge_green",
 						"valueSelected": 2,
@@ -449,6 +441,14 @@
 						"valueSelected": 2,
 						"isTool": true,
 						"order": 5
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_yellow,hugeCursor_green",
+						"valueSelected": 2,
+						"isTool": true,
+						"order": 9
 					}
 				},
 				{
@@ -592,14 +592,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_black,hugeCursor_blue",
-						"valueSelected": 1,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
@@ -621,6 +613,14 @@
 						"valueSelected": 2,
 						"isTool": true,
 						"order": 7
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 1,
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
@@ -764,14 +764,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_black,hugeCursor_blue",
-						"valueSelected": 1,
-						"isTool": true,
-						"order": 12
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
@@ -793,6 +785,14 @@
 						"valueSelected": 2,
 						"isTool": true,
 						"order": 7
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 1,
+						"isTool": true,
+						"order": 12
 					}
 				},
 				{
@@ -936,14 +936,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_black,hugeCursor_blue",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 5
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
@@ -965,6 +957,14 @@
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 10
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 0,
+						"isTool": true,
+						"order": 5
 					}
 				},
 				{
@@ -1108,14 +1108,6 @@
 					}
 				},
 				{
-					"cursorAspect": {
-						"values": "noModifications,bigCursor_black,hugeCursor_blue",
-						"valueSelected": 0,
-						"isTool": false,
-						"order": null
-					}
-				},
-				{
 					"focusAspect": {
 						"values": "noModifications,big_black,huge_blue",
 						"valueSelected": 1,
@@ -1137,6 +1129,14 @@
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 7
+					}
+				},
+				{
+					"cursorAspect": {
+						"values": "noModifications,bigCursor_black,hugeCursor_blue",
+						"valueSelected": 0,
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
