@@ -34,7 +34,7 @@ homeLayout.innerHTML = `
 	</div>
 	<div id="mode-settings" class="sc-home__settings gap-3">
 		<app-mode></app-mode>
-		<button id="settings-btn" type="button" class="btn btn-secondary">
+		<button id="settings-btn" type="button" class="btn btn-secondary" data-i18n-title="openSettingsMode">
 			<app-icon class="me-1" data-name="Settings"></app-icon>
 			<span data-i18n="othersSettings"></span>
 		</button>
