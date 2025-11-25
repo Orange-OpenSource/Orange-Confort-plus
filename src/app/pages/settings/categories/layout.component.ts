@@ -9,13 +9,16 @@ tmplLayout.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-layout">
 		<div class="accordion-body px-3">
 			<div class="d-flex flex-column gap-2">
+				<app-zoom class="c-category__setting" data-can-edit="true"></app-zoom>
 				<app-magnifier class="c-category__setting" data-can-edit="true"></app-magnifier>
-				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
-				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>
 				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
 				<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>
 				<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>
-				<app-zoom class="c-category__setting" data-can-edit="true"></app-zoom>
+				<app-cursor-aspect class="c-category__setting" data-can-edit="true"></app-cursor-aspect>
+				<app-focus-aspect class="c-category__setting" data-can-edit="true"></app-focus-aspect>
+				<app-scroll-aspect class="c-category__setting" data-can-edit="true"></app-scroll-aspect>
+				<app-stop-animations class="c-category__setting" data-can-edit="true"></app-stop-animations>
+				<app-delete-background-images class="c-category__setting" data-can-edit="true"></app-delete-background-images>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>

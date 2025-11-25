@@ -9,14 +9,15 @@ tmplText.innerHTML = `
 	<div class="accordion-collapse collapse" id="category-text">
 		<div class="accordion-body px-3">
 			<div class="d-flex flex-column gap-2">
+				<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>
+				<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>
 				<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>
 				<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>
 				<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>
-				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
-				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
-				<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>
 				<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>
-				<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>
+				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
+				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
+				<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
