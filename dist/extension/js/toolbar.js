@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.1.0 - 24/11/2025
+ * orange-confort-plus - version 5.1.0 - 25/11/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -8133,4 +8133,4 @@ customElements.define("app-toolbar", ToolbarComponent);
 
 const appRootElt = document.createElement(APP_NAME);
 
-document.body.append(appRootElt);
+document.body.prepend(appRootElt);
