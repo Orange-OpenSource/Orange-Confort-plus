@@ -4,8 +4,12 @@
 	top: 0;
 	right: 0;
 	padding: 0 !important;
-	transform: translate(-25%, 25%);
 	z-index: calc(infinity);
+	cursor: grab;
+
+	&:active {
+		cursor: grabbing;
+	}
 }
 
 .sc-confort-plus--paused {
