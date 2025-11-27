@@ -22,6 +22,8 @@ const categoriesServiceInstance = new CategoriesService();
 Object.seal(categoriesServiceInstance);
 const localStorageServiceInstance = new LocalStorageService();
 Object.seal(localStorageServiceInstance);
+const dragDropServiceInstance = new DragDropService();
+Object.seal(dragDropServiceInstance);
 const routeServiceInstance = new RouteService();
 Object.seal(routeServiceInstance);
 // Settings

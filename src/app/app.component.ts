@@ -64,6 +64,9 @@ class AppComponent extends HTMLElement {
 
 		this.setPauseIndicator();
 
+		dragDropServiceInstance.init(this.confortPlusBtn);
+		dragDropServiceInstance.enable();
+
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);
 	}
@@ -89,6 +92,7 @@ class AppComponent extends HTMLElement {
 	}
 
 	private showToolbar = (): void => {
+		dragDropServiceInstance.disable();
 		this.setContainerButtonsPosition(BTN_RIGHT_POS_OPEN);
 		this.confortPlusToolbar.classList.remove('close');
 		this.confortPlusBtn.classList.add('d-none');
@@ -103,6 +107,7 @@ class AppComponent extends HTMLElement {
 		this.confortPlusBtn?.focus();
 		localStorageServiceInstance.setItem('is-opened', 'false');
 		this.setPauseIndicator();
+		dragDropServiceInstance.enable();
 	}
 
 	private setContainerButtonsPosition = (position: string): void => {

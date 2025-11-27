@@ -19,6 +19,7 @@ const CURSOR_SIZE_BIG = 56;
 const CURSOR_SIZE_HUGE = 128;
 const SCROLL_SIZE_BIG = '32px';
 const SCROLL_SIZE_HUGE = '48px';
+const BTN_CPLUS_POS_DEFAULT = '1em';
 const BTN_RIGHT_POS_DEFAULT = '2em';
 const BTN_RIGHT_POS_OPEN = '26em';
 const CLICK_FACILITE_BIG_ZONE = 'bigZone';

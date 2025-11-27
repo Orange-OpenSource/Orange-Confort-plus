@@ -22,6 +22,7 @@ const files = {
 		files: [
 			'dist/js/app/services/categories.service.js',
 			'dist/js/app/services/dom.service.js',
+			'dist/js/app/services/drag-drop.service.js',
 			'dist/js/app/services/mode-of-use.service.js',
 			'dist/js/app/services/pause.service.js',
 			'dist/js/app/services/route.service.js',
