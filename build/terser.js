@@ -109,7 +109,6 @@ const files = {
 			'dist/js/app/pages/settings/categories/abstract-category.component.js',
 			'dist/js/app/pages/settings/categories/layout.component.js',
 			'dist/js/app/pages/settings/categories/navigation.component.js',
-			'dist/js/app/pages/settings/categories/picture-video.component.js',
 			'dist/js/app/pages/settings/categories/sound.component.js',
 			'dist/js/app/pages/settings/categories/text.component.js',
 			'dist/js/app/pages/toolbar.component.js',

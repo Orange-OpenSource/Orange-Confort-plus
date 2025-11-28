@@ -5,7 +5,6 @@ class CategoriesService {
     settingAccordions = [
         { name: 'app-text', open: false },
         { name: 'app-layout', open: false },
-        { name: 'app-picture-video', open: false },
         { name: 'app-sound', open: false },
         { name: 'app-navigation', open: false }
     ];
