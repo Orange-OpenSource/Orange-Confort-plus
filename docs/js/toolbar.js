@@ -1844,6 +1844,7 @@ class DragDropService {
     handlerMouseMove;
     handlerMouseUp;
     handlerClick;
+    handlerResize;
     constructor() {
         if (dragDropServiceIsInstantiated) {
             throw new Error("DragDropService is already instantiated.");
@@ -1853,6 +1854,7 @@ class DragDropService {
         this.handlerMouseMove = this.onMouseMove.bind(this);
         this.handlerMouseUp = this.onMouseUp.bind(this);
         this.handlerClick = this.onClickCapture.bind(this);
+        this.handlerResize = this.onResize.bind(this);
     }
     init=button => {
         this.button = button;
@@ -1865,6 +1867,8 @@ class DragDropService {
         this.isEnabled = true;
         this.button.addEventListener("pointerdown", this.handlerMouseDown);
         this.button.addEventListener("click", this.handlerClick, true);
+        window.addEventListener("resize", this.handlerResize);
+        this.constrainPosition();
     };
     disable=() => {
         if (!this.button || !this.isEnabled) {
@@ -1875,6 +1879,7 @@ class DragDropService {
         this.button.removeEventListener("click", this.handlerClick, true);
         document.removeEventListener("pointermove", this.handlerMouseMove);
         document.removeEventListener("pointerup", this.handlerMouseUp);
+        window.removeEventListener("resize", this.handlerResize);
         this.isDragging = false;
         this.justDragged = false;
         if (this.button) {
@@ -1908,7 +1913,7 @@ class DragDropService {
         }
         let newX = event.clientX - this.offsetX;
         let newY = event.clientY - this.offsetY;
-        const maxX = window.innerWidth - this.button.offsetWidth;
+        const maxX = window.innerWidth - this.button.offsetWidth - 26;
         const maxY = window.innerHeight - this.button.offsetHeight;
         newX = Math.max(0, Math.min(newX, maxX));
         newY = Math.max(0, Math.min(newY, maxY));
@@ -1941,6 +1946,29 @@ class DragDropService {
             event.stopPropagation();
             event.stopImmediatePropagation();
         }
+    };
+    onResize=() => {
+        this.constrainPosition();
+    };
+    constrainPosition=() => {
+        if (!this.button) {
+            return;
+        }
+        const rect = this.button.getBoundingClientRect();
+        const maxX = window.innerWidth - this.button.offsetWidth - 26;
+        const maxY = window.innerHeight - this.button.offsetHeight;
+        let currentLeft = parseFloat(this.button.style.left) || rect.left;
+        let currentTop = parseFloat(this.button.style.top) || rect.top;
+        if (this.button.style.left === "" || this.button.style.top === "") {
+            currentLeft = rect.left;
+            currentTop = rect.top;
+        }
+        const newX = Math.max(0, Math.min(currentLeft, maxX));
+        const newY = Math.max(0, Math.min(currentTop, maxY));
+        this.button.style.left = `${newX}px`;
+        this.button.style.top = `${newY}px`;
+        this.button.style.right = "auto";
+        this.savePosition();
     };
     savePosition=() => {
         if (!this.button) {
