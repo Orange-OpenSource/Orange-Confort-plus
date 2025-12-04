@@ -60,7 +60,7 @@
 		"posttoolbar:ext": "node --no-warnings build/terser.js --context=min-extension",
 		"prebuild:css": "shx mkdir -p dist/extension/css",
 		"build:css": "sass src/styles/styles.scss:dist/css/styles.min.css -s compressed --load-path=node_modules --source-map --no-error-css --quiet-deps",
-		"postbuild:css": "NODE_NO_WARNINGS=1 postcss dist/css/*.css --dir dist/serveur/css/ -m && purgecss --config purgecss.help.config.cjs && shx cp -r dist/serveur/css/*.{css,map} dist/extension/css/ && shx cp -r dist/serveur/css/{help,styles}.min.css docs/css/",
+		"postbuild:css": "postcss dist/css/*.css --dir dist/serveur/css/ -m && purgecss --config purgecss.help.config.cjs && shx cp -r dist/serveur/css/*.{css,map} dist/extension/css/ && shx cp -r dist/serveur/css/{help,styles}.min.css docs/css/",
 		"build:html": "html-minifier-terser --file-ext html --input-dir src/site --output-dir docs/ --collapse-whitespace --conservative-collapse --remove-optional-tags --collapse-boolean-attributes --minify-js --minify-css --sort-attributes --sort-class-name",
 		"postbuild:html": "purgecss --config purgecss.docs.config.cjs",
 		"build:icons": "svg-sprite --symbol --symbol-dest dist/serveur/assets/icons --symbol-sprite orange-icons-sprite.svg --svg-xmldecl false --svg-doctype  false src/assets/icons/*.svg",

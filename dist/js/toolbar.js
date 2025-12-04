@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.1 - 30/09/2025
+ * orange-confort-plus - version 5.0.1 - 04/12/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -74,6 +74,8 @@ class CategoriesService {
 
 let domServiceIsInstantiated;
 
+let customBarInstanciated = false;
+
 class DomService {
     excludedElements=`${APP_NAME}, script`;
     constructor() {
@@ -90,6 +92,101 @@ class DomService {
         };
         const focusableElt = [ `a[href]:not(${not.inert},${not.negTabIndex}`, `area[href]:not(${not.inert},${not.negTabIndex}`, `input:not([type="hidden"],[type="radio"],${not.inert},${not.negTabIndex},${not.disabled}`, `input[type="radio"]:not(${not.inert},${not.negTabIndex},${not.disabled}`, `select:not(${not.inert},${not.negTabIndex},${not.disabled}`, `textarea:not(${not.inert},${not.negTabIndex},${not.disabled}`, `button:not(${not.inert},${not.negTabIndex},${not.disabled}`, `details:not(${not.inert} > summary:first-of-type,${not.negTabIndex}`, `iframe:not(${not.inert},${not.negTabIndex}`, `audio[controls]:not(${not.inert},${not.negTabIndex}`, `video[controls]:not(${not.inert},${not.negTabIndex}`, `[contenteditable]:not(${not.inert},${not.negTabIndex}`, `[tabindex]:not(${not.inert},${not.negTabIndex}` ];
         return Array.from(document.querySelectorAll(focusableElt.join(","))).filter((el => !el.disabled && el.tabIndex >= 0));
+    };
+    addCustomScroolBar=() => {
+        if (customBarInstanciated) {
+            return;
+        }
+        const updownArrowSize = 0;
+        customBarInstanciated = true;
+        let scrollContainer;
+        let navette;
+        let fragment = document.createDocumentFragment();
+        let isDragging = false;
+        let totalHeight = document.body.scrollHeight;
+        let windowHeight = document.documentElement.clientHeight;
+        windowHeight -= updownArrowSize * 2;
+        let navetteClickOffset = 0;
+        navette = document.createElement("div");
+        navette.setAttribute("id", "cf-custom-scrollbar-navette");
+        let scrollUpTriangle = document.createElement("div");
+        scrollUpTriangle.className = "cf-scroll-up-triangle";
+        let scrollUp = document.createElement("div");
+        scrollUp.className = "cf-scroll-up";
+        let scrollDownTriangle = document.createElement("div");
+        scrollDownTriangle.className = "cf-scroll-down-triangle";
+        let scrollDown = document.createElement("div");
+        scrollDown.className = "cf-scroll-down";
+        scrollUp.appendChild(scrollUpTriangle);
+        scrollDown.appendChild(scrollDownTriangle);
+        scrollUp.addEventListener("click", (function() {
+            window.scrollBy(0, -100);
+        }));
+        scrollDown.addEventListener("click", (function() {
+            window.scrollBy(0, 100);
+        }));
+        let navetteContainer = document.createElement("div");
+        navetteContainer.className = "cf-scroll-navette-container";
+        scrollContainer = document.createElement("div");
+        navetteContainer.appendChild(navette);
+        scrollContainer.appendChild(scrollUp);
+        scrollContainer.appendChild(navetteContainer);
+        scrollContainer.appendChild(scrollDown);
+        scrollContainer.setAttribute("id", "cf-custom-scrollbar");
+        let navetteHeight = windowHeight / totalHeight * (windowHeight - updownArrowSize * 2);
+        if (navetteHeight < 50) {
+            navetteHeight = 50;
+        }
+        navette.style.height = `${navetteHeight}px`;
+        document.addEventListener("scroll", (function() {
+            console.log("scroll event !");
+            let scrollTop = window.scrollY;
+            let navetteTop = scrollTop / (totalHeight - windowHeight) * (windowHeight - navette.offsetHeight);
+            navette.style.top = `${navetteTop}px`;
+        }));
+        window.addEventListener("resize", (function() {
+            windowHeight = document.documentElement.clientHeight;
+            windowHeight -= updownArrowSize * 2;
+            navetteHeight = windowHeight / totalHeight * (windowHeight - updownArrowSize * 2);
+            if (navetteHeight < 50) {
+                navetteHeight = 50;
+            }
+            navette.style.height = `${navetteHeight}px`;
+            let scrollTop = window.scrollY;
+            let navetteTop = scrollTop / (totalHeight - windowHeight) * (windowHeight - navette.offsetHeight);
+            navette.style.top = `${navetteTop}px`;
+        }));
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            window.getSelection().removeAllRanges();
+            window.scrollTo(0, (e.clientY - updownArrowSize - navetteClickOffset) / (window.innerHeight - updownArrowSize * 2) * totalHeight);
+        }
+        function onMouseUp() {
+            isDragging = false;
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+        }
+        navette.addEventListener("mousedown", (function(e) {
+            totalHeight = document.body.scrollHeight;
+            navetteClickOffset = e.clientY - navette.offsetTop - updownArrowSize;
+            isDragging = true;
+            console.log("mousedown navette ! totalHeight ", totalHeight);
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+        }));
+        navetteContainer.addEventListener("click", (function(e) {
+            if (e.target !== navette) {
+                if (e.clientY < navette.offsetTop) {
+                    window.scrollBy(0, -windowHeight);
+                } else {
+                    window.scrollBy(0, windowHeight);
+                }
+            }
+        }));
+        let styleContainerButtons = `\n\t\t\t#cf-custom-scrollbar {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t\n\t\t\t/*\n\t\t\t.cf-scroll-down-triangle {\n\t\t\t\tborder-left: 12px solid transparent;\n\t\t\t\tborder-right: 12px solid transparent;\n\t\t\t\tborder-top: 15px solid #000;\n\t\t\n\t\t\t}\n\n\t\t\t.cf-scroll-up-triangle {\n\t\t\t\tborder-left: 12px solid transparent;\n\t\t\t\tborder-right: 12px solid transparent;\n\t\t\t\tborder-bottom: 15px solid #000;\n\t\t\t}\n\n\t\t\t.cf-scroll-up{\n\t\t\t\theight: 21px;\n\t\t\t\tcursor: pointer;\n\t\t\t\twidth:100%;\n\t\t\t\tbackground-color: #555;\n\t\t\t\tpadding:3px;\n\t\t\t}\n\n\t\t\t.cf-scroll-down{\n\t\t\t\theight: 21px;\n\t\t\t\tcursor: pointer;\n\t\t\t\twidth:100%;\n\t\t\t\tbackground-color: #555;\n\t\t\t\tpadding:3px;\n\t\t\t}\n\t\t\t*/\n\t\t\t.cf-scroll-navette-container {\n\t\t\t\tposition: relative;\n\t\t\t\theight: 100%;\n\t\t\t\twidth:100%;\n\t\t\t\t}\n\n\t\t\t.${PREFIX}big-scroll #cf-custom-scrollbar {\n\t\t\t\tdisplay: block;\n\t\t\t\tposition: fixed;\n\t\t\t\ttop:0;\n\t\t\t\tbackground-color:#e0e0e0 !important ;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: calc(infinity);\n\t\t\t\twidth:30px;\n\t\t\t\theight:100%;\n\t\t\t\tbox-shadow: -2px 0 5px rgba(0,0,0,0.4) inset;\n\t\t\t}\n\n\t\t\t#cf-custom-scrollbar-navette {\n\t\t\t\tposition: relative;\n\t\t\t\ttop:0;\n\t\t\t\tbackground-color:#ff0000 !important;\n\t\t\t\tright: 0;\n\t\t\t\tborder-radius: 5px;\n\t\t\t\tborder: 1px solid #000;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcursor: pointer;\n\t\t\t\twidth:100%;\n\t\t\t\theight:10%;\n\t\t\t}\n\n\t\t\t#cf-custom-scrollbar-navette:hover {\n\t\t\t\tbackground-color:#555 !important;\t\n\t\t\t}\n\n\t\t\t/* hugeScroll Bar  */\n\t\t\t/*\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-up{\n\t\t\t\t26px\n\t\t\t}\n\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-navette-container {\n\t\t\t\theight: calc(100% - 52px);\n\t\t\t\t}\n\t\t\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-down-triangle {\n\t\t\t\tborder-left: 16px solid transparent;\n\t\t\t\tborder-right: 16px solid transparent;\n\t\t\t\tborder-top: 22px solid #000;\n\t\t\n\t\t\t}\n\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-up-triangle {\n\t\t\t\tborder-left: 16px solid transparent;\n\t\t\t\tborder-right: 16px solid transparent;\n\t\t\t\tborder-bottom: 22px solid #000;\n\t\t\t}\n\t\t\t*/\n\t\t\t.${PREFIX}huge-scroll #cf-custom-scrollbar {\n\t\t\t\twidth:42px;\n\t\t\t}\n\t\t`;
+        stylesServiceInstance.setStyle("customscrollbar-buttons", styleContainerButtons);
+        fragment.appendChild(scrollContainer);
+        document.body.appendChild(fragment);
     };
     addButtonsInDom=(button, start = false) => {
         let container;
@@ -1149,34 +1246,6 @@ class FontFamilyService {
             weight: "400"
         } ]
     }, {
-        name: "BelleAllure",
-        size: "80%",
-        folder: "BelleAllure",
-        generic: "cursive",
-        files: [ {
-            name: "BelleAllureCM-Fin.woff2",
-            style: "normal",
-            weight: "400"
-        }, {
-            name: "BelleAllureCM-Gros.woff2",
-            style: "normal",
-            weight: "700"
-        } ]
-    }, {
-        name: "HelveticaNeue",
-        size: "100%",
-        folder: "HelveticaNeue",
-        generic: "sans-serif",
-        files: [ {
-            name: "HelvNeue55_W1G.woff2",
-            style: "normal",
-            weight: "400"
-        }, {
-            name: "HelvNeue75_W1G.woff2",
-            style: "normal",
-            weight: "700"
-        } ]
-    }, {
         name: "B612Mono",
         size: "75%",
         folder: "B612",
@@ -1197,6 +1266,20 @@ class FontFamilyService {
             name: "B612Mono-Regular.woff2",
             style: "normal",
             weight: "400"
+        } ]
+    }, {
+        name: "BelleAllure",
+        size: "80%",
+        folder: "BelleAllure",
+        generic: "cursive",
+        files: [ {
+            name: "BelleAllureCM-Fin.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "BelleAllureCM-Gros.woff2",
+            style: "normal",
+            weight: "700"
         } ]
     }, {
         name: "LexendDeca",
@@ -1331,6 +1414,20 @@ class FontFamilyService {
             name: "SylexiadSansThin.woff2",
             style: "normal",
             weight: "400"
+        } ]
+    }, {
+        name: "HelveticaNeue",
+        size: "100%",
+        folder: "HelveticaNeue",
+        generic: "sans-serif",
+        files: [ {
+            name: "HelvNeue55_W1G.woff2",
+            style: "normal",
+            weight: "400"
+        }, {
+            name: "HelvNeue75_W1G.woff2",
+            style: "normal",
+            weight: "700"
         } ]
     } ];
     constructor() {
@@ -2203,10 +2300,13 @@ class RestartTopLeftService {
 let scrollAspectServiceIsInstantiated;
 
 class ScrollAspectService {
+    isInitialized=false;
     scrollColor="";
     scrollColorHover="";
     scrollBorderColor="";
     scrollWidth="";
+    originalValuesFixedRightElements=[];
+    processedElements=new WeakSet;
     scrollColorValues=[ {
         color: "white",
         hover: "lightgrey",
@@ -2238,23 +2338,80 @@ class ScrollAspectService {
         }
         scrollAspectServiceIsInstantiated = true;
     }
+    moveFixedElements(root, offset = 30) {
+        const elements = root.querySelectorAll("*");
+        elements.forEach((element => {
+            if (this.processedElements.has(element)) {
+                return;
+            }
+            const computedStyle = window.getComputedStyle(element);
+            if (computedStyle.position === "fixed") {
+                if (element.id !== "cf-custom-scrollbar") {
+                    let currentRight = computedStyle.right;
+                    if (currentRight !== "auto" && currentRight !== "") {
+                        let rightValue = parseInt(currentRight) + offset;
+                        element.style.setProperty("right", rightValue + "px", "important");
+                        this.originalValuesFixedRightElements.push({
+                            element: element,
+                            originalRight: currentRight
+                        });
+                        this.processedElements.add(element);
+                    }
+                }
+            }
+            if (element.shadowRoot) {
+                this.moveFixedElements(element.shadowRoot, offset);
+            }
+        }));
+    }
+    restoreFixedElements() {
+        this.originalValuesFixedRightElements.forEach((({element: element, originalRight: originalRight}) => {
+            if (element && element.style) {
+                element.style.setProperty("right", originalRight, "important");
+            }
+        }));
+        this.originalValuesFixedRightElements = [];
+        this.processedElements = new WeakSet;
+    }
+    isFirefox() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        return userAgent.includes("firefox");
+    }
     setScrollAspect=value => {
+        console.log("ScrollAspectService - setScrollAspect ");
         stylesServiceInstance.removeStyle("scroll-aspect");
+        stylesServiceInstance.removeStyle("firefox-hide-scrollbar");
         document.body.classList.remove(`${PREFIX}big-scroll`);
+        document.body.classList.remove(`${PREFIX}huge-scroll`);
+        this.restoreFixedElements();
+        console.log("#value scroll aspect ", value);
         if (value !== DEFAULT_VALUE) {
             document.body.classList.add(`${PREFIX}big-scroll`);
             switch (value?.split("_")[0]) {
               case "big":
                 this.scrollWidth = SCROLL_SIZE_BIG;
+                if (this.isFirefox()) {
+                    this.moveFixedElements(document, 30);
+                    this.hideFirefoxScrollBrClass();
+                }
                 break;
 
               case "huge":
                 this.scrollWidth = SCROLL_SIZE_HUGE;
+                document.body.classList.add(`${PREFIX}huge-scroll`);
+                if (this.isFirefox()) {
+                    this.moveFixedElements(document, 42);
+                    this.hideFirefoxScrollBrClass();
+                }
                 break;
 
               default:
                 this.scrollWidth = "auto";
                 break;
+            }
+            if (!this.isInitialized && this.isFirefox()) {
+                domServiceInstance.addCustomScroolBar();
+                this.isInitialized = true;
             }
             this.scrollColor = value?.split("_")[1] ? value?.split("_")[1] : "lightgrey";
             let colorHover = this.scrollColorValues.find((o => o.color === this.scrollColor))?.hover;
@@ -2265,8 +2422,12 @@ class ScrollAspectService {
         }
     };
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t\thtml {\n\t\t\t\t\toverflow: initial !important;\n\t\t\t\t}\n\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t/* Firefox */\n\t\t\t\t@-moz-document url-prefix() {\n\t\t\t\t\t.${PREFIX}big-scroll,\n\t\t\t\t\t.${PREFIX}big-scroll * {\n\t\t\t\t\t\tscrollbar-width: auto;\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColor} transparent;\n\t\t\t\t\t}\n\t\t\t\t\t.${PREFIX}big-scroll:hover,\n\t\t\t\t\t.${PREFIX}big-scroll *:hover {\n\t\t\t\t\t\tscrollbar-color: ${this.scrollColorHover} transparent;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t`;
+        let styleScroll = `\n\t\t\t\thtml {\n\t\t\t\t\toverflow: initial !important;\n\t\t\t\t}\n\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: red;\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\n\t\t\t`;
         stylesServiceInstance.setStyle("scroll-aspect", styleScroll);
+    };
+    hideFirefoxScrollBrClass=() => {
+        let styleScroll = `\n\t\t\t\thtml {\n\t\t\t\t\tscrollbar-width: none;\n\t\t\t\t\twidth: calc(100% - 40px);\n\t\t\t\t}\n\t\t\t`;
+        stylesServiceInstance.setStyle("firefox-hide-scrollbar", styleScroll);
     };
 }
 

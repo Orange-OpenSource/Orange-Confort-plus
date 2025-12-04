@@ -1,4 +1,5 @@
 let domServiceIsInstantiated: boolean;
+let customBarInstanciated : boolean = false ;
 
 class DomService {
 	excludedElements = `${APP_NAME}, script`;
@@ -9,6 +10,7 @@ class DomService {
 		}
 
 		domServiceIsInstantiated = true;
+		
 	}
 
 	/* https://github.com/KittyGiraudel/focusable-selectors	*/
@@ -40,6 +42,209 @@ class DomService {
 
 		return Array.from(document.querySelectorAll(focusableElt.join(',')))
 			.filter((el: any) => !el.disabled && el.tabIndex >= 0);
+	}
+
+	addCustomScroolBar = (): void => {
+		if ( customBarInstanciated) { return; }
+		const updownArrowSize = 0 ; // TO DEFINE SIZE OF UP DOWN ARROWS IF NEEDED
+		customBarInstanciated = true ;
+		let scrollContainer: HTMLElement;
+		let navette: HTMLElement;
+		let fragment = document.createDocumentFragment();
+		let isDragging = false;
+		let totalHeight = document.body.scrollHeight;
+		let windowHeight = document.documentElement.clientHeight;
+		windowHeight -= updownArrowSize * 2 ; // to take into account the scroll buttons height
+		let navetteClickOffset = 0;
+		navette  = document.createElement('div');
+		navette.setAttribute('id', 'cf-custom-scrollbar-navette');
+		let scrollUpTriangle = document.createElement('div');
+		scrollUpTriangle.className = 'cf-scroll-up-triangle';
+		let scrollUp = document.createElement('div');
+		scrollUp.className = 'cf-scroll-up';
+		let scrollDownTriangle = document.createElement('div');
+		scrollDownTriangle.className = 'cf-scroll-down-triangle';
+		let scrollDown = document.createElement('div');
+		scrollDown.className = 'cf-scroll-down';
+		scrollUp.appendChild(scrollUpTriangle);
+		scrollDown.appendChild(scrollDownTriangle);
+		scrollUp.addEventListener('click', function() {
+			window.scrollBy(0, -100);
+		});
+		scrollDown.addEventListener('click', function() {
+			window.scrollBy(0, 100);
+		});
+		let navetteContainer = document.createElement('div');
+		navetteContainer.className = 'cf-scroll-navette-container';
+		scrollContainer = document.createElement('div');
+		navetteContainer.appendChild(navette);
+		scrollContainer.appendChild(scrollUp);
+		scrollContainer.appendChild(navetteContainer);
+		scrollContainer.appendChild(scrollDown);
+		scrollContainer.setAttribute('id', 'cf-custom-scrollbar');
+
+		// set navette height
+		let navetteHeight = (windowHeight / totalHeight) * ( windowHeight - updownArrowSize * 2 ) ;
+		if ( navetteHeight < 50 ) { navetteHeight = 50; }
+		navette.style.height = `${navetteHeight}px`;
+
+		document.addEventListener('scroll', function() {		
+			console.log('scroll event !');
+			let scrollTop = window.scrollY;
+			let navetteTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - navette.offsetHeight);
+			navette.style.top = `${navetteTop}px`;
+		})
+
+		window.addEventListener('resize', function() {	
+			// recalculate navette height
+			windowHeight = document.documentElement.clientHeight;
+			windowHeight -= updownArrowSize * 2 
+			navetteHeight = (windowHeight / totalHeight) * ( windowHeight - updownArrowSize * 2 ) ;
+			if ( navetteHeight < 50 ) { navetteHeight = 50; }
+			navette.style.height = `${navetteHeight}px`;
+			// update navette position
+			let scrollTop = window.scrollY;
+			let navetteTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - navette.offsetHeight); //TO CHECK 
+			navette.style.top = `${navetteTop}px`;	
+		})
+
+		function onMouseMove(e :any) {
+			if (!isDragging) return;
+			window.getSelection().removeAllRanges()
+			window.scrollTo(0, (  ( e.clientY - updownArrowSize - navetteClickOffset) / ( window.innerHeight - updownArrowSize * 2 )) * totalHeight);
+		}
+
+		function onMouseUp() {
+			isDragging = false;
+			document.removeEventListener('mousemove', onMouseMove);
+			document.removeEventListener('mouseup', onMouseUp);
+		}
+
+
+		 navette.addEventListener('mousedown', function(e) {
+		
+			totalHeight = document.body.scrollHeight;
+			navetteClickOffset = e.clientY - navette.offsetTop - updownArrowSize ;
+			isDragging = true;
+			console.log('mousedown navette ! totalHeight ', totalHeight);
+			document.addEventListener('mousemove', onMouseMove);
+			document.addEventListener('mouseup', onMouseUp);
+		});
+
+		navetteContainer.addEventListener('click', function(e) {
+			if ( e.target !== navette ) {
+				if ( e.clientY < navette.offsetTop ) {
+					window.scrollBy(0, -(windowHeight ));
+				}
+				else{
+					window.scrollBy(0, (windowHeight ));
+				}
+			}
+		});
+
+		let styleContainerButtons = `
+			#cf-custom-scrollbar {
+				display: none;
+			}
+
+			
+			/*
+			.cf-scroll-down-triangle {
+				border-left: 12px solid transparent;
+				border-right: 12px solid transparent;
+				border-top: 15px solid #000;
+		
+			}
+
+			.cf-scroll-up-triangle {
+				border-left: 12px solid transparent;
+				border-right: 12px solid transparent;
+				border-bottom: 15px solid #000;
+			}
+
+			.cf-scroll-up{
+				height: 21px;
+				cursor: pointer;
+				width:100%;
+				background-color: #555;
+				padding:3px;
+			}
+
+			.cf-scroll-down{
+				height: 21px;
+				cursor: pointer;
+				width:100%;
+				background-color: #555;
+				padding:3px;
+			}
+			*/
+			.cf-scroll-navette-container {
+				position: relative;
+				height: 100%;
+				width:100%;
+				}
+
+			.${PREFIX}big-scroll #cf-custom-scrollbar {
+				display: block;
+				position: fixed;
+				top:0;
+				background-color:#e0e0e0 !important ;
+				right: 0;
+				z-index: calc(infinity);
+				width:30px;
+				height:100%;
+				box-shadow: -2px 0 5px rgba(0,0,0,0.4) inset;
+			}
+
+			#cf-custom-scrollbar-navette {
+				position: relative;
+				top:0;
+				background-color:#ff0000 !important;
+				right: 0;
+				border-radius: 5px;
+				border: 1px solid #000;
+				box-sizing: border-box;
+				cursor: pointer;
+				width:100%;
+				height:10%;
+			}
+
+			#cf-custom-scrollbar-navette:hover {
+				background-color:#555 !important;	
+			}
+
+			/* hugeScroll Bar  */
+			/*
+			.${PREFIX}huge-scroll .cf-scroll-up{
+				26px
+			}
+
+			.${PREFIX}huge-scroll .cf-scroll-navette-container {
+				height: calc(100% - 52px);
+				}
+		
+			.${PREFIX}huge-scroll .cf-scroll-down-triangle {
+				border-left: 16px solid transparent;
+				border-right: 16px solid transparent;
+				border-top: 22px solid #000;
+		
+			}
+
+			.${PREFIX}huge-scroll .cf-scroll-up-triangle {
+				border-left: 16px solid transparent;
+				border-right: 16px solid transparent;
+				border-bottom: 22px solid #000;
+			}
+			*/
+			.${PREFIX}huge-scroll #cf-custom-scrollbar {
+				width:42px;
+			}
+		`;
+
+		stylesServiceInstance.setStyle('customscrollbar-buttons', styleContainerButtons);
+
+		fragment.appendChild(scrollContainer);
+		document.body.appendChild(fragment);
 	}
 
 	addButtonsInDom = (button: string, start: boolean = false): void => {

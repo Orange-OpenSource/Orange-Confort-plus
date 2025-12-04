@@ -7,7 +7,7 @@
 import { minify } from 'terser';
 import { writeFileSync, readFileSync } from 'node:fs';
 import process from 'node:process';
-import { default as pkg } from '../package.json' assert { type: 'json'};
+import { default as pkg } from '../package.json' with { type: 'json'};
 const date = new Date();
 
 const code = {};
