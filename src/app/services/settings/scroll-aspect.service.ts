@@ -90,7 +90,7 @@ class ScrollAspectService {
 				case 'big':
 					this.scrollWidth = SCROLL_SIZE_BIG;
 					if ( this.isFirefox()) {
-						this.moveFixedElements(document, 30);
+						this.moveFixedElements(document,  parseInt(this.scrollWidth));
 						this.hideFirefoxScrollBrClass();
 					}
 					break;
@@ -98,7 +98,7 @@ class ScrollAspectService {
 					this.scrollWidth = SCROLL_SIZE_HUGE;
 					document.body.classList.add(`${PREFIX}huge-scroll`);
 					if ( this.isFirefox()) {
-						this.moveFixedElements(document, 42);
+						this.moveFixedElements(document, parseInt(this.scrollWidth));
 						this.hideFirefoxScrollBrClass();
 					}
 					break;

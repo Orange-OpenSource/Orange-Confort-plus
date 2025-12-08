@@ -191,7 +191,7 @@ class DomService {
 				background-color:#e0e0e0 !important ;
 				right: 0;
 				z-index: calc(infinity);
-				width:30px;
+				width:${CURSOR_SIZE_BIG};
 				height:100%;
 				box-shadow: -2px 0 5px rgba(0,0,0,0.4) inset;
 			}
@@ -220,7 +220,7 @@ class DomService {
 			}
 
 			.${PREFIX}huge-scroll .cf-scroll-navette-container {
-				height: calc(100% - 52px);
+				height: calc(100% - ${CURSOR_SIZE_HUGE});
 				}
 		
 			.${PREFIX}huge-scroll .cf-scroll-down-triangle {
@@ -237,7 +237,7 @@ class DomService {
 			}
 			*/
 			.${PREFIX}huge-scroll #cf-custom-scrollbar {
-				width:42px;
+				width:${CURSOR_SIZE_HUGE};
 			}
 		`;
 
