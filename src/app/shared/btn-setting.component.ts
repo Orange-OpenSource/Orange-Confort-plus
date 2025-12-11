@@ -87,6 +87,7 @@ class BtnSettingComponent extends HTMLElement {
 			tooltipInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.name}_instruction`);
 			icon?.setAttribute('data-name', this.name);
 			this.setTitle();
+			this.checkForPendingTooltip();
 		}
 		if ('data-disabled' === name) {
 			this.disabled = newValue === 'true';
@@ -206,6 +207,36 @@ class BtnSettingComponent extends HTMLElement {
 		this.timeoutSelectedValue = setTimeout(() => {
 			this.selectedValue?.classList.add('d-none');
 		}, 3000);
+	}
+
+	showNewValueTooltip = (valueLabel: string): void => {
+		const tooltipInstruction: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-instruction');
+		const tooltipValue: HTMLElement = this.querySelector('.sc-btn-setting__tooltip-value');
+
+		if (tooltipInstruction && tooltipValue) {
+			tooltipInstruction.innerText = "Nouvelle valeur ajoutée";
+			tooltipValue.innerText = valueLabel;
+
+			this.tooltip?.classList.remove('d-none');
+			this.settingBtn.classList.add('sc-btn-setting--show-tooltip');
+
+			setTimeout(() => {
+				this.hideTooltip();
+				tooltipInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.name}_instruction`);
+			}, 5000);
+		}
+	}
+
+	checkForPendingTooltip = (): void => {
+		localStorageServiceInstance.getItem('new-value-added-tooltip').then((result: any) => {
+			if (result) {
+				const notification = JSON.parse(result);
+				if (stringServiceInstance.normalizeSettingCamelCase(notification.setting) === this.name) {
+					this.showNewValueTooltip(notification.value);
+					localStorageServiceInstance.removeItem('new-value-added-tooltip');
+				}
+			}
+		});
 	}
 
 	private createHandler = () => {

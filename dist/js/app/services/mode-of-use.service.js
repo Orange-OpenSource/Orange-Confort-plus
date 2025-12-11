@@ -110,6 +110,9 @@ class ModeOfUseService {
                         setting.valueSelected = newIndex;
                         setting.values = values.toString();
                         localStorageServiceInstance.setItem(JSON_NAME, json);
+                        if (newValue !== DEFAULT_VALUE) {
+                            localStorageServiceInstance.setItem('new-value-added-tooltip', JSON.stringify({ setting: settingName, value: newValue }));
+                        }
                         jsonIsEdited = true;
                     }
                 }
