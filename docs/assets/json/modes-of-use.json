@@ -70,7 +70,7 @@
 				{
 					"readAloud": {
 						"values": "noModifications,sentence,paragraph",
-						"valueSelected": 0,
+						"valueSelected": 2,
 						"isTool": true,
 						"order": 2
 					}

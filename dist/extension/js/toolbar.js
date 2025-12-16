@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.0.1 - 04/12/2025
+ * orange-confort-plus - version 5.0.1 - 16/12/2025
  * Enhance user experience on web sites
  * © 2014 - 2025 Orange SA
  */
@@ -764,7 +764,7 @@ const CURSOR_SIZE_HUGE = 128;
 
 const SCROLL_SIZE_BIG = "32px";
 
-const  = "48px";
+const SCROLL_SIZE_HUGE = "48px";
 
 const BTN_RIGHT_POS_DEFAULT = "2em";
 
@@ -1081,12 +1081,16 @@ class DomService {
         }
         navette.style.height = `${navetteHeight}px`;
         document.addEventListener("scroll", (function() {
-            console.log("scroll event !");
             let scrollTop = window.scrollY;
             let navetteTop = scrollTop / (totalHeight - windowHeight) * (windowHeight - navette.offsetHeight);
             navette.style.top = `${navetteTop}px`;
         }));
         window.addEventListener("resize", (function() {
+            if (document.body.scrollHeight <= window.innerHeight) {
+                document.body.classList.add(`hide-scrollbar`);
+            } else {
+                document.body.classList.remove(`hide-scrollbar`);
+            }
             windowHeight = document.documentElement.clientHeight;
             windowHeight -= updownArrowSize * 2;
             navetteHeight = windowHeight / totalHeight * (windowHeight - updownArrowSize * 2);
@@ -1125,7 +1129,7 @@ class DomService {
                 }
             }
         }));
-        let styleContainerButtons = `\n\t\t\t#cf-custom-scrollbar {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t\n\t\t\t/*\n\t\t\t.cf-scroll-down-triangle {\n\t\t\t\tborder-left: 12px solid transparent;\n\t\t\t\tborder-right: 12px solid transparent;\n\t\t\t\tborder-top: 15px solid #000;\n\t\t\n\t\t\t}\n\n\t\t\t.cf-scroll-up-triangle {\n\t\t\t\tborder-left: 12px solid transparent;\n\t\t\t\tborder-right: 12px solid transparent;\n\t\t\t\tborder-bottom: 15px solid #000;\n\t\t\t}\n\n\t\t\t.cf-scroll-up{\n\t\t\t\theight: 21px;\n\t\t\t\tcursor: pointer;\n\t\t\t\twidth:100%;\n\t\t\t\tbackground-color: #555;\n\t\t\t\tpadding:3px;\n\t\t\t}\n\n\t\t\t.cf-scroll-down{\n\t\t\t\theight: 21px;\n\t\t\t\tcursor: pointer;\n\t\t\t\twidth:100%;\n\t\t\t\tbackground-color: #555;\n\t\t\t\tpadding:3px;\n\t\t\t}\n\t\t\t*/\n\t\t\t.cf-scroll-navette-container {\n\t\t\t\tposition: relative;\n\t\t\t\theight: 100%;\n\t\t\t\twidth:100%;\n\t\t\t\t}\n\n\t\t\t.${PREFIX}big-scroll #cf-custom-scrollbar {\n\t\t\t\tdisplay: block;\n\t\t\t\tposition: fixed;\n\t\t\t\ttop:0;\n\t\t\t\tbackground-color:#e0e0e0 !important ;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: calc(infinity);\n\t\t\t\twidth:30px;\n\t\t\t\theight:100%;\n\t\t\t\tbox-shadow: -2px 0 5px rgba(0,0,0,0.4) inset;\n\t\t\t}\n\n\t\t\t#cf-custom-scrollbar-navette {\n\t\t\t\tposition: relative;\n\t\t\t\ttop:0;\n\t\t\t\tbackground-color:#ff0000 !important;\n\t\t\t\tright: 0;\n\t\t\t\tborder-radius: 5px;\n\t\t\t\tborder: 1px solid #000;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\tcursor: pointer;\n\t\t\t\twidth:100%;\n\t\t\t\theight:10%;\n\t\t\t}\n\n\t\t\t#cf-custom-scrollbar-navette:hover {\n\t\t\t\tbackground-color:#555 !important;\t\n\t\t\t}\n\n\t\t\t/* hugeScroll Bar  */\n\t\t\t/*\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-up{\n\t\t\t\t26px\n\t\t\t}\n\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-navette-container {\n\t\t\t\theight: calc(100% - 52px);\n\t\t\t\t}\n\t\t\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-down-triangle {\n\t\t\t\tborder-left: 16px solid transparent;\n\t\t\t\tborder-right: 16px solid transparent;\n\t\t\t\tborder-top: 22px solid #000;\n\t\t\n\t\t\t}\n\n\t\t\t.${PREFIX}huge-scroll .cf-scroll-up-triangle {\n\t\t\t\tborder-left: 16px solid transparent;\n\t\t\t\tborder-right: 16px solid transparent;\n\t\t\t\tborder-bottom: 22px solid #000;\n\t\t\t}\n\t\t\t*/\n\t\t\t.${PREFIX}huge-scroll #cf-custom-scrollbar {\n\t\t\t\twidth:42px;\n\t\t\t}\n\t\t`;
+        let styleContainerButtons = `\n\t\t\t#cf-custom-scrollbar {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\n\t\t\t.cf-scroll-navette-container {\n\t\t\t\tposition: relative;\n\t\t\t\theight: 100%;\n\t\t\t\twidth:100%;\n\t\t\t\t}\n\n\t\t\t.${PREFIX}big-scroll #cf-custom-scrollbar {\n\t\t\t\tdisplay: block;\n\t\t\t\tposition: fixed;\n\t\t\t\ttop:0;\n\t\t\t\tbackground-color:#e0e0e0 !important ;\n\t\t\t\tright: 0;\n\t\t\t\tz-index: calc(infinity);\n\t\t\t\twidth:${SCROLL_SIZE_BIG};\n\t\t\t\theight:100%;\n\t\t\t\tbox-shadow: -2px 0 5px rgba(0,0,0,0.4) inset;\n\t\t\t}\n\n\t\t\n\n\t\t\t#cf-custom-scrollbar-navette:hover {\n\t\t\t\tbackground-color:#555 !important;\t\n\t\t\t}\n\n\t\t\t/* hugeScroll Bar  */\n\t\t\t\n\t\t\t.${PREFIX}huge-scroll #cf-custom-scrollbar {\n\t\t\t\twidth:${SCROLL_SIZE_HUGE};\n\t\t\t}\n\n\t\t\t#cf-custom-scrollbar.hide-scrollbar {\n\t\t\t\tdisplay: none !important;\n\t\t\t}\n\t\t`;
         stylesServiceInstance.setStyle("customscrollbar-buttons", styleContainerButtons);
         fragment.appendChild(scrollContainer);
         document.body.appendChild(fragment);
@@ -3320,7 +3324,6 @@ class ScrollAspectService {
         return userAgent.includes("firefox");
     }
     setScrollAspect=value => {
-        console.log("ScrollAspectService - setScrollAspect ");
         stylesServiceInstance.removeStyle("scroll-aspect");
         stylesServiceInstance.removeStyle("firefox-hide-scrollbar");
         document.body.classList.remove(`${PREFIX}big-scroll`);
@@ -3329,11 +3332,12 @@ class ScrollAspectService {
         console.log("#value scroll aspect ", value);
         if (value !== DEFAULT_VALUE) {
             document.body.classList.add(`${PREFIX}big-scroll`);
+            console.log("value scroll aspect set ", value);
             switch (value?.split("_")[0]) {
               case "big":
                 this.scrollWidth = SCROLL_SIZE_BIG;
-                if (this.isFirefox()) {
-                    this.moveFixedElements(document, 30);
+                if (this.isFirefox() && document.body.scrollHeight <= window.innerHeight) {
+                    this.moveFixedElements(document, parseInt(this.scrollWidth));
                     this.hideFirefoxScrollBrClass();
                 }
                 break;
@@ -3341,8 +3345,8 @@ class ScrollAspectService {
               case "huge":
                 this.scrollWidth = SCROLL_SIZE_HUGE;
                 document.body.classList.add(`${PREFIX}huge-scroll`);
-                if (this.isFirefox()) {
-                    this.moveFixedElements(document, 42);
+                if (this.isFirefox() && document.body.scrollHeight <= window.innerHeight) {
+                    this.moveFixedElements(document, parseInt(this.scrollWidth));
                     this.hideFirefoxScrollBrClass();
                 }
                 break;
@@ -3364,7 +3368,7 @@ class ScrollAspectService {
         }
     };
     setScrollClass=() => {
-        let styleScroll = `\n\t\t\t\thtml {\n\t\t\t\t\toverflow: initial !important;\n\t\t\t\t}\n\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: red;\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\n\t\t\t`;
+        let styleScroll = `\n\t\t\t\thtml {\n\t\t\t\t\toverflow: initial !important;\n\t\t\t\t}\n\n\t\t\t\t.d-none {\n\t\t\t\t\tdisplay: none;\n\t\t\t\t}\n\n\t\t\t\t/* WebKit (Chrome, Safari) */\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar {\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {\n\t\t\t\t\tbackground-color: ${this.scrollColor};\n\t\t\t\t\tborder: 1px solid ${this.scrollBorderColor};\n\t\t\t\t\tborder-radius: 10px;\n\t\t\t\t\twidth: ${this.scrollWidth};\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t}\n\t\t\t\t.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,\n\t\t\t\t.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {\n\t\t\t\t\tbackground-color: ${this.scrollColorHover};\n\t\t\t\t}\n\n\t\t\t\t#cf-custom-scrollbar-navette {\n\t\t\t\t\tposition: relative;\n\t\t\t\t\ttop:0;\n\t\t\t\t\tbackground-color:${this.scrollColor} !important;\n\t\t\t\t\tright: 0;\n\t\t\t\t\tborder-radius: 5px;\n\t\t\t\t\tborder: 1px solid #000;\n\t\t\t\t\tbox-sizing: border-box;\n\t\t\t\t\tcursor: pointer;\n\t\t\t\t\twidth:100%;\n\t\t\t\t\theight:10%;\n\t\t\t\t}\n\n\t\t\t\n\t\t\t`;
         stylesServiceInstance.setStyle("scroll-aspect", styleScroll);
     };
     hideFirefoxScrollBrClass=() => {

@@ -84,12 +84,17 @@ class DomService {
         }
         navette.style.height = `${navetteHeight}px`;
         document.addEventListener('scroll', function () {
-            console.log('scroll event !');
             let scrollTop = window.scrollY;
             let navetteTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - navette.offsetHeight);
             navette.style.top = `${navetteTop}px`;
         });
         window.addEventListener('resize', function () {
+            if (document.body.scrollHeight <= window.innerHeight) {
+                document.body.classList.add(`hide-scrollbar`);
+            }
+            else {
+                document.body.classList.remove(`hide-scrollbar`);
+            }
             // recalculate navette height
             windowHeight = document.documentElement.clientHeight;
             windowHeight -= updownArrowSize * 2;
@@ -137,37 +142,6 @@ class DomService {
 				display: none;
 			}
 
-			
-			/*
-			.cf-scroll-down-triangle {
-				border-left: 12px solid transparent;
-				border-right: 12px solid transparent;
-				border-top: 15px solid #000;
-		
-			}
-
-			.cf-scroll-up-triangle {
-				border-left: 12px solid transparent;
-				border-right: 12px solid transparent;
-				border-bottom: 15px solid #000;
-			}
-
-			.cf-scroll-up{
-				height: 21px;
-				cursor: pointer;
-				width:100%;
-				background-color: #555;
-				padding:3px;
-			}
-
-			.cf-scroll-down{
-				height: 21px;
-				cursor: pointer;
-				width:100%;
-				background-color: #555;
-				padding:3px;
-			}
-			*/
 			.cf-scroll-navette-container {
 				position: relative;
 				height: 100%;
@@ -181,53 +155,25 @@ class DomService {
 				background-color:#e0e0e0 !important ;
 				right: 0;
 				z-index: calc(infinity);
-				width:30px;
+				width:${SCROLL_SIZE_BIG};
 				height:100%;
 				box-shadow: -2px 0 5px rgba(0,0,0,0.4) inset;
 			}
 
-			#cf-custom-scrollbar-navette {
-				position: relative;
-				top:0;
-				background-color:#ff0000 !important;
-				right: 0;
-				border-radius: 5px;
-				border: 1px solid #000;
-				box-sizing: border-box;
-				cursor: pointer;
-				width:100%;
-				height:10%;
-			}
+		
 
 			#cf-custom-scrollbar-navette:hover {
 				background-color:#555 !important;	
 			}
 
 			/* hugeScroll Bar  */
-			/*
-			.${PREFIX}huge-scroll .cf-scroll-up{
-				26px
-			}
-
-			.${PREFIX}huge-scroll .cf-scroll-navette-container {
-				height: calc(100% - 52px);
-				}
-		
-			.${PREFIX}huge-scroll .cf-scroll-down-triangle {
-				border-left: 16px solid transparent;
-				border-right: 16px solid transparent;
-				border-top: 22px solid #000;
-		
-			}
-
-			.${PREFIX}huge-scroll .cf-scroll-up-triangle {
-				border-left: 16px solid transparent;
-				border-right: 16px solid transparent;
-				border-bottom: 22px solid #000;
-			}
-			*/
+			
 			.${PREFIX}huge-scroll #cf-custom-scrollbar {
-				width:42px;
+				width:${SCROLL_SIZE_HUGE};
+			}
+
+			#cf-custom-scrollbar.hide-scrollbar {
+				display: none !important;
 			}
 		`;
         stylesServiceInstance.setStyle('customscrollbar-buttons', styleContainerButtons);

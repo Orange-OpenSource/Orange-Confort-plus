@@ -67,28 +67,29 @@ class ScrollAspectService {
         return userAgent.includes('firefox');
     }
     setScrollAspect = (value) => {
-        console.log('ScrollAspectService - setScrollAspect ');
         stylesServiceInstance.removeStyle('scroll-aspect');
         stylesServiceInstance.removeStyle('firefox-hide-scrollbar');
         document.body.classList.remove(`${PREFIX}big-scroll`);
         document.body.classList.remove(`${PREFIX}huge-scroll`);
         this.restoreFixedElements();
         console.log('#value scroll aspect ', value);
+        // check if scrollbar id to be hidden, page height is less than window height
         if (value !== DEFAULT_VALUE) {
             document.body.classList.add(`${PREFIX}big-scroll`);
+            console.log('value scroll aspect set ', value);
             switch (value?.split('_')[0]) {
                 case 'big':
                     this.scrollWidth = SCROLL_SIZE_BIG;
-                    if (this.isFirefox()) {
-                        this.moveFixedElements(document, 30);
+                    if (this.isFirefox() && document.body.scrollHeight <= window.innerHeight) {
+                        this.moveFixedElements(document, parseInt(this.scrollWidth));
                         this.hideFirefoxScrollBrClass();
                     }
                     break;
                 case 'huge':
                     this.scrollWidth = SCROLL_SIZE_HUGE;
                     document.body.classList.add(`${PREFIX}huge-scroll`);
-                    if (this.isFirefox()) {
-                        this.moveFixedElements(document, 42);
+                    if (this.isFirefox() && document.body.scrollHeight <= window.innerHeight) {
+                        this.moveFixedElements(document, parseInt(this.scrollWidth));
                         this.hideFirefoxScrollBrClass();
                     }
                     break;
@@ -126,7 +127,7 @@ class ScrollAspectService {
 				}
 				.${PREFIX}big-scroll::-webkit-scrollbar-thumb,
 				.${PREFIX}big-scroll *::-webkit-scrollbar-thumb {
-					background-color: red;
+					background-color: ${this.scrollColor};
 					border: 1px solid ${this.scrollBorderColor};
 					border-radius: 10px;
 					width: ${this.scrollWidth};
@@ -135,6 +136,19 @@ class ScrollAspectService {
 				.${PREFIX}big-scroll::-webkit-scrollbar-thumb:hover,
 				.${PREFIX}big-scroll *::-webkit-scrollbar-thumb:hover {
 					background-color: ${this.scrollColorHover};
+				}
+
+				#cf-custom-scrollbar-navette {
+					position: relative;
+					top:0;
+					background-color:${this.scrollColor} !important;
+					right: 0;
+					border-radius: 5px;
+					border: 1px solid #000;
+					box-sizing: border-box;
+					cursor: pointer;
+					width:100%;
+					height:10%;
 				}
 
 			
