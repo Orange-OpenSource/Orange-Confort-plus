@@ -194,7 +194,7 @@ class BtnSettingComponent extends HTMLElement {
         const tooltipInstruction = this.querySelector('.sc-btn-setting__tooltip-instruction');
         const tooltipValue = this.querySelector('.sc-btn-setting__tooltip-value');
         if (tooltipInstruction && tooltipValue) {
-            tooltipInstruction.innerText = "Nouvelle valeur ajoutée";
+            tooltipInstruction.innerText = i18nServiceInstance.getMessage('newValueAddedTooltip');
             tooltipValue.innerText = valueLabel;
             this.tooltip?.classList.remove('d-none');
             this.settingBtn.classList.add('sc-btn-setting--show-tooltip');
