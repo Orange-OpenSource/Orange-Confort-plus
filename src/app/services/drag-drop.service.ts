@@ -7,12 +7,12 @@ class DragDropService {
 	justDragged = false;
 	offsetX = 0;
 	offsetY = 0;
-	initialMouseX = 0;
-	initialMouseY = 0;
+	initialPointerX = 0;
+	initialPointerY = 0;
 
-	handlerMouseDown: any;
-	handlerMouseMove: any;
-	handlerMouseUp: any;
+	handlerPointerDown: any;
+	handlerPointerMove: any;
+	handlerPointerUp: any;
 	handlerClick: any;
 	handlerResize: any;
 
@@ -23,9 +23,9 @@ class DragDropService {
 
 		dragDropServiceIsInstantiated = true;
 
-		this.handlerMouseDown = this.onMouseDown.bind(this);
-		this.handlerMouseMove = this.onMouseMove.bind(this);
-		this.handlerMouseUp = this.onMouseUp.bind(this);
+		this.handlerPointerDown = this.onPointerDown.bind(this);
+		this.handlerPointerMove = this.onPointerMove.bind(this);
+		this.handlerPointerUp = this.onPointerUp.bind(this);
 		this.handlerClick = this.onClickCapture.bind(this);
 		this.handlerResize = this.onResize.bind(this);
 	}
@@ -40,10 +40,10 @@ class DragDropService {
 			return;
 		}
 		this.isEnabled = true;
-		this.button.addEventListener('pointerdown', this.handlerMouseDown);
+		this.button.addEventListener('pointerdown', this.handlerPointerDown);
 		this.button.addEventListener('click', this.handlerClick, true);
 		window.addEventListener('resize', this.handlerResize);
-		this.constrainPosition();
+		this.clampPosition();
 	}
 
 	disable = (): void => {
@@ -51,10 +51,10 @@ class DragDropService {
 			return;
 		}
 		this.isEnabled = false;
-		this.button.removeEventListener('pointerdown', this.handlerMouseDown);
+		this.button.removeEventListener('pointerdown', this.handlerPointerDown);
 		this.button.removeEventListener('click', this.handlerClick, true);
-		document.removeEventListener('pointermove', this.handlerMouseMove);
-		document.removeEventListener('pointerup', this.handlerMouseUp);
+		document.removeEventListener('pointermove', this.handlerPointerMove);
+		document.removeEventListener('pointerup', this.handlerPointerUp);
 		window.removeEventListener('resize', this.handlerResize);
 		this.isDragging = false;
 		this.justDragged = false;
@@ -63,47 +63,47 @@ class DragDropService {
 		}
 	}
 
-	private onMouseDown = (event: MouseEvent): void => {
+	private onPointerDown = (event: PointerEvent): void => {
 		if (!this.button || !this.isEnabled) {
 			return;
 		}
 
 		this.isDragging = false;
 		this.justDragged = false;
-		this.initialMouseX = event.clientX;
-		this.initialMouseY = event.clientY;
+		this.initialPointerX = event.clientX;
+		this.initialPointerY = event.clientY;
 
 		const rect = this.button.getBoundingClientRect();
 		this.offsetX = event.clientX - rect.left;
 		this.offsetY = event.clientY - rect.top;
 
-		document.addEventListener('pointermove', this.handlerMouseMove);
-		document.addEventListener('pointerup', this.handlerMouseUp);
+		document.addEventListener('pointermove', this.handlerPointerMove);
+		document.addEventListener('pointerup', this.handlerPointerUp);
 
 		this.button.style.cursor = 'grabbing';
 		event.preventDefault();
 	}
 
-	private onMouseMove = (event: MouseEvent): void => {
+	private onPointerMove = (event: PointerEvent): void => {
 		if (!this.button) {
 			return;
 		}
 
-		const deltaX = Math.abs(event.clientX - this.initialMouseX);
-		const deltaY = Math.abs(event.clientY - this.initialMouseY);
+		const deltaX = Math.abs(event.clientX - this.initialPointerX);
+		const deltaY = Math.abs(event.clientY - this.initialPointerY);
 
-		if (deltaX > 5 || deltaY > 5) {
+		if (deltaX > BTN_CPLUS_DRAG_TRESHOLD || deltaY > BTN_CPLUS_DRAG_TRESHOLD) {
 			this.isDragging = true;
 		}
 
 		let newX = event.clientX - this.offsetX;
 		let newY = event.clientY - this.offsetY;
 
-		const maxX = window.innerWidth - this.button.offsetWidth - 26; // 26px extra margin for scrollbar
-		const maxY = window.innerHeight - this.button.offsetHeight;
+		const maxX = this.getMaxX();
+		const maxY = this.getMaxY();
 
-		newX = Math.max(0, Math.min(newX, maxX));
-		newY = Math.max(0, Math.min(newY, maxY));
+		newX = this.clamp(newX, maxX);
+		newY = this.clamp(newY, maxY);
 
 		this.button.style.left = `${newX}px`;
 		this.button.style.top = `${newY}px`;
@@ -112,13 +112,13 @@ class DragDropService {
 		event.preventDefault();
 	}
 
-	private onMouseUp = (event: MouseEvent): void => {
+	private onPointerUp = (event: PointerEvent): void => {
 		if (!this.button) {
 			return;
 		}
 
-		document.removeEventListener('pointermove', this.handlerMouseMove);
-		document.removeEventListener('pointerup', this.handlerMouseUp);
+		document.removeEventListener('pointermove', this.handlerPointerMove);
+		document.removeEventListener('pointerup', this.handlerPointerUp);
 
 		this.button.style.cursor = 'grab';
 
@@ -136,7 +136,7 @@ class DragDropService {
 		this.isDragging = false;
 	}
 
-	private onClickCapture = (event: MouseEvent): void => {
+	private onClickCapture = (event: PointerEvent): void => {
 		if (this.justDragged) {
 			event.preventDefault();
 			event.stopPropagation();
@@ -145,10 +145,10 @@ class DragDropService {
 	}
 
 	private onResize = (): void => {
-		this.constrainPosition();
+		this.clampPosition();
 	}
 
-	private constrainPosition = (): void => {
+	private clampPosition = (): void => {
 		if (!this.button) {
 			return;
 		}
@@ -159,9 +159,8 @@ class DragDropService {
 			return;
 		}
 
-		const maxX = window.innerWidth - this.button.offsetWidth  - 26; // 26px extra margin for scrollbar
-		const maxY = window.innerHeight - this.button.offsetHeight;
-
+		const maxX = this.getMaxX();
+		const maxY = this.getMaxY();
 
 		let currentLeft = parseFloat(this.button.style.left) || rect.left;
 		let currentTop = parseFloat(this.button.style.top) || rect.top;
@@ -171,8 +170,8 @@ class DragDropService {
 			currentTop = rect.top;
 		}
 
-		const newX = Math.max(0, Math.min(currentLeft, maxX));
-		const newY = Math.max(0, Math.min(currentTop, maxY));
+		const newX = this.clamp(currentLeft, maxX);
+		const newY = this.clamp(currentTop, maxY);
 
 		this.button.style.left = `${newX}px`;
 		this.button.style.top = `${newY}px`;
@@ -203,11 +202,11 @@ class DragDropService {
 				let x = parseFloat(savedX as string);
 				let y = parseFloat(savedY as string);
 
-				const maxX = window.innerWidth - this.button.offsetWidth -26; // 26px extra margin for scrollbar
-				const maxY = window.innerHeight - this.button.offsetHeight;
+				const maxX = this.getMaxX();
+				const maxY = this.getMaxY();
 
-				x = Math.max(0, Math.min(x, maxX));
-				y = Math.max(0, Math.min(y, maxY));
+				x = this.clamp(x, maxX);
+				y = this.clamp(y, maxY);
 
 				this.button.style.left = `${x}px`;
 				this.button.style.top = `${y}px`;
@@ -219,5 +218,16 @@ class DragDropService {
 			}
 		});
 	}
-}
 
+	private getMaxX = (): number => {
+		return window.innerWidth - this.button.offsetWidth - BTN_CPLUS_SCROLLBAR_MARGIN;
+	}
+
+	private getMaxY = (): number => {
+		return window.innerHeight - this.button.offsetHeight;
+	}
+
+	private clamp (value: number, max: number, min = 0) {
+		return Math.max(min, Math.min(value, max));
+	}
+}

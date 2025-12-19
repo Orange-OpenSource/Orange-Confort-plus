@@ -1518,7 +1518,11 @@ const SCROLL_SIZE_BIG = "32px";
 
 const SCROLL_SIZE_HUGE = "48px";
 
+const BTN_CPLUS_SCROLLBAR_MARGIN = 26;
+
 const BTN_CPLUS_POS_DEFAULT = "1em";
+
+const BTN_CPLUS_DRAG_TRESHOLD = 5;
 
 const BTN_RIGHT_POS_DEFAULT = "2em";
 
@@ -1838,21 +1842,23 @@ class DragDropService {
     justDragged=false;
     offsetX=0;
     offsetY=0;
-    initialMouseX=0;
-    initialMouseY=0;
-    handlerMouseDown;
-    handlerMouseMove;
-    handlerMouseUp;
+    initialPointerX=0;
+    initialPointerY=0;
+    handlerPointerDown;
+    handlerPointerMove;
+    handlerPointerUp;
     handlerClick;
+    handlerResize;
     constructor() {
         if (dragDropServiceIsInstantiated) {
             throw new Error("DragDropService is already instantiated.");
         }
         dragDropServiceIsInstantiated = true;
-        this.handlerMouseDown = this.onMouseDown.bind(this);
-        this.handlerMouseMove = this.onMouseMove.bind(this);
-        this.handlerMouseUp = this.onMouseUp.bind(this);
+        this.handlerPointerDown = this.onPointerDown.bind(this);
+        this.handlerPointerMove = this.onPointerMove.bind(this);
+        this.handlerPointerUp = this.onPointerUp.bind(this);
         this.handlerClick = this.onClickCapture.bind(this);
+        this.handlerResize = this.onResize.bind(this);
     }
     init=button => {
         this.button = button;
@@ -1863,66 +1869,69 @@ class DragDropService {
             return;
         }
         this.isEnabled = true;
-        this.button.addEventListener("pointerdown", this.handlerMouseDown);
+        this.button.addEventListener("pointerdown", this.handlerPointerDown);
         this.button.addEventListener("click", this.handlerClick, true);
+        window.addEventListener("resize", this.handlerResize);
+        this.clampPosition();
     };
     disable=() => {
         if (!this.button || !this.isEnabled) {
             return;
         }
         this.isEnabled = false;
-        this.button.removeEventListener("pointerdown", this.handlerMouseDown);
+        this.button.removeEventListener("pointerdown", this.handlerPointerDown);
         this.button.removeEventListener("click", this.handlerClick, true);
-        document.removeEventListener("pointermove", this.handlerMouseMove);
-        document.removeEventListener("pointerup", this.handlerMouseUp);
+        document.removeEventListener("pointermove", this.handlerPointerMove);
+        document.removeEventListener("pointerup", this.handlerPointerUp);
+        window.removeEventListener("resize", this.handlerResize);
         this.isDragging = false;
         this.justDragged = false;
         if (this.button) {
             this.button.style.cursor = "grab";
         }
     };
-    onMouseDown=event => {
+    onPointerDown=event => {
         if (!this.button || !this.isEnabled) {
             return;
         }
         this.isDragging = false;
         this.justDragged = false;
-        this.initialMouseX = event.clientX;
-        this.initialMouseY = event.clientY;
+        this.initialPointerX = event.clientX;
+        this.initialPointerY = event.clientY;
         const rect = this.button.getBoundingClientRect();
         this.offsetX = event.clientX - rect.left;
         this.offsetY = event.clientY - rect.top;
-        document.addEventListener("pointermove", this.handlerMouseMove);
-        document.addEventListener("pointerup", this.handlerMouseUp);
+        document.addEventListener("pointermove", this.handlerPointerMove);
+        document.addEventListener("pointerup", this.handlerPointerUp);
         this.button.style.cursor = "grabbing";
         event.preventDefault();
     };
-    onMouseMove=event => {
+    onPointerMove=event => {
         if (!this.button) {
             return;
         }
-        const deltaX = Math.abs(event.clientX - this.initialMouseX);
-        const deltaY = Math.abs(event.clientY - this.initialMouseY);
-        if (deltaX > 5 || deltaY > 5) {
+        const deltaX = Math.abs(event.clientX - this.initialPointerX);
+        const deltaY = Math.abs(event.clientY - this.initialPointerY);
+        if (deltaX > BTN_CPLUS_DRAG_TRESHOLD || deltaY > BTN_CPLUS_DRAG_TRESHOLD) {
             this.isDragging = true;
         }
         let newX = event.clientX - this.offsetX;
         let newY = event.clientY - this.offsetY;
-        const maxX = window.innerWidth - this.button.offsetWidth;
-        const maxY = window.innerHeight - this.button.offsetHeight;
-        newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
+        const maxX = this.getMaxX();
+        const maxY = this.getMaxY();
+        newX = this.clamp(newX, maxX);
+        newY = this.clamp(newY, maxY);
         this.button.style.left = `${newX}px`;
         this.button.style.top = `${newY}px`;
         this.button.style.right = "auto";
         event.preventDefault();
     };
-    onMouseUp=event => {
+    onPointerUp=event => {
         if (!this.button) {
             return;
         }
-        document.removeEventListener("pointermove", this.handlerMouseMove);
-        document.removeEventListener("pointerup", this.handlerMouseUp);
+        document.removeEventListener("pointermove", this.handlerPointerMove);
+        document.removeEventListener("pointerup", this.handlerPointerUp);
         this.button.style.cursor = "grab";
         if (this.isDragging) {
             this.justDragged = true;
@@ -1942,6 +1951,32 @@ class DragDropService {
             event.stopImmediatePropagation();
         }
     };
+    onResize=() => {
+        this.clampPosition();
+    };
+    clampPosition=() => {
+        if (!this.button) {
+            return;
+        }
+        const rect = this.button.getBoundingClientRect();
+        if (rect.width === 0 && rect.height === 0) {
+            return;
+        }
+        const maxX = this.getMaxX();
+        const maxY = this.getMaxY();
+        let currentLeft = parseFloat(this.button.style.left) || rect.left;
+        let currentTop = parseFloat(this.button.style.top) || rect.top;
+        if (this.button.style.left === "" || this.button.style.top === "") {
+            currentLeft = rect.left;
+            currentTop = rect.top;
+        }
+        const newX = this.clamp(currentLeft, maxX);
+        const newY = this.clamp(currentTop, maxY);
+        this.button.style.left = `${newX}px`;
+        this.button.style.top = `${newY}px`;
+        this.button.style.right = "auto";
+        this.savePosition();
+    };
     savePosition=() => {
         if (!this.button) {
             return;
@@ -1958,19 +1993,25 @@ class DragDropService {
             if (savedX && savedY) {
                 let x = parseFloat(savedX);
                 let y = parseFloat(savedY);
-                const maxX = window.innerWidth - this.button.offsetWidth;
-                const maxY = window.innerHeight - this.button.offsetHeight;
-                x = Math.max(0, Math.min(x, maxX));
-                y = Math.max(0, Math.min(y, maxY));
+                const maxX = this.getMaxX();
+                const maxY = this.getMaxY();
+                x = this.clamp(x, maxX);
+                y = this.clamp(y, maxY);
                 this.button.style.left = `${x}px`;
                 this.button.style.top = `${y}px`;
                 this.button.style.right = "auto";
             } else {
+                this.button.style.left = "auto";
                 this.button.style.top = BTN_CPLUS_POS_DEFAULT;
                 this.button.style.right = BTN_CPLUS_POS_DEFAULT;
             }
         }));
     };
+    getMaxX=() => window.innerWidth - this.button.offsetWidth - BTN_CPLUS_SCROLLBAR_MARGIN;
+    getMaxY=() => window.innerHeight - this.button.offsetHeight;
+    clamp(value, max, min = 0) {
+        return Math.max(min, Math.min(value, max));
+    }
 }
 
 "use strict";
