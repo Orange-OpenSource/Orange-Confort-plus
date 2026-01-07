@@ -22,6 +22,7 @@ tmplMode.innerHTML = `
 	<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>
 	<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>
 	<app-zoom class="sc-mode__setting d-none"></app-zoom>
+	<app-reading-page class="sc-mode__setting d-none"></app-reading-page>
 </div>
 `;
 class ModeComponent extends HTMLElement {
