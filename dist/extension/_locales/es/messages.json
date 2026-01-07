@@ -852,6 +852,9 @@
 	"navigationButtons_noModifications": {
 		"message": "sin botones de navegación"
 	},
+	"navigationButtonsNone": {
+		"message": "sin botones de navegación"
+	},
 	"navigationButtons_values": {
 		"message": "$BUTTONS$ & $DELAY$",
 		"placeholders": {
