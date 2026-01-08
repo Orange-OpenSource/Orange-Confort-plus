@@ -1,5 +1,5 @@
 {
-	"version": "1.0.42",
+	"version": "1.0.43",
 	"modes": [
 		{
 			"facilePlus": [
@@ -70,7 +70,7 @@
 				{
 					"readAloud": {
 						"values": "noModifications,sentence,paragraph",
-						"valueSelected": 2,
+						"valueSelected": 1,
 						"isTool": true,
 						"order": 2
 					}
