@@ -70,7 +70,10 @@ $corner-value: 10px;
 .sc-btn-setting__tooltip {
 	opacity: 1;
 	position: absolute;
-	bottom: 6rem
+	bottom: 6.8em;
+	p {
+		margin-bottom: 1em;
+	}
 }
 
 .sc-btn-setting__name::after {
