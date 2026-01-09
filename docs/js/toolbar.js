@@ -6928,7 +6928,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
     settingValues=null;
     buttonSetValue="";
     pointingDelayValue="";
-    buttonSetValues=[ `buttonSet_${DEFAULT_VALUE}`, "buttonSet_scrollSet", "buttonSet_navigationSet", "buttonSet_fullSet" ];
+    buttonSetValues=[ "buttonSet_navigationButtonsNone", "buttonSet_scrollSet", "buttonSet_navigationSet", "buttonSet_fullSet" ];
     pointingDelayValues=[ `pointingDelay_clicAction`, "pointingDelay_delay1", "pointingDelay_delay2", "pointingDelay_delay3", "pointingDelay_delay6" ];
     handler;
     constructor() {
@@ -6947,7 +6947,11 @@ class EditNavigationButtonsComponent extends HTMLElement {
             this.settingValues = result.values?.split(",");
             this.buttonSetValue = this.settingValues[result.valueSelected]?.split("_")[0];
             this.pointingDelayValue = this.settingValues[result.valueSelected]?.split("_")[1];
-            const currentIndexButtonPreset = this.buttonSetValues.findIndex((i => i === `buttonSet_${this.buttonSetValue}`));
+            let searchButtonSetValue = `buttonSet_${this.buttonSetValue}`;
+            if (this.buttonSetValue === DEFAULT_VALUE) {
+                searchButtonSetValue = "buttonSet_navigationButtonsNone";
+            }
+            const currentIndexButtonPreset = this.buttonSetValues.findIndex((i => i === searchButtonSetValue));
             const currentIndexPointingDelay = this.pointingDelayValues.findIndex((i => i === `pointingDelay_${this.pointingDelayValue}`));
             this.selectButtonPresetElement.setAttribute("data-index", currentIndexButtonPreset.toString());
             this.selectPointingDelayElement.setAttribute("data-index", currentIndexPointingDelay.toString());
@@ -6977,10 +6981,11 @@ class EditNavigationButtonsComponent extends HTMLElement {
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingButtonSet":
-            if (event.detail.newValue === DEFAULT_VALUE) {
+            const btnSetValue = event.detail.newValue.split("_")[1];
+            if (btnSetValue === "navigationButtonsNone") {
                 this.buttonSetValue = DEFAULT_VALUE;
             } else {
-                this.buttonSetValue = event.detail.newValue.split("_")[1];
+                this.buttonSetValue = btnSetValue;
             }
             this.togglePointingDelayVisibility();
             this.setNavigationButtons();
