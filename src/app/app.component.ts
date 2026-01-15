@@ -21,6 +21,8 @@ class AppComponent extends HTMLElement {
 
 	handler: any;
 
+	private pressedKeys = new Set<string>();
+
 	constructor() {
 		super();
 
@@ -69,11 +71,52 @@ class AppComponent extends HTMLElement {
 
 		this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
 		this.confortPlusBtn.addEventListener('click', this.handler);
+
+		window.addEventListener('keydown', this.handleKeyDown);
+		window.addEventListener('keyup', this.handleKeyUp);
 	}
 
 	disconnectedCallback(): void {
 		this.confortPlusToolbar?.removeEventListener('closeEvent', this.handler);
 		this.confortPlusBtn?.removeEventListener('click', this.handler);
+
+		window.removeEventListener('keydown', this.handleKeyDown);
+		window.removeEventListener('keyup', this.handleKeyUp);
+	}
+
+	private handleKeyDown = (event: KeyboardEvent) => {
+		this.pressedKeys.add(event.key);
+
+		if (
+			event.shiftKey &&
+			this.pressedKeys.has('R')
+			&& this.pressedKeys.has('A')
+			&& this.pressedKeys.has('Z')
+		) {
+			this.resetAction();
+			this.pressedKeys.clear();
+		}
+	}
+
+	private handleKeyUp = (event: KeyboardEvent) => {
+		this.pressedKeys.delete(event.key);
+	}
+
+	private resetAction = () => {
+
+		globalSettingsServices.forEach((service: SavedSettingsState) => {
+			service.instanceService(DEFAULT_VALUE);
+		});
+		localStorageServiceInstance.getItem('modeOfUse').then((json: any) => {
+			const activeMode = json.modes.find((mode: any) => mode[json.selectedMode]);
+
+			activeMode?.[json.selectedMode]?.forEach((settingWrapper: any) => {
+				const setting = Object.values(settingWrapper)[0] as any;
+				setting.valueSelected = 0;
+			});
+			localStorageServiceInstance.setItem('modeOfUse', json);
+		});
+
 	}
 
 	private createHandler = () => {

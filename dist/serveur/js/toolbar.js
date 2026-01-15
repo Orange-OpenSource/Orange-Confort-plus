@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.3.0 - 29/01/2026
+ * orange-confort-plus - version 5.3.0 - 15/01/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2149,87 +2149,7 @@ class PauseService {
             throw new Error("PauseService is already instantiated.");
         }
         pauseServiceIsInstantiated = true;
-        this.settingsServices = [ {
-            name: "capitalLetters",
-            instanceService: capitalLettersServiceInstance.setCapitalLetters.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "clearlyLinks",
-            instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "clickFacilite",
-            instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "colorContrast",
-            instanceService: colorContrastServiceInstance.setColorsContrasts.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "cursorAspect",
-            instanceService: cursorAspectServiceInstance.setCursor.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "deleteBackgroundImages",
-            instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "focusAspect",
-            instanceService: focusAspectServiceInstance.setFocus.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "fontFamily",
-            instanceService: fontFamilyServiceInstance.setFontFamily.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "linkStyle",
-            instanceService: linkStyleServiceInstance.setLinkStyle.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "magnifier",
-            instanceService: magnifierServiceInstance.setMagnifier.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "marginAlign",
-            instanceService: marginAlignServiceInstance.setMargin.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "navigationAuto",
-            instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "navigationButtons",
-            instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "readAloud",
-            instanceService: readAloudServiceInstance.setReadAloud.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "readingGuide",
-            instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "scroll",
-            instanceService: scrollAspectServiceInstance.setScrollAspect.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "stopAnimations",
-            instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "textSize",
-            instanceService: textSizeServiceInstance.setFontSize.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "textSpacing",
-            instanceService: textSpacingServiceInstance.setSpacingText.bind(this),
-            value: DEFAULT_VALUE
-        }, {
-            name: "zoom",
-            instanceService: zoomServiceInstance.setZoom.bind(this),
-            value: DEFAULT_VALUE
-        } ];
+        this.settingsServices = [ ...globalSettingsServices ];
     }
     pauseSettings=currentSettings => {
         const settings = JSON.parse(currentSettings);
@@ -2531,7 +2451,6 @@ class ClickFaciliteService {
           case CLICK_FACILITE_BIG_ZONE:
             {
                 this.resetEventClick();
-                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect("big_black");
                 break;
             }
@@ -2539,7 +2458,6 @@ class ClickFaciliteService {
           case CLICK_FACILITE_LONG_CLICK:
             {
                 this.resetEventClick();
-                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect("big_black");
                 this.longClick();
                 break;
@@ -2548,7 +2466,6 @@ class ClickFaciliteService {
           case CLICK_FACILITE_AUTO_CLICK:
             {
                 this.resetEventClick();
-                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect("big_black");
                 this.autoClick();
                 break;
@@ -2559,7 +2476,6 @@ class ClickFaciliteService {
                 scrollAspectServiceInstance.setScrollAspect(DEFAULT_VALUE);
                 scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 this.resetEventClick();
-                this.resetEnlargeClickableElements();
                 break;
             }
         }
@@ -2673,27 +2589,6 @@ class ClickFaciliteService {
     clearTimeout=() => {
         if (this.timer !== null) {
             clearTimeout(this.timer);
-        }
-    };
-    enlargeClickableElements=() => {
-        const styleId = "click-facilite-enlarge-style";
-        if (!document.getElementById(styleId)) {
-            const style = document.createElement("style");
-            style.id = styleId;
-            style.innerHTML = `\n\t\t\t\t.click-facilite-enlarged {\n\t\t\t\t\tpadding: 1.375rem !important;\n\t\t\t\t\tdisplay: inline-block;\n\t\t\t\t}\n\t\t\t\ta.click-facilite-enlarged:hover {\n\t\t\t\t\toutline: 2px solid currentColor !important;\n\t\t\t\t\tfilter: drop-shadow(0px 0px 5px #ffffff);\n\t\t\t\t}\n\t\t\t`;
-            document.head.appendChild(style);
-        }
-        document.querySelectorAll("a[href], button").forEach((el => {
-            el.classList.add("click-facilite-enlarged");
-        }));
-    };
-    resetEnlargeClickableElements=() => {
-        document.querySelectorAll(".click-facilite-enlarged").forEach((el => {
-            el.classList.remove("click-facilite-enlarged");
-        }));
-        const style = document.getElementById("click-facilite-enlarge-style");
-        if (style) {
-            style.remove();
         }
     };
 }
@@ -4520,11 +4415,6 @@ class CursorAspectService {
         fill: "black",
         stroke: "white"
     } ];
-    getOSDefaultCursorColor=() => {
-        const userAgent = navigator.userAgent.toLowerCase();
-        const isWindows = userAgent.includes("win");
-        return isWindows ? "white" : "black";
-    };
     constructor() {
         if (cursorAspectServiceIsInstantiated) {
             throw new Error("CursorAspectService is already instantiated.");
@@ -4554,7 +4444,7 @@ class CursorAspectService {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("cursor-aspect");
         } else if (value) {
-            let color = value.split("_")[1] === DEFAULT_VALUE ? this.getOSDefaultCursorColor() : value.split("_")[1];
+            let color = value.split("_")[1] === DEFAULT_VALUE ? "black" : value.split("_")[1];
             let size = value.split("_")[0] === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             let styleCursor = `\n\t\t\t\t*:not(${APP_NAME}) {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
@@ -4766,6 +4656,88 @@ const zoomServiceInstance = new ZoomService;
 
 Object.seal(zoomServiceInstance);
 
+const globalSettingsServices = [ {
+    name: "capitalLetters",
+    instanceService: capitalLettersServiceInstance.setCapitalLetters.bind(capitalLettersServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "clearlyLinks",
+    instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(clearlyLinksServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "clickFacilite",
+    instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(clickFaciliteServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "colorContrast",
+    instanceService: colorContrastServiceInstance.setColorsContrasts.bind(colorContrastServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "cursorAspect",
+    instanceService: cursorAspectServiceInstance.setCursor.bind(cursorAspectServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "deleteBackgroundImages",
+    instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(deleteBackgroundImagesServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "focusAspect",
+    instanceService: focusAspectServiceInstance.setFocus.bind(focusAspectServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "fontFamily",
+    instanceService: fontFamilyServiceInstance.setFontFamily.bind(fontFamilyServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "linkStyle",
+    instanceService: linkStyleServiceInstance.setLinkStyle.bind(linkStyleServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "magnifier",
+    instanceService: magnifierServiceInstance.setMagnifier.bind(magnifierServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "marginAlign",
+    instanceService: marginAlignServiceInstance.setMargin.bind(marginAlignServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "navigationAuto",
+    instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(navigationAutoServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "navigationButtons",
+    instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(navigationButtonsServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "readAloud",
+    instanceService: readAloudServiceInstance.setReadAloud.bind(readAloudServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "readingGuide",
+    instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(readingGuideServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "scroll",
+    instanceService: scrollAspectServiceInstance.setScrollAspect.bind(scrollAspectServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "stopAnimations",
+    instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(stopAnimationsServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "textSize",
+    instanceService: textSizeServiceInstance.setFontSize.bind(textSizeServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "textSpacing",
+    instanceService: textSpacingServiceInstance.setSpacingText.bind(textSpacingServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "zoom",
+    instanceService: zoomServiceInstance.setZoom.bind(zoomServiceInstance),
+    value: DEFAULT_VALUE
+} ];
+
 const pauseServiceInstance = new PauseService;
 
 Object.freeze(pauseServiceInstance);
@@ -4783,6 +4755,7 @@ class AppComponent extends HTMLElement {
     pauseIndicator=null;
     link;
     handler;
+    pressedKeys=new Set;
     constructor() {
         super();
         this.attachShadow({
@@ -4822,11 +4795,39 @@ class AppComponent extends HTMLElement {
         dragDropServiceInstance.enable();
         this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
         this.confortPlusBtn.addEventListener("click", this.handler);
+        window.addEventListener("keydown", this.handleKeyDown);
+        window.addEventListener("keyup", this.handleKeyUp);
     }
     disconnectedCallback() {
         this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
         this.confortPlusBtn?.removeEventListener("click", this.handler);
+        window.removeEventListener("keydown", this.handleKeyDown);
+        window.removeEventListener("keyup", this.handleKeyUp);
     }
+    handleKeyDown=event => {
+        this.pressedKeys.add(event.key);
+        if (event.shiftKey && this.pressedKeys.has("R") && this.pressedKeys.has("A") && this.pressedKeys.has("Z")) {
+            this.resetAction();
+            this.pressedKeys.clear();
+        }
+    };
+    handleKeyUp=event => {
+        this.pressedKeys.delete(event.key);
+    };
+    resetAction=() => {
+        globalSettingsServices.forEach((service => {
+            service.instanceService(DEFAULT_VALUE);
+        }));
+        localStorageServiceInstance.getItem("modeOfUse").then((json => {
+            const activeMode = json.modes.find((mode => mode[json.selectedMode]));
+            console.log(activeMode);
+            activeMode?.[json.selectedMode]?.forEach((settingWrapper => {
+                const setting = Object.values(settingWrapper)[0];
+                setting.valueSelected = 0;
+            }));
+            localStorageServiceInstance.setItem("modeOfUse", json);
+        }));
+    };
     createHandler=() => event => {
         switch (event.type) {
           case "closeEvent":
@@ -5226,7 +5227,7 @@ customElements.define("app-read-aloud", ReadAloudComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
@@ -6197,7 +6198,7 @@ class EditCursorAspectComponent extends HTMLElement {
             break;
 
           case "editSettingCursorColor":
-            this.cursorColorValue = event.detail.newValue.split("_")[1] === DEFAULT_VALUE ? cursorAspectServiceInstance.getOSDefaultCursorColor() : event.detail.newValue.split("_")[1];
+            this.cursorColorValue = event.detail.newValue.split("_")[1] === DEFAULT_VALUE ? "black" : event.detail.newValue.split("_")[1];
             this.setCursorAspect();
             break;
         }
