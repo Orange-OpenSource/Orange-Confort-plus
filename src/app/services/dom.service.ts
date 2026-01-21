@@ -50,21 +50,21 @@ class DomService {
 		const updownArrowSize = 0 ; // TO DEFINE SIZE OF UP DOWN ARROWS IF NEEDED
 		customBarInstanciated = true ;
 		let scrollContainer: HTMLElement;
-		let navette: HTMLElement;
+		let thumb: HTMLElement;
 		let fragment = document.createDocumentFragment();
 		let isDragging = false;
 		let totalHeight = document.body.scrollHeight;
 		let windowHeight = document.documentElement.clientHeight;
 		windowHeight -= updownArrowSize * 2 ; // to take into account the scroll buttons height
-		let navetteClickOffset = 0;
-		navette  = document.createElement('div');
-		navette.setAttribute('id', 'cf-custom-scrollbar-navette');
+		let thumbClickOffset = 0;
+		thumb  = document.createElement('div');
+		thumb.setAttribute('id', 'cf-custom-scrollbar-thumb');
 		let scrollUpTriangle = document.createElement('div');
-		scrollUpTriangle.className = 'cf-scroll-up-triangle';
+		scrollUpTriangle.className = 'cf-scroll-up-arrow';
 		let scrollUp = document.createElement('div');
 		scrollUp.className = 'cf-scroll-up';
 		let scrollDownTriangle = document.createElement('div');
-		scrollDownTriangle.className = 'cf-scroll-down-triangle';
+		scrollDownTriangle.className = 'cf-scroll-down-arrow';
 		let scrollDown = document.createElement('div');
 		scrollDown.className = 'cf-scroll-down';
 		scrollUp.appendChild(scrollUpTriangle);
@@ -75,25 +75,25 @@ class DomService {
 		scrollDown.addEventListener('click', function() {
 			window.scrollBy(0, 100);
 		});
-		let navetteContainer = document.createElement('div');
-		navetteContainer.className = 'cf-scroll-navette-container';
+		let thumbContainer = document.createElement('div');
+		thumbContainer.className = 'cf-scroll-thumb-container';
 		scrollContainer = document.createElement('div');
-		navetteContainer.appendChild(navette);
+		thumbContainer.appendChild(thumb);
 		scrollContainer.appendChild(scrollUp);
-		scrollContainer.appendChild(navetteContainer);
+		scrollContainer.appendChild(thumbContainer);
 		scrollContainer.appendChild(scrollDown);
 		scrollContainer.setAttribute('id', 'cf-custom-scrollbar');
 
-		// set navette height
-		let navetteHeight = (windowHeight / totalHeight) * ( windowHeight - updownArrowSize * 2 ) ;
-		if ( navetteHeight < 50 ) { navetteHeight = 50; }
-		navette.style.height = `${navetteHeight}px`;
+		// set thumb height
+		let thumbHeight = (windowHeight / totalHeight) * ( windowHeight - updownArrowSize * 2 ) ;
+		if ( thumbHeight < 50 ) { thumbHeight = 50; }
+		thumb.style.height = `${thumbHeight}px`;
 
 		document.addEventListener('scroll', function() {		
 		
 			let scrollTop = window.scrollY;
-			let navetteTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - navette.offsetHeight);
-			navette.style.top = `${navetteTop}px`;
+			let thumbTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - thumb.offsetHeight);
+			thumb.style.top = `${thumbTop}px`;
 		})
 
 		
@@ -104,44 +104,44 @@ class DomService {
 			} else {
 				document.body.classList.remove(`hide-scrollbar`);
 			}	
-			// recalculate navette height
+			// recalculate thumb height
 			windowHeight = document.documentElement.clientHeight;
 			windowHeight -= updownArrowSize * 2 
-			navetteHeight = (windowHeight / totalHeight) * ( windowHeight - updownArrowSize * 2 ) ;
-			if ( navetteHeight < 50 ) { navetteHeight = 50; }
-			navette.style.height = `${navetteHeight}px`;
-			// update navette position
+			thumbHeight = (windowHeight / totalHeight) * ( windowHeight - updownArrowSize * 2 ) ;
+			if ( thumbHeight < 50 ) { thumbHeight = 50; }
+			thumb.style.height = `${thumbHeight}px`;
+			// update thumb position
 			let scrollTop = window.scrollY;
-			let navetteTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - navette.offsetHeight); //TO CHECK 
-			navette.style.top = `${navetteTop}px`;	
+			let thumbTop = (scrollTop / (totalHeight - windowHeight)) * (windowHeight - thumb.offsetHeight); //TO CHECK 
+			thumb.style.top = `${thumbTop}px`;	
 		})
 
-		function onMouseMove(e :any) {
+		function onPointerMove(e :any) {
 			if (!isDragging) return;
 			window.getSelection().removeAllRanges()
-			window.scrollTo(0, (  ( e.clientY - updownArrowSize - navetteClickOffset) / ( window.innerHeight - updownArrowSize * 2 )) * totalHeight);
+			window.scrollTo(0, (  ( e.clientY - updownArrowSize - thumbClickOffset) / ( window.innerHeight - updownArrowSize * 2 )) * totalHeight);
 		}
 
-		function onMouseUp() {
+		function onPointerUp() {
 			isDragging = false;
-			document.removeEventListener('mousemove', onMouseMove);
-			document.removeEventListener('mouseup', onMouseUp);
+			document.removeEventListener('pointermove', onPointerMove);
+			document.removeEventListener('pointerup', onPointerUp);
 		}
 
 
-		 navette.addEventListener('mousedown', function(e) {
+		 thumb.addEventListener('pointerdown', function(e) {
 		
 			totalHeight = document.body.scrollHeight;
-			navetteClickOffset = e.clientY - navette.offsetTop - updownArrowSize ;
+			thumbClickOffset = e.clientY - thumb.offsetTop - updownArrowSize ;
 			isDragging = true;
-			console.log('mousedown navette ! totalHeight ', totalHeight);
-			document.addEventListener('mousemove', onMouseMove);
-			document.addEventListener('mouseup', onMouseUp);
+			
+			document.addEventListener('pointermove', onPointerMove);
+			document.addEventListener('pointerup', onPointerUp);
 		});
 
-		navetteContainer.addEventListener('click', function(e) {
-			if ( e.target !== navette ) {
-				if ( e.clientY < navette.offsetTop ) {
+		thumbContainer.addEventListener('click', function(e) {
+			if ( e.target !== thumb ) {
+				if ( e.clientY < thumb.offsetTop ) {
 					window.scrollBy(0, -(windowHeight ));
 				}
 				else{
@@ -155,7 +155,7 @@ class DomService {
 				display: none;
 			}
 
-			.cf-scroll-navette-container {
+			.cf-scroll-thumb-container {
 				position: relative;
 				height: 100%;
 				width:100%;
@@ -175,7 +175,7 @@ class DomService {
 
 		
 
-			#cf-custom-scrollbar-navette:hover {
+			#cf-custom-scrollbar-thumb:hover {
 				background-color:#555 !important;	
 			}
 

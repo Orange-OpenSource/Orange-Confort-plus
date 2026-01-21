@@ -151,7 +151,7 @@ class ScrollAspectService {
 					background-color: ${this.scrollColorHover};
 				}
 
-				#cf-custom-scrollbar-navette {
+				#cf-custom-scrollbar-thumb {
 					position: relative;
 					top:0;
 					background-color:${this.scrollColor} !important;
