@@ -1,5 +1,5 @@
 {
-	"version": "1.0.43",
+	"version": "1.0.44",
 	"modes": [
 		{
 			"facilePlus": [
@@ -524,7 +524,7 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 4
+						"order": 5
 					}
 				},
 				{
@@ -532,7 +532,7 @@
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 5
+						"order": 6
 					}
 				},
 				{
@@ -540,7 +540,7 @@
 						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 6
+						"order": 7
 					}
 				},
 				{
@@ -548,7 +548,7 @@
 						"values": "noModifications,spacingTextSmall,spacingTextBig",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 8
+						"order": 9
 					}
 				},
 				{
@@ -556,7 +556,7 @@
 						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 2
+						"order": 3
 					}
 				},
 				{
@@ -564,7 +564,7 @@
 						"values": "noModifications,alignLeft,marginList",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 9
+						"order": 10
 					}
 				},
 				{
@@ -612,7 +612,7 @@
 						"values": "noModifications,reinforcedContrasts,black_ivory",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 7
+						"order": 8
 					}
 				},
 				{
@@ -684,7 +684,7 @@
 						"values": "noModifications,onlyContent110IvoryBlack",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 3
+						"order": 4
 					}
 				}
 			]
@@ -696,7 +696,7 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 4
+						"order": 5
 					}
 				},
 				{
@@ -704,7 +704,7 @@
 						"values": "noModifications,110,130",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 5
+						"order": 6
 					}
 				},
 				{
@@ -712,7 +712,7 @@
 						"values": "noModifications,uppercase,capitalize",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 6
+						"order": 7
 					}
 				},
 				{
@@ -720,7 +720,7 @@
 						"values": "noModifications,spacingTextSmall,spacingTextBig",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 8
+						"order": 9
 					}
 				},
 				{
@@ -728,7 +728,7 @@
 						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 2
+						"order": 3
 					}
 				},
 				{
@@ -736,7 +736,7 @@
 						"values": "noModifications,alignLeft,marginList",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 9
+						"order": 10
 					}
 				},
 				{
@@ -776,7 +776,7 @@
 						"values": "noModifications,big_black,huge_black",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 13
+						"order": 14
 					}
 				},
 				{
@@ -784,7 +784,7 @@
 						"values": "noModifications,reinforcedContrasts,black_ivory",
 						"valueSelected": 2,
 						"isTool": true,
-						"order": 7
+						"order": 8
 					}
 				},
 				{
@@ -792,7 +792,7 @@
 						"values": "noModifications,bigCursor_black,hugeCursor_blue",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 12
+						"order": 13
 					}
 				},
 				{
@@ -808,7 +808,7 @@
 						"values": "noModifications,bold_underline,bold_boxed",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 14
+						"order": 15
 					}
 				},
 				{
@@ -832,7 +832,7 @@
 						"values": "noModifications,scrollSet_delay2,fullSet_delay2",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 10
+						"order": 11
 					}
 				},
 				{
@@ -840,7 +840,7 @@
 						"values": "noModifications,bigZone,autoClick_delay2",
 						"valueSelected": 1,
 						"isTool": true,
-						"order": 11
+						"order": 12
 					}
 				},
 				{
@@ -856,7 +856,7 @@
 						"values": "noModifications,onlyContent110IvoryBlack",
 						"valueSelected": 0,
 						"isTool": true,
-						"order": 3
+						"order": 4
 					}
 				}
 			]
@@ -868,7 +868,7 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 0,
 						"isTool": false,
-						"order": null
+						"order": null""""""""
 					}
 				},
 				{
@@ -955,8 +955,8 @@
 					"colorContrast": {
 						"values": "noModifications,reinforcedContrasts,black_ivory",
 						"valueSelected": 0,
-						"isTool": true,
-						"order": 10
+						"isTool": false,
+						"order": null
 					}
 				},
 				{
@@ -1019,8 +1019,8 @@
 					"navigationAuto": {
 						"values": "noModifications,autoFocus_delay2",
 						"valueSelected": 0,
-						"isTool": true,
-						"order": 9
+						"isTool": false,
+						"order": null
 					}
 				},
 				{

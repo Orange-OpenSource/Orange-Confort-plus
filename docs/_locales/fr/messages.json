@@ -343,7 +343,7 @@
 		"description": "Réglage actif."
 	},
 	"setting_fontFamily": {
-		"message": "Police de texte"
+		"message": "Police du texte"
 	},
 	"setting_fontFamily_instruction": {
 		"message": "Pour modifier le rendu du texte."
@@ -463,7 +463,7 @@
 		"message": "lignes alternées"
 	},
 	"setting_readingPage": {
-		"message": "Page de lecture"
+		"message": "Page lecture"
 	},
 	"setting_readingPage_instruction": {
 		"message": "Pour afficher uniquement le contenu principal de la page dans un format optimisé pour la lecture."
