@@ -1,5 +1,5 @@
 {
-	"version": "1.0.44",
+	"version": "1.0.45",
 	"modes": [
 		{
 			"facilePlus": [
@@ -868,7 +868,7 @@
 						"values": "noModifications,AccessibleDfA,Luciole",
 						"valueSelected": 0,
 						"isTool": false,
-						"order": null""""""""
+						"order": null
 					}
 				},
 				{
