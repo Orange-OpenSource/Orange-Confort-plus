@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.3.0 - 26/01/2026
+ * orange-confort-plus - version 5.3.0 - 27/01/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -3272,6 +3272,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_BIG_ZONE:
             {
                 this.resetEventClick();
+                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect("big_black");
                 break;
             }
@@ -3279,6 +3280,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_LONG_CLICK:
             {
                 this.resetEventClick();
+                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect("big_black");
                 this.longClick();
                 break;
@@ -3287,6 +3289,7 @@ class ClickFaciliteService {
           case CLICK_FACILITE_AUTO_CLICK:
             {
                 this.resetEventClick();
+                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect("big_black");
                 this.autoClick();
                 break;
@@ -3297,6 +3300,7 @@ class ClickFaciliteService {
                 scrollAspectServiceInstance.setScrollAspect(DEFAULT_VALUE);
                 scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 this.resetEventClick();
+                this.resetEnlargeClickableElements();
                 break;
             }
         }
@@ -3410,6 +3414,27 @@ class ClickFaciliteService {
     clearTimeout=() => {
         if (this.timer !== null) {
             clearTimeout(this.timer);
+        }
+    };
+    enlargeClickableElements=() => {
+        const styleId = "click-facilite-enlarge-style";
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement("style");
+            style.id = styleId;
+            style.innerHTML = `\n\t\t\t\t.click-facilite-enlarged {\n\t\t\t\t\tpadding: 1.375rem !important;\n\t\t\t\t\tdisplay: inline-block;\n\t\t\t\t}\n\t\t\t\ta.click-facilite-enlarged:hover {\n\t\t\t\t\toutline: 2px solid currentColor !important;\n\t\t\t\t\tfilter: drop-shadow(0px 0px 5px #ffffff);\n\t\t\t\t}\n\t\t\t`;
+            document.head.appendChild(style);
+        }
+        document.querySelectorAll("a[href], button").forEach((el => {
+            el.classList.add("click-facilite-enlarged");
+        }));
+    };
+    resetEnlargeClickableElements=() => {
+        document.querySelectorAll(".click-facilite-enlarged").forEach((el => {
+            el.classList.remove("click-facilite-enlarged");
+        }));
+        const style = document.getElementById("click-facilite-enlarge-style");
+        if (style) {
+            style.remove();
         }
     };
 }

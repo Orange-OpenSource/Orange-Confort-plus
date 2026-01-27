@@ -20,6 +20,7 @@ class ClickFaciliteService {
         switch (paramName) {
             case CLICK_FACILITE_BIG_ZONE: {
                 this.resetEventClick();
+                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect('big_black');
                 // Issue #500 : conflict between "Navigation buttons" et "Click Facilite"
                 // scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
@@ -27,6 +28,7 @@ class ClickFaciliteService {
             }
             case CLICK_FACILITE_LONG_CLICK: {
                 this.resetEventClick();
+                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect('big_black');
                 // Issue #500 : conflict between "Navigation buttons" et "Click Facilite"
                 // scrollTypeServiceInstance.setScrollType('scrollOnClick');
@@ -35,6 +37,7 @@ class ClickFaciliteService {
             }
             case CLICK_FACILITE_AUTO_CLICK: {
                 this.resetEventClick();
+                this.enlargeClickableElements();
                 scrollAspectServiceInstance.setScrollAspect('big_black');
                 // Issue #500 : conflict between "Navigation buttons" et "Click Facilite"
                 // scrollTypeServiceInstance.setScrollType('scrollOnMouseover');
@@ -45,6 +48,7 @@ class ClickFaciliteService {
                 scrollAspectServiceInstance.setScrollAspect(DEFAULT_VALUE);
                 scrollTypeServiceInstance.setScrollType(DEFAULT_VALUE);
                 this.resetEventClick();
+                this.resetEnlargeClickableElements();
                 break;
             }
         }
@@ -156,6 +160,36 @@ class ClickFaciliteService {
     clearTimeout = () => {
         if (this.timer !== null) {
             clearTimeout(this.timer);
+        }
+    };
+    enlargeClickableElements = () => {
+        const styleId = 'click-facilite-enlarge-style';
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.innerHTML = `
+				.click-facilite-enlarged {
+					padding: 1.375rem !important;
+					display: inline-block;
+				}
+				a.click-facilite-enlarged:hover {
+					outline: 2px solid currentColor !important;
+					filter: drop-shadow(0px 0px 5px #ffffff);
+				}
+			`;
+            document.head.appendChild(style);
+        }
+        document.querySelectorAll('a[href], button').forEach((el) => {
+            el.classList.add('click-facilite-enlarged');
+        });
+    };
+    resetEnlargeClickableElements = () => {
+        document.querySelectorAll('.click-facilite-enlarged').forEach((el) => {
+            el.classList.remove('click-facilite-enlarged');
+        });
+        const style = document.getElementById('click-facilite-enlarge-style');
+        if (style) {
+            style.remove();
         }
     };
 }
