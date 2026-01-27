@@ -3535,7 +3535,7 @@ customElements.define("app-read-aloud", ReadAloudComponent);
 
 const tmplReadingGuide = document.createElement("template");
 
-tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplReadingGuide.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ReadingGuideComponent extends AbstractSetting {
     activesValues={
