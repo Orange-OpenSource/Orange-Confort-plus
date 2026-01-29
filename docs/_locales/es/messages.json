@@ -553,7 +553,7 @@
 		"message": "sin modificación"
 	},
 	"cursorAspect_values": {
-		"message": "$SIZE$ & $COLOR$",
+		"message": "$SIZE$ $COLOR$",
 		"placeholders": {
 			"size": {
 				"content": "$1"
