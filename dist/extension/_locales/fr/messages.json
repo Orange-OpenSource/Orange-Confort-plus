@@ -541,7 +541,7 @@
 		"message": "Aspect de la souris"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Pour modifier l’apparence des pointeurs."
+		"message": "Pour modifier le rendu des curseurs."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Souris par défaut"
@@ -550,7 +550,7 @@
 		"message": "sans modification"
 	},
 	"cursorAspect_values": {
-		"message": "$SIZE$ & $COLOR$",
+		"message": "$SIZE$ $COLOR$",
 		"placeholders": {
 			"size": {
 				"content": "$1"

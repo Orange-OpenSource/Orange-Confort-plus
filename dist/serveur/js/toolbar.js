@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.3.0 - 27/01/2026
+ * orange-confort-plus - version 5.3.0 - 29/01/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -4520,6 +4520,11 @@ class CursorAspectService {
         fill: "black",
         stroke: "white"
     } ];
+    getOSDefaultCursorColor=() => {
+        const userAgent = navigator.userAgent.toLowerCase();
+        const isWindows = userAgent.includes("win");
+        return isWindows ? "white" : "black";
+    };
     constructor() {
         if (cursorAspectServiceIsInstantiated) {
             throw new Error("CursorAspectService is already instantiated.");
@@ -4549,7 +4554,7 @@ class CursorAspectService {
         if (value === DEFAULT_VALUE) {
             stylesServiceInstance.removeStyle("cursor-aspect");
         } else if (value) {
-            let color = value.split("_")[1] === DEFAULT_VALUE ? "black" : value.split("_")[1];
+            let color = value.split("_")[1] === DEFAULT_VALUE ? this.getOSDefaultCursorColor() : value.split("_")[1];
             let size = value.split("_")[0] === "bigCursor" ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
             let styleCursor = `\n\t\t\t\t*:not(${APP_NAME}) {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("default", size, color, 6)}') 0 0, default !important;\n\t\t\t\t}\n\n\t\t\t\ta:link,\n\t\t\t\ta:visited,\n\t\t\t\tbutton {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("pointer", size, color, 6)}') ${size / 3} 0, pointer !important;\n\t\t\t\t}\n\n\t\t\t\th1, h2, h3, h4, h5, h6,\n\t\t\t\tp, ul, ol, dl, blockquote,\n\t\t\t\tpre, td, th,\n\t\t\t\tinput, textarea, legend {\n\t\t\t\t\tcursor: url('data:image/svg+xml;utf8,${this.drawCursor("text", size, color, 4)}') ${size / 4} ${size / 4}, text !important;\n\t\t\t\t}\n\t\t\t`;
             stylesServiceInstance.setStyle("cursor-aspect", styleCursor);
@@ -6192,7 +6197,7 @@ class EditCursorAspectComponent extends HTMLElement {
             break;
 
           case "editSettingCursorColor":
-            this.cursorColorValue = event.detail.newValue.split("_")[1] === DEFAULT_VALUE ? "black" : event.detail.newValue.split("_")[1];
+            this.cursorColorValue = event.detail.newValue.split("_")[1] === DEFAULT_VALUE ? cursorAspectServiceInstance.getOSDefaultCursorColor() : event.detail.newValue.split("_")[1];
             this.setCursorAspect();
             break;
         }

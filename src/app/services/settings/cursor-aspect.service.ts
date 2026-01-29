@@ -16,6 +16,12 @@ class CursorAspectService {
 		{ fill: 'black', stroke: 'white' },
 	];
 
+	getOSDefaultCursorColor = (): string => {
+		const userAgent = navigator.userAgent.toLowerCase();
+		const isWindows = userAgent.includes('win');
+		return isWindows ? 'white' : 'black';
+	}
+
 	constructor() {
 		if (cursorAspectServiceIsInstantiated) {
 			throw new Error('CursorAspectService is already instantiated.');
@@ -46,7 +52,7 @@ class CursorAspectService {
 		if (value === DEFAULT_VALUE) {
 			stylesServiceInstance.removeStyle('cursor-aspect');
 		} else if (value) {
-			let color = value.split('_')[1] === DEFAULT_VALUE ? 'black' : value.split('_')[1];
+			let color = value.split('_')[1] === DEFAULT_VALUE ? this.getOSDefaultCursorColor() : value.split('_')[1];
 			let size = value.split('_')[0] === 'bigCursor' ? CURSOR_SIZE_BIG : CURSOR_SIZE_HUGE;
 			let styleCursor = `
 				*:not(${APP_NAME}) {
