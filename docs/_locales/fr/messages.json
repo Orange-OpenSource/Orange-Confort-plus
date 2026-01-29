@@ -775,7 +775,7 @@
 		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
 	},
 	"setting_scrollAspect": {
-		"message": "Aspect de l’ascenseur"
+		"message": "Aspect ascenseur"
 	},
 	"setting_scrollAspect_instruction": {
 		"message": "Pour modifier le rendu de l'ascenseur."

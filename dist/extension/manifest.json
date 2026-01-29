@@ -7,16 +7,9 @@
 	"default_locale": "fr",
 	"author": "Orange SA",
 	"homepage_url": "https://confort-plus.orange.com",
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "@orange_confort_plus",
-			"strict_min_version": "109.0"
-		}
-	},
+	"minimum_chrome_version": "93",
 	"background": {
-		"scripts": [
-			"js/main.js"
-		]
+		"service_worker": "js/main.js"
 	},
 	"action": {
 		"default_title": "Orange Confort+",
