@@ -8,7 +8,7 @@ editColorContrastLayout.innerHTML = `
 class EditColorContrastComponent extends HTMLElement {
 	selectColorContrastElement: HTMLElement | null = null;
 	settingValues: string[] = null;
-	colorContrastValues = [DEFAULT_VALUE, 'reinforcedContrasts', 'ivory_black', 'black_ivory', 'white_red', 'black_yellow', 'white_blue', 'yellow_blue', 'black_green'];
+	colorContrastValues = [DEFAULT_VALUE, 'reinforcedContrasts', 'ivory_black', 'black_ivory', 'white_red', 'black_yellow', 'white_blue', 'yellow_blue', 'black_green', 'colorBlindness'];
 
 	handler: any;
 
@@ -38,7 +38,7 @@ class EditColorContrastComponent extends HTMLElement {
 
 		let color = value?.split('_')[0];
 		let backgroundColor = value?.split('_')[1];
-		if (value === 'reinforcedContrasts') {
+		if (value === 'reinforcedContrasts' || value === 'colorBlindness') {
 			color = '#000';
 			backgroundColor = '#fff';
 		} else if (value === DEFAULT_VALUE) {

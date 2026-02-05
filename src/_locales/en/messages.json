@@ -660,6 +660,9 @@
 	"colorContrast_reinforcedContrasts": {
 		"message": "reinforced contrasts"
 	},
+	"colorContrast_colorBlindness": {
+		"message": "color blindness"
+	},
 	"colorContrast_values": {
 		"message": "$COLOR$ on $BACKGROUND$",
 		"placeholders": {
@@ -670,9 +673,6 @@
 				"content": "$2"
 			}
 		}
-	},
-	"colorContrast_daltonism": {
-		"message": "color blindness"
 	},
 	"setting_linkStyle": {
 		"message": "Hyperlink Colors"
