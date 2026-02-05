@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.3.0 - 29/01/2026
+ * orange-confort-plus - version 5.3.0 - 05/02/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -1071,10 +1071,16 @@ class ColorContrastService {
         focus: "big_black",
         scroll: "big_black",
         link: "yellow_orange_blue"
+    }, {
+        name: "colorBlindness",
+        cursor: "bigCursor_black",
+        focus: "big_black",
+        scroll: "big_black",
+        link: "blue_chocolate_orchid"
     } ];
     matrixFilter=`\n\t\t0.8,   0.2,   0,     0, 0\n    0.258, 0.742, 0,     0, 0\n    0,     0.142, 0.858, 0, 0\n    0,     0,     0,     1, 0`;
-    svgFilterDaltonism=`<svg xmlns="http://www.w3.org/2000/svg"><filter id="daltonism"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, " ").trim()}"/></filter></svg>`;
-    styleFilterDaltonism=`\n\t\thtml body > *:not(${APP_NAME}) {\n\t\t\tfilter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');\n\t\t}\n\t`;
+    svgFilterColorBlindness=`<svg xmlns="http://www.w3.org/2000/svg"><filter id="color_blindness"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, " ").trim()}"/></filter></svg>`;
+    styleFilterColorBlindness=`\n\t\thtml body > *:not(${APP_NAME}) {\n\t\t\tfilter: url('data:image/svg+xml;utf8,${this.svgFilterColorBlindness}#color_blindness');\n\t\t}\n\t`;
     constructor() {
         if (colorContrastServiceIsInstantiated) {
             throw new Error("ColorContrastService is already instantiated.");
@@ -1083,24 +1089,20 @@ class ColorContrastService {
     }
     setColorsContrasts=value => {
         stylesServiceInstance.removeStyle("color-contrast");
-        stylesServiceInstance.removeStyle("filter-daltonism");
+        stylesServiceInstance.removeStyle("filter-color-blindness");
         this.setServices(DEFAULT_VALUE);
         switch (value) {
           case DEFAULT_VALUE:
-            break;
-
-          case "daltonism":
-            stylesServiceInstance.setStyle("filter-daltonism", this.styleFilterDaltonism);
             break;
 
           case "reinforcedContrasts":
           default:
             let color;
             let backgroundColor;
-            if (value === "reinforcedContrasts") {
+            if ([ "reinforcedContrast", "colorBlindness" ].includes(value)) {
                 color = "#000";
                 backgroundColor = "#fff";
-                this.setServices("reinforcedContrasts");
+                this.setServices(value);
             } else {
                 color = value?.split("_")[0];
                 backgroundColor = value?.split("_")[1];
@@ -4376,7 +4378,7 @@ editColorContrastLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data
 class EditColorContrastComponent extends HTMLElement {
     selectColorContrastElement=null;
     settingValues=null;
-    colorContrastValues=[ DEFAULT_VALUE, "reinforcedContrasts", "ivory_black", "black_ivory", "white_red", "black_yellow", "white_blue", "yellow_blue", "black_green" ];
+    colorContrastValues=[ DEFAULT_VALUE, "reinforcedContrasts", "ivory_black", "black_ivory", "white_red", "black_yellow", "white_blue", "yellow_blue", "black_green", "colorBlindness" ];
     handler;
     constructor() {
         super();
@@ -4397,7 +4399,7 @@ class EditColorContrastComponent extends HTMLElement {
         let newSettingIndex = this.settingValues.indexOf(value);
         let color = value?.split("_")[0];
         let backgroundColor = value?.split("_")[1];
-        if (value === "reinforcedContrasts") {
+        if (value === "reinforcedContrasts" || value === "colorBlindness") {
             color = "#000";
             backgroundColor = "#fff";
         } else if (value === DEFAULT_VALUE) {

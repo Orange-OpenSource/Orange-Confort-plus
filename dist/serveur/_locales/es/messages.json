@@ -645,6 +645,9 @@
 	"colorContrast_reinforcedContrasts": {
 		"message": "contrastes mejorados"
 	},
+	"colorContrast_colorBlindness": {
+		"message": "daltonismo"
+	},
 	"colorContrast_values": {
 		"message": "$COLOR$ on $BACKGROUND$",
 		"placeholders": {
@@ -655,9 +658,6 @@
 				"content": "$2"
 			}
 		}
-	},
-	"colorContrast_daltonism": {
-		"message": "daltonismo"
 	},
 	"setting_linkStyle": {
 		"message": "Colores de los enlaces"
