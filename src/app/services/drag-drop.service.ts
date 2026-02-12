@@ -3,6 +3,7 @@ let dragDropServiceIsInstantiated: boolean;
 class DragDropService {
 	button: HTMLElement | null = null;
 	isDragging = false;
+	isKeyboardDragging = false;
 	isEnabled = false;
 	justDragged = false;
 	offsetX = 0;
@@ -61,6 +62,43 @@ class DragDropService {
 		if (this.button) {
 			this.button.style.cursor = 'grab';
 		}
+	}
+
+	startKeyboardDrag = (): void => {
+		if (!this.button || !this.isEnabled) {
+			return;
+		}
+		this.isKeyboardDragging = true;
+		this.button.style.cursor = 'grabbing';
+	}
+
+	stopKeyboardDrag = (): void => {
+		if (!this.button) {
+			return;
+		}
+		this.isKeyboardDragging = false;
+		this.button.style.cursor = 'grab';
+		this.savePosition();
+	}
+
+	moveBy = (deltaX: number, deltaY: number): void => {
+		if (!this.button) {
+			return;
+		}
+
+		const rect = this.button.getBoundingClientRect();
+		let newX = rect.left + deltaX;
+		let newY = rect.top + deltaY;
+
+		const maxX = this.getMaxX();
+		const maxY = this.getMaxY();
+
+		newX = this.clamp(newX, maxX);
+		newY = this.clamp(newY, maxY);
+
+		this.button.style.left = `${newX}px`;
+		this.button.style.top = `${newY}px`;
+		this.button.style.right = 'auto';
 	}
 
 	private onPointerDown = (event: PointerEvent): void => {

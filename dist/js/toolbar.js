@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 25/02/2026
+ * orange-confort-plus - version 5.4.0 - 11/03/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -152,6 +152,7 @@ let dragDropServiceIsInstantiated;
 class DragDropService {
     button=null;
     isDragging=false;
+    isKeyboardDragging=false;
     isEnabled=false;
     justDragged=false;
     offsetX=0;
@@ -203,6 +204,36 @@ class DragDropService {
         if (this.button) {
             this.button.style.cursor = "grab";
         }
+    };
+    startKeyboardDrag=() => {
+        if (!this.button || !this.isEnabled) {
+            return;
+        }
+        this.isKeyboardDragging = true;
+        this.button.style.cursor = "grabbing";
+    };
+    stopKeyboardDrag=() => {
+        if (!this.button) {
+            return;
+        }
+        this.isKeyboardDragging = false;
+        this.button.style.cursor = "grab";
+        this.savePosition();
+    };
+    moveBy=(deltaX, deltaY) => {
+        if (!this.button) {
+            return;
+        }
+        const rect = this.button.getBoundingClientRect();
+        let newX = rect.left + deltaX;
+        let newY = rect.top + deltaY;
+        const maxX = this.getMaxX();
+        const maxY = this.getMaxY();
+        newX = this.clamp(newX, maxX);
+        newY = this.clamp(newY, maxY);
+        this.button.style.left = `${newX}px`;
+        this.button.style.top = `${newY}px`;
+        this.button.style.right = "auto";
     };
     onPointerDown=event => {
         if (!this.button || !this.isEnabled) {
@@ -3139,23 +3170,25 @@ class AppComponent extends HTMLElement {
         dragDropServiceInstance.enable();
         this.confortPlusToolbar.addEventListener("closeEvent", this.handler);
         this.confortPlusBtn.addEventListener("click", this.handler);
-        window.addEventListener("keydown", this.handleKeyDown);
-        window.addEventListener("keyup", this.handleKeyUp);
+        this.confortPlusBtn.addEventListener("keydown", this.handler);
+        window.addEventListener("keydown", this.handleWindowKeyDown);
+        window.addEventListener("keyup", this.handleWindowKeyUp);
     }
     disconnectedCallback() {
         this.confortPlusToolbar?.removeEventListener("closeEvent", this.handler);
         this.confortPlusBtn?.removeEventListener("click", this.handler);
-        window.removeEventListener("keydown", this.handleKeyDown);
-        window.removeEventListener("keyup", this.handleKeyUp);
+        this.confortPlusBtn?.removeEventListener("keydown", this.handler);
+        window.removeEventListener("keydown", this.handleWindowKeyDown);
+        window.removeEventListener("keyup", this.handleWindowKeyUp);
     }
-    handleKeyDown=event => {
+    handleWindowKeyDown=event => {
         this.pressedKeys.add(event.key);
         if (event.shiftKey && this.pressedKeys.has("R") && this.pressedKeys.has("A") && this.pressedKeys.has("Z")) {
             this.resetAction();
             this.pressedKeys.clear();
         }
     };
-    handleKeyUp=event => {
+    handleWindowKeyUp=event => {
         this.pressedKeys.delete(event.key);
     };
     resetAction=() => {
@@ -3179,6 +3212,10 @@ class AppComponent extends HTMLElement {
 
           case "click":
             this.showToolbar();
+            break;
+
+          case "keydown":
+            this.handleKeyDown(event);
             break;
 
           default:
@@ -3212,6 +3249,45 @@ class AppComponent extends HTMLElement {
             this.pauseIndicator.hidden = !isPaused;
             this.confortPlusBtn.classList.toggle("sc-confort-plus--paused", isPaused ?? false);
         }));
+    };
+    handleKeyDown=event => {
+        if (event.key === " " || event.code === "Space") {
+            event.preventDefault();
+            if (dragDropServiceInstance.isKeyboardDragging) {
+                dragDropServiceInstance.stopKeyboardDrag();
+            } else {
+                dragDropServiceInstance.startKeyboardDrag();
+            }
+        } else if ([ "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight" ].includes(event.key)) {
+            if (dragDropServiceInstance.isKeyboardDragging) {
+                event.preventDefault();
+                let deltaX = 0;
+                let deltaY = 0;
+                const step = 10;
+                switch (event.key) {
+                  case "ArrowUp":
+                    deltaY = -step;
+                    break;
+
+                  case "ArrowDown":
+                    deltaY = step;
+                    break;
+
+                  case "ArrowLeft":
+                    deltaX = -step;
+                    break;
+
+                  case "ArrowRight":
+                    deltaX = step;
+                    break;
+                }
+                dragDropServiceInstance.moveBy(deltaX, deltaY);
+            }
+        } else if (event.key === "Enter") {
+            if (dragDropServiceInstance.isKeyboardDragging) {
+                dragDropServiceInstance.stopKeyboardDrag();
+            }
+        }
     };
 }
 
