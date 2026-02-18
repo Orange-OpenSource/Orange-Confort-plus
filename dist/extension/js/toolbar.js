@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.3.0 - 29/01/2026
+ * orange-confort-plus - version 5.3.0 - 17/02/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -4500,6 +4500,79 @@ class NavigationButtonsService {
 
 "use strict";
 
+let paragraphFocusServiceIsInstantiated;
+
+class ParagraphFocusService {
+    paragraphClass=`${PREFIX}paragraph-focus`;
+    observer=null;
+    isActive=false;
+    constructor() {
+        if (paragraphFocusServiceIsInstantiated) {
+            throw new Error("ParagraphFocusService is already instantiated.");
+        }
+        paragraphFocusServiceIsInstantiated = true;
+    }
+    styleParagraphFocus=`\n\t\t.${PREFIX}paragraph-focus:focus, .${PREFIX}paragraph-focus:focus-visible {\n\t\t\toutline: 2px solid currentColor !important;\n\t\t\toutline-offset: 2px !important;\n\t\t}\n\t`;
+    setParagraphFocus=value => {
+        this.removeParagraphFocus();
+        if (value !== DEFAULT_VALUE) {
+            this.isActive = true;
+            stylesServiceInstance.setStyle("paragraph-focus", this.styleParagraphFocus);
+            this.addParagraphFocus();
+            this.observeDOM();
+        }
+    };
+    addParagraphFocus=() => {
+        document.querySelectorAll(PAGE_P_MARKUP_SELECTOR).forEach((p => {
+            if (!p.classList.contains(this.paragraphClass)) {
+                p.setAttribute("tabindex", "0");
+                p.classList.add(this.paragraphClass);
+            }
+        }));
+    };
+    removeParagraphFocus=() => {
+        this.isActive = false;
+        this.disconnectObserver();
+        document.querySelectorAll(`.${this.paragraphClass}`).forEach((p => {
+            p.removeAttribute("tabindex");
+            p.classList.remove(this.paragraphClass);
+        }));
+        stylesServiceInstance.removeStyle("paragraph-focus");
+    };
+    observeDOM=() => {
+        this.disconnectObserver();
+        this.observer = new MutationObserver((mutations => {
+            if (!this.isActive) return;
+            let shouldUpdate = false;
+            mutations.forEach((mutation => {
+                mutation.addedNodes.forEach((node => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        const element = node;
+                        if (element.tagName === "P" || element.querySelectorAll("p").length > 0) {
+                            shouldUpdate = true;
+                        }
+                    }
+                }));
+            }));
+            if (shouldUpdate) {
+                this.addParagraphFocus();
+            }
+        }));
+        this.observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    };
+    disconnectObserver=() => {
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+    };
+}
+
+"use strict";
+
 let readAloudServiceIsInstantiated;
 
 class ReadAloudService extends BodySelectorService {
@@ -5439,6 +5512,10 @@ const focusAspectServiceInstance = new FocusAspectService;
 
 Object.seal(focusAspectServiceInstance);
 
+const paragraphFocusServiceInstance = new ParagraphFocusService;
+
+Object.seal(paragraphFocusServiceInstance);
+
 const fontFamilyServiceInstance = new FontFamilyService;
 
 Object.seal(fontFamilyServiceInstance);
@@ -6002,6 +6079,26 @@ class ReadingPageComponent extends AbstractSetting {
 }
 
 customElements.define("app-reading-page", ReadingPageComponent);
+
+"use strict";
+
+const tmplParagraphFocus = document.createElement("template");
+
+tmplParagraphFocus.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+
+class ParagraphFocusComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(paragraphFocusServiceInstance.setParagraphFocus.bind(this));
+        this.appendChild(tmplParagraphFocus.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-paragraph-focus", ParagraphFocusComponent);
 
 "use strict";
 
@@ -8234,7 +8331,7 @@ customElements.define("app-layout", LayoutComponent);
 
 const tmplNavigation = document.createElement("template");
 
-tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplNavigation.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-navigation">\n\t\t\t<app-icon data-name="Navigation" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="navigation"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-navigation">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-navigation-buttons class="c-category__setting" data-can-edit="true"></app-navigation-buttons>\n\t\t\t\t<app-click-facilite class="c-category__setting" data-can-edit="true"></app-click-facilite>\n\t\t\t\t<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>\n\t\t\t\t<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>\n\t\t\t\t<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>\n\t\t\t\t<app-paragraph-focus class="c-category__setting"></app-paragraph-focus>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class NavigationComponent extends AbstractCategory {
     constructor() {

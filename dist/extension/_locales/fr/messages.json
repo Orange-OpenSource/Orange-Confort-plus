@@ -999,5 +999,17 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Nouvelle valeur ajoutée"
+	},
+	"setting_paragraphFocus": {
+		"message": "Focus sur les paragraphes"
+	},
+	"setting_paragraphFocus_instruction": {
+		"message": "Pour naviguer de paragraphe en paragraphe au clavier."
+	},
+	"paragraphFocus_noModifications": {
+		"message": "sans modification"
+	},
+	"paragraphFocus_active": {
+		"message": "paragraphes focusables"
 	}
 }

@@ -43,6 +43,8 @@ const deleteLayoutServiceInstance = new DeleteLayoutService();
 Object.seal(deleteLayoutServiceInstance);
 const focusAspectServiceInstance = new FocusAspectService();
 Object.seal(focusAspectServiceInstance);
+const paragraphFocusServiceInstance = new ParagraphFocusService();
+Object.seal(paragraphFocusServiceInstance);
 const fontFamilyServiceInstance = new FontFamilyService();
 Object.seal(fontFamilyServiceInstance);
 const linkStyleServiceInstance = new LinkStyleService();

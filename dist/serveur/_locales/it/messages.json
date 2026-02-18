@@ -999,5 +999,17 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Nuovo valore aggiunto"
+	},
+	"setting_paragraphFocus": {
+		"message": "Focus sui paragrafi"
+	},
+	"setting_paragraphFocus_instruction": {
+		"message": "Per navigare tra i paragrafi con la tastiera."
+	},
+	"paragraphFocus_noModifications": {
+		"message": "nessuna modifica"
+	},
+	"paragraphFocus_active": {
+		"message": "paragrafi focalizzabili"
 	}
 }

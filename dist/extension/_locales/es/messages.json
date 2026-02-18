@@ -1017,5 +1017,17 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Nuevo valor añadido"
+	},
+	"setting_paragraphFocus": {
+		"message": "Foco en los párrafos"
+	},
+	"setting_paragraphFocus_instruction": {
+		"message": "Para navegar entre párrafos con el teclado."
+	},
+	"paragraphFocus_noModifications": {
+		"message": "sin modificación"
+	},
+	"paragraphFocus_active": {
+		"message": "párrafos enfocables"
 	}
 }

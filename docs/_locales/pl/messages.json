@@ -1014,6 +1014,18 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Dodano nową wartość"
+	},
+	"setting_paragraphFocus": {
+		"message": "Fokus na akapitach"
+	},
+	"setting_paragraphFocus_instruction": {
+		"message": "Aby nawigować między akapitami za pomocą klawiatury."
+	},
+	"paragraphFocus_noModifications": {
+		"message": "bez zmian"
+	},
+	"paragraphFocus_active": {
+		"message": "akapity z fokusem"
 	}
 }
 

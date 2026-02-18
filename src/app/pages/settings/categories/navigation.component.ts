@@ -14,6 +14,7 @@ tmplNavigation.innerHTML = `
 				<app-clearly-links class="c-category__setting" data-can-edit="true"></app-clearly-links>
 				<app-link-style class="c-category__setting" data-can-edit="true"></app-link-style>
 				<app-navigation-auto class="c-category__setting" data-can-edit="true"></app-navigation-auto>
+				<app-paragraph-focus class="c-category__setting"></app-paragraph-focus>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>

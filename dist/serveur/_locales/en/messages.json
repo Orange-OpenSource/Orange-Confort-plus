@@ -1014,5 +1014,17 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "New value added"
+	},
+	"setting_paragraphFocus": {
+		"message": "Paragraph focus"
+	},
+	"setting_paragraphFocus_instruction": {
+		"message": "To navigate between paragraphs using the keyboard."
+	},
+	"paragraphFocus_noModifications": {
+		"message": "no modification"
+	},
+	"paragraphFocus_active": {
+		"message": "focusable paragraphs"
 	}
 }
