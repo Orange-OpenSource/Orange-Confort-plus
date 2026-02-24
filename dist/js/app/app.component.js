@@ -19,6 +19,7 @@ class AppComponent extends HTMLElement {
     pauseIndicator = null;
     link;
     handler;
+    pressedKeys = new Set();
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -59,11 +60,41 @@ class AppComponent extends HTMLElement {
         dragDropServiceInstance.enable();
         this.confortPlusToolbar.addEventListener('closeEvent', this.handler);
         this.confortPlusBtn.addEventListener('click', this.handler);
+        window.addEventListener('keydown', this.handleKeyDown);
+        window.addEventListener('keyup', this.handleKeyUp);
     }
     disconnectedCallback() {
         this.confortPlusToolbar?.removeEventListener('closeEvent', this.handler);
         this.confortPlusBtn?.removeEventListener('click', this.handler);
+        window.removeEventListener('keydown', this.handleKeyDown);
+        window.removeEventListener('keyup', this.handleKeyUp);
     }
+    handleKeyDown = (event) => {
+        this.pressedKeys.add(event.key);
+        if (event.shiftKey &&
+            this.pressedKeys.has('R')
+            && this.pressedKeys.has('A')
+            && this.pressedKeys.has('Z')) {
+            this.resetAction();
+            this.pressedKeys.clear();
+        }
+    };
+    handleKeyUp = (event) => {
+        this.pressedKeys.delete(event.key);
+    };
+    resetAction = () => {
+        globalSettingsServices.forEach((service) => {
+            service.instanceService(DEFAULT_VALUE);
+        });
+        localStorageServiceInstance.getItem('modeOfUse').then((json) => {
+            const activeMode = json.modes.find((mode) => mode[json.selectedMode]);
+            activeMode?.[json.selectedMode]?.forEach((settingWrapper) => {
+                const setting = Object.values(settingWrapper)[0];
+                setting.valueSelected = 0;
+            });
+            localStorageServiceInstance.setItem('modeOfUse', json);
+        });
+    };
     createHandler = () => {
         return (event) => {
             switch (event.type) {

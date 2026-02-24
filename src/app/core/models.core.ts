@@ -15,3 +15,9 @@ interface SettingsDictionnary {
 	name: string;
 	element: string;
 }
+
+interface SavedSettingsState {
+	name: string;
+	instanceService: any;
+	value: any;
+}

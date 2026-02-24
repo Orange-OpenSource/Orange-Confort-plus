@@ -78,5 +78,29 @@ const textSpacingServiceInstance = new TextSpacingService();
 Object.seal(textSpacingServiceInstance);
 const zoomServiceInstance = new ZoomService();
 Object.seal(zoomServiceInstance);
+
+const globalSettingsServices: SavedSettingsState[] = [
+    { name: 'capitalLetters', instanceService: capitalLettersServiceInstance.setCapitalLetters.bind(capitalLettersServiceInstance), value: DEFAULT_VALUE },
+    { name: 'clearlyLinks', instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(clearlyLinksServiceInstance), value: DEFAULT_VALUE },
+    { name: 'clickFacilite', instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(clickFaciliteServiceInstance), value: DEFAULT_VALUE },
+    { name: 'colorContrast', instanceService: colorContrastServiceInstance.setColorsContrasts.bind(colorContrastServiceInstance), value: DEFAULT_VALUE },
+    { name: 'cursorAspect', instanceService: cursorAspectServiceInstance.setCursor.bind(cursorAspectServiceInstance), value: DEFAULT_VALUE },
+    { name: 'deleteBackgroundImages', instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(deleteBackgroundImagesServiceInstance), value: DEFAULT_VALUE },
+    { name: 'focusAspect', instanceService: focusAspectServiceInstance.setFocus.bind(focusAspectServiceInstance), value: DEFAULT_VALUE },
+    { name: 'fontFamily', instanceService: fontFamilyServiceInstance.setFontFamily.bind(fontFamilyServiceInstance), value: DEFAULT_VALUE },
+    { name: 'linkStyle', instanceService: linkStyleServiceInstance.setLinkStyle.bind(linkStyleServiceInstance), value: DEFAULT_VALUE },
+    { name: 'magnifier', instanceService: magnifierServiceInstance.setMagnifier.bind(magnifierServiceInstance), value: DEFAULT_VALUE },
+    { name: 'marginAlign', instanceService: marginAlignServiceInstance.setMargin.bind(marginAlignServiceInstance), value: DEFAULT_VALUE },
+    { name: 'navigationAuto', instanceService: navigationAutoServiceInstance.setNavigationAuto.bind(navigationAutoServiceInstance), value: DEFAULT_VALUE },
+    { name: 'navigationButtons', instanceService: navigationButtonsServiceInstance.setNavigationButtons.bind(navigationButtonsServiceInstance), value: DEFAULT_VALUE },
+    { name: 'readAloud', instanceService: readAloudServiceInstance.setReadAloud.bind(readAloudServiceInstance), value: DEFAULT_VALUE },
+    { name: 'readingGuide', instanceService: readingGuideServiceInstance.setReadingMaskGuide.bind(readingGuideServiceInstance), value: DEFAULT_VALUE },
+    { name: 'scroll', instanceService: scrollAspectServiceInstance.setScrollAspect.bind(scrollAspectServiceInstance), value: DEFAULT_VALUE },
+    { name: 'stopAnimations', instanceService: stopAnimationsServiceInstance.setStopAnimations.bind(stopAnimationsServiceInstance), value: DEFAULT_VALUE },
+    { name: 'textSize', instanceService: textSizeServiceInstance.setFontSize.bind(textSizeServiceInstance), value: DEFAULT_VALUE },
+    { name: 'textSpacing', instanceService: textSpacingServiceInstance.setSpacingText.bind(textSpacingServiceInstance), value: DEFAULT_VALUE },
+    { name: 'zoom', instanceService: zoomServiceInstance.setZoom.bind(zoomServiceInstance), value: DEFAULT_VALUE }
+];
+
 const pauseServiceInstance = new PauseService();
 Object.freeze(pauseServiceInstance);
