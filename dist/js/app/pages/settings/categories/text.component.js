@@ -17,8 +17,9 @@ tmplText.innerHTML = `
 				<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>
 				<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>
 				<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>
-				<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
-				<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>
+			<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>
+			<app-color-read class="c-category__setting" data-can-edit="true"></app-color-read>
+			<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>
 			</div>
 			<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>
 		</div>
