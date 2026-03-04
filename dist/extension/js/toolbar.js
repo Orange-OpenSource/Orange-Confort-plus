@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 25/02/2026
+ * orange-confort-plus - version 5.4.0 - 03/03/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -3472,6 +3472,24 @@ class ColorContrastService {
 
 "use strict";
 
+let colorReadServiceIsInstantiated;
+
+class ColorReadService {
+    enabled=false;
+    constructor() {
+        if (colorReadServiceIsInstantiated) {
+            throw new Error("ColorReadService is already instantiated.");
+        }
+        colorReadServiceIsInstantiated = true;
+    }
+    setColorRead=value => {
+        this.enabled = value !== DEFAULT_VALUE;
+        console.log(value);
+    };
+}
+
+"use strict";
+
 let deleteBackgroundImagesServiceIsInstantiated;
 
 class DeleteBackgroundImagesService {
@@ -5343,6 +5361,10 @@ const colorContrastServiceInstance = new ColorContrastService;
 
 Object.seal(colorContrastServiceInstance);
 
+const colorReadServiceInstance = new ColorReadService;
+
+Object.seal(colorReadServiceInstance);
+
 const cursorAspectServiceInstance = new CursorAspectService;
 
 Object.seal(cursorAspectServiceInstance);
@@ -5442,6 +5464,10 @@ const globalSettingsServices = [ {
 }, {
     name: "colorContrast",
     instanceService: colorContrastServiceInstance.setColorsContrasts.bind(colorContrastServiceInstance),
+    value: DEFAULT_VALUE
+}, {
+    name: "colorRead",
+    instanceService: colorReadServiceInstance.setColorRead.bind(colorReadServiceInstance),
     value: DEFAULT_VALUE
 }, {
     name: "cursorAspect",
@@ -5792,6 +5818,26 @@ class ColorContrastComponent extends AbstractSetting {
 }
 
 customElements.define("app-color-contrast", ColorContrastComponent);
+
+"use strict";
+
+const tmplColorRead = document.createElement("template");
+
+tmplColorRead.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+
+class ColorReadComponent extends AbstractSetting {
+    activesValues={
+        values: "noModifications,active",
+        valueSelected: 0
+    };
+    constructor() {
+        super();
+        this.setCallback(colorReadServiceInstance.setColorRead.bind(this));
+        this.appendChild(tmplColorRead.content.cloneNode(true));
+    }
+}
+
+customElements.define("app-color-read", ColorReadComponent);
 
 "use strict";
 
@@ -6880,6 +6926,50 @@ class EditColorContrastComponent extends HTMLElement {
 }
 
 customElements.define("app-edit-color-contrast", EditColorContrastComponent);
+
+"use strict";
+
+const editColorReadLayout = document.createElement("template");
+
+editColorReadLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="colorRead"></app-select-edit-value>\n\t</form>\n`;
+
+class EditColorReadComponent extends HTMLElement {
+    selectColorReadElement=null;
+    settingValues=null;
+    colorReadValues=[ DEFAULT_VALUE, "active" ];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(editColorReadLayout.content.cloneNode(true));
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.selectColorReadElement = this.querySelector("app-select-edit-value");
+        this.selectColorReadElement.addEventListener("editSettingColorRead", this.handler);
+        this.selectColorReadElement.setAttribute("data-setting-values", this.colorReadValues.join(","));
+        modeOfUseServiceInstance.getSetting("colorRead").then((result => {
+            this.settingValues = result.values.split(",");
+            const currentIndex = this.colorReadValues.findIndex((i => i === this.settingValues[result.valueSelected]));
+            this.selectColorReadElement.setAttribute("data-index", currentIndex.toString());
+        }));
+    }
+    setColorRead=value => {
+        let newSettingIndex = this.settingValues.indexOf(value);
+        if (newSettingIndex !== -1) {
+            modeOfUseServiceInstance.setSettingValue("colorRead", newSettingIndex, true);
+        }
+        colorReadServiceInstance.setColorRead(value);
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "editSettingColorRead":
+            this.setColorRead(event.detail.newValue);
+            break;
+        }
+    };
+}
+
+customElements.define("app-edit-color-read", EditColorReadComponent);
 
 "use strict";
 
@@ -8294,7 +8384,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t<app-color-read class="c-category__setting" data-can-edit="true"></app-color-read>\n\t\t\t<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {

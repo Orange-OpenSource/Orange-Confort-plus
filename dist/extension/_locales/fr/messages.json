@@ -999,5 +999,17 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Nouvelle valeur ajoutée"
+	},
+	"setting_colorRead": {
+		"message": "Lire en couleurs"
+	},
+	"setting_colorRead_instruction": {
+		"message": "Pour faciliter la lecture des syllabes et des sons."
+	},
+	"colorRead_noModifications": {
+		"message": "sans modification"
+	},
+	"colorRead_active": {
+		"message": "activé"
 	}
 }

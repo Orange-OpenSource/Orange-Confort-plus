@@ -1014,6 +1014,18 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Dodano nową wartość"
+	},
+	"setting_colorRead": {
+		"message": "Czytaj w kolorach"
+	},
+	"setting_colorRead_instruction": {
+		"message": "Aby ułatwić czytanie sylab i dźwięków."
+	},
+	"colorRead_noModifications": {
+		"message": "bez zmian"
+	},
+	"colorRead_active": {
+		"message": "włączony"
 	}
 }
 

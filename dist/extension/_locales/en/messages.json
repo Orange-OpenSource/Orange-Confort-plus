@@ -1014,5 +1014,17 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "New value added"
+	},
+	"setting_colorRead": {
+		"message": "Read in colors"
+	},
+	"setting_colorRead_instruction": {
+		"message": "To facilitate reading syllables and sounds."
+	},
+	"colorRead_noModifications": {
+		"message": "no modification"
+	},
+	"colorRead_active": {
+		"message": "enabled"
 	}
 }
