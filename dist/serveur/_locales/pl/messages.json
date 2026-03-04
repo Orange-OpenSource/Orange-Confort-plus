@@ -302,13 +302,13 @@
 		"message": "Aby wyjść z okna lub zatrzymać funkcję"
 	},
 	"word": {
-		"message": "Przeczytaj słowo"
+		"message": "wskazane słowo"
 	},
 	"sentence": {
-		"message": "Przeczytaj zdanie"
+		"message": "wskazane zdanie"
 	},
 	"paragraph": {
-		"message": "Przeczytaj paragraf"
+		"message": "wskazany akapit"
 	},
 	"delay1": {
 		"message": "1s opóźnienia"
@@ -1062,6 +1062,92 @@
 	},
 	"colorRead_active": {
 		"message": "włączony"
+	},
+	"colorRead_splitSyllables": {
+		"message": "Oddzielone sylaby"
+	},
+	"colorRead_colorSyllables": {
+		"message": "Kolorowe sylaby"
+	},
+	"colorRead_colorTrickyWords": {
+		"message": "Pokoloruj trudne słowa"
+	},
+	"colorRead_customColors": {
+		"message": "Kolory niestandardowe"
+	},
+	"colorRead_colorHoveredWord": {
+		"message": "Pokoloruj słowo najechane"
+	},
+	"colorRead_colorHoveredSentence": {
+		"message": "Pokoloruj zdanie najechane"
+	},
+	"colorRead_colorParagraph": {
+		"message": "Pokoloruj akapit"
+	},
+	"colorRead_colorAll": {
+		"message": "Pokoloruj wszystko"
+	},
+	"all": {
+		"message": "cały tekst"
+	},
+	"splitSyllables": {
+		"message": "Oddzielone sylaby"
+	},
+	"colorSyllables": {
+		"message": "Kolorowe sylaby"
+	},
+	"colorTrickyWords": {
+		"message": "Pokoloruj trudne słowa"
+	},
+	"customColors": {
+		"message": "Kolory niestandardowe"
+	},
+	"colorRead_none": {
+		"message": "bez kolorowania"
+	},
+	"colorRead_values": {
+		"message": "$ACTION$ dla $SCOPE$",
+		"placeholders": {
+			"action": {
+				"content": "$1"
+			},
+			"scope": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorReadAction_label": {
+		"message": "Akcja"
+	},
+	"colorReadAction_none": {
+		"message": "bez kolorowania"
+	},
+	"colorReadAction_splitSyllables": {
+		"message": "Oddzielone sylaby"
+	},
+	"colorReadAction_colorSyllables": {
+		"message": "Kolorowe sylaby"
+	},
+	"colorReadAction_colorTrickyWords": {
+		"message": "Pokoloruj trudne słowa"
+	},
+	"colorReadAction_customColors": {
+		"message": "Kolory niestandardowe"
+	},
+	"colorReadScope_label": {
+		"message": "Zakres"
+	},
+	"colorReadScope_word": {
+		"message": "wskazane słowo"
+	},
+	"colorReadScope_sentence": {
+		"message": "wskazane zdanie"
+	},
+	"colorReadScope_paragraph": {
+		"message": "wskazany akapit"
+	},
+	"colorReadScope_all": {
+		"message": "cały tekst"
 	}
 }
 

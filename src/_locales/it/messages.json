@@ -302,13 +302,13 @@
 		"message": "Per uscire da una finestra o interrompere una funzione"
 	},
 	"word": {
-		"message": "Leggi la parola"
+		"message": "parola puntata"
 	},
 	"sentence": {
-		"message": "Leggi la frase"
+		"message": "frase puntata"
 	},
 	"paragraph": {
-		"message": "Leggi il paragrafo"
+		"message": "paragrafo puntato"
 	},
 	"delay1": {
 		"message": "ritardo di 1s"
@@ -1047,5 +1047,91 @@
 	},
 	"colorRead_active": {
 		"message": "attivato"
+	},
+	"colorRead_splitSyllables": {
+		"message": "Sillabe separate"
+	},
+	"colorRead_colorSyllables": {
+		"message": "Sillabe colorate"
+	},
+	"colorRead_colorTrickyWords": {
+		"message": "Colora le parole difficili"
+	},
+	"colorRead_customColors": {
+		"message": "Colori personalizzati"
+	},
+	"colorRead_colorHoveredWord": {
+		"message": "Colora parola evidenziata"
+	},
+	"colorRead_colorHoveredSentence": {
+		"message": "Colora frase evidenziata"
+	},
+	"colorRead_colorParagraph": {
+		"message": "Colora paragrafo"
+	},
+	"colorRead_colorAll": {
+		"message": "Colora tutto"
+	},
+	"all": {
+		"message": "tutto il testo"
+	},
+	"splitSyllables": {
+		"message": "Sillabe separate"
+	},
+	"colorSyllables": {
+		"message": "Sillabe colorate"
+	},
+	"colorTrickyWords": {
+		"message": "Colora le parole difficili"
+	},
+	"customColors": {
+		"message": "Colori personalizzati"
+	},
+	"colorRead_none": {
+		"message": "senza colorare"
+	},
+	"colorRead_values": {
+		"message": "$ACTION$ per $SCOPE$",
+		"placeholders": {
+			"action": {
+				"content": "$1"
+			},
+			"scope": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorReadAction_label": {
+		"message": "Azione"
+	},
+	"colorReadAction_none": {
+		"message": "senza colorare"
+	},
+	"colorReadAction_splitSyllables": {
+		"message": "Sillabe separate"
+	},
+	"colorReadAction_colorSyllables": {
+		"message": "Sillabe colorate"
+	},
+	"colorReadAction_colorTrickyWords": {
+		"message": "Colora le parole difficili"
+	},
+	"colorReadAction_customColors": {
+		"message": "Colori personalizzati"
+	},
+	"colorReadScope_label": {
+		"message": "Portata"
+	},
+	"colorReadScope_word": {
+		"message": "parola puntata"
+	},
+	"colorReadScope_sentence": {
+		"message": "frase puntata"
+	},
+	"colorReadScope_paragraph": {
+		"message": "paragrafo puntato"
+	},
+	"colorReadScope_all": {
+		"message": "tutto il testo"
 	}
 }

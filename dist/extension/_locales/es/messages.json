@@ -302,13 +302,13 @@
 		"message": "Para salir de una ventana o detener una función"
 	},
 	"word": {
-		"message": "Leer la palabra"
+		"message": "palabra apuntada"
 	},
 	"sentence": {
-		"message": "Leer la frase"
+		"message": "oración apuntada"
 	},
 	"paragraph": {
-		"message": "Leer el párrafo"
+		"message": "párrafo apuntado"
 	},
 	"delay1": {
 		"message": "plazo de 1s"
@@ -1065,5 +1065,91 @@
 	},
 	"colorRead_active": {
 		"message": "activado"
+	},
+	"colorRead_splitSyllables": {
+		"message": "Sílabas separadas"
+	},
+	"colorRead_colorSyllables": {
+		"message": "Sílabas coloreadas"
+	},
+	"colorRead_colorTrickyWords": {
+		"message": "Colorear palabras difíciles"
+	},
+	"colorRead_customColors": {
+		"message": "Colores personalizados"
+	},
+	"colorRead_colorHoveredWord": {
+		"message": "Colorear palabra señalada"
+	},
+	"colorRead_colorHoveredSentence": {
+		"message": "Colorear oración señalada"
+	},
+	"colorRead_colorParagraph": {
+		"message": "Colorear párrafo"
+	},
+	"colorRead_colorAll": {
+		"message": "Colorear todo"
+	},
+	"all": {
+		"message": "todo el texto"
+	},
+	"splitSyllables": {
+		"message": "Sílabas separadas"
+	},
+	"colorSyllables": {
+		"message": "Sílabas coloreadas"
+	},
+	"colorTrickyWords": {
+		"message": "Colorear palabras difíciles"
+	},
+	"customColors": {
+		"message": "Colores personalizados"
+	},
+	"colorRead_none": {
+		"message": "sin colorear"
+	},
+	"colorRead_values": {
+		"message": "$ACTION$ para $SCOPE$",
+		"placeholders": {
+			"action": {
+				"content": "$1"
+			},
+			"scope": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorReadAction_label": {
+		"message": "Acción"
+	},
+	"colorReadAction_none": {
+		"message": "sin colorear"
+	},
+	"colorReadAction_splitSyllables": {
+		"message": "Sílabas separadas"
+	},
+	"colorReadAction_colorSyllables": {
+		"message": "Sílabas coloreadas"
+	},
+	"colorReadAction_colorTrickyWords": {
+		"message": "Colorear palabras difíciles"
+	},
+	"colorReadAction_customColors": {
+		"message": "Colores personalizados"
+	},
+	"colorReadScope_label": {
+		"message": "Alcance"
+	},
+	"colorReadScope_word": {
+		"message": "palabra apuntada"
+	},
+	"colorReadScope_sentence": {
+		"message": "oración apuntada"
+	},
+	"colorReadScope_paragraph": {
+		"message": "párrafo apuntado"
+	},
+	"colorReadScope_all": {
+		"message": "todo el texto"
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 27/03/2026
+ * orange-confort-plus - version 5.4.0 - 21/04/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -5083,11 +5083,11 @@ customElements.define("app-color-contrast", ColorContrastComponent);
 
 const tmplColorRead = document.createElement("template");
 
-tmplColorRead.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n</div>\n`;
+tmplColorRead.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">\n\t<app-btn-setting></app-btn-setting>\n\t<app-btn-modal class="d-none"></app-btn-modal>\n</div>\n`;
 
 class ColorReadComponent extends AbstractSetting {
     activesValues={
-        values: "noModifications,active",
+        values: "none," + "splitSyllables_word," + "colorTrickyWords_word",
         valueSelected: 0
     };
     constructor() {
@@ -6013,7 +6013,7 @@ customElements.define("app-select-mode", SelectModeComponent);
 
 const editSettingLayout = document.createElement("template");
 
-editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-zoom class="sc-edit-setting__setting"></app-edit-zoom>\n\t\t<app-edit-navigation-buttons class="sc-edit-setting__setting"></app-edit-navigation-buttons>\n\t</div>\n`;
+editSettingLayout.innerHTML = `\n\t<div class="gap-1 p-3 text-body">\n\t\t<div class="d-flex align-items-center gap-2 mb-2">\n\t\t\t<app-icon id="edit-setting-icon" data-size="2em"></app-icon>\n\t\t\t<p id="edit-setting-title" class="fs-4 fw-bold mb-0"></p>\n\t\t</div>\n\n\t\t<p id="edit-setting-instruction" class="mb-4"></p>\n\n\t\t<app-edit-capital-letters class="sc-edit-setting__setting"></app-edit-capital-letters>\n\t\t<app-edit-clearly-links class="sc-edit-setting__setting"></app-edit-clearly-links>\n\t\t<app-edit-click-facilite class="sc-edit-setting__setting"></app-edit-click-facilite>\n\t\t<app-edit-color-contrast class="sc-edit-setting__setting"></app-edit-color-contrast>\n\t\t<app-edit-color-read class="sc-edit-setting__setting"></app-edit-color-read>\n\t\t<app-edit-cursor-aspect class="sc-edit-setting__setting"></app-edit-cursor-aspect>\n\t\t<app-edit-delete-background-images class="sc-edit-setting__setting"></app-edit-delete-background-images>\n\t\t<app-edit-focus-aspect class="sc-edit-setting__setting"></app-edit-focus-aspect>\n\t\t<app-edit-font-family class="sc-edit-setting__setting"></app-edit-font-family>\n\t\t<app-edit-link-style class="sc-edit-setting__setting"></app-edit-link-style>\n\t\t<app-edit-magnifier class="sc-edit-setting__setting"></app-edit-magnifier>\n\t\t<app-edit-margin-align class="sc-edit-setting__setting"></app-edit-margin-align>\n\t\t<app-edit-navigation-auto class="sc-edit-setting__setting"></app-edit-navigation-auto>\n\t\t<app-edit-read-aloud class="sc-edit-setting__setting"></app-edit-read-aloud>\n\t\t<app-edit-reading-guide class="sc-edit-setting__setting"></app-edit-reading-guide>\n\t\t<app-edit-scroll-aspect class="sc-edit-setting__setting"></app-edit-scroll-aspect>\n\t\t<app-edit-scroll-type class="sc-edit-setting__setting"></app-edit-scroll-type>\n\t\t<app-edit-stop-animations class="sc-edit-setting__setting"></app-edit-stop-animations>\n\t\t<app-edit-text-size class="sc-edit-setting__setting"></app-edit-text-size>\n\t\t<app-edit-text-spacing class="sc-edit-setting__setting"></app-edit-text-spacing>\n\t\t<app-edit-zoom class="sc-edit-setting__setting"></app-edit-zoom>\n\t\t<app-edit-navigation-buttons class="sc-edit-setting__setting"></app-edit-navigation-buttons>\n\t</div>\n`;
 
 class EditSettingComponent extends HTMLElement {
     static observedAttributes=[ "data-setting" ];
@@ -6191,12 +6191,16 @@ customElements.define("app-edit-color-contrast", EditColorContrastComponent);
 
 const editColorReadLayout = document.createElement("template");
 
-editColorReadLayout.innerHTML = `\n\t<form>\n\t\t<app-select-edit-value data-name="colorRead"></app-select-edit-value>\n\t</form>\n`;
+editColorReadLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4 text-center">\n\t\t<app-select-edit-value id="${PREFIX}select-color-read-action" data-name="colorReadAction" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-read-scope" data-name="colorReadScope" data-label="true"></app-select-edit-value>\n\t</form>\n`;
 
 class EditColorReadComponent extends HTMLElement {
-    selectColorReadElement=null;
+    selectColorReadActionElement=null;
+    selectColorReadScopeElement=null;
     settingValues=null;
-    colorReadValues=[ DEFAULT_VALUE, "active" ];
+    colorReadActionValue="none";
+    colorReadScopeValue="word";
+    colorReadActions=[ "none", "splitSyllables", "colorSyllables", "colorTrickyWords", "customColors" ];
+    colorReadScopes=[ "word", "sentence", "paragraph", "all" ];
     handler;
     constructor() {
         super();
@@ -6204,26 +6208,58 @@ class EditColorReadComponent extends HTMLElement {
         this.handler = this.createHandler();
     }
     connectedCallback() {
-        this.selectColorReadElement = this.querySelector("app-select-edit-value");
-        this.selectColorReadElement.addEventListener("editSettingColorRead", this.handler);
-        this.selectColorReadElement.setAttribute("data-setting-values", this.colorReadValues.join(","));
+        this.selectColorReadActionElement = this.querySelector(`#${PREFIX}select-color-read-action`);
+        this.selectColorReadScopeElement = this.querySelector(`#${PREFIX}select-color-read-scope`);
+        this.selectColorReadActionElement.addEventListener("editSettingColorReadAction", this.handler);
+        this.selectColorReadScopeElement.addEventListener("editSettingColorReadScope", this.handler);
+        this.selectColorReadActionElement.setAttribute("data-setting-values", this.colorReadActions.join(","));
+        this.selectColorReadScopeElement.setAttribute("data-setting-values", this.colorReadScopes.join(","));
         modeOfUseServiceInstance.getSetting("colorRead").then((result => {
-            this.settingValues = result.values.split(",");
-            const currentIndex = this.colorReadValues.findIndex((i => i === this.settingValues[result.valueSelected]));
-            this.selectColorReadElement.setAttribute("data-index", currentIndex.toString());
+            this.settingValues = result.values?.split(",");
+            const currentValue = this.settingValues?.[result.valueSelected];
+            if (currentValue && currentValue !== DEFAULT_VALUE && currentValue !== "none") {
+                const parts = currentValue.split("_");
+                this.colorReadActionValue = parts[0];
+                this.colorReadScopeValue = parts[1] || "word";
+            } else {
+                this.colorReadActionValue = "none";
+                this.colorReadScopeValue = "word";
+            }
+            const currentActionIndex = this.colorReadActions.findIndex((i => i === this.colorReadActionValue));
+            const currentScopeIndex = this.colorReadScopes.findIndex((i => i === this.colorReadScopeValue));
+            this.selectColorReadActionElement.setAttribute("data-index", currentActionIndex.toString());
+            this.selectColorReadScopeElement.setAttribute("data-index", currentScopeIndex.toString());
+            this.toggleScopeVisibility();
         }));
     }
-    setColorRead=value => {
+    setColorRead=() => {
+        const value = this.colorReadActionValue === "none" ? "none" : `${this.colorReadActionValue}_${this.colorReadScopeValue}`;
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("colorRead", newSettingIndex, true);
+        } else {
+            modeOfUseServiceInstance.addSettingCustomValue("colorRead", 3, value);
         }
         colorReadServiceInstance.setColorRead(value);
     };
+    toggleScopeVisibility=() => {
+        if (this.colorReadActionValue === "none") {
+            this.selectColorReadScopeElement.style.display = "none";
+        } else {
+            this.selectColorReadScopeElement.style.display = "";
+        }
+    };
     createHandler=() => event => {
         switch (event.type) {
-          case "editSettingColorRead":
-            this.setColorRead(event.detail.newValue);
+          case "editSettingColorReadAction":
+            this.colorReadActionValue = event.detail.newValue;
+            this.toggleScopeVisibility();
+            this.setColorRead();
+            break;
+
+          case "editSettingColorReadScope":
+            this.colorReadScopeValue = event.detail.newValue;
+            this.setColorRead();
             break;
         }
     };
@@ -7295,7 +7331,7 @@ customElements.define("app-home", HomeComponent);
 
 const tmplMode = document.createElement("template");
 
-tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n\t<app-reading-page class="sc-mode__setting d-none"></app-reading-page>\n</div>\n`;
+tmplMode.innerHTML = `\n<div id="mode-content" class="sc-mode__setting-grid gap-2">\n\t<app-font-family class="sc-mode__setting d-none"></app-font-family>\n\t<app-text-size class="sc-mode__setting d-none"></app-text-size>\n\t<app-capital-letters class="sc-mode__setting d-none"></app-capital-letters>\n\t<app-text-spacing class="sc-mode__setting d-none"></app-text-spacing>\n\t<app-reading-guide class="sc-mode__setting d-none"></app-reading-guide>\n\t<app-margin-align class="sc-mode__setting d-none"></app-margin-align>\n\t<app-magnifier class="sc-mode__setting d-none"></app-magnifier>\n\t<app-read-aloud class="sc-mode__setting d-none"></app-read-aloud>\n\t<app-color-read class="sc-mode__setting d-none"></app-color-read>\n\t<app-cursor-aspect class="sc-mode__setting d-none"></app-cursor-aspect>\n\t<app-focus-aspect class="sc-mode__setting d-none"></app-focus-aspect>\n\t<app-color-contrast class="sc-mode__setting d-none"></app-color-contrast>\n\t<app-link-style class="sc-mode__setting d-none"></app-link-style>\n\t<app-clearly-links class="sc-mode__setting d-none"></app-clearly-links>\n\t<app-stop-animations class="sc-mode__setting d-none"></app-stop-animations>\n\t<app-delete-background-images class="sc-mode__setting d-none"></app-delete-background-images>\n\t<app-scroll-aspect class="sc-mode__setting d-none"></app-scroll-aspect>\n\t<app-navigation-buttons class="sc-mode__setting d-none"></app-navigation-buttons>\n\t<app-click-facilite class="sc-mode__setting d-none"></app-click-facilite>\n\t<app-navigation-auto class="sc-mode__setting d-none"></app-navigation-auto>\n\t<app-zoom class="sc-mode__setting d-none"></app-zoom>\n\t<app-reading-page class="sc-mode__setting d-none"></app-reading-page>\n</div>\n`;
 
 class ModeComponent extends HTMLElement {
     static observedAttributes=[ "data-settings", "data-pause" ];
@@ -7644,7 +7680,7 @@ customElements.define("app-sound", SoundComponent);
 
 const tmplText = document.createElement("template");
 
-tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t<app-color-read class="c-category__setting" data-can-edit="true"></app-color-read>\n\t\t\t<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
+tmplText.innerHTML = `\n\t<div class="accordion-header">\n\t\t<button class="accordion-button collapsed gap-2 fs-4 px-3" type="button" aria-expanded="false" aria-controls="category-text">\n\t\t\t<app-icon data-name="Text" data-size="2em"></app-icon>\n\t\t\t<span data-i18n="text"></span>\n\t\t</button>\n\t</div>\n\t<div class="accordion-collapse collapse" id="category-text">\n\t\t<div class="accordion-body px-3">\n\t\t\t<div class="d-flex flex-column gap-2">\n\t\t\t\t<app-reading-page class="c-category__setting" data-can-edit="true"></app-reading-page>\n\t\t\t\t<app-reading-guide class="c-category__setting" data-can-edit="true"></app-reading-guide>\n\t\t\t\t<app-text-size class="c-category__setting" data-can-edit="true"></app-text-size>\n\t\t\t\t<app-font-family class="c-category__setting" data-can-edit="true"></app-font-family>\n\t\t\t\t<app-capital-letters class="c-category__setting" data-can-edit="true"></app-capital-letters>\n\t\t\t\t<app-margin-align class="c-category__setting" data-can-edit="true"></app-margin-align>\n\t\t\t\t<app-text-spacing class="c-category__setting" data-can-edit="true"></app-text-spacing>\n\t\t\t\t<app-color-contrast class="c-category__setting" data-can-edit="true"></app-color-contrast>\n\t\t\t\t<app-read-aloud class="c-category__setting" data-can-edit="true"></app-read-aloud>\n\t\t\t\t<app-color-read class="c-category__setting" data-can-edit="true"></app-color-read>\n\t\t\t</div>\n\t\t\t<button class="c-category__btn-more btn btn-tertiary mt-3" type="button" data-i18n="moreSettings"></button>\n\t\t</div>\n\t</div>\n`;
 
 class TextComponent extends AbstractCategory {
     constructor() {
