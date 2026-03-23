@@ -1,5 +1,5 @@
 {
-	"version": "1.0.45",
+	"version": "1.0.46",
 	"modes": [
 		{
 			"facilePlus": [
@@ -37,7 +37,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -209,7 +209,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -381,7 +381,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -553,7 +553,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": true,
 						"order": 3
@@ -725,7 +725,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 3
@@ -897,7 +897,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -1069,7 +1069,7 @@
 				},
 				{
 					"readingGuide": {
-						"values": "noModifications,ruleGuide,maskGuide,alternatingLines",
+						"values": "noModifications,ruleGuide,maskGuide",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null

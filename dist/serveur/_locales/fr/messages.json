@@ -314,7 +314,7 @@
 		"message": "grandes zones de clic\n& clic automatique au survol"
 	},
 	"multiclic": {
-		"message": "Valeur actuelle : « $CURRENT$ » $INDEX$/$TOTAL$ — changer pour « $NEXT$ » $INDEX2$/$TOTAL$",
+		"message": "Valeur actuelle : « $CURRENT$ » $INDEX$/$TOTAL$ — changer pour « $NEXT$ » $INDEX2$/$TOTAL$",
 		"description": "Indique la valeur et l’index du réglage actuel, le nombre total de valeurs et la prochaine valeur.",
 		"placeholders": {
 			"current": {
@@ -448,7 +448,7 @@
 		"message": "Règle de lecture"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Pour suivre La ligne de lecture."
+		"message": "Pour mieux repérer la ligne lue."
 	},
 	"readingGuide_noModifications": {
 		"message": "sans guide"
@@ -775,10 +775,10 @@
 		"message": "boutons ascenseurs Monter/Descendre (au survol, pas besoin de cliquer)"
 	},
 	"setting_scrollAspect": {
-		"message": "Aspect ascenseur"
+		"message": "Aspect de l’ascenseur"
 	},
 	"setting_scrollAspect_instruction": {
-		"message": "Pour modifier le rendu de l'ascenseur."
+		"message": "Pour modifier l’apparence de l’ascenseur."
 	},
 	"scrollAspect_noModifications": {
 		"message": "sans modification"

@@ -314,7 +314,7 @@
 		"message": "duże strefy klikania\n& automatyczne kliknięcie po najechaniu kursorem"
 	},
 	"multiclic": {
-		"message": "Aktualna wartość: $CURRENT$ $INDEX$/$TOTAL$ — mień na „$NEXT$” $INDEX2$/$TOTAL$",
+		"message": "Aktualna wartość: „ $CURRENT$ ” $INDEX$/$TOTAL$ — mień na „ $NEXT$ ” $INDEX2$/$TOTAL$",
 		"description": "Oznacza wartość i indeks ustawienia actualnego, całkowita liczba wartości i następną wartość.",
 		"placeholders": {
 			"current": {
@@ -451,7 +451,7 @@
 		"message": "Przewodnik do czytania"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Aby być prowadzonym podczas czytania"
+		"message": "Aby lepiej znaleźć czytaną linię."
 	},
 	"readingGuide_noModifications": {
 		"message": "Bez przewodnika"

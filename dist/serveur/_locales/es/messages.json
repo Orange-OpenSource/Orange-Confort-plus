@@ -314,7 +314,7 @@
 		"message": "grandes áreas de clic\ny clics al pasar el ratón"
 	},
 	"multiclic": {
-		"message": "Valor actual: $CURRENT$ $INDEX$/$TOTAL$ — cambia por «$NEXT$» $INDEX2$/$TOTAL$",
+		"message": "Valor actual: « $CURRENT$ » $INDEX$/$TOTAL$ — cambia por « $NEXT$ » $INDEX2$/$TOTAL$",
 		"description": "Indica el valor e índice de la configuración actual, el número total de valores y el valor siguiente.",
 		"placeholders": {
 			"current": {
@@ -451,7 +451,7 @@
 		"message": "Regla de apoyo a la lectura"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Para seguir la línea de lectura"
+		"message": "Para identificar mejor la línea leída."
 	},
 	"readingGuide_noModifications": {
 		"message": "sin guía de lectura"

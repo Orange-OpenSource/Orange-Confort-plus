@@ -314,7 +314,7 @@
 		"message": "ampie aree di clic\n& clic automatico al passaggio"
 	},
 	"multiclic": {
-		"message": "Valore attuale: « $CURRENT$ » $INDEX$/$TOTAL$ — cambia in « $NEXT$ » $INDEX2$/$TOTAL$",
+		"message": "Valore attuale: « $CURRENT$ » $INDEX$/$TOTAL$ — cambia in « $NEXT$ » $INDEX2$/$TOTAL$",
 		"description": "Indica il valore e l’indice dell’impostazione corrente, il numero totale di valori e il valore successivo.",
 		"placeholders": {
 			"current": {
@@ -448,7 +448,7 @@
 		"message": "Righello di lettura"
 	},
 	"setting_readingGuide_instruction": {
-		"message": "Per seguire la riga di lettura."
+		"message": "Per identificare meglio la riga leggi"
 	},
 	"readingGuide_noModifications": {
 		"message": "senza guida"
