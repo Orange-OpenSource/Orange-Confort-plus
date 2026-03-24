@@ -70,9 +70,6 @@
 	"activeMode": {
 		"message": "Attivo"
 	},
-	"previous": {
-		"message": "Precedente"
-	},
 	"backToSettings": {
 		"message": "Torna alle impostazioni. (La tua scelta è già stata salvata)"
 	},
@@ -271,17 +268,38 @@
 	"next": {
 		"message": "Successivo"
 	},
+	"next_instruction": {
+		"message": "Per spostare il focus sull'elemento successivo"
+	},
+	"previous": {
+		"message": "Precedente"
+	},
+	"previous_instruction": {
+		"message": "Per spostare il focus sull'elemento precedente"
+	},
 	"start": {
 		"message": "Inizio"
+	},
+	"start_instruction": {
+		"message": "Per andare in alto a sinistra della pagina"
 	},
 	"content": {
 		"message": "Contenuto"
 	},
+	"content_instruction": {
+		"message": "Per andare direttamente al contenuto"
+	},
 	"click": {
 		"message": "Clic"
 	},
+	"click_instruction": {
+		"message": "Per convalidare l'oggetto selezionato o puntato"
+	},
 	"escape": {
 		"message": "Esc"
+	},
+	"escape_instruction": {
+		"message": "Per uscire da una finestra o interrompere una funzione"
 	},
 	"word": {
 		"message": "Leggi la parola"
@@ -797,8 +815,14 @@
 	"scroll_up": {
 		"message": "Su"
 	},
+	"scroll_up_instruction": {
+		"message": "Per visualizzare ciò che è sopra"
+	},
 	"scroll_down": {
 		"message": "Giù"
+	},
+	"scroll_down_instruction": {
+		"message": "Per visualizzare ciò che è sotto"
 	},
 	"scrollSize_label": {
 		"message": "Dimensione della barra di scorrimento."
@@ -853,7 +877,7 @@
 		"message": "senza pulsanti di navigazione"
 	},
 	"navigationButtons_values": {
-		"message": "$BUTTONS$ & $DELAY$",
+		"message": "$BUTTONS$ $DELAY$",
 		"placeholders": {
 			"buttons": {
 				"content": "$1"
@@ -875,13 +899,13 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Pulsanti della barra di scorrimento \"Salire, Scendere\""
+		"message": "Pulsanti della barra di scorrimento"
 	},
 	"navigationSet": {
-		"message": "Pulsanti di navigazione \"Esc., Inizio, Precedente, Successivo, Clic\""
+		"message": "Pulsanti di navigazione"
 	},
 	"fullSet": {
-		"message": "Pulsanti di navigazione e barra di scorrimento"
+		"message": "Tutti i pulsanti"
 	},
 	"pointingDelay_values": {
 		"message": "$DELAY$",
@@ -892,10 +916,22 @@
 		}
 	},
 	"pointingDelay_label": {
-		"message": "Ritardo di puntamento"
+		"message": "Azione"
 	},
 	"clicAction": {
-		"message": "clic dei pulsanti"
+		"message": "da cliccare"
+	},
+	"pointingDelay1": {
+		"message": "al passaggio e clic automatico 1s"
+	},
+	"pointingDelay2": {
+		"message": "al passaggio e clic automatico 2s"
+	},
+	"pointingDelay3": {
+		"message": "al passaggio e clic automatico 3s"
+	},
+	"pointingDelay6": {
+		"message": "al passaggio e clic automatico 6s"
 	},
 	"setting_clickFacilite": {
 		"message": "Clic adattato"

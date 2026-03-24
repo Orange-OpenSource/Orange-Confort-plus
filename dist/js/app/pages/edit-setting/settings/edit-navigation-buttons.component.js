@@ -13,7 +13,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
     buttonSetValue = '';
     pointingDelayValue = '';
     buttonSetValues = ['buttonSet_navigationButtonsNone', 'buttonSet_scrollSet', 'buttonSet_navigationSet', 'buttonSet_fullSet'];
-    pointingDelayValues = [`pointingDelay_clicAction`, 'pointingDelay_delay1', 'pointingDelay_delay2', 'pointingDelay_delay3', 'pointingDelay_delay6'];
+    pointingDelayValues = [`pointingDelay_clicAction`, 'pointingDelay_pointingDelay1', 'pointingDelay_pointingDelay2', 'pointingDelay_pointingDelay3', 'pointingDelay_pointingDelay6'];
     handler;
     constructor() {
         super();

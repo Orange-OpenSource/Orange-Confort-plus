@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 23/03/2026
+ * orange-confort-plus - version 5.4.0 - 24/03/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2549,6 +2549,7 @@ class DomService {
         btn.type = "button";
         btn.tabIndex = -1;
         btn.innerText = i18nServiceInstance.getMessage(button);
+        btn.title = i18nServiceInstance.getMessage(`${button}_instruction`);
         if (start) {
             targetRow.prepend(btn);
         } else {
@@ -7730,7 +7731,7 @@ class EditNavigationButtonsComponent extends HTMLElement {
     buttonSetValue="";
     pointingDelayValue="";
     buttonSetValues=[ "buttonSet_navigationButtonsNone", "buttonSet_scrollSet", "buttonSet_navigationSet", "buttonSet_fullSet" ];
-    pointingDelayValues=[ `pointingDelay_clicAction`, "pointingDelay_delay1", "pointingDelay_delay2", "pointingDelay_delay3", "pointingDelay_delay6" ];
+    pointingDelayValues=[ `pointingDelay_clicAction`, "pointingDelay_pointingDelay1", "pointingDelay_pointingDelay2", "pointingDelay_pointingDelay3", "pointingDelay_pointingDelay6" ];
     handler;
     constructor() {
         super();

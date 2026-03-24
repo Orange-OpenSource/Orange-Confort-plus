@@ -126,6 +126,7 @@ class DomService {
 		btn.type = 'button';
 		btn.tabIndex = -1;
 		btn.innerText = i18nServiceInstance.getMessage(button);
+		btn.title = i18nServiceInstance.getMessage(`${button}_instruction`);
 
 		if (start) {
 			targetRow.prepend(btn);

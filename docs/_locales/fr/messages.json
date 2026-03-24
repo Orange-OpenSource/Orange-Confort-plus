@@ -70,9 +70,6 @@
 	"activeMode": {
 		"message": "Actif"
 	},
-	"previous": {
-		"message": "Précédent"
-	},
 	"backToSettings": {
 		"message": "Retour aux réglages. (Votre choix est déjà enregistré)"
 	},
@@ -271,17 +268,38 @@
 	"next": {
 		"message": "Suivant"
 	},
+	"next_instruction": {
+		"message": "Pour placer le focus sur l’élément suivant"
+	},
+	"previous": {
+		"message": "Précédent"
+	},
+	"previous_instruction": {
+		"message": "Pour placer le focus sur l’élément précédent"
+	},
 	"start": {
 		"message": "Début"
+	},
+	"start_instruction": {
+		"message": "Pour aller en haut à gauche de la page"
 	},
 	"content": {
 		"message": "Contenu"
 	},
+	"content_instruction": {
+		"message": "Pour aller directement au contenu"
+	},
 	"click": {
 		"message": "Clique"
 	},
+	"click_instruction": {
+		"message": "Pour valider l’objet focusé ou pointé"
+	},
 	"escape": {
 		"message": "Échappe"
+	},
+	"escape_instruction": {
+		"message": "Pour sortir d’une fenêtre ou arrêter une fonction"
 	},
 	"word": {
 		"message": "Lire le mot"
@@ -797,8 +815,14 @@
 	"scroll_up": {
 		"message": "Monter"
 	},
+	"scroll_up_instruction": {
+		"message": "Pour afficher ce qui est au-dessus"
+	},
 	"scroll_down": {
 		"message": "Descendre"
+	},
+	"scroll_down_instruction": {
+		"message": "Pour afficher ce qui est en dessous"
 	},
 	"scrollSize_label": {
 		"message": "Taille de l'ascenseur."
@@ -853,7 +877,7 @@
 		"message": "sans bouton de navigation"
 	},
 	"navigationButtons_values": {
-		"message": "$BUTTONS$ & $DELAY$",
+		"message": "$BUTTONS$ $DELAY$",
 		"placeholders": {
 			"buttons": {
 				"content": "$1"
@@ -875,13 +899,13 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Boutons d’ascenseur \"Monter, Descendre\""
+		"message": "Boutons d’ascenseur"
 	},
 	"navigationSet": {
-		"message": "Boutons de navigation \"Échap., Début, Précédent, Suivant, Cliquer\""
+		"message": "Boutons de navigation"
 	},
 	"fullSet": {
-		"message": "Boutons de navigation et ascenseur"
+		"message": "Tous les boutons"
 	},
 	"pointingDelay_values": {
 		"message": "$DELAY$",
@@ -892,10 +916,22 @@
 		}
 	},
 	"pointingDelay_label": {
-		"message": "Délai de pointage"
+		"message": "Action"
 	},
 	"clicAction": {
-		"message": "clic des boutons"
+		"message": "à cliquer"
+	},
+	"pointingDelay1": {
+		"message": "à survoler et clic auto 1s"
+	},
+	"pointingDelay2": {
+		"message": "à survoler et clic auto 2s"
+	},
+	"pointingDelay3": {
+		"message": "à survoler et clic auto 3s"
+	},
+	"pointingDelay6": {
+		"message": "à survoler et clic auto 6s"
 	},
 	"setting_clickFacilite": {
 		"message": "Clic adapté"

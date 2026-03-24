@@ -70,9 +70,6 @@
 	"activeMode": {
 		"message": "Activado"
 	},
-	"previous": {
-		"message": "Anterior"
-	},
 	"backToSettings": {
 		"message": "Volver a los ajustes. (sus elecciones ya han sido guardadas)"
 	},
@@ -271,17 +268,38 @@
 	"next": {
 		"message": "Siguiente"
 	},
+	"next_instruction": {
+		"message": "Para colocar el foco en el elemento siguiente"
+	},
+	"previous": {
+		"message": "Anterior"
+	},
+	"previous_instruction": {
+		"message": "Para colocar el foco en el elemento anterior"
+	},
 	"start":{
 		"message":"Inicio"
+	},
+	"start_instruction": {
+		"message": "Para ir a la parte superior izquierda de la página"
 	},
 	"content": {
 		"message": "Contenido"
 	},
+	"content_instruction": {
+		"message": "Para ir directamente al contenido"
+	},
 	"click": {
 		"message": "Clic"
 	},
+	"click_instruction": {
+		"message": "Para validar el objeto enfocado o apuntado"
+	},
 	"escape": {
 		"message": "Esc."
+	},
+	"escape_instruction": {
+		"message": "Para salir de una ventana o detener una función"
 	},
 	"word": {
 		"message": "Leer la palabra"
@@ -800,8 +818,14 @@
 	"scroll_up": {
 		"message": "Arriba"
 	},
+	"scroll_up_instruction": {
+		"message": "Para mostrar lo que está arriba"
+	},
 	"scroll_down": {
 		"message": "Abajo"
+	},
+	"scroll_down_instruction": {
+		"message": "Para mostrar lo que está debajo"
 	},
 	"scrollSize_label": {
 		"message": "Tamaño de la barra de desplazamiento"
@@ -856,7 +880,7 @@
 		"message": "sin botones de navegación"
 	},
 	"navigationButtons_values": {
-		"message": "$BUTTONS$ & $DELAY$",
+		"message": "$BUTTONS$ $DELAY$",
 		"placeholders": {
 			"buttons": {
 				"content": "$1"
@@ -878,13 +902,13 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Botón de desplazamiento \"Arriba, Abajo\""
+		"message": "Botones de desplazamiento"
 	},
 	"navigationSet": {
-		"message": "Botón de navegación \"Esc., Inicio, Anterior, Siguiente, Clic\""
+		"message": "Botones de navegación"
 	},
 	"fullSet": {
-		"message": "Botones de navegación y de barra de desplazamiento"
+		"message": "Todos los botones"
 	},
 	"pointingDelay_values": {
 		"message": "$DELAY$",
@@ -895,10 +919,22 @@
 		}
 	},
 	"pointingDelay_label": {
-		"message": "Retraso para apuntar"
+		"message": "Acción"
 	},
 	"clicAction": {
-		"message": "clic de los botones"
+		"message": "a hacer clic"
+	},
+	"pointingDelay1": {
+		"message": "pasar el ratón y clic automático 1s"
+	},
+	"pointingDelay2": {
+		"message": "pasar el ratón y clic automático 2s"
+	},
+	"pointingDelay3": {
+		"message": "pasar el ratón y clic automático 3s"
+	},
+	"pointingDelay6": {
+		"message": "pasar el ratón y clic automático 6s"
 	},
 	"navigationButtons_active": {
 		"message": "Añadir botones de navegación"
