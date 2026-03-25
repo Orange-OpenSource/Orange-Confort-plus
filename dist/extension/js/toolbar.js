@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 24/03/2026
+ * orange-confort-plus - version 5.4.0 - 25/03/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2426,7 +2426,7 @@ class LocalStorageService {
         }
     }
     removeItem(key) {
-        chrome.storage.local.remove([ `${PREFIX}${key}-${this.hostname}`, `latest-${PREFIX}${key}` ]);
+        chrome.storage.local.remove([ `${PREFIX}${key}-${this.hostname}` ]);
     }
 }
 
@@ -2862,12 +2862,6 @@ class ModeOfUseService {
                         setting.valueSelected = newIndex;
                         setting.values = values.toString();
                         localStorageServiceInstance.setItem(JSON_NAME, json);
-                        if (newValue !== DEFAULT_VALUE) {
-                            localStorageServiceInstance.setItem("new-value-added-tooltip", JSON.stringify({
-                                setting: settingName,
-                                value: newValue
-                            }));
-                        }
                         jsonIsEdited = true;
                     }
                 }
@@ -6259,7 +6253,6 @@ class BtnSettingComponent extends HTMLElement {
             tooltipInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.name}_instruction`);
             icon?.setAttribute("data-name", this.name);
             this.setTitle();
-            this.checkForPendingTooltip();
         }
         if ("data-disabled" === name) {
             this.disabled = newValue === "true";
@@ -6356,31 +6349,6 @@ class BtnSettingComponent extends HTMLElement {
         this.timeoutSelectedValue = setTimeout((() => {
             this.selectedValue?.classList.add("d-none");
         }), 3e3);
-    };
-    showNewValueTooltip=valueLabel => {
-        const tooltipInstruction = this.querySelector(".sc-btn-setting__tooltip-instruction");
-        const tooltipValue = this.querySelector(".sc-btn-setting__tooltip-value");
-        if (tooltipInstruction && tooltipValue) {
-            tooltipInstruction.innerText = i18nServiceInstance.getMessage("newValueAddedTooltip");
-            tooltipValue.innerText = valueLabel;
-            this.tooltip?.classList.remove("d-none");
-            this.settingBtn.classList.add("sc-btn-setting--show-tooltip");
-            setTimeout((() => {
-                this.hideTooltip();
-                tooltipInstruction.innerText = i18nServiceInstance.getMessage(`setting_${this.name}_instruction`);
-            }), 5e3);
-        }
-    };
-    checkForPendingTooltip=() => {
-        localStorageServiceInstance.getItem("new-value-added-tooltip").then((result => {
-            if (result) {
-                const notification = JSON.parse(result);
-                if (stringServiceInstance.normalizeSettingCamelCase(notification.setting) === this.name) {
-                    this.showNewValueTooltip(notification.value);
-                    localStorageServiceInstance.removeItem("new-value-added-tooltip");
-                }
-            }
-        }));
     };
     createHandler=() => event => {
         switch (event.type) {

@@ -1050,8 +1050,5 @@
 	},
 	"zoom_500": {
 		"message": "máximo, 500%"
-	},
-	"newValueAddedTooltip": {
-		"message": "Nuevo valor añadido"
 	}
 }

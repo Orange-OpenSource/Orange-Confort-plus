@@ -72,9 +72,6 @@ class LocalStorageService {
 
 	removeItem(key: string): void {
 		//@ts-ignore
-		chrome.storage.local.remove([
-			`${PREFIX}${key}-${this.hostname}`,
-			`latest-${PREFIX}${key}`
-		]);
+		chrome.storage.local.remove([`${PREFIX}${key}-${this.hostname}`]);
 	}
 }
