@@ -70,9 +70,6 @@
 	"activeMode": {
 		"message": "Aktywny"
 	},
-	"previous": {
-		"message": "Poprzedni"
-	},
 	"backToSettings": {
 		"message": "Powrót do ustawień. (Twój wybór został już zapisany)"
 	},
@@ -271,17 +268,38 @@
 	"next":{
 		"message":"na dół"
 	},
+	"next_instruction": {
+		"message": "Aby przenieść fokus na następny element"
+	},
+	"previous": {
+		"message": "Poprzedni"
+	},
+	"previous_instruction": {
+		"message": "Aby przenieść fokus na poprzedni element"
+	},
 	"start":{
 		"message":"początek"
+	},
+	"start_instruction": {
+		"message": "Aby przejść do lewego górnego rogu strony"
 	},
 	"content":{
 		"message":"treść"
 	},
+	"content_instruction": {
+		"message": "Aby przejść bezpośrednio do treści"
+	},
 	"click": {
 		"message": "Kliknięcie"
 	},
+	"click_instruction": {
+		"message": "Aby zatwierdzić fokusowany lub wskazywany obiekt"
+	},
 	"escape": {
 		"message": "Escape"
+	},
+	"escape_instruction": {
+		"message": "Aby wyjść z okna lub zatrzymać funkcję"
 	},
 	"word": {
 		"message": "Przeczytaj słowo"
@@ -797,8 +815,14 @@
 	"scroll_up": {
 		"message": "Przewiń w górę"
 	},
+	"scroll_up_instruction": {
+		"message": "Aby wyświetlić to, co jest powyżej"
+	},
 	"scroll_down": {
 		"message": "Przewiń w dół"
+	},
+	"scroll_down_instruction": {
+		"message": "Aby wyświetlić to, co jest poniżej"
 	},
 	"scrollSize_label": {
 		"message": "Rozmiar windy"
@@ -853,7 +877,7 @@
 		"message": "bez przycisków nawigacji"
 	},
 	"navigationButtons_values": {
-		"message": "$BUTTONS$ & $DELAY$",
+		"message": "$BUTTONS$ $DELAY$",
 		"placeholders": {
 			"buttons": {
 				"content": "$1"
@@ -875,13 +899,13 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Przyciski windy „W górę, W dół”"
+		"message": "Przyciski windy"
 	},
 	"navigationSet": {
 		"message": "Przyciski nawigacyjne"
 	},
 	"fullSet": {
-		"message": "Przyciski nawigacyjne „Esc, Start, Poprzedni, Następny, Kliknij”"
+		"message": "Wszystkie przyciski"
 	},
 	"pointingDelay_values": {
 		"message": "$DELAY$",
@@ -892,10 +916,22 @@
 		}
 	},
 	"pointingDelay_label": {
-		"message": "Czas wskazywania"
+		"message": "Działanie"
 	},
 	"clicAction": {
-		"message": "kliknięcie przycisków"
+		"message": "kliknąć"
+	},
+	"pointingDelay1": {
+		"message": "najechać i auto kliknięcie 1s"
+	},
+	"pointingDelay2": {
+		"message": "najechać i auto kliknięcie 2s"
+	},
+	"pointingDelay3": {
+		"message": "najechać i auto kliknięcie 3s"
+	},
+	"pointingDelay6": {
+		"message": "najechać i auto kliknięcie 6s"
 	},
 	"navigationButtons_active": {
 		"message": "dodać przycisków nawigacyjnych "

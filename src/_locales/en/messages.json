@@ -70,9 +70,6 @@
 	"activeMode": {
 		"message": "Active"
 	},
-	"previous": {
-		"message": "Previous"
-	},
 	"backToSettings": {
 		"message": "Return to settings. (Your choice has already been saved)"
 	},
@@ -271,17 +268,38 @@
 	"next": {
 		"message": "Next"
 	},
+	"next_instruction": {
+		"message": "To place the focus on the next element"
+	},
+	"previous": {
+		"message": "Previous"
+	},
+	"previous_instruction": {
+		"message": "To place the focus on the previous element"
+	},
 	"start":{
 		"message":"Beginning"
+	},
+	"start_instruction": {
+		"message": "To go to the top left of the page"
 	},
 	"content": {
 		"message": "Content"
 	},
+	"content_instruction": {
+		"message": "To go directly to the content"
+	},
 	"click": {
 		"message": "Click"
 	},
+	"click_instruction": {
+		"message": "To validate the focused or pointed object"
+	},
 	"escape": {
 		"message": "Escape"
+	},
+	"escape_instruction": {
+		"message": "To exit a window or stop a function"
 	},
 	"word": {
 		"message": "Read the word"
@@ -797,8 +815,14 @@
 	"scroll_up": {
 		"message": "Scroll Up"
 	},
+	"scroll_up_instruction": {
+		"message": "To display what is above"
+	},
 	"scroll_down": {
 		"message": "Scroll Down"
+	},
+	"scroll_down_instruction": {
+		"message": "To display what is below"
 	},
 	"scrollSize_label": {
 		"message": "Scroll bar size"
@@ -853,7 +877,7 @@
 		"message": "without navigation buttons"
 	},
 	"navigationButtons_values": {
-		"message": "$BUTTONS$ & $DELAY$",
+		"message": "$BUTTONS$ $DELAY$",
 		"placeholders": {
 			"buttons": {
 				"content": "$1"
@@ -875,13 +899,13 @@
 		}
 	},
 	"scrollSet": {
-		"message": "Scroll bar buttons \"Scroll up, Scroll down\""
+		"message": "Scroll bar buttons"
 	},
 	"navigationSet": {
-		"message": "Navigation buttons \"Escape, Start, Previous, Next, Click\""
+		"message": "Navigation buttons"
 	},
 	"fullSet": {
-		"message": "Scroll bar and navigation buttons"
+		"message": "All buttons"
 	},
 	"pointingDelay_values": {
 		"message": "$DELAY$",
@@ -892,10 +916,22 @@
 		}
 	},
 	"pointingDelay_label": {
-		"message": "Pointing duration"
+		"message": "Action"
 	},
 	"clicAction": {
-		"message": "buttons clicking"
+		"message": "to click"
+	},
+	"pointingDelay1": {
+		"message": "to hover and auto click 1s"
+	},
+	"pointingDelay2": {
+		"message": "to hover and auto click 2s"
+	},
+	"pointingDelay3": {
+		"message": "to hover and auto click 3s"
+	},
+	"pointingDelay6": {
+		"message": "to hover and auto click 6s"
 	},
 	"navigationButtons_active": {
 		"message": "add navigation buttons"

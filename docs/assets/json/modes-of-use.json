@@ -1,5 +1,5 @@
 {
-	"version": "1.0.46",
+	"version": "1.0.47",
 	"modes": [
 		{
 			"facilePlus": [
@@ -141,7 +141,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,scrollSet_delay2",
+						"values": "noModifications,scrollSet_clicAction,scrollSet_pointingDelay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 8
@@ -313,7 +313,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,scrollSet_delay2",
+						"values": "noModifications,scrollSet_clicAction,scrollSet_pointingDelay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 12
@@ -485,7 +485,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,scrollSet_delay2",
+						"values": "noModifications,scrollSet_clicAction,fullSet_pointingDelay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 12
@@ -657,7 +657,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_clicAction,scrollSet_delay2",
+						"values": "noModifications,scrollSet_clicAction,scrollSet_pointingDelay2",
 						"valueSelected": 0,
 						"isTool": false,
 						"order": null
@@ -829,7 +829,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_delay2,fullSet_delay2",
+						"values": "noModifications,scrollSet_pointingDelay2,fullSet_pointingDelay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 11
@@ -1001,7 +1001,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_delay2,fullSet_delay2",
+						"values": "noModifications,scrollSet_pointingDelay2,fullSet_pointingDelay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 1
@@ -1173,7 +1173,7 @@
 				},
 				{
 					"navigationButtons": {
-						"values": "noModifications,scrollSet_delay2,fullSet_delay2",
+						"values": "noModifications,scrollSet_pointingDelay2,fullSet_pointingDelay2",
 						"valueSelected": 1,
 						"isTool": true,
 						"order": 1
