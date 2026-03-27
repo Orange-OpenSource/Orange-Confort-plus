@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 25/03/2026
+ * orange-confort-plus - version 5.4.0 - 31/03/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2019,12 +2019,20 @@ class DragDropService {
 
 let modeOfUseServiceIsInstantiated;
 
+let pendingNewCustomValueSetting = null;
+
 class ModeOfUseService {
     constructor() {
         if (modeOfUseServiceIsInstantiated) {
             throw new Error("ModeOfUseService is already instantiated.");
         }
         modeOfUseServiceIsInstantiated = true;
+    }
+    get pendingFeedbackSetting() {
+        return pendingNewCustomValueSetting;
+    }
+    clearPendingFeedbackSetting() {
+        pendingNewCustomValueSetting = null;
     }
     setSelectedMode=newSelectedModeName => {
         localStorageServiceInstance.getItem(JSON_NAME).then((result => {
@@ -2121,6 +2129,7 @@ class ModeOfUseService {
                         setting.valueSelected = newIndex;
                         setting.values = values.toString();
                         localStorageServiceInstance.setItem(JSON_NAME, json);
+                        pendingNewCustomValueSetting = stringServiceInstance.normalizeSettingName(settingName);
                         jsonIsEdited = true;
                     }
                 }
@@ -4933,7 +4942,16 @@ class AbstractSetting extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ("data-values" === name) {
-            this.activesValues = JSON.parse(newValue);
+            const newValues = JSON.parse(newValue);
+            if (modeOfUseServiceInstance.pendingFeedbackSetting === this.name && this.settingBtn) {
+                const customValue = newValues.values.split(",")[3] || "";
+                if (customValue) {
+                    const label = this.settingBtn.getValueLabel(customValue);
+                    this.settingBtn.showNewValueAdded(label);
+                }
+                modeOfUseServiceInstance.clearPendingFeedbackSetting();
+            }
+            this.activesValues = newValues;
             this.setSettingBtn(this.activesValues);
             if (this.callback) {
                 this.callback(this.activesValues?.values.split(",")[this.activesValues?.valueSelected]);
@@ -5607,6 +5625,17 @@ class BtnSettingComponent extends HTMLElement {
         this.selectedValue?.classList.remove("d-none");
         this.timeoutSelectedValue = setTimeout((() => {
             this.selectedValue?.classList.add("d-none");
+        }), 3e3);
+    };
+    showNewValueAdded=label => {
+        const prefix = i18nServiceInstance.getMessage("newCustomValueAdded");
+        this.selectedValue.innerText = `${prefix} ${label}`;
+        this.selectedValue.classList.add("sc-btn-setting__selected-value--new-value");
+        clearTimeout(this.timeoutSelectedValue);
+        this.selectedValue?.classList.remove("d-none");
+        this.timeoutSelectedValue = setTimeout((() => {
+            this.selectedValue?.classList.add("d-none");
+            this.selectedValue.classList.remove("sc-btn-setting__selected-value--new-value");
         }), 3e3);
     };
     createHandler=() => event => {

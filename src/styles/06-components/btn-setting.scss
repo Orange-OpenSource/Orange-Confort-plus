@@ -67,6 +67,11 @@ $corner-value: 10px;
 	transform: translate(-50%, -50%);
 }
 
+.sc-btn-setting__selected-value--new-value {
+	background-color: var(--cplus-body-color);
+	color: var(--cplus-body-bg);
+}
+
 .sc-btn-setting__tooltip {
 	opacity: 1;
 	position: absolute;

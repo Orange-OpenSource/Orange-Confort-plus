@@ -208,6 +208,18 @@ class BtnSettingComponent extends HTMLElement {
 		}, 3000);
 	}
 
+	showNewValueAdded = (label: string): void => {
+		const prefix = i18nServiceInstance.getMessage('newCustomValueAdded');
+		this.selectedValue.innerText = `${prefix} ${label}`;
+		this.selectedValue.classList.add('sc-btn-setting__selected-value--new-value');
+		clearTimeout(this.timeoutSelectedValue);
+		this.selectedValue?.classList.remove('d-none');
+		this.timeoutSelectedValue = setTimeout(() => {
+			this.selectedValue?.classList.add('d-none');
+			this.selectedValue.classList.remove('sc-btn-setting__selected-value--new-value');
+		}, 3000);
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {

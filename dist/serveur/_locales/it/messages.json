@@ -1032,5 +1032,8 @@
 	},
 	"zoom_500": {
 		"message": "max, 500%"
+	},
+	"newCustomValueAdded": {
+		"message": "Nuovo valore aggiunto:"
 	}
 }
