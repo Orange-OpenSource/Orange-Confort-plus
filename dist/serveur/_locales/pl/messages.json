@@ -1048,8 +1048,8 @@
 	"zoom_500": {
 		"message": "max, 500%"
 	},
-	"newValueAddedTooltip": {
-		"message": "Dodano nową wartość"
+	"newCustomValueAdded": {
+		"message": "Nowa wartość dodana:"
 	}
 }
 

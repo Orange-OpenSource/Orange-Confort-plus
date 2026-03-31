@@ -1,11 +1,18 @@
 "use strict";
 let modeOfUseServiceIsInstantiated;
+let pendingNewCustomValueSetting = null;
 class ModeOfUseService {
     constructor() {
         if (modeOfUseServiceIsInstantiated) {
             throw new Error('ModeOfUseService is already instantiated.');
         }
         modeOfUseServiceIsInstantiated = true;
+    }
+    get pendingFeedbackSetting() {
+        return pendingNewCustomValueSetting;
+    }
+    clearPendingFeedbackSetting() {
+        pendingNewCustomValueSetting = null;
     }
     setSelectedMode = (newSelectedModeName) => {
         localStorageServiceInstance.getItem(JSON_NAME).then((result) => {
@@ -110,9 +117,7 @@ class ModeOfUseService {
                         setting.valueSelected = newIndex;
                         setting.values = values.toString();
                         localStorageServiceInstance.setItem(JSON_NAME, json);
-                        if (newValue !== DEFAULT_VALUE) {
-                            localStorageServiceInstance.setItem('new-value-added-tooltip', JSON.stringify({ setting: settingName, value: newValue }));
-                        }
+                        pendingNewCustomValueSetting = stringServiceInstance.normalizeSettingName(settingName);
                         jsonIsEdited = true;
                     }
                 }

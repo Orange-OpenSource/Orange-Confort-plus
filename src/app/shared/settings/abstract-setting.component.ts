@@ -42,7 +42,18 @@ abstract class AbstractSetting extends HTMLElement {
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
 		if ('data-values' === name) {
-			this.activesValues = JSON.parse(newValue);
+			const newValues: SettingModel = JSON.parse(newValue);
+
+			if (modeOfUseServiceInstance.pendingFeedbackSetting === this.name && this.settingBtn) {
+				const customValue = newValues.values.split(',')[3] || '';
+				if (customValue) {
+					const label = (this.settingBtn as any).getValueLabel(customValue);
+					(this.settingBtn as any).showNewValueAdded(label);
+				}
+				modeOfUseServiceInstance.clearPendingFeedbackSetting();
+			}
+
+			this.activesValues = newValues;
 			this.setSettingBtn(this.activesValues);
 			if (this.callback) {
 				this.callback(this.activesValues?.values.split(',')[this.activesValues?.valueSelected]);

@@ -1,4 +1,5 @@
 let modeOfUseServiceIsInstantiated: boolean;
+let pendingNewCustomValueSetting: string | null = null;
 
 class ModeOfUseService {
 
@@ -8,6 +9,14 @@ class ModeOfUseService {
 		}
 
 		modeOfUseServiceIsInstantiated = true;
+	}
+
+	get pendingFeedbackSetting(): string | null {
+		return pendingNewCustomValueSetting;
+	}
+
+	clearPendingFeedbackSetting(): void {
+		pendingNewCustomValueSetting = null;
 	}
 
 	setSelectedMode = (newSelectedModeName: string): void => {
@@ -120,9 +129,7 @@ class ModeOfUseService {
 							setting.valueSelected = newIndex;
 							setting.values = values.toString();
 							localStorageServiceInstance.setItem(JSON_NAME, json);
-							if (newValue !== DEFAULT_VALUE) {
-								localStorageServiceInstance.setItem('new-value-added-tooltip', JSON.stringify({ setting: settingName, value: newValue }));
-							}
+							pendingNewCustomValueSetting = stringServiceInstance.normalizeSettingName(settingName);
 							jsonIsEdited = true;
 						}
 					}
