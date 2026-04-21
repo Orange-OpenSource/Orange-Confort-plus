@@ -73,7 +73,7 @@ class EditColorReadComponent extends HTMLElement {
 
 	setColorRead = (): void => {
 		const value = this.colorReadActionValue === 'none'
-			? 'none'
+			? DEFAULT_VALUE
 			: `${this.colorReadActionValue}_${this.colorReadScopeValue}`;
 
 		let newSettingIndex = this.settingValues.indexOf(value);

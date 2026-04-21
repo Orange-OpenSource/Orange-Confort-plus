@@ -8,7 +8,7 @@ tmplColorRead.innerHTML = `
 
 class ColorReadComponent extends AbstractSetting {
 	activesValues = { values:
-			"none," +
+			DEFAULT_VALUE +
 			"splitSyllables_word," +
 			"colorTrickyWords_word",
 			valueSelected: 0

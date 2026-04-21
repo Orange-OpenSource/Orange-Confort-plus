@@ -5828,7 +5828,7 @@ tmplColorRead.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">
 
 class ColorReadComponent extends AbstractSetting {
     activesValues={
-        values: "none," + "splitSyllables_word," + "colorTrickyWords_word",
+        values: DEFAULT_VALUE + "splitSyllables_word," + "colorTrickyWords_word",
         valueSelected: 0
     };
     constructor() {
@@ -6974,7 +6974,7 @@ class EditColorReadComponent extends HTMLElement {
         }));
     }
     setColorRead=() => {
-        const value = this.colorReadActionValue === "none" ? "none" : `${this.colorReadActionValue}_${this.colorReadScopeValue}`;
+        const value = this.colorReadActionValue === "none" ? DEFAULT_VALUE : `${this.colorReadActionValue}_${this.colorReadScopeValue}`;
         let newSettingIndex = this.settingValues.indexOf(value);
         if (newSettingIndex !== -1) {
             modeOfUseServiceInstance.setSettingValue("colorRead", newSettingIndex, true);
