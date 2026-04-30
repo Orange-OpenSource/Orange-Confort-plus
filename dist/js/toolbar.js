@@ -1,8 +1,1621 @@
 /*
- * orange-confort-plus - version 5.4.0 - 21/04/2026
+ * orange-confort-plus - version 5.4.0 - 04/05/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
+function chaine_sans_accent(str) {
+    var TabSpec = {
+        "à": "a",
+        "á": "a",
+        "â": "a",
+        "ã": "a",
+        "ä": "a",
+        "å": "a",
+        "ò": "o",
+        "ó": "o",
+        "ô": "o",
+        "õ": "o",
+        "ö": "o",
+        "ø": "o",
+        "è": "e",
+        "é": "e",
+        "ê": "e",
+        "ë": "e",
+        "ç": "c",
+        "ì": "i",
+        "í": "i",
+        "î": "i",
+        "ï": "i",
+        "ù": "u",
+        "ú": "u",
+        "û": "u",
+        "ü": "u",
+        "ÿ": "y",
+        "ñ": "n"
+    };
+    var reg = /[àáäâèéêëçìíîïòóôõöøùúûüÿñ_-]/i;
+    return str.replace(reg, (function() {
+        return TabSpec[arguments[0].toLowerCase()];
+    })).toLowerCase();
+}
+
+function clone_tableau(tab) {
+    return tab.slice(0);
+}
+
+var sampa2lc = {
+    p: "p",
+    b: "b",
+    t: "t",
+    d: "d",
+    k: "k",
+    g: "g",
+    f: "f",
+    v: "v",
+    s: "s",
+    z: "z",
+    S: "s^",
+    Z: "g^",
+    j: "j",
+    m: "m",
+    n: "n",
+    J: "g~",
+    N: "n~",
+    l: "l",
+    R: "r",
+    w: "wa",
+    H: "y",
+    i: "i",
+    e: "e",
+    E: "e^",
+    a: "a",
+    A: "a",
+    o: "o",
+    O: "o_ouvert",
+    u: "u",
+    y: "y",
+    2: "x^",
+    9: "x",
+    "@": "q",
+    "e~": "e~",
+    "a~": "a~",
+    "o~": "o~",
+    "9~": "x~",
+    "#": "#"
+};
+
+var syllaphon = JSON.parse('{"v":["a","q","q_caduc","i","o","o_comp","o_ouvert","u","y","e","e_comp","e^","e^_comp","a~","e~","x~","o~","x","x^","wa","w5"],"c":["p","t","k","b","d","g","f","f_ph","s","s^","v","z","z^","l","r","m","n","k_qu","z^_g","g_u","s_c","s_t","z_s","ks","gz"],"s":["j","g~","n~","w"],"#":["#","verb_3p"]}');
+
+function LCPhoneme(phon, lett) {
+    this.phoneme = phon;
+    this.lettres = lett;
+}
+
+LCPhoneme.prototype.estPhoneme = function() {
+    return this.phoneme !== null;
+};
+
+LCPhoneme.prototype.estUneConsonne = function() {
+    return syllaphon["c"].indexOf(this.phoneme) > -1;
+};
+
+LCPhoneme.prototype.estUneVoyelle = function() {
+    return syllaphon["v"].indexOf(this.phoneme) > -1;
+};
+
+LCPhoneme.prototype.estSemiConsonne = function() {
+    var p0 = this.phoneme[0];
+    if (this.phoneme[1] == "_") {
+        return p0 == "j" || p0 == "w" || p0 == "y";
+    }
+    return false;
+};
+
+LCPhoneme.prototype.estPhonemeMuet = function() {
+    return syllaphon["#"].indexOf(this.phoneme) > -1;
+};
+
+LCPhoneme.prototype.estSemiVoyelle = function() {
+    return syllaphon["s"].indexOf(this.phoneme) > -1;
+};
+
+LCPhoneme.prototype.estConsonneRedoublee = function() {
+    return this.estPhoneme() && (this.estUneConsonne() || this.estSemiConsonne()) && this.lettres.length == 2 && this.lettres[0] == this.lettres[1];
+};
+
+LCPhoneme.prototype.dedoublerConsonnes = function() {
+    this.lettres = this.lettres[0];
+};
+
+function LCSyllabe() {
+    this.phonemes = new Array;
+}
+
+LCSyllabe.prototype.ajoutePhonemes = function(a, phon) {
+    var moi = this;
+    if (typeof phon === "undefined") {
+        a.forEach((function(element, index, array) {
+            moi.phonemes.push(element);
+        }));
+    } else {
+        if (a instanceof Array) {
+            a.forEach((function(element, index, array) {
+                moi.phonemes.push(phon[element]);
+            }));
+        } else {
+            this.phonemes.push(phon[a]);
+        }
+    }
+};
+
+function LireCouleurEngine() {
+    this.MESTESSESLESDESCES = {
+        "": "e_comp",
+        fr: "e_comp",
+        fr_CA: "e^_comp"
+    };
+    this.autom = JSON.parse('{"\'":[[],{"*":[{},"#",1],"@":[{},"#",1]}],"@":[[],{"*":[{},"#",1],"@":[{},"#",1]}],"_":[[],{"*":[{},"#",1],"@":[{},"#",1]}],"a":[["u","il","in","nc_ai_fin","ai_fin","i","n","m","nm","y_except","y"],{"*":[{},"a",1],"ai_fin":[{"+":"i$"},"e_comp",2],"i":[{"+":"[iî]"},"e^_comp",2],"il":[{"+":"il($|l)"},"a",1],"in":[{"+":"i[nm]([bcçdfghjklnmpqrstvwxz]|$)"},"e~",3,"#comment# toute succession ain aim suivie d une consonne ou d une fin de mot"],"m":[{"+":"m[bp]"},"a~",2,"#comment# règle du m devant m, b, p"],"n":[{"+":"n[bcçdfgjklmpqrstvwxz]"},"a~",2],"nc_ai_fin":["regle_nc_ai_final","e^_comp",2],"nm":[{"+":"n(s?)$"},"a~",2],"u":[{"+":"u"},"o_comp",2],"y":[{"+":"y"},"e^_comp",1],"y_except":[{"+":"y","-":"(^b|cob|cip)"},"a",1,"#comment# exception : baye, cobaye"]}],"b":[["b","plomb"],{"*":[{},"b",1],"b":[{"+":"b"},"b",2],"plomb":[{"+":"(s?)$","-":"plom"},"#",1,"#comment# le b à la fin de plomb ne se prononce pas"]}],"c":[["eiy","choeur_1","choeur_2","chor","psycho","brachio","cheo","chest","chiro","chlo_chlam","chr","h","erc_orc","cisole","c_muet_fin","onc_donc","nc_muet_fin","_spect","_inct","cciey","cc","apostrophe"],{"*":[{},"k",1],"@":["","k",1],"_inct":[{"+":"t(s?)$","-":"in"},"#",1,"#comment# instinct, succinct, distinct"],"_spect":[{"+":"t(s?)$","-":"spe"},"#",1,"#comment# respect, suspect, aspect"],"apostrophe":[{"+":"(\'|’)"},"s",2,"#comment# apostrophe"],"brachio":[{"+":"hio","-":"bra"},"k",2,"#comment# brachiosaure, brachiocéphale"],"c_muet_fin":[{"+":"(s?)$","-":"taba|accro"},"#",1,"#comment# exceptions traitées : tabac, accroc"],"cc":[{"+":"c"},"k",2,"#comment# accorder, accompagner"],"cciey":[{"+":"c[eiyéèêëîï]"},"k",1,"#comment# accident, accepter, coccyx"],"cheo":[{"+":"héo"},"k",2,"#comment# archéo..., trachéo..."],"chest":[{"+":"hest"},"k",2,"#comment# orchestre et les mots de la même famille"],"chiro":[{"+":"hiro[p|m]"},"k",2,"#comment# chiroptère, chiromancie"],"chlo_chlam":[{"+":"hl(o|am)"},"k",2,"#comment# chlorure, chlamyde"],"choeur_1":[{"+":"hoe"},"k",2],"choeur_2":[{"+":"hœ"},"k",2],"chor":[{"+":"hor"},"k",2,"#comment# tous les choral, choriste... exceptions non traitées : chorizo, maillechort"],"chr":[{"+":"hr"},"k",2,"#comment# de chrétien à synchronisé"],"cisole":[{"+":"$","-":"^"},"s_c",1,"#comment# exemple : c est"],"eiy":[{"+":"[eiyéèêëîï]"},"s_c",1],"erc_orc":[{"+":"(s?)$","-":"[e|o]r"},"#",1,"#comment# clerc, porc,"],"h":[{"+":"h"},"s^",2],"nc_muet_fin":[{"+":"(s?)$","-":"n"},"#",1,"#comment# exceptions traitées : tous les mots terminés par *nc"],"onc_donc":[{"-":"^on|^don"},"k",1,"#comment# non exceptions traitées : onc, donc"],"psycho":[{"+":"ho","-":"psy"},"k",2,"#comment# tous les psycho quelque chose"]}],"d":[["d","aujourdhui","disole","except","dmuet","apostrophe"],{"*":[{},"d",1],"apostrophe":[{"+":"(\'|’)"},"d",2,"#comment# apostrophe"],"aujourdhui":[{"-":"aujour"},"d",1,"#comment# aujourd hui"],"d":[{"+":"d"},"d",2],"disole":[{"+":"$","-":"^"},"d",1,"#comment# exemple : d abord"],"dmuet":[{"+":"(s?)$"},"#",1,"#comment# un d suivi éventuellement d un s ex. : retards"],"except":[{"+":"(s?)$","-":"(aï|oue)"},"d",1,"#comment# aïd, caïd, oued"]}],"e":[["conj_v_ier","uient","ien","ien_2","een","except_en_1","except_en_2","_ent","clef","hier","adv_emment_fin","ment","imparfait","verbe_3_pluriel","au","avoir","monsieur","jeudi","jeu_","eur","eu","eu_accent_circ","in","eil","y","iy","ennemi","enn_debut_mot","dessus_dessous","et","cet","t_final","eclm_final","est_1","est_2","es_1","es_2","drz_final","n","adv_emment_a","femme","lemme","em_gene","nm","tclesmesdes","que_isole","que_gue_final","jtcnslemede","jean","ge","eoi","ex","ef","reqquechose","except_evr","2consonnes","abbaye","e_muet","e_caduc","e_deb"],{"*":[{},"q",1],"except_evr":[{"+":"vr"},"q",1,"#comment# chevrier, chevron, chevreuil..."],"2consonnes":[{"+":"[bcçdfghjklmnpqrstvwxz]{2}"},"e^_comp",1,"#comment# e suivi de 2 consonnes se prononce è"],"@":["","q_caduc",1],"_ent":["regle_mots_ent","a~",2,"#comment# quelques mots (adverbes ou noms) terminés par ent"],"abbaye":[{"+":"(s?)$","-":"abbay"},"#",1,"#comment# ben oui..."],"adv_emment_a":[{"+":"mment"},"a",1,"#comment# adverbe avec -emment => son [a]"],"adv_emment_fin":[{"+":"nt","-":"emm"},"a~",2,"#comment# adverbe avec -emment => se termine par le son [a~]"],"au":[{"+":"au"},"o_comp",3],"avoir":["regle_avoir","y",2],"cet":[{"+":"[t]$","-":"^c"},"e^_comp",1,"#comment# cet"],"clef":[{"+":"f","-":"cl"},"e_comp",2,"#comment# une clef"],"conj_v_ier":["regle_ient","#",3,"#comment# verbe du 1er groupe terminé par -ier conjugué à la 3ème pers du pluriel"],"dessus_dessous":[{"+":"ss(o?)us","-":"d"},"q",1,"#comment# dessus, dessous : e = e"],"drz_final":[{"+":"[drz](s?)$"},"e_comp",2,"#comment# e suivi d un d,r ou z en fin de mot done le son [e]"],"e_caduc":[{"+":"(s?)$","-":"[bcçdfghjklmnpqrstvwxzy]"},"q_caduc",1,"#comment# un e suivi éventuellement d un s et précédé d une consonne ex. : correctes"],"e_deb":[{"-":"^"},"q",1,"#comment# par défaut, un e en début de mot se prononce [q]"],"e_muet":[{"+":"(s?)$","-":"[aeiouéèêà]"},"#",1,"#comment# un e suivi éventuellement d un s et précédé d une voyelle ou d un g ex. : pie, geai"],"eclm_final":[{"+":"[clm](s?)$"},"e^_comp",1,"#comment# donne le son [e^] et le l ou le c se prononcent (ex. : miel, sec)"],"een":[{"+":"n(s?)$","-":"é"},"e~",2,"#comment# les mots qui se terminent par -éen"],"ef":[{"+":"[bf](s?)$"},"e^",1,"#comment# e suivi d un f ou d un b en fin de mot se prononce è"],"eil":[{"+":"il"},"e^_comp",1],"em_gene":[{"+":"m[bcçdfghjklmnpqrstvwxz]"},"a~",2,"#comment# em cas général => son [a~]"],"enn_debut_mot":[{"+":"nn","-":"^"},"a~",2,"#comment# enn en début de mot se prononce en"],"ennemi":[{"+":"nnemi","-":"^"},"e^_comp",1,"#comment# ennemi est l exception ou enn en début de mot se prononce èn (cf. enn_debut_mot)"],"eoi":[{"+":"oi"},"#",1,"#comment# un e suivi de oi ; ex. : asseoir"],"es_1":[{"+":"s$","-":"^"},"e^_comp",2],"es_2":[{"+":"s$","-":"@"},"e^_comp",2],"est_1":[{"+":"st$","-":"^"},"e^_comp",3],"est_2":[{"+":"st$","-":"@"},"e^_comp",3],"et":[{"+":"t$","-":"^"},"e_comp",2],"eu":[{"+":"u"},"x",2],"eu_accent_circ":[{"+":"û"},"x^",2],"eur":[{"+":"ur"},"x",2],"ex":[{"+":"x"},"e^",1,"#comment# e suivi d un x se prononce è"],"except_en_1":[{"+":"n(s?)$","-":"exam|mino|édu"},"e~",2,"#comment# exceptions des mots où le en final se prononce [e~] (héritage latin)"],"except_en_2":[{"+":"n(s?)$","-":"[ao]ï"},"e~",2,"#comment# païen, hawaïen, tolstoïen"],"femme":[{"+":"mm","-":"f"},"a",1,"#comment# femme et ses dérivés => son [a]"],"ge":[{"+":"[aouàäôâ]","-":"g"},"#",1,"#comment# un e précédé d un g et suivi d une voyelle ex. : cageot"],"hier":["regle_er","e^_comp",1,"#comment# encore des exceptions avec les mots terminés par er prononcés R"],"ien":[{"+":"n([bcçdfghjklpqrstvwxz]|$)","-":"[bcdlmrstvh]i"},"e~",2,"#comment# certains mots avec ien => son [e~]"],"ien_2":[{"+":"n([bcçdfghjklpqrstvwxz]|$)","-":"ï"},"e~",2,"#comment# certains mots avec ien => son [e~]"],"imparfait":[{"+":"nt$","-":"ai"},"verb_3p",3,"#comment# imparfait à la 3ème personne du pluriel"],"in":[{"+":"i[nm]([bcçdfghjklnmpqrstvwxz]|$)"},"e~",3,"#comment# toute succession ein eim suivie d une consonne ou d une fin de mot"],"iy":[{"+":"[iy]"},"e^_comp",2],"jean":[{"+":"an","-":"j"},"#",1,"#comment# jean"],"jeu_":[{"+":"u","-":"j"},"x",2,"#comment# tous les jeu* sauf jeudi"],"jeudi":[{"+":"udi","-":"j"},"x^",2,"#comment# jeudi"],"jtcnslemede":[{"+":"$","-":"^[jtcnslmd]"},"q",1,"#comment# je, te, me, le, se, de, ne"],"lemme":[{"+":"mm","-":"l"},"e^_comp",1,"#comment# lemme et ses dérivés => son [e^]"],"ment":["regle_ment","a~",2,"#comment# on considère que les mots terminés par -ment se prononcent [a~] sauf s il s agit d un verbe"],"monsieur":[{"+":"ur","-":"si"},"x^",2],"n":[{"+":"n[bcçdfghjklmpqrstvwxz]"},"a~",2],"nm":[{"+":"[nm]$"},"a~",2],"que_gue_final":[{"+":"(s?)$","-":"[gq]u"},"q_caduc",1,"#comment# que ou gue final"],"que_isole":[{"+":"$","-":"^qu"},"q",1,"#comment# que isolé"],"reqquechose":[{"+":"[bcçdfghjklmnpqrstvwxz](h|l|r)","-":"r"},"q",1,"#comment# re-quelque chose : le e se prononce e"],"t_final":[{"+":"[t]$"},"e^_comp",2,"#comment# donne le son [e^] et le t ne se prononce pas"],"tclesmesdes":[{"+":"s$","-":"^[tcslmd]"},"e_comp",2,"#comment# mes, tes, ces, ses, les"],"uient":[{"+":"nt$","-":"ui"},"#",3,"#comment# enfuient, appuient, fuient, ennuient, essuient"],"verbe_3_pluriel":[{"+":"nt$"},"q_caduc",1,"#comment# normalement, pratiquement tout le temps verbe à la 3eme personne du pluriel"],"y":[{"+":"y[aeiouéèêààäôâ]"},"e^_comp",1]}],"f":[["f","oeufs"],{"*":[{},"f",1],"f":[{"+":"f"},"f",2],"oeufs":[{"+":"s","-":"(oeu|œu)"},"#",1,"#comment# oeufs et boeufs"]}],"g":[["g","ao","eiy","aiguille","u_consonne","u","n","vingt","g_muet_oin","g_muet_our","g_muet_an","g_muet_fin"],{"*":[{},"g",1],"aiguille":[{"+":"u","-":"ai"},"g",1,"#comment# encore une exception : aiguille et ses dérivés"],"ao":[{"+":"a|o"},"g",1],"eiy":[{"+":"[eéèêëïiy]"},"z^_g",1,"#comment# un g suivi de e,i,y se prononce [z^]"],"g":[{"+":"g"},"g",2],"g_muet_an":[{"+":"(s?)$","-":"(s|^ét|^r)an"},"#",1,"#comment# sang, rang, étang"],"g_muet_fin":[{"-":"lon|haren"},"#",1,"#comment# pour traiter les exceptions : long, hareng"],"g_muet_oin":[{"-":"oi(n?)"},"#",1,"#comment# un g précédé de oin ou de oi ne se prononce pas ; ex. : poing, doigt"],"g_muet_our":[{"-":"ou(r)"},"#",1,"#comment# un g précédé de our ou de ou ne se prononce pas ; ex. : bourg"],"n":[{"+":"n"},"n~",2],"u":[{"+":"u"},"g_u",2],"u_consonne":[{"+":"u[bcçdfghjklmnpqrstvwxz]"},"g",1,"#comment# gu suivi d une consonne se prononce [g][y]"],"vingt":[{"+":"t","-":"vin"},"#",1,"#comment# vingt"]}],"h":[[],{"*":[{},"#",1]}],"i":[["ing","n","m","nm","prec_2cons","lldeb","vill","mill","tranquille","ill","@ill","@il","ll","ui","ient_1","ient_2","ie"],{"*":[{},"i",1],"@il":[{"+":"l(s?)$","-":"[aeou]"},"j",2,"#comment# par défaut précédé d une voyelle et suivi de l donne le son [j]"],"@ill":[{"+":"ll","-":"[aeo]"},"j",3,"#comment# par défaut précédé d une voyelle et suivi de ll donne le son [j]"],"ie":[{"+":"e(s)?$"},"i",1,"#comment# mots terminés par -ie(s|nt)"],"ient_1":["regle_ient","i",1,"#comment# règle spécifique pour différencier les verbes du premier groupe 3ème pers pluriel"],"ient_2":[{"+":"ent(s)?$"},"j",1,"#comment# si la règle précédente ne fonctionne pas"],"ill":[{"+":"ll","-":"[bcçdfghjklmnpqrstvwxz](u?)"},"i",1,"#comment# précédé éventuellement d un u et d une consonne, donne le son [i]"],"ing":[{"+":"ng$","-":"[bcçdfghjklmnpqrstvwxz]"},"i",1],"ll":[{"+":"ll"},"j",3,"#comment# par défaut avec ll donne le son [j]"],"lldeb":[{"+":"ll","-":"^"},"i",1],"m":[{"+":"m[bcçdfghjklnpqrstvwxz]"},"e~",2],"mill":[{"+":"ll","-":"m"},"i",1],"n":[{"+":"n[bcçdfghjklmpqrstvwxz]"},"e~",2],"nm":[{"+":"[n|m]$"},"e~",2],"prec_2cons":[{"-":"[ptkcbdgfv][lr]"},"i",1,"#comment# précédé de 2 consonnes (en position 3), doit apparaître comme [ij]"],"tranquille":[{"+":"ll","-":"tranqu"},"i",1],"ui":[{"+":"ent","-":"u"},"i",1,"#comment# essuient, appuient"],"vill":[{"+":"ll","-":"v"},"i",1]}],"j":[[],{"*":[{},"z^",1]}],"k":[[],{"*":[{},"k",1]}],"l":[["vill","mill","tranquille","illdeb","ill","eil","ll","excep_il","apostrophe","lisole"],{"*":[{},"l",1],"apostrophe":[{"+":"(\'|’)"},"l",2,"#comment# apostrophe"],"eil":[{"-":"e(u?)i"},"j",1,"#comment# les mots terminés en eil ou ueil => son [j]"],"excep_il":[{"+":"(s?)$","-":"fusi|outi|genti"},"#",1,"#comment# les exceptions trouvées ou le l à la fin ne se prononce pas : fusil, gentil, outil"],"ill":[{"+":"l","-":".i"},"j",2,"#comment# par défaut, ill donne le son [j]"],"illdeb":[{"+":"l","-":"^i"},"l",2,"#comment# ill en début de mot = son [l] ; exemple : illustration"],"lisole":[{"+":"$","-":"^"},"l",1,"#comment# exemple : l animal"],"ll":[{"+":"l"},"l",2,"#comment# à défaut de l application d une autre règle, ll donne le son [l]"],"mill":[{"+":"l","-":"^mi"},"l",2,"#comment# mille, million, etc. => son [l]"],"tranquille":[{"+":"l","-":"tranqui"},"l",2,"#comment# tranquille => son [l]"],"vill":[{"+":"l","-":"^vi"},"l",2,"#comment# ville, village etc. => son [l]"]}],"m":[["m","damn","tomn","misole","apostrophe"],{"*":[{},"m",1],"apostrophe":[{"+":"(\'|’)"},"m",2],"damn":[{"+":"n","-":"da"},"#",1,"#comment# regle spécifique pour damné et ses dérivés"],"m":[{"+":"m"},"m",2],"misole":[{"+":"$","-":"^"},"m",1,"#comment# exemple : m a"],"tomn":[{"+":"n","-":"to"},"#",1,"#comment# regle spécifique pour automne et ses dérivés"]}],"n":[["ing","n","ment","urent","irent","erent","ent","nisole","apostrophe"],{"*":[{},"n",1],"apostrophe":[{"+":"(\'|’)"},"n",2],"ent":[{"+":"t$","-":"e"},"verb_3p",2],"erent":[{"+":"t$","-":"ère"},"verb_3p",2,"#comment# verbes avec terminaisons en -èrent"],"ing":[{"+":"g$","-":"i"},"g~",2],"irent":[{"+":"t$","-":"ire"},"verb_3p",2,"#comment# verbes avec terminaisons en -irent"],"ment":["regle_verbe_mer","verb_3p",2,"#comment# on considère que les verbent terminés par -ment se prononcent [#]"],"n":[{"+":"n"},"n",2],"nisole":[{"+":"$","-":"^"},"n",1,"#comment# exemple : n a"],"urent":[{"+":"t$","-":"ure"},"verb_3p",2,"#comment# verbes avec terminaisons en -urent"]}],"o":[["in","oignon","i","tomn","monsieur","n","m","nm","y1","y2","u","o","oe_0","oe_1","oe_2","oe_3","voeux","oeufs","noeud","oeu_defaut","oe_defaut"],{"*":[{},"o",1],"i":[{"+":"(i|î)"},"wa",2],"in":[{"+":"i[nm]([bcçdfghjklnmpqrstvwxz]|$)"},"u",1],"m":[{"+":"m[bcçdfgjklpqrstvwxz]"},"o~",2,"#comment# toute consonne sauf le m"],"monsieur":[{"+":"nsieur","-":"m"},"q",2],"n":[{"+":"n[bcçdfgjklmpqrstvwxz]"},"o~",2],"nm":[{"+":"[nm]$"},"o~",2],"noeud":[{"+":"eud"},"x^",3,"#comment# noeud"],"o":[{"+":"o"},"o",2,"#comment# exemple : zoo"],"oe_0":[{"+":"ê"},"wa",2],"oe_1":[{"+":"e","-":"c"},"o",1,"#comment# exemple : coefficient"],"oe_2":[{"+":"e","-":"m"},"wa",2,"#comment# exemple : moelle"],"oe_3":[{"+":"e","-":"f"},"e",2,"#comment# exemple : foetus"],"oe_defaut":[{"+":"e"},"x",2,"#comment# exemple : oeil"],"oeu_defaut":[{"+":"eu"},"x",3,"#comment# exemple : oeuf"],"oeufs":[{"+":"eufs"},"x^",3,"#comment# traite oeufs et boeufs"],"oignon":[{"+":"ignon","-":"^"},"o",2],"tomn":[{"+":"mn","-":"t"},"o",1,"#comment# regle spécifique pour automne et ses dérivés"],"u":[{"+":"[uwûù]"},"u",2,"#comment# son [u] : clou, clown"],"voeux":[{"+":"eux"},"x^",3,"#comment# voeux"],"y1":[{"+":"y$"},"wa",2],"y2":[{"+":"y"},"wa",1]}],"p":[["h","oup","drap","trop","sculpt","sirop","sgalop","rps","amp","compt","bapti","sept","p"],{"*":[{},"p",1],"amp":[{"+":"$","-":"c(h?)am"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : camp, champ"],"bapti":[{"+":"ti","-":"ba"},"#",1,"#comment# les exceptions avec un p muet : les mots en *bapti*"],"compt":[{"+":"t","-":"com"},"#",1,"#comment# les exceptions avec un p muet : les mots en *compt*"],"drap":[{"+":"$","-":"dra"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : drap"],"h":[{"+":"h"},"f_ph",2],"oup":[{"+":"$","-":"[cl]ou"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : loup, coup"],"p":[{"+":"p"},"p",2],"rps":[{"+":"s$","-":"[rm]"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : corps, camp"],"sculpt":[{"+":"t","-":"scul"},"#",1,"#comment# les exceptions avec un p muet : sculpter et les mots de la même famille"],"sept":[{"+":"t(s?)$","-":"^se"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : sept"],"sgalop":[{"+":"$","-":"[gs]alo"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : galop"],"sirop":[{"+":"$","-":"siro"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : sirop"],"trop":[{"+":"$","-":"tro"},"#",1,"#comment# les exceptions avec un p muet en fin de mot : trop"]}],"q":[["qu","k"],{"*":[{},"k",1],"k":[{"+":"u"},"k_qu",2],"qu":[{"+":"u[bcçdfgjklmnpqrstvwxz]"},"k",1]}],"r":[["monsieur","messieurs","gars","r"],{"*":[{},"r",1],"gars":[{"+":"s","-":"ga"},"#",2,"#comment# gars"],"messieurs":[{"-":"messieu"},"#",1],"monsieur":[{"-":"monsieu"},"#",1],"r":[{"+":"r"},"r",2]}],"s":[["sch","h","s_final","parasit","para","mars","s","z","sisole","smuet","apostrophe"],{"*":[{},"s",1],"@":[{},"#",1],"apostrophe":[{"+":"(\'|’)"},"s",2,"#comment# apostrophe"],"h":[{"+":"h"},"s^",2],"mars":[{"+":"$","-":"mar"},"s",1,"#comment# mars"],"para":[{"-":"para"},"s",1,"#comment# para quelque chose (parasol, parasismique, ...)"],"parasit":[{"+":"it","-":"para"},"z_s",1,"#comment# parasit*"],"s":[{"+":"s"},"s",2,"#comment# un s suivi d un autre s se prononce [s]"],"s_final":["regle_s_final","s",1,"#comment# quelques mots terminés par -us, -is, -os, -as"],"sch":[{"+":"ch"},"s^",3,"#comment# schlem"],"sisole":[{"+":"$","-":"^"},"s",1,"#comment# exemple : s approche"],"smuet":[{"+":"$","-":"(e?)"},"#",1,"#comment# un s en fin de mot éventuellement précédé d un e ex. : correctes"],"z":[{"+":"[aeiyouéèàüûùëöêîô]","-":"[aeiyouéèàüûùëöêîô]"},"z_s",1,"#comment# un s entre 2 voyelles se prononce [z]"]}],"t":[["t","tisole","except_tien","_tien","cratie","vingt","tion","ourt","_inct","_spect","_ct","_est","t_final","tmuet","apostrophe"],{"*":[{},"t",1],"@":[{},"#",1],"_ct":[{"+":"(s?)$","-":"c"},"t",1,"#comment# tous les autres mots terminés par -ct"],"_est":[{"+":"(s?)$","-":"es"},"t",1,"#comment# test, ouest, brest, west, zest, lest"],"_inct":[{"+":"(s?)$","-":"inc"},"#",1,"#comment# instinct, succinct, distinct"],"_spect":[{"+":"(s?)$","-":"spec"},"#",1,"#comment# respect, suspect, aspect"],"_tien":[{"+":"ien"},"s_t",1],"apostrophe":[{"+":"(\'|’)"},"t",2,"#comment# apostrophe"],"cratie":[{"+":"ie","-":"cra"},"s_t",1],"except_tien":["regle_tien","t",1,"#comment# quelques mots où tien se prononce [t]"],"ourt":[{"+":"$","-":"(a|h|g)our"},"t",1,"#comment# exemple : yaourt, yoghourt, yogourt"],"t":[{"+":"t"},"t",2],"t_final":["regle_t_final","t",1,"#comment# quelques mots où le t final se prononce"],"tion":[{"+":"ion"},"s_t",1],"tisole":[{"+":"$","-":"^"},"t",1,"#comment# exemple : demande-t-il"],"tmuet":[{"+":"(s?)$"},"#",1,"#comment# un t suivi éventuellement d un s ex. : marrants"],"vingt":[{"+":"$","-":"ving"},"t",1,"#comment# vingt mais pas vingts"]}],"u":[["um","n","nm","ueil"],{"*":[{},"y",1],"n":[{"+":"n[bcçdfghjklmpqrstvwxz]"},"x~",2],"nm":[{"+":"[nm]$"},"x~",2],"ueil":[{"+":"eil"},"x",2,"#comment# mots terminés en ueil => son [x^]"],"um":[{"+":"m$","-":"[^aefo]"},"o",1]}],"v":[[],{"*":[{},"v",1]}],"w":[["wurt","wisig","wag","wa","wi"],{"*":[{},"w",1],"wa":[{"+":"a"},"wa",2,"#comment# watt, wapiti, etc."],"wag":[{"+":"ag"},"v",1,"#comment# wagons et wagnérien"],"wi":[{"+":"i"},"u",1,"#comment# kiwi"],"wisig":[{"+":"isig"},"v",1,"#comment# wisigoth"],"wurt":[{"+":"urt"},"v",1,"#comment# saucisse"]}],"x":[["six_dix","gz_1","gz_2","gz_3","gz_4","gz_5","_aeox","fix","_ix"],{"*":[{},"ks",1],"@":[{},"#",1],"_aeox":[{"-":"[aeo]"},"ks",1],"_ix":[{"-":"(remi|obéli|astéri|héli|phéni|féli)"},"ks",1],"fix":[{"-":"fi"},"ks",1],"gz_1":[{"+":"[aeiouéèàüëöêîôûù]","-":"^"},"gz",1,"#comment# mots qui commencent par un x suivi d une voyelle"],"gz_2":[{"+":"[aeiouéèàüëöêîôûù]","-":"^(h?)e"},"gz",1,"#comment# mots qui commencent par un ex ou hex suivi d une voyelle"],"gz_3":[{"+":"[aeiouéèàüëöêîôûù]","-":"^coe"},"gz",1,"#comment# mots qui commencent par un coex suivi d une voyelle"],"gz_4":[{"+":"[aeiouéèàüëöêîôûù]","-":"^ine"},"gz",1,"#comment# mots qui commencent par un inex suivi d une voyelle"],"gz_5":[{"+":"[aeiouéèàüëöêîôûù]","-":"^(p?)rée"},"gz",1,"#comment# mots qui commencent par un réex ou préex suivi d une voyelle"],"six_dix":[{"-":"(s|d)i"},"s_x",1]}],"y":[["m","n","nm","abbaye","y_voyelle"],{"*":[{},"i",1],"abbaye":[{"+":"e","-":"abba"},"i",1,"#comment# abbaye... bien irrégulier"],"m":[{"+":"m[mpb]"},"e~",2],"n":[{"+":"n[bcçdfghjklmpqrstvwxz]"},"e~",2],"nm":[{"+":"[n|m]$"},"e~",2],"y_voyelle":[{"+":"[aeiouéèàüëöêîôûù]"},"j",1,"#comment# y suivi d une voyelle donne [j]"]}],"z":[["raz_riz"],{"*":[{},"z",1],"@":[{},"z",1],"raz_riz":[{"+":"$","-":"^r[ai]"},"#",1,"#comment# raz et riz : z = #"]}],"à":[[],{"*":[{},"a",1]}],"â":[[],{"*":[{},"a",1]}],"ç":[[],{"*":[{},"s",1]}],"è":[[],{"*":[{},"e^",1]}],"é":[[],{"*":[{},"e",1]}],"ê":[[],{"*":[{},"e^",1]}],"ë":[[],{"*":[{},"e^",1]}],"î":[[],{"*":[{},"i",1]}],"ï":[["thai","aie"],{"*":[{},"i",1],"aie":[{"+":"e","-":"[ao]"},"j",1,"#comment# païen et autres"],"thai":[{"-":"t(h?)a"},"j",1,"#comment# taï, thaï et dérivés"]}],"ô":[[],{"*":[{},"o",1]}],"ö":[[],{"*":[{},"o",1]}],"ù":[[],{"*":[{},"y",1]}],"û":[[],{"*":[{},"y",1]}],"œ":[["voeux","oeufs","noeud"],{"*":[{"+":"u"},"x^",2],"noeud":[{"+":"ud"},"x^",2,"#comment# noeud"],"oeufs":[{"+":"ufs"},"x^",2,"#comment# traite oeufs et boeufs"],"voeux":[{"+":"ux"},"x^",2,"#comment# voeux"]}]}');
+    this.verbes_ier = JSON.parse('["affilier","allier","allier","amnistier","amplifier","anesthesier","apparier","approprier","apprecier","asphyxier","associer","atrophier","authentifier","autographier","autopsier","balbutier","bonifier","beatifier","beneficier","betifier","calligraphier","calomnier","carier","cartographier","certifier","charrier","chier","choregraphier","chosifier","chatier","clarifier","classifier","cocufier","codifier","colorier","communier","conchier","concilier","confier","congedier","contrarier","copier","crier","crucifier","dactylographier","differencier","disgracier","disqualifier","dissocier","distancier","diversifier","domicilier","decrier","dedier","defier","deifier","delier","demarier","demultiplier","demystifier","denazifier","denier","deplier","deprecier","dequalifier","devier","envier","estropier","excommunier","exemplifier","exfolier","expatrier","expier","exproprier","expedier","extasier","falsifier","fier","fluidifier","fortifier","frigorifier","fructifier","gazeifier","glorifier","gracier","gratifier","horrifier","humidifier","humilier","identifier","incendier","ingenier","initier","injurier","intensifier","inventorier","irradier","justifier","licencier","lier","liquefier","lubrifier","magnifier","maleficier","manier","marier","mendier","modifier","momifier","mortifier","multiplier","mystifier","mythifier","mefier","nier","notifier","negocier","obvier","officier","opacifier","orthographier","oublier","pacifier","palinodier","pallier","parier","parodier","personnifier","photocopier","photographier","plagier","planifier","plastifier","plier","polycopier","pontifier","prier","privilegier","psalmodier","publier","purifier","putrefier","pepier","petrifier","qualifier","quantifier","radier","radiographier","rallier","ramifier","rapatrier","rarefier","rassasier","ratifier","razzier","recopier","rectifier","relier","remanier","remarier","remercier","remedier","renier","renegocier","replier","republier","requalifier","revivifier","reverifier","rigidifier","reconcilier","recrier","reexpedier","refugier","repertorier","repudier","resilier","reunifier","reedifier","reetudier","sacrifier","salarier","sanctifier","scier","signifier","simplifier","skier","solidifier","soucier","spolier","specifier","statufier","strier","stupefier","supplicier","supplier","serier","terrifier","tonifier","trier","tumefier","typographier","telegraphier","unifier","varier","versifier","vicier","vitrifier","vivifier","verifier","echographier","ecrier","edifier","electrifier","emulsifier","epier","etudier"]');
+    this.mots_ent = JSON.parse('["absent","abstinent","accent","accident","adhérent","adjacent","adolescent","afférent","agent","ambivalent","antécédent","apparent","arborescent","ardent","ardent","argent","arpent","astringent","auvent","avent","cent","chiendent","client","coefficient","cohérent","dent","différent","diligent","dissident","divergent","dolent","décadent","décent","déficient","déférent","déliquescent","détergent","excipient","fervent","flatulent","fluorescent","fréquent","féculent","gent","gradient","grandiloquent","immanent","imminent","impatient","impertinent","impotent","imprudent","impudent","impénitent","incandescent","incident","incohérent","incompétent","inconscient","inconséquent","incontinent","inconvénient","indifférent","indigent","indolent","indulgent","indécent","ingrédient","inhérent","inintelligent","innocent","insolent","intelligent","interférent","intermittent","iridescent","lactescent","latent","lent","luminescent","malcontent","mécontent","occident","omnipotent","omniprésent","omniscient","onguent","opalescent","opulent","orient","paravent","parent","patent","patient","permanent","pertinent","phosphorescent","polyvalent","pourcent","proéminent","prudent","précédent","présent","prévalent","pschent","purulent","putrescent","pénitent","quotient","relent","récent","récipient","récurrent","référent","régent","rémanent","réticent","sanguinolent","sergent","serpent","somnolent","souvent","spumescent","strident","subconscient","subséquent","succulent","tangent","torrent","transparent","trident","truculent","tumescent","turbulent","turgescent","urgent","vent","ventripotent","violent","virulent","effervescent","efficient","effluent","engoulevent","entregent","escient","event","excédent","expédient","éloquent","éminent","émollient","évanescent","évent"]');
+    this.verbes_enter = JSON.parse('["absenter","accidenter","agrémenter","alimenter","apparenter","cimenter","contenter","complimenter","bonimenter","documenter","patienter","parlementer","ornementer","supplémenter","argenter","éventer","supplémenter","tourmenter","violenter","arpenter","serpenter","coefficienter","argumenter","présenter"]');
+    this.verbes_mer = JSON.parse('["abimer","acclamer","accoutumer","affamer","affirmer","aimer","alarmer","allumer","amalgamer","animer","armer","arrimer","assommer","assumer","blasphemer","blamer","bramer","brimer","calmer","camer","carmer","charmer","chloroformer","chomer","clamer","comprimer","confirmer","conformer","consommer","consumer","costumer","cramer","cremer","damer","diffamer","diplomer","decimer","declamer","decomprimer","deformer","degommer","denommer","deplumer","deprimer","deprogrammer","desaccoutumer","desarmer","desinformer","embaumer","embrumer","empaumer","enfermer","enflammer","enfumer","enrhumer","entamer","enthousiasmer","entraimer","envenimer","escrimer","estimer","exclamer","exhumer","exprimer","fantasmer","fermer","filmer","flemmer","former","frimer","fumer","gendarmer","germer","gommer","grammer","grimer","groumer","humer","imprimer","infirmer","informer","inhumer","intimer","lamer","limer","legitimer","mimer","mesestimer","nommer","opprimer","palmer","parfumer","parsemer","paumer","plumer","pommer","primer","proclamer","programmer","preformer","prenommer","presumer","pamer","perimer","rallumer","ramer","ranimer","refermer","reformer","refumer","remplumer","renfermer","renommer","rentamer","reprogrammer","ressemer","retransformer","rimer","rythmer","reaccoutumer","reaffirmer","reanimer","rearmer","reassumer","reclamer","reformer","reimprimer","reprimer","resumer","retamer","semer","slalomer","sommer","sublimer","supprimer","surestimer","surnommer","tramer","transformer","trimer","zoomer","ecremer","ecumer","elimer"]');
+    this.exceptions_final_er = JSON.parse('["amer","cher","hier","mer","coroner","charter","cracker","hiver","chester","doppler","cascher","bulldozer","cancer","carter","geyser","cocker","pullover","alter","aster","fer","ver","diver","perver","enfer","traver","univer","cuiller","container","cutter","révolver","super","master","enver"]');
+    this.possibles_nc_ai_final = JSON.parse('["balai", "brai", "chai", "déblai", "délai", "essai", "frai", "geai", "lai", "mai", "minerai", "papegai", "quai", "rai", "remblai"]');
+    this.possibles_avoir = JSON.parse('["eu", "eue", "eues", "eus", "eut", "eûmes", "eûtes", "eurent", "eusse", "eusses", "eût", "eussions", "eussiez", "eussent"]');
+    this.mots_s_final = JSON.parse('["abribus","airbus","autobus","bibliobus","bus","nimbus","gibus","microbus","minibus","mortibus","omnibus","oribus","pédibus","quibus","rasibus","rébus","syllabus","trolleybus","virus","antivirus","anus","asparagus","médius","autofocus","focus","benedictus","bonus","campus","cirrus","citrus","collapsus","consensus","corpus","crochus","crocus","crésus","cubitus","humérus","diplodocus","eucalyptus","erectus","hypothalamus","mordicus","mucus","stratus","nimbostratus","nodus","modus","opus","ours","papyrus","plexus","plus","processus","prospectus","lapsus","prunus","quitus","rétrovirus","sanctus","sinus","solidus","liquidus","stimulus","stradivarius","terminus","tonus","tumulus","utérus","versus","détritus","ratus","couscous","burnous","tous","anis","bis","anubis","albatros","albinos","calvados","craignos","mérinos","rhinocéros","tranquillos","tétanos","os","alias","atlas","hélas","madras","sensas","tapas","trias","vasistas","hypocras","gambas","as","biceps","quadriceps","chips","relaps","forceps","schnaps","laps","oups","triceps","princeps","tricératops"]');
+    this.mots_t_final = JSON.parse('["accessit","cet","but","diktat","kumquat","prurit","affidavit","dot","rut","audit","exeat","magnificat","satisfecit","azimut","exit","mat","scorbut","brut","fiat","mazout","sinciput","cajeput","granit","net","internet","transat","sept","chut","huit","obit","transit","coït","incipit","occiput","ut","comput","introït","pat","zut","déficit","inuit","prétérit","gadget","kilt","kit","scout","fret"]');
+    this.exceptions_final_tien = JSON.parse(' ["chrétien", "entretien", "kantien", "proustien", "soutien"]');
+    this.exceptions_er_final = JSON.parse('["amer","cher","hier","mer","coroner","charter","cracker","hiver","chester","doppler","cascher","bulldozer","cancer","carter","geyser","cocker","pullover","alter","aster","fer","ver","diver","perver","enfer","traver","univer","cuiller","container","cutter","révolver","super","master","enver"]');
+    this.exceptions_en_final = JSON.parse(' ["abdomen", "dolmen",  "gentlemen",  "golden",  "pollen",  "spécimen",  "zen"]');
+}
+
+LireCouleurEngine.prototype.regle_ient = function(mot, pos_mot) {
+    if (mot.slice(-5).match(/[bcçdfghjklnmpqrstvwxz]ient/) === null || pos_mot < mot.length - 4) {
+        return false;
+    }
+    var pseudo_infinitif = mot.substring(0, mot.length - 2) + "r";
+    if (this.verbes_ier.indexOf(pseudo_infinitif) >= 0) {
+        return true;
+    }
+    pseudo_infinitif = chaine_sans_accent(mot).substring(0, mot.length - 2) + "r";
+    if (pseudo_infinitif.length > 1 && pseudo_infinitif[1] == "@") {
+        pseudo_infinitif = pseudo_infinitif.slice(2);
+    }
+    return this.verbes_ier.indexOf(pseudo_infinitif) >= 0;
+};
+
+LireCouleurEngine.prototype.regle_mots_ent = function(mot, pos_mot) {
+    if (mot.match(/^[bcdfghjklmnpqrstvwxz]ent(s?)$/) !== null) {
+        return true;
+    }
+    var comparateur = mot;
+    if (mot[mot.length - 1] == "s") {
+        comparateur = mot.substring(0, mot.length - 1);
+    }
+    if (pos_mot + 2 < comparateur.length) {
+        return false;
+    }
+    if (comparateur.length > 1 && comparateur[1] == "@") {
+        comparateur = comparateur.slice(2);
+    }
+    if (this.mots_ent.indexOf(comparateur) >= 0) {
+        return true;
+    }
+    var pseudo_verbe = comparateur + "er";
+    return this.verbes_enter.indexOf(pseudo_verbe) >= 0;
+};
+
+LireCouleurEngine.prototype.regle_ment = function(mot, pos_mot) {
+    if (mot.slice(-4).match(/ment/) === null || pos_mot < mot.length - 3) {
+        return false;
+    }
+    var pseudo_infinitif = chaine_sans_accent(mot).substring(0, mot.length - 2) + "r";
+    if (pseudo_infinitif.length > 1 && pseudo_infinitif[1] == "@") {
+        pseudo_infinitif = pseudo_infinitif.slice(2);
+    }
+    if (this.verbes_mer.indexOf(pseudo_infinitif) > -1) {
+        return false;
+    }
+    return mot.slice(-7) !== "dorment";
+};
+
+LireCouleurEngine.prototype.regle_verbe_mer = function(mot, pos_mot) {
+    if (mot.slice(-4).match(/ment/) === null || pos_mot < mot.length - 3) {
+        return false;
+    }
+    return !this.regle_ment(mot, pos_mot);
+};
+
+LireCouleurEngine.prototype.regle_er = function(mot, pos_mot) {
+    var m_sing = mot;
+    if (mot[mot.length - 1] == "s") {
+        m_sing = mot.substring(0, mot.length - 1);
+    }
+    if (m_sing.length > 1 && m_sing[1] == "@") {
+        m_sing = m_sing.slice(2);
+    }
+    if (mot.slice(-4).match(/er/) === null || pos_mot < mot.length - 2) {
+        return false;
+    }
+    return this.exceptions_final_er.indexOf(m_sing) > -1;
+};
+
+LireCouleurEngine.prototype.regle_nc_ai_final = function(mot, pos_mot) {
+    var m_seul = mot;
+    if (m_seul.length > 1 && m_seul[1] == "@") {
+        m_seul = m_seul.slice(2);
+    }
+    if (this.possibles_nc_ai_final.indexOf(m_seul) >= 0) {
+        return pos_mot == mot.length - 1;
+    }
+    return false;
+};
+
+LireCouleurEngine.prototype.regle_avoir = function(mot, pos_mot) {
+    if (this.possibles_avoir.indexOf(mot) >= 0) {
+        return pos_mot < 2;
+    }
+    return false;
+};
+
+LireCouleurEngine.prototype.regle_s_final = function(mot, pos_mot) {
+    var m_seul = mot;
+    if (m_seul.length > 1 && m_seul[1] == "@") {
+        m_seul = m_seul.slice(2);
+    }
+    return this.mots_s_final.indexOf(m_seul) >= 0;
+};
+
+LireCouleurEngine.prototype.regle_t_final = function(mot, pos_mot) {
+    var m_sing = mot;
+    if (mot[mot.length - 1] == "s") {
+        m_sing = mot.substring(0, mot.length - 1);
+    }
+    if (m_sing.length > 1 && m_sing[1] == "@") {
+        m_sing = m_sing.slice(2);
+    }
+    return this.mots_t_final.indexOf(m_sing) > -1;
+};
+
+LireCouleurEngine.prototype.regle_en_final = function(mot, pos_mot) {
+    var m_sing = mot;
+    if (mot[mot.length - 1] == "s") {
+        m_sing = mot.substring(0, mot.length - 1);
+    }
+    if (m_sing.length > 1 && m_sing[1] == "@") {
+        m_sing = m_sing.slice(2);
+    }
+    return this.exceptions_en_final.indexOf(m_sing) > -1;
+};
+
+LireCouleurEngine.prototype.regle_tien = function(mot, pos_mot) {
+    var m_sing = mot;
+    if (m_sing[mot.length - 1] == "s") {
+        m_sing = mot.substring(0, mot.length - 1);
+    }
+    if (m_sing.slice(-4).match(/tien/) === null || pos_mot < m_sing.length - 4) {
+        return false;
+    }
+    return this.exceptions_final_tien.indexOf(m_sing) > -1;
+};
+
+LireCouleurEngine.prototype.regle_er = function(mot, pos_mot) {
+    var m_sing = mot;
+    if (mot[mot.length - 1] == "s") {
+        m_sing = mot.substring(0, mot.length - 1);
+    }
+    if (m_sing.length > 1 && m_sing[1] == "@") {
+        m_sing = m_sing.slice(2);
+    }
+    if (mot.slice(-4).match(/er/) === null || pos_mot < mot.length - 2) {
+        return false;
+    }
+    return this.exceptions_er_final.indexOf(m_sing) > -1;
+};
+
+LireCouleurEngine.prototype.teste_regle = function(nom_regle, cle, mot, pos_mot) {
+    if (typeof cle === "string" || cle instanceof String) {
+        var res = this[cle](mot, pos_mot);
+        return this[cle](mot, pos_mot);
+    }
+    var trouve_s = true;
+    var trouve_p = true;
+    if (typeof cle["+"] !== "undefined") {
+        if (typeof cle["+"] === "string" || cle["+"] instanceof String) {
+            cle["+"] = new RegExp(cle["+"]);
+        }
+        var res = cle["+"].exec(mot.slice(pos_mot));
+        trouve_s = res !== null && res.index == 0;
+    }
+    if (typeof cle["-"] !== "undefined") {
+        if (typeof cle["-"] === "string" || cle["-"] instanceof String) {
+            cle["-"] = new RegExp(cle["-"]);
+        }
+        trouve_p = false;
+        if (cle["-"].source[0] == "^") {
+            if (cle["-"].source.length == 1) {
+                trouve_p = pos_mot == 1;
+            } else {
+                var res = cle["-"].exec(mot.substring(0, pos_mot - 1));
+                if (res !== null) {
+                    trouve_p = res[0].length == pos_mot - 1;
+                }
+            }
+        } else {
+            var k = pos_mot - 2;
+            while (k > -1 && !trouve_p) {
+                var res = cle["-"].exec(mot.substring(k, pos_mot - 1));
+                if (res !== null) {
+                    trouve_p = res[0].length == res.input.length;
+                }
+                k -= 1;
+            }
+        }
+    }
+    return trouve_p & trouve_s;
+};
+
+LireCouleurEngine.prototype.post_traitement_o_ouvert_ferme = function(pp) {
+    if (pp.constructor !== Array || pp.length == 1) {
+        return pp;
+    }
+    if (pp.filter((function(phon, index, array) {
+        return phon.phoneme == "o";
+    })) > 0) {
+        return pp;
+    }
+    var mots_osse = JSON.parse('["cabosse", "carabosse", "carrosse", "colosse", "molosse", "cosse", "crosse", "bosse", "brosse", "rhinocéros", "désosse", "fosse", "gosse", "molosse", "écosse", "rosse", "panosse"]');
+    var npp = clone_tableau(pp);
+    while (npp.length > 0 && npp[npp.length - 1].phoneme == "#") {
+        npp.pop();
+    }
+    var mot = "";
+    npp.forEach((function(element, index, array) {
+        mot += element.lettres;
+    }));
+    if (mots_osse.indexOf(mot) > -1) {
+        pp.forEach((function(element, index, array) {
+            if (element.phoneme == "o") {
+                pp[index].phoneme = "o_ouvert";
+            }
+        }));
+        return pp;
+    }
+    var consonnes_syllabe_fermee = [ "p", "k", "b", "d", "g", "f", "f_ph", "s^", "l", "r", "m", "n" ];
+    npp.forEach((function(element, i_ph, array) {
+        if (element.phoneme == "o") {
+            if (i_ph == npp.length - 1) {
+                return pp;
+            }
+            if (element.lettres != "ô") {
+                var cas1 = i_ph == npp.length - 3 && consonnes_syllabe_fermee.indexOf(pp[i_ph + 1].phoneme) > -1 && pp[i_ph + 2].phoneme == "q_caduc";
+                var cas2 = i_ph < pp.length - 1 && [ "r", "z^_g", "v" ].indexOf(pp[i_ph + 1].phoneme) > -1;
+                var cas3 = i_ph < pp.length - 2 && syllaphon["c"].indexOf(pp[i_ph + 1].phoneme) > -1 && syllaphon["c"].indexOf(pp[i_ph + 2].phoneme) > -1;
+                if (cas1 || cas2 || cas3) {
+                    pp[i_ph].phoneme = "o_ouvert";
+                }
+            }
+        }
+    }));
+    return pp;
+};
+
+LireCouleurEngine.prototype.post_traitement_yod = function(pp) {
+    if (pp.constructor !== Array || pp.length == 1) {
+        return pp;
+    }
+    if (pp.filter((function(phon, index, array) {
+        return [ "j", "i" ].indexOf(phon.phoneme) >= 0;
+    })) > 0) {
+        return pp;
+    }
+    var phon_suivant = [ "a", "a~", "e", "e^", "e_comp", "e^_comp", "o", "o_comp", "o~", "e~", "x", "x^", "u" ];
+    pp.forEach((function(element, i_ph, array) {
+        if ([ "j", "i" ].indexOf(element.phoneme) >= 0) {
+            if (i_ph == pp.length - 1) {
+                return pp;
+            }
+            if (phon_suivant.indexOf(pp[i_ph + 1].phoneme) > -1) {
+                pp[i_ph].phoneme = "j_" + pp[i_ph + 1].phoneme;
+                pp[i_ph].lettres += pp[i_ph + 1].lettres;
+                pp.splice(i_ph + 1, 1);
+            }
+        }
+    }));
+    return pp;
+};
+
+LireCouleurEngine.prototype.post_traitement_e_ouvert_ferme = function(pp) {
+    if (pp.constructor !== Array || pp.length < 2) {
+        return pp;
+    }
+    if (pp.filter((function(phon, index, array) {
+        return phon.phoneme == "x";
+    })) > 0) {
+        return pp;
+    }
+    var lpp = pp.length - 1;
+    while (lpp > 0 && pp[lpp].phoneme == "#") {
+        lpp -= 1;
+    }
+    var i_ph = pp.map((function(phon) {
+        return phon.phoneme;
+    })).lastIndexOf("x");
+    if (i_ph < lpp - 2) {
+        return pp;
+    }
+    if (i_ph == lpp) {
+        pp[i_ph].phoneme = "x^";
+        return pp;
+    }
+    var consonnes_son_eu_ferme = [ "z", "z_s", "t" ];
+    if (consonnes_son_eu_ferme.indexOf(pp[i_ph + 1].phoneme) > -1 && pp[lpp].phoneme == "q_caduc") {
+        pp[i_ph].phoneme = "x^";
+    }
+    return pp;
+};
+
+LireCouleurEngine.prototype.extrairePhonemes = function(mot, lecteur_deb, para, p_para) {
+    var p_mot = 0;
+    var codage = new Array;
+    var phoneme, pas, lettre;
+    var trouve, i, k;
+    var np_para = p_para;
+    var motmin = mot.toLowerCase();
+    if (typeof para === "undefined") {
+        para = mot;
+    }
+    if (typeof p_para === "undefined") {
+        np_para = 0;
+    }
+    while (p_mot < mot.length) {
+        lettre = motmin[p_mot];
+        trouve = false;
+        if (lettre in this.autom) {
+            var aut = this.autom[lettre][1];
+            i = 0;
+            while (!trouve && i < this.autom[lettre][0].length) {
+                k = this.autom[lettre][0][i];
+                if (this.teste_regle(k, aut[k][0], motmin, p_mot + 1)) {
+                    phoneme = aut[k][1];
+                    pas = aut[k][2];
+                    codage.push(new LCPhoneme(phoneme, para.substring(np_para, np_para + pas)));
+                    p_mot += pas;
+                    np_para += pas;
+                    trouve = true;
+                }
+                i += 1;
+            }
+            if (!trouve && p_mot == mot.length - 1 && aut.hasOwnProperty("@")) {
+                if (p_mot == mot.length - 1) {
+                    phoneme = aut["@"][1];
+                    pas = 1;
+                    codage.push(new LCPhoneme(phoneme, lettre));
+                    trouve = true;
+                    p_mot += 1;
+                    np_para += 1;
+                }
+            }
+            if (!trouve) {
+                try {
+                    phoneme = aut["*"][1];
+                    pas = aut["*"][2];
+                    codage.push(new LCPhoneme(phoneme, para.substring(np_para, np_para + pas)));
+                    np_para += pas;
+                    p_mot += pas;
+                } catch (e) {
+                    codage.push(new LCPhoneme(null, lettre));
+                    np_para += 1;
+                    p_mot += 1;
+                }
+            }
+        } else {
+            codage.push(new LCPhoneme(null, lettre));
+            p_mot += 1;
+            np_para += 1;
+        }
+    }
+    if (typeof lecteur_deb !== "undefined" && !lecteur_deb) {
+        codage = this.post_traitement_yod(codage);
+    }
+    codage = this.post_traitement_e_ouvert_ferme(codage);
+    return codage;
+};
+
+LireCouleurEngine.prototype.extraireSyllabes = function(phonemes, std_lc, oral_ecrit) {
+    var i, j, k;
+    var phon, phon1, phon2;
+    if (typeof std_lc === "undefined") {
+        std_lc = "std";
+    }
+    if (typeof oral_ecrit === "undefined") {
+        oral_ecrit = "ecrit";
+    }
+    var nb_phon = phonemes.length;
+    if (nb_phon < 2) {
+        var syll = new LCSyllabe;
+        syll.ajoutePhonemes(phonemes);
+        return [ syll ];
+    }
+    var nphonemes = new Array;
+    if (std_lc == "std") {
+        for (i = 0; i < nb_phon; i++) {
+            var phon = phonemes[i];
+            if (phon.estConsonneRedoublee()) {
+                phon.dedoublerConsonnes();
+                nphonemes.push(phon);
+                nphonemes.push(phon);
+            } else {
+                nphonemes.push(phon);
+            }
+        }
+    } else {
+        nphonemes = clone_tableau(phonemes);
+    }
+    var nb_phon = nphonemes.length;
+    var sylph = new Array;
+    for (i = 0; i < nb_phon; i++) {
+        phon = nphonemes[i];
+        if (phon.estPhoneme()) {
+            if (phon.estUneVoyelle()) {
+                sylph.push([ "v", [ i ] ]);
+            } else if (phon.estSemiConsonne()) {
+                sylph.push([ "v", [ i ] ]);
+            } else if (phon.estUneConsonne()) {
+                sylph.push([ "c", [ i ] ]);
+            } else if (phon.estSemiVoyelle()) {
+                sylph.push([ "s", [ i ] ]);
+            } else {
+                sylph.push([ "#", [ i ] ]);
+            }
+        }
+    }
+    i = 0;
+    while (i < sylph.length - 1) {
+        if (sylph[i][0] == "c" && sylph[i + 1][0] == "c") {
+            phon0 = nphonemes[sylph[i][1][0]];
+            phon1 = nphonemes[sylph[i + 1][1][0]];
+            if ((phon1.phoneme == "l" || phon1.phoneme == "r") && [ "b", "k", "p", "t", "g", "d", "f", "v" ].indexOf(phon0.phoneme) >= 0) {
+                sylph[i][1].push.apply(sylph[i][1], sylph[i + 1][1]);
+                sylph.splice(i + 1, 1);
+            }
+        }
+        i += 1;
+    }
+    i = 0;
+    while (i < sylph.length - 1) {
+        if (sylph[i][0] == "v" && sylph[i + 1][0] == "v") {
+            phon1 = nphonemes[sylph[i][1][0]];
+            phon2 = nphonemes[sylph[i + 1][1][0]];
+            if (phon1.phoneme == "y" && phon2.phoneme == "i" || phon1.phoneme == "u" && [ "i", "e~", "o~" ].indexOf(phon2.phoneme) >= 0) {
+                sylph[i][1].push.apply(sylph[i][1], sylph[i + 1][1]);
+                sylph.splice(i + 1, 1);
+            }
+        }
+        i += 1;
+    }
+    i = 0;
+    while (i < sylph.length - 1) {
+        if (sylph[i + 1][0] == "#") {
+            sylph[i][1].push.apply(sylph[i][1], sylph[i + 1][1]);
+            sylph.splice(i + 1, 1);
+        }
+        i += 1;
+    }
+    sylls = new Array;
+    var nb_sylph = sylph.length;
+    i = j = 0;
+    while (i < nb_sylph) {
+        j = i;
+        while (i < nb_sylph && sylph[i][0] != "v") {
+            i += 1;
+        }
+        var cur_syl = new LCSyllabe(nphonemes);
+        if (i < nb_sylph && sylph[i][0] == "v") {
+            i += 1;
+            for (k = j; k < i; k++) {
+                cur_syl.ajoutePhonemes(sylph[k][1], nphonemes);
+            }
+            j = i;
+            sylls.push(cur_syl);
+        }
+        if (i + 1 < nb_sylph) {
+            var lettre1 = nphonemes[sylph[i][1][sylph[i][1].length - 1]].lettres;
+            var lettre2 = nphonemes[sylph[i + 1][1][0]].lettres[0];
+            lettre1 = lettre1[lettre1.length - 1];
+            if ("bcdfghjklmnpqrstvwxzç".indexOf(lettre1) > -1 && "bcdfghjklmnpqrstvwxzç".indexOf(lettre2) > -1) {
+                cur_syl.ajoutePhonemes(sylph[i][1], nphonemes);
+                i += 1;
+                j = i;
+            }
+        }
+    }
+    if (sylls.length == 0) {
+        var syll = new LCSyllabe;
+        syll.ajoutePhonemes(phonemes);
+        return [ syll ];
+    }
+    for (k = j; k < nb_sylph; k++) {
+        sylls[sylls.length - 1].ajoutePhonemes(sylph[k][1], nphonemes);
+    }
+    if (oral_ecrit == "oral" && sylls.length > 1) {
+        var derniereSyllabe = sylls[sylls.length - 1];
+        k = derniereSyllabe.phonemes.length - 1;
+        while (k > 0 && [ "#", "verb_3p" ].indexOf(derniereSyllabe.phonemes[k].phoneme) >= 0) {
+            k -= 1;
+        }
+        if (derniereSyllabe.phonemes[k].phoneme == "q_caduc") {
+            sylls.pop();
+            sylls[sylls.length - 1].phonemes.push.apply(sylls[sylls.length - 1].phonemes, derniereSyllabe.phonemes);
+        }
+    }
+    return sylls;
+};
+
+const LireCouleur = new LireCouleurEngine;
+
+function isArray(myobj) {
+    return myobj.constructor === Array;
+}
+
+function isString(myobj) {
+    return myobj.constructor === String;
+}
+
+function txtStyle(rule) {
+    STYLE_CORRESPONDANCE = {
+        color: function(val) {
+            return `color: ${val}; `;
+        },
+        height: function(val) {
+            return `font-size: ${val}px; `;
+        },
+        page_width: function(val) {
+            return `max-width:${val}rem;`;
+        },
+        weight: function(val) {
+            if (val != 100) return `font-weight: ${val}; `;
+        },
+        bold: function(val) {
+            if (val) return `font-weight: bold; `;
+        },
+        stroke: function(val) {
+            if (val) return `font-weight: bold; -webkit-text-stroke: 0.05em gray; `;
+        },
+        underline: function(val) {
+            if (val) return `text-decoration: underline; `;
+        },
+        highlight: function(val) {
+            if (val != "#ffffff") return `--highlight: ${val}; `;
+        },
+        background: function(val) {
+            if (val != "#ffffff") return `background-color: ${val}; `;
+        },
+        shadow: function(val) {
+            if (val) return `text-shadow: 1px 1px 1px black, 0 0 0.5em gray, 0 0 0.2em gray;`;
+        },
+        word_spacing: function(val) {
+            if (val) return `word-spacing: 1em; `;
+        },
+        emphasis: function(val) {
+            return `font-style: italic; `;
+        },
+        italic: function(val) {
+            if (val) return `font-style: italic; `;
+        },
+        scale_width: function(val) {
+            return `letter-spacing: ${val * .01}px; word-spacing: 0.3em;`;
+        },
+        font_name: function(val) {
+            if (val.trim().length > 0) return `font-family: '${val}'; `;
+        },
+        font_family: function(val) {
+            if (val.trim().length > 0) return `font-family: '${val}'; `;
+        },
+        line_spacing: function(val) {
+            return `line-height: ${val * .01}; `;
+        }
+    };
+    let propStr = "";
+    for (let element in rule) {
+        let val = rule[element];
+        if (typeof STYLE_CORRESPONDANCE[element] === "function") {
+            let vs = STYLE_CORRESPONDANCE[element](rule[element]);
+            if (typeof vs !== "undefined") propStr += vs;
+        }
+    }
+    return propStr;
+}
+
+class FunctionLC6 {
+    static TEXTE=0;
+    static MOT=1;
+    static SYLLABE=2;
+    static PHONEME=3;
+    static LETTRE=4;
+    constructor(struc) {
+        this.name = struc.function;
+        this.styles = new Array;
+        this.mode = "style";
+        if (struc.hasOwnProperty("format")) {
+            if (isArray(struc.format)) {
+                for (let i = 0; i < struc.format.length; i++) {
+                    this.styles.push(txtStyle(struc.format[i]));
+                }
+            } else {
+                this.mode = "style";
+                for (let sty in struc.format) {
+                    this.styles.push(txtStyle(struc.format[sty]));
+                }
+            }
+        }
+        if (struc.hasOwnProperty("params")) {
+            this.params = struc.params;
+        } else {
+            this.params = {};
+        }
+    }
+    getLevel() {
+        return FunctionLC6.TEXTE;
+    }
+    toHTML(txt, __) {
+        return txt;
+    }
+    postProcessHTML(__) {}
+    createStyleSheet() {
+        const styleEl = document.createElement("style");
+        document.head.appendChild(styleEl);
+        return styleEl.sheet;
+    }
+    addStyle(styleSheet, selector, rule) {
+        let propStr = `.${selector} { `;
+        for (let element in rule) {
+            let val = rule[element].replace(/^0x00/g, "#");
+            propStr += `${element}: ${val}; `;
+        }
+        propStr += `}\n`;
+        styleSheet.insertRule(`${selector}{${propStr}}`, styleSheet.cssRules.length);
+    }
+}
+
+class Defaut extends FunctionLC6 {
+    constructor(struc) {
+        super(struc);
+    }
+    getLevel() {
+        return FunctionLC6.MOT;
+    }
+    toHTML(txt, __) {
+        return txt;
+    }
+}
+
+class AlternanceLettres extends FunctionLC6 {
+    static ilettr=0;
+    constructor(struc) {
+        super(struc);
+        AlternanceLettres.ilettr = 0;
+    }
+    getLevel() {
+        return FunctionLC6.LETTRE;
+    }
+    toHTML(txt, __) {
+        if (txt.trim().length > 0) {
+            AlternanceLettres.ilettr += 1;
+            AlternanceLettres.ilettr = AlternanceLettres.ilettr % this.styles.length;
+            return `<span ${this.mode}="${this.styles[AlternanceLettres.ilettr]}">${txt}</span>`;
+        }
+        return txt;
+    }
+}
+
+class AlternancePhonemes extends FunctionLC6 {
+    static iphon=0;
+    constructor(struc) {
+        super(struc);
+        AlternancePhonemes.iphon = 0;
+    }
+    getLevel() {
+        return FunctionLC6.PHONEME;
+    }
+    toHTML(txt, __) {
+        if (txt.trim().length > 0) {
+            AlternancePhonemes.iphon += 1;
+            AlternancePhonemes.iphon = AlternancePhonemes.iphon % this.styles.length;
+            return `<span ${this.mode}="${this.styles[AlternancePhonemes.iphon]}">${txt}</span>`;
+        }
+        return txt;
+    }
+}
+
+class Lettres extends FunctionLC6 {
+    static filtres={
+        a: /[aààâãäå]/gi,
+        c: /[cç]/gi,
+        e: /[eéèêë]/gi,
+        i: /[iìíîï]/gi,
+        o: /[oòóõöø]/gi,
+        u: /[uùúûü]/gi,
+        y: /[yÿ]/gi,
+        n: /[nñ]/gi
+    };
+    constructor(struc) {
+        super(struc);
+        this.stlettr = {};
+        for (let sty in struc.format) {
+            let stf = struc.format[sty];
+            if (stf.hasOwnProperty("lettres")) {
+                let txtsty = txtStyle(struc.format[sty]);
+                for (let i in stf["lettres"]) {
+                    let k = stf["lettres"][i];
+                    if (k.length > 0) {
+                        if (Lettres.filtres.hasOwnProperty(k)) {
+                            this.stlettr[k] = {
+                                reg: Lettres.filtres[k],
+                                sty: txtsty
+                            };
+                        } else {
+                            this.stlettr[k] = {
+                                reg: new RegExp(k, "gi"),
+                                sty: txtsty
+                            };
+                        }
+                    }
+                }
+            }
+        }
+        this.elettr = Object.keys(this.stlettr);
+    }
+    getLevel() {
+        return FunctionLC6.MOT;
+    }
+    recToHTML(txt, i) {
+        if (txt.trim() == 0) return txt;
+        let res;
+        let k = 0;
+        let rtxt = "";
+        let regex = this.stlettr[this.elettr[i]].reg;
+        let sty = this.stlettr[this.elettr[i]].sty;
+        while ((res = regex.exec(txt)) !== null) {
+            if (i == 0) {
+                rtxt += txt.slice(k, res.index);
+            } else {
+                rtxt += this.recToHTML(txt.slice(k, res.index), i - 1);
+            }
+            rtxt += `<span ${this.mode}="${sty}">${res[0]}</span>`;
+            k = regex.lastIndex;
+        }
+        if (i == 0) {
+            rtxt += txt.slice(k);
+        } else {
+            rtxt += this.recToHTML(txt.slice(k), i - 1);
+        }
+        return rtxt;
+    }
+    toHTML(txt, code, txtElt) {
+        const rtxt = this.recToHTML(txt, this.elettr.length - 1);
+        return rtxt;
+    }
+}
+
+class Phonemes extends FunctionLC6 {
+    constructor(struc) {
+        super(struc);
+        this.stphon = {};
+        this.pictophon = {};
+        for (let sty in struc.format) {
+            let stf = struc.format[sty];
+            if (stf.hasOwnProperty("phonemes")) {
+                let txtsyt = txtStyle(struc.format[sty]);
+                for (let i in stf["phonemes"]) {
+                    this.stphon[stf["phonemes"][i]] = txtsyt;
+                    if (stf.hasOwnProperty("picto")) {
+                        this.pictophon[stf["phonemes"][i]] = stf.picto;
+                    }
+                }
+            }
+        }
+    }
+    getLevel() {
+        return FunctionLC6.PHONEME;
+    }
+    toHTML(txt, code, textNode) {
+        if (this.stphon.hasOwnProperty(code)) {
+            let nspan = `<span ${this.mode}="${this.stphon[code]}">${txt}</span>`;
+            if (this.pictophon.hasOwnProperty(code)) {
+                let e = document.createElement("span");
+                e.style.position = "absolute";
+                e.style.visibility = "hidden";
+                e.style.width = "auto";
+                e.style.whiteSpace = "nowrap";
+                e.innerHTML = "e";
+                textNode.appendChild(e);
+                let width = e.getBoundingClientRect().width;
+                let cote = Math.min(width, e.getBoundingClientRect().height);
+                width = width * txt.length;
+                e.remove();
+                let img = `<img src="${this.pictophon[code]}" style="width:${cote}px;height:${cote}px;margin:0 auto;display:block; margin-bottom:-${cote / 2}px;"/>`;
+                return `<span style="width: ${width}px; display: inline-block; text-align: center;">${img}${nspan}</span>`;
+            } else {
+                return nspan;
+            }
+        }
+        return txt;
+    }
+}
+
+class Syllabes extends FunctionLC6 {
+    constructor(struc) {
+        super(struc);
+        this.sep = "⁞";
+        if (struc.hasOwnProperty("separator")) {
+            this.sep = struc.separator;
+        }
+    }
+    getLevel() {
+        return FunctionLC6.SYLLABE;
+    }
+    toHTML(txt, pos, __) {
+        if (txt.trim().length > 0) {
+            if (pos > 0) {
+                return `${this.sep}${txt}`;
+            }
+            return txt;
+        }
+        return txt;
+    }
+}
+
+class SyllArc extends FunctionLC6 {
+    constructor(struc) {
+        super(struc);
+    }
+    getLevel() {
+        return FunctionLC6.SYLLABE;
+    }
+    toHTML(txt, pos, textNode) {
+        let lh = textNode.style.lineHeight;
+        if (txt.trim().length > 0) {
+            let e = document.createElement("span");
+            e.style.position = "absolute";
+            e.style.visibility = "hidden";
+            e.style.width = "auto";
+            e.style.whiteSpace = "nowrap";
+            e.innerHTML = txt;
+            textNode.appendChild(e);
+            let width = e.getBoundingClientRect().width;
+            let height = Math.max(10, e.getBoundingClientRect().height / 8);
+            e.remove();
+            let img = `<img src="img/arc.png" style="width:${width * .98}px;height:${height}px;margin-bottom:${lh * height}px;background-position: center;"/>`;
+            return `<span style="width: ${width}px; display: inline-block; text-align: center; vertical-align: top;">${txt}${img}</span>`;
+        }
+        return txt;
+    }
+}
+
+class AlternanceSyllabes extends FunctionLC6 {
+    static isyll=0;
+    constructor(struc) {
+        super(struc);
+        AlternanceSyllabes.isyll = 0;
+    }
+    getLevel() {
+        return FunctionLC6.SYLLABE;
+    }
+    toHTML(txt, __) {
+        if (txt.trim().length > 0) {
+            AlternanceSyllabes.isyll += 1;
+            AlternanceSyllabes.isyll = AlternanceSyllabes.isyll % this.styles.length;
+            return `<span ${this.mode}="${this.styles[AlternanceSyllabes.isyll]}">${txt}</span>`;
+        }
+        return txt;
+    }
+}
+
+class AlternanceMots extends FunctionLC6 {
+    static imot=0;
+    constructor(struc) {
+        super(struc);
+        AlternanceMots.imot = 0;
+    }
+    getLevel() {
+        return FunctionLC6.MOT;
+    }
+    toHTML(txt, __) {
+        if (txt.trim().length > 0) {
+            AlternanceMots.imot += 1;
+            AlternanceMots.imot = AlternanceMots.imot % this.styles.length;
+            return `<span ${this.mode}="${this.styles[AlternanceMots.imot]}">${txt}</span>`;
+        }
+        return txt;
+    }
+}
+
+class AlternanceLignes extends FunctionLC6 {
+    static ilig=0;
+    constructor(struc) {
+        super(struc);
+        AlternanceLignes.ilig = 0;
+    }
+    getLevel() {
+        return FunctionLC6.TEXTE;
+    }
+    postProcessHTML(elt) {
+        let paras = elt.querySelectorAll("p");
+        paras.forEach((para => {
+            let t_lignes = extractLinesFromTextNode(para);
+            let obj = this;
+            let rtxt = "";
+            t_lignes.forEach((function iterator(ligne) {
+                AlternanceLignes.ilig += 1;
+                AlternanceLignes.ilig = AlternanceLignes.ilig % obj.styles.length;
+                rtxt += `<span ${obj.mode}="${obj.styles[AlternanceLignes.ilig]}">${ligne}</span>`;
+            }));
+            para.innerHTML = rtxt;
+        }));
+    }
+}
+
+class RegleLecture extends FunctionLC6 {
+    constructor(struc) {
+        super(struc);
+    }
+    getLevel() {
+        return FunctionLC6.TEXTE;
+    }
+    postProcessHTML(elt) {
+        let paras = elt.querySelectorAll("p");
+        paras.forEach((para => {
+            let t_lignes = extractLinesFromTextNode(para);
+            let rtxt = "";
+            t_lignes.forEach((function iterator(ligne) {
+                rtxt += `<div class="ligne">${ligne}</div>`;
+            }));
+            para.innerHTML = rtxt;
+        }));
+        let obj = this;
+        if (obj.styles.length > 0) {
+            const lignes = elt.getElementsByClassName("ligne");
+            for (let ligne of lignes) {
+                ligne.style = obj.styles[0];
+            }
+        }
+    }
+}
+
+class Lecteur extends FunctionLC6 {
+    constructor(struc) {
+        super(struc);
+    }
+    getLevel() {
+        return FunctionLC6.TEXTE;
+    }
+}
+
+function extractLinesFromTextNode(textNode) {
+    let e = document.createElement("span");
+    e.style.position = "absolute";
+    e.style.visibility = "hidden";
+    e.style.width = "auto";
+    e.style.whiteSpace = "nowrap";
+    e.textContent = "";
+    textNode.appendChild(e);
+    let maxWidth = textNode.getBoundingClientRect().width;
+    var lines = [];
+    for (let cnode of textNode.childNodes) {
+        let oldTextContent = e.innerHTML;
+        let addTextContent = cnode.outerHTML;
+        if (cnode.nodeType == 3) {
+            addTextContent = cnode.textContent;
+        }
+        e.innerHTML += addTextContent;
+        let width = e.getBoundingClientRect().width;
+        if (width >= maxWidth) {
+            lines.push(oldTextContent);
+            e.innerHTML = addTextContent;
+        }
+    }
+    lines.push(e.innerHTML);
+    e.remove();
+    return lines;
+}
+
+var lc6classes = {
+    defaut: Defaut,
+    lettres: Lettres,
+    phonemes: Phonemes,
+    syllabes: Syllabes,
+    syllarc: SyllArc,
+    alternphonemes: AlternancePhonemes,
+    alternlettres: AlternanceLettres,
+    alternsyllabes: AlternanceSyllabes,
+    alternmots: AlternanceMots,
+    alternlignes: AlternanceLignes,
+    reglelecture: RegleLecture,
+    lecteur: Lecteur
+};
+
+class Texte {
+    constructor(txt) {
+        this.text = txt;
+        this.level = FunctionLC6.TEXTE;
+        this.portions = new Array;
+        this.intercal = new Array;
+    }
+    prepare(lfunc, lecteur_deb, std_lc, oral_ecrit) {
+        let maxlev = 0;
+        lfunc.forEach((element => {
+            maxlev = Math.max(maxlev, element.getLevel());
+        }));
+        this.decompose(maxlev, lecteur_deb, std_lc, oral_ecrit);
+    }
+    decompose(lev, lecteur_deb, std_lc, oral_ecrit) {
+        if (lev > this.level) {
+            let ntext = this.text;
+            let i = 0;
+            const pat = /([a-z@àäâéèêëîïôöûùçœ'’0123456789]+)/gi;
+            for (const match of ntext.matchAll(pat)) {
+                let nmot = new Mot(match[0]);
+                nmot.decompose(lev, lecteur_deb, std_lc, oral_ecrit);
+                this.portions.push(nmot);
+                this.intercal.push(ntext.slice(i, match.index));
+                i = match.index + match[0].length;
+            }
+            this.intercal.push(ntext.slice(i));
+        }
+    }
+    span(txt) {
+        return txt.length > 0 ? `<span class="mot">${txt}</span>` : "";
+    }
+    toHTML(lfunc, textElt) {
+        let ntext = "";
+        if (this.portions.length > 0) {
+            for (let i = 0; i < this.portions.length; i++) {
+                let portion = this.portions[i].toHTML(lfunc, textElt);
+                if (this.intercal.length > 0) ntext += this.intercal[i];
+                ntext += portion;
+            }
+            if (this.intercal.length > 0) ntext += this.intercal[this.portions.length];
+        } else {
+            ntext = this.text;
+        }
+        for (let i = 0; i < lfunc.length; i++) {
+            let func = lfunc[i];
+            if (func.getLevel() == this.level) {
+                ntext = func.toHTML(ntext, textElt);
+            }
+        }
+        return ntext;
+    }
+}
+
+class Mot extends Texte {
+    constructor(txt) {
+        super(txt);
+        this.level = FunctionLC6.MOT;
+        this.mot = /([a-zA-ZàäâéèêëîïôöûùçœÂÊÎÔÛÄËÏÖÜÀÇÉÈŒÙ'’]+)/.test(txt);
+    }
+    decompose(lev, lecteur_deb, std_lc, oral_ecrit) {
+        if (lev > this.level && this.mot) {
+            if (lev == FunctionLC6.LETTRE) {
+                let ntext = this.text;
+                if (ntext.length < 1) {
+                    return;
+                }
+                for (let i = 0; i < ntext.length; i++) {
+                    this.portions.push(new Lettre(ntext[i]));
+                }
+            } else {
+                try {
+                    var phon = LireCouleur.extrairePhonemes(this.text, lecteur_deb);
+                    if (phon === null) {
+                        this.mot = false;
+                    } else {
+                        var sylls = LireCouleur.extraireSyllabes(phon, std_lc, oral_ecrit);
+                        var nbsylls = sylls.length;
+                        var isyll = 0;
+                        sylls.forEach((element => {
+                            var nsyll = new Syllabe("", isyll, nbsylls);
+                            nsyll.compose(element, lev);
+                            this.portions.push(nsyll);
+                            isyll += 1;
+                        }));
+                    }
+                } catch (error) {
+                    console.error(error);
+                    this.mot = false;
+                }
+            }
+        }
+    }
+    toHTML(lfunc, txtElt) {
+        if (!this.mot) {
+            return this.span(this.text);
+        }
+        return this.span(super.toHTML(lfunc, txtElt));
+    }
+}
+
+class Syllabe extends Texte {
+    constructor(txt, index, nbobj) {
+        super(txt);
+        this.index = index;
+        this.level = FunctionLC6.SYLLABE;
+    }
+    compose(lcs, lev) {
+        if (lev > this.level) {
+            lcs.phonemes.forEach((element => {
+                let nphon = new Phoneme(element.lettres, element.phoneme);
+                this.portions.push(nphon);
+                this.text += element.lettres;
+            }));
+        } else {
+            lcs.phonemes.forEach((element => {
+                this.text += element.lettres;
+            }));
+        }
+    }
+    toHTML(lfunc, txtElt) {
+        let ntext = "";
+        if (this.portions.length > 0) {
+            this.portions.forEach((element => {
+                ntext += element.toHTML(lfunc, txtElt);
+            }));
+        } else {
+            ntext = this.text;
+        }
+        for (let i = 0; i < lfunc.length; i++) {
+            let func = lfunc[i];
+            if (func.getLevel() == this.level) {
+                ntext = func.toHTML(ntext, this.index, txtElt);
+            }
+        }
+        return ntext;
+    }
+}
+
+class Phoneme extends Texte {
+    constructor(txt, code) {
+        super(txt);
+        this.code = code;
+        this.level = FunctionLC6.PHONEME;
+    }
+    toHTML(lfunc, txtElt) {
+        let ntext = "";
+        for (let i = 0; i < lfunc.length; i++) {
+            let func = lfunc[i];
+            if (func.getLevel() == this.level) {
+                ntext = func.toHTML(this.text, this.code, txtElt);
+            }
+        }
+        return ntext;
+    }
+}
+
+class Lettre extends Texte {
+    constructor(txt, code) {
+        super(txt);
+        this.code = code;
+        this.level = FunctionLC6.LETTRE;
+    }
+    toHTML(lfunc, txtElt) {
+        let ntext = "";
+        for (let i = 0; i < lfunc.length; i++) {
+            let func = lfunc[i];
+            if (func.getLevel() == this.level) {
+                ntext = func.toHTML(this.text, this.code, txtElt);
+            }
+        }
+        return ntext;
+    }
+}
+
+const profilDefaut1 = '{"name":"Syllabes colorées","description":"Alternance de couleurs sur les syllabes et marquage des phonèmes muets","params":{"SYLLABES_ECRITES":true,"novice_reader":true,"SYLLABES_LC":true},"format":{"font_name":"   ","color":"#111111","background":"#ffffff","line_spacing":150,"scale_width":150,"height":20,"page_width":50},"process":[{"function":"alternsyllabes","format":[{"color":"#ea0000","background":"#ffffff"},{"color":"#0000e1","background":"#ffffff"}]},{"function":"phonemes","format":[{"selection":["#","verb_3p","#_amb"],"color":"#aaaaaa","background":"#ffffff","phonemes":["#","verb_3p","#_amb"]}]}]}';
+
+const profilDefaut2 = '{"name":"Lecture texte","description":"Lit le texte affiché","params":{"SYLLABES_ECRITES":true,"novice_reader":false,"SYLLABES_LC":true},"format":{"font_name":"Accessible DfA","color":"#000000","background":"#ffffff","line_spacing":130,"scale_width":100,"height":20,"page_width":70},"process":[{"function":"lecteur","params":{"rate":8}},{"function":"defaut"}]}';
+
+const profilDefaut3 = '{"name":"Mots colorés","description":"Alternance de couleurs sur les mots et marquage des phonèmes muets","params":{"SYLLABES_ECRITES":true,"novice_reader":true,"SYLLABES_LC":true},"format":{"font_name":"   ","color":"#111111","background":"#ffffff","line_spacing":150,"scale_width":150,"height":20},"process":[{"function":"alternmots","format":[{"color":"#000000","background":"#ffff80"},{"color":"#000000","background":"#80ff80"}]},{"function":"phonemes","format":[{"selection":["#","verb_3p","#_amb"],"color":"#aaaaaa","background":"#ffffff","phonemes":["#","verb_3p","#_amb"]}]}]}';
+
+const profilDefaut4 = '{"name":"Graphèmes colorés","params":{"novice_reader":true},"format":{"height":24,"line_spacing":130,"page_width":70},"process":[{"function":"phonemes","format":[{"color":"#999999","phonemes":["#","verb_3p","#_amb"]},{"color":"#3333ff","phonemes":["a"]},{"color":"#ff0000","phonemes":["q","q_caduc","x"]},{"color":"#33cc00","phonemes":["i"]},{"color":"#cc6600","phonemes":["o","o_comp","o_ouvert"]},{"color":"#ffcc33","phonemes":["u"]},{"color":"#006600","phonemes":["y"]},{"color":"#33ffff","phonemes":["e","e_comp"]},{"color":"#339999","phonemes":["e^","e^_comp"]},{"color":"#3333ff","stroke":true,"bold":true,"phonemes":["a~"]},{"color":"#006600","bold":true,"phonemes":["e~","x~"]},{"color":"#990000","bold":true,"phonemes":["x^"]},{"color":"#cc6600","stroke":true,"bold":true,"phonemes":["o~"]}]}]}';
+
+const profilDefaut5 = '{"name":"Syllabes séparées","description":"Sépare les syllabes","params":{"SYLLABES_ECRITES":true,"novice_reader":false,"SYLLABES_LC":true},"format":{"font":"   ","color":"#111111","background":"#ffffff","line_spacing":200,"scale_width":150,"height":20},"process":[{"separator":"˰","function":"syllabes"},{"function":"phonemes","format":[{"selection":["#_amb","#","verb_3p"],"color":"#9b9b9b","background":"#ffffff","phonemes":["#_amb","#","verb_3p"]}]},{"function":"alternmots","format":[{"color":"#000000","background":"#f8fec7"},{"color":"#000000","background":"#dfefff"}]}]}';
+
+var profilsParDefaut = `[${profilDefaut1},${profilDefaut2},${profilDefaut3},${profilDefaut4},${profilDefaut5}]`;
+
+class UserProfile {
+    constructor(jsonProfil) {
+        this.json = JSON.parse(JSON.stringify(jsonProfil));
+        this.functions = new Array;
+        this.style = "";
+        this.std_lc = "lc";
+        this.oral_ecrit = "ecrit";
+        this.lecteur_deb = false;
+        this.id = jsonProfil.name;
+        if (jsonProfil.hasOwnProperty("format")) {
+            this.style = txtStyle(jsonProfil["format"]);
+        } else {
+            this.json.format = new Object;
+        }
+        if (jsonProfil.hasOwnProperty("process")) {
+            for (let i = 0; i < jsonProfil.process.length; i++) {
+                let fct = jsonProfil.process[i];
+                if (fct.hasOwnProperty("function") && lc6classes.hasOwnProperty(fct.function)) {
+                    this.functions.push(new lc6classes[fct.function](fct));
+                }
+            }
+        } else {
+            this.json.process = new Object;
+        }
+        if (jsonProfil.hasOwnProperty("params")) {
+            if (jsonProfil.params.hasOwnProperty("novice_reader")) {
+                this.lecteur_deb = jsonProfil.params.novice_reader;
+            }
+            if (jsonProfil.params.hasOwnProperty("SYLLABES_LC")) {
+                if (!jsonProfil.params.SYLLABES_LC) {
+                    this.std_lc = "std";
+                }
+            }
+            if (jsonProfil.params.hasOwnProperty("SYLLABES_STD")) {
+                if (jsonProfil.params.SYLLABES_STD) {
+                    this.std_lc = "std";
+                }
+            }
+            if (jsonProfil.params.hasOwnProperty("SYLLABES_ORALES")) {
+                if (jsonProfil.params.SYLLABES_ORALES) {
+                    this.oral_ecrit = "oral";
+                }
+            }
+            if (jsonProfil.params.hasOwnProperty("SYLLABES_ECRITES")) {
+                if (!jsonProfil.params.SYLLABES_ECRITES) {
+                    this.oral_ecrit = "oral";
+                }
+            }
+        } else {
+            this.json.params = new Object;
+        }
+    }
+    toJSONString() {
+        return JSON.stringify(this.json);
+    }
+    toHTML(text, textElt) {
+        this.txt = new Texte(text);
+        this.txt.prepare(this.functions, this.lecteur_deb, this.std_lc, this.oral_ecrit);
+        return this.txt.toHTML(this.functions, textElt);
+    }
+    postProcessHTML(textElt) {
+        for (let i = 0; i < this.functions.length; i++) {
+            let func = this.functions[i];
+            if (func.getLevel() == FunctionLC6.TEXTE) {
+                func.postProcessHTML(textElt);
+            }
+        }
+    }
+    hasFunction(functionName) {
+        let func = lc6classes[functionName];
+        for (let i = 0; i < this.functions.length; i++) {
+            if (this.functions[i] instanceof func) {
+                return true;
+            }
+        }
+        return false;
+    }
+    getFunction(functionName) {
+        let func = lc6classes[functionName];
+        for (let i = 0; i < this.functions.length; i++) {
+            if (this.functions[i] instanceof func) {
+                return this.functions[i];
+            }
+        }
+        return undefined;
+    }
+}
+
+class UserProfiles {
+    constructor() {
+        let lccookie = this.getCookie("lirecouleur6");
+        let icookie = this.getCookie("lirecouleur-index-profil");
+        let cook = null;
+        if (lccookie !== null) {
+            try {
+                cook = JSON.parse(lccookie);
+            } catch (error) {
+                console.log(error);
+                cook = null;
+            }
+        }
+        if (cook === null) {
+            cook = JSON.parse(profilsParDefaut);
+        }
+        if (icookie !== null) {
+            this.indexCookie = parseInt(icookie);
+        } else {
+            this.indexCookie = 0;
+        }
+        this.profiles = new Array;
+        for (let i = 0; i < cook.length; i++) {
+            let elem = cook[i];
+            this.profiles.push(new UserProfile(cook[i]));
+        }
+    }
+    toJSONString() {
+        let txt = "[";
+        let sep = "";
+        for (let i = 0; i < this.profiles.length; i++) {
+            txt += sep + this.profiles[i].toJSONString();
+            sep = ",";
+        }
+        txt += "]";
+        return txt;
+    }
+    replaceProfile(index, json) {
+        if (this.profiles.length > 1) {
+            if (index > -1 && index < this.profiles.length) {
+                delete this.profiles[index];
+                this.profiles[index] = new UserProfile(json);
+                this.setCookie("lirecouleur6", this.toJSONString(), 365);
+            }
+        }
+    }
+    addProfile(json) {
+        var nbProfils = this.profiles.length;
+        let cpt = 0;
+        json.name = json.name.trim();
+        for (let i = 0; i < nbProfils; i++) {
+            if (this.profiles[i].id == json.name) {
+                cpt++;
+            }
+        }
+        if (cpt > 0) {
+            json.name += " (1)";
+        }
+        this.profiles.push(new UserProfile(json));
+        this.setCookie("lirecouleur6", this.toJSONString(), 365);
+        this.selectProfile(nbProfils);
+    }
+    removeProfile(index) {
+        if (this.profiles.length > 1) {
+            if (index > -1 && index < this.profiles.length) {
+                if (this.indexCookie >= index) {
+                    this.selectProfile(this.indexCookie - 1);
+                }
+                this.profiles.splice(index, 1);
+                this.setCookie("lirecouleur6", this.toJSONString(), 365);
+            }
+        }
+    }
+    getNbProfiles() {
+        return this.profiles.length;
+    }
+    getProfileIndex(i) {
+        return this.profiles[i];
+    }
+    getSelectedProfile() {
+        if (this.indexCookie < 0 || this.indexCookie > this.profiles.length - 1) {
+            this.indexCookie = this.profiles.length - 1;
+        }
+        return this.profiles[this.indexCookie];
+    }
+    getSelectedProfileIndex() {
+        return this.indexCookie;
+    }
+    selectProfile(i) {
+        this.indexCookie = i;
+        this.setCookie("lirecouleur-index-profil", i.toString(), 365);
+    }
+    setCookie(cname, cvalue, exdays) {
+        const d = new Date;
+        d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1e3);
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=Strict";
+    }
+    getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == " ") {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                let substr = c.substring(name.length, c.length);
+                return decodeURIComponent(substr);
+            }
+        }
+        return null;
+    }
+}
+
+const defaultProfileJson = `\n{\n    "name"   : "Graphèmes colorés",\n    "params" : {"novice_reader":true},\n    "format" : {"line_spacing":150,"page_width":70},\n    "process":[\n        {\n            "function":"phonemes",\n            "format":[\n                {"color":"#999999",                               "phonemes":["#","verb_3p","#_amb"],   "phonetics":"",        "example":["lettre muette"]},\n                {"color":"#7f3c00",                               "phonemes":["a"],                     "phonetics":"a",       "example":["patte", "pâte"]},\n                {"color":"#6688ff",                               "phonemes":["q","q_caduc","x", "x^"], "phonetics":"ø, ə, œ", "example":["je, une, oeil"]},\n                {"color":"#ffd200", "stroke":false, "bold":false, "phonemes":["i"],                     "phonetics":"i",       "example":["si"]},\n                {"color":"#fee347",                               "phonemes":["j"],                     "phonetics":"j",       "example":["fille"]},\n                {"color":"#ff47c2",                               "phonemes":["o","o_comp","o_ouvert"], "phonetics":"o",       "example":["rose", "taureau"]},\n                {"color":"#ff0000",                               "phonemes":["u"],                     "phonetics":"u",       "example":["doux"]},\n                {"color":"#c40083",                               "phonemes":["y"],                     "phonetics":"y",       "example":["tu"]},\n                {"color":"#ff7900",                               "phonemes":["e","e_comp"],            "phonetics":"e",       "example":["blé", "et"]},\n                {"color":"#008000",                               "phonemes":["e^","e^_comp"],          "phonetics":"ɛ",       "example":["è, ai"]},\n                {"color":"#16b84e", "stroke":false, "bold":false, "phonemes":["a~"],                    "phonetics":"ã", "example":["enfant"]},\n                {"color":"#cfc3b4",                 "bold":false, "phonemes":["e~","x~"],               "phonetics":"ɛ̃, œ̃",    "example":["vin", "main", "un"]},\n                {"color":"#f88e55", "stroke":false, "bold":false, "phonemes":["o~"],                    "phonetics":"ɔ̃",       "example":["bon"]},\n                {"color":"#00ffcc",                               "phonemes":["k", "k_qu"],             "phonetics":"k",       "example":["coq", "quai"]},\n                {"color":"#bef574",                               "phonemes":["s^"],                    "phonetics":"ʃ",       "example":["ch", "sh"]},\n                {"color":"#bf3030",                               "phonemes":["f", "f_ph"],             "phonetics":"f",       "example":["feu", "phi"]},\n                {"color":"#66ff33",                               "phonemes":["g", "g_u"],              "phonetics":"g",       "example":["gars", "gui"]},\n                {"color":"#ffff66", "stroke":false,               "phonemes":["z^", "z^_g"],            "phonetics":"ʒ",       "example":["j'ai, geai"]},\n                {"color":"#b58e6b",                               "phonemes":["wa"],                    "phonetics":"wa",      "example":["oie"]},\n                {"color":"#095228",                               "phonemes":["s", "s_c", "s_t"],       "phonetics":"s",       "example":["ss", "ç"]},\n                {"color":"#6c0277",                               "phonemes":["z", "z_s"],              "phonetics":"z",       "example":["zone"]},\n                {"color":"#7f3c00",                               "phonemes":["p"],                     "phonetics":"p",       "example":["pont"]},\n                {"color":"#6688ff",                               "phonemes":["b"],                     "phonetics":"b",       "example":["bon"]},\n                {"color":"#ffd200",                               "phonemes":["t"],                     "phonetics":"t",       "example":["temps"]},\n                {"color":"#fee347",                               "phonemes":["d"],                     "phonetics":"d",       "example":["dans"]},\n                {"color":"#ff47c2",                               "phonemes":["v"],                     "phonetics":"v",       "example":["vent"]},\n                {"color":"#ff0000",                               "phonemes":["m"],                     "phonetics":"m",       "example":["mont"]},\n                {"color":"#c40083",                               "phonemes":["n"],                     "phonetics":"n",       "example":["nom"]},\n                {"color":"#ff7900",                               "phonemes":["n~"],                    "phonetics":"ɲ",       "example":["agneau"]},\n                {"color":"#008000",                               "phonemes":["g~"],                    "phonetics":"ŋ",       "example":["camping"]},\n                {"color":"#16b84e",                               "phonemes":["l"],                     "phonetics":"l",       "example":["long"]},\n                {"color":"#cfc3b4",                               "phonemes":["r"],                     "phonetics":"ʁ",       "example":["rond"]}\n\n            ]\n        }\n    ]\n}\n`;
+
+getDefaultProfile = () => {
+    const cg = JSON.parse(defaultProfileJson);
+    return JsonProfile.from(cg);
+};
+
+class JsonProfile {
+    constructor(name, description, params, format, process) {
+        this.name = name;
+        this.description = description;
+        this.params = params;
+        this.format = format;
+        this.process = process;
+    }
+    stringify=() => JSON.stringify(this);
+    asUserProfile=() => new UserProfile(JSON.parse(this.stringify()));
+    getProcess=() => new ProfileProcess(this.process);
+    addFunc(funcObj) {
+        this.process.push(funcObj);
+        return this;
+    }
+    unshiftFunc(funcObj) {
+        this.process.unshift(funcObj);
+        return this;
+    }
+    getFuncAt=index => this.process[index];
+    setFuncAt(index, funcObj) {
+        this.process[index] = funcObj;
+    }
+    funcIndex=funcName => this.process.findIndex((f => f.function === funcName));
+    replaceOrAddFunc(funcObj) {
+        const index = this.funcIndex(funcObj.function);
+        if (index == -1) this.addFunc(funcObj); else this.setFuncAt(index, funcObj);
+        return this;
+    }
+    getSyllabesFunc=() => this.process[this.funcIndex("syllabes")];
+    setSyllabesSeparator=sep => this.getSyllabesFunc().separator = sep;
+    getPhonemesFunc=() => this.process[this.funcIndex("phonemes")];
+    getSpecTable=() => this.getPhonemesFunc().format;
+    getColors=() => this.getSpecTable().map((obj => obj.color));
+    getFontSpecs=() => this.getSpecTable().map((obj => ({
+        color: obj.color,
+        bold: obj.bold,
+        stroke: obj.stroke
+    })));
+    setFontSpecAt=(index, color, bold, stroke) => {
+        this.getSpecTable().splice(index, 0, {
+            color: color,
+            stroke: stroke,
+            bold: bold
+        });
+    };
+    addSpec=spec => {
+        this.getSpecTable().push(spec);
+    };
+    removeSpec=spec => {
+        const phoneme = spec.phonemes[0];
+        const specTable = this.getSpecTable();
+        const specIndex = specTable.findIndex((p => p.phonemes.includes(phoneme)));
+        specTable.splice(specIndex, 1);
+    };
+    static from(obj) {
+        let jp = new JsonProfile(obj.name, obj.description, obj.params, obj.format, obj.process);
+        jp.name = obj.name;
+        jp.description = obj.description;
+        jp.params = obj.params;
+        jp.format = obj.format;
+        jp.process = obj.process;
+        return jp;
+    }
+}
+
+const adapt = (usedProfile, id) => {
+    let elt = document.getElementById(id);
+    if (!elt) {
+        console.log(`adapt() called on 'falsy' element ${elt}`);
+        return;
+    }
+    if (!elt.originalContent) elt.originalContent = elt.textContent;
+    let html = usedProfile.toHTML(elt.originalContent, elt);
+    elt.innerHTML = html;
+    elt.style = usedProfile.style;
+    usedProfile.postProcessHTML(elt);
+};
+
+const cancelAdapt = id => {
+    const elt = document.getElementById(id);
+    if (elt.originalContent) elt.textContent = elt.originalContent;
+};
+
 "use strict";
 
 let categoriesServiceIsInstantiated;
@@ -1048,8 +2661,51 @@ class ColorContrastService {
 
 let colorReadServiceIsInstantiated;
 
+const COLOR_READ_BLOCK_SELECTOR = "p, li, blockquote, td, th, h1, h2, h3, h4, h5, h6, dd, dt";
+
+const COLOR_READ_SECTION_ATTR = "data-cplus-cr-section";
+
+const COLOR_READ_ORIGINAL_ATTR = "data-cplus-cr-original";
+
+const COLOR_READ_ARMED_ATTR = "data-cplus-cr-armed";
+
+const COLOR_READ_STYLE_ARMED = "color-read-armed";
+
+const COLOR_READ_ARMED_CSS = `\nhtml[${COLOR_READ_ARMED_ATTR}] :is(${COLOR_READ_BLOCK_SELECTOR}) {\n\tcursor: pointer;\n}\nhtml[${COLOR_READ_ARMED_ATTR}] [${COLOR_READ_SECTION_ATTR}]:hover {\n\toutline: 2px dashed currentColor;\n\toutline-offset: 2px;\n}\n`;
+
+const ColorMode = Object.freeze({
+    OFF: "none",
+    SPLIT_SYLLABLES: "splitSyllables",
+    COLOR_SYLLABLES: "colorSyllables"
+});
+
+const ClickScope = Object.freeze({
+    WORD: "word",
+    SENTENCE: "sentence",
+    PARAGRAPH: "paragraph",
+    ALL: "all"
+});
+
+const MVP_ACTIONS = {
+    splitSyllables: ColorMode.SPLIT_SYLLABLES,
+    colorSyllables: ColorMode.COLOR_SYLLABLES
+};
+
+const SCOPES = new Set(Object.values(ClickScope));
+
 class ColorReadService {
-    enabled=false;
+    mode=ColorMode.OFF;
+    scope=ClickScope.WORD;
+    options={};
+    abortCtrl=null;
+    blockSnapshots=new WeakMap;
+    activeBlocks=new Set;
+    activeSections=new Set;
+    onClickBound=ev => {
+        if (ev instanceof MouseEvent) {
+            this.onClick(ev);
+        }
+    };
     constructor() {
         if (colorReadServiceIsInstantiated) {
             throw new Error("ColorReadService is already instantiated.");
@@ -1057,9 +2713,429 @@ class ColorReadService {
         colorReadServiceIsInstantiated = true;
     }
     setColorRead=value => {
-        this.enabled = value !== DEFAULT_VALUE;
-        console.log(value);
+        if (value === DEFAULT_VALUE) {
+            this.restoreAll();
+            this.disarm();
+            this.mode = ColorMode.OFF;
+            this.scope = ClickScope.WORD;
+            return;
+        }
+        const parsed = this.parseSettingValue(value);
+        if (!parsed.supported) {
+            this.restoreAll();
+            this.disarm();
+            this.mode = ColorMode.OFF;
+            this.scope = ClickScope.WORD;
+            return;
+        }
+        const same = this.mode === parsed.mode && this.scope === parsed.scope && this.abortCtrl !== null;
+        if (same) {
+            return;
+        }
+        this.restoreAll();
+        this.disarm();
+        this.mode = parsed.mode;
+        this.scope = parsed.scope;
+        this.arm();
     };
+    parseSettingValue(value) {
+        const parts = value.split("_");
+        const action = parts[0];
+        const scopeStr = parts.length > 1 ? parts.slice(1).join("_") : ClickScope.WORD;
+        const mode = MVP_ACTIONS[action];
+        if (!mode || !SCOPES.has(scopeStr)) {
+            return {
+                supported: false,
+                mode: ColorMode.OFF,
+                scope: ClickScope.WORD
+            };
+        }
+        return {
+            supported: true,
+            mode: mode,
+            scope: scopeStr
+        };
+    }
+    arm() {
+        if (this.abortCtrl) {
+            return;
+        }
+        this.abortCtrl = new AbortController;
+        document.documentElement.setAttribute(COLOR_READ_ARMED_ATTR, "");
+        stylesServiceInstance.setStyle(COLOR_READ_STYLE_ARMED, COLOR_READ_ARMED_CSS);
+        document.addEventListener("click", this.onClickBound, {
+            capture: true,
+            signal: this.abortCtrl.signal
+        });
+    }
+    disarm() {
+        if (this.abortCtrl) {
+            this.abortCtrl.abort();
+            this.abortCtrl = null;
+        }
+        document.documentElement.removeAttribute(COLOR_READ_ARMED_ATTR);
+        stylesServiceInstance.removeStyle(COLOR_READ_STYLE_ARMED);
+    }
+    lcAvailable() {
+        return typeof JsonProfile !== "undefined" && typeof JsonProfile.from === "function";
+    }
+    rootSelector() {
+        return this.options.rootSelector ?? COLOR_READ_BLOCK_SELECTOR;
+    }
+    onClick(ev) {
+        const rawTarget = ev.target;
+        if (!(rawTarget instanceof Element)) {
+            return;
+        }
+        if (rawTarget.closest(APP_NAME)) {
+            return;
+        }
+        if (rawTarget.closest('input, textarea, select, button, option, [contenteditable="true"]')) {
+            return;
+        }
+        const sectionSpan = rawTarget.closest(`[${COLOR_READ_SECTION_ATTR}]`);
+        if (sectionSpan instanceof HTMLElement) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.restoreSection(sectionSpan);
+            return;
+        }
+        const transformedBlock = this.findActiveBlock(rawTarget);
+        if (transformedBlock) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.restoreElement(transformedBlock);
+            return;
+        }
+        if (!this.lcAvailable()) {
+            return;
+        }
+        if (this.scope === ClickScope.ALL) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.transformAllBlocks();
+            return;
+        }
+        if (this.scope === ClickScope.PARAGRAPH) {
+            const block = rawTarget.closest(COLOR_READ_BLOCK_SELECTOR);
+            if (!(block instanceof HTMLElement)) {
+                return;
+            }
+            if (block.closest(APP_NAME)) {
+                return;
+            }
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.transformElement(block);
+            return;
+        }
+        if (this.scope === ClickScope.WORD || this.scope === ClickScope.SENTENCE) {
+            const range = this.resolveWordOrSentenceRange(ev);
+            if (!range || range.collapsed) {
+                return;
+            }
+            const text = range.toString();
+            if (!text.trim()) {
+                return;
+            }
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.transformRange(range);
+        }
+    }
+    findActiveBlock(from) {
+        const block = from.closest(COLOR_READ_BLOCK_SELECTOR);
+        if (block instanceof HTMLElement && this.activeBlocks.has(block)) {
+            return block;
+        }
+        return null;
+    }
+    getCaretRangeFromPoint(x, y) {
+        const doc = document;
+        if (typeof doc.caretRangeFromPoint === "function") {
+            return doc.caretRangeFromPoint(x, y);
+        }
+        const caretPos = document.caretPositionFromPoint?.(x, y);
+        if (caretPos) {
+            const r = document.createRange();
+            r.setStart(caretPos.offsetNode, caretPos.offset);
+            r.collapse(true);
+            return r;
+        }
+        return null;
+    }
+    getTextOffsetInRoot(root, node, offset) {
+        const range = document.createRange();
+        range.selectNodeContents(root);
+        range.setEnd(node, offset);
+        return range.toString().length;
+    }
+    findSegmentBounds(text, offset, granularity) {
+        try {
+            const lang = document.documentElement.lang?.split(/[-_]/)?.[0] || "fr";
+            const segmenter = new Intl.Segmenter(lang, {
+                granularity: granularity
+            });
+            for (const segment of segmenter.segment(text)) {
+                const segEnd = segment.index + segment.segment.length;
+                if (offset >= segment.index && offset < segEnd) {
+                    return {
+                        start: segment.index,
+                        end: segEnd
+                    };
+                }
+            }
+        } catch {
+            return null;
+        }
+        return null;
+    }
+    rangeForSubstring(root, start, end) {
+        if (start >= end) {
+            return null;
+        }
+        const range = document.createRange();
+        let counted = 0;
+        let started = false;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+        let n = walker.nextNode();
+        while (n) {
+            const len = n.length;
+            const nodeEnd = counted + len;
+            if (!started && start < nodeEnd) {
+                range.setStart(n, Math.max(0, start - counted));
+                started = true;
+            }
+            if (started && end <= nodeEnd) {
+                range.setEnd(n, Math.max(0, end - counted));
+                return range;
+            }
+            counted = nodeEnd;
+            n = walker.nextNode();
+        }
+        return started ? null : null;
+    }
+    resolveWordOrSentenceRange(ev) {
+        const caret = this.getCaretRangeFromPoint(ev.clientX, ev.clientY);
+        if (!caret) {
+            return null;
+        }
+        const node = caret.startContainer;
+        const block = node.nodeType === Node.TEXT_NODE ? node.parentElement?.closest(COLOR_READ_BLOCK_SELECTOR) : node.closest(COLOR_READ_BLOCK_SELECTOR);
+        if (!(block instanceof HTMLElement) || block.closest(APP_NAME)) {
+            return null;
+        }
+        const offset = this.getTextOffsetInRoot(block, caret.startContainer, caret.startOffset);
+        const text = block.textContent ?? "";
+        if (!text.length) {
+            return null;
+        }
+        const safeOffset = Math.min(offset, Math.max(0, text.length - 1));
+        const granularity = this.scope === ClickScope.WORD ? "word" : "sentence";
+        const bounds = this.findSegmentBounds(text, safeOffset, granularity);
+        if (!bounds) {
+            return null;
+        }
+        return this.rangeForSubstring(block, bounds.start, bounds.end);
+    }
+    wrapRange(range, span) {
+        try {
+            range.surroundContents(span);
+            return true;
+        } catch {
+            try {
+                const contents = range.extractContents();
+                span.appendChild(contents);
+                range.insertNode(span);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+    }
+    restoreDescendantSections(root) {
+        const nodes = Array.from(root.querySelectorAll(`[${COLOR_READ_SECTION_ATTR}]`));
+        for (const el of nodes) {
+            if (el instanceof HTMLElement) {
+                this.restoreSection(el);
+            }
+        }
+    }
+    transformRange(range) {
+        if (!this.lcAvailable()) {
+            return;
+        }
+        const text = range.toString();
+        const span = document.createElement("span");
+        span.setAttribute(COLOR_READ_SECTION_ATTR, this.scope);
+        span.setAttribute(COLOR_READ_ORIGINAL_ATTR, text);
+        if (!this.wrapRange(range, span)) {
+            return;
+        }
+        const profile = this.resolveProfile();
+        const user = profile.asUserProfile();
+        span.innerHTML = user.toHTML(text, span);
+        const sty = user.style || "";
+        if (sty) {
+            const prev = span.getAttribute("style") || "";
+            span.setAttribute("style", prev ? `${prev};${sty}` : sty);
+        }
+        user.postProcessHTML(span);
+        this.activeSections.add(span);
+    }
+    transformElement(el) {
+        if (!this.lcAvailable()) {
+            return;
+        }
+        this.restoreDescendantSections(el);
+        if (!this.blockSnapshots.has(el)) {
+            this.blockSnapshots.set(el, {
+                innerHTML: el.innerHTML,
+                styleAttr: el.getAttribute("style")
+            });
+        }
+        const text = el.textContent ?? "";
+        const profile = this.resolveProfile();
+        const user = profile.asUserProfile();
+        el.innerHTML = user.toHTML(text, el);
+        const sty = user.style || "";
+        if (sty) {
+            const prev = el.getAttribute("style") || "";
+            el.setAttribute("style", prev ? `${prev};${sty}` : sty);
+        }
+        user.postProcessHTML(el);
+        this.activeBlocks.add(el);
+    }
+    transformAllBlocks() {
+        if (!this.lcAvailable()) {
+            return;
+        }
+        const selector = this.rootSelector();
+        const nodes = document.querySelectorAll(selector);
+        const profile = this.resolveProfile();
+        const user = profile.asUserProfile();
+        for (const node of nodes) {
+            if (!(node instanceof HTMLElement)) {
+                continue;
+            }
+            if (node.closest(APP_NAME)) {
+                continue;
+            }
+            this.restoreDescendantSections(node);
+            if (!this.blockSnapshots.has(node)) {
+                this.blockSnapshots.set(node, {
+                    innerHTML: node.innerHTML,
+                    styleAttr: node.getAttribute("style")
+                });
+            }
+            const text = node.textContent ?? "";
+            node.innerHTML = user.toHTML(text, node);
+            const sty = user.style || "";
+            if (sty) {
+                const prev = node.getAttribute("style") || "";
+                node.setAttribute("style", prev ? `${prev};${sty}` : sty);
+            }
+            user.postProcessHTML(node);
+            this.activeBlocks.add(node);
+        }
+    }
+    restoreSection(span) {
+        const original = span.getAttribute(COLOR_READ_ORIGINAL_ATTR);
+        if (original === null) {
+            return;
+        }
+        span.replaceWith(document.createTextNode(original));
+        this.activeSections.delete(span);
+    }
+    restoreElement(el) {
+        const snap = this.blockSnapshots.get(el);
+        if (!snap) {
+            return;
+        }
+        el.innerHTML = snap.innerHTML;
+        if (snap.styleAttr === null) {
+            el.removeAttribute("style");
+        } else {
+            el.setAttribute("style", snap.styleAttr);
+        }
+        this.blockSnapshots.delete(el);
+        this.activeBlocks.delete(el);
+    }
+    restoreAll() {
+        for (const span of Array.from(this.activeSections)) {
+            this.restoreSection(span);
+        }
+        for (const block of Array.from(this.activeBlocks)) {
+            this.restoreElement(block);
+        }
+    }
+    resolveProfile() {
+        const separator = this.options.syllableSeparator ?? "·";
+        if (this.mode === ColorMode.SPLIT_SYLLABLES) {
+            return this.buildSeparatedSyllablesProfile(separator);
+        }
+        return this.buildAlternatingColoredSyllablesProfile(this.options.colors ?? [ "#ea0000", "#0000e1" ]);
+    }
+    buildSeparatedSyllablesProfile(separator) {
+        return JsonProfile.from({
+            name: "C+ syllabes séparées",
+            description: "",
+            params: {
+                SYLLABES_ECRITES: true,
+                novice_reader: false,
+                SYLLABES_LC: true
+            },
+            format: {
+                font: " ",
+                color: "#111111",
+                background: "#ffffff",
+                line_spacing: 200,
+                scale_width: 150,
+                height: 20
+            },
+            process: [ {
+                separator: separator,
+                function: "syllabes"
+            } ]
+        });
+    }
+    buildAlternatingColoredSyllablesProfile(colors) {
+        const palette = colors.length >= 2 ? colors : [ "#ea0000", "#0000e1" ];
+        const formatSyllables = palette.map((color => ({
+            color: color,
+            background: "#ffffff"
+        })));
+        return JsonProfile.from({
+            name: "C+ syllabes colorées",
+            description: "",
+            params: {
+                SYLLABES_ECRITES: true,
+                novice_reader: true,
+                SYLLABES_LC: true
+            },
+            format: {
+                font_name: " ",
+                color: "#111111",
+                background: "#ffffff",
+                line_spacing: 150,
+                scale_width: 150,
+                height: 20,
+                page_width: 50
+            },
+            process: [ {
+                function: "alternsyllabes",
+                format: formatSyllables
+            }, {
+                function: "phonemes",
+                format: [ {
+                    selection: [ "#", "verb_3p", "#_amb" ],
+                    color: "#aaaaaa",
+                    background: "#ffffff",
+                    phonemes: [ "#", "verb_3p", "#_amb" ]
+                } ]
+            } ]
+        });
+    }
 }
 
 "use strict";
@@ -3401,7 +5477,7 @@ tmplColorRead.innerHTML = `\n<div class="d-flex align-items-center gap-2 h-100">
 
 class ColorReadComponent extends AbstractSetting {
     activesValues={
-        values: DEFAULT_VALUE + "splitSyllables_word," + "colorTrickyWords_word",
+        values: DEFAULT_VALUE + "splitSyllables_word," + "colorSyllables_word",
         valueSelected: 0
     };
     constructor() {

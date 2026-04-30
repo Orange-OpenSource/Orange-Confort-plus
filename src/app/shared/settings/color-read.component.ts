@@ -10,7 +10,7 @@ class ColorReadComponent extends AbstractSetting {
 	activesValues = { values:
 			DEFAULT_VALUE +
 			"splitSyllables_word," +
-			"colorTrickyWords_word",
+			"colorSyllables_word",
 			valueSelected: 0
 		};
 

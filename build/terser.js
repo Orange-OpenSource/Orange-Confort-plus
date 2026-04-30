@@ -20,6 +20,11 @@ const preamble = `/*
 const files = {
 	'toolbar': {
 		files: [
+			'src/extension/vendors/LireCouleur/lirecouleur.js',
+			'src/extension/vendors/LireCouleur/functionlc6.js',
+			'src/extension/vendors/LireCouleur/processlc6.js',
+			'src/extension/vendors/LireCouleur/userprofile.js',
+			'src/extension/vendors/LireCouleur/json_default_profile.js',
 			'dist/js/app/services/categories.service.js',
 			'dist/js/app/services/dom.service.js',
 			'dist/js/app/services/drag-drop.service.js',
