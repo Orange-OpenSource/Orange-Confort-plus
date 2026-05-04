@@ -2693,6 +2693,8 @@ const MVP_ACTIONS = {
 
 const SCOPES = new Set(Object.values(ClickScope));
 
+const COLOR_READ_IGNORE_INTERACTIVE_SELECTOR = 'input, textarea, select, button, option, [contenteditable="true"]';
+
 class ColorReadService {
     mode=ColorMode.OFF;
     scope=ClickScope.WORD;
@@ -2704,6 +2706,34 @@ class ColorReadService {
     onClickBound=ev => {
         if (ev instanceof MouseEvent) {
             this.onClick(ev);
+        }
+    };
+    onContextMenuBound=ev => {
+        if (!(ev instanceof MouseEvent)) {
+            return;
+        }
+        const rawTarget = ev.target;
+        if (!(rawTarget instanceof Element)) {
+            return;
+        }
+        if (this.shouldIgnoreColorReadTarget(rawTarget)) {
+            return;
+        }
+        this.dismissActiveAlteration(ev, "none");
+    };
+    onKeyDownBound=ev => {
+        if (!(ev instanceof KeyboardEvent) || ev.key !== "Escape") {
+            return;
+        }
+        const rawTarget = ev.target;
+        if (!(rawTarget instanceof Element)) {
+            return;
+        }
+        if (this.shouldIgnoreColorReadTarget(rawTarget)) {
+            return;
+        }
+        if (this.dismissActiveAlteration(ev, "full")) {
+            return;
         }
     };
     constructor() {
@@ -2763,9 +2793,18 @@ class ColorReadService {
         this.abortCtrl = new AbortController;
         document.documentElement.setAttribute(COLOR_READ_ARMED_ATTR, "");
         stylesServiceInstance.setStyle(COLOR_READ_STYLE_ARMED, COLOR_READ_ARMED_CSS);
+        const signal = this.abortCtrl.signal;
         document.addEventListener("click", this.onClickBound, {
             capture: true,
-            signal: this.abortCtrl.signal
+            signal: signal
+        });
+        document.addEventListener("contextmenu", this.onContextMenuBound, {
+            capture: true,
+            signal: signal
+        });
+        document.addEventListener("keydown", this.onKeyDownBound, {
+            capture: true,
+            signal: signal
         });
     }
     disarm() {
@@ -2782,29 +2821,35 @@ class ColorReadService {
     rootSelector() {
         return this.options.rootSelector ?? COLOR_READ_BLOCK_SELECTOR;
     }
+    shouldIgnoreColorReadTarget(el) {
+        if (el.closest(APP_NAME)) {
+            return true;
+        }
+        return el.closest(COLOR_READ_IGNORE_INTERACTIVE_SELECTOR) !== null;
+    }
+    hasActiveAlteration() {
+        return this.activeSections.size > 0 || this.activeBlocks.size > 0;
+    }
+    dismissActiveAlteration(ev, eventConsumption = "full") {
+        if (!this.hasActiveAlteration()) {
+            return false;
+        }
+        this.restoreAll();
+        if (eventConsumption === "full" && (ev instanceof MouseEvent || ev instanceof KeyboardEvent)) {
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
+        return true;
+    }
     onClick(ev) {
         const rawTarget = ev.target;
         if (!(rawTarget instanceof Element)) {
             return;
         }
-        if (rawTarget.closest(APP_NAME)) {
+        if (this.shouldIgnoreColorReadTarget(rawTarget)) {
             return;
         }
-        if (rawTarget.closest('input, textarea, select, button, option, [contenteditable="true"]')) {
-            return;
-        }
-        const sectionSpan = rawTarget.closest(`[${COLOR_READ_SECTION_ATTR}]`);
-        if (sectionSpan instanceof HTMLElement) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            this.restoreSection(sectionSpan);
-            return;
-        }
-        const transformedBlock = this.findActiveBlock(rawTarget);
-        if (transformedBlock) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            this.restoreElement(transformedBlock);
+        if (this.dismissActiveAlteration(ev, "full")) {
             return;
         }
         if (!this.lcAvailable()) {
@@ -2842,13 +2887,6 @@ class ColorReadService {
             ev.stopPropagation();
             this.transformRange(range);
         }
-    }
-    findActiveBlock(from) {
-        const block = from.closest(COLOR_READ_BLOCK_SELECTOR);
-        if (block instanceof HTMLElement && this.activeBlocks.has(block)) {
-            return block;
-        }
-        return null;
     }
     getCaretRangeFromPoint(x, y) {
         const doc = document;
