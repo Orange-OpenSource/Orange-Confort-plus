@@ -559,7 +559,7 @@
 		"message": "Wygląd myszy"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Aby zmienić wygląd kursora"
+		"message": "Aby zmienić wygląd wskaźników."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Mysz domyślna"

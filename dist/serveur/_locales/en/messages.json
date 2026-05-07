@@ -559,7 +559,7 @@
 		"message": "Cursor Appearance"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "To change cursor appearance."
+		"message": "To change the appearance of pointers."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Default cursor"

@@ -559,7 +559,7 @@
 		"message": "Aspect de la souris"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Pour modifier le rendu des curseurs."
+		"message": "Pour modifier l’apparence des pointeurs."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Souris par défaut"
@@ -871,7 +871,7 @@
 		"message": "Pour faciliter la navigation dans la page"
 	},
 	"navigationButtons_noModifications": {
-		"message": "sans boutons de navigation"
+		"message": "sans bouton de navigation"
 	},
 	"navigationButtonsNone": {
 		"message": "sans bouton de navigation"

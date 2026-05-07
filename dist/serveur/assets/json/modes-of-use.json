@@ -1,5 +1,5 @@
 {
-	"version": "1.0.47",
+	"version": "1.0.48",
 	"modes": [
 		{
 			"facilePlus": [
@@ -486,7 +486,7 @@
 				{
 					"navigationButtons": {
 						"values": "noModifications,scrollSet_clicAction,fullSet_pointingDelay2",
-						"valueSelected": 1,
+						"valueSelected": 2,
 						"isTool": true,
 						"order": 12
 					}

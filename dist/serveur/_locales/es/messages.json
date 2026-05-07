@@ -562,7 +562,7 @@
 		"message": "Aspecto del cursor"
 	},
 	"setting_cursorAspect_instruction": {
-		"message": "Para cambiar la apariencia del cursor"
+		"message": "Para cambiar la apariencia de los punteros."
 	},
 	"cursorAspect_empty_example": {
 		"message": "Cursor predeterminado"
