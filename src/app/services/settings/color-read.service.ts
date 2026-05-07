@@ -23,6 +23,7 @@ const ColorMode = Object.freeze({
 	OFF: 'none',
 	SPLIT_SYLLABLES: 'splitSyllables',
 	COLOR_SYLLABLES: 'colorSyllables',
+	COLOR_TRICKY_WORDS: 'colorTrickyWords',
 } as const);
 type ColorModeValue = (typeof ColorMode)[keyof typeof ColorMode];
 
@@ -43,6 +44,7 @@ interface SetColorOptions {
 const MVP_ACTIONS: Record<string, ColorModeValue> = {
 	splitSyllables: ColorMode.SPLIT_SYLLABLES,
 	colorSyllables: ColorMode.COLOR_SYLLABLES,
+	colorTrickyWords: ColorMode.COLOR_TRICKY_WORDS,
 };
 
 const SCOPES = new Set<string>(Object.values(ClickScope));
@@ -557,10 +559,18 @@ class ColorReadService {
 		}
 	}
 
+	private buildTrickyWordsProfile(): JsonProfile {
+		const cloned = JSON.parse(JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
+		return JsonProfile.from(cloned);
+	}
+
 	private resolveProfile(): JsonProfile {
 		const separator = this.options.syllableSeparator ?? '\u00b7';
 		if (this.mode === ColorMode.SPLIT_SYLLABLES) {
 			return this.buildSeparatedSyllablesProfile(separator);
+		}
+		if (this.mode === ColorMode.COLOR_TRICKY_WORDS) {
+			return this.buildTrickyWordsProfile();
 		}
 		return this.buildAlternatingColoredSyllablesProfile(
 			this.options.colors ?? ['#ea0000', '#0000e1'],

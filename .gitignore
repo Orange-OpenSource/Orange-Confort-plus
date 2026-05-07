@@ -24,6 +24,7 @@ yarn.lock
 
 # IDE - VSCode
 .vscode/*
+.cursor/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -40,6 +41,7 @@ yarn-error.log
 testem.log
 /typings
 .playwright-cli
+/misc/*
 
 # System Files
 .DS_Store

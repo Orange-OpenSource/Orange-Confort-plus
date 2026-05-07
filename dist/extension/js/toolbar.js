@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 04/05/2026
+ * orange-confort-plus - version 5.4.0 - 07/05/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2268,6 +2268,86 @@ const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = "script,style,link,meta";
+
+const COLOR_TRICKY_WORDS_PROFILE = {
+    name: "Pièges de lecture",
+    params: {
+        novice_reader: true
+    },
+    format: {
+        line_spacing: 150,
+        page_width: 70
+    },
+    process: [ {
+        function: "phonemes",
+        format: [ {
+            color: "#999999",
+            phonemes: [ "#", "verb_3p", "#_amb" ],
+            phonetics: "",
+            example: [ "lettre muette" ]
+        }, {
+            color: "#008000",
+            phonemes: [ "e^", "e^_comp" ],
+            phonetics: "ɛ",
+            example: [ "ai", "è" ]
+        }, {
+            color: "#cfc3b4",
+            phonemes: [ "e~", "x~" ],
+            phonetics: "ɛ̃, œ̃",
+            example: [ "ain", "un" ]
+        }, {
+            color: "#16b84e",
+            phonemes: [ "a~" ],
+            phonetics: "ɑ̃",
+            example: [ "an", "enfant" ]
+        }, {
+            color: "#ff47c2",
+            phonemes: [ "o", "o_comp", "o_ouvert" ],
+            phonetics: "o",
+            example: [ "o", "rose", "taureau" ]
+        }, {
+            color: "#00ffcc",
+            phonemes: [ "k", "k_qu" ],
+            phonetics: "k",
+            example: [ "qu", "coq" ]
+        }, {
+            color: "#bef574",
+            phonemes: [ "s^" ],
+            phonetics: "ʃ",
+            example: [ "ch", "sh" ]
+        }, {
+            color: "#ff7900",
+            phonemes: [ "e", "e_comp" ],
+            phonetics: "e",
+            example: [ "é", "blé" ]
+        }, {
+            color: "#66ff33",
+            phonemes: [ "g", "g_u" ],
+            phonetics: "g",
+            example: [ "gue", "gui" ]
+        }, {
+            color: "#ffff66",
+            phonemes: [ "z^", "z^_g" ],
+            phonetics: "ʒ",
+            example: [ "j", "geai" ]
+        }, {
+            color: "#b58e6b",
+            phonemes: [ "wa" ],
+            phonetics: "wa",
+            example: [ "oi", "oie" ]
+        }, {
+            color: "#095228",
+            phonemes: [ "s", "s_c", "s_t" ],
+            phonetics: "s",
+            example: [ "ss", "ç" ]
+        }, {
+            color: "#6c0277",
+            phonemes: [ "z", "z_s" ],
+            phonetics: "z",
+            example: [ "z", "zone" ]
+        } ]
+    } ]
+};
 
 "use strict";
 
@@ -5103,7 +5183,8 @@ const COLOR_READ_ARMED_CSS = `\nhtml[${COLOR_READ_ARMED_ATTR}] :is(${COLOR_READ_
 const ColorMode = Object.freeze({
     OFF: "none",
     SPLIT_SYLLABLES: "splitSyllables",
-    COLOR_SYLLABLES: "colorSyllables"
+    COLOR_SYLLABLES: "colorSyllables",
+    COLOR_TRICKY_WORDS: "colorTrickyWords"
 });
 
 const ClickScope = Object.freeze({
@@ -5115,7 +5196,8 @@ const ClickScope = Object.freeze({
 
 const MVP_ACTIONS = {
     splitSyllables: ColorMode.SPLIT_SYLLABLES,
-    colorSyllables: ColorMode.COLOR_SYLLABLES
+    colorSyllables: ColorMode.COLOR_SYLLABLES,
+    colorTrickyWords: ColorMode.COLOR_TRICKY_WORDS
 };
 
 const SCOPES = new Set(Object.values(ClickScope));
@@ -5534,10 +5616,17 @@ class ColorReadService {
             this.restoreElement(block);
         }
     }
+    buildTrickyWordsProfile() {
+        const cloned = JSON.parse(JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
+        return JsonProfile.from(cloned);
+    }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
         if (this.mode === ColorMode.SPLIT_SYLLABLES) {
             return this.buildSeparatedSyllablesProfile(separator);
+        }
+        if (this.mode === ColorMode.COLOR_TRICKY_WORDS) {
+            return this.buildTrickyWordsProfile();
         }
         return this.buildAlternatingColoredSyllablesProfile(this.options.colors ?? [ "#ea0000", "#0000e1" ]);
     }

@@ -39,3 +39,94 @@ const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = 'script,style,link,meta';
+
+const COLOR_TRICKY_WORDS_PROFILE = {
+	name: 'Pièges de lecture',
+	params: { novice_reader: true },
+	format: { line_spacing: 150, page_width: 70 },
+	process: [
+		{
+			function: 'phonemes',
+			format: [
+				{
+					color: '#999999',
+					phonemes: ['#', 'verb_3p', '#_amb'],
+					phonetics: '',
+					example: ['lettre muette'],
+				},
+				{
+					color: '#008000',
+					phonemes: ['e^', 'e^_comp'],
+					phonetics: 'ɛ',
+					example: ['ai', 'è'],
+				},
+				{
+					color: '#cfc3b4',
+					phonemes: ['e~', 'x~'],
+					phonetics: 'ɛ̃, œ̃',
+					example: ['ain', 'un'],
+				},
+				{
+					color: '#16b84e',
+					phonemes: ['a~'],
+					phonetics: 'ɑ̃',
+					example: ['an', 'enfant'],
+				},
+				{
+					color: '#ff47c2',
+					phonemes: ['o', 'o_comp', 'o_ouvert'],
+					phonetics: 'o',
+					example: ['o', 'rose', 'taureau'],
+				},
+				{
+					color: '#00ffcc',
+					phonemes: ['k', 'k_qu'],
+					phonetics: 'k',
+					example: ['qu', 'coq'],
+				},
+				{
+					color: '#bef574',
+					phonemes: ['s^'],
+					phonetics: 'ʃ',
+					example: ['ch', 'sh'],
+				},
+				{
+					color: '#ff7900',
+					phonemes: ['e', 'e_comp'],
+					phonetics: 'e',
+					example: ['é', 'blé'],
+				},
+				{
+					color: '#66ff33',
+					phonemes: ['g', 'g_u'],
+					phonetics: 'g',
+					example: ['gue', 'gui'],
+				},
+				{
+					color: '#ffff66',
+					phonemes: ['z^', 'z^_g'],
+					phonetics: 'ʒ',
+					example: ['j', 'geai'],
+				},
+				{
+					color: '#b58e6b',
+					phonemes: ['wa'],
+					phonetics: 'wa',
+					example: ['oi', 'oie'],
+				},
+				{
+					color: '#095228',
+					phonemes: ['s', 's_c', 's_t'],
+					phonetics: 's',
+					example: ['ss', 'ç'],
+				},
+				{
+					color: '#6c0277',
+					phonemes: ['z', 'z_s'],
+					phonetics: 'z',
+					example: ['z', 'zone'],
+				},
+			],
+		},
+	],
+};

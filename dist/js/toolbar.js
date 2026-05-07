@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 04/05/2026
+ * orange-confort-plus - version 5.4.0 - 07/05/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2676,7 +2676,8 @@ const COLOR_READ_ARMED_CSS = `\nhtml[${COLOR_READ_ARMED_ATTR}] :is(${COLOR_READ_
 const ColorMode = Object.freeze({
     OFF: "none",
     SPLIT_SYLLABLES: "splitSyllables",
-    COLOR_SYLLABLES: "colorSyllables"
+    COLOR_SYLLABLES: "colorSyllables",
+    COLOR_TRICKY_WORDS: "colorTrickyWords"
 });
 
 const ClickScope = Object.freeze({
@@ -2688,7 +2689,8 @@ const ClickScope = Object.freeze({
 
 const MVP_ACTIONS = {
     splitSyllables: ColorMode.SPLIT_SYLLABLES,
-    colorSyllables: ColorMode.COLOR_SYLLABLES
+    colorSyllables: ColorMode.COLOR_SYLLABLES,
+    colorTrickyWords: ColorMode.COLOR_TRICKY_WORDS
 };
 
 const SCOPES = new Set(Object.values(ClickScope));
@@ -3107,10 +3109,17 @@ class ColorReadService {
             this.restoreElement(block);
         }
     }
+    buildTrickyWordsProfile() {
+        const cloned = JSON.parse(JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
+        return JsonProfile.from(cloned);
+    }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
         if (this.mode === ColorMode.SPLIT_SYLLABLES) {
             return this.buildSeparatedSyllablesProfile(separator);
+        }
+        if (this.mode === ColorMode.COLOR_TRICKY_WORDS) {
+            return this.buildTrickyWordsProfile();
         }
         return this.buildAlternatingColoredSyllablesProfile(this.options.colors ?? [ "#ea0000", "#0000e1" ]);
     }
