@@ -18,7 +18,8 @@ class ColorContrastService {
 		{ name: 'black_yellow', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'darkblue_purple_darkgreen' },
 		{ name: 'white_blue', cursor: 'bigCursor_white', focus: 'big_white', scroll: 'big_white', link: 'yellow_orange_lightgreen' },
 		{ name: 'yellow_blue', cursor: 'bigCursor_yellow', focus: 'big_yellow', scroll: 'big_yellow', link: 'white_darkgreen_lightgreen' },
-		{ name: 'black_green', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'yellow_orange_blue' }
+		{ name: 'black_green', cursor: 'bigCursor_black', focus: 'big_black', scroll: 'big_black', link: 'yellow_orange_blue' },
+		{ name: 'colorBlindness', cursor: 'bigCursor_black',  focus: 'big_black',  scroll: 'big_black',  link: 'blue_chocolate_orchid' }
 	];
 
 	/* Daltonism type deuteranomaly */
@@ -28,11 +29,11 @@ class ColorContrastService {
     0,     0.142, 0.858, 0, 0
     0,     0,     0,     1, 0`;
 
-	svgFilterDaltonism = `<svg xmlns="http://www.w3.org/2000/svg"><filter id="daltonism"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, ' ').trim()}"/></filter></svg>`;
+	svgFilterColorBlindness = `<svg xmlns="http://www.w3.org/2000/svg"><filter id="color_blindness"><feColorMatrix in="SourceGraphic" type="matrix" values="${this.matrixFilter.replace(/\s+/g, ' ').trim()}"/></filter></svg>`;
 
-	styleFilterDaltonism = `
+	styleFilterColorBlindness = `
 		html body > *:not(${APP_NAME}) {
-			filter: url('data:image/svg+xml;utf8,${this.svgFilterDaltonism}#daltonism');
+			filter: url('data:image/svg+xml;utf8,${this.svgFilterColorBlindness}#color_blindness');
 		}
 	`;
 
@@ -46,23 +47,20 @@ class ColorContrastService {
 
 	setColorsContrasts = (value: string): void => {
 		stylesServiceInstance.removeStyle('color-contrast');
-		stylesServiceInstance.removeStyle('filter-daltonism');
+		stylesServiceInstance.removeStyle('filter-color-blindness');
 		this.setServices(DEFAULT_VALUE);
 
 		switch (value) {
 			case DEFAULT_VALUE:
 				break;
-			case 'daltonism':
-				stylesServiceInstance.setStyle('filter-daltonism', this.styleFilterDaltonism);
-				break;
 			case 'reinforcedContrasts':
 			default:
 				let color: string;
 				let backgroundColor: string;
-				if (value === 'reinforcedContrasts') {
+				if (['reinforcedContrast', 'colorBlindness'].includes(value)) {
 					color = '#000';
 					backgroundColor = '#fff';
-					this.setServices('reinforcedContrasts');
+					this.setServices(value);
 				} else {
 					color = value?.split('_')[0];
 					backgroundColor = value?.split('_')[1];
