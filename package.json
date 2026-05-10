@@ -105,7 +105,7 @@
 		"imagemin-pngquant": "^10.0.0",
 		"imagemin-zopfli": "^7.0.0",
 		"nodemon": "^3.1.4",
-		"postcss": "^8.4.41",
+		"postcss": "^8.5.14",
 		"postcss-banner": "^4.0.1",
 		"postcss-cli": "^11.0.0",
 		"purgecss": "^6.0.0",
