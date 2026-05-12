@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.5.0 - 07/05/2026
+ * orange-confort-plus - version 5.5.1 - 12/05/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2221,7 +2221,7 @@ const DEFAULT_MODE = "facilePlus";
 
 const APP_NAME = `${PREFIX}app-root`;
 
-const VERSION = "5.5.0";
+const VERSION = "5.5.1";
 
 const PAGE_HOME = "home";
 
