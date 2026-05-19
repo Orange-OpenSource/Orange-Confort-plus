@@ -6293,39 +6293,123 @@ customElements.define("app-icon", IconComponent);
 
 "use strict";
 
+const colorProfileRulesLayout = document.createElement("template");
+
+colorProfileRulesLayout.innerHTML = `\n\t<div class="d-flex flex-column gap-1" role="list"></div>\n`;
+
+class ColorProfileRulesComponent extends HTMLElement {
+    static observedAttributes=[ "data-profile" ];
+    listElement=null;
+    profile=null;
+    constructor() {
+        super();
+        this.appendChild(colorProfileRulesLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.listElement = this.querySelector('[role="list"]');
+        this.render();
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "data-profile" && newValue) {
+            try {
+                this.profile = JsonProfile.from(JSON.parse(newValue));
+            } catch {
+                this.profile = null;
+            }
+            this.render();
+        }
+    }
+    formatExample(example) {
+        if (!example) {
+            return null;
+        }
+        return Array.isArray(example) ? example.join(", ") : example;
+    }
+    createRuleRow(rule) {
+        const row = document.createElement("div");
+        row.className = "d-flex align-items-start gap-2 py-1 px-2 border rounded";
+        row.setAttribute("role", "listitem");
+        const content = document.createElement("div");
+        content.className = "flex-grow-1 small d-flex flex-column";
+        const phonemesLine = document.createElement("div");
+        rule.phonemes.forEach(((phoneme, index) => {
+            if (index > 0) {
+                phonemesLine.appendChild(document.createTextNode(", "));
+            }
+            const code = document.createElement("code");
+            code.textContent = phoneme;
+            phonemesLine.appendChild(code);
+        }));
+        content.appendChild(phonemesLine);
+        const exampleText = this.formatExample(rule.example);
+        if (exampleText) {
+            const example = document.createElement("div");
+            example.className = "text-muted small mt-1";
+            example.textContent = `Ex. : ${exampleText}`;
+            content.appendChild(example);
+        }
+        row.appendChild(content);
+        const colorSwatch = document.createElement("div");
+        colorSwatch.setAttribute("aria-label", rule.color || "");
+        colorSwatch.style.flexShrink = "0";
+        colorSwatch.style.width = "2.5rem";
+        colorSwatch.style.height = "1.25rem";
+        colorSwatch.style.borderRadius = "0.25rem";
+        colorSwatch.style.backgroundColor = rule.color || "transparent";
+        if (rule.color) {
+            colorSwatch.style.border = "1px solid rgba(0, 0, 0, 0.15)";
+        }
+        row.appendChild(colorSwatch);
+        return row;
+    }
+    render=() => {
+        if (!this.listElement) {
+            return;
+        }
+        this.listElement.innerHTML = "";
+        if (!this.profile?.process?.length) {
+            return;
+        }
+        this.profile.process.forEach((process => {
+            process.format?.forEach((rule => {
+                if (!rule.phonemes?.length) {
+                    return;
+                }
+                this.listElement.appendChild(this.createRuleRow(rule));
+            }));
+        }));
+    };
+}
+
+customElements.define("app-color-profile-rules", ColorProfileRulesComponent);
+
+"use strict";
+
 const colorProfileLayout = document.createElement("template");
 
-colorProfileLayout.innerHTML = `\n\t<section class="text-start">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<pre class="bg-light border rounded p-3 overflow-auto"><code></code></pre>\n\t</section>\n`;
+colorProfileLayout.innerHTML = `\n\t<section class="text-start">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<app-color-profile-rules></app-color-profile-rules>\n\t</section>\n`;
 
 class ColorProfileComponent extends HTMLElement {
     static observedAttributes=[ "data-profile" ];
-    codeElement=null;
-    profile=null;
+    rulesElement=null;
     constructor() {
         super();
         this.appendChild(colorProfileLayout.content.cloneNode(true));
     }
     connectedCallback() {
-        this.codeElement = this.querySelector("code");
-        this.renderProfile();
+        this.rulesElement = this.querySelector("app-color-profile-rules");
+        if (this.dataset.profile) {
+            this.propagateProfile(this.dataset.profile);
+        }
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "data-profile") {
-            this.profile = JsonProfile.from(JSON.parse(newValue));
-            console.log("Profile.process[0].format[0].phonemes", this.profile.process[0].format[0].phonemes);
-            this.renderProfile();
+        if (name === "data-profile" && newValue) {
+            this.propagateProfile(newValue);
         }
     }
-    renderProfile=() => {
-        if (!this.codeElement || !this.profile && this.profile.process.length === 0) {
-            return;
-        }
-        this.profile.process.forEach((process => {
-            process.format.forEach((format => {
-                this.codeElement.innerText += JSON.stringify(format, null, 2) + "\n";
-            }));
-        }));
-    };
+    propagateProfile(profileJson) {
+        this.rulesElement?.setAttribute("data-profile", profileJson);
+    }
 }
 
 customElements.define("app-color-profile", ColorProfileComponent);

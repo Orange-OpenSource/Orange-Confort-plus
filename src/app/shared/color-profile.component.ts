@@ -2,15 +2,14 @@ const colorProfileLayout: HTMLTemplateElement = document.createElement('template
 colorProfileLayout.innerHTML = `
 	<section class="text-start">
 		<h3 class="fs-6">Profil de couleurs</h3>
-		<pre class="bg-light border rounded p-3 overflow-auto"><code></code></pre>
+		<app-color-profile-rules></app-color-profile-rules>
 	</section>
 `;
 
 class ColorProfileComponent extends HTMLElement {
 	static observedAttributes = ['data-profile'];
 
-	codeElement: HTMLElement | null = null;
-	profile: JsonProfile = null;
+	rulesElement: HTMLElement | null = null;
 
 	constructor() {
 		super();
@@ -19,28 +18,20 @@ class ColorProfileComponent extends HTMLElement {
 	}
 
 	connectedCallback(): void {
-		this.codeElement = this.querySelector('code');
-		this.renderProfile();
+		this.rulesElement = this.querySelector('app-color-profile-rules');
+		if (this.dataset.profile) {
+			this.propagateProfile(this.dataset.profile);
+		}
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-		if (name === 'data-profile') {
-			this.profile = JsonProfile.from(JSON.parse(newValue));
-			console.log('Profile.process[0].format[0].phonemes', this.profile.process[0].format[0].phonemes);
-			this.renderProfile();
+		if (name === 'data-profile' && newValue) {
+			this.propagateProfile(newValue);
 		}
 	}
 
-	renderProfile = (): void => {
-		if (!this.codeElement || (!this.profile && this.profile.process.length === 0)) {
-			return;
-		}
-
-		this.profile.process.forEach(process => {
-			process.format.forEach(format => {
-				this.codeElement.innerText += JSON.stringify(format, null, 2) + '\n';
-				});
-		});
+	private propagateProfile(profileJson: string): void {
+		this.rulesElement?.setAttribute('data-profile', profileJson);
 	}
 }
 

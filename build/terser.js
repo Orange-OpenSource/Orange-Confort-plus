@@ -90,6 +90,7 @@ const files = {
 			'dist/js/app/shared/btn-setting.component.js',
 			'dist/js/app/shared/header.component.js',
 			'dist/js/app/shared/icon.component.js',
+			'dist/js/app/shared/color-profile-rules.component.js',
 			'dist/js/app/shared/color-profile.component.js',
 			'dist/js/app/shared/select-edit-value.component.js',
 			'dist/js/app/shared/select-mode.component.js',
