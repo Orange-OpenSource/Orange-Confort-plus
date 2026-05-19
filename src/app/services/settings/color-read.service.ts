@@ -560,8 +560,7 @@ class ColorReadService {
 	}
 
 	private buildTrickyWordsProfile(): JsonProfile {
-		const cloned = JSON.parse(JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
-		return JsonProfile.from(cloned);
+		return JsonProfile.from(structuredClone(COLOR_TRICKY_WORDS_PROFILE));
 	}
 
 	private resolveProfile(): JsonProfile {

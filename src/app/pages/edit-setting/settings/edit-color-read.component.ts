@@ -3,12 +3,14 @@ editColorReadLayout.innerHTML = `
 	<form class="d-flex flex-column gap-4 text-center">
 		<app-select-edit-value id="${PREFIX}select-color-read-action" data-name="colorReadAction" data-label="true"></app-select-edit-value>
 		<app-select-edit-value id="${PREFIX}select-color-read-scope" data-name="colorReadScope" data-label="true"></app-select-edit-value>
+		<app-color-profile id="${PREFIX}color-read-profile" class="d-none"></app-color-profile>
 	</form>
 `;
 
 class EditColorReadComponent extends HTMLElement {
 	selectColorReadActionElement: HTMLElement | null = null;
 	selectColorReadScopeElement: HTMLElement | null = null;
+	colorProfileElement: HTMLElement | null = null;
 	settingValues: string[] = null;
 	colorReadActionValue = 'none';
 	colorReadScopeValue = 'word';
@@ -41,12 +43,14 @@ class EditColorReadComponent extends HTMLElement {
 	connectedCallback(): void {
 		this.selectColorReadActionElement = this.querySelector(`#${PREFIX}select-color-read-action`);
 		this.selectColorReadScopeElement = this.querySelector(`#${PREFIX}select-color-read-scope`);
+		this.colorProfileElement = this.querySelector(`#${PREFIX}color-read-profile`);
 
 		this.selectColorReadActionElement.addEventListener('editSettingColorReadAction', this.handler);
 		this.selectColorReadScopeElement.addEventListener('editSettingColorReadScope', this.handler);
 
 		this.selectColorReadActionElement.setAttribute('data-setting-values', this.colorReadActions.join(','));
 		this.selectColorReadScopeElement.setAttribute('data-setting-values', this.colorReadScopes.join(','));
+		this.colorProfileElement.setAttribute('data-profile', JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
 
 		modeOfUseServiceInstance.getSetting('colorRead').then((result: SettingModel) => {
 			this.settingValues = result.values?.split(',');
@@ -68,6 +72,7 @@ class EditColorReadComponent extends HTMLElement {
 			this.selectColorReadScopeElement.setAttribute('data-index', currentScopeIndex.toString());
 
 			this.toggleScopeVisibility();
+			this.toggleProfileVisibility();
 		});
 	}
 
@@ -94,12 +99,17 @@ class EditColorReadComponent extends HTMLElement {
 		}
 	}
 
+	toggleProfileVisibility = (): void => {
+		this.colorProfileElement.classList.toggle('d-none', this.colorReadActionValue !== 'colorTrickyWords');
+	}
+
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
 				case 'editSettingColorReadAction':
 					this.colorReadActionValue = event.detail.newValue;
 					this.toggleScopeVisibility();
+					this.toggleProfileVisibility();
 					this.setColorRead();
 					break;
 				case 'editSettingColorReadScope':

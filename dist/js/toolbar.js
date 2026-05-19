@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 07/05/2026
+ * orange-confort-plus - version 5.4.0 - 19/05/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -3110,8 +3110,7 @@ class ColorReadService {
         }
     }
     buildTrickyWordsProfile() {
-        const cloned = JSON.parse(JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
-        return JsonProfile.from(cloned);
+        return JsonProfile.from(structuredClone(COLOR_TRICKY_WORDS_PROFILE));
     }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
@@ -6294,6 +6293,45 @@ customElements.define("app-icon", IconComponent);
 
 "use strict";
 
+const colorProfileLayout = document.createElement("template");
+
+colorProfileLayout.innerHTML = `\n\t<section class="text-start">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<pre class="bg-light border rounded p-3 overflow-auto"><code></code></pre>\n\t</section>\n`;
+
+class ColorProfileComponent extends HTMLElement {
+    static observedAttributes=[ "data-profile" ];
+    codeElement=null;
+    profile=null;
+    constructor() {
+        super();
+        this.appendChild(colorProfileLayout.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.codeElement = this.querySelector("code");
+        this.renderProfile();
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "data-profile") {
+            this.profile = JsonProfile.from(JSON.parse(newValue));
+            console.log("Profile.process[0].format[0].phonemes", this.profile.process[0].format[0].phonemes);
+            this.renderProfile();
+        }
+    }
+    renderProfile=() => {
+        if (!this.codeElement || !this.profile && this.profile.process.length === 0) {
+            return;
+        }
+        this.profile.process.forEach((process => {
+            process.format.forEach((format => {
+                this.codeElement.innerText += JSON.stringify(format, null, 2) + "\n";
+            }));
+        }));
+    };
+}
+
+customElements.define("app-color-profile", ColorProfileComponent);
+
+"use strict";
+
 const selectEditValueLayout = document.createElement("template");
 
 selectEditValueLayout.innerHTML = `\n\t<div class="d-flex flex-column" role="group">\n\t\t<div class="d-flex align-items-center justify-content-between mt-2 gap-2">\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="prevValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_left"></app-icon>\n\t\t\t</button>\n\t\t\t<output></output>\n\t\t\t<button type="button" class="btn btn-icon btn-primary">\n\t\t\t\t<span class="visually-hidden" data-i18n="nextValue"></span>\n\t\t\t\t<app-icon data-name="Form_Chevron_right"></app-icon>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n`;
@@ -6628,11 +6666,12 @@ customElements.define("app-edit-color-contrast", EditColorContrastComponent);
 
 const editColorReadLayout = document.createElement("template");
 
-editColorReadLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4 text-center">\n\t\t<app-select-edit-value id="${PREFIX}select-color-read-action" data-name="colorReadAction" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-read-scope" data-name="colorReadScope" data-label="true"></app-select-edit-value>\n\t</form>\n`;
+editColorReadLayout.innerHTML = `\n\t<form class="d-flex flex-column gap-4 text-center">\n\t\t<app-select-edit-value id="${PREFIX}select-color-read-action" data-name="colorReadAction" data-label="true"></app-select-edit-value>\n\t\t<app-select-edit-value id="${PREFIX}select-color-read-scope" data-name="colorReadScope" data-label="true"></app-select-edit-value>\n\t\t<app-color-profile id="${PREFIX}color-read-profile" class="d-none"></app-color-profile>\n\t</form>\n`;
 
 class EditColorReadComponent extends HTMLElement {
     selectColorReadActionElement=null;
     selectColorReadScopeElement=null;
+    colorProfileElement=null;
     settingValues=null;
     colorReadActionValue="none";
     colorReadScopeValue="word";
@@ -6647,10 +6686,12 @@ class EditColorReadComponent extends HTMLElement {
     connectedCallback() {
         this.selectColorReadActionElement = this.querySelector(`#${PREFIX}select-color-read-action`);
         this.selectColorReadScopeElement = this.querySelector(`#${PREFIX}select-color-read-scope`);
+        this.colorProfileElement = this.querySelector(`#${PREFIX}color-read-profile`);
         this.selectColorReadActionElement.addEventListener("editSettingColorReadAction", this.handler);
         this.selectColorReadScopeElement.addEventListener("editSettingColorReadScope", this.handler);
         this.selectColorReadActionElement.setAttribute("data-setting-values", this.colorReadActions.join(","));
         this.selectColorReadScopeElement.setAttribute("data-setting-values", this.colorReadScopes.join(","));
+        this.colorProfileElement.setAttribute("data-profile", JSON.stringify(COLOR_TRICKY_WORDS_PROFILE));
         modeOfUseServiceInstance.getSetting("colorRead").then((result => {
             this.settingValues = result.values?.split(",");
             const currentValue = this.settingValues?.[result.valueSelected];
@@ -6667,6 +6708,7 @@ class EditColorReadComponent extends HTMLElement {
             this.selectColorReadActionElement.setAttribute("data-index", currentActionIndex.toString());
             this.selectColorReadScopeElement.setAttribute("data-index", currentScopeIndex.toString());
             this.toggleScopeVisibility();
+            this.toggleProfileVisibility();
         }));
     }
     setColorRead=() => {
@@ -6686,11 +6728,15 @@ class EditColorReadComponent extends HTMLElement {
             this.selectColorReadScopeElement.style.display = "";
         }
     };
+    toggleProfileVisibility=() => {
+        this.colorProfileElement.classList.toggle("d-none", this.colorReadActionValue !== "colorTrickyWords");
+    };
     createHandler=() => event => {
         switch (event.type) {
           case "editSettingColorReadAction":
             this.colorReadActionValue = event.detail.newValue;
             this.toggleScopeVisibility();
+            this.toggleProfileVisibility();
             this.setColorRead();
             break;
 
