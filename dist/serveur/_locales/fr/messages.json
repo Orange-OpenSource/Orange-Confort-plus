@@ -302,13 +302,13 @@
 		"message": "Pour sortir d’une fenêtre ou arrêter une fonction"
 	},
 	"word": {
-		"message": "Lire le mot"
+		"message": "le mot pointé"
 	},
 	"sentence": {
-		"message": "Lire la phrase"
+		"message": "la phrase pointée"
 	},
 	"paragraph": {
-		"message": "Lire le paragraphe"
+		"message": "le paragraphe pointé"
 	},
 	"delay1": {
 		"message": "délai de 1s"
@@ -1035,5 +1035,103 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Nouvelle valeur ajoutée"
+	},
+	"setting_colorRead": {
+		"message": "Lire en couleurs"
+	},
+	"setting_colorRead_instruction": {
+		"message": "Pour faciliter la lecture des syllabes et des sons."
+	},
+	"colorRead_noModifications": {
+		"message": "sans modification"
+	},
+	"colorRead_active": {
+		"message": "activé"
+	},
+	"colorRead_splitSyllables": {
+		"message": "Syllabes séparées"
+	},
+	"colorRead_colorSyllables": {
+		"message": "Syllabes colorées"
+	},
+	"colorRead_darkBgColor": {
+		"message": "Colorer (fond foncé)"
+	},
+	"colorRead_lightBgColor": {
+		"message": "Colorer (fond clair)"
+	},
+	"colorRead_colorHoveredWord": {
+		"message": "Colorer le mot pointé"
+	},
+	"colorRead_colorHoveredSentence": {
+		"message": "Colorer la phrase pointée"
+	},
+	"colorRead_colorParagraph": {
+		"message": "Colorer le paragraphe"
+	},
+	"colorRead_colorAll": {
+		"message": "Colorer tout"
+	},
+	"all": {
+		"message": "tout le texte"
+	},
+	"splitSyllables": {
+		"message": "Syllabes séparées"
+	},
+	"colorSyllables": {
+		"message": "Syllabes colorées"
+	},
+	"colorRead_none": {
+		"message": "sans colorer"
+	},
+	"colorRead_values": {
+		"message": "$ACTION$ pour $SCOPE$",
+		"placeholders": {
+			"action": {
+				"content": "$1"
+			},
+			"scope": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorReadAction_darkBgColor": {
+		"message": "Colorer (fond foncé)"
+	},
+	"colorReadAction_lightBgColor": {
+		"message": "Colorer (fond clair)"
+	},
+	"colorReadAction_label": {
+		"message": "Action"
+	},
+	"colorReadAction_none": {
+		"message": "sans colorer"
+	},
+	"colorReadAction_splitSyllables": {
+		"message": "Syllabes séparées"
+	},
+	"colorReadAction_colorSyllables": {
+		"message": "Syllabes colorées"
+	},
+	"colorReadScope_label": {
+		"message": "Portée"
+	},
+	"colorReadScope_word": {
+		"message": "le mot pointé"
+	},
+	"colorReadScope_sentence": {
+		"message": "la phrase pointée"
+	},
+	"colorReadScope_paragraph": {
+		"message": "le paragraphe pointé"
+	},
+	"colorReadScope_all": {
+		"message": "tout le texte"
+	},
+	"darkBgColor": {
+		"message": "Colorer (fond foncé)"
+	},
+	"lightBgColor": {
+		"message": "Colorer (fond clair)"
 	}
 }

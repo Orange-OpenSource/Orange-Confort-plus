@@ -35,6 +35,8 @@ const clickFaciliteServiceInstance = new ClickFaciliteService();
 Object.seal(clickFaciliteServiceInstance);
 const colorContrastServiceInstance = new ColorContrastService();
 Object.seal(colorContrastServiceInstance);
+const colorReadServiceInstance = new ColorReadService();
+Object.seal(colorReadServiceInstance);
 const cursorAspectServiceInstance = new CursorAspectService();
 Object.seal(cursorAspectServiceInstance);
 const deleteBackgroundImagesServiceInstance = new DeleteBackgroundImagesService();
@@ -82,6 +84,7 @@ const globalSettingsServices = [
     { name: 'clearlyLinks', instanceService: clearlyLinksServiceInstance.setClearlyLinks.bind(clearlyLinksServiceInstance), value: DEFAULT_VALUE },
     { name: 'clickFacilite', instanceService: clickFaciliteServiceInstance.setClickFacilite.bind(clickFaciliteServiceInstance), value: DEFAULT_VALUE },
     { name: 'colorContrast', instanceService: colorContrastServiceInstance.setColorsContrasts.bind(colorContrastServiceInstance), value: DEFAULT_VALUE },
+    { name: 'colorRead', instanceService: colorReadServiceInstance.setColorRead.bind(colorReadServiceInstance), value: DEFAULT_VALUE },
     { name: 'cursorAspect', instanceService: cursorAspectServiceInstance.setCursor.bind(cursorAspectServiceInstance), value: DEFAULT_VALUE },
     { name: 'deleteBackgroundImages', instanceService: deleteBackgroundImagesServiceInstance.setDeleteBackgroundImages.bind(deleteBackgroundImagesServiceInstance), value: DEFAULT_VALUE },
     { name: 'focusAspect', instanceService: focusAspectServiceInstance.setFocus.bind(focusAspectServiceInstance), value: DEFAULT_VALUE },

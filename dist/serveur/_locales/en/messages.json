@@ -277,8 +277,8 @@
 	"previous_instruction": {
 		"message": "To place the focus on the previous element"
 	},
-	"start":{
-		"message":"Beginning"
+	"start": {
+		"message": "Beginning"
 	},
 	"start_instruction": {
 		"message": "To go to the top left of the page"
@@ -302,13 +302,13 @@
 		"message": "To exit a window or stop a function"
 	},
 	"word": {
-		"message": "Read the word"
+		"message": "hovered word"
 	},
 	"sentence": {
-		"message": "Read the sentence"
+		"message": "hovered sentence"
 	},
 	"paragraph": {
-		"message": "Read the paragraph"
+		"message": "hovered paragraph"
 	},
 	"delay1": {
 		"message": "1s delay"
@@ -1050,5 +1050,103 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "New value added"
+	},
+	"setting_colorRead": {
+		"message": "Read in colors"
+	},
+	"setting_colorRead_instruction": {
+		"message": "To facilitate reading syllables and sounds."
+	},
+	"colorRead_noModifications": {
+		"message": "no modification"
+	},
+	"colorRead_active": {
+		"message": "enabled"
+	},
+	"colorRead_splitSyllables": {
+		"message": "Separated syllables"
+	},
+	"colorRead_colorSyllables": {
+		"message": "Colored syllables"
+	},
+	"colorRead_colorHoveredWord": {
+		"message": "Color hovered word"
+	},
+	"colorRead_colorHoveredSentence": {
+		"message": "Color hovered sentence"
+	},
+	"colorRead_colorParagraph": {
+		"message": "Color paragraph"
+	},
+	"colorRead_colorAll": {
+		"message": "Color all"
+	},
+	"all": {
+		"message": "all text"
+	},
+	"splitSyllables": {
+		"message": "Separated syllables"
+	},
+	"colorSyllables": {
+		"message": "Colored syllables"
+	},
+	"colorRead_none": {
+		"message": "without coloring"
+	},
+	"colorRead_values": {
+		"message": "$ACTION$ for $SCOPE$",
+		"placeholders": {
+			"action": {
+				"content": "$1"
+			},
+			"scope": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorReadAction_label": {
+		"message": "Action"
+	},
+	"colorReadAction_none": {
+		"message": "without coloring"
+	},
+	"colorReadAction_splitSyllables": {
+		"message": "Separated syllables"
+	},
+	"colorReadAction_colorSyllables": {
+		"message": "Colored syllables"
+	},
+	"colorReadScope_label": {
+		"message": "Scope"
+	},
+	"colorReadScope_word": {
+		"message": "hovered word"
+	},
+	"colorReadScope_sentence": {
+		"message": "hovered sentence"
+	},
+	"colorReadScope_paragraph": {
+		"message": "hovered paragraph"
+	},
+	"colorReadScope_all": {
+		"message": "all text"
+	},
+	"colorRead_darkBgColor": {
+		"message": "Color (dark background)"
+	},
+	"colorRead_lightBgColor": {
+		"message": "Color (light background)"
+	},
+	"colorReadAction_darkBgColor": {
+		"message": "Color (dark background)"
+	},
+	"colorReadAction_lightBgColor": {
+		"message": "Color (light background)"
+	},
+	"darkBgColor": {
+		"message": "Color (dark background)"
+	},
+	"lightBgColor": {
+		"message": "Color (light background)"
 	}
 }

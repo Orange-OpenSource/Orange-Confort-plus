@@ -265,8 +265,8 @@
 	"shiftTab": {
 		"message": "Shift + Tabulacjia"
 	},
-	"next":{
-		"message":"na dół"
+	"next": {
+		"message": "na dół"
 	},
 	"next_instruction": {
 		"message": "Aby przenieść fokus na następny element"
@@ -277,14 +277,14 @@
 	"previous_instruction": {
 		"message": "Aby przenieść fokus na poprzedni element"
 	},
-	"start":{
-		"message":"początek"
+	"start": {
+		"message": "początek"
 	},
 	"start_instruction": {
 		"message": "Aby przejść do lewego górnego rogu strony"
 	},
-	"content":{
-		"message":"treść"
+	"content": {
+		"message": "treść"
 	},
 	"content_instruction": {
 		"message": "Aby przejść bezpośrednio do treści"
@@ -302,13 +302,13 @@
 		"message": "Aby wyjść z okna lub zatrzymać funkcję"
 	},
 	"word": {
-		"message": "Przeczytaj słowo"
+		"message": "wskazane słowo"
 	},
 	"sentence": {
-		"message": "Przeczytaj zdanie"
+		"message": "wskazane zdanie"
 	},
 	"paragraph": {
-		"message": "Przeczytaj paragraf"
+		"message": "wskazany akapit"
 	},
 	"delay1": {
 		"message": "1s opóźnienia"
@@ -1050,13 +1050,103 @@
 	},
 	"newValueAddedTooltip": {
 		"message": "Dodano nową wartość"
+	},
+	"setting_colorRead": {
+		"message": "Czytaj w kolorach"
+	},
+	"setting_colorRead_instruction": {
+		"message": "Aby ułatwić czytanie sylab i dźwięków."
+	},
+	"colorRead_noModifications": {
+		"message": "bez zmian"
+	},
+	"colorRead_active": {
+		"message": "włączony"
+	},
+	"colorRead_splitSyllables": {
+		"message": "Oddzielone sylaby"
+	},
+	"colorRead_colorSyllables": {
+		"message": "Kolorowe sylaby"
+	},
+	"colorRead_colorHoveredWord": {
+		"message": "Pokoloruj słowo najechane"
+	},
+	"colorRead_colorHoveredSentence": {
+		"message": "Pokoloruj zdanie najechane"
+	},
+	"colorRead_colorParagraph": {
+		"message": "Pokoloruj akapit"
+	},
+	"colorRead_colorAll": {
+		"message": "Pokoloruj wszystko"
+	},
+	"all": {
+		"message": "cały tekst"
+	},
+	"splitSyllables": {
+		"message": "Oddzielone sylaby"
+	},
+	"colorSyllables": {
+		"message": "Kolorowe sylaby"
+	},
+	"colorRead_none": {
+		"message": "bez kolorowania"
+	},
+	"colorRead_values": {
+		"message": "$ACTION$ dla $SCOPE$",
+		"placeholders": {
+			"action": {
+				"content": "$1"
+			},
+			"scope": {
+				"content": "$2"
+			}
+		}
+	},
+	"colorReadAction_label": {
+		"message": "Akcja"
+	},
+	"colorReadAction_none": {
+		"message": "bez kolorowania"
+	},
+	"colorReadAction_splitSyllables": {
+		"message": "Oddzielone sylaby"
+	},
+	"colorReadAction_colorSyllables": {
+		"message": "Kolorowe sylaby"
+	},
+	"colorReadScope_label": {
+		"message": "Zakres"
+	},
+	"colorReadScope_word": {
+		"message": "wskazane słowo"
+	},
+	"colorReadScope_sentence": {
+		"message": "wskazane zdanie"
+	},
+	"colorReadScope_paragraph": {
+		"message": "wskazany akapit"
+	},
+	"colorReadScope_all": {
+		"message": "cały tekst"
+	},
+	"colorRead_darkBgColor": {
+		"message": "Kolor (ciemne tło)"
+	},
+	"colorRead_lightBgColor": {
+		"message": "Kolor (jasne tło)"
+	},
+	"colorReadAction_darkBgColor": {
+		"message": "Kolor (ciemne tło)"
+	},
+	"colorReadAction_lightBgColor": {
+		"message": "Kolor (jasne tło)"
+	},
+	"darkBgColor": {
+		"message": "Kolor (ciemne tło)"
+	},
+	"lightBgColor": {
+		"message": "Kolor (jasne tło)"
 	}
 }
-
-
-
-
-
-
-
-

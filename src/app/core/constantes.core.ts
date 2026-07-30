@@ -39,3 +39,185 @@ const TEXT_COLOR_SPAN_CLASS = `${PREFIX}colored-text`;
 const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = 'script,style,link,meta';
+
+const COLOR_DARK_BG_PROFILE = {
+	name: 'Palette fonds foncés',
+	params: { novice_reader: true },
+	format: { line_spacing: 150, page_width: 70 },
+	process: [
+		{
+			function: 'phonemes',
+			format: [
+				{
+					color: '#16b84e',
+					phonemes: ['e^', 'e^_comp'],
+					phonetics: 'ɛ',
+					example: ['ai, è'],
+				},
+				{
+					color: '#cfc3b4',
+					phonemes: ['e~'],
+					phonetics: 'ɛ̃',
+					example: ['ain, in'],
+				},
+				{
+					color: '#ff00bd',
+					phonemes: ['a~'],
+					phonetics: 'ɑ̃',
+					example: ['an, en'],
+				},
+				{
+					color: '#ff99ff',
+					phonemes: ['o', 'o_comp', 'o_ouvert'],
+					phonetics: 'o',
+					example: ['o, au'],
+				},
+				{
+					color: '#00ffcc',
+					phonemes: ['k', 'k_qu'],
+					phonetics: 'k',
+					example: ['qu, k'],
+				},
+				{
+					color: '#ff5353',
+					phonemes: ['s^'],
+					phonetics: 'ʃ',
+					example: ['ch, sh'],
+				},
+				{
+					color: '#ff7900',
+					phonemes: ['e', 'e_comp'],
+					phonetics: 'e',
+					example: ['é'],
+				},
+				{
+					color: '#66ff33',
+					phonemes: ['g', 'g_u'],
+					phonetics: 'g',
+					example: ['gue'],
+				},
+				{
+					color: '#ffff66',
+					phonemes: ['z^', 'z^_g'],
+					phonetics: 'ʒ',
+					example: ['j, ge'],
+				},
+				{
+					color: '#b58e6b',
+					phonemes: ['wa'],
+					phonetics: 'wa',
+					example: ['oi, oua'],
+				},
+				{
+					color: '#f4acff',
+					phonemes: ['s', 's_c', 's_t'],
+					phonetics: 's',
+					example: ['ss, ce'],
+				},
+				{
+					color: '#f88e55',
+					phonemes: ['x~'],
+					phonetics: 'œ̃',
+					example: ['un, ein'],
+				},
+				{
+					color: '#ddddff',
+					phonemes: ['z', 'z_s'],
+					phonetics: 'z',
+					example: ['z'],
+				},
+			],
+		},
+	],
+};
+
+const COLOR_LIGHT_BG_PROFILE = {
+	name: 'Palette fonds clairs',
+	params: { novice_reader: true },
+	format: { line_spacing: 150, page_width: 70 },
+	process: [
+		{
+			function: 'phonemes',
+			format: [
+				{
+					color: '#095228',
+					phonemes: ['e^', 'e^_comp'],
+					phonetics: 'ɛ',
+					example: ['ai, è'],
+				},
+				{
+					color: '#b15b1f',
+					phonemes: ['e~'],
+					phonetics: 'ɛ̃',
+					example: ['ain, in'],
+				},
+				{
+					color: '#008000',
+					phonemes: ['a~'],
+					phonetics: 'ɑ̃',
+					example: ['an, en'],
+				},
+				{
+					color: '#c40083',
+					phonemes: ['o', 'o_comp', 'o_ouvert'],
+					phonetics: 'o',
+					example: ['o, au'],
+				},
+				{
+					color: '#085ebe',
+					phonemes: ['k', 'k_qu'],
+					phonetics: 'k',
+					example: ['qu, k'],
+				},
+				{
+					color: '#1b6300',
+					phonemes: ['s^'],
+					phonetics: 'ʃ',
+					example: ['ch, sh'],
+				},
+				{
+					color: '#6a5500',
+					phonemes: ['e', 'e_comp'],
+					phonetics: 'e',
+					example: ['é'],
+				},
+				{
+					color: '#754977',
+					phonemes: ['g', 'g_u'],
+					phonetics: 'g',
+					example: ['gue'],
+				},
+				{
+					color: '#7f3c00',
+					phonemes: ['z^', 'z^_g'],
+					phonetics: 'ʒ',
+					example: ['j, ge'],
+				},
+				{
+					color: '#b0543f',
+					phonemes: ['wa'],
+					phonetics: 'wa',
+					example: ['oi, oua'],
+				},
+				{
+					color: '#bf3030',
+					phonemes: ['s', 's_c', 's_t'],
+					phonetics: 's',
+					example: ['ss, ce'],
+				},
+				{
+					color: '#81329a',
+					phonemes: ['x~'],
+					phonetics: 'œ̃',
+					example: ['un, ein'],
+				},
+				{
+					color: '#6c0277',
+					phonemes: ['z', 'z_s'],
+					phonetics: 'z',
+					example: ['z'],
+				},
+			],
+		},
+	],
+};

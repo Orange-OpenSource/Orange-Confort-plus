@@ -163,18 +163,26 @@
 						"order": null
 					}
 				},
-				{
-					"readingPage": {
-						"values": "noModifications,onlyContent110IvoryBlack",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 6
-					}
+			{
+				"readingPage": {
+					"values": "noModifications,onlyContent110IvoryBlack",
+					"valueSelected": 0,
+					"isTool": true,
+					"order": 6
 				}
-			]
-		},
-		{
-			"visionPlus": [
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"visionPlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -335,18 +343,26 @@
 						"order": null
 					}
 				},
-				{
-					"readingPage": {
-						"values": "noModifications,onlyContent110IvoryBlack",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 3
-					}
+			{
+				"readingPage": {
+					"values": "noModifications,onlyContent110IvoryBlack",
+					"valueSelected": 0,
+					"isTool": true,
+					"order": 3
 				}
-			]
-		},
-		{
-			"visionPlusPlus": [
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"visionPlusPlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -508,17 +524,25 @@
 					}
 				},
 				{
-					"readingPage": {
-						"values": "noModifications,onlyContent110IvoryBlack",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 3
-					}
+				"readingPage": {
+					"values": "noModifications,onlyContent110IvoryBlack",
+					"valueSelected": 0,
+					"isTool": true,
+					"order": 3
 				}
-			]
-		},
-		{
-			"lecturePlus": [
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"lecturePlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -680,17 +704,25 @@
 					}
 				},
 				{
-					"readingPage": {
-						"values": "noModifications,onlyContent110IvoryBlack",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 4
-					}
+				"readingPage": {
+					"values": "noModifications,onlyContent110IvoryBlack",
+					"valueSelected": 0,
+					"isTool": true,
+					"order": 4
 				}
-			]
-		},
-		{
-			"lecturePlusPlus": [
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"lecturePlusPlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -852,17 +884,25 @@
 					}
 				},
 				{
-					"readingPage": {
-						"values": "noModifications,onlyContent110IvoryBlack",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 4
-					}
+				"readingPage": {
+					"values": "noModifications,onlyContent110IvoryBlack",
+					"valueSelected": 0,
+					"isTool": true,
+					"order": 4
 				}
-			]
-		},
-		{
-			"pointagePlus": [
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"pointagePlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -1027,14 +1067,22 @@
 					"readingPage": {
 						"values": "noModifications,onlyContent110IvoryBlack",
 						"valueSelected": 0,
-						"isTool": true,
-						"order": 5
-					}
+					"isTool": true,
+					"order": 5
 				}
-			]
-		},
-		{
-			"moteurPlus": [
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"moteurPlus": [
 				{
 					"fontFamily": {
 						"values": "noModifications,AccessibleDfA,Luciole",
@@ -1196,17 +1244,25 @@
 					}
 				},
 				{
-					"readingPage": {
-						"values": "noModifications,onlyContent110IvoryBlack",
-						"valueSelected": 0,
-						"isTool": true,
-						"order": 4
-					}
+				"readingPage": {
+					"values": "noModifications,onlyContent110IvoryBlack",
+					"valueSelected": 0,
+					"isTool": true,
+					"order": 4
 				}
-			]
-		},
-		{
-			"calmePlus": []
+			},
+			{
+				"colorRead": {
+					"values": "noModifications,active",
+					"valueSelected": 0,
+					"isTool": false,
+					"order": null
+				}
+			}
+		]
+	},
+	{
+		"calmePlus": []
 		},
 		{
 			"langueDesSignes": []
