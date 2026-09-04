@@ -40,7 +40,7 @@ const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = 'script,style,link,meta';
 
-const COLOR_DARK_BG_PROFILE = {
+const DARK_BG_COLOR_PROFILE = {
 	name: 'Palette fonds foncés',
 	params: { novice_reader: true },
 	format: { line_spacing: 150, page_width: 70 },
@@ -131,7 +131,17 @@ const COLOR_DARK_BG_PROFILE = {
 	],
 };
 
-const COLOR_LIGHT_BG_PROFILE = {
+const DARK_BG_COLOR_PALETTE = {
+	"colors" : [
+		"#00ffcc", "#12B5AF", "#a0ffe2", "#80aaff", "#c7daff", "#ddddff",
+		"#ff00bd", "#ff47c2", "#c34dd4", "#ff00ed", "#ff99ff", "#e482f4",
+		"#f4acff", "#fcd0ff", "#ff0000", "#ff5353", "#ff8a8a", "#ffbcbc",
+		"#b58e6b", "#cfc3b4", "#ff7900", "#f88e55", "#ffb100", "#ffd200",
+		"#fee347", "#ffff66", "#16b84e", "#66ff33", "#bef574", "#ececec"
+	]
+};
+
+const LIGHT_BG_COLOR_PROFILE = {
 	name: 'Palette fonds clairs',
 	params: { novice_reader: true },
 	format: { line_spacing: 150, page_width: 70 },
@@ -220,4 +230,13 @@ const COLOR_LIGHT_BG_PROFILE = {
 			],
 		},
 	],
+};
+
+const LIGHT_BG_COLOR_PALETTE = {
+	"colors" : [
+		"#001e8e", "#454a8e", "#085ebe", "#4574bd", "#6c0277", "#754977",
+		"#81329a", "#a00e77", "#ae45bd", "#c40083", "#bf3030", "#7f3c00",
+		"#b0543f", "#b15b1f", "#6a5500", "#095228", "#1b6300", "#008000",
+		"#333333"
+	]
 };

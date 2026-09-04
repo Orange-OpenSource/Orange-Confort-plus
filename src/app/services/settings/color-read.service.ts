@@ -562,11 +562,11 @@ class ColorReadService {
 	}
 
 	private buildDarkBgProfile(): JsonProfile {
-		return JsonProfile.from(structuredClone(COLOR_DARK_BG_PROFILE));
+		return JsonProfile.from(structuredClone(DARK_BG_COLOR_PROFILE));
 	}
 
 	private buildLightBgProfile(): JsonProfile {
-		return JsonProfile.from(structuredClone(COLOR_LIGHT_BG_PROFILE));
+		return JsonProfile.from(structuredClone(LIGHT_BG_COLOR_PROFILE));
 	}
 
 	private resolveProfile(): JsonProfile {

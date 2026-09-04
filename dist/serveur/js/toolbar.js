@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 30/07/2026
+ * orange-confort-plus - version 5.4.0 - 02/09/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -1542,7 +1542,7 @@ const TEXT_ALTERNATE_LINES = `${PREFIX}alternateLines`;
 
 const BODY_ELEMENTS_FILTER = "script,style,link,meta";
 
-const COLOR_DARK_BG_PROFILE = {
+const DARK_BG_COLOR_PROFILE = {
     name: "Palette fonds foncés",
     params: {
         novice_reader: true
@@ -1622,7 +1622,33 @@ const COLOR_DARK_BG_PROFILE = {
     } ]
 };
 
-const COLOR_LIGHT_BG_PROFILE = {
+const DARK_BG_COLOR_PALETTE = {
+    blue: [ "#00ffcc", "#77ffcc", "#a0ffe2", "#80aaff", "#c7daff", "#ddddff" ],
+    purple: [ "#c34dd4", "#e482f4", "#f4acff", "#fcd0ff" ],
+    pink: [ "#ff00bd", "#ff00ed", "#ff47c2", "#ff99ff" ],
+    red: [ "#ff0000", "#ff5353", "#ff8a8a", "#ffbcbc" ],
+    brown: [ "#f88e55", "#b58e6b", "#cfc3b4" ],
+    orange: [ "#ff7900", "#ffb100" ],
+    yellow: [ "#ffff66", "#fee347", "#ffd200" ],
+    green: [ "#16b84e", "#66ff33", "#bef574" ],
+    gray: [ "#ececec" ]
+};
+
+const DARK_BG_COLOR_PALETTE_V2 = {
+    blue: [ "#12B5AF", "#77ffcc", "#a0ffe2", "#80aaff", "#c7daff", "#ddddff" ],
+    purple: [ "#e482f4", "#ff99ff", "#f4acff", "#fcd0ff" ],
+    pink: [ "#ff00bd", "#c34dd4", "#ff00ed", "#ff47c2" ],
+    red: [ "#ff0000", "#ff5353", "#ff8a8a", "#ffbcbc" ],
+    brown: [ "#b58e6b", "#cfc3b4" ],
+    orange: [ "#f88e55", "#ff7900", "#ffb100" ],
+    yellow: [ "#ffff66", "#fee347", "#ffd200" ],
+    green: [ "#16b84e", "#66ff33", "#bef574" ],
+    gray: [ "#ececec" ]
+};
+
+const DARK_BG_COLOR_PALETTE_V3 = [ "#12b5af", "#77ffcc", "#a0ffe2", "#80aaff", "#c7daff", "#ddddff", "#ff00bd", "#ff47c2", "#c34dd4", "#ff00ed", "#ff99ff", "#e482f4", "#f4acff", "#fcd0ff", "#ff0000", "#ff5353", "#ff8a8a", "#ffbcbc", "#b58e6b", "#cfc3b4", "#ff7900", "#f88e55", "#ffb100", "#ffd200", "#fee347", "#ffff66", "#16b84e", "#66ff33", "#bef574", "#ececec" ];
+
+const LIGHT_BG_COLOR_PROFILE = {
     name: "Palette fonds clairs",
     params: {
         novice_reader: true
@@ -1700,6 +1726,26 @@ const COLOR_LIGHT_BG_PROFILE = {
             example: [ "z" ]
         } ]
     } ]
+};
+
+const LIGHT_BG_COLOR_PALETTE = {
+    blue: [ "#001e8e", "#085ebe", "#4574bd", "#454a8e" ],
+    purple: [ "#6c0277", "#81329a", "#754977" ],
+    pink: [ "#ae45bd", "#c40083" ],
+    red: [ "#a00e77", "#bf3030", "#b0543f" ],
+    brown: [ "#7f3c00", "#b15b1f", "#6a5500" ],
+    green: [ "#095228", "#1b6300", "#008000" ],
+    gray: [ "#333333" ]
+};
+
+const LIGHT_BG_COLOR_PALETTE_V2 = {
+    blue: [ "#001e8e", "#454a8e", "#085ebe", "#4574bd" ],
+    purple: [ "#6c0277", "#81329a", "#754977" ],
+    pink: [ "#ae45bd", "#c40083" ],
+    red: [ "#a00e77", "#bf3030", "#b0543f" ],
+    brown: [ "#b15b1f", "#7f3c00", "#6a5500" ],
+    green: [ "#095228", "#1b6300", "#008000" ],
+    gray: [ "#333333" ]
 };
 
 "use strict";
@@ -4958,10 +5004,10 @@ class ColorReadService {
         }
     }
     buildDarkBgProfile() {
-        return JsonProfile.from(structuredClone(COLOR_DARK_BG_PROFILE));
+        return JsonProfile.from(structuredClone(DARK_BG_COLOR_PROFILE));
     }
     buildLightBgProfile() {
-        return JsonProfile.from(structuredClone(COLOR_LIGHT_BG_PROFILE));
+        return JsonProfile.from(structuredClone(LIGHT_BG_COLOR_PROFILE));
     }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
@@ -8635,7 +8681,7 @@ class EditColorReadComponent extends HTMLElement {
         const showProfile = this.colorReadActionValue === "darkBgColor" || this.colorReadActionValue === "lightBgColor";
         if (showProfile) {
             this.colorProfileElement.classList.remove("d-none");
-            const profile = this.colorReadActionValue === "darkBgColor" ? COLOR_DARK_BG_PROFILE : COLOR_LIGHT_BG_PROFILE;
+            const profile = this.colorReadActionValue === "darkBgColor" ? DARK_BG_COLOR_PROFILE : LIGHT_BG_COLOR_PROFILE;
             const bgColor = this.colorReadActionValue === "darkBgColor" ? "black" : "white";
             this.colorProfileElement.setAttribute("data-profile", JSON.stringify(profile));
             this.colorProfileElement.setAttribute("data-background", bgColor);
