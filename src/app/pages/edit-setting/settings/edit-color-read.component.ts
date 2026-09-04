@@ -100,15 +100,15 @@ class EditColorReadComponent extends HTMLElement {
 
 	toggleProfileVisibility = (): void => {
 		const showProfile = this.colorReadActionValue === 'darkBgColor' || this.colorReadActionValue === 'lightBgColor';
-		
+
 		if (showProfile) {
 			this.colorProfileElement.classList.remove('d-none');
-			
-			const profile = this.colorReadActionValue === 'darkBgColor' 
-				? COLOR_DARK_BG_PROFILE 
-				: COLOR_LIGHT_BG_PROFILE;
+
+			const profile = this.colorReadActionValue === 'darkBgColor'
+				? DARK_BG_COLOR_PROFILE
+				: LIGHT_BG_COLOR_PROFILE;
 			const bgColor = this.colorReadActionValue === 'darkBgColor' ? 'black' : 'white';
-			
+
 			this.colorProfileElement.setAttribute('data-profile', JSON.stringify(profile));
 			this.colorProfileElement.setAttribute('data-background', bgColor);
 		} else {

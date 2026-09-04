@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 30/07/2026
+ * orange-confort-plus - version 5.4.0 - 02/09/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -3112,10 +3112,10 @@ class ColorReadService {
         }
     }
     buildDarkBgProfile() {
-        return JsonProfile.from(structuredClone(COLOR_DARK_BG_PROFILE));
+        return JsonProfile.from(structuredClone(DARK_BG_COLOR_PROFILE));
     }
     buildLightBgProfile() {
-        return JsonProfile.from(structuredClone(COLOR_LIGHT_BG_PROFILE));
+        return JsonProfile.from(structuredClone(LIGHT_BG_COLOR_PROFILE));
     }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
@@ -6789,7 +6789,7 @@ class EditColorReadComponent extends HTMLElement {
         const showProfile = this.colorReadActionValue === "darkBgColor" || this.colorReadActionValue === "lightBgColor";
         if (showProfile) {
             this.colorProfileElement.classList.remove("d-none");
-            const profile = this.colorReadActionValue === "darkBgColor" ? COLOR_DARK_BG_PROFILE : COLOR_LIGHT_BG_PROFILE;
+            const profile = this.colorReadActionValue === "darkBgColor" ? DARK_BG_COLOR_PROFILE : LIGHT_BG_COLOR_PROFILE;
             const bgColor = this.colorReadActionValue === "darkBgColor" ? "black" : "white";
             this.colorProfileElement.setAttribute("data-profile", JSON.stringify(profile));
             this.colorProfileElement.setAttribute("data-background", bgColor);
