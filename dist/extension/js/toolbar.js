@@ -8981,14 +8981,14 @@ customElements.define("app-icon", IconComponent);
 
 const colorPickerLayout = document.createElement("template");
 
-colorPickerLayout.innerHTML = `\n<div class="${PREFIX}color-picker-card card border-black">\n\t<div class="${PREFIX}color-picker-header card-header d-flex align-items-center gap-2">\n\t\t<button type="button" class="${PREFIX}color-picker-back align-self-stretch d-inline-flex align-items-center gap-1 border-0 border-end rounded-0 bg-transparent text-reset px-2">\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Form_Chevron_left" data-size="1em"></app-icon>\n\t\t\t</span>\n\t\t\t<span class="${PREFIX}color-picker-preview d-inline-block border" aria-hidden="true"></span>\n\t\t</button>\n\t\t<span class="${PREFIX}color-picker-title fs-7"></span>\n\t</div>\n\t<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="radiogroup"></div>\n</div>\n`;
+colorPickerLayout.innerHTML = `\n<div class="${PREFIX}color-picker-card card border-black">\n\t<div class="${PREFIX}color-picker-header card-header d-flex align-items-center gap-2">\n\t\t<button type="button" class="${PREFIX}color-picker-back align-self-stretch d-inline-flex align-items-center gap-1 border-0 border-end rounded-0 bg-transparent text-reset px-2">\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Form_Chevron_left" data-size="1em"></app-icon>\n\t\t\t</span>\n\t\t\t<app-icon class="${PREFIX}color-picker-mode-icon d-none" data-size="1.25rem"></app-icon>\n\t\t</button>\n\t\t<span class="${PREFIX}color-picker-title fs-7"></span>\n\t</div>\n\t<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="radiogroup"></div>\n</div>\n`;
 
 class ColorPickerComponent extends HTMLElement {
     static observedAttributes=[ "data-palette", "data-label", "data-value" ];
     card=null;
     header=null;
     titleEl=null;
-    preview=null;
+    modeIcon=null;
     backBtn=null;
     grid=null;
     colors=[];
@@ -9002,7 +9002,7 @@ class ColorPickerComponent extends HTMLElement {
         this.card = this.querySelector(`.${PREFIX}color-picker-card`);
         this.header = this.querySelector(`.${PREFIX}color-picker-header`);
         this.titleEl = this.querySelector(`.${PREFIX}color-picker-title`);
-        this.preview = this.querySelector(`.${PREFIX}color-picker-preview`);
+        this.modeIcon = this.querySelector(`.${PREFIX}color-picker-mode-icon`);
         this.backBtn = this.querySelector(`.${PREFIX}color-picker-back`);
         this.grid = this.querySelector(`.${PREFIX}color-picker-grid`);
         this.handler = this.createHandler();
@@ -9059,10 +9059,21 @@ class ColorPickerComponent extends HTMLElement {
         }
         this.grid?.setAttribute("aria-label", label);
         const value = this.normalizeColor(this.dataset.value);
-        if (this.preview) {
-            this.preview.style.backgroundColor = value || "transparent";
-        }
+        this.renderModeIcon();
         this.renderSwatches(value);
+    };
+    renderModeIcon=() => {
+        if (!this.modeIcon) {
+            return;
+        }
+        localStorageServiceInstance.getItem("selectedModeName").then((selectedMode => {
+            if (!selectedMode) {
+                this.modeIcon?.classList.add("d-none");
+            } else {
+                this.modeIcon?.classList.remove("d-none");
+                this.modeIcon?.setAttribute("data-name", `${selectedMode}_border`);
+            }
+        }));
     };
     renderSwatches=value => {
         if (!this.grid) {
@@ -9132,9 +9143,6 @@ class ColorPickerComponent extends HTMLElement {
         this.skipRender = true;
         this.dataset.value = input.value;
         this.skipRender = false;
-        if (this.preview) {
-            this.preview.style.backgroundColor = input.value;
-        }
         this.dispatchEvent(new CustomEvent("colorPickerSelect", {
             bubbles: true,
             composed: true,

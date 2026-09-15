@@ -25,10 +25,10 @@
 	}
 }
 
-.cplus-color-picker-preview {
-	border-radius: .125rem;
-	height: 1.25rem;
-	width: 1.25rem;
+.cplus-color-picker-mode-icon {
+	// Pas de `d-inline-flex` dans le gabarit : cet utilitaire est `!important` et déclaré
+	// après `.d-none`, il empêcherait le masquage de l'icône.
+	display: inline-flex;
 }
 
 .cplus-color-picker-grid {
