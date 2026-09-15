@@ -1113,6 +1113,33 @@
 	"colorReadAction_colorSyllables": {
 		"message": "Syllabes colorées"
 	},
+	"colorPicker_label": {
+		"message": "Associer une couleur à $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorPicker_back": {
+		"message": "Retour"
+	},
+	"colorPicker_swatch": {
+		"message": "Couleur $COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorProfileRule_editColor": {
+		"message": "Modifier la couleur du phonème $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Portée"
 	},

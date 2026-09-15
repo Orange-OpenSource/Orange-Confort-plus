@@ -5,11 +5,14 @@ colorProfileRuleLayout.innerHTML = `
   	<span id="${PREFIX}color-read-profile-rule-phonetics"></span>
 		<span id="${PREFIX}color-read-profile-rule-example"></span>
   </div>
-  <div
+  <button
+  	type="button"
   	id="${PREFIX}color-read-profile-rule-color"
-  	class="ratio ratio-1x1 flex-shrink-0"
-  	style="width: 3.5em"
-	></div>
+  	class="${PREFIX}color-read-profile-rule-swatch border-0 p-0 flex-shrink-0"
+  	aria-haspopup="dialog"
+  	aria-expanded="false"
+  	style="width: 3.5em; aspect-ratio: 1"
+	></button>
 </div>
 
 `;
@@ -19,12 +22,25 @@ class ColorProfileRuleComponent extends HTMLElement {
 
 	rule: ProcessFormatRule;
 	handler: any;
+
+	private swatchBtn: HTMLButtonElement | null = null;
+
 	constructor() {
 		super();
 
 		this.appendChild(colorProfileRuleLayout.content.cloneNode(true));
 
+		this.swatchBtn = this.querySelector(`#${PREFIX}color-read-profile-rule-color`);
+
 		this.handler = this.createHandler();
+	}
+
+	connectedCallback(): void {
+		this.swatchBtn?.addEventListener('click', this.handler);
+	}
+
+	disconnectedCallback(): void {
+		this.swatchBtn?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string
@@ -34,6 +50,24 @@ class ColorProfileRuleComponent extends HTMLElement {
 		}
 		this.renderRule();
 	}
+
+	/** Applique une nouvelle couleur à la règle affichée, sans recréer l'élément. */
+	setColor = (color: string): void => {
+		if (!this.rule || !color) {
+			return;
+		}
+		this.rule.color = color;
+		this.setAttribute('data-rule', JSON.stringify(this.rule));
+	};
+
+	/** Reflète l'état d'ouverture du sélecteur de couleur associé à cette pastille. */
+	setPickerExpanded = (expanded: boolean): void => {
+		this.swatchBtn?.setAttribute('aria-expanded', String(expanded));
+	};
+
+	focusSwatch = (): void => {
+		this.swatchBtn?.focus();
+	};
 
 	private renderRule(): void {
 		const bgColor = this.dataset.background || 'white';
@@ -54,16 +88,25 @@ class ColorProfileRuleComponent extends HTMLElement {
 
 		(this.querySelector(`#${PREFIX}color-read-profile-rule-color`) as HTMLElement).style.backgroundColor =
 			this.rule.color;
+		this.swatchBtn?.setAttribute(
+			'aria-label',
+			i18nServiceInstance.getMessage('colorProfileRule_editColor', [this.rule.phonetics])
+		);
 	}
 
 	private createHandler = () => {
 		return (event: any) => {
 			switch (event.type) {
-				case 'EVENT1':
-					// TODO
-					break;
-				case 'EVENT2':
-					// TODO
+				case 'click':
+					event.preventDefault();
+					this.dispatchEvent(new CustomEvent('colorRuleClick', {
+						bubbles: true,
+						composed: true,
+						detail: {
+							rule: this.rule,
+							ruleKey: colorReadServiceInstance.getRuleKey(this.rule)
+						}
+					}));
 					break;
 			}
 		}

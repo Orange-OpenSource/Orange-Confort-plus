@@ -36,6 +36,19 @@ const ClickScope = Object.freeze({
 } as const);
 type ClickScopeValue = (typeof ClickScope)[keyof typeof ClickScope];
 
+/** Profils de coloration dont les couleurs sont personnalisables par l'utilisateur. */
+type ColorProfileKey =
+	| typeof ColorMode.COLOR_DARK_BG
+	| typeof ColorMode.COLOR_LIGHT_BG;
+
+/** Couleur choisie pour une règle, indexée par sa clé (`phonemes` joints). */
+type ColorRuleOverrides = Record<string, string>;
+type ColorProfileOverrides = Partial<Record<ColorProfileKey, ColorRuleOverrides>>;
+/** Personnalisations indexées par mode d'usage. */
+type ColorModeOverrides = Record<string, ColorProfileOverrides>;
+
+const COLOR_READ_COLORS_STORAGE_KEY = 'color-read-profile-colors';
+
 interface SetColorOptions {
 	syllableSeparator?: string;
 	colors?: string[];
@@ -66,6 +79,10 @@ class ColorReadService {
 	>();
 	private activeBlocks = new Set<HTMLElement>();
 	private activeSections = new Set<HTMLElement>();
+
+	private colorOverrides: ColorModeOverrides = {};
+	private colorOverridesLoaded = false;
+	private currentModeName = '';
 
 	private onClickBound = (ev: Event): void => {
 		if (ev instanceof MouseEvent) {
@@ -112,6 +129,8 @@ class ColorReadService {
 	}
 
 	setColorRead = (value: string): void => {
+		this.loadColorOverrides(true).then(this.refreshActiveColors);
+
 		if (value === DEFAULT_VALUE) {
 			this.restoreAll();
 			this.disarm();
@@ -142,6 +161,132 @@ class ColorReadService {
 		this.mode = parsed.mode;
 		this.scope = parsed.scope;
 		this.arm();
+	};
+
+	/**
+	 * Charge les couleurs personnalisées du mode d'usage courant depuis le stockage local.
+	 * Les accès ultérieurs (`getColorProfile`) se font ensuite de façon synchrone.
+	 */
+	loadColorOverrides = (force = false): Promise<void> => {
+		if (this.colorOverridesLoaded && !force) {
+			return Promise.resolve();
+		}
+
+		return Promise.all([
+			localStorageServiceInstance.getItem<string>('selectedModeName'),
+			localStorageServiceInstance.getItem<ModeOfUseModel>(JSON_NAME),
+			localStorageServiceInstance.getItem<ColorModeOverrides>(
+				COLOR_READ_COLORS_STORAGE_KEY,
+			),
+		])
+			.then(([modeName, json, stored]) => {
+				this.currentModeName = modeName || json?.selectedMode || '';
+				this.colorOverrides = stored ?? {};
+				this.colorOverridesLoaded = true;
+			})
+			.catch(() => {
+				this.currentModeName = '';
+				this.colorOverrides = {};
+				this.colorOverridesLoaded = true;
+			});
+	};
+
+	/** Identifiant stable d'une règle de coloration, indépendant de son rang d'affichage. */
+	getRuleKey = (rule: ProcessFormatRule): string => {
+		if (Array.isArray(rule?.phonemes) && rule.phonemes.length > 0) {
+			return rule.phonemes.join('|');
+		}
+		return rule?.phonetics ?? '';
+	};
+
+	/** Palette de couleurs proposées pour un profil. */
+	getColorPalette = (profileKey: ColorProfileKey): string[] => {
+		return profileKey === ColorMode.COLOR_DARK_BG
+			? DARK_BG_COLOR_PALETTE.colors
+			: LIGHT_BG_COLOR_PALETTE.colors;
+	};
+
+	/** Profil de base du mode demandé, surchargé par les couleurs personnalisées. */
+	getColorProfile = (profileKey: ColorProfileKey): Record<string, unknown> => {
+		const profile = structuredClone(
+			profileKey === ColorMode.COLOR_DARK_BG
+				? DARK_BG_COLOR_PROFILE
+				: LIGHT_BG_COLOR_PROFILE,
+		);
+		const overrides = this.colorOverrides[this.currentModeName]?.[profileKey];
+		if (overrides) {
+			for (const step of profile.process ?? []) {
+				for (const rule of step.format ?? []) {
+					const color = overrides[this.getRuleKey(rule)];
+					if (color) {
+						rule.color = color;
+					}
+				}
+			}
+		}
+		return profile as unknown as Record<string, unknown>;
+	};
+
+	/**
+	 * Associe une couleur à une règle pour le mode d'usage courant, puis recolore
+	 * immédiatement le texte déjà altéré dans la page.
+	 */
+	setRuleColor = (
+		profileKey: ColorProfileKey,
+		ruleKey: string,
+		color: string,
+	): Promise<void> => {
+		if (!ruleKey || !color) {
+			return Promise.resolve();
+		}
+
+		return this.loadColorOverrides().then(() => {
+			const modeOverrides = this.colorOverrides[this.currentModeName] ?? {};
+			this.colorOverrides = {
+				...this.colorOverrides,
+				[this.currentModeName]: {
+					...modeOverrides,
+					[profileKey]: {
+						...(modeOverrides[profileKey] ?? {}),
+						[ruleKey]: color,
+					},
+				},
+			};
+			localStorageServiceInstance.setItem(
+				COLOR_READ_COLORS_STORAGE_KEY,
+				this.colorOverrides,
+			);
+			this.refreshActiveColors();
+		});
+	};
+
+	/** Régénère la coloration des zones actives avec le profil courant. */
+	refreshActiveColors = (): void => {
+		if (
+			this.mode !== ColorMode.COLOR_DARK_BG &&
+			this.mode !== ColorMode.COLOR_LIGHT_BG
+		) {
+			return;
+		}
+		if (!this.hasActiveAlteration() || !this.lcAvailable()) {
+			return;
+		}
+
+		const user = this.resolveProfile().asUserProfile();
+
+		for (const span of Array.from(this.activeSections)) {
+			const original = span.getAttribute(COLOR_READ_ORIGINAL_ATTR);
+			if (original === null) {
+				continue;
+			}
+			span.innerHTML = user.toHTML(original, span);
+			user.postProcessHTML(span);
+		}
+
+		for (const block of Array.from(this.activeBlocks)) {
+			block.innerHTML = user.toHTML(block.textContent ?? '', block);
+			user.postProcessHTML(block);
+		}
 	};
 
 	private parseSettingValue(value: string): {
@@ -562,11 +707,11 @@ class ColorReadService {
 	}
 
 	private buildDarkBgProfile(): JsonProfile {
-		return JsonProfile.from(structuredClone(DARK_BG_COLOR_PROFILE));
+		return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_DARK_BG));
 	}
 
 	private buildLightBgProfile(): JsonProfile {
-		return JsonProfile.from(structuredClone(LIGHT_BG_COLOR_PROFILE));
+		return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_LIGHT_BG));
 	}
 
 	private resolveProfile(): JsonProfile {

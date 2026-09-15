@@ -71,7 +71,8 @@ class EditColorReadComponent extends HTMLElement {
 			this.selectColorReadScopeElement.setAttribute('data-index', currentScopeIndex.toString());
 
 			this.toggleScopeVisibility();
-			this.toggleProfileVisibility();
+			/* Les couleurs personnalisées du mode courant doivent être connues avant l'affichage du profil */
+			colorReadServiceInstance.loadColorOverrides(true).then(this.toggleProfileVisibility);
 		});
 	}
 
@@ -104,13 +105,15 @@ class EditColorReadComponent extends HTMLElement {
 		if (showProfile) {
 			this.colorProfileElement.classList.remove('d-none');
 
-			const profile = this.colorReadActionValue === 'darkBgColor'
-				? DARK_BG_COLOR_PROFILE
-				: LIGHT_BG_COLOR_PROFILE;
+			const profileKey = this.colorReadActionValue as ColorProfileKey;
 			const bgColor = this.colorReadActionValue === 'darkBgColor' ? 'black' : 'white';
 
-			this.colorProfileElement.setAttribute('data-profile', JSON.stringify(profile));
+			this.colorProfileElement.setAttribute('data-profile-key', profileKey);
 			this.colorProfileElement.setAttribute('data-background', bgColor);
+			this.colorProfileElement.setAttribute(
+				'data-profile',
+				JSON.stringify(colorReadServiceInstance.getColorProfile(profileKey))
+			);
 		} else {
 			this.colorProfileElement.classList.add('d-none');
 		}

@@ -1116,6 +1116,33 @@
 	"colorReadAction_colorSyllables": {
 		"message": "Kolorowe sylaby"
 	},
+	"colorPicker_label": {
+		"message": "Przypisz kolor do $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorPicker_back": {
+		"message": "Powrót"
+	},
+	"colorPicker_swatch": {
+		"message": "Kolor $COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorProfileRule_editColor": {
+		"message": "Zmień kolor fonemu $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Zakres"
 	},

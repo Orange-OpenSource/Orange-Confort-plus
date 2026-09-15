@@ -1119,6 +1119,33 @@
 	"colorReadAction_colorSyllables": {
 		"message": "Sílabas coloreadas"
 	},
+	"colorPicker_label": {
+		"message": "Asociar un color a $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorPicker_back": {
+		"message": "Volver"
+	},
+	"colorPicker_swatch": {
+		"message": "Color $COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorProfileRule_editColor": {
+		"message": "Cambiar el color del fonema $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Alcance"
 	},

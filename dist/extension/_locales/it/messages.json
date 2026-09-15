@@ -1101,6 +1101,33 @@
 	"colorReadAction_colorSyllables": {
 		"message": "Sillabe colorate"
 	},
+	"colorPicker_label": {
+		"message": "Associa un colore a $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorPicker_back": {
+		"message": "Indietro"
+	},
+	"colorPicker_swatch": {
+		"message": "Colore $COLOR$",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			}
+		}
+	},
+	"colorProfileRule_editColor": {
+		"message": "Modifica il colore del fonema $PHONEME$",
+		"placeholders": {
+			"phoneme": {
+				"content": "$1"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Portata"
 	},

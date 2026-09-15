@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 02/09/2026
+ * orange-confort-plus - version 5.4.0 - 15/09/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2688,6 +2688,8 @@ const ClickScope = Object.freeze({
     ALL: "all"
 });
 
+const COLOR_READ_COLORS_STORAGE_KEY = "color-read-profile-colors";
+
 const COLOR_READ_ACTIONS = {
     splitSyllables: ColorMode.SPLIT_SYLLABLES,
     colorSyllables: ColorMode.COLOR_SYLLABLES,
@@ -2707,6 +2709,9 @@ class ColorReadService {
     blockSnapshots=new WeakMap;
     activeBlocks=new Set;
     activeSections=new Set;
+    colorOverrides={};
+    colorOverridesLoaded=false;
+    currentModeName="";
     onClickBound=ev => {
         if (ev instanceof MouseEvent) {
             this.onClick(ev);
@@ -2747,6 +2752,7 @@ class ColorReadService {
         colorReadServiceIsInstantiated = true;
     }
     setColorRead=value => {
+        this.loadColorOverrides(true).then(this.refreshActiveColors);
         if (value === DEFAULT_VALUE) {
             this.restoreAll();
             this.disarm();
@@ -2771,6 +2777,83 @@ class ColorReadService {
         this.mode = parsed.mode;
         this.scope = parsed.scope;
         this.arm();
+    };
+    loadColorOverrides=(force = false) => {
+        if (this.colorOverridesLoaded && !force) {
+            return Promise.resolve();
+        }
+        return Promise.all([ localStorageServiceInstance.getItem("selectedModeName"), localStorageServiceInstance.getItem(JSON_NAME), localStorageServiceInstance.getItem(COLOR_READ_COLORS_STORAGE_KEY) ]).then((([modeName, json, stored]) => {
+            this.currentModeName = modeName || json?.selectedMode || "";
+            this.colorOverrides = stored ?? {};
+            this.colorOverridesLoaded = true;
+        })).catch((() => {
+            this.currentModeName = "";
+            this.colorOverrides = {};
+            this.colorOverridesLoaded = true;
+        }));
+    };
+    getRuleKey=rule => {
+        if (Array.isArray(rule?.phonemes) && rule.phonemes.length > 0) {
+            return rule.phonemes.join("|");
+        }
+        return rule?.phonetics ?? "";
+    };
+    getColorPalette=profileKey => profileKey === ColorMode.COLOR_DARK_BG ? DARK_BG_COLOR_PALETTE.colors : LIGHT_BG_COLOR_PALETTE.colors;
+    getColorProfile=profileKey => {
+        const profile = structuredClone(profileKey === ColorMode.COLOR_DARK_BG ? DARK_BG_COLOR_PROFILE : LIGHT_BG_COLOR_PROFILE);
+        const overrides = this.colorOverrides[this.currentModeName]?.[profileKey];
+        if (overrides) {
+            for (const step of profile.process ?? []) {
+                for (const rule of step.format ?? []) {
+                    const color = overrides[this.getRuleKey(rule)];
+                    if (color) {
+                        rule.color = color;
+                    }
+                }
+            }
+        }
+        return profile;
+    };
+    setRuleColor=(profileKey, ruleKey, color) => {
+        if (!ruleKey || !color) {
+            return Promise.resolve();
+        }
+        return this.loadColorOverrides().then((() => {
+            const modeOverrides = this.colorOverrides[this.currentModeName] ?? {};
+            this.colorOverrides = {
+                ...this.colorOverrides,
+                [this.currentModeName]: {
+                    ...modeOverrides,
+                    [profileKey]: {
+                        ...modeOverrides[profileKey] ?? {},
+                        [ruleKey]: color
+                    }
+                }
+            };
+            localStorageServiceInstance.setItem(COLOR_READ_COLORS_STORAGE_KEY, this.colorOverrides);
+            this.refreshActiveColors();
+        }));
+    };
+    refreshActiveColors=() => {
+        if (this.mode !== ColorMode.COLOR_DARK_BG && this.mode !== ColorMode.COLOR_LIGHT_BG) {
+            return;
+        }
+        if (!this.hasActiveAlteration() || !this.lcAvailable()) {
+            return;
+        }
+        const user = this.resolveProfile().asUserProfile();
+        for (const span of Array.from(this.activeSections)) {
+            const original = span.getAttribute(COLOR_READ_ORIGINAL_ATTR);
+            if (original === null) {
+                continue;
+            }
+            span.innerHTML = user.toHTML(original, span);
+            user.postProcessHTML(span);
+        }
+        for (const block of Array.from(this.activeBlocks)) {
+            block.innerHTML = user.toHTML(block.textContent ?? "", block);
+            user.postProcessHTML(block);
+        }
     };
     parseSettingValue(value) {
         const parts = value.split("_");
@@ -3112,10 +3195,10 @@ class ColorReadService {
         }
     }
     buildDarkBgProfile() {
-        return JsonProfile.from(structuredClone(DARK_BG_COLOR_PROFILE));
+        return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_DARK_BG));
     }
     buildLightBgProfile() {
-        return JsonProfile.from(structuredClone(LIGHT_BG_COLOR_PROFILE));
+        return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_LIGHT_BG));
     }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
@@ -6301,18 +6384,199 @@ customElements.define("app-icon", IconComponent);
 
 "use strict";
 
+const colorPickerLayout = document.createElement("template");
+
+colorPickerLayout.innerHTML = `\n<div class="${PREFIX}color-picker-card card border-black">\n\t<div class="${PREFIX}color-picker-header card-header d-flex align-items-center gap-2">\n\t\t<button type="button" class="${PREFIX}color-picker-back align-self-stretch d-inline-flex align-items-center gap-1 border-0 border-end rounded-0 bg-transparent text-reset px-2">\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Form_Chevron_left" data-size="1em"></app-icon>\n\t\t\t</span>\n\t\t\t<span class="${PREFIX}color-picker-preview d-inline-block border" aria-hidden="true"></span>\n\t\t</button>\n\t\t<span class="${PREFIX}color-picker-title fs-7"></span>\n\t</div>\n\t<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="radiogroup"></div>\n</div>\n`;
+
+class ColorPickerComponent extends HTMLElement {
+    static observedAttributes=[ "data-palette", "data-label", "data-value" ];
+    card=null;
+    header=null;
+    titleEl=null;
+    preview=null;
+    backBtn=null;
+    grid=null;
+    colors=[];
+    groupName=`${PREFIX}color-picker`;
+    skipRender=false;
+    handler;
+    pointerSelection=false;
+    constructor() {
+        super();
+        this.appendChild(colorPickerLayout.content.cloneNode(true));
+        this.card = this.querySelector(`.${PREFIX}color-picker-card`);
+        this.header = this.querySelector(`.${PREFIX}color-picker-header`);
+        this.titleEl = this.querySelector(`.${PREFIX}color-picker-title`);
+        this.preview = this.querySelector(`.${PREFIX}color-picker-preview`);
+        this.backBtn = this.querySelector(`.${PREFIX}color-picker-back`);
+        this.grid = this.querySelector(`.${PREFIX}color-picker-grid`);
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.backBtn?.addEventListener("click", this.handler);
+        this.grid?.addEventListener("change", this.handler);
+        this.grid?.addEventListener("pointerdown", this.handler);
+        this.grid?.addEventListener("keyup", this.handler);
+        this.backBtn?.setAttribute("aria-label", i18nServiceInstance.getMessage("colorPicker_back"));
+        this.render();
+    }
+    disconnectedCallback() {
+        this.backBtn?.removeEventListener("click", this.handler);
+        this.grid?.removeEventListener("change", this.handler);
+        this.grid?.removeEventListener("pointerdown", this.handler);
+        this.grid?.removeEventListener("keyup", this.handler);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue === newValue || this.skipRender) {
+            return;
+        }
+        this.render();
+    }
+    get palette() {
+        return this.colors;
+    }
+    get value() {
+        const selected = this.grid?.querySelector("input:checked");
+        return selected?.value ?? null;
+    }
+    setPalette=colors => {
+        this.colors = Array.isArray(colors) ? colors : [];
+        this.render();
+    };
+    focusSelectedSwatch=() => {
+        const selected = this.grid?.querySelector("input:checked");
+        const target = selected ?? this.grid?.querySelector("input");
+        target?.focus();
+    };
+    isDark=() => this.dataset.palette === "dark";
+    normalizeColor=color => (color || "").trim().toLowerCase();
+    render=() => {
+        if (!this.card) {
+            return;
+        }
+        const dark = this.isDark();
+        this.card.classList.toggle("bg-black", dark);
+        this.header?.classList.toggle("bg-white", dark);
+        this.header?.classList.toggle("text-dark", dark);
+        const label = this.dataset.label || "";
+        if (this.titleEl) {
+            this.titleEl.textContent = label;
+        }
+        this.grid?.setAttribute("aria-label", label);
+        const value = this.normalizeColor(this.dataset.value);
+        if (this.preview) {
+            this.preview.style.backgroundColor = value || "transparent";
+        }
+        this.renderSwatches(value);
+    };
+    renderSwatches=value => {
+        if (!this.grid) {
+            return;
+        }
+        this.grid.innerHTML = "";
+        this.colors.forEach(((color, index) => {
+            const hex = this.normalizeColor(color);
+            const id = `${this.groupName}-${index}`;
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.classList.add("btn-check", `${PREFIX}color-picker-swatch-input`);
+            input.name = this.groupName;
+            input.id = id;
+            input.value = hex;
+            input.autocomplete = "off";
+            input.checked = hex === value;
+            const swatch = document.createElement("label");
+            swatch.classList.add(`${PREFIX}color-picker-swatch`, "border");
+            swatch.htmlFor = id;
+            swatch.style.backgroundColor = hex;
+            const name = document.createElement("span");
+            name.classList.add("visually-hidden");
+            name.textContent = i18nServiceInstance.getMessage("colorPicker_swatch", [ hex ]);
+            swatch.appendChild(name);
+            this.grid.appendChild(input);
+            this.grid.appendChild(swatch);
+        }));
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "click":
+            this.dispatchEvent(new CustomEvent("colorPickerBack", {
+                bubbles: true,
+                composed: true,
+                detail: {}
+            }));
+            break;
+
+          case "pointerdown":
+            this.pointerSelection = true;
+            break;
+
+          case "keyup":
+            if (event.key === "Enter" || event.key === " ") {
+                const checked = this.grid?.querySelector("input:checked");
+                if (checked) {
+                    this.emitSelect(checked, true);
+                }
+            }
+            break;
+
+          case "change":
+            {
+                const input = event.target;
+                if (!input?.checked) {
+                    return;
+                }
+                const commit = this.pointerSelection;
+                this.pointerSelection = false;
+                this.emitSelect(input, commit);
+                break;
+            }
+        }
+    };
+    emitSelect=(input, commit) => {
+        this.skipRender = true;
+        this.dataset.value = input.value;
+        this.skipRender = false;
+        if (this.preview) {
+            this.preview.style.backgroundColor = input.value;
+        }
+        this.dispatchEvent(new CustomEvent("colorPickerSelect", {
+            bubbles: true,
+            composed: true,
+            detail: {
+                value: input.value,
+                index: this.colors.findIndex((color => this.normalizeColor(color) === input.value)),
+                palette: this.dataset.palette || "light",
+                commit: commit
+            }
+        }));
+    };
+}
+
+customElements.define("app-color-picker", ColorPickerComponent);
+
+"use strict";
+
 const colorProfileRuleLayout = document.createElement("template");
 
-colorProfileRuleLayout.innerHTML = `\n<div id="${PREFIX}color-read-profile-rule-card" class="card border-black flex-row align-items-center justify-content-between w-100 ps-2">\n  <div class="d-flex flex-column w-75 fs-7">\n  \t<span id="${PREFIX}color-read-profile-rule-phonetics"></span>\n\t\t<span id="${PREFIX}color-read-profile-rule-example"></span>\n  </div>\n  <div\n  \tid="${PREFIX}color-read-profile-rule-color"\n  \tclass="ratio ratio-1x1 flex-shrink-0"\n  \tstyle="width: 3.5em"\n\t></div>\n</div>\n\n`;
+colorProfileRuleLayout.innerHTML = `\n<div id="${PREFIX}color-read-profile-rule-card" class="card border-black flex-row align-items-center justify-content-between w-100 ps-2">\n  <div class="d-flex flex-column w-75 fs-7">\n  \t<span id="${PREFIX}color-read-profile-rule-phonetics"></span>\n\t\t<span id="${PREFIX}color-read-profile-rule-example"></span>\n  </div>\n  <button\n  \ttype="button"\n  \tid="${PREFIX}color-read-profile-rule-color"\n  \tclass="${PREFIX}color-read-profile-rule-swatch border-0 p-0 flex-shrink-0"\n  \taria-haspopup="dialog"\n  \taria-expanded="false"\n  \tstyle="width: 3.5em; aspect-ratio: 1"\n\t></button>\n</div>\n\n`;
 
 class ColorProfileRuleComponent extends HTMLElement {
     static observedAttributes=[ "data-rule", "data-background" ];
     rule;
     handler;
+    swatchBtn=null;
     constructor() {
         super();
         this.appendChild(colorProfileRuleLayout.content.cloneNode(true));
+        this.swatchBtn = this.querySelector(`#${PREFIX}color-read-profile-rule-color`);
         this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.swatchBtn?.addEventListener("click", this.handler);
+    }
+    disconnectedCallback() {
+        this.swatchBtn?.removeEventListener("click", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "data-rule" && newValue) {
@@ -6320,6 +6584,19 @@ class ColorProfileRuleComponent extends HTMLElement {
         }
         this.renderRule();
     }
+    setColor=color => {
+        if (!this.rule || !color) {
+            return;
+        }
+        this.rule.color = color;
+        this.setAttribute("data-rule", JSON.stringify(this.rule));
+    };
+    setPickerExpanded=expanded => {
+        this.swatchBtn?.setAttribute("aria-expanded", String(expanded));
+    };
+    focusSwatch=() => {
+        this.swatchBtn?.focus();
+    };
     renderRule() {
         const bgColor = this.dataset.background || "white";
         const card = this.querySelector(`#${PREFIX}color-read-profile-rule-card`);
@@ -6334,13 +6611,20 @@ class ColorProfileRuleComponent extends HTMLElement {
         phoneticEl.style.color = this.rule.color;
         exampleEl.style.color = this.rule.color;
         this.querySelector(`#${PREFIX}color-read-profile-rule-color`).style.backgroundColor = this.rule.color;
+        this.swatchBtn?.setAttribute("aria-label", i18nServiceInstance.getMessage("colorProfileRule_editColor", [ this.rule.phonetics ]));
     }
     createHandler=() => event => {
         switch (event.type) {
-          case "EVENT1":
-            break;
-
-          case "EVENT2":
+          case "click":
+            event.preventDefault();
+            this.dispatchEvent(new CustomEvent("colorRuleClick", {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    rule: this.rule,
+                    ruleKey: colorReadServiceInstance.getRuleKey(this.rule)
+                }
+            }));
             break;
         }
     };
@@ -6352,23 +6636,45 @@ customElements.define("app-color-profile-rule", ColorProfileRuleComponent);
 
 const colorProfileLayout = document.createElement("template");
 
-colorProfileLayout.innerHTML = `\n\t<section class="text-start">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<div class="${PREFIX}color-profile-rules-list d-flex flex-column gap-2"></div>\n\t</section>\n`;
+colorProfileLayout.innerHTML = `\n\t<section class="text-start position-relative">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<div class="${PREFIX}color-profile-rules-list d-flex flex-column gap-2"></div>\n\t\t<app-color-picker class="sc-color-picker d-none"></app-color-picker>\n\t</section>\n`;
 
 class ColorProfileComponent extends HTMLElement {
-    static observedAttributes=[ "data-profile", "data-background" ];
+    static observedAttributes=[ "data-profile", "data-background", "data-profile-key" ];
+    handler;
+    picker=null;
+    activeRule=null;
+    activeRuleKey=null;
     constructor() {
         super();
         this.appendChild(colorProfileLayout.content.cloneNode(true));
+        this.picker = this.querySelector("app-color-picker");
+        this.handler = this.createHandler();
     }
     connectedCallback() {
+        this.addEventListener("colorRuleClick", this.handler);
+        this.addEventListener("colorPickerSelect", this.handler);
+        this.addEventListener("colorPickerBack", this.handler);
+        this.addEventListener("keydown", this.handler);
+        document.addEventListener("click", this.handler, true);
         if (this.dataset.profile) {
             this.renderProfile(this.dataset.profile);
         }
     }
+    disconnectedCallback() {
+        this.removeEventListener("colorRuleClick", this.handler);
+        this.removeEventListener("colorPickerSelect", this.handler);
+        this.removeEventListener("colorPickerBack", this.handler);
+        this.removeEventListener("keydown", this.handler);
+        document.removeEventListener("click", this.handler, true);
+    }
     attributeChangedCallback(name, oldValue, newValue) {
-        if ((name === "data-profile" || name === "data-background") && newValue) {
+        if ((name === "data-profile" || name === "data-background") && newValue && this.dataset.profile) {
+            this.closePicker(false);
             this.renderProfile(this.dataset.profile);
         }
+    }
+    get profileKey() {
+        return this.dataset.profileKey || "lightBgColor";
     }
     renderProfile=profileJson => {
         let profile = JsonProfile.from(JSON.parse(profileJson));
@@ -6383,6 +6689,91 @@ class ColorProfileComponent extends HTMLElement {
             ruleElement.setAttribute("data-background", this.dataset.background || "white");
             rulesContainer?.appendChild(ruleElement);
         }));
+    };
+    openPicker=(ruleElement, ruleKey) => {
+        if (!this.picker) {
+            return;
+        }
+        const rule = ruleElement.rule;
+        this.activeRule = ruleElement;
+        this.activeRuleKey = ruleKey;
+        this.picker.dataset.palette = this.dataset.background === "black" ? "dark" : "light";
+        this.picker.dataset.label = i18nServiceInstance.getMessage("colorPicker_label", [ rule.phonetics ]);
+        this.picker.dataset.value = rule.color || "";
+        this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.profileKey));
+        this.picker.classList.remove("d-none");
+        this.positionPicker(ruleElement);
+        ruleElement.setPickerExpanded(true);
+        this.picker.focusSelectedSwatch();
+    };
+    positionPicker=ruleElement => {
+        const section = this.querySelector("section");
+        if (!this.picker || !section) {
+            return;
+        }
+        const sectionBox = section.getBoundingClientRect();
+        const ruleBox = ruleElement.getBoundingClientRect();
+        const pickerBox = this.picker.getBoundingClientRect();
+        this.picker.style.top = `${ruleBox.bottom - sectionBox.top + 4}px`;
+        this.picker.style.left = `${Math.max(0, sectionBox.width - pickerBox.width)}px`;
+        this.picker.scrollIntoView({
+            block: "nearest"
+        });
+    };
+    closePicker=(restoreFocus = true) => {
+        if (!this.picker || this.picker.classList.contains("d-none")) {
+            return;
+        }
+        this.picker.classList.add("d-none");
+        this.activeRule?.setPickerExpanded(false);
+        if (restoreFocus) {
+            this.activeRule?.focusSwatch();
+        }
+        this.activeRule = null;
+        this.activeRuleKey = null;
+    };
+    applyColor=(color, commit) => {
+        const ruleElement = this.activeRule;
+        const ruleKey = this.activeRuleKey;
+        if (!ruleElement || !ruleKey) {
+            return;
+        }
+        colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
+        ruleElement.setColor(color);
+        if (commit) {
+            this.closePicker();
+        }
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "colorRuleClick":
+            this.openPicker(event.target, event.detail.ruleKey);
+            break;
+
+          case "colorPickerSelect":
+            this.applyColor(event.detail.value, event.detail.commit !== false);
+            break;
+
+          case "colorPickerBack":
+            this.closePicker();
+            break;
+
+          case "keydown":
+            if (event.key === "Escape" && !this.picker?.classList.contains("d-none")) {
+                event.stopPropagation();
+                this.closePicker();
+            }
+            break;
+
+          case "click":
+            if (!this.picker || this.picker.classList.contains("d-none")) {
+                return;
+            }
+            if (!event.composedPath().includes(this)) {
+                this.closePicker(false);
+            }
+            break;
+        }
     };
 }
 
@@ -6765,7 +7156,7 @@ class EditColorReadComponent extends HTMLElement {
             this.selectColorReadActionElement.setAttribute("data-index", currentActionIndex.toString());
             this.selectColorReadScopeElement.setAttribute("data-index", currentScopeIndex.toString());
             this.toggleScopeVisibility();
-            this.toggleProfileVisibility();
+            colorReadServiceInstance.loadColorOverrides(true).then(this.toggleProfileVisibility);
         }));
     }
     setColorRead=() => {
@@ -6789,10 +7180,11 @@ class EditColorReadComponent extends HTMLElement {
         const showProfile = this.colorReadActionValue === "darkBgColor" || this.colorReadActionValue === "lightBgColor";
         if (showProfile) {
             this.colorProfileElement.classList.remove("d-none");
-            const profile = this.colorReadActionValue === "darkBgColor" ? DARK_BG_COLOR_PROFILE : LIGHT_BG_COLOR_PROFILE;
+            const profileKey = this.colorReadActionValue;
             const bgColor = this.colorReadActionValue === "darkBgColor" ? "black" : "white";
-            this.colorProfileElement.setAttribute("data-profile", JSON.stringify(profile));
+            this.colorProfileElement.setAttribute("data-profile-key", profileKey);
             this.colorProfileElement.setAttribute("data-background", bgColor);
+            this.colorProfileElement.setAttribute("data-profile", JSON.stringify(colorReadServiceInstance.getColorProfile(profileKey)));
         } else {
             this.colorProfileElement.classList.add("d-none");
         }
