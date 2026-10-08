@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 15/09/2026
+ * orange-confort-plus - version 5.4.0 - 25/09/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2803,16 +2803,43 @@ class ColorReadService {
         const profile = structuredClone(profileKey === ColorMode.COLOR_DARK_BG ? DARK_BG_COLOR_PROFILE : LIGHT_BG_COLOR_PROFILE);
         const overrides = this.colorOverrides[this.currentModeName]?.[profileKey];
         if (overrides) {
+            const baseKeys = new Set;
             for (const step of profile.process ?? []) {
                 for (const rule of step.format ?? []) {
-                    const color = overrides[this.getRuleKey(rule)];
+                    const ruleKey = this.getRuleKey(rule);
+                    baseKeys.add(ruleKey);
+                    const color = overrides[ruleKey];
                     if (color) {
                         rule.color = color;
                     }
                 }
             }
+            const phonemesStep = profile.process?.find((step => step.function === "phonemes"));
+            if (phonemesStep) {
+                phonemesStep.format = phonemesStep.format ?? [];
+                for (const [ruleKey, color] of Object.entries(overrides)) {
+                    if (!color || baseKeys.has(ruleKey)) {
+                        continue;
+                    }
+                    const phoneme = PHONEMES.find((rule => this.getRuleKey(rule) === ruleKey));
+                    if (phoneme) {
+                        phonemesStep.format.push({
+                            ...structuredClone(phoneme),
+                            color: color
+                        });
+                    }
+                }
+            }
         }
         return profile;
+    };
+    getAvailablePhonemes=profileKey => {
+        const profile = this.getColorProfile(profileKey);
+        const usedKeys = new Set((profile.process ?? []).flatMap((step => (step.format ?? []).map((rule => this.getRuleKey(rule))))));
+        return PHONEMES.map((rule => ({
+            rule: structuredClone(rule),
+            used: usedKeys.has(this.getRuleKey(rule))
+        })));
     };
     setRuleColor=(profileKey, ruleKey, color) => {
         if (!ruleKey || !color) {
@@ -6565,6 +6592,170 @@ customElements.define("app-color-picker", ColorPickerComponent);
 
 "use strict";
 
+const phonemePickerLayout = document.createElement("template");
+
+phonemePickerLayout.innerHTML = `\n<div class="${PREFIX}color-picker-card ${PREFIX}phoneme-picker-card card border-black">\n\t<div class="${PREFIX}color-picker-header card-header d-flex align-items-center gap-2">\n\t\t<button type="button" class="${PREFIX}color-picker-back ${PREFIX}phoneme-picker-back align-self-stretch d-inline-flex align-items-center border-0 border-end rounded-0 bg-transparent text-reset px-2">\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Form_Chevron_left" data-size="1em"></app-icon>\n\t\t\t</span>\n\t\t</button>\n\t\t<span class="${PREFIX}phoneme-picker-title fs-7"></span>\n\t</div>\n\t<ul class="${PREFIX}phoneme-picker-list list-unstyled m-0 p-1"></ul>\n</div>\n`;
+
+class PhonemePickerComponent extends HTMLElement {
+    static observedAttributes=[ "data-palette" ];
+    card=null;
+    header=null;
+    titleEl=null;
+    backBtn=null;
+    list=null;
+    items=[];
+    handler;
+    constructor() {
+        super();
+        this.appendChild(phonemePickerLayout.content.cloneNode(true));
+        this.card = this.querySelector(`.${PREFIX}phoneme-picker-card`);
+        this.header = this.querySelector(`.${PREFIX}color-picker-header`);
+        this.titleEl = this.querySelector(`.${PREFIX}phoneme-picker-title`);
+        this.backBtn = this.querySelector(`.${PREFIX}phoneme-picker-back`);
+        this.list = this.querySelector(`.${PREFIX}phoneme-picker-list`);
+        this.handler = this.createHandler();
+    }
+    connectedCallback() {
+        this.backBtn?.addEventListener("click", this.handler);
+        this.list?.addEventListener("click", this.handler);
+        this.list?.addEventListener("keydown", this.handler);
+        const title = i18nServiceInstance.getMessage("phonemePicker_title");
+        if (this.titleEl) {
+            this.titleEl.textContent = title;
+        }
+        this.list?.setAttribute("aria-label", title);
+        this.backBtn?.setAttribute("aria-label", i18nServiceInstance.getMessage("phonemePicker_back"));
+        this.render();
+    }
+    disconnectedCallback() {
+        this.backBtn?.removeEventListener("click", this.handler);
+        this.list?.removeEventListener("click", this.handler);
+        this.list?.removeEventListener("keydown", this.handler);
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== newValue) {
+            this.render();
+        }
+    }
+    setPhonemes=items => {
+        this.items = Array.isArray(items) ? items : [];
+        this.renderList();
+    };
+    focusFirstAvailable=() => {
+        this.getEnabledOptions()[0]?.focus();
+    };
+    getEnabledOptions=() => Array.from(this.list?.querySelectorAll("button:not(:disabled)") ?? []);
+    formatExample=rule => Array.isArray(rule.example) ? rule.example.join(", ") : rule.example ?? "";
+    render=() => {
+        const dark = this.dataset.palette === "dark";
+        this.card?.classList.toggle("bg-black", dark);
+        this.card?.classList.toggle("text-white", dark);
+        this.header?.classList.toggle("bg-white", dark);
+        this.header?.classList.toggle("text-dark", dark);
+    };
+    renderList=() => {
+        if (!this.list) {
+            return;
+        }
+        this.list.innerHTML = "";
+        this.items.forEach(((item, index) => {
+            const phonetics = item.rule.phonetics || "∅";
+            const example = this.formatExample(item.rule);
+            const li = document.createElement("li");
+            const option = document.createElement("button");
+            option.type = "button";
+            option.classList.add(`${PREFIX}phoneme-picker-option`, "d-flex", "align-items-center", "justify-content-between", "gap-2", "w-100", "border-0", "bg-transparent", "text-reset", "text-start", "px-2", "py-1", "fs-7");
+            option.dataset.index = String(index);
+            option.disabled = item.used;
+            const phoneticsEl = document.createElement("span");
+            phoneticsEl.classList.add(`${PREFIX}phoneme-picker-phonetics`, "fw-bold");
+            phoneticsEl.textContent = phonetics;
+            phoneticsEl.setAttribute("aria-hidden", "true");
+            const exampleEl = document.createElement("span");
+            exampleEl.classList.add(`${PREFIX}phoneme-picker-example`, "text-end");
+            exampleEl.textContent = example;
+            exampleEl.setAttribute("aria-hidden", "true");
+            const label = document.createElement("span");
+            label.classList.add("visually-hidden");
+            label.textContent = i18nServiceInstance.getMessage("phonemePicker_option", [ phonetics, example ]) + (item.used ? `, ${i18nServiceInstance.getMessage("phonemePicker_alreadyColored")}` : "");
+            option.append(phoneticsEl, exampleEl, label);
+            li.appendChild(option);
+            this.list.appendChild(li);
+        }));
+    };
+    moveFocus=(current, key) => {
+        const options = this.getEnabledOptions();
+        if (options.length === 0) {
+            return;
+        }
+        const index = options.indexOf(current);
+        let next;
+        switch (key) {
+          case "ArrowDown":
+            next = (index + 1) % options.length;
+            break;
+
+          case "ArrowUp":
+            next = (index - 1 + options.length) % options.length;
+            break;
+
+          case "Home":
+            next = 0;
+            break;
+
+          case "End":
+            next = options.length - 1;
+            break;
+
+          default:
+            return;
+        }
+        options[next].focus();
+    };
+    createHandler=() => event => {
+        switch (event.type) {
+          case "click":
+            {
+                if (event.currentTarget === this.backBtn) {
+                    this.dispatchEvent(new CustomEvent("phonemePickerBack", {
+                        bubbles: true,
+                        composed: true,
+                        detail: {}
+                    }));
+                    return;
+                }
+                const option = event.target.closest(`.${PREFIX}phoneme-picker-option`);
+                if (!option || option.disabled) {
+                    return;
+                }
+                const item = this.items[Number(option.dataset.index)];
+                if (!item || item.used) {
+                    return;
+                }
+                this.dispatchEvent(new CustomEvent("phonemePickerSelect", {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                        rule: structuredClone(item.rule)
+                    }
+                }));
+                break;
+            }
+
+          case "keydown":
+            if ([ "ArrowDown", "ArrowUp", "Home", "End" ].includes(event.key)) {
+                event.preventDefault();
+                this.moveFocus(event.target, event.key);
+            }
+            break;
+        }
+    };
+}
+
+customElements.define("app-phoneme-picker", PhonemePickerComponent);
+
+"use strict";
+
 const colorProfileRuleLayout = document.createElement("template");
 
 colorProfileRuleLayout.innerHTML = `\n<div id="${PREFIX}color-read-profile-rule-card" class="card border-black flex-row align-items-center justify-content-between w-100 ps-2">\n  <div class="d-flex flex-column w-75 fs-7">\n  \t<span id="${PREFIX}color-read-profile-rule-phonetics"></span>\n\t\t<span id="${PREFIX}color-read-profile-rule-example"></span>\n  </div>\n  <button\n  \ttype="button"\n  \tid="${PREFIX}color-read-profile-rule-color"\n  \tclass="${PREFIX}color-read-profile-rule-swatch border-0 p-0 flex-shrink-0"\n  \taria-haspopup="dialog"\n  \taria-expanded="false"\n  \tstyle="width: 3.5em; aspect-ratio: 1"\n\t></button>\n</div>\n\n`;
@@ -6619,6 +6810,7 @@ class ColorProfileRuleComponent extends HTMLElement {
         phoneticEl.style.color = this.rule.color;
         exampleEl.style.color = this.rule.color;
         this.querySelector(`#${PREFIX}color-read-profile-rule-color`).style.backgroundColor = this.rule.color;
+        this.swatchBtn?.classList.toggle(`${PREFIX}color-read-profile-rule-swatch-empty`, !this.rule.color);
         this.swatchBtn?.setAttribute("aria-label", i18nServiceInstance.getMessage("colorProfileRule_editColor", [ this.rule.phonetics ]));
     }
     createHandler=() => event => {
@@ -6644,26 +6836,38 @@ customElements.define("app-color-profile-rule", ColorProfileRuleComponent);
 
 const colorProfileLayout = document.createElement("template");
 
-colorProfileLayout.innerHTML = `\n\t<section class="text-start position-relative">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<div class="${PREFIX}color-profile-rules-list d-flex flex-column gap-2"></div>\n\t\t<app-color-picker class="sc-color-picker d-none"></app-color-picker>\n\t</section>\n`;
+colorProfileLayout.innerHTML = `\n\t<section class="text-start position-relative">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<div class="${PREFIX}color-profile-rules-list d-flex flex-column gap-2"></div>\n\t\t<button\n\t\t\ttype="button"\n\t\t\tclass="${PREFIX}color-profile-add card border-black flex-row align-items-center gap-2 w-100 mt-2 ps-2 py-2 fs-7"\n\t\t\taria-haspopup="dialog"\n\t\t\taria-expanded="false"\n\t\t>\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Plus_small" data-size="1.5em"></app-icon>\n\t\t\t</span>\n\t\t\t<span class="${PREFIX}color-profile-add-label"></span>\n\t\t</button>\n\t\t<app-color-picker class="sc-color-picker d-none"></app-color-picker>\n\t\t<app-phoneme-picker class="sc-color-picker d-none"></app-phoneme-picker>\n\t</section>\n`;
 
 class ColorProfileComponent extends HTMLElement {
     static observedAttributes=[ "data-profile", "data-background", "data-profile-key" ];
     handler;
     picker=null;
+    phonemePicker=null;
+    addBtn=null;
     activeRule=null;
     activeRuleKey=null;
+    pendingRule=null;
     constructor() {
         super();
         this.appendChild(colorProfileLayout.content.cloneNode(true));
         this.picker = this.querySelector("app-color-picker");
+        this.phonemePicker = this.querySelector("app-phoneme-picker");
+        this.addBtn = this.querySelector(`.${PREFIX}color-profile-add`);
         this.handler = this.createHandler();
     }
     connectedCallback() {
         this.addEventListener("colorRuleClick", this.handler);
         this.addEventListener("colorPickerSelect", this.handler);
         this.addEventListener("colorPickerBack", this.handler);
+        this.addEventListener("phonemePickerSelect", this.handler);
+        this.addEventListener("phonemePickerBack", this.handler);
         this.addEventListener("keydown", this.handler);
+        this.addBtn?.addEventListener("click", this.handler);
         document.addEventListener("click", this.handler, true);
+        const addLabel = this.querySelector(`.${PREFIX}color-profile-add-label`);
+        if (addLabel) {
+            addLabel.textContent = i18nServiceInstance.getMessage("colorProfile_addPhoneme");
+        }
         if (this.dataset.profile) {
             this.renderProfile(this.dataset.profile);
         }
@@ -6672,12 +6876,16 @@ class ColorProfileComponent extends HTMLElement {
         this.removeEventListener("colorRuleClick", this.handler);
         this.removeEventListener("colorPickerSelect", this.handler);
         this.removeEventListener("colorPickerBack", this.handler);
+        this.removeEventListener("phonemePickerSelect", this.handler);
+        this.removeEventListener("phonemePickerBack", this.handler);
         this.removeEventListener("keydown", this.handler);
+        this.addBtn?.removeEventListener("click", this.handler);
         document.removeEventListener("click", this.handler, true);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ((name === "data-profile" || name === "data-background") && newValue && this.dataset.profile) {
             this.closePicker(false);
+            this.closePhonemePicker(false);
             this.renderProfile(this.dataset.profile);
         }
     }
@@ -6697,34 +6905,91 @@ class ColorProfileComponent extends HTMLElement {
             ruleElement.setAttribute("data-background", this.dataset.background || "white");
             rulesContainer?.appendChild(ruleElement);
         }));
+        this.updateAddButton();
+    };
+    get isDark() {
+        return this.dataset.background === "black";
+    }
+    updateAddButton=() => {
+        if (!this.addBtn) {
+            return;
+        }
+        this.addBtn.classList.toggle("bg-black", this.isDark);
+        this.addBtn.classList.toggle("text-white", this.isDark);
+        this.addBtn.classList.toggle("bg-white", !this.isDark);
+        this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.profileKey).every((item => item.used));
+    };
+    openPhonemePicker=() => {
+        if (!this.phonemePicker || !this.addBtn) {
+            return;
+        }
+        this.closePicker(false);
+        this.phonemePicker.dataset.palette = this.isDark ? "dark" : "light";
+        this.phonemePicker.setPhonemes(colorReadServiceInstance.getAvailablePhonemes(this.profileKey));
+        this.phonemePicker.classList.remove("d-none");
+        this.positionPopover(this.phonemePicker, this.addBtn);
+        this.addBtn.setAttribute("aria-expanded", "true");
+        this.phonemePicker.focusFirstAvailable();
+    };
+    closePhonemePicker=(restoreFocus = true) => {
+        if (!this.phonemePicker || this.phonemePicker.classList.contains("d-none")) {
+            return;
+        }
+        this.phonemePicker.classList.add("d-none");
+        this.addBtn?.setAttribute("aria-expanded", "false");
+        if (restoreFocus) {
+            this.addBtn?.focus();
+        }
+    };
+    addRule=rule => {
+        const rulesContainer = this.querySelector(`.${PREFIX}color-profile-rules-list`);
+        if (!rulesContainer || !rule) {
+            return;
+        }
+        this.closePhonemePicker(false);
+        const ruleElement = new ColorProfileRuleComponent;
+        ruleElement.setAttribute("data-rule", JSON.stringify({
+            ...rule,
+            color: ""
+        }));
+        ruleElement.setAttribute("data-background", this.dataset.background || "white");
+        rulesContainer.appendChild(ruleElement);
+        this.pendingRule = ruleElement;
+        this.openPicker(ruleElement, colorReadServiceInstance.getRuleKey(rule));
     };
     openPicker=(ruleElement, ruleKey) => {
         if (!this.picker) {
             return;
         }
         const rule = ruleElement.rule;
+        if (this.pendingRule && this.pendingRule !== ruleElement) {
+            this.pendingRule.remove();
+            this.pendingRule = null;
+        }
+        this.activeRule?.setPickerExpanded(false);
         this.activeRule = ruleElement;
         this.activeRuleKey = ruleKey;
-        this.picker.dataset.palette = this.dataset.background === "black" ? "dark" : "light";
-        this.picker.dataset.label = i18nServiceInstance.getMessage("colorPicker_label", [ rule.phonetics ]);
+        this.closePhonemePicker(false);
+        this.picker.dataset.palette = this.isDark ? "dark" : "light";
+        this.picker.dataset.label = i18nServiceInstance.getMessage("colorPicker_label", [ rule.phonetics || "∅" ]);
         this.picker.dataset.value = rule.color || "";
         this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.profileKey));
         this.picker.classList.remove("d-none");
-        this.positionPicker(ruleElement);
+        this.positionPopover(this.picker, ruleElement);
         ruleElement.setPickerExpanded(true);
         this.picker.focusSelectedSwatch();
     };
-    positionPicker=ruleElement => {
+    positionPopover=(popover, anchor) => {
         const section = this.querySelector("section");
-        if (!this.picker || !section) {
+        if (!popover || !section) {
             return;
         }
         const sectionBox = section.getBoundingClientRect();
-        const ruleBox = ruleElement.getBoundingClientRect();
-        const pickerBox = this.picker.getBoundingClientRect();
-        this.picker.style.top = `${ruleBox.bottom - sectionBox.top + 4}px`;
-        this.picker.style.left = `${Math.max(0, sectionBox.width - pickerBox.width)}px`;
-        this.picker.scrollIntoView({
+        const anchorBox = anchor.getBoundingClientRect();
+        const popoverBox = popover.getBoundingClientRect();
+        popover.style.top = `${anchorBox.bottom - sectionBox.top + 4}px`;
+        popover.style.left = `${Math.max(0, sectionBox.width - popoverBox.width)}px`;
+        popover.scrollIntoView({
             block: "nearest"
         });
     };
@@ -6734,7 +6999,13 @@ class ColorProfileComponent extends HTMLElement {
         }
         this.picker.classList.add("d-none");
         this.activeRule?.setPickerExpanded(false);
-        if (restoreFocus) {
+        if (this.pendingRule) {
+            this.pendingRule.remove();
+            this.pendingRule = null;
+            if (restoreFocus) {
+                this.addBtn?.focus();
+            }
+        } else if (restoreFocus) {
             this.activeRule?.focusSwatch();
         }
         this.activeRule = null;
@@ -6746,8 +7017,16 @@ class ColorProfileComponent extends HTMLElement {
         if (!ruleElement || !ruleKey) {
             return;
         }
-        colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
         ruleElement.setColor(color);
+        if (ruleElement === this.pendingRule) {
+            if (!commit) {
+                return;
+            }
+            this.pendingRule = null;
+            colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color).then(this.updateAddButton);
+        } else {
+            colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
+        }
         if (commit) {
             this.closePicker();
         }
@@ -6766,19 +7045,39 @@ class ColorProfileComponent extends HTMLElement {
             this.closePicker();
             break;
 
+          case "phonemePickerSelect":
+            this.addRule(event.detail.rule);
+            break;
+
+          case "phonemePickerBack":
+            this.closePhonemePicker();
+            break;
+
           case "keydown":
-            if (event.key === "Escape" && !this.picker?.classList.contains("d-none")) {
+            if (event.key !== "Escape") {
+                return;
+            }
+            if (this.picker && !this.picker.classList.contains("d-none")) {
                 event.stopPropagation();
                 this.closePicker();
+            } else if (this.phonemePicker && !this.phonemePicker.classList.contains("d-none")) {
+                event.stopPropagation();
+                this.closePhonemePicker();
             }
             break;
 
           case "click":
-            if (!this.picker || this.picker.classList.contains("d-none")) {
+            if (event.currentTarget === this.addBtn) {
+                if (this.phonemePicker?.classList.contains("d-none")) {
+                    this.openPhonemePicker();
+                } else {
+                    this.closePhonemePicker();
+                }
                 return;
             }
             if (!event.composedPath().includes(this)) {
                 this.closePicker(false);
+                this.closePhonemePicker(false);
             }
             break;
         }

@@ -1143,6 +1143,29 @@
 			}
 		}
 	},
+	"colorProfile_addPhoneme": {
+		"message": "Dodaj fonem"
+	},
+	"phonemePicker_title": {
+		"message": "Dodaj fonem"
+	},
+	"phonemePicker_back": {
+		"message": "Zamknij listę fonemów"
+	},
+	"phonemePicker_alreadyColored": {
+		"message": "już pokolorowany"
+	},
+	"phonemePicker_option": {
+		"message": "Fonem $PHONETICS$, przykład: $EXAMPLE$",
+		"placeholders": {
+			"phonetics": {
+				"content": "$1"
+			},
+			"example": {
+				"content": "$2"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Zakres"
 	},

@@ -1128,6 +1128,29 @@
 			}
 		}
 	},
+	"colorProfile_addPhoneme": {
+		"message": "Aggiungi un fonema"
+	},
+	"phonemePicker_title": {
+		"message": "Aggiungi un fonema"
+	},
+	"phonemePicker_back": {
+		"message": "Chiudi l'elenco dei fonemi"
+	},
+	"phonemePicker_alreadyColored": {
+		"message": "già colorato"
+	},
+	"phonemePicker_option": {
+		"message": "Fonema $PHONETICS$, esempio: $EXAMPLE$",
+		"placeholders": {
+			"phonetics": {
+				"content": "$1"
+			},
+			"example": {
+				"content": "$2"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Portata"
 	},

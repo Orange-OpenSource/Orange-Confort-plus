@@ -1140,6 +1140,29 @@
 			}
 		}
 	},
+	"colorProfile_addPhoneme": {
+		"message": "Ajouter un phonème"
+	},
+	"phonemePicker_title": {
+		"message": "Ajouter un phonème"
+	},
+	"phonemePicker_back": {
+		"message": "Fermer la liste des phonèmes"
+	},
+	"phonemePicker_alreadyColored": {
+		"message": "déjà coloré"
+	},
+	"phonemePicker_option": {
+		"message": "Phonème $PHONETICS$, exemple : $EXAMPLE$",
+		"placeholders": {
+			"phonetics": {
+				"content": "$1"
+			},
+			"example": {
+				"content": "$2"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Portée"
 	},

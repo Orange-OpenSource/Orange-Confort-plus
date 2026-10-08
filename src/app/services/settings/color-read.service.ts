@@ -206,25 +206,69 @@ class ColorReadService {
 			: LIGHT_BG_COLOR_PALETTE.colors;
 	};
 
-	/** Profil de base du mode demandé, surchargé par les couleurs personnalisées. */
+	/**
+	 * Profil de base du mode demandé, surchargé par les couleurs personnalisées.
+	 * Une couleur personnalisée dont la clé ne correspond à aucune règle du profil de base,
+	 * mais à une entrée de `PHONEMES`, désigne un phonème ajouté par l'utilisateur :
+	 * la règle correspondante est ajoutée en fin de profil, dans l'ordre d'ajout.
+	 */
 	getColorProfile = (profileKey: ColorProfileKey): Record<string, unknown> => {
 		const profile = structuredClone(
 			profileKey === ColorMode.COLOR_DARK_BG
 				? DARK_BG_COLOR_PROFILE
 				: LIGHT_BG_COLOR_PROFILE,
-		);
+		) as { process?: { function?: string; format?: ProcessFormatRule[] }[] };
 		const overrides = this.colorOverrides[this.currentModeName]?.[profileKey];
 		if (overrides) {
+			const baseKeys = new Set<string>();
 			for (const step of profile.process ?? []) {
 				for (const rule of step.format ?? []) {
-					const color = overrides[this.getRuleKey(rule)];
+					const ruleKey = this.getRuleKey(rule);
+					baseKeys.add(ruleKey);
+					const color = overrides[ruleKey];
 					if (color) {
 						rule.color = color;
 					}
 				}
 			}
+
+			const phonemesStep = profile.process?.find(
+				(step) => step.function === 'phonemes',
+			);
+			if (phonemesStep) {
+				phonemesStep.format = phonemesStep.format ?? [];
+				for (const [ruleKey, color] of Object.entries(overrides)) {
+					if (!color || baseKeys.has(ruleKey)) {
+						continue;
+					}
+					const phoneme = PHONEMES.find(
+						(rule: ProcessFormatRule) => this.getRuleKey(rule) === ruleKey,
+					);
+					if (phoneme) {
+						phonemesStep.format.push({ ...structuredClone(phoneme), color });
+					}
+				}
+			}
 		}
 		return profile as unknown as Record<string, unknown>;
+	};
+
+	/** Liste complète des phonèmes, avec l'indication de ceux déjà colorés dans le profil. */
+	getAvailablePhonemes = (
+		profileKey: ColorProfileKey,
+	): { rule: ProcessFormatRule; used: boolean }[] => {
+		const profile = this.getColorProfile(profileKey) as {
+			process?: { format?: ProcessFormatRule[] }[];
+		};
+		const usedKeys = new Set<string>(
+			(profile.process ?? []).flatMap((step) =>
+				(step.format ?? []).map((rule) => this.getRuleKey(rule)),
+			),
+		);
+		return PHONEMES.map((rule: ProcessFormatRule) => ({
+			rule: structuredClone(rule),
+			used: usedKeys.has(this.getRuleKey(rule)),
+		}));
 	};
 
 	/**

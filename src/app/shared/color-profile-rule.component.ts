@@ -88,6 +88,7 @@ class ColorProfileRuleComponent extends HTMLElement {
 
 		(this.querySelector(`#${PREFIX}color-read-profile-rule-color`) as HTMLElement).style.backgroundColor =
 			this.rule.color;
+		this.swatchBtn?.classList.toggle(`${PREFIX}color-read-profile-rule-swatch-empty`, !this.rule.color);
 		this.swatchBtn?.setAttribute(
 			'aria-label',
 			i18nServiceInstance.getMessage('colorProfileRule_editColor', [this.rule.phonetics])

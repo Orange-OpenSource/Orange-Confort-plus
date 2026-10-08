@@ -1146,6 +1146,29 @@
 			}
 		}
 	},
+	"colorProfile_addPhoneme": {
+		"message": "Añadir un fonema"
+	},
+	"phonemePicker_title": {
+		"message": "Añadir un fonema"
+	},
+	"phonemePicker_back": {
+		"message": "Cerrar la lista de fonemas"
+	},
+	"phonemePicker_alreadyColored": {
+		"message": "ya coloreado"
+	},
+	"phonemePicker_option": {
+		"message": "Fonema $PHONETICS$, ejemplo: $EXAMPLE$",
+		"placeholders": {
+			"phonetics": {
+				"content": "$1"
+			},
+			"example": {
+				"content": "$2"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Alcance"
 	},

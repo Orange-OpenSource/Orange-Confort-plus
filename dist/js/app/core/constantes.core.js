@@ -228,3 +228,38 @@ const LIGHT_BG_COLOR_PALETTE = {
         "#333333"
     ]
 };
+const PHONEMES = [
+    { "phonemes": ["#", "verb_3p", "#_amb"], "phonetics": "", "example": ["lettre muette"] },
+    { "phonemes": ["a"], "phonetics": "a", "example": ["patte", "pâte"] },
+    { "phonemes": ["q", "q_caduc", "x", "x^"], "phonetics": "ø, ə, œ", "example": ["je, une, oeil"] },
+    { "phonemes": ["i"], "phonetics": "i", "example": ["si"] },
+    { "phonemes": ["j"], "phonetics": "j", "example": ["fille"] },
+    { "phonemes": ["o", "o_comp", "o_ouvert"], "phonetics": "o", "example": ["rose", "taureau"] },
+    { "phonemes": ["u"], "phonetics": "u", "example": ["doux"] },
+    { "phonemes": ["y"], "phonetics": "y", "example": ["tu"] },
+    { "phonemes": ["e", "e_comp"], "phonetics": "e", "example": ["blé", "et"] },
+    { "phonemes": ["e^", "e^_comp"], "phonetics": "ɛ", "example": ["è, ai"] },
+    { "phonemes": ["a~"], "phonetics": "a\u0303", "example": ["enfant"] },
+    { "phonemes": ["e~"], "phonetics": "ɛ̃", "example": ["vin", "main"] },
+    { "phonemes": ["x~"], "phonetics": "œ̃", "example": ["un"] },
+    { "phonemes": ["o~"], "phonetics": "ɔ̃", "example": ["bon"] },
+    { "phonemes": ["k", "k_qu"], "phonetics": "k", "example": ["coq", "quai"] },
+    { "phonemes": ["s^"], "phonetics": "ʃ", "example": ["ch", "sh"] },
+    { "phonemes": ["f", "f_ph"], "phonetics": "f", "example": ["feu", "phi"] },
+    { "phonemes": ["g", "g_u"], "phonetics": "g", "example": ["gars", "gui"] },
+    { "phonemes": ["z^", "z^_g"], "phonetics": "ʒ", "example": ["j'ai, geai"] },
+    { "phonemes": ["wa"], "phonetics": "wa", "example": ["oie"] },
+    { "phonemes": ["s", "s_c", "s_t"], "phonetics": "s", "example": ["ss", "ç"] },
+    { "phonemes": ["z", "z_s"], "phonetics": "z", "example": ["zone"] },
+    { "phonemes": ["p"], "phonetics": "p", "example": ["pont"] },
+    { "phonemes": ["b"], "phonetics": "b", "example": ["bon"] },
+    { "phonemes": ["t"], "phonetics": "t", "example": ["temps"] },
+    { "phonemes": ["d"], "phonetics": "d", "example": ["dans"] },
+    { "phonemes": ["v"], "phonetics": "v", "example": ["vent"] },
+    { "phonemes": ["m"], "phonetics": "m", "example": ["mont"] },
+    { "phonemes": ["n"], "phonetics": "n", "example": ["nom"] },
+    { "phonemes": ["n~"], "phonetics": "ɲ", "example": ["agneau"] },
+    { "phonemes": ["g~"], "phonetics": "ŋ", "example": ["camping"] },
+    { "phonemes": ["l"], "phonetics": "l", "example": ["long"] },
+    { "phonemes": ["r"], "phonetics": "ʁ", "example": ["rond"] }
+];

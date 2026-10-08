@@ -1143,6 +1143,29 @@
 			}
 		}
 	},
+	"colorProfile_addPhoneme": {
+		"message": "Add a phoneme"
+	},
+	"phonemePicker_title": {
+		"message": "Add a phoneme"
+	},
+	"phonemePicker_back": {
+		"message": "Close the phoneme list"
+	},
+	"phonemePicker_alreadyColored": {
+		"message": "already colored"
+	},
+	"phonemePicker_option": {
+		"message": "Phoneme $PHONETICS$, example: $EXAMPLE$",
+		"placeholders": {
+			"phonetics": {
+				"content": "$1"
+			},
+			"example": {
+				"content": "$2"
+			}
+		}
+	},
 	"colorReadScope_label": {
 		"message": "Scope"
 	},
