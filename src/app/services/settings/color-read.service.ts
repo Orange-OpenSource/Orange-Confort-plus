@@ -7,13 +7,18 @@ const COLOR_READ_BLOCK_SELECTOR =
 const COLOR_READ_SECTION_ATTR = 'data-cplus-cr-section';
 const COLOR_READ_ORIGINAL_ATTR = 'data-cplus-cr-original';
 const COLOR_READ_ARMED_ATTR = 'data-cplus-cr-armed';
+/** Section colorée faisant partie d'un élément coloré par nœuds texte. */
+const COLOR_READ_PART_ATTR = 'data-cplus-cr-part';
+/** Lien/bouton coloré par nœuds texte : seul à porter le contour de survol, à la place de ses sections. */
+const COLOR_READ_SPLIT_ATTR = 'data-cplus-cr-split';
 const COLOR_READ_STYLE_ARMED = 'color-read-armed';
 
 const COLOR_READ_ARMED_CSS = `
 html[${COLOR_READ_ARMED_ATTR}] :is(${COLOR_READ_BLOCK_SELECTOR}) {
 	cursor: pointer;
 }
-html[${COLOR_READ_ARMED_ATTR}] [${COLOR_READ_SECTION_ATTR}]:hover {
+html[${COLOR_READ_ARMED_ATTR}] [${COLOR_READ_SECTION_ATTR}]:not([${COLOR_READ_PART_ATTR}]):hover,
+html[${COLOR_READ_ARMED_ATTR}] [${COLOR_READ_SPLIT_ATTR}]:hover {
 	outline: 2px dashed currentColor;
 	outline-offset: 2px;
 }
@@ -41,6 +46,14 @@ type ColorProfileKey =
 	| typeof ColorMode.COLOR_DARK_BG
 	| typeof ColorMode.COLOR_LIGHT_BG;
 
+/**
+ * Phonème colorable ; `defaultColors` indique, par profil, sa couleur par défaut.
+ * Une couleur vide le liste d'office parmi les autres phonèmes, sans le colorer.
+ */
+interface PhonemeDefinition extends ProcessFormatRule {
+	defaultColors?: Partial<Record<ColorProfileKey, string>>;
+}
+
 /** Couleur choisie pour une règle, indexée par sa clé (`phonemes` joints). */
 type ColorRuleOverrides = Record<string, string>;
 type ColorProfileOverrides = Partial<Record<ColorProfileKey, ColorRuleOverrides>>;
@@ -65,7 +78,13 @@ const COLOR_READ_ACTIONS: Record<string, ColorModeValue> = {
 const SCOPES = new Set<string>(Object.values(ClickScope));
 
 const COLOR_READ_IGNORE_INTERACTIVE_SELECTOR =
-	'input, textarea, select, button, option, [contenteditable="true"]';
+	'input, textarea, select, option, [contenteditable="true"]';
+
+/**
+ * Éléments actionnables colorés en entier quelle que soit la portée :
+ * le premier clic colore leur texte, le second déclenche leur comportement.
+ */
+const COLOR_READ_ACTIONABLE_SELECTOR = 'a, button';
 
 class ColorReadService {
 	private mode: ColorModeValue = ColorMode.OFF;
@@ -79,6 +98,7 @@ class ColorReadService {
 	>();
 	private activeBlocks = new Set<HTMLElement>();
 	private activeSections = new Set<HTMLElement>();
+	private splitElements = new Set<HTMLElement>();
 
 	private colorOverrides: ColorModeOverrides = {};
 	private colorOverridesLoaded = false;
@@ -206,81 +226,125 @@ class ColorReadService {
 			: LIGHT_BG_COLOR_PALETTE.colors;
 	};
 
+	/** Règle de coloration issue d'un phonème, sans ses couleurs par défaut. */
+	private toRule = (phoneme: PhonemeDefinition, color: string): ProcessFormatRule => {
+		const { defaultColors, ...rule } = structuredClone(phoneme);
+		return { ...rule, color } as ProcessFormatRule;
+	};
+
+	private getProfileOverrides = (profileKey: ColorProfileKey): ColorRuleOverrides => {
+		return this.colorOverrides[this.currentModeName]?.[profileKey] ?? {};
+	};
+
+	/** Indique si la règle fait partie des phonèmes colorés par défaut du profil. */
+	isDefaultRule = (profileKey: ColorProfileKey, ruleKey: string): boolean => {
+		return PHONEMES.some(
+			(phoneme: PhonemeDefinition) =>
+				!!phoneme.defaultColors?.[profileKey] && this.getRuleKey(phoneme) === ruleKey,
+		);
+	};
+
+	/** Phonèmes colorés par défaut du profil, avec les couleurs personnalisées éventuelles. */
+	getDefaultRules = (profileKey: ColorProfileKey): ProcessFormatRule[] => {
+		const overrides = this.getProfileOverrides(profileKey);
+		return PHONEMES
+			.filter((phoneme: PhonemeDefinition) => !!phoneme.defaultColors?.[profileKey])
+			.map((phoneme: PhonemeDefinition) => {
+				const color = overrides[this.getRuleKey(phoneme)];
+				return this.toRule(
+					phoneme,
+					typeof color === 'string' ? color : phoneme.defaultColors[profileKey],
+				);
+			});
+	};
+
+	/** Indique si le phonème est listé d'office dans le profil (coloré ou non par défaut). */
+	private hasDefaultEntry = (phoneme: PhonemeDefinition, profileKey: ColorProfileKey): boolean => {
+		return typeof phoneme.defaultColors?.[profileKey] === 'string';
+	};
+
+	private isListedRule = (profileKey: ColorProfileKey, ruleKey: string): boolean => {
+		return PHONEMES.some(
+			(phoneme: PhonemeDefinition) =>
+				this.hasDefaultEntry(phoneme, profileKey) && this.getRuleKey(phoneme) === ruleKey,
+		);
+	};
+
+	/** Phonèmes listés d'office sans couleur par défaut, avec les couleurs personnalisées éventuelles. */
+	getOtherDefaultRules = (profileKey: ColorProfileKey): ProcessFormatRule[] => {
+		const overrides = this.getProfileOverrides(profileKey);
+		return PHONEMES
+			.filter((phoneme: PhonemeDefinition) =>
+				this.hasDefaultEntry(phoneme, profileKey) && !phoneme.defaultColors[profileKey],
+			)
+			.map((phoneme: PhonemeDefinition) => {
+				const color = overrides[this.getRuleKey(phoneme)];
+				return this.toRule(phoneme, typeof color === 'string' ? color : '');
+			});
+	};
+
 	/**
-	 * Profil de base du mode demandé, surchargé par les couleurs personnalisées.
-	 * Une couleur personnalisée dont la clé ne correspond à aucune règle du profil de base,
-	 * mais à une entrée de `PHONEMES`, désigne un phonème ajouté par l'utilisateur :
-	 * la règle correspondante est ajoutée en fin de profil, dans l'ordre d'ajout.
+	 * Phonèmes ajoutés par l'utilisateur : couleurs personnalisées ne correspondant
+	 * à aucun phonème listé d'office dans le profil, dans l'ordre d'ajout.
 	 */
+	getAddedRules = (profileKey: ColorProfileKey): ProcessFormatRule[] => {
+		const rules: ProcessFormatRule[] = [];
+		for (const [ruleKey, color] of Object.entries(this.getProfileOverrides(profileKey))) {
+			if (typeof color !== 'string' || this.isListedRule(profileKey, ruleKey)) {
+				continue;
+			}
+			const phoneme = PHONEMES.find(
+				(item: PhonemeDefinition) => this.getRuleKey(item) === ruleKey,
+			);
+			if (phoneme) {
+				rules.push(this.toRule(phoneme, color));
+			}
+		}
+		return rules;
+	};
+
+	/** Profil du mode demandé : phonèmes colorés par défaut, autres phonèmes listés, puis phonèmes ajoutés. */
 	getColorProfile = (profileKey: ColorProfileKey): Record<string, unknown> => {
 		const profile = structuredClone(
 			profileKey === ColorMode.COLOR_DARK_BG
 				? DARK_BG_COLOR_PROFILE
 				: LIGHT_BG_COLOR_PROFILE,
 		) as { process?: { function?: string; format?: ProcessFormatRule[] }[] };
-		const overrides = this.colorOverrides[this.currentModeName]?.[profileKey];
-		if (overrides) {
-			const baseKeys = new Set<string>();
-			for (const step of profile.process ?? []) {
-				for (const rule of step.format ?? []) {
-					const ruleKey = this.getRuleKey(rule);
-					baseKeys.add(ruleKey);
-					const color = overrides[ruleKey];
-					if (color) {
-						rule.color = color;
-					}
-				}
-			}
-
-			const phonemesStep = profile.process?.find(
-				(step) => step.function === 'phonemes',
-			);
-			if (phonemesStep) {
-				phonemesStep.format = phonemesStep.format ?? [];
-				for (const [ruleKey, color] of Object.entries(overrides)) {
-					if (!color || baseKeys.has(ruleKey)) {
-						continue;
-					}
-					const phoneme = PHONEMES.find(
-						(rule: ProcessFormatRule) => this.getRuleKey(rule) === ruleKey,
-					);
-					if (phoneme) {
-						phonemesStep.format.push({ ...structuredClone(phoneme), color });
-					}
-				}
-			}
+		const phonemesStep = profile.process?.find(
+			(step) => step.function === 'phonemes',
+		);
+		if (phonemesStep) {
+			phonemesStep.format = [
+				...this.getDefaultRules(profileKey),
+				...this.getOtherDefaultRules(profileKey),
+				...this.getAddedRules(profileKey),
+			];
 		}
 		return profile as unknown as Record<string, unknown>;
 	};
 
-	/** Liste complète des phonèmes, avec l'indication de ceux déjà colorés dans le profil. */
-	getAvailablePhonemes = (
-		profileKey: ColorProfileKey,
-	): { rule: ProcessFormatRule; used: boolean }[] => {
-		const profile = this.getColorProfile(profileKey) as {
-			process?: { format?: ProcessFormatRule[] }[];
-		};
-		const usedKeys = new Set<string>(
-			(profile.process ?? []).flatMap((step) =>
-				(step.format ?? []).map((rule) => this.getRuleKey(rule)),
-			),
+	/** Phonèmes pouvant encore être ajoutés : ni listés d'office, ni déjà ajoutés. */
+	getAvailablePhonemes = (profileKey: ColorProfileKey): ProcessFormatRule[] => {
+		const addedKeys = new Set<string>(
+			this.getAddedRules(profileKey).map((rule) => this.getRuleKey(rule)),
 		);
-		return PHONEMES.map((rule: ProcessFormatRule) => ({
-			rule: structuredClone(rule),
-			used: usedKeys.has(this.getRuleKey(rule)),
-		}));
+		return PHONEMES
+			.filter((phoneme: PhonemeDefinition) => {
+				return !this.hasDefaultEntry(phoneme, profileKey) && !addedKeys.has(this.getRuleKey(phoneme));
+			})
+			.map((phoneme: PhonemeDefinition) => this.toRule(phoneme, ''));
 	};
 
 	/**
 	 * Associe une couleur à une règle pour le mode d'usage courant, puis recolore
-	 * immédiatement le texte déjà altéré dans la page.
+	 * immédiatement le texte déjà altéré dans la page. Une couleur vide retire la coloration de la règle.
 	 */
 	setRuleColor = (
 		profileKey: ColorProfileKey,
 		ruleKey: string,
 		color: string,
 	): Promise<void> => {
-		if (!ruleKey || !color) {
+		if (!ruleKey) {
 			return Promise.resolve();
 		}
 
@@ -442,6 +506,12 @@ class ColorReadService {
 			return;
 		}
 
+		const actionable = rawTarget.closest(COLOR_READ_ACTIONABLE_SELECTOR);
+		if (actionable instanceof HTMLElement) {
+			this.onActionableClick(ev, actionable);
+			return;
+		}
+
 		if (this.dismissActiveAlteration(ev, 'full')) {
 			return;
 		}
@@ -487,6 +557,85 @@ class ColorReadService {
 			ev.stopPropagation();
 			this.transformRange(range);
 		}
+	}
+
+	/**
+	 * Clic en deux temps sur un lien ou un bouton : déjà coloré, le clic suit son cours
+	 * (comportement natif) ; sinon il est consommé pour colorer tout son texte.
+	 */
+	private onActionableClick(ev: MouseEvent, el: HTMLElement): void {
+		if (this.isActionableColored(el)) {
+			return;
+		}
+
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		this.restoreAll();
+		if (!el.isConnected || !this.lcAvailable()) {
+			return;
+		}
+		if (this.scope === ClickScope.ALL) {
+			this.transformAllBlocks();
+			if (this.isActionableColored(el)) {
+				return;
+			}
+		}
+		this.transformTextNodes(el);
+	}
+
+	private isActionableColored(el: HTMLElement): boolean {
+		for (const block of Array.from(this.activeBlocks)) {
+			if (block.contains(el)) {
+				return true;
+			}
+		}
+		for (const span of Array.from(this.activeSections)) {
+			if (el.contains(span) || span.contains(el)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Colore chaque nœud texte de l'élément sans altérer sa structure : les liens,
+	 * boutons, icônes et écouteurs qu'il contient sont conservés et restent actionnables.
+	 */
+	private transformTextNodes(el: HTMLElement, user?: UserProfile): void {
+		const textNodes: Text[] = [];
+		const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+		let n: Text | null = walker.nextNode() as Text | null;
+		while (n) {
+			if (
+				n.data.trim() &&
+				!n.parentElement?.closest(`svg, script, style, [${COLOR_READ_SECTION_ATTR}]`)
+			) {
+				textNodes.push(n);
+			}
+			n = walker.nextNode() as Text | null;
+		}
+		const profileUser = user ?? this.resolveProfile().asUserProfile();
+		for (const textNode of textNodes) {
+			const range = document.createRange();
+			range.selectNode(textNode);
+			this.transformRange(range, profileUser, true);
+		}
+		const actionables = Array.from(
+			el.querySelectorAll<HTMLElement>(COLOR_READ_ACTIONABLE_SELECTOR),
+		);
+		if (el.matches(COLOR_READ_ACTIONABLE_SELECTOR)) {
+			actionables.push(el);
+		}
+		for (const actionable of actionables) {
+			actionable.setAttribute(COLOR_READ_SPLIT_ATTR, '');
+			this.splitElements.add(actionable);
+		}
+	}
+
+	/** Un bloc contenant un lien ou un bouton est coloré sans perdre ses éléments actionnables. */
+	private containsActionable(el: HTMLElement): boolean {
+		return el.querySelector(COLOR_READ_ACTIONABLE_SELECTOR) !== null;
 	}
 
 	private getCaretRangeFromPoint(x: number, y: number): Range | null {
@@ -636,19 +785,21 @@ class ColorReadService {
 		}
 	}
 
-	private transformRange(range: Range): void {
+	private transformRange(range: Range, profileUser?: UserProfile, isPart = false): void {
 		if (!this.lcAvailable()) {
 			return;
 		}
 		const text = range.toString();
 		const span = document.createElement('span');
 		span.setAttribute(COLOR_READ_SECTION_ATTR, this.scope);
+		if (isPart) {
+			span.setAttribute(COLOR_READ_PART_ATTR, '');
+		}
 		span.setAttribute(COLOR_READ_ORIGINAL_ATTR, text);
 		if (!this.wrapRange(range, span)) {
 			return;
 		}
-		const profile = this.resolveProfile();
-		const user = profile.asUserProfile();
+		const user = profileUser ?? this.resolveProfile().asUserProfile();
 		span.innerHTML = user.toHTML(text, span);
 		const sty = user.style || '';
 		if (sty) {
@@ -664,6 +815,10 @@ class ColorReadService {
 			return;
 		}
 		this.restoreDescendantSections(el);
+		if (this.containsActionable(el)) {
+			this.transformTextNodes(el);
+			return;
+		}
 		if (!this.blockSnapshots.has(el)) {
 			this.blockSnapshots.set(el, {
 				innerHTML: el.innerHTML,
@@ -699,6 +854,10 @@ class ColorReadService {
 				continue;
 			}
 			this.restoreDescendantSections(node);
+			if (this.containsActionable(node)) {
+				this.transformTextNodes(node, user);
+				continue;
+			}
 			if (!this.blockSnapshots.has(node)) {
 				this.blockSnapshots.set(node, {
 					innerHTML: node.innerHTML,
@@ -748,14 +907,29 @@ class ColorReadService {
 		for (const block of Array.from(this.activeBlocks)) {
 			this.restoreElement(block);
 		}
+		for (const el of Array.from(this.splitElements)) {
+			el.removeAttribute(COLOR_READ_SPLIT_ATTR);
+		}
+		this.splitElements.clear();
 	}
 
 	private buildDarkBgProfile(): JsonProfile {
-		return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_DARK_BG));
+		return JsonProfile.from(this.withoutUncoloredRules(this.getColorProfile(ColorMode.COLOR_DARK_BG)));
 	}
 
 	private buildLightBgProfile(): JsonProfile {
-		return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_LIGHT_BG));
+		return JsonProfile.from(this.withoutUncoloredRules(this.getColorProfile(ColorMode.COLOR_LIGHT_BG)));
+	}
+
+	/** Les règles dont l'utilisateur a retiré la couleur ne doivent pas colorer le texte. */
+	private withoutUncoloredRules(profile: Record<string, unknown>): Record<string, unknown> {
+		const steps = (profile as { process?: { format?: ProcessFormatRule[] }[] }).process ?? [];
+		for (const step of steps) {
+			if (Array.isArray(step.format)) {
+				step.format = step.format.filter((rule) => !!rule.color);
+			}
+		}
+		return profile;
 	}
 
 	private resolveProfile(): JsonProfile {

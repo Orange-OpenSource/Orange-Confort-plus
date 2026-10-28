@@ -6,7 +6,7 @@
 .cplus-phoneme-picker-option {
 	cursor: pointer;
 
-	&:hover:not(:disabled),
+	&:hover,
 	&:focus-visible {
 		background-color: rgb(128 128 128 / 20%) !important;
 	}
@@ -15,29 +15,23 @@
 		outline: .125rem solid var(--cplus-focus-ring-color, currentColor);
 		outline-offset: -.125rem;
 	}
-
-	// Phonème déjà coloré dans le profil : visible mais non sélectionnable.
-	&:disabled {
-		cursor: not-allowed;
-		opacity: .45;
-	}
-}
-
-.cplus-color-profile-add {
-	border-style: dashed !important;
-	cursor: pointer;
-
-	&:hover:not(:disabled) {
-		filter: brightness(.95);
-	}
-
-	&:disabled {
-		cursor: not-allowed;
-		opacity: .45;
-	}
 }
 
 .cplus-color-read-profile-rule-swatch.cplus-color-read-profile-rule-swatch-empty {
-	// Pastille d'une règle ajoutée dont la couleur n'est pas encore choisie.
-	border: .125rem dashed currentColor !important;
+	// Pastille d'une règle sans couleur : toujours blanche, hachurée de gris.
+	background: repeating-linear-gradient(-45deg, transparent 0 .375em, var(--cplus-gray-600) .375em .5em) var(--cplus-white);
+	border: .125rem dashed var(--cplus-gray-600) !important;
+}
+
+.cplus-color-read-profile-rule-card {
+	// Bouton Boosted `btn-outline-secondary` (`btn-inverse` sur fond sombre) à fond plein au repos.
+	// Le survol, l'état actif et le focus restent ceux de Boosted ; le texte d'une règle colorée
+	// garde sa couleur (style en ligne), celui d'une règle sans couleur suit la couleur du bouton.
+	--cplus-btn-bg: var(--cplus-white);
+	color: var(--cplus-btn-color);
+	background-color: var(--cplus-btn-bg);
+
+	&.btn-inverse {
+		--cplus-btn-bg: var(--cplus-black);
+	}
 }

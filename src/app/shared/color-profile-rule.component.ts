@@ -1,20 +1,23 @@
 const colorProfileRuleLayout = document.createElement('template');
 colorProfileRuleLayout.innerHTML = `
-<div id="${PREFIX}color-read-profile-rule-card" class="card border-black flex-row align-items-center justify-content-between w-100 ps-2">
-  <div class="d-flex flex-column w-75 fs-7">
-  	<span id="${PREFIX}color-read-profile-rule-phonetics"></span>
+<button
+	type="button"
+	id="${PREFIX}color-read-profile-rule-card"
+	class="${PREFIX}color-read-profile-rule-card btn btn-outline-secondary card border-black flex-row align-items-center justify-content-between w-100 text-start py-0 pe-0 ps-2"
+	aria-haspopup="dialog"
+	aria-expanded="false"
+>
+	<span class="d-flex flex-column w-75 fs-7">
+		<span id="${PREFIX}color-read-profile-rule-phonetics"></span>
 		<span id="${PREFIX}color-read-profile-rule-example"></span>
-  </div>
-  <button
-  	type="button"
-  	id="${PREFIX}color-read-profile-rule-color"
-  	class="${PREFIX}color-read-profile-rule-swatch border-0 p-0 flex-shrink-0"
-  	aria-haspopup="dialog"
-  	aria-expanded="false"
-  	style="width: 3.5em; aspect-ratio: 1"
-	></button>
-</div>
-
+	</span>
+	<span
+		id="${PREFIX}color-read-profile-rule-color"
+		class="${PREFIX}color-read-profile-rule-swatch d-block flex-shrink-0"
+		aria-hidden="true"
+		style="width: 3.5em; aspect-ratio: 1"
+	></span>
+</button>
 `;
 
 class ColorProfileRuleComponent extends HTMLElement {
@@ -23,24 +26,26 @@ class ColorProfileRuleComponent extends HTMLElement {
 	rule: ProcessFormatRule;
 	handler: any;
 
-	private swatchBtn: HTMLButtonElement | null = null;
+	private cardBtn: HTMLButtonElement | null = null;
+	private swatch: HTMLElement | null = null;
 
 	constructor() {
 		super();
 
 		this.appendChild(colorProfileRuleLayout.content.cloneNode(true));
 
-		this.swatchBtn = this.querySelector(`#${PREFIX}color-read-profile-rule-color`);
+		this.cardBtn = this.querySelector(`#${PREFIX}color-read-profile-rule-card`);
+		this.swatch = this.querySelector(`#${PREFIX}color-read-profile-rule-color`);
 
 		this.handler = this.createHandler();
 	}
 
 	connectedCallback(): void {
-		this.swatchBtn?.addEventListener('click', this.handler);
+		this.cardBtn?.addEventListener('click', this.handler);
 	}
 
 	disconnectedCallback(): void {
-		this.swatchBtn?.removeEventListener('click', this.handler);
+		this.cardBtn?.removeEventListener('click', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string
@@ -51,31 +56,27 @@ class ColorProfileRuleComponent extends HTMLElement {
 		this.renderRule();
 	}
 
-	/** Applique une nouvelle couleur à la règle affichée, sans recréer l'élément. */
+	/** Applique une nouvelle couleur à la règle affichée, sans recréer l'élément ; vide = règle sans couleur. */
 	setColor = (color: string): void => {
-		if (!this.rule || !color) {
+		if (!this.rule) {
 			return;
 		}
-		this.rule.color = color;
+		this.rule.color = color || '';
 		this.setAttribute('data-rule', JSON.stringify(this.rule));
 	};
 
-	/** Reflète l'état d'ouverture du sélecteur de couleur associé à cette pastille. */
+	/** Reflète l'état d'ouverture du sélecteur de couleur associé à cette tuile. */
 	setPickerExpanded = (expanded: boolean): void => {
-		this.swatchBtn?.setAttribute('aria-expanded', String(expanded));
+		this.cardBtn?.setAttribute('aria-expanded', String(expanded));
 	};
 
-	focusSwatch = (): void => {
-		this.swatchBtn?.focus();
+	focusCard = (): void => {
+		this.cardBtn?.focus();
 	};
 
 	private renderRule(): void {
-		const bgColor = this.dataset.background || 'white';
-		const card = this.querySelector(`#${PREFIX}color-read-profile-rule-card`);
-		if (card) {
-			card.classList.remove('bg-white', 'bg-black');
-			card.classList.add(`bg-${bgColor}`);
-		}
+		/* Fond sombre : variante inversée du bouton Boosted */
+		this.cardBtn?.classList.toggle('btn-inverse', this.dataset.background === 'black');
 
 		this.querySelector(`#${PREFIX}color-read-profile-rule-phonetics`).textContent = this.rule.phonetics;
 		this.querySelector(`#${PREFIX}color-read-profile-rule-example`).textContent =
@@ -86,10 +87,11 @@ class ColorProfileRuleComponent extends HTMLElement {
 		phoneticEl.style.color = this.rule.color;
 		exampleEl.style.color = this.rule.color;
 
-		(this.querySelector(`#${PREFIX}color-read-profile-rule-color`) as HTMLElement).style.backgroundColor =
-			this.rule.color;
-		this.swatchBtn?.classList.toggle(`${PREFIX}color-read-profile-rule-swatch-empty`, !this.rule.color);
-		this.swatchBtn?.setAttribute(
+		if (this.swatch) {
+			this.swatch.style.backgroundColor = this.rule.color;
+			this.swatch.classList.toggle(`${PREFIX}color-read-profile-rule-swatch-empty`, !this.rule.color);
+		}
+		this.cardBtn?.setAttribute(
 			'aria-label',
 			i18nServiceInstance.getMessage('colorProfileRule_editColor', [this.rule.phonetics])
 		);

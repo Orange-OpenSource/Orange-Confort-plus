@@ -1120,6 +1120,14 @@
 			}
 		}
 	},
+	"colorPicker_swatchUsed": {
+		"message": "Colore $COLOR$ (già utilizzato)",
+		"placeholders": {
+			"color": {
+				"content": "$1"
+			}
+		}
+	},
 	"colorProfileRule_editColor": {
 		"message": "Modifica il colore del fonema $PHONEME$",
 		"placeholders": {
@@ -1127,6 +1135,18 @@
 				"content": "$1"
 			}
 		}
+	},
+	"colorProfile_defaultTitle": {
+		"message": "Fonemi predefiniti"
+	},
+	"colorProfile_defaultSubtitle": {
+		"message": "Queste lettere saranno colorate. Puoi modificare il colore."
+	},
+	"colorProfile_otherTitle": {
+		"message": "Altri fonemi"
+	},
+	"colorProfile_otherSubtitle": {
+		"message": "Per colorarne altri, scegli un colore."
 	},
 	"colorProfile_addPhoneme": {
 		"message": "Aggiungi un fonema"
@@ -1136,9 +1156,6 @@
 	},
 	"phonemePicker_back": {
 		"message": "Chiudi l'elenco dei fonemi"
-	},
-	"phonemePicker_alreadyColored": {
-		"message": "già colorato"
 	},
 	"phonemePicker_option": {
 		"message": "Fonema $PHONETICS$, esempio: $EXAMPLE$",
