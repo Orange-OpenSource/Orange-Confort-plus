@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 25/09/2026
+ * orange-confort-plus - version 5.4.0 - 15/10/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2799,50 +2799,49 @@ class ColorReadService {
         return rule?.phonetics ?? "";
     };
     getColorPalette=profileKey => profileKey === ColorMode.COLOR_DARK_BG ? DARK_BG_COLOR_PALETTE.colors : LIGHT_BG_COLOR_PALETTE.colors;
+    toRule=(phoneme, color) => {
+        const {defaultColors: defaultColors, ...rule} = structuredClone(phoneme);
+        return {
+            ...rule,
+            color: color
+        };
+    };
+    getProfileOverrides=profileKey => this.colorOverrides[this.currentModeName]?.[profileKey] ?? {};
+    isDefaultRule=(profileKey, ruleKey) => PHONEMES.some((phoneme => !!phoneme.defaultColors?.[profileKey] && this.getRuleKey(phoneme) === ruleKey));
+    getDefaultRules=profileKey => {
+        const overrides = this.getProfileOverrides(profileKey);
+        return PHONEMES.filter((phoneme => !!phoneme.defaultColors?.[profileKey])).map((phoneme => {
+            const color = overrides[this.getRuleKey(phoneme)];
+            return this.toRule(phoneme, typeof color === "string" ? color : phoneme.defaultColors[profileKey]);
+        }));
+    };
+    getAddedRules=profileKey => {
+        const rules = [];
+        for (const [ruleKey, color] of Object.entries(this.getProfileOverrides(profileKey))) {
+            if (typeof color !== "string" || this.isDefaultRule(profileKey, ruleKey)) {
+                continue;
+            }
+            const phoneme = PHONEMES.find((item => this.getRuleKey(item) === ruleKey));
+            if (phoneme) {
+                rules.push(this.toRule(phoneme, color));
+            }
+        }
+        return rules;
+    };
     getColorProfile=profileKey => {
         const profile = structuredClone(profileKey === ColorMode.COLOR_DARK_BG ? DARK_BG_COLOR_PROFILE : LIGHT_BG_COLOR_PROFILE);
-        const overrides = this.colorOverrides[this.currentModeName]?.[profileKey];
-        if (overrides) {
-            const baseKeys = new Set;
-            for (const step of profile.process ?? []) {
-                for (const rule of step.format ?? []) {
-                    const ruleKey = this.getRuleKey(rule);
-                    baseKeys.add(ruleKey);
-                    const color = overrides[ruleKey];
-                    if (color) {
-                        rule.color = color;
-                    }
-                }
-            }
-            const phonemesStep = profile.process?.find((step => step.function === "phonemes"));
-            if (phonemesStep) {
-                phonemesStep.format = phonemesStep.format ?? [];
-                for (const [ruleKey, color] of Object.entries(overrides)) {
-                    if (!color || baseKeys.has(ruleKey)) {
-                        continue;
-                    }
-                    const phoneme = PHONEMES.find((rule => this.getRuleKey(rule) === ruleKey));
-                    if (phoneme) {
-                        phonemesStep.format.push({
-                            ...structuredClone(phoneme),
-                            color: color
-                        });
-                    }
-                }
-            }
+        const phonemesStep = profile.process?.find((step => step.function === "phonemes"));
+        if (phonemesStep) {
+            phonemesStep.format = [ ...this.getDefaultRules(profileKey), ...this.getAddedRules(profileKey) ];
         }
         return profile;
     };
     getAvailablePhonemes=profileKey => {
-        const profile = this.getColorProfile(profileKey);
-        const usedKeys = new Set((profile.process ?? []).flatMap((step => (step.format ?? []).map((rule => this.getRuleKey(rule))))));
-        return PHONEMES.map((rule => ({
-            rule: structuredClone(rule),
-            used: usedKeys.has(this.getRuleKey(rule))
-        })));
+        const addedKeys = new Set(this.getAddedRules(profileKey).map((rule => this.getRuleKey(rule))));
+        return PHONEMES.filter((phoneme => !phoneme.defaultColors?.[profileKey] && !addedKeys.has(this.getRuleKey(phoneme)))).map((phoneme => this.toRule(phoneme, "")));
     };
     setRuleColor=(profileKey, ruleKey, color) => {
-        if (!ruleKey || !color) {
+        if (!ruleKey) {
             return Promise.resolve();
         }
         return this.loadColorOverrides().then((() => {
@@ -3222,10 +3221,19 @@ class ColorReadService {
         }
     }
     buildDarkBgProfile() {
-        return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_DARK_BG));
+        return JsonProfile.from(this.withoutUncoloredRules(this.getColorProfile(ColorMode.COLOR_DARK_BG)));
     }
     buildLightBgProfile() {
-        return JsonProfile.from(this.getColorProfile(ColorMode.COLOR_LIGHT_BG));
+        return JsonProfile.from(this.withoutUncoloredRules(this.getColorProfile(ColorMode.COLOR_LIGHT_BG)));
+    }
+    withoutUncoloredRules(profile) {
+        const steps = profile.process ?? [];
+        for (const step of steps) {
+            if (Array.isArray(step.format)) {
+                step.format = step.format.filter((rule => !!rule.color));
+            }
+        }
+        return profile;
     }
     resolveProfile() {
         const separator = this.options.syllableSeparator ?? "·";
@@ -6413,7 +6421,7 @@ customElements.define("app-icon", IconComponent);
 
 const colorPickerLayout = document.createElement("template");
 
-colorPickerLayout.innerHTML = `\n<div class="${PREFIX}color-picker-card card border-black">\n\t<div class="${PREFIX}color-picker-header card-header d-flex align-items-center gap-2">\n\t\t<button type="button" class="${PREFIX}color-picker-back align-self-stretch d-inline-flex align-items-center gap-1 border-0 border-end rounded-0 bg-transparent text-reset px-2">\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Form_Chevron_left" data-size="1em"></app-icon>\n\t\t\t</span>\n\t\t\t<app-icon class="${PREFIX}color-picker-mode-icon d-none" data-size="1.25rem"></app-icon>\n\t\t</button>\n\t\t<span class="${PREFIX}color-picker-title fs-7"></span>\n\t</div>\n\t<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="radiogroup"></div>\n</div>\n`;
+colorPickerLayout.innerHTML = `\n<div class="${PREFIX}color-picker-card card border-black">\n\t<div class="${PREFIX}color-picker-header card-header d-flex align-items-center gap-2">\n\t\t<button type="button" class="${PREFIX}color-picker-back align-self-stretch d-inline-flex align-items-center gap-1 border-0 border-end rounded-0 bg-transparent text-reset px-2">\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Form_Chevron_left" data-size="1em"></app-icon>\n\t\t\t</span>\n\t\t\t<app-icon class="${PREFIX}color-picker-mode-icon d-none" data-size="1.25rem"></app-icon>\n\t\t</button>\n\t\t<span class="${PREFIX}color-picker-title fs-7"></span>\n\t</div>\n\t<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="group"></div>\n</div>\n`;
 
 class ColorPickerComponent extends HTMLElement {
     static observedAttributes=[ "data-palette", "data-label", "data-value" ];
@@ -6424,10 +6432,10 @@ class ColorPickerComponent extends HTMLElement {
     backBtn=null;
     grid=null;
     colors=[];
-    groupName=`${PREFIX}color-picker`;
+    usedColors=new Set;
+    selected=null;
     skipRender=false;
     handler;
-    pointerSelection=false;
     constructor() {
         super();
         this.appendChild(colorPickerLayout.content.cloneNode(true));
@@ -6441,17 +6449,15 @@ class ColorPickerComponent extends HTMLElement {
     }
     connectedCallback() {
         this.backBtn?.addEventListener("click", this.handler);
-        this.grid?.addEventListener("change", this.handler);
-        this.grid?.addEventListener("pointerdown", this.handler);
-        this.grid?.addEventListener("keyup", this.handler);
+        this.grid?.addEventListener("click", this.handler);
+        this.grid?.addEventListener("keydown", this.handler);
         this.backBtn?.setAttribute("aria-label", i18nServiceInstance.getMessage("colorPicker_back"));
         this.render();
     }
     disconnectedCallback() {
         this.backBtn?.removeEventListener("click", this.handler);
-        this.grid?.removeEventListener("change", this.handler);
-        this.grid?.removeEventListener("pointerdown", this.handler);
-        this.grid?.removeEventListener("keyup", this.handler);
+        this.grid?.removeEventListener("click", this.handler);
+        this.grid?.removeEventListener("keydown", this.handler);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue || this.skipRender) {
@@ -6463,20 +6469,24 @@ class ColorPickerComponent extends HTMLElement {
         return this.colors;
     }
     get value() {
-        const selected = this.grid?.querySelector("input:checked");
-        return selected?.value ?? null;
+        return this.selected;
     }
     setPalette=colors => {
         this.colors = Array.isArray(colors) ? colors : [];
         this.render();
     };
+    setUsedColors=colors => {
+        this.usedColors = new Set((colors ?? []).map(this.normalizeColor).filter(Boolean));
+        this.render();
+    };
     focusSelectedSwatch=() => {
-        const selected = this.grid?.querySelector("input:checked");
-        const target = selected ?? this.grid?.querySelector("input");
-        target?.focus();
+        (this.grid?.querySelector('button[tabindex="0"]'))?.focus();
     };
     isDark=() => this.dataset.palette === "dark";
     normalizeColor=color => (color || "").trim().toLowerCase();
+    get swatches() {
+        return Array.from(this.grid?.querySelectorAll(`.${PREFIX}color-picker-swatch`) ?? []);
+    }
     render=() => {
         if (!this.card) {
             return;
@@ -6491,8 +6501,9 @@ class ColorPickerComponent extends HTMLElement {
         }
         this.grid?.setAttribute("aria-label", label);
         const value = this.normalizeColor(this.dataset.value);
+        this.selected = this.colors.some((color => this.normalizeColor(color) === value)) ? value : null;
         this.renderModeIcon();
-        this.renderSwatches(value);
+        this.renderSwatches();
     };
     renderModeIcon=() => {
         if (!this.modeIcon) {
@@ -6507,84 +6518,104 @@ class ColorPickerComponent extends HTMLElement {
             }
         }));
     };
-    renderSwatches=value => {
+    renderSwatches=() => {
         if (!this.grid) {
             return;
         }
         this.grid.innerHTML = "";
-        this.colors.forEach(((color, index) => {
+        this.colors.forEach((color => {
             const hex = this.normalizeColor(color);
-            const id = `${this.groupName}-${index}`;
-            const input = document.createElement("input");
-            input.type = "radio";
-            input.classList.add("btn-check", `${PREFIX}color-picker-swatch-input`);
-            input.name = this.groupName;
-            input.id = id;
-            input.value = hex;
-            input.autocomplete = "off";
-            input.checked = hex === value;
-            const swatch = document.createElement("label");
-            swatch.classList.add(`${PREFIX}color-picker-swatch`, "border");
-            swatch.htmlFor = id;
+            const used = this.usedColors.has(hex);
+            const swatch = document.createElement("button");
+            swatch.type = "button";
+            swatch.classList.add(`${PREFIX}color-picker-swatch`, "border", "p-0");
+            swatch.classList.toggle(`${PREFIX}color-picker-swatch-used`, used);
+            swatch.dataset.color = hex;
             swatch.style.backgroundColor = hex;
-            const name = document.createElement("span");
-            name.classList.add("visually-hidden");
-            name.textContent = i18nServiceInstance.getMessage("colorPicker_swatch", [ hex ]);
-            swatch.appendChild(name);
-            this.grid.appendChild(input);
+            swatch.innerHTML = `<app-icon class="${PREFIX}color-picker-tick" data-name="tick" data-size="100%"></app-icon><span class="visually-hidden"></span>`;
+            swatch.querySelector(".visually-hidden").textContent = i18nServiceInstance.getMessage(used ? "colorPicker_swatchUsed" : "colorPicker_swatch", [ hex ]);
             this.grid.appendChild(swatch);
         }));
+        this.updateSelection();
+    };
+    updateSelection=focused => {
+        const swatches = this.swatches;
+        const tabbable = focused ?? swatches.find((swatch => swatch.dataset.color === this.selected)) ?? swatches[0];
+        swatches.forEach((swatch => {
+            swatch.setAttribute("aria-pressed", String(swatch.dataset.color === this.selected));
+            swatch.tabIndex = swatch === tabbable ? 0 : -1;
+        }));
+    };
+    toggle=swatch => {
+        const color = swatch.dataset.color;
+        this.selected = this.selected === color ? null : color;
+        this.skipRender = true;
+        this.dataset.value = this.selected ?? "";
+        this.skipRender = false;
+        this.updateSelection(swatch);
+    };
+    moveFocus=(current, key) => {
+        const swatches = this.swatches;
+        const index = swatches.indexOf(current);
+        if (index < 0) {
+            return;
+        }
+        const columns = Math.max(1, getComputedStyle(this.grid).gridTemplateColumns.split(" ").length);
+        let next = index;
+        switch (key) {
+          case "ArrowRight":
+            next = index + 1;
+            break;
+
+          case "ArrowLeft":
+            next = index - 1;
+            break;
+
+          case "ArrowDown":
+            next = index + columns;
+            break;
+
+          case "ArrowUp":
+            next = index - columns;
+            break;
+
+          case "Home":
+            next = 0;
+            break;
+
+          case "End":
+            next = swatches.length - 1;
+            break;
+        }
+        const target = swatches[Math.min(Math.max(next, 0), swatches.length - 1)];
+        swatches.forEach((swatch => swatch.tabIndex = swatch === target ? 0 : -1));
+        target.focus();
     };
     createHandler=() => event => {
-        switch (event.type) {
-          case "click":
+        if (event.currentTarget === this.backBtn) {
             this.dispatchEvent(new CustomEvent("colorPickerBack", {
                 bubbles: true,
                 composed: true,
                 detail: {}
             }));
-            break;
-
-          case "pointerdown":
-            this.pointerSelection = true;
-            break;
-
-          case "keyup":
-            if (event.key === "Enter" || event.key === " ") {
-                const checked = this.grid?.querySelector("input:checked");
-                if (checked) {
-                    this.emitSelect(checked, true);
-                }
-            }
-            break;
-
-          case "change":
-            {
-                const input = event.target;
-                if (!input?.checked) {
-                    return;
-                }
-                const commit = this.pointerSelection;
-                this.pointerSelection = false;
-                this.emitSelect(input, commit);
-                break;
-            }
+            return;
         }
-    };
-    emitSelect=(input, commit) => {
-        this.skipRender = true;
-        this.dataset.value = input.value;
-        this.skipRender = false;
-        this.dispatchEvent(new CustomEvent("colorPickerSelect", {
-            bubbles: true,
-            composed: true,
-            detail: {
-                value: input.value,
-                index: this.colors.findIndex((color => this.normalizeColor(color) === input.value)),
-                palette: this.dataset.palette || "light",
-                commit: commit
+        const swatch = event.target?.closest?.(`.${PREFIX}color-picker-swatch`);
+        if (!swatch) {
+            return;
+        }
+        switch (event.type) {
+          case "click":
+            this.toggle(swatch);
+            break;
+
+          case "keydown":
+            if ([ "ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Home", "End" ].includes(event.key)) {
+                event.preventDefault();
+                this.moveFocus(swatch, event.key);
             }
-        }));
+            break;
+        }
     };
 }
 
@@ -6642,9 +6673,9 @@ class PhonemePickerComponent extends HTMLElement {
         this.renderList();
     };
     focusFirstAvailable=() => {
-        this.getEnabledOptions()[0]?.focus();
+        this.getOptions()[0]?.focus();
     };
-    getEnabledOptions=() => Array.from(this.list?.querySelectorAll("button:not(:disabled)") ?? []);
+    getOptions=() => Array.from(this.list?.querySelectorAll(`.${PREFIX}phoneme-picker-option`) ?? []);
     formatExample=rule => Array.isArray(rule.example) ? rule.example.join(", ") : rule.example ?? "";
     render=() => {
         const dark = this.dataset.palette === "dark";
@@ -6658,15 +6689,14 @@ class PhonemePickerComponent extends HTMLElement {
             return;
         }
         this.list.innerHTML = "";
-        this.items.forEach(((item, index) => {
-            const phonetics = item.rule.phonetics || "∅";
-            const example = this.formatExample(item.rule);
+        this.items.forEach(((rule, index) => {
+            const phonetics = rule.phonetics || "∅";
+            const example = this.formatExample(rule);
             const li = document.createElement("li");
             const option = document.createElement("button");
             option.type = "button";
             option.classList.add(`${PREFIX}phoneme-picker-option`, "d-flex", "align-items-center", "justify-content-between", "gap-2", "w-100", "border-0", "bg-transparent", "text-reset", "text-start", "px-2", "py-1", "fs-7");
             option.dataset.index = String(index);
-            option.disabled = item.used;
             const phoneticsEl = document.createElement("span");
             phoneticsEl.classList.add(`${PREFIX}phoneme-picker-phonetics`, "fw-bold");
             phoneticsEl.textContent = phonetics;
@@ -6677,14 +6707,14 @@ class PhonemePickerComponent extends HTMLElement {
             exampleEl.setAttribute("aria-hidden", "true");
             const label = document.createElement("span");
             label.classList.add("visually-hidden");
-            label.textContent = i18nServiceInstance.getMessage("phonemePicker_option", [ phonetics, example ]) + (item.used ? `, ${i18nServiceInstance.getMessage("phonemePicker_alreadyColored")}` : "");
+            label.textContent = i18nServiceInstance.getMessage("phonemePicker_option", [ phonetics, example ]);
             option.append(phoneticsEl, exampleEl, label);
             li.appendChild(option);
             this.list.appendChild(li);
         }));
     };
     moveFocus=(current, key) => {
-        const options = this.getEnabledOptions();
+        const options = this.getOptions();
         if (options.length === 0) {
             return;
         }
@@ -6725,18 +6755,18 @@ class PhonemePickerComponent extends HTMLElement {
                     return;
                 }
                 const option = event.target.closest(`.${PREFIX}phoneme-picker-option`);
-                if (!option || option.disabled) {
+                if (!option) {
                     return;
                 }
-                const item = this.items[Number(option.dataset.index)];
-                if (!item || item.used) {
+                const rule = this.items[Number(option.dataset.index)];
+                if (!rule) {
                     return;
                 }
                 this.dispatchEvent(new CustomEvent("phonemePickerSelect", {
                     bubbles: true,
                     composed: true,
                     detail: {
-                        rule: structuredClone(item.rule)
+                        rule: structuredClone(rule)
                     }
                 }));
                 break;
@@ -6784,10 +6814,10 @@ class ColorProfileRuleComponent extends HTMLElement {
         this.renderRule();
     }
     setColor=color => {
-        if (!this.rule || !color) {
+        if (!this.rule) {
             return;
         }
-        this.rule.color = color;
+        this.rule.color = color || "";
         this.setAttribute("data-rule", JSON.stringify(this.rule));
     };
     setPickerExpanded=expanded => {
@@ -6836,7 +6866,7 @@ customElements.define("app-color-profile-rule", ColorProfileRuleComponent);
 
 const colorProfileLayout = document.createElement("template");
 
-colorProfileLayout.innerHTML = `\n\t<section class="text-start position-relative">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<div class="${PREFIX}color-profile-rules-list d-flex flex-column gap-2"></div>\n\t\t<button\n\t\t\ttype="button"\n\t\t\tclass="${PREFIX}color-profile-add card border-black flex-row align-items-center gap-2 w-100 mt-2 ps-2 py-2 fs-7"\n\t\t\taria-haspopup="dialog"\n\t\t\taria-expanded="false"\n\t\t>\n\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t<app-icon data-name="Plus_small" data-size="1.5em"></app-icon>\n\t\t\t</span>\n\t\t\t<span class="${PREFIX}color-profile-add-label"></span>\n\t\t</button>\n\t\t<app-color-picker class="sc-color-picker d-none"></app-color-picker>\n\t\t<app-phoneme-picker class="sc-color-picker d-none"></app-phoneme-picker>\n\t</section>\n`;
+colorProfileLayout.innerHTML = `\n\t<section class="text-start position-relative">\n\t\t<h3 class="fs-6">Profil de couleurs</h3>\n\t\t<div class="accordion">\n\t\t\t<div class="accordion-item">\n\t\t\t\t<h4 class="accordion-header m-0">\n\t\t\t\t\t<button\n\t\t\t\t\t\ttype="button"\n\t\t\t\t\t\tclass="${PREFIX}color-profile-accordion-btn accordion-button fs-6 px-2"\n\t\t\t\t\t\taria-expanded="true"\n\t\t\t\t\t\taria-controls="${PREFIX}color-profile-default-panel"\n\t\t\t\t\t\tdata-i18n="colorProfile_defaultTitle"\n\t\t\t\t\t></button>\n\t\t\t\t</h4>\n\t\t\t\t<div id="${PREFIX}color-profile-default-panel" class="accordion-collapse collapse show">\n\t\t\t\t\t<div class="accordion-body px-2 py-2">\n\t\t\t\t\t\t<p class="fs-7 mb-2" data-i18n="colorProfile_defaultSubtitle"></p>\n\t\t\t\t\t\t<div class="${PREFIX}color-profile-default-rules d-flex flex-column gap-2"></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class="accordion-item">\n\t\t\t\t<h4 class="accordion-header m-0">\n\t\t\t\t\t<button\n\t\t\t\t\t\ttype="button"\n\t\t\t\t\t\tclass="${PREFIX}color-profile-accordion-btn accordion-button collapsed fs-6 px-2"\n\t\t\t\t\t\taria-expanded="false"\n\t\t\t\t\t\taria-controls="${PREFIX}color-profile-other-panel"\n\t\t\t\t\t\tdata-i18n="colorProfile_otherTitle"\n\t\t\t\t\t></button>\n\t\t\t\t</h4>\n\t\t\t\t<div id="${PREFIX}color-profile-other-panel" class="accordion-collapse collapse">\n\t\t\t\t\t<div class="accordion-body px-2 py-2">\n\t\t\t\t\t\t<p class="fs-7 mb-2" data-i18n="colorProfile_otherSubtitle"></p>\n\t\t\t\t\t\t<div class="${PREFIX}color-profile-other-rules d-flex flex-column gap-2"></div>\n\t\t\t\t\t\t<button\n\t\t\t\t\t\t\ttype="button"\n\t\t\t\t\t\t\tclass="${PREFIX}color-profile-add card border-black flex-row align-items-center gap-2 w-100 mt-2 ps-2 py-2 fs-7"\n\t\t\t\t\t\t\taria-haspopup="dialog"\n\t\t\t\t\t\t\taria-expanded="false"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<span class="d-inline-flex" aria-hidden="true">\n\t\t\t\t\t\t\t\t<app-icon data-name="Plus_small" data-size="1.5em"></app-icon>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t<span class="${PREFIX}color-profile-add-label"></span>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<app-color-picker class="sc-color-picker d-none"></app-color-picker>\n\t\t<app-phoneme-picker class="sc-color-picker d-none"></app-phoneme-picker>\n\t</section>\n`;
 
 class ColorProfileComponent extends HTMLElement {
     static observedAttributes=[ "data-profile", "data-background", "data-profile-key" ];
@@ -6844,6 +6874,9 @@ class ColorProfileComponent extends HTMLElement {
     picker=null;
     phonemePicker=null;
     addBtn=null;
+    accordionBtns=[];
+    defaultRulesList=null;
+    otherRulesList=null;
     activeRule=null;
     activeRuleKey=null;
     pendingRule=null;
@@ -6853,17 +6886,23 @@ class ColorProfileComponent extends HTMLElement {
         this.picker = this.querySelector("app-color-picker");
         this.phonemePicker = this.querySelector("app-phoneme-picker");
         this.addBtn = this.querySelector(`.${PREFIX}color-profile-add`);
+        this.accordionBtns = Array.from(this.querySelectorAll(`.${PREFIX}color-profile-accordion-btn`));
+        this.defaultRulesList = this.querySelector(`.${PREFIX}color-profile-default-rules`);
+        this.otherRulesList = this.querySelector(`.${PREFIX}color-profile-other-rules`);
         this.handler = this.createHandler();
     }
     connectedCallback() {
         this.addEventListener("colorRuleClick", this.handler);
-        this.addEventListener("colorPickerSelect", this.handler);
         this.addEventListener("colorPickerBack", this.handler);
         this.addEventListener("phonemePickerSelect", this.handler);
         this.addEventListener("phonemePickerBack", this.handler);
         this.addEventListener("keydown", this.handler);
         this.addBtn?.addEventListener("click", this.handler);
+        this.accordionBtns.forEach((btn => btn.addEventListener("click", this.handler)));
         document.addEventListener("click", this.handler, true);
+        this.querySelectorAll("[data-i18n]").forEach((element => {
+            element.textContent = i18nServiceInstance.getMessage(element.dataset.i18n);
+        }));
         const addLabel = this.querySelector(`.${PREFIX}color-profile-add-label`);
         if (addLabel) {
             addLabel.textContent = i18nServiceInstance.getMessage("colorProfile_addPhoneme");
@@ -6874,17 +6913,17 @@ class ColorProfileComponent extends HTMLElement {
     }
     disconnectedCallback() {
         this.removeEventListener("colorRuleClick", this.handler);
-        this.removeEventListener("colorPickerSelect", this.handler);
         this.removeEventListener("colorPickerBack", this.handler);
         this.removeEventListener("phonemePickerSelect", this.handler);
         this.removeEventListener("phonemePickerBack", this.handler);
         this.removeEventListener("keydown", this.handler);
         this.addBtn?.removeEventListener("click", this.handler);
+        this.accordionBtns.forEach((btn => btn.removeEventListener("click", this.handler)));
         document.removeEventListener("click", this.handler, true);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if ((name === "data-profile" || name === "data-background") && newValue && this.dataset.profile) {
-            this.closePicker(false);
+            this.closePicker(false, false);
             this.closePhonemePicker(false);
             this.renderProfile(this.dataset.profile);
         }
@@ -6895,17 +6934,36 @@ class ColorProfileComponent extends HTMLElement {
     renderProfile=profileJson => {
         let profile = JsonProfile.from(JSON.parse(profileJson));
         let rules = profile.process?.flatMap((step => step.format ?? [])) ?? [];
-        const rulesContainer = this.querySelector(`.${PREFIX}color-profile-rules-list`);
-        if (rulesContainer) {
-            rulesContainer.innerHTML = "";
+        if (this.defaultRulesList) {
+            this.defaultRulesList.innerHTML = "";
+        }
+        if (this.otherRulesList) {
+            this.otherRulesList.innerHTML = "";
         }
         rules.forEach((rule => {
             const ruleElement = new ColorProfileRuleComponent;
             ruleElement.setAttribute("data-rule", JSON.stringify(rule));
             ruleElement.setAttribute("data-background", this.dataset.background || "white");
-            rulesContainer?.appendChild(ruleElement);
+            const isDefault = colorReadServiceInstance.isDefaultRule(this.profileKey, colorReadServiceInstance.getRuleKey(rule));
+            (isDefault ? this.defaultRulesList : this.otherRulesList)?.appendChild(ruleElement);
         }));
+        this.resetAccordions();
         this.updateAddButton();
+    };
+    resetAccordions=() => {
+        this.accordionBtns.forEach(((btn, index) => {
+            this.setAccordionOpen(btn, index === 0);
+        }));
+    };
+    setAccordionOpen=(btn, open) => {
+        btn.classList.toggle("collapsed", !open);
+        btn.setAttribute("aria-expanded", String(open));
+        this.querySelector(`#${btn.getAttribute("aria-controls")}`)?.classList.toggle("show", open);
+    };
+    toggleAccordion=btn => {
+        this.closePicker(false);
+        this.closePhonemePicker(false);
+        this.setAccordionOpen(btn, btn.getAttribute("aria-expanded") !== "true");
     };
     get isDark() {
         return this.dataset.background === "black";
@@ -6917,7 +6975,7 @@ class ColorProfileComponent extends HTMLElement {
         this.addBtn.classList.toggle("bg-black", this.isDark);
         this.addBtn.classList.toggle("text-white", this.isDark);
         this.addBtn.classList.toggle("bg-white", !this.isDark);
-        this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.profileKey).every((item => item.used));
+        this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.profileKey).length === 0;
     };
     openPhonemePicker=() => {
         if (!this.phonemePicker || !this.addBtn) {
@@ -6942,7 +7000,7 @@ class ColorProfileComponent extends HTMLElement {
         }
     };
     addRule=rule => {
-        const rulesContainer = this.querySelector(`.${PREFIX}color-profile-rules-list`);
+        const rulesContainer = this.otherRulesList;
         if (!rulesContainer || !rule) {
             return;
         }
@@ -6962,11 +7020,13 @@ class ColorProfileComponent extends HTMLElement {
             return;
         }
         const rule = ruleElement.rule;
-        if (this.pendingRule && this.pendingRule !== ruleElement) {
-            this.pendingRule.remove();
-            this.pendingRule = null;
+        if (this.activeRule === ruleElement && !this.picker.classList.contains("d-none")) {
+            this.picker.focusSelectedSwatch();
+            return;
         }
-        this.activeRule?.setPickerExpanded(false);
+        if (this.activeRule && this.activeRule !== ruleElement) {
+            this.closePicker(false);
+        }
         this.activeRule = ruleElement;
         this.activeRuleKey = ruleKey;
         this.closePhonemePicker(false);
@@ -6974,6 +7034,7 @@ class ColorProfileComponent extends HTMLElement {
         this.picker.dataset.label = i18nServiceInstance.getMessage("colorPicker_label", [ rule.phonetics || "∅" ]);
         this.picker.dataset.value = rule.color || "";
         this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.profileKey));
+        this.picker.setUsedColors(this.getOtherRulesColors(ruleElement));
         this.picker.classList.remove("d-none");
         this.positionPopover(this.picker, ruleElement);
         ruleElement.setPickerExpanded(true);
@@ -6993,12 +7054,16 @@ class ColorProfileComponent extends HTMLElement {
             block: "nearest"
         });
     };
-    closePicker=(restoreFocus = true) => {
+    getOtherRulesColors=ruleElement => Array.from(this.querySelectorAll("app-color-profile-rule")).filter((element => element !== ruleElement)).map((element => element.rule?.color)).filter(Boolean);
+    closePicker=(restoreFocus = true, commit = true) => {
         if (!this.picker || this.picker.classList.contains("d-none")) {
             return;
         }
         this.picker.classList.add("d-none");
         this.activeRule?.setPickerExpanded(false);
+        if (commit) {
+            this.applyColor(this.picker.value ?? "");
+        }
         if (this.pendingRule) {
             this.pendingRule.remove();
             this.pendingRule = null;
@@ -7011,34 +7076,31 @@ class ColorProfileComponent extends HTMLElement {
         this.activeRule = null;
         this.activeRuleKey = null;
     };
-    applyColor=(color, commit) => {
+    applyColor=color => {
         const ruleElement = this.activeRule;
         const ruleKey = this.activeRuleKey;
         if (!ruleElement || !ruleKey) {
             return;
         }
-        ruleElement.setColor(color);
         if (ruleElement === this.pendingRule) {
-            if (!commit) {
+            if (!color) {
                 return;
             }
             this.pendingRule = null;
+            ruleElement.setColor(color);
             colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color).then(this.updateAddButton);
-        } else {
-            colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
+            return;
         }
-        if (commit) {
-            this.closePicker();
+        if ((ruleElement.rule?.color || "") === color) {
+            return;
         }
+        ruleElement.setColor(color);
+        colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
     };
     createHandler=() => event => {
         switch (event.type) {
           case "colorRuleClick":
             this.openPicker(event.target, event.detail.ruleKey);
-            break;
-
-          case "colorPickerSelect":
-            this.applyColor(event.detail.value, event.detail.commit !== false);
             break;
 
           case "colorPickerBack":
@@ -7067,6 +7129,10 @@ class ColorProfileComponent extends HTMLElement {
             break;
 
           case "click":
+            if (this.accordionBtns.includes(event.currentTarget)) {
+                this.toggleAccordion(event.currentTarget);
+                return;
+            }
             if (event.currentTarget === this.addBtn) {
                 if (this.phonemePicker?.classList.contains("d-none")) {
                     this.openPhonemePicker();

@@ -38,26 +38,49 @@
 .cplus-color-picker-swatch {
 	aspect-ratio: 1;
 	cursor: pointer;
+	position: relative;
 	width: 2rem;
 
 	&:hover {
 		filter: brightness(1.1);
 	}
-}
-
-.cplus-color-picker-swatch-input {
-	// Double liseré interne : reste perceptible sur les couleurs claires comme foncées.
-	&:checked + .cplus-color-picker-swatch {
-		box-shadow:
-			inset 0 0 0 .125rem #fff,
-			inset 0 0 0 .1875rem #000;
-	}
 
 	// L'anneau de focus déborde de la pastille : il ne doit pas être rogné par ses voisines.
-	&:focus-visible + .cplus-color-picker-swatch {
+	&:focus-visible {
 		outline: .125rem solid var(--cplus-focus-ring-color, #000);
 		outline-offset: .125rem;
-		position: relative;
 		z-index: 1;
+	}
+}
+
+// Coche verte cernée de noir : petite si la couleur est déjà utilisée, grande si elle est sélectionnée.
+.cplus-color-picker-tick {
+	display: none;
+	height: 40%;
+	left: 50%;
+	pointer-events: none;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 40%;
+
+	svg {
+		display: block;
+		fill: #3de35a;
+		overflow: visible;
+		paint-order: stroke;
+		stroke: #000;
+		stroke-linejoin: round;
+		stroke-width: 1.5px;
+	}
+
+	.cplus-color-picker-swatch-used > & {
+		display: block;
+	}
+
+	[aria-pressed="true"] > & {
+		display: block;
+		height: 80%;
+		width: 80%;
 	}
 }

@@ -13,11 +13,6 @@ phonemePickerLayout.innerHTML = `
 </div>
 `;
 
-interface PhonemePickerItem {
-	rule: ProcessFormatRule;
-	used: boolean;
-}
-
 class PhonemePickerComponent extends HTMLElement {
 	static observedAttributes = ['data-palette'];
 
@@ -27,7 +22,7 @@ class PhonemePickerComponent extends HTMLElement {
 	private backBtn: HTMLButtonElement | null = null;
 	private list: HTMLElement | null = null;
 
-	private items: PhonemePickerItem[] = [];
+	private items: ProcessFormatRule[] = [];
 
 	handler: any;
 
@@ -71,19 +66,19 @@ class PhonemePickerComponent extends HTMLElement {
 		}
 	}
 
-	/** Liste des phonèmes proposés ; ceux marqués `used` sont affichés mais non sélectionnables. */
-	setPhonemes = (items: PhonemePickerItem[]): void => {
+	/** Liste des phonèmes proposés à l'ajout. */
+	setPhonemes = (items: ProcessFormatRule[]): void => {
 		this.items = Array.isArray(items) ? items : [];
 		this.renderList();
 	};
 
-	/** Donne le focus au premier phonème sélectionnable. */
+	/** Donne le focus au premier phonème proposé. */
 	focusFirstAvailable = (): void => {
-		this.getEnabledOptions()[0]?.focus();
+		this.getOptions()[0]?.focus();
 	};
 
-	private getEnabledOptions = (): HTMLButtonElement[] => {
-		return Array.from(this.list?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? []);
+	private getOptions = (): HTMLButtonElement[] => {
+		return Array.from(this.list?.querySelectorAll<HTMLButtonElement>(`.${PREFIX}phoneme-picker-option`) ?? []);
 	};
 
 	private formatExample = (rule: ProcessFormatRule): string => {
@@ -105,9 +100,9 @@ class PhonemePickerComponent extends HTMLElement {
 
 		this.list.innerHTML = '';
 
-		this.items.forEach((item: PhonemePickerItem, index: number) => {
-			const phonetics = item.rule.phonetics || '∅';
-			const example = this.formatExample(item.rule);
+		this.items.forEach((rule: ProcessFormatRule, index: number) => {
+			const phonetics = rule.phonetics || '∅';
+			const example = this.formatExample(rule);
 
 			const li = document.createElement('li');
 
@@ -119,7 +114,6 @@ class PhonemePickerComponent extends HTMLElement {
 				'w-100', 'border-0', 'bg-transparent', 'text-reset', 'text-start', 'px-2', 'py-1', 'fs-7'
 			);
 			option.dataset.index = String(index);
-			option.disabled = item.used;
 
 			const phoneticsEl = document.createElement('span');
 			phoneticsEl.classList.add(`${PREFIX}phoneme-picker-phonetics`, 'fw-bold');
@@ -133,8 +127,7 @@ class PhonemePickerComponent extends HTMLElement {
 
 			const label = document.createElement('span');
 			label.classList.add('visually-hidden');
-			label.textContent = i18nServiceInstance.getMessage('phonemePicker_option', [phonetics, example])
-				+ (item.used ? `, ${i18nServiceInstance.getMessage('phonemePicker_alreadyColored')}` : '');
+			label.textContent = i18nServiceInstance.getMessage('phonemePicker_option', [phonetics, example]);
 
 			option.append(phoneticsEl, exampleEl, label);
 			li.appendChild(option);
@@ -143,7 +136,7 @@ class PhonemePickerComponent extends HTMLElement {
 	};
 
 	private moveFocus = (current: HTMLElement, key: string): void => {
-		const options = this.getEnabledOptions();
+		const options = this.getOptions();
 		if (options.length === 0) {
 			return;
 		}
@@ -181,17 +174,17 @@ class PhonemePickerComponent extends HTMLElement {
 						return;
 					}
 					const option = (event.target as HTMLElement).closest<HTMLButtonElement>(`.${PREFIX}phoneme-picker-option`);
-					if (!option || option.disabled) {
+					if (!option) {
 						return;
 					}
-					const item = this.items[Number(option.dataset.index)];
-					if (!item || item.used) {
+					const rule = this.items[Number(option.dataset.index)];
+					if (!rule) {
 						return;
 					}
 					this.dispatchEvent(new CustomEvent('phonemePickerSelect', {
 						bubbles: true,
 						composed: true,
-						detail: { rule: structuredClone(item.rule) }
+						detail: { rule: structuredClone(rule) }
 					}));
 					break;
 				}

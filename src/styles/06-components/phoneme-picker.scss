@@ -6,7 +6,7 @@
 .cplus-phoneme-picker-option {
 	cursor: pointer;
 
-	&:hover:not(:disabled),
+	&:hover,
 	&:focus-visible {
 		background-color: rgb(128 128 128 / 20%) !important;
 	}
@@ -14,12 +14,6 @@
 	&:focus-visible {
 		outline: .125rem solid var(--cplus-focus-ring-color, currentColor);
 		outline-offset: -.125rem;
-	}
-
-	// Phonème déjà coloré dans le profil : visible mais non sélectionnable.
-	&:disabled {
-		cursor: not-allowed;
-		opacity: .45;
 	}
 }
 

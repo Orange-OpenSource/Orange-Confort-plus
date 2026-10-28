@@ -10,7 +10,7 @@ colorPickerLayout.innerHTML = `
 		</button>
 		<span class="${PREFIX}color-picker-title fs-7"></span>
 	</div>
-	<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="radiogroup"></div>
+	<div class="${PREFIX}color-picker-grid d-grid gap-2 p-2" role="group"></div>
 </div>
 `;
 
@@ -25,11 +25,11 @@ class ColorPickerComponent extends HTMLElement {
 	private grid: HTMLElement | null = null;
 
 	private colors: string[] = [];
-	private readonly groupName = `${PREFIX}color-picker`;
+	private usedColors = new Set<string>();
+	private selected: string | null = null;
 	private skipRender = false;
 
 	handler: any;
-	private pointerSelection = false;
 
 	constructor() {
 		super();
@@ -48,9 +48,8 @@ class ColorPickerComponent extends HTMLElement {
 
 	connectedCallback(): void {
 		this.backBtn?.addEventListener('click', this.handler);
-		this.grid?.addEventListener('change', this.handler);
-		this.grid?.addEventListener('pointerdown', this.handler);
-		this.grid?.addEventListener('keyup', this.handler);
+		this.grid?.addEventListener('click', this.handler);
+		this.grid?.addEventListener('keydown', this.handler);
 
 		this.backBtn?.setAttribute('aria-label', i18nServiceInstance.getMessage('colorPicker_back'));
 		this.render();
@@ -58,9 +57,8 @@ class ColorPickerComponent extends HTMLElement {
 
 	disconnectedCallback(): void {
 		this.backBtn?.removeEventListener('click', this.handler);
-		this.grid?.removeEventListener('change', this.handler);
-		this.grid?.removeEventListener('pointerdown', this.handler);
-		this.grid?.removeEventListener('keyup', this.handler);
+		this.grid?.removeEventListener('click', this.handler);
+		this.grid?.removeEventListener('keydown', this.handler);
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -74,10 +72,9 @@ class ColorPickerComponent extends HTMLElement {
 		return this.colors;
 	}
 
-	/** Couleur sélectionnée, ou `null` si elle n'appartient pas à la palette courante. */
+	/** Couleur sélectionnée, ou `null` si aucune pastille n'est cochée. */
 	get value(): string | null {
-		const selected = this.grid?.querySelector<HTMLInputElement>('input:checked');
-		return selected?.value ?? null;
+		return this.selected;
 	}
 
 	/** Palette proposée à l'utilisateur ; la sélection courante est conservée si possible. */
@@ -86,16 +83,24 @@ class ColorPickerComponent extends HTMLElement {
 		this.render();
 	};
 
+	/** Couleurs déjà associées à d'autres règles : signalées par une coche, sans empêcher leur sélection. */
+	setUsedColors = (colors: string[]): void => {
+		this.usedColors = new Set((colors ?? []).map(this.normalizeColor).filter(Boolean));
+		this.render();
+	};
+
 	/** Donne le focus à la pastille sélectionnée, sinon à la première de la grille. */
 	focusSelectedSwatch = (): void => {
-		const selected = this.grid?.querySelector<HTMLInputElement>('input:checked');
-		const target = selected ?? this.grid?.querySelector<HTMLInputElement>('input');
-		target?.focus();
+		(this.grid?.querySelector<HTMLButtonElement>('button[tabindex="0"]'))?.focus();
 	};
 
 	private isDark = (): boolean => this.dataset.palette === 'dark';
 
 	private normalizeColor = (color: string): string => (color || '').trim().toLowerCase();
+
+	private get swatches(): HTMLButtonElement[] {
+		return Array.from(this.grid?.querySelectorAll<HTMLButtonElement>(`.${PREFIX}color-picker-swatch`) ?? []);
+	}
 
 	private render = (): void => {
 		if (!this.card) {
@@ -114,9 +119,10 @@ class ColorPickerComponent extends HTMLElement {
 		this.grid?.setAttribute('aria-label', label);
 
 		const value = this.normalizeColor(this.dataset.value);
+		this.selected = this.colors.some((color: string) => this.normalizeColor(color) === value) ? value : null;
 
 		this.renderModeIcon();
-		this.renderSwatches(value);
+		this.renderSwatches();
 	};
 
 	/** Affiche l'icône du mode d'usage courant ; masquée tant qu'aucun mode n'est sélectionné. */
@@ -136,90 +142,104 @@ class ColorPickerComponent extends HTMLElement {
 			});
 	};
 
-	private renderSwatches = (value: string): void => {
+	private renderSwatches = (): void => {
 		if (!this.grid) {
 			return;
 		}
 
 		this.grid.innerHTML = '';
 
-		this.colors.forEach((color: string, index: number) => {
+		this.colors.forEach((color: string) => {
 			const hex = this.normalizeColor(color);
-			const id = `${this.groupName}-${index}`;
+			const used = this.usedColors.has(hex);
 
-			const input = document.createElement('input');
-			input.type = 'radio';
-			input.classList.add('btn-check', `${PREFIX}color-picker-swatch-input`);
-			input.name = this.groupName;
-			input.id = id;
-			input.value = hex;
-			input.autocomplete = 'off';
-			input.checked = hex === value;
-
-			const swatch = document.createElement('label');
-			swatch.classList.add(`${PREFIX}color-picker-swatch`, 'border');
-			swatch.htmlFor = id;
+			const swatch = document.createElement('button');
+			swatch.type = 'button';
+			swatch.classList.add(`${PREFIX}color-picker-swatch`, 'border', 'p-0');
+			swatch.classList.toggle(`${PREFIX}color-picker-swatch-used`, used);
+			swatch.dataset.color = hex;
 			swatch.style.backgroundColor = hex;
 
-			const name = document.createElement('span');
-			name.classList.add('visually-hidden');
-			name.textContent = i18nServiceInstance.getMessage('colorPicker_swatch', [hex]);
-			swatch.appendChild(name);
+			swatch.innerHTML = `<app-icon class="${PREFIX}color-picker-tick" data-name="tick" data-size="100%"></app-icon><span class="visually-hidden"></span>`;
+			swatch.querySelector('.visually-hidden').textContent =
+				i18nServiceInstance.getMessage(used ? 'colorPicker_swatchUsed' : 'colorPicker_swatch', [hex]);
 
-			this.grid.appendChild(input);
 			this.grid.appendChild(swatch);
 		});
+
+		this.updateSelection();
+	};
+
+	/** Reflète la sélection sur les pastilles ; une seule est focalisable au clavier (roving tabindex). */
+	private updateSelection = (focused?: HTMLButtonElement): void => {
+		const swatches = this.swatches;
+		const tabbable = focused
+			?? swatches.find((swatch: HTMLButtonElement) => swatch.dataset.color === this.selected)
+			?? swatches[0];
+		swatches.forEach((swatch: HTMLButtonElement) => {
+			swatch.setAttribute('aria-pressed', String(swatch.dataset.color === this.selected));
+			swatch.tabIndex = swatch === tabbable ? 0 : -1;
+		});
+	};
+
+	/** Coche la pastille, ou la décoche si elle l'était déjà : une seule couleur au plus est sélectionnée. */
+	private toggle = (swatch: HTMLButtonElement): void => {
+		const color = swatch.dataset.color;
+		this.selected = this.selected === color ? null : color;
+		this.skipRender = true;
+		this.dataset.value = this.selected ?? '';
+		this.skipRender = false;
+		this.updateSelection(swatch);
+	};
+
+	private moveFocus = (current: HTMLButtonElement, key: string): void => {
+		const swatches = this.swatches;
+		const index = swatches.indexOf(current);
+		if (index < 0) {
+			return;
+		}
+		const columns = Math.max(1, getComputedStyle(this.grid).gridTemplateColumns.split(' ').length);
+		let next = index;
+		switch (key) {
+			case 'ArrowRight': next = index + 1; break;
+			case 'ArrowLeft': next = index - 1; break;
+			case 'ArrowDown': next = index + columns; break;
+			case 'ArrowUp': next = index - columns; break;
+			case 'Home': next = 0; break;
+			case 'End': next = swatches.length - 1; break;
+		}
+		const target = swatches[Math.min(Math.max(next, 0), swatches.length - 1)];
+		swatches.forEach((swatch: HTMLButtonElement) => swatch.tabIndex = swatch === target ? 0 : -1);
+		target.focus();
 	};
 
 	private createHandler = () => {
 		return (event: any) => {
+			if (event.currentTarget === this.backBtn) {
+				this.dispatchEvent(new CustomEvent('colorPickerBack', {
+					bubbles: true,
+					composed: true,
+					detail: {}
+				}));
+				return;
+			}
+
+			const swatch = (event.target as HTMLElement)?.closest?.(`.${PREFIX}color-picker-swatch`) as HTMLButtonElement;
+			if (!swatch) {
+				return;
+			}
 			switch (event.type) {
 				case 'click':
-					this.dispatchEvent(new CustomEvent('colorPickerBack', {
-						bubbles: true,
-						composed: true,
-						detail: {}
-					}));
+					this.toggle(swatch);
 					break;
-				case 'pointerdown':
-					this.pointerSelection = true;
-					break;
-				case 'keyup':
-					if (event.key === 'Enter' || event.key === ' ') {
-						const checked = this.grid?.querySelector('input:checked') as HTMLInputElement;
-						if (checked) {
-							this.emitSelect(checked, true);
-						}
+				case 'keydown':
+					if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+						event.preventDefault();
+						this.moveFocus(swatch, event.key);
 					}
 					break;
-				case 'change': {
-					const input = event.target as HTMLInputElement;
-					if (!input?.checked) {
-						return;
-					}
-					const commit = this.pointerSelection;
-					this.pointerSelection = false;
-					this.emitSelect(input, commit);
-					break;
-				}
 			}
 		}
-	}
-
-	private emitSelect = (input: HTMLInputElement, commit: boolean): void => {
-		this.skipRender = true;
-		this.dataset.value = input.value;
-		this.skipRender = false;
-		this.dispatchEvent(new CustomEvent('colorPickerSelect', {
-			bubbles: true,
-			composed: true,
-			detail: {
-				value: input.value,
-				index: this.colors.findIndex((color: string) => this.normalizeColor(color) === input.value),
-				palette: this.dataset.palette || 'light',
-				commit: commit
-			}
-		}));
 	}
 }
 

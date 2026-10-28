@@ -51,12 +51,12 @@ class ColorProfileRuleComponent extends HTMLElement {
 		this.renderRule();
 	}
 
-	/** Applique une nouvelle couleur à la règle affichée, sans recréer l'élément. */
+	/** Applique une nouvelle couleur à la règle affichée, sans recréer l'élément ; vide = règle sans couleur. */
 	setColor = (color: string): void => {
-		if (!this.rule || !color) {
+		if (!this.rule) {
 			return;
 		}
-		this.rule.color = color;
+		this.rule.color = color || '';
 		this.setAttribute('data-rule', JSON.stringify(this.rule));
 	};
 
