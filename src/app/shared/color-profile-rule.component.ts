@@ -74,7 +74,7 @@ class ColorProfileRuleComponent extends HTMLElement {
 		this.cardBtn?.focus();
 	};
 
-	private renderRule(): void {
+	private renderRule = (): void => {
 		/* Fond sombre : variante inversée du bouton Boosted */
 		this.cardBtn?.classList.toggle('btn-inverse', this.dataset.background === 'black');
 
@@ -95,7 +95,7 @@ class ColorProfileRuleComponent extends HTMLElement {
 			'aria-label',
 			i18nServiceInstance.getMessage('colorProfileRule_editColor', [this.rule.phonetics])
 		);
-	}
+	};
 
 	private createHandler = () => {
 		return (event: any) => {

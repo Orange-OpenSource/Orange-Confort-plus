@@ -68,14 +68,10 @@ class ColorPickerComponent extends HTMLElement {
 		this.render();
 	}
 
-	get palette(): string[] {
-		return this.colors;
-	}
+	getPalette = (): string[] => this.colors;
 
 	/** Couleur sélectionnée, ou `null` si aucune pastille n'est cochée. */
-	get value(): string | null {
-		return this.selected;
-	}
+	getValue = (): string | null => this.selected;
 
 	/** Palette proposée à l'utilisateur ; la sélection courante est conservée si possible. */
 	setPalette = (colors: string[]): void => {
@@ -98,9 +94,8 @@ class ColorPickerComponent extends HTMLElement {
 
 	private normalizeColor = (color: string): string => (color || '').trim().toLowerCase();
 
-	private get swatches(): HTMLButtonElement[] {
-		return Array.from(this.grid?.querySelectorAll<HTMLButtonElement>(`.${PREFIX}color-picker-swatch`) ?? []);
-	}
+	private getSwatches = (): HTMLButtonElement[] =>
+		Array.from(this.grid?.querySelectorAll<HTMLButtonElement>(`.${PREFIX}color-picker-swatch`) ?? []);
 
 	private render = (): void => {
 		if (!this.card) {
@@ -172,7 +167,7 @@ class ColorPickerComponent extends HTMLElement {
 
 	/** Reflète la sélection sur les pastilles ; une seule est focalisable au clavier (roving tabindex). */
 	private updateSelection = (focused?: HTMLButtonElement): void => {
-		const swatches = this.swatches;
+		const swatches = this.getSwatches();
 		const tabbable = focused
 			?? swatches.find((swatch: HTMLButtonElement) => swatch.dataset.color === this.selected)
 			?? swatches[0];
@@ -193,7 +188,7 @@ class ColorPickerComponent extends HTMLElement {
 	};
 
 	private moveFocus = (current: HTMLButtonElement, key: string): void => {
-		const swatches = this.swatches;
+		const swatches = this.getSwatches();
 		const index = swatches.indexOf(current);
 		if (index < 0) {
 			return;

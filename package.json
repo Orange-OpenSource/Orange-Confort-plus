@@ -25,7 +25,7 @@
 	"scripts": {
 		"postinstall": "shx cp -r node_modules/@webcomponents/custom-elements/custom-elements.min.js src/extension/vendors && shx cp -r node_modules/@mozilla/readability/Readability.js src/extension/vendors",
 		"start": "concurrently --kill-others \"npm:watch\" \"npm:serve\"",
-		"serve": "servor docs/ index.html 9010 --browse --reload",
+		"serve": "servor docs/ index.html 9011 --browse --reload",
 		"test": "npm run lint:ext",
 		"mkdir": "shx mkdir -p dist/css dist/serveur/assets/fonts/ dist/extension/assets/fonts/ dist/extension/js/",
 		"prebuild": "shx rm -rf dist/* && npm run mkdir",

@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 12/11/2026
+ * orange-confort-plus - version 5.4.0 - 19/11/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -2707,6 +2707,8 @@ const COLOR_READ_IGNORE_INTERACTIVE_SELECTOR = 'input, textarea, select, option,
 
 const COLOR_READ_ACTIONABLE_SELECTOR = "a, button";
 
+const isColorReadElement = node => node?.nodeType === Node.ELEMENT_NODE;
+
 class ColorReadService {
     mode=ColorMode.OFF;
     scope=ClickScope.WORD;
@@ -2729,7 +2731,7 @@ class ColorReadService {
             return;
         }
         const rawTarget = ev.target;
-        if (!(rawTarget instanceof Element)) {
+        if (!isColorReadElement(rawTarget)) {
             return;
         }
         if (this.shouldIgnoreColorReadTarget(rawTarget)) {
@@ -2742,7 +2744,7 @@ class ColorReadService {
             return;
         }
         const rawTarget = ev.target;
-        if (!(rawTarget instanceof Element)) {
+        if (!isColorReadElement(rawTarget)) {
             return;
         }
         if (this.shouldIgnoreColorReadTarget(rawTarget)) {
@@ -2972,14 +2974,14 @@ class ColorReadService {
     }
     onClick(ev) {
         const rawTarget = ev.target;
-        if (!(rawTarget instanceof Element)) {
+        if (!isColorReadElement(rawTarget)) {
             return;
         }
         if (this.shouldIgnoreColorReadTarget(rawTarget)) {
             return;
         }
         const actionable = rawTarget.closest(COLOR_READ_ACTIONABLE_SELECTOR);
-        if (actionable instanceof HTMLElement) {
+        if (isColorReadElement(actionable)) {
             this.onActionableClick(ev, actionable);
             return;
         }
@@ -2997,7 +2999,7 @@ class ColorReadService {
         }
         if (this.scope === ClickScope.PARAGRAPH) {
             const block = rawTarget.closest(COLOR_READ_BLOCK_SELECTOR);
-            if (!(block instanceof HTMLElement)) {
+            if (!isColorReadElement(block)) {
                 return;
             }
             if (block.closest(APP_NAME)) {
@@ -3153,7 +3155,7 @@ class ColorReadService {
         }
         const node = caret.startContainer;
         const block = node.nodeType === Node.TEXT_NODE ? node.parentElement?.closest(COLOR_READ_BLOCK_SELECTOR) : node.closest(COLOR_READ_BLOCK_SELECTOR);
-        if (!(block instanceof HTMLElement) || block.closest(APP_NAME)) {
+        if (!isColorReadElement(block) || block.closest(APP_NAME)) {
             return null;
         }
         const offset = this.getTextOffsetInRoot(block, caret.startContainer, caret.startOffset);
@@ -3187,7 +3189,7 @@ class ColorReadService {
     restoreDescendantSections(root) {
         const nodes = Array.from(root.querySelectorAll(`[${COLOR_READ_SECTION_ATTR}]`));
         for (const el of nodes) {
-            if (el instanceof HTMLElement) {
+            if (isColorReadElement(el)) {
                 this.restoreSection(el);
             }
         }
@@ -3252,7 +3254,7 @@ class ColorReadService {
         const profile = this.resolveProfile();
         const user = profile.asUserProfile();
         for (const node of nodes) {
-            if (!(node instanceof HTMLElement)) {
+            if (!isColorReadElement(node)) {
                 continue;
             }
             if (node.closest(APP_NAME)) {
@@ -6559,12 +6561,8 @@ class ColorPickerComponent extends HTMLElement {
         }
         this.render();
     }
-    get palette() {
-        return this.colors;
-    }
-    get value() {
-        return this.selected;
-    }
+    getPalette=() => this.colors;
+    getValue=() => this.selected;
     setPalette=colors => {
         this.colors = Array.isArray(colors) ? colors : [];
         this.render();
@@ -6578,9 +6576,7 @@ class ColorPickerComponent extends HTMLElement {
     };
     isDark=() => this.dataset.palette === "dark";
     normalizeColor=color => (color || "").trim().toLowerCase();
-    get swatches() {
-        return Array.from(this.grid?.querySelectorAll(`.${PREFIX}color-picker-swatch`) ?? []);
-    }
+    getSwatches=() => Array.from(this.grid?.querySelectorAll(`.${PREFIX}color-picker-swatch`) ?? []);
     render=() => {
         if (!this.card) {
             return;
@@ -6633,7 +6629,7 @@ class ColorPickerComponent extends HTMLElement {
         this.updateSelection();
     };
     updateSelection=focused => {
-        const swatches = this.swatches;
+        const swatches = this.getSwatches();
         const tabbable = focused ?? swatches.find((swatch => swatch.dataset.color === this.selected)) ?? swatches[0];
         swatches.forEach((swatch => {
             swatch.setAttribute("aria-pressed", String(swatch.dataset.color === this.selected));
@@ -6649,7 +6645,7 @@ class ColorPickerComponent extends HTMLElement {
         this.updateSelection(swatch);
     };
     moveFocus=(current, key) => {
-        const swatches = this.swatches;
+        const swatches = this.getSwatches();
         const index = swatches.indexOf(current);
         if (index < 0) {
             return;
@@ -6922,7 +6918,7 @@ class ColorProfileRuleComponent extends HTMLElement {
     focusCard=() => {
         this.cardBtn?.focus();
     };
-    renderRule() {
+    renderRule=() => {
         this.cardBtn?.classList.toggle("btn-inverse", this.dataset.background === "black");
         this.querySelector(`#${PREFIX}color-read-profile-rule-phonetics`).textContent = this.rule.phonetics;
         this.querySelector(`#${PREFIX}color-read-profile-rule-example`).textContent = Array.isArray(this.rule.example) ? this.rule.example.join(", ") : this.rule.example;
@@ -6935,7 +6931,7 @@ class ColorProfileRuleComponent extends HTMLElement {
             this.swatch.classList.toggle(`${PREFIX}color-read-profile-rule-swatch-empty`, !this.rule.color);
         }
         this.cardBtn?.setAttribute("aria-label", i18nServiceInstance.getMessage("colorProfileRule_editColor", [ this.rule.phonetics ]));
-    }
+    };
     createHandler=() => event => {
         switch (event.type) {
           case "click":
@@ -7021,9 +7017,7 @@ class ColorProfileComponent extends HTMLElement {
             this.renderProfile(this.dataset.profile);
         }
     }
-    get profileKey() {
-        return this.dataset.profileKey || "lightBgColor";
-    }
+    getProfileKey=() => this.dataset.profileKey || "lightBgColor";
     renderProfile=profileJson => {
         let profile = JsonProfile.from(JSON.parse(profileJson));
         let rules = profile.process?.flatMap((step => step.format ?? [])) ?? [];
@@ -7037,7 +7031,7 @@ class ColorProfileComponent extends HTMLElement {
             const ruleElement = new ColorProfileRuleComponent;
             ruleElement.setAttribute("data-rule", JSON.stringify(rule));
             ruleElement.setAttribute("data-background", this.dataset.background || "white");
-            const isDefault = colorReadServiceInstance.isDefaultRule(this.profileKey, colorReadServiceInstance.getRuleKey(rule));
+            const isDefault = colorReadServiceInstance.isDefaultRule(this.getProfileKey(), colorReadServiceInstance.getRuleKey(rule));
             (isDefault ? this.defaultRulesList : this.otherRulesList)?.appendChild(ruleElement);
         }));
         this.resetAccordions();
@@ -7058,22 +7052,20 @@ class ColorProfileComponent extends HTMLElement {
         this.closePhonemePicker(false);
         this.setAccordionOpen(btn, btn.getAttribute("aria-expanded") !== "true");
     };
-    get isDark() {
-        return this.dataset.background === "black";
-    }
+    isDark=() => this.dataset.background === "black";
     updateAddButton=() => {
         if (!this.addBtn) {
             return;
         }
-        this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.profileKey).length === 0;
+        this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.getProfileKey()).length === 0;
     };
     openPhonemePicker=() => {
         if (!this.phonemePicker || !this.addBtn) {
             return;
         }
         this.closePicker(false);
-        this.phonemePicker.dataset.palette = this.isDark ? "dark" : "light";
-        this.phonemePicker.setPhonemes(colorReadServiceInstance.getAvailablePhonemes(this.profileKey));
+        this.phonemePicker.dataset.palette = this.isDark() ? "dark" : "light";
+        this.phonemePicker.setPhonemes(colorReadServiceInstance.getAvailablePhonemes(this.getProfileKey()));
         this.phonemePicker.classList.remove("d-none");
         this.positionPopover(this.phonemePicker, this.addBtn);
         this.addBtn.setAttribute("aria-expanded", "true");
@@ -7120,10 +7112,10 @@ class ColorProfileComponent extends HTMLElement {
         this.activeRule = ruleElement;
         this.activeRuleKey = ruleKey;
         this.closePhonemePicker(false);
-        this.picker.dataset.palette = this.isDark ? "dark" : "light";
+        this.picker.dataset.palette = this.isDark() ? "dark" : "light";
         this.picker.dataset.label = i18nServiceInstance.getMessage("colorPicker_label", [ rule.phonetics || "∅" ]);
         this.picker.dataset.value = rule.color || "";
-        this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.profileKey));
+        this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.getProfileKey()));
         this.picker.setUsedColors(this.getOtherRulesColors(ruleElement));
         this.picker.classList.remove("d-none");
         this.positionPopover(this.picker, ruleElement);
@@ -7152,7 +7144,7 @@ class ColorProfileComponent extends HTMLElement {
         this.picker.classList.add("d-none");
         this.activeRule?.setPickerExpanded(false);
         if (commit) {
-            this.applyColor(this.picker.value ?? "");
+            this.applyColor(this.picker.getValue() ?? "");
         }
         if (this.pendingRule) {
             this.pendingRule.remove();
@@ -7178,14 +7170,14 @@ class ColorProfileComponent extends HTMLElement {
             }
             this.pendingRule = null;
             ruleElement.setColor(color);
-            colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color).then(this.updateAddButton);
+            colorReadServiceInstance.setRuleColor(this.getProfileKey(), ruleKey, color).then(this.updateAddButton);
             return;
         }
         if ((ruleElement.rule?.color || "") === color) {
             return;
         }
         ruleElement.setColor(color);
-        colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
+        colorReadServiceInstance.setRuleColor(this.getProfileKey(), ruleKey, color);
     };
     createHandler=() => event => {
         switch (event.type) {

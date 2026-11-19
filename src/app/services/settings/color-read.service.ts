@@ -86,6 +86,13 @@ const COLOR_READ_IGNORE_INTERACTIVE_SELECTOR =
  */
 const COLOR_READ_ACTIONABLE_SELECTOR = 'a, button';
 
+/**
+ * Remplace `instanceof Element` / `instanceof HTMLElement`, qui renvoient false
+ * dans le content script de l'extension Firefox.
+ */
+const isColorReadElement = (node: unknown): node is HTMLElement =>
+	(node as Node | null)?.nodeType === Node.ELEMENT_NODE;
+
 class ColorReadService {
 	private mode: ColorModeValue = ColorMode.OFF;
 	private scope: ClickScopeValue = ClickScope.WORD;
@@ -115,7 +122,7 @@ class ColorReadService {
 			return;
 		}
 		const rawTarget = ev.target;
-		if (!(rawTarget instanceof Element)) {
+		if (!isColorReadElement(rawTarget)) {
 			return;
 		}
 		if (this.shouldIgnoreColorReadTarget(rawTarget)) {
@@ -129,7 +136,7 @@ class ColorReadService {
 			return;
 		}
 		const rawTarget = ev.target;
-		if (!(rawTarget instanceof Element)) {
+		if (!isColorReadElement(rawTarget)) {
 			return;
 		}
 		if (this.shouldIgnoreColorReadTarget(rawTarget)) {
@@ -499,7 +506,7 @@ class ColorReadService {
 
 	private onClick(ev: MouseEvent): void {
 		const rawTarget = ev.target;
-		if (!(rawTarget instanceof Element)) {
+		if (!isColorReadElement(rawTarget)) {
 			return;
 		}
 		if (this.shouldIgnoreColorReadTarget(rawTarget)) {
@@ -507,7 +514,7 @@ class ColorReadService {
 		}
 
 		const actionable = rawTarget.closest(COLOR_READ_ACTIONABLE_SELECTOR);
-		if (actionable instanceof HTMLElement) {
+		if (isColorReadElement(actionable)) {
 			this.onActionableClick(ev, actionable);
 			return;
 		}
@@ -529,7 +536,7 @@ class ColorReadService {
 
 		if (this.scope === ClickScope.PARAGRAPH) {
 			const block = rawTarget.closest(COLOR_READ_BLOCK_SELECTOR);
-			if (!(block instanceof HTMLElement)) {
+			if (!isColorReadElement(block)) {
 				return;
 			}
 			if (block.closest(APP_NAME)) {
@@ -736,7 +743,7 @@ class ColorReadService {
 						COLOR_READ_BLOCK_SELECTOR,
 					)
 				: (node as HTMLElement).closest(COLOR_READ_BLOCK_SELECTOR);
-		if (!(block instanceof HTMLElement) || block.closest(APP_NAME)) {
+		if (!isColorReadElement(block) || block.closest(APP_NAME)) {
 			return null;
 		}
 		const offset = this.getTextOffsetInRoot(
@@ -779,7 +786,7 @@ class ColorReadService {
 			root.querySelectorAll(`[${COLOR_READ_SECTION_ATTR}]`),
 		);
 		for (const el of nodes) {
-			if (el instanceof HTMLElement) {
+			if (isColorReadElement(el)) {
 				this.restoreSection(el);
 			}
 		}
@@ -847,7 +854,7 @@ class ColorReadService {
 		const profile = this.resolveProfile();
 		const user = profile.asUserProfile();
 		for (const node of nodes) {
-			if (!(node instanceof HTMLElement)) {
+			if (!isColorReadElement(node)) {
 				continue;
 			}
 			if (node.closest(APP_NAME)) {

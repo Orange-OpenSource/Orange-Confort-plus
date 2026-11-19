@@ -128,9 +128,8 @@ class ColorProfileComponent extends HTMLElement {
 		}
 	}
 
-	private get profileKey(): ColorProfileKey {
-		return (this.dataset.profileKey as ColorProfileKey) || 'lightBgColor';
-	}
+	private getProfileKey = (): ColorProfileKey =>
+		(this.dataset.profileKey as ColorProfileKey) || 'lightBgColor';
 
 	private renderProfile = (profileJson: string): void => {
 		let profile = JsonProfile.from(JSON.parse(profileJson));
@@ -149,7 +148,7 @@ class ColorProfileComponent extends HTMLElement {
 			const ruleElement = new ColorProfileRuleComponent();
 			ruleElement.setAttribute('data-rule', JSON.stringify(rule));
 			ruleElement.setAttribute('data-background', this.dataset.background || 'white');
-			const isDefault = colorReadServiceInstance.isDefaultRule(this.profileKey, colorReadServiceInstance.getRuleKey(rule));
+			const isDefault = colorReadServiceInstance.isDefaultRule(this.getProfileKey(), colorReadServiceInstance.getRuleKey(rule));
 			(isDefault ? this.defaultRulesList : this.otherRulesList)?.appendChild(ruleElement);
 		});
 
@@ -176,16 +175,14 @@ class ColorProfileComponent extends HTMLElement {
 		this.setAccordionOpen(btn, btn.getAttribute('aria-expanded') !== 'true');
 	};
 
-	private get isDark(): boolean {
-		return this.dataset.background === 'black';
-	}
+	private isDark = (): boolean => this.dataset.background === 'black';
 
 	/** Désactive le bouton d'ajout quand il ne reste aucun phonème à ajouter. */
 	private updateAddButton = (): void => {
 		if (!this.addBtn) {
 			return;
 		}
-		this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.profileKey).length === 0;
+		this.addBtn.disabled = colorReadServiceInstance.getAvailablePhonemes(this.getProfileKey()).length === 0;
 	};
 
 	private openPhonemePicker = (): void => {
@@ -195,8 +192,8 @@ class ColorProfileComponent extends HTMLElement {
 
 		this.closePicker(false);
 
-		this.phonemePicker.dataset.palette = this.isDark ? 'dark' : 'light';
-		this.phonemePicker.setPhonemes(colorReadServiceInstance.getAvailablePhonemes(this.profileKey));
+		this.phonemePicker.dataset.palette = this.isDark() ? 'dark' : 'light';
+		this.phonemePicker.setPhonemes(colorReadServiceInstance.getAvailablePhonemes(this.getProfileKey()));
 
 		this.phonemePicker.classList.remove('d-none');
 		this.positionPopover(this.phonemePicker, this.addBtn);
@@ -254,10 +251,10 @@ class ColorProfileComponent extends HTMLElement {
 
 		this.closePhonemePicker(false);
 
-		this.picker.dataset.palette = this.isDark ? 'dark' : 'light';
+		this.picker.dataset.palette = this.isDark() ? 'dark' : 'light';
 		this.picker.dataset.label = i18nServiceInstance.getMessage('colorPicker_label', [rule.phonetics || '∅']);
 		this.picker.dataset.value = rule.color || '';
-		this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.profileKey));
+		this.picker.setPalette(colorReadServiceInstance.getColorPalette(this.getProfileKey()));
 		this.picker.setUsedColors(this.getOtherRulesColors(ruleElement));
 
 		this.picker.classList.remove('d-none');
@@ -308,7 +305,7 @@ class ColorProfileComponent extends HTMLElement {
 		this.activeRule?.setPickerExpanded(false);
 
 		if (commit) {
-			this.applyColor(this.picker.value ?? '');
+			this.applyColor(this.picker.getValue() ?? '');
 		}
 
 		if (this.pendingRule) {
@@ -339,7 +336,7 @@ class ColorProfileComponent extends HTMLElement {
 			}
 			this.pendingRule = null;
 			ruleElement.setColor(color);
-			colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color).then(this.updateAddButton);
+			colorReadServiceInstance.setRuleColor(this.getProfileKey(), ruleKey, color).then(this.updateAddButton);
 			return;
 		}
 
@@ -347,7 +344,7 @@ class ColorProfileComponent extends HTMLElement {
 			return;
 		}
 		ruleElement.setColor(color);
-		colorReadServiceInstance.setRuleColor(this.profileKey, ruleKey, color);
+		colorReadServiceInstance.setRuleColor(this.getProfileKey(), ruleKey, color);
 	};
 
 	private createHandler = () => {
