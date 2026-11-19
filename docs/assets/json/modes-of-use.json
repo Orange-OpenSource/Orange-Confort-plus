@@ -1,5 +1,5 @@
 {
-	"version": "1.0.47",
+	"version": "1.0.48",
 	"modes": [
 		{
 			"facilePlus": [
@@ -715,8 +715,8 @@
 				"colorRead": {
 					"values": "noModifications,active",
 					"valueSelected": 0,
-					"isTool": false,
-					"order": null
+					"isTool": true,
+					"order": 2
 				}
 			}
 		]
@@ -895,8 +895,8 @@
 				"colorRead": {
 					"values": "noModifications,active",
 					"valueSelected": 0,
-					"isTool": false,
-					"order": null
+					"isTool": true,
+					"order": 2
 				}
 			}
 		]

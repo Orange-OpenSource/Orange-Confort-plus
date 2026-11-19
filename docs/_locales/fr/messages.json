@@ -1037,7 +1037,7 @@
 		"message": "Nouvelle valeur ajoutée"
 	},
 	"setting_colorRead": {
-		"message": "Lire en couleurs"
+		"message": "Colorer le texte"
 	},
 	"setting_colorRead_instruction": {
 		"message": "Pour faciliter la lecture des syllabes et des sons."

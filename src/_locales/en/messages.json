@@ -1052,7 +1052,7 @@
 		"message": "New value added"
 	},
 	"setting_colorRead": {
-		"message": "Read in colors"
+		"message": "Color the text"
 	},
 	"setting_colorRead_instruction": {
 		"message": "To facilitate reading syllables and sounds."
