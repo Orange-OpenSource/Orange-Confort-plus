@@ -1187,16 +1187,16 @@
 		}
 	},
 	"colorReadScope_label": {
-		"message": "Alcance"
+		"message": "Efecto sobre"
 	},
 	"colorReadScope_word": {
-		"message": "palabra apuntada"
+		"message": "la palabra apuntada"
 	},
 	"colorReadScope_sentence": {
-		"message": "oración apuntada"
+		"message": "la oración apuntada"
 	},
 	"colorReadScope_paragraph": {
-		"message": "párrafo apuntado"
+		"message": "el párrafo apuntado"
 	},
 	"colorReadScope_all": {
 		"message": "todo el texto"

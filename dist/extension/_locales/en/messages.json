@@ -1184,16 +1184,16 @@
 		}
 	},
 	"colorReadScope_label": {
-		"message": "Scope"
+		"message": "Applies to"
 	},
 	"colorReadScope_word": {
-		"message": "hovered word"
+		"message": "the hovered word"
 	},
 	"colorReadScope_sentence": {
-		"message": "hovered sentence"
+		"message": "the hovered sentence"
 	},
 	"colorReadScope_paragraph": {
-		"message": "hovered paragraph"
+		"message": "the hovered paragraph"
 	},
 	"colorReadScope_all": {
 		"message": "all text"
