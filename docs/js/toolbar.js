@@ -1,5 +1,5 @@
 /*
- * orange-confort-plus - version 5.4.0 - 19/11/2026
+ * orange-confort-plus - version 5.4.0 - 20/11/2026
  * Enhance user experience on web sites
  * © 2014 - 2026 Orange SA
  */
@@ -4895,13 +4895,10 @@ class ColorReadService {
             this.onActionableClick(ev, actionable);
             return;
         }
-        if (this.dismissActiveAlteration(ev, "full")) {
-            return;
-        }
-        if (!this.lcAvailable()) {
-            return;
-        }
         if (this.scope === ClickScope.ALL) {
+            if (this.dismissActiveAlteration(ev, "full") || !this.lcAvailable()) {
+                return;
+            }
             ev.preventDefault();
             ev.stopPropagation();
             this.transformAllBlocks();
@@ -4909,30 +4906,56 @@ class ColorReadService {
         }
         if (this.scope === ClickScope.PARAGRAPH) {
             const block = rawTarget.closest(COLOR_READ_BLOCK_SELECTOR);
-            if (!isColorReadElement(block)) {
+            const isTarget = isColorReadElement(block) && !block.closest(APP_NAME);
+            if (!isTarget || this.isBlockColored(block)) {
+                this.dismissActiveAlteration(ev, "full");
                 return;
             }
-            if (block.closest(APP_NAME)) {
+            if (!this.lcAvailable()) {
+                this.dismissActiveAlteration(ev, "full");
                 return;
             }
             ev.preventDefault();
             ev.stopPropagation();
-            this.transformElement(block);
+            this.restoreAll();
+            if (block.isConnected) {
+                this.transformElement(block);
+            }
             return;
         }
         if (this.scope === ClickScope.WORD || this.scope === ClickScope.SENTENCE) {
-            const range = this.resolveWordOrSentenceRange(ev);
-            if (!range || range.collapsed) {
+            const position = this.resolveTextPosition(ev);
+            if (!position || position.isColored || !this.lcAvailable()) {
+                this.dismissActiveAlteration(ev, "full");
                 return;
             }
-            const text = range.toString();
-            if (!text.trim()) {
+            const hadAlteration = this.hasActiveAlteration();
+            this.restoreAll();
+            const range = this.resolveSegmentRange(position.block, position.offset);
+            if (!range || range.collapsed || !range.toString().trim()) {
+                if (hadAlteration) {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                }
                 return;
             }
             ev.preventDefault();
             ev.stopPropagation();
             this.transformRange(range);
         }
+    }
+    isBlockColored(block) {
+        for (const active of Array.from(this.activeBlocks)) {
+            if (active.contains(block)) {
+                return true;
+            }
+        }
+        for (const span of Array.from(this.activeSections)) {
+            if (block.contains(span) && !span.closest(COLOR_READ_ACTIONABLE_SELECTOR)) {
+                return true;
+            }
+        }
+        return false;
     }
     onActionableClick(ev, el) {
         if (this.isActionableColored(el)) {
@@ -5007,12 +5030,6 @@ class ColorReadService {
         }
         return null;
     }
-    getTextOffsetInRoot(root, node, offset) {
-        const range = document.createRange();
-        range.selectNodeContents(root);
-        range.setEnd(node, offset);
-        return range.toString().length;
-    }
     findSegmentBounds(text, offset, granularity) {
         try {
             const lang = document.documentElement.lang?.split(/[-_]/)?.[0] || "fr";
@@ -5058,17 +5075,57 @@ class ColorReadService {
         }
         return started ? null : null;
     }
-    resolveWordOrSentenceRange(ev) {
+    resolveTextPosition(ev) {
         const caret = this.getCaretRangeFromPoint(ev.clientX, ev.clientY);
         if (!caret) {
             return null;
         }
         const node = caret.startContainer;
-        const block = node.nodeType === Node.TEXT_NODE ? node.parentElement?.closest(COLOR_READ_BLOCK_SELECTOR) : node.closest(COLOR_READ_BLOCK_SELECTOR);
+        const element = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+        const block = element?.closest(COLOR_READ_BLOCK_SELECTOR);
         if (!isColorReadElement(block) || block.closest(APP_NAME)) {
             return null;
         }
-        const offset = this.getTextOffsetInRoot(block, caret.startContainer, caret.startOffset);
+        const isColored = !!element.closest(`[${COLOR_READ_SECTION_ATTR}]`);
+        const offset = this.getOriginalTextOffset(block, caret);
+        return {
+            block: block,
+            offset: offset,
+            isColored: isColored
+        };
+    }
+    getOriginalTextOffset(root, caret) {
+        let counted = 0;
+        let lastSection = null;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+        let n = walker.nextNode();
+        while (n) {
+            const section = n.parentElement?.closest(`[${COLOR_READ_SECTION_ATTR}]`);
+            if (section && root.contains(section)) {
+                if (section !== lastSection) {
+                    if (caret.comparePoint(n, 0) > 0) {
+                        return counted;
+                    }
+                    counted += (section.getAttribute(COLOR_READ_ORIGINAL_ATTR) ?? "").length;
+                    lastSection = section;
+                }
+            } else {
+                if (n === caret.startContainer) {
+                    return counted + caret.startOffset;
+                }
+                if (caret.comparePoint(n, 0) > 0) {
+                    return counted;
+                }
+                counted += n.length;
+            }
+            n = walker.nextNode();
+        }
+        return counted;
+    }
+    resolveSegmentRange(block, offset) {
+        if (!block.isConnected) {
+            return null;
+        }
         const text = block.textContent ?? "";
         if (!text.length) {
             return null;
