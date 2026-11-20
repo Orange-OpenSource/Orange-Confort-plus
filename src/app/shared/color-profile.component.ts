@@ -1,7 +1,6 @@
 const colorProfileLayout: HTMLTemplateElement = document.createElement('template');
 colorProfileLayout.innerHTML = `
 	<section class="text-start position-relative">
-		<h3 class="fs-6">Profil de couleurs</h3>
 		<div class="accordion">
 			<div class="accordion-item">
 				<h4 class="accordion-header m-0">
@@ -10,12 +9,11 @@ colorProfileLayout.innerHTML = `
 						class="${PREFIX}color-profile-accordion-btn accordion-button fs-6 px-2"
 						aria-expanded="true"
 						aria-controls="${PREFIX}color-profile-default-panel"
-						data-i18n="colorProfile_defaultTitle"
+						data-i18n="colorProfile_defaultSubtitle"
 					></button>
 				</h4>
 				<div id="${PREFIX}color-profile-default-panel" class="accordion-collapse collapse show">
 					<div class="accordion-body px-2 py-2">
-						<p class="fs-7 mb-2" data-i18n="colorProfile_defaultSubtitle"></p>
 						<div class="${PREFIX}color-profile-default-rules d-flex flex-column gap-2"></div>
 					</div>
 				</div>
@@ -27,12 +25,11 @@ colorProfileLayout.innerHTML = `
 						class="${PREFIX}color-profile-accordion-btn accordion-button collapsed fs-6 px-2"
 						aria-expanded="false"
 						aria-controls="${PREFIX}color-profile-other-panel"
-						data-i18n="colorProfile_otherTitle"
+						data-i18n="colorProfile_otherSubtitle"
 					></button>
 				</h4>
 				<div id="${PREFIX}color-profile-other-panel" class="accordion-collapse collapse">
 					<div class="accordion-body px-2 py-2">
-						<p class="fs-7 mb-2" data-i18n="colorProfile_otherSubtitle"></p>
 						<div class="${PREFIX}color-profile-other-rules d-flex flex-column gap-2"></div>
 						<button
 							type="button"

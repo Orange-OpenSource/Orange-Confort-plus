@@ -1151,20 +1151,14 @@
 			}
 		}
 	},
-	"colorProfile_defaultTitle": {
-		"message": "Domyślne fonemy"
-	},
 	"colorProfile_defaultSubtitle": {
-		"message": "Te litery zostaną pokolorowane. Możesz zmienić kolor."
-	},
-	"colorProfile_otherTitle": {
-		"message": "Inne fonemy"
+		"message": "Te litery zostaną pokolorowane. Możesz zmienić kolor:"
 	},
 	"colorProfile_otherSubtitle": {
-		"message": "Aby pokolorować inne, wybierz kolor."
+		"message": "Aby pokolorować inne, wybierz kolor:"
 	},
 	"colorProfile_addPhoneme": {
-		"message": "Dodaj fonem"
+		"message": "Inne litery"
 	},
 	"phonemePicker_title": {
 		"message": "Dodaj fonem"

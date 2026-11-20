@@ -1151,20 +1151,14 @@
 			}
 		}
 	},
-	"colorProfile_defaultTitle": {
-		"message": "Default phonemes"
-	},
 	"colorProfile_defaultSubtitle": {
-		"message": "These letters will be colored. You can change the color."
-	},
-	"colorProfile_otherTitle": {
-		"message": "Other phonemes"
+		"message": "These letters will be colored. You can change the color:"
 	},
 	"colorProfile_otherSubtitle": {
-		"message": "To color others, choose a color."
+		"message": "To color others, choose a color:"
 	},
 	"colorProfile_addPhoneme": {
-		"message": "Add a phoneme"
+		"message": "Other letters"
 	},
 	"phonemePicker_title": {
 		"message": "Add a phoneme"

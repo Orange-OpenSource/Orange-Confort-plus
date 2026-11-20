@@ -1136,20 +1136,14 @@
 			}
 		}
 	},
-	"colorProfile_defaultTitle": {
-		"message": "Fonemi predefiniti"
-	},
 	"colorProfile_defaultSubtitle": {
-		"message": "Queste lettere saranno colorate. Puoi modificare il colore."
-	},
-	"colorProfile_otherTitle": {
-		"message": "Altri fonemi"
+		"message": "Queste lettere saranno colorate. Puoi cambiare il colore:"
 	},
 	"colorProfile_otherSubtitle": {
-		"message": "Per colorarne altri, scegli un colore."
+		"message": "Per colorare le altre, scegli un colore:"
 	},
 	"colorProfile_addPhoneme": {
-		"message": "Aggiungi un fonema"
+		"message": "Altre lettere"
 	},
 	"phonemePicker_title": {
 		"message": "Aggiungi un fonema"
